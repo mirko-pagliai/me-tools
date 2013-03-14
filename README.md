@@ -15,5 +15,6 @@ In your webroot directory, create (or copy) a link to the MeTools webroot:
 
 ### Libraries and script ###
 **meCms** uses different libraries or scripts:
+
 - JQuery 1.9.1 ([site](http://jquery.com));
 - Bootstrap 2.3.1 ([site](http://twitter.github.com/bootstrap));
