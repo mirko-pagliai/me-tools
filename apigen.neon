@@ -1,0 +1,9 @@
+accessLevels: "public,protected,private"
+autocomplete: "classes,constants,functions,methods,properties,classconstants"
+destination: Docs
+download: yes
+exclude: {*/Console/*, */Plugin/*}
+main: MeTools
+source: .
+title: "MeTools"
+todo: "yes"
