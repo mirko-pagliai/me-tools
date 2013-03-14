@@ -1,14 +1,19 @@
 # MeTools #
+MeTools is a CakePHP plugin to improve applications development.
 
-## Installazione ##
-Inserire MeTools nella directory Plugin.
-Carica MeTools in bootstrap.php:
-CakePlugin::load('MeTools');
-Nella webroot della propria applicazione, creare un link (o copiare) alla webroot di MeTools:
-cd webroot
-ln -s ../Plugin/MeTools/webroot/ MeTools
+## Installation ##
+Extract MeTools in **Plugin/**.
 
-### Librerie/script esterni ###
-**meCms** usa diverse librerie o script esterni, solitamente localizzati tutti in *webroot*:
-- JQuery 1.9.1 ([sito](http://jquery.com));
-- Bootstrap 2.3.1 ([sito](http://twitter.github.com/bootstrap));
+Load MeTools in **bootstrap.php**:
+
+	CakePlugin::load('MeTools');
+
+In your webroot directory, create (or copy) a link to the MeTools webroot:
+
+	cd webroot
+	ln -s ../Plugin/MeTools/webroot/ MeTools
+
+### Libraries and script ###
+**meCms** uses different libraries or scripts:
+- JQuery 1.9.1 ([site](http://jquery.com));
+- Bootstrap 2.3.1 ([site](http://twitter.github.com/bootstrap));
