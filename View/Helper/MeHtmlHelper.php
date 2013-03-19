@@ -35,7 +35,7 @@ class MeHtmlHelper extends MeToolsAppHelper {
 	/**
 	 * Add a css file to the layout. Rewrite <i>$this->Html->css()</i>
 	 *
-	 * Look at {@link http://api.cakephp.org/2.0/class-HtmlHelper.html#_css CakePHP Api}
+	 * Look at {@link http://api.cakephp.org/2.4/class-HtmlHelper.html#_css CakePHP Api}
 	 * @param string|array $filename The css filename or an array of css files
 	 * @param type $rel The value of the generated tag's rel attribute. If null, 'stylesheet' will be use
 	 * @param type $options Array of HTML attributes
@@ -74,7 +74,7 @@ class MeHtmlHelper extends MeToolsAppHelper {
 	 * echo $this->Html->link('my link', 'http://site.com', array('icon' => 'icon-search'));
 	 * </code>
 	 *
-	 * Look at {@link http://api.cakephp.org/2.0/class-HtmlHelper.html#_link CakePHP Api}
+	 * Look at {@link http://api.cakephp.org/2.4/class-HtmlHelper.html#_link CakePHP Api}
 	 * @param string $title Link title
 	 * @param mixed $url Cake-relative URL, array of URL parameters or external URL (starts with http://)
 	 * @param array $options Array of HTML attributes
@@ -116,7 +116,7 @@ class MeHtmlHelper extends MeToolsAppHelper {
 	 *
 	 * When used in the layout, remember to use the "inline" option (must be set to TRUE)
 	 *
-	 * Look at {@link http://api.cakephp.org/2.0/class-HtmlHelper.html#_script CakePHP Api}
+	 * Look at {@link http://api.cakephp.org/2.4/class-HtmlHelper.html#_script CakePHP Api}
 	 * @param string|array $url String or array of javascript files to include
 	 * @param array $options Array of options and html attributes
 	 * @return mixed String of <script /> tags or null if $inline is false or if $once is true and the file has been included before
@@ -131,7 +131,7 @@ class MeHtmlHelper extends MeToolsAppHelper {
 	/**
 	 * Generate a javascript code block containing $code. Rewrite <i>$this->Html->scriptBlock()</i>
 	 *
-	 * Look at {@link http://api.cakephp.org/2.0/class-HtmlHelper.html#_scriptBlock CakePHP Api}
+	 * Look at {@link http://api.cakephp.org/2.4/class-HtmlHelper.html#_scriptBlock CakePHP Api}
 	 * @param string $code The code to go in the script tag
 	 * @param array $options An array of html attributes
 	 * @return string Html
@@ -146,7 +146,7 @@ class MeHtmlHelper extends MeToolsAppHelper {
 	/**
 	 * End javascript code. Rewrite <i>$this->Html->scriptEnd()</i>
 	 *
-	 * Look at {@link http://api.cakephp.org/2.0/class-HtmlHelper.html#_scriptEnd CakePHP Api}
+	 * Look at {@link http://api.cakephp.org/2.4/class-HtmlHelper.html#_scriptEnd CakePHP Api}
 	 * @return mixed A script tag or null
 	 */
 	public function scriptEnd() {
@@ -156,7 +156,7 @@ class MeHtmlHelper extends MeToolsAppHelper {
 	/**
 	 * Start javascript code. Rewrite <i>$this->Html->scriptStart()</i>
 	 *
-	 * Look at {@link http://api.cakephp.org/2.0/class-HtmlHelper.html#_scriptStart CakePHP Api}
+	 * Look at {@link http://api.cakephp.org/2.4/class-HtmlHelper.html#_scriptStart CakePHP Api}
 	 * @param array $options Options for the code block
 	 * @return null
 	 */

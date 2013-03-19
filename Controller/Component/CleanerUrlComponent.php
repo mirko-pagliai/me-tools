@@ -42,7 +42,7 @@ class CleanerUrlComponent extends Component {
 	/**
 	 * Called before the controller's beforeFilter method. Execute cleanUrl
 	 *
-	 * Look at {@link http://api.cakephp.org/2.0/class-Component.html#_initialize CakePHP Api}
+	 * Look at {@link http://api.cakephp.org/2.4/class-Component.html#_initialize CakePHP Api}
 	 * @param Controller $controller
 	 */
 	public function initialize(Controller $controller) {

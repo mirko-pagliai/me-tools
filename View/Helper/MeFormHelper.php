@@ -35,7 +35,7 @@ class MeFormHelper extends MeToolsAppHelper {
 	/**
 	 * Create a form. Rewrite <i>$this->Form->create()</i>
 	 *
-	 * Look at {@link http://api.cakephp.org/2.0/class-FormHelper.html#_create CakePHP Api}
+	 * Look at {@link http://api.cakephp.org/2.4/class-FormHelper.html#_create CakePHP Api}
 	 * @param string $model The model object which the form is being defined for
 	 * @param array $options An array of html attributes and options
 	 * @return string A formatted opening FORM tag
@@ -47,7 +47,7 @@ class MeFormHelper extends MeToolsAppHelper {
 	/**
 	 * Create a (simple) button. Rewrite <i>$this->Form->button()</i>
 	 *
-	 * Look at {@link http://api.cakephp.org/2.0/class-FormHelper.html#_submit CakePHP Api}
+	 * Look at {@link http://api.cakephp.org/2.4/class-FormHelper.html#_submit CakePHP Api}
 	 * @param string $caption The label appearing on the button or an image
 	 * @param array $options Array of options
 	 * @return string Html
@@ -74,7 +74,7 @@ class MeFormHelper extends MeToolsAppHelper {
 	 *
 	 * If $options is set, a submit button will be created. Options can be either a string or an array
 	 *
-	 * Look at {@link http://api.cakephp.org/2.0/class-FormHelper.html#_end CakePHP Api}
+	 * Look at {@link http://api.cakephp.org/2.4/class-FormHelper.html#_end CakePHP Api}
 	 * @param mixed $options A string or an array for the submit button
 	 * @return string a closing FORM tag, optional with a submit button
 	 */
@@ -123,7 +123,7 @@ class MeFormHelper extends MeToolsAppHelper {
 	/**
 	 * Create a submit button. Rewrite <i>$this->Form->Submit()</i> and use the <i>button()</i> method
 	 *
-	 * Look at {@link http://api.cakephp.org/2.0/class-FormHelper.html#_submit CakePHP Api}
+	 * Look at {@link http://api.cakephp.org/2.4/class-FormHelper.html#_submit CakePHP Api}
 	 * @param string $caption The label appearing on the submit button or an image
 	 * @param array $options Array of options
 	 * @return string Html
