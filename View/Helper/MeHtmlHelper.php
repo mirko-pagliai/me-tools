@@ -98,7 +98,7 @@ class MeHtmlHelper extends MeToolsAppHelper {
 	/**
 	 * Create an HTML link with the appearance of a button, as required by {@link http://twitter.github.com/bootstrap/base-css.html#buttons Bootstrap}.
 	 * Use the <i>link()</i> method
-	 * @param string $title Link title
+	 * @param string $title Button title
 	 * @param mixed $url Cake-relative URL, array of URL parameters or external URL (starts with http://)
 	 * @param array $options Array of HTML attributes
 	 * @param string $confirmMessage JavaScript confirmation message
