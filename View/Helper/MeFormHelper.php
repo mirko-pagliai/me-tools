@@ -96,6 +96,31 @@ class MeFormHelper extends MeToolsAppHelper {
 	}
 
 	/**
+	 * Create a button with a surrounding form that submits via POST. Rewrite <i>$this->Form->postButton()</i>
+	 *
+	 * This method creates a form element. So don'è use this method in an already opened form.
+	 *
+	 * Look at {@link http://api.cakephp.org/2.4/class-FormHelper.html#_postButton CakePHP Api}
+	 * @param string $title Button title
+	 * @param mixed $url Cake-relative URL, array of URL parameters or external URL (starts with http://)
+	 * @param array $options Array of HTML attributes
+	 * @return string Html
+	 */
+	public function postButton($title, $url, $options = array()) {
+		//Add the 'btn' class
+		$options['class'] = empty($options['class']) ? 'btn' : $this->_cleanAttribute($options['class'].' btn');
+
+		//Add bootstrap icon to the title, if there's the 'icon' option
+		$title = !empty($options['icon']) ? '<i class="'.$this->_cleanAttribute($options['icon']).'"></i> '.$title : $title;
+		unset($options['icon']);
+
+		//Add the 'tooltip' data-toggle
+		$options['data-toggle'] = empty($options['data-toggle']) ? 'tooltip' : $this->_cleanAttribute($options['data-toggle'].' tooltip');
+
+		return $this->Form->postButton($title, $url, $options);
+	}
+
+	/**
 	 * Create a submit button. Rewrite <i>$this->Form->Submit()</i> and use the <i>button()</i> method
 	 *
 	 * Look at {@link http://api.cakephp.org/2.0/class-FormHelper.html#_submit CakePHP Api}
