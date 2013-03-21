@@ -80,7 +80,7 @@ class MeHtmlHelper extends MeToolsAppHelper {
 
 		//Change the separator as required by Bootstrap
 		if(!empty($options['separator']))
-			$options['separator'] = '<span class="separator">'.$options['separator'].'</span>';
+			$options['separator'] = '<span class="divider">'.$options['separator'].'</span>';
 
 		//Add the "active" class to the last element
 		$options['lastClass'] = 'active';
