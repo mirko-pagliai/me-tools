@@ -33,12 +33,28 @@ class MeHtmlHelper extends MeToolsAppHelper {
 	public $helpers = array('Html');
 
 	/**
+	 * Adds a link to the breadcrumbs array. Rewrite <i>$this->Html->addCrumb()</i>
+	 *
+	 * Look at {@link http://api.cakephp.org/2.4/class-HtmlHelper.html#_addCrumb CakePHP Api}
+	 * @param string $name Text for link
+	 * @param string $link URL for link (if empty it won't be a link)
+	 * @param string|array $options Array of HTML attributes
+	 * @return void
+	 */
+	public function addCrumb($name, $link=null, $options=null) {
+		//"escape" option default false
+		$options['escape'] = empty($options['escape']) ? false : $options['escape'];
+
+		return $this->Html->addCrumb($name, $link, $options);
+	}
+
+	/**
 	 * Add a css file to the layout. Rewrite <i>$this->Html->css()</i>
 	 *
 	 * Look at {@link http://api.cakephp.org/2.4/class-HtmlHelper.html#_css CakePHP Api}
 	 * @param string|array $filename The css filename or an array of css files
-	 * @param type $rel The value of the generated tag's rel attribute. If null, 'stylesheet' will be use
-	 * @param type $options Array of HTML attributes
+	 * @param string $rel The value of the generated tag's rel attribute. If null, 'stylesheet' will be use
+	 * @param array $options Array of HTML attributes
 	 * @return string CSS <link /> or <style /> tag, depending on the type of link
 	 */
 	public function css($filename, $rel=null, $options=array()) {
