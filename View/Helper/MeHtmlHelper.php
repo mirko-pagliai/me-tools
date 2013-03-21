@@ -67,6 +67,36 @@ class MeHtmlHelper extends MeToolsAppHelper {
 	}
 
 	/**
+	 * Returns breadcrumbs as a (x)html list. Rewrite <i>$this->Html->getCrumbList()</i>
+	 *
+	 * Look at {@link http://api.cakephp.org/2.4/class-HtmlHelper.html#_getCrumbList CakePHP Api}
+	 * @param array $options Array of html attributes. Can also contain "separator" and "firstClass" options. The "lastClass" option is set automatically as required by Bootstrap
+	 * @param string|array|boolean $startText The first crumb, if false it defaults to first crumb in array
+	 * @return string breadcrumbs html list
+	 */
+	public function getCrumbList($options=array(), $startText=false) {
+		//Add the "breadcrumb" class
+		$options['class'] = empty($options['class']) ? 'breadcrumb' : $this->_cleanAttribute($options['class'].' breadcrumb');
+
+		//Change the separator as required by Bootstrap
+		if(!empty($options['separator']))
+			$options['separator'] = '<span class="separator">'.$options['separator'].'</span>';
+
+		//Add the "active" class to the last element
+		$options['lastClass'] = 'active';
+
+		//"escape" option default false
+		if(!empty($startText)) {
+			//If $startText is not an array, converts it into an array
+			if(!is_array($startText))
+				$startText = array('text' => $startText);
+			$startText['escape'] = false;
+		}
+
+		return $this->Html->getCrumbList($options, $startText);
+	}
+
+	/**
 	 * Create an HTML link. Rewrite <i>$this->Html->link()</i>
 	 *
 	 * You can use {@link http://twitter.github.com/bootstrap/base-css.html#icons bootstrap icons} using 'icon' option. Example:
