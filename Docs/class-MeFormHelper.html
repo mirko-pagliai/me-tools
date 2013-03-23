@@ -7,7 +7,7 @@
 	<title>Class MeFormHelper | MeTools</title>
 
 	<script type="text/javascript" src="resources/combined.js?394153670"></script>
-	<script type="text/javascript" src="elementlist.js?1582463317"></script>
+	<script type="text/javascript" src="elementlist.js?2158696388"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360" />
 
 </head>
@@ -47,7 +47,6 @@
 				<li class="active"><a href="class-MeFormHelper.html">MeFormHelper</a></li>
 				<li><a href="class-MeHtmlHelper.html">MeHtmlHelper</a></li>
 				<li><a href="class-MeToolsAppHelper.html">MeToolsAppHelper</a></li>
-				<li><a href="class-ModuleHelper.html">ModuleHelper</a></li>
 			</ul>
 
 
@@ -164,7 +163,7 @@ AppHelper
 href="mailto:mirko.pagliai&#64;gmail.com">mirko.pagliai&#64;<!---->gmail.com</a>&gt;<br />
 				<b>Link:</b>
 				<a href="http://git.novatlantis.it">Nova Atlantis Ltd</a><br />
-		<b>Located at</b> <a href="source-class-MeFormHelper.html#4-116" title="Go to source code">View/Helper/MeFormHelper.php</a><br />
+		<b>Located at</b> <a href="source-class-MeFormHelper.html#4-141" title="Go to source code">View/Helper/MeFormHelper.php</a><br />
 	</div>
 
 
@@ -194,7 +193,7 @@ href="mailto:mirko.pagliai&#64;gmail.com">mirko.pagliai&#64;<!---->gmail.com</a>
 			
 <p>Create a form. Rewrite <i>$this-&gt;Form-&gt;create()</i></p>
 
-<p>Look at <a href="http://api.cakephp.org/2.0/class-FormHelper.html#_create">CakePHP Api</a></p>
+<p>Look at <a href="http://api.cakephp.org/2.4/class-FormHelper.html#_create">CakePHP Api</a></p>
 
 
 
@@ -240,7 +239,7 @@ href="mailto:mirko.pagliai&#64;gmail.com">mirko.pagliai&#64;<!---->gmail.com</a>
 			
 <p>Create a (simple) button. Rewrite <i>$this-&gt;Form-&gt;button()</i></p>
 
-<p>Look at <a href="http://api.cakephp.org/2.0/class-FormHelper.html#_submit">CakePHP Api</a></p>
+<p>Look at <a href="http://api.cakephp.org/2.4/class-FormHelper.html#_submit">CakePHP Api</a></p>
 
 
 
@@ -291,7 +290,7 @@ href="mailto:mirko.pagliai&#64;gmail.com">mirko.pagliai&#64;<!---->gmail.com</a>
 <p>If $options is set, a submit button will be created. Options can be either a
 string or an array</p>
 
-<p>Look at <a href="http://api.cakephp.org/2.0/class-FormHelper.html#_end">CakePHP Api</a></p>
+<p>Look at <a href="http://api.cakephp.org/2.4/class-FormHelper.html#_end">CakePHP Api</a></p>
 
 
 
@@ -312,6 +311,60 @@ string or an array</p>
 		</div>
 		</div></td>
 	</tr>
+	<tr data-order="postButton" id="_postButton">
+
+		<td class="attributes"><code>
+			 public 
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_postButton">#</a>
+		<code><a href="source-class-MeFormHelper.html#98-121" title="Go to source code">postButton</a>( <span>string <var>$title</var></span>, <span>mixed <var>$url</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
+
+		<div class="description short">
+			
+<p>Create a button with a surrounding form that submits via POST. Rewrite
+<i>$this-&gt;Form-&gt;postButton()</i></p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Create a button with a surrounding form that submits via POST. Rewrite
+<i>$this-&gt;Form-&gt;postButton()</i></p>
+
+<p>This method creates a form element. So don'è use this method in an already
+opened form.</p>
+
+<p>Look at <a href="http://api.cakephp.org/2.4/class-FormHelper.html#_postButton">CakePHP Api</a></p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$title</var></dt>
+					<dd><code>string</code><br>$title Button title</dd>
+					<dt><var>$url</var></dt>
+					<dd><code>mixed</code><br>$url Cake-relative URL, array of URL parameters or external URL (starts with
+http://)</dd>
+					<dt><var>$options</var></dt>
+					<dd><code>array</code><br>$options Array of HTML attributes</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>string</code><br>Html<br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
 	<tr data-order="submit" id="_submit">
 
 		<td class="attributes"><code>
@@ -323,7 +376,7 @@ string or an array</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_submit">#</a>
-		<code><a href="source-class-MeFormHelper.html#98-115" title="Go to source code">submit</a>( <span>string <var>$caption</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-MeFormHelper.html#123-140" title="Go to source code">submit</a>( <span>string <var>$caption</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
@@ -337,7 +390,7 @@ the <i>button()</i> method</p>
 <p>Create a submit button. Rewrite <i>$this-&gt;Form-&gt;Submit()</i> and use
 the <i>button()</i> method</p>
 
-<p>Look at <a href="http://api.cakephp.org/2.0/class-FormHelper.html#_submit">CakePHP Api</a></p>
+<p>Look at <a href="http://api.cakephp.org/2.4/class-FormHelper.html#_submit">CakePHP Api</a></p>
 
 
 

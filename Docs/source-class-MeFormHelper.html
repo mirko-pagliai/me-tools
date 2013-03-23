@@ -8,7 +8,7 @@
 	<title>File View/Helper/MeFormHelper.php | MeTools</title>
 
 	<script type="text/javascript" src="resources/combined.js?394153670"></script>
-	<script type="text/javascript" src="elementlist.js?1582463317"></script>
+	<script type="text/javascript" src="elementlist.js?2158696388"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360" />
 
 </head>
@@ -48,7 +48,6 @@
 				<li class="active"><a href="class-MeFormHelper.html">MeFormHelper</a></li>
 				<li><a href="class-MeHtmlHelper.html">MeHtmlHelper</a></li>
 				<li><a href="class-MeToolsAppHelper.html">MeToolsAppHelper</a></li>
-				<li><a href="class-ModuleHelper.html">ModuleHelper</a></li>
 			</ul>
 
 
@@ -134,7 +133,7 @@
 </span><span id="35" class="l"><a class="l" href="#35"> 35: </a>    <span class="php-comment">/**
 </span></span><span id="36" class="l"><a class="l" href="#36"> 36: </a><span class="php-comment">     * Create a form. Rewrite &lt;i&gt;$this-&gt;Form-&gt;create()&lt;/i&gt;
 </span></span><span id="37" class="l"><a class="l" href="#37"> 37: </a><span class="php-comment">     *
-</span></span><span id="38" class="l"><a class="l" href="#38"> 38: </a><span class="php-comment">     * Look at {@link http://api.cakephp.org/2.0/class-FormHelper.html#_create CakePHP Api}
+</span></span><span id="38" class="l"><a class="l" href="#38"> 38: </a><span class="php-comment">     * Look at {@link http://api.cakephp.org/2.4/class-FormHelper.html#_create CakePHP Api}
 </span></span><span id="39" class="l"><a class="l" href="#39"> 39: </a><span class="php-comment">     * @param string $model The model object which the form is being defined for
 </span></span><span id="40" class="l"><a class="l" href="#40"> 40: </a><span class="php-comment">     * @param array $options An array of html attributes and options
 </span></span><span id="41" class="l"><a class="l" href="#41"> 41: </a><span class="php-comment">     * @return string A formatted opening FORM tag
@@ -146,7 +145,7 @@
 </span><span id="47" class="l"><a class="l" href="#47"> 47: </a>    <span class="php-comment">/**
 </span></span><span id="48" class="l"><a class="l" href="#48"> 48: </a><span class="php-comment">     * Create a (simple) button. Rewrite &lt;i&gt;$this-&gt;Form-&gt;button()&lt;/i&gt;
 </span></span><span id="49" class="l"><a class="l" href="#49"> 49: </a><span class="php-comment">     *
-</span></span><span id="50" class="l"><a class="l" href="#50"> 50: </a><span class="php-comment">     * Look at {@link http://api.cakephp.org/2.0/class-FormHelper.html#_submit CakePHP Api}
+</span></span><span id="50" class="l"><a class="l" href="#50"> 50: </a><span class="php-comment">     * Look at {@link http://api.cakephp.org/2.4/class-FormHelper.html#_submit CakePHP Api}
 </span></span><span id="51" class="l"><a class="l" href="#51"> 51: </a><span class="php-comment">     * @param string $caption The label appearing on the button or an image
 </span></span><span id="52" class="l"><a class="l" href="#52"> 52: </a><span class="php-comment">     * @param array $options Array of options
 </span></span><span id="53" class="l"><a class="l" href="#53"> 53: </a><span class="php-comment">     * @return string Html
@@ -173,7 +172,7 @@
 </span></span><span id="74" class="l"><a class="l" href="#74"> 74: </a><span class="php-comment">     *
 </span></span><span id="75" class="l"><a class="l" href="#75"> 75: </a><span class="php-comment">     * If $options is set, a submit button will be created. Options can be either a string or an array
 </span></span><span id="76" class="l"><a class="l" href="#76"> 76: </a><span class="php-comment">     *
-</span></span><span id="77" class="l"><a class="l" href="#77"> 77: </a><span class="php-comment">     * Look at {@link http://api.cakephp.org/2.0/class-FormHelper.html#_end CakePHP Api}
+</span></span><span id="77" class="l"><a class="l" href="#77"> 77: </a><span class="php-comment">     * Look at {@link http://api.cakephp.org/2.4/class-FormHelper.html#_end CakePHP Api}
 </span></span><span id="78" class="l"><a class="l" href="#78"> 78: </a><span class="php-comment">     * @param mixed $options A string or an array for the submit button
 </span></span><span id="79" class="l"><a class="l" href="#79"> 79: </a><span class="php-comment">     * @return string a closing FORM tag, optional with a submit button
 </span></span><span id="80" class="l"><a class="l" href="#80"> 80: </a><span class="php-comment">     */</span>
@@ -195,24 +194,49 @@
 </span><span id="96" class="l"><a class="l" href="#96"> 96: </a>    }
 </span><span id="97" class="l"><a class="l" href="#97"> 97: </a>
 </span><span id="98" class="l"><a class="l" href="#98"> 98: </a>    <span class="php-comment">/**
-</span></span><span id="99" class="l"><a class="l" href="#99"> 99: </a><span class="php-comment">     * Create a submit button. Rewrite &lt;i&gt;$this-&gt;Form-&gt;Submit()&lt;/i&gt; and use the &lt;i&gt;button()&lt;/i&gt; method
+</span></span><span id="99" class="l"><a class="l" href="#99"> 99: </a><span class="php-comment">     * Create a button with a surrounding form that submits via POST. Rewrite &lt;i&gt;$this-&gt;Form-&gt;postButton()&lt;/i&gt;
 </span></span><span id="100" class="l"><a class="l" href="#100">100: </a><span class="php-comment">     *
-</span></span><span id="101" class="l"><a class="l" href="#101">101: </a><span class="php-comment">     * Look at {@link http://api.cakephp.org/2.0/class-FormHelper.html#_submit CakePHP Api}
-</span></span><span id="102" class="l"><a class="l" href="#102">102: </a><span class="php-comment">     * @param string $caption The label appearing on the submit button or an image
-</span></span><span id="103" class="l"><a class="l" href="#103">103: </a><span class="php-comment">     * @param array $options Array of options
-</span></span><span id="104" class="l"><a class="l" href="#104">104: </a><span class="php-comment">     * @return string Html
-</span></span><span id="105" class="l"><a class="l" href="#105">105: </a><span class="php-comment">     */</span>
-</span><span id="106" class="l"><a class="l" href="#106">106: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_submit" href="#_submit">submit</a>(<span class="php-var">$caption</span>, <span class="php-var">$options</span>=<span class="php-keyword1">array</span>()) {
-</span><span id="107" class="l"><a class="l" href="#107">107: </a>        <span class="php-comment">//Static options for submit buttons</span>
-</span><span id="108" class="l"><a class="l" href="#108">108: </a>        <span class="php-var">$options</span>[<span class="php-quote">'icon'</span>] = <span class="php-quote">'icon-ok icon-white'</span>;
-</span><span id="109" class="l"><a class="l" href="#109">109: </a>        <span class="php-var">$options</span>[<span class="php-quote">'type'</span>] = <span class="php-quote">'submit'</span>;
-</span><span id="110" class="l"><a class="l" href="#110">110: </a>
-</span><span id="111" class="l"><a class="l" href="#111">111: </a>        <span class="php-comment">//Add the 'btn' and 'btn-success' classes</span>
-</span><span id="112" class="l"><a class="l" href="#112">112: </a>        <span class="php-var">$options</span>[<span class="php-quote">'class'</span>] = <span class="php-keyword1">empty</span>(<span class="php-var">$options</span>[<span class="php-quote">'class'</span>]) ? <span class="php-quote">'btn btn-success'</span> : <span class="php-var">$this</span>-&gt;_cleanAttribute(<span class="php-var">$options</span>[<span class="php-quote">'class'</span>].<span class="php-quote">' btn btn-success'</span>);
-</span><span id="113" class="l"><a class="l" href="#113">113: </a>
-</span><span id="114" class="l"><a class="l" href="#114">114: </a>        <span class="php-keyword1">return</span> <span class="php-var">$this</span>-&gt;Html-&gt;tag(<span class="php-quote">'div'</span>, <span class="php-var">$this</span>-&gt;button(<span class="php-var">$caption</span>, <span class="php-var">$options</span>), <span class="php-keyword1">array</span>(<span class="php-quote">'class'</span> =&gt; <span class="php-quote">'submit'</span>));
-</span><span id="115" class="l"><a class="l" href="#115">115: </a>    }
-</span><span id="116" class="l"><a class="l" href="#116">116: </a></span>}</code></pre>
+</span></span><span id="101" class="l"><a class="l" href="#101">101: </a><span class="php-comment">     * This method creates a form element. So don'è use this method in an already opened form.
+</span></span><span id="102" class="l"><a class="l" href="#102">102: </a><span class="php-comment">     *
+</span></span><span id="103" class="l"><a class="l" href="#103">103: </a><span class="php-comment">     * Look at {@link http://api.cakephp.org/2.4/class-FormHelper.html#_postButton CakePHP Api}
+</span></span><span id="104" class="l"><a class="l" href="#104">104: </a><span class="php-comment">     * @param string $title Button title
+</span></span><span id="105" class="l"><a class="l" href="#105">105: </a><span class="php-comment">     * @param mixed $url Cake-relative URL, array of URL parameters or external URL (starts with http://)
+</span></span><span id="106" class="l"><a class="l" href="#106">106: </a><span class="php-comment">     * @param array $options Array of HTML attributes
+</span></span><span id="107" class="l"><a class="l" href="#107">107: </a><span class="php-comment">     * @return string Html
+</span></span><span id="108" class="l"><a class="l" href="#108">108: </a><span class="php-comment">     */</span>
+</span><span id="109" class="l"><a class="l" href="#109">109: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_postButton" href="#_postButton">postButton</a>(<span class="php-var">$title</span>, <span class="php-var">$url</span>, <span class="php-var">$options</span> = <span class="php-keyword1">array</span>()) {
+</span><span id="110" class="l"><a class="l" href="#110">110: </a>        <span class="php-comment">//Add the 'btn' class</span>
+</span><span id="111" class="l"><a class="l" href="#111">111: </a>        <span class="php-var">$options</span>[<span class="php-quote">'class'</span>] = <span class="php-keyword1">empty</span>(<span class="php-var">$options</span>[<span class="php-quote">'class'</span>]) ? <span class="php-quote">'btn'</span> : <span class="php-var">$this</span>-&gt;_cleanAttribute(<span class="php-var">$options</span>[<span class="php-quote">'class'</span>].<span class="php-quote">' btn'</span>);
+</span><span id="112" class="l"><a class="l" href="#112">112: </a>
+</span><span id="113" class="l"><a class="l" href="#113">113: </a>        <span class="php-comment">//Add bootstrap icon to the title, if there's the 'icon' option</span>
+</span><span id="114" class="l"><a class="l" href="#114">114: </a>        <span class="php-var">$title</span> = !<span class="php-keyword1">empty</span>(<span class="php-var">$options</span>[<span class="php-quote">'icon'</span>]) ? <span class="php-quote">'&lt;i class=&quot;'</span>.<span class="php-var">$this</span>-&gt;_cleanAttribute(<span class="php-var">$options</span>[<span class="php-quote">'icon'</span>]).<span class="php-quote">'&quot;&gt;&lt;/i&gt; '</span>.<span class="php-var">$title</span> : <span class="php-var">$title</span>;
+</span><span id="115" class="l"><a class="l" href="#115">115: </a>        <span class="php-keyword1">unset</span>(<span class="php-var">$options</span>[<span class="php-quote">'icon'</span>]);
+</span><span id="116" class="l"><a class="l" href="#116">116: </a>
+</span><span id="117" class="l"><a class="l" href="#117">117: </a>        <span class="php-comment">//Add the 'tooltip' data-toggle</span>
+</span><span id="118" class="l"><a class="l" href="#118">118: </a>        <span class="php-var">$options</span>[<span class="php-quote">'data-toggle'</span>] = <span class="php-keyword1">empty</span>(<span class="php-var">$options</span>[<span class="php-quote">'data-toggle'</span>]) ? <span class="php-quote">'tooltip'</span> : <span class="php-var">$this</span>-&gt;_cleanAttribute(<span class="php-var">$options</span>[<span class="php-quote">'data-toggle'</span>].<span class="php-quote">' tooltip'</span>);
+</span><span id="119" class="l"><a class="l" href="#119">119: </a>
+</span><span id="120" class="l"><a class="l" href="#120">120: </a>        <span class="php-keyword1">return</span> <span class="php-var">$this</span>-&gt;Form-&gt;postButton(<span class="php-var">$title</span>, <span class="php-var">$url</span>, <span class="php-var">$options</span>);
+</span><span id="121" class="l"><a class="l" href="#121">121: </a>    }
+</span><span id="122" class="l"><a class="l" href="#122">122: </a>
+</span><span id="123" class="l"><a class="l" href="#123">123: </a>    <span class="php-comment">/**
+</span></span><span id="124" class="l"><a class="l" href="#124">124: </a><span class="php-comment">     * Create a submit button. Rewrite &lt;i&gt;$this-&gt;Form-&gt;Submit()&lt;/i&gt; and use the &lt;i&gt;button()&lt;/i&gt; method
+</span></span><span id="125" class="l"><a class="l" href="#125">125: </a><span class="php-comment">     *
+</span></span><span id="126" class="l"><a class="l" href="#126">126: </a><span class="php-comment">     * Look at {@link http://api.cakephp.org/2.4/class-FormHelper.html#_submit CakePHP Api}
+</span></span><span id="127" class="l"><a class="l" href="#127">127: </a><span class="php-comment">     * @param string $caption The label appearing on the submit button or an image
+</span></span><span id="128" class="l"><a class="l" href="#128">128: </a><span class="php-comment">     * @param array $options Array of options
+</span></span><span id="129" class="l"><a class="l" href="#129">129: </a><span class="php-comment">     * @return string Html
+</span></span><span id="130" class="l"><a class="l" href="#130">130: </a><span class="php-comment">     */</span>
+</span><span id="131" class="l"><a class="l" href="#131">131: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_submit" href="#_submit">submit</a>(<span class="php-var">$caption</span>, <span class="php-var">$options</span>=<span class="php-keyword1">array</span>()) {
+</span><span id="132" class="l"><a class="l" href="#132">132: </a>        <span class="php-comment">//Static options for submit buttons</span>
+</span><span id="133" class="l"><a class="l" href="#133">133: </a>        <span class="php-var">$options</span>[<span class="php-quote">'icon'</span>] = <span class="php-quote">'icon-ok icon-white'</span>;
+</span><span id="134" class="l"><a class="l" href="#134">134: </a>        <span class="php-var">$options</span>[<span class="php-quote">'type'</span>] = <span class="php-quote">'submit'</span>;
+</span><span id="135" class="l"><a class="l" href="#135">135: </a>
+</span><span id="136" class="l"><a class="l" href="#136">136: </a>        <span class="php-comment">//Add the 'btn' and 'btn-success' classes</span>
+</span><span id="137" class="l"><a class="l" href="#137">137: </a>        <span class="php-var">$options</span>[<span class="php-quote">'class'</span>] = <span class="php-keyword1">empty</span>(<span class="php-var">$options</span>[<span class="php-quote">'class'</span>]) ? <span class="php-quote">'btn btn-success'</span> : <span class="php-var">$this</span>-&gt;_cleanAttribute(<span class="php-var">$options</span>[<span class="php-quote">'class'</span>].<span class="php-quote">' btn btn-success'</span>);
+</span><span id="138" class="l"><a class="l" href="#138">138: </a>
+</span><span id="139" class="l"><a class="l" href="#139">139: </a>        <span class="php-keyword1">return</span> <span class="php-var">$this</span>-&gt;Html-&gt;tag(<span class="php-quote">'div'</span>, <span class="php-var">$this</span>-&gt;button(<span class="php-var">$caption</span>, <span class="php-var">$options</span>), <span class="php-keyword1">array</span>(<span class="php-quote">'class'</span> =&gt; <span class="php-quote">'submit'</span>));
+</span><span id="140" class="l"><a class="l" href="#140">140: </a>    }
+</span><span id="141" class="l"><a class="l" href="#141">141: </a></span>}</code></pre>
 
 	<div id="footer">
 		MeTools API documentation generated by <a href="http://apigen.org">ApiGen 2.8.0</a>

@@ -7,7 +7,7 @@
 	<title>Class MeHtmlHelper | MeTools</title>
 
 	<script type="text/javascript" src="resources/combined.js?394153670"></script>
-	<script type="text/javascript" src="elementlist.js?1582463317"></script>
+	<script type="text/javascript" src="elementlist.js?2158696388"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360" />
 
 </head>
@@ -47,7 +47,6 @@
 				<li><a href="class-MeFormHelper.html">MeFormHelper</a></li>
 				<li class="active"><a href="class-MeHtmlHelper.html">MeHtmlHelper</a></li>
 				<li><a href="class-MeToolsAppHelper.html">MeToolsAppHelper</a></li>
-				<li><a href="class-ModuleHelper.html">ModuleHelper</a></li>
 			</ul>
 
 
@@ -164,13 +163,59 @@ AppHelper
 href="mailto:mirko.pagliai&#64;gmail.com">mirko.pagliai&#64;<!---->gmail.com</a>&gt;<br />
 				<b>Link:</b>
 				<a href="http://git.novatlantis.it">Nova Atlantis Ltd</a><br />
-		<b>Located at</b> <a href="source-class-MeHtmlHelper.html#4-169" title="Go to source code">View/Helper/MeHtmlHelper.php</a><br />
+		<b>Located at</b> <a href="source-class-MeHtmlHelper.html#4-215" title="Go to source code">View/Helper/MeHtmlHelper.php</a><br />
 	</div>
 
 
 
 	<table class="summary" id="methods">
 	<caption>Methods summary</caption>
+	<tr data-order="addCrumb" id="_addCrumb">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_addCrumb">#</a>
+		<code><a href="source-class-MeHtmlHelper.html#35-49" title="Go to source code">addCrumb</a>( <span>string <var>$name</var></span>, <span>string <var>$link</var> = <span class="php-keyword1">null</span></span>, <span>string|array <var>$options</var> = <span class="php-keyword1">null</span></span> )</code>
+
+		<div class="description short">
+			
+<p>Adds a link to the breadcrumbs array. Rewrite
+<i>$this-&gt;Html-&gt;addCrumb()</i></p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Adds a link to the breadcrumbs array. Rewrite
+<i>$this-&gt;Html-&gt;addCrumb()</i></p>
+
+<p>Look at <a href="http://api.cakephp.org/2.4/class-HtmlHelper.html#_addCrumb">CakePHP Api</a></p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$name</var></dt>
+					<dd><code>string</code><br>$name Text for link</dd>
+					<dt><var>$link</var></dt>
+					<dd><code>string</code><br>$link URL for link (if empty it won't be a link)</dd>
+					<dt><var>$options</var></dt>
+					<dd><code>string|array</code><br>$options Array of HTML attributes</dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
 	<tr data-order="css" id="_css">
 
 		<td class="attributes"><code>
@@ -182,7 +227,7 @@ href="mailto:mirko.pagliai&#64;gmail.com">mirko.pagliai&#64;<!---->gmail.com</a>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_css">#</a>
-		<code><a href="source-class-MeHtmlHelper.html#35-49" title="Go to source code">css</a>( <span>string|array <var>$filename</var></span>, <span>type <var>$rel</var> = <span class="php-keyword1">null</span></span>, <span>type <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-MeHtmlHelper.html#51-65" title="Go to source code">css</a>( <span>string|array <var>$filename</var></span>, <span>string <var>$rel</var> = <span class="php-keyword1">null</span></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
@@ -194,7 +239,7 @@ href="mailto:mirko.pagliai&#64;gmail.com">mirko.pagliai&#64;<!---->gmail.com</a>
 			
 <p>Add a css file to the layout. Rewrite <i>$this-&gt;Html-&gt;css()</i></p>
 
-<p>Look at <a href="http://api.cakephp.org/2.0/class-HtmlHelper.html#_css">CakePHP Api</a></p>
+<p>Look at <a href="http://api.cakephp.org/2.4/class-HtmlHelper.html#_css">CakePHP Api</a></p>
 
 
 
@@ -203,10 +248,10 @@ href="mailto:mirko.pagliai&#64;gmail.com">mirko.pagliai&#64;<!---->gmail.com</a>
 					<dt><var>$filename</var></dt>
 					<dd><code>string|array</code><br>$filename The css filename or an array of css files</dd>
 					<dt><var>$rel</var></dt>
-					<dd><code>type</code><br>$rel The value of the generated tag's rel attribute. If null, 'stylesheet' will
+					<dd><code>string</code><br>$rel The value of the generated tag's rel attribute. If null, 'stylesheet' will
 be use</dd>
 					<dt><var>$options</var></dt>
-					<dd><code>type</code><br>$options Array of HTML attributes</dd>
+					<dd><code>array</code><br>$options Array of HTML attributes</dd>
 				</dl></div>
 
 				<h4>Returns</h4>
@@ -231,7 +276,7 @@ be use</dd>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_cssEnd">#</a>
-		<code><a href="source-class-MeHtmlHelper.html#51-58" title="Go to source code">cssEnd</a>( )</code>
+		<code><a href="source-class-MeHtmlHelper.html#67-74" title="Go to source code">cssEnd</a>( )</code>
 
 		<div class="description short">
 			
@@ -266,7 +311,7 @@ be use</dd>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_cssStart">#</a>
-		<code><a href="source-class-MeHtmlHelper.html#60-67" title="Go to source code">cssStart</a>( )</code>
+		<code><a href="source-class-MeHtmlHelper.html#76-83" title="Go to source code">cssStart</a>( )</code>
 
 		<div class="description short">
 			
@@ -290,6 +335,55 @@ be use</dd>
 		</div>
 		</div></td>
 	</tr>
+	<tr data-order="getCrumbList" id="_getCrumbList">
+
+		<td class="attributes"><code>
+			 public 
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getCrumbList">#</a>
+		<code><a href="source-class-MeHtmlHelper.html#85-113" title="Go to source code">getCrumbList</a>( <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span>, <span>string|array|boolean <var>$startText</var> = <span class="php-keyword1">false</span></span> )</code>
+
+		<div class="description short">
+			
+<p>Returns breadcrumbs as a (x)html list. Rewrite
+<i>$this-&gt;Html-&gt;getCrumbList()</i></p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Returns breadcrumbs as a (x)html list. Rewrite
+<i>$this-&gt;Html-&gt;getCrumbList()</i></p>
+
+<p>Look at <a href="http://api.cakephp.org/2.4/class-HtmlHelper.html#_getCrumbList">CakePHP Api</a></p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$options</var></dt>
+					<dd><code>array</code><br>$options Array of html attributes. Can also contain "separator" and "firstClass"
+options. The "lastClass" option is set automatically as required by Bootstrap</dd>
+					<dt><var>$startText</var></dt>
+					<dd><code>string|array|boolean</code><br>$startText The first crumb, if false it defaults to first crumb in array</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>string</code><br>breadcrumbs html list<br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
 	<tr data-order="link" id="_link">
 
 		<td class="attributes"><code>
@@ -301,7 +395,7 @@ be use</dd>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_link">#</a>
-		<code><a href="source-class-MeHtmlHelper.html#69-96" title="Go to source code">link</a>( <span>string <var>$title</var></span>, <span>mixed <var>$url</var> = <span class="php-keyword1">null</span></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span>, <span>string <var>$confirmMessage</var> = <span class="php-keyword1">false</span></span> )</code>
+		<code><a href="source-class-MeHtmlHelper.html#115-142" title="Go to source code">link</a>( <span>string <var>$title</var></span>, <span>mixed <var>$url</var> = <span class="php-keyword1">null</span></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span>, <span>string <var>$confirmMessage</var> = <span class="php-keyword1">false</span></span> )</code>
 
 		<div class="description short">
 			
@@ -325,7 +419,7 @@ class="php-quote">'icon'</span> =&gt; <span
 class="php-quote">'icon-search'</span>));
 </pre>
 
-<p>Look at <a href="http://api.cakephp.org/2.0/class-HtmlHelper.html#_link">CakePHP Api</a></p>
+<p>Look at <a href="http://api.cakephp.org/2.4/class-HtmlHelper.html#_link">CakePHP Api</a></p>
 
 
 
@@ -364,7 +458,7 @@ http://)</dd>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_linkButton">#</a>
-		<code><a href="source-class-MeHtmlHelper.html#98-112" title="Go to source code">linkButton</a>( <span>string <var>$title</var></span>, <span>mixed <var>$url</var> = <span class="php-keyword1">null</span></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span>, <span>string <var>$confirmMessage</var> = <span class="php-keyword1">false</span></span> )</code>
+		<code><a href="source-class-MeHtmlHelper.html#144-158" title="Go to source code">linkButton</a>( <span>string <var>$title</var></span>, <span>mixed <var>$url</var> = <span class="php-keyword1">null</span></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span>, <span>string <var>$confirmMessage</var> = <span class="php-keyword1">false</span></span> )</code>
 
 		<div class="description short">
 			
@@ -381,7 +475,7 @@ http://)</dd>
 				<h4>Parameters</h4>
 				<div class="list"><dl>
 					<dt><var>$title</var></dt>
-					<dd><code>string</code><br>$title Link title</dd>
+					<dd><code>string</code><br>$title Button title</dd>
 					<dt><var>$url</var></dt>
 					<dd><code>mixed</code><br>$url Cake-relative URL, array of URL parameters or external URL (starts with
 http://)</dd>
@@ -413,7 +507,7 @@ http://)</dd>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_script">#</a>
-		<code><a href="source-class-MeHtmlHelper.html#114-129" title="Go to source code">script</a>( <span>string|array <var>$url</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-MeHtmlHelper.html#160-175" title="Go to source code">script</a>( <span>string|array <var>$url</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
@@ -428,7 +522,7 @@ http://)</dd>
 <p>When used in the layout, remember to use the "inline" option (must be set to
 TRUE)</p>
 
-<p>Look at <a href="http://api.cakephp.org/2.0/class-HtmlHelper.html#_script">CakePHP Api</a></p>
+<p>Look at <a href="http://api.cakephp.org/2.4/class-HtmlHelper.html#_script">CakePHP Api</a></p>
 
 
 
@@ -463,7 +557,7 @@ and the file has been included before<br />
 
 		<td class="name"><div>
 		<a class="anchor" href="#_scriptBlock">#</a>
-		<code><a href="source-class-MeHtmlHelper.html#131-144" title="Go to source code">scriptBlock</a>( <span>string <var>$code</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-MeHtmlHelper.html#177-190" title="Go to source code">scriptBlock</a>( <span>string <var>$code</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
@@ -477,7 +571,7 @@ and the file has been included before<br />
 <p>Generate a javascript code block containing $code. Rewrite
 <i>$this-&gt;Html-&gt;scriptBlock()</i></p>
 
-<p>Look at <a href="http://api.cakephp.org/2.0/class-HtmlHelper.html#_scriptBlock">CakePHP Api</a></p>
+<p>Look at <a href="http://api.cakephp.org/2.4/class-HtmlHelper.html#_scriptBlock">CakePHP Api</a></p>
 
 
 
@@ -511,7 +605,7 @@ and the file has been included before<br />
 
 		<td class="name"><div>
 		<a class="anchor" href="#_scriptEnd">#</a>
-		<code><a href="source-class-MeHtmlHelper.html#146-154" title="Go to source code">scriptEnd</a>( )</code>
+		<code><a href="source-class-MeHtmlHelper.html#192-200" title="Go to source code">scriptEnd</a>( )</code>
 
 		<div class="description short">
 			
@@ -523,7 +617,7 @@ and the file has been included before<br />
 			
 <p>End javascript code. Rewrite <i>$this-&gt;Html-&gt;scriptEnd()</i></p>
 
-<p>Look at <a href="http://api.cakephp.org/2.0/class-HtmlHelper.html#_scriptEnd">CakePHP Api</a></p>
+<p>Look at <a href="http://api.cakephp.org/2.4/class-HtmlHelper.html#_scriptEnd">CakePHP Api</a></p>
 
 
 
@@ -550,7 +644,7 @@ and the file has been included before<br />
 
 		<td class="name"><div>
 		<a class="anchor" href="#_scriptStart">#</a>
-		<code><a href="source-class-MeHtmlHelper.html#156-168" title="Go to source code">scriptStart</a>( <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-MeHtmlHelper.html#202-214" title="Go to source code">scriptStart</a>( <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
@@ -562,7 +656,7 @@ and the file has been included before<br />
 			
 <p>Start javascript code. Rewrite <i>$this-&gt;Html-&gt;scriptStart()</i></p>
 
-<p>Look at <a href="http://api.cakephp.org/2.0/class-HtmlHelper.html#_scriptStart">CakePHP Api</a></p>
+<p>Look at <a href="http://api.cakephp.org/2.4/class-HtmlHelper.html#_scriptStart">CakePHP Api</a></p>
 
 
 
