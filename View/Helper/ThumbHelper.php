@@ -34,7 +34,7 @@ App::uses('MeToolsAppHelper', 'MeTools.View/Helper');
  *
  * @author		Mirko Pagliai <mirko.pagliai@gmail.com>
  * @copyright	Copyright (c) 2013, Mirko Pagliai for Nova Atlantis Ltd
- * @license		AGPL License (http://www.gnu.org/licenses/agpl.txt)
+ * @license		http://www.gnu.org/licenses/agpl.txt AGPL License
  * @link		http://git.novatlantis.it Nova Atlantis Ltd
  * @package		MeTools.View.Helper
  */
