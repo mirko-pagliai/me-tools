@@ -13,6 +13,10 @@ In your webroot directory, create (or copy) a link to the MeTools webroot:
 	cd webroot
 	ln -s ../Plugin/MeTools/webroot/ MeTools
 
+Then, create (or copy) a link to *thumber.php*:
+
+	ln -s ../Plugin/MeTools/webroot/thumber.php .
+
 ### Libraries and script ###
 **MeTools** uses different libraries or scripts:
 
