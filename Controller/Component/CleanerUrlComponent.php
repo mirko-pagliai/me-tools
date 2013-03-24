@@ -14,7 +14,7 @@
  *
  * To use the <i>CleanerUrl</i> component, add it to the list of components in your controller (for example, the <i>AppController</i>):
  * <code>
- * 	public $components = array('MeTools.CleanerUrl');
+ * public $components = array('MeTools.CleanerUrl');
  * </code>
  *
  * This file is part of MeTools.
