@@ -2,7 +2,7 @@ accessLevels: "public,protected,private"
 autocomplete: "classes,constants,functions,methods,properties,classconstants"
 destination: Docs
 download: yes
-exclude: {*/Console/*, */Plugin/*}
+exclude: {*/Console/*, */Lib/*, */Locale/*, */Plugin/*, */tmp/*, */webroot/*}
 main: MeTools
 source: .
 title: "MeTools"
