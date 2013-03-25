@@ -22,4 +22,5 @@ Then, create (or copy) a link to *thumber.php*:
 
 - JQuery 1.9.1 ([site](http://jquery.com));
 - Bootstrap 2.3.1 ([site](http://twitter.github.com/bootstrap));
-- Thumber 0.5.6 ([site](https://code.google.com/p/phpthumbmaker)).
+- Thumber 0.5.6 ([site](https://code.google.com/p/phpthumbmaker));
+- Font Awesome 3.0.2 ([site](http://fortawesome.github.com/Font-Awesome)).
