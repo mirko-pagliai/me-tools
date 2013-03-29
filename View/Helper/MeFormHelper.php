@@ -60,7 +60,7 @@ class MeFormHelper extends MeToolsAppHelper {
 		$options['class'] = empty($options['class']) ? 'btn' : $this->_cleanAttribute($options['class'].' btn');
 
 		//Add bootstrap icon to the caption, if there's the 'icon' option
-		$caption = !empty($options['icon']) ? '<i class="'.$this->_cleanAttribute($options['icon']).'"></i> '.$caption : $caption;
+		$caption = !empty($options['icon']) ? $this->MeHtml->icon($options['icon']).$caption : $caption;
 		unset($options['icon']);
 
 		//Add the 'tooltip' rel
@@ -111,7 +111,7 @@ class MeFormHelper extends MeToolsAppHelper {
 		$options['class'] = empty($options['class']) ? 'btn' : $this->_cleanAttribute($options['class'].' btn');
 
 		//Add bootstrap icon to the title, if there's the 'icon' option
-		$title = !empty($options['icon']) ? '<i class="'.$this->_cleanAttribute($options['icon']).'"></i> '.$title : $title;
+		$title = !empty($options['icon']) ? $this->MeHtml->icon($options['icon']).$title : $title;
 		unset($options['icon']);
 
 		//Add the 'tooltip' data-toggle

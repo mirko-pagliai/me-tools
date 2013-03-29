@@ -113,6 +113,20 @@ class MeHtmlHelper extends MeToolsAppHelper {
 	}
 
 	/**
+	 * Return an icon
+	 *
+	 * Look at {@link http://twitter.github.com/bootstrap/base-css.html#icons Bootstrap icons} and {@link http://fortawesome.github.com/Font-Awesome/#icons-new Font Awesome icons}
+	 * @param string|array $icon Icon or icons as string or an array of icons
+	 * @return string Html
+	 */
+	public function icon($icon=null) {
+		//If array, implode
+		if(is_array($icon))
+			$icon = implode(' ', $icon);
+		return '<i class="'.$this->_cleanAttribute($icon).'"></i> ';
+	}
+
+	/**
 	 * Create an HTML link. Rewrite <i>$this->Html->link()</i>
 	 *
 	 * You can use {@link http://twitter.github.com/bootstrap/base-css.html#icons bootstrap icons} using 'icon' option. Example:
@@ -132,7 +146,7 @@ class MeHtmlHelper extends MeToolsAppHelper {
 		$options['escape'] = empty($options['escape']) ? false : $options['escape'];
 
 		//Add bootstrap icon to the title, if there's the 'icon' option
-		$title = !empty($options['icon']) ? '<i class="'.$this->_cleanAttribute($options['icon']).'"></i> '.$title : $title;
+		$title = !empty($options['icon']) ? $this->icon($options['icon']).$title : $title;
 		unset($options['icon']);
 
 		//Add the 'tooltip' data-toggle
