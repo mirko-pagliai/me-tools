@@ -53,11 +53,11 @@ class MeHtmlHelper extends MeToolsAppHelper {
 	 *
 	 * Look at {@link http://api.cakephp.org/2.4/class-HtmlHelper.html#_css CakePHP Api}
 	 * @param string|array $filename The css filename or an array of css files
-	 * @param string $rel The value of the generated tag's rel attribute. If null, 'stylesheet' will be use
 	 * @param array $options Array of HTML attributes
+	 * @param string $rel The value of the generated tag's rel attribute. If null, 'stylesheet' will be use
 	 * @return string CSS <link /> or <style /> tag, depending on the type of link
 	 */
-	public function css($filename, $rel=null, $options=array()) {
+	public function css($filename, $options=array(), $rel=null) {
 		//"inline" option default false
 		$options['inline'] = empty($options['inline']) ? false : $options['inline'];
 
@@ -155,6 +155,28 @@ class MeHtmlHelper extends MeToolsAppHelper {
 		$options['class'] = empty($options['class']) ? 'btn' : $this->_cleanAttribute($options['class'].' btn');
 
 		return $this->link($title, $url, $options, $confirmMessage);
+	}
+
+	/**
+	 * Create a meta tag. Rewrite <i>$this->Html->meta()</i>
+	 *
+	 * For a custom meta tag, the first parameter should be set to an array. For example:
+	 *
+	 * <code>
+	 * echo $this->MeHtml->meta(array('name' => 'robots', 'content' => 'noindex'));
+	 * </code>
+	 *
+	 * Look at {@link http://api.cakephp.org/2.4/class-HtmlHelper.html#_link CakePHP Api}
+	 * @param string $type The title of the external resource
+	 * @param string|array $url The address of the external resource or string for content attribute
+	 * @param array $options Other attributes for the generated tag
+	 * @return string Html
+	 */
+	public function meta($type, $url=null, $options=array()) {
+		//"inline" option default false
+		$options['inline'] = empty($options['inline']) ? false : $options['inline'];
+
+		return($this->Html->meta($type, $url, $options));
 	}
 
 	/**
