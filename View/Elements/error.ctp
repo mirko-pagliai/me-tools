@@ -27,5 +27,5 @@
 
 <div id="flashMessage" class="alert alert-block alert-error">
 	<button type="button" class="close" data-dismiss="alert">&times;</button>
-	<strong><?php echo __('Error'); ?></strong>: <?php echo lcfirst($message); ?>
+	<strong><?php echo __d('me_tools', 'Error'); ?></strong>: <?php echo lcfirst($message); ?>
 </div>
