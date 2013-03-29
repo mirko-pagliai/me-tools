@@ -115,6 +115,14 @@ class MeHtmlHelper extends MeToolsAppHelper {
 	/**
 	 * Return an icon
 	 *
+	 * Example:
+	 * <code>
+	 * echo $this->MeHtml->icon('icon-ok icon-white');
+	 * </code>
+	 * <code>
+	 * echo $this->MeHtml->icon(array('icon-ok', 'icon-white'));
+	 * </code>
+	 *
 	 * Look at {@link http://twitter.github.com/bootstrap/base-css.html#icons Bootstrap icons} and {@link http://fortawesome.github.com/Font-Awesome/#icons-new Font Awesome icons}
 	 * @param string|array $icon Icon or icons as string or an array of icons
 	 * @return string Html
