@@ -256,4 +256,20 @@ class MeHtmlHelper extends MeToolsAppHelper {
 
 		return $this->Html->scriptStart($options);
 	}
+
+	/**
+	 * Returns a formatted block tag, ie <div>, <span>, <p>. Rewrite <i>$this->Html->tag()</i>
+	 *
+	 * Look at {@link http://api.cakephp.org/2.4/source-class-HtmlHelper.html#898-926 CakePHP Api}
+	 * @param string $name Tag name
+	 * @param type $text Tag content. If null, only a start tag will be printed
+	 * @param array $options Html attributes
+	 * @return string The formatted tag element
+	 */
+	public function tag($name, $text = null, $options = array()) {
+		//"escape" option default false
+		$options['escape'] = empty($options['escape']) ? false : $options['escape'];
+
+		return $this->Html->tag($name, $text, $options);
+	}
 }
