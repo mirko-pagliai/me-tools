@@ -30,14 +30,14 @@ class MeFormHelper extends MeToolsAppHelper {
 	 * Helpers used
 	 * @var array Helpers name
 	 */
-	public $helpers = array('Form', 'Html');
+	public $helpers = array('Form', 'MeTools.MeHtml');
 
 	/**
 	 * Create a form. Rewrite <i>$this->Form->create()</i>
 	 *
 	 * Look at {@link http://api.cakephp.org/2.4/class-FormHelper.html#_create CakePHP Api}
 	 * @param string $model The model object which the form is being defined for
-	 * @param array $options An array of html attributes and options
+	 * @param array $options HTML attributes and options
 	 * @return string A formatted opening FORM tag
 	 */
 	public function create($model=null, $options=array()) {
@@ -49,7 +49,7 @@ class MeFormHelper extends MeToolsAppHelper {
 	 *
 	 * Look at {@link http://api.cakephp.org/2.4/class-FormHelper.html#_submit CakePHP Api}
 	 * @param string $caption The label appearing on the button or an image
-	 * @param array $options Array of options
+	 * @param array $options Options
 	 * @return string Html
 	 */
 	public function button($caption, $options=array()) {
@@ -103,7 +103,7 @@ class MeFormHelper extends MeToolsAppHelper {
 	 * Look at {@link http://api.cakephp.org/2.4/class-FormHelper.html#_postButton CakePHP Api}
 	 * @param string $title Button title
 	 * @param mixed $url Cake-relative URL, array of URL parameters or external URL (starts with http://)
-	 * @param array $options Array of HTML attributes
+	 * @param array $options HTML attributes
 	 * @return string Html
 	 */
 	public function postButton($title, $url, $options = array()) {
@@ -125,7 +125,7 @@ class MeFormHelper extends MeToolsAppHelper {
 	 *
 	 * Look at {@link http://api.cakephp.org/2.4/class-FormHelper.html#_submit CakePHP Api}
 	 * @param string $caption The label appearing on the submit button or an image
-	 * @param array $options Array of options
+	 * @param array $options Options
 	 * @return string Html
 	 */
 	public function submit($caption, $options=array()) {
@@ -136,6 +136,6 @@ class MeFormHelper extends MeToolsAppHelper {
 		//Add the 'btn' and 'btn-success' classes
 		$options['class'] = empty($options['class']) ? 'btn btn-success' : $this->_cleanAttribute($options['class'].' btn btn-success');
 
-		return $this->Html->tag('div', $this->button($caption, $options), array('class' => 'submit'));
+		return $this->MeHtml->tag('div', $this->button($caption, $options), array('class' => 'submit'));
 	}
 }

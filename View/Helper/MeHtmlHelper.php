@@ -38,7 +38,7 @@ class MeHtmlHelper extends MeToolsAppHelper {
 	 * Look at {@link http://api.cakephp.org/2.4/class-HtmlHelper.html#_addCrumb CakePHP Api}
 	 * @param string $name Text for link
 	 * @param string $link URL for link (if empty it won't be a link)
-	 * @param string|array $options Array of HTML attributes
+	 * @param string|array $options HTML attributes
 	 * @return void
 	 */
 	public function addCrumb($name, $link=null, $options=null) {
@@ -53,7 +53,7 @@ class MeHtmlHelper extends MeToolsAppHelper {
 	 *
 	 * Look at {@link http://api.cakephp.org/2.4/class-HtmlHelper.html#_css CakePHP Api}
 	 * @param string|array $filename The css filename or an array of css files
-	 * @param array $options Array of HTML attributes
+	 * @param array $options HTML attributes
 	 * @param string $rel The value of the generated tag's rel attribute. If null, 'stylesheet' will be use
 	 * @return string CSS <link /> or <style /> tag, depending on the type of link
 	 */
@@ -86,7 +86,7 @@ class MeHtmlHelper extends MeToolsAppHelper {
 	 * Returns breadcrumbs as a (x)html list. Rewrite <i>$this->Html->getCrumbList()</i>
 	 *
 	 * Look at {@link http://api.cakephp.org/2.4/class-HtmlHelper.html#_getCrumbList CakePHP Api}
-	 * @param array $options Array of html attributes. Can also contain "separator" and "firstClass" options. The "lastClass" option is set automatically as required by Bootstrap
+	 * @param array $options HTML attributes. Can also contain "separator" and "firstClass" options. The "lastClass" option is set automatically as required by Bootstrap
 	 * @param string|array|boolean $startText The first crumb, if false it defaults to first crumb in array
 	 * @return string breadcrumbs html list
 	 */
@@ -145,7 +145,7 @@ class MeHtmlHelper extends MeToolsAppHelper {
 	 * Look at {@link http://api.cakephp.org/2.4/class-HtmlHelper.html#_link CakePHP Api}
 	 * @param string $title Link title
 	 * @param mixed $url Cake-relative URL, array of URL parameters or external URL (starts with http://)
-	 * @param array $options Array of HTML attributes
+	 * @param array $options HTML attributes
 	 * @param string $confirmMessage JavaScript confirmation message
 	 * @return string Html
 	 */
@@ -168,7 +168,7 @@ class MeHtmlHelper extends MeToolsAppHelper {
 	 * Use the <i>link()</i> method
 	 * @param string $title Button title
 	 * @param mixed $url Cake-relative URL, array of URL parameters or external URL (starts with http://)
-	 * @param array $options Array of HTML attributes
+	 * @param array $options HTML attributes
 	 * @param string $confirmMessage JavaScript confirmation message
 	 * @return string Html
 	 */
@@ -208,7 +208,7 @@ class MeHtmlHelper extends MeToolsAppHelper {
 	 *
 	 * Look at {@link http://api.cakephp.org/2.4/class-HtmlHelper.html#_script CakePHP Api}
 	 * @param string|array $url String or array of javascript files to include
-	 * @param array $options Array of options and html attributes
+	 * @param array $options HTML attributes
 	 * @return mixed String of <script /> tags or null if $inline is false or if $once is true and the file has been included before
 	 */
 	public function script($url, $options=array()) {
@@ -223,7 +223,7 @@ class MeHtmlHelper extends MeToolsAppHelper {
 	 *
 	 * Look at {@link http://api.cakephp.org/2.4/class-HtmlHelper.html#_scriptBlock CakePHP Api}
 	 * @param string $code The code to go in the script tag
-	 * @param array $options An array of html attributes
+	 * @param array $options HTML attributes
 	 * @return string Html
 	 */
 	public function scriptBlock($code, $options = array()) {
@@ -263,7 +263,7 @@ class MeHtmlHelper extends MeToolsAppHelper {
 	 * Look at {@link http://api.cakephp.org/2.4/source-class-HtmlHelper.html#898-926 CakePHP Api}
 	 * @param string $name Tag name
 	 * @param type $text Tag content. If null, only a start tag will be printed
-	 * @param array $options Html attributes
+	 * @param array $options HTML attributes
 	 * @return string The formatted tag element
 	 */
 	public function tag($name, $text = null, $options = array()) {
