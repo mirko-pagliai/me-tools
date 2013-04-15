@@ -181,15 +181,19 @@ class MeFormHelper extends MeToolsAppHelper {
 	 * @return string Html
 	 */
 	public function submit($caption, $options=array()) {
-		//Static options for submit buttons
+		//"type" is "submit"
 		$options['type'] = 'submit';
 
 		//"icon" option default "icon-ok icon-white"
 		$options['icon'] = empty($options['icon']) ? 'icon-ok icon-white' : $options['icon'];
 
-		//Add the 'btn' and 'btn-success' classes
+		//"class" option default "btn btn-success"
 		$options['class'] = empty($options['class']) ? 'btn btn-success' : $this->_cleanAttribute($options['class'].' btn btn-success');
 
-		return $this->MeHtml->tag('div', $this->button($caption, $options), array('class' => 'submit'));
+		//"div" option default "submit"
+		$div = empty($options['div']) ? 'submit' : $this->_cleanAttribute($options['div'].' submit');
+		unset($options['div']);
+
+		return $this->MeHtml->tag('div', $this->button($caption, $options), array('class' => $div));
 	}
 }
