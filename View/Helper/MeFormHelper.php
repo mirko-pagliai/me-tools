@@ -96,6 +96,21 @@ class MeFormHelper extends MeToolsAppHelper {
 	}
 
 	/**
+	 * Create an input element. Rewrite <i>$this->Form->input()</i>
+	 *
+	 * Look at {@link http://api.cakephp.org/2.4/class-FormHelper.html#_input CakePHP Api}
+	 * @param string $fieldName This should be "Modelname.fieldname"
+	 * @param array $options Options
+	 * @return string Html
+	 */
+	public function input($fieldName, $options=array()) {
+		//"label" option default false
+		$options['label'] = empty($options['label']) ? false : $options['label'];
+
+		return $this->Form->input($fieldName, $options);
+	}
+
+	/**
 	 * Create a button with a surrounding form that submits via POST. Rewrite <i>$this->Form->postButton()</i>
 	 *
 	 * This method creates a form element. So don'è use this method in an already opened form.
