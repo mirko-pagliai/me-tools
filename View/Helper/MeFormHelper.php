@@ -148,6 +148,9 @@ class MeFormHelper extends MeToolsAppHelper {
 		//"legend" attribute default false
 		$attributes['legend'] = empty($attributes['legend']) ? false : $attributes['legend'];
 
+		//"separator" attribute default "<br />"
+		$attributes['separator'] = empty($attributes['separator']) ? '<br />' : $attributes['separator'];
+
 		return $this->Form->radio($fieldName, $options, $attributes);
 	}
 
