@@ -155,6 +155,22 @@ class MeFormHelper extends MeToolsAppHelper {
 	}
 
 	/**
+	 * Create a select input. Rewrite <i>$this->Form->select()</i>
+	 *
+	 * Look at {@link http://api.cakephp.org/2.4/class-FormHelper.html#_radio CakePHP Api}
+	 * @param string $fieldName Field name, should be "Modelname.fieldname"
+	 * @param array $options Radio button options array
+	 * @param array $attributes HTML attributes
+	 * @return string Html
+	 */
+	public function select($fieldName, $options=array(), $attributes=array()) {
+		//"escape" attribute default false
+		$attributes['escape'] = empty($attributes['escape']) ? false : $attributes['escape'];
+
+		return $this->Form->select($fieldName, $options, $attributes);
+	}
+
+	/**
 	 * Create a submit button. Rewrite <i>$this->Form->Submit()</i> and use the <i>button()</i> method
 	 *
 	 * Look at {@link http://api.cakephp.org/2.4/class-FormHelper.html#_submit CakePHP Api}
