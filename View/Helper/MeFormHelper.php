@@ -99,7 +99,7 @@ class MeFormHelper extends MeToolsAppHelper {
 	 * Create an input element. Rewrite <i>$this->Form->input()</i>
 	 *
 	 * Look at {@link http://api.cakephp.org/2.4/class-FormHelper.html#_input CakePHP Api}
-	 * @param string $fieldName This should be "Modelname.fieldname"
+	 * @param string $fieldName Field name, should be "Modelname.fieldname"
 	 * @param array $options Options
 	 * @return string Html
 	 */
@@ -133,6 +133,20 @@ class MeFormHelper extends MeToolsAppHelper {
 		$options['data-toggle'] = empty($options['data-toggle']) ? 'tooltip' : $this->_cleanAttribute($options['data-toggle'].' tooltip');
 
 		return $this->Form->postButton($title, $url, $options);
+	}
+
+	/**
+	 * Create a set of radio button inputs
+	 * @param string $fieldName Field name, should be "Modelname.fieldname"
+	 * @param array $options Radio button options array
+	 * @param array $attributes HTML attributes
+	 * @return string Html
+	 */
+	public function radio($fieldName, $options=array(), $attributes=array()) {
+		//"legend" attribute default false
+		$attributes['legend'] = empty($attributes['legend']) ? false : $attributes['legend'];
+
+		return $this->Form->radio($fieldName, $options, $attributes);
 	}
 
 	/**
