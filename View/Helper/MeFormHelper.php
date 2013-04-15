@@ -182,8 +182,10 @@ class MeFormHelper extends MeToolsAppHelper {
 	 */
 	public function submit($caption, $options=array()) {
 		//Static options for submit buttons
-		$options['icon'] = 'icon-ok icon-white';
 		$options['type'] = 'submit';
+
+		//"icon" option default "icon-ok icon-white"
+		$options['icon'] = empty($options['icon']) ? 'icon-ok icon-white' : $options['icon'];
 
 		//Add the 'btn' and 'btn-success' classes
 		$options['class'] = empty($options['class']) ? 'btn btn-success' : $this->_cleanAttribute($options['class'].' btn btn-success');
