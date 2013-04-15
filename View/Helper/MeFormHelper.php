@@ -104,6 +104,8 @@ class MeFormHelper extends MeToolsAppHelper {
 	 * @return string Html
 	 */
 	public function input($fieldName, $options=array()) {
+		//"escape option default false
+		$options['escape'] = empty($options['escape']) ? false : $options['escape'];
 		//"label" option default false
 		$options['label'] = empty($options['label']) ? false : $options['label'];
 
