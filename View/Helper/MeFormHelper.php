@@ -136,7 +136,9 @@ class MeFormHelper extends MeToolsAppHelper {
 	}
 
 	/**
-	 * Create a set of radio button inputs
+	 * Create a set of radio button inputs. Rewrite <i>$this->Form->radio()</i>
+	 *
+	 * Look at {@link http://api.cakephp.org/2.4/class-FormHelper.html#_radio CakePHP Api}
 	 * @param string $fieldName Field name, should be "Modelname.fieldname"
 	 * @param array $options Radio button options array
 	 * @param array $attributes HTML attributes
