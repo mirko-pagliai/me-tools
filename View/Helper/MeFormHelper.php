@@ -56,14 +56,14 @@ class MeFormHelper extends MeToolsAppHelper {
 		//"type" option default "button"
 		$options['type'] = empty($options['type']) ? 'button' : $options['type'];
 
-		//Add the 'btn' class
+		//"class" option default "btn"
 		$options['class'] = empty($options['class']) ? 'btn' : $this->_cleanAttribute($options['class'].' btn');
 
-		//Add bootstrap icon to the caption, if there's the 'icon' option
+		//Add bootstrap icon to the caption, if there's the "icon" option
 		$caption = !empty($options['icon']) ? $this->MeHtml->icon($options['icon']).$caption : $caption;
 		unset($options['icon']);
 
-		//Add the 'tooltip' rel
+		//Add the "tooltip" rel
 		$options['rel'] = empty($options['rel']) ? 'tooltip' : $this->_cleanAttribute($options['rel'].' tooltip');
 
 		return $this->Form->button($caption, $options);
@@ -104,7 +104,7 @@ class MeFormHelper extends MeToolsAppHelper {
 	 * @return string Html
 	 */
 	public function input($fieldName, $options=array()) {
-		//"escape option default false
+		//"escape" option default false
 		$options['escape'] = empty($options['escape']) ? false : $options['escape'];
 		//"label" option default false
 		$options['label'] = empty($options['label']) ? false : $options['label'];
@@ -124,14 +124,14 @@ class MeFormHelper extends MeToolsAppHelper {
 	 * @return string Html
 	 */
 	public function postButton($title, $url, $options = array()) {
-		//Add the 'btn' class
+		//"class" option default "btn"
 		$options['class'] = empty($options['class']) ? 'btn' : $this->_cleanAttribute($options['class'].' btn');
 
-		//Add bootstrap icon to the title, if there's the 'icon' option
+		//Add bootstrap icon to the title, if there's the "icon" option
 		$title = !empty($options['icon']) ? $this->MeHtml->icon($options['icon']).$title : $title;
 		unset($options['icon']);
 
-		//Add the 'tooltip' data-toggle
+		//Add the "tooltip" data-toggle
 		$options['data-toggle'] = empty($options['data-toggle']) ? 'tooltip' : $this->_cleanAttribute($options['data-toggle'].' tooltip');
 
 		return $this->Form->postButton($title, $url, $options);
