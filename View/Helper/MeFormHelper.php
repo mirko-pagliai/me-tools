@@ -188,7 +188,7 @@ class MeFormHelper extends MeToolsAppHelper {
 		$options['icon'] = empty($options['icon']) ? 'icon-ok icon-white' : $options['icon'];
 
 		//"class" option default "btn btn-success"
-		$options['class'] = empty($options['class']) ? 'btn btn-success' : $this->_cleanAttribute($options['class'].' btn btn-success');
+		$options['class'] = empty($options['class']) ? 'btn btn-success' : $this->_cleanAttribute($options['class'].' btn');
 
 		//If isset "div" option and this is false, return the button
 		if(isset($options['div']) && !$options['div'])
