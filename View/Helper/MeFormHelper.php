@@ -190,10 +190,16 @@ class MeFormHelper extends MeToolsAppHelper {
 		//"class" option default "btn btn-success"
 		$options['class'] = empty($options['class']) ? 'btn btn-success' : $this->_cleanAttribute($options['class'].' btn btn-success');
 
-		//"div" option default "submit"
-		$div = empty($options['div']) ? 'submit' : $this->_cleanAttribute($options['div'].' submit');
-		unset($options['div']);
+		//If isset "div" option and this is false, return the button
+		if(isset($options['div']) && !$options['div'])
+			return $this->button($caption, $options);
+		//Else, return the button in a wrapper
+		else {
+			//"div" option default "submit"
+			$div = empty($options['div']) ? 'submit' : $this->_cleanAttribute($options['div'].' submit');
+			unset($options['div']);
 
-		return $this->MeHtml->tag('div', $this->button($caption, $options), array('class' => $div));
+			return $this->MeHtml->tag('div', $this->button($caption, $options), array('class' => $div));
+		}
 	}
 }
