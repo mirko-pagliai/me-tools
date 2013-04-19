@@ -22,17 +22,20 @@
  * @package		MeTools.webroot.css
  */
 
+/* Input wrappers */
 form div.input {
 	margin-bottom: 10px;
 }
 
-form .required label:after { /* Required inputs */
+/* Required inputs */
+form .required label:after {
 	color: #e32;
 	content: '*';
 	display:inline;
 }
 
-form .error-message { /* Form error messages */
+/* Form error messages */
+form .error-message {
 	background: #FFDACC;
 	color: #9E2424;
 	border-radius: 5px;
@@ -43,43 +46,57 @@ form .error-message { /* Form error messages */
 /* ---------------------------- */
 /*		Bootstrap rewrite		*/
 /* ---------------------------- */
-form input[type="checkbox"] { /* Checkbox inputs */
+/* Checkbox inputs */
+form input[type="checkbox"] {
 	margin-top: 0;
 }
 
-form input[type="radio"] { /* Radio inputs */
+/* Radio inputs */
+form input[type="radio"] {
 	line-height: 20px;
 	margin-top: 0;
 	min-height: 20px;
 }
 
-form input[type="radio"] + label { /* Labels after radio inputs */
+/* Labels after radio inputs */
+form input[type="radio"] + label {
 	display: inline-block;
 	line-height: 20px;
 	margin-left: 5px;
 	min-height: 20px;
 }
 
-form select { /* Select inputs */
+/* Select inputs */
+form select {
 	width: auto;
 }
 
 /* ---------------------------- */
-/*		Other classes			*/
+/*		Inline forms			*/
 /* ---------------------------- */
-/* Inline form */
-form.form-inline > div.input, form.form-inline div.submit { /* Inputs and submits wrappers */
+/* Inputs and submits wrappers */
+form.form-inline > div.input, form.form-inline div.submit {
 	display: inline-block;
     margin-right: 10px;
 	vertical-align: top;
 }
 
-form.form-inline > div.checkbox label { /* Labels for checkbox inputs */
+/* Labels for checkbox inputs */
+form.form-inline > div.checkbox label {
 	display: inline;
 	vertical-align: middle;
 }
 
-form.form-inline input[type="checkbox"] { /* Checkbox inputs */
+/* Checkbox inputs */
+form.form-inline input[type="checkbox"] {
 	float: none !important;
 	vertical-align: middle;
+}
+
+/* ---------------------------- */
+/*		Other classes			*/
+/* ---------------------------- */
+/* Small text */
+.small {
+	font-size: 90%;
 }
