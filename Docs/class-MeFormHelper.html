@@ -7,7 +7,7 @@
 	<title>Class MeFormHelper | MeTools</title>
 
 	<script type="text/javascript" src="resources/combined.js?394153670"></script>
-	<script type="text/javascript" src="elementlist.js?2740869623"></script>
+	<script type="text/javascript" src="elementlist.js?3537134005"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360" />
 
 </head>
@@ -164,7 +164,7 @@ AppHelper
 href="mailto:mirko.pagliai&#64;gmail.com">mirko.pagliai&#64;<!---->gmail.com</a>&gt;<br />
 				<b>Link:</b>
 				<a href="http://git.novatlantis.it">Nova Atlantis Ltd</a><br />
-		<b>Located at</b> <a href="source-class-MeFormHelper.html#4-141" title="Go to source code">View/Helper/MeFormHelper.php</a><br />
+		<b>Located at</b> <a href="source-class-MeFormHelper.html#4-205" title="Go to source code">View/Helper/MeFormHelper.php</a><br />
 	</div>
 
 
@@ -203,7 +203,7 @@ href="mailto:mirko.pagliai&#64;gmail.com">mirko.pagliai&#64;<!---->gmail.com</a>
 					<dt><var>$model</var></dt>
 					<dd><code>string</code><br>$model The model object which the form is being defined for</dd>
 					<dt><var>$options</var></dt>
-					<dd><code>array</code><br>$options An array of html attributes and options</dd>
+					<dd><code>array</code><br>$options HTML attributes and options</dd>
 				</dl></div>
 
 				<h4>Returns</h4>
@@ -249,7 +249,7 @@ href="mailto:mirko.pagliai&#64;gmail.com">mirko.pagliai&#64;<!---->gmail.com</a>
 					<dt><var>$caption</var></dt>
 					<dd><code>string</code><br>$caption The label appearing on the button or an image</dd>
 					<dt><var>$options</var></dt>
-					<dd><code>array</code><br>$options Array of options</dd>
+					<dd><code>array</code><br>$options Options</dd>
 				</dl></div>
 
 				<h4>Returns</h4>
@@ -312,6 +312,52 @@ string or an array</p>
 		</div>
 		</div></td>
 	</tr>
+	<tr data-order="input" id="_input">
+
+		<td class="attributes"><code>
+			 public 
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_input">#</a>
+		<code><a href="source-class-MeFormHelper.html#98-113" title="Go to source code">input</a>( <span>string <var>$fieldName</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
+
+		<div class="description short">
+			
+<p>Create an input element. Rewrite <i>$this-&gt;Form-&gt;input()</i></p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Create an input element. Rewrite <i>$this-&gt;Form-&gt;input()</i></p>
+
+<p>Look at <a href="http://api.cakephp.org/2.4/class-FormHelper.html#_input">CakePHP Api</a></p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$fieldName</var></dt>
+					<dd><code>string</code><br>$fieldName Field name, should be "Modelname.fieldname"</dd>
+					<dt><var>$options</var></dt>
+					<dd><code>array</code><br>$options Options</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>string</code><br>Html<br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
 	<tr data-order="postButton" id="_postButton">
 
 		<td class="attributes"><code>
@@ -323,7 +369,7 @@ string or an array</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_postButton">#</a>
-		<code><a href="source-class-MeFormHelper.html#98-121" title="Go to source code">postButton</a>( <span>string <var>$title</var></span>, <span>mixed <var>$url</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-MeFormHelper.html#115-138" title="Go to source code">postButton</a>( <span>string <var>$title</var></span>, <span>mixed <var>$url</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
@@ -352,7 +398,105 @@ opened form.</p>
 					<dd><code>mixed</code><br>$url Cake-relative URL, array of URL parameters or external URL (starts with
 http://)</dd>
 					<dt><var>$options</var></dt>
-					<dd><code>array</code><br>$options Array of HTML attributes</dd>
+					<dd><code>array</code><br>$options HTML attributes</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>string</code><br>Html<br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="radio" id="_radio">
+
+		<td class="attributes"><code>
+			 public 
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_radio">#</a>
+		<code><a href="source-class-MeFormHelper.html#140-157" title="Go to source code">radio</a>( <span>string <var>$fieldName</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span>, <span>array <var>$attributes</var> = <span class="php-keyword1">array</span>()</span> )</code>
+
+		<div class="description short">
+			
+<p>Create a set of radio button inputs. Rewrite
+<i>$this-&gt;Form-&gt;radio()</i></p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Create a set of radio button inputs. Rewrite
+<i>$this-&gt;Form-&gt;radio()</i></p>
+
+<p>Look at <a href="http://api.cakephp.org/2.4/class-FormHelper.html#_radio">CakePHP Api</a></p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$fieldName</var></dt>
+					<dd><code>string</code><br>$fieldName Field name, should be "Modelname.fieldname"</dd>
+					<dt><var>$options</var></dt>
+					<dd><code>array</code><br>$options Radio button options array</dd>
+					<dt><var>$attributes</var></dt>
+					<dd><code>array</code><br>$attributes HTML attributes</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>string</code><br>Html<br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="select" id="_select">
+
+		<td class="attributes"><code>
+			 public 
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_select">#</a>
+		<code><a href="source-class-MeFormHelper.html#159-173" title="Go to source code">select</a>( <span>string <var>$fieldName</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span>, <span>array <var>$attributes</var> = <span class="php-keyword1">array</span>()</span> )</code>
+
+		<div class="description short">
+			
+<p>Create a select input. Rewrite <i>$this-&gt;Form-&gt;select()</i></p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Create a select input. Rewrite <i>$this-&gt;Form-&gt;select()</i></p>
+
+<p>Look at <a href="http://api.cakephp.org/2.4/class-FormHelper.html#_radio">CakePHP Api</a></p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$fieldName</var></dt>
+					<dd><code>string</code><br>$fieldName Field name, should be "Modelname.fieldname"</dd>
+					<dt><var>$options</var></dt>
+					<dd><code>array</code><br>$options Radio button options array</dd>
+					<dt><var>$attributes</var></dt>
+					<dd><code>array</code><br>$attributes HTML attributes</dd>
 				</dl></div>
 
 				<h4>Returns</h4>
@@ -377,7 +521,7 @@ http://)</dd>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_submit">#</a>
-		<code><a href="source-class-MeFormHelper.html#123-140" title="Go to source code">submit</a>( <span>string <var>$caption</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-MeFormHelper.html#175-204" title="Go to source code">submit</a>( <span>string <var>$caption</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
@@ -400,7 +544,7 @@ the <i>button()</i> method</p>
 					<dt><var>$caption</var></dt>
 					<dd><code>string</code><br>$caption The label appearing on the submit button or an image</dd>
 					<dt><var>$options</var></dt>
-					<dd><code>array</code><br>$options Array of options</dd>
+					<dd><code>array</code><br>$options Options</dd>
 				</dl></div>
 
 				<h4>Returns</h4>
@@ -446,7 +590,7 @@ the <i>button()</i> method</p>
 		<td class="name">
 				<a href="source-class-MeFormHelper.html#29-33" title="Go to source code"><var>$helpers</var></a>
 		</td>
-		<td class="value"><code><span class="php-keyword1">array</span>(<span class="php-quote">'Form'</span>, <span class="php-quote">'Html'</span>)</code></td>
+		<td class="value"><code><span class="php-keyword1">array</span>(<span class="php-quote">'Form'</span>, <span class="php-quote">'MeTools.MeHtml'</span>)</code></td>
 		<td class="description"><div>
 			<a href="#$helpers" class="anchor">#</a>
 
