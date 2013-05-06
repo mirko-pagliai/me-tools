@@ -56,16 +56,18 @@ class CleanerUrlComponent extends Component {
 	 * @param Controller $controller
 	 */
 	protected function cleanUrl(Controller $controller) {
-		//Get the request query (as array), removing empty keys
+		//Get the request query, deleting empty values
 		$query = array_filter($controller->request->query);
 
 		//If there's a request query
 		if(!empty($query)) {
-			//Merge the request query with named params
-			$named = array_merge($controller->request->params['named'], $query);
+			//Turn the request query as a string
+			$query = http_build_query(array_filter($controller->request->query));
+			//Replace "&" with "/" and "=" with ":" from the query string
+			$query = str_replace(array('&', '='), array('/', ':'), $query);
 
-			//Merge the named params with request params, then perform redirect
-			$controller->redirect(array_merge($controller->request->params, array('named' => $named)));
+			//Perform the redirect
+			$controller->redirect($controller->request->here.'/'.$query);
 		}
 	}
 }
