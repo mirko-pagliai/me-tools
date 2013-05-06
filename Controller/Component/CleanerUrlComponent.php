@@ -46,28 +46,26 @@ class CleanerUrlComponent extends Component {
 	 * @param Controller $controller
 	 */
 	public function initialize(Controller $controller) {
-		//If there's a query string
-		if(!empty($_SERVER["QUERY_STRING"]))
-			$this->cleanUrl($controller);
+		$this->cleanUrl($controller);
 	}
 
 	/**
-	 * Clean the current url, removing the query string, then executes redirect
+	 * Clean the current url, turning request query in named params, then execute redirect
+	 *
+	 * Note: $controller->request->params contains the current params, to which is merget the request query
 	 * @param Controller $controller
 	 */
 	protected function cleanUrl(Controller $controller) {
-		//Take the query string and traslate it in the $queryString array
-		parse_str($_SERVER["QUERY_STRING"], $queryString);
-		//Delete all empty values, then recreate the query string (now without empty values)
-		$queryString = http_build_query(array_filter($queryString));
-		//Change "&" with "/" and "=" with ":" from the query string
-		$queryString = str_replace(array('&', '='), array('/', ':'), $queryString);
+		//Get the request query (as array), removing empty keys
+		$query = array_filter($controller->request->query);
 
-		/**
-		 * Perform the redirect
-		 *
-		 * $controller->request->here contains the current url, to which is appended the cleaned query string
-		 */
-		$controller->redirect($controller->request->here.'/'.$queryString);
+		//If there's a request query
+		if(!empty($query)) {
+			//Merge the request query with named params
+			$named = array_merge($controller->request->params['named'], $query);
+
+			//Merge the named params with request params, then perform redirect
+			$controller->redirect(array_merge($controller->request->params, array('named' => $named)));
+		}
 	}
 }
