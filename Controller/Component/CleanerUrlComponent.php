@@ -55,10 +55,9 @@ class CleanerUrlComponent extends Component {
 	 */
 	protected function cleanUrl(Controller $controller) {
 		//If there're query arguments
-		$query = array_filter($controller->request->query);
-		if(!empty($query)) {
+		if(!empty($controller->request->query)) {
 			//Merge named arguments with query arguments (note: query arguments will overwrite named arguments)
-			$named = array_merge(array_filter($controller->request->params['named']), $query);
+			$named = array_merge(array_filter($controller->request->params['named']), $controller->request->query);
 
 			//Merge controller, action, plugin, passed arguments (only values) and named values
 			$url = array_merge(
