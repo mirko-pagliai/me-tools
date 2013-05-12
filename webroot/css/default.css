@@ -52,6 +52,11 @@ form .error-message {
 /* ---------------------------- */
 /*		Bootstrap rewrite		*/
 /* ---------------------------- */
+/* Buttons */
+.btn {
+	white-space: nowrap;
+}
+
 /* All input types*/
 textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input {
 	margin-bottom: 0;
@@ -126,6 +131,8 @@ form.form-inline input[type="checkbox"] {
 /* Children of first level */
 .div-as-table > div {
 	border: 1px solid #DDD;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box; /* Firefox */
 	line-height: 20px;
 	margin-bottom: -1px; /* Hide the lower border */
 	padding: 8px 12px;
@@ -151,6 +158,21 @@ form.form-inline input[type="checkbox"] {
 /* ---------------------------- */
 /*		Common classes			*/
 /* ---------------------------- */
+/* Text align center */
+.align-center {
+	text-align: center;
+}
+
+/* Text align justify */
+.align-justify {
+	text-align: justify;
+}
+
+/* Text align right */
+.align-right {
+	text-align: right;
+}
+
 /* Inline element */
 .inline {
 	display: inline;
@@ -159,4 +181,19 @@ form.form-inline input[type="checkbox"] {
 /* Small text */
 .small {
 	font-size: 90%;
+}
+
+/* Vertical align bottom */
+.valign-bottom {
+	vertical-align: bottom;
+}
+
+/* Vertical align middle */
+.valign-middle {
+	vertical-align: middle;
+}
+
+/* Vertical align top */
+.valign-top {
+	vertical-align: top;
 }
