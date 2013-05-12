@@ -180,6 +180,28 @@ class MeHtmlHelper extends MeToolsAppHelper {
 	}
 
 	/**
+	 * Create an HTML link with the appearance of a button for {@link http://twitter.github.io/bootstrap/components.html#buttonDropdowns Bootstrap dropdowns}.
+	 * @param string $title Button title
+	 * @param mixed $url Cake-relative URL, array of URL parameters or external URL (starts with http://)
+	 * @param array $options HTML attributes
+	 * @return string Html
+	 */
+	public function linkDropdown($title, $url='#', $options=array()) {
+		//Add 'btn' and 'dropdown-toggle' classes
+		$options['class'] = empty($options['class']) ? 'btn dropdown-toggle' : $this->_cleanAttribute($options['class'].' btn dropdown-toggle');
+
+		//Add 'dropdown' data-toggle
+		$options['data-toggle'] = 'dropdown';
+
+		//"escape" option default false
+		$options['escape'] = empty($options['escape']) ? false : $options['escape'];
+
+		$title .= ' <span class="caret"></span>';
+
+		return $this->Html->link($title, '#', $options);
+	}
+
+	/**
 	 * Create a meta tag. Rewrite <i>$this->Html->meta()</i>
 	 *
 	 * For a custom meta tag, the first parameter should be set to an array. For example:
