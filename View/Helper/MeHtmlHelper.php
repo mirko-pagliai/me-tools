@@ -157,9 +157,6 @@ class MeHtmlHelper extends MeToolsAppHelper {
 		$title = !empty($options['icon']) ? $this->icon($options['icon']).$title : $title;
 		unset($options['icon']);
 
-		//Add the 'tooltip' data-toggle
-		$options['data-toggle'] = empty($options['data-toggle']) ? 'tooltip' : $this->_cleanAttribute($options['data-toggle'].' tooltip');
-
 		return $this->Html->link($title, $url, $options, $confirmMessage);
 	}
 
@@ -188,7 +185,7 @@ class MeHtmlHelper extends MeToolsAppHelper {
 	 */
 	public function linkDropdown($title, $url='#', $options=array()) {
 		//Add 'btn' and 'dropdown-toggle' classes
-		$options['class'] = empty($options['class']) ? 'btn dropdown-toggle' : $this->_cleanAttribute($options['class'].' btn dropdown-toggle');
+		$options['class'] = empty($options['class']) ? 'dropdown-toggle' : $this->_cleanAttribute($options['class'].' dropdown-toggle');
 
 		//Add 'dropdown' data-toggle
 		$options['data-toggle'] = 'dropdown';
@@ -198,7 +195,7 @@ class MeHtmlHelper extends MeToolsAppHelper {
 
 		$title .= ' <span class="caret"></span>';
 
-		return $this->Html->link($title, '#', $options);
+		return $this->link($title, '#', $options);
 	}
 
 	/**
