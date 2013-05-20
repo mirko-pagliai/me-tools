@@ -21,6 +21,6 @@ Then, create (or copy) a link to *thumber.php*:
 **MeTools** uses different libraries or scripts:
 
 - JQuery 1.9.1 and 2.0.0 ([site](http://jquery.com));
-- Bootstrap 2.3.1 ([site](http://twitter.github.com/bootstrap));
+- Bootstrap 2.3.2 ([site](http://twitter.github.com/bootstrap));
 - Thumber 0.5.6 ([site](https://code.google.com/p/phpthumbmaker));
 - Font Awesome 3.1.1 ([site](http://fortawesome.github.com/Font-Awesome)).
