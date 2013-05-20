@@ -125,6 +125,7 @@ form.form-inline input[type="checkbox"] {
 /* Main wrapper */
 .div-as-table {
 	clear: both;
+	color: #666;
 	margin-bottom: 20px;
 }
 
@@ -133,7 +134,7 @@ form.form-inline input[type="checkbox"] {
 	border: 1px solid #DDD;
     box-sizing: border-box;
     -moz-box-sizing: border-box; /* Firefox */
-	line-height: 20px;
+	line-height: 30px;
 	margin-bottom: -1px; /* Hide the lower border */
 	padding: 8px 12px;
 }
