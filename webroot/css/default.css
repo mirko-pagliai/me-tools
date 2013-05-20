@@ -57,6 +57,28 @@ form .error-message {
 	white-space: nowrap;
 }
 
+/* Images in carousel */
+.carousel .item > img {
+    margin: auto;
+}
+
+/* Carousel controls, icons (left and right) */
+.carousel .carousel-control i {
+	font-size: 30px;
+    font-weight: bold;
+    vertical-align: middle;
+}
+
+/* Carousel controls, left icon */
+.carousel .carousel-control.left i {
+    margin-left: -3px;
+}
+
+/* Carousel controls, right icon */
+.carousel .carousel-control.right i {
+    margin-right: -3px;
+}
+
 /* All input types*/
 textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input {
 	margin-bottom: 0;
