@@ -41,11 +41,15 @@ class MeHtmlHelper extends MeToolsAppHelper {
 	 * @param string|array $options HTML attributes
 	 * @return void
 	 */
-	public function addCrumb($name, $link=null, $options=null) {
+	public function addCrumb($title, $link=null, $options=null) {
 		//"escape" option default false
 		$options['escape'] = empty($options['escape']) ? false : $options['escape'];
 
-		return $this->Html->addCrumb($name, $link, $options);
+		//Add bootstrap icon to the title, if there's the 'icon' option
+		$title = !empty($options['icon']) ? $this->icon($options['icon']).$title : $title;
+		unset($options['icon']);
+
+		return $this->Html->addCrumb($title, $link, $options);
 	}
 
 	/**
