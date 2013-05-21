@@ -224,6 +224,7 @@ form.form-inline input[type="checkbox"] {
 }
 
 /* Small text */
+/* Remember you can use <small> element */
 .small {
 	font-size: 90%;
 }
