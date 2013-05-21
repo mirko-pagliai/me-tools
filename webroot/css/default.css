@@ -196,6 +196,11 @@ form.form-inline input[type="checkbox"] {
 	text-align: right;
 }
 
+/* Bold */
+.bold {
+	font-weight: bold;
+}
+
 /* Inline element */
 .inline {
 	display: inline;
