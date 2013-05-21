@@ -79,6 +79,11 @@ form .error-message {
     margin-right: -3px;
 }
 
+/* Links on navbar when using brand */
+.navbar .brand + .nav > li {
+    line-height: 24px;
+}
+
 /* Blockquote */
 blockquote {
 	text-align: justify;
