@@ -199,6 +199,7 @@ form.form-inline input[type="checkbox"] {
 /*		Common classes			*/
 /* ---------------------------- */
 /* Text align center */
+/* Deprecated: use instead ".text-center" */
 .align-center {
 	text-align: center;
 }
@@ -209,6 +210,7 @@ form.form-inline input[type="checkbox"] {
 }
 
 /* Text align right */
+/* Deprecated: use instead ".text-right" */
 .align-right {
 	text-align: right;
 }
@@ -224,7 +226,7 @@ form.form-inline input[type="checkbox"] {
 }
 
 /* Small text */
-/* Remember you can use <small> element */
+/* Remember you can use instead <small> element, that will set font size at 85% */
 .small {
 	font-size: 90%;
 }
