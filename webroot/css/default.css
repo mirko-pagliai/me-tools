@@ -79,9 +79,9 @@ form .error-message {
     margin-right: -3px;
 }
 
-/* Links on navbar when using brand */
-.navbar .brand + .nav > li {
-    line-height: 24px;
+/* Brand icon in navbar */
+.navbar .brand [class^="icon-"] {
+    line-height: 20px;
 }
 
 /* Blockquote */
