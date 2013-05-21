@@ -4,7 +4,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="generator" content="ApiGen 2.8.0" />
 
-	<title>Class ThumbHelper | MeTools</title>
+	<title>Class MarkdownHelper | MeTools</title>
 
 	<script type="text/javascript" src="resources/combined.js?394153670"></script>
 	<script type="text/javascript" src="elementlist.js?3755495438"></script>
@@ -44,11 +44,11 @@
 		<div id="elements">
 			<h3>Classes</h3>
 			<ul>
-				<li><a href="class-MarkdownHelper.html">MarkdownHelper</a></li>
+				<li class="active"><a href="class-MarkdownHelper.html">MarkdownHelper</a></li>
 				<li><a href="class-MeFormHelper.html">MeFormHelper</a></li>
 				<li><a href="class-MeHtmlHelper.html">MeHtmlHelper</a></li>
 				<li><a href="class-MeToolsAppHelper.html">MeToolsAppHelper</a></li>
-				<li class="active"><a href="class-ThumbHelper.html">ThumbHelper</a></li>
+				<li><a href="class-ThumbHelper.html">ThumbHelper</a></li>
 			</ul>
 
 
@@ -97,33 +97,16 @@
 	</div>
 
 <div id="content" class="class">
-	<h1>Class ThumbHelper</h1>
+	<h1>Class MarkdownHelper</h1>
 
 
 	<div class="description">
 	
-<p>ThumbHelper allows you to generate thumbnails of images, using <a href="https://code.google.com/p/phpthumbmaker">Thumber</a>.</p>
+<p>Convert the Markdown syntax to HTML.</p>
 
-<p>Before using ThumbHelper, the file <i>Plugin/MeTools/webroot/thumber.php</i>
-must be copied into <i>webroot/</i> (the webroot of your app).</p>
+<p>Look at <a href="http://michelf.ca/projects/php-markdown">PHP Markdown link</a>.</p>
 
-<p>This helper just returns the url of the thumb, then <i>thumber.php</i> will
-really create the thumb.</p>
-
-<p>The thumbnails will be created in <i>webroot/files/thumbs/</i> (the webroot
-of your app), which must be writable.</p>
-
-<p>Example, in your view:</p>
-
-<pre>
-<span class="php-keyword1">echo</span> <span
-class="php-var">$this</span>-&gt;Html-&gt;image(<span
-class="php-var">$this</span>-&gt;Thumb-&gt;getUrl(<span
-class="php-quote">'/path/to/image.jpg'</span>, <span
-class="php-num">200</span>));
-</pre>
-
-<hr />
+<p>Look at <a href="http://daringfireball.net/projects/markdown/syntax">Markdown syntax</a>.</p>
 
 <p>This file is part of MeTools.</p>
 
@@ -158,7 +141,7 @@ AppHelper
 		</dd>
 		<dd style="padding-left:60px">
 			<img src="resources/inherit.png" alt="Extended by" />
-<b><span>ThumbHelper</span></b>			
+<b><span>MarkdownHelper</span></b>			
 			
 			
 		</dd>
@@ -186,14 +169,14 @@ AppHelper
 href="mailto:mirko.pagliai&#64;gmail.com">mirko.pagliai&#64;<!---->gmail.com</a>&gt;<br />
 				<b>Link:</b>
 				<a href="http://git.novatlantis.it">Nova Atlantis Ltd</a><br />
-		<b>Located at</b> <a href="source-class-ThumbHelper.html#4-74" title="Go to source code">View/Helper/ThumbHelper.php</a><br />
+		<b>Located at</b> <a href="source-class-MarkdownHelper.html#6-43" title="Go to source code">View/Helper/MarkdownHelper.php</a><br />
 	</div>
 
 
 
 	<table class="summary" id="methods">
 	<caption>Methods summary</caption>
-	<tr data-order="getUrl" id="_getUrl">
+	<tr data-order="toHtml" id="_toHtml">
 
 		<td class="attributes"><code>
 			 public 
@@ -203,34 +186,30 @@ href="mailto:mirko.pagliai&#64;gmail.com">mirko.pagliai&#64;<!---->gmail.com</a>
 		</td>
 
 		<td class="name"><div>
-		<a class="anchor" href="#_getUrl">#</a>
-		<code><a href="source-class-ThumbHelper.html#42-73" title="Go to source code">getUrl</a>( <span>string <var>$path</var></span>, <span>string|integer <var>$width</var> = <span class="php-keyword1">null</span></span>, <span>string|integer <var>$height</var> = <span class="php-keyword1">null</span></span> )</code>
+		<a class="anchor" href="#_toHtml">#</a>
+		<code><a href="source-class-MarkdownHelper.html#35-42" title="Go to source code">toHtml</a>( <span>string <var>$string</var></span> )</code>
 
 		<div class="description short">
 			
-<p>Get the url of a photo thumbnail</p>
+<p>Convert a string with the Markdown syntax to HTML</p>
 
 		</div>
 
 		<div class="description detailed hidden">
 			
-<p>Get the url of a photo thumbnail</p>
+<p>Convert a string with the Markdown syntax to HTML</p>
 
 
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
-					<dt><var>$path</var></dt>
-					<dd><code>string</code><br>$path Image path</dd>
-					<dt><var>$width</var></dt>
-					<dd><code>string|integer</code><br>$width Thumb width</dd>
-					<dt><var>$height</var></dt>
-					<dd><code>string|integer</code><br>$height Thumb height</dd>
+					<dt><var>$string</var></dt>
+					<dd><code>string</code><br>$string String with the Markdown syntax</dd>
 				</dl></div>
 
 				<h4>Returns</h4>
 				<div class="list">
-					<code>string</code><br>Thumb url<br />
+					<code>string</code><br>Html<br />
 				</div>
 
 
