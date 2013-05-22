@@ -50,16 +50,29 @@ form .error-message {
 }
 
 /* ---------------------------- */
+/*			Grid system			*/
 /*		Bootstrap rewrite		*/
 /* ---------------------------- */
-/* Column in grid system */
-[class*="span"] {
-	margin-bottom: 10px;
+/* Row on grid system */
+.row {
+	margin-bottom: 20px;
 }
 
+/* ---------------------------- */
+/*		Bootstrap rewrite		*/
+/* ---------------------------- */
 /* Buttons */
 .btn {
 	white-space: nowrap;
+}
+
+/* Carousel title */
+.carousel > h2 {
+	background: #505050;
+    color: #FFF;
+    font-size: 22px;
+    margin: 0;
+    padding: 10px 15px;
 }
 
 /* Images in carousel */
@@ -220,6 +233,7 @@ form.form-inline input[type="checkbox"] {
 }
 
 /* Text align justify */
+/* Deprecated: use instead ".text-justify" */
 .align-justify {
 	text-align: justify;
 }
@@ -244,6 +258,11 @@ form.form-inline input[type="checkbox"] {
 /* Remember you can use instead <small> element, that will set font size at 85% */
 .small {
 	font-size: 90%;
+}
+
+/* Text align justify */
+.text-justify {
+	text-align: justify;
 }
 
 /* Vertical align bottom */
