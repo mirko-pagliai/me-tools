@@ -224,26 +224,36 @@ form.form-inline input[type="checkbox"] {
 }
 
 /* ---------------------------- */
+/*			Simple well			*/
+/* ---------------------------- */
+/* Simple well */
+.well-simple {
+	background: #F6F6F6;
+	border-radius: 10px;
+	font-size: 18px;
+	line-height: 30px;
+	margin-bottom: 20px;
+	padding: 30px 40px;
+}
+
+/* Paragraph (direct children) in simple well */
+.well-simple > p {
+	margin-bottom: 20px;
+}
+
+/* Paragraph (last children) in simple well */
+.well-simple > p:last-child {
+	margin: 0;
+}
+
+/* Blockquote in simple well */
+.well-simple blockquote {
+	border-color: #ddd;
+}
+
+/* ---------------------------- */
 /*		Common classes			*/
 /* ---------------------------- */
-/* Text align center */
-/* Deprecated: use instead ".text-center" */
-.align-center {
-	text-align: center;
-}
-
-/* Text align justify */
-/* Deprecated: use instead ".text-justify" */
-.align-justify {
-	text-align: justify;
-}
-
-/* Text align right */
-/* Deprecated: use instead ".text-right" */
-.align-right {
-	text-align: right;
-}
-
 /* Bold */
 .bold {
 	font-weight: bold;
@@ -278,29 +288,4 @@ form.form-inline input[type="checkbox"] {
 /* Vertical align top */
 .valign-top {
 	vertical-align: top;
-}
-
-/* Simple well */
-.well-simple {
-	background: #F6F6F6;
-	border-radius: 10px;
-	font-size: 18px;
-	line-height: 30px;
-	margin-bottom: 20px;
-	padding: 30px 40px;
-}
-
-/* Paragraph (direct children) in simple well */
-.well-simple > p {
-	margin-bottom: 20px;
-}
-
-/* Paragraph (last children) in simple well */
-.well-simple > p:last-child {
-	margin: 0;
-}
-
-/* Blockquote in simple well */
-.well-simple blockquote {
-	border-color: #ddd;
 }
