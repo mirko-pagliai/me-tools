@@ -4,7 +4,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="generator" content="ApiGen 2.8.0" />
 
-	<title>Class MarkdownHelper | MeTools</title>
+	<title>Class RecaptchaHelper | MeTools</title>
 
 	<script type="text/javascript" src="resources/combined.js?394153670"></script>
 	<script type="text/javascript" src="elementlist.js?375375752"></script>
@@ -44,11 +44,11 @@
 		<div id="elements">
 			<h3>Classes</h3>
 			<ul>
-				<li class="active"><a href="class-MarkdownHelper.html">MarkdownHelper</a></li>
+				<li><a href="class-MarkdownHelper.html">MarkdownHelper</a></li>
 				<li><a href="class-MeFormHelper.html">MeFormHelper</a></li>
 				<li><a href="class-MeHtmlHelper.html">MeHtmlHelper</a></li>
 				<li><a href="class-MeToolsAppHelper.html">MeToolsAppHelper</a></li>
-				<li><a href="class-RecaptchaHelper.html">RecaptchaHelper</a></li>
+				<li class="active"><a href="class-RecaptchaHelper.html">RecaptchaHelper</a></li>
 				<li><a href="class-ThumbHelper.html">ThumbHelper</a></li>
 			</ul>
 
@@ -98,16 +98,15 @@
 	</div>
 
 <div id="content" class="class">
-	<h1>Class MarkdownHelper</h1>
+	<h1>Class RecaptchaHelper</h1>
 
 
 	<div class="description">
 	
-<p>Convert the Markdown syntax to HTML.</p>
+<p>Recaptcha functions.</p>
 
-<p>Look at <a href="http://michelf.ca/projects/php-markdown">PHP Markdown link</a>.</p>
-
-<p>Look at <a href="http://daringfireball.net/projects/markdown/syntax">Markdown syntax</a>.</p>
+<p>Before using this helper, please configure Recaptcha keys in
+Config/recaptcha.php</p>
 
 <p>This file is part of MeTools.</p>
 
@@ -142,7 +141,7 @@ AppHelper
 		</dd>
 		<dd style="padding-left:60px">
 			<img src="resources/inherit.png" alt="Extended by" />
-<b><span>MarkdownHelper</span></b>			
+<b><span>RecaptchaHelper</span></b>			
 			
 			
 		</dd>
@@ -170,14 +169,47 @@ AppHelper
 href="mailto:mirko.pagliai&#64;gmail.com">mirko.pagliai&#64;<!---->gmail.com</a>&gt;<br />
 				<b>Link:</b>
 				<a href="http://git.novatlantis.it">Nova Atlantis Ltd</a><br />
-		<b>Located at</b> <a href="source-class-MarkdownHelper.html#6-43" title="Go to source code">View/Helper/MarkdownHelper.php</a><br />
+		<b>Located at</b> <a href="source-class-RecaptchaHelper.html#5-91" title="Go to source code">View/Helper/RecaptchaHelper.php</a><br />
 	</div>
 
 
 
 	<table class="summary" id="methods">
 	<caption>Methods summary</caption>
-	<tr data-order="toHtml" id="_toHtml">
+	<tr data-order="__construct" id="___construct">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#___construct">#</a>
+		<code><a href="source-class-RecaptchaHelper.html#44-59" title="Go to source code">__construct</a>( <span>View <var>$View</var></span>, <span>mixed <var>$settings</var> = <span class="php-keyword1">array</span>()</span> )</code>
+
+		<div class="description short">
+			
+<p>Construct</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Construct</p>
+
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="mailLink" id="_mailLink">
 
 		<td class="attributes"><code>
 			 public 
@@ -187,30 +219,84 @@ href="mailto:mirko.pagliai&#64;gmail.com">mirko.pagliai&#64;<!---->gmail.com</a>
 		</td>
 
 		<td class="name"><div>
-		<a class="anchor" href="#_toHtml">#</a>
-		<code><a href="source-class-MarkdownHelper.html#35-42" title="Go to source code">toHtml</a>( <span>string <var>$string</var></span> )</code>
+		<a class="anchor" href="#_mailLink">#</a>
+		<code><a href="source-class-RecaptchaHelper.html#61-79" title="Go to source code">mailLink</a>( <span>string <var>$title</var></span>, <span>string <var>$mail</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
-<p>Convert a string with the Markdown syntax to HTML</p>
+<p>Create an HTML link for an hidden email. The link will be open in a
+popup.</p>
 
 		</div>
 
 		<div class="description detailed hidden">
 			
-<p>Convert a string with the Markdown syntax to HTML</p>
+<p>Create an HTML link for an hidden email. The link will be open in a
+popup.</p>
+
+<p>It uses <i>MeHtml::link()</i> to create the link and <i>mailUrl()</i> to get
+the url of the email hidden</p>
 
 
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
-					<dt><var>$string</var></dt>
-					<dd><code>string</code><br>$string String with the Markdown syntax</dd>
+					<dt><var>$title</var></dt>
+					<dd><code>string</code><br>$title Link title</dd>
+					<dt><var>$mail</var></dt>
+					<dd><code>string</code><br>$mail Email to hide</dd>
+					<dt><var>$options</var></dt>
+					<dd><code>array</code><br>$options HTML attributes</dd>
 				</dl></div>
 
 				<h4>Returns</h4>
 				<div class="list">
 					<code>string</code><br>Html<br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="mailUrl" id="_mailUrl">
+
+		<td class="attributes"><code>
+			 public 
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_mailUrl">#</a>
+		<code><a href="source-class-RecaptchaHelper.html#81-90" title="Go to source code">mailUrl</a>( <span>string <var>$mail</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Get the url for an hidden email.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Get the url for an hidden email.</p>
+
+<p>Note that this method will only return a url. To create a link is better to
+use <i>mailLink()</i></p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$mail</var></dt>
+					<dd><code>string</code><br>$mail Email to hide</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>string</code><br>Url<br />
 				</div>
 
 
@@ -240,6 +326,63 @@ href="mailto:mirko.pagliai&#64;gmail.com">mirko.pagliai&#64;<!---->gmail.com</a>
 
 
 
+	<table class="summary" id="properties">
+	<caption>Properties summary</caption>
+	<tr data-order="mail_keys" id="$mail_keys">
+		<td class="attributes"><code>
+			private  
+			array
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-RecaptchaHelper.html#32-36" title="Go to source code"><var>$mail_keys</var></a>
+		</td>
+		<td class="value"><code><span class="php-keyword1">false</span></code></td>
+		<td class="description"><div>
+			<a href="#$mail_keys" class="anchor">#</a>
+
+			<div class="description short">
+				
+<p>Mail keys</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Mail keys</p>
+
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="helpers" id="$helpers">
+		<td class="attributes"><code>
+			public  
+			array
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-RecaptchaHelper.html#38-42" title="Go to source code"><var>$helpers</var></a>
+		</td>
+		<td class="value"><code><span class="php-keyword1">array</span>(<span class="php-quote">'MeTools.MeHtml'</span>)</code></td>
+		<td class="description"><div>
+			<a href="#$helpers" class="anchor">#</a>
+
+			<div class="description short">
+				
+<p>Helpers</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Helpers</p>
+
+
+			</div>
+		</div></td>
+	</tr>
+	</table>
 
 
 
