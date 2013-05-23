@@ -102,6 +102,11 @@ form .error-message {
     line-height: 20px;
 }
 
+/* Dropdown links */
+.dropdown-menu > li > a {
+	font-weight: bold;
+}
+
 /* Blockquote */
 blockquote {
 	text-align: justify;
