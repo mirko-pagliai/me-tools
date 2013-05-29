@@ -94,6 +94,24 @@ class MeFormHelper extends MeToolsAppHelper {
 
 		return $submit.$this->Form->end();
 	}
+	
+	/**
+	 * Check and return a value if this is not empty, else return a default value.
+	 * 
+	 * It can be useful with the "selected" option, to get a value if this exists or use a default. For example:  
+	 * <pre>'selected' => @$this->MeForm->getDefault($this->request->data['User']['group'], 'user')</pre>
+	 * Set the "selected" option to 
+	 * <pre>$this->request->data['User']['group']</pre>
+	 * if this exists (for example, if the form has already been sent), else it will use the "user" default value.
+	 * 
+	 * It must be used with the "@" operator, otherwise it will generate a notice.
+	 * @param string $value Value to check
+	 * @param string $default Default value
+	 * @return string Value to check if this is not empty, else default value
+	 */
+	public function getDefault($value, $default) {
+		return !empty($value) ? $value : $default;
+	}
 
 	/**
 	 * Create an input element. Rewrite <i>$this->Form->input()</i>
