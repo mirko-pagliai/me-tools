@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Application level controller.
+ * Provides methods for using text file as database.
  *
  * This file is part of MeTools.
  *
