@@ -120,7 +120,7 @@ class FileArray  {
 	 * @param mixed $data Data
 	 * @return boolean Success
 	 */
-	public function edit($key, $data) {
+	public function edit($key, $data=array()) {
 		//Return false if the key doesn't exists
 		if(!$this->exists($key))
 			return false;
@@ -211,7 +211,7 @@ class FileArray  {
 	 * @return bool Success
 	 * @throws InternalErrorException
 	 */
-	public function insert($key, $data) {
+	public function insert($key=null, $data=array()) {
 		//If existing data are empty
 		if(empty($this->content)) {
 			//Inizialize the array
