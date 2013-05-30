@@ -57,6 +57,31 @@ class FileArray  {
 	}
 	
 	/**
+	 * Internal function to filter data
+	 * @param array $conditions Conditions
+	 * @return mixed Results or NULL
+	 */
+	private function __filter($conditions=array()) {
+		//Return NULL if there're no conditions
+		if(!empty($conditions) || !is_array($conditions))
+			return null;
+		
+		//Empty array
+		$results = array();
+		
+		foreach($this->content as $k => $record) {
+			//Note: array_diff_assoc() return an array containing all the values from array1 that are not present in array2
+			//So, all the values of array1 are included in array2 when array_diff_assoc() returns an empty array
+			$diff = array_diff_assoc($conditions, $record);
+			//If all the conditions are included in the current record
+			if(!count($diff))
+				$results[$k] = $record;
+		}
+		
+		return !empty($results) ? $results : null;
+	}
+	
+	/**
 	 * Internal function to read data
 	 * @return mixed Existing data. NULL if there's no existing data or if the file doesn't exist
 	 */
@@ -88,10 +113,19 @@ class FileArray  {
 	
 	/**
 	 * Get the record count
+	 * @param array $conditions Conditions
 	 * @return int Count
 	 */
-	public function count() {
-		return count($this->content);
+	public function count($conditions=array()) {
+		//Return 0 if there's no content
+		if(empty($this->content))
+			return 0;
+		
+		//If there're conditions
+		if(!empty($conditions) && is_array($conditions))
+			return count($this->__filter($conditions));
+		else
+			return count($this->content);
 	}
 	
 	/**
@@ -100,7 +134,7 @@ class FileArray  {
 	 * @return boolean Success
 	 */
 	public function delete($key) {
-		//Return false if the key doesn't exists
+		//Return FALSE if the key doesn't exists
 		if(!$this->exists($key))
 			return false;
 		
@@ -121,7 +155,7 @@ class FileArray  {
 	 * @return boolean Success
 	 */
 	public function edit($key, $data=array()) {
-		//Return false if the key doesn't exists
+		//Return FALSE if the key doesn't exists
 		if(!$this->exists($key))
 			return false;
 
@@ -177,7 +211,7 @@ class FileArray  {
 	 * @return mixed Record
 	 */
 	public function findByKey($key) {
-		//Return false if the key doesn't exists
+		//Return FALSE if the key doesn't exists
 		if(!$this->exists($key))
 			return false;
 		
@@ -186,22 +220,34 @@ class FileArray  {
 	
 	/**
 	 * Get all records
-	 * @return array All records
+	 * @param array $conditions Conditions
+	 * @return mixed All records or NULL
 	 */
-	public function getAll() {
-		return $this->content;
+	public function getAll($conditions=null) {
+		//If there're conditions
+		if(!empty($conditions) && is_array($conditions))
+			return $this->__filter($conditions);
+		else
+			return $this->content;
 	}
 	
 	/**
 	 * Get the first record
-	 * @return array First record
+	 * @param array $conditions Conditions
+	 * @return mixed First record founded or NULL
 	 */
-	public function getFirst() {
+	public function getFirst($conditions=null) {
 		//Return NULL if there's no content
 		if(empty($this->content))
 			return null;
 		
-		return reset($this->content);
+		//If there're conditions
+		if(!empty($conditions) && is_array($conditions)) {
+			$results = $this->__filter($conditions);
+			return !empty($results) ? reset($results) : null;
+		}
+		else
+			return reset($this->content);
 	}
 	
 	/**
