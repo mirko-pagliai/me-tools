@@ -62,9 +62,9 @@ class FileArray  {
 	 * @return mixed Results or NULL
 	 */
 	private function __filter($conditions=array()) {
-		//Return NULL if there're no conditions
-		if(!empty($conditions) || !is_array($conditions))
-			return null;
+		//Return all content if there're no conditions
+		if(empty($conditions) || !is_array($conditions))
+			return $this->content;
 		
 		//Empty array
 		$results = array();
@@ -116,11 +116,7 @@ class FileArray  {
 	 * @param array $conditions Conditions
 	 * @return int Count
 	 */
-	public function count($conditions=array()) {
-		//Return 0 if there's no content
-		if(empty($this->content))
-			return 0;
-		
+	public function count($conditions=array()) {		
 		//If there're conditions
 		if(!empty($conditions) && is_array($conditions))
 			return count($this->__filter($conditions));
@@ -223,7 +219,7 @@ class FileArray  {
 	 * @param array $conditions Conditions
 	 * @return mixed All records or NULL
 	 */
-	public function getAll($conditions=null) {
+	public function getAll($conditions=array()) {
 		//If there're conditions
 		if(!empty($conditions) && is_array($conditions))
 			return $this->__filter($conditions);
@@ -236,7 +232,7 @@ class FileArray  {
 	 * @param array $conditions Conditions
 	 * @return mixed First record founded or NULL
 	 */
-	public function getFirst($conditions=null) {
+	public function getFirst($conditions=array()) {
 		//Return NULL if there's no content
 		if(empty($this->content))
 			return null;
