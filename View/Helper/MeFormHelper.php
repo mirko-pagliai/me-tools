@@ -68,30 +68,24 @@ class MeFormHelper extends MeToolsAppHelper {
 
 		return $this->Form->button($caption, $options);
 	}
-
+	
 	/**
 	 * Close a form. Rewrite <i>$this->Form->end()</i> and use the <i>button()</i> method
 	 *
 	 * If $options is set, a submit button will be created. Options can be either a string or an array
 	 *
 	 * Look at {@link http://api.cakephp.org/2.4/class-FormHelper.html#_end CakePHP Api}
-	 * @param mixed $options A string or an array for the submit button
-	 * @return string a closing FORM tag, optional with a submit button
+	 * @param string $caption The label appearing on the submit button or an image
+	 * @param array $options Options
+	 * @return string Html
 	 */
-	public function end($options=null) {
-		$submit = null;
+	public function end($caption=null, $options=null) {
+		//If the "label" option is not empty, unset
+		if(!empty($options['label']))
+			unset($options['label']);
 
-		if(!empty($options)) {
-			//If passed a string, the string will be the caption
-			if(is_string($options))
-				$submit = $this->submit($options);
-			//Elseif, if passed the "label" option, this option will be the caption
-			elseif(!empty($options['label'])) {
-				$submit = $this->submit($options['label'], $options);
-				unset($options['label']);
-			}
-		}
-
+		$submit = !empty($caption) ? $this->submit($caption, $options) : null;
+		
 		return $submit.$this->Form->end();
 	}
 	
