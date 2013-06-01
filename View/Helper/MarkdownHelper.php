@@ -1,5 +1,5 @@
 <?php
-App::uses('MeToolsAppHelper', 'MeTools.View/Helper');
+App::uses('AppHelper', 'View/Helper');
 App::import('Vendor', 'MeTools.Markdown/Markdown');
 use \Michelf\Markdown;
 
@@ -31,7 +31,7 @@ use \Michelf\Markdown;
  * @link		http://git.novatlantis.it Nova Atlantis Ltd
  * @package		MeTools.View.Helper
  */
-class MarkdownHelper extends MeToolsAppHelper {
+class MarkdownHelper extends AppHelper {
 	/**
 	 * Convert a string with the Markdown syntax to HTML
 	 * @param string $string String with the Markdown syntax
