@@ -1,5 +1,5 @@
 <?php
-App::uses('MeToolsAppHelper', 'MeTools.View/Helper');
+App::uses('AppHelper', 'View/Helper');
 App::import('Vendor', 'MeTools.Recaptcha/recaptchalib');
 
 /**
@@ -28,7 +28,7 @@ App::import('Vendor', 'MeTools.Recaptcha/recaptchalib');
  * @link		http://git.novatlantis.it Nova Atlantis Ltd
  * @package		MeTools.View.Helper
  */
-class RecaptchaHelper extends MeToolsAppHelper {
+class RecaptchaHelper extends AppHelper {
 	/**
 	 * Mail keys
 	 * @var array

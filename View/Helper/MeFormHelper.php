@@ -32,7 +32,7 @@ class MeFormHelper extends FormHelper {
 	 * Helpers used
 	 * @var array Helpers
 	 */
-	public $helpers = array('MeTools.MeHtml');
+	public $helpers = array('Html', 'MeTools.MeHtml');
 
 	/**
 	 * Creates a form. Rewrites <i>$this->Form->create()</i>

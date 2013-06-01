@@ -1,5 +1,5 @@
 <?php
-App::uses('MeToolsAppHelper', 'MeTools.View/Helper');
+App::uses('AppHelper', 'View/Helper');
 
 /**
  * ThumbHelper allows you to generate thumbnails of images, using {@link https://code.google.com/p/phpthumbmaker Thumber}.
@@ -14,8 +14,6 @@ App::uses('MeToolsAppHelper', 'MeTools.View/Helper');
  * <code>
  * echo $this->Html->image($this->Thumb->getUrl('/path/to/image.jpg', 200));
  * </code>
- *
- * ---
  *
  * This file is part of MeTools.
  *
@@ -38,7 +36,7 @@ App::uses('MeToolsAppHelper', 'MeTools.View/Helper');
  * @link		http://git.novatlantis.it Nova Atlantis Ltd
  * @package		MeTools.View.Helper
  */
-class ThumbHelper extends MeToolsAppHelper {
+class ThumbHelper extends AppHelper {
 	/**
 	 * Get the url of a photo thumbnail
 	 * @param string $path Image path

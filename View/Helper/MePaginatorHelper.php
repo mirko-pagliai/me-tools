@@ -32,7 +32,7 @@ class MePaginatorHelper extends PaginatorHelper {
 	 * Helpers used
 	 * @var array Helpers 
 	 */
-	public $helpers = array('MeTools.MeHtml', 'Html');
+	public $helpers = array('Html', 'MeTools.MeHtml');
 	
 	/**
 	 * Internal function per jump links. It's used by <i>$this->next()</i> and <i>$this->prev()</i>
