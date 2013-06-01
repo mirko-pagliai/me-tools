@@ -277,6 +277,7 @@ table.cake-sql-log {
 	font-family: Monaco,Consolas,"Courier New",monospaced;
 	font-size: 12px;
 	margin-bottom: 25px;
+	width: 100%;
 }
 
 /* Table caption */
