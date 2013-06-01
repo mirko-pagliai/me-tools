@@ -119,23 +119,41 @@ class MeFormHelper extends FormHelper {
 	}
 
 	/**
-	 * Creates a button with a surrounding form that submits via POST. Rewrites <i>$this->Form->postButton()</i>
+	 * Creates a button with a surrounding form that submits via POST. Rewrites <i>$this->Form->postButton()</i> 
+	 * and uses <i>$this->Form->postLink()</i>
 	 *
-	 * This method creates a form element. So don't use this method in an already opened form.
+	 * This method creates a form element. So don't use this method in an already opened form
 	 * @param string $title Button title
 	 * @param mixed $url Cake-relative URL, array of URL parameters or external URL (starts with http://)
 	 * @param array $options HTML attributes
 	 * @return string Html
 	 */
-	public function postButton($title, $url, $options = array()) {
+	public function postButton($title, $url, $options=array(), $confirmMessage=false) {
 		//"class" option default "btn"
 		$options['class'] = empty($options['class']) ? 'btn' : $this->MeHtml->cleanAttribute($options['class'].' btn');
+
+		return $this->postLink($title, $url, $options, $confirmMessage);
+	}
+	
+	/**
+	 * Creates a link with a surrounding form that submits via POST. Rewrites <i>$this->Form->postLink()</i>
+	 * 
+	 * This method creates a form element. So don't use this method in an already opened form
+	 * @param string $title Button title
+	 * @param mixed $url Cake-relative URL, array of URL parameters or external URL (starts with http://)
+	 * @param array $options HTML attributes
+	 * @param string $confirmMessage JavaScript confirmation message
+	 * @return string Html
+	 */
+	public function postLink($title, $url=null, $options=array(), $confirmMessage=false) {
+		//"escape" option default FALSE
+		$options['escape'] = empty($options['escape']) ? false : $options['escape'];
 
 		//Adds bootstrap icon to the title, if there's the "icon" option
 		$title = !empty($options['icon']) ? $this->MeHtml->icon($options['icon']).$title : $title;
 		unset($options['icon']);
-
-		return parent::postButton($title, $url, $options);
+		
+		return parent::postLink($title, $url, $options, $confirmMessage);
 	}
 
 	/**
@@ -163,7 +181,7 @@ class MeFormHelper extends FormHelper {
 	 * @return string Html
 	 */
 	public function select($fieldName, $options=array(), $attributes=array()) {
-		//"escape" attribute default false
+		//"escape" attribute default FALSE
 		$attributes['escape'] = empty($attributes['escape']) ? false : $attributes['escape'];
 
 		return parent::select($fieldName, $options, $attributes);
