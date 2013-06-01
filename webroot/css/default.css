@@ -49,6 +49,12 @@ form .error-message {
     padding: 4px 8px;
 }
 
+/* Actions cell on index table */
+.index table td.actions {
+	width: 1px;
+	white-space: nowrap;
+}
+
 /* ---------------------------- */
 /*		Bootstrap rewrite		*/
 /* ---------------------------- */
