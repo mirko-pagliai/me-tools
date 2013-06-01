@@ -4,10 +4,10 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="generator" content="ApiGen 2.8.0" />
 
-	<title>Class MeToolsAppHelper | MeTools</title>
+	<title>Class FileArrayAuthenticate | MeTools</title>
 
 	<script type="text/javascript" src="resources/combined.js?394153670"></script>
-	<script type="text/javascript" src="elementlist.js?375375752"></script>
+	<script type="text/javascript" src="elementlist.js?3430338947"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360" />
 
 </head>
@@ -23,16 +23,18 @@
 			<ul>
 				<li class="active main"><a href="package-MeTools.html">MeTools<span></span></a>
 						<ul>
-				<li class="main"><a href="package-MeTools.Controller.html">Controller<span></span></a>
+				<li class="active main"><a href="package-MeTools.Controller.html">Controller<span></span></a>
 						<ul>
-				<li class="main"><a href="package-MeTools.Controller.Component.html">Component</a>
+				<li class="active main"><a href="package-MeTools.Controller.Component.html">Component<span></span></a>
+						<ul>
+				<li class="active main"><a href="package-MeTools.Controller.Component.Auth.html">Auth</a>
 						</li>
-							</ul></li>
+							</ul></li></ul></li>
 				<li class="main"><a href="package-MeTools.Model.html">Model</a>
 						</li>
-				<li class="active main"><a href="package-MeTools.View.html">View<span></span></a>
+				<li class="main"><a href="package-MeTools.View.html">View<span></span></a>
 						<ul>
-				<li class="active main"><a href="package-MeTools.View.Helper.html">Helper</a>
+				<li class="main"><a href="package-MeTools.View.Helper.html">Helper</a>
 						</li>
 							</ul></li></ul></li>
 			</ul>
@@ -44,12 +46,7 @@
 		<div id="elements">
 			<h3>Classes</h3>
 			<ul>
-				<li><a href="class-MarkdownHelper.html">MarkdownHelper</a></li>
-				<li><a href="class-MeFormHelper.html">MeFormHelper</a></li>
-				<li><a href="class-MeHtmlHelper.html">MeHtmlHelper</a></li>
-				<li class="active"><a href="class-MeToolsAppHelper.html">MeToolsAppHelper</a></li>
-				<li><a href="class-RecaptchaHelper.html">RecaptchaHelper</a></li>
-				<li><a href="class-ThumbHelper.html">ThumbHelper</a></li>
+				<li class="active"><a href="class-FileArrayAuthenticate.html">FileArrayAuthenticate</a></li>
 			</ul>
 
 
@@ -77,7 +74,7 @@
 				<a href="index.html" title="Overview"><span>Overview</span></a>
 			</li>
 			<li>
-				<a href="package-MeTools.View.Helper.html" title="Summary of MeTools\View\Helper"><span>Package</span></a>
+				<a href="package-MeTools.Controller.Component.Auth.html" title="Summary of MeTools\Controller\Component\Auth"><span>Package</span></a>
 			</li>
 			<li class="active">
 <span>Class</span>			</li>
@@ -98,14 +95,26 @@
 	</div>
 
 <div id="content" class="class">
-	<h1>Class MeToolsAppHelper</h1>
+	<h1>Class FileArrayAuthenticate</h1>
 
 
 	<div class="description">
 	
-<p>Application level view helper.</p>
+<p>An authentication adapter for AuthComponent. Provides the ability to
+authenticate using POST data, using an array of user data in the file
+<i>APP/user.txt</i> and generated through the <i>FileArray</i> utility.</p>
 
-<p>This file is application-wide helper file.</p>
+<p>Can be used by configuring AuthComponent to use it via the
+AuthComponent::$authenticate setting.</p>
+
+<p>{{{ $this-&gt;Auth-&gt;authenticate = array( 'Form' =&gt; array( 'scope'
+=&gt; array('User.active' =&gt; 1) ) ) }}}</p>
+
+<p>When configuring FormAuthenticate you can pass in settings to which fields,
+model and additional conditions are used. See FormAuthenticate::$settings for
+more information.</p>
+
+<p>This file is part of MeTools.</p>
 
 <p>MeTools is free software: you can redistribute it and/or modify it under the
 terms of the GNU Affero General Public License as published by the Free Software
@@ -125,27 +134,19 @@ href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>&gt;.</p>
 
 	<dl class="tree">
 		<dd style="padding-left:0px">
-AppHelper
+FormAuthenticate
 			
 			
 		</dd>
 		<dd style="padding-left:30px">
 			<img src="resources/inherit.png" alt="Extended by" />
-<b><span>MeToolsAppHelper</span></b>			
+<b><span>FileArrayAuthenticate</span></b>			
 			
 			
 		</dd>
 	</dl>
 
 
-	<div>
-		<h4>Direct known subclasses</h4>
-			<a href="class-MarkdownHelper.html">MarkdownHelper</a>, 
-			<a href="class-MeFormHelper.html">MeFormHelper</a>, 
-			<a href="class-MeHtmlHelper.html">MeHtmlHelper</a>, 
-			<a href="class-RecaptchaHelper.html">RecaptchaHelper</a>, 
-			<a href="class-ThumbHelper.html">ThumbHelper</a>
-	</div>
 
 
 
@@ -156,7 +157,7 @@ AppHelper
 		
 		
 		
-		<b>Package:</b> <a href="package-MeTools.html">MeTools</a>\<a href="package-MeTools.View.html">View</a>\<a href="package-MeTools.View.Helper.html">Helper</a><br />
+		<b>Package:</b> <a href="package-MeTools.html">MeTools</a>\<a href="package-MeTools.Controller.html">Controller</a>\<a href="package-MeTools.Controller.Component.html">Component</a>\<a href="package-MeTools.Controller.Component.Auth.html">Auth</a><br />
 
 				<b>Copyright:</b>
 				Copyright (c) 2013, Mirko Pagliai for Nova Atlantis Ltd<br />
@@ -167,61 +168,59 @@ AppHelper
 href="mailto:mirko.pagliai&#64;gmail.com">mirko.pagliai&#64;<!---->gmail.com</a>&gt;<br />
 				<b>Link:</b>
 				<a href="http://git.novatlantis.it">Nova Atlantis Ltd</a><br />
-		<b>Located at</b> <a href="source-class-MeToolsAppHelper.html#3-50" title="Go to source code">View/Helper/MeToolsAppHelper.php</a><br />
+		<b>Located at</b> <a href="source-class-FileArrayAuthenticate.html#5-75" title="Go to source code">Controller/Component/Auth/FileArrayAuthenticate.php</a><br />
 	</div>
 
 
 
 	<table class="summary" id="methods">
 	<caption>Methods summary</caption>
-	<tr data-order="_cleanAttribute" id="__cleanAttribute">
+	<tr data-order="authenticate" id="_authenticate">
 
 		<td class="attributes"><code>
-			 protected 
-			string
+			 public 
+			mixed
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
-		<a class="anchor" href="#__cleanAttribute">#</a>
-		<code><a href="source-class-MeToolsAppHelper.html#28-49" title="Go to source code">_cleanAttribute</a>( <span>string <var>$value</var></span> )</code>
+		<a class="anchor" href="#_authenticate">#</a>
+		<code><a href="source-class-FileArrayAuthenticate.html#44-74" title="Go to source code">authenticate</a>( <span>CakeRequest <var>$request</var></span>, <span>CakeResponse <var>$response</var></span> )</code>
 
 		<div class="description short">
 			
-<p>Clean the value of an html attribute, removing blank spaces and
-duplicates</p>
+<p>Authenticates the identity contained in a request. Will use the
+<code>settings.userModel</code>, and <code>settings.fields</code> to find POST
+data that is used to find a matching record in the
+<code>settings.userModel</code>. Will return false if there is no post data,
+either username or password is missing, of if the scope conditions have not been
+met.</p>
 
 		</div>
 
 		<div class="description detailed hidden">
 			
-<p>Clean the value of an html attribute, removing blank spaces and
-duplicates</p>
-
-<p>For example, the string (and attribute value):</p>
-
-<pre>
-a a b  b c d e e e
-</pre>
-
-<p>will become:</p>
-
-<pre>
-a b c d e
-</pre>
+<p>Authenticates the identity contained in a request. Will use the
+<code>settings.userModel</code>, and <code>settings.fields</code> to find POST
+data that is used to find a matching record in the
+<code>settings.userModel</code>. Will return false if there is no post data,
+either username or password is missing, of if the scope conditions have not been
+met.</p>
 
 
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
-					<dt><var>$value</var></dt>
-					<dd><code>string</code><br>$value attribute value</dd>
+					<dt><var>$request</var></dt>
+					<dd><code>CakeRequest</code><br>$request The request that contains login information.</dd>
+					<dt><var>$response</var></dt>
+					<dd><code>CakeResponse</code><br>$response Unused response object.</dd>
 				</dl></div>
 
 				<h4>Returns</h4>
 				<div class="list">
-					<code>string</code><br>cleaned value<br />
+					<code>mixed</code><br>An array of user data or FALSE on login failure.<br />
 				</div>
 
 
