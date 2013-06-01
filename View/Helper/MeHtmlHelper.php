@@ -1,8 +1,10 @@
 <?php
-App::uses('MeToolsAppHelper', 'MeTools.View/Helper');
+App::uses('HtmlHelper', 'View/Helper');
 
 /**
- * Provides extended functionalities for html.
+ * Provides extended functionalities for HTML code.
+ *   
+ * Rewrites the {@link http://api.cakephp.org/2.4/class-HtmlHelper.html HtmlHelper}.
  *
  * This file is part of MeTools.
  *
@@ -25,20 +27,12 @@ App::uses('MeToolsAppHelper', 'MeTools.View/Helper');
  * @link		http://git.novatlantis.it Nova Atlantis Ltd
  * @package		MeTools.View.Helper
  */
-class MeHtmlHelper extends MeToolsAppHelper {
+class MeHtmlHelper extends HtmlHelper {
 	/**
-	 * Helpers used
-	 * @var array Helpers name
-	 */
-	public $helpers = array('Html');
-
-	/**
-	 * Adds a link to the breadcrumbs array. Rewrite <i>$this->Html->addCrumb()</i>
-	 *
-	 * Look at {@link http://api.cakephp.org/2.4/class-HtmlHelper.html#_addCrumb CakePHP Api}
+	 * Adds a link to the breadcrumbs array. Rewrites <i>$this->Html->addCrumb()</i>
 	 * @param string $name Text for link
 	 * @param string $link URL for link (if empty it won't be a link)
-	 * @param string|array $options HTML attributes
+	 * @param mixed $options HTML attributes
 	 * @return void
 	 */
 	public function addCrumb($title, $link=null, $options=null) {
@@ -49,14 +43,35 @@ class MeHtmlHelper extends MeToolsAppHelper {
 		$title = !empty($options['icon']) ? $this->icon($options['icon']).$title : $title;
 		unset($options['icon']);
 
-		return $this->Html->addCrumb($title, $link, $options);
+		return parent::addCrumb($title, $link, $options);
+	}
+	
+	/**
+	 * Cleans the value of an html attribute, removing blank spaces and duplicates
+	 *
+	 * For example, the string (and attribute value):
+	 * <code>
+	 * a a b  b c d e e e
+	 * </code>
+	 * will become:
+	 * <code>
+	 * a b c d e
+	 * </code>
+	 * @param string $value Attribute value
+	 * @return string Cleaned value
+	 */
+	public function cleanAttribute($value) {
+		//Trim and remove blank spaces
+		$value = preg_replace('/\s+/', ' ', trim($value));
+		//Remove duplicates
+		$value = implode(' ', array_unique(explode(' ', $value)));
+
+		return $value;
 	}
 
 	/**
-	 * Add a css file to the layout. Rewrite <i>$this->Html->css()</i>
-	 *
-	 * Look at {@link http://api.cakephp.org/2.4/class-HtmlHelper.html#_css CakePHP Api}
-	 * @param string|array $filename The css filename or an array of css files
+	 * Adds a css file to the layout. Rewrites <i>$this->Html->css()</i>
+	 * @param mixed $filename The css filename or an array of css files
 	 * @param array $options HTML attributes
 	 * @param string $rel The value of the generated tag's rel attribute. If null, 'stylesheet' will be use
 	 * @return string CSS <link /> or <style /> tag, depending on the type of link
@@ -65,38 +80,32 @@ class MeHtmlHelper extends MeToolsAppHelper {
 		//"inline" option default false
 		$options['inline'] = empty($options['inline']) ? false : $options['inline'];
 
-		return $this->Html->css($filename, $rel, $options);
+		return parent::css($filename, $rel, $options);
 	}
 
 	/**
-	 * End CSS code. Rewrite <i>ViewBlock::end()</i>
-	 *
-	 * Look at {@link http://api.cakephp.org/2.4/class-ViewBlock.html#_start CakePHP Api}
+	 * Ends CSS code. Rewrites <i>ViewBlock::end()</i>
 	 */
 	public function cssEnd() {
 		$this->_View->end();
 	}
 
 	/**
-	 * Start CSS code. Rewrite <i>ViewBlock::start('css')</i>
-	 *
-	 * Look at {@link http://api.cakephp.org/2.4/class-ViewBlock.html#_start CakePHP Api}
+	 * Starts CSS code. Rewrites <i>ViewBlock::start('css')</i>
 	 */
 	public function cssStart() {
 		$this->_View->start('css');
 	}
 
 	/**
-	 * Returns breadcrumbs as a (x)html list. Rewrite <i>$this->Html->getCrumbList()</i>
-	 *
-	 * Look at {@link http://api.cakephp.org/2.4/class-HtmlHelper.html#_getCrumbList CakePHP Api}
+	 * Returns breadcrumbs as an (x)html list. Rewrites <i>$this->Html->getCrumbList()</i>
 	 * @param array $options HTML attributes. Can also contain "separator" and "firstClass" options. The "lastClass" option is set automatically as required by Bootstrap
-	 * @param string|array|boolean $startText The first crumb, if false it defaults to first crumb in array
-	 * @return string breadcrumbs html list
+	 * @param mixed $startText The first crumb, if false it defaults to first crumb in array
+	 * @return string Breadcrumbs (x)html list
 	 */
 	public function getCrumbList($options=array(), $startText=false) {
 		//Add the "breadcrumb" class
-		$options['class'] = empty($options['class']) ? 'breadcrumb' : $this->_cleanAttribute($options['class'].' breadcrumb');
+		$options['class'] = empty($options['class']) ? 'breadcrumb' : $this->cleanAttribute($options['class'].' breadcrumb');
 
 		//Change the separator as required by Bootstrap
 		if(!empty($options['separator']))
@@ -113,11 +122,11 @@ class MeHtmlHelper extends MeToolsAppHelper {
 			$startText['escape'] = false;
 		}
 
-		return $this->Html->getCrumbList($options, $startText);
+		return parent::getCrumbList($options, $startText);
 	}
 
 	/**
-	 * Return an icon
+	 * Returns an icon
 	 *
 	 * Example:
 	 * <code>
@@ -128,25 +137,23 @@ class MeHtmlHelper extends MeToolsAppHelper {
 	 * </code>
 	 *
 	 * Look at {@link http://twitter.github.com/bootstrap/base-css.html#icons Bootstrap icons} and {@link http://fortawesome.github.com/Font-Awesome/#icons-new Font Awesome icons}
-	 * @param string|array $icon Icon or icons as string or an array of icons
+	 * @param array $icon Icon or icons as string or an array of icons
 	 * @return string Html
 	 */
 	public function icon($icon=null) {
-		//If array, implode
+		//If array, implodes
 		if(is_array($icon))
 			$icon = implode(' ', $icon);
-		return '<i class="'.$this->_cleanAttribute($icon).'"></i> ';
+		return '<i class="'.$this->cleanAttribute($icon).'"></i> ';
 	}
 
 	/**
-	 * Create an HTML link. Rewrite <i>$this->Html->link()</i>
+	 * Creates an HTML link. Rewrites <i>$this->Html->link()</i>
 	 *
 	 * You can use {@link http://twitter.github.com/bootstrap/base-css.html#icons bootstrap icons} using 'icon' option. Example:
 	 * <code>
 	 * echo $this->Html->link('my link', 'http://site.com', array('icon' => 'icon-search'));
 	 * </code>
-	 *
-	 * Look at {@link http://api.cakephp.org/2.4/class-HtmlHelper.html#_link CakePHP Api}
 	 * @param string $title Link title
 	 * @param mixed $url Cake-relative URL, array of URL parameters or external URL (starts with http://)
 	 * @param array $options HTML attributes
@@ -157,16 +164,17 @@ class MeHtmlHelper extends MeToolsAppHelper {
 		//"escape" option default false
 		$options['escape'] = empty($options['escape']) ? false : $options['escape'];
 
-		//Add bootstrap icon to the title, if there's the 'icon' option
+		//Adds bootstrap icon to the title, if there's the 'icon' option
 		$title = !empty($options['icon']) ? $this->icon($options['icon']).$title : $title;
 		unset($options['icon']);
 
-		return $this->Html->link($title, $url, $options, $confirmMessage);
+		return parent::link($title, $url, $options, $confirmMessage);
 	}
 
 	/**
-	 * Create an HTML link with the appearance of a button, as required by {@link http://twitter.github.com/bootstrap/base-css.html#buttons Bootstrap}.
-	 * Use the <i>link()</i> method
+	 * Creates an HTML link with the appearance of a button, as required by {@link http://twitter.github.com/bootstrap/base-css.html#buttons Bootstrap}.
+	 * 
+	 * Uses the <i>$this->link()</i> method
 	 * @param string $title Button title
 	 * @param mixed $url Cake-relative URL, array of URL parameters or external URL (starts with http://)
 	 * @param array $options HTML attributes
@@ -174,24 +182,24 @@ class MeHtmlHelper extends MeToolsAppHelper {
 	 * @return string Html
 	 */
 	public function linkButton($title, $url=null, $options=array(), $confirmMessage=false) {
-		//Add the 'btn' class
-		$options['class'] = empty($options['class']) ? 'btn' : $this->_cleanAttribute($options['class'].' btn');
+		//Adds the 'btn' class
+		$options['class'] = empty($options['class']) ? 'btn' : $this->cleanAttribute($options['class'].' btn');
 
 		return $this->link($title, $url, $options, $confirmMessage);
 	}
 
 	/**
-	 * Create an HTML link with the appearance of a button for {@link http://twitter.github.io/bootstrap/components.html#buttonDropdowns Bootstrap dropdowns}.
+	 * Creates an HTML link with the appearance of a button for {@link http://twitter.github.io/bootstrap/components.html#buttonDropdowns Bootstrap dropdowns}.
 	 * @param string $title Button title
 	 * @param mixed $url Cake-relative URL, array of URL parameters or external URL (starts with http://)
 	 * @param array $options HTML attributes
 	 * @return string Html
 	 */
 	public function linkDropdown($title, $url='#', $options=array()) {
-		//Add 'btn' and 'dropdown-toggle' classes
-		$options['class'] = empty($options['class']) ? 'dropdown-toggle' : $this->_cleanAttribute($options['class'].' dropdown-toggle');
+		//Adds 'btn' and 'dropdown-toggle' classes
+		$options['class'] = empty($options['class']) ? 'dropdown-toggle' : $this->cleanAttribute($options['class'].' dropdown-toggle');
 
-		//Add 'dropdown' data-toggle
+		//Adds 'dropdown' data-toggle
 		$options['data-toggle'] = 'dropdown';
 
 		//"escape" option default false
@@ -203,17 +211,15 @@ class MeHtmlHelper extends MeToolsAppHelper {
 	}
 
 	/**
-	 * Create a meta tag. Rewrite <i>$this->Html->meta()</i>
+	 * Creates a meta tag. Rewrites <i>$this->Html->meta()</i>
 	 *
 	 * For a custom meta tag, the first parameter should be set to an array. For example:
 	 *
 	 * <code>
 	 * echo $this->MeHtml->meta(array('name' => 'robots', 'content' => 'noindex'));
 	 * </code>
-	 *
-	 * Look at {@link http://api.cakephp.org/2.4/class-HtmlHelper.html#_link CakePHP Api}
 	 * @param string $type The title of the external resource
-	 * @param string|array $url The address of the external resource or string for content attribute
+	 * @param mixed $url The address of the external resource or string for content attribute
 	 * @param array $options Other attributes for the generated tag
 	 * @return string Html
 	 */
@@ -221,16 +227,14 @@ class MeHtmlHelper extends MeToolsAppHelper {
 		//"inline" option default false
 		$options['inline'] = empty($options['inline']) ? false : $options['inline'];
 
-		return($this->Html->meta($type, $url, $options));
+		return parent::meta($type, $url, $options);
 	}
 
 	/**
-	 * Add a js file to the layout. Rewrite <i>$this->Html->script()</i>
+	 * Adds a js file to the layout. Rewrites <i>$this->Html->script()</i>
 	 *
 	 * When used in the layout, remember to use the "inline" option (must be set to TRUE)
-	 *
-	 * Look at {@link http://api.cakephp.org/2.4/class-HtmlHelper.html#_script CakePHP Api}
-	 * @param string|array $url String or array of javascript files to include
+	 * @param mixed $url String or array of javascript files to include
 	 * @param array $options HTML attributes
 	 * @return mixed String of <script /> tags or null if $inline is false or if $once is true and the file has been included before
 	 */
@@ -238,13 +242,11 @@ class MeHtmlHelper extends MeToolsAppHelper {
 		//"inline" option default false
 		$options['inline'] = empty($options['inline']) ? false : $options['inline'];
 
-		return $this->Html->script($url, $options);
+		return parent::script($url, $options);
 	}
 
 	/**
-	 * Generate a javascript code block containing $code. Rewrite <i>$this->Html->scriptBlock()</i>
-	 *
-	 * Look at {@link http://api.cakephp.org/2.4/class-HtmlHelper.html#_scriptBlock CakePHP Api}
+	 * Generates a javascript code block containing $code. Rewrites <i>$this->Html->scriptBlock()</i>
 	 * @param string $code The code to go in the script tag
 	 * @param array $options HTML attributes
 	 * @return string Html
@@ -253,46 +255,40 @@ class MeHtmlHelper extends MeToolsAppHelper {
 		//"inline" option default false
 		$options['inline'] = empty($options['inline']) ? false : $options['inline'];
 
-		return $this->Html->scriptBlock($code, $options);
+		return parent::scriptBlock($code, $options);
 	}
 
 	/**
-	 * End javascript code. Rewrite <i>$this->Html->scriptEnd()</i>
-	 *
-	 * Look at {@link http://api.cakephp.org/2.4/class-HtmlHelper.html#_scriptEnd CakePHP Api}
+	 * Ends javascript code. Rewrites <i>$this->Html->scriptEnd()</i>
 	 * @return mixed A script tag or null
 	 */
 	public function scriptEnd() {
-		return $this->Html->scriptEnd();
+		return parent::scriptEnd();
 	}
 
 	/**
-	 * Start javascript code. Rewrite <i>$this->Html->scriptStart()</i>
-	 *
-	 * Look at {@link http://api.cakephp.org/2.4/class-HtmlHelper.html#_scriptStart CakePHP Api}
+	 * Starts javascript code. Rewrites <i>$this->Html->scriptStart()</i>
 	 * @param array $options Options for the code block
-	 * @return null
+	 * @return mixed A script tag or null
 	 */
 	public function scriptStart($options=array()) {
 		//"inline" option default false
 		$options['inline'] = empty($options['inline']) ? false : $options['inline'];
 
-		return $this->Html->scriptStart($options);
+		return parent::scriptStart($options);
 	}
 
 	/**
-	 * Returns a formatted block tag, ie <div>, <span>, <p>. Rewrite <i>$this->Html->tag()</i>
-	 *
-	 * Look at {@link http://api.cakephp.org/2.4/source-class-HtmlHelper.html#898-926 CakePHP Api}
+	 * Returns a formatted block tag, ie `<div>`, `<span>`, `<p>`. Rewrites <i>$this->Html->tag()</i>
 	 * @param string $name Tag name
-	 * @param type $text Tag content. If null, only a start tag will be printed
+	 * @param string $text Tag content. If null, only a start tag will be printed
 	 * @param array $options HTML attributes
 	 * @return string The formatted tag element
 	 */
-	public function tag($name, $text = null, $options = array()) {
+	public function tag($name, $text=null, $options=array()) {
 		//"escape" option default false
 		$options['escape'] = empty($options['escape']) ? false : $options['escape'];
 
-		return $this->Html->tag($name, $text, $options);
+		return parent::tag($name, $text, $options);
 	}
 }
