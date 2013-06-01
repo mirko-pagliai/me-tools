@@ -50,15 +50,6 @@ form .error-message {
 }
 
 /* ---------------------------- */
-/*			Grid system			*/
-/*		Bootstrap rewrite		*/
-/* ---------------------------- */
-/* Row on grid system */
-.row {
-	margin-bottom: 20px;
-}
-
-/* ---------------------------- */
 /*		Bootstrap rewrite		*/
 /* ---------------------------- */
 /* Buttons */
@@ -97,14 +88,19 @@ form .error-message {
     margin-right: -3px;
 }
 
+/* Dropdown links */
+.dropdown-menu > li > a {
+	font-weight: bold;
+}
+
 /* Brand icon in navbar */
 .navbar .brand [class^="icon-"] {
     line-height: 20px;
 }
 
-/* Dropdown links */
-.dropdown-menu > li > a {
-	font-weight: bold;
+/* Row on grid system */
+.row {
+	margin-bottom: 20px;
 }
 
 /* Blockquote */
@@ -265,6 +261,40 @@ form.form-inline input[type="checkbox"] {
 /* Blockquote in simple well */
 .well-simple blockquote {
 	border-color: #ddd;
+}
+
+/* ---------------------------- */
+/*		Cake Sql debug			*/
+/* ---------------------------- */
+/* Table */
+table.cake-sql-log {
+	font-family: Monaco,Consolas,"Courier New",monospaced;
+	font-size: 12px;
+	margin-bottom: 25px;
+}
+
+/* Table caption */
+table.cake-sql-log caption {
+	background: #aaa;
+	border-radius: 5px 5px 0 0;
+    color: #fff;
+    padding: 6px;
+}
+
+/* Header cells */
+table.cake-sql-log th {
+	background: #F1F1F1;
+	border-bottom: 2px solid #CCC;
+}
+
+/* Cells and header cells */
+table.cake-sql-log td, table.cake-sql-log th {
+	padding: 4px 10px;
+}
+
+/* Cells in odd rows */
+table.cake-sql-log tbody tr:nth-child(2n+1) td {
+    background-color: #F9F9F9;
 }
 
 /* ---------------------------- */
