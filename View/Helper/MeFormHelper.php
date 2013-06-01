@@ -1,8 +1,10 @@
 <?php
-App::uses('MeToolsAppHelper', 'MeTools.View/Helper');
+App::uses('FormHelper', 'View/Helper');
 
 /**
  * Provide extended functionalities for forms.
+ * 
+ * Rewrites the {@link http://api.cakephp.org/2.4/class-FormHelper.html FormHelper}
  *
  * This file is part of MeTools.
  *
@@ -25,29 +27,25 @@ App::uses('MeToolsAppHelper', 'MeTools.View/Helper');
  * @link		http://git.novatlantis.it Nova Atlantis Ltd
  * @package		MeTools.View.Helper
  */
-class MeFormHelper extends MeToolsAppHelper {
+class MeFormHelper extends FormHelper {
 	/**
 	 * Helpers used
-	 * @var array Helpers name
+	 * @var array Helpers
 	 */
-	public $helpers = array('Form', 'MeTools.MeHtml');
+	public $helpers = array('MeTools.MeHtml');
 
 	/**
-	 * Create a form. Rewrite <i>$this->Form->create()</i>
-	 *
-	 * Look at {@link http://api.cakephp.org/2.4/class-FormHelper.html#_create CakePHP Api}
+	 * Creates a form. Rewrites <i>$this->Form->create()</i>
 	 * @param string $model The model object which the form is being defined for
 	 * @param array $options HTML attributes and options
 	 * @return string A formatted opening FORM tag
 	 */
 	public function create($model=null, $options=array()) {
-		return $this->Form->create($model, $options);
+		return parent::create($model, $options);
 	}
 
 	/**
-	 * Create a (simple) button. Rewrite <i>$this->Form->button()</i>
-	 *
-	 * Look at {@link http://api.cakephp.org/2.4/class-FormHelper.html#_submit CakePHP Api}
+	 * Creates a (simple) button. Rewrites <i>$this->Form->button()</i>
 	 * @param string $caption The label appearing on the button or an image
 	 * @param array $options Options
 	 * @return string Html
@@ -57,24 +55,22 @@ class MeFormHelper extends MeToolsAppHelper {
 		$options['type'] = empty($options['type']) ? 'button' : $options['type'];
 
 		//"class" option default "btn"
-		$options['class'] = empty($options['class']) ? 'btn' : $this->_cleanAttribute($options['class'].' btn');
+		$options['class'] = empty($options['class']) ? 'btn' : $this->MeHtml->cleanAttribute($options['class'].' btn');
 
 		//Add bootstrap icon to the caption, if there's the "icon" option
 		$caption = !empty($options['icon']) ? $this->MeHtml->icon($options['icon']).$caption : $caption;
 		unset($options['icon']);
 
 		//Add the "tooltip" rel
-		$options['rel'] = empty($options['rel']) ? 'tooltip' : $this->_cleanAttribute($options['rel'].' tooltip');
+		$options['rel'] = empty($options['rel']) ? 'tooltip' : $this->MeHtml->cleanAttribute($options['rel'].' tooltip');
 
-		return $this->Form->button($caption, $options);
+		return parent::button($caption, $options);
 	}
 	
 	/**
-	 * Close a form. Rewrite <i>$this->Form->end()</i> and use the <i>button()</i> method
+	 * Closes a form. Rewrites <i>$this->Form->end()</i> and use the <i>button()</i> method
 	 *
 	 * If $options is set, a submit button will be created. Options can be either a string or an array
-	 *
-	 * Look at {@link http://api.cakephp.org/2.4/class-FormHelper.html#_end CakePHP Api}
 	 * @param string $caption The label appearing on the submit button or an image
 	 * @param array $options Options
 	 * @return string Html
@@ -86,11 +82,11 @@ class MeFormHelper extends MeToolsAppHelper {
 
 		$submit = !empty($caption) ? $this->submit($caption, $options) : null;
 		
-		return $submit.$this->Form->end();
+		return $submit.parent::end();
 	}
 	
 	/**
-	 * Check and return a value if this is not empty, else return a default value.
+	 * Checks and returns a value if this is not empty, else returns a default value.
 	 * 
 	 * It can be useful with the "selected" option, to get a value if this exists or use a default. For example:  
 	 * <pre>'selected' => @$this->MeForm->getDefault($this->request->data['User']['group'], 'user')</pre>
@@ -108,28 +104,24 @@ class MeFormHelper extends MeToolsAppHelper {
 	}
 
 	/**
-	 * Create an input element. Rewrite <i>$this->Form->input()</i>
-	 *
-	 * Look at {@link http://api.cakephp.org/2.4/class-FormHelper.html#_input CakePHP Api}
+	 * Creates an input element. Rewrites <i>$this->Form->input()</i>
 	 * @param string $fieldName Field name, should be "Modelname.fieldname"
 	 * @param array $options Options
 	 * @return string Html
 	 */
 	public function input($fieldName, $options=array()) {
-		//"escape" option default false
+		//"escape" option default FALSE
 		$options['escape'] = empty($options['escape']) ? false : $options['escape'];
-		//"label" option default false
+		//"label" option default FALSE
 		$options['label'] = empty($options['label']) ? false : $options['label'];
 
-		return $this->Form->input($fieldName, $options);
+		return parent::input($fieldName, $options);
 	}
 
 	/**
-	 * Create a button with a surrounding form that submits via POST. Rewrite <i>$this->Form->postButton()</i>
+	 * Creates a button with a surrounding form that submits via POST. Rewrites <i>$this->Form->postButton()</i>
 	 *
-	 * This method creates a form element. So don'è use this method in an already opened form.
-	 *
-	 * Look at {@link http://api.cakephp.org/2.4/class-FormHelper.html#_postButton CakePHP Api}
+	 * This method creates a form element. So don't use this method in an already opened form.
 	 * @param string $title Button title
 	 * @param mixed $url Cake-relative URL, array of URL parameters or external URL (starts with http://)
 	 * @param array $options HTML attributes
@@ -137,22 +129,17 @@ class MeFormHelper extends MeToolsAppHelper {
 	 */
 	public function postButton($title, $url, $options = array()) {
 		//"class" option default "btn"
-		$options['class'] = empty($options['class']) ? 'btn' : $this->_cleanAttribute($options['class'].' btn');
+		$options['class'] = empty($options['class']) ? 'btn' : $this->MeHtml->cleanAttribute($options['class'].' btn');
 
-		//Add bootstrap icon to the title, if there's the "icon" option
+		//Adds bootstrap icon to the title, if there's the "icon" option
 		$title = !empty($options['icon']) ? $this->MeHtml->icon($options['icon']).$title : $title;
 		unset($options['icon']);
 
-		//Add the "tooltip" data-toggle
-		$options['data-toggle'] = empty($options['data-toggle']) ? 'tooltip' : $this->_cleanAttribute($options['data-toggle'].' tooltip');
-
-		return $this->Form->postButton($title, $url, $options);
+		return parent::postButton($title, $url, $options);
 	}
 
 	/**
-	 * Create a set of radio button inputs. Rewrite <i>$this->Form->radio()</i>
-	 *
-	 * Look at {@link http://api.cakephp.org/2.4/class-FormHelper.html#_radio CakePHP Api}
+	 * Creates a set of radio button inputs. Rewrites <i>$this->Form->radio()</i>
 	 * @param string $fieldName Field name, should be "Modelname.fieldname"
 	 * @param array $options Radio button options array
 	 * @param array $attributes HTML attributes
@@ -165,13 +152,11 @@ class MeFormHelper extends MeToolsAppHelper {
 		//"separator" attribute default "<br />"
 		$attributes['separator'] = empty($attributes['separator']) ? '<br />' : $attributes['separator'];
 
-		return $this->Form->radio($fieldName, $options, $attributes);
+		return parent::radio($fieldName, $options, $attributes);
 	}
 
 	/**
-	 * Create a select input. Rewrite <i>$this->Form->select()</i>
-	 *
-	 * Look at {@link http://api.cakephp.org/2.4/class-FormHelper.html#_radio CakePHP Api}
+	 * Creates a select input. Rewrites <i>$this->Form->select()</i>
 	 * @param string $fieldName Field name, should be "Modelname.fieldname"
 	 * @param array $options Radio button options array
 	 * @param array $attributes HTML attributes
@@ -181,13 +166,11 @@ class MeFormHelper extends MeToolsAppHelper {
 		//"escape" attribute default false
 		$attributes['escape'] = empty($attributes['escape']) ? false : $attributes['escape'];
 
-		return $this->Form->select($fieldName, $options, $attributes);
+		return parent::select($fieldName, $options, $attributes);
 	}
 
 	/**
-	 * Create a submit button. Rewrite <i>$this->Form->Submit()</i> and use the <i>button()</i> method
-	 *
-	 * Look at {@link http://api.cakephp.org/2.4/class-FormHelper.html#_submit CakePHP Api}
+	 * Creates a submit button. Rewrites <i>$this->Form->Submit()</i> and uses the <i>$this->button()</i> method
 	 * @param string $caption The label appearing on the submit button or an image
 	 * @param array $options Options
 	 * @return string Html
@@ -200,15 +183,15 @@ class MeFormHelper extends MeToolsAppHelper {
 		$options['icon'] = empty($options['icon']) ? 'icon-ok icon-white' : $options['icon'];
 
 		//"class" option default "btn btn-success"
-		$options['class'] = empty($options['class']) ? 'btn btn-success' : $this->_cleanAttribute($options['class'].' btn');
+		$options['class'] = empty($options['class']) ? 'btn btn-success' : $this->MeHtml->cleanAttribute($options['class'].' btn');
 
-		//If isset "div" option and this is false, return the button
+		//If isset "div" option and this is false, returns the button
 		if(isset($options['div']) && !$options['div'])
 			return $this->button($caption, $options);
-		//Else, return the button in a wrapper
+		//Else, returns the button in a wrapper
 		else {
 			//"div" option default "submit"
-			$div = empty($options['div']) ? 'submit' : $this->_cleanAttribute($options['div'].' submit');
+			$div = empty($options['div']) ? 'submit' : $this->MeHtml->cleanAttribute($options['div'].' submit');
 			unset($options['div']);
 
 			return $this->MeHtml->tag('div', $this->button($caption, $options), array('class' => $div));
