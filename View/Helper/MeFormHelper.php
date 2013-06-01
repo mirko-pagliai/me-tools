@@ -175,7 +175,10 @@ class MeFormHelper extends FormHelper {
 	 * @param array $options Options
 	 * @return string Html
 	 */
-	public function submit($caption, $options=array()) {
+	public function submit($caption=null, $options=array()) {
+		//Caption default
+		$caption = !empty($caption) ? $caption : __('Submit');
+		
 		//"type" is "submit"
 		$options['type'] = 'submit';
 
