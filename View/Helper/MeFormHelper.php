@@ -112,8 +112,6 @@ class MeFormHelper extends FormHelper {
 	public function input($fieldName, $options=array()) {
 		//"escape" option default FALSE
 		$options['escape'] = empty($options['escape']) ? false : $options['escape'];
-		//"label" option default FALSE
-		$options['label'] = empty($options['label']) ? false : $options['label'];
 
 		return parent::input($fieldName, $options);
 	}
