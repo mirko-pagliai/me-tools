@@ -166,8 +166,13 @@ blockquote {
 	text-align: justify;
 }
 
+/* Auto-width for inputs and textareas that have the size/cols attribute */
+form input[size], form textarea[cols] {
+	width: auto;
+}
+
 /* All input types*/
-textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input {
+input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], textarea, .uneditable-input {
 	margin-bottom: 0;
 }
 
