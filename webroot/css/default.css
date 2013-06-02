@@ -49,6 +49,11 @@ form .error-message {
     padding: 4px 8px;
 }
 
+/* Cells on index and related tables */
+.index table td, .index table th, .related table td, .related table th {
+	vertical-align: middle;
+}
+
 /* Action cells on index and related tables */
 .index table td.actions, .related table td.actions {
 	width: 1px;
