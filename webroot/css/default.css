@@ -120,6 +120,11 @@ form .error-message {
 	margin-bottom: 20px;
 }
 
+/* Tooltips */
+.tooltip-inner {
+	font-size: 14px;
+}
+
 /* Blockquote */
 blockquote {
 	text-align: justify;
