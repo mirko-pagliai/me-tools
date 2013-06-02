@@ -49,10 +49,16 @@ form .error-message {
     padding: 4px 8px;
 }
 
-/* Actions cell on index table */
+/* Action cells on index and related tables */
 .index table td.actions, .related table td.actions {
 	width: 1px;
 	white-space: nowrap;
+}
+
+/* Action buttons on index and related tables */
+.index table td.actions a.btn, .related table td.actions a.btn {
+	min-width: 14px;
+    padding: 1px 4px;
 }
 
 /* ---------------------------- */
