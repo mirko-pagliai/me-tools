@@ -50,7 +50,7 @@ form .error-message {
 }
 
 /* Actions cell on index table */
-.index table td.actions {
+.index table td.actions, .related table td.actions {
 	width: 1px;
 	white-space: nowrap;
 }
