@@ -130,6 +130,11 @@ th a.desc:after {
 	font-weight: bold;
 }
 
+/* Added or prepended text to inputs */
+.input-append, .input-prepend {
+	display: inherit;
+}
+
 /* Brand icon in navbar */
 .navbar .brand [class^="icon-"] {
     line-height: 20px;
