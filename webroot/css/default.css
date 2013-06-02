@@ -59,6 +59,11 @@ th a.desc:after {
     content: " ⇡";
 }
 
+/* Textareas */
+textarea {
+	resize: vertical;
+}
+
 /* Cells on index and related tables */
 .index table td, .index table th, .related table td, .related table th {
 	vertical-align: middle;
@@ -130,9 +135,15 @@ th a.desc:after {
 	font-weight: bold;
 }
 
-/* Added or prepended text to inputs */
+/* Appended or prepended text to inputs */
 .input-append, .input-prepend {
 	display: inherit;
+	font-size: inherit;
+}
+
+/* Appended text add-on */
+.input-append .add-on:last-of-type, .input-append .btn:last-of-type, .input-append .btn-group:last-of-type > .dropdown-toggle {
+    border-radius: 0 4px 4px 0;
 }
 
 /* Brand icon in navbar */
