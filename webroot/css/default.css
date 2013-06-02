@@ -66,6 +66,11 @@ form .error-message {
     padding: 2px 6px;
 }
 
+/* Button groups on related tables */
+.related > h3 + .btn-group {
+	margin-bottom: 7px;
+}
+
 /* ---------------------------- */
 /*		Bootstrap rewrite		*/
 /* ---------------------------- */
