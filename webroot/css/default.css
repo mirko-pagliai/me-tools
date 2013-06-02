@@ -63,7 +63,7 @@ form .error-message {
 /* Action buttons on index and related tables */
 .index table td.actions a.btn, .related table td.actions a.btn {
 	min-width: 14px;
-    padding: 1px 4px;
+    padding: 2px 6px;
 }
 
 /* ---------------------------- */
@@ -72,6 +72,11 @@ form .error-message {
 /* Buttons */
 .btn {
 	white-space: nowrap;
+}
+
+/* Last button of button group */
+.btn-group > .btn:last-child {
+	margin-left: -1px;
 }
 
 /* Carousel title */
