@@ -146,12 +146,19 @@ class MeFormHelper extends FormHelper {
 	 * @return string Html
 	 */
 	public function postLink($title, $url=null, $options=array(), $confirmMessage=false) {
-		//"escape" option default FALSE
-		$options['escape'] = empty($options['escape']) ? false : $options['escape'];
-
 		//Adds bootstrap icon to the title, if there's the "icon" option
 		$title = !empty($options['icon']) ? $this->MeHtml->icon($options['icon']).$title : $title;
 		unset($options['icon']);
+		
+		//"escape" option default FALSE
+		$options['escape'] = empty($options['escape']) ? false : $options['escape'];
+		
+		//Adds the tooltip, if there's the "tooptip" option
+		if(!empty($options['tooltip'])) {
+			$options['data-toggle'] = 'tooltip';
+			$options['title'] = $options['tooltip'];
+			unset($options['tooltip']);
+		}
 		
 		return parent::postLink($title, $url, $options, $confirmMessage);
 	}

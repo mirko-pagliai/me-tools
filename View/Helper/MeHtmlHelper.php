@@ -161,12 +161,19 @@ class MeHtmlHelper extends HtmlHelper {
 	 * @return string Html
 	 */
 	public function link($title, $url=null, $options=array(), $confirmMessage=false) {
-		//"escape" option default false
-		$options['escape'] = empty($options['escape']) ? false : $options['escape'];
-
-		//Adds bootstrap icon to the title, if there's the 'icon' option
+		//Adds bootstrap icon to the title, if there's the "icon" option
 		$title = !empty($options['icon']) ? $this->icon($options['icon']).$title : $title;
 		unset($options['icon']);
+		
+		//"escape" option default false
+		$options['escape'] = empty($options['escape']) ? false : $options['escape'];
+		
+		//Adds the tooltip, if there's the "tooptip" option
+		if(!empty($options['tooltip'])) {
+			$options['data-toggle'] = 'tooltip';
+			$options['title'] = $options['tooltip'];
+			unset($options['tooltip']);
+		}
 
 		return parent::link($title, $url, $options, $confirmMessage);
 	}
