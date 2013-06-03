@@ -112,6 +112,10 @@ class MeFormHelper extends FormHelper {
 	public function input($fieldName, $options=array()) {
 		//"escape" option default FALSE
 		$options['escape'] = empty($options['escape']) ? false : $options['escape'];
+		
+		//If the div class is not empty, prepend the "input" class
+		if(!empty($options['div']['class'])) 
+			$options['div']['class'] = $this->MeHtml->cleanAttribute('input '.$options['div']['class']);
 
 		return parent::input($fieldName, $options);
 	}
