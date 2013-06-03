@@ -28,4 +28,5 @@ Rename **Config/recaptcha.default.php** in **Config/recaptcha.php** and configur
 - Thumber 0.5.6 ([site](https://code.google.com/p/phpthumbmaker));
 - Font Awesome 3.1.1 ([site](http://fortawesome.github.com/Font-Awesome));
 - PHP Markdown 1.3 ([site](http://michelf.ca/projects/php-markdown));
-- reCAPTCHA PHP library 1.11 ([site](https://developers.google.com/recaptcha/docs/php)).
+- reCAPTCHA PHP library 1.11 ([site](https://developers.google.com/recaptcha/docs/php));
+- Datepicker for Bootstrap ([site](http://www.eyecon.ro/bootstrap-datepicker)).
