@@ -61,6 +61,7 @@ th a.desc:after {
 
 /* Textareas */
 textarea {
+	min-height: 20px;
 	resize: vertical;
 }
 
