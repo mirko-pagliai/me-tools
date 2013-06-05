@@ -22,6 +22,11 @@
  * @package		MeTools.webroot.css
  */
 
+/* Dt and dd elements */
+dt, dd {
+    min-height: 20px;
+}
+
 /* Input wrappers */
 form div.input {
 	margin-bottom: 10px;
