@@ -141,6 +141,33 @@ textarea {
 	font-weight: bold;
 }
 
+/* Hero unit */
+.hero-unit {
+	padding: 20px 30px 25px;
+}
+
+/* Title for hero unit */
+.hero-unit h2 {
+	font-size: 26px;
+	margin: 0 0 5px;
+}
+
+/* Last form in hero unit */
+.hero-unit form:last-child {
+	margin: 0;
+}
+
+/* Paragraph for hero unit */
+.hero-unit p {
+	font-size: 16px;
+}
+
+/* Images as polaroid */
+.img-polaroid {
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
 /* Appended or prepended text to inputs */
 .input-append, .input-prepend {
 	display: inherit;
