@@ -2,9 +2,9 @@
 App::uses('PaginatorHelper', 'View/Helper');
 
 /**
- * Provides extended functionalities to the generation of pagers.
+ * Provides functionalities to the generation of pagers.
  * 
- * Rewrites the {@link http://api.cakephp.org/2.4/class-PaginatorHelper.html PaginatorHelper}.
+ * Extends {@link http://api.cakephp.org/2.4/class-PaginatorHelper.html PaginatorHelper}.
  *
  * This file is part of MeTools.
  *
@@ -29,8 +29,8 @@ App::uses('PaginatorHelper', 'View/Helper');
  */
 class MePaginatorHelper extends PaginatorHelper {
 	/**
-	 * Helpers used
-	 * @var array Helpers 
+	 * Helpers
+	 * @var array 
 	 */
 	public $helpers = array('Html', 'MeTools.MeHtml');
 	
@@ -140,7 +140,7 @@ class MePaginatorHelper extends PaginatorHelper {
 		//Title default
 		$title = !empty($title) ? $title : '« '.__('previous');
 		
-		//Use $this->__jump->link() to set arguments
+		//Uses $this->__jump->link() to set arguments
 		list($title, $options, $disabledTitle, $disabledOptions) = $this->__jump_link($title, $options, $disabledTitle, $disabledOptions);
 		
 		return parent::prev($title, $options, $disabledTitle, $disabledOptions);

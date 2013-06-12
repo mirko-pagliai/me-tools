@@ -2,9 +2,9 @@
 App::uses('FormHelper', 'View/Helper');
 
 /**
- * Provide extended functionalities for forms.
+ * Provides functionalities for forms.
  * 
- * Rewrites the {@link http://api.cakephp.org/2.4/class-FormHelper.html FormHelper}
+ * Extends {@link http://api.cakephp.org/2.4/class-FormHelper.html FormHelper}
  *
  * This file is part of MeTools.
  *
@@ -29,24 +29,14 @@ App::uses('FormHelper', 'View/Helper');
  */
 class MeFormHelper extends FormHelper {
 	/**
-	 * Helpers used
-	 * @var array Helpers
+	 * Helpers
+	 * @var array
 	 */
 	public $helpers = array('Html', 'MeTools.MeHtml');
 
 	/**
-	 * Creates a form. Rewrites <i>$this->Form->create()</i>
-	 * @param string $model The model object which the form is being defined for
-	 * @param array $options HTML attributes and options
-	 * @return string A formatted opening FORM tag
-	 */
-	public function create($model=null, $options=array()) {
-		return parent::create($model, $options);
-	}
-
-	/**
-	 * Creates a (simple) button. Rewrites <i>$this->Form->button()</i>
-	 * @param string $caption The label appearing on the button or an image
+	 * Creates a simple button. Rewrites <i>$this->Form->button()</i>
+	 * @param string $caption The button label or an image
 	 * @param array $options Options
 	 * @return string Html
 	 */
@@ -57,7 +47,7 @@ class MeFormHelper extends FormHelper {
 		//"class" option default "btn"
 		$options['class'] = empty($options['class']) ? 'btn' : $this->MeHtml->cleanAttribute($options['class'].' btn');
 
-		//Add bootstrap icon to the caption, if there's the "icon" option
+		//Add bootstrap icon to the label, if the "icon" option exists
 		$caption = !empty($options['icon']) ? $this->MeHtml->icon($options['icon']).$caption : $caption;
 		unset($options['icon']);
 
@@ -71,7 +61,7 @@ class MeFormHelper extends FormHelper {
 	 * Closes a form. Rewrites <i>$this->Form->end()</i> and use the <i>button()</i> method
 	 *
 	 * If $options is set, a submit button will be created. Options can be either a string or an array
-	 * @param string $caption The label appearing on the submit button or an image
+	 * @param string $caption The submit button label or an image
 	 * @param array $options Options
 	 * @return string Html
 	 */
@@ -105,7 +95,7 @@ class MeFormHelper extends FormHelper {
 
 	/**
 	 * Creates an input element. Rewrites <i>$this->Form->input()</i>
-	 * @param string $fieldName Field name, should be "Modelname.fieldname"
+	 * @param string $fieldName Field name. Should be "Modelname.fieldname"
 	 * @param array $options Options
 	 * @return string Html
 	 */
@@ -148,7 +138,7 @@ class MeFormHelper extends FormHelper {
 	 * @return string Html
 	 */
 	public function postLink($title, $url=null, $options=array(), $confirmMessage=false) {
-		//Adds bootstrap icon to the title, if there's the "icon" option
+		//Adds bootstrap icon to the title, if the "icon" option exists
 		$title = !empty($options['icon']) ? $this->MeHtml->icon($options['icon']).$title : $title;
 		unset($options['icon']);
 		
@@ -173,7 +163,7 @@ class MeFormHelper extends FormHelper {
 	 * @return string Html
 	 */
 	public function radio($fieldName, $options=array(), $attributes=array()) {
-		//"legend" attribute default false
+		//"legend" attribute default FALSE
 		$attributes['legend'] = empty($attributes['legend']) ? false : $attributes['legend'];
 
 		//"separator" attribute default "<br />"
@@ -203,10 +193,10 @@ class MeFormHelper extends FormHelper {
 	 * @return string Html
 	 */
 	public function submit($caption=null, $options=array()) {
-		//Caption default
+		//Caption default "Submit"
 		$caption = !empty($caption) ? $caption : __('Submit');
 		
-		//"type" is "submit"
+		//"type" must be "submit"
 		$options['type'] = 'submit';
 
 		//"icon" option default "icon-ok icon-white"

@@ -2,9 +2,9 @@
 App::uses('HtmlHelper', 'View/Helper');
 
 /**
- * Provides extended functionalities for HTML code.
+ * Provides functionalities for HTML code.
  *   
- * Rewrites the {@link http://api.cakephp.org/2.4/class-HtmlHelper.html HtmlHelper}.
+ * Extends {@link http://api.cakephp.org/2.4/class-HtmlHelper.html HtmlHelper}.
  *
  * This file is part of MeTools.
  *
@@ -29,17 +29,17 @@ App::uses('HtmlHelper', 'View/Helper');
  */
 class MeHtmlHelper extends HtmlHelper {
 	/**
-	 * Adds a link to the breadcrumbs array. Rewrites <i>$this->Html->addCrumb()</i>
+	 * Adds a link to the breadcrumb array. Rewrites <i>$this->Html->addCrumb()</i>
 	 * @param string $name Text for link
 	 * @param string $link URL for link (if empty it won't be a link)
 	 * @param mixed $options HTML attributes
 	 * @return void
 	 */
 	public function addCrumb($title, $link=null, $options=null) {
-		//"escape" option default false
+		//"escape" option default FALSE
 		$options['escape'] = empty($options['escape']) ? false : $options['escape'];
 
-		//Add bootstrap icon to the title, if there's the 'icon' option
+		//Add bootstrap icon to the title, if the "icon" option exists
 		$title = !empty($options['icon']) ? $this->icon($options['icon']).$title : $title;
 		unset($options['icon']);
 
@@ -47,9 +47,9 @@ class MeHtmlHelper extends HtmlHelper {
 	}
 	
 	/**
-	 * Cleans the value of an html attribute, removing blank spaces and duplicates
+	 * Cleans values of an html attribute, removing blank spaces and duplicates
 	 *
-	 * For example, the string (and attribute value):
+	 * For example, the string (an attribute value):
 	 * <code>
 	 * a a b  b c d e e e
 	 * </code>
@@ -58,7 +58,7 @@ class MeHtmlHelper extends HtmlHelper {
 	 * a b c d e
 	 * </code>
 	 * @param string $value Attribute value
-	 * @return string Cleaned value
+	 * @return string Cleaned attribute value
 	 */
 	public function cleanAttribute($value) {
 		//Trim and remove blank spaces
@@ -71,13 +71,15 @@ class MeHtmlHelper extends HtmlHelper {
 
 	/**
 	 * Adds a css file to the layout. Rewrites <i>$this->Html->css()</i>
+	 *
+	 * When used in the layout, remember to use the "inline" option (must be set to TRUE)
 	 * @param mixed $filename The css filename or an array of css files
 	 * @param array $options HTML attributes
 	 * @param string $rel The value of the generated tag's rel attribute. If null, 'stylesheet' will be use
 	 * @return string CSS <link /> or <style /> tag, depending on the type of link
 	 */
 	public function css($filename, $options=array(), $rel=null) {
-		//"inline" option default false
+		//"inline" option default FALSE
 		$options['inline'] = empty($options['inline']) ? false : $options['inline'];
 
 		return parent::css($filename, $rel, $options);
@@ -98,10 +100,10 @@ class MeHtmlHelper extends HtmlHelper {
 	}
 
 	/**
-	 * Returns breadcrumbs as an (x)html list. Rewrites <i>$this->Html->getCrumbList()</i>
+	 * Returns the breadcrumb as Html. Rewrites <i>$this->Html->getCrumbList()</i>
 	 * @param array $options HTML attributes. Can also contain "separator" and "firstClass" options. The "lastClass" option is set automatically as required by Bootstrap
 	 * @param mixed $startText The first crumb, if false it defaults to first crumb in array
-	 * @return string Breadcrumbs (x)html list
+	 * @return string Breadcrumb as Html
 	 */
 	public function getCrumbList($options=array(), $startText=false) {
 		//Add the "breadcrumb" class
@@ -114,7 +116,7 @@ class MeHtmlHelper extends HtmlHelper {
 		//Add the "active" class to the last element
 		$options['lastClass'] = 'active';
 
-		//"escape" option default false
+		//"escape" option default FALSE
 		if(!empty($startText)) {
 			//If $startText is not an array, converts it into an array
 			if(!is_array($startText))
@@ -126,7 +128,7 @@ class MeHtmlHelper extends HtmlHelper {
 	}
 
 	/**
-	 * Returns an icon
+	 * Returns an icon (<i>Glyphicons</i> or <i>Font Awesome icons</i>
 	 *
 	 * Example:
 	 * <code>
@@ -150,7 +152,7 @@ class MeHtmlHelper extends HtmlHelper {
 	/**
 	 * Creates an HTML link. Rewrites <i>$this->Html->link()</i>
 	 *
-	 * You can use {@link http://twitter.github.com/bootstrap/base-css.html#icons bootstrap icons} using 'icon' option. Example:
+	 * You can use {@link http://twitter.github.com/bootstrap/base-css.html#icons Bootstrap icons} using the "icon" option. Example:
 	 * <code>
 	 * echo $this->Html->link('my link', 'http://site.com', array('icon' => 'icon-search'));
 	 * </code>
@@ -161,11 +163,11 @@ class MeHtmlHelper extends HtmlHelper {
 	 * @return string Html
 	 */
 	public function link($title, $url=null, $options=array(), $confirmMessage=false) {
-		//Adds bootstrap icon to the title, if there's the "icon" option
+		//Adds bootstrap icon to the title, if the "icon" option exists
 		$title = !empty($options['icon']) ? $this->icon($options['icon']).$title : $title;
 		unset($options['icon']);
 		
-		//"escape" option default false
+		//"escape" option default FALSE
 		$options['escape'] = empty($options['escape']) ? false : $options['escape'];
 		
 		//Adds the tooltip, if there's the "tooptip" option
@@ -179,11 +181,10 @@ class MeHtmlHelper extends HtmlHelper {
 	}
 
 	/**
-	 * Creates an HTML link with the appearance of a button, as required by {@link http://twitter.github.com/bootstrap/base-css.html#buttons Bootstrap}.
-	 * 
-	 * Uses the <i>$this->link()</i> method
+	 * Creates an HTML link with the appearance of a button, as required 
+	 * by {@link http://twitter.github.com/bootstrap/base-css.html#buttons Bootstrap}. Uses the <i>$this->link()</i> method
 	 * @param string $title Button title
-	 * @param mixed $url Cake-relative URL, array of URL parameters or external URL (starts with http://)
+	 * @param mixed $url Cake-relative URL, array of URL parameters or external URL
 	 * @param array $options HTML attributes
 	 * @param string $confirmMessage JavaScript confirmation message
 	 * @return string Html
@@ -196,9 +197,10 @@ class MeHtmlHelper extends HtmlHelper {
 	}
 
 	/**
-	 * Creates an HTML link with the appearance of a button for {@link http://twitter.github.io/bootstrap/components.html#buttonDropdowns Bootstrap dropdowns}.
+	 * Creates an HTML link with the appearance of a button 
+	 * for {@link http://twitter.github.io/bootstrap/components.html#buttonDropdowns Bootstrap dropdowns}. Uses the <i>$this->link()</i> method
 	 * @param string $title Button title
-	 * @param mixed $url Cake-relative URL, array of URL parameters or external URL (starts with http://)
+	 * @param mixed $url Cake-relative URL, array of URL parameters or external URL
 	 * @param array $options HTML attributes
 	 * @return string Html
 	 */
@@ -209,9 +211,10 @@ class MeHtmlHelper extends HtmlHelper {
 		//Adds 'dropdown' data-toggle
 		$options['data-toggle'] = 'dropdown';
 
-		//"escape" option default false
+		//"escape" option default FALSE
 		$options['escape'] = empty($options['escape']) ? false : $options['escape'];
 
+		//Adds the caret to the title
 		$title .= ' <span class="caret"></span>';
 
 		return $this->link($title, '#', $options);
@@ -231,7 +234,7 @@ class MeHtmlHelper extends HtmlHelper {
 	 * @return string Html
 	 */
 	public function meta($type, $url=null, $options=array()) {
-		//"inline" option default false
+		//"inline" option default FALSE
 		$options['inline'] = empty($options['inline']) ? false : $options['inline'];
 
 		return parent::meta($type, $url, $options);
@@ -246,27 +249,27 @@ class MeHtmlHelper extends HtmlHelper {
 	 * @return mixed String of <script /> tags or null if $inline is false or if $once is true and the file has been included before
 	 */
 	public function script($url, $options=array()) {
-		//"inline" option default false
+		//"inline" option default FALSE
 		$options['inline'] = empty($options['inline']) ? false : $options['inline'];
 
 		return parent::script($url, $options);
 	}
 
 	/**
-	 * Generates a javascript code block containing $code. Rewrites <i>$this->Html->scriptBlock()</i>
-	 * @param string $code The code to go in the script tag
+	 * Generates a Javascript code block. Rewrites <i>$this->Html->scriptBlock()</i>
+	 * @param string $code The Javascript code
 	 * @param array $options HTML attributes
 	 * @return string Html
 	 */
 	public function scriptBlock($code, $options = array()) {
-		//"inline" option default false
+		//"inline" option default FALSE
 		$options['inline'] = empty($options['inline']) ? false : $options['inline'];
 
 		return parent::scriptBlock($code, $options);
 	}
 
 	/**
-	 * Ends javascript code. Rewrites <i>$this->Html->scriptEnd()</i>
+	 * Ends Javascript code. Rewrites <i>$this->Html->scriptEnd()</i>
 	 * @return mixed A script tag or null
 	 */
 	public function scriptEnd() {
@@ -274,7 +277,7 @@ class MeHtmlHelper extends HtmlHelper {
 	}
 
 	/**
-	 * Starts javascript code. Rewrites <i>$this->Html->scriptStart()</i>
+	 * Starts Javascript code. Rewrites <i>$this->Html->scriptStart()</i>
 	 * @param array $options Options for the code block
 	 * @return mixed A script tag or null
 	 */
@@ -293,7 +296,7 @@ class MeHtmlHelper extends HtmlHelper {
 	 * @return string The formatted tag element
 	 */
 	public function tag($name, $text=null, $options=array()) {
-		//"escape" option default false
+		//"escape" option default FALSE
 		$options['escape'] = empty($options['escape']) ? false : $options['escape'];
 
 		return parent::tag($name, $text, $options);

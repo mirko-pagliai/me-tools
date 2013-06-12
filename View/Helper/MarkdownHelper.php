@@ -6,9 +6,7 @@ use \Michelf\Markdown;
 /**
  * Convert the Markdown syntax to HTML.
  *
- * Look at {@link http://michelf.ca/projects/php-markdown PHP Markdown link}.
- * 
- * Look at {@link http://daringfireball.net/projects/markdown/syntax Markdown syntax}.
+ * Look at {@link http://michelf.ca/projects/php-markdown PHP Markdown link} and {@link http://daringfireball.net/projects/markdown/syntax Markdown syntax}.
  *
  * This file is part of MeTools.
  *
