@@ -7,7 +7,7 @@
 	<title>Class MeHtmlHelper | MeTools</title>
 
 	<script type="text/javascript" src="resources/combined.js?394153670"></script>
-	<script type="text/javascript" src="elementlist.js?271695452"></script>
+	<script type="text/javascript" src="elementlist.js?3810495820"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360" />
 
 </head>
@@ -107,7 +107,11 @@
 	
 <p>Provides functionalities for HTML code.</p>
 
-<p>Extends <a href="http://api.cakephp.org/2.4/class-HtmlHelper.html">HtmlHelper</a>.</p>
+<p>You should use this helper as an alias, for example:</p>
+
+<pre>public $helpers = array('Html' =&gt; array('className' =&gt; 'MeTools.MeHtml'));</pre>
+
+<p>MeHtmlHelper extends <a href="http://api.cakephp.org/2.4/class-HtmlHelper.html">HtmlHelper</a>.</p>
 
 <p>This file is part of MeTools.</p>
 
@@ -163,7 +167,7 @@ HtmlHelper
 href="mailto:mirko.pagliai&#64;gmail.com">mirko.pagliai&#64;<!---->gmail.com</a>&gt;<br />
 				<b>Link:</b>
 				<a href="http://git.novatlantis.it">Nova Atlantis Ltd</a><br />
-		<b>Located at</b> <a href="source-class-MeHtmlHelper.html#4-304" title="Go to source code">View/Helper/MeHtmlHelper.php</a><br />
+		<b>Located at</b> <a href="source-class-MeHtmlHelper.html#4-352" title="Go to source code">View/Helper/MeHtmlHelper.php</a><br />
 	</div>
 
 
@@ -181,7 +185,7 @@ href="mailto:mirko.pagliai&#64;gmail.com">mirko.pagliai&#64;<!---->gmail.com</a>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_addCrumb">#</a>
-		<code><a href="source-class-MeHtmlHelper.html#31-47" title="Go to source code">addCrumb</a>( <span>string <var>$title</var></span>, <span>string <var>$link</var> = <span class="php-keyword1">null</span></span>, <span>mixed <var>$options</var> = <span class="php-keyword1">null</span></span> )</code>
+		<code><a href="source-class-MeHtmlHelper.html#34-49" title="Go to source code">addCrumb</a>( <span>string <var>$title</var></span>, <span>string <var>$link</var> = <span class="php-keyword1">null</span></span>, <span>mixed <var>$options</var> = <span class="php-keyword1">null</span></span> )</code>
 
 		<div class="description short">
 			
@@ -194,6 +198,8 @@ href="mailto:mirko.pagliai&#64;gmail.com">mirko.pagliai&#64;<!---->gmail.com</a>
 			
 <p>Adds a link to the breadcrumb array. Rewrites
 <i>$this-&gt;Html-&gt;addCrumb()</i></p>
+
+<p>You can use <a href="http://twitter.github.com/bootstrap/base-css.html#icons">Bootstrap icons</a></p>
 
 
 
@@ -225,29 +231,31 @@ href="mailto:mirko.pagliai&#64;gmail.com">mirko.pagliai&#64;<!---->gmail.com</a>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_cleanAttribute">#</a>
-		<code><a href="source-class-MeHtmlHelper.html#49-70" title="Go to source code">cleanAttribute</a>( <span>string <var>$value</var></span> )</code>
+		<code><a href="source-class-MeHtmlHelper.html#51-66" title="Go to source code">cleanAttribute</a>( <span>string <var>$value</var></span> )</code>
 
 		<div class="description short">
 			
-<p>Cleans values of an html attribute, removing blank spaces and duplicates</p>
+<p>Cleans values of an html attribute, removing blank spaces and duplicates. For
+example:</p>
+
+<pre>a a b  b c d e e e</pre>
+
+<p>will become:</p>
+
+<pre>a b c d e</pre>
 
 		</div>
 
 		<div class="description detailed hidden">
 			
-<p>Cleans values of an html attribute, removing blank spaces and duplicates</p>
+<p>Cleans values of an html attribute, removing blank spaces and duplicates. For
+example:</p>
 
-<p>For example, the string (an attribute value):</p>
-
-<pre>
-a a b  b c d e e e
-</pre>
+<pre>a a b  b c d e e e</pre>
 
 <p>will become:</p>
 
-<pre>
-a b c d e
-</pre>
+<pre>a b c d e</pre>
 
 
 
@@ -279,7 +287,7 @@ a b c d e
 
 		<td class="name"><div>
 		<a class="anchor" href="#_css">#</a>
-		<code><a href="source-class-MeHtmlHelper.html#72-86" title="Go to source code">css</a>( <span>mixed <var>$filename</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span>, <span>string <var>$rel</var> = <span class="php-keyword1">null</span></span> )</code>
+		<code><a href="source-class-MeHtmlHelper.html#68-82" title="Go to source code">css</a>( <span>mixed <var>$filename</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span>, <span>string <var>$rel</var> = <span class="php-keyword1">null</span></span> )</code>
 
 		<div class="description short">
 			
@@ -329,7 +337,7 @@ be use</dd>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_cssEnd">#</a>
-		<code><a href="source-class-MeHtmlHelper.html#88-93" title="Go to source code">cssEnd</a>( )</code>
+		<code><a href="source-class-MeHtmlHelper.html#84-89" title="Go to source code">cssEnd</a>( )</code>
 
 		<div class="description short">
 			
@@ -362,7 +370,7 @@ be use</dd>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_cssStart">#</a>
-		<code><a href="source-class-MeHtmlHelper.html#95-100" title="Go to source code">cssStart</a>( )</code>
+		<code><a href="source-class-MeHtmlHelper.html#91-96" title="Go to source code">cssStart</a>( )</code>
 
 		<div class="description short">
 			
@@ -384,6 +392,60 @@ be use</dd>
 		</div>
 		</div></td>
 	</tr>
+	<tr data-order="getCrumbs" id="_getCrumbs">
+
+		<td class="attributes"><code>
+			 public 
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getCrumbs">#</a>
+		<code><a href="source-class-MeHtmlHelper.html#98-115" title="Go to source code">getCrumbs</a>( <span>string <var>$separator</var> = <span class="php-quote">'/'</span></span>, <span>string|array|boolean <var>$startText</var> = <span class="php-keyword1">false</span></span> )</code>
+
+		<div class="description short">
+			
+<p>Returns the breadcrumb as a sequence of separated links. Rewrites
+<i>$this-&gt;Html-&gt;getCrumbs()</i></p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Returns the breadcrumb as a sequence of separated links. Rewrites
+<i>$this-&gt;Html-&gt;getCrumbs()</i></p>
+
+<p>Note that it's better to use <i>$this-&gt;getCrumbList()</i>, which offers
+better compatibility with Bootstrap</p>
+
+<p>You can use <a href="http://twitter.github.com/bootstrap/base-css.html#icons">Bootstrap icons</a> for the first crumb. For example:</p>
+
+<pre>echo $this-&gt;Html-&gt;getCrumbs('/', array('text' =&gt; 'Homepage', 'icon' =&gt; 'icon-home'));</pre>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$separator</var></dt>
+					<dd><code>string</code><br>$separator Text to separate crumbs</dd>
+					<dt><var>$startText</var></dt>
+					<dd><code>string|array|boolean</code><br>$startText The first crumb. If is an array, the accepted keys are "text", "url"
+and "icon"</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>string</code><br>Html, breadcrumb<br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
 	<tr data-order="getCrumbList" id="_getCrumbList">
 
 		<td class="attributes"><code>
@@ -395,19 +457,25 @@ be use</dd>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getCrumbList">#</a>
-		<code><a href="source-class-MeHtmlHelper.html#102-128" title="Go to source code">getCrumbList</a>( <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span>, <span>mixed <var>$startText</var> = <span class="php-keyword1">false</span></span> )</code>
+		<code><a href="source-class-MeHtmlHelper.html#117-140" title="Go to source code">getCrumbList</a>( <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span>, <span>string|array|boolean <var>$startText</var> = <span class="php-keyword1">false</span></span> )</code>
 
 		<div class="description short">
 			
-<p>Returns the breadcrumb as Html. Rewrites
-<i>$this-&gt;Html-&gt;getCrumbList()</i></p>
+<p>Returns the breadcrumb. Rewrites <i>$this-&gt;Html-&gt;getCrumbList()</i></p>
 
 		</div>
 
 		<div class="description detailed hidden">
 			
-<p>Returns the breadcrumb as Html. Rewrites
-<i>$this-&gt;Html-&gt;getCrumbList()</i></p>
+<p>Returns the breadcrumb. Rewrites <i>$this-&gt;Html-&gt;getCrumbList()</i></p>
+
+<p>You can use <a href="http://twitter.github.com/bootstrap/base-css.html#icons">Bootstrap icons</a> for the first crumb. For example:</p>
+
+<pre>echo $this-&gt;Html-&gt;getCrumbList(null, array('text' =&gt; 'Homepage', 'icon' =&gt; 'icon-home'));</pre>
+
+<p>Note that with Bootstrap 3 you don't need to set separators. Separators are
+automatically added in CSS through <code>:after</code> and
+<code>content</code></p>
 
 
 
@@ -417,12 +485,13 @@ be use</dd>
 					<dd><code>array</code><br>$options HTML attributes. Can also contain "separator" and "firstClass" options.
 The "lastClass" option is set automatically as required by Bootstrap</dd>
 					<dt><var>$startText</var></dt>
-					<dd><code>mixed</code><br>$startText The first crumb, if false it defaults to first crumb in array</dd>
+					<dd><code>string|array|boolean</code><br>$startText The first crumb. If is an array, the accepted keys are "text", "url"
+and "icon"</dd>
 				</dl></div>
 
 				<h4>Returns</h4>
 				<div class="list">
-					<code>string</code><br>Breadcrumb as Html<br />
+					<code>string</code><br>Html, breadcrumb<br />
 				</div>
 
 
@@ -442,33 +511,23 @@ The "lastClass" option is set automatically as required by Bootstrap</dd>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_icon">#</a>
-		<code><a href="source-class-MeHtmlHelper.html#130-150" title="Go to source code">icon</a>( <span>array <var>$icon</var> = <span class="php-keyword1">null</span></span> )</code>
+		<code><a href="source-class-MeHtmlHelper.html#142-159" title="Go to source code">icon</a>( <span>array <var>$icon</var> = <span class="php-keyword1">null</span></span> )</code>
 
 		<div class="description short">
 			
-<p>Returns an icon (<i>Glyphicons</i> or <i>Font Awesome icons</i></p>
+<p>Returns a Bootstrap icon (<i>Glyphicons</i> or <i>Font Awesome icons</i>)</p>
 
 		</div>
 
 		<div class="description detailed hidden">
 			
-<p>Returns an icon (<i>Glyphicons</i> or <i>Font Awesome icons</i></p>
+<p>Returns a Bootstrap icon (<i>Glyphicons</i> or <i>Font Awesome icons</i>)</p>
 
-<p>Example:</p>
+<p>Examples:</p>
 
-<pre>
-<span class="php-keyword1">echo</span> <span
-class="php-var">$this</span>-&gt;MeHtml-&gt;icon(<span
-class="php-quote">'icon-ok icon-white'</span>);
-</pre>
+<pre>echo $this-&gt;Html-&gt;icon('icon-ok icon-white');</pre>
 
-<pre>
-<span class="php-keyword1">echo</span> <span
-class="php-var">$this</span>-&gt;MeHtml-&gt;icon(<span
-class="php-keyword1">array</span>(<span
-class="php-quote">'icon-ok'</span>, <span
-class="php-quote">'icon-white'</span>));
-</pre>
+<pre>echo $this-&gt;Html-&gt;icon(array('icon-ok', 'icon-white'));</pre>
 
 <p>Look at <a href="http://twitter.github.com/bootstrap/base-css.html#icons">Bootstrap icons</a> and <a href="http://fortawesome.github.com/Font-Awesome/#icons-new">Font Awesome icons</a></p>
 
@@ -482,8 +541,74 @@ class="php-quote">'icon-white'</span>));
 
 				<h4>Returns</h4>
 				<div class="list">
-					<code>string</code><br>Html<br />
+					<code>string</code><br>Html, icon<br />
 				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="img" id="_img">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_img">#</a>
+		<code><a href="source-class-MeHtmlHelper.html#161-167" title="Go to source code">img</a>( )</code>
+
+		<div class="description short">
+			
+<p>Alias for <i>$this-&gt;Html-&gt;image()</i></p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Alias for <i>$this-&gt;Html-&gt;image()</i></p>
+
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="js" id="_js">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_js">#</a>
+		<code><a href="source-class-MeHtmlHelper.html#169-175" title="Go to source code">js</a>( )</code>
+
+		<div class="description short">
+			
+<p>Alias for <i>$this-&gt;Html-&gt;script()</i></p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Alias for <i>$this-&gt;Html-&gt;script()</i></p>
+
+
+
+
 
 
 
@@ -502,7 +627,7 @@ class="php-quote">'icon-white'</span>));
 
 		<td class="name"><div>
 		<a class="anchor" href="#_link">#</a>
-		<code><a href="source-class-MeHtmlHelper.html#152-181" title="Go to source code">link</a>( <span>string <var>$title</var></span>, <span>mixed <var>$url</var> = <span class="php-keyword1">null</span></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span>, <span>string <var>$confirmMessage</var> = <span class="php-keyword1">false</span></span> )</code>
+		<code><a href="source-class-MeHtmlHelper.html#177-204" title="Go to source code">link</a>( <span>string <var>$title</var></span>, <span>mixed <var>$url</var> = <span class="php-quote">'#'</span></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span>, <span>string <var>$confirmMessage</var> = <span class="php-keyword1">false</span></span> )</code>
 
 		<div class="description short">
 			
@@ -514,17 +639,9 @@ class="php-quote">'icon-white'</span>));
 			
 <p>Creates an HTML link. Rewrites <i>$this-&gt;Html-&gt;link()</i></p>
 
-<p>You can use <a href="http://twitter.github.com/bootstrap/base-css.html#icons">Bootstrap icons</a> using the "icon" option. Example:</p>
+<p>You can use <a href="http://twitter.github.com/bootstrap/base-css.html#icons">Bootstrap icons</a>. For example:</p>
 
-<pre>
-<span class="php-keyword1">echo</span> <span
-class="php-var">$this</span>-&gt;Html-&gt;<span
-class="php-keyword2">link</span>(<span class="php-quote">'my link'</span>, <span
-class="php-quote">'http://site.com'</span>, <span
-class="php-keyword1">array</span>(<span
-class="php-quote">'icon'</span> =&gt; <span
-class="php-quote">'icon-search'</span>));
-</pre>
+<pre>echo $this-&gt;Html-&gt;link('my link', 'http://site.com', array('icon' =&gt; 'icon-search'));</pre>
 
 
 
@@ -543,7 +660,7 @@ http://)</dd>
 
 				<h4>Returns</h4>
 				<div class="list">
-					<code>string</code><br>Html<br />
+					<code>string</code><br>Html, link<br />
 				</div>
 
 
@@ -563,7 +680,7 @@ http://)</dd>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_linkButton">#</a>
-		<code><a href="source-class-MeHtmlHelper.html#183-197" title="Go to source code">linkButton</a>( <span>string <var>$title</var></span>, <span>mixed <var>$url</var> = <span class="php-keyword1">null</span></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span>, <span>string <var>$confirmMessage</var> = <span class="php-keyword1">false</span></span> )</code>
+		<code><a href="source-class-MeHtmlHelper.html#206-223" title="Go to source code">linkButton</a>( <span>string <var>$title</var></span>, <span>mixed <var>$url</var> = <span class="php-quote">'#'</span></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span>, <span>string <var>$confirmMessage</var> = <span class="php-keyword1">false</span></span> )</code>
 
 		<div class="description short">
 			
@@ -574,6 +691,10 @@ http://)</dd>
 		<div class="description detailed hidden">
 			
 <p>Creates an HTML link with the appearance of a button, as required by <a href="http://twitter.github.com/bootstrap/base-css.html#buttons">Bootstrap</a>. Uses the <i>$this-&gt;link()</i> method</p>
+
+<p>You can use <a href="http://twitter.github.com/bootstrap/base-css.html#icons">Bootstrap icons</a>. For example:</p>
+
+<pre>echo $this-&gt;Html-&gt;linkButton('my link', 'http://site.com', array('icon' =&gt; 'icon-search'));</pre>
 
 
 
@@ -591,7 +712,7 @@ http://)</dd>
 
 				<h4>Returns</h4>
 				<div class="list">
-					<code>string</code><br>Html<br />
+					<code>string</code><br>Html, link with the appearance of a button<br />
 				</div>
 
 
@@ -611,7 +732,7 @@ http://)</dd>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_linkDropdown">#</a>
-		<code><a href="source-class-MeHtmlHelper.html#199-221" title="Go to source code">linkDropdown</a>( <span>string <var>$title</var></span>, <span>mixed <var>$url</var> = <span class="php-quote">'#'</span></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-MeHtmlHelper.html#225-250" title="Go to source code">linkDropdown</a>( <span>string <var>$title</var></span>, <span>mixed <var>$url</var> = <span class="php-quote">'#'</span></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
@@ -622,6 +743,10 @@ http://)</dd>
 		<div class="description detailed hidden">
 			
 <p>Creates an HTML link with the appearance of a button for <a href="http://twitter.github.io/bootstrap/components.html#buttonDropdowns">Bootstrap dropdowns</a>. Uses the <i>$this-&gt;link()</i> method</p>
+
+<p>You can use <a href="http://twitter.github.com/bootstrap/base-css.html#icons">Bootstrap icons</a>. For example:</p>
+
+<pre>echo $this-&gt;Html-&gt;linkButton('my link', 'http://site.com', array('icon' =&gt; 'icon-search'));</pre>
 
 
 
@@ -637,7 +762,7 @@ http://)</dd>
 
 				<h4>Returns</h4>
 				<div class="list">
-					<code>string</code><br>Html<br />
+					<code>string</code><br>Html, link for dropdown<br />
 				</div>
 
 
@@ -657,7 +782,7 @@ http://)</dd>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_meta">#</a>
-		<code><a href="source-class-MeHtmlHelper.html#223-241" title="Go to source code">meta</a>( <span>string <var>$type</var></span>, <span>mixed <var>$url</var> = <span class="php-keyword1">null</span></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-MeHtmlHelper.html#252-267" title="Go to source code">meta</a>( <span>string <var>$type</var></span>, <span>mixed <var>$url</var> = <span class="php-keyword1">null</span></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
@@ -672,15 +797,7 @@ http://)</dd>
 <p>For a custom meta tag, the first parameter should be set to an array. For
 example:</p>
 
-<pre>
-<span class="php-keyword1">echo</span> <span
-class="php-var">$this</span>-&gt;MeHtml-&gt;meta(<span
-class="php-keyword1">array</span>(<span
-class="php-quote">'name'</span> =&gt; <span
-class="php-quote">'robots'</span>, <span
-class="php-quote">'content'</span> =&gt; <span
-class="php-quote">'noindex'</span>));
-</pre>
+<pre>echo $this-&gt;Html-&gt;meta(array('name' =&gt; 'robots', 'content' =&gt; 'noindex'));</pre>
 
 
 
@@ -696,7 +813,55 @@ class="php-quote">'noindex'</span>));
 
 				<h4>Returns</h4>
 				<div class="list">
-					<code>string</code><br>Html<br />
+					<code>string</code><br>Html, meta tag<br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="ol" id="_ol">
+
+		<td class="attributes"><code>
+			 public 
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_ol">#</a>
+		<code><a href="source-class-MeHtmlHelper.html#269-278" title="Go to source code">ol</a>( <span>array <var>$list</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span>, <span>array <var>$itemOptions</var> = <span class="php-keyword1">array</span>()</span> )</code>
+
+		<div class="description short">
+			
+<p>Build an ordered list (<code>ol</code>) out of an associative array. Rewrites
+<i>$this-&gt;Html-&gt;nestedList()</i></p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Build an ordered list (<code>ol</code>) out of an associative array. Rewrites
+<i>$this-&gt;Html-&gt;nestedList()</i></p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$list</var></dt>
+					<dd><code>array</code><br>$list Elements to list</dd>
+					<dt><var>$options</var></dt>
+					<dd><code>array</code><br>$options HTML attributes of the list tag</dd>
+					<dt><var>$itemOptions</var></dt>
+					<dd><code>array</code><br>$itemOptions HTML attributes of the list item (<code>li</code>) tag</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>string</code><br>Html, ordered list<br />
 				</div>
 
 
@@ -716,7 +881,7 @@ class="php-quote">'noindex'</span>));
 
 		<td class="name"><div>
 		<a class="anchor" href="#_script">#</a>
-		<code><a href="source-class-MeHtmlHelper.html#243-256" title="Go to source code">script</a>( <span>mixed <var>$url</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-MeHtmlHelper.html#280-293" title="Go to source code">script</a>( <span>mixed <var>$url</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
@@ -764,7 +929,7 @@ and the file has been included before<br />
 
 		<td class="name"><div>
 		<a class="anchor" href="#_scriptBlock">#</a>
-		<code><a href="source-class-MeHtmlHelper.html#258-269" title="Go to source code">scriptBlock</a>( <span>string <var>$code</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-MeHtmlHelper.html#295-306" title="Go to source code">scriptBlock</a>( <span>string <var>$code</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
@@ -790,7 +955,7 @@ and the file has been included before<br />
 
 				<h4>Returns</h4>
 				<div class="list">
-					<code>string</code><br>Html<br />
+					<code>string</code><br>Html, Javascript code<br />
 				</div>
 
 
@@ -810,7 +975,7 @@ and the file has been included before<br />
 
 		<td class="name"><div>
 		<a class="anchor" href="#_scriptEnd">#</a>
-		<code><a href="source-class-MeHtmlHelper.html#271-277" title="Go to source code">scriptEnd</a>( )</code>
+		<code><a href="source-class-MeHtmlHelper.html#308-314" title="Go to source code">scriptEnd</a>( )</code>
 
 		<div class="description short">
 			
@@ -847,7 +1012,7 @@ and the file has been included before<br />
 
 		<td class="name"><div>
 		<a class="anchor" href="#_scriptStart">#</a>
-		<code><a href="source-class-MeHtmlHelper.html#279-289" title="Go to source code">scriptStart</a>( <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-MeHtmlHelper.html#316-326" title="Go to source code">scriptStart</a>( <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
@@ -889,7 +1054,7 @@ and the file has been included before<br />
 
 		<td class="name"><div>
 		<a class="anchor" href="#_tag">#</a>
-		<code><a href="source-class-MeHtmlHelper.html#291-303" title="Go to source code">tag</a>( <span>string <var>$name</var></span>, <span>string <var>$text</var> = <span class="php-keyword1">null</span></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-MeHtmlHelper.html#328-340" title="Go to source code">tag</a>( <span>string <var>$name</var></span>, <span>string <var>$text</var> = <span class="php-keyword1">null</span></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
@@ -919,7 +1084,55 @@ and the file has been included before<br />
 
 				<h4>Returns</h4>
 				<div class="list">
-					<code>string</code><br>The formatted tag element<br />
+					<code>string</code><br>Html, tag element<br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="ul" id="_ul">
+
+		<td class="attributes"><code>
+			 public 
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_ul">#</a>
+		<code><a href="source-class-MeHtmlHelper.html#342-351" title="Go to source code">ul</a>( <span>array <var>$list</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span>, <span>array <var>$itemOptions</var> = <span class="php-keyword1">array</span>()</span> )</code>
+
+		<div class="description short">
+			
+<p>Build an unordered list (<code>ul</code>) out of an associative array.
+Rewrites <i>$this-&gt;Html-&gt;nestedList()</i></p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Build an unordered list (<code>ul</code>) out of an associative array.
+Rewrites <i>$this-&gt;Html-&gt;nestedList()</i></p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$list</var></dt>
+					<dd><code>array</code><br>$list Elements to list</dd>
+					<dt><var>$options</var></dt>
+					<dd><code>array</code><br>$options HTML attributes of the list tag</dd>
+					<dt><var>$itemOptions</var></dt>
+					<dd><code>array</code><br>$itemOptions HTML attributes of the list item (<code>li</code>) tag</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>string</code><br>Html, unordered list<br />
 				</div>
 
 
