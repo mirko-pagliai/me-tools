@@ -3,8 +3,11 @@ App::uses('HtmlHelper', 'View/Helper');
 
 /**
  * Provides functionalities for HTML code.
+ * 
+ * You should use this helper as an alias, for example:
+ * <pre>public $helpers = array('Html' => array('className' => 'MeTools.MeHtml'));</pre>
  *   
- * Extends {@link http://api.cakephp.org/2.4/class-HtmlHelper.html HtmlHelper}.
+ * MeHtmlHelper extends {@link http://api.cakephp.org/2.4/class-HtmlHelper.html HtmlHelper}.
  *
  * This file is part of MeTools.
  *
@@ -30,33 +33,26 @@ App::uses('HtmlHelper', 'View/Helper');
 class MeHtmlHelper extends HtmlHelper {
 	/**
 	 * Adds a link to the breadcrumb array. Rewrites <i>$this->Html->addCrumb()</i>
+	 * 
+	 * You can use {@link http://twitter.github.com/bootstrap/base-css.html#icons Bootstrap icons}
 	 * @param string $name Text for link
 	 * @param string $link URL for link (if empty it won't be a link)
 	 * @param mixed $options HTML attributes
 	 * @return void
 	 */
 	public function addCrumb($title, $link=null, $options=null) {
-		//"escape" option default FALSE
-		$options['escape'] = empty($options['escape']) ? false : $options['escape'];
-
 		//Add bootstrap icon to the title, if the "icon" option exists
-		$title = !empty($options['icon']) ? $this->icon($options['icon']).$title : $title;
+		if(!empty($options['icon'])) $title = $this->icon($options['icon']).$title;
 		unset($options['icon']);
 
 		return parent::addCrumb($title, $link, $options);
 	}
 	
 	/**
-	 * Cleans values of an html attribute, removing blank spaces and duplicates
-	 *
-	 * For example, the string (an attribute value):
-	 * <code>
-	 * a a b  b c d e e e
-	 * </code>
+	 * Cleans values of an html attribute, removing blank spaces and duplicates. For example:
+	 * <pre>a a b  b c d e e e</pre>
 	 * will become:
-	 * <code>
-	 * a b c d e
-	 * </code>
+	 * <pre>a b c d e</pre>
 	 * @param string $value Attribute value
 	 * @return string Cleaned attribute value
 	 */
@@ -100,10 +96,34 @@ class MeHtmlHelper extends HtmlHelper {
 	}
 
 	/**
-	 * Returns the breadcrumb as Html. Rewrites <i>$this->Html->getCrumbList()</i>
+	 * Returns the breadcrumb as a sequence of separated links. Rewrites <i>$this->Html->getCrumbs()</i>
+	 * 
+	 * Note that it's better to use <i>$this->getCrumbList()</i>, which offers better compatibility with Bootstrap
+	 *
+	 * You can use {@link http://twitter.github.com/bootstrap/base-css.html#icons Bootstrap icons} for the first crumb. For example:
+	 * <pre>echo $this->Html->getCrumbs('/', array('text' => 'Homepage', 'icon' => 'icon-home'));</pre>
+	 * @param string $separator Text to separate crumbs
+	 * @param string|array|boolean $startText The first crumb. If is an array, the accepted keys are "text", "url" and "icon"
+	 * @return string Html, breadcrumb
+	 */
+	public function getCrumbs($separator='/', $startText=false) {
+		//Change the separator as required by Bootstrap
+		if(!empty($separator))
+			$separator = '<span class="divider">'.$separator.'</span>';
+		
+		return $this->tag('div', parent::getCrumbs($separator, $startText), array('class' => 'breadcrumb'));
+	}
+	
+	/**
+	 * Returns the breadcrumb. Rewrites <i>$this->Html->getCrumbList()</i>
+	 *
+	 * You can use {@link http://twitter.github.com/bootstrap/base-css.html#icons Bootstrap icons} for the first crumb. For example:
+	 * <pre>echo $this->Html->getCrumbList(null, array('text' => 'Homepage', 'icon' => 'icon-home'));</pre>
+	 * 
+	 * Note that with Bootstrap 3 you don't need to set separators. Separators are automatically added in CSS through `:after` and `content`
 	 * @param array $options HTML attributes. Can also contain "separator" and "firstClass" options. The "lastClass" option is set automatically as required by Bootstrap
-	 * @param mixed $startText The first crumb, if false it defaults to first crumb in array
-	 * @return string Breadcrumb as Html
+	 * @param string|array|boolean $startText The first crumb. If is an array, the accepted keys are "text", "url" and "icon"
+	 * @return string Html, breadcrumb
 	 */
 	public function getCrumbList($options=array(), $startText=false) {
 		//Add the "breadcrumb" class
@@ -116,55 +136,58 @@ class MeHtmlHelper extends HtmlHelper {
 		//Add the "active" class to the last element
 		$options['lastClass'] = 'active';
 
-		//"escape" option default FALSE
-		if(!empty($startText)) {
-			//If $startText is not an array, converts it into an array
-			if(!is_array($startText))
-				$startText = array('text' => $startText);
-			$startText['escape'] = false;
-		}
-
 		return parent::getCrumbList($options, $startText);
 	}
 
 	/**
-	 * Returns an icon (<i>Glyphicons</i> or <i>Font Awesome icons</i>
+	 * Returns a Bootstrap icon (<i>Glyphicons</i> or <i>Font Awesome icons</i>)
 	 *
-	 * Example:
-	 * <code>
-	 * echo $this->MeHtml->icon('icon-ok icon-white');
-	 * </code>
-	 * <code>
-	 * echo $this->MeHtml->icon(array('icon-ok', 'icon-white'));
-	 * </code>
+	 * Examples:
+	 * <pre>echo $this->Html->icon('icon-ok icon-white');</pre>
+	 * <pre>echo $this->Html->icon(array('icon-ok', 'icon-white'));</pre>
 	 *
 	 * Look at {@link http://twitter.github.com/bootstrap/base-css.html#icons Bootstrap icons} and {@link http://fortawesome.github.com/Font-Awesome/#icons-new Font Awesome icons}
 	 * @param array $icon Icon or icons as string or an array of icons
-	 * @return string Html
+	 * @return string Html, icon
 	 */
 	public function icon($icon=null) {
 		//If array, implodes
 		if(is_array($icon))
 			$icon = implode(' ', $icon);
+		
 		return '<i class="'.$this->cleanAttribute($icon).'"></i> ';
+	}
+	
+	/**
+	 * Alias for <i>$this->Html->image()</i>
+	 */
+	public function img() {
+		$args = func_get_args(); 
+		return call_user_func_array(array('MeHtmlHelper', 'image'), $args);
+	}
+	
+	/**
+	 * Alias for <i>$this->Html->script()</i>
+	 */
+	public function js() {
+		$args = func_get_args(); 
+		return call_user_func_array(array('MeHtmlHelper', 'script'), $args);
 	}
 
 	/**
 	 * Creates an HTML link. Rewrites <i>$this->Html->link()</i>
 	 *
-	 * You can use {@link http://twitter.github.com/bootstrap/base-css.html#icons Bootstrap icons} using the "icon" option. Example:
-	 * <code>
-	 * echo $this->Html->link('my link', 'http://site.com', array('icon' => 'icon-search'));
-	 * </code>
+	 * You can use {@link http://twitter.github.com/bootstrap/base-css.html#icons Bootstrap icons}. For example:
+	 * <pre>echo $this->Html->link('my link', 'http://site.com', array('icon' => 'icon-search'));</pre>
 	 * @param string $title Link title
 	 * @param mixed $url Cake-relative URL, array of URL parameters or external URL (starts with http://)
 	 * @param array $options HTML attributes
 	 * @param string $confirmMessage JavaScript confirmation message
-	 * @return string Html
+	 * @return string Html, link
 	 */
-	public function link($title, $url=null, $options=array(), $confirmMessage=false) {
-		//Adds bootstrap icon to the title, if the "icon" option exists
-		$title = !empty($options['icon']) ? $this->icon($options['icon']).$title : $title;
+	public function link($title, $url='#', $options=array(), $confirmMessage=false) {
+		//Adds a Bootstrap icon to the title
+		if(!empty($options['icon'])) $title = $this->icon($options['icon']).$title;
 		unset($options['icon']);
 		
 		//"escape" option default FALSE
@@ -183,13 +206,16 @@ class MeHtmlHelper extends HtmlHelper {
 	/**
 	 * Creates an HTML link with the appearance of a button, as required 
 	 * by {@link http://twitter.github.com/bootstrap/base-css.html#buttons Bootstrap}. Uses the <i>$this->link()</i> method
+	 *
+	 * You can use {@link http://twitter.github.com/bootstrap/base-css.html#icons Bootstrap icons}. For example:
+	 * <pre>echo $this->Html->linkButton('my link', 'http://site.com', array('icon' => 'icon-search'));</pre>
 	 * @param string $title Button title
 	 * @param mixed $url Cake-relative URL, array of URL parameters or external URL
 	 * @param array $options HTML attributes
 	 * @param string $confirmMessage JavaScript confirmation message
-	 * @return string Html
+	 * @return string Html, link with the appearance of a button
 	 */
-	public function linkButton($title, $url=null, $options=array(), $confirmMessage=false) {
+	public function linkButton($title, $url='#', $options=array(), $confirmMessage=false) {
 		//Adds the 'btn' class
 		$options['class'] = empty($options['class']) ? 'btn' : $this->cleanAttribute($options['class'].' btn');
 
@@ -199,16 +225,19 @@ class MeHtmlHelper extends HtmlHelper {
 	/**
 	 * Creates an HTML link with the appearance of a button 
 	 * for {@link http://twitter.github.io/bootstrap/components.html#buttonDropdowns Bootstrap dropdowns}. Uses the <i>$this->link()</i> method
+	 *
+	 * You can use {@link http://twitter.github.com/bootstrap/base-css.html#icons Bootstrap icons}. For example:
+	 * <pre>echo $this->Html->linkButton('my link', 'http://site.com', array('icon' => 'icon-search'));</pre>
 	 * @param string $title Button title
 	 * @param mixed $url Cake-relative URL, array of URL parameters or external URL
 	 * @param array $options HTML attributes
-	 * @return string Html
+	 * @return string Html, link for dropdown
 	 */
 	public function linkDropdown($title, $url='#', $options=array()) {
 		//Adds 'btn' and 'dropdown-toggle' classes
 		$options['class'] = empty($options['class']) ? 'dropdown-toggle' : $this->cleanAttribute($options['class'].' dropdown-toggle');
 
-		//Adds 'dropdown' data-toggle
+		//Adds 'dropdown' data-toggle option
 		$options['data-toggle'] = 'dropdown';
 
 		//"escape" option default FALSE
@@ -217,27 +246,35 @@ class MeHtmlHelper extends HtmlHelper {
 		//Adds the caret to the title
 		$title .= ' <span class="caret"></span>';
 
-		return $this->link($title, '#', $options);
+		return $this->link($title, $url, $options);
 	}
 
 	/**
 	 * Creates a meta tag. Rewrites <i>$this->Html->meta()</i>
 	 *
 	 * For a custom meta tag, the first parameter should be set to an array. For example:
-	 *
-	 * <code>
-	 * echo $this->MeHtml->meta(array('name' => 'robots', 'content' => 'noindex'));
-	 * </code>
+	 * <pre>echo $this->Html->meta(array('name' => 'robots', 'content' => 'noindex'));</pre>
 	 * @param string $type The title of the external resource
 	 * @param mixed $url The address of the external resource or string for content attribute
 	 * @param array $options Other attributes for the generated tag
-	 * @return string Html
+	 * @return string Html, meta tag
 	 */
 	public function meta($type, $url=null, $options=array()) {
 		//"inline" option default FALSE
 		$options['inline'] = empty($options['inline']) ? false : $options['inline'];
 
 		return parent::meta($type, $url, $options);
+	}
+	
+	/**
+	 * Build an ordered list (`ol`) out of an associative array. Rewrites <i>$this->Html->nestedList()</i>
+	 * @param array $list Elements to list
+	 * @param array $options HTML attributes of the list tag
+	 * @param array $itemOptions HTML attributes of the list item (`li`) tag
+	 * @return string Html, ordered list
+	 */
+	public function ol($list, $options=array(), $itemOptions=array()) {
+		return parent::nestedList($list, $options, $itemOptions, 'ol');
 	}
 
 	/**
@@ -259,7 +296,7 @@ class MeHtmlHelper extends HtmlHelper {
 	 * Generates a Javascript code block. Rewrites <i>$this->Html->scriptBlock()</i>
 	 * @param string $code The Javascript code
 	 * @param array $options HTML attributes
-	 * @return string Html
+	 * @return string Html, Javascript code
 	 */
 	public function scriptBlock($code, $options = array()) {
 		//"inline" option default FALSE
@@ -293,12 +330,23 @@ class MeHtmlHelper extends HtmlHelper {
 	 * @param string $name Tag name
 	 * @param string $text Tag content. If null, only a start tag will be printed
 	 * @param array $options HTML attributes
-	 * @return string The formatted tag element
+	 * @return string Html, tag element
 	 */
 	public function tag($name, $text=null, $options=array()) {
 		//"escape" option default FALSE
 		$options['escape'] = empty($options['escape']) ? false : $options['escape'];
 
 		return parent::tag($name, $text, $options);
+	}
+	
+	/**
+	 * Build an unordered list (`ul`) out of an associative array. Rewrites <i>$this->Html->nestedList()</i>
+	 * @param array $list Elements to list
+	 * @param array $options HTML attributes of the list tag
+	 * @param array $itemOptions HTML attributes of the list item (`li`) tag
+	 * @return string Html, unordered list
+	 */
+	public function ul($list, $options=array(), $itemOptions=array()) {
+		return parent::nestedList($list, $options, $itemOptions, 'ul');
 	}
 }
