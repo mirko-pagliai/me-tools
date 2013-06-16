@@ -47,6 +47,35 @@ class MeHtmlHelper extends HtmlHelper {
 
 		return parent::addCrumb($title, $link, $options);
 	}
+
+	/**
+	 * Creates an HTML link with the appearance of a button, as required 
+	 * by {@link http://twitter.github.com/bootstrap/base-css.html#buttons Bootstrap}. Uses the <i>$this->link()</i> method
+	 *
+	 * You can use {@link http://twitter.github.com/bootstrap/base-css.html#icons Bootstrap icons}. For example:
+	 * <pre>echo $this->Html->linkButton('my link', 'http://site.com', array('icon' => 'icon-search'));</pre>
+	 * @param string $title Button title
+	 * @param mixed $url Cake-relative URL, array of URL parameters or external URL
+	 * @param array $options HTML attributes
+	 * @param string $confirmMessage JavaScript confirmation message
+	 * @return string Html, link with the appearance of a button
+	 */
+	public function button($title, $url='#', $options=array(), $confirmMessage=false) {
+		//If "class" is not empty
+		if(!empty($options['class'])) {
+			//If "class" doesn't contain a button style, adds "btn-primaty" to class
+			if(!preg_match('/btn-/', $options['class']))
+				$options['class'] .= ' btn-primary';
+			
+			//Adds "btn" to class
+			$options['class'] = $this->cleanAttribute('btn '.$options['class']);
+		}
+		//Else, if "class" is empty, "class" will be "btn btn-primary"
+		else
+			$options['class'] = 'btn btn-primary';
+
+		return $this->link($title, $url, $options, $confirmMessage);
+	}
 	
 	/**
 	 * Cleans values of an html attribute, removing blank spaces and duplicates. For example:
@@ -204,32 +233,11 @@ class MeHtmlHelper extends HtmlHelper {
 	}
 
 	/**
-	 * Creates an HTML link with the appearance of a button, as required 
-	 * by {@link http://twitter.github.com/bootstrap/base-css.html#buttons Bootstrap}. Uses the <i>$this->link()</i> method
-	 *
-	 * You can use {@link http://twitter.github.com/bootstrap/base-css.html#icons Bootstrap icons}. For example:
-	 * <pre>echo $this->Html->linkButton('my link', 'http://site.com', array('icon' => 'icon-search'));</pre>
-	 * @param string $title Button title
-	 * @param mixed $url Cake-relative URL, array of URL parameters or external URL
-	 * @param array $options HTML attributes
-	 * @param string $confirmMessage JavaScript confirmation message
-	 * @return string Html, link with the appearance of a button
+	 * Alias for <i>$this->Html->button()</i>
 	 */
-	public function linkButton($title, $url='#', $options=array(), $confirmMessage=false) {
-		//If "class" is not empty
-		if(!empty($options['class'])) {
-			//If "class" doesn't contain a button style, adds "btn-primaty" to class
-			if(!preg_match('/btn-/', $options['class']))
-				$options['class'] .= ' btn-primary';
-			
-			//Adds "btn" to class
-			$options['class'] = $this->cleanAttribute('btn '.$options['class']);
-		}
-		//Else, if "class" is empty, "class" will be "btn btn-primary"
-		else
-			$options['class'] = 'btn btn-primary';
-
-		return $this->link($title, $url, $options, $confirmMessage);
+	public function linkButton() {
+		$args = func_get_args(); 
+		return call_user_func_array(array('MeHtmlHelper', 'button'), $args);
 	}
 
 	/**
