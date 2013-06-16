@@ -216,8 +216,18 @@ class MeHtmlHelper extends HtmlHelper {
 	 * @return string Html, link with the appearance of a button
 	 */
 	public function linkButton($title, $url='#', $options=array(), $confirmMessage=false) {
-		//Adds the 'btn' class
-		$options['class'] = empty($options['class']) ? 'btn' : $this->cleanAttribute($options['class'].' btn');
+		//If "class" is not empty
+		if(!empty($options['class'])) {
+			//If "class" doesn't contain a button style, adds "btn-primaty" to class
+			if(!preg_match('/btn-/', $options['class']))
+				$options['class'] .= ' btn-primary';
+			
+			//Adds "btn" to class
+			$options['class'] = $this->cleanAttribute('btn '.$options['class']);
+		}
+		//Else, if "class" is empty, "class" will be "btn btn-primary"
+		else
+			$options['class'] = 'btn btn-primary';
 
 		return $this->link($title, $url, $options, $confirmMessage);
 	}
