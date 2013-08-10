@@ -23,10 +23,10 @@ Rename **Config/recaptcha.default.php** in **Config/recaptcha.php** and configur
 ### Libraries and script
 **MeTools** uses different libraries or scripts:
 
-- JQuery 1.10.1 and 2.0.2 ([site](http://jquery.com));
-- Bootstrap 2.3.2 ([site](http://twitter.github.com/bootstrap)) and 3.0.0-wip ([git branch](http://github.com/twitter/bootstrap/tree/3.0.0-wip));
+- JQuery 1.10.2 and 2.0.3 ([site](http://jquery.com));
+- Bootstrap 3 RC 1 ([site](http://getbootstrap.com));
 - Thumber 0.5.6 ([site](https://code.google.com/p/phpthumbmaker));
 - Font Awesome 3.2.1 ([site](http://fortawesome.github.com/Font-Awesome));
 - PHP Markdown 1.3 ([site](http://michelf.ca/projects/php-markdown));
 - reCAPTCHA PHP library 1.11 ([site](https://developers.google.com/recaptcha/docs/php));
-- Datepicker for Bootstrap by Andrew Rowls ([site](http://eternicode.github.io/bootstrap-datepicker)).
+- Datepicker for Bootstrap 1.0.1 by Andrew Rowls ([site](http://eternicode.github.io/bootstrap-datepicker)).
