@@ -4,7 +4,10 @@ App::uses('FormHelper', 'View/Helper');
 /**
  * Provides functionalities for forms.
  * 
- * Extends {@link http://api.cakephp.org/2.4/class-FormHelper.html FormHelper}
+ * You should use this helper as an alias, for example:
+ * <pre>public $helpers = array('Form' => array('className' => 'MeTools.MeForm'));</pre>
+ * 
+ * MeFormHelper extends {@link http://api.cakephp.org/2.4/class-FormHelper.html FormHelper}
  *
  * This file is part of MeTools.
  *
@@ -32,7 +35,7 @@ class MeFormHelper extends FormHelper {
 	 * Helpers
 	 * @var array
 	 */
-	public $helpers = array('Html', 'MeTools.MeHtml');
+	public $helpers = array('Html' => array('className' => 'MeTools.MeHtml'));
 
 	/**
 	 * Creates a simple button. Rewrites <i>$this->Form->button()</i>
@@ -45,14 +48,14 @@ class MeFormHelper extends FormHelper {
 		$options['type'] = empty($options['type']) ? 'button' : $options['type'];
 
 		//"class" option default "btn"
-		$options['class'] = empty($options['class']) ? 'btn' : $this->MeHtml->cleanAttribute($options['class'].' btn');
+		$options['class'] = empty($options['class']) ? 'btn' : $this->Html->cleanAttribute($options['class'].' btn');
 
 		//Add bootstrap icon to the label, if the "icon" option exists
-		$caption = !empty($options['icon']) ? $this->MeHtml->icon($options['icon']).$caption : $caption;
+		$caption = !empty($options['icon']) ? $this->Html->icon($options['icon']).$caption : $caption;
 		unset($options['icon']);
 
 		//Add the "tooltip" rel
-		$options['rel'] = empty($options['rel']) ? 'tooltip' : $this->MeHtml->cleanAttribute($options['rel'].' tooltip');
+		$options['rel'] = empty($options['rel']) ? 'tooltip' : $this->Html->cleanAttribute($options['rel'].' tooltip');
 
 		return parent::button($caption, $options);
 	}
@@ -66,9 +69,8 @@ class MeFormHelper extends FormHelper {
 	 * @return string Html
 	 */
 	public function end($caption=null, $options=null) {
-		//If the "label" option is not empty, unset
-		if(!empty($options['label']))
-			unset($options['label']);
+		//Unsets the "label" option 
+		unset($options['label']);
 
 		$submit = !empty($caption) ? $this->submit($caption, $options) : null;
 		
@@ -103,9 +105,19 @@ class MeFormHelper extends FormHelper {
 		//"escape" option default FALSE
 		$options['escape'] = empty($options['escape']) ? false : $options['escape'];
 		
+		//"escape" options for errors default FALSE
+		if(!empty($options['error']) && empty($options['error']['attributes']['escape']))
+			$options['error']['attributes']['escape'] = false;
+			
+		//TO-DO
+		//"required"
+		//http://api.cakephp.org/2.4/source-class-FormHelper.html#932-1031
+//		if($this->_extractOption('required', $options)!==false && $this->_introspectModel($this->model(), 'validates', $this->field()))
+//			$divOptions = $this->addClass($divOptions, 'required');
+		
 		//If the div class is not empty, prepend the "input" class
-		if(!empty($options['div']['class'])) 
-			$options['div']['class'] = $this->MeHtml->cleanAttribute('input '.$options['div']['class']);
+		if(!empty($options['div']['class']))
+			$options['div']['class'] = $this->Html->cleanAttribute('input '.$options['div']['class']);
 
 		return parent::input($fieldName, $options);
 	}
@@ -122,7 +134,7 @@ class MeFormHelper extends FormHelper {
 	 */
 	public function postButton($title, $url, $options=array(), $confirmMessage=false) {
 		//"class" option default "btn"
-		$options['class'] = empty($options['class']) ? 'btn' : $this->MeHtml->cleanAttribute($options['class'].' btn');
+		$options['class'] = empty($options['class']) ? 'btn' : $this->Html->cleanAttribute($options['class'].' btn');
 
 		return $this->postLink($title, $url, $options, $confirmMessage);
 	}
@@ -139,7 +151,7 @@ class MeFormHelper extends FormHelper {
 	 */
 	public function postLink($title, $url=null, $options=array(), $confirmMessage=false) {
 		//Adds bootstrap icon to the title, if the "icon" option exists
-		$title = !empty($options['icon']) ? $this->MeHtml->icon($options['icon']).$title : $title;
+		$title = !empty($options['icon']) ? $this->Html->icon($options['icon']).$title : $title;
 		unset($options['icon']);
 		
 		//"escape" option default FALSE
@@ -180,9 +192,12 @@ class MeFormHelper extends FormHelper {
 	 * @return string Html
 	 */
 	public function select($fieldName, $options=array(), $attributes=array()) {
+		//"empty" attribute default "Select a value" (if "default" and "selected" attributes are empty)
+		$attributes['empty'] = empty($attributes['empty']) && empty($attributes['default']) && empty($attributes['selected']) ? __('Select a value') : $attributes['empty'];
+
 		//"escape" attribute default FALSE
 		$attributes['escape'] = empty($attributes['escape']) ? false : $attributes['escape'];
-
+		
 		return parent::select($fieldName, $options, $attributes);
 	}
 
@@ -203,7 +218,7 @@ class MeFormHelper extends FormHelper {
 		$options['icon'] = empty($options['icon']) ? 'icon-ok icon-white' : $options['icon'];
 
 		//"class" option default "btn btn-success"
-		$options['class'] = empty($options['class']) ? 'btn btn-success' : $this->MeHtml->cleanAttribute($options['class'].' btn');
+		$options['class'] = empty($options['class']) ? 'btn btn-success' : $this->Html->cleanAttribute($options['class'].' btn');
 
 		//If isset "div" option and this is false, returns the button
 		if(isset($options['div']) && !$options['div'])
@@ -211,10 +226,10 @@ class MeFormHelper extends FormHelper {
 		//Else, returns the button in a wrapper
 		else {
 			//"div" option default "submit"
-			$div = empty($options['div']) ? 'submit' : $this->MeHtml->cleanAttribute($options['div'].' submit');
+			$div = empty($options['div']) ? 'submit' : $this->Html->cleanAttribute($options['div'].' submit');
 			unset($options['div']);
 
-			return $this->MeHtml->tag('div', $this->button($caption, $options), array('class' => $div));
+			return $this->Html->tag('div', $this->button($caption, $options), array('class' => $div));
 		}
 	}
 }
