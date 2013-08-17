@@ -1,21 +1,21 @@
-<?php echo "<?php\n\techo \$this->start('sidebar');\n"; ?>
+<?php echo "<?php echo \$this->start('sidebar'); ?>\n"; ?>
 <?php if (strpos($action, 'add') === false): ?>
-	<?php echo "echo \$this->Form->postLink(__('Delete'), array('action' => 'delete', \$this->Form->value('{$modelClass}.{$primaryKey}')), array('class' => 'list-group-item'), __('Are you sure you want to delete this record?'));"; ?>
+	<?php echo "\t<li><?php echo \$this->Form->postLink(__('Delete'), array('action' => 'delete', \$this->Form->value('{$modelClass}.{$primaryKey}')), null, __('Are you sure you want to delete this record?')); ?></li>\n"; ?>
 <?php endif; ?>
-	<?php echo "echo \$this->Html->link(__('List " . $pluralHumanName . "'), array('action' => 'index'), array('class' => 'list-group-item'));"; ?>
+	<?php echo "<li><?php echo \$this->Html->link(__('List " . $pluralHumanName . "'), array('action' => 'index')); ?></li>\n"; ?>
 <?php
 	$done = array();
 	foreach ($associations as $type => $data) {
 		foreach ($data as $alias => $details) {
 			if ($details['controller'] != $this->name && !in_array($details['controller'], $done)) {
-				echo "\techo \$this->Html->link(__('List " . Inflector::humanize($details['controller']) . "'), array('controller' => '{$details['controller']}', 'action' => 'index'), array('class' => 'list-group-item'));\n";
-				echo "\techo \$this->Html->link(__('New " . Inflector::humanize(Inflector::underscore($alias)) . "'), array('controller' => '{$details['controller']}', 'action' => 'add'), array('class' => 'list-group-item'));\n";
+				echo "\t<li><?php echo \$this->Html->link(__('List " . Inflector::humanize($details['controller']) . "'), array('controller' => '{$details['controller']}', 'action' => 'index')); ?></li>\n";
+				echo "\t<li><?php echo \$this->Html->link(__('New " . Inflector::humanize(Inflector::underscore($alias)) . "'), array('controller' => '{$details['controller']}', 'action' => 'add')); ?></li>\n";
 				$done[] = $details['controller'];
 			}
 		}
 	}
 ?>
-<?php echo "\techo \$this->end();\n?>\n"; ?>
+<?php echo "<?php echo \$this->end(); ?>\n"; ?>
 
 <div class="<?php echo $pluralVar; ?> form">
 <?php echo "\t<?php echo \$this->Form->create('{$modelClass}', array('class' => 'form-base')); ?>\n"; ?>
