@@ -109,17 +109,21 @@ class MeFormHelper extends FormHelper {
 		if(!empty($options['error']) && empty($options['error']['attributes']['escape']))
 			$options['error']['attributes']['escape'] = false;
 			
-		//TO-DO
-		//"required"
-		//http://api.cakephp.org/2.4/source-class-FormHelper.html#932-1031
-//		if($this->_extractOption('required', $options)!==false && $this->_introspectModel($this->model(), 'validates', $this->field()))
-//			$divOptions = $this->addClass($divOptions, 'required');
-		
-		//If the div class is not empty, prepend the "input" class
+		//If the div class is not empty, prepend the "input" class and the input type
 		if(!empty($options['div']['class']))
-			$options['div']['class'] = $this->Html->cleanAttribute('input '.$options['div']['class']);
+			$options['div']['class'] = $this->Html->cleanAttribute('input '.$this->getInputType($options).' '.$options['div']['class']);
 
 		return parent::input($fieldName, $options);
+	}
+	
+	/**
+	 * Get the input type
+	 * @param array $options Options
+	 * @return string Type name
+	 */
+	protected function getInputType($options) {
+		$options = parent::_parseOptions($options);
+		return($options['type']);
 	}
 
 	/**
