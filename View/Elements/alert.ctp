@@ -25,7 +25,7 @@
  */
 ?>
 
-<div id="flashMessage" class="alert alert-block">
-	<button type="button" class="close" data-dismiss="alert">&times;</button>
+<div id="flashMessage" class="alert">
+	<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
 	<strong><?php echo __d('me_tools', 'Alert'); ?></strong>: <?php echo lcfirst($message); ?>
 </div>
