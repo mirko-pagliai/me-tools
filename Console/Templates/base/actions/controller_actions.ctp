@@ -21,7 +21,6 @@
 
 	/**
 	 * <?php echo $admin ?>index method
-	 *
 	 * @return void
 	 */
 	public function <?php echo $admin ?>index() {
@@ -31,7 +30,6 @@
 
 	/**
 	 * <?php echo $admin ?>view method
-	 *
 	 * @throws NotFoundException
 	 * @param string $id
 	 * @return void
@@ -47,7 +45,6 @@
 <?php $compact = array(); ?>
 	/**
 	 * <?php echo $admin ?>add method
-	 *
 	 * @return void
 	 */
 	public function <?php echo $admin ?>add() {
@@ -86,7 +83,6 @@
 <?php $compact = array(); ?>
 	/**
 	 * <?php echo $admin ?>edit method
-	 *
 	 * @throws NotFoundException
 	 * @param string $id
 	 * @return void
@@ -132,7 +128,6 @@
 
 	/**
 	 * <?php echo $admin ?>delete method
-	 *
 	 * @throws NotFoundException
 	 * @param string $id
 	 * @return void
