@@ -1,6 +1,6 @@
 <?php echo "<?php echo \$this->start('sidebar'); ?>\n"; ?>
 <?php if (strpos($action, 'add') === false): ?>
-	<?php echo "\t<li><?php echo \$this->Form->postLink(__('Delete'), array('action' => 'delete', \$this->Form->value('{$modelClass}.{$primaryKey}')), null, __('Are you sure you want to delete this record?')); ?></li>\n"; ?>
+	<?php echo "<li><?php echo \$this->Form->postLink(__('Delete'), array('action' => 'delete', \$this->Form->value('{$modelClass}.{$primaryKey}')), null, __('Are you sure you want to delete this record?')); ?></li>\n"; ?>
 <?php endif; ?>
 	<?php echo "<li><?php echo \$this->Html->link(__('List " . $pluralHumanName . "'), array('action' => 'index')); ?></li>\n"; ?>
 <?php

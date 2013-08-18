@@ -20,16 +20,18 @@
 ?>
 
 	/**
-	 * <?php echo $admin ?>index method
+	 * List <?php echo $pluralHumanName."\n"; ?>
 	 * @return void
 	 */
 	public function <?php echo $admin ?>index() {
 		$this-><?php echo $currentModelName ?>->recursive = 0;
 		$this->set('<?php echo $pluralName ?>', $this->paginate());
+		
+		<?php echo "\$this->set('subtitle', __('List ".$pluralHumanName."'));\n"; ?>
 	}
 
 	/**
-	 * <?php echo $admin ?>view method
+	 * View <?php echo strtolower($singularHumanName)."\n"; ?>
 	 * @throws NotFoundException
 	 * @param string $id
 	 * @return void
@@ -40,33 +42,35 @@
 			
 		$options = array('conditions' => array('<?php echo $currentModelName; ?>.'.$this-><?php echo $currentModelName; ?>->primaryKey => $id));
 		$this->set('<?php echo $singularName; ?>', $this-><?php echo $currentModelName; ?>->find('first', $options));
+	
+		<?php echo "\$this->set('subtitle', __('View ".strtolower($singularHumanName)."'));\n"; ?>
 	}
 
 <?php $compact = array(); ?>
 	/**
-	 * <?php echo $admin ?>add method
+	 * Add <?php echo strtolower($singularHumanName)."\n"; ?>
 	 * @return void
 	 */
 	public function <?php echo $admin ?>add() {
 		if($this->request->is('post')) {
 			$this-><?php echo $currentModelName; ?>->create();
 			if($this-><?php echo $currentModelName; ?>->save($this->request->data)) {
-<?php if ($wannaUseSession): ?>
+<?php if($wannaUseSession): ?>
 				$this->Session->setFlash(__('The <?php echo strtolower($singularHumanName); ?> has been created'), 'MeTools.success');
 				$this->redirect(array('action' => 'index'));
 <?php else: ?>
 				$this->flash(__('<?php echo ucfirst(strtolower($currentModelName)); ?> saved.'), array('action' => 'index'));
 <?php endif; ?>
 			}
-<?php if ($wannaUseSession): ?>
+<?php if($wannaUseSession): ?>
 			else
 				$this->Session->setFlash(__('The <?php echo strtolower($singularHumanName); ?> could not be created. Please, try again'), 'MeTools.error');
 <?php endif; ?>
 		}
 <?php
-	foreach (array('belongsTo', 'hasAndBelongsToMany') as $assoc):
-		foreach ($modelObj->{$assoc} as $associationName => $relation):
-			if (!empty($associationName)):
+	foreach(array('belongsTo', 'hasAndBelongsToMany') as $assoc):
+		foreach($modelObj->{$assoc} as $associationName => $relation):
+			if(!empty($associationName)):
 				$otherModelName = $this->_modelName($associationName);
 				$otherPluralName = $this->_pluralName($associationName);
 				echo "\t\t\${$otherPluralName} = \$this->{$currentModelName}->{$otherModelName}->find('list');\n";
@@ -74,15 +78,16 @@
 			endif;
 		endforeach;
 	endforeach;
-	if (!empty($compact)):
+	if(!empty($compact))
 		echo "\t\t\$this->set(compact(".join(', ', $compact)."));\n";
-	endif;
+	
+	echo "\n\t\t\$this->set('subtitle', __('Add ".strtolower($singularHumanName)."'));\n";
 ?>
 	}
 
 <?php $compact = array(); ?>
 	/**
-	 * <?php echo $admin ?>edit method
+	 * Edit <?php echo strtolower($singularHumanName)."\n"; ?>
 	 * @throws NotFoundException
 	 * @param string $id
 	 * @return void
@@ -93,14 +98,14 @@
 			
 		if($this->request->is('post') || $this->request->is('put')) {
 			if($this-><?php echo $currentModelName; ?>->save($this->request->data)) {
-<?php if ($wannaUseSession): ?>
+<?php if($wannaUseSession): ?>
 				$this->Session->setFlash(__('The <?php echo strtolower($singularHumanName); ?> has been edited'), 'MeTools.success');
 				$this->redirect(array('action' => 'index'));
 <?php else: ?>
 				$this->flash(__('The <?php echo strtolower($singularHumanName); ?> has been saved.'), array('action' => 'index'));
 <?php endif; ?>
 			}
-<?php if ($wannaUseSession): ?>
+<?php if($wannaUseSession): ?>
 			else
 				$this->Session->setFlash(__('The <?php echo strtolower($singularHumanName); ?> could not be edited. Please, try again'), 'MeTools.error');
 <?php endif; ?>
@@ -110,9 +115,9 @@
 			$this->request->data = $this-><?php echo $currentModelName; ?>->find('first', $options);
 		}
 <?php
-		foreach (array('belongsTo', 'hasAndBelongsToMany') as $assoc):
-			foreach ($modelObj->{$assoc} as $associationName => $relation):
-				if (!empty($associationName)):
+		foreach(array('belongsTo', 'hasAndBelongsToMany') as $assoc):
+			foreach($modelObj->{$assoc} as $associationName => $relation):
+				if(!empty($associationName)):
 					$otherModelName = $this->_modelName($associationName);
 					$otherPluralName = $this->_pluralName($associationName);
 					echo "\t\t\${$otherPluralName} = \$this->{$currentModelName}->{$otherModelName}->find('list');\n";
@@ -120,14 +125,15 @@
 				endif;
 			endforeach;
 		endforeach;
-		if (!empty($compact)):
+		if(!empty($compact))
 			echo "\t\t\$this->set(compact(".join(', ', $compact)."));\n";
-		endif;
+	
+		echo "\n\t\t\$this->set('subtitle', __('Edit ".strtolower($singularHumanName)."'));\n";
 	?>
 	}
 
 	/**
-	 * <?php echo $admin ?>delete method
+	 * Delete <?php echo strtolower($singularHumanName)."\n"; ?>
 	 * @throws NotFoundException
 	 * @param string $id
 	 * @return void
@@ -139,14 +145,14 @@
 			
 		$this->request->onlyAllow('post', 'delete');
 		if($this-><?php echo $currentModelName; ?>->delete()) {
-<?php if ($wannaUseSession): ?>
+<?php if($wannaUseSession): ?>
 			$this->Session->setFlash(__('The <?php echo strtolower($singularHumanName); ?> has been deleted'), 'MeTools.success');
 			$this->redirect(array('action' => 'index'));
 <?php else: ?>
 			$this->flash(__('<?php echo ucfirst(strtolower($singularHumanName)); ?> deleted'), array('action' => 'index'));
 <?php endif; ?>
 		}
-<?php if ($wannaUseSession): ?>
+<?php if($wannaUseSession): ?>
 		$this->Session->setFlash(__('The <?php echo strtolower($singularHumanName); ?> was not deleted'), 'MeTools.success');
 <?php else: ?>
 		$this->flash(__('<?php echo ucfirst(strtolower($singularHumanName)); ?> was not deleted'), array('action' => 'index'));
