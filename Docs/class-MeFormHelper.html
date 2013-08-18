@@ -7,7 +7,7 @@
 	<title>Class MeFormHelper | MeTools</title>
 
 	<script type="text/javascript" src="resources/combined.js?394153670"></script>
-	<script type="text/javascript" src="elementlist.js?3810495820"></script>
+	<script type="text/javascript" src="elementlist.js?418510204"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360" />
 
 </head>
@@ -107,7 +107,11 @@
 	
 <p>Provides functionalities for forms.</p>
 
-<p>Extends <a href="http://api.cakephp.org/2.4/class-FormHelper.html">FormHelper</a></p>
+<p>You should use this helper as an alias, for example:</p>
+
+<pre>public $helpers = array('Form' =&gt; array('className' =&gt; 'MeTools.MeForm'));</pre>
+
+<p>MeFormHelper extends <a href="http://api.cakephp.org/2.4/class-FormHelper.html">FormHelper</a></p>
 
 <p>This file is part of MeTools.</p>
 
@@ -163,7 +167,7 @@ FormHelper
 href="mailto:mirko.pagliai&#64;gmail.com">mirko.pagliai&#64;<!---->gmail.com</a>&gt;<br />
 				<b>Link:</b>
 				<a href="http://git.novatlantis.it">Nova Atlantis Ltd</a><br />
-		<b>Located at</b> <a href="source-class-MeFormHelper.html#4-220" title="Go to source code">View/Helper/MeFormHelper.php</a><br />
+		<b>Located at</b> <a href="source-class-MeFormHelper.html#4-247" title="Go to source code">View/Helper/MeFormHelper.php</a><br />
 	</div>
 
 
@@ -181,7 +185,7 @@ href="mailto:mirko.pagliai&#64;gmail.com">mirko.pagliai&#64;<!---->gmail.com</a>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_button">#</a>
-		<code><a href="source-class-MeFormHelper.html#37-58" title="Go to source code">button</a>( <span>string <var>$caption</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-MeFormHelper.html#40-61" title="Go to source code">button</a>( <span>string <var>$caption</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
@@ -225,7 +229,7 @@ href="mailto:mirko.pagliai&#64;gmail.com">mirko.pagliai&#64;<!---->gmail.com</a>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_end">#</a>
-		<code><a href="source-class-MeFormHelper.html#60-76" title="Go to source code">end</a>( <span>string <var>$caption</var> = <span class="php-keyword1">null</span></span>, <span>array <var>$options</var> = <span class="php-keyword1">null</span></span> )</code>
+		<code><a href="source-class-MeFormHelper.html#63-78" title="Go to source code">end</a>( <span>string <var>$caption</var> = <span class="php-keyword1">null</span></span>, <span>array <var>$options</var> = <span class="php-keyword1">null</span></span> )</code>
 
 		<div class="description short">
 			
@@ -274,7 +278,7 @@ string or an array</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getDefault">#</a>
-		<code><a href="source-class-MeFormHelper.html#78-94" title="Go to source code">getDefault</a>( <span>string <var>$value</var></span>, <span>string <var>$default</var></span> )</code>
+		<code><a href="source-class-MeFormHelper.html#80-96" title="Go to source code">getDefault</a>( <span>string <var>$value</var></span>, <span>string <var>$default</var></span> )</code>
 
 		<div class="description short">
 			
@@ -335,7 +339,7 @@ notice.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_input">#</a>
-		<code><a href="source-class-MeFormHelper.html#96-111" title="Go to source code">input</a>( <span>string <var>$fieldName</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-MeFormHelper.html#98-125" title="Go to source code">input</a>( <span>string <var>$fieldName</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
@@ -368,6 +372,48 @@ notice.</p>
 		</div>
 		</div></td>
 	</tr>
+	<tr data-order="getInputType" id="_getInputType">
+
+		<td class="attributes"><code>
+			 protected 
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getInputType">#</a>
+		<code><a href="source-class-MeFormHelper.html#127-135" title="Go to source code">getInputType</a>( <span>array <var>$options</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Get the input type</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Get the input type</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$options</var></dt>
+					<dd><code>array</code><br>$options Options</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>string</code><br>Type name<br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
 	<tr data-order="postButton" id="_postButton">
 
 		<td class="attributes"><code>
@@ -379,7 +425,7 @@ notice.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_postButton">#</a>
-		<code><a href="source-class-MeFormHelper.html#113-128" title="Go to source code">postButton</a>( <span>string <var>$title</var></span>, <span>mixed <var>$url</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span>, <span>mixed <var>$confirmMessage</var> = <span class="php-keyword1">false</span></span> )</code>
+		<code><a href="source-class-MeFormHelper.html#137-152" title="Go to source code">postButton</a>( <span>string <var>$title</var></span>, <span>mixed <var>$url</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span>, <span>mixed <var>$confirmMessage</var> = <span class="php-keyword1">false</span></span> )</code>
 
 		<div class="description short">
 			
@@ -435,7 +481,7 @@ http://)</dd>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_postLink">#</a>
-		<code><a href="source-class-MeFormHelper.html#130-156" title="Go to source code">postLink</a>( <span>string <var>$title</var></span>, <span>mixed <var>$url</var> = <span class="php-keyword1">null</span></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span>, <span>string <var>$confirmMessage</var> = <span class="php-keyword1">false</span></span> )</code>
+		<code><a href="source-class-MeFormHelper.html#154-180" title="Go to source code">postLink</a>( <span>string <var>$title</var></span>, <span>mixed <var>$url</var> = <span class="php-keyword1">null</span></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span>, <span>string <var>$confirmMessage</var> = <span class="php-keyword1">false</span></span> )</code>
 
 		<div class="description short">
 			
@@ -489,7 +535,7 @@ http://)</dd>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_radio">#</a>
-		<code><a href="source-class-MeFormHelper.html#158-173" title="Go to source code">radio</a>( <span>string <var>$fieldName</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span>, <span>array <var>$attributes</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-MeFormHelper.html#182-197" title="Go to source code">radio</a>( <span>string <var>$fieldName</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span>, <span>array <var>$attributes</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
@@ -537,7 +583,7 @@ http://)</dd>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_select">#</a>
-		<code><a href="source-class-MeFormHelper.html#175-187" title="Go to source code">select</a>( <span>string <var>$fieldName</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span>, <span>array <var>$attributes</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-MeFormHelper.html#199-214" title="Go to source code">select</a>( <span>string <var>$fieldName</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span>, <span>array <var>$attributes</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
@@ -583,7 +629,7 @@ http://)</dd>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_submit">#</a>
-		<code><a href="source-class-MeFormHelper.html#189-219" title="Go to source code">submit</a>( <span>string <var>$caption</var> = <span class="php-keyword1">null</span></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-MeFormHelper.html#216-246" title="Go to source code">submit</a>( <span>string <var>$caption</var> = <span class="php-keyword1">null</span></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
@@ -640,9 +686,9 @@ the <i>$this-&gt;button()</i> method</p>
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-MeFormHelper.html#31-35" title="Go to source code"><var>$helpers</var></a>
+				<a href="source-class-MeFormHelper.html#34-38" title="Go to source code"><var>$helpers</var></a>
 		</td>
-		<td class="value"><code><span class="php-keyword1">array</span>(<span class="php-quote">'Html'</span>, <span class="php-quote">'MeTools.MeHtml'</span>)</code></td>
+		<td class="value"><code><span class="php-keyword1">array</span>(<span class="php-quote">'Html'</span> =&gt; <span class="php-keyword1">array</span>(<span class="php-quote">'className'</span> =&gt; <span class="php-quote">'MeTools.MeHtml'</span>))</code></td>
 		<td class="description"><div>
 			<a href="#$helpers" class="anchor">#</a>
 
