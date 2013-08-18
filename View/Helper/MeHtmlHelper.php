@@ -63,16 +63,16 @@ class MeHtmlHelper extends HtmlHelper {
 	public function button($title, $url='#', $options=array(), $confirmMessage=false) {
 		//If "class" is not empty
 		if(!empty($options['class'])) {
-			//If "class" doesn't contain a button style, adds "btn-primaty" to class
+			//If "class" doesn't contain a button style, adds "btn-default" to class
 			if(!preg_match('/btn-/', $options['class']))
-				$options['class'] .= ' btn-primary';
+				$options['class'] .= ' btn-default';
 			
 			//Adds "btn" to class
 			$options['class'] = $this->cleanAttribute('btn '.$options['class']);
 		}
-		//Else, if "class" is empty, "class" will be "btn btn-primary"
+		//Else, if "class" is empty, "class" will be "btn btn-default"
 		else
-			$options['class'] = 'btn btn-primary';
+			$options['class'] = 'btn btn-default';
 
 		return $this->link($title, $url, $options, $confirmMessage);
 	}
