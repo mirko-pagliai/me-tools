@@ -50,11 +50,11 @@ class MeFormHelper extends FormHelper {
 		//"class" option default "btn"
 		$options['class'] = empty($options['class']) ? 'btn' : $this->Html->cleanAttribute($options['class'].' btn');
 
-		//Add bootstrap icon to the label, if the "icon" option exists
+		//Adds an icon to the label, if the "icon" option exists
 		$caption = !empty($options['icon']) ? $this->Html->icon($options['icon']).$caption : $caption;
 		unset($options['icon']);
 
-		//Add the "tooltip" rel
+		//Adds the "tooltip" rel
 		$options['rel'] = empty($options['rel']) ? 'tooltip' : $this->Html->cleanAttribute($options['rel'].' tooltip');
 
 		return parent::button($caption, $options);
@@ -162,7 +162,7 @@ class MeFormHelper extends FormHelper {
 	 * @return string Html
 	 */
 	public function postLink($title, $url=null, $options=array(), $confirmMessage=false) {
-		//Adds bootstrap icon to the title, if the "icon" option exists
+		//Adds an icon to the title, if the "icon" option exists
 		$title = !empty($options['icon']) ? $this->Html->icon($options['icon']).$title : $title;
 		unset($options['icon']);
 		

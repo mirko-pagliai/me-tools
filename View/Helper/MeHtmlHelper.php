@@ -34,14 +34,14 @@ class MeHtmlHelper extends HtmlHelper {
 	/**
 	 * Adds a link to the breadcrumb array. Rewrites <i>$this->Html->addCrumb()</i>
 	 * 
-	 * You can use {@link http://twitter.github.com/bootstrap/base-css.html#icons Bootstrap icons}
+	 * You can use {@link http://fortawesome.github.io/Font-Awesome Font Awesome icons}
 	 * @param string $name Text for link
 	 * @param string $link URL for link (if empty it won't be a link)
 	 * @param mixed $options HTML attributes
 	 * @return void
 	 */
 	public function addCrumb($title, $link=null, $options=null) {
-		//Add bootstrap icon to the title, if the "icon" option exists
+		//Add the icon to the title, if the "icon" option exists
 		if(!empty($options['icon'])) $title = $this->icon($options['icon']).$title;
 		unset($options['icon']);
 
@@ -50,9 +50,9 @@ class MeHtmlHelper extends HtmlHelper {
 
 	/**
 	 * Creates an HTML link with the appearance of a button, as required 
-	 * by {@link http://twitter.github.com/bootstrap/base-css.html#buttons Bootstrap}. Uses the <i>$this->link()</i> method
+	 * by {@link http://getbootstrap.com/css/#buttons Bootstrap}. Uses the <i>$this->link()</i> method
 	 *
-	 * You can use {@link http://twitter.github.com/bootstrap/base-css.html#icons Bootstrap icons}. For example:
+	 * You can use {@link http://fortawesome.github.io/Font-Awesome Font Awesome icons}. For example:
 	 * <pre>echo $this->Html->linkButton('my link', 'http://site.com', array('icon' => 'icon-search'));</pre>
 	 * @param string $title Button title
 	 * @param mixed $url Cake-relative URL, array of URL parameters or external URL
@@ -129,7 +129,7 @@ class MeHtmlHelper extends HtmlHelper {
 	 * 
 	 * Note that it's better to use <i>$this->getCrumbList()</i>, which offers better compatibility with Bootstrap
 	 *
-	 * You can use {@link http://twitter.github.com/bootstrap/base-css.html#icons Bootstrap icons} for the first crumb. For example:
+	 * You can use {@link http://fortawesome.github.io/Font-Awesome Font Awesome icons} for the first crumb. For example:
 	 * <pre>echo $this->Html->getCrumbs('/', array('text' => 'Homepage', 'icon' => 'icon-home'));</pre>
 	 * @param string $separator Text to separate crumbs
 	 * @param string|array|boolean $startText The first crumb. If is an array, the accepted keys are "text", "url" and "icon"
@@ -146,7 +146,7 @@ class MeHtmlHelper extends HtmlHelper {
 	/**
 	 * Returns the breadcrumb. Rewrites <i>$this->Html->getCrumbList()</i>
 	 *
-	 * You can use {@link http://twitter.github.com/bootstrap/base-css.html#icons Bootstrap icons} for the first crumb. For example:
+	 * You can use {@link http://fortawesome.github.io/Font-Awesome Font Awesome icons} for the first crumb. For example:
 	 * <pre>echo $this->Html->getCrumbList(null, array('text' => 'Homepage', 'icon' => 'icon-home'));</pre>
 	 * 
 	 * Note that with Bootstrap 3 you don't need to set separators. Separators are automatically added in CSS through `:after` and `content`
@@ -169,13 +169,13 @@ class MeHtmlHelper extends HtmlHelper {
 	}
 
 	/**
-	 * Returns a Bootstrap icon (<i>Glyphicons</i> or <i>Font Awesome icons</i>)
+	 * Returns an icon (<i>Glyphicons</i> or <i>Font Awesome icons</i>)
 	 *
 	 * Examples:
 	 * <pre>echo $this->Html->icon('icon-ok icon-white');</pre>
 	 * <pre>echo $this->Html->icon(array('icon-ok', 'icon-white'));</pre>
 	 *
-	 * Look at {@link http://twitter.github.com/bootstrap/base-css.html#icons Bootstrap icons} and {@link http://fortawesome.github.com/Font-Awesome/#icons-new Font Awesome icons}
+	 * Look at {@link http://fortawesome.github.io/Font-Awesome Font Awesome icons}
 	 * @param array $icon Icon or icons as string or an array of icons
 	 * @return string Html, icon
 	 */
@@ -206,7 +206,7 @@ class MeHtmlHelper extends HtmlHelper {
 	/**
 	 * Creates an HTML link. Rewrites <i>$this->Html->link()</i>
 	 *
-	 * You can use {@link http://twitter.github.com/bootstrap/base-css.html#icons Bootstrap icons}. For example:
+	 * You can use {@link http://fortawesome.github.io/Font-Awesome Font Awesome icons}. For example:
 	 * <pre>echo $this->Html->link('my link', 'http://site.com', array('icon' => 'icon-search'));</pre>
 	 * @param string $title Link title
 	 * @param mixed $url Cake-relative URL, array of URL parameters or external URL (starts with http://)
@@ -215,7 +215,7 @@ class MeHtmlHelper extends HtmlHelper {
 	 * @return string Html, link
 	 */
 	public function link($title, $url='#', $options=array(), $confirmMessage=false) {
-		//Adds a Bootstrap icon to the title
+		//Adds an icon to the title
 		if(!empty($options['icon'])) $title = $this->icon($options['icon']).$title;
 		unset($options['icon']);
 		
@@ -242,9 +242,9 @@ class MeHtmlHelper extends HtmlHelper {
 
 	/**
 	 * Creates an HTML link with the appearance of a button 
-	 * for {@link http://twitter.github.io/bootstrap/components.html#buttonDropdowns Bootstrap dropdowns}. Uses the <i>$this->link()</i> method
+	 * for {@link http://getbootstrap.com/components/#dropdowns Bootstrap dropdowns}. Uses the <i>$this->link()</i> method
 	 *
-	 * You can use {@link http://twitter.github.com/bootstrap/base-css.html#icons Bootstrap icons}. For example:
+	 * You can use {@link http://fortawesome.github.io/Font-Awesome Font Awesome icons}. For example:
 	 * <pre>echo $this->Html->linkButton('my link', 'http://site.com', array('icon' => 'icon-search'));</pre>
 	 * @param string $title Button title
 	 * @param mixed $url Cake-relative URL, array of URL parameters or external URL
