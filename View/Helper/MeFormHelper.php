@@ -108,6 +108,14 @@ class MeFormHelper extends FormHelper {
 		//"escape" options for errors default FALSE
 		if(!empty($options['error']) && empty($options['error']['attributes']['escape']))
 			$options['error']['attributes']['escape'] = false;
+		
+		//"after" option (text after the input)
+		if(!empty($options['after']))
+			$options['after'] = '<div class="after-input">'.trim($options['after']).'</div>';
+		
+		//"before" option (text before the input)
+		if(!empty($options['before']))
+			$options['before'] = '<div class="before-input">'.trim($options['before']).'</div>';
 			
 		//If the div class is not empty, prepend the "input" class and the input type
 		if(!empty($options['div']['class']))
