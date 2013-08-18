@@ -261,8 +261,8 @@ class MeHtmlHelper extends HtmlHelper {
 		//"escape" option default FALSE
 		$options['escape'] = empty($options['escape']) ? false : $options['escape'];
 
-		//Adds the caret to the title
-		$title .= ' <span class="caret"></span>';
+		//Adds the caret icon to the title
+		$title .= '&nbsp;'.$this->icon('icon-caret-down');
 
 		return $this->link($title, $url, $options);
 	}
