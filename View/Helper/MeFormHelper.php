@@ -204,8 +204,8 @@ class MeFormHelper extends FormHelper {
 	 * @return string Html
 	 */
 	public function select($fieldName, $options=array(), $attributes=array()) {
-		//"empty" attribute default "Select a value" (if "default" and "selected" attributes are empty)
-		$attributes['empty'] = empty($attributes['empty']) && empty($attributes['default']) && empty($attributes['selected']) ? __('Select a value') : $attributes['empty'];
+		//"empty" attribute default "Select a value" (if "default" and "selected" attributes are empty and "value" attribute is null)
+		$attributes['empty'] = empty($attributes['empty']) && is_null($attributes['value']) && empty($attributes['default']) && empty($attributes['selected']) ? __('Select an option') : $attributes['empty'];
 
 		//"escape" attribute default FALSE
 		$attributes['escape'] = empty($attributes['escape']) ? false : $attributes['escape'];
