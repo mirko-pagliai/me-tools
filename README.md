@@ -29,4 +29,4 @@ Rename **Config/recaptcha.default.php** in **Config/recaptcha.php** and configur
 - Font Awesome 3.2.1 ([site](http://fortawesome.github.com/Font-Awesome));
 - PHP Markdown 1.3 ([site](http://michelf.ca/projects/php-markdown));
 - reCAPTCHA PHP library 1.11 ([site](https://developers.google.com/recaptcha/docs/php));
-- Datepicker for Bootstrap 1.0.1 by Andrew Rowls ([site](http://eternicode.github.io/bootstrap-datepicker)).
+- Datepicker for Bootstrap 1.2.0 by Andrew Rowls ([site](http://eternicode.github.io/bootstrap-datepicker)).
