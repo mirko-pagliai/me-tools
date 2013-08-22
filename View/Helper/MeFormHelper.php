@@ -227,10 +227,10 @@ class MeFormHelper extends FormHelper {
 		$options['type'] = 'submit';
 
 		//"icon" option default "icon-ok icon-white"
-		$options['icon'] = empty($options['icon']) ? 'icon-ok icon-white' : $options['icon'];
+		$options['icon'] = !isset($options['icon']) ? 'icon-ok icon-white' : $options['icon'];
 
 		//"class" option default "btn btn-success"
-		$options['class'] = empty($options['class']) ? 'btn btn-success' : $this->Html->cleanAttribute($options['class'].' btn');
+		$options['class'] = !isset($options['class']) ? 'btn btn-success' : $this->Html->cleanAttribute($options['class'].' btn');
 
 		//If isset "div" option and this is false, returns the button
 		if(isset($options['div']) && !$options['div'])
