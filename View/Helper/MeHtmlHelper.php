@@ -98,16 +98,15 @@ class MeHtmlHelper extends HtmlHelper {
 	 * Adds a css file to the layout. Rewrites <i>$this->Html->css()</i>
 	 *
 	 * When used in the layout, remember to use the "inline" option (must be set to TRUE)
-	 * @param mixed $filename The css filename or an array of css files
+	 * @param mixed $path The css filename or an array of css files
 	 * @param array $options HTML attributes
-	 * @param string $rel The value of the generated tag's rel attribute. If null, 'stylesheet' will be use
 	 * @return string CSS <link /> or <style /> tag, depending on the type of link
 	 */
-	public function css($filename, $options=array(), $rel=null) {
+	public function css($path, $options=array()) {
 		//"inline" option default FALSE
 		$options['inline'] = empty($options['inline']) ? false : $options['inline'];
 
-		return parent::css($filename, $rel, $options);
+		return parent::css($path, $options);
 	}
 
 	/**
