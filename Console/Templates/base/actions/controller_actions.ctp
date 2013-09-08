@@ -20,7 +20,7 @@
 ?>
 
 	/**
-	 * List <?php echo $pluralHumanName."\n"; ?>
+	 * List <?php echo strtolower(Inflector::pluralize($singularHumanName))."\n"; ?>
 	 * @return void
 	 */
 	public function <?php echo $admin ?>index() {
@@ -28,7 +28,7 @@
 		
 		$this->set(array(
 			'<?php echo $pluralName ?>'	=> $this->paginate(),
-			'subtitle'			=> <?php echo "__('List ".$pluralHumanName."')\n"; ?>
+			'subtitle'			=> <?php echo "__('List ".strtolower(Inflector::pluralize($singularHumanName))."')\n"; ?>
 		));
 	}
 

@@ -18,25 +18,25 @@
 <?php echo "<?php echo \$this->end(); ?>\n"; ?>
 
 <div class="<?php echo $pluralVar; ?> form">
+	<h2><?php printf("<?php echo __('%s %s'); ?>", Inflector::humanize(substr(strrchr($action, "_"), 1)), $singularHumanName); ?></h2>
 <?php echo "\t<?php echo \$this->Form->create('{$modelClass}', array('class' => 'form-base')); ?>\n"; ?>
-	<fieldset>
-		<legend><?php printf("<?php echo __('%s %s'); ?>", Inflector::humanize($action), $singularHumanName); ?></legend>
+		<fieldset>
 <?php
-		echo "\t\t<?php\n";
+		echo "\t\t\t<?php\n";
 		foreach ($fields as $field) {
 			if (strpos($action, 'add') !== false && $field == $primaryKey) {
 				continue;
 			} elseif (!in_array($field, array('created', 'modified', 'updated'))) {
-				echo "\t\t\techo \$this->Form->input('{$field}');\n";
+				echo "\t\t\t\techo \$this->Form->input('{$field}');\n";
 			}
 		}
 		if (!empty($associations['hasAndBelongsToMany'])) {
 			foreach ($associations['hasAndBelongsToMany'] as $assocName => $assocData) {
-				echo "\t\t\techo \$this->Form->input('{$assocName}');\n";
+				echo "\t\t\t\techo \$this->Form->input('{$assocName}');\n";
 			}
 		}
-		echo "\t\t?>\n";
+		echo "\t\t\t?>\n";
 ?>
-	</fieldset>
+		</fieldset>
 	<?php echo "<?php echo \$this->Form->end(__('Submit')); ?>\n"; ?>
 </div>
