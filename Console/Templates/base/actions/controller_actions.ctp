@@ -25,9 +25,11 @@
 	 */
 	public function <?php echo $admin ?>index() {
 		$this-><?php echo $currentModelName ?>->recursive = 0;
-		$this->set('<?php echo $pluralName ?>', $this->paginate());
 		
-		<?php echo "\$this->set('subtitle', __('List ".$pluralHumanName."'));\n"; ?>
+		$this->set(array(
+			'<?php echo $pluralName ?>'	=> $this->paginate(),
+			'subtitle'			=> <?php echo "__('List ".$pluralHumanName."')\n"; ?>
+		));
 	}
 
 	/**
@@ -40,9 +42,9 @@
 		if(!$this-><?php echo $currentModelName; ?>->exists($id))
 			throw new NotFoundException(__('Invalid <?php echo strtolower($singularHumanName); ?>'));
 			
-		$options = array('conditions' => array('<?php echo $currentModelName; ?>.'.$this-><?php echo $currentModelName; ?>->primaryKey => $id));
-		$this->set('<?php echo $singularName; ?>', $this-><?php echo $currentModelName; ?>->find('first', $options));
-	
+		$this->set('<?php echo $singularName; ?>', $this-><?php echo $currentModelName; ?>->find('first', array(
+			'conditions' => array('<?php echo $currentModelName; ?>.'.$this-><?php echo $currentModelName; ?>->primaryKey => $id)
+		)));
 		<?php echo "\$this->set('subtitle', __('View ".strtolower($singularHumanName)."'));\n"; ?>
 	}
 
@@ -73,13 +75,10 @@
 			if(!empty($associationName)):
 				$otherModelName = $this->_modelName($associationName);
 				$otherPluralName = $this->_pluralName($associationName);
-				echo "\t\t\${$otherPluralName} = \$this->{$currentModelName}->{$otherModelName}->find('list');\n";
-				$compact[] = "'{$otherPluralName}'";
+				echo "\n\t\t\$this->set('{$otherPluralName}', \$this->{$currentModelName}->{$otherModelName}->find('list'));";
 			endif;
 		endforeach;
 	endforeach;
-	if(!empty($compact))
-		echo "\t\t\$this->set(compact(".join(', ', $compact)."));\n";
 	
 	echo "\n\t\t\$this->set('subtitle', __('Add ".strtolower($singularHumanName)."'));\n";
 ?>
@@ -110,23 +109,20 @@
 				$this->Session->setFlash(__('The <?php echo strtolower($singularHumanName); ?> could not be edited. Please, try again'), 'MeTools.error');
 <?php endif; ?>
 		} 
-		else {
-			$options = array('conditions' => array('<?php echo $currentModelName; ?>.'.$this-><?php echo $currentModelName; ?>->primaryKey => $id));
-			$this->request->data = $this-><?php echo $currentModelName; ?>->find('first', $options);
-		}
+		else
+			$this->request->data = $this-><?php echo $currentModelName; ?>->find('first', array(
+				'conditions' => array('<?php echo $currentModelName; ?>.'.$this-><?php echo $currentModelName; ?>->primaryKey => $id)
+			));
 <?php
 		foreach(array('belongsTo', 'hasAndBelongsToMany') as $assoc):
 			foreach($modelObj->{$assoc} as $associationName => $relation):
 				if(!empty($associationName)):
 					$otherModelName = $this->_modelName($associationName);
 					$otherPluralName = $this->_pluralName($associationName);
-					echo "\t\t\${$otherPluralName} = \$this->{$currentModelName}->{$otherModelName}->find('list');\n";
-					$compact[] = "'{$otherPluralName}'";
+					echo "\n\t\t\$this->set('{$otherPluralName}', \$this->{$currentModelName}->{$otherModelName}->find('list'));";
 				endif;
 			endforeach;
 		endforeach;
-		if(!empty($compact))
-			echo "\t\t\$this->set(compact(".join(', ', $compact)."));\n";
 	
 		echo "\n\t\t\$this->set('subtitle', __('Edit ".strtolower($singularHumanName)."'));\n";
 	?>
@@ -144,18 +140,19 @@
 			throw new NotFoundException(__('Invalid <?php echo strtolower($singularHumanName); ?>'));
 			
 		$this->request->onlyAllow('post', 'delete');
-		if($this-><?php echo $currentModelName; ?>->delete()) {
+		
+		if($this-><?php echo $currentModelName; ?>->delete())
 <?php if($wannaUseSession): ?>
 			$this->Session->setFlash(__('The <?php echo strtolower($singularHumanName); ?> has been deleted'), 'MeTools.success');
-			$this->redirect(array('action' => 'index'));
 <?php else: ?>
 			$this->flash(__('<?php echo ucfirst(strtolower($singularHumanName)); ?> deleted'), array('action' => 'index'));
 <?php endif; ?>
-		}
+		else
 <?php if($wannaUseSession): ?>
-		$this->Session->setFlash(__('The <?php echo strtolower($singularHumanName); ?> was not deleted'), 'MeTools.success');
+			$this->Session->setFlash(__('The <?php echo strtolower($singularHumanName); ?> was not deleted'), 'MeTools.success');
 <?php else: ?>
-		$this->flash(__('<?php echo ucfirst(strtolower($singularHumanName)); ?> was not deleted'), array('action' => 'index'));
+			$this->flash(__('<?php echo ucfirst(strtolower($singularHumanName)); ?> was not deleted'), array('action' => 'index'));
 <?php endif; ?>
+			
 		$this->redirect(array('action' => 'index'));
 	}
