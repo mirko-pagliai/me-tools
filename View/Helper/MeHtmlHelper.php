@@ -203,6 +203,20 @@ class MeHtmlHelper extends HtmlHelper {
 	}
 
 	/**
+	 * Build elements of a list (`li`) out of an associative array.
+	 * @param array $list Elements
+	 * @param array $options HTML attributes
+	 * @return string Html, elements of a list
+	 */
+	public function li($list, $options=array()) {		
+		$html = '';
+		foreach($list as $element)
+			$html .= $this->tag('li', $element, $options);
+		
+		return $html;		
+	}
+	
+	/**
 	 * Creates an HTML link. Rewrites <i>$this->Html->link()</i>
 	 *
 	 * You can use {@link http://fortawesome.github.io/Font-Awesome Font Awesome icons}. For example:
