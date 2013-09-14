@@ -1,0 +1,294 @@
+@charset "utf-8";
+/**
+ * This file is part of MeTools.
+ *
+ * MeTools is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ *
+ * MeTools is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with MeTools.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * @author		Mirko Pagliai <mirko.pagliai@gmail.com>
+ * @copyright	Copyright (c) 2013, Mirko Pagliai for Nova Atlantis Ltd
+ * @license		http://www.gnu.org/licenses/agpl.txt AGPL License
+ * @link		http://git.novatlantis.it Nova Atlantis Ltd
+ * @package		MeTools.webroot.css
+ */
+
+/* ---------------------------- */
+/*		Bootstrap rewrite		*/
+/* ---------------------------- */
+/* Buttons */
+.btn {
+	white-space: nowrap;
+}
+
+/* Last button of button group */
+.btn-group > .btn:last-child {
+	margin-left: -1px;
+}
+
+/* Carousel title */
+.carousel > h2 {
+	background: #505050;
+    color: #FFF;
+    font-size: 22px;
+    margin: 0;
+    padding: 10px 15px;
+}
+
+/* Images in carousel */
+.carousel .item > img {
+    margin: auto;
+}
+
+/* Carousel controls, icons (left and right) */
+.carousel .carousel-control i {
+	font-size: 30px;
+    font-weight: bold;
+    vertical-align: middle;
+}
+
+/* Carousel controls, left icon */
+.carousel .carousel-control.left i {
+    margin-left: -3px;
+}
+
+/* Carousel controls, right icon */
+.carousel .carousel-control.right i {
+    margin-right: -3px;
+}
+
+/* Hero unit */
+.hero-unit {
+	padding: 20px 30px 25px;
+}
+
+/* Title for hero unit */
+.hero-unit h2 {
+	font-size: 26px;
+	margin: 0 0 5px;
+}
+
+/* Last form in hero unit */
+.hero-unit form:last-child {
+	margin: 0;
+}
+
+/* Paragraph for hero unit */
+.hero-unit p {
+	font-size: 16px;
+}
+
+/* Images as polaroid */
+.img-polaroid {
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+/* Appended or prepended text to inputs */
+.input-append, .input-prepend {
+	display: inherit;
+	font-size: inherit;
+}
+
+/* Appended text add-on */
+.input-append .add-on:last-of-type, .input-append .btn:last-of-type, .input-append .btn-group:last-of-type > .dropdown-toggle {
+    border-radius: 0 4px 4px 0;
+}
+
+/* Row on grid system */
+.row {
+	margin-bottom: 20px;
+}
+
+/* Tooltips */
+.tooltip-inner {
+	font-size: 14px;
+}
+
+/* Blockquote */
+blockquote {
+	text-align: justify;
+}
+
+/* Radio inputs */
+form input[type="radio"] {
+	line-height: 20px;
+	margin-top: 0;
+	min-height: 20px;
+}
+
+/* Labels after radio inputs */
+form input[type="radio"] + label {
+	display: inline-block;
+	line-height: 20px;
+	margin-left: 5px;
+	min-height: 20px;
+}
+
+/* ---------------------------- */
+/*		Inline forms			*/
+/* ---------------------------- */
+/* Inline form */
+form.form-inline {
+	margin: 0;
+}
+
+/* Inputs and submits wrappers */
+form.form-inline > div.input, form.form-inline div.submit {
+	display: inline-block;
+    margin-right: 10px;
+	vertical-align: top;
+}
+
+/* Labels */
+form.form-inline label {
+	margin: 0 10px 0 0;
+	vertical-align: middle;
+}
+
+/* Labels for checkbox inputs */
+form.form-inline > div.checkbox label {
+	margin: 0;
+}
+
+/* Checkbox inputs */
+form.form-inline input[type="checkbox"] {
+	float: none !important;
+	vertical-align: middle;
+}
+
+/* ---------------------------- */
+/*		Div as table			*/
+/* ---------------------------- */
+/* Main wrapper */
+.div-as-table {
+	clear: both;
+	color: #666;
+	margin-bottom: 20px;
+}
+
+/* Rows */
+.div-as-table > div {
+	border: 1px solid #DDD;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box; /* Firefox */
+	line-height: 30px;
+	margin-bottom: -1px; /* Hide the lower border */
+	padding: 8px 12px;
+}
+
+/* First row */
+.div-as-table > div:first-child {
+	border-top-left-radius: 4px;
+	border-top-right-radius: 4px;
+}
+
+/* Last row */
+.div-as-table > div:last-child {
+	border-bottom-left-radius: 4px;
+	border-bottom-right-radius: 4px;
+}
+
+/* Rows with hover class */
+.div-as-table.hover > div:hover {
+	background: #eee;
+}
+
+/* Cells */
+.div-as-table > div > div.cell {
+	display: inline-block;
+	margin-right: 10px;
+}
+
+/* Last cell */
+.div-as-table > div > div.cell:last-child {
+	margin: 0;
+}
+
+/* ---------------------------- */
+/*		Scrollable div			*/
+/* ---------------------------- */
+/* Scrollable div */
+.scrollable-div {
+	background: #EEE;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+/* Scrollable div, direct div child */
+.scrollable-div > div {
+    max-height: 300px;
+    overflow-x: auto;
+    padding: 5px 10px;
+}
+
+/* ---------------------------- */
+/*			Simple well			*/
+/* ---------------------------- */
+/* Simple well */
+.well-simple {
+	background: #F6F6F6;
+	border-radius: 10px;
+	font-size: 18px;
+	line-height: 30px;
+	margin-bottom: 20px;
+	padding: 30px 40px;
+}
+
+/* Paragraph (direct children) in simple well */
+.well-simple > p {
+	margin-bottom: 20px;
+}
+
+/* Paragraph (last children) in simple well */
+.well-simple > p:last-child {
+	margin: 0;
+}
+
+/* Blockquote in simple well */
+.well-simple blockquote {
+	border-color: #ddd;
+}
+
+/* ---------------------------- */
+/*		Common classes			*/
+/* ---------------------------- */
+/* Bold */
+.bold {
+	font-weight: bold;
+}
+
+/* Inline element */
+.inline {
+	display: inline;
+}
+
+/* Small text */
+/* Remember you can use instead <small> element, that will set font size at 85% */
+.small {
+	font-size: 90%;
+}
+
+/* Vertical align bottom */
+.valign-bottom {
+	vertical-align: bottom;
+}
+
+/* Vertical align middle */
+.valign-middle {
+	vertical-align: middle;
+}
+
+/* Vertical align top */
+.valign-top {
+	vertical-align: top;
+}
