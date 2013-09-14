@@ -62,13 +62,8 @@ th a.desc:after {
     content: " \f15e";
 }
 
-/* Labels */
-.index table td .label, .related table td .label {
-	font-size: 100%;
-}
-
 /* ---------------------------- */
-/*		Tables on index views	*/
+/*	Tables on indexes views		*/
 /* ---------------------------- */
 /* Cells */
 .index table td, .index table th, .related table td, .related table th {
@@ -85,6 +80,15 @@ th a.desc:after {
 .index table td.actions a.btn, .related table td.actions a.btn {
 	min-width: 14px;
     padding: 4px 8px;
+}
+
+/* Labels */
+.index table td .label, .related table td .label {
+	display: inline-block;
+	font-size: 100%;
+	line-height: normal;
+    min-width: 85px;    
+	padding: .2em 0 .25em;
 }
 
 /* ---------------------------- */

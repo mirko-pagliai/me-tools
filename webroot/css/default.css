@@ -37,54 +37,9 @@ form .required label {
 	font-weight: bold;
 }
 
-/* Labels for required inputs (after) */
-form .required label:after {
-	color: #e32;
-	content: '*';
-	display:inline;
-}
-
-/* Form error messages */
-form .error-message {
-	background: #FFDACC;
-	color: #9E2424;
-	border-radius: 5px;
-	display: table;
-	margin-top: 3px;
-    padding: 4px 8px;
-}
-
-/* Columns with ascending sort */
-th a.asc:after {
-    content: " ⇣";
-}
-
-/* Columns with descending sort */
-th a.desc:after {
-    content: " ⇡";
-}
-
-/* Textareas */
-textarea {
-	min-height: 20px;
-	resize: vertical;
-}
-
 /* Cells on index and related tables */
 .index table td, .index table th, .related table td, .related table th {
 	vertical-align: middle;
-}
-
-/* Action cells on index and related tables */
-.index table td.actions, .related table td.actions {
-	width: 1px;
-	white-space: nowrap;
-}
-
-/* Action buttons on index and related tables */
-.index table td.actions a.btn, .related table td.actions a.btn {
-	min-width: 14px;
-    padding: 2px 6px;
 }
 
 /* Button groups on related tables */
@@ -360,41 +315,6 @@ form.form-inline input[type="checkbox"] {
 }
 
 /* ---------------------------- */
-/*		Cake Sql debug			*/
-/* ---------------------------- */
-/* Table */
-table.cake-sql-log {
-	font-family: Monaco,Consolas,"Courier New",monospaced;
-	font-size: 12px;
-	margin-bottom: 25px;
-	width: 100%;
-}
-
-/* Table caption */
-table.cake-sql-log caption {
-	background: #aaa;
-	border-radius: 5px 5px 0 0;
-    color: #fff;
-    padding: 6px;
-}
-
-/* Header cells */
-table.cake-sql-log th {
-	background: #F1F1F1;
-	border-bottom: 2px solid #CCC;
-}
-
-/* Cells and header cells */
-table.cake-sql-log td, table.cake-sql-log th {
-	padding: 4px 10px;
-}
-
-/* Cells in odd rows */
-table.cake-sql-log tbody tr:nth-child(2n+1) td {
-    background-color: #F9F9F9;
-}
-
-/* ---------------------------- */
 /*		Common classes			*/
 /* ---------------------------- */
 /* Bold */
@@ -411,11 +331,6 @@ table.cake-sql-log tbody tr:nth-child(2n+1) td {
 /* Remember you can use instead <small> element, that will set font size at 85% */
 .small {
 	font-size: 90%;
-}
-
-/* Text align justify */
-.text-justify {
-	text-align: justify;
 }
 
 /* Vertical align bottom */
