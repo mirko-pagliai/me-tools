@@ -1,0 +1,185 @@
+@charset "utf-8";
+/**
+ * This file is part of MeTools.
+ *
+ * MeTools is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ *
+ * MeTools is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with MeTools.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * @author		Mirko Pagliai <mirko.pagliai@gmail.com>
+ * @copyright	Copyright (c) 2013, Mirko Pagliai for Nova Atlantis Ltd
+ * @license		http://www.gnu.org/licenses/agpl.txt AGPL License
+ * @link		http://git.novatlantis.it Nova Atlantis Ltd
+ * @package		MeTools.webroot.css
+ */
+
+/* Form error messages */
+form .error-message {
+	background: #F2DEDE;
+	color: #B94A48;
+	border-radius: 4px;
+	display: inline-block;
+	margin-top: 3px;
+    padding: 6px 8px;
+}
+
+/* Textareas */
+textarea {
+	min-height: 20px;
+	resize: vertical;
+}
+
+/* Cells with the minimum width */
+th.min-width, td.min-width {
+	white-space: nowrap;
+    width: 1px;
+}
+
+/* ---------------------------- */
+/*	Ascending/descending sort	*/
+/* ---------------------------- */
+th a.asc:after, th a.desc:after {
+	font-family: FontAwesome;
+    font-weight: normal;
+}
+
+/* Ascending sort */
+th a.asc:after {
+    content: " \f15d";
+}
+
+/* Descending sort */
+th a.desc:after {
+    content: " \f15e";
+}
+
+/* Labels */
+.index table td .label, .related table td .label {
+	font-size: 100%;
+}
+
+/* ---------------------------- */
+/*		Tables on index views	*/
+/* ---------------------------- */
+/* Cells */
+.index table td, .index table th, .related table td, .related table th {
+	vertical-align: middle !important;
+}
+
+/* Action cells */
+.index table td.actions, .related table td.actions {
+	width: 1px;
+	white-space: nowrap;
+}
+
+/* Action buttons */
+.index table td.actions a.btn, .related table td.actions a.btn {
+	min-width: 14px;
+    padding: 4px 8px;
+}
+
+/* ---------------------------- */
+/*			Base form			*/
+/* ---------------------------- */
+/* Labels for required inputs (add a red asterisk after the label) */
+form.form-base .required label:after {
+	color: #e32;
+	content: '*';
+	display: inline;
+}
+
+form.form-base div.input {
+	margin-bottom: 15px;
+}
+
+form.form-base div.input input, form.form-base div.input select, form.form-base div.input textarea {
+    background-color: #FFF;
+    border: 1px solid #CCC;
+    border-radius: 4px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+    color: #555;
+    padding: 6px 12px;
+    width: 100%;
+}
+
+form.form-base div.input input, form.form-base div.input select {
+    height: 34px;
+}
+
+form.form-base div.input .after-input, form.form-base div.input .before-input {
+	background: #D9EDF7;
+	border-radius: 4px;
+	color: #3A87AD;
+	margin-top: 3px;
+    padding: 6px 8px;
+}
+
+/* Form error messages */
+form.form-base .error-message {
+	display: block;
+}
+
+/* Float form */
+form.form-base .float-form {
+	background: none repeat scroll 0 0 #F7F5FA;
+    border-radius: 5px 5px 5px 5px;
+    float: right;
+    margin: 0 0 20px 20px;
+    padding: 20px;
+}
+
+/* Last child of a float form */
+form.form-base .float-form div.input:last-child {
+	margin-bottom: 0;
+}
+
+/* ---------------------------- */
+/*		Cake Sql debug			*/
+/* ---------------------------- */
+/* Table */
+table.cake-sql-log {
+	font-size: 13px;
+	margin: 20px 0;
+	width: 100%;
+}
+
+/* Table caption */
+table.cake-sql-log caption {
+	background: #aaa;
+	border-radius: 5px 5px 0 0;
+    color: #fff;
+    padding: 6px;
+}
+/* Header cells */
+table.cake-sql-log th {
+	background: #F1F1F1;
+	border-bottom: 2px solid #CCC;
+}
+
+/* Cells and header cells */
+table.cake-sql-log td, table.cake-sql-log th {
+	padding: 4px 10px;
+}
+
+/* Cells in odd rows */
+table.cake-sql-log tbody tr:nth-child(2n+1) td {
+    background-color: #F9F9F9;
+}
+
+/* ---------------------------- */
+/*		Bootstrap rewrite		*/
+/* ---------------------------- */
+/* Labels for checkboxs */
+.checkbox label {
+	display: inline-block;
+    margin: 4px 0 0 4px;
+}
