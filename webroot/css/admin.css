@@ -44,9 +44,9 @@ th.min-width, td.min-width {
     width: 1px;
 }
 
-/* ---------------------------- */
-/*	Ascending/descending sort	*/
-/* ---------------------------- */
+/* -------------------------------- */
+/*		Ascending/descending sort	*/
+/* -------------------------------- */
 th a.asc:after, th a.desc:after {
 	font-family: FontAwesome;
     font-weight: normal;
@@ -62,9 +62,9 @@ th a.desc:after {
     content: " \f15e";
 }
 
-/* ---------------------------- */
-/*	Tables on indexes views		*/
-/* ---------------------------- */
+/* -------------------------------- */
+/*		Tables on index pages		*/
+/* -------------------------------- */
 /* Cells */
 .index table td, .index table th, .related table td, .related table th {
 	vertical-align: middle !important;
@@ -82,7 +82,10 @@ th a.desc:after {
     padding: 4px 8px;
 }
 
-/* Labels */
+/* -------------------------------- */
+/*				Labels				*/
+/* -------------------------------- */
+/* Labels on tables of index pages */
 .index table td .label, .related table td .label {
 	display: inline-block;
 	font-size: 100%;
@@ -91,9 +94,14 @@ th a.desc:after {
 	padding: .2em 0 .25em;
 }
 
-/* ---------------------------- */
-/*			Base form			*/
-/* ---------------------------- */
+/* Labels on view pages */
+.view dt .label, .view dd .label {
+	padding: .15em .5em;
+}
+
+/* -------------------------------- */
+/*			Base form				*/
+/* -------------------------------- */
 /* Labels for required inputs (add a red asterisk after the label) */
 form.form-base .required label:after {
 	color: #e32;
@@ -132,7 +140,7 @@ form.form-base .error-message {
 	display: block;
 }
 
-/* Float form */
+/* Float forms */
 form.form-base .float-form {
 	background: none repeat scroll 0 0 #F7F5FA;
     border-radius: 5px 5px 5px 5px;
@@ -141,14 +149,14 @@ form.form-base .float-form {
     padding: 20px;
 }
 
-/* Last child of a float form */
+/* Last child of a float forms */
 form.form-base .float-form div.input:last-child {
 	margin-bottom: 0;
 }
 
-/* ---------------------------- */
-/*		Cake Sql debug			*/
-/* ---------------------------- */
+/* -------------------------------- */
+/*		Cake Sql debug				*/
+/* -------------------------------- */
 /* Table */
 table.cake-sql-log {
 	font-size: 13px;
@@ -179,9 +187,9 @@ table.cake-sql-log tbody tr:nth-child(2n+1) td {
     background-color: #F9F9F9;
 }
 
-/* ---------------------------- */
-/*		Bootstrap rewrite		*/
-/* ---------------------------- */
+/* -------------------------------- */
+/*			Bootstrap rewrite		*/
+/* -------------------------------- */
 /* Labels for checkboxs */
 .checkbox label {
 	display: inline-block;
