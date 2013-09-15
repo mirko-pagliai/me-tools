@@ -24,7 +24,9 @@
 
 /* Dt and dd elements */
 dt, dd {
+	margin-bottom: 4px;
     min-height: 20px;
+	overflow: hidden;
 }
 
 /* Form error messages */
@@ -37,9 +39,8 @@ form .error-message {
     padding: 6px 8px;
 }
 
-/* Auto-width for inputs and textareas that have the size/cols attribute */
-form input[size], form textarea[cols] {
-	width: auto !important;
+code {
+	display: inline-block;
 }
 
 /* Textareas */
@@ -90,6 +91,12 @@ th a.desc:after {
 .index table td.actions a.btn, .related table td.actions a.btn {
 	min-width: 14px;
     padding: 4px 8px;
+}
+
+/* Codes on cells */
+.index table td code, .index table th code, .related table td code, .related table th code {
+	background: none;
+	color: inherit;
 }
 
 /* -------------------------------- */
@@ -223,4 +230,9 @@ table.cake-sql-log tbody tr:nth-child(2n+1) td {
 .checkbox label {
 	display: inline-block;
     margin: 4px 0 0 4px;
+}
+
+/* "Pre" tag scrollable */
+.pre-scrollable {
+    overflow-y: auto;
 }
