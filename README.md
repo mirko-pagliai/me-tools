@@ -30,3 +30,9 @@ Rename **Config/recaptcha.default.php** in **Config/recaptcha.php** and configur
 - PHP Markdown 1.3 ([site](http://michelf.ca/projects/php-markdown));
 - reCAPTCHA PHP library 1.11 ([site](https://developers.google.com/recaptcha/docs/php));
 - Datepicker for Bootstrap 1.2.0 by Andrew Rowls ([site](http://eternicode.github.io/bootstrap-datepicker)).
+
+## TinyMce
+### Recommended plugins
+
+We recommend using these plugins:
+	advlist anchor autolink autosave charmap code contextmenu fullscreen hr image insertdatetime link lists media pagebreak paste preview print searchreplace table textcolor visualblocks wordcount
