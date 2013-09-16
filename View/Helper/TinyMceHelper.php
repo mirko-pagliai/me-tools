@@ -36,6 +36,14 @@ class TinyMceHelper extends AppHelper {
 	public $helpers = array('Form' => array('className' => 'MeTools.MeForm'));
 	
 	/**
+	 * Alias for <i>$this->textarea()</i>
+	 */
+	public function input() {
+		$args = func_get_args(); 
+		return call_user_func_array(array('TinyMceHelper', 'textarea'), $args);
+	}
+	
+	/**
 	 * Creates a textarea for TinyMce
 	 * @param string $fieldName Field name. Should be "Modelname.fieldname"
 	 * @param array $options Options
