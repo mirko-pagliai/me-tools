@@ -33,6 +33,6 @@ Rename **Config/recaptcha.default.php** in **Config/recaptcha.php** and configur
 
 ## TinyMce
 ### Recommended plugins
-
 We recommend using these plugins:
+
 	advlist anchor autolink autosave charmap code contextmenu fullscreen hr image insertdatetime link lists media pagebreak paste preview print searchreplace table textcolor visualblocks wordcount
