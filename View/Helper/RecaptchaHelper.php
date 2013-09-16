@@ -39,7 +39,7 @@ class RecaptchaHelper extends AppHelper {
 	 * Helpers
 	 * @var array
 	 */
-	public $helpers = array('MeTools.MeHtml');
+	public $helpers = array('Html' => array('className' => 'MeTools.MeHtml'));
 
 	/**
 	 * Construct
@@ -75,7 +75,7 @@ class RecaptchaHelper extends AppHelper {
 		$options['onclick'] = "window.open('".$link."', '', 'toolbar=0,scrollbars=0,location=0,statusbar=0,menubar=0,resizable=0,width=500,height=300'); return false;";
 
 		//Return the link
-		return $this->MeHtml->link($title, $link, $options);
+		return $this->Html->link($title, $link, $options);
 	}
 
 	/**

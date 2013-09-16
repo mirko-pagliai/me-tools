@@ -32,7 +32,7 @@ class MePaginatorHelper extends PaginatorHelper {
 	 * Helpers
 	 * @var array 
 	 */
-	public $helpers = array('Html', 'MeTools.MeHtml');
+	public $helpers = array('Html' => array('className' => 'MeTools.MeHtml'));
 	
 	/**
 	 * Internal function per jump links. It's used by <i>$this->next()</i> and <i>$this->prev()</i>
@@ -55,7 +55,7 @@ class MePaginatorHelper extends PaginatorHelper {
 		$options['tag'] = !empty($options['tag']) ? $options['tag'] : 'li';
 		
 		//"class" disabled option default "disabled"
-		$disabledOptions['class'] = !empty($disabledOptions['class']) ? $this->MeHtml->cleanAttribute($disabledOptions['class']) : 'disabled';
+		$disabledOptions['class'] = !empty($disabledOptions['class']) ? $this->Html->cleanAttribute($disabledOptions['class']) : 'disabled';
 		//"disabledTag" disabled option default "a"
 		$disabledOptions['disabledTag'] = !empty($disabledOptions['disabledTag']) ? $disabledOptions['disabledTag'] : 'a';
 		//"tag" disabled option default "li"
@@ -84,9 +84,9 @@ class MePaginatorHelper extends PaginatorHelper {
 	 * @return string Counter string as disabled link
 	 */
 	public function counterLink($options=array()) {
-		return $this->MeHtml->tag(
+		return $this->Html->tag(
 				'li', 
-				$this->MeHtml->link($this->counter($options), '#'), 
+				$this->Html->link($this->counter($options), '#'), 
 				array('class' => 'disabled')
 		);
 	}
@@ -117,7 +117,7 @@ class MePaginatorHelper extends PaginatorHelper {
 	 */
 	public function numbers($options = array()) {
 		//"currentClass" option default "disabled"
-		$options['currentClass'] = !empty($options['currentClass']) ? $this->MeHtml->cleanAttribute($options['currentClass']) : 'disabled';
+		$options['currentClass'] = !empty($options['currentClass']) ? $this->Html->cleanAttribute($options['currentClass']) : 'disabled';
 		//"currentTag" option default "a"
 		$options['currentTag'] = !empty($options['currentTag']) ? $options['currentTag'] : 'a';
 		//"separator" option default FALSE
