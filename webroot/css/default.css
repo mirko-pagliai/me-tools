@@ -24,9 +24,19 @@
 
 /* Dt and dd elements */
 dt, dd {
-	margin-bottom: 4px;
+	margin-bottom: 1px;
     min-height: 20px;
-	overflow: hidden;
+	line-height: 20px;
+}
+
+/* Code element inside dd elements */
+dd code {
+	padding: 1px 4px;
+}
+
+/* Pre element on inside elements */
+dd pre {
+	border: 0;
 }
 
 /* Form error messages */
@@ -39,6 +49,7 @@ form .error-message {
     padding: 6px 8px;
 }
 
+/* Code element */
 code {
 	display: inline-block;
 }
@@ -113,6 +124,7 @@ th a.desc:after {
 
 /* Labels on view pages */
 .view dt .label, .view dd .label {
+	font-size: 90%;
 	padding: .15em .5em;
 }
 
