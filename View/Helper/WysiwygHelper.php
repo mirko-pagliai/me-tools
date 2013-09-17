@@ -2,10 +2,10 @@
 App::uses('AppHelper', 'View/Helper');
 
 /**
- * Creates form inputs to be used with TinyMCE.
+ * Creates form inputs to be used with wysiwyg editors.
  * 
  * You should use this helper as an alias, for example:
- * <pre>public $helpers = array('Wysiwyg' => array('className' => 'MeTools.TinyMce'));</pre>
+ * <pre>public $helpers = array('Wysiwyg' => array('className' => 'MeTools.Wysiwyg'));</pre>
  *
  * This file is part of MeTools.
  *
@@ -28,7 +28,7 @@ App::uses('AppHelper', 'View/Helper');
  * @link		http://git.novatlantis.it Nova Atlantis Ltd
  * @package		MeTools.View.Helper
  */
-class TinyMceHelper extends AppHelper {
+class WysiwygHelper extends AppHelper {
 	/**
 	 * Helpers
 	 * @var array
@@ -40,18 +40,18 @@ class TinyMceHelper extends AppHelper {
 	 */
 	public function input() {
 		$args = func_get_args(); 
-		return call_user_func_array(array('TinyMceHelper', 'textarea'), $args);
+		return call_user_func_array(array('WysiwygHelper', 'textarea'), $args);
 	}
 	
 	/**
-	 * Creates a textarea for TinyMce
+	 * Creates a textarea for wysiwyg editors
 	 * @param string $fieldName Field name. Should be "Modelname.fieldname"
 	 * @param array $options Options
 	 * @return string Html
 	 */
 	public function textarea($fieldName, $options=array()) {
-		//Adds "wysiwyg tinymce" to the class
-		$options['class'] = empty($options['class']) ? 'wysiwyg tinymce' : $options['class'].'wysiwyg tinymce';
+		//Adds "wysiwyg" to the class
+		$options['class'] = empty($options['class']) ? 'wysiwyg' : $options['class'].' wysiwyg';
 		
 		//Set the "require" attribute to FALSE, otherwise it will fail the field validation
 		$options['required'] = false;
