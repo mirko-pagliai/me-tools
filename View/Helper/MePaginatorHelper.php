@@ -75,7 +75,7 @@ class MePaginatorHelper extends PaginatorHelper {
 	 */
 	public function counter($options=array()) {
 		//"format" option default "{:start} - {:end} of {:count}"
-		$options['format'] = !empty($options['format']) ? $options['format'] :  __('%s - %s of %s', '{:start}', '{:end}', '{:count}');
+		$options['format'] = !empty($options['format']) ? $options['format'] :  __d('me_tools', '%s - %s of %s', '{:start}', '{:end}', '{:count}');
 		
 		return parent::counter($options);
 	}
@@ -103,7 +103,7 @@ class MePaginatorHelper extends PaginatorHelper {
 	 */
 	public function next($title = null, $options = array(), $disabledTitle = null, $disabledOptions = array()) {
 		//Title default
-		$title = !empty($title) ? $title : __('next').' »';
+		$title = !empty($title) ? $title : __d('me_tools', 'next').' »';
 		
 		//Uses $this->__jump->link() to set arguments
 		list($title, $options, $disabledTitle, $disabledOptions) = $this->__jump_link($title, $options, $disabledTitle, $disabledOptions);
@@ -140,7 +140,7 @@ class MePaginatorHelper extends PaginatorHelper {
 	 */
 	public function prev($title = null, $options = array(), $disabledTitle = null, $disabledOptions = array()) {
 		//Title default
-		$title = !empty($title) ? $title : '« '.__('previous');
+		$title = !empty($title) ? $title : '« '.__d('me_tools', 'previous');
 		
 		//Uses $this->__jump->link() to set arguments
 		list($title, $options, $disabledTitle, $disabledOptions) = $this->__jump_link($title, $options, $disabledTitle, $disabledOptions);

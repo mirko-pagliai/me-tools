@@ -211,7 +211,7 @@ class MeFormHelper extends FormHelper {
 	 */
 	public function select($fieldName, $options=array(), $attributes=array()) {
 		//"empty" attribute default "Select a value" (if "default" and "selected" attributes are empty and "value" attribute is null)
-		$attributes['empty'] = empty($attributes['empty']) && is_null($attributes['value']) && empty($attributes['default']) && empty($attributes['selected']) ? __('Select an option') : $attributes['empty'];
+		$attributes['empty'] = empty($attributes['empty']) && is_null($attributes['value']) && empty($attributes['default']) && empty($attributes['selected']) ? __d('me_tools', 'Select an option') : $attributes['empty'];
 
 		//"escape" attribute default FALSE
 		$attributes['escape'] = empty($attributes['escape']) ? false : $attributes['escape'];
@@ -227,7 +227,7 @@ class MeFormHelper extends FormHelper {
 	 */
 	public function submit($caption=null, $options=array()) {
 		//Caption default "Submit"
-		$caption = !empty($caption) ? $caption : __('Submit');
+		$caption = !empty($caption) ? $caption : __d('me_tools', 'Submit');
 		
 		//"type" must be "submit"
 		$options['type'] = 'submit';

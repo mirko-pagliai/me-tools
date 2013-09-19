@@ -265,7 +265,7 @@ class FileArray  {
 		if(!empty($key)) {
 			//Checks if the key already exists
 			if($this->exists($key))
-				throw new InternalErrorException(__('There\'s already a record with this key in %s', $this->path));
+				throw new InternalErrorException(__d('me_tools', 'There\'s already a record with this key in %s', $this->path));
 
 			//Adds passed data, with their key, to existing data
 			$this->content[$key] = $data;
