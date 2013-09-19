@@ -236,6 +236,14 @@ table.cake-sql-log tbody tr:nth-child(2n+1) td {
 }
 
 /* -------------------------------- */
+/*				CKEditor			*/
+/* -------------------------------- */
+/* Content div */
+.cke_wysiwyg_div {
+	padding: 10px 12px !important;
+}
+
+/* -------------------------------- */
 /*			Bootstrap rewrite		*/
 /* -------------------------------- */
 /* Labels for checkboxs */
