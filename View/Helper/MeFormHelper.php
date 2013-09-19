@@ -63,9 +63,10 @@ class MeFormHelper extends FormHelper {
 	}
 	
 	/**
-	 * Closes a form. Rewrites <i>$this->Form->end()</i> and use the <i>button()</i> method
-	 *
-	 * If $options is set, a submit button will be created. Options can be either a string or an array
+	 * Closes a form. Rewrites <i>$this->Form->end()</i>.
+	 * 
+	 * If you don't want to have the submit button, <i>$caption</i> must be FALSE.
+	 * If <i>$caption</i> is null, it will use a default submit button.
 	 * @param string $caption The submit button label or an image
 	 * @param array $options Options
 	 * @return string Html
@@ -73,8 +74,8 @@ class MeFormHelper extends FormHelper {
 	public function end($caption=null, $options=null) {
 		//Unsets the "label" option 
 		unset($options['label']);
-
-		$submit = !empty($caption) ? $this->submit($caption, $options) : null;
+		
+		$submit = !empty($caption) || is_null($caption) ? $this->submit($caption, $options) : null;
 		
 		return $submit.parent::end();
 	}
