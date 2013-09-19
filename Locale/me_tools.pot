@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2013-03-29 17:44+0100\n"
+"POT-Creation-Date: 2013-09-19 20:36+0000\n"
 "PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
 "Last-Translator: NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
@@ -13,6 +13,10 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: Utility/FileArray.php:268
+msgid "There's already a record with this key in %s"
+msgstr ""
 
 #: View/Elements/alert.ctp:30
 msgid "Alert"
@@ -28,5 +32,25 @@ msgstr ""
 
 #: View/Elements/success.ctp:30
 msgid "Success"
+msgstr ""
+
+#: View/Helper/MeFormHelper.php:214
+msgid "Select an option"
+msgstr ""
+
+#: View/Helper/MeFormHelper.php:230
+msgid "Submit"
+msgstr ""
+
+#: View/Helper/MePaginatorHelper.php:78
+msgid "%s - %s of %s"
+msgstr ""
+
+#: View/Helper/MePaginatorHelper.php:106
+msgid "next"
+msgstr ""
+
+#: View/Helper/MePaginatorHelper.php:143
+msgid "previous"
 msgstr ""
 
