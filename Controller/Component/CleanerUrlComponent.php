@@ -1,18 +1,14 @@
 <?php
 
 /**
- * A component that clean the current url, removing the query string.
+ * A component to clean the current url, removing the query string.
  *
  * For example:
- * <code>
- * /admin/users?var1=a&var2=b
- * </code>
+ * <pre>/admin/users?var1=a&var2=b</pre>
  * will become:
- * <code>
- * /admin/users/index/var1:a/var2:b
- * </code>
+ * <pre>/admin/users/index/var1:a/var2:b</pre>
  *
- * To use the <i>CleanerUrl</i> component, add it to the list of components in your controller (for example, the <i>AppController</i>):
+ * To use the `CleanerUrl` component, add it to the list of components in your controller (for example, the `AppController`):
  * <code>
  * public $components = array('MeTools.CleanerUrl');
  * </code>
@@ -40,7 +36,7 @@
  */
 class CleanerUrlComponent extends Component {
 	/**
-	 * Called before the controller's beforeFilter method. Execute cleanUrl
+	 * Called before the controller's beforeFilter method. Execute `cleanUrl`.
 	 *
 	 * Look at {@link http://api.cakephp.org/2.4/class-Component.html#_initialize CakePHP Api}
 	 * @param Controller $controller
@@ -50,7 +46,7 @@ class CleanerUrlComponent extends Component {
 	}
 
 	/**
-	 * Clean the current url, turning query arguments in named arguments, then execute redirect.
+	 * Cleans the current url, turning query arguments in named arguments, then executes a redirect.
 	 * @param Controller $controller
 	 */
 	protected function cleanUrl(Controller $controller) {
@@ -70,7 +66,6 @@ class CleanerUrlComponent extends Component {
 				$named
 			);
 
-			//Perform the redirect
 			$controller->redirect($url);
 		}
 	}

@@ -3,21 +3,20 @@ App::uses('FormAuthenticate', 'Controller/Component/Auth');
 App::uses('FileArray', 'MeTools.Utility');
 
 /**
- * An authentication adapter for AuthComponent. Provides the ability to authenticate using POST
- * data, using an array of user data in the file <i>APP/user.txt</i> and generated through the <i>FileArray</i> utility. 
+ * An authentication adapter for `AuthComponent`. Provides the ability to authenticate using POST
+ * data with an array of user datas in the file `APP/users.txt` and generated through the `FileArray` utility. 
  * 
- * Can be used by configuring AuthComponent to use it via the AuthComponent::$authenticate setting.
- * 
- * {{{
+ * Can be used by configuring `AuthComponent` to use it via the `AuthComponent::$authenticate` setting.
+ * <code>
  * $this->Auth->authenticate = array(
  *		'Form' => array(
  *			'scope' => array('User.active' => 1)
  *		)
  * )
- * }}}
+ * </code>
  * 
- * When configuring FormAuthenticate you can pass in settings to which fields, model and additional conditions
- * are used. See FormAuthenticate::$settings for more information.
+ * When configuring `FormAuthenticate` you can pass in settings to which fields, model and additional conditions
+ * are used. See `FormAuthenticate::$settings` for more information.
  *
  * This file is part of MeTools.
  *
@@ -45,31 +44,28 @@ class FileArrayAuthenticate extends FormAuthenticate {
 	 * Authenticates the identity contained in a request. Will use the `settings.userModel`, and `settings.fields`
 	 * to find POST data that is used to find a matching record in the `settings.userModel`. Will return false if
 	 * there is no post data, either username or password is missing, of if the scope conditions have not been met.
-	 * 
 	 * @param CakeRequest $request The request that contains login information.
 	 * @param CakeResponse $response Unused response object.
 	 * @return mixed An array of user data or FALSE on login failure.
 	 */
     public function authenticate(CakeRequest $request, CakeResponse $response) {
-		//Get model
+		//Gets model and fields
 		$userModel = $this->settings['userModel'];
         list(, $model) = pluginSplit($userModel);
-		
-		//Get fields
 		$fields = $this->settings['fields'];
 		
 		//Checks the fields to ensure they are supplied
 		if(!$this->_checkFields($request, $model, $fields))
 			return false;
 		
-		//Search the user in the fileArray
+		//Searches the user in the fileArray
 		$this->fileArray = new FileArray(APP.'users.txt');
 		$user = $this->fileArray->getFirst(array(
 			'username' => $fields['username'], 
 			'password' => md5($fields['password'])
 		));
 		
-		//Return user data if the user exists, else FALSE
+		//Returns user datas if the user exists, else FALSE
 		return !empty($user) ? $user : false;
     }
 }

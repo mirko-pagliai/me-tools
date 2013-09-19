@@ -27,12 +27,12 @@ App::uses('Xml', 'Utility');
  */
 class XmlComponent extends Component {
 	/**
-	 * It gets a xml and return an array
+	 * Gets a xml and returns an array
 	 * @param string $url Xml ulr
 	 * @return mixed Array or null
 	 */
 	public function get($url) {
-		//If url exists, it returns xml file as array
+		//If the url exists, returns the xml file as an array
 		if(@file_get_contents($url)) {
 			$xml = Xml::toArray(Xml::build($url));
 
