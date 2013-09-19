@@ -4,6 +4,8 @@ App::uses('AppHelper', 'View/Helper');
 /**
  * Creates form inputs to be used with wysiwyg editors.
  * 
+ * If you want to use CKEditor, then use the CKEditor.
+ * 
  * You should use this helper as an alias, for example:
  * <pre>public $helpers = array('Wysiwyg' => array('className' => 'MeTools.Wysiwyg'));</pre>
  *
@@ -52,6 +54,8 @@ class WysiwygHelper extends AppHelper {
 	public function textarea($fieldName, $options=array()) {
 		//Adds "wysiwyg" to the class
 		$options['class'] = empty($options['class']) ? 'wysiwyg' : $options['class'].' wysiwyg';
+		
+		$options['label'] = false;
 		
 		//Set the "require" attribute to FALSE, otherwise it will fail the field validation
 		$options['required'] = false;
