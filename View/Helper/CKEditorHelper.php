@@ -7,13 +7,13 @@ App::uses('WysiwygHelper', 'MeTools.View/Helper');
  * The `load()` method allows you to load all CKEditor scripts and the `textarea()` 
  * method (and its `input()` alias) creates a textarea for CKEditor.
  * 
- * This helper looking for CKEditor in `app/webroot/ckeditor` and `app/Plugin/MeTools/webroot/ckeditor`.
+ * This helper looking for CKEditor in `app/webroot/ckeditor` and `app/webroot/js/ckeditor`.
  * 
- * So it looks for the file `ckeditor.js` (this file is used to instantiate CKEditor) in `app/js`,
- * `app/webroot/ckeditor`, `app/Plugin/MeTools/webroot/ckeditor`, `app/Plugin/MeTools/webroot/js`.
+ * So it looks for the file `ckeditor.js` (this file is used to instantiate CKEditor) in `app/webroot/js`, 
+ * `app/webroot/ckeditor`, `app/webroot/js/ckeditor` and `app/Plugin/MeTools/webroot/ckeditor`.
  * 
  * Usually `ckeditor.js` is located in `app/Plugin/MeTools/webroot/js`. 
- * If you want to edit the file, you should copy it to `app/js`.
+ * If you want to edit the file, you should copy it to `app/webroot/js`.
  * 
  * You should use this helper as an alias, for example:
  * <pre>public $helpers = array('Wysiwyg' => array('className' => 'MeTools.CKEditor'));</pre>
@@ -55,15 +55,15 @@ class CKEditorHelper extends WysiwygHelper {
 	 * @return mixed String of <script /> tags
 	 */
 	public function load($jquery=true) {
-		//Checks if CKEditor script (ckeditor.js) exists.
-		//It seeks in app/webroot/ckeditor and in app/Plugin/MeTools/webroot/ckeditor
-		if(fileExistsInPath(WWW_ROOT.'ckeditor'.DS.'ckeditor.js')) {
+		$url = '/ckeditor';
+		
+		//Checks if CKEditor script (ckeditor.js) exists
+		//It seeks in app/webroot/ckeditor and app/webroot/js/ckeditor
+		if(fileExistsInPath(WWW_ROOT.'ckeditor'.DS.'ckeditor.js'))
 			$path = WWW_ROOT.'ckeditor';
-			$url = '/ckeditor';
-		}
-		elseif(fileExistsInPath(App::pluginPath('MeTools').'webroot'.DS.'ckeditor'.DS.'ckeditor.js')) {
-			$path = App::pluginPath('MeTools').'webroot'.DS.'ckeditor';
-			$url = '/MeTools/ckeditor';
+		elseif(fileExistsInPath(WWW_ROOT.'js'.DS.'ckeditor'.DS.'ckeditor.js')) {
+			$path = WWW_ROOT.'js'.DS.'ckeditor';
+			$url = '/js'.$url;
 		}
 		
 		//If CKEditor script exists
@@ -71,16 +71,19 @@ class CKEditorHelper extends WysiwygHelper {
 			$script = array($url.'/ckeditor');
 			
 			//Checks if the jQuery adapter exists
-			if(fileExistsInPath($path.DS.'adapters'.DS.'jquery.js') && !empty($jquery))
+			if(!empty($jquery) && fileExistsInPath($path.DS.'adapters'.DS.'jquery.js'))
 				$script[] = $url.'/adapters/jquery';
 			
 			//Checks if the init script exists
+			//It seeks in app/webroot/js, app/webroot/ckeditor, app/webroot/js/ckeditor and app/Plugin/MeTools/webroot/ckeditor
 			if(fileExistsInPath(WWW_ROOT.'js'.DS.'ckeditor_init.js'))
 				$script[] = 'ckeditor_init';
 			elseif(fileExistsInPath($path.DS.'ckeditor_init.js'))
 				$script[] = $url.'/ckeditor_init';
-			elseif(fileExistsInPath(App::pluginPath('MeTools').'webroot'.DS.'js'.DS.'ckeditor_init.js'))
-				$script[] = '/MeTools/js/ckeditor_init';
+			elseif(fileExistsInPath(App::pluginPath('MeTools').'webroot'.DS.'ckeditor'.DS.'ckeditor_init.js'))
+				$script[] = '/MeTools/ckeditor/ckeditor_init';
+			else
+				return false;
 			
 			return $this->Html->js($script);
 		}
