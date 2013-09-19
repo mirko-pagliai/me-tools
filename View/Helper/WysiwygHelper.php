@@ -7,7 +7,9 @@ App::uses('AppHelper', 'View/Helper');
  * If you want to use CKEditor, then use the CKEditor.
  * 
  * You should use this helper as an alias, for example:
- * <pre>public $helpers = array('Wysiwyg' => array('className' => 'MeTools.Wysiwyg'));</pre>
+ * <code>
+ * public $helpers = array('Wysiwyg' => array('className' => 'MeTools.Wysiwyg'));
+ * </code>
  *
  * This file is part of MeTools.
  *

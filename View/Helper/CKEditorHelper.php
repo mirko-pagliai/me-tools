@@ -4,6 +4,16 @@ App::uses('WysiwygHelper', 'MeTools.View/Helper');
 /**
  * Creates form inputs to be used with CKEditor.
  * 
+ * Example:
+ * <code>
+ * <?php
+ *		$this->Wysiwyg->load();
+ *		echo $this->Form->create('Post');
+ *		echo $this->Wysiwyg->input('text');
+ *		echo $this->Form->end(__('Submit'));
+ * ?>
+ * </code>
+ * 
  * The `load()` method allows you to load all CKEditor scripts and the `textarea()` 
  * method (and its `input()` alias) creates a textarea for CKEditor.
  * 
@@ -16,7 +26,9 @@ App::uses('WysiwygHelper', 'MeTools.View/Helper');
  * If you want to edit the file, you should copy it to `app/webroot/js`.
  * 
  * You should use this helper as an alias, for example:
- * <pre>public $helpers = array('Wysiwyg' => array('className' => 'MeTools.CKEditor'));</pre>
+ * <code>
+ * public $helpers = array('Wysiwyg' => array('className' => 'MeTools.CKEditor'));
+ * </code>
  *
  * This file is part of MeTools.
  *

@@ -5,7 +5,9 @@ App::uses('HtmlHelper', 'View/Helper');
  * Provides functionalities for HTML code.
  * 
  * You should use this helper as an alias, for example:
- * <pre>public $helpers = array('Html' => array('className' => 'MeTools.MeHtml'));</pre>
+ * <code>
+ * public $helpers = array('Html' => array('className' => 'MeTools.MeHtml'));
+ * </code>
  *   
  * MeHtmlHelper extends {@link http://api.cakephp.org/2.4/class-HtmlHelper.html HtmlHelper}.
  *
@@ -53,7 +55,9 @@ class MeHtmlHelper extends HtmlHelper {
 	 * by {@link http://getbootstrap.com/css/#buttons Bootstrap}. Uses the <i>$this->link()</i> method
 	 *
 	 * You can use {@link http://fortawesome.github.io/Font-Awesome Font Awesome icons}. For example:
-	 * <pre>echo $this->Html->linkButton('my link', 'http://site.com', array('icon' => 'icon-search'));</pre>
+	 * <code>
+	 * echo $this->Html->linkButton('my link', 'http://site.com', array('icon' => 'icon-search'));
+	 * </code>
 	 * @param string $title Button title
 	 * @param mixed $url Cake-relative URL, array of URL parameters or external URL
 	 * @param array $options HTML attributes
@@ -86,9 +90,9 @@ class MeHtmlHelper extends HtmlHelper {
 	 * @return string Cleaned attribute value
 	 */
 	public function cleanAttribute($value) {
-		//Trim and remove blank spaces
+		//Trims and removes blank spaces
 		$value = preg_replace('/\s+/', ' ', trim($value));
-		//Remove duplicates
+		//Removes duplicates
 		$value = implode(' ', array_unique(explode(' ', $value)));
 
 		return $value;
@@ -97,7 +101,7 @@ class MeHtmlHelper extends HtmlHelper {
 	/**
 	 * Adds a css file to the layout. Rewrites <i>$this->Html->css()</i>
 	 *
-	 * When used in the layout, remember to use the "inline" option (must be set to TRUE)
+	 * When used in the layout, you have to remember to use the "inline" option (must be set to TRUE)
 	 * @param mixed $path The css filename or an array of css files
 	 * @param array $options HTML attributes
 	 * @return string CSS <link /> or <style /> tag, depending on the type of link
@@ -129,13 +133,15 @@ class MeHtmlHelper extends HtmlHelper {
 	 * Note that it's better to use <i>$this->getCrumbList()</i>, which offers better compatibility with Bootstrap
 	 *
 	 * You can use {@link http://fortawesome.github.io/Font-Awesome Font Awesome icons} for the first crumb. For example:
-	 * <pre>echo $this->Html->getCrumbs('/', array('text' => 'Homepage', 'icon' => 'icon-home'));</pre>
+	 * <code>
+	 * echo $this->Html->getCrumbs('/', array('text' => 'Homepage', 'icon' => 'icon-home'));
+	 * </code>
 	 * @param string $separator Text to separate crumbs
 	 * @param string|array|boolean $startText The first crumb. If is an array, the accepted keys are "text", "url" and "icon"
 	 * @return string Html, breadcrumb
 	 */
 	public function getCrumbs($separator='/', $startText=false) {
-		//Change the separator as required by Bootstrap
+		//Changes the separator as required by Bootstrap
 		if(!empty($separator))
 			$separator = '<span class="divider">'.$separator.'</span>';
 		
@@ -146,7 +152,9 @@ class MeHtmlHelper extends HtmlHelper {
 	 * Returns the breadcrumb. Rewrites <i>$this->Html->getCrumbList()</i>
 	 *
 	 * You can use {@link http://fortawesome.github.io/Font-Awesome Font Awesome icons} for the first crumb. For example:
-	 * <pre>echo $this->Html->getCrumbList(null, array('text' => 'Homepage', 'icon' => 'icon-home'));</pre>
+	 * <code>
+	 * echo $this->Html->getCrumbList(null, array('text' => 'Homepage', 'icon' => 'icon-home'));
+	 * </code>
 	 * 
 	 * Note that with Bootstrap 3 you don't need to set separators. Separators are automatically added in CSS through `:after` and `content`
 	 * @param array $options HTML attributes. Can also contain "separator" and "firstClass" options. The "lastClass" option is set automatically as required by Bootstrap
@@ -154,14 +162,14 @@ class MeHtmlHelper extends HtmlHelper {
 	 * @return string Html, breadcrumb
 	 */
 	public function getCrumbList($options=array(), $startText=false) {
-		//Add the "breadcrumb" class
+		//Adds the "breadcrumb" class
 		$options['class'] = empty($options['class']) ? 'breadcrumb' : $this->cleanAttribute($options['class'].' breadcrumb');
 
-		//Change the separator as required by Bootstrap
+		//Changes the separator as required by Bootstrap
 		if(!empty($options['separator']))
 			$options['separator'] = '<span class="divider">'.$options['separator'].'</span>';
 
-		//Add the "active" class to the last element
+		//Adds the "active" class to the last element
 		$options['lastClass'] = 'active';
 
 		return parent::getCrumbList($options, $startText);
@@ -171,8 +179,12 @@ class MeHtmlHelper extends HtmlHelper {
 	 * Returns an icon (<i>Glyphicons</i> or <i>Font Awesome icons</i>)
 	 *
 	 * Examples:
-	 * <pre>echo $this->Html->icon('icon-ok icon-white');</pre>
-	 * <pre>echo $this->Html->icon(array('icon-ok', 'icon-white'));</pre>
+	 * <code>
+	 * echo $this->Html->icon('icon-ok icon-white');
+	 * </code>
+	 * <code>
+	 * echo $this->Html->icon(array('icon-ok', 'icon-white'));
+	 * </code>
 	 *
 	 * Look at {@link http://fortawesome.github.io/Font-Awesome Font Awesome icons}
 	 * @param array $icon Icon or icons as string or an array of icons
@@ -203,7 +215,7 @@ class MeHtmlHelper extends HtmlHelper {
 	}
 
 	/**
-	 * Build elements of a list (`li`) out of an associative array.
+	 * Builds elements of a list (`li`) out of an associative array.
 	 * @param array $list Elements
 	 * @param array $options HTML attributes
 	 * @return string Html, elements of a list
@@ -220,7 +232,9 @@ class MeHtmlHelper extends HtmlHelper {
 	 * Creates an HTML link. Rewrites <i>$this->Html->link()</i>
 	 *
 	 * You can use {@link http://fortawesome.github.io/Font-Awesome Font Awesome icons}. For example:
-	 * <pre>echo $this->Html->link('my link', 'http://site.com', array('icon' => 'icon-search'));</pre>
+	 * <code>
+	 * echo $this->Html->link('my link', 'http://site.com', array('icon' => 'icon-search'));
+	 * </code>
 	 * @param string $title Link title
 	 * @param mixed $url Cake-relative URL, array of URL parameters or external URL (starts with http://)
 	 * @param array $options HTML attributes
@@ -258,7 +272,9 @@ class MeHtmlHelper extends HtmlHelper {
 	 * for {@link http://getbootstrap.com/components/#dropdowns Bootstrap dropdowns}. Uses the <i>$this->link()</i> method
 	 *
 	 * You can use {@link http://fortawesome.github.io/Font-Awesome Font Awesome icons}. For example:
-	 * <pre>echo $this->Html->linkButton('my link', 'http://site.com', array('icon' => 'icon-search'));</pre>
+	 * <code>
+	 * echo $this->Html->linkButton('my link', 'http://site.com', array('icon' => 'icon-search'));
+	 * </code>
 	 * @param string $title Button title
 	 * @param mixed $url Cake-relative URL, array of URL parameters or external URL
 	 * @param array $options HTML attributes
@@ -284,7 +300,9 @@ class MeHtmlHelper extends HtmlHelper {
 	 * Creates a meta tag. Rewrites <i>$this->Html->meta()</i>
 	 *
 	 * For a custom meta tag, the first parameter should be set to an array. For example:
-	 * <pre>echo $this->Html->meta(array('name' => 'robots', 'content' => 'noindex'));</pre>
+	 * <code>
+	 * echo $this->Html->meta(array('name' => 'robots', 'content' => 'noindex'));
+	 * </code>
 	 * @param string $type The title of the external resource
 	 * @param mixed $url The address of the external resource or string for content attribute
 	 * @param array $options Other attributes for the generated tag
@@ -298,7 +316,7 @@ class MeHtmlHelper extends HtmlHelper {
 	}
 	
 	/**
-	 * Build an ordered list (`ol`) out of an associative array. Rewrites <i>$this->Html->nestedList()</i>
+	 * Builds an ordered list (`ol`) out of an associative array. Rewrites <i>$this->Html->nestedList()</i>
 	 * @param array $list Elements to list
 	 * @param array $options HTML attributes of the list tag
 	 * @param array $itemOptions HTML attributes of the list item (`li`) tag
@@ -371,7 +389,7 @@ class MeHtmlHelper extends HtmlHelper {
 	}
 	
 	/**
-	 * Build an unordered list (`ul`) out of an associative array. Rewrites <i>$this->Html->nestedList()</i>
+	 * Builds an unordered list (`ul`) out of an associative array. Rewrites <i>$this->Html->nestedList()</i>
 	 * @param array $list Elements to list
 	 * @param array $options HTML attributes of the list tag
 	 * @param array $itemOptions HTML attributes of the list item (`li`) tag

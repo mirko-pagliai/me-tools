@@ -5,7 +5,9 @@ App::uses('FormHelper', 'View/Helper');
  * Provides functionalities for forms.
  * 
  * You should use this helper as an alias, for example:
- * <pre>public $helpers = array('Form' => array('className' => 'MeTools.MeForm'));</pre>
+ * <code>
+ * public $helpers = array('Form' => array('className' => 'MeTools.MeForm'));
+ * </code>
  * 
  * MeFormHelper extends {@link http://api.cakephp.org/2.4/class-FormHelper.html FormHelper}
  *
@@ -81,9 +83,13 @@ class MeFormHelper extends FormHelper {
 	 * Checks and returns a value if this is not empty, else returns a default value.
 	 * 
 	 * It can be useful with the "selected" option, to get a value if this exists or use a default. For example:  
-	 * <pre>'selected' => @$this->MeForm->getDefault($this->request->data['User']['group'], 'user')</pre>
-	 * Set the "selected" option to 
-	 * <pre>$this->request->data['User']['group']</pre>
+	 * <code>
+	 * 'selected' => @$this->MeForm->getDefault($this->request->data['User']['group'], 'user')
+	 * </code>
+	 * will set the "selected" option to 
+	 * <code>
+	 * $this->request->data['User']['group']
+	 * </code>
 	 * if this exists (for example, if the form has already been sent), else it will use the "user" default value.
 	 * 
 	 * It must be used with the "@" operator, otherwise it will generate a notice.
@@ -125,7 +131,7 @@ class MeFormHelper extends FormHelper {
 	}
 	
 	/**
-	 * Get the input type
+	 * Gets the input type
 	 * @param array $options Options
 	 * @return string Type name
 	 */

@@ -5,7 +5,7 @@ App::import('Vendor', 'MeTools.Recaptcha/recaptchalib');
 /**
  * Recaptcha functions.
  *
- * Before using this helper, please configure Recaptcha keys in Config/recaptcha.php
+ * Before using this helper, please configure Recaptcha keys in <i>Config/recaptcha.php</i>
  *
  * This file is part of MeTools.
  *
@@ -45,10 +45,10 @@ class RecaptchaHelper extends AppHelper {
 	 * Construct
 	 */
 	 public function __construct(View $View, $settings = array()) {
-		//Load Config/recaptcha.php from MeTools
+		//Loads Config/recaptcha.php from MeTools
 		Configure::load('MeTools.recaptcha');
 
-		//Set mail keys, if they exist
+		//Sets mail keys, if they exist
 		if(Configure::read('Recaptcha.Mail.Public_key') && Configure::read('Recaptcha.Mail.Private_key'))
 			$this->mail_keys = array(
 				'pub'	=> Configure::read('Recaptcha.Mail.Public_key'),
@@ -59,9 +59,14 @@ class RecaptchaHelper extends AppHelper {
 	}
 
 	/**
-	 * Create an HTML link for an hidden email. The link will be open in a popup.
+	 * Creates an HTML link for an hidden email. The link will be open in a popup.
 	 *
-	 * It uses <i>MeHtml::link()</i> to create the link and <i>mailUrl()</i> to get the url of the email hidden
+	 * It uses <i>MeHtml::link()</i> to create the link and <i>mailUrl()</i> to get the url of the email hidden.
+	 * 
+	 * You can use {@link http://fortawesome.github.io/Font-Awesome Font Awesome icons}. For example:
+	 * <code>
+	 * echo $this->Recaptcha->mailLink('my mail', 'mymail@provider.com', array('icon' => 'icon-search'));
+	 * </code>
 	 * @param string $title Link title
 	 * @param string $mail Email to hide
 	 * @param array $options HTML attributes
@@ -79,9 +84,9 @@ class RecaptchaHelper extends AppHelper {
 	}
 
 	/**
-	 * Get the url for an hidden email.
+	 * Gets the url for an hidden email.
 	 *
-	 * Note that this method will only return a url. To create a link is better to use <i>mailLink()</i>
+	 * Note that this method will only return a url. To create a link is better to use <i>mailLink()</i>.
 	 * @param string $mail Email to hide
 	 * @return string Url
 	 */

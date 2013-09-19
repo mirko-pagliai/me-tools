@@ -4,7 +4,7 @@ App::import('Vendor', 'MeTools.Markdown/Markdown');
 use \Michelf\Markdown;
 
 /**
- * Convert the Markdown syntax to HTML.
+ * Converts the Markdown syntax to HTML.
  *
  * Look at {@link http://michelf.ca/projects/php-markdown PHP Markdown link} and {@link http://daringfireball.net/projects/markdown/syntax Markdown syntax}.
  *
@@ -31,7 +31,7 @@ use \Michelf\Markdown;
  */
 class MarkdownHelper extends AppHelper {
 	/**
-	 * Convert a string with the Markdown syntax to HTML
+	 * Converts a string with the Markdown syntax to HTML
 	 * @param string $string String with the Markdown syntax
 	 * @return string Html
 	 */

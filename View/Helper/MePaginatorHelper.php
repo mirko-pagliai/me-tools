@@ -38,7 +38,9 @@ class MePaginatorHelper extends PaginatorHelper {
 	 * Internal function per jump links. It's used by <i>$this->next()</i> and <i>$this->prev()</i>
 	 * 
 	 * For example:
-	 * <pre>list($title, $options, $disabledTitle, $disabledOptions) = $this->__jump_link($title, $options, $disabledTitle, $disabledOptions);</pre>
+	 * <code>
+	 * list($title, $options, $disabledTitle, $disabledOptions) = $this->__jump_link($title, $options, $disabledTitle, $disabledOptions);
+	 * </code>
 	 * @param string $title Link title
 	 * @param array $options Options for pagination link
 	 * @param string $disabledTitle Title when the link is disabled
@@ -103,7 +105,7 @@ class MePaginatorHelper extends PaginatorHelper {
 		//Title default
 		$title = !empty($title) ? $title : __('next').' »';
 		
-		//Use $this->__jump->link() to set arguments
+		//Uses $this->__jump->link() to set arguments
 		list($title, $options, $disabledTitle, $disabledOptions) = $this->__jump_link($title, $options, $disabledTitle, $disabledOptions);
 		
 		return parent::next($title, $options, $disabledTitle, $disabledOptions);
