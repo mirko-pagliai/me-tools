@@ -44,7 +44,7 @@ class FileArray  {
 	public $path = null;
 	
 	/**
-	 * Contruct. It set the File object, the path and the content
+	 * Contruct. Sets the File object, the path and the content
 	 * @param string $path File path
 	 */
 	public function __construct($path = false) {
@@ -62,11 +62,10 @@ class FileArray  {
 	 * @return mixed Results or NULL
 	 */
 	private function __filter($conditions=array()) {
-		//Return all content if there're no conditions
+		//Returns all content if there're no conditions
 		if(empty($conditions) || !is_array($conditions))
 			return $this->content;
 		
-		//Empty array
 		$results = array();
 		
 		foreach($this->content as $k => $record) {
@@ -86,18 +85,18 @@ class FileArray  {
 	 * @return mixed Existing data. NULL if there's no existing data or if the file doesn't exist
 	 */
 	private function __read() {
-		//Return NULL if the file doesn't exist
+		//Returns NULL if the file doesn't exist
 		if(!$this->file->exists())
 			return null;
 		
-		//Get existing data
+		//Gets existing data
 		$data = json_decode($this->file->read(), true);
 		
-		//Return NULL if there's no existing data
+		//Returns NULL if there's no existing data
 		if(empty($data))
 			return null;
 		
-		//Sort and return data
+		//Sorts and return data
 		ksort($data);
 		return $data;
 	}
@@ -112,7 +111,7 @@ class FileArray  {
 	}
 	
 	/**
-	 * Get the record count
+	 * Gets the record count
 	 * @param array $conditions Conditions
 	 * @return int Count
 	 */
@@ -125,53 +124,53 @@ class FileArray  {
 	}
 	
 	/**
-	 * Delete a record
+	 * Deletes a record
 	 * @param mixed $key Record key
 	 * @return boolean Success
 	 */
 	public function delete($key) {
-		//Return FALSE if the key doesn't exists
+		//Returns FALSE if the key doesn't exists
 		if(!$this->exists($key))
 			return false;
 		
-		//Unset the record
+		//Unsets the record
 		unset($this->content[$key]);
-		//Write data
+		//Writes data
 		$success = $this->__write($this->content);
-		//Update the content
+		//Updates the content
 		$this->content = $this->__read();
-		//Return success status
+		
 		return $success;
 	}
 	
 	/**
-	 * Edit a record
+	 * Edits a record
 	 * @param mixed $key Key
 	 * @param mixed $data Data
 	 * @return boolean Success
 	 */
 	public function edit($key, $data=array()) {
-		//Return FALSE if the key doesn't exists
+		//Returns FALSE if the key doesn't exists
 		if(!$this->exists($key))
 			return false;
 
-		//Edit data
+		//Edits data
 		$this->content[$key] = $data;
-		//Write data
+		//Writes data
 		$success = $this->__write($this->content);
-		//Update the content
+		//Updates the content
 		$this->content = $this->__read();
-		//Return success status
+		
 		return $success;
 	}
 	
 	/**
-	 * Check if exists a record with a key
+	 * Checks if exists a record with a key
 	 * @param int $key Key to check
 	 * @return bool TRUE if already exists, else FALSE
 	 */
 	public function exists($key) {
-		//Return FALSE if there's no content
+		//Returns FALSE if there's no content
 		if(empty($this->content))
 			return false;
 		
@@ -179,13 +178,13 @@ class FileArray  {
 	}
 	
 	/**
-	 * Find records
+	 * Finds records
 	 * @param string $type Search type. It supports "first" (default), "count" and "all"
 	 * @return mixed Results
 	 */
 	public function find($type='first') {		
 		switch($type) {
-			//Find the first record
+			//Finds the first record
 			case 'first':
 				return $this->getFirst();
 				break;
@@ -202,12 +201,12 @@ class FileArray  {
 	}
 	
 	/**
-	 * Find a record by its key
+	 * Finds a record by its key
 	 * @param mixed $key Key
 	 * @return mixed Record
 	 */
 	public function findByKey($key) {
-		//Return FALSE if the key doesn't exists
+		//Returns FALSE if the key doesn't exists
 		if(!$this->exists($key))
 			return false;
 		
@@ -215,7 +214,7 @@ class FileArray  {
 	}
 	
 	/**
-	 * Get all records
+	 * Gets all records
 	 * @param array $conditions Conditions
 	 * @return mixed All records or NULL
 	 */
@@ -228,12 +227,12 @@ class FileArray  {
 	}
 	
 	/**
-	 * Get the first record
+	 * Gets the first record
 	 * @param array $conditions Conditions
 	 * @return mixed First record founded or NULL
 	 */
 	public function getFirst($conditions=array()) {
-		//Return NULL if there's no content
+		//Returns NULL if there's no content
 		if(empty($this->content))
 			return null;
 		
@@ -247,7 +246,7 @@ class FileArray  {
 	}
 	
 	/**
-	 * Insert a new record
+	 * Inserts a new record
 	 * @param mixed $key Data key
 	 * @param mixed $data Data
 	 * @return bool Success
@@ -256,7 +255,7 @@ class FileArray  {
 	public function insert($key=null, $data=array()) {
 		//If existing data are empty
 		if(empty($this->content)) {
-			//Inizialize the array
+			//Inizializes the array
 			$this->content = array();
 			//If the key is empty, the key will be "1"
 			$key = empty($key) ? 1 : $key;
@@ -264,22 +263,22 @@ class FileArray  {
 		
 		//If the key is not empty
 		if(!empty($key)) {
-			//Check if the key already exists
+			//Checks if the key already exists
 			if($this->exists($key))
 				throw new InternalErrorException(__('There\'s already a record with this key in %s', $this->path));
 
-			//Add passed data, with their key, to existing data
+			//Adds passed data, with their key, to existing data
 			$this->content[$key] = $data;
 		}
-		//Else, if the key is empty, push passed data
+		//Else, if the key is empty, pushes passed data
 		else
 			array_push($this->content, $data);
 		
-		//Write
+		//Writes
 		$success = $this->__write($this->content);
-		//Update the content
+		//Updates the content
 		$this->content = $this->__read();
-		//Return success status
+		
 		return $success;
 	}
 }

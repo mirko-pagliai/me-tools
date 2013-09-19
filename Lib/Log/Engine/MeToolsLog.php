@@ -37,7 +37,6 @@ class MeToolsLog extends FileLog {
 		$request = new CakeRequest(null, false);
 		$ip = $request->clientIp(false);
 		
-		//Prepend the client ip
 		if(!empty($ip))
 			$message .= ' ('.$ip.') ';
 		
