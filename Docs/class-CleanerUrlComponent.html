@@ -7,7 +7,7 @@
 	<title>Class CleanerUrlComponent | MeTools</title>
 
 	<script type="text/javascript" src="resources/combined.js?394153670"></script>
-	<script type="text/javascript" src="elementlist.js?418510204"></script>
+	<script type="text/javascript" src="elementlist.js?1543672764"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360" />
 
 </head>
@@ -30,8 +30,11 @@
 				<li class="main"><a href="package-MeTools.Controller.Component.Auth.html">Auth</a>
 						</li>
 							</ul></li></ul></li>
-				<li class="main"><a href="package-MeTools.Model.html">Model</a>
+				<li class="main"><a href="package-MeTools.Model.html">Model<span></span></a>
+						<ul>
+				<li class="main"><a href="package-MeTools.Model.Behavior.html">Behavior</a>
 						</li>
+							</ul></li>
 				<li class="main"><a href="package-MeTools.View.html">View<span></span></a>
 						<ul>
 				<li class="main"><a href="package-MeTools.View.Helper.html">Helper</a>
@@ -101,22 +104,18 @@
 
 	<div class="description">
 	
-<p>A component that clean the current url, removing the query string.</p>
+<p>A component to clean the current url, removing the query string.</p>
 
 <p>For example:</p>
 
-<pre>
-/admin/users?var1=a&amp;var2=b
-</pre>
+<pre>/admin/users?var1=a&amp;var2=b</pre>
 
 <p>will become:</p>
 
-<pre>
-/admin/users/index/var1:a/var2:b
-</pre>
+<pre>/admin/users/index/var1:a/var2:b</pre>
 
-<p>To use the <i>CleanerUrl</i> component, add it to the list of components in
-your controller (for example, the <i>AppController</i>):</p>
+<p>To use the <code>CleanerUrl</code> component, add it to the list of
+components in your controller (for example, the <code>AppController</code>):</p>
 
 <pre>
 <span class="php-keyword1">public</span> <span
@@ -179,7 +178,7 @@ Component
 href="mailto:mirko.pagliai&#64;gmail.com">mirko.pagliai&#64;<!---->gmail.com</a>&gt;<br />
 				<b>Link:</b>
 				<a href="http://git.novatlantis.it">Nova Atlantis Ltd</a><br />
-		<b>Located at</b> <a href="source-class-CleanerUrlComponent.html#3-77" title="Go to source code">Controller/Component/CleanerUrlComponent.php</a><br />
+		<b>Located at</b> <a href="source-class-CleanerUrlComponent.html#3-72" title="Go to source code">Controller/Component/CleanerUrlComponent.php</a><br />
 	</div>
 
 
@@ -197,17 +196,19 @@ href="mailto:mirko.pagliai&#64;gmail.com">mirko.pagliai&#64;<!---->gmail.com</a>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_initialize">#</a>
-		<code><a href="source-class-CleanerUrlComponent.html#42-50" title="Go to source code">initialize</a>( <span>Controller <var>$controller</var></span> )</code>
+		<code><a href="source-class-CleanerUrlComponent.html#38-46" title="Go to source code">initialize</a>( <span>Controller <var>$controller</var></span> )</code>
 
 		<div class="description short">
 			
-<p>Called before the controller's beforeFilter method. Execute cleanUrl</p>
+<p>Called before the controller's beforeFilter method. Execute
+<code>cleanUrl</code>.</p>
 
 		</div>
 
 		<div class="description detailed hidden">
 			
-<p>Called before the controller's beforeFilter method. Execute cleanUrl</p>
+<p>Called before the controller's beforeFilter method. Execute
+<code>cleanUrl</code>.</p>
 
 <p>Look at <a href="http://api.cakephp.org/2.4/class-Component.html#_initialize">CakePHP Api</a></p>
 
@@ -237,19 +238,19 @@ href="mailto:mirko.pagliai&#64;gmail.com">mirko.pagliai&#64;<!---->gmail.com</a>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_cleanUrl">#</a>
-		<code><a href="source-class-CleanerUrlComponent.html#52-76" title="Go to source code">cleanUrl</a>( <span>Controller <var>$controller</var></span> )</code>
+		<code><a href="source-class-CleanerUrlComponent.html#48-71" title="Go to source code">cleanUrl</a>( <span>Controller <var>$controller</var></span> )</code>
 
 		<div class="description short">
 			
-<p>Clean the current url, turning query arguments in named arguments, then
-execute redirect.</p>
+<p>Cleans the current url, turning query arguments in named arguments, then
+executes a redirect.</p>
 
 		</div>
 
 		<div class="description detailed hidden">
 			
-<p>Clean the current url, turning query arguments in named arguments, then
-execute redirect.</p>
+<p>Cleans the current url, turning query arguments in named arguments, then
+executes a redirect.</p>
 
 
 

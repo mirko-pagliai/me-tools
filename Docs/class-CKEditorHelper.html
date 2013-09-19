@@ -4,7 +4,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="generator" content="ApiGen 2.8.0" />
 
-	<title>Class RecaptchaHelper | MeTools</title>
+	<title>Class CKEditorHelper | MeTools</title>
 
 	<script type="text/javascript" src="resources/combined.js?394153670"></script>
 	<script type="text/javascript" src="elementlist.js?1543672764"></script>
@@ -49,12 +49,12 @@
 		<div id="elements">
 			<h3>Classes</h3>
 			<ul>
-				<li><a href="class-CKEditorHelper.html">CKEditorHelper</a></li>
+				<li class="active"><a href="class-CKEditorHelper.html">CKEditorHelper</a></li>
 				<li><a href="class-MarkdownHelper.html">MarkdownHelper</a></li>
 				<li><a href="class-MeFormHelper.html">MeFormHelper</a></li>
 				<li><a href="class-MeHtmlHelper.html">MeHtmlHelper</a></li>
 				<li><a href="class-MePaginatorHelper.html">MePaginatorHelper</a></li>
-				<li class="active"><a href="class-RecaptchaHelper.html">RecaptchaHelper</a></li>
+				<li><a href="class-RecaptchaHelper.html">RecaptchaHelper</a></li>
 				<li><a href="class-ThumbHelper.html">ThumbHelper</a></li>
 				<li><a href="class-WysiwygHelper.html">WysiwygHelper</a></li>
 			</ul>
@@ -105,15 +105,61 @@
 	</div>
 
 <div id="content" class="class">
-	<h1>Class RecaptchaHelper</h1>
+	<h1>Class CKEditorHelper</h1>
 
 
 	<div class="description">
 	
-<p>Recaptcha functions.</p>
+<p>Creates form inputs to be used with CKEditor.</p>
 
-<p>Before using this helper, please configure Recaptcha keys in
-<i>Config/recaptcha.php</i></p>
+<p>Example:</p>
+
+<pre>
+<span class="xlang">&lt;?php</span>
+        <span
+class="php-var">$this</span>-&gt;Wysiwyg-&gt;load();
+        <span
+class="php-keyword1">echo</span> <span
+class="php-var">$this</span>-&gt;Form-&gt;create(<span
+class="php-quote">'Post'</span>);
+        <span
+class="php-keyword1">echo</span> <span
+class="php-var">$this</span>-&gt;Wysiwyg-&gt;input(<span
+class="php-quote">'text'</span>);
+        <span
+class="php-keyword1">echo</span> <span
+class="php-var">$this</span>-&gt;Form-&gt;<span
+class="php-keyword2">end</span>(__(<span
+class="php-quote">'Submit'</span>));
+<span class="xlang">?&gt;</span>
+</pre>
+
+<p>The <code>load()</code> method allows you to load all CKEditor scripts and
+the <code>textarea()</code> method (and its <code>input()</code> alias) creates
+a textarea for CKEditor.</p>
+
+<p>This helper looking for CKEditor in <code>app/webroot/ckeditor</code> and
+<code>app/webroot/js/ckeditor</code>.</p>
+
+<p>So it looks for the file <code>ckeditor.js</code> (this file is used to
+instantiate CKEditor) in <code>app/webroot/js</code>,
+<code>app/webroot/ckeditor</code>, <code>app/webroot/js/ckeditor</code> and
+<code>app/Plugin/MeTools/webroot/ckeditor</code>.</p>
+
+<p>Usually <code>ckeditor.js</code> is located in
+<code>app/Plugin/MeTools/webroot/js</code>. If you want to edit the file, you
+should copy it to <code>app/webroot/js</code>.</p>
+
+<p>You should use this helper as an alias, for example:</p>
+
+<pre>
+<span class="php-keyword1">public</span> <span
+class="php-var">$helpers</span> = <span class="php-keyword1">array</span>(<span
+class="php-quote">'Wysiwyg'</span> =&gt; <span
+class="php-keyword1">array</span>(<span
+class="php-quote">'className'</span> =&gt; <span
+class="php-quote">'MeTools.CKEditor'</span>));
+</pre>
 
 <p>This file is part of MeTools.</p>
 
@@ -141,7 +187,14 @@ AppHelper
 		</dd>
 		<dd style="padding-left:30px">
 			<img src="resources/inherit.png" alt="Extended by" />
-<b><span>RecaptchaHelper</span></b>			
+			<a href="class-WysiwygHelper.html"><span>WysiwygHelper</span></a>
+			
+			
+			
+		</dd>
+		<dd style="padding-left:60px">
+			<img src="resources/inherit.png" alt="Extended by" />
+<b><span>CKEditorHelper</span></b>			
 			
 			
 		</dd>
@@ -169,101 +222,47 @@ AppHelper
 href="mailto:mirko.pagliai&#64;gmail.com">mirko.pagliai&#64;<!---->gmail.com</a>&gt;<br />
 				<b>Link:</b>
 				<a href="http://git.novatlantis.it">Nova Atlantis Ltd</a><br />
-		<b>Located at</b> <a href="source-class-RecaptchaHelper.html#5-96" title="Go to source code">View/Helper/RecaptchaHelper.php</a><br />
+		<b>Located at</b> <a href="source-class-CKEditorHelper.html#4-105" title="Go to source code">View/Helper/CKEditorHelper.php</a><br />
 	</div>
 
 
 
 	<table class="summary" id="methods">
 	<caption>Methods summary</caption>
-	<tr data-order="__construct" id="___construct">
+	<tr data-order="load" id="_load">
 
 		<td class="attributes"><code>
 			 public 
-			
+			mixed
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
-		<a class="anchor" href="#___construct">#</a>
-		<code><a href="source-class-RecaptchaHelper.html#44-59" title="Go to source code">__construct</a>( <span>View <var>$View</var></span>, <span>mixed <var>$settings</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<a class="anchor" href="#_load">#</a>
+		<code><a href="source-class-CKEditorHelper.html#64-104" title="Go to source code">load</a>( <span>boolean <var>$jquery</var> = <span class="php-keyword1">true</span></span> )</code>
 
 		<div class="description short">
 			
-<p>Construct</p>
+<p>Loads all CKEditor scripts</p>
 
 		</div>
 
 		<div class="description detailed hidden">
 			
-<p>Construct</p>
-
-
-
-
-
-
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="mailLink" id="_mailLink">
-
-		<td class="attributes"><code>
-			 public 
-			string
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_mailLink">#</a>
-		<code><a href="source-class-RecaptchaHelper.html#61-84" title="Go to source code">mailLink</a>( <span>string <var>$title</var></span>, <span>string <var>$mail</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
-
-		<div class="description short">
-			
-<p>Creates an HTML link for an hidden email. The link will be open in a
-popup.</p>
-
-		</div>
-
-		<div class="description detailed hidden">
-			
-<p>Creates an HTML link for an hidden email. The link will be open in a
-popup.</p>
-
-<p>It uses <i>MeHtml::link()</i> to create the link and <i>mailUrl()</i> to get
-the url of the email hidden.</p>
-
-<p>You can use <a href="http://fortawesome.github.io/Font-Awesome">Font Awesome icons</a>. For example:</p>
-
-<pre>
-<span class="php-keyword1">echo</span> <span
-class="php-var">$this</span>-&gt;Recaptcha-&gt;mailLink(<span
-class="php-quote">'my mail'</span>, <span
-class="php-quote">'mymail@provider.com'</span>, <span
-class="php-keyword1">array</span>(<span
-class="php-quote">'icon'</span> =&gt; <span
-class="php-quote">'icon-search'</span>));
-</pre>
+<p>Loads all CKEditor scripts</p>
 
 
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
-					<dt><var>$title</var></dt>
-					<dd><code>string</code><br>$title Link title</dd>
-					<dt><var>$mail</var></dt>
-					<dd><code>string</code><br>$mail Email to hide</dd>
-					<dt><var>$options</var></dt>
-					<dd><code>array</code><br>$options HTML attributes</dd>
+					<dt><var>$jquery</var></dt>
+					<dd><code>boolean</code><br>$jquery FALSE if you don't want to use the jquery adapter</dd>
 				</dl></div>
 
 				<h4>Returns</h4>
 				<div class="list">
-					<code>string</code><br>Html<br />
+					<code>mixed</code><br>String of &lt;script /&gt; tags<br />
 				</div>
 
 
@@ -272,50 +271,15 @@ class="php-quote">'icon-search'</span>));
 		</div>
 		</div></td>
 	</tr>
-	<tr data-order="mailUrl" id="_mailUrl">
+	</table>
 
-		<td class="attributes"><code>
-			 public 
-			string
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_mailUrl">#</a>
-		<code><a href="source-class-RecaptchaHelper.html#86-95" title="Go to source code">mailUrl</a>( <span>string <var>$mail</var></span> )</code>
-
-		<div class="description short">
-			
-<p>Gets the url for an hidden email.</p>
-
-		</div>
-
-		<div class="description detailed hidden">
-			
-<p>Gets the url for an hidden email.</p>
-
-<p>Note that this method will only return a url. To create a link is better to
-use <i>mailLink()</i>.</p>
-
-
-
-				<h4>Parameters</h4>
-				<div class="list"><dl>
-					<dt><var>$mail</var></dt>
-					<dd><code>string</code><br>$mail Email to hide</dd>
-				</dl></div>
-
-				<h4>Returns</h4>
-				<div class="list">
-					<code>string</code><br>Url<br />
-				</div>
-
-
-
-
-		</div>
-		</div></td>
+	<table class="summary inherited">
+	<caption>Methods inherited from <a href="class-WysiwygHelper.html#methods">WysiwygHelper</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-WysiwygHelper.html#_input">input()</a>, 
+			<a href="class-WysiwygHelper.html#_textarea">textarea()</a>
+		</code></td>
 	</tr>
 	</table>
 
@@ -329,36 +293,8 @@ use <i>mailLink()</i>.</p>
 
 
 
-
 	<table class="summary" id="properties">
 	<caption>Properties summary</caption>
-	<tr data-order="mail_keys" id="$mail_keys">
-		<td class="attributes"><code>
-			private  
-			array
-		</code></td>
-
-		<td class="name">
-				<a href="source-class-RecaptchaHelper.html#32-36" title="Go to source code"><var>$mail_keys</var></a>
-		</td>
-		<td class="value"><code><span class="php-keyword1">false</span></code></td>
-		<td class="description"><div>
-			<a href="#$mail_keys" class="anchor">#</a>
-
-			<div class="description short">
-				
-<p>Mail keys</p>
-
-			</div>
-
-			<div class="description detailed hidden">
-				
-<p>Mail keys</p>
-
-
-			</div>
-		</div></td>
-	</tr>
 	<tr data-order="helpers" id="$helpers">
 		<td class="attributes"><code>
 			public  
@@ -366,9 +302,12 @@ use <i>mailLink()</i>.</p>
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-RecaptchaHelper.html#38-42" title="Go to source code"><var>$helpers</var></a>
+				<a href="source-class-CKEditorHelper.html#55-62" title="Go to source code"><var>$helpers</var></a>
 		</td>
-		<td class="value"><code><span class="php-keyword1">array</span>(<span class="php-quote">'Html'</span> =&gt; <span class="php-keyword1">array</span>(<span class="php-quote">'className'</span> =&gt; <span class="php-quote">'MeTools.MeHtml'</span>))</code></td>
+		<td class="value"><code><span class="php-keyword1">array</span>(
+	<span class="php-quote">'Form'</span> =&gt; <span class="php-keyword1">array</span>(<span class="php-quote">'className'</span> =&gt; <span class="php-quote">'MeTools.MeForm'</span>),
+	<span class="php-quote">'Html'</span> =&gt; <span class="php-keyword1">array</span>(<span class="php-quote">'className'</span> =&gt; <span class="php-quote">'MeTools.MeHtml'</span>)
+)</code></td>
 		<td class="description"><div>
 			<a href="#$helpers" class="anchor">#</a>
 

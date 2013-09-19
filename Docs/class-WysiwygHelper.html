@@ -4,7 +4,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="generator" content="ApiGen 2.8.0" />
 
-	<title>Class XmlComponent | MeTools</title>
+	<title>Class WysiwygHelper | MeTools</title>
 
 	<script type="text/javascript" src="resources/combined.js?394153670"></script>
 	<script type="text/javascript" src="elementlist.js?1543672764"></script>
@@ -23,9 +23,9 @@
 			<ul>
 				<li class="active main"><a href="package-MeTools.html">MeTools<span></span></a>
 						<ul>
-				<li class="active main"><a href="package-MeTools.Controller.html">Controller<span></span></a>
+				<li class="main"><a href="package-MeTools.Controller.html">Controller<span></span></a>
 						<ul>
-				<li class="active main"><a href="package-MeTools.Controller.Component.html">Component<span></span></a>
+				<li class="main"><a href="package-MeTools.Controller.Component.html">Component<span></span></a>
 						<ul>
 				<li class="main"><a href="package-MeTools.Controller.Component.Auth.html">Auth</a>
 						</li>
@@ -35,9 +35,9 @@
 				<li class="main"><a href="package-MeTools.Model.Behavior.html">Behavior</a>
 						</li>
 							</ul></li>
-				<li class="main"><a href="package-MeTools.View.html">View<span></span></a>
+				<li class="active main"><a href="package-MeTools.View.html">View<span></span></a>
 						<ul>
-				<li class="main"><a href="package-MeTools.View.Helper.html">Helper</a>
+				<li class="active main"><a href="package-MeTools.View.Helper.html">Helper</a>
 						</li>
 							</ul></li></ul></li>
 			</ul>
@@ -49,8 +49,14 @@
 		<div id="elements">
 			<h3>Classes</h3>
 			<ul>
-				<li><a href="class-CleanerUrlComponent.html">CleanerUrlComponent</a></li>
-				<li class="active"><a href="class-XmlComponent.html">XmlComponent</a></li>
+				<li><a href="class-CKEditorHelper.html">CKEditorHelper</a></li>
+				<li><a href="class-MarkdownHelper.html">MarkdownHelper</a></li>
+				<li><a href="class-MeFormHelper.html">MeFormHelper</a></li>
+				<li><a href="class-MeHtmlHelper.html">MeHtmlHelper</a></li>
+				<li><a href="class-MePaginatorHelper.html">MePaginatorHelper</a></li>
+				<li><a href="class-RecaptchaHelper.html">RecaptchaHelper</a></li>
+				<li><a href="class-ThumbHelper.html">ThumbHelper</a></li>
+				<li class="active"><a href="class-WysiwygHelper.html">WysiwygHelper</a></li>
 			</ul>
 
 
@@ -78,7 +84,7 @@
 				<a href="index.html" title="Overview"><span>Overview</span></a>
 			</li>
 			<li>
-				<a href="package-MeTools.Controller.Component.html" title="Summary of MeTools\Controller\Component"><span>Package</span></a>
+				<a href="package-MeTools.View.Helper.html" title="Summary of MeTools\View\Helper"><span>Package</span></a>
 			</li>
 			<li class="active">
 <span>Class</span>			</li>
@@ -99,12 +105,25 @@
 	</div>
 
 <div id="content" class="class">
-	<h1>Class XmlComponent</h1>
+	<h1>Class WysiwygHelper</h1>
 
 
 	<div class="description">
 	
-<p>A component to manage xml files.</p>
+<p>Creates form inputs to be used with wysiwyg editors.</p>
+
+<p>If you want to use CKEditor, then use the CKEditor.</p>
+
+<p>You should use this helper as an alias, for example:</p>
+
+<pre>
+<span class="php-keyword1">public</span> <span
+class="php-var">$helpers</span> = <span class="php-keyword1">array</span>(<span
+class="php-quote">'Wysiwyg'</span> =&gt; <span
+class="php-keyword1">array</span>(<span
+class="php-quote">'className'</span> =&gt; <span
+class="php-quote">'MeTools.Wysiwyg'</span>));
+</pre>
 
 <p>This file is part of MeTools.</p>
 
@@ -126,19 +145,23 @@ href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>&gt;.</p>
 
 	<dl class="tree">
 		<dd style="padding-left:0px">
-Component
+AppHelper
 			
 			
 		</dd>
 		<dd style="padding-left:30px">
 			<img src="resources/inherit.png" alt="Extended by" />
-<b><span>XmlComponent</span></b>			
+<b><span>WysiwygHelper</span></b>			
 			
 			
 		</dd>
 	</dl>
 
 
+	<div>
+		<h4>Direct known subclasses</h4>
+			<a href="class-CKEditorHelper.html">CKEditorHelper</a>
+	</div>
 
 
 
@@ -149,7 +172,7 @@ Component
 		
 		
 		
-		<b>Package:</b> <a href="package-MeTools.html">MeTools</a>\<a href="package-MeTools.Controller.html">Controller</a>\<a href="package-MeTools.Controller.Component.html">Component</a><br />
+		<b>Package:</b> <a href="package-MeTools.html">MeTools</a>\<a href="package-MeTools.View.html">View</a>\<a href="package-MeTools.View.Helper.html">Helper</a><br />
 
 				<b>Copyright:</b>
 				Copyright (c) 2013, Mirko Pagliai for Nova Atlantis Ltd<br />
@@ -160,47 +183,82 @@ Component
 href="mailto:mirko.pagliai&#64;gmail.com">mirko.pagliai&#64;<!---->gmail.com</a>&gt;<br />
 				<b>Link:</b>
 				<a href="http://git.novatlantis.it">Nova Atlantis Ltd</a><br />
-		<b>Located at</b> <a href="source-class-XmlComponent.html#4-45" title="Go to source code">Controller/Component/XmlComponent.php</a><br />
+		<b>Located at</b> <a href="source-class-WysiwygHelper.html#4-69" title="Go to source code">View/Helper/WysiwygHelper.php</a><br />
 	</div>
 
 
 
 	<table class="summary" id="methods">
 	<caption>Methods summary</caption>
-	<tr data-order="get" id="_get">
+	<tr data-order="input" id="_input">
 
 		<td class="attributes"><code>
 			 public 
-			mixed
+			
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
-		<a class="anchor" href="#_get">#</a>
-		<code><a href="source-class-XmlComponent.html#29-44" title="Go to source code">get</a>( <span>string <var>$url</var></span> )</code>
+		<a class="anchor" href="#_input">#</a>
+		<code><a href="source-class-WysiwygHelper.html#42-48" title="Go to source code">input</a>( )</code>
 
 		<div class="description short">
 			
-<p>Gets a xml and returns an array</p>
+<p>Alias for <i>$this-&gt;textarea()</i></p>
 
 		</div>
 
 		<div class="description detailed hidden">
 			
-<p>Gets a xml and returns an array</p>
+<p>Alias for <i>$this-&gt;textarea()</i></p>
+
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="textarea" id="_textarea">
+
+		<td class="attributes"><code>
+			 public 
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_textarea">#</a>
+		<code><a href="source-class-WysiwygHelper.html#50-68" title="Go to source code">textarea</a>( <span>string <var>$fieldName</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
+
+		<div class="description short">
+			
+<p>Creates a textarea for wysiwyg editors</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Creates a textarea for wysiwyg editors</p>
 
 
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
-					<dt><var>$url</var></dt>
-					<dd><code>string</code><br>$url Xml ulr</dd>
+					<dt><var>$fieldName</var></dt>
+					<dd><code>string</code><br>$fieldName Field name. Should be "Modelname.fieldname"</dd>
+					<dt><var>$options</var></dt>
+					<dd><code>array</code><br>$options Options</dd>
 				</dl></div>
 
 				<h4>Returns</h4>
 				<div class="list">
-					<code>mixed</code><br>Array or null<br />
+					<code>string</code><br>Html<br />
 				</div>
 
 
@@ -222,6 +280,36 @@ href="mailto:mirko.pagliai&#64;gmail.com">mirko.pagliai&#64;<!---->gmail.com</a>
 
 
 
+	<table class="summary" id="properties">
+	<caption>Properties summary</caption>
+	<tr data-order="helpers" id="$helpers">
+		<td class="attributes"><code>
+			public  
+			array
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-WysiwygHelper.html#36-40" title="Go to source code"><var>$helpers</var></a>
+		</td>
+		<td class="value"><code><span class="php-keyword1">array</span>(<span class="php-quote">'Form'</span> =&gt; <span class="php-keyword1">array</span>(<span class="php-quote">'className'</span> =&gt; <span class="php-quote">'MeTools.MeForm'</span>))</code></td>
+		<td class="description"><div>
+			<a href="#$helpers" class="anchor">#</a>
+
+			<div class="description short">
+				
+<p>Helpers</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Helpers</p>
+
+
+			</div>
+		</div></td>
+	</tr>
+	</table>
 
 
 

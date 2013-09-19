@@ -4,7 +4,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="generator" content="ApiGen 2.8.0" />
 
-	<title>Class FileArrayAuthenticate | MeTools</title>
+	<title>Class MeTreeBehavior | MeTools</title>
 
 	<script type="text/javascript" src="resources/combined.js?394153670"></script>
 	<script type="text/javascript" src="elementlist.js?1543672764"></script>
@@ -23,16 +23,16 @@
 			<ul>
 				<li class="active main"><a href="package-MeTools.html">MeTools<span></span></a>
 						<ul>
-				<li class="active main"><a href="package-MeTools.Controller.html">Controller<span></span></a>
+				<li class="main"><a href="package-MeTools.Controller.html">Controller<span></span></a>
 						<ul>
-				<li class="active main"><a href="package-MeTools.Controller.Component.html">Component<span></span></a>
+				<li class="main"><a href="package-MeTools.Controller.Component.html">Component<span></span></a>
 						<ul>
-				<li class="active main"><a href="package-MeTools.Controller.Component.Auth.html">Auth</a>
+				<li class="main"><a href="package-MeTools.Controller.Component.Auth.html">Auth</a>
 						</li>
 							</ul></li></ul></li>
-				<li class="main"><a href="package-MeTools.Model.html">Model<span></span></a>
+				<li class="active main"><a href="package-MeTools.Model.html">Model<span></span></a>
 						<ul>
-				<li class="main"><a href="package-MeTools.Model.Behavior.html">Behavior</a>
+				<li class="active main"><a href="package-MeTools.Model.Behavior.html">Behavior</a>
 						</li>
 							</ul></li>
 				<li class="main"><a href="package-MeTools.View.html">View<span></span></a>
@@ -49,7 +49,7 @@
 		<div id="elements">
 			<h3>Classes</h3>
 			<ul>
-				<li class="active"><a href="class-FileArrayAuthenticate.html">FileArrayAuthenticate</a></li>
+				<li class="active"><a href="class-MeTreeBehavior.html">MeTreeBehavior</a></li>
 			</ul>
 
 
@@ -77,7 +77,7 @@
 				<a href="index.html" title="Overview"><span>Overview</span></a>
 			</li>
 			<li>
-				<a href="package-MeTools.Controller.Component.Auth.html" title="Summary of MeTools\Controller\Component\Auth"><span>Package</span></a>
+				<a href="package-MeTools.Model.Behavior.html" title="Summary of MeTools\Model\Behavior"><span>Package</span></a>
 			</li>
 			<li class="active">
 <span>Class</span>			</li>
@@ -98,37 +98,14 @@
 	</div>
 
 <div id="content" class="class">
-	<h1>Class FileArrayAuthenticate</h1>
+	<h1>Class MeTreeBehavior</h1>
 
 
 	<div class="description">
 	
-<p>An authentication adapter for <code>AuthComponent</code>. Provides the
-ability to authenticate using POST data with an array of user datas in the file
-<code>APP/users.txt</code> and generated through the <code>FileArray</code>
-utility.</p>
+<p>Tree behavior class. Enables a model object to act as a node-based tree.</p>
 
-<p>Can be used by configuring <code>AuthComponent</code> to use it via the
-<code>AuthComponent::$authenticate</code> setting.</p>
-
-<pre>
-<span class="php-var">$this</span>-&gt;Auth-&gt;authenticate = <span
-class="php-keyword1">array</span>(
-        <span
-class="php-quote">'Form'</span> =&gt; <span
-class="php-keyword1">array</span>(
-                <span
-class="php-quote">'scope'</span> =&gt; <span
-class="php-keyword1">array</span>(<span
-class="php-quote">'User.active'</span> =&gt; <span
-class="php-num">1</span>)
-        )
-)
-</pre>
-
-<p>When configuring <code>FormAuthenticate</code> you can pass in settings to
-which fields, model and additional conditions are used. See
-<code>FormAuthenticate::$settings</code> for more information.</p>
+<p>MeTreeBehavior extends <a href="http://api.cakephp.org/2.4/source-class-TreeBehavior.html">TreeBehavior</a></p>
 
 <p>This file is part of MeTools.</p>
 
@@ -150,13 +127,13 @@ href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>&gt;.</p>
 
 	<dl class="tree">
 		<dd style="padding-left:0px">
-FormAuthenticate
+TreeBehavior
 			
 			
 		</dd>
 		<dd style="padding-left:30px">
 			<img src="resources/inherit.png" alt="Extended by" />
-<b><span>FileArrayAuthenticate</span></b>			
+<b><span>MeTreeBehavior</span></b>			
 			
 			
 		</dd>
@@ -173,7 +150,7 @@ FormAuthenticate
 		
 		
 		
-		<b>Package:</b> <a href="package-MeTools.html">MeTools</a>\<a href="package-MeTools.Controller.html">Controller</a>\<a href="package-MeTools.Controller.Component.html">Component</a>\<a href="package-MeTools.Controller.Component.Auth.html">Auth</a><br />
+		<b>Package:</b> <a href="package-MeTools.html">MeTools</a>\<a href="package-MeTools.Model.html">Model</a>\<a href="package-MeTools.Model.Behavior.html">Behavior</a><br />
 
 				<b>Copyright:</b>
 				Copyright (c) 2013, Mirko Pagliai for Nova Atlantis Ltd<br />
@@ -184,59 +161,60 @@ FormAuthenticate
 href="mailto:mirko.pagliai&#64;gmail.com">mirko.pagliai&#64;<!---->gmail.com</a>&gt;<br />
 				<b>Link:</b>
 				<a href="http://git.novatlantis.it">Nova Atlantis Ltd</a><br />
-		<b>Located at</b> <a href="source-class-FileArrayAuthenticate.html#5-71" title="Go to source code">Controller/Component/Auth/FileArrayAuthenticate.php</a><br />
+		<b>Located at</b> <a href="source-class-MeTreeBehavior.html#4-45" title="Go to source code">Model/Behavior/MeTreeBehavior.php</a><br />
 	</div>
 
 
 
 	<table class="summary" id="methods">
 	<caption>Methods summary</caption>
-	<tr data-order="authenticate" id="_authenticate">
+	<tr data-order="generateTreeList" id="_generateTreeList">
 
 		<td class="attributes"><code>
 			 public 
-			mixed
+			array
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
-		<a class="anchor" href="#_authenticate">#</a>
-		<code><a href="source-class-FileArrayAuthenticate.html#43-70" title="Go to source code">authenticate</a>( <span>CakeRequest <var>$request</var></span>, <span>CakeResponse <var>$response</var></span> )</code>
+		<a class="anchor" href="#_generateTreeList">#</a>
+		<code><a href="source-class-MeTreeBehavior.html#32-44" title="Go to source code">generateTreeList</a>( <span>Model <var>$Model</var></span>, <span>string|array <var>$conditions</var> = <span class="php-keyword1">null</span></span>, <span>string <var>$keyPath</var> = <span class="php-keyword1">null</span></span>, <span>string <var>$valuePath</var> = <span class="php-keyword1">null</span></span>, <span>string <var>$spacer</var> = <span class="php-quote">'—'</span></span>, <span>integer <var>$recursive</var> = <span class="php-keyword1">null</span></span> )</code>
 
 		<div class="description short">
 			
-<p>Authenticates the identity contained in a request. Will use the
-<code>settings.userModel</code>, and <code>settings.fields</code> to find POST
-data that is used to find a matching record in the
-<code>settings.userModel</code>. Will return false if there is no post data,
-either username or password is missing, of if the scope conditions have not been
-met.</p>
+<p>A convenience method for returning a hierarchical array used for HTML select
+boxes. Rewrites <i>$this-&gt;TreeBehavior-&gt;generateTreeList()</i></p>
 
 		</div>
 
 		<div class="description detailed hidden">
 			
-<p>Authenticates the identity contained in a request. Will use the
-<code>settings.userModel</code>, and <code>settings.fields</code> to find POST
-data that is used to find a matching record in the
-<code>settings.userModel</code>. Will return false if there is no post data,
-either username or password is missing, of if the scope conditions have not been
-met.</p>
+<p>A convenience method for returning a hierarchical array used for HTML select
+boxes. Rewrites <i>$this-&gt;TreeBehavior-&gt;generateTreeList()</i></p>
 
 
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
-					<dt><var>$request</var></dt>
-					<dd><code>CakeRequest</code><br>$request The request that contains login information.</dd>
-					<dt><var>$response</var></dt>
-					<dd><code>CakeResponse</code><br>$response Unused response object.</dd>
+					<dt><var>$Model</var></dt>
+					<dd><code>Model</code><br>$Model Model instance</dd>
+					<dt><var>$conditions</var></dt>
+					<dd><code>string|array</code><br>$conditions SQL conditions as a string or as an array('field' =&gt;'value',...)</dd>
+					<dt><var>$keyPath</var></dt>
+					<dd><code>string</code><br>$keyPath A string path to the key, i.e. "{n}.Post.id"</dd>
+					<dt><var>$valuePath</var></dt>
+					<dd><code>string</code><br>$valuePath A string path to the value, i.e. "{n}.Post.title"</dd>
+					<dt><var>$spacer</var></dt>
+					<dd><code>string</code><br>$spacer The character or characters which will be repeated</dd>
+					<dt><var>$recursive</var></dt>
+					<dd><code>integer</code><br>$recursive The number of levels deep to fetch associated records</dd>
 				</dl></div>
 
 				<h4>Returns</h4>
 				<div class="list">
-					<code>mixed</code><br>An array of user data or FALSE on login failure.<br />
+					<code>array</code><br>An associative array of records, where the id is the key, and the display field
+is the value<br />
 				</div>
 
 
