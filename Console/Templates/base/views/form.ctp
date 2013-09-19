@@ -38,5 +38,5 @@
 		echo "\t\t\t?>\n";
 ?>
 		</fieldset>
-	<?php echo "<?php echo \$this->Form->end(__('Submit')); ?>\n"; ?>
+	<?php echo "<?php echo \$this->Form->end(); ?>\n"; ?>
 </div>
