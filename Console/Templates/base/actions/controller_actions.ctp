@@ -27,8 +27,8 @@
 		$this-><?php echo $currentModelName ?>->recursive = 0;
 		
 		$this->set(array(
-			'<?php echo $pluralName ?>'	=> $this->paginate(),
-			'subtitle'			=> <?php echo "__('List ".strtolower(Inflector::pluralize($singularHumanName))."')\n"; ?>
+			'<?php echo $pluralName ?>'		=> $this->paginate(),
+			'subtitle'	=> <?php echo "__('".Inflector::pluralize($singularHumanName)."')\n"; ?>
 		));
 	}
 
