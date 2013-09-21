@@ -15,7 +15,7 @@
 ?>
 	
 <div class="<?php echo $pluralVar; ?> index">
-	<h2><?php echo "<?php echo __('{$pluralHumanName}'); ?>"; ?></h2>
+	<h2><?php echo "<?php echo __('".ucfirst(strtolower($pluralHumanName))."'); ?>"; ?></h2>
 	<table class="table table-striped">
 		<tr>
 			<th></th>
