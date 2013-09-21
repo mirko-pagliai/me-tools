@@ -1,20 +1,18 @@
 <?php echo "<?php echo \$this->start('sidebar'); ?>\n"; ?>
 <?php
-	echo "\t<li><?php echo \$this->Html->link(__('Edit " . $singularHumanName ."'), array('action' => 'edit', \${$singularVar}['{$modelClass}']['{$primaryKey}'])); ?></li>\n";
-	echo "\t<li><?php echo \$this->Form->postLink(__('Delete " . $singularHumanName . "'), array('action' => 'delete', \${$singularVar}['{$modelClass}']['{$primaryKey}']), null, __('Are you sure you want to delete this record?')); ?></li>\n";
-	echo "\t<li><?php echo \$this->Html->link(__('List " . $pluralHumanName . "'), array('action' => 'index')); ?></li>\n";
-	echo "\t<li><?php echo \$this->Html->link(__('Add " . $singularHumanName . "'), array('action' => 'add')); ?></li>\n";
+	echo "\t<li><?php echo \$this->Html->link(__('Edit ".strtolower($singularHumanName)."'), array('action' => 'edit', \${$singularVar}['{$modelClass}']['{$primaryKey}'])); ?></li>\n";
+	echo "\t<li><?php echo \$this->Form->postLink(__('Delete ".strtolower($singularHumanName)."'), array('action' => 'delete', \${$singularVar}['{$modelClass}']['{$primaryKey}']), null, __('Are you sure you want to delete this record?')); ?></li>\n";
+	echo "\t<li><?php echo \$this->Html->link(__('List ".strtolower($pluralHumanName)."'), array('action' => 'index')); ?></li>\n";
+	echo "\t<li><?php echo \$this->Html->link(__('Add ".strtolower($singularHumanName)."'), array('action' => 'add')); ?></li>\n";
 
 	$done = array();
-	foreach ($associations as $type => $data) {
-		foreach ($data as $alias => $details) {
-			if ($details['controller'] != $this->name && !in_array($details['controller'], $done)) {
-				echo "\t<li><?php echo \$this->Html->link(__('List " . Inflector::humanize($details['controller']) . "'), array('controller' => '{$details['controller']}', 'action' => 'index')); ?></li>\n";
-				echo "\t<li><?php echo \$this->Html->link(__('Add " . Inflector::humanize(Inflector::underscore($alias)) . "'), array('controller' => '{$details['controller']}', 'action' => 'add')); ?></li>\n";
+	foreach($associations as $type => $data)
+		foreach($data as $alias => $details)
+			if($details['controller']!=$this->name && !in_array($details['controller'], $done)) {
+				echo "\t<li><?php echo \$this->Html->link(__('List ".strtolower(Inflector::humanize($details['controller']))."'), array('controller' => '{$details['controller']}', 'action' => 'index')); ?></li>\n";
+				echo "\t<li><?php echo \$this->Html->link(__('Add ".strtolower(Inflector::humanize(Inflector::underscore($alias)))."'), array('controller' => '{$details['controller']}', 'action' => 'add')); ?></li>\n";
 				$done[] = $details['controller'];
 			}
-		}
-	}
 ?>
 <?php echo "<?php echo \$this->end(); ?>\n"; ?>
 
@@ -22,34 +20,32 @@
 	<h2><?php echo "<?php echo __('{$singularHumanName}'); ?>"; ?></h2>
 	<dl class="dl-horizontal">
 <?php
-foreach ($fields as $field) {
+foreach($fields as $field) {
 	$isKey = false;
-	if (!empty($associations['belongsTo'])) {
-		foreach ($associations['belongsTo'] as $alias => $details) {
-			if ($field === $details['foreignKey']) {
+	if(!empty($associations['belongsTo']))
+		foreach($associations['belongsTo'] as $alias => $details)
+			if($field===$details['foreignKey']) {
 				$isKey = true;
-				echo "\t\t<dt><?php echo __('" . Inflector::humanize(Inflector::underscore($alias)) . "'); ?></dt>\n";
+				echo "\t\t<dt><?php echo __('".Inflector::humanize(Inflector::underscore($alias))."'); ?></dt>\n";
 				echo "\t\t<dd><?php echo \$this->Html->link(\${$singularVar}['{$alias}']['{$details['displayField']}'], array('controller' => '{$details['controller']}', 'action' => 'view', \${$singularVar}['{$alias}']['{$details['primaryKey']}'])); ?></dd>\n";
 				break;
 			}
-		}
-	}
-	if ($isKey !== true) {
-		echo "\t\t<dt><?php echo __('" . Inflector::humanize($field) . "'); ?></dt>\n";
+	if($isKey!==true) {
+		echo "\t\t<dt><?php echo __('".Inflector::humanize($field)."'); ?></dt>\n";
 		echo "\t\t<dd><?php echo \${$singularVar}['{$modelClass}']['{$field}']; ?></dd>\n";
 	}
 }
 ?>
 	</dl>
-</div><?php if (!empty($associations['hasOne'])) :
-	foreach ($associations['hasOne'] as $alias => $details): ?>
+</div><?php if(!empty($associations['hasOne'])) :
+	foreach($associations['hasOne'] as $alias => $details): ?>
 	<div class="related">
-		<h3><?php echo "<?php echo __('Related " . Inflector::humanize($details['controller']) . "'); ?>"; ?></h3>
+		<h3><?php echo "<?php echo __('Related ".Inflector::humanize($details['controller'])."'); ?>"; ?></h3>
 	<?php echo "<?php if(!empty(\${$singularVar}['{$alias}'])): ?>\n"; ?>
 		<dl>
 	<?php
-			foreach ($details['fields'] as $field) {
-				echo "\t\t<dt><?php echo __('" . Inflector::humanize($field) . "'); ?></dt>\n";
+			foreach($details['fields'] as $field) {
+				echo "\t\t<dt><?php echo __('".Inflector::humanize($field)."'); ?></dt>\n";
 				echo "\t\t<dd>\n\t<?php echo \${$singularVar}['{$alias}']['{$field}']; ?>\n&nbsp;</dd>\n";
 			}
 	?>
@@ -57,19 +53,18 @@ foreach ($fields as $field) {
 	<?php echo "<?php endif; ?>\n"; ?>
 		<div class="actions">
 			<ul>
-				<li><?php echo "<?php echo \$this->Html->link(__('Edit " . Inflector::humanize(Inflector::underscore($alias)) . "'), array('controller' => '{$details['controller']}', 'action' => 'edit', \${$singularVar}['{$alias}']['{$details['primaryKey']}'])); ?></li>\n"; ?>
+				<li><?php echo "<?php echo \$this->Html->link(__('Edit ".Inflector::humanize(Inflector::underscore($alias))."'), array('controller' => '{$details['controller']}', 'action' => 'edit', \${$singularVar}['{$alias}']['{$details['primaryKey']}'])); ?></li>\n"; ?>
 			</ul>
 		</div>
 	</div>
 	<?php
 	endforeach;
 endif;
-if (empty($associations['hasMany'])) {
+if(empty($associations['hasMany']))
 	$associations['hasMany'] = array();
-}
-if (empty($associations['hasAndBelongsToMany'])) {
+if(empty($associations['hasAndBelongsToMany']))
 	$associations['hasAndBelongsToMany'] = array();
-}
+	
 $relations = array_merge($associations['hasMany'], $associations['hasAndBelongsToMany']);
 $i = 0;
 foreach ($relations as $alias => $details):
@@ -86,9 +81,8 @@ foreach ($relations as $alias => $details):
 			<tr>
 				<th></th>
 <?php
-			foreach ($details['fields'] as $field) {
+			foreach($details['fields'] as $field)
 				echo "\t\t\t\t<th><?php echo __('" . Inflector::humanize($field) . "'); ?></th>\n";
-			}
 ?>
 			</tr>
 	<?php
@@ -102,14 +96,15 @@ foreach ($relations as $alias => $details):
 				echo "\t\t\t\t\t\t</div>\n";
 				echo "\t\t\t\t\t</td>\n";
 				
-				foreach ($details['fields'] as $field) {
+				foreach($details['fields'] as $field)
 					echo "\t\t\t\t\t<td><?php echo \${$otherSingularVar}['{$field}']; ?></td>\n";
-				}
 			echo "\t\t\t\t</tr>\n";
 
 	echo "\t\t\t<?php endforeach; ?>\n";
 	?>
 		</table>
 	</div>
-<?php echo "<?php endif; ?>"; ?>
-<?php endforeach; ?>
+<?php 
+	echo "<?php endif; ?>";
+	endforeach;
+?>
