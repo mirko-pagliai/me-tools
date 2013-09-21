@@ -17,7 +17,7 @@
 <?php echo "<?php echo \$this->end(); ?>\n"; ?>
 
 <div class="<?php echo $pluralVar; ?> view">
-	<h2><?php echo "<?php echo __('{$singularHumanName}'); ?>"; ?></h2>
+	<h2><?php echo "<?php echo __('".ucfirst(strtolower($singularHumanName))."'); ?>"; ?></h2>
 	<dl class="dl-horizontal">
 <?php
 foreach($fields as $field) {
@@ -73,16 +73,16 @@ foreach ($relations as $alias => $details):
 	?>
 <?php echo "\n\n<?php if(!empty(\${$singularVar}['{$alias}'])): ?>\n"; ?>
 	<div class="related">
-		<h3><?php echo "<?php echo __('Related " . $otherPluralHumanName . "'); ?>"; ?></h3>
+		<h3><?php echo "<?php echo __('Related ".strtolower($otherPluralHumanName)."'); ?>"; ?></h3>
 		<div class="btn-group pull-right">
-			<?php echo "<?php echo \$this->Html->linkButton(__('New ".Inflector::humanize(Inflector::underscore($alias))."'), array('controller' => '{$details['controller']}', 'action' => 'add'), array('icon' => 'icon-plus')); ?>\n"; ?>
+			<?php echo "<?php echo \$this->Html->linkButton(__('New ".strtolower(Inflector::humanize(Inflector::underscore($alias)))."'), array('controller' => '{$details['controller']}', 'action' => 'add'), array('icon' => 'icon-plus')); ?>\n"; ?>
 		</div>
 		<table class="table table-striped table-bordered">
 			<tr>
 				<th></th>
 <?php
 			foreach($details['fields'] as $field)
-				echo "\t\t\t\t<th><?php echo __('" . Inflector::humanize($field) . "'); ?></th>\n";
+				echo "\t\t\t\t<th><?php echo __('".Inflector::humanize($field)."'); ?></th>\n";
 ?>
 			</tr>
 	<?php
