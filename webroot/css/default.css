@@ -116,16 +116,18 @@ th a.desc:after {
 /* Labels on tables of index pages */
 .index table td .label, .related table td .label {
 	display: inline-block;
-	font-size: 100%;
+	font-size: 98%;
 	line-height: normal;
-    min-width: 85px;    
-	padding: .2em 0 .25em;
+    min-width: 90px;    
+	padding: .25em 0;
 }
 
 /* Labels on view pages */
-.view dt .label, .view dd .label {
-	font-size: 90%;
-	padding: .15em .5em;
+.view dt .label, .view dd .label {    display: inline-block;
+    font-size: 90%;
+	line-height: 16px;
+    min-width: 92px;
+    padding: .25em;
 }
 
 /* -------------------------------- */
