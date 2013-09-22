@@ -160,8 +160,8 @@ form.form-base div.input input, form.form-base div.input textarea {
     width: 100%;
 }
 
-/* Inputs, selects */
-form.form-base div.input input, form.form-base div.input select {
+/* Inputs */
+form.form-base div.input input {
     height: 34px;
 }
 
