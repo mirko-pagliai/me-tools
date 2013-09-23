@@ -103,7 +103,7 @@ class MePaginatorHelper extends PaginatorHelper {
 	 */
 	public function next($title = null, $options = array(), $disabledTitle = null, $disabledOptions = array()) {
 		//Title default
-		$title = !empty($title) ? $title : __d('me_tools', 'next').' »';
+		$title = !empty($title) ? $title : __d('me_tools', 'Next').' »';
 		
 		//Uses $this->__jump->link() to set arguments
 		list($title, $options, $disabledTitle, $disabledOptions) = $this->__jump_link($title, $options, $disabledTitle, $disabledOptions);
@@ -119,7 +119,7 @@ class MePaginatorHelper extends PaginatorHelper {
 	 */
 	public function numbers($options = array()) {
 		//"currentClass" option default "disabled"
-		$options['currentClass'] = !empty($options['currentClass']) ? $this->Html->cleanAttribute($options['currentClass']) : 'disabled';
+		$options['currentClass'] = !empty($options['currentClass']) ? $this->Html->cleanAttribute($options['currentClass']) : 'active';
 		//"currentTag" option default "a"
 		$options['currentTag'] = !empty($options['currentTag']) ? $options['currentTag'] : 'a';
 		//"separator" option default FALSE
@@ -140,7 +140,7 @@ class MePaginatorHelper extends PaginatorHelper {
 	 */
 	public function prev($title = null, $options = array(), $disabledTitle = null, $disabledOptions = array()) {
 		//Title default
-		$title = !empty($title) ? $title : '« '.__d('me_tools', 'previous');
+		$title = !empty($title) ? $title : '« '.__d('me_tools', 'Previous');
 		
 		//Uses $this->__jump->link() to set arguments
 		list($title, $options, $disabledTitle, $disabledOptions) = $this->__jump_link($title, $options, $disabledTitle, $disabledOptions);
