@@ -149,7 +149,7 @@
 <?php endif; ?>
 		else
 <?php if($wannaUseSession): ?>
-			$this->Session->setFlash(__('The <?php echo strtolower($singularHumanName); ?> was not deleted'), 'MeTools.success');
+			$this->Session->setFlash(__('The <?php echo strtolower($singularHumanName); ?> was not deleted'), 'MeTools.error');
 <?php else: ?>
 			$this->flash(__('<?php echo ucfirst(strtolower($singularHumanName)); ?> was not deleted'), array('action' => 'index'));
 <?php endif; ?>
