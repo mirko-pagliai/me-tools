@@ -170,12 +170,24 @@ form.form-base div.input select option {
 	padding-right: 10px;
 }
 
-form.form-base div.input .after-input, form.form-base div.input .before-input {
+/* Texts after and before of inputs */
+form.form-base .after-input, form.form-base .before-input {
 	background: #D9EDF7;
 	border-radius: 4px;
 	color: #3A87AD;
 	margin-top: 3px;
     padding: 6px 8px;
+}
+
+/* Texts after and before of inputs. Paragraphs */
+form.form-base .after-input p, form.form-base .before-input p {
+	margin: 0;
+}
+
+/* Texts after and before of inputs. Code elements */
+form.form-base .after-input code, form.form-base .before-input code {
+	background: inherit;
+    color: inherit;
 }
 
 /* Form error messages */
