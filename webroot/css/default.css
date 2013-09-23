@@ -254,6 +254,11 @@ table.cake-sql-log tbody tr:nth-child(2n+1) td {
     margin: 4px 0 0 4px;
 }
 
+/* Disabled links in pagination */ 
+.pagination > .disabled > span, .pagination > .disabled > a, .pagination > .disabled > a:hover, .pagination > .disabled > a:focus {
+    cursor: default;
+}
+
 /* "Pre" tag scrollable */
 .pre-scrollable {
     overflow-y: auto;
