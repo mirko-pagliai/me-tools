@@ -33,6 +33,25 @@ class LibraryHelper extends AppHelper {
 	public $helpers = array('Html' => array('className' => 'MeTools.MeHtml'));
 	
 	/**
+	 * It will contain the output code
+	 * @var array 
+	 */
+	private $output = array();
+	
+	/**
+	 * Before layout callback. beforeLayout is called before the layout is rendered.
+	 * @param string $layoutFile The layout about to be rendered.
+	 * @return void
+	 */
+	public function beforeLayout($layoutFile) {
+		//Write the output
+		if(!empty($this->output)) {
+			$this->output = array_map(function($v) { return "\t".$v.PHP_EOL; }, $this->output);
+			$this->Html->scriptBlock("$(function() {".PHP_EOL.implode('', $this->output)."});");
+		}
+	}
+	
+	/**
 	 * Adds a datepicker to the `$input` field
 	 * Look at {@link http://bootstrap-datepicker.readthedocs.org datepicker documentation}
 	 * @param string $input Target field
@@ -57,7 +76,7 @@ class LibraryHelper extends AppHelper {
 				break;
 		}
 		
-		$this->Html->scriptBlock("$(function() { $('{$input}').datepicker(".json_encode($options)."); });");
+		$this->output[] = "$('{$input}').datepicker(".json_encode($options).");";
 	}
 	
 	/**
@@ -69,6 +88,6 @@ class LibraryHelper extends AppHelper {
 	 */
 	public function slugify($sourceField='form #title', $targetField='form #slug') {
 		$this->Html->js('/MeTools/js/slugify.min');
-		$this->Html->scriptBlock("$(function() { $().slugify('{$sourceField}', '{$targetField}'); });");
+		$this->output[] = "$().slugify('{$sourceField}', '{$targetField}');";
 	}
 }
