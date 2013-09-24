@@ -288,3 +288,10 @@ table.cake-sql-log tbody tr:nth-child(2n+1) td {
 .pre-scrollable {
     overflow-y: auto;
 }
+
+/* -------------------------------- */
+/*			Timepicker rewrite		*/
+/* -------------------------------- */
+.bootstrap-timepicker-widget table td a [class^="icon-"]:before {
+	text-decoration: none;
+}
