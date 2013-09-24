@@ -123,14 +123,6 @@ class MeFormHelper extends FormHelper {
 			else
 				$options['after'] = '<div class="after-input">'.implode('', array_map(function($v){ return '<p>'.trim($v).'</p>'; }, $options['after'])).'</div>';
 		}
-		
-		//"before" option (text before the input)
-		if(!empty($options['before'])) {
-			if(!is_array($options['before']))
-				$options['before'] = '<div class="before-input">'.trim($options['before']).'</div>';
-			else
-				$options['before'] = '<div class="before-input">'.implode('', array_map(function($v){ return '<p>'.trim($v).'</p>'; }, $options['before'])).'</div>';
-		}
 			
 		//If the div class is not empty, prepend the "input" class and the input type
 		if(!empty($options['div']['class']))
