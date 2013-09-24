@@ -116,12 +116,15 @@ class MeFormHelper extends FormHelper {
 		if(!empty($options['error']) && empty($options['error']['attributes']['escape']))
 			$options['error']['attributes']['escape'] = false;
 		
-		//"after" option (text after the input)
-		if(!empty($options['after'])) {
-			if(!is_array($options['after']))
-				$options['after'] = '<div class="after-input">'.trim($options['after']).'</div>';
+		if(empty($options['after']))
+			$options['after'] = null;
+		
+		//"after" option (tip text after the input)
+		if(!empty($options['tip'])) {
+			if(!is_array($options['tip']))
+				$options['after'] .= '<div class="tip">'.trim($options['tip']).'</div>';
 			else
-				$options['after'] = '<div class="after-input">'.implode('', array_map(function($v){ return '<p>'.trim($v).'</p>'; }, $options['after'])).'</div>';
+				$options['after'] .= '<div class="tip">'.implode('', array_map(function($v){ return '<p>'.trim($v).'</p>'; }, $options['tip'])).'</div>';
 		}
 			
 		//If the div class is not empty, prepend the "input" class and the input type

@@ -170,8 +170,8 @@ form.form-base div.input select option {
 	padding-right: 10px;
 }
 
-/* Texts after inputs */
-form.form-base .after-input {
+/* Tip after inputs */
+form.form-base .tip {
 	background: #D9EDF7;
 	border-radius: 4px;
 	color: #3A87AD;
@@ -179,13 +179,14 @@ form.form-base .after-input {
     padding: 6px 8px;
 }
 
-/* Texts after inputs. Paragraphs */
-form.form-base .after-input p {
+/* Tip after inputs. Paragraphs */
+form.form-base .tip p {
+	display: block;
 	margin: 0;
 }
 
-/* Texts after inputs. Code elements */
-form.form-base .after-input code {
+/* Tip after inputs. Code elements */
+form.form-base .tip code {
 	background: inherit;
     color: inherit;
 }
@@ -216,6 +217,7 @@ form.form-base .float-form div.input:last-child {
 form.form-base .float-form select {
 	width: 100%;
 }
+
 /* -------------------------------- */
 /*		Cake Sql debug				*/
 /* -------------------------------- */
