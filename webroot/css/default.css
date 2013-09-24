@@ -140,6 +140,11 @@ form.form-base .required label:after {
 	display: inline;
 }
 
+/* Labels */
+form.form-base label {
+	display: block;
+}
+
 form.form-base div.input {
 	margin-bottom: 15px;
 }
@@ -168,6 +173,12 @@ form.form-base div.input input {
 /* Options of selects */
 form.form-base div.input select option {
 	padding-right: 10px;
+}
+
+/* Datetime, date and time inputs */
+form.form-base div.input.datetime select, form.form-base div.input.date select, form.form-base div.input.time select {
+	display: inline-block;
+	width: auto;
 }
 
 /* Tip after inputs */
