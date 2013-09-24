@@ -60,6 +60,23 @@ class MeFormHelper extends FormHelper {
 		$options['rel'] = empty($options['rel']) ? 'tooltip' : $this->Html->cleanAttribute($options['rel'].' tooltip');
 
 		return parent::button($caption, $options);
+	}	
+	
+	/**
+	 * Creates a text input for datepicker. It uses the <i>input()</i> method.
+	 * 
+	 * To add the script for datepicker, you should use the <i>Library</i> helper.
+	 * @param string $fieldName Field name. Should be "Modelname.fieldname"
+	 * @param array $options Options
+	 * @return string Html
+	 */
+	public function datepicker($fieldName, $options=array()) {
+		//"class" option default "datepicker"
+		$options['class'] = !empty($options['class']) ? $this->Html->cleanAttribute('datepicker '.$options['class']) : 'datepicker';
+
+		$options['type'] = "text";
+		
+		return $this->input($fieldName, $options);
 	}
 	
 	/**
@@ -253,5 +270,25 @@ class MeFormHelper extends FormHelper {
 
 			return $this->Html->tag('div', $this->button($caption, $options), array('class' => $div));
 		}
+	}	
+	
+	/**
+	 * Creates a text input for timepicker. It uses the <i>input()</i> method.
+	 * 
+	 * To add the script for timepicker, you should use the <i>Library</i> helper.
+	 * @param string $fieldName Field name. Should be "Modelname.fieldname"
+	 * @param array $options Options
+	 * @return string Html
+	 */
+	public function timepicker($fieldName, $options=array()) {
+		//"class" option default "timepicker"
+		$options['class'] = !empty($options['class']) ? $this->Html->cleanAttribute('timepicker '.$options['class']) : 'timepicker';
+
+		//div "class" option default "bootstrap-timepicker"
+		$options['div']['class'] = !empty($options['div']['class']) ? $this->Html->cleanAttribute('bootstrap-timepicker '.$options['div']['class']) : 'bootstrap-timepicker';
+
+		$options['type'] = "text";
+		
+		return $this->input($fieldName, $options);
 	}
 }
