@@ -33,6 +33,34 @@ class LibraryHelper extends AppHelper {
 	public $helpers = array('Html' => array('className' => 'MeTools.MeHtml'));
 	
 	/**
+	 * Adds a datepicker to the `$input` field
+	 * Look at {@link http://bootstrap-datepicker.readthedocs.org datepicker documentation}
+	 * @param string $input Target field
+	 * @param array $options Options for datepicker
+	 */
+	public function datepicker($input='.datepicker', $options=array()) {
+		$this->Html->js('/MeTools/js/bootstrap-datepicker.min');
+		$this->Html->css('/MeTools/css/datepicker.min');
+		
+		if(empty($options))
+			$options = array(
+				'autoclose'			=> true,
+				'format'			=> 'yyyy-mm-dd',
+				'todayBtn'			=> true,
+				'todayHighlight'	=> true
+			);
+	
+		//Switch for languange, reading from config
+		switch(Configure::read('Config.language')) {
+			case 'ita':
+				$options['language'] = 'it';
+				break;
+		}
+		
+		$this->Html->scriptBlock("$(function() { $('{$input}').datepicker(".json_encode($options)."); });");
+	}
+	
+	/**
 	 * Through "slugify.js", it provides the slug of a field. 
 	 * 
 	 * It reads the value of the `$sourceField` field and it sets its slug in the `$targetField`.
@@ -41,7 +69,6 @@ class LibraryHelper extends AppHelper {
 	 */
 	public function slugify($sourceField='form #title', $targetField='form #slug') {
 		$this->Html->js('/MeTools/js/slugify.min');
-		
-		return $this->Html->scriptBlock("$(function() { $().slugify('{$sourceField}', '{$targetField}'); });");
+		$this->Html->scriptBlock("$(function() { $().slugify('{$sourceField}', '{$targetField}'); });");
 	}
 }
