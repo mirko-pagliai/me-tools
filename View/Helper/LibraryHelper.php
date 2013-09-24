@@ -52,8 +52,12 @@ class LibraryHelper extends AppHelper {
 	}
 	
 	/**
-	 * Adds a datepicker to the `$input` field
-	 * Look at {@link http://bootstrap-datepicker.readthedocs.org datepicker documentation}
+	 * Adds a datepicker to the `$input` field.
+	 * 
+	 * To create an input field compatible with datepicker, you should use the method `datepicker` of the <i>Form</i> helper.
+	 * 
+	 * To know the options to use with datepicker, please refer to the
+	 * {@link http://bootstrap-datepicker.readthedocs.org Bootstrap Datepicker documentation}.
 	 * @param string $input Target field
 	 * @param array $options Options for datepicker
 	 */
@@ -89,5 +93,29 @@ class LibraryHelper extends AppHelper {
 	public function slugify($sourceField='form #title', $targetField='form #slug') {
 		$this->Html->js('/MeTools/js/slugify.min');
 		$this->output[] = "$().slugify('{$sourceField}', '{$targetField}');";
+	}
+	
+	/**
+	 * Adds a timepicker to the `$input` field.
+	 * 
+	 * To create an input field compatible with timepicker, you should use the method `timepicker` of the <i>Form</i> helper.
+	 * 
+	 * To know the options to use with timepicker, please refer to the
+	 * {@link http://jdewit.github.io/bootstrap-timepicker Bootstrap Timepicker documentation}.
+	 * @param string $input Target field
+	 * @param array $options Options for timepicker
+	 */
+	public function timepicker($input='.timepicker', $options=array()) {
+		$this->Html->js('/MeTools/js/bootstrap-timepicker.min');
+		$this->Html->css('/MeTools/css/bootstrap-timepicker.min');
+		
+		if(empty($options))
+			$options = array(
+				'disableFocus'	=> true,
+				'minuteStep'	=> 1,
+				'showMeridian'	=> false
+			);
+		
+		$this->output[] = "$('{$input}').timepicker(".json_encode($options).");";
 	}
 }
