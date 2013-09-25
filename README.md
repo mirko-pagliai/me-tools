@@ -39,8 +39,8 @@ MeTools doesn't contain a copy of CKEditor, because it would be too heavy, becau
 can customize the package and choose which plugins to download) and because it's not necessary for all projects.
 
 So you need to download CKEditor from its [site](http://ckeditor.com/download), preferably by 
-[configuring plugins](http://ckeditor.com/builder). If you like, you can upload *build-config.js* 
-that is located in *app/Plugin/MeTools/webroot/ckeditor*. This contain a valid configuration in most cases.
+[configuring plugins](http://ckeditor.com/builder). If you like, you can upload `build-config.js` 
+that is located in `app/Plugin/MeTools/webroot/ckeditor`. This contain a valid configuration in most cases.
 
 Once you have downloaded CKEditor, you must extract it in *app/webroot/ckeditor* or *app/webroot/js/ckeditor*.
 Finally, you can edit *ckeditor_init.js* located in *app/Plugin/MeTools/webroot/ckeditor*, that MeTools uses to 
