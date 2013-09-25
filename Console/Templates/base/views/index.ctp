@@ -29,7 +29,7 @@
 				echo "\t\t\t\t<td class=\"actions\">\n";
 					echo "\t\t\t\t\t<?php echo \$this->Html->linkButton(null, array('action' => 'view', \${$singularVar}['{$modelClass}']['{$primaryKey}']), array('icon' => 'icon-eye-open', 'tooltip' => __('View'))); ?>\n";
 					echo "\t\t\t\t\t<?php echo \$this->Html->linkButton(null, array('action' => 'edit', \${$singularVar}['{$modelClass}']['{$primaryKey}']), array('icon' => 'icon-pencil', 'tooltip' => __('Edit'))); ?>\n";
-					echo "\t\t\t\t\t<?php echo \$this->Form->postButton(null, array('action' => 'delete', \${$singularVar}['{$modelClass}']['{$primaryKey}']), array('class' => 'btn-danger', 'icon' => 'icon-trash', 'tooltip' => __('Delete')), __('Are you sure you want to delete this record?')); ?>\n";
+					echo "\t\t\t\t\t<?php echo \$this->Form->postButton(null, array('action' => 'delete', \${$singularVar}['{$modelClass}']['{$primaryKey}']), array('class' => 'btn-danger', 'icon' => 'icon-trash', 'tooltip' => __('Delete')), __('Are you sure you want to delete this ".strtolower($singularHumanName)."?')); ?>\n";
 				echo "\t\t\t\t</td>\n";
 
 				foreach($fields as $field) {
