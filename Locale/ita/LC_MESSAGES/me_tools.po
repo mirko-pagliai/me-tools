@@ -1,12 +1,10 @@
 # LANGUAGE translation of CakePHP Application
-# Copyright YEAR NAME <EMAIL@ADDRESS>
-#
 # Mirko Pagliai <mirko.pagliai@gmail.com>, 2013.
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2013-09-19 20:36+0000\n"
-"PO-Revision-Date: 2013-09-19 22:39+0200\n"
+"POT-Creation-Date: 2013-09-25 17:28+0200\n"
+"PO-Revision-Date: 2013-09-25 17:30+0200\n"
 "Last-Translator: Mirko Pagliai <mirko.pagliai@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -36,11 +34,11 @@ msgstr "Informazione"
 msgid "Success"
 msgstr "Successo"
 
-#: View/Helper/MeFormHelper.php:214
+#: View/Helper/MeFormHelper.php:257
 msgid "Select an option"
 msgstr "Seleziona un'opzione"
 
-#: View/Helper/MeFormHelper.php:230
+#: View/Helper/MeFormHelper.php:273
 msgid "Submit"
 msgstr "Invia"
 
@@ -49,11 +47,11 @@ msgid "%s - %s of %s"
 msgstr "%s - %s di %s"
 
 #: View/Helper/MePaginatorHelper.php:106
-msgid "next"
-msgstr "successivo"
+msgid "Next"
+msgstr "Successivo"
 
 #: View/Helper/MePaginatorHelper.php:143
-msgid "previous"
-msgstr "precedente"
+msgid "Previous"
+msgstr "Precedente"
 
 
