@@ -52,6 +52,58 @@ class LibraryHelper extends AppHelper {
 	}
 	
 	/**
+	 * Loads all CKEditor scripts.
+	 * 
+	 * This helper looking for CKEditor in `app/webroot/ckeditor` and `app/webroot/js/ckeditor`.
+	 * 
+	 * So it looks for the file `ckeditor.js` (this file is used to instantiate CKEditor) in `app/webroot/js`, 
+	 * `app/webroot/ckeditor`, `app/webroot/js/ckeditor` and `app/Plugin/MeTools/webroot/ckeditor`.
+	 * 
+	 * Usually `ckeditor.js` is located in `app/Plugin/MeTools/webroot/js`. 
+	 * If you want to edit the file, you should copy it to `app/webroot/js`.
+	 * 
+	 * To create an input field compatible with CKEditor, you should use the method `ckeditor` of the <i>Form</i> helper.
+	 * @param boolean $jquery FALSE if you don't want to use the jquery adapter
+	 * @return mixed String of <script /> tags
+	 */
+	public function ckeditor($jquery=true) {
+		$url = '/ckeditor';
+		
+		//Checks if CKEditor script (ckeditor.js) exists
+		//It seeks in app/webroot/ckeditor and app/webroot/js/ckeditor
+		if(fileExistsInPath(WWW_ROOT.'ckeditor'.DS.'ckeditor.js'))
+			$path = WWW_ROOT.'ckeditor';
+		elseif(fileExistsInPath(WWW_ROOT.'js'.DS.'ckeditor'.DS.'ckeditor.js')) {
+			$path = WWW_ROOT.'js'.DS.'ckeditor';
+			$url = '/js'.$url;
+		}
+		
+		//If CKEditor script exists
+		if(!empty($path) && !empty($url)) {
+			$script = array($url.'/ckeditor');
+			
+			//Checks if the jQuery adapter exists
+			if(!empty($jquery) && fileExistsInPath($path.DS.'adapters'.DS.'jquery.js'))
+				$script[] = $url.'/adapters/jquery';
+			
+			//Checks if the init script exists
+			//It seeks in app/webroot/js, app/webroot/ckeditor, app/webroot/js/ckeditor and app/Plugin/MeTools/webroot/ckeditor
+			if(fileExistsInPath(WWW_ROOT.'js'.DS.'ckeditor_init.js'))
+				$script[] = 'ckeditor_init';
+			elseif(fileExistsInPath($path.DS.'ckeditor_init.js'))
+				$script[] = $url.'/ckeditor_init';
+			elseif(fileExistsInPath(App::pluginPath('MeTools').'webroot'.DS.'ckeditor'.DS.'ckeditor_init.js'))
+				$script[] = '/MeTools/ckeditor/ckeditor_init';
+			else
+				return false;
+			
+			return $this->Html->js($script);
+		}
+		
+		return false;
+	}
+	
+	/**
 	 * Adds a datepicker to the `$input` field.
 	 * 
 	 * To create an input field compatible with datepicker, you should use the method `datepicker` of the <i>Form</i> helper.

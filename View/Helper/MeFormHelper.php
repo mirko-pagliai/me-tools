@@ -60,7 +60,29 @@ class MeFormHelper extends FormHelper {
 		$options['rel'] = empty($options['rel']) ? 'tooltip' : $this->Html->cleanAttribute($options['rel'].' tooltip');
 
 		return parent::button($caption, $options);
-	}	
+	}
+	
+	/**
+	 * Creates a textarea for CKEditor. It uses the <i>input()</i> method.
+	 * 
+	 * To add the script for CKEditor, you should use the <i>Library</i> helper.
+	 * @param string $fieldName Field name. Should be "Modelname.fieldname"
+	 * @param array $options Options
+	 * @return string Html
+	 */
+	public function ckeditor($fieldName, $options=array()) {
+		//Adds "wysiwyg" to the class
+		$options['class'] = empty($options['class']) ? 'wysiwyg' : $options['class'].' wysiwyg';
+		
+		$options['label'] = false;
+		
+		//Set the "require" attribute to FALSE, otherwise it will fail the field validation
+		$options['required'] = false;
+		
+		$options['type'] = 'textarea';
+		
+		return $this->input($fieldName, $options);
+	}
 	
 	/**
 	 * Creates a text input for datepicker. It uses the <i>input()</i> method.
