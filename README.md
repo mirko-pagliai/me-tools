@@ -44,3 +44,24 @@ Once you have downloaded CKEditor, you must extract it in `app/webroot/ckeditor`
 Finally, you can edit `ckeditor_init.js` located in `app/Plugin/MeTools/webroot/ckeditor`, that MeTools uses to 
 instantiate CKEditor. For ease, you can copy it in `app/webroot/js`, `app/webroot/ckeditor` or `app/webroot/js/ckeditor`.  
 If MeTools doesn't find `ckeditor_init.js` in the webroot of your app, it will use its own file in the plugin webroot.
+
+### How to user CKEditor with MeTools
+You should use the LibraryHelper to load CKEditor scripts, within a view or layout of your app:
+
+	$this->Library->ckeditor();
+
+If you don't want to use the jQuery adapter for CKEditor, pass `false` as the first argument:
+
+	$this->Library->ckeditor(false);
+
+Then, within a view, you can create a CKEditor textarea using the MeForm helper:
+
+	echo $this->MeForm->ckeditor('text');
+
+Note that the `ckeditor()` method of the MeForm helper takes the same arguments of the `input()` method, 
+including its options. For example:
+
+	echo $this->MeForm->ckeditor('text', array(
+		'class'	=> 'my_textarea',
+		'label' => 'Body',
+	));
