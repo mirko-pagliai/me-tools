@@ -54,13 +54,7 @@ class LibraryHelper extends AppHelper {
 	/**
 	 * Loads all CKEditor scripts.
 	 * 
-	 * This helper looking for CKEditor in `app/webroot/ckeditor` and `app/webroot/js/ckeditor`.
-	 * 
-	 * So it looks for the file `ckeditor.js` (this file is used to instantiate CKEditor) in `app/webroot/js`, 
-	 * `app/webroot/ckeditor`, `app/webroot/js/ckeditor` and `app/Plugin/MeTools/webroot/ckeditor`.
-	 * 
-	 * Usually `ckeditor.js` is located in `app/Plugin/MeTools/webroot/js`. 
-	 * If you want to edit the file, you should copy it to `app/webroot/js`.
+	 * To know how to install and configure CKEditor, please refer to the `README` file.
 	 * 
 	 * To create an input field compatible with CKEditor, you should use the method `ckeditor` of the <i>Form</i> helper.
 	 * @param boolean $jquery FALSE if you don't want to use the jquery adapter
@@ -83,7 +77,7 @@ class LibraryHelper extends AppHelper {
 			$script = array($url.'/ckeditor');
 			
 			//Checks if the jQuery adapter exists
-			if(!empty($jquery) && fileExistsInPath($path.DS.'adapters'.DS.'jquery.js'))
+			if($jquery && fileExistsInPath($path.DS.'adapters'.DS.'jquery.js'))
 				$script[] = $url.'/adapters/jquery';
 			
 			//Checks if the init script exists
