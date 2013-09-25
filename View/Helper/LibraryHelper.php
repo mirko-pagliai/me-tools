@@ -102,7 +102,7 @@ class LibraryHelper extends AppHelper {
 	 * 
 	 * To create an input field compatible with datepicker, you should use the method `datepicker` of the <i>Form</i> helper.
 	 * 
-	 * To know the options to use with datepicker, please refer to the
+	 * To know the options to use with datepicker, please refer to the `README` file.
 	 * {@link http://bootstrap-datepicker.readthedocs.org Bootstrap Datepicker documentation}.
 	 * @param string $input Target field
 	 * @param array $options Options for datepicker

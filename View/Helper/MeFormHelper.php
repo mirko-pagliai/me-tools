@@ -66,6 +66,8 @@ class MeFormHelper extends FormHelper {
 	 * Creates a textarea for CKEditor. It uses the <i>input()</i> method.
 	 * 
 	 * To add the script for CKEditor, you should use the <i>Library</i> helper.
+	 * 
+	 * To know the options to use with datepicker, please refer to the `README` file.
 	 * @param string $fieldName Field name. Should be "Modelname.fieldname"
 	 * @param array $options Options
 	 * @return string Html
