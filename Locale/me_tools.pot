@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2013-09-21 12:31+0200\n"
+"POT-Creation-Date: 2013-09-25 17:28+0200\n"
 "PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
 "Last-Translator: NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
@@ -34,11 +34,11 @@ msgstr ""
 msgid "Success"
 msgstr ""
 
-#: View/Helper/MeFormHelper.php:215
+#: View/Helper/MeFormHelper.php:257
 msgid "Select an option"
 msgstr ""
 
-#: View/Helper/MeFormHelper.php:231
+#: View/Helper/MeFormHelper.php:273
 msgid "Submit"
 msgstr ""
 
@@ -47,10 +47,10 @@ msgid "%s - %s of %s"
 msgstr ""
 
 #: View/Helper/MePaginatorHelper.php:106
-msgid "next"
+msgid "Next"
 msgstr ""
 
 #: View/Helper/MePaginatorHelper.php:143
-msgid "previous"
+msgid "Previous"
 msgstr ""
 
