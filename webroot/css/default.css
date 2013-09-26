@@ -118,15 +118,16 @@ th a.desc:after {
 	display: inline-block;
 	font-size: 98%;
 	line-height: normal;
-    min-width: 90px;    
+    min-width: 80px;    
 	padding: .25em 0;
 }
 
 /* Labels on view pages */
-.view dt .label, .view dd .label {    display: inline-block;
+.view dt .label, .view dd .label {
+	display: inline-block;
     font-size: 90%;
 	line-height: 16px;
-    min-width: 92px;
+    min-width: 85px;
     padding: .25em;
 }
 
