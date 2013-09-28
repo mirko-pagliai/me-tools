@@ -2,6 +2,10 @@
 MeTools is a CakePHP plugin to improve applications development.  
 It provides some useful tools, such as components, helpers and javascript libraries.
 
+## Versioning
+For transparency and insight into our release cycle, and for striving to maintain backward compatibility, 
+MeTools will be maintained under the [Semantic Versioning guidelines](http://semver.org).
+
 ## Installation
 Extract MeTools in `app/Plugin` and load it in `app/Config/bootstrap.php`:
 
