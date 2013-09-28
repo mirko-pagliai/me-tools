@@ -135,7 +135,7 @@ th a.desc:after {
 /*			Base forms				*/
 /* -------------------------------- */
 /* Labels for required inputs (add a red asterisk after the label) */
-form.form-base .required label:after {
+form.form-base div.required label:after {
 	color: #e32;
 	content: '*';
 	display: inline;
@@ -146,12 +146,22 @@ form.form-base label {
 	display: block;
 }
 
+/* Div for inputs */
 form.form-base div.input {
 	margin-bottom: 15px;
 }
 
-/* Inputs, selects, textareas */
-form.form-base div.input input, form.form-base div.input select, form.form-base div.input textarea {
+/* Div for checkboxes */
+form.form-base div.checkbox {
+	padding-left: 0;
+}
+
+/* Text inputs, selects, textareas */
+form.form-base input[type=text], 
+form.form-base input[type=password],
+form.form-base input[type=email],
+form.form-base select, 
+form.form-base textarea {
     background-color: #FFF;
     border: 1px solid #CCC;
     border-radius: 4px;
@@ -161,25 +171,51 @@ form.form-base div.input input, form.form-base div.input select, form.form-base 
     padding: 6px 8px;
 }
 
-/* Inputs, textareas */
-form.form-base div.input input, form.form-base div.input textarea {
+/* Text inputs, textareas */
+form.form-base input[type=text], 
+form.form-base input[type=password],
+form.form-base input[type=email],
+form.form-base div.input textarea {
     width: 100%;
 }
 
-/* Inputs */
-form.form-base div.input input {
+/* Text inputs */
+form.form-base input[type=text], 
+form.form-base input[type=password],
+form.form-base input[type=email] {
     height: 34px;
 }
 
 /* Options of selects */
-form.form-base div.input select option {
+form.form-base select option {
 	padding-right: 10px;
 }
 
 /* Datetime, date and time inputs */
-form.form-base div.input.datetime select, form.form-base div.input.date select, form.form-base div.input.time select {
+form.form-base div.datetime select, form.form-base div.date select, form.form-base div.time select {
 	display: inline-block;
 	width: auto;
+}
+
+/* Checkboxes */
+/* It hides the checkbox, which will be replaced with an icon in the label */
+form.form-base input[type='checkbox'] {
+	display: none;
+}
+
+/* Checkbox labels, when checkbox is unchecked */
+form.form-base input[type='checkbox'] + label:before {
+	color: #999;
+	content: " ";    
+	font-size: 18px;
+	font-weight: normal;
+    vertical-align: middle;
+}
+
+/* Checkbox labels, when checkbox is checked */
+form.form-base input[type='checkbox']:checked + label:before {
+	color: #444;
+	content: " ";
 }
 
 /* Tip after inputs */
@@ -276,10 +312,9 @@ table.cake-sql-log tbody tr:nth-child(2n+1) td {
 /* -------------------------------- */
 /*			Bootstrap rewrite		*/
 /* -------------------------------- */
-/* Labels for checkboxs */
-.checkbox label {
-	display: inline-block;
-    margin: 4px 0 0 4px;
+/* Labels for radios and checkboxs */
+.radio label, .checkbox label {
+	font-weight: bold;
 }
 
 /* Disabled links in pagination */ 
