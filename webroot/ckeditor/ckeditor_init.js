@@ -24,6 +24,16 @@ $(function() {
 			{ name: 'styles' },
 			{ name: 'colors' },
 			{ name: 'about' }
-		]
+		],
+		
+		/**
+		 * To use KCFinder, you have to comment out these lines and indicate the position of KCFinder
+		 */
+		//filebrowserBrowseUrl: 'kcfinder/browse.php?type=files',
+		//filebrowserImageBrowseUrl: 'kcfinder/browse.php?type=images',
+		//filebrowserFlashBrowseUrl: 'kcfinder/browse.php?type=flash',
+		//filebrowserUploadUrl: 'kcfinder/upload.php?type=files',
+		//filebrowserImageUploadUrl: 'kcfinder/upload.php?type=images',
+		//filebrowserFlashUploadUrl: 'kcfinder/upload.php?type=flash',
 	});
 });
