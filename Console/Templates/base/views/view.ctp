@@ -19,9 +19,11 @@
 <div class="<?php echo $pluralVar; ?> view">
 	<h2><?php echo "<?php echo __('".ucfirst(strtolower($singularHumanName))."'); ?>"; ?></h2>
 	
-	<div class="well well-sm pull-right">
-		<?php echo "<?php echo \$this->Html->linkButton(__('Edit'), array('action' => 'edit', \${$singularVar}['{$modelClass}']['{$primaryKey}']), array('icon' => 'icon-pencil', 'tooltip' => __('Edit'))); ?>\n"; ?>
-		<?php echo "<?php echo \$this->Form->postButton(__('Delete'), array('action' => 'delete', \${$singularVar}['{$modelClass}']['{$primaryKey}']), array('class' => 'btn-danger', 'icon' => 'icon-trash', 'tooltip' => __('Delete')), __('Are you sure you want to delete this ".strtolower($singularHumanName)."?')); ?>\n"; ?>
+	<div class="panel panel-default pull-right">
+		<div class="panel-body">
+			<?php echo "<?php echo \$this->Html->linkButton(__('Edit'), array('action' => 'edit', \${$singularVar}['{$modelClass}']['{$primaryKey}']), array('icon' => 'icon-pencil', 'tooltip' => __('Edit'))); ?>\n"; ?>
+			<?php echo "<?php echo \$this->Form->postButton(__('Delete'), array('action' => 'delete', \${$singularVar}['{$modelClass}']['{$primaryKey}']), array('class' => 'btn-danger', 'icon' => 'icon-trash', 'tooltip' => __('Delete')), __('Are you sure you want to delete this ".strtolower($singularHumanName)."?')); ?>\n"; ?>
+		</div>
 	</div>
 	
 	<dl class="dl-horizontal">
