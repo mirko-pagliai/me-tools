@@ -312,6 +312,11 @@ table.cake-sql-log tbody tr:nth-child(2n+1) td {
 /* -------------------------------- */
 /*			Bootstrap rewrite		*/
 /* -------------------------------- */
+/* Dropdown menus pulled to the right */
+.dropdown-menu.pull-right {
+	text-align: left;
+}
+
 /* Labels for radios and checkboxs */
 .radio label, .checkbox label {
 	font-weight: bold;
