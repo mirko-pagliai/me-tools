@@ -157,9 +157,10 @@ form.form-base div.checkbox {
 }
 
 /* Text inputs, selects, textareas */
-form.form-base input[type=text], 
-form.form-base input[type=password],
 form.form-base input[type=email],
+form.form-base input[type=number],
+form.form-base input[type=password],
+form.form-base input[type=text],
 form.form-base select, 
 form.form-base textarea {
     background-color: #FFF;
@@ -172,17 +173,19 @@ form.form-base textarea {
 }
 
 /* Text inputs, textareas */
-form.form-base input[type=text], 
-form.form-base input[type=password],
 form.form-base input[type=email],
+form.form-base input[type=number],
+form.form-base input[type=password],
+form.form-base input[type=text],
 form.form-base div.input textarea {
     width: 100%;
 }
 
 /* Text inputs */
-form.form-base input[type=text], 
+form.form-base input[type=email],
+form.form-base input[type=number],
 form.form-base input[type=password],
-form.form-base input[type=email] {
+form.form-base input[type=text] {
     height: 34px;
 }
 
