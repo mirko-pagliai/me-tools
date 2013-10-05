@@ -216,14 +216,22 @@ class MeHtmlHelper extends HtmlHelper {
 
 	/**
 	 * Builds elements of a list (`li`) out of an associative array.
-	 * @param array $list Elements
+	 * 
+	 * If the element is an array, then the firse value is the element and the second value are options.
+	 * @param array $list Elements. 
 	 * @param array $options HTML attributes
 	 * @return string Html, elements of a list
 	 */
 	public function li($list, $options=array()) {		
 		$html = '';
-		foreach($list as $element)
-			$html .= $this->tag('li', $element, $options);
+		foreach($list as $element) {
+			//If the element is not an array
+			if(!is_array($element))
+				$html .= $this->tag('li', $element, $options);
+			//If the element is an array, then the firse value is the element and the second value are options
+			else
+				$html .= $this->tag('li', $element[0], am($options, $element[1]));
+		}
 		
 		return $html;		
 	}
