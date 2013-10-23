@@ -265,6 +265,8 @@ form.form-base .tip p {
 form.form-base .tip code {
 	background: inherit;
     color: inherit;
+	font-size: 100%;
+	padding: 0;
 }
 
 /* Form error messages */
