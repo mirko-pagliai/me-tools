@@ -217,8 +217,32 @@ form.form-base input[type='checkbox'] + label:before {
 
 /* Checkbox labels, when checkbox is checked */
 form.form-base input[type='checkbox']:checked + label:before {
-	color: #444;
+	color: inherit;
 	content: " ";
+}
+
+/* Checkboxes lists, containter */
+form.form-base .checkboxes-list {
+	background: #F7F5FA;
+    border-radius: 4px;
+	color: #555;
+    padding: 10px;
+}
+
+/* Checkboxes lists, title */
+form.form-base .checkboxes-list h3 { 
+    font-size: 18px;
+    margin: 0 0 10px;
+}
+
+/* Checkboxes lists, buttons to check/uncheck all */
+form.form-base .checkboxes-list .buttons {
+	margin-bottom: 10px;
+}
+
+/* Checkboxes lists, labels */
+form.form-base .checkboxes-list input[type='checkbox'] + label {
+	margin: 0 0 1px 10px;
 }
 
 /* Tip after inputs */
