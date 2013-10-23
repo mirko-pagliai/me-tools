@@ -206,6 +206,11 @@ form.form-base input[type='checkbox'] {
 	display: none;
 }
 
+/* Checkbox labels */
+form.form-base input[type='checkbox'] + label {
+	cursor: pointer;
+}
+
 /* Checkbox labels, when checkbox is unchecked */
 form.form-base input[type='checkbox'] + label:before {
 	color: #999;
