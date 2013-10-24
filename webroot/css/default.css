@@ -226,31 +226,38 @@ form.form-base input[type='checkbox']:checked + label:before {
 	content: " ";
 }
 
-/* Checkboxes list, containter */
+/* -------------------------------- */
+/*	Checkboxes list in base forms	*/
+/* -------------------------------- */
+/* Containter */
 form.form-base .checkboxes-list {
 	background: #F7F5FA;
     border-radius: 4px;
 	color: #555;
 	margin-bottom: 15px;
-    padding: 10px;
+	overflow: hidden;
+    padding: 0 10px;
 }
 
-/* Checkboxes list, title */
-form.form-base .checkboxes-list h3 { 
+/* Title */
+form.form-base .checkboxes-list h3, form.form-base .checkboxes-list .title { 
     font-size: 18px;
-    margin: 0 0 10px;
+    margin: 12px 5px 10px;
 }
 
-/* Checkboxes list, buttons to check/uncheck all */
+/* Buttons to check/uncheck all */
 form.form-base .checkboxes-list .buttons {
 	margin-bottom: 10px;
 }
 
-/* Checkboxes list, labels */
+/* Labels */
 form.form-base .checkboxes-list input[type='checkbox'] + label {
 	margin: 0 0 1px 10px;
 }
 
+/* -------------------------------- */
+/*	Tips and errors in base forms	*/
+/* -------------------------------- */
 /* Tip after inputs */
 form.form-base .tip {
 	background: #D9EDF7;
