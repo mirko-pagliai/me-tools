@@ -56,7 +56,7 @@ class MeHtmlHelper extends HtmlHelper {
 	 *
 	 * You can use {@link http://fortawesome.github.io/Font-Awesome Font Awesome icons}. For example:
 	 * <code>
-	 * echo $this->Html->linkButton('my link', 'http://site.com', array('icon' => 'icon-search'));
+	 * echo $this->Html->linkButton('my link', 'http://site.com', array('icon' => 'fa-search'));
 	 * </code>
 	 * @param string $title Button title
 	 * @param mixed $url Cake-relative URL, array of URL parameters or external URL
@@ -134,7 +134,7 @@ class MeHtmlHelper extends HtmlHelper {
 	 *
 	 * You can use {@link http://fortawesome.github.io/Font-Awesome Font Awesome icons} for the first crumb. For example:
 	 * <code>
-	 * echo $this->Html->getCrumbs('/', array('text' => 'Homepage', 'icon' => 'icon-home'));
+	 * echo $this->Html->getCrumbs('/', array('text' => 'Homepage', 'icon' => 'fa-home'));
 	 * </code>
 	 * @param string $separator Text to separate crumbs
 	 * @param string|array|boolean $startText The first crumb. If is an array, the accepted keys are "text", "url" and "icon"
@@ -153,7 +153,7 @@ class MeHtmlHelper extends HtmlHelper {
 	 *
 	 * You can use {@link http://fortawesome.github.io/Font-Awesome Font Awesome icons} for the first crumb. For example:
 	 * <code>
-	 * echo $this->Html->getCrumbList(null, array('text' => 'Homepage', 'icon' => 'icon-home'));
+	 * echo $this->Html->getCrumbList(null, array('text' => 'Homepage', 'icon' => 'fa-home'));
 	 * </code>
 	 * 
 	 * Note that with Bootstrap 3 you don't need to set separators. Separators are automatically added in CSS through `:after` and `content`
@@ -176,14 +176,14 @@ class MeHtmlHelper extends HtmlHelper {
 	}
 
 	/**
-	 * Returns an icon (<i>Glyphicons</i> or <i>Font Awesome icons</i>)
+	 * Returns an icon (<i>Font Awesome icons</i>)
 	 *
 	 * Examples:
 	 * <code>
-	 * echo $this->Html->icon('icon-ok icon-white');
+	 * echo $this->Html->icon('fa-home');
 	 * </code>
 	 * <code>
-	 * echo $this->Html->icon(array('icon-ok', 'icon-white'));
+	 * echo $this->Html->icon(array('fa-home', 'fa-fw'));
 	 * </code>
 	 *
 	 * Look at {@link http://fortawesome.github.io/Font-Awesome Font Awesome icons}
@@ -241,7 +241,7 @@ class MeHtmlHelper extends HtmlHelper {
 	 *
 	 * You can use {@link http://fortawesome.github.io/Font-Awesome Font Awesome icons}. For example:
 	 * <code>
-	 * echo $this->Html->link('my link', 'http://site.com', array('icon' => 'icon-search'));
+	 * echo $this->Html->link('my link', 'http://site.com', array('icon' => 'fa-search'));
 	 * </code>
 	 * @param string $title Link title
 	 * @param mixed $url Cake-relative URL, array of URL parameters or external URL (starts with http://)
@@ -281,7 +281,7 @@ class MeHtmlHelper extends HtmlHelper {
 	 *
 	 * You can use {@link http://fortawesome.github.io/Font-Awesome Font Awesome icons}. For example:
 	 * <code>
-	 * echo $this->Html->linkButton('my link', 'http://site.com', array('icon' => 'icon-search'));
+	 * echo $this->Html->linkButton('my link', 'http://site.com', array('icon' => 'fa-search'));
 	 * </code>
 	 * @param string $title Button title
 	 * @param mixed $url Cake-relative URL, array of URL parameters or external URL
@@ -299,7 +299,7 @@ class MeHtmlHelper extends HtmlHelper {
 		$options['escape'] = empty($options['escape']) ? false : $options['escape'];
 
 		//Adds the caret icon to the title
-		$title .= '&nbsp;'.$this->icon('icon-caret-down');
+		$title .= '&nbsp;'.$this->icon('fa-caret-down');
 
 		return $this->link($title, $url, $options);
 	}

@@ -285,8 +285,8 @@ class MeFormHelper extends FormHelper {
 		//"type" must be "submit"
 		$options['type'] = 'submit';
 
-		//"icon" option default "icon-ok icon-white"
-		$options['icon'] = !isset($options['icon']) ? 'icon-ok icon-white' : $options['icon'];
+		//"icon" option default "fa-check"
+		$options['icon'] = !isset($options['icon']) ? 'fa-check' : $options['icon'];
 
 		//"class" option default "btn btn-success"
 		$options['class'] = !isset($options['class']) ? 'btn btn-success' : $this->Html->cleanAttribute($options['class'].' btn');
