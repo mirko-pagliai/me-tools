@@ -195,7 +195,7 @@ class MeHtmlHelper extends HtmlHelper {
 		if(is_array($icon))
 			$icon = implode(' ', $icon);
 		
-		return '<i class="'.$this->cleanAttribute($icon).'"></i> ';
+		return '<i class="'.$this->cleanAttribute('fa '.$icon).'"></i> ';
 	}
 	
 	/**
