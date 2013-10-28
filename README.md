@@ -29,7 +29,7 @@ MeTools uses different libraries or scripts:
 - JQuery 1.10.2 and 2.0.3 ([site](http://jquery.com));
 - Bootstrap 3.0.0 ([site](http://getbootstrap.com));
 - Thumber 0.5.6 ([site](https://code.google.com/p/phpthumbmaker));
-- Font Awesome 4.0.0 ([site](http://fortawesome.github.com/Font-Awesome));
+- Font Awesome 4.0.1 ([site](http://fortawesome.github.com/Font-Awesome));
 - PHP Markdown 1.3 ([site](http://michelf.ca/projects/php-markdown));
 - reCAPTCHA PHP library 1.11 ([site](https://developers.google.com/recaptcha/docs/php));
 - Datepicker for Bootstrap 1.2.0 by Andrew Rowls ([site](http://eternicode.github.io/bootstrap-datepicker));
