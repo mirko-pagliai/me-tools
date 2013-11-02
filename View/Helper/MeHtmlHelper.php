@@ -410,7 +410,7 @@ class MeHtmlHelper extends HtmlHelper {
 		//If it's a miniature
 		if(!empty($options['width']) || !empty($options['height'])) {
 			$path = $this->url(am(
-				array('controller' => 'thumbs', 'action' => 'view', 'plugin' => 'me_tools', 'admin' => false), 
+				array('controller' => 'thumbs', 'action' => 'thumb', 'plugin' => 'me_tools', 'admin' => false), 
 				explode('/', $path),
 				array('?' => array('w' => $options['width'], 'h' => $options['height']))
 			), true);
