@@ -95,9 +95,6 @@ class ThumbsController extends MeToolsAppController {
 			case 'image/gif':
 				$src = imagecreatefromgif($this->file);
 				break;
-			case 'image/bmp':
-				$src = imagecreatefromwbmp($this->file);
-				break;
 			default:
 				throw new NotFoundException(__d('me_tools', 'Invalid mimetype'));
 				break;
@@ -124,9 +121,6 @@ class ThumbsController extends MeToolsAppController {
 				break;
 			case 'image/gif':
 				imagegif($thumb, $target);
-				break;
-			case 'image/bmp':
-				imagewbmp($thumb, $target);
 				break;
 			default:
 				throw new NotFoundException(__d('me_tools', 'Invalid mimetype'));
