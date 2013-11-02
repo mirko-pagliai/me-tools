@@ -104,6 +104,13 @@ class ThumbsController extends MeToolsAppController {
 		}
 		
 		$thumb = imagecreatetruecolor($this->info['finalWidth'], $this->info['finalHeight']);
+		
+		//Transparency for png images
+		if($this->info['mime']==='image/png') {
+			imagealphablending($thumb, false);
+			imagesavealpha($thumb, true);
+		}
+		
 		imagecopyresampled($thumb, $src, 0, 0, 0, 0, $this->info['finalWidth'], $this->info['finalHeight'], $this->info['width'], $this->info['height']); 
 		
 		$target = is_writable(dirname($this->thumb)) ? $this->thumb : null;
