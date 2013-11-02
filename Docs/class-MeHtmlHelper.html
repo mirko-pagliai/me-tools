@@ -7,7 +7,7 @@
 	<title>Class MeHtmlHelper | MeTools</title>
 
 	<script type="text/javascript" src="resources/combined.js?394153670"></script>
-	<script type="text/javascript" src="elementlist.js?1221040133"></script>
+	<script type="text/javascript" src="elementlist.js?2044502625"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360" />
 
 </head>
@@ -55,7 +55,6 @@
 				<li class="active"><a href="class-MeHtmlHelper.html">MeHtmlHelper</a></li>
 				<li><a href="class-MePaginatorHelper.html">MePaginatorHelper</a></li>
 				<li><a href="class-RecaptchaHelper.html">RecaptchaHelper</a></li>
-				<li><a href="class-ThumbHelper.html">ThumbHelper</a></li>
 			</ul>
 
 
@@ -178,7 +177,7 @@ HtmlHelper
 href="mailto:mirko.pagliai&#64;gmail.com">mirko.pagliai&#64;<!---->gmail.com</a>&gt;<br />
 				<b>Link:</b>
 				<a href="http://git.novatlantis.it">Nova Atlantis Ltd</a><br />
-		<b>Located at</b> <a href="source-class-MeHtmlHelper.html#4-401" title="Go to source code">View/Helper/MeHtmlHelper.php</a><br />
+		<b>Located at</b> <a href="source-class-MeHtmlHelper.html#4-434" title="Go to source code">View/Helper/MeHtmlHelper.php</a><br />
 	</div>
 
 
@@ -263,7 +262,7 @@ class="php-quote">'my link'</span>, <span
 class="php-quote">'http://site.com'</span>, <span
 class="php-keyword1">array</span>(<span
 class="php-quote">'icon'</span> =&gt; <span
-class="php-quote">'icon-search'</span>));
+class="php-quote">'fa-search'</span>));
 </pre>
 
 
@@ -497,7 +496,7 @@ class="php-quote">'/'</span>, <span class="php-keyword1">array</span>(<span
 class="php-quote">'text'</span> =&gt; <span
 class="php-quote">'Homepage'</span>, <span
 class="php-quote">'icon'</span> =&gt; <span
-class="php-quote">'icon-home'</span>));
+class="php-quote">'fa-home'</span>));
 </pre>
 
 
@@ -554,7 +553,7 @@ class="php-keyword1">null</span>, <span class="php-keyword1">array</span>(<span
 class="php-quote">'text'</span> =&gt; <span
 class="php-quote">'Homepage'</span>, <span
 class="php-quote">'icon'</span> =&gt; <span
-class="php-quote">'icon-home'</span>));
+class="php-quote">'fa-home'</span>));
 </pre>
 
 <p>Note that with Bootstrap 3 you don't need to set separators. Separators are
@@ -599,28 +598,28 @@ and "icon"</dd>
 
 		<div class="description short">
 			
-<p>Returns an icon (<i>Glyphicons</i> or <i>Font Awesome icons</i>)</p>
+<p>Returns an icon (<i>Font Awesome icons</i>)</p>
 
 		</div>
 
 		<div class="description detailed hidden">
 			
-<p>Returns an icon (<i>Glyphicons</i> or <i>Font Awesome icons</i>)</p>
+<p>Returns an icon (<i>Font Awesome icons</i>)</p>
 
 <p>Examples:</p>
 
 <pre>
 <span class="php-keyword1">echo</span> <span
 class="php-var">$this</span>-&gt;Html-&gt;icon(<span
-class="php-quote">'icon-ok icon-white'</span>);
+class="php-quote">'fa-home'</span>);
 </pre>
 
 <pre>
 <span class="php-keyword1">echo</span> <span
 class="php-var">$this</span>-&gt;Html-&gt;icon(<span
 class="php-keyword1">array</span>(<span
-class="php-quote">'icon-ok'</span>, <span
-class="php-quote">'icon-white'</span>));
+class="php-quote">'fa-home'</span>, <span
+class="php-quote">'fa-fw'</span>));
 </pre>
 
 <p>Look at <a href="http://fortawesome.github.io/Font-Awesome">Font Awesome icons</a></p>
@@ -721,7 +720,7 @@ class="php-quote">'icon-white'</span>));
 
 		<td class="name"><div>
 		<a class="anchor" href="#_li">#</a>
-		<code><a href="source-class-MeHtmlHelper.html#217-229" title="Go to source code">li</a>( <span>array <var>$list</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-MeHtmlHelper.html#217-237" title="Go to source code">li</a>( <span>array <var>$list</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
@@ -733,12 +732,15 @@ class="php-quote">'icon-white'</span>));
 			
 <p>Builds elements of a list (<code>li</code>) out of an associative array.</p>
 
+<p>If the element is an array, then the firse value is the element and the
+second value are options.</p>
+
 
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
 					<dt><var>$list</var></dt>
-					<dd><code>array</code><br>$list Elements</dd>
+					<dd><code>array</code><br>$list Elements.</dd>
 					<dt><var>$options</var></dt>
 					<dd><code>array</code><br>$options HTML attributes</dd>
 				</dl></div>
@@ -765,7 +767,7 @@ class="php-quote">'icon-white'</span>));
 
 		<td class="name"><div>
 		<a class="anchor" href="#_link">#</a>
-		<code><a href="source-class-MeHtmlHelper.html#231-260" title="Go to source code">link</a>( <span>string <var>$title</var></span>, <span>mixed <var>$url</var> = <span class="php-quote">'#'</span></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span>, <span>string <var>$confirmMessage</var> = <span class="php-keyword1">false</span></span> )</code>
+		<code><a href="source-class-MeHtmlHelper.html#239-268" title="Go to source code">link</a>( <span>string <var>$title</var></span>, <span>mixed <var>$url</var> = <span class="php-quote">'#'</span></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span>, <span>string <var>$confirmMessage</var> = <span class="php-keyword1">false</span></span> )</code>
 
 		<div class="description short">
 			
@@ -786,7 +788,7 @@ class="php-keyword2">link</span>(<span class="php-quote">'my link'</span>, <span
 class="php-quote">'http://site.com'</span>, <span
 class="php-keyword1">array</span>(<span
 class="php-quote">'icon'</span> =&gt; <span
-class="php-quote">'icon-search'</span>));
+class="php-quote">'fa-search'</span>));
 </pre>
 
 
@@ -826,7 +828,7 @@ http://)</dd>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_linkButton">#</a>
-		<code><a href="source-class-MeHtmlHelper.html#262-268" title="Go to source code">linkButton</a>( )</code>
+		<code><a href="source-class-MeHtmlHelper.html#270-276" title="Go to source code">linkButton</a>( )</code>
 
 		<div class="description short">
 			
@@ -859,7 +861,7 @@ http://)</dd>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_linkDropdown">#</a>
-		<code><a href="source-class-MeHtmlHelper.html#270-297" title="Go to source code">linkDropdown</a>( <span>string <var>$title</var></span>, <span>mixed <var>$url</var> = <span class="php-quote">'#'</span></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-MeHtmlHelper.html#278-305" title="Go to source code">linkDropdown</a>( <span>string <var>$title</var></span>, <span>mixed <var>$url</var> = <span class="php-quote">'#'</span></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
@@ -880,7 +882,7 @@ class="php-quote">'my link'</span>, <span
 class="php-quote">'http://site.com'</span>, <span
 class="php-keyword1">array</span>(<span
 class="php-quote">'icon'</span> =&gt; <span
-class="php-quote">'icon-search'</span>));
+class="php-quote">'fa-search'</span>));
 </pre>
 
 
@@ -917,7 +919,7 @@ class="php-quote">'icon-search'</span>));
 
 		<td class="name"><div>
 		<a class="anchor" href="#_meta">#</a>
-		<code><a href="source-class-MeHtmlHelper.html#299-316" title="Go to source code">meta</a>( <span>string <var>$type</var></span>, <span>mixed <var>$url</var> = <span class="php-keyword1">null</span></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-MeHtmlHelper.html#307-324" title="Go to source code">meta</a>( <span>string <var>$type</var></span>, <span>mixed <var>$url</var> = <span class="php-keyword1">null</span></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
@@ -976,7 +978,7 @@ class="php-quote">'noindex'</span>));
 
 		<td class="name"><div>
 		<a class="anchor" href="#_ol">#</a>
-		<code><a href="source-class-MeHtmlHelper.html#318-327" title="Go to source code">ol</a>( <span>array <var>$list</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span>, <span>array <var>$itemOptions</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-MeHtmlHelper.html#326-335" title="Go to source code">ol</a>( <span>array <var>$list</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span>, <span>array <var>$itemOptions</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
@@ -1024,7 +1026,7 @@ Rewrites <i>$this-&gt;Html-&gt;nestedList()</i></p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_script">#</a>
-		<code><a href="source-class-MeHtmlHelper.html#329-342" title="Go to source code">script</a>( <span>mixed <var>$url</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-MeHtmlHelper.html#337-350" title="Go to source code">script</a>( <span>mixed <var>$url</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
@@ -1072,7 +1074,7 @@ and the file has been included before<br />
 
 		<td class="name"><div>
 		<a class="anchor" href="#_scriptBlock">#</a>
-		<code><a href="source-class-MeHtmlHelper.html#344-355" title="Go to source code">scriptBlock</a>( <span>string <var>$code</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-MeHtmlHelper.html#352-363" title="Go to source code">scriptBlock</a>( <span>string <var>$code</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
@@ -1118,7 +1120,7 @@ and the file has been included before<br />
 
 		<td class="name"><div>
 		<a class="anchor" href="#_scriptEnd">#</a>
-		<code><a href="source-class-MeHtmlHelper.html#357-363" title="Go to source code">scriptEnd</a>( )</code>
+		<code><a href="source-class-MeHtmlHelper.html#365-371" title="Go to source code">scriptEnd</a>( )</code>
 
 		<div class="description short">
 			
@@ -1155,7 +1157,7 @@ and the file has been included before<br />
 
 		<td class="name"><div>
 		<a class="anchor" href="#_scriptStart">#</a>
-		<code><a href="source-class-MeHtmlHelper.html#365-375" title="Go to source code">scriptStart</a>( <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-MeHtmlHelper.html#373-383" title="Go to source code">scriptStart</a>( <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
@@ -1197,7 +1199,7 @@ and the file has been included before<br />
 
 		<td class="name"><div>
 		<a class="anchor" href="#_tag">#</a>
-		<code><a href="source-class-MeHtmlHelper.html#377-389" title="Go to source code">tag</a>( <span>string <var>$name</var></span>, <span>string <var>$text</var> = <span class="php-keyword1">null</span></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-MeHtmlHelper.html#385-397" title="Go to source code">tag</a>( <span>string <var>$name</var></span>, <span>string <var>$text</var> = <span class="php-keyword1">null</span></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
@@ -1236,6 +1238,52 @@ and the file has been included before<br />
 		</div>
 		</div></td>
 	</tr>
+	<tr data-order="thumb" id="_thumb">
+
+		<td class="attributes"><code>
+			 public 
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_thumb">#</a>
+		<code><a href="source-class-MeHtmlHelper.html#399-422" title="Go to source code">thumb</a>( <span>string <var>$path</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
+
+		<div class="description short">
+			
+<p>Creates (or gets, if it already exists) a thumb and returns the html code.
+Uses the <i>$this-&gt;image()</i> method</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Creates (or gets, if it already exists) a thumb and returns the html code.
+Uses the <i>$this-&gt;image()</i> method</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$path</var></dt>
+					<dd><code>string</code><br>$path Image path (relative to the webroot)</dd>
+					<dt><var>$options</var></dt>
+					<dd><code>array</code><br>$options HTML attributes</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>string</code><br>Html, tag element<br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
 	<tr data-order="ul" id="_ul">
 
 		<td class="attributes"><code>
@@ -1247,7 +1295,7 @@ and the file has been included before<br />
 
 		<td class="name"><div>
 		<a class="anchor" href="#_ul">#</a>
-		<code><a href="source-class-MeHtmlHelper.html#391-400" title="Go to source code">ul</a>( <span>array <var>$list</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span>, <span>array <var>$itemOptions</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-MeHtmlHelper.html#424-433" title="Go to source code">ul</a>( <span>array <var>$list</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span>, <span>array <var>$itemOptions</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
