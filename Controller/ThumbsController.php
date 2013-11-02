@@ -6,7 +6,7 @@ App::uses('Folder', 'Utility');
  * `ThumbsController` creates and displays thumbs for images.
  * Images must be located in the webroot (`app/webroot`).
  * 
- * The `view()` action takes the path of the image (relative to the webroot) as a list of arguments. For example:
+ * The `view()` action takes the image path (relative to the webroot) as a list of arguments. For example:
  * <pre>/me_tools/thumbs/view/img/my_pic.jpg</pre>
  * will refer to `app/webroot/img/my_pic.jpg`.
  * 
