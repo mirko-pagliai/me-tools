@@ -397,6 +397,31 @@ class MeHtmlHelper extends HtmlHelper {
 	}
 	
 	/**
+	 * Creates (or gets, if it already exists) a thumb and returns the html code. Uses the <i>$this->image()</i> method
+	 * @param string $path Image path (relative to the webroot)
+	 * @param array $options HTML attributes
+	 * @return string Html, tag element
+	 */
+	public function thumb($path, $options = array()) {
+		//"width" and "height" options default NULL
+		$options['width'] = empty($options['width']) ? null : $options['width'];
+		$options['height'] = empty($options['height']) ? null : $options['height'];
+		
+		//If it's a miniature
+		if(!empty($options['width']) || !empty($options['height'])) {
+			$path = $this->url(am(
+				array('controller' => 'thumbs', 'action' => 'view', 'plugin' => 'me_tools', 'admin' => false), 
+				explode('/', $path),
+				array('?' => array('w' => $options['width'], 'h' => $options['height']))
+			), true);
+			
+			unset($options['width'], $options['height']);
+		}
+		
+		return $this->image($path, $options);
+	}
+	
+	/**
 	 * Builds an unordered list (`ul`) out of an associative array. Rewrites <i>$this->Html->nestedList()</i>
 	 * @param array $list Elements to list
 	 * @param array $options HTML attributes of the list tag
