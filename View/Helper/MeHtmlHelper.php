@@ -397,13 +397,16 @@ class MeHtmlHelper extends HtmlHelper {
 	}
 	
 	/**
-	 * Creates (or gets, if it already exists) a thumb and returns the html code. Uses the <i>$this->image()</i> method
+	 * Creates (or gets, if it already exists) an image thumbnail and returns the html code. Uses the <i>$this->image()</i> method
+	 * 
+	 * To get the thumb, you need to use the "width" and/or the "height" option. 
+	 * For square thumbs, you need to use the "side" option.
 	 * @param string $path Image path (relative to the webroot)
 	 * @param array $options HTML attributes
 	 * @return string Html, tag element
 	 */
 	public function thumb($path, $options = array()) {
-		//If the side is defined, then the width and height are null (we don't need these)
+		//If the side is defined, then the width and height are NULL (we don't need these)
 		if($options['side'] = empty($options['side']) ? null : $options['side'])
 			$options['width'] = $options['height'] = null;
 		else {

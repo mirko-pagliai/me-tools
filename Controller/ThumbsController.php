@@ -10,13 +10,19 @@ App::uses('Folder', 'Utility');
  * <pre>/me_tools/thumbs/thumb/img/my_pic.jpg</pre>
  * will refer to `app/webroot/img/my_pic.jpg`.
  * 
- * It takes the maximum width and/or the maximum height as query string arguments. For example:
+ * It takes the maximum width and/or the maximum height as query string parameters ("w" and "h"). 
+ * For example:
  * <pre>/me_tools/thumbs/thumb/img/my_pic.jpg?w=150</pre>
  * This will create a thumb with a maximum width of 150px.
  * <pre>/me_tools/thumbs/thumb/img/my_pic.jpg?w=150&h=100</pre>
  * This will create a thumb with a maximum width of 150px and a maximux height of 100px.
  * 
- * It doesn't just show the thumb, but it creates a real thumb in the filesystem, which can be used later 
+ * You can also create square thumbs, it's sufficient to indicate square side in the query string ("s" parameters).
+ * For example:
+ * <pre>/me_tools/thumbs/thumb/img/my_pic.jpg?s=150</pre>
+ * With square thumbs, the initial image will be cut off if it is rectangular.
+ * 
+ * `ThumbsController` doesn't just show the thumb, but it creates a real thumb in the filesystem, which can be used later 
  * when the same thumbs will be required (as if it were a cache). If the directory in which the image is located 
  * is writable, it creates the thumb inside the sub-directory `.thumbs` (which is also created, if not already existing). 
  * 
