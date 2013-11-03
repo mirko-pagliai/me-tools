@@ -403,19 +403,23 @@ class MeHtmlHelper extends HtmlHelper {
 	 * @return string Html, tag element
 	 */
 	public function thumb($path, $options = array()) {
-		//"width" and "height" options default NULL
-		$options['width'] = empty($options['width']) ? null : $options['width'];
-		$options['height'] = empty($options['height']) ? null : $options['height'];
+		//If the side is defined, then the width and height are null (we don't need these)
+		if($options['side'] = empty($options['side']) ? null : $options['side'])
+			$options['width'] = $options['height'] = null;
+		else {
+			$options['width'] = empty($options['width']) ? null : $options['width'];
+			$options['height'] = empty($options['height']) ? null : $options['height'];
+		}
 		
 		//If it's a miniature
-		if(!empty($options['width']) || !empty($options['height'])) {
+		if($options['side'] || $options['width'] || $options['height']) {
 			$path = $this->url(am(
 				array('controller' => 'thumbs', 'action' => 'thumb', 'plugin' => 'me_tools', 'admin' => false), 
 				explode('/', $path),
-				array('?' => array('w' => $options['width'], 'h' => $options['height']))
+				array('?' => array('s' => $options['side'], 'w' => $options['width'], 'h' => $options['height']))
 			), true);
 			
-			unset($options['width'], $options['height']);
+			unset($options['side'], $options['width'], $options['height']);
 		}
 		
 		return $this->image($path, $options);
