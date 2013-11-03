@@ -74,7 +74,7 @@ class ThumbsController extends MeToolsAppController {
 	 * @var string Thumb path
 	 */
 	protected $thumb = null;
-
+	
 	/**
 	 * Creates a thumb.
 	 * It will be called by the `thumb()` method, if it's necessary to create a thumb.
@@ -108,8 +108,8 @@ class ThumbsController extends MeToolsAppController {
 			imagesavealpha($thumb, true);
 		}
 		
-		imagecopyresampled($thumb, $src, 0, 0, 0, 0, $this->info['finalWidth'], $this->info['finalHeight'], $this->info['width'], $this->info['height']); 
-		
+		imagecopyresampled($thumb, $src, 0, 0, $this->info['x'], $this->info['y'], $this->info['finalWidth'], $this->info['finalHeight'], $this->info['width'], $this->info['height']); 
+
 		$target = is_writable(dirname($this->thumb)) ? $this->thumb : null;
 		
 		switch($this->info['mime']) {
@@ -143,14 +143,30 @@ class ThumbsController extends MeToolsAppController {
 			'mime'			=> $info['mime'],
 			'width'			=> $info[0],
 			'height'		=> $info[1],
+			'x'				=> 0,
+			'y'				=> 0,
 			'maxWidth'		=> (int)$this->request->query('w'),
 			'maxHeight'		=> (int)$this->request->query('h'),
+			'side'			=> (int)$this->request->query('s'),
 			'finalWidth'	=> 0,
 			'finalHeight'	=> 0
 		);
 		
-		//If the maximum width and the maximum height are defined
-		if($this->info['maxWidth'] && $this->info['maxHeight']) {
+		//If the side (for square thumbs) is defined
+		if($this->info['side']) {
+			if($this->info['width'] < $this->info['height']) {
+				$this->info['y'] = floor(($this->info['height']-$this->info['width'])/2);
+				$this->info['height'] = $this->info['width'];
+			}
+			else {
+				$this->info['x'] = floor(($this->info['width']-$this->info['height'])/2);
+				$this->info['width'] = $this->info['height'];
+			}
+			
+			$finalWidth = $finalHeight = $this->info['side'];
+		}
+		//Else, if the maximum width and the maximum height are defined
+		elseif($this->info['maxWidth'] && $this->info['maxHeight']) {
 			//Tries to get final sizes from the width
 			$finalWidth = $this->info['width'] * $this->info['maxHeight'] / $this->info['height'];
 			
@@ -202,10 +218,9 @@ class ThumbsController extends MeToolsAppController {
 		
 		header("Content-type: ".$this->info['mime']);
 		
-		if(!empty($this->info['finalWidth']) && !empty($this->info['finalHeight'])) {			
+		if(!empty($this->info['finalWidth']) && !empty($this->info['finalHeight'])) {
 			if(!fileExistsinPath($this->thumb))
 				$this->__createThumb();
-			
 			readfile($this->thumb);
 		}
 		else
