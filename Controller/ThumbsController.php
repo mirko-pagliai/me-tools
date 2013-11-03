@@ -141,6 +141,7 @@ class ThumbsController extends MeToolsAppController {
 		
 		$this->info = array(
 			'mime'			=> $info['mime'],
+			'extension'		=> pathinfo($this->file, PATHINFO_EXTENSION),
 			'width'			=> $info[0],
 			'height'		=> $info[1],
 			'x'				=> 0,
@@ -152,18 +153,14 @@ class ThumbsController extends MeToolsAppController {
 			'finalHeight'	=> 0
 		);
 		
+		$finalWidth = $finalHeight = 0;
+		
 		//If the side (for square thumbs) is defined
-		if($this->info['side']) {
-			if($this->info['width'] < $this->info['height']) {
-				$this->info['y'] = floor(($this->info['height']-$this->info['width'])/2);
-				$this->info['height'] = $this->info['width'];
-			}
-			else {
-				$this->info['x'] = floor(($this->info['width']-$this->info['height'])/2);
-				$this->info['width'] = $this->info['height'];
-			}
-			
-			$finalWidth = $finalHeight = $this->info['side'];
+		if($finalWidth = $finalHeight = $this->info['side']) {
+			if($this->info['width'] < $this->info['height'])
+				$this->info['y'] = floor(($this->info['height'] - ($this->info['height'] = $this->info['width'])) / 2);
+			else
+				$this->info['x'] = floor(($this->info['width'] - ($this->info['width'] = $this->info['height'])) / 2);
 		}
 		//Else, if the maximum width and the maximum height are defined
 		elseif($this->info['maxWidth'] && $this->info['maxHeight']) {
@@ -171,30 +168,24 @@ class ThumbsController extends MeToolsAppController {
 			$finalWidth = $this->info['width'] * $this->info['maxHeight'] / $this->info['height'];
 			
 			//If the final width is greater than the maximum width, get final sizes from the final height
-			if($finalWidth > $this->info['maxWidth']) {
-				$finalHeight = $this->info['height'] * $this->info['maxWidth'] / $this->info['width'];
-				$finalWidth = $this->info['maxWidth'];
-			}
+			if($finalWidth > $this->info['maxWidth'])
+				$finalHeight = $this->info['height'] * ($finalWidth = $this->info['maxWidth']) / $this->info['width'];
 			//Else, the final height is the maximum height
 			else
 				$finalHeight = $this->info['maxHeight'];
 		}
 		//Else, if only the maximum width is defined
-		elseif($this->info['maxWidth']) {
-			$finalWidth = $this->info['maxWidth'];
-			$finalHeight = $this->info['height'] * $this->info['maxWidth'] / $this->info['width'];
-		}
+		elseif($this->info['maxWidth'])
+			$finalHeight = $this->info['height'] * ($finalWidth = $this->info['maxWidth']) / $this->info['width'];
 		//Else, if only the maximum height is defined
-		elseif($this->info['maxHeight']) {
-			$finalHeight = $this->info['maxHeight'];
-			$finalWidth = $this->info['width'] * $this->info['maxHeight'] / $this->info['height'];
-		}
+		elseif($this->info['maxHeight']) 
+			$finalWidth = $this->info['width'] * ($finalHeight = $this->info['maxHeight']) / $this->info['height'];
 		
 		//If final sizes are defined and are lowen than initial sizes
-		if(!empty($finalWidth) && !empty($finalHeight) && ($finalWidth < $this->info['width'] || $finalHeight < $this->info['height'])) {
+		if($finalWidth && $finalHeight && ($finalWidth < $this->info['width'] || $finalHeight < $this->info['height'])) {
 			$this->info['finalWidth'] = (int)floor($finalWidth);
 			$this->info['finalHeight'] = (int)floor($finalHeight);
-			$this->thumb = dirname($this->file).DS.'.thumbs'.DS.pathinfo($this->file, PATHINFO_FILENAME).'_'.$this->info['finalWidth'].'x'.$this->info['finalHeight'].'.'.pathinfo($this->file, PATHINFO_EXTENSION);
+			$this->thumb = dirname($this->file).DS.'.thumbs'.DS.pathinfo($this->file, PATHINFO_FILENAME).'_'.$this->info['finalWidth'].'x'.$this->info['finalHeight'].'.'.$this->info['extension'];
 		}
 	}
 	
