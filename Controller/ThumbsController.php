@@ -209,7 +209,7 @@ class ThumbsController extends MeToolsAppController {
 		
 		header("Content-type: ".$this->info['mime']);
 		
-		if(!empty($this->info['finalWidth']) && !empty($this->info['finalHeight'])) {
+		if($this->info['finalWidth'] && $this->info['finalHeight'] && function_exists('gd_info')) {
 			if(!fileExistsinPath($this->thumb))
 				$this->__createThumb();
 			readfile($this->thumb);
