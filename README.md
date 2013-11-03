@@ -9,16 +9,12 @@ MeTools will be maintained under the [Semantic Versioning guidelines](http://sem
 ## Installation
 Extract MeTools in `app/Plugin` and load it in `app/Config/bootstrap.php`:
 
-	CakePlugin::load('MeTools');
+	CakePlugin::load(array('MeTools' => array('routes' => true)));
 
 In your webroot directory, create (or copy) a link to the MeTools webroot:
 
 	cd app/webroot
 	ln -s ../Plugin/MeTools/webroot/ MeTools
-
-Then, create (or copy) a link to *thumber.php*:
-
-	ln -s ../Plugin/MeTools/webroot/thumber.php .
 
 ## Configuration
 Rename `app/Plugin/Config/recaptcha.default.php` in `app/Plugin/Config/recaptcha.php`, so configure Recaptha keys.
