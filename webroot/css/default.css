@@ -135,7 +135,7 @@ th a.desc:after {
 /*			Base forms				*/
 /* -------------------------------- */
 /* Labels for required inputs (add a red asterisk after the label) */
-form.form-base div.required > label:after {
+form.form-base div.required > label:after, form.form-base label.required:after {
 	color: #e32;
 	content: '*';
 	display: inline;
