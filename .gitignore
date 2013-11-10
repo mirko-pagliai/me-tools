@@ -1,1 +1,3 @@
 Config/recaptcha.php
+*.old
+*.old.*
