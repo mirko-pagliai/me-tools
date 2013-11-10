@@ -34,6 +34,28 @@ App::uses('HtmlHelper', 'View/Helper');
  */
 class MeHtmlHelper extends HtmlHelper {
 	/**
+	 * Cleans values to be used as html attributes, removing blank spaces and duplicates. For example:
+	 * <pre>a a b  b c d e e e</pre>
+	 * will become:
+	 * <pre>a b c d e</pre>
+	 * @param mixed $value Value as string or array
+	 * @return string Cleaned value
+	 */
+	public function __clean($value) {
+		$values = func_get_args();
+				
+		if(empty($values))
+			return null;
+			
+		//If an argument is an array, turns it into a string
+		$values = array_map(function($v) { return !is_array($v) ? $v : implode(' ', $v); }, $values);
+		//Turns all arguments into a string
+		$values = implode(' ', $values);
+		
+		return implode(' ', array_unique(array_filter(explode(' ', $values))));
+	}
+	
+	/**
 	 * Get classes for a button
 	 * @param array $option Button options
 	 * @return string Button classes
@@ -44,9 +66,9 @@ class MeHtmlHelper extends HtmlHelper {
 		
 		//If "class" doesn't contain a button style, adds "btn-default" to class
 		if(!preg_match('/btn-[a-z]+/', $class = $option['class']))
-			return self::clean('btn', 'btn-primary', $class);
+			return self::__clean('btn', 'btn-primary', $class);
 		else
-			return self::clean('btn', $class);
+			return self::__clean('btn', $class);
 	}
 	
 	/**
@@ -84,28 +106,6 @@ class MeHtmlHelper extends HtmlHelper {
 		$options['class'] = self::__getBtnClass($options);
 
 		return $this->link($title, $url, $options, $confirmMessage);
-	}
-	
-	/**
-	 * Cleans values to be used as html attributes, removing blank spaces and duplicates. For example:
-	 * <pre>a a b  b c d e e e</pre>
-	 * will become:
-	 * <pre>a b c d e</pre>
-	 * @param mixed $value Value as string or array
-	 * @return string Cleaned value
-	 */
-	public function clean($value) {
-		$values = func_get_args();
-				
-		if(empty($values))
-			return null;
-			
-		//If an argument is an array, turns it into a string
-		$values = array_map(function($v) { return !is_array($v) ? $v : implode(' ', $v); }, $values);
-		//Turns all arguments into a string
-		$values = implode(' ', $values);
-		
-		return implode(' ', array_unique(array_filter(explode(' ', $values))));
 	}
 
 	/**
@@ -173,7 +173,7 @@ class MeHtmlHelper extends HtmlHelper {
 	 */
 	public function getCrumbList($options=array(), $startText=false) {
 		//Adds the "breadcrumb" class
-		$options['class'] = empty($options['class']) ? 'breadcrumb' : self::clean($options['class'].' breadcrumb');
+		$options['class'] = empty($options['class']) ? 'breadcrumb' : self::__clean($options['class'].' breadcrumb');
 
 		//Changes the separator as required by Bootstrap
 		if(!empty($options['separator']))
@@ -197,7 +197,7 @@ class MeHtmlHelper extends HtmlHelper {
 	 * @return string Html, icons
 	 */
 	public function icon($icons=null) {
-		return self::tag('i', ' ', array('class' => self::clean('fa', $icons))).' ';
+		return self::tag('i', ' ', array('class' => self::__clean('fa', $icons))).' ';
 	}
 	
 	/**
@@ -292,7 +292,7 @@ class MeHtmlHelper extends HtmlHelper {
 	 */
 	public function linkDropdown($title, $url='#', $options=array()) {
 		//Adds 'dropdown-toggle' class
-		$options['class'] = empty($options['class']) ? 'dropdown-toggle' : self::clean($options['class'].' dropdown-toggle');
+		$options['class'] = empty($options['class']) ? 'dropdown-toggle' : self::__clean($options['class'].' dropdown-toggle');
 
 		//Adds 'dropdown' data-toggle option
 		$options['data-toggle'] = 'dropdown';
