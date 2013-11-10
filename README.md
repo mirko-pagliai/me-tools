@@ -23,7 +23,7 @@ Rename `app/Plugin/Config/recaptcha.default.php` in `app/Plugin/Config/recaptcha
 MeTools uses different libraries or scripts:
 
 - JQuery 1.10.2 and 2.0.3 ([site](http://jquery.com));
-- Bootstrap 3.0.1 ([site](http://getbootstrap.com));
+- Bootstrap 3.0.2 ([site](http://getbootstrap.com));
 - Font Awesome 4.0.3 ([site](http://fortawesome.github.com/Font-Awesome));
 - PHP Markdown 1.3 ([site](http://michelf.ca/projects/php-markdown));
 - reCAPTCHA PHP library 1.11 ([site](https://developers.google.com/recaptcha/docs/php));
