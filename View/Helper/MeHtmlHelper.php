@@ -32,7 +32,7 @@ App::uses('HtmlHelper', 'View/Helper');
  * @link		http://git.novatlantis.it Nova Atlantis Ltd
  * @package		MeTools.View.Helper
  */
-class MeHtmlHelper extends HtmlHelper {
+class MeHtmlHelper extends HtmlHelper {	
 	/**
 	 * Adds a link to the breadcrumb array. Rewrites <i>$this->Html->addCrumb()</i>
 	 * 
@@ -44,7 +44,7 @@ class MeHtmlHelper extends HtmlHelper {
 	 */
 	public function addCrumb($title, $link=null, $options=null) {
 		//Add the icon to the title, if the "icon" option exists
-		if(!empty($options['icon'])) $title = $this->icon($options['icon']).$title;
+		if(!empty($options['icon'])) $title = self::icon($options['icon']).$title;
 		unset($options['icon']);
 
 		return parent::addCrumb($title, $link, $options);
@@ -72,7 +72,7 @@ class MeHtmlHelper extends HtmlHelper {
 				$options['class'] .= ' btn-default';
 			
 			//Adds "btn" to class
-			$options['class'] = $this->cleanAttribute('btn '.$options['class']);
+			$options['class'] = self::clean('btn '.$options['class']);
 		}
 		//Else, if "class" is empty, "class" will be "btn btn-default"
 		else
@@ -82,20 +82,25 @@ class MeHtmlHelper extends HtmlHelper {
 	}
 	
 	/**
-	 * Cleans values of an html attribute, removing blank spaces and duplicates. For example:
+	 * Cleans values to be used as html attributes, removing blank spaces and duplicates. For example:
 	 * <pre>a a b  b c d e e e</pre>
 	 * will become:
 	 * <pre>a b c d e</pre>
-	 * @param string $value Attribute value
-	 * @return string Cleaned attribute value
+	 * @param mixed $value Value as string or array
+	 * @return string Cleaned value
 	 */
-	public function cleanAttribute($value) {
-		//Trims and removes blank spaces
-		$value = preg_replace('/\s+/', ' ', trim($value));
-		//Removes duplicates
-		$value = implode(' ', array_unique(explode(' ', $value)));
-
-		return $value;
+	public function clean($value) {
+		$values = func_get_args();
+				
+		if(empty($values))
+			return null;
+			
+		//If an argument is an array, turns it into a string
+		$values = array_map(function($v) { return !is_array($v) ? $v : implode(' ', $v); }, $values);
+		//Turns all arguments into a string
+		$values = implode(' ', $values);
+		
+		return implode(' ', array_unique(array_filter(explode(' ', $values))));
 	}
 
 	/**
@@ -163,7 +168,7 @@ class MeHtmlHelper extends HtmlHelper {
 	 */
 	public function getCrumbList($options=array(), $startText=false) {
 		//Adds the "breadcrumb" class
-		$options['class'] = empty($options['class']) ? 'breadcrumb' : $this->cleanAttribute($options['class'].' breadcrumb');
+		$options['class'] = empty($options['class']) ? 'breadcrumb' : self::clean($options['class'].' breadcrumb');
 
 		//Changes the separator as required by Bootstrap
 		if(!empty($options['separator']))
@@ -174,28 +179,20 @@ class MeHtmlHelper extends HtmlHelper {
 
 		return parent::getCrumbList($options, $startText);
 	}
-
+	
 	/**
-	 * Returns an icon (<i>Font Awesome icons</i>)
+	 * Returns an icon.
 	 *
 	 * Examples:
-	 * <code>
-	 * echo $this->Html->icon('fa-home');
-	 * </code>
-	 * <code>
-	 * echo $this->Html->icon(array('fa-home', 'fa-fw'));
-	 * </code>
+	 * <code>echo $this->Html->icon('fa-home');</code>
+	 * <code>echo $this->Html->icon(array('fa-home', 'fa-fw'));</code>
 	 *
 	 * Look at {@link http://fortawesome.github.io/Font-Awesome Font Awesome icons}
-	 * @param array $icon Icon or icons as string or an array of icons
-	 * @return string Html, icon
+	 * @param mixed $icon Icon or icons as string or array
+	 * @return string Html, icons
 	 */
-	public function icon($icon=null) {
-		//If array, implodes
-		if(is_array($icon))
-			$icon = implode(' ', $icon);
-		
-		return '<i class="'.$this->cleanAttribute('fa '.$icon).'"></i> ';
+	public function icon($icons=null) {
+		return self::tag('i', ' ', array('class' => self::clean('fa', $icons))).' ';
 	}
 	
 	/**
@@ -251,7 +248,7 @@ class MeHtmlHelper extends HtmlHelper {
 	 */
 	public function link($title, $url='#', $options=array(), $confirmMessage=false) {
 		//Adds an icon to the title
-		if(!empty($options['icon'])) $title = $this->icon($options['icon']).$title;
+		if(!empty($options['icon'])) $title = self::icon($options['icon']).$title;
 		unset($options['icon']);
 		
 		//"escape" option default FALSE
@@ -290,7 +287,7 @@ class MeHtmlHelper extends HtmlHelper {
 	 */
 	public function linkDropdown($title, $url='#', $options=array()) {
 		//Adds 'btn' and 'dropdown-toggle' classes
-		$options['class'] = empty($options['class']) ? 'dropdown-toggle' : $this->cleanAttribute($options['class'].' dropdown-toggle');
+		$options['class'] = empty($options['class']) ? 'dropdown-toggle' : self::clean($options['class'].' dropdown-toggle');
 
 		//Adds 'dropdown' data-toggle option
 		$options['data-toggle'] = 'dropdown';
@@ -299,7 +296,7 @@ class MeHtmlHelper extends HtmlHelper {
 		$options['escape'] = empty($options['escape']) ? false : $options['escape'];
 
 		//Adds the caret icon to the title
-		$title .= '&nbsp;'.$this->icon('fa-caret-down');
+		$title .= '&nbsp;'.self::icon('fa-caret-down');
 
 		return $this->link($title, $url, $options);
 	}
