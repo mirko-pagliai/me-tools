@@ -32,7 +32,23 @@ App::uses('HtmlHelper', 'View/Helper');
  * @link		http://git.novatlantis.it Nova Atlantis Ltd
  * @package		MeTools.View.Helper
  */
-class MeHtmlHelper extends HtmlHelper {	
+class MeHtmlHelper extends HtmlHelper {
+	/**
+	 * Get classes for a button
+	 * @param array $option Button options
+	 * @return string Button classes
+	 */
+	public function __getBtnClass($option) {
+		if(empty($option['class']))
+			return 'btn btn-primary';
+		
+		//If "class" doesn't contain a button style, adds "btn-default" to class
+		if(!preg_match('/btn-[a-z]+/', $class = $option['class']))
+			return self::clean('btn', 'btn-primary', $class);
+		else
+			return self::clean('btn', $class);
+	}
+	
 	/**
 	 * Adds a link to the breadcrumb array. Rewrites <i>$this->Html->addCrumb()</i>
 	 * 
@@ -65,18 +81,7 @@ class MeHtmlHelper extends HtmlHelper {
 	 * @return string Html, link with the appearance of a button
 	 */
 	public function button($title, $url='#', $options=array(), $confirmMessage=false) {
-		//If "class" is not empty
-		if(!empty($options['class'])) {
-			//If "class" doesn't contain a button style, adds "btn-default" to class
-			if(!preg_match('/btn-/', $options['class']))
-				$options['class'] .= ' btn-default';
-			
-			//Adds "btn" to class
-			$options['class'] = self::clean('btn '.$options['class']);
-		}
-		//Else, if "class" is empty, "class" will be "btn btn-default"
-		else
-			$options['class'] = 'btn btn-default';
+		$options['class'] = self::__getBtnClass($options);
 
 		return $this->link($title, $url, $options, $confirmMessage);
 	}
@@ -286,7 +291,7 @@ class MeHtmlHelper extends HtmlHelper {
 	 * @return string Html, link for dropdown
 	 */
 	public function linkDropdown($title, $url='#', $options=array()) {
-		//Adds 'btn' and 'dropdown-toggle' classes
+		//Adds 'dropdown-toggle' class
 		$options['class'] = empty($options['class']) ? 'dropdown-toggle' : self::clean($options['class'].' dropdown-toggle');
 
 		//Adds 'dropdown' data-toggle option
