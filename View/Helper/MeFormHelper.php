@@ -109,7 +109,7 @@ class MeFormHelper extends FormHelper {
 	public function checkboxList($fieldName, $options = array()) {
 		$buttons = self::button(__d('me_tools', 'Check all'), array('class' => 'checkAll btn-default', 'icon' => 'fa-check-square-o'));
 		$buttons .= self::button(__d('me_tools', 'Uncheck all'), array('class' => 'uncheckAll btn-default', 'icon' => 'fa-minus-square-o'));
-		$buttons = $this->Html->tag('div', $buttons, array('class' => 'checkbox-buttons'));
+		$buttons = $this->Html->div('checkbox-buttons', $buttons);
 		
 		$options['between'] = empty($options['between']) ? $buttons : $button.$options['between'];
 		$options['div']['class'] = empty($options['div']['class']) ? 'checkboxes-list' : $this->Html->__clean('checkboxes-list', $options['div']['class']);
@@ -380,7 +380,7 @@ class MeFormHelper extends FormHelper {
 		
 		$divOptions['class'] = empty($divOptions['class']) ? 'submit' : $this->Html->__clean('submit', $divOptions['class']);
 
-		return $this->Html->tag('div', self::button($caption, $options), $divOptions);
+		return $this->Html->div($divOptions['class'], self::button($caption, $options), $divOptions);
 	}
 	
 	/**
