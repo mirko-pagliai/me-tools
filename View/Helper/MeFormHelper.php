@@ -110,7 +110,7 @@ class MeFormHelper extends FormHelper {
 	public function ckeditor($fieldName, $options=array()) {
 		$options['class'] = empty($options['class']) ? 'wysiwyg' : $this->Html->__clean('wysiwyg', $options['class']);
 		
-		return $this->input($fieldName, am($options, array('label' => FALSE, 'required' => FALSE, 'type' => 'textarea')));
+		return self::input($fieldName, am($options, array('label' => FALSE, 'required' => FALSE, 'type' => 'textarea')));
 	}
 	
 	/**
@@ -157,7 +157,7 @@ class MeFormHelper extends FormHelper {
 	public function datepicker($fieldName, $options=array()) {
 		$options['class'] = empty($options['class']) ? 'datepicker' : $this->Html->__clean('datepicker', $options['class']);
 		
-		return $this->input($fieldName, am($options, array('type' => 'text')));
+		return self::input($fieldName, am($options, array('type' => 'text')));
 	}
 	
 	/**
@@ -186,7 +186,7 @@ class MeFormHelper extends FormHelper {
 	 * 
 	 * It can be useful with the "selected" option, to get a value if this exists or use a default. For example:  
 	 * <code>
-	 * 'selected' => @$this->MeForm->getDefault($this->request->data['User']['group'], 'user')
+	 * 'selected' => @$this->Form->getDefault($this->request->data['User']['group'], 'user')
 	 * </code>
 	 * will set the "selected" option to 
 	 * <pre>$this->request->data['User']['group']</pre>
@@ -208,7 +208,7 @@ class MeFormHelper extends FormHelper {
 	 * @return string Html
 	 */
 	public function input($fieldName, $options = array()) {
-		$type = $this->__getInputType($options);
+		$type = self::__getInputType($options);
 		
 		if(!isset($options['div']) || !empty($options['div'])) {
 			$hasError = !parent::isFieldError($fieldName) ? null : 'has-error';
@@ -383,6 +383,6 @@ class MeFormHelper extends FormHelper {
 
 		$options['div']['class'] = empty($options['div']['class']) ? 'bootstrap-timepicker' : $this->Html->__clean('bootstrap-timepicker', $options['div']['class']);
 
-		return $this->input($fieldName, am($options, array('type' => 'text')));
+		return self::input($fieldName, am($options, array('type' => 'text')));
 	}
 }
