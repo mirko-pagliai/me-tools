@@ -252,6 +252,10 @@ class MeFormHelper extends FormHelper {
 		if(!empty($options) && is_string($options))
 			$options = array('class' => $options);
 		
+		//Adds an icon, if the "icon" option exists
+		$fieldName = empty($options['icon']) ? $fieldName : $this->Html->icon($options['icon']).$fieldName;
+		unset($options['icon']);
+		
 		$options['class'] = empty($options['class']) ? 'control-label' : $this->Html->__clean('control-label', $options['class']);
 		
 		return parent::label($fieldName, $text, $options);
