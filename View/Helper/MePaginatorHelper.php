@@ -57,7 +57,7 @@ class MePaginatorHelper extends PaginatorHelper {
 		$options['tag'] = !empty($options['tag']) ? $options['tag'] : 'li';
 		
 		//"class" disabled option default "disabled"
-		$disabledOptions['class'] = !empty($disabledOptions['class']) ? $this->Html->cleanAttribute($disabledOptions['class']) : 'disabled';
+		$disabledOptions['class'] = !empty($disabledOptions['class']) ? $this->Html->__clean($disabledOptions['class']) : 'disabled';
 		//"disabledTag" disabled option default "a"
 		$disabledOptions['disabledTag'] = !empty($disabledOptions['disabledTag']) ? $disabledOptions['disabledTag'] : 'a';
 		//"tag" disabled option default "li"
@@ -119,7 +119,7 @@ class MePaginatorHelper extends PaginatorHelper {
 	 */
 	public function numbers($options = array()) {
 		//"currentClass" option default "disabled"
-		$options['currentClass'] = !empty($options['currentClass']) ? $this->Html->cleanAttribute($options['currentClass']) : 'active';
+		$options['currentClass'] = !empty($options['currentClass']) ? $this->Html->__clean($options['currentClass']) : 'active';
 		//"currentTag" option default "a"
 		$options['currentTag'] = !empty($options['currentTag']) ? $options['currentTag'] : 'a';
 		//"separator" option default FALSE
