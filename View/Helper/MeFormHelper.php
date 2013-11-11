@@ -64,6 +64,25 @@ class MeFormHelper extends FormHelper {
 		$options = parent::_parseOptions($options);
 		return($options['type']);
 	}
+	
+	/**
+	 * Gets a label text from the label field name
+	 * @param string $fieldName Field name, should be "Modelname.fieldname"
+	 * @return string Label text
+	 */
+	protected function __getLabelText($fieldName = null) {
+		if(strpos($fieldName, '.') !== false) {
+			$fieldElements = explode('.', $fieldName);
+			$text = array_pop($fieldElements);
+		}
+		else
+			$text = $fieldName;
+		
+		if(substr($text, -3) === '_id')
+			$text = substr($text, 0, -3);
+		
+		return __(Inflector::humanize(Inflector::underscore($text)));
+	}
 
 	/**
 	 * Creates a simple button.
@@ -75,7 +94,7 @@ class MeFormHelper extends FormHelper {
 		$options['type'] = empty($options['type']) ? 'button' : $options['type'];
 
 		//Adds an icon, if the "icon" option exists
-		$title = !empty($options['icon']) ? $this->Html->icon($options['icon']).$title : $title;
+		$title = empty($options['icon']) ? $title : $this->Html->icon($options['icon']).$title;
 		unset($options['icon']);
 		
 		return parent::button($title, am($options, array('class' => $this->Html->__getBtnClass($options))));
@@ -251,9 +270,11 @@ class MeFormHelper extends FormHelper {
 	public function label($fieldName = null, $text = null, $options = array()) {
 		if(!empty($options) && is_string($options))
 			$options = array('class' => $options);
+				
+		$text = empty($text) ? self::__getLabelText($fieldName) : $text;
 		
 		//Adds an icon, if the "icon" option exists
-		$fieldName = empty($options['icon']) ? $fieldName : $this->Html->icon($options['icon']).$fieldName;
+		$text = empty($options['icon']) ? $text : $this->Html->icon($options['icon']).$text;
 		unset($options['icon']);
 		
 		$options['class'] = empty($options['class']) ? 'control-label' : $this->Html->__clean('control-label', $options['class']);
