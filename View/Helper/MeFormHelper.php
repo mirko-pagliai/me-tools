@@ -93,7 +93,6 @@ class MeFormHelper extends FormHelper {
 	public function button($title, $options = array()) {
 		$options['type'] = empty($options['type']) ? 'button' : $options['type'];
 
-		//Adds icons, if the "icon" option exists
 		$title = empty($options['icon']) ? $title : $this->Html->icon($options['icon']).$title;
 		unset($options['icon']);
 		
@@ -273,7 +272,6 @@ class MeFormHelper extends FormHelper {
 				
 		$text = empty($text) ? self::__getLabelText($fieldName) : $text;
 		
-		//Adds an icon, if the "icon" option exists
 		$text = empty($options['icon']) ? $text : $this->Html->icon($options['icon']).$text;
 		unset($options['icon']);
 		
