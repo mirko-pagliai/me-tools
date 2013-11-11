@@ -93,77 +93,14 @@
 	box-sizing: border-box;
 }
 
-/* Appended or prepended text to inputs */
-.input-append, .input-prepend {
-	display: inherit;
-	font-size: inherit;
-}
-
-/* Appended text add-on */
-.input-append .add-on:last-of-type, .input-append .btn:last-of-type, .input-append .btn-group:last-of-type > .dropdown-toggle {
-    border-radius: 0 4px 4px 0;
-}
-
 /* Row on grid system */
 .row {
 	margin-bottom: 20px;
 }
 
-/* Tooltips */
-.tooltip-inner {
-	font-size: 14px;
-}
-
 /* Blockquote */
 blockquote {
 	text-align: justify;
-}
-
-/* Radio inputs */
-form input[type="radio"] {
-	line-height: 20px;
-	margin-top: 0;
-	min-height: 20px;
-}
-
-/* Labels after radio inputs */
-form input[type="radio"] + label {
-	display: inline-block;
-	line-height: 20px;
-	margin-left: 5px;
-	min-height: 20px;
-}
-
-/* ---------------------------- */
-/*		Inline forms			*/
-/* ---------------------------- */
-/* Inline form */
-form.form-inline {
-	margin: 0;
-}
-
-/* Inputs and submits wrappers */
-form.form-inline > div.input, form.form-inline div.submit {
-	display: inline-block;
-    margin-right: 10px;
-	vertical-align: top;
-}
-
-/* Labels */
-form.form-inline label {
-	margin: 0 10px 0 0;
-	vertical-align: middle;
-}
-
-/* Labels for checkbox inputs */
-form.form-inline > div.checkbox label {
-	margin: 0;
-}
-
-/* Checkbox inputs */
-form.form-inline input[type="checkbox"] {
-	float: none !important;
-	vertical-align: middle;
 }
 
 /* ---------------------------- */
