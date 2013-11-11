@@ -93,7 +93,7 @@ class MeFormHelper extends FormHelper {
 	public function button($title, $options = array()) {
 		$options['type'] = empty($options['type']) ? 'button' : $options['type'];
 
-		//Adds an icon, if the "icon" option exists
+		//Adds icons, if the "icon" option exists
 		$title = empty($options['icon']) ? $title : $this->Html->icon($options['icon']).$title;
 		unset($options['icon']);
 		
