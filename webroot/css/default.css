@@ -40,9 +40,9 @@ dd pre {
 }
 
 /* Code element */
-code {
+/*code {
 	display: inline-block;
-}
+}*/
 
 /* Cells with the minimum width */
 th.min-width, td.min-width {
@@ -169,4 +169,12 @@ table.cake-sql-log tbody tr:nth-child(2n+1) td {
 /* "Pre" tag scrollable */
 .pre-scrollable {
     overflow-y: auto;
+}
+
+/* -------------------------------- */
+/*			SyntaxHighlighter		*/
+/* -------------------------------- */
+.syntaxhighlighter .container:after, .syntaxhighlighter .container:before {
+	content: normal;
+	display: block;
 }
