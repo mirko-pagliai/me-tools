@@ -86,6 +86,9 @@ class MeFormHelper extends FormHelper {
 
 	/**
 	 * Creates a simple button.
+	 * 
+	 * Note: this method creates a button to be used in a form. To create a link with the appearance of a button, 
+	 * you should use the `button()` method of the `MeHtml` helper.
 	 * @param string $caption The button label or an image
 	 * @param array $options HTML attributes
 	 * @return string Html
@@ -282,8 +285,9 @@ class MeFormHelper extends FormHelper {
 	
 	/**
 	 * Creates a button with a surrounding form that submits via POST.
-	 *
-	 * This method creates a form element. So don't use this method in an already opened form.
+	 * 
+	 * Note: this method creates a button in a form element. So don't use this method in an already opened form. 
+	 * To create a button with the appearance of a link, you should use the `button()` method of the `MeHtml` helper.
 	 * @param string $title Button title
 	 * @param mixed $url Cake-relative URL, array of URL parameters or external URL (starts with http://)
 	 * @param array $options HTML attributes
@@ -303,7 +307,8 @@ class MeFormHelper extends FormHelper {
 	/**
 	 * Creates a link with a surrounding form that submits via POST.
 	 * 
-	 * This method creates a form element. So don't use this method in an already opened form.
+	 * Note: this method creates a link in a form element. So don't use this method in an already opened form. 
+	 * To create a normal link, you should use the `link()` method of the `MeHtml` helper.
 	 * @param string $title Button title
 	 * @param mixed $url Cake-relative URL, array of URL parameters or external URL (starts with http://)
 	 * @param array $options HTML attributes
