@@ -355,7 +355,7 @@ class MeFormHelper extends FormHelper {
 		
 		$divOptions['class'] = empty($divOptions['class']) ? 'submit' : $this->Html->__clean('submit', $divOptions['class']);
 
-		return $this->Html->tag('div', $this->button($caption, $options), $divOptions);
+		return $this->Html->tag('div', self::button($caption, $options), $divOptions);
 	}
 	
 	/**
