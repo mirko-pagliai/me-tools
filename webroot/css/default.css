@@ -116,6 +116,20 @@ th a.desc:after {
 }
 
 /* -------------------------------- */
+/*			Breadcrumbs				*/
+/* -------------------------------- */
+/* Breadcrumbs */
+.breadcrumb {
+	color: #999;
+}
+
+/* Separators (breadcrumbs via `getCrumbs()` method */
+.breadcrumb span.separator {
+	color: #ccc;
+	padding: 0 5px;
+}
+
+/* -------------------------------- */
 /*		Cake Sql debug				*/
 /* -------------------------------- */
 /* Table */
@@ -151,6 +165,11 @@ table.cake-sql-log tbody tr:nth-child(2n+1) td {
 /* -------------------------------- */
 /*			Bootstrap rewrite		*/
 /* -------------------------------- */
+/* Breadcrumb separator */
+.breadcrumb > li + li:before {
+    padding: 0 0 0 5px;
+}
+
 /* Dropdown menus pulled to the right */
 .dropdown-menu.pull-right {
 	text-align: left;
