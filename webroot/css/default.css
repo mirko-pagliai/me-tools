@@ -130,6 +130,28 @@ th a.desc:after {
 }
 
 /* -------------------------------- */
+/*				Tips				*/
+/* -------------------------------- */
+/* Tip wrapper */
+.tip {
+	background: #FFFFAB;
+    border-radius: 5px;
+    color: #444;
+    padding: 10px;
+}
+
+/* Tip title */
+.tip .tip-title {
+	color: #666;
+    margin-top: 0;
+}
+
+/* Tip text */
+.tip .tip-text {
+	margin: 0;
+}
+
+/* -------------------------------- */
 /*		Cake Sql debug				*/
 /* -------------------------------- */
 /* Table */
