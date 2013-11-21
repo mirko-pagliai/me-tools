@@ -87,7 +87,8 @@ class MeHtmlHelper extends HtmlHelper {
 	}
 	
 	/**
-	 * Creates a badge.
+	 * Creates a badge, according to the Bootstrap component.
+	 * Look at {@link http://getbootstrap.com/components/#badges Bootstrap documentation}.
 	 * @param string $text Badge text
 	 * @param array $options HTML attributes
 	 * @return string Html, badge element
@@ -142,7 +143,8 @@ class MeHtmlHelper extends HtmlHelper {
 	public function cssStart() { $this->_View->start('css'); }
 	
 	/**
-	 * Dropdown menu
+	 * Creates a dropdown menu, according to the Bootstrap component.
+	 * Look at {@link http://getbootstrap.com/components/#dropdowns Bootstrap documentation}.
 	 * @param string $title Dropdown link title
 	 * @param array $titleOptions HTML attributes for the link title
 	 * @param array $links Array of links for the menu
@@ -238,7 +240,8 @@ class MeHtmlHelper extends HtmlHelper {
 	}
 	
 	/**
-	 * Create a label.
+	 * Create a label, according to the Bootstrap component.
+	 * Look at {@link http://getbootstrap.com/components/#labels Bootstrap documentation}.
 	 * 
 	 * This method creates only a label element. Not to be confused with the `label()` method of the `MeForm` helper, which 
 	 * creates a label for a form input.
@@ -314,7 +317,10 @@ class MeHtmlHelper extends HtmlHelper {
 	}
 	
 	/**
-	 * Link for a dropdown menu
+	 * Creates a link for a dropdown menu, according to the Bootstrap component.
+	 * Look at {@link http://getbootstrap.com/components/#dropdowns Bootstrap documentation}.
+	 * 
+	 * Note that this method creates only a link. To create a dropdown menu, you should use the `dropdown()` method.
 	 * @param string $title Link title
 	 * @param array $options HTML attributes
 	 * @return string Html, link
