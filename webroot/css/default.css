@@ -151,6 +151,11 @@ th a.desc:after {
 	margin: 0;
 }
 
+/* Tip, code */
+.tip code {
+	background: transparent;
+}
+
 /* -------------------------------- */
 /*		Cake Sql debug				*/
 /* -------------------------------- */
