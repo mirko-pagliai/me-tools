@@ -426,6 +426,24 @@ class MeHtmlHelper extends HtmlHelper {
 	 * @return string Html, tag element
 	 */
 	public function thumb($path, $options = array()) {
+		$path = self::thumbUrl($path, $options);
+		unset($options['side'], $options['width'], $options['height']);
+		
+		return self::image($path, $options);
+	}
+	
+	/**
+	 * Creates (or gets, if it already exists) and returns the url for a thumbnail.
+	 * 
+	 * To get the thumb, you need to use the "width" and/or the "height" option. 
+	 * For square thumbs, you need to use the "side" option.
+	 * 
+	 * Note that to directly display a thumb, you should use the `thumb()` method. This method only returns the url of the thumbnail.
+	 * @param string $path Image path (will be relative to `app/webroot/`)
+	 * @param array $options HTML attributes
+	 * @return string Html, tag element
+	 */
+	public function thumbUrl($path, $options = array()) {
 		//If the side is defined, then the width and height are NULL (we don't need these)
 		if($options['side'] = empty($options['side']) ? null : $options['side'])
 			$options['width'] = $options['height'] = null;
@@ -435,17 +453,14 @@ class MeHtmlHelper extends HtmlHelper {
 		}
 		
 		//If it's a miniature
-		if($options['side'] || $options['width'] || $options['height']) {
+		if($options['side'] || $options['width'] || $options['height'])
 			$path = self::url(am(
 				array('controller' => 'thumbs', 'action' => 'thumb', 'plugin' => 'me_tools', 'admin' => false), 
 				explode('/', $path),
 				array('?' => array('s' => $options['side'], 'w' => $options['width'], 'h' => $options['height']))
 			), true);
-			
-			unset($options['side'], $options['width'], $options['height']);
-		}
 		
-		return self::image($path, $options);
+		return $path;
 	}
 	
 	/**
