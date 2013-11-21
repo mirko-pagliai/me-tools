@@ -449,6 +449,35 @@ class MeHtmlHelper extends HtmlHelper {
 	}
 	
 	/**
+	 * Returns a tip block.
+	 * 
+	 * By default, the tip block will have a title. To change the title, use the "title" option. If the "title" option is 
+	 * an array, you can use "text" and "options" keys. If you don't want to have a title, the "title" option should be `FALSE`.
+	 * @param string $text Tip text
+	 * @param array $options HTML attributes
+	 * @return Html, tip block.
+	 */
+	public function tip($text, $options = array()) {
+		$options['class'] = empty($options['class']) ? 'tip' : self::__clean('tip', $options['class']);
+		
+		if(!isset($options['title']) || $title = $options['title']) {
+			if(empty($title))
+				$title = array('icon' => 'fa-magic', 'text' => __d('me_tools', 'Tip'));
+			elseif(!is_array($title))
+				$title = array('text' => $title);
+			
+			$title['class'] = empty($title['class']) ? 'title' : self::__clean('title', $title['class']);
+			$title['options'] = $title;
+			unset($title['options']['text']);
+			
+			$text = self::tag('h4', $title['text'], $title['options']).self::para('text', $text);
+		}
+		unset($options['title']);
+		
+		return self::div($options['class'], $text, $options);
+	}
+	
+	/**
 	 * Returns an unordered list (`ul`) out of an array.
 	 * @param array $list Element list
 	 * @param array $options HTML attributes of the list tag
