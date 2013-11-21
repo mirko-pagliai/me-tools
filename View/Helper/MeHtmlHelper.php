@@ -224,6 +224,25 @@ class MeHtmlHelper extends HtmlHelper {
 	public function js() {
 		return call_user_func_array(array('MeHtmlHelper', 'script'), func_get_args());
 	}
+	
+	/**
+	 * Create a label.
+	 * 
+	 * This method creates only a label element. Not to be confused with the `label()` method of the `MeForm` helper, which 
+	 * creates a label for a form input.
+	 * 
+	 * Supported type are: `default`, `primary`, `success`, `info`, `warning` and `danger`
+	 * @param string $text Label text
+	 * @param array $options HTML attributes of the list tag
+	 * @param string $type Label type
+	 * @return type
+	 */
+	public function label($text, $options = array(), $type = 'default') {
+		$type = self::__clean('label', 'label-'.$type);
+		$options['class'] = empty($options['class']) ? $type : self::__clean($type, $options['class']);
+		
+		return self::tag('span', $text, $options);
+	}
 
 	/**
 	 * Returns element list (`li`) out of an array.
