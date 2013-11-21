@@ -87,6 +87,18 @@ class MeHtmlHelper extends HtmlHelper {
 	}
 	
 	/**
+	 * Creates a badge.
+	 * @param string $text Badge text
+	 * @param array $options HTML attributes
+	 * @return string Html, badge element
+	 */
+	public function badge($text, $options = array()) {
+		$options['class'] = empty($options['class']) ? 'badge' : self::__clean('badge', $options['class']);
+		
+		return self::tag('span', $text, $options);
+	}
+	
+	/**
 	 * Creates a link with the appearance of a button.
 	 * 
 	 * Note: this method creates a normal link with the appearance of a button.
@@ -235,7 +247,7 @@ class MeHtmlHelper extends HtmlHelper {
 	 * @param string $text Label text
 	 * @param array $options HTML attributes of the list tag
 	 * @param string $type Label type
-	 * @return type
+	 * @return string Html, label
 	 */
 	public function label($text, $options = array(), $type = 'default') {
 		$type = self::__clean('label', 'label-'.$type);
