@@ -403,6 +403,20 @@ class MeHtmlHelper extends HtmlHelper {
 	}
 	
 	/**
+	 * Returns a formatted block tag.
+	 * @param string $name Tag name.
+	 * @param string $text Tag content. If NULL, only a start tag will be printed
+	 * @param array $options HTML attributes
+	 * @return string Html, tag element
+	 */
+	public function tag($name, $text = null, $options = array()) {
+		$text = empty($options['icon']) ? $text : self::icon($options['icon']).$text;
+		unset($options['icon']);
+		
+		return parent::tag($name, $text, $options);
+	}
+	
+	/**
 	 * Creates (or gets, if it already exists) and returns a thumbnail.
 	 * 
 	 * To get the thumb, you need to use the "width" and/or the "height" option. 
