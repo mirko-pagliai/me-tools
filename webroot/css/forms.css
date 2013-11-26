@@ -61,14 +61,9 @@
 
 /* Textareas */
 .form-base textarea {
-	height: 150px;
+	/*height: 150px;*/
 	min-height: 34px;
 	resize: vertical;
-}
-
-/* Textareas with "rows" attribute */
-.form-base textarea[rows] {
-	height: auto;
 }
 
 /* -------------------------------- */
@@ -220,13 +215,18 @@
 	height: 37px;
 }
 
-/* Multiple select inputs */
-.form-base select[multiple], .form-base select[size] {
-    height: auto !important;
+/* Text inputs with "size" attribute and textareas with "cols" attribute */
+.form-base input[size].form-control, .form-base textarea[cols].form-control {
+	width: auto;
+}
+
+/* Textareas without "row" attribute */
+.form-base textarea:not([rows]).form-control {
+	height: 150px;
 }
 
 /* Select inputs */
-.form-base select.form-control, .form-base textarea[cols].form-control {
+.form-base select.form-control {
 	width: auto;
 }
 
