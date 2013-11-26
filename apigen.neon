@@ -7,3 +7,4 @@ main: MeTools
 source: .
 title: "MeTools"
 todo: "yes"
+templateConfig: '/usr/share/php/data/ApiGen/templates/bootstrap/config.neon'
