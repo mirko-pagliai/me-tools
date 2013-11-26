@@ -206,7 +206,7 @@ class MeHtmlHelper extends HtmlHelper {
 	 * <code>echo $this->Html->icon(array('fa-home', 'fa-fw'));</code>
 	 *
 	 * Look at {@link http://fortawesome.github.io/Font-Awesome Font Awesome icons}
-	 * @param mixed $icon Icon or icons as string or array
+	 * @param mixed $icons Icon or icons as string or array
 	 * @return string Html, icons
 	 */
 	public function icon($icons = null) {
@@ -263,7 +263,7 @@ class MeHtmlHelper extends HtmlHelper {
 	 * Returns element list (`li`) out of an array.
 	 * 
 	 * If the element is an array, then the firse value is the element and the second value are options.
-	 * @param array $list Element list
+	 * @param array $elements Element list
 	 * @param array $options HTML attributes of the list tag
 	 * @return string Html, element list
 	 */

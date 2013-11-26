@@ -43,6 +43,8 @@ class RecaptchaHelper extends AppHelper {
 
 	/**
 	 * Construct
+	 * @param View $View The View this helper is being attached to.
+	 * @param array $settings Configuration settings for the helper.
 	 */
 	 public function __construct(View $View, $settings = array()) {
 		//Loads Config/recaptcha.php from MeTools

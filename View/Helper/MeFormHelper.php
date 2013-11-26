@@ -37,9 +37,10 @@ class MeFormHelper extends FormHelper {
 	 */
 	public $helpers = array('Html' => array('className' => 'MeTools.MeHtml'));
 	
-	/*
+	/**
 	 * Property to check if we're working with an inline form.
 	 * It's changed by `create()` and `createInline()`.
+	 * @var bool
 	 */
 	protected $inline = FALSE;
 	
@@ -90,7 +91,7 @@ class MeFormHelper extends FormHelper {
 	 * Note: this method creates a button. 
 	 * To create a POST button, you should use the `postButton()` method.
 	 * Instead, to create a link with the appearance of a button, you should use the `button()` method of the `MeHtml` helper.
-	 * @param string $caption The button label or an image
+	 * @param string $title The button label or an image
 	 * @param array $options HTML attributes
 	 * @return string Html
 	 */
