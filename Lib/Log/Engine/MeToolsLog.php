@@ -23,7 +23,7 @@ App::uses('FileLog', 'Log/Engine');
  * @copyright	Copyright (c) 2013, Mirko Pagliai for Nova Atlantis Ltd
  * @license		http://www.gnu.org/licenses/agpl.txt AGPL License
  * @link		http://git.novatlantis.it Nova Atlantis Ltd
- * @package		MeTools.Lib.Log.Engine
+ * @package		MeTools\Lib\Log\Engine
  */
 class MeToolsLog extends FileLog {
 	/**

@@ -25,7 +25,7 @@ App::uses('PaginatorHelper', 'View/Helper');
  * @copyright	Copyright (c) 2013, Mirko Pagliai for Nova Atlantis Ltd
  * @license		http://www.gnu.org/licenses/agpl.txt AGPL License
  * @link		http://git.novatlantis.it Nova Atlantis Ltd
- * @package		MeTools.View.Helper
+ * @package		MeTools\View\Helper
  */
 class MePaginatorHelper extends PaginatorHelper {
 	/**
