@@ -37,8 +37,7 @@ class MeToolsLog extends FileLog {
 		$request = new CakeRequest(null, false);
 		$ip = $request->clientIp(false);
 		
-		if(!empty($ip))
-			$message .= ' ('.$ip.') ';
+		$message = empty($ip) ? $message : sprintf('%s (%s)', $message, $ip);
 		
 		return parent::write($type, $message);
 	}
