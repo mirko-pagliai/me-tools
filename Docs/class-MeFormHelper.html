@@ -7,7 +7,7 @@
 	<title>Class MeFormHelper | MeTools</title>
 
 	<script type="text/javascript" src="resources/combined.js?394153670"></script>
-	<script type="text/javascript" src="elementlist.js?2044502625"></script>
+	<script type="text/javascript" src="elementlist.js?4211565437"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360" />
 
 </head>
@@ -30,11 +30,20 @@
 				<li class="main"><a href="package-MeTools.Controller.Component.Auth.html">Auth</a>
 						</li>
 							</ul></li></ul></li>
+				<li class="main"><a href="package-MeTools.Lib.html">Lib<span></span></a>
+						<ul>
+				<li class="main"><a href="package-MeTools.Lib.Log.html">Log<span></span></a>
+						<ul>
+				<li class="main"><a href="package-MeTools.Lib.Log.Engine.html">Engine</a>
+						</li>
+							</ul></li></ul></li>
 				<li class="main"><a href="package-MeTools.Model.html">Model<span></span></a>
 						<ul>
 				<li class="main"><a href="package-MeTools.Model.Behavior.html">Behavior</a>
 						</li>
 							</ul></li>
+				<li class="main"><a href="package-MeTools.Utility.html">Utility</a>
+						</li>
 				<li class="active main"><a href="package-MeTools.View.html">View<span></span></a>
 						<ul>
 				<li class="active main"><a href="package-MeTools.View.Helper.html">Helper</a>
@@ -110,6 +119,8 @@
 	
 <p>Provides functionalities for forms.</p>
 
+<p>Rewrites <a href="http://api.cakephp.org/2.4/class-FormHelper.html">FormHelper</a>.</p>
+
 <p>You should use this helper as an alias, for example:</p>
 
 <pre>
@@ -120,24 +131,6 @@ class="php-keyword1">array</span>(<span
 class="php-quote">'className'</span> =&gt; <span
 class="php-quote">'MeTools.MeForm'</span>));
 </pre>
-
-<p>MeFormHelper extends <a href="http://api.cakephp.org/2.4/class-FormHelper.html">FormHelper</a></p>
-
-<p>This file is part of MeTools.</p>
-
-<p>MeTools is free software: you can redistribute it and/or modify it under the
-terms of the GNU Affero General Public License as published by the Free Software
-Foundation, either version 3 of the License, or (at your option) any later
-version.</p>
-
-<p>MeTools is distributed in the hope that it will be useful, but WITHOUT ANY
-WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
-PARTICULAR PURPOSE. See the GNU Affero General Public License for more
-details.</p>
-
-<p>You should have received a copy of the GNU Affero General Public License
-along with MeTools. If not, see &lt;<a
-href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>&gt;.</p>
 
 	</div>
 
@@ -175,15 +168,143 @@ FormHelper
 				<b>Author:</b>
 				Mirko Pagliai &lt;<a
 href="mailto:mirko.pagliai&#64;gmail.com">mirko.pagliai&#64;<!---->gmail.com</a>&gt;<br />
-				<b>Link:</b>
-				<a href="http://git.novatlantis.it">Nova Atlantis Ltd</a><br />
-		<b>Located at</b> <a href="source-class-MeFormHelper.html#4-326" title="Go to source code">View/Helper/MeFormHelper.php</a><br />
+		<b>Located at</b> <a href="source-class-MeFormHelper.html#29-440" title="Go to source code">MeFormHelper.php</a><br />
 	</div>
 
 
 
 	<table class="summary" id="methods">
 	<caption>Methods summary</caption>
+	<tr data-order="__call" id="___call">
+
+		<td class="attributes"><code>
+			 public 
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#___call">#</a>
+		<code><a href="source-class-MeFormHelper.html#53-63" title="Go to source code">__call</a>( <span>string <var>$method</var></span>, <span>array <var>$params</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Missing method handler - implements various simple input types. Is used to
+create inputs of various types.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Missing method handler - implements various simple input types. Is used to
+create inputs of various types.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$method</var></dt>
+					<dd><code>string</code><br>$method Method name/input type to make</dd>
+					<dt><var>$params</var></dt>
+					<dd><code>array</code><br>$params Parameters for the method call</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>string</code><br>Formatted input method<br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="__getInputType" id="___getInputType">
+
+		<td class="attributes"><code>
+			 protected 
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#___getInputType">#</a>
+		<code><a href="source-class-MeFormHelper.html#65-73" title="Go to source code">__getInputType</a>( <span>array <var>$options</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Gets the input type</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Gets the input type</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$options</var></dt>
+					<dd><code>array</code><br>$options Options</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>string</code><br>Type name<br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="__getLabelText" id="___getLabelText">
+
+		<td class="attributes"><code>
+			 protected 
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#___getLabelText">#</a>
+		<code><a href="source-class-MeFormHelper.html#75-92" title="Go to source code">__getLabelText</a>( <span>string <var>$fieldName</var> = <span class="php-keyword1">null</span></span> )</code>
+
+		<div class="description short">
+			
+<p>Gets a label text from the label field name</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Gets a label text from the label field name</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$fieldName</var></dt>
+					<dd><code>string</code><br>$fieldName Field name, should be "Modelname.fieldname"</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>string</code><br>Label text<br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
 	<tr data-order="button" id="_button">
 
 		<td class="attributes"><code>
@@ -195,26 +316,31 @@ href="mailto:mirko.pagliai&#64;gmail.com">mirko.pagliai&#64;<!---->gmail.com</a>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_button">#</a>
-		<code><a href="source-class-MeFormHelper.html#42-63" title="Go to source code">button</a>( <span>string <var>$caption</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-MeFormHelper.html#94-111" title="Go to source code">button</a>( <span>string <var>$title</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
-<p>Creates a simple button. Rewrites <i>$this-&gt;Form-&gt;button()</i></p>
+<p>Creates a button.</p>
 
 		</div>
 
 		<div class="description detailed hidden">
 			
-<p>Creates a simple button. Rewrites <i>$this-&gt;Form-&gt;button()</i></p>
+<p>Creates a button.</p>
+
+<p>Tthis method creates a button. To create a POST button, you should use the
+<code>postButton()</code> method. Instead, to create a link with the appearance
+of a button, you should use the <code>button()</code> method provided by the
+<code>MeHtml</code> helper.</p>
 
 
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
-					<dt><var>$caption</var></dt>
-					<dd><code>string</code><br>$caption The button label or an image</dd>
+					<dt><var>$title</var></dt>
+					<dd><code>string</code><br>$title The button label or an image</dd>
 					<dt><var>$options</var></dt>
-					<dd><code>array</code><br>$options Options</dd>
+					<dd><code>array</code><br>$options HTML attributes</dd>
 				</dl></div>
 
 				<h4>Returns</h4>
@@ -223,6 +349,67 @@ href="mailto:mirko.pagliai&#64;gmail.com">mirko.pagliai&#64;<!---->gmail.com</a>
 				</div>
 
 
+				<h4>See</h4>
+				<div class="list">
+						<code><code><a href="class-MeFormHelper.html#_postButton">MeFormHelper::postButton()</a></code></code>, <code><code><a href="class-MeHtmlHelper.html#_button">MeHtmlHelper::button()</a></code></code><br />
+				</div>
+				<h4>Used by</h4>
+				<div class="list">
+						<code><code><a href="class-MeFormHelper.html#_checkboxList">MeFormHelper::checkboxList()</a></code></code><br>to create buttons to check/uncheck all checkboxes<br />
+						<code><code><a href="class-MeFormHelper.html#_end">MeFormHelper::end()</a></code></code><br>to create the submit button<br />
+						<code><code><a href="class-MeFormHelper.html#_submit">MeFormHelper::submit()</a></code></code><br>to create the submit button<br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="checkboxList" id="_checkboxList">
+
+		<td class="attributes"><code>
+			 public 
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_checkboxList">#</a>
+		<code><a href="source-class-MeFormHelper.html#113-130" title="Go to source code">checkboxList</a>( <span>string <var>$fieldName</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
+
+		<div class="description short">
+			
+<p>Creates a checkbox list with style and buttons to check/uncheck all
+checkboxes.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Creates a checkbox list with style and buttons to check/uncheck all
+checkboxes.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$fieldName</var></dt>
+					<dd><code>string</code><br>$fieldName Field name, should be "Modelname.fieldname"</dd>
+					<dt><var>$options</var></dt>
+					<dd><code>array</code><br>$options HTML attributes</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>string</code><br>Checkbox list as Html<br />
+				</div>
+
+
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-MeFormHelper.html#_button">MeFormHelper::button()</a></code></code><br>to create buttons to check/uncheck all checkboxes<br />
+						<code><code><a href="class-MeFormHelper.html#_input">MeFormHelper::input()</a></code></code><br>to create checkbox inputs<br />
+				</div>
 
 
 		</div>
@@ -239,31 +426,29 @@ href="mailto:mirko.pagliai&#64;gmail.com">mirko.pagliai&#64;<!---->gmail.com</a>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_ckeditor">#</a>
-		<code><a href="source-class-MeFormHelper.html#65-87" title="Go to source code">ckeditor</a>( <span>string <var>$fieldName</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-MeFormHelper.html#132-146" title="Go to source code">ckeditor</a>( <span>string <var>$fieldName</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
-<p>Creates a textarea for CKEditor. It uses the <i>input()</i> method.</p>
+<p>Creates a CKEditor textarea.</p>
 
 		</div>
 
 		<div class="description detailed hidden">
 			
-<p>Creates a textarea for CKEditor. It uses the <i>input()</i> method.</p>
+<p>Creates a CKEditor textarea.</p>
 
-<p>To add the script for CKEditor, you should use the <i>Library</i> helper.</p>
-
-<p>To know the options to use with datepicker, please refer to the
-<code>README</code> file.</p>
+<p>To add the script for CKEditor, you should use the <code>Library</code>
+helper. Please refer to the <code>README</code> file.</p>
 
 
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
 					<dt><var>$fieldName</var></dt>
-					<dd><code>string</code><br>$fieldName Field name. Should be "Modelname.fieldname"</dd>
+					<dd><code>string</code><br>$fieldName Field name, should be "Modelname.fieldname"</dd>
 					<dt><var>$options</var></dt>
-					<dd><code>array</code><br>$options Options</dd>
+					<dd><code>array</code><br>$options HTML attributes</dd>
 				</dl></div>
 
 				<h4>Returns</h4>
@@ -272,6 +457,115 @@ href="mailto:mirko.pagliai&#64;gmail.com">mirko.pagliai&#64;<!---->gmail.com</a>
 				</div>
 
 
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-MeFormHelper.html#_input">MeFormHelper::input()</a></code></code><br>to create the textarea for CKEditor<br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="create" id="_create">
+
+		<td class="attributes"><code>
+			 public 
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_create">#</a>
+		<code><a href="source-class-MeFormHelper.html#148-158" title="Go to source code">create</a>( <span>mixed <var>$model</var> = <span class="php-keyword1">null</span></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
+
+		<div class="description short">
+			
+<p>Returns a form element.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Returns a form element.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$model</var></dt>
+					<dd><code>mixed</code><br>$model The model name for which the form is being defined. If <code>false</code>
+no model is used</dd>
+					<dt><var>$options</var></dt>
+					<dd><code>array</code><br>$options HTML attributes and options</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>string</code><br>An formatted opening FORM tag<br />
+				</div>
+
+
+				<h4>Used by</h4>
+				<div class="list">
+						<code><code><a href="class-MeFormHelper.html#_createInline">MeFormHelper::createInline()</a></code></code><br>to create the form<br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="createInline" id="_createInline">
+
+		<td class="attributes"><code>
+			 public 
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_createInline">#</a>
+		<code><a href="source-class-MeFormHelper.html#160-181" title="Go to source code">createInline</a>( <span>mixed <var>$model</var> = <span class="php-keyword1">null</span></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
+
+		<div class="description short">
+			
+<p>Returns an inline form element.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Returns an inline form element.</p>
+
+<p>Note that by default <code>createInline</code> doesn't display errors. To
+view the errors, however, you must set to TRUE the <code>errorMessage</code> of
+<code>inputDefaults</code>. For example:</p>
+
+<pre>$this-&gt;Form-&gt;createInline('Fake', array('inputDefaults' =&gt; array('errorMessage' =&gt; true)));</pre>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$model</var></dt>
+					<dd><code>mixed</code><br>$model The model name for which the form is being defined. If <code>false</code>
+no model is used</dd>
+					<dt><var>$options</var></dt>
+					<dd><code>array</code><br>$options HTML attributes and options</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>string</code><br>An formatted opening FORM tag<br />
+				</div>
+
+
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-MeFormHelper.html#_create">MeFormHelper::create()</a></code></code><br>to create the form<br />
+						<code><code><a href="class-MeFormHelper.html#$inline">MeFormHelper::<var>$inline</var></a></code></code><br>to mark the form as an inline form<br />
+				</div>
 
 
 		</div>
@@ -288,19 +582,19 @@ href="mailto:mirko.pagliai&#64;gmail.com">mirko.pagliai&#64;<!---->gmail.com</a>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_datepicker">#</a>
-		<code><a href="source-class-MeFormHelper.html#89-104" title="Go to source code">datepicker</a>( <span>string <var>$fieldName</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-MeFormHelper.html#183-196" title="Go to source code">datepicker</a>( <span>string <var>$fieldName</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
-<p>Creates a text input for datepicker. It uses the <i>input()</i> method.</p>
+<p>Creates a datepicker input.</p>
 
 		</div>
 
 		<div class="description detailed hidden">
 			
-<p>Creates a text input for datepicker. It uses the <i>input()</i> method.</p>
+<p>Creates a datepicker input.</p>
 
-<p>To add the script for datepicker, you should use the <i>Library</i>
+<p>To add the script for datepicker, you should use the <code>Library</code>
 helper.</p>
 
 
@@ -308,9 +602,9 @@ helper.</p>
 				<h4>Parameters</h4>
 				<div class="list"><dl>
 					<dt><var>$fieldName</var></dt>
-					<dd><code>string</code><br>$fieldName Field name. Should be "Modelname.fieldname"</dd>
+					<dd><code>string</code><br>$fieldName Field name, should be "Modelname.fieldname"</dd>
 					<dt><var>$options</var></dt>
-					<dd><code>array</code><br>$options Options</dd>
+					<dd><code>array</code><br>$options HTML attributes</dd>
 				</dl></div>
 
 				<h4>Returns</h4>
@@ -319,6 +613,10 @@ helper.</p>
 				</div>
 
 
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-MeFormHelper.html#_input">MeFormHelper::input()</a></code></code><br>to create the input<br />
+				</div>
 
 
 		</div>
@@ -335,27 +633,24 @@ helper.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_end">#</a>
-		<code><a href="source-class-MeFormHelper.html#106-122" title="Go to source code">end</a>( <span>string <var>$caption</var> = <span class="php-keyword1">null</span></span>, <span>array <var>$options</var> = <span class="php-keyword1">null</span></span> )</code>
+		<code><a href="source-class-MeFormHelper.html#198-219" title="Go to source code">end</a>( <span>string <var>$caption</var> = <span class="php-keyword1">null</span></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
-<p>Closes a form. Rewrites <i>$this-&gt;Form-&gt;end()</i>.</p>
+<p>Closes an HTML form, cleans up values, and writes hidden input fields.</p>
 
 		</div>
 
 		<div class="description detailed hidden">
 			
-<p>Closes a form. Rewrites <i>$this-&gt;Form-&gt;end()</i>.</p>
-
-<p>If you don't want to have the submit button, <i>$caption</i> must be FALSE.
-If <i>$caption</i> is null, it will use a default submit button.</p>
+<p>Closes an HTML form, cleans up values, and writes hidden input fields.</p>
 
 
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
 					<dt><var>$caption</var></dt>
-					<dd><code>string</code><br>$caption The submit button label or an image</dd>
+					<dd><code>string</code><br>$caption The label appearing on the submit button or an image</dd>
 					<dt><var>$options</var></dt>
 					<dd><code>array</code><br>$options Options</dd>
 				</dl></div>
@@ -366,6 +661,11 @@ If <i>$caption</i> is null, it will use a default submit button.</p>
 				</div>
 
 
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-MeFormHelper.html#_button">MeFormHelper::button()</a></code></code><br>to create the submit button<br />
+						<code><code><a href="class-MeFormHelper.html#$inline">MeFormHelper::<var>$inline</var></a></code></code><br>to reset the form status<br />
+				</div>
 
 
 		</div>
@@ -382,7 +682,7 @@ If <i>$caption</i> is null, it will use a default submit button.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getDefault">#</a>
-		<code><a href="source-class-MeFormHelper.html#124-144" title="Go to source code">getDefault</a>( <span>string <var>$value</var></span>, <span>string <var>$default</var></span> )</code>
+		<code><a href="source-class-MeFormHelper.html#221-241" title="Go to source code">getDefault</a>( <span>string <var>$value</var></span>, <span>string <var>$default</var></span> )</code>
 
 		<div class="description short">
 			
@@ -401,7 +701,7 @@ use a default. For example:</p>
 
 <pre>
 <span class="php-quote">'selected'</span> =&gt; @<span
-class="php-var">$this</span>-&gt;MeForm-&gt;getDefault(<span
+class="php-var">$this</span>-&gt;Form-&gt;getDefault(<span
 class="php-var">$this</span>-&gt;request-&gt;data[<span
 class="php-quote">'User'</span>][<span class="php-quote">'group'</span>], <span
 class="php-quote">'user'</span>)
@@ -417,8 +717,8 @@ class="php-quote">'User'</span>][<span class="php-quote">'group'</span>]
 <p>if this exists (for example, if the form has already been sent), else it will
 use the "user" default value.</p>
 
-<p>It must be used with the "@" operator, otherwise it will generate a
-notice.</p>
+<p>You should use it with the <code>@</code> operator, otherwise it will
+generate a notice.</p>
 
 
 
@@ -452,26 +752,26 @@ notice.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_input">#</a>
-		<code><a href="source-class-MeFormHelper.html#146-176" title="Go to source code">input</a>( <span>string <var>$fieldName</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-MeFormHelper.html#243-281" title="Go to source code">input</a>( <span>string <var>$fieldName</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
-<p>Creates an input element. Rewrites <i>$this-&gt;Form-&gt;input()</i></p>
+<p>Generates an input element complete with label and wrapper div.</p>
 
 		</div>
 
 		<div class="description detailed hidden">
 			
-<p>Creates an input element. Rewrites <i>$this-&gt;Form-&gt;input()</i></p>
+<p>Generates an input element complete with label and wrapper div.</p>
 
 
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
 					<dt><var>$fieldName</var></dt>
-					<dd><code>string</code><br>$fieldName Field name. Should be "Modelname.fieldname"</dd>
+					<dd><code>string</code><br>$fieldName Field name, should be "Modelname.fieldname"</dd>
 					<dt><var>$options</var></dt>
-					<dd><code>array</code><br>$options Options</dd>
+					<dd><code>array</code><br>$options HTML attributes</dd>
 				</dl></div>
 
 				<h4>Returns</h4>
@@ -480,45 +780,59 @@ notice.</p>
 				</div>
 
 
+				<h4>Used by</h4>
+				<div class="list">
+						<code><code><a href="class-MeFormHelper.html#_checkboxList">MeFormHelper::checkboxList()</a></code></code><br>to create checkbox inputs<br />
+						<code><code><a href="class-MeFormHelper.html#_ckeditor">MeFormHelper::ckeditor()</a></code></code><br>to create the textarea for CKEditor<br />
+						<code><code><a href="class-MeFormHelper.html#_datepicker">MeFormHelper::datepicker()</a></code></code><br>to create the input<br />
+						<code><code><a href="class-MeFormHelper.html#_timepicker">MeFormHelper::timepicker()</a></code></code><br>to create the input<br />
+				</div>
 
 
 		</div>
 		</div></td>
 	</tr>
-	<tr data-order="getInputType" id="_getInputType">
+	<tr data-order="label" id="_label">
 
 		<td class="attributes"><code>
-			 protected 
+			 public 
 			string
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
-		<a class="anchor" href="#_getInputType">#</a>
-		<code><a href="source-class-MeFormHelper.html#178-186" title="Go to source code">getInputType</a>( <span>array <var>$options</var></span> )</code>
+		<a class="anchor" href="#_label">#</a>
+		<code><a href="source-class-MeFormHelper.html#283-302" title="Go to source code">label</a>( <span>string <var>$fieldName</var> = <span class="php-keyword1">null</span></span>, <span>string <var>$text</var> = <span class="php-keyword1">null</span></span>, <span>array|string <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
-<p>Gets the input type</p>
+<p>Returns a formatted LABEL element. Will automatically generate a
+<code>for</code> attribute if one is not provided.</p>
 
 		</div>
 
 		<div class="description detailed hidden">
 			
-<p>Gets the input type</p>
+<p>Returns a formatted LABEL element. Will automatically generate a
+<code>for</code> attribute if one is not provided.</p>
 
 
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
+					<dt><var>$fieldName</var></dt>
+					<dd><code>string</code><br>$fieldName Field name, should be "Modelname.fieldname"</dd>
+					<dt><var>$text</var></dt>
+					<dd><code>string</code><br>$text Text that will appear in the label field. If is left undefined the text
+will be inflected from the fieldName</dd>
 					<dt><var>$options</var></dt>
-					<dd><code>array</code><br>$options Options</dd>
+					<dd><code>array|string</code><br>$options HTML attributes, or a string to be used as a class name</dd>
 				</dl></div>
 
 				<h4>Returns</h4>
 				<div class="list">
-					<code>string</code><br>Type name<br />
+					<code>string</code><br>Html<br />
 				</div>
 
 
@@ -538,78 +852,23 @@ notice.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_postButton">#</a>
-		<code><a href="source-class-MeFormHelper.html#188-203" title="Go to source code">postButton</a>( <span>string <var>$title</var></span>, <span>mixed <var>$url</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span>, <span>mixed <var>$confirmMessage</var> = <span class="php-keyword1">false</span></span> )</code>
+		<code><a href="source-class-MeFormHelper.html#304-326" title="Go to source code">postButton</a>( <span>string <var>$title</var></span>, <span>mixed <var>$url</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span>, <span>string <var>$confirmMessage</var> = <span class="php-keyword1">false</span></span> )</code>
 
 		<div class="description short">
 			
-<p>Creates a button with a surrounding form that submits via POST. Rewrites
-<i>$this-&gt;Form-&gt;postButton()</i> and uses
-<i>$this-&gt;Form-&gt;postLink()</i></p>
+<p>Creates a button with a surrounding form that submits via POST.</p>
 
 		</div>
 
 		<div class="description detailed hidden">
 			
-<p>Creates a button with a surrounding form that submits via POST. Rewrites
-<i>$this-&gt;Form-&gt;postButton()</i> and uses
-<i>$this-&gt;Form-&gt;postLink()</i></p>
+<p>Creates a button with a surrounding form that submits via POST.</p>
 
-<p>This method creates a form element. So don't use this method in an already
-opened form</p>
-
-
-
-				<h4>Parameters</h4>
-				<div class="list"><dl>
-					<dt><var>$title</var></dt>
-					<dd><code>string</code><br>$title Button title</dd>
-					<dt><var>$url</var></dt>
-					<dd><code>mixed</code><br>$url Cake-relative URL, array of URL parameters or external URL (starts with
-http://)</dd>
-					<dt><var>$options</var></dt>
-					<dd><code>array</code><br>$options HTML attributes</dd>
-					<dt><var>$confirmMessage</var></dt>
-					<dd></dd>
-				</dl></div>
-
-				<h4>Returns</h4>
-				<div class="list">
-					<code>string</code><br>Html<br />
-				</div>
-
-
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="postLink" id="_postLink">
-
-		<td class="attributes"><code>
-			 public 
-			string
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_postLink">#</a>
-		<code><a href="source-class-MeFormHelper.html#205-231" title="Go to source code">postLink</a>( <span>string <var>$title</var></span>, <span>mixed <var>$url</var> = <span class="php-keyword1">null</span></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span>, <span>string <var>$confirmMessage</var> = <span class="php-keyword1">false</span></span> )</code>
-
-		<div class="description short">
-			
-<p>Creates a link with a surrounding form that submits via POST. Rewrites
-<i>$this-&gt;Form-&gt;postLink()</i></p>
-
-		</div>
-
-		<div class="description detailed hidden">
-			
-<p>Creates a link with a surrounding form that submits via POST. Rewrites
-<i>$this-&gt;Form-&gt;postLink()</i></p>
-
-<p>This method creates a form element. So don't use this method in an already
-opened form</p>
+<p>This method creates a button in a form element. So don't use this method in
+an already opened form. To create a normal button, you should use the
+<code>button()</code> method. To create a button with the appearance of a link,
+you should use the <code>button()</code> method provided by the
+<code>MeHtml</code> helper.</p>
 
 
 
@@ -632,6 +891,75 @@ http://)</dd>
 				</div>
 
 
+				<h4>See</h4>
+				<div class="list">
+						<code><code><a href="class-MeFormHelper.html#_button">MeFormHelper::button()</a></code></code>, <code><code><a href="class-MeHtmlHelper.html#_button">MeHtmlHelper::button()</a></code></code><br />
+				</div>
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-MeFormHelper.html#_postLink">MeFormHelper::postLink()</a></code></code><br>to create a POST button with the confirm message<br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="postLink" id="_postLink">
+
+		<td class="attributes"><code>
+			 public 
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_postLink">#</a>
+		<code><a href="source-class-MeFormHelper.html#328-344" title="Go to source code">postLink</a>( <span>string <var>$title</var></span>, <span>mixed <var>$url</var> = <span class="php-keyword1">null</span></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span>, <span>string <var>$confirmMessage</var> = <span class="php-keyword1">false</span></span> )</code>
+
+		<div class="description short">
+			
+<p>Creates a link with a surrounding form that submits via POST.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Creates a link with a surrounding form that submits via POST.</p>
+
+<p>This method creates a link in a form element. So don't use this method in an
+already opened form. To create a normal link, you should use the
+<code>link()</code> method of the <code>MeHtml</code> helper.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$title</var></dt>
+					<dd><code>string</code><br>$title Button title</dd>
+					<dt><var>$url</var></dt>
+					<dd><code>mixed</code><br>$url Cake-relative URL, array of URL parameters or external URL (starts with
+http://)</dd>
+					<dt><var>$options</var></dt>
+					<dd><code>array</code><br>$options HTML attributes</dd>
+					<dt><var>$confirmMessage</var></dt>
+					<dd><code>string</code><br>$confirmMessage JavaScript confirmation message</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>string</code><br>Html<br />
+				</div>
+
+
+				<h4>See</h4>
+				<div class="list">
+						<code><code><a href="class-MeHtmlHelper.html#_link">MeHtmlHelper::link()</a></code></code><br />
+				</div>
+				<h4>Used by</h4>
+				<div class="list">
+						<code><code><a href="class-MeFormHelper.html#_postButton">MeFormHelper::postButton()</a></code></code><br>to create a POST button with the confirm message<br />
+				</div>
 
 
 		</div>
@@ -648,7 +976,7 @@ http://)</dd>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_radio">#</a>
-		<code><a href="source-class-MeFormHelper.html#233-248" title="Go to source code">radio</a>( <span>string <var>$fieldName</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span>, <span>array <var>$attributes</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-MeFormHelper.html#346-357" title="Go to source code">radio</a>( <span>string <var>$fieldName</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span>, <span>array <var>$attributes</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
@@ -669,7 +997,7 @@ http://)</dd>
 					<dt><var>$fieldName</var></dt>
 					<dd><code>string</code><br>$fieldName Field name, should be "Modelname.fieldname"</dd>
 					<dt><var>$options</var></dt>
-					<dd><code>array</code><br>$options Radio button options array</dd>
+					<dd><code>array</code><br>$options Radio options</dd>
 					<dt><var>$attributes</var></dt>
 					<dd><code>array</code><br>$attributes HTML attributes</dd>
 				</dl></div>
@@ -696,7 +1024,7 @@ http://)</dd>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_select">#</a>
-		<code><a href="source-class-MeFormHelper.html#250-273" title="Go to source code">select</a>( <span>string <var>$fieldName</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span>, <span>array <var>$attributes</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-MeFormHelper.html#359-384" title="Go to source code">select</a>( <span>string <var>$fieldName</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span>, <span>array <var>$attributes</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
@@ -715,7 +1043,7 @@ http://)</dd>
 					<dt><var>$fieldName</var></dt>
 					<dd><code>string</code><br>$fieldName Field name, should be "Modelname.fieldname"</dd>
 					<dt><var>$options</var></dt>
-					<dd><code>array</code><br>$options Radio button options array</dd>
+					<dd><code>array</code><br>$options Select options</dd>
 					<dt><var>$attributes</var></dt>
 					<dd><code>array</code><br>$attributes HTML attributes</dd>
 				</dl></div>
@@ -742,19 +1070,17 @@ http://)</dd>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_submit">#</a>
-		<code><a href="source-class-MeFormHelper.html#275-305" title="Go to source code">submit</a>( <span>string <var>$caption</var> = <span class="php-keyword1">null</span></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-MeFormHelper.html#386-410" title="Go to source code">submit</a>( <span>string <var>$caption</var> = <span class="php-keyword1">null</span></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
-<p>Creates a submit button. Rewrites <i>$this-&gt;Form-&gt;Submit()</i> and uses
-the <i>$this-&gt;button()</i> method</p>
+<p>Creates a submit button</p>
 
 		</div>
 
 		<div class="description detailed hidden">
 			
-<p>Creates a submit button. Rewrites <i>$this-&gt;Form-&gt;Submit()</i> and uses
-the <i>$this-&gt;button()</i> method</p>
+<p>Creates a submit button</p>
 
 
 
@@ -764,6 +1090,54 @@ the <i>$this-&gt;button()</i> method</p>
 					<dd><code>string</code><br>$caption The label appearing on the submit button or an image</dd>
 					<dt><var>$options</var></dt>
 					<dd><code>array</code><br>$options Options</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>string</code><br>Html<br />
+				</div>
+
+
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-MeFormHelper.html#_button">MeFormHelper::button()</a></code></code><br>to create the submit button<br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="textarea" id="_textarea">
+
+		<td class="attributes"><code>
+			 public 
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_textarea">#</a>
+		<code><a href="source-class-MeFormHelper.html#412-422" title="Go to source code">textarea</a>( <span>string <var>$fieldName</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
+
+		<div class="description short">
+			
+<p>Creates a textarea element.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Creates a textarea element.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$fieldName</var></dt>
+					<dd><code>string</code><br>$fieldName Field name, should be "Modelname.fieldname"</dd>
+					<dt><var>$options</var></dt>
+					<dd><code>array</code><br>$options HTML attributes</dd>
 				</dl></div>
 
 				<h4>Returns</h4>
@@ -788,19 +1162,19 @@ the <i>$this-&gt;button()</i> method</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_timepicker">#</a>
-		<code><a href="source-class-MeFormHelper.html#307-325" title="Go to source code">timepicker</a>( <span>string <var>$fieldName</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-MeFormHelper.html#424-439" title="Go to source code">timepicker</a>( <span>string <var>$fieldName</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
-<p>Creates a text input for timepicker. It uses the <i>input()</i> method.</p>
+<p>Creates a text input for timepicker.</p>
 
 		</div>
 
 		<div class="description detailed hidden">
 			
-<p>Creates a text input for timepicker. It uses the <i>input()</i> method.</p>
+<p>Creates a text input for timepicker.</p>
 
-<p>To add the script for timepicker, you should use the <i>Library</i>
+<p>To add the script for timepicker, you should use the <code>Library</code>
 helper.</p>
 
 
@@ -808,9 +1182,9 @@ helper.</p>
 				<h4>Parameters</h4>
 				<div class="list"><dl>
 					<dt><var>$fieldName</var></dt>
-					<dd><code>string</code><br>$fieldName Field name. Should be "Modelname.fieldname"</dd>
+					<dd><code>string</code><br>$fieldName Field name, should be "Modelname.fieldname"</dd>
 					<dt><var>$options</var></dt>
-					<dd><code>array</code><br>$options Options</dd>
+					<dd><code>array</code><br>$options HTML attributes</dd>
 				</dl></div>
 
 				<h4>Returns</h4>
@@ -819,6 +1193,10 @@ helper.</p>
 				</div>
 
 
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-MeFormHelper.html#_input">MeFormHelper::input()</a></code></code><br>to create the input<br />
+				</div>
 
 
 		</div>
@@ -846,7 +1224,7 @@ helper.</p>
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-MeFormHelper.html#36-40" title="Go to source code"><var>$helpers</var></a>
+				<a href="source-class-MeFormHelper.html#40-44" title="Go to source code"><var>$helpers</var></a>
 		</td>
 		<td class="value"><code><span class="php-keyword1">array</span>(<span class="php-quote">'Html'</span> =&gt; <span class="php-keyword1">array</span>(<span class="php-quote">'className'</span> =&gt; <span class="php-quote">'MeTools.MeHtml'</span>))</code></td>
 		<td class="description"><div>
@@ -863,6 +1241,40 @@ helper.</p>
 <p>Helpers</p>
 
 
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="inline" id="$inline">
+		<td class="attributes"><code>
+			protected  
+			boolean
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-MeFormHelper.html#46-51" title="Go to source code"><var>$inline</var></a>
+		</td>
+		<td class="value"><code><span class="php-keyword1">FALSE</span></code></td>
+		<td class="description"><div>
+			<a href="#$inline" class="anchor">#</a>
+
+			<div class="description short">
+				
+<p>Property to check if we're working with an inline form. It's changed by
+<code>create()</code> and <code>createInline()</code>.</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Property to check if we're working with an inline form. It's changed by
+<code>create()</code> and <code>createInline()</code>.</p>
+
+
+					<h4>Used by</h4>
+					<div class="list">
+							<code><code><a href="class-MeFormHelper.html#_createInline">MeFormHelper::createInline()</a></code></code><br>to mark the form as an inline form<br />
+							<code><code><a href="class-MeFormHelper.html#_end">MeFormHelper::end()</a></code></code><br>to reset the form status<br />
+					</div>
 			</div>
 		</div></td>
 	</tr>

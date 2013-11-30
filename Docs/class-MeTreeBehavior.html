@@ -7,7 +7,7 @@
 	<title>Class MeTreeBehavior | MeTools</title>
 
 	<script type="text/javascript" src="resources/combined.js?394153670"></script>
-	<script type="text/javascript" src="elementlist.js?2044502625"></script>
+	<script type="text/javascript" src="elementlist.js?4211565437"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360" />
 
 </head>
@@ -30,11 +30,20 @@
 				<li class="main"><a href="package-MeTools.Controller.Component.Auth.html">Auth</a>
 						</li>
 							</ul></li></ul></li>
+				<li class="main"><a href="package-MeTools.Lib.html">Lib<span></span></a>
+						<ul>
+				<li class="main"><a href="package-MeTools.Lib.Log.html">Log<span></span></a>
+						<ul>
+				<li class="main"><a href="package-MeTools.Lib.Log.Engine.html">Engine</a>
+						</li>
+							</ul></li></ul></li>
 				<li class="active main"><a href="package-MeTools.Model.html">Model<span></span></a>
 						<ul>
 				<li class="active main"><a href="package-MeTools.Model.Behavior.html">Behavior</a>
 						</li>
 							</ul></li>
+				<li class="main"><a href="package-MeTools.Utility.html">Utility</a>
+						</li>
 				<li class="main"><a href="package-MeTools.View.html">View<span></span></a>
 						<ul>
 				<li class="main"><a href="package-MeTools.View.Helper.html">Helper</a>
@@ -105,23 +114,10 @@
 	
 <p>Tree behavior class. Enables a model object to act as a node-based tree.</p>
 
-<p>MeTreeBehavior extends <a href="http://api.cakephp.org/2.4/source-class-TreeBehavior.html">TreeBehavior</a></p>
+<p>Rewrites <a href="http://api.cakephp.org/2.4/source-class-TreeBehavior.html">TreeBehavior</a>.</p>
 
-<p>This file is part of MeTools.</p>
-
-<p>MeTools is free software: you can redistribute it and/or modify it under the
-terms of the GNU Affero General Public License as published by the Free Software
-Foundation, either version 3 of the License, or (at your option) any later
-version.</p>
-
-<p>MeTools is distributed in the hope that it will be useful, but WITHOUT ANY
-WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
-PARTICULAR PURPOSE. See the GNU Affero General Public License for more
-details.</p>
-
-<p>You should have received a copy of the GNU Affero General Public License
-along with MeTools. If not, see &lt;<a
-href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>&gt;.</p>
+<p>This class is only useful to rewrite the <code>generateTreeList()</code>
+method provided by the <code>TreeBehavior</code> behavior.</p>
 
 	</div>
 
@@ -159,9 +155,7 @@ TreeBehavior
 				<b>Author:</b>
 				Mirko Pagliai &lt;<a
 href="mailto:mirko.pagliai&#64;gmail.com">mirko.pagliai&#64;<!---->gmail.com</a>&gt;<br />
-				<b>Link:</b>
-				<a href="http://git.novatlantis.it">Nova Atlantis Ltd</a><br />
-		<b>Located at</b> <a href="source-class-MeTreeBehavior.html#4-45" title="Go to source code">Model/Behavior/MeTreeBehavior.php</a><br />
+		<b>Located at</b> <a href="source-class-MeTreeBehavior.html#29-50" title="Go to source code">Behavior/MeTreeBehavior.php</a><br />
 	</div>
 
 
@@ -179,19 +173,19 @@ href="mailto:mirko.pagliai&#64;gmail.com">mirko.pagliai&#64;<!---->gmail.com</a>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_generateTreeList">#</a>
-		<code><a href="source-class-MeTreeBehavior.html#32-44" title="Go to source code">generateTreeList</a>( <span>Model <var>$Model</var></span>, <span>string|array <var>$conditions</var> = <span class="php-keyword1">null</span></span>, <span>string <var>$keyPath</var> = <span class="php-keyword1">null</span></span>, <span>string <var>$valuePath</var> = <span class="php-keyword1">null</span></span>, <span>string <var>$spacer</var> = <span class="php-quote">'—'</span></span>, <span>integer <var>$recursive</var> = <span class="php-keyword1">null</span></span> )</code>
+		<code><a href="source-class-MeTreeBehavior.html#37-49" title="Go to source code">generateTreeList</a>( <span>Model <var>$Model</var></span>, <span>string|array <var>$conditions</var> = <span class="php-keyword1">null</span></span>, <span>string <var>$keyPath</var> = <span class="php-keyword1">null</span></span>, <span>string <var>$valuePath</var> = <span class="php-keyword1">null</span></span>, <span>string <var>$spacer</var> = <span class="php-quote">'—'</span></span>, <span>integer <var>$recursive</var> = <span class="php-keyword1">null</span></span> )</code>
 
 		<div class="description short">
 			
 <p>A convenience method for returning a hierarchical array used for HTML select
-boxes. Rewrites <i>$this-&gt;TreeBehavior-&gt;generateTreeList()</i></p>
+boxes.</p>
 
 		</div>
 
 		<div class="description detailed hidden">
 			
 <p>A convenience method for returning a hierarchical array used for HTML select
-boxes. Rewrites <i>$this-&gt;TreeBehavior-&gt;generateTreeList()</i></p>
+boxes.</p>
 
 
 

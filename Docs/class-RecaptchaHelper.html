@@ -7,7 +7,7 @@
 	<title>Class RecaptchaHelper | MeTools</title>
 
 	<script type="text/javascript" src="resources/combined.js?394153670"></script>
-	<script type="text/javascript" src="elementlist.js?2044502625"></script>
+	<script type="text/javascript" src="elementlist.js?4211565437"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360" />
 
 </head>
@@ -30,11 +30,20 @@
 				<li class="main"><a href="package-MeTools.Controller.Component.Auth.html">Auth</a>
 						</li>
 							</ul></li></ul></li>
+				<li class="main"><a href="package-MeTools.Lib.html">Lib<span></span></a>
+						<ul>
+				<li class="main"><a href="package-MeTools.Lib.Log.html">Log<span></span></a>
+						<ul>
+				<li class="main"><a href="package-MeTools.Lib.Log.Engine.html">Engine</a>
+						</li>
+							</ul></li></ul></li>
 				<li class="main"><a href="package-MeTools.Model.html">Model<span></span></a>
 						<ul>
 				<li class="main"><a href="package-MeTools.Model.Behavior.html">Behavior</a>
 						</li>
 							</ul></li>
+				<li class="main"><a href="package-MeTools.Utility.html">Utility</a>
+						</li>
 				<li class="active main"><a href="package-MeTools.View.html">View<span></span></a>
 						<ul>
 				<li class="active main"><a href="package-MeTools.View.Helper.html">Helper</a>
@@ -108,26 +117,10 @@
 
 	<div class="description">
 	
-<p>Recaptcha functions.</p>
+<p>Provides several methods for Recaptcha.</p>
 
-<p>Before using this helper, please configure Recaptcha keys in
-<i>Config/recaptcha.php</i></p>
-
-<p>This file is part of MeTools.</p>
-
-<p>MeTools is free software: you can redistribute it and/or modify it under the
-terms of the GNU Affero General Public License as published by the Free Software
-Foundation, either version 3 of the License, or (at your option) any later
-version.</p>
-
-<p>MeTools is distributed in the hope that it will be useful, but WITHOUT ANY
-WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
-PARTICULAR PURPOSE. See the GNU Affero General Public License for more
-details.</p>
-
-<p>You should have received a copy of the GNU Affero General Public License
-along with MeTools. If not, see &lt;<a
-href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>&gt;.</p>
+<p>Before using this helper, you have to configure keys in
+<code>Config/recaptcha.php</code>.</p>
 
 	</div>
 
@@ -165,9 +158,7 @@ AppHelper
 				<b>Author:</b>
 				Mirko Pagliai &lt;<a
 href="mailto:mirko.pagliai&#64;gmail.com">mirko.pagliai&#64;<!---->gmail.com</a>&gt;<br />
-				<b>Link:</b>
-				<a href="http://git.novatlantis.it">Nova Atlantis Ltd</a><br />
-		<b>Located at</b> <a href="source-class-RecaptchaHelper.html#5-96" title="Go to source code">View/Helper/RecaptchaHelper.php</a><br />
+		<b>Located at</b> <a href="source-class-RecaptchaHelper.html#30-92" title="Go to source code">RecaptchaHelper.php</a><br />
 	</div>
 
 
@@ -185,7 +176,7 @@ href="mailto:mirko.pagliai&#64;gmail.com">mirko.pagliai&#64;<!---->gmail.com</a>
 
 		<td class="name"><div>
 		<a class="anchor" href="#___construct">#</a>
-		<code><a href="source-class-RecaptchaHelper.html#44-59" title="Go to source code">__construct</a>( <span>View <var>$View</var></span>, <span>mixed <var>$settings</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-RecaptchaHelper.html#48-65" title="Go to source code">__construct</a>( <span>View <var>$View</var></span>, <span>array <var>$settings</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
@@ -199,9 +190,20 @@ href="mailto:mirko.pagliai&#64;gmail.com">mirko.pagliai&#64;<!---->gmail.com</a>
 
 
 
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$View</var></dt>
+					<dd><code>View</code><br>$View The View this helper is being attached to</dd>
+					<dt><var>$settings</var></dt>
+					<dd><code>array</code><br>$settings Configuration settings for the helper</dd>
+				</dl></div>
 
 
 
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-RecaptchaHelper.html#$mail_keys">RecaptchaHelper::<var>$mail_keys</var></a></code></code><br>to set mail keys<br />
+				</div>
 
 
 		</div>
@@ -218,7 +220,7 @@ href="mailto:mirko.pagliai&#64;gmail.com">mirko.pagliai&#64;<!---->gmail.com</a>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_mailLink">#</a>
-		<code><a href="source-class-RecaptchaHelper.html#61-84" title="Go to source code">mailLink</a>( <span>string <var>$title</var></span>, <span>string <var>$mail</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-RecaptchaHelper.html#67-82" title="Go to source code">mailLink</a>( <span>string <var>$title</var></span>, <span>string <var>$mail</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
@@ -231,21 +233,6 @@ popup.</p>
 			
 <p>Creates an HTML link for an hidden email. The link will be open in a
 popup.</p>
-
-<p>It uses <i>MeHtml::link()</i> to create the link and <i>mailUrl()</i> to get
-the url of the email hidden.</p>
-
-<p>You can use <a href="http://fortawesome.github.io/Font-Awesome">Font Awesome icons</a>. For example:</p>
-
-<pre>
-<span class="php-keyword1">echo</span> <span
-class="php-var">$this</span>-&gt;Recaptcha-&gt;mailLink(<span
-class="php-quote">'my mail'</span>, <span
-class="php-quote">'mymail@provider.com'</span>, <span
-class="php-keyword1">array</span>(<span
-class="php-quote">'icon'</span> =&gt; <span
-class="php-quote">'icon-search'</span>));
-</pre>
 
 
 
@@ -265,6 +252,10 @@ class="php-quote">'icon-search'</span>));
 				</div>
 
 
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-RecaptchaHelper.html#_mailUrl">RecaptchaHelper::mailUrl()</a></code></code><br>to get the url<br />
+				</div>
 
 
 		</div>
@@ -281,20 +272,17 @@ class="php-quote">'icon-search'</span>));
 
 		<td class="name"><div>
 		<a class="anchor" href="#_mailUrl">#</a>
-		<code><a href="source-class-RecaptchaHelper.html#86-95" title="Go to source code">mailUrl</a>( <span>string <var>$mail</var></span> )</code>
+		<code><a href="source-class-RecaptchaHelper.html#84-91" title="Go to source code">mailUrl</a>( <span>string <var>$mail</var></span> )</code>
 
 		<div class="description short">
 			
-<p>Gets the url for an hidden email.</p>
+<p>Gets the url for an hidden email. This method will only return a url.</p>
 
 		</div>
 
 		<div class="description detailed hidden">
 			
-<p>Gets the url for an hidden email.</p>
-
-<p>Note that this method will only return a url. To create a link is better to
-use <i>mailLink()</i>.</p>
+<p>Gets the url for an hidden email. This method will only return a url.</p>
 
 
 
@@ -310,6 +298,10 @@ use <i>mailLink()</i>.</p>
 				</div>
 
 
+				<h4>Used by</h4>
+				<div class="list">
+						<code><code><a href="class-RecaptchaHelper.html#_mailLink">RecaptchaHelper::mailLink()</a></code></code><br>to get the url<br />
+				</div>
 
 
 		</div>
@@ -337,7 +329,7 @@ use <i>mailLink()</i>.</p>
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-RecaptchaHelper.html#32-36" title="Go to source code"><var>$mail_keys</var></a>
+				<a href="source-class-RecaptchaHelper.html#36-40" title="Go to source code"><var>$mail_keys</var></a>
 		</td>
 		<td class="value"><code><span class="php-keyword1">false</span></code></td>
 		<td class="description"><div>
@@ -354,6 +346,10 @@ use <i>mailLink()</i>.</p>
 <p>Mail keys</p>
 
 
+					<h4>Used by</h4>
+					<div class="list">
+							<code><code><a href="class-RecaptchaHelper.html#___construct">RecaptchaHelper::__construct()</a></code></code><br>to set mail keys<br />
+					</div>
 			</div>
 		</div></td>
 	</tr>
@@ -364,7 +360,7 @@ use <i>mailLink()</i>.</p>
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-RecaptchaHelper.html#38-42" title="Go to source code"><var>$helpers</var></a>
+				<a href="source-class-RecaptchaHelper.html#42-46" title="Go to source code"><var>$helpers</var></a>
 		</td>
 		<td class="value"><code><span class="php-keyword1">array</span>(<span class="php-quote">'Html'</span> =&gt; <span class="php-keyword1">array</span>(<span class="php-quote">'className'</span> =&gt; <span class="php-quote">'MeTools.MeHtml'</span>))</code></td>
 		<td class="description"><div>

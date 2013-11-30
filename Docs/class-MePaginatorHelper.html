@@ -7,7 +7,7 @@
 	<title>Class MePaginatorHelper | MeTools</title>
 
 	<script type="text/javascript" src="resources/combined.js?394153670"></script>
-	<script type="text/javascript" src="elementlist.js?2044502625"></script>
+	<script type="text/javascript" src="elementlist.js?4211565437"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360" />
 
 </head>
@@ -30,11 +30,20 @@
 				<li class="main"><a href="package-MeTools.Controller.Component.Auth.html">Auth</a>
 						</li>
 							</ul></li></ul></li>
+				<li class="main"><a href="package-MeTools.Lib.html">Lib<span></span></a>
+						<ul>
+				<li class="main"><a href="package-MeTools.Lib.Log.html">Log<span></span></a>
+						<ul>
+				<li class="main"><a href="package-MeTools.Lib.Log.Engine.html">Engine</a>
+						</li>
+							</ul></li></ul></li>
 				<li class="main"><a href="package-MeTools.Model.html">Model<span></span></a>
 						<ul>
 				<li class="main"><a href="package-MeTools.Model.Behavior.html">Behavior</a>
 						</li>
 							</ul></li>
+				<li class="main"><a href="package-MeTools.Utility.html">Utility</a>
+						</li>
 				<li class="active main"><a href="package-MeTools.View.html">View<span></span></a>
 						<ul>
 				<li class="active main"><a href="package-MeTools.View.Helper.html">Helper</a>
@@ -110,23 +119,7 @@
 	
 <p>Provides functionalities to the generation of pagers.</p>
 
-<p>Extends <a href="http://api.cakephp.org/2.4/class-PaginatorHelper.html">PaginatorHelper</a>.</p>
-
-<p>This file is part of MeTools.</p>
-
-<p>MeTools is free software: you can redistribute it and/or modify it under the
-terms of the GNU Affero General Public License as published by the Free Software
-Foundation, either version 3 of the License, or (at your option) any later
-version.</p>
-
-<p>MeTools is distributed in the hope that it will be useful, but WITHOUT ANY
-WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
-PARTICULAR PURPOSE. See the GNU Affero General Public License for more
-details.</p>
-
-<p>You should have received a copy of the GNU Affero General Public License
-along with MeTools. If not, see &lt;<a
-href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>&gt;.</p>
+<p>Rewrites <a href="http://api.cakephp.org/2.4/class-PaginatorHelper.html">PaginatorHelper</a>.</p>
 
 	</div>
 
@@ -164,9 +157,7 @@ PaginatorHelper
 				<b>Author:</b>
 				Mirko Pagliai &lt;<a
 href="mailto:mirko.pagliai&#64;gmail.com">mirko.pagliai&#64;<!---->gmail.com</a>&gt;<br />
-				<b>Link:</b>
-				<a href="http://git.novatlantis.it">Nova Atlantis Ltd</a><br />
-		<b>Located at</b> <a href="source-class-MePaginatorHelper.html#4-150" title="Go to source code">View/Helper/MePaginatorHelper.php</a><br />
+		<b>Located at</b> <a href="source-class-MePaginatorHelper.html#29-145" title="Go to source code">MePaginatorHelper.php</a><br />
 	</div>
 
 
@@ -184,19 +175,17 @@ href="mailto:mirko.pagliai&#64;gmail.com">mirko.pagliai&#64;<!---->gmail.com</a>
 
 		<td class="name"><div>
 		<a class="anchor" href="#___jump_link">#</a>
-		<code><a href="source-class-MePaginatorHelper.html#37-67" title="Go to source code">__jump_link</a>( <span>string <var>$title</var> = <span class="php-keyword1">null</span></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span>, <span>string <var>$disabledTitle</var> = <span class="php-keyword1">null</span></span>, <span>array <var>$disabledOptions</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-MePaginatorHelper.html#41-66" title="Go to source code">__jump_link</a>( <span>string <var>$title</var> = <span class="php-keyword1">null</span></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span>, <span>string <var>$disabledTitle</var> = <span class="php-keyword1">null</span></span>, <span>array <var>$disabledOptions</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
-<p>Internal function per jump links. It's used by <i>$this-&gt;next()</i> and
-<i>$this-&gt;prev()</i></p>
+<p>Internal function for jump links.</p>
 
 		</div>
 
 		<div class="description detailed hidden">
 			
-<p>Internal function per jump links. It's used by <i>$this-&gt;next()</i> and
-<i>$this-&gt;prev()</i></p>
+<p>Internal function for jump links.</p>
 
 <p>For example:</p>
 
@@ -231,6 +220,11 @@ class="php-var">$disabledOptions</span>);
 				</div>
 
 
+				<h4>Used by</h4>
+				<div class="list">
+						<code><code><a href="class-MePaginatorHelper.html#_next">MePaginatorHelper::next()</a></code></code><br>jump links<br />
+						<code><code><a href="class-MePaginatorHelper.html#_prev">MePaginatorHelper::prev()</a></code></code><br>jump links<br />
+				</div>
 
 
 		</div>
@@ -247,19 +241,17 @@ class="php-var">$disabledOptions</span>);
 
 		<td class="name"><div>
 		<a class="anchor" href="#_counter">#</a>
-		<code><a href="source-class-MePaginatorHelper.html#69-81" title="Go to source code">counter</a>( <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-MePaginatorHelper.html#68-80" title="Go to source code">counter</a>( <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
-<p>Returns a counter string for the paged result set. Rewrites
-<i>$this-&gt;Paginator-&gt;counter()</i></p>
+<p>Returns a counter string for the paged result set.</p>
 
 		</div>
 
 		<div class="description detailed hidden">
 			
-<p>Returns a counter string for the paged result set. Rewrites
-<i>$this-&gt;Paginator-&gt;counter()</i></p>
+<p>Returns a counter string for the paged result set.</p>
 
 <p>By default, returns something like "1 - 20 of 50", which means that you're
 viewing records 1 to 20 of 50 total</p>
@@ -294,7 +286,7 @@ viewing records 1 to 20 of 50 total</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_counterLink">#</a>
-		<code><a href="source-class-MePaginatorHelper.html#83-94" title="Go to source code">counterLink</a>( <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-MePaginatorHelper.html#82-93" title="Go to source code">counterLink</a>( <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
@@ -336,19 +328,17 @@ viewing records 1 to 20 of 50 total</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_next">#</a>
-		<code><a href="source-class-MePaginatorHelper.html#96-112" title="Go to source code">next</a>( <span>string <var>$title</var> = <span class="php-keyword1">null</span></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span>, <span>string <var>$disabledTitle</var> = <span class="php-keyword1">null</span></span>, <span>array <var>$disabledOptions</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-MePaginatorHelper.html#95-111" title="Go to source code">next</a>( <span>string <var>$title</var> = <span class="php-keyword1">null</span></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span>, <span>string <var>$disabledTitle</var> = <span class="php-keyword1">null</span></span>, <span>array <var>$disabledOptions</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
-<p>Generates a "next" link for a set of paged records. Rewrites
-<i>$this-&gt;Paginator-&gt;next()</i></p>
+<p>Generates a "next" link for a set of paged records.</p>
 
 		</div>
 
 		<div class="description detailed hidden">
 			
-<p>Generates a "next" link for a set of paged records. Rewrites
-<i>$this-&gt;Paginator-&gt;next()</i></p>
+<p>Generates a "next" link for a set of paged records.</p>
 
 
 
@@ -370,6 +360,10 @@ viewing records 1 to 20 of 50 total</p>
 				</div>
 
 
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-MePaginatorHelper.html#___jump_link">MePaginatorHelper::__jump_link()</a></code></code><br>jump links<br />
+				</div>
 
 
 		</div>
@@ -386,7 +380,7 @@ viewing records 1 to 20 of 50 total</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_numbers">#</a>
-		<code><a href="source-class-MePaginatorHelper.html#114-131" title="Go to source code">numbers</a>( <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-MePaginatorHelper.html#113-126" title="Go to source code">numbers</a>( <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
@@ -432,19 +426,17 @@ how many numbers to show on each side of the current page (default: 8). Rewrites
 
 		<td class="name"><div>
 		<a class="anchor" href="#_prev">#</a>
-		<code><a href="source-class-MePaginatorHelper.html#133-149" title="Go to source code">prev</a>( <span>string <var>$title</var> = <span class="php-keyword1">null</span></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span>, <span>string <var>$disabledTitle</var> = <span class="php-keyword1">null</span></span>, <span>array <var>$disabledOptions</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-MePaginatorHelper.html#128-144" title="Go to source code">prev</a>( <span>string <var>$title</var> = <span class="php-keyword1">null</span></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span>, <span>string <var>$disabledTitle</var> = <span class="php-keyword1">null</span></span>, <span>array <var>$disabledOptions</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
-<p>Generates a "prev" link for a set of paged records. Rewrites
-<i>$this-&gt;Paginator-&gt;prev()</i></p>
+<p>Generates a "prev" link for a set of paged records.</p>
 
 		</div>
 
 		<div class="description detailed hidden">
 			
-<p>Generates a "prev" link for a set of paged records. Rewrites
-<i>$this-&gt;Paginator-&gt;prev()</i></p>
+<p>Generates a "prev" link for a set of paged records.</p>
 
 
 
@@ -466,6 +458,10 @@ how many numbers to show on each side of the current page (default: 8). Rewrites
 				</div>
 
 
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-MePaginatorHelper.html#___jump_link">MePaginatorHelper::__jump_link()</a></code></code><br>jump links<br />
+				</div>
 
 
 		</div>
@@ -493,7 +489,7 @@ how many numbers to show on each side of the current page (default: 8). Rewrites
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-MePaginatorHelper.html#31-35" title="Go to source code"><var>$helpers</var></a>
+				<a href="source-class-MePaginatorHelper.html#35-39" title="Go to source code"><var>$helpers</var></a>
 		</td>
 		<td class="value"><code><span class="php-keyword1">array</span>(<span class="php-quote">'Html'</span> =&gt; <span class="php-keyword1">array</span>(<span class="php-quote">'className'</span> =&gt; <span class="php-quote">'MeTools.MeHtml'</span>))</code></td>
 		<td class="description"><div>

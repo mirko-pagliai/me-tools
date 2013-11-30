@@ -7,7 +7,7 @@
 	<title>Class CleanerUrlComponent | MeTools</title>
 
 	<script type="text/javascript" src="resources/combined.js?394153670"></script>
-	<script type="text/javascript" src="elementlist.js?2044502625"></script>
+	<script type="text/javascript" src="elementlist.js?4211565437"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360" />
 
 </head>
@@ -30,11 +30,20 @@
 				<li class="main"><a href="package-MeTools.Controller.Component.Auth.html">Auth</a>
 						</li>
 							</ul></li></ul></li>
+				<li class="main"><a href="package-MeTools.Lib.html">Lib<span></span></a>
+						<ul>
+				<li class="main"><a href="package-MeTools.Lib.Log.html">Log<span></span></a>
+						<ul>
+				<li class="main"><a href="package-MeTools.Lib.Log.Engine.html">Engine</a>
+						</li>
+							</ul></li></ul></li>
 				<li class="main"><a href="package-MeTools.Model.html">Model<span></span></a>
 						<ul>
 				<li class="main"><a href="package-MeTools.Model.Behavior.html">Behavior</a>
 						</li>
 							</ul></li>
+				<li class="main"><a href="package-MeTools.Utility.html">Utility</a>
+						</li>
 				<li class="main"><a href="package-MeTools.View.html">View<span></span></a>
 						<ul>
 				<li class="main"><a href="package-MeTools.View.Helper.html">Helper</a>
@@ -114,8 +123,8 @@
 
 <pre>/admin/users/index/var1:a/var2:b</pre>
 
-<p>To use the <code>CleanerUrl</code> component, add it to the list of
-components in your controller (for example, the <code>AppController</code>):</p>
+<p>To use the <code>CleanerUrl</code> component, you need to add it to the
+components list in your controller:</p>
 
 <pre>
 <span class="php-keyword1">public</span> <span
@@ -123,22 +132,6 @@ class="php-var">$components</span> = <span
 class="php-keyword1">array</span>(<span
 class="php-quote">'MeTools.CleanerUrl'</span>);
 </pre>
-
-<p>This file is part of MeTools.</p>
-
-<p>MeTools is free software: you can redistribute it and/or modify it under the
-terms of the GNU Affero General Public License as published by the Free Software
-Foundation, either version 3 of the License, or (at your option) any later
-version.</p>
-
-<p>MeTools is distributed in the hope that it will be useful, but WITHOUT ANY
-WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
-PARTICULAR PURPOSE. See the GNU Affero General Public License for more
-details.</p>
-
-<p>You should have received a copy of the GNU Affero General Public License
-along with MeTools. If not, see &lt;<a
-href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>&gt;.</p>
 
 	</div>
 
@@ -176,9 +169,7 @@ Component
 				<b>Author:</b>
 				Mirko Pagliai &lt;<a
 href="mailto:mirko.pagliai&#64;gmail.com">mirko.pagliai&#64;<!---->gmail.com</a>&gt;<br />
-				<b>Link:</b>
-				<a href="http://git.novatlantis.it">Nova Atlantis Ltd</a><br />
-		<b>Located at</b> <a href="source-class-CleanerUrlComponent.html#3-72" title="Go to source code">Controller/Component/CleanerUrlComponent.php</a><br />
+		<b>Located at</b> <a href="source-class-CleanerUrlComponent.html#27-69" title="Go to source code">Component/CleanerUrlComponent.php</a><br />
 	</div>
 
 
@@ -196,7 +187,7 @@ href="mailto:mirko.pagliai&#64;gmail.com">mirko.pagliai&#64;<!---->gmail.com</a>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_initialize">#</a>
-		<code><a href="source-class-CleanerUrlComponent.html#38-46" title="Go to source code">initialize</a>( <span>Controller <var>$controller</var></span> )</code>
+		<code><a href="source-class-CleanerUrlComponent.html#41-48" title="Go to source code">initialize</a>( <span>Controller <var>$controller</var></span> )</code>
 
 		<div class="description short">
 			
@@ -210,8 +201,6 @@ href="mailto:mirko.pagliai&#64;gmail.com">mirko.pagliai&#64;<!---->gmail.com</a>
 <p>Called before the controller's beforeFilter method. Execute
 <code>cleanUrl</code>.</p>
 
-<p>Look at <a href="http://api.cakephp.org/2.4/class-Component.html#_initialize">CakePHP Api</a></p>
-
 
 
 				<h4>Parameters</h4>
@@ -222,6 +211,12 @@ href="mailto:mirko.pagliai&#64;gmail.com">mirko.pagliai&#64;<!---->gmail.com</a>
 
 
 
+				<h4>See</h4>
+				<div class="list">
+						<a
+href="http://api.cakephp.org/2.4/class-Component.html#_initialize">http://api.cakephp.org/2.4/class-Component.html#_initialize</a>
+CakePHP Api<br />
+				</div>
 
 
 		</div>
@@ -238,18 +233,18 @@ href="mailto:mirko.pagliai&#64;gmail.com">mirko.pagliai&#64;<!---->gmail.com</a>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_cleanUrl">#</a>
-		<code><a href="source-class-CleanerUrlComponent.html#48-71" title="Go to source code">cleanUrl</a>( <span>Controller <var>$controller</var></span> )</code>
+		<code><a href="source-class-CleanerUrlComponent.html#50-68" title="Go to source code">cleanUrl</a>( <span>Controller <var>$controller</var></span> )</code>
 
 		<div class="description short">
 			
-<p>Cleans the current url, turning query arguments in named arguments, then
+<p>Cleans the current url, turning query arguments in named arguments, and
 executes a redirect.</p>
 
 		</div>
 
 		<div class="description detailed hidden">
 			
-<p>Cleans the current url, turning query arguments in named arguments, then
+<p>Cleans the current url, turning query arguments in named arguments, and
 executes a redirect.</p>
 
 

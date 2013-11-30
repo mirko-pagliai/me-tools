@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="generator" content="ApiGen 2.8.0" />
+
+	<title>Class FileArray | MeTools</title>
+
+	<script type="text/javascript" src="resources/combined.js?394153670"></script>
+	<script type="text/javascript" src="elementlist.js?4211565437"></script>
+	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360" />
+
+</head>
+
+<body>
+<div id="left">
+	<div id="menu">
+		<a href="index.html" title="Overview"><span>Overview</span></a>
+
+
+		<div id="groups">
+			<h3>Packages</h3>
+			<ul>
+				<li class="active main"><a href="package-MeTools.html">MeTools<span></span></a>
+						<ul>
+				<li class="main"><a href="package-MeTools.Controller.html">Controller<span></span></a>
+						<ul>
+				<li class="main"><a href="package-MeTools.Controller.Component.html">Component<span></span></a>
+						<ul>
+				<li class="main"><a href="package-MeTools.Controller.Component.Auth.html">Auth</a>
+						</li>
+							</ul></li></ul></li>
+				<li class="main"><a href="package-MeTools.Lib.html">Lib<span></span></a>
+						<ul>
+				<li class="main"><a href="package-MeTools.Lib.Log.html">Log<span></span></a>
+						<ul>
+				<li class="main"><a href="package-MeTools.Lib.Log.Engine.html">Engine</a>
+						</li>
+							</ul></li></ul></li>
+				<li class="main"><a href="package-MeTools.Model.html">Model<span></span></a>
+						<ul>
+				<li class="main"><a href="package-MeTools.Model.Behavior.html">Behavior</a>
+						</li>
+							</ul></li>
+				<li class="active main"><a href="package-MeTools.Utility.html">Utility</a>
+						</li>
+				<li class="main"><a href="package-MeTools.View.html">View<span></span></a>
+						<ul>
+				<li class="main"><a href="package-MeTools.View.Helper.html">Helper</a>
+						</li>
+							</ul></li></ul></li>
+			</ul>
+		</div>
+
+		<hr />
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li class="active"><a href="class-FileArray.html">FileArray</a></li>
+			</ul>
+
+
+
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+<div id="rightInner">
+	<form id="search">
+		<input type="hidden" name="cx" value="" />
+		<input type="hidden" name="ie" value="UTF-8" />
+		<input type="text" name="q" class="text" />
+		<input type="submit" value="Search" />
+	</form>
+
+	<div id="navigation">
+		<ul>
+			<li>
+				<a href="index.html" title="Overview"><span>Overview</span></a>
+			</li>
+			<li>
+				<a href="package-MeTools.Utility.html" title="Summary of MeTools\Utility"><span>Package</span></a>
+			</li>
+			<li class="active">
+<span>Class</span>			</li>
+		</ul>
+		<ul>
+			<li>
+				<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
+			</li>
+			<li>
+				<a href="todo.html" title="Todo list"><span>Todo</span></a>
+			</li>
+		</ul>
+		<ul>
+			<li>
+				<a href="metools-api-documentation.zip" title="Download documentation as ZIP archive"><span>Download</span></a>
+			</li>
+		</ul>
+	</div>
+
+<div id="content" class="class">
+	<h1>Class FileArray</h1>
+
+
+	<div class="description">
+	
+<p>Provides several methods for using a text file as database. It can count,
+delete, edit, check, search, retrieve and insert data.</p>
+
+	</div>
+
+
+
+
+
+
+
+
+
+	<div class="info">
+		
+		
+		
+		<b>Package:</b> <a href="package-MeTools.html">MeTools</a>\<a href="package-MeTools.Utility.html">Utility</a><br />
+
+				<b>Copyright:</b>
+				Copyright (c) 2013, Mirko Pagliai for Nova Atlantis Ltd<br />
+				<b>License:</b>
+				<a href="http://www.gnu.org/licenses/agpl.txt">AGPL License</a><br />
+				<b>Author:</b>
+				Mirko Pagliai &lt;<a
+href="mailto:mirko.pagliai&#64;gmail.com">mirko.pagliai&#64;<!---->gmail.com</a>&gt;<br />
+		<b>Located at</b> <a href="source-class-FileArray.html#27-288" title="Go to source code">FileArray.php</a><br />
+	</div>
+
+
+
+	<table class="summary" id="methods">
+	<caption>Methods summary</caption>
+	<tr data-order="__construct" id="___construct">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#___construct">#</a>
+		<code><a href="source-class-FileArray.html#50-61" title="Go to source code">__construct</a>( <span>string <var>$path</var> = <span class="php-keyword1">false</span></span> )</code>
+
+		<div class="description short">
+			
+<p>Contruct. Sets the File object, the path and the content</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Contruct. Sets the File object, the path and the content</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$path</var></dt>
+					<dd><code>string</code><br>$path File path</dd>
+				</dl></div>
+
+
+
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-FileArray.html#$content">FileArray::<var>$content</var></a></code></code><br>to set the file content<br />
+						<code><code><a href="class-FileArray.html#$file">FileArray::<var>$file</var></a></code></code><br>to set the File object<br />
+						<code><code><a href="class-FileArray.html#$path">FileArray::<var>$path</var></a></code></code><br>to set the file path<br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="__filter" id="___filter">
+
+		<td class="attributes"><code>
+			 private 
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#___filter">#</a>
+		<code><a href="source-class-FileArray.html#63-85" title="Go to source code">__filter</a>( <span>array <var>$conditions</var> = <span class="php-keyword1">array</span>()</span> )</code>
+
+		<div class="description short">
+			
+<p>Internal function to filter data</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Internal function to filter data</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$conditions</var></dt>
+					<dd><code>array</code><br>$conditions Conditions</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>mixed</code><br>Results or NULL<br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="__read" id="___read">
+
+		<td class="attributes"><code>
+			 private 
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#___read">#</a>
+		<code><a href="source-class-FileArray.html#87-106" title="Go to source code">__read</a>( )</code>
+
+		<div class="description short">
+			
+<p>Internal function to read data</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Internal function to read data</p>
+
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>mixed</code><br>Existing data. NULL if there's no existing data or if the file doesn't exist<br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="__write" id="___write">
+
+		<td class="attributes"><code>
+			 private 
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#___write">#</a>
+		<code><a href="source-class-FileArray.html#108-115" title="Go to source code">__write</a>( <span>mixed <var>$data</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Internal function to write data</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Internal function to write data</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$data</var></dt>
+					<dd><code>mixed</code><br>$data Data to insert</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>boolean</code><br>Success<br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="count" id="_count">
+
+		<td class="attributes"><code>
+			 public 
+			integer
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_count">#</a>
+		<code><a href="source-class-FileArray.html#117-128" title="Go to source code">count</a>( <span>array <var>$conditions</var> = <span class="php-keyword1">array</span>()</span> )</code>
+
+		<div class="description short">
+			
+<p>Gets the record count</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Gets the record count</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$conditions</var></dt>
+					<dd><code>array</code><br>$conditions Conditions</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>integer</code><br>Count<br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="delete" id="_delete">
+
+		<td class="attributes"><code>
+			 public 
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_delete">#</a>
+		<code><a href="source-class-FileArray.html#130-148" title="Go to source code">delete</a>( <span>mixed <var>$key</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Deletes a record</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Deletes a record</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$key</var></dt>
+					<dd><code>mixed</code><br>$key Record key</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>boolean</code><br>Success<br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="edit" id="_edit">
+
+		<td class="attributes"><code>
+			 public 
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_edit">#</a>
+		<code><a href="source-class-FileArray.html#150-169" title="Go to source code">edit</a>( <span>mixed <var>$key</var></span>, <span>mixed <var>$data</var> = <span class="php-keyword1">array</span>()</span> )</code>
+
+		<div class="description short">
+			
+<p>Edits a record</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Edits a record</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$key</var></dt>
+					<dd><code>mixed</code><br>$key Key</dd>
+					<dt><var>$data</var></dt>
+					<dd><code>mixed</code><br>$data Data</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>boolean</code><br>Success<br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="exists" id="_exists">
+
+		<td class="attributes"><code>
+			 public 
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_exists">#</a>
+		<code><a href="source-class-FileArray.html#171-182" title="Go to source code">exists</a>( <span>integer <var>$key</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Checks if exists a record with a key</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Checks if exists a record with a key</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$key</var></dt>
+					<dd><code>integer</code><br>$key Key to check</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>boolean</code><br>TRUE if already exists, else FALSE<br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="find" id="_find">
+
+		<td class="attributes"><code>
+			 public 
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_find">#</a>
+		<code><a href="source-class-FileArray.html#184-205" title="Go to source code">find</a>( <span>string <var>$type</var> = <span class="php-quote">'first'</span></span> )</code>
+
+		<div class="description short">
+			
+<p>Finds records</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Finds records</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$type</var></dt>
+					<dd><code>string</code><br>$type Search type. It supports "first" (default), "count" and "all"</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>mixed</code><br>Results<br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="findByKey" id="_findByKey">
+
+		<td class="attributes"><code>
+			 public 
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_findByKey">#</a>
+		<code><a href="source-class-FileArray.html#207-218" title="Go to source code">findByKey</a>( <span>mixed <var>$key</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Finds a record by its key</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Finds a record by its key</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$key</var></dt>
+					<dd><code>mixed</code><br>$key Key</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>mixed</code><br>Record<br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getAll" id="_getAll">
+
+		<td class="attributes"><code>
+			 public 
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getAll">#</a>
+		<code><a href="source-class-FileArray.html#220-231" title="Go to source code">getAll</a>( <span>array <var>$conditions</var> = <span class="php-keyword1">array</span>()</span> )</code>
+
+		<div class="description short">
+			
+<p>Gets all records</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Gets all records</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$conditions</var></dt>
+					<dd><code>array</code><br>$conditions Conditions</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>mixed</code><br>All records or NULL<br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getFirst" id="_getFirst">
+
+		<td class="attributes"><code>
+			 public 
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getFirst">#</a>
+		<code><a href="source-class-FileArray.html#233-250" title="Go to source code">getFirst</a>( <span>array <var>$conditions</var> = <span class="php-keyword1">array</span>()</span> )</code>
+
+		<div class="description short">
+			
+<p>Gets the first record</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Gets the first record</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$conditions</var></dt>
+					<dd><code>array</code><br>$conditions Conditions</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>mixed</code><br>First record founded or NULL<br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="insert" id="_insert">
+
+		<td class="attributes"><code>
+			 public 
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_insert">#</a>
+		<code><a href="source-class-FileArray.html#252-287" title="Go to source code">insert</a>( <span>mixed <var>$key</var> = <span class="php-keyword1">null</span></span>, <span>mixed <var>$data</var> = <span class="php-keyword1">array</span>()</span> )</code>
+
+		<div class="description short">
+			
+<p>Inserts a new record</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Inserts a new record</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$key</var></dt>
+					<dd><code>mixed</code><br>$key Data key</dd>
+					<dt><var>$data</var></dt>
+					<dd><code>mixed</code><br>$data Data</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>boolean</code><br>Success<br />
+				</div>
+
+				<h4>Throws</h4>
+				<div class="list">
+					<code>InternalErrorException</code><br />
+				</div>
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+
+
+
+
+
+
+	<table class="summary" id="properties">
+	<caption>Properties summary</caption>
+	<tr data-order="content" id="$content">
+		<td class="attributes"><code>
+			private  
+			array
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-FileArray.html#32-36" title="Go to source code"><var>$content</var></a>
+		</td>
+		<td class="value"><code><span class="php-keyword1">null</span></code></td>
+		<td class="description"><div>
+			<a href="#$content" class="anchor">#</a>
+
+			<div class="description short">
+				
+<p>File content</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>File content</p>
+
+
+					<h4>Used by</h4>
+					<div class="list">
+							<code><code><a href="class-FileArray.html#___construct">FileArray::__construct()</a></code></code><br>to set the file content<br />
+					</div>
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="file" id="$file">
+		<td class="attributes"><code>
+			private  
+			object
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-FileArray.html#38-42" title="Go to source code"><var>$file</var></a>
+		</td>
+		<td class="value"><code><span class="php-keyword1">false</span></code></td>
+		<td class="description"><div>
+			<a href="#$file" class="anchor">#</a>
+
+			<div class="description short">
+				
+<p>File object</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>File object</p>
+
+
+					<h4>Used by</h4>
+					<div class="list">
+							<code><code><a href="class-FileArray.html#___construct">FileArray::__construct()</a></code></code><br>to set the File object<br />
+					</div>
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="path" id="$path">
+		<td class="attributes"><code>
+			public  
+			string
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-FileArray.html#44-48" title="Go to source code"><var>$path</var></a>
+		</td>
+		<td class="value"><code><span class="php-keyword1">null</span></code></td>
+		<td class="description"><div>
+			<a href="#$path" class="anchor">#</a>
+
+			<div class="description short">
+				
+<p>File path</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>File path</p>
+
+
+					<h4>Used by</h4>
+					<div class="list">
+							<code><code><a href="class-FileArray.html#___construct">FileArray::__construct()</a></code></code><br>to set the file path<br />
+					</div>
+			</div>
+		</div></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+</div>
+
+	<div id="footer">
+		MeTools API documentation generated by <a href="http://apigen.org">ApiGen 2.8.0</a>
+	</div>
+</div>
+</div>
+</body>
+</html>

@@ -7,7 +7,7 @@
 	<title>Class MeHtmlHelper | MeTools</title>
 
 	<script type="text/javascript" src="resources/combined.js?394153670"></script>
-	<script type="text/javascript" src="elementlist.js?2044502625"></script>
+	<script type="text/javascript" src="elementlist.js?4211565437"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360" />
 
 </head>
@@ -30,11 +30,20 @@
 				<li class="main"><a href="package-MeTools.Controller.Component.Auth.html">Auth</a>
 						</li>
 							</ul></li></ul></li>
+				<li class="main"><a href="package-MeTools.Lib.html">Lib<span></span></a>
+						<ul>
+				<li class="main"><a href="package-MeTools.Lib.Log.html">Log<span></span></a>
+						<ul>
+				<li class="main"><a href="package-MeTools.Lib.Log.Engine.html">Engine</a>
+						</li>
+							</ul></li></ul></li>
 				<li class="main"><a href="package-MeTools.Model.html">Model<span></span></a>
 						<ul>
 				<li class="main"><a href="package-MeTools.Model.Behavior.html">Behavior</a>
 						</li>
 							</ul></li>
+				<li class="main"><a href="package-MeTools.Utility.html">Utility</a>
+						</li>
 				<li class="active main"><a href="package-MeTools.View.html">View<span></span></a>
 						<ul>
 				<li class="active main"><a href="package-MeTools.View.Helper.html">Helper</a>
@@ -110,6 +119,8 @@
 	
 <p>Provides functionalities for HTML code.</p>
 
+<p>Rewrites <a href="http://api.cakephp.org/2.4/class-HtmlHelper.html">HtmlHelper</a>.</p>
+
 <p>You should use this helper as an alias, for example:</p>
 
 <pre>
@@ -120,24 +131,6 @@ class="php-keyword1">array</span>(<span
 class="php-quote">'className'</span> =&gt; <span
 class="php-quote">'MeTools.MeHtml'</span>));
 </pre>
-
-<p>MeHtmlHelper extends <a href="http://api.cakephp.org/2.4/class-HtmlHelper.html">HtmlHelper</a>.</p>
-
-<p>This file is part of MeTools.</p>
-
-<p>MeTools is free software: you can redistribute it and/or modify it under the
-terms of the GNU Affero General Public License as published by the Free Software
-Foundation, either version 3 of the License, or (at your option) any later
-version.</p>
-
-<p>MeTools is distributed in the hope that it will be useful, but WITHOUT ANY
-WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
-PARTICULAR PURPOSE. See the GNU Affero General Public License for more
-details.</p>
-
-<p>You should have received a copy of the GNU Affero General Public License
-along with MeTools. If not, see &lt;<a
-href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>&gt;.</p>
 
 	</div>
 
@@ -175,56 +168,201 @@ HtmlHelper
 				<b>Author:</b>
 				Mirko Pagliai &lt;<a
 href="mailto:mirko.pagliai&#64;gmail.com">mirko.pagliai&#64;<!---->gmail.com</a>&gt;<br />
-				<b>Link:</b>
-				<a href="http://git.novatlantis.it">Nova Atlantis Ltd</a><br />
-		<b>Located at</b> <a href="source-class-MeHtmlHelper.html#4-434" title="Go to source code">View/Helper/MeHtmlHelper.php</a><br />
+		<b>Located at</b> <a href="source-class-MeHtmlHelper.html#29-572" title="Go to source code">MeHtmlHelper.php</a><br />
 	</div>
 
 
 
 	<table class="summary" id="methods">
 	<caption>Methods summary</caption>
-	<tr data-order="addCrumb" id="_addCrumb">
+	<tr data-order="__clean" id="___clean">
 
 		<td class="attributes"><code>
 			 public 
-			
+			string
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
-		<a class="anchor" href="#_addCrumb">#</a>
-		<code><a href="source-class-MeHtmlHelper.html#36-51" title="Go to source code">addCrumb</a>( <span>string <var>$title</var></span>, <span>string <var>$link</var> = <span class="php-keyword1">null</span></span>, <span>mixed <var>$options</var> = <span class="php-keyword1">null</span></span> )</code>
+		<a class="anchor" href="#___clean">#</a>
+		<code><a href="source-class-MeHtmlHelper.html#46-66" title="Go to source code">__clean</a>( )</code>
 
 		<div class="description short">
 			
-<p>Adds a link to the breadcrumb array. Rewrites
-<i>$this-&gt;Html-&gt;addCrumb()</i></p>
+<p>Cleans values to be used as html attributes, removing blank spaces and
+duplicates. For example:</p>
+
+<pre>a a b  b c d e e e</pre>
+
+<p>will become:</p>
+
+<pre>a b c d e</pre>
 
 		</div>
 
 		<div class="description detailed hidden">
 			
-<p>Adds a link to the breadcrumb array. Rewrites
-<i>$this-&gt;Html-&gt;addCrumb()</i></p>
+<p>Cleans values to be used as html attributes, removing blank spaces and
+duplicates. For example:</p>
 
-<p>You can use <a href="http://fortawesome.github.io/Font-Awesome">Font Awesome icons</a></p>
+<pre>a a b  b c d e e e</pre>
+
+<p>will become:</p>
+
+<pre>a b c d e</pre>
+
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>string</code><br>Cleaned value<br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="__getBtnClass" id="___getBtnClass">
+
+		<td class="attributes"><code>
+			 public 
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#___getBtnClass">#</a>
+		<code><a href="source-class-MeHtmlHelper.html#68-82" title="Go to source code">__getBtnClass</a>( <span>array <var>$option</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Get classes for a button</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Get classes for a button</p>
 
 
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
-					<dt><var>$title</var></dt>
-					<dd><code>string</code><br>$name Text for link</dd>
-					<dt><var>$link</var></dt>
-					<dd><code>string</code><br>$link URL for link (if empty it won't be a link)</dd>
-					<dt><var>$options</var></dt>
-					<dd><code>mixed</code><br>$options HTML attributes</dd>
+					<dt><var>$option</var></dt>
+					<dd><code>array</code><br>$option Button options</dd>
 				</dl></div>
 
+				<h4>Returns</h4>
+				<div class="list">
+					<code>string</code><br>Button classes<br />
+				</div>
 
 
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="audio" id="_audio">
+
+		<td class="attributes"><code>
+			 public 
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_audio">#</a>
+		<code><a href="source-class-MeHtmlHelper.html#84-94" title="Go to source code">audio</a>( <span>string|array <var>$path</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
+
+		<div class="description short">
+			
+<p>Returns an audio element</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Returns an audio element</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$path</var></dt>
+					<dd><code>string|array</code><br>$path File path, relative to the <code>webroot/{$options['pathPrefix']}</code>
+directory or an array where each item itself can be a path string or an array
+containing <code>src</code> and <code>type</code> keys.</dd>
+					<dt><var>$options</var></dt>
+					<dd><code>array</code><br>$options Array of HTML attributes</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>string</code><br>Html, audio tag<br />
+				</div>
+
+
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-MeHtmlHelper.html#_media">MeHtmlHelper::media()</a></code></code> <br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="badge" id="_badge">
+
+		<td class="attributes"><code>
+			 public 
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_badge">#</a>
+		<code><a href="source-class-MeHtmlHelper.html#96-107" title="Go to source code">badge</a>( <span>string <var>$text</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
+
+		<div class="description short">
+			
+<p>Creates a badge, according to the Bootstrap component.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Creates a badge, according to the Bootstrap component.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$text</var></dt>
+					<dd><code>string</code><br>$text Badge text</dd>
+					<dt><var>$options</var></dt>
+					<dd><code>array</code><br>$options HTML attributes</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>string</code><br>Html, badge element<br />
+				</div>
+
+
+				<h4>See</h4>
+				<div class="list">
+						<a
+href="http://getbootstrap.com/components/#badges">http://getbootstrap.com/components/#badges</a>
+Bootstrap documentation<br />
+				</div>
 
 
 		</div>
@@ -241,38 +379,32 @@ href="mailto:mirko.pagliai&#64;gmail.com">mirko.pagliai&#64;<!---->gmail.com</a>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_button">#</a>
-		<code><a href="source-class-MeHtmlHelper.html#53-82" title="Go to source code">button</a>( <span>string <var>$title</var></span>, <span>mixed <var>$url</var> = <span class="php-quote">'#'</span></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span>, <span>string <var>$confirmMessage</var> = <span class="php-keyword1">false</span></span> )</code>
+		<code><a href="source-class-MeHtmlHelper.html#109-125" title="Go to source code">button</a>( <span>string <var>$title</var></span>, <span>mixed <var>$url</var> = <span class="php-quote">'#'</span></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span>, <span>string <var>$confirmMessage</var> = <span class="php-keyword1">false</span></span> )</code>
 
 		<div class="description short">
 			
-<p>Creates an HTML link with the appearance of a button, as required by <a href="http://getbootstrap.com/css/#buttons">Bootstrap</a>. Uses the <i>$this-&gt;link()</i> method</p>
+<p>Creates a link with the appearance of a button.</p>
 
 		</div>
 
 		<div class="description detailed hidden">
 			
-<p>Creates an HTML link with the appearance of a button, as required by <a href="http://getbootstrap.com/css/#buttons">Bootstrap</a>. Uses the <i>$this-&gt;link()</i> method</p>
+<p>Creates a link with the appearance of a button.</p>
 
-<p>You can use <a href="http://fortawesome.github.io/Font-Awesome">Font Awesome icons</a>. For example:</p>
-
-<pre>
-<span class="php-keyword1">echo</span> <span
-class="php-var">$this</span>-&gt;Html-&gt;linkButton(<span
-class="php-quote">'my link'</span>, <span
-class="php-quote">'http://site.com'</span>, <span
-class="php-keyword1">array</span>(<span
-class="php-quote">'icon'</span> =&gt; <span
-class="php-quote">'fa-search'</span>));
-</pre>
+<p>This method creates a link with the appearance of a button. To create a POST
+button, you should use the <code>postButton()</code> method provided by the
+<code>MeForm</code> helper. Instead, to create a normal button, you should use
+the <code>button()</code> method provided by the <code>MeForm</code> helper.</p>
 
 
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
 					<dt><var>$title</var></dt>
-					<dd><code>string</code><br>$title Button title</dd>
+					<dd><code>string</code><br>$title Link title</dd>
 					<dt><var>$url</var></dt>
-					<dd><code>mixed</code><br>$url Cake-relative URL, array of URL parameters or external URL</dd>
+					<dd><code>mixed</code><br>$url Cake-relative URL, array of URL parameters or external URL (starts with
+http://)</dd>
 					<dt><var>$options</var></dt>
 					<dd><code>array</code><br>$options HTML attributes</dd>
 					<dt><var>$confirmMessage</var></dt>
@@ -281,66 +413,18 @@ class="php-quote">'fa-search'</span>));
 
 				<h4>Returns</h4>
 				<div class="list">
-					<code>string</code><br>Html, link with the appearance of a button<br />
+					<code>string</code><br>Html, link<br />
 				</div>
 
 
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="cleanAttribute" id="_cleanAttribute">
-
-		<td class="attributes"><code>
-			 public 
-			string
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_cleanAttribute">#</a>
-		<code><a href="source-class-MeHtmlHelper.html#84-99" title="Go to source code">cleanAttribute</a>( <span>string <var>$value</var></span> )</code>
-
-		<div class="description short">
-			
-<p>Cleans values of an html attribute, removing blank spaces and duplicates. For
-example:</p>
-
-<pre>a a b  b c d e e e</pre>
-
-<p>will become:</p>
-
-<pre>a b c d e</pre>
-
-		</div>
-
-		<div class="description detailed hidden">
-			
-<p>Cleans values of an html attribute, removing blank spaces and duplicates. For
-example:</p>
-
-<pre>a a b  b c d e e e</pre>
-
-<p>will become:</p>
-
-<pre>a b c d e</pre>
-
-
-
-				<h4>Parameters</h4>
-				<div class="list"><dl>
-					<dt><var>$value</var></dt>
-					<dd><code>string</code><br>$value Attribute value</dd>
-				</dl></div>
-
-				<h4>Returns</h4>
+				<h4>See</h4>
 				<div class="list">
-					<code>string</code><br>Cleaned attribute value<br />
+						<code><code><a href="class-MeFormHelper.html#_button">MeFormHelper::button()</a></code></code>, <code><code><a href="class-MeFormHelper.html#_postButton">MeFormHelper::postButton()</a></code></code><br />
 				</div>
-
-
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-MeHtmlHelper.html#_link">MeHtmlHelper::link()</a></code></code> <br />
+				</div>
 
 
 		</div>
@@ -357,34 +441,34 @@ example:</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_css">#</a>
-		<code><a href="source-class-MeHtmlHelper.html#101-114" title="Go to source code">css</a>( <span>mixed <var>$path</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-MeHtmlHelper.html#127-139" title="Go to source code">css</a>( <span>mixed <var>$path</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
-<p>Adds a css file to the layout. Rewrites <i>$this-&gt;Html-&gt;css()</i></p>
+<p>Adds a css file to the layout.</p>
 
 		</div>
 
 		<div class="description detailed hidden">
 			
-<p>Adds a css file to the layout. Rewrites <i>$this-&gt;Html-&gt;css()</i></p>
+<p>Adds a css file to the layout.</p>
 
-<p>When used in the layout, you have to remember to use the "inline" option
-(must be set to TRUE)</p>
+<p>If it's used in the layout, you should set the <code>inline</code> option to
+<code>TRUE</code></p>
 
 
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
 					<dt><var>$path</var></dt>
-					<dd><code>mixed</code><br>$path The css filename or an array of css files</dd>
+					<dd><code>mixed</code><br>$path Css filename or an array of css filenames</dd>
 					<dt><var>$options</var></dt>
 					<dd><code>array</code><br>$options HTML attributes</dd>
 				</dl></div>
 
 				<h4>Returns</h4>
 				<div class="list">
-					<code>string</code><br>CSS &lt;link /&gt; or &lt;style /&gt; tag, depending on the type of link<br />
+					<code>string</code><br>Html, <code>link</code> or <code>style</code> tag<br />
 				</div>
 
 
@@ -404,17 +488,17 @@ example:</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_cssEnd">#</a>
-		<code><a href="source-class-MeHtmlHelper.html#116-121" title="Go to source code">cssEnd</a>( )</code>
+		<code><a href="source-class-MeHtmlHelper.html#141-144" title="Go to source code">cssEnd</a>( )</code>
 
 		<div class="description short">
 			
-<p>Ends CSS code. Rewrites <i>ViewBlock::end()</i></p>
+<p>Ends capturing output for a CSS block.</p>
 
 		</div>
 
 		<div class="description detailed hidden">
 			
-<p>Ends CSS code. Rewrites <i>ViewBlock::end()</i></p>
+<p>Ends capturing output for a CSS block.</p>
 
 
 
@@ -437,23 +521,85 @@ example:</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_cssStart">#</a>
-		<code><a href="source-class-MeHtmlHelper.html#123-128" title="Go to source code">cssStart</a>( )</code>
+		<code><a href="source-class-MeHtmlHelper.html#146-149" title="Go to source code">cssStart</a>( )</code>
 
 		<div class="description short">
 			
-<p>Starts CSS code. Rewrites <i>ViewBlock::start('css')</i></p>
+<p>Starts capturing output for a CSS block.</p>
 
 		</div>
 
 		<div class="description detailed hidden">
 			
-<p>Starts CSS code. Rewrites <i>ViewBlock::start('css')</i></p>
+<p>Starts capturing output for a CSS block.</p>
 
 
 
 
 
 
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="dropdown" id="_dropdown">
+
+		<td class="attributes"><code>
+			 public 
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_dropdown">#</a>
+		<code><a href="source-class-MeHtmlHelper.html#151-174" title="Go to source code">dropdown</a>( <span>string <var>$title</var></span>, <span>array <var>$titleOptions</var> = <span class="php-keyword1">array</span>()</span>, <span>array <var>$links</var> = <span class="php-keyword1">array</span>()</span>, <span>array <var>$itemOptions</var> = <span class="php-keyword1">array</span>()</span>, <span>array <var>$ulOptions</var> = <span class="php-keyword1">array</span>()</span>, <span>array <var>$divOptions</var> = <span class="php-keyword1">array</span>()</span> )</code>
+
+		<div class="description short">
+			
+<p>Creates a dropdown, according to the Bootstrap component.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Creates a dropdown, according to the Bootstrap component.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$title</var></dt>
+					<dd><code>string</code><br>$title Dropdown link title</dd>
+					<dt><var>$titleOptions</var></dt>
+					<dd><code>array</code><br>$titleOptions HTML attributes for the link title</dd>
+					<dt><var>$links</var></dt>
+					<dd><code>array</code><br>$links Array of links for the menu</dd>
+					<dt><var>$itemOptions</var></dt>
+					<dd><code>array</code><br>$itemOptions Options for each item of the menu</dd>
+					<dt><var>$ulOptions</var></dt>
+					<dd><code>array</code><br>$ulOptions Options for the menu</dd>
+					<dt><var>$divOptions</var></dt>
+					<dd><code>array</code><br>$divOptions Options for the div wrapper</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>string</code><br>Html, dropdown menu<br />
+				</div>
+
+
+				<h4>See</h4>
+				<div class="list">
+						<a
+href="http://getbootstrap.com/components/#dropdowns">http://getbootstrap.com/components/#dropdowns</a>
+Bootstrap documentation<br />
+				</div>
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-MeHtmlHelper.html#_linkDropdown">MeHtmlHelper::linkDropdown()</a></code></code><br>to create the main link<br />
+				</div>
 
 
 		</div>
@@ -470,44 +616,30 @@ example:</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getCrumbs">#</a>
-		<code><a href="source-class-MeHtmlHelper.html#130-149" title="Go to source code">getCrumbs</a>( <span>string <var>$separator</var> = <span class="php-quote">'/'</span></span>, <span>string|array|boolean <var>$startText</var> = <span class="php-keyword1">false</span></span> )</code>
+		<code><a href="source-class-MeHtmlHelper.html#176-189" title="Go to source code">getCrumbs</a>( <span>string <var>$separator</var> = <span class="php-quote">'/'</span></span>, <span>string|array|boolean <var>$startText</var> = <span class="php-keyword1">false</span></span> )</code>
 
 		<div class="description short">
 			
-<p>Returns the breadcrumb as a sequence of separated links. Rewrites
-<i>$this-&gt;Html-&gt;getCrumbs()</i></p>
+<p>Returns the breadcrumb as a sequence of links.</p>
 
 		</div>
 
 		<div class="description detailed hidden">
 			
-<p>Returns the breadcrumb as a sequence of separated links. Rewrites
-<i>$this-&gt;Html-&gt;getCrumbs()</i></p>
+<p>Returns the breadcrumb as a sequence of links.</p>
 
-<p>Note that it's better to use <i>$this-&gt;getCrumbList()</i>, which offers
-better compatibility with Bootstrap</p>
-
-<p>You can use <a href="http://fortawesome.github.io/Font-Awesome">Font Awesome icons</a> for the first crumb. For example:</p>
-
-<pre>
-<span class="php-keyword1">echo</span> <span
-class="php-var">$this</span>-&gt;Html-&gt;getCrumbs(<span
-class="php-quote">'/'</span>, <span class="php-keyword1">array</span>(<span
-class="php-quote">'text'</span> =&gt; <span
-class="php-quote">'Homepage'</span>, <span
-class="php-quote">'icon'</span> =&gt; <span
-class="php-quote">'fa-home'</span>));
-</pre>
+<p>Note that it's better to use the <code>getCrumbList()</code> method, which
+offers better compatibility with Bootstrap.</p>
 
 
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
 					<dt><var>$separator</var></dt>
-					<dd><code>string</code><br>$separator Text to separate crumbs</dd>
+					<dd><code>string</code><br>$separator Crumbs separator</dd>
 					<dt><var>$startText</var></dt>
-					<dd><code>string|array|boolean</code><br>$startText The first crumb. If is an array, the accepted keys are "text", "url"
-and "icon"</dd>
+					<dd><code>string|array|boolean</code><br>$startText The first crumb. If is an array, accepted keys are "text", "url" and
+"icon"</dd>
 				</dl></div>
 
 				<h4>Returns</h4>
@@ -516,6 +648,10 @@ and "icon"</dd>
 				</div>
 
 
+				<h4>See</h4>
+				<div class="list">
+						<code><code><a href="class-MeHtmlHelper.html#_getCrumbList">MeHtmlHelper::getCrumbList()</a></code></code><br />
+				</div>
 
 
 		</div>
@@ -532,44 +668,32 @@ and "icon"</dd>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getCrumbList">#</a>
-		<code><a href="source-class-MeHtmlHelper.html#151-176" title="Go to source code">getCrumbList</a>( <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span>, <span>string|array|boolean <var>$startText</var> = <span class="php-keyword1">false</span></span> )</code>
+		<code><a href="source-class-MeHtmlHelper.html#191-207" title="Go to source code">getCrumbList</a>( <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span>, <span>string|array|boolean <var>$startText</var> = <span class="php-keyword1">false</span></span> )</code>
 
 		<div class="description short">
 			
-<p>Returns the breadcrumb. Rewrites <i>$this-&gt;Html-&gt;getCrumbList()</i></p>
+<p>Returns the breadcrumb as a (x)html list.</p>
 
 		</div>
 
 		<div class="description detailed hidden">
 			
-<p>Returns the breadcrumb. Rewrites <i>$this-&gt;Html-&gt;getCrumbList()</i></p>
+<p>Returns the breadcrumb as a (x)html list.</p>
 
-<p>You can use <a href="http://fortawesome.github.io/Font-Awesome">Font Awesome icons</a> for the first crumb. For example:</p>
-
-<pre>
-<span class="php-keyword1">echo</span> <span
-class="php-var">$this</span>-&gt;Html-&gt;getCrumbList(<span
-class="php-keyword1">null</span>, <span class="php-keyword1">array</span>(<span
-class="php-quote">'text'</span> =&gt; <span
-class="php-quote">'Homepage'</span>, <span
-class="php-quote">'icon'</span> =&gt; <span
-class="php-quote">'fa-home'</span>));
-</pre>
-
-<p>Note that with Bootstrap 3 you don't need to set separators. Separators are
-automatically added in CSS through <code>:after</code> and
-<code>content</code></p>
+<p>Note that the <code>lastClass</code> option is set automatically as required
+by Bootstrap and separators (<code>separator</code> option) are automatically
+added by Bootstrap in CSS through :before and content. So you should not use any
+of these two options.</p>
 
 
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
 					<dt><var>$options</var></dt>
-					<dd><code>array</code><br>$options HTML attributes. Can also contain "separator" and "firstClass" options.
-The "lastClass" option is set automatically as required by Bootstrap</dd>
+					<dd><code>array</code><br>$options HTML attributes</dd>
 					<dt><var>$startText</var></dt>
-					<dd><code>string|array|boolean</code><br>$startText The first crumb. If is an array, the accepted keys are "text", "url"
-and "icon"</dd>
+					<dd><code>string|array|boolean</code><br>$startText The first crumb. If is an array, accepted keys are "text", "url" and
+"icon"</dd>
 				</dl></div>
 
 				<h4>Returns</h4>
@@ -594,17 +718,17 @@ and "icon"</dd>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_icon">#</a>
-		<code><a href="source-class-MeHtmlHelper.html#178-199" title="Go to source code">icon</a>( <span>array <var>$icon</var> = <span class="php-keyword1">null</span></span> )</code>
+		<code><a href="source-class-MeHtmlHelper.html#209-225" title="Go to source code">icon</a>( <span>mixed <var>$icons</var> = <span class="php-keyword1">null</span></span> )</code>
 
 		<div class="description short">
 			
-<p>Returns an icon (<i>Font Awesome icons</i>)</p>
+<p>Returns icons.</p>
 
 		</div>
 
 		<div class="description detailed hidden">
 			
-<p>Returns an icon (<i>Font Awesome icons</i>)</p>
+<p>Returns icons.</p>
 
 <p>Examples:</p>
 
@@ -622,22 +746,74 @@ class="php-quote">'fa-home'</span>, <span
 class="php-quote">'fa-fw'</span>));
 </pre>
 
-<p>Look at <a href="http://fortawesome.github.io/Font-Awesome">Font Awesome icons</a></p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$icons</var></dt>
+					<dd><code>mixed</code><br>$icons Icon or icons as string or array</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>string</code><br>Html, icons<br />
+				</div>
+
+
+				<h4>See</h4>
+				<div class="list">
+						<a
+href="http://fortawesome.github.io/Font-Awesome">http://fortawesome.github.io/Font-Awesome</a>
+Font Awesome icons<br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="image" id="_image">
+
+		<td class="attributes"><code>
+			 public 
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_image">#</a>
+		<code><a href="source-class-MeHtmlHelper.html#227-237" title="Go to source code">image</a>( <span>string <var>$path</var></span>, <span>mixed <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
+
+		<div class="description short">
+			
+<p>Creates an IMG element.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Creates an IMG element.</p>
 
 
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
-					<dt><var>$icon</var></dt>
-					<dd><code>array</code><br>$icon Icon or icons as string or an array of icons</dd>
+					<dt><var>$path</var></dt>
+					<dd><code>string</code><br>$path Image path (will be relative to <code>app/webroot/img/</code>)</dd>
+					<dt><var>$options</var></dt>
+					<dd><code>mixed</code><br>$options HTML attributes</dd>
 				</dl></div>
 
 				<h4>Returns</h4>
 				<div class="list">
-					<code>string</code><br>Html, icon<br />
+					<code>string</code><br>Html, image<br />
 				</div>
 
 
+				<h4>Used by</h4>
+				<div class="list">
+						<code><code><a href="class-MeHtmlHelper.html#_thumb">MeHtmlHelper::thumb()</a></code></code><br>to display the thumb<br />
+				</div>
 
 
 		</div>
@@ -654,17 +830,17 @@ class="php-quote">'fa-fw'</span>));
 
 		<td class="name"><div>
 		<a class="anchor" href="#_img">#</a>
-		<code><a href="source-class-MeHtmlHelper.html#201-207" title="Go to source code">img</a>( )</code>
+		<code><a href="source-class-MeHtmlHelper.html#239-244" title="Go to source code">img</a>( )</code>
 
 		<div class="description short">
 			
-<p>Alias for <i>$this-&gt;Html-&gt;image()</i></p>
+<p>Alias for <code>image()</code> method</p>
 
 		</div>
 
 		<div class="description detailed hidden">
 			
-<p>Alias for <i>$this-&gt;Html-&gt;image()</i></p>
+<p>Alias for <code>image()</code> method</p>
 
 
 
@@ -687,23 +863,83 @@ class="php-quote">'fa-fw'</span>));
 
 		<td class="name"><div>
 		<a class="anchor" href="#_js">#</a>
-		<code><a href="source-class-MeHtmlHelper.html#209-215" title="Go to source code">js</a>( )</code>
+		<code><a href="source-class-MeHtmlHelper.html#246-251" title="Go to source code">js</a>( )</code>
 
 		<div class="description short">
 			
-<p>Alias for <i>$this-&gt;Html-&gt;script()</i></p>
+<p>Alias for <code>script()</code> method</p>
 
 		</div>
 
 		<div class="description detailed hidden">
 			
-<p>Alias for <i>$this-&gt;Html-&gt;script()</i></p>
+<p>Alias for <code>script()</code> method</p>
 
 
 
 
 
 
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="label" id="_label">
+
+		<td class="attributes"><code>
+			 public 
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_label">#</a>
+		<code><a href="source-class-MeHtmlHelper.html#253-271" title="Go to source code">label</a>( <span>string <var>$text</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span>, <span>string <var>$type</var> = <span class="php-quote">'default'</span></span> )</code>
+
+		<div class="description short">
+			
+<p>Create a label, according to the Bootstrap component.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Create a label, according to the Bootstrap component.</p>
+
+<p>This method creates only a label element. Not to be confused with the
+<code>label()</code> method of the <code>MeForm</code> helper, which creates a
+label for a form input.</p>
+
+<p>Supported type are: <code>default</code>, <code>primary</code>,
+<code>success</code>, <code>info</code>, <code>warning</code> and
+<code>danger</code></p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$text</var></dt>
+					<dd><code>string</code><br>$text Label text</dd>
+					<dt><var>$options</var></dt>
+					<dd><code>array</code><br>$options HTML attributes of the list tag</dd>
+					<dt><var>$type</var></dt>
+					<dd><code>string</code><br>$type Label type</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>string</code><br>Html, label<br />
+				</div>
+
+
+				<h4>See</h4>
+				<div class="list">
+						<a
+href="http://getbootstrap.com/components/#labels">http://getbootstrap.com/components/#labels</a>
+Bootstrap documentation<br />
+				</div>
 
 
 		</div>
@@ -720,17 +956,17 @@ class="php-quote">'fa-fw'</span>));
 
 		<td class="name"><div>
 		<a class="anchor" href="#_li">#</a>
-		<code><a href="source-class-MeHtmlHelper.html#217-237" title="Go to source code">li</a>( <span>array <var>$list</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-MeHtmlHelper.html#273-301" title="Go to source code">li</a>( <span>array <var>$elements</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
-<p>Builds elements of a list (<code>li</code>) out of an associative array.</p>
+<p>Returns element list (<code>li</code>) out of an array.</p>
 
 		</div>
 
 		<div class="description detailed hidden">
 			
-<p>Builds elements of a list (<code>li</code>) out of an associative array.</p>
+<p>Returns element list (<code>li</code>) out of an array.</p>
 
 <p>If the element is an array, then the firse value is the element and the
 second value are options.</p>
@@ -739,18 +975,22 @@ second value are options.</p>
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
-					<dt><var>$list</var></dt>
-					<dd><code>array</code><br>$list Elements.</dd>
+					<dt><var>$elements</var></dt>
+					<dd><code>array</code><br>$elements Element list</dd>
 					<dt><var>$options</var></dt>
-					<dd><code>array</code><br>$options HTML attributes</dd>
+					<dd><code>array</code><br>$options HTML attributes of the list tag</dd>
 				</dl></div>
 
 				<h4>Returns</h4>
 				<div class="list">
-					<code>string</code><br>Html, elements of a list<br />
+					<code>string</code><br>Html, element list<br />
 				</div>
 
 
+				<h4>Todo</h4>
+				<div class="list">
+						bug with only 1 element?<br />
+				</div>
 
 
 		</div>
@@ -767,29 +1007,20 @@ second value are options.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_link">#</a>
-		<code><a href="source-class-MeHtmlHelper.html#239-268" title="Go to source code">link</a>( <span>string <var>$title</var></span>, <span>mixed <var>$url</var> = <span class="php-quote">'#'</span></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span>, <span>string <var>$confirmMessage</var> = <span class="php-keyword1">false</span></span> )</code>
+		<code><a href="source-class-MeHtmlHelper.html#303-321" title="Go to source code">link</a>( <span>string <var>$title</var></span>, <span>mixed <var>$url</var> = <span class="php-quote">'#'</span></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span>, <span>string <var>$confirmMessage</var> = <span class="php-keyword1">false</span></span> )</code>
 
 		<div class="description short">
 			
-<p>Creates an HTML link. Rewrites <i>$this-&gt;Html-&gt;link()</i></p>
+<p>Creates a link.</p>
 
 		</div>
 
 		<div class="description detailed hidden">
 			
-<p>Creates an HTML link. Rewrites <i>$this-&gt;Html-&gt;link()</i></p>
+<p>Creates a link.</p>
 
-<p>You can use <a href="http://fortawesome.github.io/Font-Awesome">Font Awesome icons</a>. For example:</p>
-
-<pre>
-<span class="php-keyword1">echo</span> <span
-class="php-var">$this</span>-&gt;Html-&gt;<span
-class="php-keyword2">link</span>(<span class="php-quote">'my link'</span>, <span
-class="php-quote">'http://site.com'</span>, <span
-class="php-keyword1">array</span>(<span
-class="php-quote">'icon'</span> =&gt; <span
-class="php-quote">'fa-search'</span>));
-</pre>
+<p>Note: this method creates a normal link. To create a POST link, you should
+use the <code>postLink()</code> method of the <code>MeForm</code> helper.</p>
 
 
 
@@ -812,6 +1043,10 @@ http://)</dd>
 				</div>
 
 
+				<h4>Used by</h4>
+				<div class="list">
+						<code><code><a href="class-MeHtmlHelper.html#_button">MeHtmlHelper::button()</a></code></code> <br />
+				</div>
 
 
 		</div>
@@ -828,17 +1063,17 @@ http://)</dd>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_linkButton">#</a>
-		<code><a href="source-class-MeHtmlHelper.html#270-276" title="Go to source code">linkButton</a>( )</code>
+		<code><a href="source-class-MeHtmlHelper.html#323-328" title="Go to source code">linkButton</a>( )</code>
 
 		<div class="description short">
 			
-<p>Alias for <i>$this-&gt;Html-&gt;button()</i></p>
+<p>Alias for <code>button()</code></p>
 
 		</div>
 
 		<div class="description detailed hidden">
 			
-<p>Alias for <i>$this-&gt;Html-&gt;button()</i></p>
+<p>Alias for <code>button()</code></p>
 
 
 
@@ -861,48 +1096,100 @@ http://)</dd>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_linkDropdown">#</a>
-		<code><a href="source-class-MeHtmlHelper.html#278-305" title="Go to source code">linkDropdown</a>( <span>string <var>$title</var></span>, <span>mixed <var>$url</var> = <span class="php-quote">'#'</span></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-MeHtmlHelper.html#330-346" title="Go to source code">linkDropdown</a>( <span>string <var>$title</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
-<p>Creates an HTML link with the appearance of a button for <a href="http://getbootstrap.com/components/#dropdowns">Bootstrap dropdowns</a>. Uses the <i>$this-&gt;link()</i> method</p>
+<p>Creates the main link for a dropdown, according to the Bootstrap component.
+Note that this method creates only a link. To create a dropdown menu, you should
+use the <code>dropdown()</code> method.</p>
 
 		</div>
 
 		<div class="description detailed hidden">
 			
-<p>Creates an HTML link with the appearance of a button for <a href="http://getbootstrap.com/components/#dropdowns">Bootstrap dropdowns</a>. Uses the <i>$this-&gt;link()</i> method</p>
-
-<p>You can use <a href="http://fortawesome.github.io/Font-Awesome">Font Awesome icons</a>. For example:</p>
-
-<pre>
-<span class="php-keyword1">echo</span> <span
-class="php-var">$this</span>-&gt;Html-&gt;linkButton(<span
-class="php-quote">'my link'</span>, <span
-class="php-quote">'http://site.com'</span>, <span
-class="php-keyword1">array</span>(<span
-class="php-quote">'icon'</span> =&gt; <span
-class="php-quote">'fa-search'</span>));
-</pre>
+<p>Creates the main link for a dropdown, according to the Bootstrap component.
+Note that this method creates only a link. To create a dropdown menu, you should
+use the <code>dropdown()</code> method.</p>
 
 
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
 					<dt><var>$title</var></dt>
-					<dd><code>string</code><br>$title Button title</dd>
-					<dt><var>$url</var></dt>
-					<dd><code>mixed</code><br>$url Cake-relative URL, array of URL parameters or external URL</dd>
+					<dd><code>string</code><br>$title Link title</dd>
 					<dt><var>$options</var></dt>
 					<dd><code>array</code><br>$options HTML attributes</dd>
 				</dl></div>
 
 				<h4>Returns</h4>
 				<div class="list">
-					<code>string</code><br>Html, link for dropdown<br />
+					<code>string</code><br>Html, link<br />
 				</div>
 
 
+				<h4>See</h4>
+				<div class="list">
+						<code><code><a href="class-MeHtmlHelper.html#_dropdown">MeHtmlHelper::dropdown()</a></code></code><br />
+						<a
+href="http://getbootstrap.com/components/#dropdowns">http://getbootstrap.com/components/#dropdowns</a>
+Bootstrap documentation<br />
+				</div>
+				<h4>Used by</h4>
+				<div class="list">
+						<code><code><a href="class-MeHtmlHelper.html#_dropdown">MeHtmlHelper::dropdown()</a></code></code><br>to create the main link<br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="media" id="_media">
+
+		<td class="attributes"><code>
+			 public 
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_media">#</a>
+		<code><a href="source-class-MeHtmlHelper.html#348-359" title="Go to source code">media</a>( <span>string|array <var>$path</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
+
+		<div class="description short">
+			
+<p>Returns an audio/video element</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Returns an audio/video element</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$path</var></dt>
+					<dd><code>string|array</code><br>$path File path, relative to the <code>webroot/{$options['pathPrefix']}</code>
+directory or an array where each item itself can be a path string or an array
+containing <code>src</code> and <code>type</code> keys.</dd>
+					<dt><var>$options</var></dt>
+					<dd><code>array</code><br>$options Array of HTML attributes</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>string</code><br>Html, audio or video tag<br />
+				</div>
+
+
+				<h4>Used by</h4>
+				<div class="list">
+						<code><code><a href="class-MeHtmlHelper.html#_audio">MeHtmlHelper::audio()</a></code></code> <br />
+						<code><code><a href="class-MeHtmlHelper.html#_video">MeHtmlHelper::video()</a></code></code> <br />
+				</div>
 
 
 		</div>
@@ -919,30 +1206,26 @@ class="php-quote">'fa-search'</span>));
 
 		<td class="name"><div>
 		<a class="anchor" href="#_meta">#</a>
-		<code><a href="source-class-MeHtmlHelper.html#307-324" title="Go to source code">meta</a>( <span>string <var>$type</var></span>, <span>mixed <var>$url</var> = <span class="php-keyword1">null</span></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-MeHtmlHelper.html#361-375" title="Go to source code">meta</a>( <span>string <var>$type</var></span>, <span>mixed <var>$url</var> = <span class="php-keyword1">null</span></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
-<p>Creates a meta tag. Rewrites <i>$this-&gt;Html-&gt;meta()</i></p>
+<p>Creates a meta tag.</p>
 
 		</div>
 
 		<div class="description detailed hidden">
 			
-<p>Creates a meta tag. Rewrites <i>$this-&gt;Html-&gt;meta()</i></p>
+<p>Creates a meta tag.</p>
 
 <p>For a custom meta tag, the first parameter should be set to an array. For
-example:</p>
-
-<pre>
-<span class="php-keyword1">echo</span> <span
-class="php-var">$this</span>-&gt;Html-&gt;meta(<span
-class="php-keyword1">array</span>(<span
-class="php-quote">'name'</span> =&gt; <span
-class="php-quote">'robots'</span>, <span
-class="php-quote">'content'</span> =&gt; <span
-class="php-quote">'noindex'</span>));
-</pre>
+example: <code>&lt;span class="php-keyword1"&gt;echo&lt;/span&gt; &lt;span
+class="php-var"&gt;$this&lt;/span&gt;-&gt;Html-&gt;meta(&lt;span
+class="php-keyword1"&gt;array&lt;/span&gt;(&lt;span
+class="php-quote"&gt;'name'&lt;/span&gt; =&gt; &lt;span
+class="php-quote"&gt;'robots'&lt;/span&gt;, &lt;span
+class="php-quote"&gt;'content'&lt;/span&gt; =&gt; &lt;span
+class="php-quote"&gt;'noindex'&lt;/span&gt;));</code></p>
 
 
 
@@ -967,6 +1250,59 @@ class="php-quote">'noindex'</span>));
 		</div>
 		</div></td>
 	</tr>
+	<tr data-order="nestedList" id="_nestedList">
+
+		<td class="attributes"><code>
+			 public 
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_nestedList">#</a>
+		<code><a href="source-class-MeHtmlHelper.html#377-393" title="Go to source code">nestedList</a>( <span>array <var>$list</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span>, <span>array <var>$itemOptions</var> = <span class="php-keyword1">array</span>()</span>, <span>string <var>$tag</var> = <span class="php-quote">'ul'</span></span> )</code>
+
+		<div class="description short">
+			
+<p>Returns a list (<code>ol</code>/<code>ul</code>) out of an array.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Returns a list (<code>ol</code>/<code>ul</code>) out of an array.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$list</var></dt>
+					<dd><code>array</code><br>$list Element list</dd>
+					<dt><var>$options</var></dt>
+					<dd><code>array</code><br>$options HTML attributes of the list tag</dd>
+					<dt><var>$itemOptions</var></dt>
+					<dd><code>array</code><br>$itemOptions HTML attributes of the list items</dd>
+					<dt><var>$tag</var></dt>
+					<dd><code>string</code><br>$tag Type of list tag (ol/ul)</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>string</code><br>Html, ol/ul list<br />
+				</div>
+
+
+				<h4>Used by</h4>
+				<div class="list">
+						<code><code><a href="class-MeHtmlHelper.html#_ol">MeHtmlHelper::ol()</a></code></code><br>to create the list<br />
+						<code><code><a href="class-MeHtmlHelper.html#_ul">MeHtmlHelper::ul()</a></code></code><br>to create the list<br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
 	<tr data-order="ol" id="_ol">
 
 		<td class="attributes"><code>
@@ -978,30 +1314,28 @@ class="php-quote">'noindex'</span>));
 
 		<td class="name"><div>
 		<a class="anchor" href="#_ol">#</a>
-		<code><a href="source-class-MeHtmlHelper.html#326-335" title="Go to source code">ol</a>( <span>array <var>$list</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span>, <span>array <var>$itemOptions</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-MeHtmlHelper.html#395-405" title="Go to source code">ol</a>( <span>array <var>$list</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span>, <span>array <var>$itemOptions</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
-<p>Builds an ordered list (<code>ol</code>) out of an associative array.
-Rewrites <i>$this-&gt;Html-&gt;nestedList()</i></p>
+<p>Returns an ordered list (<code>ol</code>) out of an array.</p>
 
 		</div>
 
 		<div class="description detailed hidden">
 			
-<p>Builds an ordered list (<code>ol</code>) out of an associative array.
-Rewrites <i>$this-&gt;Html-&gt;nestedList()</i></p>
+<p>Returns an ordered list (<code>ol</code>) out of an array.</p>
 
 
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
 					<dt><var>$list</var></dt>
-					<dd><code>array</code><br>$list Elements to list</dd>
+					<dd><code>array</code><br>$list Element list</dd>
 					<dt><var>$options</var></dt>
 					<dd><code>array</code><br>$options HTML attributes of the list tag</dd>
 					<dt><var>$itemOptions</var></dt>
-					<dd><code>array</code><br>$itemOptions HTML attributes of the list item (<code>li</code>) tag</dd>
+					<dd><code>array</code><br>$itemOptions HTML attributes of the list items</dd>
 				</dl></div>
 
 				<h4>Returns</h4>
@@ -1010,6 +1344,10 @@ Rewrites <i>$this-&gt;Html-&gt;nestedList()</i></p>
 				</div>
 
 
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-MeHtmlHelper.html#_nestedList">MeHtmlHelper::nestedList()</a></code></code><br>to create the list<br />
+				</div>
 
 
 		</div>
@@ -1026,35 +1364,35 @@ Rewrites <i>$this-&gt;Html-&gt;nestedList()</i></p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_script">#</a>
-		<code><a href="source-class-MeHtmlHelper.html#337-350" title="Go to source code">script</a>( <span>mixed <var>$url</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-MeHtmlHelper.html#407-419" title="Go to source code">script</a>( <span>mixed <var>$url</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
-<p>Adds a js file to the layout. Rewrites <i>$this-&gt;Html-&gt;script()</i></p>
+<p>Adds a js file to the layout.</p>
 
 		</div>
 
 		<div class="description detailed hidden">
 			
-<p>Adds a js file to the layout. Rewrites <i>$this-&gt;Html-&gt;script()</i></p>
+<p>Adds a js file to the layout.</p>
 
-<p>When used in the layout, remember to use the "inline" option (must be set to
-TRUE)</p>
+<p>If it's used in the layout, you should set the <code>inline</code> option to
+<code>TRUE</code></p>
 
 
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
 					<dt><var>$url</var></dt>
-					<dd><code>mixed</code><br>$url String or array of javascript files to include</dd>
+					<dd><code>mixed</code><br>$url Javascript files as string or array</dd>
 					<dt><var>$options</var></dt>
 					<dd><code>array</code><br>$options HTML attributes</dd>
 				</dl></div>
 
 				<h4>Returns</h4>
 				<div class="list">
-					<code>mixed</code><br>String of &lt;script /&gt; tags or null if $inline is false or if $once is true
-and the file has been included before<br />
+					<code>mixed</code><br>String of &lt;script /&gt; tags or NULL if <code>$inline</code> is FALSE or if
+<code>$once</code> is TRUE and the file has been included before<br />
 				</div>
 
 
@@ -1074,33 +1412,31 @@ and the file has been included before<br />
 
 		<td class="name"><div>
 		<a class="anchor" href="#_scriptBlock">#</a>
-		<code><a href="source-class-MeHtmlHelper.html#352-363" title="Go to source code">scriptBlock</a>( <span>string <var>$code</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-MeHtmlHelper.html#421-431" title="Go to source code">scriptBlock</a>( <span>string <var>$code</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
-<p>Generates a Javascript code block. Rewrites
-<i>$this-&gt;Html-&gt;scriptBlock()</i></p>
+<p>Returns a Javascript code block.</p>
 
 		</div>
 
 		<div class="description detailed hidden">
 			
-<p>Generates a Javascript code block. Rewrites
-<i>$this-&gt;Html-&gt;scriptBlock()</i></p>
+<p>Returns a Javascript code block.</p>
 
 
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
 					<dt><var>$code</var></dt>
-					<dd><code>string</code><br>$code The Javascript code</dd>
+					<dd><code>string</code><br>$code Javascript code</dd>
 					<dt><var>$options</var></dt>
 					<dd><code>array</code><br>$options HTML attributes</dd>
 				</dl></div>
 
 				<h4>Returns</h4>
 				<div class="list">
-					<code>string</code><br>Html, Javascript code<br />
+					<code>string</code><br>Html, javascript code<br />
 				</div>
 
 
@@ -1120,24 +1456,24 @@ and the file has been included before<br />
 
 		<td class="name"><div>
 		<a class="anchor" href="#_scriptEnd">#</a>
-		<code><a href="source-class-MeHtmlHelper.html#365-371" title="Go to source code">scriptEnd</a>( )</code>
+		<code><a href="source-class-MeHtmlHelper.html#433-439" title="Go to source code">scriptEnd</a>( )</code>
 
 		<div class="description short">
 			
-<p>Ends Javascript code. Rewrites <i>$this-&gt;Html-&gt;scriptEnd()</i></p>
+<p>Ends Javascript code.</p>
 
 		</div>
 
 		<div class="description detailed hidden">
 			
-<p>Ends Javascript code. Rewrites <i>$this-&gt;Html-&gt;scriptEnd()</i></p>
+<p>Ends Javascript code.</p>
 
 
 
 
 				<h4>Returns</h4>
 				<div class="list">
-					<code>mixed</code><br>A script tag or null<br />
+					<code>mixed</code><br>A script tag or NULL<br />
 				</div>
 
 
@@ -1157,17 +1493,17 @@ and the file has been included before<br />
 
 		<td class="name"><div>
 		<a class="anchor" href="#_scriptStart">#</a>
-		<code><a href="source-class-MeHtmlHelper.html#373-383" title="Go to source code">scriptStart</a>( <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-MeHtmlHelper.html#441-450" title="Go to source code">scriptStart</a>( <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
-<p>Starts Javascript code. Rewrites <i>$this-&gt;Html-&gt;scriptStart()</i></p>
+<p>Starts Javascript code.</p>
 
 		</div>
 
 		<div class="description detailed hidden">
 			
-<p>Starts Javascript code. Rewrites <i>$this-&gt;Html-&gt;scriptStart()</i></p>
+<p>Starts Javascript code.</p>
 
 
 
@@ -1179,7 +1515,7 @@ and the file has been included before<br />
 
 				<h4>Returns</h4>
 				<div class="list">
-					<code>mixed</code><br>A script tag or null<br />
+					<code>mixed</code><br>A script tag or NULL<br />
 				</div>
 
 
@@ -1199,30 +1535,26 @@ and the file has been included before<br />
 
 		<td class="name"><div>
 		<a class="anchor" href="#_tag">#</a>
-		<code><a href="source-class-MeHtmlHelper.html#385-397" title="Go to source code">tag</a>( <span>string <var>$name</var></span>, <span>string <var>$text</var> = <span class="php-keyword1">null</span></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-MeHtmlHelper.html#452-464" title="Go to source code">tag</a>( <span>string <var>$name</var></span>, <span>string <var>$text</var> = <span class="php-keyword1">null</span></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
-<p>Returns a formatted block tag, ie <code>&lt;div&gt;</code>,
-<code>&lt;span&gt;</code>, <code>&lt;p&gt;</code>. Rewrites
-<i>$this-&gt;Html-&gt;tag()</i></p>
+<p>Returns a formatted block tag.</p>
 
 		</div>
 
 		<div class="description detailed hidden">
 			
-<p>Returns a formatted block tag, ie <code>&lt;div&gt;</code>,
-<code>&lt;span&gt;</code>, <code>&lt;p&gt;</code>. Rewrites
-<i>$this-&gt;Html-&gt;tag()</i></p>
+<p>Returns a formatted block tag.</p>
 
 
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
 					<dt><var>$name</var></dt>
-					<dd><code>string</code><br>$name Tag name</dd>
+					<dd><code>string</code><br>$name Tag name.</dd>
 					<dt><var>$text</var></dt>
-					<dd><code>string</code><br>$text Tag content. If null, only a start tag will be printed</dd>
+					<dd><code>string</code><br>$text Tag content. If NULL, only a start tag will be printed</dd>
 					<dt><var>$options</var></dt>
 					<dd><code>array</code><br>$options HTML attributes</dd>
 				</dl></div>
@@ -1249,26 +1581,27 @@ and the file has been included before<br />
 
 		<td class="name"><div>
 		<a class="anchor" href="#_thumb">#</a>
-		<code><a href="source-class-MeHtmlHelper.html#399-422" title="Go to source code">thumb</a>( <span>string <var>$path</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-MeHtmlHelper.html#466-482" title="Go to source code">thumb</a>( <span>string <var>$path</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
-<p>Creates (or gets, if it already exists) a thumb and returns the html code.
-Uses the <i>$this-&gt;image()</i> method</p>
+<p>Creates (or gets, if it already exists) and returns a thumbnail.</p>
 
 		</div>
 
 		<div class="description detailed hidden">
 			
-<p>Creates (or gets, if it already exists) a thumb and returns the html code.
-Uses the <i>$this-&gt;image()</i> method</p>
+<p>Creates (or gets, if it already exists) and returns a thumbnail.</p>
+
+<p>To get the thumb, you need to use the "width" and/or the "height" option. For
+square thumbs, you need to use the "side" option.</p>
 
 
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
 					<dt><var>$path</var></dt>
-					<dd><code>string</code><br>$path Image path (relative to the webroot)</dd>
+					<dd><code>string</code><br>$path Image path (will be relative to <code>app/webroot/</code>)</dd>
 					<dt><var>$options</var></dt>
 					<dd><code>array</code><br>$options HTML attributes</dd>
 				</dl></div>
@@ -1276,6 +1609,122 @@ Uses the <i>$this-&gt;image()</i> method</p>
 				<h4>Returns</h4>
 				<div class="list">
 					<code>string</code><br>Html, tag element<br />
+				</div>
+
+
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-MeHtmlHelper.html#_thumbUrl">MeHtmlHelper::thumbUrl()</a></code></code><br>to get the url thumb<br />
+						<code><code><a href="class-MeHtmlHelper.html#_image">MeHtmlHelper::image()</a></code></code><br>to display the thumb<br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="thumbUrl" id="_thumbUrl">
+
+		<td class="attributes"><code>
+			 public 
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_thumbUrl">#</a>
+		<code><a href="source-class-MeHtmlHelper.html#484-514" title="Go to source code">thumbUrl</a>( <span>string <var>$path</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
+
+		<div class="description short">
+			
+<p>Creates (or gets, if it already exists) and returns the url for a
+thumbnail.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Creates (or gets, if it already exists) and returns the url for a
+thumbnail.</p>
+
+<p>To get the thumb, you need to use <code>width</code> and/or
+<code>height</code> options. For square thumbs, you need to use the
+<code>side</code> option.</p>
+
+<p>Note that to directly display a thumb, you should use the
+<code>thumb()</code> method. This method only returns the url of the
+thumbnail.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$path</var></dt>
+					<dd><code>string</code><br>$path Image path (will be relative to <code>app/webroot/</code>)</dd>
+					<dt><var>$options</var></dt>
+					<dd><code>array</code><br>$options HTML attributes</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>string</code><br>Html, tag element<br />
+				</div>
+
+
+				<h4>See</h4>
+				<div class="list">
+						<code><code><a href="class-MeHtmlHelper.html#_thumb">MeHtmlHelper::thumb()</a></code></code><br />
+				</div>
+				<h4>Used by</h4>
+				<div class="list">
+						<code><code><a href="class-MeHtmlHelper.html#_thumb">MeHtmlHelper::thumb()</a></code></code><br>to get the url thumb<br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="tip" id="_tip">
+
+		<td class="attributes"><code>
+			 public 
+			Html,
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_tip">#</a>
+		<code><a href="source-class-MeHtmlHelper.html#516-547" title="Go to source code">tip</a>( <span>string|array <var>$text</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
+
+		<div class="description short">
+			
+<p>Returns a tip block.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Returns a tip block.</p>
+
+<p>By default, the tip block will have a title. To change the title, use the
+"title" option. If the "title" option is an array, you can use "text" and
+"options" keys. If you don't want to have a title, the "title" option should be
+<code>FALSE</code>.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$text</var></dt>
+					<dd><code>string|array</code><br>$text Tip text, as string or array</dd>
+					<dt><var>$options</var></dt>
+					<dd><code>array</code><br>$options HTML attributes</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>Html,</code><br>tip block.<br />
 				</div>
 
 
@@ -1295,30 +1744,28 @@ Uses the <i>$this-&gt;image()</i> method</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_ul">#</a>
-		<code><a href="source-class-MeHtmlHelper.html#424-433" title="Go to source code">ul</a>( <span>array <var>$list</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span>, <span>array <var>$itemOptions</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-MeHtmlHelper.html#549-559" title="Go to source code">ul</a>( <span>array <var>$list</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span>, <span>array <var>$itemOptions</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
-<p>Builds an unordered list (<code>ul</code>) out of an associative array.
-Rewrites <i>$this-&gt;Html-&gt;nestedList()</i></p>
+<p>Returns an unordered list (<code>ul</code>) out of an array.</p>
 
 		</div>
 
 		<div class="description detailed hidden">
 			
-<p>Builds an unordered list (<code>ul</code>) out of an associative array.
-Rewrites <i>$this-&gt;Html-&gt;nestedList()</i></p>
+<p>Returns an unordered list (<code>ul</code>) out of an array.</p>
 
 
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
 					<dt><var>$list</var></dt>
-					<dd><code>array</code><br>$list Elements to list</dd>
+					<dd><code>array</code><br>$list Element list</dd>
 					<dt><var>$options</var></dt>
 					<dd><code>array</code><br>$options HTML attributes of the list tag</dd>
 					<dt><var>$itemOptions</var></dt>
-					<dd><code>array</code><br>$itemOptions HTML attributes of the list item (<code>li</code>) tag</dd>
+					<dd><code>array</code><br>$itemOptions HTML attributes of the list items</dd>
 				</dl></div>
 
 				<h4>Returns</h4>
@@ -1327,6 +1774,60 @@ Rewrites <i>$this-&gt;Html-&gt;nestedList()</i></p>
 				</div>
 
 
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-MeHtmlHelper.html#_nestedList">MeHtmlHelper::nestedList()</a></code></code><br>to create the list<br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="video" id="_video">
+
+		<td class="attributes"><code>
+			 public 
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_video">#</a>
+		<code><a href="source-class-MeHtmlHelper.html#561-571" title="Go to source code">video</a>( <span>string|array <var>$path</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
+
+		<div class="description short">
+			
+<p>Returns a video element</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Returns a video element</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$path</var></dt>
+					<dd><code>string|array</code><br>$path File path, relative to the <code>webroot/{$options['pathPrefix']}</code>
+directory or an array where each item itself can be a path string or an array
+containing <code>src</code> and <code>type</code> keys.</dd>
+					<dt><var>$options</var></dt>
+					<dd><code>array</code><br>$options Array of HTML attributes</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>string</code><br>Html, video tag<br />
+				</div>
+
+
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-MeHtmlHelper.html#_media">MeHtmlHelper::media()</a></code></code> <br />
+				</div>
 
 
 		</div>
@@ -1345,6 +1846,36 @@ Rewrites <i>$this-&gt;Html-&gt;nestedList()</i></p>
 
 
 
+	<table class="summary" id="properties">
+	<caption>Properties summary</caption>
+	<tr data-order="helpers" id="$helpers">
+		<td class="attributes"><code>
+			public  
+			array
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-MeHtmlHelper.html#40-44" title="Go to source code"><var>$helpers</var></a>
+		</td>
+		<td class="value"><code><span class="php-keyword1">array</span>(<span class="php-quote">'Form'</span> =&gt; <span class="php-keyword1">array</span>(<span class="php-quote">'className'</span> =&gt; <span class="php-quote">'MeTools.MeForm'</span>))</code></td>
+		<td class="description"><div>
+			<a href="#$helpers" class="anchor">#</a>
+
+			<div class="description short">
+				
+<p>Helpers</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Helpers</p>
+
+
+			</div>
+		</div></td>
+	</tr>
+	</table>
 
 
 
