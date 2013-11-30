@@ -2,8 +2,7 @@ accessLevels: "public,protected,private"
 autocomplete: "classes,constants,functions,methods,properties,classconstants"
 destination: Docs
 download: yes
-exclude: {*/build/*, */Console/*, */Locale/*, */Plugin/*, */tmp/*, */Vendor/*, */webroot/*}
+source: {Controller, Lib/Log/Engine/MeFileLog.php, Model, Utility, View/Helper}
 main: MeTools
-source: .
 title: "MeTools"
 todo: "yes"
