@@ -1,12 +1,6 @@
 <?php
-App::uses('AppHelper', 'View/Helper');
-App::import('Vendor', 'MeTools.Markdown/Markdown');
-use \Michelf\Markdown;
-
 /**
- * Converts the Markdown syntax to HTML.
- *
- * Look at {@link http://michelf.ca/projects/php-markdown PHP Markdown link} and {@link http://daringfireball.net/projects/markdown/syntax Markdown syntax}.
+ * MarkdownHelper
  *
  * This file is part of MeTools.
  *
@@ -28,11 +22,19 @@ use \Michelf\Markdown;
  * @license		http://www.gnu.org/licenses/agpl.txt AGPL License
  * @link		http://git.novatlantis.it Nova Atlantis Ltd
  * @package		MeTools\View\Helper
+ * @see			http://michelf.ca/projects/php-markdown PHP Markdown
+ */
+App::uses('AppHelper', 'View/Helper');
+App::import('Vendor', 'MeTools.Markdown/Markdown');
+use \Michelf\Markdown;
+
+/**
+ * Converts from Markdown syntax to HTML.
  */
 class MarkdownHelper extends AppHelper {
 	/**
-	 * Converts a string with the Markdown syntax to HTML
-	 * @param string $string String with the Markdown syntax
+	 * Converts a string from the Markdown syntax to HTML
+	 * @param string $string Markdown syntax
 	 * @return string Html
 	 */
 	function toHtml($string) {

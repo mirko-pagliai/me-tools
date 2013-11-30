@@ -1,7 +1,6 @@
 <?php
-
 /**
- * Application level model.
+ * MeToolsAppModel
  *
  * This file is part of MeTools.
  *
@@ -24,5 +23,8 @@
  * @link		http://git.novatlantis.it Nova Atlantis Ltd
  * @package		MeTools\Model
  */
-class MeToolsAppModel extends AppModel {
-}
+
+/**
+ * Application level model.
+ */
+class MeToolsAppModel extends AppModel { }

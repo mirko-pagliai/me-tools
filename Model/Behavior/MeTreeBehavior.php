@@ -1,11 +1,6 @@
 <?php
-App::uses('TreeBehavior', 'Model/Behavior');
-
 /**
- * Tree behavior class.
- * Enables a model object to act as a node-based tree.
- * 
- * MeTreeBehavior extends {@link http://api.cakephp.org/2.4/source-class-TreeBehavior.html TreeBehavior}
+ * MeTreeBehavior
  * 
  * This file is part of MeTools.
  *
@@ -27,10 +22,20 @@ App::uses('TreeBehavior', 'Model/Behavior');
  * @license		http://www.gnu.org/licenses/agpl.txt AGPL License
  * @link		http://git.novatlantis.it Nova Atlantis Ltd
  * @package		MeTools\Model\Behavior
+ * @see			http://api.cakephp.org/2.4/source-class-TreeBehavior.html CakePHP Api
+ */
+App::uses('TreeBehavior', 'Model/Behavior');
+
+/**
+ * Tree behavior class. Enables a model object to act as a node-based tree.
+ * 
+ * Rewrites {@link http://api.cakephp.org/2.4/source-class-TreeBehavior.html TreeBehavior}.
+ * 
+ * This class is only useful to rewrite the `generateTreeList()` method provided by the `TreeBehavior` behavior.
  */
 class MeTreeBehavior extends TreeBehavior {
 	/**
-	 * A convenience method for returning a hierarchical array used for HTML select boxes. Rewrites <i>$this->TreeBehavior->generateTreeList()</i>
+	 * A convenience method for returning a hierarchical array used for HTML select boxes.
 	 * @param Model $Model Model instance
 	 * @param string|array $conditions SQL conditions as a string or as an array('field' =>'value',...)
 	 * @param string $keyPath A string path to the key, i.e. "{n}.Post.id"

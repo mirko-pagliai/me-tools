@@ -1,8 +1,6 @@
 <?php
-App::uses('AppHelper', 'View/Helper');
-
 /**
- * This helper is for the use of some libraries, particularly JavaScript libraries.
+ * LibraryHelper
  *
  * This file is part of MeTools.
  *
@@ -25,6 +23,11 @@ App::uses('AppHelper', 'View/Helper');
  * @link		http://git.novatlantis.it Nova Atlantis Ltd
  * @package		MeTools\View\Helper
  */
+App::uses('AppHelper', 'View/Helper');
+
+/**
+ * Allows to easily use some libraries, particularly JavaScript libraries.
+ */
 class LibraryHelper extends AppHelper {
 	/**
 	 * Helpers
@@ -40,11 +43,12 @@ class LibraryHelper extends AppHelper {
 	
 	/**
 	 * Before layout callback. beforeLayout is called before the layout is rendered.
-	 * @param string $layoutFile The layout about to be rendered.
+	 * @param string $layoutFile The layout about to be rendered
 	 * @return void
+	 * @see http://api.cakephp.org/2.4/class-Helper.html#_beforeLayout CakePHP Api
 	 */
 	public function beforeLayout($layoutFile) {
-		//Write the output
+		//Writes the output
 		if(!empty($this->output)) {
 			$this->output = array_map(function($v) { return "\t".$v.PHP_EOL; }, $this->output);
 			$this->Html->scriptBlock("$(function() {".PHP_EOL.implode('', $this->output)."});");
@@ -56,11 +60,13 @@ class LibraryHelper extends AppHelper {
 	 * 
 	 * To know how to install and configure CKEditor, please refer to the `README` file.
 	 * 
-	 * To create an input field compatible with CKEditor, you should use the method `ckeditor` of the <i>Form</i> helper.
-	 * @param boolean $jquery FALSE if you don't want to use the jquery adapter
+	 * To create an input field compatible with CKEditor, you should use the `ckeditor()` method provided by `MeForm` helper.
+	 * @param bool $jquery FALSE if you don't want to use the jquery adapter
 	 * @return mixed String of <script /> tags
+	 * @see MeFormHelper::ckeditor()
+	 * @see http://docs.cksource.com CKEditor documentation
 	 */
-	public function ckeditor($jquery=true) {
+	public function ckeditor($jquery = TRUE) {
 		$url = '/ckeditor';
 		
 		//Checks if CKEditor script (ckeditor.js) exists
@@ -100,14 +106,13 @@ class LibraryHelper extends AppHelper {
 	/**
 	 * Adds a datepicker to the `$input` field.
 	 * 
-	 * To create an input field compatible with datepicker, you should use the method `datepicker` of the <i>Form</i> helper.
-	 * 
-	 * To know the options to use with datepicker, please refer to the `README` file.
-	 * {@link http://bootstrap-datepicker.readthedocs.org Bootstrap Datepicker documentation}.
+	 * To create an input field compatible with datepicker, you should use the `datepicker()` method provided by `MeForm` helper.
 	 * @param string $input Target field
 	 * @param array $options Options for datepicker
+	 * @see MeFormHelper::datepicker()
+	 * @see http://bootstrap-datepicker.readthedocs.org Bootstrap Datepicker documentation
 	 */
-	public function datepicker($input='.datepicker', $options=array()) {
+	public function datepicker($input = '.datepicker', $options = array()) {
 		$this->Html->js('/MeTools/js/bootstrap-datepicker.min');
 		$this->Html->css('/MeTools/css/datepicker.min');
 		
@@ -136,7 +141,7 @@ class LibraryHelper extends AppHelper {
 	 * @param string $sourceField Source field
 	 * @param string $targetField Target field
 	 */
-	public function slugify($sourceField='form #title', $targetField='form #slug') {
+	public function slugify($sourceField = 'form #title', $targetField = 'form #slug') {
 		$this->Html->js('/MeTools/js/slugify.min');
 		$this->output[] = "$().slugify('{$sourceField}', '{$targetField}');";
 	}
@@ -144,12 +149,11 @@ class LibraryHelper extends AppHelper {
 	/**
 	 * Adds a timepicker to the `$input` field.
 	 * 
-	 * To create an input field compatible with timepicker, you should use the method `timepicker` of the <i>Form</i> helper.
-	 * 
-	 * To know the options to use with timepicker, please refer to the
-	 * {@link http://jdewit.github.io/bootstrap-timepicker Bootstrap Timepicker documentation}.
+	 * To create an input field compatible with datepicker, you should use the `timepicker()` method provided by `MeForm` helper.
 	 * @param string $input Target field
 	 * @param array $options Options for timepicker
+	 * @see MeFormHelper::timepicker()
+	 * @see http://jdewit.github.io/bootstrap-timepicker Bootstrap Timepicker documentation
 	 */
 	public function timepicker($input='.timepicker', $options=array()) {
 		$this->Html->js('/MeTools/js/bootstrap-timepicker.min');

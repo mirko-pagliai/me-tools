@@ -1,41 +1,6 @@
 <?php
-App::uses('MeToolsAppController', 'MeTools.Controller');
-App::uses('Folder', 'Utility');
-
 /**
- * `ThumbsController` creates and displays thumbs for images.
- * Images must be located in the webroot (`app/webroot`).
- * 
- * The `thumb()` action takes the image path (relative to the webroot) as a list of arguments. For example:
- * <pre>/me_tools/thumbs/thumb/img/my_pic.jpg</pre>
- * will refer to `app/webroot/img/my_pic.jpg`.
- * 
- * It takes the maximum width and/or the maximum height as query string parameters ("w" and "h"). 
- * For example:
- * <pre>/me_tools/thumbs/thumb/img/my_pic.jpg?w=150</pre>
- * This will create a thumb with a maximum width of 150px.
- * <pre>/me_tools/thumbs/thumb/img/my_pic.jpg?w=150&h=100</pre>
- * This will create a thumb with a maximum width of 150px and a maximux height of 100px.
- * 
- * You can also create square thumbs, it's sufficient to indicate square side in the query string ("s" parameters).
- * For example:
- * <pre>/me_tools/thumbs/thumb/img/my_pic.jpg?s=150</pre>
- * With square thumbs, the initial image will be cut off if it is rectangular.
- * 
- * `ThumbsController` doesn't just show the thumb, but it creates a real thumb in the filesystem, which can be used later 
- * when the same thumbs will be required (as if it were a cache). If the directory in which the image is located 
- * is writable, it creates the thumb inside the sub-directory `.thumbs` (which is also created, if not already existing). 
- * 
- * For example:
- * <pre>/me_tools/thumbs/thumb/img/my_pic.jpg?w=150</pre>
- * If the thumb will be 150x100, this will create the file `app/webroot/img/.thumbs/my_pic_150x100.jpg`,
- * that will be used for the next request.
- * 
- * If you use MeTools routes, then it will also be possible to use the simplified url:
- * <pre>/thumb/img/my_pic.jpg?w=150</pre>
- * 
- * In any case, it's better to use the `thumb()` method provided by the `MeHtml` helper. 
- * The `thumb()` method, using this controller, creates the thumb and the HTML code to show it.
+ * ThumbsController
  *
  * This file is part of MeTools.
  *
@@ -58,32 +23,70 @@ App::uses('Folder', 'Utility');
  * @link		http://git.novatlantis.it Nova Atlantis Ltd
  * @package		MeTools\Controller
  */
+App::uses('MeToolsAppController', 'MeTools.Controller');
+App::uses('Folder', 'Utility');
+
+/**
+ * Creates and displays thumbnails from images.
+ * 
+ * Images must be located in the webroot (`app/webroot`).
+ * 
+ * The `thumb()` action takes the image path (relative to the webroot) as a list of arguments. For example:
+ * <pre>/me_tools/thumbs/thumb/img/my_pic.jpg</pre>
+ * will refer to `app/webroot/img/my_pic.jpg`.
+ * 
+ * It takes the maximum width and/or the maximum height as query string (`w` and `h` parameters). 
+ * For example:
+ * <pre>/me_tools/thumbs/thumb/img/my_pic.jpg?w=150</pre>
+ * This will create a thumb with a maximum width of 150px.
+ * <pre>/me_tools/thumbs/thumb/img/my_pic.jpg?w=150&h=100</pre>
+ * This will create a thumb with a maximum width of 150px and a maximux height of 100px.
+ * 
+ * You can also create square thumbs. In this case, it's sufficient to indicate square side in the query string (`s` parameter).
+ * For example:
+ * <pre>/me_tools/thumbs/thumb/img/my_pic.jpg?s=150</pre>
+ * This will create a square thumb with a side (width and height) of 150px.
+ * 
+ * With square thumbs, the initial image will be cut off if it is rectangular.
+ * 
+ * `ThumbsController` doesn't just show the thumb, but creates a real thumb in the filesystem, which can be used later 
+ * when the same thumbs will be required (as if it were a cache). If the directory in which the image is located 
+ * is writable, it creates the thumb inside the sub-directory `.thumbs` (which is also created, if not already existing). 
+ * 
+ * For example:
+ * <pre>/me_tools/thumbs/thumb/img/my_pic.jpg?w=150</pre>
+ * If the thumb will be 150x100, this will create the file `app/webroot/img/.thumbs/my_pic_150x100.jpg`.
+ * 
+ * If you use MeTools routes, then it will also be possible to use the simplified url:
+ * <pre>/thumb/img/my_pic.jpg?w=150</pre>
+ * 
+ * In any case, it's better to use `thumb()` and `thumbUrl()` methods provided by the `MeHtml` helper.
+ * The `thumb()` method, using this controller, creates the thumb and returns the HTML code to show it.
+ * The `thumbUrl()` method creates the thumbs and returns its url.
+ * @see MeHtmlHelper::thumb(), MeHtmlHelper::thumbUrl()
+ */
 class ThumbsController extends MeToolsAppController {
 	/**
-	 * Path of the initial image for which you want to have a thumbnail. 
-	 * It will be set by the `thumb()` method.
+	 * Path of the initial image.
 	 * @var string Image path
 	 */
-	protected $file = null;
+	protected $file = NULL;
 	
 	/**
 	 * Informations about the image.
 	 * It will contain the initial, the max and the final sizes (width and height) and the the mimetype.
-	 * They will be set by the `__setInfo()` method, called by the `thumb()` method.
 	 * @var array Array of informations
 	 */
 	protected $info = array();
 	
 	/**
 	 * Path of the final thumb, if a thumb was created.
-	 * They will be set by the `__setInfo()` method, called by the `thumb()` method.
 	 * @var string Thumb path
 	 */
-	protected $thumb = null;
+	protected $thumb = NULL;
 	
 	/**
-	 * Creates a thumb.
-	 * It will be called by the `thumb()` method, if it's necessary to create a thumb.
+	 * Creates the thumb.
 	 * @throws NotFoundException
 	 */
 	protected function __createThumb() {
@@ -138,9 +141,9 @@ class ThumbsController extends MeToolsAppController {
 	}
 	
 	/**
-	 * Sets informations about the current image.
-	 * It will set the initial, the max and the final sizes (width and height) and the the mimetype for the image.
-	 * It will be called automatically by the `thumb()` method.
+	 * Sets informations about the current image (max sizes, final sizes, mimetype)
+	 * @uses info to set informations about the current image
+	 * @uses thumb for the path of the final thumb
 	 */
 	protected function __setInfo() {
 		$info = getimagesize($this->file);
@@ -201,6 +204,9 @@ class ThumbsController extends MeToolsAppController {
 	 * Please, refer to the class description for more information.
 	 * It's convenient to use the `thumb()` method provided by the `MeHtml` helper.
 	 * @throws NotFoundException
+	 * @uses file for the path of the initial image
+	 * @uses __createThumb() to create the thumb
+	 * @uses __setInfo() to set informations about the current image
 	 */
 	public function thumb() {
 		$this->autoRender = false;
@@ -210,7 +216,6 @@ class ThumbsController extends MeToolsAppController {
 		if(!fileExistsInPath($this->file))
 			throw new NotFoundException(__d('me_tools', 'Invalid image'));
 		
-		//Sets image infos
 		$this->__setInfo();
 		
 		header("Content-type: ".$this->info['mime']);

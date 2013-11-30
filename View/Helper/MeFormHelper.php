@@ -1,13 +1,6 @@
 <?php
-App::uses('FormHelper', 'View/Helper');
-
 /**
- * Provides functionalities for forms.
- * 
- * You should use this helper as an alias, for example:
- * <pre>public $helpers = array('Form' => array('className' => 'MeTools.MeForm'));</pre>
- * 
- * MeFormHelper extends {@link http://api.cakephp.org/2.4/class-FormHelper.html FormHelper}
+ * MeFormHelper
  *
  * This file is part of MeTools.
  *
@@ -29,6 +22,19 @@ App::uses('FormHelper', 'View/Helper');
  * @license		http://www.gnu.org/licenses/agpl.txt AGPL License
  * @link		http://git.novatlantis.it Nova Atlantis Ltd
  * @package		MeTools\View\Helper
+ * @see			http://api.cakephp.org/2.4/class-FormHelper.html FormHelper
+ */
+App::uses('FormHelper', 'View/Helper');
+
+/**
+ * Provides functionalities for forms.
+ * 
+ * Rewrites {@link http://api.cakephp.org/2.4/class-FormHelper.html FormHelper}.
+ * 
+ * You should use this helper as an alias, for example:
+ * <code>
+ * public $helpers = array('Form' => array('className' => 'MeTools.MeForm'));
+ * </code>
  */
 class MeFormHelper extends FormHelper {
 	/**
@@ -88,12 +94,12 @@ class MeFormHelper extends FormHelper {
 	/**
 	 * Creates a button.
 	 * 
-	 * Note: this method creates a button. 
-	 * To create a POST button, you should use the `postButton()` method.
-	 * Instead, to create a link with the appearance of a button, you should use the `button()` method of the `MeHtml` helper.
+	 * Tthis method creates a button. To create a POST button, you should use the `postButton()` method.
+	 * Instead, to create a link with the appearance of a button, you should use the `button()` method provided by the `MeHtml` helper.
 	 * @param string $title The button label or an image
 	 * @param array $options HTML attributes
 	 * @return string Html
+	 * @see postButton(), MeHtmlHelper::button()
 	 */
 	public function button($title, $options = array()) {
 		$options['type'] = empty($options['type']) ? 'button' : $options['type'];
@@ -109,6 +115,8 @@ class MeFormHelper extends FormHelper {
 	 * @param string $fieldName Field name, should be "Modelname.fieldname"
 	 * @param array $options HTML attributes
 	 * @return string Checkbox list as Html
+	 * @uses button() to create buttons to check/uncheck all checkboxes
+	 * @uses input() to create checkbox inputs
 	 */
 	public function checkboxList($fieldName, $options = array()) {
 		$buttons = self::button(__d('me_tools', 'Check all'), array('class' => 'checkAll btn-default', 'icon' => 'fa-check-square-o'));
@@ -129,6 +137,7 @@ class MeFormHelper extends FormHelper {
 	 * @param string $fieldName Field name, should be "Modelname.fieldname"
 	 * @param array $options HTML attributes
 	 * @return string Html
+	 * @uses input() to create the textarea for CKEditor
 	 */
 	public function ckeditor($fieldName, $options=array()) {
 		$options['class'] = empty($options['class']) ? 'wysiwyg' : $this->Html->__clean('wysiwyg', $options['class']);
@@ -157,6 +166,8 @@ class MeFormHelper extends FormHelper {
 	 * @param mixed $model The model name for which the form is being defined. If `false` no model is used
 	 * @param array $options HTML attributes and options
 	 * @return string An formatted opening FORM tag
+	 * @uses create() to create the form
+	 * @uses inline to mark the form as an inline form
 	 */
 	public function createInline($model = null, $options = array()) {
 		$this->inline = TRUE;
@@ -176,6 +187,7 @@ class MeFormHelper extends FormHelper {
 	 * @param string $fieldName Field name, should be "Modelname.fieldname"
 	 * @param array $options HTML attributes
 	 * @return string Html
+	 * @uses input() to create the input
 	 */
 	public function datepicker($fieldName, $options=array()) {
 		$options['class'] = empty($options['class']) ? 'datepicker' : $this->Html->__clean('datepicker', $options['class']);
@@ -188,6 +200,8 @@ class MeFormHelper extends FormHelper {
 	 * @param string $caption The label appearing on the submit button or an image
 	 * @param array $options Options
 	 * @return string Html
+	 * @uses button to create the submit button
+	 * @uses inline to reset the form status
 	 */
 	public function end($caption = null, $options = array()) {
 		$this->inline = FALSE;
@@ -212,10 +226,12 @@ class MeFormHelper extends FormHelper {
 	 * 'selected' => @$this->Form->getDefault($this->request->data['User']['group'], 'user')
 	 * </code>
 	 * will set the "selected" option to 
-	 * <pre>$this->request->data['User']['group']</pre>
+	 * <code>
+	 * $this->request->data['User']['group']
+	 * </code>
 	 * if this exists (for example, if the form has already been sent), else it will use the "user" default value.
 	 * 
-	 * It must be used with the "@" operator, otherwise it will generate a notice.
+	 * You should use it with the `@` operator, otherwise it will generate a notice.
 	 * @param string $value Value to check
 	 * @param string $default Default value
 	 * @return string Value to check if this is not empty, else default value
@@ -288,14 +304,16 @@ class MeFormHelper extends FormHelper {
 	/**
 	 * Creates a button with a surrounding form that submits via POST.
 	 * 
-	 * Note: this method creates a button in a form element. So don't use this method in an already opened form.
+	 * This method creates a button in a form element. So don't use this method in an already opened form.
 	 * To create a normal button, you should use the `button()` method.
-	 * To create a button with the appearance of a link, you should use the `button()` method of the `MeHtml` helper.
+	 * To create a button with the appearance of a link, you should use the `button()` method provided by the `MeHtml` helper.
 	 * @param string $title Button title
 	 * @param mixed $url Cake-relative URL, array of URL parameters or external URL (starts with http://)
 	 * @param array $options HTML attributes
 	 * @param string $confirmMessage JavaScript confirmation message
 	 * @return string Html
+	 * @see button(), MeHtmlHelper::button()
+	 * @uses postLink() to create a POST button with the confirm message
 	 */
 	public function postButton($title, $url, $options = array(), $confirmMessage = false) {
 		//In CakePHP, the `postButton()` method doesn't have the `$confirmMessage`, then in this case we need to use `postLink()`
@@ -310,13 +328,14 @@ class MeFormHelper extends FormHelper {
 	/**
 	 * Creates a link with a surrounding form that submits via POST.
 	 * 
-	 * Note: this method creates a link in a form element. So don't use this method in an already opened form. 
+	 * This method creates a link in a form element. So don't use this method in an already opened form. 
 	 * To create a normal link, you should use the `link()` method of the `MeHtml` helper.
 	 * @param string $title Button title
 	 * @param mixed $url Cake-relative URL, array of URL parameters or external URL (starts with http://)
 	 * @param array $options HTML attributes
 	 * @param string $confirmMessage JavaScript confirmation message
 	 * @return string Html
+	 * @see MeHtmlHelper::link()
 	 */
 	public function postLink($title, $url = null, $options = array(), $confirmMessage = false) {
 		$options['escape'] = empty($options['escape']) ? false : $options['escape'];
@@ -369,6 +388,7 @@ class MeFormHelper extends FormHelper {
 	 * @param string $caption The label appearing on the submit button or an image
 	 * @param array $options Options
 	 * @return string Html
+	 * @uses button() to create the submit button
 	 */
 	public function submit($caption = null, $options = array()) {
 		$caption = !empty($caption) ? $caption : __d('me_tools', 'Submit');
@@ -408,6 +428,7 @@ class MeFormHelper extends FormHelper {
 	 * @param string $fieldName Field name, should be "Modelname.fieldname"
 	 * @param array $options HTML attributes
 	 * @return string Html
+	 * @uses input() to create the input
 	 */
 	public function timepicker($fieldName, $options=array()) {
 		$options['class'] = empty($options['class']) ? 'timepicker' : $this->Html->__clean('timepicker', $options['class']);

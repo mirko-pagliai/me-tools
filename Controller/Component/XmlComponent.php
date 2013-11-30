@@ -1,8 +1,6 @@
 <?php
-App::uses('Xml', 'Utility');
-
 /**
- * A component to manage xml files.
+ * XmlComponent
  *
  * This file is part of MeTools.
  *
@@ -25,21 +23,23 @@ App::uses('Xml', 'Utility');
  * @link		http://git.novatlantis.it Nova Atlantis Ltd
  * @package		MeTools\Controller\Component
  */
+App::uses('Xml', 'Utility');
+
+/**
+ * A component to handle XML.
+ */
 class XmlComponent extends Component {
 	/**
-	 * Gets a xml and returns an array
+	 * Gets an XML file and returns as array
 	 * @param string $url Xml ulr
 	 * @return mixed Array or null
 	 */
 	public function get($url) {
-		//If the url exists, returns the xml file as an array
+		//If the XML file exists, returns as array
 		if(@file_get_contents($url)) {
 			$xml = Xml::toArray(Xml::build($url));
 
-			if(!empty($xml['root']))
-				return $xml['root'];
-			else
-				return $xml;
+			return empty($xml['root']) ? $xml : $xml['root'];
 		}
 	}
 }

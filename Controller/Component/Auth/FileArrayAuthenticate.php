@@ -1,22 +1,6 @@
 <?php
-App::uses('FormAuthenticate', 'Controller/Component/Auth');
-App::uses('FileArray', 'MeTools.Utility');
-
 /**
- * An authentication adapter for `AuthComponent`. Provides the ability to authenticate using POST
- * data with an array of user datas in the file `APP/users.txt` and generated through the `FileArray` utility. 
- * 
- * Can be used by configuring `AuthComponent` to use it via the `AuthComponent::$authenticate` setting.
- * <code>
- * $this->Auth->authenticate = array(
- *		'Form' => array(
- *			'scope' => array('User.active' => 1)
- *		)
- * )
- * </code>
- * 
- * When configuring `FormAuthenticate` you can pass in settings to which fields, model and additional conditions
- * are used. See `FormAuthenticate::$settings` for more information.
+ * FileArrayAuthenticate
  *
  * This file is part of MeTools.
  *
@@ -39,14 +23,20 @@ App::uses('FileArray', 'MeTools.Utility');
  * @link		http://git.novatlantis.it Nova Atlantis Ltd
  * @package		MeTools\Controller\Component\Auth
  */
+App::uses('FormAuthenticate', 'Controller/Component/Auth');
+App::uses('FileArray', 'MeTools.Utility');
+
+/**
+ * An authentication adapter for `AuthComponent`. Provides the ability to authenticate using POST
+ * data with an array located in `APP/users.txt` and generated through the `FileArray` utility.
+ */
 class FileArrayAuthenticate extends FormAuthenticate {
 	/**
-	 * Authenticates the identity contained in a request. Will use the `settings.userModel`, and `settings.fields`
-	 * to find POST data that is used to find a matching record in the `settings.userModel`. Will return false if
-	 * there is no post data, either username or password is missing, of if the scope conditions have not been met.
-	 * @param CakeRequest $request The request that contains login information.
-	 * @param CakeResponse $response Unused response object.
-	 * @return mixed An array of user data or FALSE on login failure.
+	 * Provides the ability to authenticate using POSTdata with an array located in `APP/users.txt` and 
+	 * generated through the `FileArray` utility.
+	 * @param CakeRequest $request The request that contains login information
+	 * @param CakeResponse $response Unused response object
+	 * @return mixed An array of user data or FALSE on login failure
 	 */
     public function authenticate(CakeRequest $request, CakeResponse $response) {
 		//Gets model and fields
@@ -65,7 +55,7 @@ class FileArrayAuthenticate extends FormAuthenticate {
 			'password' => md5($fields['password'])
 		));
 		
-		//Returns user datas if the user exists, else FALSE
+		//Returns user data if user exists, else FALSE
 		return !empty($user) ? $user : false;
     }
 }

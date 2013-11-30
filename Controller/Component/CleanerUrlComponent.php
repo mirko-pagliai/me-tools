@@ -1,17 +1,6 @@
 <?php
-
 /**
- * A component to clean the current url, removing the query string.
- *
- * For example:
- * <pre>/admin/users?var1=a&var2=b</pre>
- * will become:
- * <pre>/admin/users/index/var1:a/var2:b</pre>
- *
- * To use the `CleanerUrl` component, add it to the list of components in your controller (for example, the `AppController`):
- * <code>
- * public $components = array('MeTools.CleanerUrl');
- * </code>
+ * CleanerUrlComponent
  *
  * This file is part of MeTools.
  *
@@ -34,37 +23,45 @@
  * @link		http://git.novatlantis.it Nova Atlantis Ltd
  * @package		MeTools\Controller\Component
  */
+
+/**
+ * A component to clean the current url, removing the query string.
+ *
+ * For example:
+ * <pre>/admin/users?var1=a&var2=b</pre>
+ * will become:
+ * <pre>/admin/users/index/var1:a/var2:b</pre>
+ *
+ * To use the `CleanerUrl` component, you need to add it to the components list in your controller:
+ * <code>
+ * public $components = array('MeTools.CleanerUrl');
+ * </code>
+ */
 class CleanerUrlComponent extends Component {
 	/**
 	 * Called before the controller's beforeFilter method. Execute `cleanUrl`.
-	 *
-	 * Look at {@link http://api.cakephp.org/2.4/class-Component.html#_initialize CakePHP Api}
 	 * @param Controller $controller
+	 * @see http://api.cakephp.org/2.4/class-Component.html#_initialize CakePHP Api
 	 */
 	public function initialize(Controller $controller) {
 		$this->cleanUrl($controller);
 	}
 
 	/**
-	 * Cleans the current url, turning query arguments in named arguments, then executes a redirect.
+	 * Cleans the current url, turning query arguments in named arguments, and executes a redirect.
 	 * @param Controller $controller
 	 */
 	protected function cleanUrl(Controller $controller) {
-		//If there're query arguments
 		if(!empty($controller->request->query)) {
 			//Merge named arguments with query arguments (note: query arguments will overwrite named arguments)
 			$named = array_merge($controller->request->params['named'], $controller->request->query);
 
 			//Merge controller, action, plugin, passed arguments (only values) and named values
-			$url = array_merge(
-				array(
-					'controller' => $controller->request->params['controller'],
-					'action' => $controller->request->params['action'],
-					'plugin' => $controller->request->params['plugin']
-				),
-				array_values($controller->request->params['pass']),
-				$named
-			);
+			$url = array_merge(array(
+				'controller'	=> $controller->request->params['controller'],
+				'action'		=> $controller->request->params['action'],
+				'plugin'		=> $controller->request->params['plugin']
+			), array_values($controller->request->params['pass']), $named);
 
 			$controller->redirect($url);
 		}

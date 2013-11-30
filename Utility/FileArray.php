@@ -1,7 +1,6 @@
 <?php
-
 /**
- * Provides methods for using text file as database.
+ * FileArray
  *
  * This file is part of MeTools.
  *
@@ -23,6 +22,11 @@
  * @license		http://www.gnu.org/licenses/agpl.txt AGPL License
  * @link		http://git.novatlantis.it Nova Atlantis Ltd
  * @package		MeTools\Utility
+ */
+
+/**
+ * Provides several methods for using a text file as database.
+ * It can count, delete, edit, check, search, retrieve and insert data.
  */
 class FileArray  {
 	/**
@@ -46,13 +50,13 @@ class FileArray  {
 	/**
 	 * Contruct. Sets the File object, the path and the content
 	 * @param string $path File path
+	 * @uses content to set the file content
+	 * @uses file to set the File object
+	 * @uses path to set the file path
 	 */
 	public function __construct($path = false) {
-		//Set the File object
 		$this->file = new File($path);
-		//Set the path
 		$this->path = $path;
-		//Read the content
 		$this->content = $this->__read();
 	}
 	
@@ -70,7 +74,7 @@ class FileArray  {
 		
 		foreach($this->content as $k => $record) {
 			//Note: array_diff_assoc() return an array containing all the values from array1 that are not present in array2
-			//So, all the values of array1 are included in array2 when array_diff_assoc() returns an empty array
+			//So, all values of array1 are included in array2 when array_diff_assoc() returns an empty array
 			$diff = array_diff_assoc($conditions, $record);
 			//If all the conditions are included in the current record
 			if(!count($diff))

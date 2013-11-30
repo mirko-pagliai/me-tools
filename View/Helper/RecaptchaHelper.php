@@ -1,11 +1,6 @@
 <?php
-App::uses('AppHelper', 'View/Helper');
-App::import('Vendor', 'MeTools.Recaptcha/recaptchalib');
-
 /**
- * Recaptcha functions.
- *
- * Before using this helper, please configure Recaptcha keys in <i>Config/recaptcha.php</i>
+ * RecaptchaHelper
  *
  * This file is part of MeTools.
  *
@@ -27,6 +22,15 @@ App::import('Vendor', 'MeTools.Recaptcha/recaptchalib');
  * @license		http://www.gnu.org/licenses/agpl.txt AGPL License
  * @link		http://git.novatlantis.it Nova Atlantis Ltd
  * @package		MeTools\View\Helper
+ * @see			http://developers.google.com/recaptcha/docs/php reCAPTCHA PHP library
+ */
+App::uses('AppHelper', 'View/Helper');
+App::import('Vendor', 'MeTools.Recaptcha/recaptchalib');
+
+/**
+ * Provides several methods for Recaptcha.
+ *
+ * Before using this helper, you have to configure keys in `Config/recaptcha.php`.
  */
 class RecaptchaHelper extends AppHelper {
 	/**
@@ -43,11 +47,11 @@ class RecaptchaHelper extends AppHelper {
 
 	/**
 	 * Construct
-	 * @param View $View The View this helper is being attached to.
-	 * @param array $settings Configuration settings for the helper.
+	 * @param View $View The View this helper is being attached to
+	 * @param array $settings Configuration settings for the helper
+	 * @uses mail_keys to set mail keys
 	 */
 	 public function __construct(View $View, $settings = array()) {
-		//Loads Config/recaptcha.php from MeTools
 		Configure::load('MeTools.recaptcha');
 
 		//Sets mail keys, if they exist
@@ -62,33 +66,23 @@ class RecaptchaHelper extends AppHelper {
 
 	/**
 	 * Creates an HTML link for an hidden email. The link will be open in a popup.
-	 *
-	 * It uses <i>MeHtml::link()</i> to create the link and <i>mailUrl()</i> to get the url of the email hidden.
-	 * 
-	 * You can use {@link http://fortawesome.github.io/Font-Awesome Font Awesome icons}. For example:
-	 * <code>
-	 * echo $this->Recaptcha->mailLink('my mail', 'mymail@provider.com', array('icon' => 'icon-search'));
-	 * </code>
 	 * @param string $title Link title
 	 * @param string $mail Email to hide
 	 * @param array $options HTML attributes
 	 * @return string Html
+	 * @uses mailUrl to get the url
 	 */
 	public function mailLink($title, $mail, $options=array()) {
-		//Get the link
 		$link = $this->mailUrl($mail);
 
-		//Add the "onclick" options, that allows to open the link in a popup
-		$options['onclick'] = "window.open('".$link."', '', 'toolbar=0,scrollbars=0,location=0,statusbar=0,menubar=0,resizable=0,width=500,height=300'); return false;";
-
-		//Return the link
+		//Adds the "onclick" options, that allows to open the link in a popup
+		$options['onclick'] = sprintf("window.open('%s', '', 'toolbar=0,scrollbars=0,location=0,statusbar=0,menubar=0,resizable=0,width=500,height=300'); return false;", $link);
+		
 		return $this->Html->link($title, $link, $options);
 	}
 
 	/**
-	 * Gets the url for an hidden email.
-	 *
-	 * Note that this method will only return a url. To create a link is better to use <i>mailLink()</i>.
+	 * Gets the url for an hidden email. This method will only return a url.
 	 * @param string $mail Email to hide
 	 * @return string Url
 	 */

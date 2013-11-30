@@ -1,7 +1,6 @@
 <?php
-
 /**
- * Application level controller.
+ * MeToolsAppController
  *
  * This file is part of MeTools.
  *
@@ -24,5 +23,8 @@
  * @link		http://git.novatlantis.it Nova Atlantis Ltd
  * @package		MeTools\Controller
  */
-class MeToolsAppController extends AppController {
-}
+
+/**
+ * Application level controller.
+ */
+class MeToolsAppController extends AppController { }

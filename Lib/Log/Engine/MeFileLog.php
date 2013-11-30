@@ -1,9 +1,7 @@
 <?php
-App::uses('FileLog', 'Log/Engine');
-
 /**
- * File Storage stream for logging.
- *
+ * MeFileLog
+ * 
  * This file is part of MeTools.
  *
  * MeTools is free software: you can redistribute it and/or modify
@@ -24,8 +22,19 @@ App::uses('FileLog', 'Log/Engine');
  * @license		http://www.gnu.org/licenses/agpl.txt AGPL License
  * @link		http://git.novatlantis.it Nova Atlantis Ltd
  * @package		MeTools\Lib\Log\Engine
+ * @see			http://api.cakephp.org/2.4/class-FileLog.html CakePHP Api
  */
-class MeToolsLog extends FileLog {
+App::uses('FileLog', 'Log/Engine');
+
+/**
+ * File Storage stream for logging. Writes log files.
+ * 
+ * Rewrites {@link http://api.cakephp.org/2.4/class-FileLog.html FileLog}.
+ * 
+ * This class is only useful to rewrite the `write()` method provided 
+ * by the `FileLog` engine, so that the client IP address is recorded in logs.
+ */
+class MeFileLog extends FileLog {
 	/**
 	 * Implements writing to log files.
 	 * @param string $type The type of log you are making.
