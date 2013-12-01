@@ -152,6 +152,11 @@ th a.desc:after {
 	margin: 0;
 }
 
+/* Tip, links */
+.tip a {
+	color: #760000;
+}
+
 /* Tip, code */
 .tip code {
 	background: transparent;
