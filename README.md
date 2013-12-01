@@ -17,7 +17,7 @@ In your webroot directory, create (or copy) a link to the MeTools webroot:
 	ln -s ../Plugin/MeTools/webroot/ MeTools
 
 ## Configuration
-Rename `app/Plugin/Config/recaptcha.default.php` in `app/Plugin/Config/recaptcha.php`, so configure Recaptha keys.
+Copy and rename `app/Plugin/Config/recaptcha.default.php` in `app/Config/recaptcha.php`, so configure Recaptha keys.
 
 ### Libraries and script
 MeTools uses different libraries or scripts:
