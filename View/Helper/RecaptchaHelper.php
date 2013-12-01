@@ -23,6 +23,7 @@
  * @link		http://git.novatlantis.it Nova Atlantis Ltd
  * @package		MeTools\View\Helper
  * @see			http://developers.google.com/recaptcha/docs/php reCAPTCHA PHP library
+ * @see			http://www.google.com/recaptcha/mailhide/apikey reCAPTCHA mail keys
  */
 App::uses('AppHelper', 'View/Helper');
 App::import('Vendor', 'MeTools.Recaptcha/recaptchalib');
