@@ -30,12 +30,11 @@ App::uses('Xml', 'Utility');
  */
 class XmlComponent extends Component {
 	/**
-	 * Gets an XML file and returns as array
-	 * @param string $url Xml ulr
+	 * Gets an XML file (remote or local) and returns it as an array
+	 * @param string $url XML url or path
 	 * @return mixed Array or null
 	 */
 	public function get($url) {
-		//If the XML file exists, returns as array
 		if(@file_get_contents($url)) {
 			$xml = Xml::toArray(Xml::build($url));
 
