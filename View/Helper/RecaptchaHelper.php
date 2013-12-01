@@ -64,6 +64,13 @@ class RecaptchaHelper extends AppHelper {
 
 		parent::__construct($View, $settings);
 	}
+	
+	/**
+	 * Alias for `mailLink()` method
+	 */
+	public function mail() { 
+		return call_user_func_array(array('RecaptchaHelper', 'mailLink'), func_get_args());
+	}
 
 	/**
 	 * Creates an HTML link for an hidden email. The link will be open in a popup.
