@@ -29,7 +29,7 @@ App::uses('AppHelper', 'View/Helper');
 App::import('Vendor', 'MeTools.Recaptcha/recaptchalib');
 
 /**
- * Provides several methods for Recaptcha.
+ * Provides several methods for reCAPTCHA.
  *
  * Before using this helper, you have to configure keys in `app/Config/recaptcha.php`.
  * You can use as example the file `app/Plugin/MeTools/Config/recaptcha.default.php`.
