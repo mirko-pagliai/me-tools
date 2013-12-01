@@ -33,6 +33,13 @@ use \Michelf\Markdown;
  */
 class MarkdownHelper extends AppHelper {
 	/**
+	 * Alias for `toHtml()` method
+	 */
+	public function fromMarkdown() { 
+		return call_user_func_array(array('MarkdownHelper', 'toHtml'), func_get_args());
+	}
+	
+	/**
 	 * Converts a string from the Markdown syntax to HTML
 	 * @param string $string Markdown syntax
 	 * @return string Html
