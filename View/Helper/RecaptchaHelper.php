@@ -54,13 +54,18 @@ class RecaptchaHelper extends AppHelper {
 	 */
 	 public function __construct(View $View, $settings = array()) {
 		Configure::load('recaptcha');
-
-		//Sets mail keys, if they exist
-		if(Configure::read('Recaptcha.Mail.Public_key') && Configure::read('Recaptcha.Mail.Private_key'))
-			$this->mail_keys = array(
-				'pub'	=> Configure::read('Recaptcha.Mail.Public_key'),
-				'priv'	=> Configure::read('Recaptcha.Mail.Private_key')
-			);
+		
+		$keys = $this->mail_keys = array(
+			'pub'	=> Configure::read('Recaptcha.Mail.Public_key'),
+			'priv'	=> Configure::read('Recaptcha.Mail.Private_key')
+		);	
+			
+		if(empty($keys['pub']) || empty($keys['priv']))
+			throw new InternalErrorException(__d('me_cms', 'Mail keys are not configured'));
+		
+		//Checks if the private mail key is valid (hexadecimal digits)
+		if(!ctype_xdigit($keys['priv']))
+			throw new InternalErrorException(__d('me_cms', 'The private mail key is not valid'));
 
 		parent::__construct($View, $settings);
 	}
