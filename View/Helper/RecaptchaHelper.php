@@ -30,14 +30,15 @@ App::import('Vendor', 'MeTools.Recaptcha/recaptchalib');
 /**
  * Provides several methods for Recaptcha.
  *
- * Before using this helper, you have to configure keys in `Config/recaptcha.php`.
+ * Before using this helper, you have to configure keys in `app/Config/recaptcha.php`.
+ * You can use as example the file `app/Plugin/MeTools/Config/recaptcha.default.php`.
  */
 class RecaptchaHelper extends AppHelper {
 	/**
 	 * Mail keys
 	 * @var array
 	 */
-	private $mail_keys = false;
+	private $mail_keys = FALSE;
 
 	/**
 	 * Helpers
@@ -52,7 +53,7 @@ class RecaptchaHelper extends AppHelper {
 	 * @uses mail_keys to set mail keys
 	 */
 	 public function __construct(View $View, $settings = array()) {
-		Configure::load('MeTools.recaptcha');
+		Configure::load('recaptcha');
 
 		//Sets mail keys, if they exist
 		if(Configure::read('Recaptcha.Mail.Public_key') && Configure::read('Recaptcha.Mail.Private_key'))
@@ -71,6 +72,7 @@ class RecaptchaHelper extends AppHelper {
 	 * @param array $options HTML attributes
 	 * @return string Html
 	 * @uses mailUrl to get the url
+	 * @uses MeHtmlHelper::link() to create the link
 	 */
 	public function mailLink($title, $mail, $options=array()) {
 		$link = $this->mailUrl($mail);
@@ -82,11 +84,15 @@ class RecaptchaHelper extends AppHelper {
 	}
 
 	/**
-	 * Gets the url for an hidden email. This method will only return a url.
+	 * Gets the url for an hidden email. 
+	 * 
+	 * This method will only return a url. If you want to create a link, you should use the `mailLink()` method
 	 * @param string $mail Email to hide
 	 * @return string Url
+	 * @see mailLink()
+	 * @uses mail_keys to read mail keys
 	 */
 	public function mailUrl($mail) {
-		return !empty($this->mail_keys) ? recaptcha_mailhide_url($this->mail_keys['pub'], $this->mail_keys['priv'], $mail) : null;
+		return !empty($this->mail_keys) ? recaptcha_mailhide_url($this->mail_keys['pub'], $this->mail_keys['priv'], $mail) : NULL;
 	}
 }
