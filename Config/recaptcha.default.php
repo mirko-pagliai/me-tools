@@ -14,9 +14,9 @@ $config = array(
 		 */
 		'Mail' => array(
 			//Mail public key
-			'Public_key' => 'your-public-key-here',
+			'Public_key'	=> 'your-public-key-here',
 			//Mail private key
-			'Private_key' => 'your-private-key-here'
+			'Private_key'	=> 'your-private-key-here'
 		)
 	)
 );
