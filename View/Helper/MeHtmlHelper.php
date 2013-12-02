@@ -133,6 +133,22 @@ class MeHtmlHelper extends HtmlHelper {
 	 * @return string Html, `link` or `style` tag
 	 */
 	public function css($path, $options = array()) {
+		/**
+		 * From 2.4, the API for HtmlHelper::css() has been changed and the 
+		 * method accepts only two options. This code ensures backward compatibility.
+		 */
+		if(!is_array($options)) {
+			$rel = $options;
+			$options = array();
+			if($rel)
+				$options['rel'] = $rel;
+			
+			if(func_num_args() > 2)
+				$options = func_get_arg(2) + $options;
+			
+			unset($rel);
+		}
+
 		$options['inline'] = empty($options['inline']) ? false : $options['inline'];
 
 		return parent::css($path, $options);
