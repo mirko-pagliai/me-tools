@@ -14,8 +14,15 @@ cp -R Config/ Console/ Controller/ Lib/ Locale/ Model/ Utility/ Vendor/ View/ we
 # Enter build/
 cd build/
 
-# Delete private config files
-rm -f $version/Config/recaptcha.php
+# Delete uncompressed CSS files
+rm -f $version/webroot/css/datepicker.css
+rm -f $version/webroot/css/syntaxhighlighter.css
+
+# Delete uncompressed JS files
+rm -f $version/webroot/js/bootstrap-datepicker.it.js
+rm -f $version/webroot/js/bootstrap-datepicker.js
+rm -f $version/webroot/js/default.js
+rm -f $version/webroot/js/slugify.js
 
 # Create archives
 tar -czf $version.tar.gz $version
