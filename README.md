@@ -2,6 +2,10 @@
 MeTools is a CakePHP plugin to improve applications development.  
 It provides some useful tools, such as components, helpers and javascript libraries.
 
+You can found MeTools APIs [here](http:////repository.novatlantis.it/metools/API) and 
+the sandbox repository [here](http://github.com/mirko-pagliai/MeToolsSandbox). 
+You can try the sandbox [here](http://repository.novatlantis.it/metools-sandbox).
+
 ## Versioning
 For transparency and insight into our release cycle, and for striving to maintain backward compatibility, 
 MeTools will be maintained under the [Semantic Versioning guidelines](http://semver.org).
@@ -22,7 +26,7 @@ Copy and rename `app/Plugin/Config/recaptcha.default.php` in `app/Config/recaptc
 ### Libraries and script
 MeTools uses different libraries or scripts:
 
-- JQuery 1.10.2 and 2.0.3 ([site](http://jquery.com));
+- JQuery 2.0.3 ([site](http://jquery.com));
 - Bootstrap 3.0.2 ([site](http://getbootstrap.com));
 - Font Awesome 4.0.3 ([site](http://fortawesome.github.com/Font-Awesome));
 - PHP Markdown 1.4.0 ([site](http://michelf.ca/projects/php-markdown));
