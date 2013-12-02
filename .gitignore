@@ -2,3 +2,4 @@ build/
 Config/recaptcha.php
 *.old
 *.old.*
+.directory
