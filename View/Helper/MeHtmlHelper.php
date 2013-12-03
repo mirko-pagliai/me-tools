@@ -353,6 +353,10 @@ class MeHtmlHelper extends HtmlHelper {
 	 * @see http://getbootstrap.com/components/#dropdowns Bootstrap documentation
 	 */
 	public function linkDropdown($title, $options = array()) {
+		//Backward compatibility, in which case they are 3 passed arguments
+		if(func_num_args()===3)
+			$options = func_get_arg(2);
+				
 		$options['class'] = empty($options['class']) ? 'dropdown-toggle' : self::__clean('dropdown-toggle', $options['class']);
 		$options['data-toggle'] = empty($options['data-toggle']) ? 'dropdown' : self::__clean('dropdown', $options['data-toggle']);
 
