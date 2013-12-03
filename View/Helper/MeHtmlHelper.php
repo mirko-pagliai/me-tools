@@ -282,6 +282,7 @@ class MeHtmlHelper extends HtmlHelper {
 	
 	/**
 	 * Alias for `icon()` method
+	 * @see icon()
 	 */
 	public function icons() { 
 		return call_user_func_array(array('MeHtmlHelper', 'icons'), func_get_args());
@@ -301,6 +302,7 @@ class MeHtmlHelper extends HtmlHelper {
 	
 	/**
 	 * Alias for `image()` method
+	 * @see image()
 	 */
 	public function img() { 
 		return call_user_func_array(array('MeHtmlHelper', 'image'), func_get_args());
@@ -308,6 +310,7 @@ class MeHtmlHelper extends HtmlHelper {
 	
 	/**
 	 * Alias for `script()` method
+	 * @see script()
 	 */
 	public function js() {
 		return call_user_func_array(array('MeHtmlHelper', 'script'), func_get_args());
@@ -385,6 +388,7 @@ class MeHtmlHelper extends HtmlHelper {
 
 	/**
 	 * Alias for `button()`
+	 * @see button()
 	 */
 	public function linkButton() {
 		return call_user_func_array(array('MeHtmlHelper', 'button'), func_get_args());

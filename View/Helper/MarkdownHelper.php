@@ -34,6 +34,7 @@ use \Michelf\Markdown;
 class MarkdownHelper extends AppHelper {
 	/**
 	 * Alias for `toHtml()` method
+	 * @see toHtml()
 	 */
 	public function fromMarkdown() { 
 		return call_user_func_array(array('MarkdownHelper', 'toHtml'), func_get_args());
