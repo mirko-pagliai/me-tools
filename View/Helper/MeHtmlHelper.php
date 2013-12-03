@@ -281,6 +281,13 @@ class MeHtmlHelper extends HtmlHelper {
 	}
 	
 	/**
+	 * Alias for `icon()` method
+	 */
+	public function icons() { 
+		return call_user_func_array(array('MeHtmlHelper', 'icons'), func_get_args());
+	}
+	
+	/**
 	 * Creates an IMG element.
 	 * @param string $path Image path (will be relative to `app/webroot/img/`)
 	 * @param $options HTML attributes
