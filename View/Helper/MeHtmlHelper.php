@@ -366,7 +366,7 @@ class MeHtmlHelper extends HtmlHelper {
 			$element = empty($elementOption['icon']) ? $element : self::icon($elementOption['icon']).$element;
 			unset($elementOption['icon']);
 			
-			$html .= $this->tag('li', $element, $elementOption).PHP_EOL;
+			$html .= $this->tag('li', $element, $elementOption);
 		}
 		
 		return $html;		
@@ -614,7 +614,7 @@ class MeHtmlHelper extends HtmlHelper {
 	public function tip($text, $options = array()) {
 		$text = is_array($text) ? $text : array($text);
 		array_walk($text, function(&$v) { $v = self::para('tip-text', $v); });
-		$text = implode(PHP_EOL, $text);
+		$text = implode('', $text);
 		
 		$options['class'] = empty($options['class']) ? 'tip' : self::__clean('tip', $options['class']);
 		
@@ -628,11 +628,11 @@ class MeHtmlHelper extends HtmlHelper {
 			$title['options'] = $title;
 			unset($title['options']['text']);
 			
-			$text = self::tag('h4', $title['text'], $title['options']).PHP_EOL.$text;
+			$text = self::tag('h4', $title['text'], $title['options']).$text;
 		}
 		unset($options['title']);
 		
-		return self::div($options['class'], PHP_EOL.$text.PHP_EOL, $options).PHP_EOL;
+		return self::div($options['class'], $text, $options);
 	}
 	
 	/**

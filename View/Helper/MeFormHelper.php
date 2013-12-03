@@ -274,7 +274,7 @@ class MeFormHelper extends FormHelper {
 			if(!is_array($options['tip']))
 				$options['after'] .= $this->Html->tag('span', trim($options['tip']), array('class' => 'help-block'));
 			else
-				$options['after'] .= implode(PHP_EOL, array_map(function($v){ return $this->Html->tag('span', trim($v), array('class' => 'help-block')); }, $options['tip']));
+				$options['after'] .= implode('', array_map(function($v){ return $this->Html->tag('span', trim($v), array('class' => 'help-block')); }, $options['tip']));
 		}
 				
 		return parent::input($fieldName, $options);
