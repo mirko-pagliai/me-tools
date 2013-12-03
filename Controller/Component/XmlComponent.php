@@ -32,13 +32,14 @@ class XmlComponent extends Component {
 	/**
 	 * Gets an XML file (remote or local) and returns it as an array
 	 * @param string $url XML url or path
-	 * @return mixed Array or null
+	 * @return mixed Array or NULL
 	 */
 	public function get($url) {
 		if(@file_get_contents($url)) {
 			$xml = Xml::toArray(Xml::build($url));
-
-			return empty($xml['root']) ? $xml : $xml['root'];
+			
+			//If the array has only one item, returns the first one, otherwise the whole array
+			return count($xml) > 1 ? $xml : array_shift($xml);
 		}
 	}
 }
