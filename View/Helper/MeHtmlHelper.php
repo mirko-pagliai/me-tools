@@ -206,10 +206,10 @@ class MeHtmlHelper extends HtmlHelper {
 	/**
 	 * Creates a dropdown, according to the Bootstrap component. For example:
 	 * <code>
-	 * $buttonDropdown = $this->Html->buttonDropdown('Dropdown');
+	 * $buttonDropdown = $this->Html->buttonDropdown('Open the dropdown', array('icon' => 'fa-bell'));
 	 * echo $this->Html->dropdown($buttonDropdown, array(
-	 *		$this->Html->link('Github', 'http://github.com'),
-	 *		$this->Html->link('Stack Overflow', 'http://stackoverflow.com')
+	 *    $this->Html->link('Github', 'http://github.com', array('icon' => 'fa-github')),
+	 *    $this->Html->link('Stack Overflow', 'http://stackoverflow.com', array('icon' => 'fa-stack-overflow'))
 	 * ));
 	 * </code>
 	 * @param string $mailLink Link or button to open the dropdown. You should use `linkDropdown()` or `buttonDropdown()`
