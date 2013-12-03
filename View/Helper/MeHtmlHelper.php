@@ -217,12 +217,13 @@ class MeHtmlHelper extends HtmlHelper {
 	 *       echo $this->Html->buttonDropdown('Open the dropdown', array('icon' => 'fa-bell'));
 	 *       echo $this->Html->dropdown(array(
 	 *          $this->Html->link('Github', 'http://github.com', array('icon' => 'fa-github')),
+	 *          'divider',
 	 *          $this->Html->link('Stack Overflow', 'http://stackoverflow.com', array('icon' => 'fa-stack-overflow'))
 	 *       ));
 	 *    ?>
 	 * </div>
 	 * </code>
-	 * @param array $links Array of links for the dropdown. You should use the `link()` method for each link
+	 * @param array $links Array of links for the dropdown (you should use the `link()` method for each link) or "divider" to create a divider
 	 * @param array $ulOptions Options for the dropdown
 	 * @param array $itemOptions Options for each item (`li`) of the dropdown
 	 * @return string Html, dropdown menu
@@ -233,6 +234,12 @@ class MeHtmlHelper extends HtmlHelper {
 		$ulOptions['class'] = empty($ulOptions['class']) ? 'dropdown-menu' : self::__clean('dropdown-menu', $ulOptions['class']);
 		$ulOptions['role'] = empty($ulOptions['role']) ? 'menu' : self::__clean('menu', $ulOptions['role']);
 		$itemOptions['role'] = empty($itemOptions['role']) ? 'presentation' : self::__clean('presentation', $itemOptions['role']);
+		
+		//Sets eventual separators
+		 array_walk($links, function(&$v) {
+			 if($v==='divider' || $v==='separator')
+				 $v = array(null, array('class' => 'divider'));
+		 });
 		
 		return self::ul($links, $ulOptions, $itemOptions);
 	}
@@ -460,13 +467,12 @@ class MeHtmlHelper extends HtmlHelper {
 	 * @return string Html, ol/ul list
 	 */
 	 public function nestedList($list, $options = array(), $itemOptions = array(), $tag = 'ul') {
-		 //Adds icons, if the "icon" item option exists
 		 if(!empty($itemOptions['icon'])) {
 			 $options['class'] = empty($options['class']) ? 'fa-ul' : self::__clean('fa-ul', $options['class']);
 			 array_walk($list, function(&$v, $k, $icon) { $v = self::icon($icon).$v; }, $itemOptions['icon']);
 		 }
 		 
-		 return parent::nestedList($list, $options, $itemOptions, $tag);
+		 return self::tag($tag, self::li($list, $itemOptions), $options);
 	 }
 	
 	/**
