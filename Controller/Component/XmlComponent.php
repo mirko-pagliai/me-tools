@@ -35,6 +35,10 @@ class XmlComponent extends Component {
 	 * @return mixed Array or NULL
 	 */
 	public function get($url) {
+		//If it's not a url (but it's a path) and if it's a relative path, the path is relative to APP
+		if(!filter_var($url, FILTER_VALIDATE_URL) && !realpath($url))
+			$url = APP.$url;
+		
 		if(@file_get_contents($url)) {
 			$xml = Xml::toArray(Xml::build($url));
 			
