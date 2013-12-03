@@ -11,10 +11,10 @@ before_script:
   - chmod -R 777 ../cakephp/app/tmp
   - echo "<?php
     class DATABASE_CONFIG {
-		public \$test = array(
-		  'datasource' => ''
-		);
-		public \$default = array(
-			'datasource' => ''
-		);
+	public \$test = array(
+    'datasource' => ''
+	);
+	public \$default = array(
+	'datasource' => ''
+	);
     }" > ../cakephp/app/Config/database.php
