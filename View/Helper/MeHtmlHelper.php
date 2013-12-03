@@ -265,9 +265,7 @@ class MeHtmlHelper extends HtmlHelper {
 	}
 	
 	/**
-	 * Returns icons.
-	 *
-	 * Examples:
+	 * Returns icons. Examples:
 	 * <code>
 	 * echo $this->Html->icon('fa-home');
 	 * </code>
