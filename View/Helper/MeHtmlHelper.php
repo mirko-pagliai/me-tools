@@ -82,6 +82,23 @@ class MeHtmlHelper extends HtmlHelper {
 	}
 	
 	/**
+	 * Parses and handles title and options used to create a link or a button to open a dropdown.
+	 * 
+	 * You should not use this method directly, but `buttonDropdown()` or `linkDropdown()`.
+	 * @param string $title Link/button title
+	 * @param array $options HTML attributes
+	 * @return array Title and options
+	 */
+	private function __parseLinkDropdown($title, $options = array()) {		
+		$options['class'] = empty($options['class']) ? 'dropdown-toggle' : self::__clean('dropdown-toggle', $options['class']);
+		$options['data-toggle'] = empty($options['data-toggle']) ? 'dropdown' : self::__clean('dropdown', $options['data-toggle']);
+
+		$title .= '&nbsp;'.self::icon('fa-caret-down');
+		
+		return array($title, $options);
+	}
+	
+	/**
 	 * Returns an audio element
 	 * @param string|array $path File path, relative to the `webroot/{$options['pathPrefix']}` directory
 	 * or an array where each item itself can be a path string or an array containing `src` and `type` keys.
@@ -122,6 +139,28 @@ class MeHtmlHelper extends HtmlHelper {
 	 */
 	public function button($title, $url = '#', $options = array(), $confirmMessage = false) {
 		return self::link($title, $url, am($options, array('class' => self::__getBtnClass($options))), $confirmMessage);
+	}
+	
+	/**
+	 * Creates a button to open a dropdown menu, according to the Bootstrap component.
+	 * 
+	 * Note that this method creates only a button. To create a dropdown menu, you should use the `dropdown()` method.
+	 * @param string $title Button title
+	 * @param array $options HTML attributes
+	 * @return string Html, button
+	 * @see dropdown()
+	 * @see http://getbootstrap.com/components/#dropdowns Bootstrap documentation
+	 * @uses __parseLinkDropdown() to parse options
+	 * @uses button() to get the button
+	 */
+	public function buttonDropdown($title, $options = array()) {
+		//Backward compatibility, in which case they are 3 passed arguments
+		if(func_num_args()===3)
+			$options = func_get_arg(2);
+		
+		list($title, $options) = self::__parseLinkDropdown($title, $options);
+				
+		return self::button($title, '#', $options);
 	}
 
 	/**
@@ -166,19 +205,17 @@ class MeHtmlHelper extends HtmlHelper {
 	
 	/**
 	 * Creates a dropdown, according to the Bootstrap component.
-	 * @param string $title Dropdown link title
-	 * @param array $titleOptions HTML attributes for the link title
-	 * @param array $links Array of links for the menu
+	 * @param string $mailLink Link or button to open the dropdown. You should use `linkDropdown()` or `buttonDropdown()`
+	 * @param array $links Array of links for the menu. You should use the `link()` method for each link
 	 * @param array $itemOptions Options for each item of the menu
 	 * @param array $ulOptions Options for the menu
 	 * @param array $divOptions Options for the div wrapper
 	 * @return string Html, dropdown menu
 	 * @see http://getbootstrap.com/components/#dropdowns Bootstrap documentation
-	 * @uses linkDropdown() to create the main link
+	 * @uses div() to create the div element
+	 * @uses ul() to create the ul element
 	 */
-	public function dropdown($title, $titleOptions = array(), $links = array(), $itemOptions = array(), $ulOptions = array(), $divOptions = array()) {
-		$title = self::linkDropdown($title, $titleOptions);
-		
+	public function dropdown($mailLink, $links = array(), $itemOptions = array(), $ulOptions = array(), $divOptions = array()) {		
 		$ulOptions['class'] = empty($ulOptions['class']) ? 'dropdown-menu' : self::__clean('dropdown-menu', $ulOptions['class']);
 		$ulOptions['role'] = empty($ulOptions['role']) ? 'menu' : self::__clean('menu', $ulOptions['role']);
 		$itemOptions['role'] = empty($itemOptions['role']) ? 'presentation' : self::__clean('presentation', $itemOptions['role']);
@@ -186,7 +223,7 @@ class MeHtmlHelper extends HtmlHelper {
 		
 		$divOptions['class'] = empty($divOptions['class']) ? 'dropdown' : self::__clean('dropdown', $divOptions['class']);
 		
-		return self::div($divOptions['class'], PHP_EOL.$title.PHP_EOL.$ul.PHP_EOL, $divOptions);
+		return self::div($divOptions['class'], PHP_EOL.$mailLink.PHP_EOL.$ul.PHP_EOL, $divOptions);
 	}
 	
 	/**
@@ -344,25 +381,25 @@ class MeHtmlHelper extends HtmlHelper {
 	}
 	
 	/**
-	 * Creates the main link for a dropdown, according to the Bootstrap component.
+	 * Creates a link to open a dropdown menu, according to the Bootstrap component.
+	 * 
 	 * Note that this method creates only a link. To create a dropdown menu, you should use the `dropdown()` method.
 	 * @param string $title Link title
 	 * @param array $options HTML attributes
 	 * @return string Html, link
 	 * @see dropdown()
 	 * @see http://getbootstrap.com/components/#dropdowns Bootstrap documentation
+	 * @uses __parseLinkDropdown() to parse options
+	 * @uses link() to get the link
 	 */
 	public function linkDropdown($title, $options = array()) {
 		//Backward compatibility, in which case they are 3 passed arguments
 		if(func_num_args()===3)
 			$options = func_get_arg(2);
-				
-		$options['class'] = empty($options['class']) ? 'dropdown-toggle' : self::__clean('dropdown-toggle', $options['class']);
-		$options['data-toggle'] = empty($options['data-toggle']) ? 'dropdown' : self::__clean('dropdown', $options['data-toggle']);
-
-		$title .= '&nbsp;'.self::icon('fa-caret-down');
 		
-		return $this->Form->button($title, $options);
+		list($title, $options) = self::__parseLinkDropdown($title, $options);
+				
+		return self::link($title, '#', $options);
 	}
 	
 	/**
