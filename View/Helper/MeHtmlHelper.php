@@ -511,7 +511,10 @@ class MeHtmlHelper extends HtmlHelper {
 	 * Ends capturing output for Javascript code.
 	 * 
 	 * To start capturing output, see the `scriptStart()` method.
+	 * 
+	 * To capture output with a single method, you can also use the `scriptBlock()` method.
 	 * @return mixed A script tag or NULL
+	 * @see scriptBlock()
 	 * @see scriptStart()
 	 */
 	public function scriptEnd() {
@@ -521,9 +524,12 @@ class MeHtmlHelper extends HtmlHelper {
 	/**
 	 * Starts capturing output for Javascript code.
 	 * 
-	 * To end capturing output, see the `scriptEnd()` method. 
+	 * To end capturing output, see the `scriptEnd()` method.
+	 * 
+	 * To capture output with a single method, you can also use the `scriptBlock()` method.
 	 * @param array $options Options for the code block
 	 * @return mixed A script tag or NULL
+	 * @see scriptBlock()
 	 * @see scriptEnd()
 	 */
 	public function scriptStart($options=array()) {
