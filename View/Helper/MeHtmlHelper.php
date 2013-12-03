@@ -206,31 +206,29 @@ class MeHtmlHelper extends HtmlHelper {
 	/**
 	 * Creates a dropdown, according to the Bootstrap component. For example:
 	 * <code>
-	 * $buttonDropdown = $this->Html->buttonDropdown('Open the dropdown', array('icon' => 'fa-bell'));
-	 * echo $this->Html->dropdown($buttonDropdown, array(
-	 *    $this->Html->link('Github', 'http://github.com', array('icon' => 'fa-github')),
-	 *    $this->Html->link('Stack Overflow', 'http://stackoverflow.com', array('icon' => 'fa-stack-overflow'))
-	 * ));
+	 * <div class="dropdown">
+	 *    <?php
+	 *       echo $this->Html->buttonDropdown('Open the dropdown', array('icon' => 'fa-bell'));
+	 *       echo $this->Html->dropdown(array(
+	 *          $this->Html->link('Github', 'http://github.com', array('icon' => 'fa-github')),
+	 *          $this->Html->link('Stack Overflow', 'http://stackoverflow.com', array('icon' => 'fa-stack-overflow'))
+	 *       ));
+	 *    ?>
+	 * </div>
 	 * </code>
-	 * @param string $mailLink Link or button to open the dropdown. You should use `linkDropdown()` or `buttonDropdown()`
-	 * @param array $links Array of links for the menu. You should use the `link()` method for each link
-	 * @param array $itemOptions Options for each item of the menu
-	 * @param array $ulOptions Options for the menu
-	 * @param array $divOptions Options for the div wrapper
+	 * @param array $links Array of links for the dropdown. You should use the `link()` method for each link
+	 * @param array $ulOptions Options for the dropdown
+	 * @param array $itemOptions Options for each item (`li`) of the dropdown
 	 * @return string Html, dropdown menu
 	 * @see http://getbootstrap.com/components/#dropdowns Bootstrap documentation
-	 * @uses div() to create the div element
 	 * @uses ul() to create the ul element
 	 */
-	public function dropdown($mailLink, $links = array(), $itemOptions = array(), $ulOptions = array(), $divOptions = array()) {		
+	public function dropdown($links = array(), $ulOptions = array(), $itemOptions = array()) {		
 		$ulOptions['class'] = empty($ulOptions['class']) ? 'dropdown-menu' : self::__clean('dropdown-menu', $ulOptions['class']);
 		$ulOptions['role'] = empty($ulOptions['role']) ? 'menu' : self::__clean('menu', $ulOptions['role']);
 		$itemOptions['role'] = empty($itemOptions['role']) ? 'presentation' : self::__clean('presentation', $itemOptions['role']);
-		$ul = self::ul($links, $ulOptions, $itemOptions);
 		
-		$divOptions['class'] = empty($divOptions['class']) ? 'dropdown' : self::__clean('dropdown', $divOptions['class']);
-		
-		return self::div($divOptions['class'], PHP_EOL.$mailLink.PHP_EOL.$ul.PHP_EOL, $divOptions);
+		return self::ul($links, $ulOptions, $itemOptions);
 	}
 	
 	/**
