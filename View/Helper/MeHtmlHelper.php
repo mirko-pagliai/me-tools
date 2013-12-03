@@ -195,11 +195,17 @@ class MeHtmlHelper extends HtmlHelper {
 	
 	/**
 	 * Ends capturing output for a CSS block.
+	 * 
+	 * To start capturing output, see the `cssStart()` method.
+	 * @see cssStart()
 	 */
 	public function cssEnd() { $this->_View->end(); }
 
 	/**
 	 * Starts capturing output for a CSS block.
+	 * 
+	 * To end capturing output, see the `cssEnd()` method.
+	 * @see cssEnd()
 	 */
 	public function cssStart() { $this->_View->start('css'); }
 	
@@ -502,17 +508,23 @@ class MeHtmlHelper extends HtmlHelper {
 	}
 
 	/**
-	 * Ends Javascript code.
+	 * Ends capturing output for Javascript code.
+	 * 
+	 * To start capturing output, see the `scriptStart()` method.
 	 * @return mixed A script tag or NULL
+	 * @see scriptStart()
 	 */
 	public function scriptEnd() {
 		return parent::scriptEnd();
 	}
 
 	/**
-	 * Starts Javascript code.
+	 * Starts capturing output for Javascript code.
+	 * 
+	 * To end capturing output, see the `scriptEnd()` method. 
 	 * @param array $options Options for the code block
 	 * @return mixed A script tag or NULL
+	 * @see scriptEnd()
 	 */
 	public function scriptStart($options=array()) {
 		$options['inline'] = empty($options['inline']) ? FALSE : $options['inline'];
