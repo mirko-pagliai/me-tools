@@ -7,7 +7,7 @@
 	<title>Class MeHtmlHelper | MeTools</title>
 
 	<script type="text/javascript" src="resources/combined.js?394153670"></script>
-	<script type="text/javascript" src="elementlist.js?4211565437"></script>
+	<script type="text/javascript" src="elementlist.js?3783586847"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360" />
 
 </head>
@@ -168,7 +168,7 @@ HtmlHelper
 				<b>Author:</b>
 				Mirko Pagliai &lt;<a
 href="mailto:mirko.pagliai&#64;gmail.com">mirko.pagliai&#64;<!---->gmail.com</a>&gt;<br />
-		<b>Located at</b> <a href="source-class-MeHtmlHelper.html#29-572" title="Go to source code">MeHtmlHelper.php</a><br />
+		<b>Located at</b> <a href="source-class-MeHtmlHelper.html#29-636" title="Go to source code">MeHtmlHelper.php</a><br />
 	</div>
 
 
@@ -268,6 +268,60 @@ duplicates. For example:</p>
 		</div>
 		</div></td>
 	</tr>
+	<tr data-order="__parseLinkDropdown" id="___parseLinkDropdown">
+
+		<td class="attributes"><code>
+			 private 
+			array
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#___parseLinkDropdown">#</a>
+		<code><a href="source-class-MeHtmlHelper.html#84-99" title="Go to source code">__parseLinkDropdown</a>( <span>string <var>$title</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
+
+		<div class="description short">
+			
+<p>Parses and handles title and options used to create a link or a button to
+open a dropdown.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Parses and handles title and options used to create a link or a button to
+open a dropdown.</p>
+
+<p>You should not use this method directly, but <code>buttonDropdown()</code> or
+<code>linkDropdown()</code>.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$title</var></dt>
+					<dd><code>string</code><br>$title Link/button title</dd>
+					<dt><var>$options</var></dt>
+					<dd><code>array</code><br>$options HTML attributes</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>array</code><br>Title and options<br />
+				</div>
+
+
+				<h4>Used by</h4>
+				<div class="list">
+						<code><code><a href="class-MeHtmlHelper.html#_buttonDropdown">MeHtmlHelper::buttonDropdown()</a></code></code><br>to parse options<br />
+						<code><code><a href="class-MeHtmlHelper.html#_linkDropdown">MeHtmlHelper::linkDropdown()</a></code></code><br>to parse options<br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
 	<tr data-order="audio" id="_audio">
 
 		<td class="attributes"><code>
@@ -279,7 +333,7 @@ duplicates. For example:</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_audio">#</a>
-		<code><a href="source-class-MeHtmlHelper.html#84-94" title="Go to source code">audio</a>( <span>string|array <var>$path</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-MeHtmlHelper.html#101-111" title="Go to source code">audio</a>( <span>string|array <var>$path</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
@@ -329,7 +383,7 @@ containing <code>src</code> and <code>type</code> keys.</dd>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_badge">#</a>
-		<code><a href="source-class-MeHtmlHelper.html#96-107" title="Go to source code">badge</a>( <span>string <var>$text</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-MeHtmlHelper.html#113-124" title="Go to source code">badge</a>( <span>string <var>$text</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
@@ -379,7 +433,7 @@ Bootstrap documentation<br />
 
 		<td class="name"><div>
 		<a class="anchor" href="#_button">#</a>
-		<code><a href="source-class-MeHtmlHelper.html#109-125" title="Go to source code">button</a>( <span>string <var>$title</var></span>, <span>mixed <var>$url</var> = <span class="php-quote">'#'</span></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span>, <span>string <var>$confirmMessage</var> = <span class="php-keyword1">false</span></span> )</code>
+		<code><a href="source-class-MeHtmlHelper.html#126-142" title="Go to source code">button</a>( <span>string <var>$title</var></span>, <span>mixed <var>$url</var> = <span class="php-quote">'#'</span></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span>, <span>string <var>$confirmMessage</var> = <span class="php-keyword1">false</span></span> )</code>
 
 		<div class="description short">
 			
@@ -425,6 +479,71 @@ http://)</dd>
 				<div class="list">
 						<code><code><a href="class-MeHtmlHelper.html#_link">MeHtmlHelper::link()</a></code></code> <br />
 				</div>
+				<h4>Used by</h4>
+				<div class="list">
+						<code><code><a href="class-MeHtmlHelper.html#_buttonDropdown">MeHtmlHelper::buttonDropdown()</a></code></code><br>to get the button<br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="buttonDropdown" id="_buttonDropdown">
+
+		<td class="attributes"><code>
+			 public 
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_buttonDropdown">#</a>
+		<code><a href="source-class-MeHtmlHelper.html#144-164" title="Go to source code">buttonDropdown</a>( <span>string <var>$title</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
+
+		<div class="description short">
+			
+<p>Creates a button to open a dropdown menu, according to the Bootstrap
+component.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Creates a button to open a dropdown menu, according to the Bootstrap
+component.</p>
+
+<p>Note that this method creates only a button. To create a dropdown menu, you
+should use the <code>dropdown()</code> method.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$title</var></dt>
+					<dd><code>string</code><br>$title Button title</dd>
+					<dt><var>$options</var></dt>
+					<dd><code>array</code><br>$options HTML attributes</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>string</code><br>Html, button<br />
+				</div>
+
+
+				<h4>See</h4>
+				<div class="list">
+						<code><code><a href="class-MeHtmlHelper.html#_dropdown">MeHtmlHelper::dropdown()</a></code></code><br />
+						<a
+href="http://getbootstrap.com/components/#dropdowns">http://getbootstrap.com/components/#dropdowns</a>
+Bootstrap documentation<br />
+				</div>
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-MeHtmlHelper.html#___parseLinkDropdown">MeHtmlHelper::__parseLinkDropdown()</a></code></code><br>to parse options<br />
+						<code><code><a href="class-MeHtmlHelper.html#_button">MeHtmlHelper::button()</a></code></code><br>to get the button<br />
+				</div>
 
 
 		</div>
@@ -441,7 +560,7 @@ http://)</dd>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_css">#</a>
-		<code><a href="source-class-MeHtmlHelper.html#127-139" title="Go to source code">css</a>( <span>mixed <var>$path</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-MeHtmlHelper.html#166-194" title="Go to source code">css</a>( <span>mixed <var>$path</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
@@ -488,7 +607,7 @@ http://)</dd>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_cssEnd">#</a>
-		<code><a href="source-class-MeHtmlHelper.html#141-144" title="Go to source code">cssEnd</a>( )</code>
+		<code><a href="source-class-MeHtmlHelper.html#196-199" title="Go to source code">cssEnd</a>( )</code>
 
 		<div class="description short">
 			
@@ -521,7 +640,7 @@ http://)</dd>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_cssStart">#</a>
-		<code><a href="source-class-MeHtmlHelper.html#146-149" title="Go to source code">cssStart</a>( )</code>
+		<code><a href="source-class-MeHtmlHelper.html#201-204" title="Go to source code">cssStart</a>( )</code>
 
 		<div class="description short">
 			
@@ -554,28 +673,88 @@ http://)</dd>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_dropdown">#</a>
-		<code><a href="source-class-MeHtmlHelper.html#151-174" title="Go to source code">dropdown</a>( <span>string <var>$title</var></span>, <span>array <var>$titleOptions</var> = <span class="php-keyword1">array</span>()</span>, <span>array <var>$links</var> = <span class="php-keyword1">array</span>()</span>, <span>array <var>$itemOptions</var> = <span class="php-keyword1">array</span>()</span>, <span>array <var>$ulOptions</var> = <span class="php-keyword1">array</span>()</span>, <span>array <var>$divOptions</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-MeHtmlHelper.html#206-234" title="Go to source code">dropdown</a>( <span>string <var>$mailLink</var></span>, <span>array <var>$links</var> = <span class="php-keyword1">array</span>()</span>, <span>array <var>$itemOptions</var> = <span class="php-keyword1">array</span>()</span>, <span>array <var>$ulOptions</var> = <span class="php-keyword1">array</span>()</span>, <span>array <var>$divOptions</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
-<p>Creates a dropdown, according to the Bootstrap component.</p>
+<p>Creates a dropdown, according to the Bootstrap component. For example:</p>
+
+<pre>
+<span class="php-var">$buttonDropdown</span> = <span
+class="php-var">$this</span>-&gt;Html-&gt;buttonDropdown(<span
+class="php-quote">'Open the dropdown'</span>, <span
+class="php-keyword1">array</span>(<span
+class="php-quote">'icon'</span> =&gt; <span
+class="php-quote">'fa-bell'</span>));
+<span
+class="php-keyword1">echo</span> <span
+class="php-var">$this</span>-&gt;Html-&gt;dropdown(<span
+class="php-var">$buttonDropdown</span>, <span
+class="php-keyword1">array</span>(
+   <span
+class="php-var">$this</span>-&gt;Html-&gt;<span
+class="php-keyword2">link</span>(<span class="php-quote">'Github'</span>, <span
+class="php-quote">'http://github.com'</span>, <span
+class="php-keyword1">array</span>(<span
+class="php-quote">'icon'</span> =&gt; <span
+class="php-quote">'fa-github'</span>)),
+   <span
+class="php-var">$this</span>-&gt;Html-&gt;<span
+class="php-keyword2">link</span>(<span
+class="php-quote">'Stack Overflow'</span>, <span
+class="php-quote">'http://stackoverflow.com'</span>, <span
+class="php-keyword1">array</span>(<span
+class="php-quote">'icon'</span> =&gt; <span
+class="php-quote">'fa-stack-overflow'</span>))
+));
+</pre>
 
 		</div>
 
 		<div class="description detailed hidden">
 			
-<p>Creates a dropdown, according to the Bootstrap component.</p>
+<p>Creates a dropdown, according to the Bootstrap component. For example:</p>
+
+<pre>
+<span class="php-var">$buttonDropdown</span> = <span
+class="php-var">$this</span>-&gt;Html-&gt;buttonDropdown(<span
+class="php-quote">'Open the dropdown'</span>, <span
+class="php-keyword1">array</span>(<span
+class="php-quote">'icon'</span> =&gt; <span
+class="php-quote">'fa-bell'</span>));
+<span
+class="php-keyword1">echo</span> <span
+class="php-var">$this</span>-&gt;Html-&gt;dropdown(<span
+class="php-var">$buttonDropdown</span>, <span
+class="php-keyword1">array</span>(
+   <span
+class="php-var">$this</span>-&gt;Html-&gt;<span
+class="php-keyword2">link</span>(<span class="php-quote">'Github'</span>, <span
+class="php-quote">'http://github.com'</span>, <span
+class="php-keyword1">array</span>(<span
+class="php-quote">'icon'</span> =&gt; <span
+class="php-quote">'fa-github'</span>)),
+   <span
+class="php-var">$this</span>-&gt;Html-&gt;<span
+class="php-keyword2">link</span>(<span
+class="php-quote">'Stack Overflow'</span>, <span
+class="php-quote">'http://stackoverflow.com'</span>, <span
+class="php-keyword1">array</span>(<span
+class="php-quote">'icon'</span> =&gt; <span
+class="php-quote">'fa-stack-overflow'</span>))
+));
+</pre>
 
 
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
-					<dt><var>$title</var></dt>
-					<dd><code>string</code><br>$title Dropdown link title</dd>
-					<dt><var>$titleOptions</var></dt>
-					<dd><code>array</code><br>$titleOptions HTML attributes for the link title</dd>
+					<dt><var>$mailLink</var></dt>
+					<dd><code>string</code><br>$mailLink Link or button to open the dropdown. You should use
+<code>linkDropdown()</code> or <code>buttonDropdown()</code></dd>
 					<dt><var>$links</var></dt>
-					<dd><code>array</code><br>$links Array of links for the menu</dd>
+					<dd><code>array</code><br>$links Array of links for the menu. You should use the <code>link()</code>
+method for each link</dd>
 					<dt><var>$itemOptions</var></dt>
 					<dd><code>array</code><br>$itemOptions Options for each item of the menu</dd>
 					<dt><var>$ulOptions</var></dt>
@@ -598,7 +777,8 @@ Bootstrap documentation<br />
 				</div>
 				<h4>Uses</h4>
 				<div class="list">
-						<code><code><a href="class-MeHtmlHelper.html#_linkDropdown">MeHtmlHelper::linkDropdown()</a></code></code><br>to create the main link<br />
+						div() to create the div element<br />
+						<code><code><a href="class-MeHtmlHelper.html#_ul">MeHtmlHelper::ul()</a></code></code><br>to create the ul element<br />
 				</div>
 
 
@@ -616,7 +796,7 @@ Bootstrap documentation<br />
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getCrumbs">#</a>
-		<code><a href="source-class-MeHtmlHelper.html#176-189" title="Go to source code">getCrumbs</a>( <span>string <var>$separator</var> = <span class="php-quote">'/'</span></span>, <span>string|array|boolean <var>$startText</var> = <span class="php-keyword1">false</span></span> )</code>
+		<code><a href="source-class-MeHtmlHelper.html#236-249" title="Go to source code">getCrumbs</a>( <span>string <var>$separator</var> = <span class="php-quote">'/'</span></span>, <span>string|array|boolean <var>$startText</var> = <span class="php-keyword1">false</span></span> )</code>
 
 		<div class="description short">
 			
@@ -668,7 +848,7 @@ offers better compatibility with Bootstrap.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getCrumbList">#</a>
-		<code><a href="source-class-MeHtmlHelper.html#191-207" title="Go to source code">getCrumbList</a>( <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span>, <span>string|array|boolean <var>$startText</var> = <span class="php-keyword1">false</span></span> )</code>
+		<code><a href="source-class-MeHtmlHelper.html#251-267" title="Go to source code">getCrumbList</a>( <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span>, <span>string|array|boolean <var>$startText</var> = <span class="php-keyword1">false</span></span> )</code>
 
 		<div class="description short">
 			
@@ -718,7 +898,7 @@ of these two options.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_icon">#</a>
-		<code><a href="source-class-MeHtmlHelper.html#209-225" title="Go to source code">icon</a>( <span>mixed <var>$icons</var> = <span class="php-keyword1">null</span></span> )</code>
+		<code><a href="source-class-MeHtmlHelper.html#269-285" title="Go to source code">icon</a>( <span>mixed <var>$icons</var> = <span class="php-keyword1">null</span></span> )</code>
 
 		<div class="description short">
 			
@@ -782,7 +962,7 @@ Font Awesome icons<br />
 
 		<td class="name"><div>
 		<a class="anchor" href="#_image">#</a>
-		<code><a href="source-class-MeHtmlHelper.html#227-237" title="Go to source code">image</a>( <span>string <var>$path</var></span>, <span>mixed <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-MeHtmlHelper.html#287-297" title="Go to source code">image</a>( <span>string <var>$path</var></span>, <span>mixed <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
@@ -830,7 +1010,7 @@ Font Awesome icons<br />
 
 		<td class="name"><div>
 		<a class="anchor" href="#_img">#</a>
-		<code><a href="source-class-MeHtmlHelper.html#239-244" title="Go to source code">img</a>( )</code>
+		<code><a href="source-class-MeHtmlHelper.html#299-304" title="Go to source code">img</a>( )</code>
 
 		<div class="description short">
 			
@@ -863,7 +1043,7 @@ Font Awesome icons<br />
 
 		<td class="name"><div>
 		<a class="anchor" href="#_js">#</a>
-		<code><a href="source-class-MeHtmlHelper.html#246-251" title="Go to source code">js</a>( )</code>
+		<code><a href="source-class-MeHtmlHelper.html#306-311" title="Go to source code">js</a>( )</code>
 
 		<div class="description short">
 			
@@ -896,7 +1076,7 @@ Font Awesome icons<br />
 
 		<td class="name"><div>
 		<a class="anchor" href="#_label">#</a>
-		<code><a href="source-class-MeHtmlHelper.html#253-271" title="Go to source code">label</a>( <span>string <var>$text</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span>, <span>string <var>$type</var> = <span class="php-quote">'default'</span></span> )</code>
+		<code><a href="source-class-MeHtmlHelper.html#313-331" title="Go to source code">label</a>( <span>string <var>$text</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span>, <span>string <var>$type</var> = <span class="php-quote">'default'</span></span> )</code>
 
 		<div class="description short">
 			
@@ -956,7 +1136,7 @@ Bootstrap documentation<br />
 
 		<td class="name"><div>
 		<a class="anchor" href="#_li">#</a>
-		<code><a href="source-class-MeHtmlHelper.html#273-301" title="Go to source code">li</a>( <span>array <var>$elements</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-MeHtmlHelper.html#333-361" title="Go to source code">li</a>( <span>array <var>$elements</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
@@ -1007,7 +1187,7 @@ second value are options.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_link">#</a>
-		<code><a href="source-class-MeHtmlHelper.html#303-321" title="Go to source code">link</a>( <span>string <var>$title</var></span>, <span>mixed <var>$url</var> = <span class="php-quote">'#'</span></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span>, <span>string <var>$confirmMessage</var> = <span class="php-keyword1">false</span></span> )</code>
+		<code><a href="source-class-MeHtmlHelper.html#363-381" title="Go to source code">link</a>( <span>string <var>$title</var></span>, <span>mixed <var>$url</var> = <span class="php-quote">'#'</span></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span>, <span>string <var>$confirmMessage</var> = <span class="php-keyword1">false</span></span> )</code>
 
 		<div class="description short">
 			
@@ -1046,6 +1226,8 @@ http://)</dd>
 				<h4>Used by</h4>
 				<div class="list">
 						<code><code><a href="class-MeHtmlHelper.html#_button">MeHtmlHelper::button()</a></code></code> <br />
+						<code><code><a href="class-MeHtmlHelper.html#_linkDropdown">MeHtmlHelper::linkDropdown()</a></code></code><br>to get the link<br />
+						<code><code><a href="class-RecaptchaHelper.html#_mailLink">RecaptchaHelper::mailLink()</a></code></code><br>to create the link<br />
 				</div>
 
 
@@ -1063,7 +1245,7 @@ http://)</dd>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_linkButton">#</a>
-		<code><a href="source-class-MeHtmlHelper.html#323-328" title="Go to source code">linkButton</a>( )</code>
+		<code><a href="source-class-MeHtmlHelper.html#383-388" title="Go to source code">linkButton</a>( )</code>
 
 		<div class="description short">
 			
@@ -1096,21 +1278,22 @@ http://)</dd>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_linkDropdown">#</a>
-		<code><a href="source-class-MeHtmlHelper.html#330-346" title="Go to source code">linkDropdown</a>( <span>string <var>$title</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-MeHtmlHelper.html#390-410" title="Go to source code">linkDropdown</a>( <span>string <var>$title</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
-<p>Creates the main link for a dropdown, according to the Bootstrap component.
-Note that this method creates only a link. To create a dropdown menu, you should
-use the <code>dropdown()</code> method.</p>
+<p>Creates a link to open a dropdown menu, according to the Bootstrap
+component.</p>
 
 		</div>
 
 		<div class="description detailed hidden">
 			
-<p>Creates the main link for a dropdown, according to the Bootstrap component.
-Note that this method creates only a link. To create a dropdown menu, you should
-use the <code>dropdown()</code> method.</p>
+<p>Creates a link to open a dropdown menu, according to the Bootstrap
+component.</p>
+
+<p>Note that this method creates only a link. To create a dropdown menu, you
+should use the <code>dropdown()</code> method.</p>
 
 
 
@@ -1135,9 +1318,10 @@ use the <code>dropdown()</code> method.</p>
 href="http://getbootstrap.com/components/#dropdowns">http://getbootstrap.com/components/#dropdowns</a>
 Bootstrap documentation<br />
 				</div>
-				<h4>Used by</h4>
+				<h4>Uses</h4>
 				<div class="list">
-						<code><code><a href="class-MeHtmlHelper.html#_dropdown">MeHtmlHelper::dropdown()</a></code></code><br>to create the main link<br />
+						<code><code><a href="class-MeHtmlHelper.html#___parseLinkDropdown">MeHtmlHelper::__parseLinkDropdown()</a></code></code><br>to parse options<br />
+						<code><code><a href="class-MeHtmlHelper.html#_link">MeHtmlHelper::link()</a></code></code><br>to get the link<br />
 				</div>
 
 
@@ -1155,7 +1339,7 @@ Bootstrap documentation<br />
 
 		<td class="name"><div>
 		<a class="anchor" href="#_media">#</a>
-		<code><a href="source-class-MeHtmlHelper.html#348-359" title="Go to source code">media</a>( <span>string|array <var>$path</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-MeHtmlHelper.html#412-423" title="Go to source code">media</a>( <span>string|array <var>$path</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
@@ -1206,7 +1390,7 @@ containing <code>src</code> and <code>type</code> keys.</dd>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_meta">#</a>
-		<code><a href="source-class-MeHtmlHelper.html#361-375" title="Go to source code">meta</a>( <span>string <var>$type</var></span>, <span>mixed <var>$url</var> = <span class="php-keyword1">null</span></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-MeHtmlHelper.html#425-439" title="Go to source code">meta</a>( <span>string <var>$type</var></span>, <span>mixed <var>$url</var> = <span class="php-keyword1">null</span></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
@@ -1261,7 +1445,7 @@ class="php-quote"&gt;'noindex'&lt;/span&gt;));</code></p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_nestedList">#</a>
-		<code><a href="source-class-MeHtmlHelper.html#377-393" title="Go to source code">nestedList</a>( <span>array <var>$list</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span>, <span>array <var>$itemOptions</var> = <span class="php-keyword1">array</span>()</span>, <span>string <var>$tag</var> = <span class="php-quote">'ul'</span></span> )</code>
+		<code><a href="source-class-MeHtmlHelper.html#441-457" title="Go to source code">nestedList</a>( <span>array <var>$list</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span>, <span>array <var>$itemOptions</var> = <span class="php-keyword1">array</span>()</span>, <span>string <var>$tag</var> = <span class="php-quote">'ul'</span></span> )</code>
 
 		<div class="description short">
 			
@@ -1314,7 +1498,7 @@ class="php-quote"&gt;'noindex'&lt;/span&gt;));</code></p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_ol">#</a>
-		<code><a href="source-class-MeHtmlHelper.html#395-405" title="Go to source code">ol</a>( <span>array <var>$list</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span>, <span>array <var>$itemOptions</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-MeHtmlHelper.html#459-469" title="Go to source code">ol</a>( <span>array <var>$list</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span>, <span>array <var>$itemOptions</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
@@ -1364,7 +1548,7 @@ class="php-quote"&gt;'noindex'&lt;/span&gt;));</code></p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_script">#</a>
-		<code><a href="source-class-MeHtmlHelper.html#407-419" title="Go to source code">script</a>( <span>mixed <var>$url</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-MeHtmlHelper.html#471-483" title="Go to source code">script</a>( <span>mixed <var>$url</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
@@ -1412,7 +1596,7 @@ class="php-quote"&gt;'noindex'&lt;/span&gt;));</code></p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_scriptBlock">#</a>
-		<code><a href="source-class-MeHtmlHelper.html#421-431" title="Go to source code">scriptBlock</a>( <span>string <var>$code</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-MeHtmlHelper.html#485-495" title="Go to source code">scriptBlock</a>( <span>string <var>$code</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
@@ -1456,7 +1640,7 @@ class="php-quote"&gt;'noindex'&lt;/span&gt;));</code></p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_scriptEnd">#</a>
-		<code><a href="source-class-MeHtmlHelper.html#433-439" title="Go to source code">scriptEnd</a>( )</code>
+		<code><a href="source-class-MeHtmlHelper.html#497-503" title="Go to source code">scriptEnd</a>( )</code>
 
 		<div class="description short">
 			
@@ -1493,7 +1677,7 @@ class="php-quote"&gt;'noindex'&lt;/span&gt;));</code></p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_scriptStart">#</a>
-		<code><a href="source-class-MeHtmlHelper.html#441-450" title="Go to source code">scriptStart</a>( <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-MeHtmlHelper.html#505-514" title="Go to source code">scriptStart</a>( <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
@@ -1535,7 +1719,7 @@ class="php-quote"&gt;'noindex'&lt;/span&gt;));</code></p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_tag">#</a>
-		<code><a href="source-class-MeHtmlHelper.html#452-464" title="Go to source code">tag</a>( <span>string <var>$name</var></span>, <span>string <var>$text</var> = <span class="php-keyword1">null</span></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-MeHtmlHelper.html#516-528" title="Go to source code">tag</a>( <span>string <var>$name</var></span>, <span>string <var>$text</var> = <span class="php-keyword1">null</span></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
@@ -1581,7 +1765,7 @@ class="php-quote"&gt;'noindex'&lt;/span&gt;));</code></p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_thumb">#</a>
-		<code><a href="source-class-MeHtmlHelper.html#466-482" title="Go to source code">thumb</a>( <span>string <var>$path</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-MeHtmlHelper.html#530-546" title="Go to source code">thumb</a>( <span>string <var>$path</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
@@ -1633,7 +1817,7 @@ square thumbs, you need to use the "side" option.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_thumbUrl">#</a>
-		<code><a href="source-class-MeHtmlHelper.html#484-514" title="Go to source code">thumbUrl</a>( <span>string <var>$path</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-MeHtmlHelper.html#548-578" title="Go to source code">thumbUrl</a>( <span>string <var>$path</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
@@ -1695,7 +1879,7 @@ thumbnail.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_tip">#</a>
-		<code><a href="source-class-MeHtmlHelper.html#516-547" title="Go to source code">tip</a>( <span>string|array <var>$text</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-MeHtmlHelper.html#580-611" title="Go to source code">tip</a>( <span>string|array <var>$text</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
@@ -1744,7 +1928,7 @@ thumbnail.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_ul">#</a>
-		<code><a href="source-class-MeHtmlHelper.html#549-559" title="Go to source code">ul</a>( <span>array <var>$list</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span>, <span>array <var>$itemOptions</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-MeHtmlHelper.html#613-623" title="Go to source code">ul</a>( <span>array <var>$list</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span>, <span>array <var>$itemOptions</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
@@ -1778,6 +1962,10 @@ thumbnail.</p>
 				<div class="list">
 						<code><code><a href="class-MeHtmlHelper.html#_nestedList">MeHtmlHelper::nestedList()</a></code></code><br>to create the list<br />
 				</div>
+				<h4>Used by</h4>
+				<div class="list">
+						<code><code><a href="class-MeHtmlHelper.html#_dropdown">MeHtmlHelper::dropdown()</a></code></code><br>to create the ul element<br />
+				</div>
 
 
 		</div>
@@ -1794,7 +1982,7 @@ thumbnail.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_video">#</a>
-		<code><a href="source-class-MeHtmlHelper.html#561-571" title="Go to source code">video</a>( <span>string|array <var>$path</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-MeHtmlHelper.html#625-635" title="Go to source code">video</a>( <span>string|array <var>$path</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
