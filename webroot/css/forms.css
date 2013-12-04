@@ -211,7 +211,7 @@
 /*			Bootstrap rewrite		*/
 /* -------------------------------- */
 /* General inputs */
-.form-base input.form-control {
+.form-base input.form-control, .form-base select.form-control {
 	height: 37px;
 }
 
