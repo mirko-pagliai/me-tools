@@ -197,6 +197,10 @@ table.cake-sql-log tbody tr:nth-child(2n+1) td {
 /* -------------------------------- */
 /*			Bootstrap rewrite		*/
 /* -------------------------------- */
+/* Titles, small (subtitles) */
+h1 small, h2 small, h3 small, h1 .small, h2 .small, h3 .small {
+	margin-left: 6px;
+}
 /* Breadcrumb separator */
 .breadcrumb > li + li:before {
     padding: 0 0 0 5px;
