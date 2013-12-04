@@ -210,9 +210,9 @@
 /* -------------------------------- */
 /*			Bootstrap rewrite		*/
 /* -------------------------------- */
-/* General inputs */
-.form-base input.form-control, .form-base select.form-control {
-	height: 37px;
+/* General buttons and inputs */
+.form-base button, .form-base input.form-control, .form-base select.form-control {
+	min-height: 37px;
 }
 
 /* Text inputs with "size" attribute and textareas with "cols" attribute */
