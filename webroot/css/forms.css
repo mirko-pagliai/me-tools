@@ -159,9 +159,15 @@
 /*			Inline forms			*/
 /* -------------------------------- */
 /* Wrappers */
-.form-base.form-inline fieldset > .input {
+.form-base.form-inline fieldset > .input, .form-base.form-inline fieldset > button {
+	margin-right: 4px;
 	min-height: 37px;
 	vertical-align: top;
+}
+
+/* Wrappers, last wrapper */
+.form-base.form-inline fieldset > .input:last-child, .form-base.form-inline fieldset > button:last-child {
+	margin: 0;
 }
 
 /* Checkbox labels */
