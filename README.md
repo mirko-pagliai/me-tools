@@ -2,7 +2,7 @@
 MeTools is a CakePHP plugin to improve applications development.  
 It provides some useful tools, such as components, helpers and javascript libraries.
 
-You can found MeTools APIs [here](http:////repository.novatlantis.it/metools/API) and 
+You can found MeTools APIs [here](http://repository.novatlantis.it/metools/API) and 
 the sandbox repository [here](http://github.com/mirko-pagliai/MeToolsSandbox). 
 You can try the sandbox [here](http://repository.novatlantis.it/metools-sandbox).
 
