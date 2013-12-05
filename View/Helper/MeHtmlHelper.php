@@ -245,7 +245,7 @@ class MeHtmlHelper extends HtmlHelper {
 	}
 	
 	/**
-	 * Returns the breadcrumb as a sequence of links.
+	 * Returns the breadcrumb as links sequence.
 	 * 
 	 * Note that it's better to use the `getCrumbList()` method, which offers better compatibility with Bootstrap.
 	 * @param string $separator Crumbs separator
