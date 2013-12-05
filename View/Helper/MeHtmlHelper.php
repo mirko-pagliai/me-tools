@@ -254,6 +254,9 @@ class MeHtmlHelper extends HtmlHelper {
 	 * @see getCrumbList()
 	 */
 	public function getCrumbs($separator = '/', $startText = false) {
+		if(is_array($startText) && empty($startText['text']))
+			$startText['text'] = FALSE;
+		
 		$separator = $this->tag('span', trim($separator), array('class' => 'separator'));
 		
 		return $this->div('breadcrumb', parent::getCrumbs($separator, $startText));
@@ -269,6 +272,9 @@ class MeHtmlHelper extends HtmlHelper {
 	 * @return string Html, breadcrumb
 	 */
 	public function getCrumbList($options = array(), $startText = false) {
+		if(is_array($startText) && empty($startText['text']))
+			$startText['text'] = FALSE;
+		
 		$options['class'] = empty($options['class']) ? 'breadcrumb' : self::__clean('breadcrumb', $options['class']);
 		
 		//Separators are automatically added by Bootstrap in CSS through :before and content.
