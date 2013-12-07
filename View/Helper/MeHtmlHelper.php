@@ -569,7 +569,7 @@ class MeHtmlHelper extends HtmlHelper {
 	 * 
 	 * To get the thumb, you need to use the "width" and/or the "height" option. 
 	 * For square thumbs, you need to use the "side" option.
-	 * @param string $path Image path (will be relative to `app/webroot/`)
+	 * @param string $path Image path (absolute or relative to the webroot)
 	 * @param array $options HTML attributes
 	 * @return string Html, tag element
 	 * @uses thumbUrl() to get the url thumb
@@ -589,12 +589,13 @@ class MeHtmlHelper extends HtmlHelper {
 	 * For square thumbs, you need to use the `side` option.
 	 * 
 	 * Note that to directly display a thumb, you should use the `thumb()` method. This method only returns the url of the thumbnail.
-	 * @param string $path Image path (will be relative to `app/webroot/`)
+	 * @param string $path Image path (absolute or relative to the webroot)
 	 * @param array $options HTML attributes
 	 * @return string Html, tag element
 	 * @see thumb()
+	 * @uses url() to generate the thumb url
 	 */
-	public function thumbUrl($path, $options = array()) {
+	public function thumbUrl($path, $options = array()) {		
 		//If the side is defined, then the width and height are NULL (we don't need these)
 		if($options['side'] = empty($options['side']) ? null : $options['side'])
 			$options['width'] = $options['height'] = null;
@@ -603,15 +604,11 @@ class MeHtmlHelper extends HtmlHelper {
 			$options['height'] = empty($options['height']) ? null : $options['height'];
 		}
 		
-		//If it's a miniature
-		if($options['side'] || $options['width'] || $options['height'])
-			$path = self::url(am(
-				array('controller' => 'thumbs', 'action' => 'thumb', 'plugin' => 'me_tools', 'admin' => false), 
-				explode('/', $path),
-				array('?' => array('s' => $options['side'], 'w' => $options['width'], 'h' => $options['height']))
-			), true);
-		
-		return $path;
+		return self::url(am(
+			array('controller' => 'thumbs', 'action' => 'thumb', 'plugin' => 'me_tools', 'admin' => false),
+			array('?' => array('s' => $options['side'], 'w' => $options['width'], 'h' => $options['height'])),
+			array(urlencode(base64_encode($path)))
+		), true);
 	}
 	
 	/**

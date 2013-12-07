@@ -27,73 +27,48 @@ App::uses('MeToolsAppController', 'MeTools.Controller');
 App::uses('Folder', 'Utility');
 
 /**
- * Creates and displays thumbnails from images.
+ * Creates and displays image thumbs.
  * 
- * Images must be located in the webroot (`app/webroot`).
- * 
- * The `thumb()` action takes the image path (relative to the webroot) as a list of arguments. For example:
- * <pre>/me_tools/thumbs/thumb/img/my_pic.jpg</pre>
- * will refer to `app/webroot/img/my_pic.jpg`.
- * 
- * It takes the maximum width and/or the maximum height as query string (`w` and `h` parameters). 
- * For example:
- * <pre>/me_tools/thumbs/thumb/img/my_pic.jpg?w=150</pre>
- * This will create a thumb with a maximum width of 150px.
- * <pre>/me_tools/thumbs/thumb/img/my_pic.jpg?w=150&h=100</pre>
- * This will create a thumb with a maximum width of 150px and a maximux height of 100px.
- * 
- * You can also create square thumbs. In this case, it's sufficient to indicate square side in the query string (`s` parameter).
- * For example:
- * <pre>/me_tools/thumbs/thumb/img/my_pic.jpg?s=150</pre>
- * This will create a square thumb with a side (width and height) of 150px.
- * 
+ * The `thumb()` action takes the maximum width and/or the maximum height as query string (`w` and `h` parameters).
+ * It can also create square thumbs. In this case, it's sufficient to indicate square side in the query string (`s` parameter).
  * With square thumbs, the initial image will be cut off if it is rectangular.
  * 
- * `ThumbsController` doesn't just show the thumb, but creates a real thumb in the filesystem, which can be used later 
- * when the same thumbs will be required (as if it were a cache). If the directory in which the image is located 
- * is writable, it creates the thumb inside the sub-directory `.thumbs` (which is also created, if not already existing). 
+ * `ThumbsController` doesn't just show the thumb, but creates a real thumb in the temporary directory (`app/tmp/thumbs`), 
+ * which can be used later when the same thumbs will be required (as if it were a cache).
  * 
- * For example:
- * <pre>/me_tools/thumbs/thumb/img/my_pic.jpg?w=150</pre>
- * If the thumb will be 150x100, this will create the file `app/webroot/img/.thumbs/my_pic_150x100.jpg`.
- * 
- * If you use MeTools routes, then it will also be possible to use the simplified url:
- * <pre>/thumb/img/my_pic.jpg?w=150</pre>
- * 
- * In any case, it's better to use `thumb()` and `thumbUrl()` methods provided by the `MeHtml` helper.
+ * To display a thumb or get the thumb url, you hav to use `thumb()` or `thumbUrl()` methods provided by the `MeHtml` helper.
  * The `thumb()` method, using this controller, creates the thumb and returns the HTML code to show it.
  * The `thumbUrl()` method creates the thumbs and returns its url.
  * @see MeHtmlHelper::thumb(), MeHtmlHelper::thumbUrl()
  */
 class ThumbsController extends MeToolsAppController {
 	/**
-	 * Path of the initial image.
+	 * Current image path
 	 * @var string Image path
 	 */
-	protected $file = NULL;
+	protected $file = FALSE;
 	
 	/**
-	 * Informations about the image.
+	 * Info about the current image.
 	 * It will contain the initial, the max and the final sizes (width and height) and the the mimetype.
-	 * @var array Array of informations
+	 * @var array Array of info
 	 */
 	protected $info = array();
 	
 	/**
-	 * Path of the final thumb, if a thumb was created.
+	 * Thumb path.
 	 * @var string Thumb path
 	 */
-	protected $thumb = NULL;
+	protected $thumb = FALSE;
 	
 	/**
 	 * Creates the thumb.
+	 * @uses file to get the current image path
+	 * @uses info to get info about the current image
+	 * @uses thumb to get the thumb path
 	 * @throws NotFoundException
 	 */
-	protected function __createThumb() {
-		//Tries to create the directory for thumbs
-		if(!fileExistsinPath($dir = dirname($this->thumb)) && is_writable(dirname($this->file)))
-			new Folder($dir, true, 0755);
-		
+	protected function __createThumb() {		
 		switch($this->info['mime']) {
 			case 'image/jpeg':
 				$src = imagecreatefromjpeg($this->file);
@@ -113,13 +88,13 @@ class ThumbsController extends MeToolsAppController {
 		
 		//Transparency for png images
 		if($this->info['mime']==='image/png') {
-			imagealphablending($thumb, false);
-			imagesavealpha($thumb, true);
+			imagealphablending($thumb, FALSE);
+			imagesavealpha($thumb, TRUE);
 		}
 		
 		imagecopyresampled($thumb, $src, 0, 0, $this->info['x'], $this->info['y'], $this->info['finalWidth'], $this->info['finalHeight'], $this->info['width'], $this->info['height']); 
 
-		$target = is_writable(dirname($this->thumb)) ? $this->thumb : null;
+		$target = is_writable(dirname($this->thumb)) ? $this->thumb : NULL;
 		
 		switch($this->info['mime']) {
 			case 'image/jpeg':
@@ -132,7 +107,7 @@ class ThumbsController extends MeToolsAppController {
 				imagegif($thumb, $target);
 				break;
 			default:
-				throw new NotFoundException(__d('me_tools', 'Invalid mimetype'));
+				throw new InternalErrorException(__d('me_tools', 'Invalid mimetype'));
 				break;
 		}
 		
@@ -141,28 +116,27 @@ class ThumbsController extends MeToolsAppController {
 	}
 	
 	/**
-	 * Sets informations about the current image (max sizes, final sizes, mimetype)
-	 * @uses info to set informations about the current image
-	 * @uses thumb for the path of the final thumb
+	 * Sets info (max sizes, final sizes, mimetype) about the current image and the thumb path.
+	 * @uses file to get the current image path
+	 * @uses info to set info about the current image
+	 * @uses thumb to set the thumb path
 	 */
 	protected function __setInfo() {
-		$info = getimagesize($this->file);
+		$imageSize = getimagesize($this->file);
 		
 		$this->info = array(
-			'mime'			=> $info['mime'],
+			'mime'			=> $imageSize['mime'],
+			'filename'		=> pathinfo($this->file, PATHINFO_FILENAME),
 			'extension'		=> pathinfo($this->file, PATHINFO_EXTENSION),
-			'width'			=> $info[0],
-			'height'		=> $info[1],
-			'x'				=> 0,
-			'y'				=> 0,
+			'width'			=> $imageSize[0],
+			'height'		=> $imageSize[1],
 			'maxWidth'		=> (int)$this->request->query('w'),
 			'maxHeight'		=> (int)$this->request->query('h'),
-			'side'			=> (int)$this->request->query('s'),
-			'finalWidth'	=> 0,
-			'finalHeight'	=> 0
+			'side'			=> (int)$this->request->query('s')
 		);
 		
-		$finalWidth = $finalHeight = 0;
+		//Sets empty values. These values will be set later, depending on the size and on the request
+		$this->info['x'] = $this->info['y'] = $this->info['finalWidth'] = $this->info['finalHeight'] = $finalWidth = $finalHeight = 0;
 		
 		//If the side (for square thumbs) is defined
 		if($finalWidth = $finalHeight = $this->info['side']) {
@@ -194,38 +168,61 @@ class ThumbsController extends MeToolsAppController {
 		if($finalWidth && $finalHeight && ($finalWidth < $this->info['width'] || $finalHeight < $this->info['height'])) {
 			$this->info['finalWidth'] = (int)floor($finalWidth);
 			$this->info['finalHeight'] = (int)floor($finalHeight);
-			$this->thumb = dirname($this->file).DS.'.thumbs'.DS.pathinfo($this->file, PATHINFO_FILENAME).'_'.$this->info['finalWidth'].'x'.$this->info['finalHeight'].'.'.$this->info['extension'];
+			$this->thumb = TMP.'thumbs'.DS.md5($this->file).'_'.$this->info['finalWidth'].'x'.$this->info['finalHeight'].'.'.$this->info['extension'];
 		}
 	}
-	
+
+
 	/**
 	 * Shows (and creates) a thumb for an image, if it's necessary to create a thumb.
 	 * 
 	 * Please, refer to the class description for more information.
-	 * It's convenient to use the `thumb()` method provided by the `MeHtml` helper.
+	 * It's convenient to use `thumb()` or `thumbUrl()` method provided by the `MeHtml` helper.
 	 * @throws NotFoundException
-	 * @uses file for the path of the initial image
+	 * @see MeHtmlHelper::thumb(), MeHtmlHelper::thumbUrl()
+	 * @uses file to set the current image path
+	 * @uses thumb to get the thumb path
 	 * @uses __createThumb() to create the thumb
-	 * @uses __setInfo() to set informations about the current image
+	 * @uses __setInfo() to set info about the current image
 	 */
 	public function thumb() {
-		$this->autoRender = false;
+		$this->autoRender = FALSE;
 		
-		$this->file = WWW_ROOT.implode('/', func_get_args());
+		if(!function_exists('gd_info'))
+			throw new InternalErrorException(__d('me_tools', 'GD libraries are missing'));
 		
-		if(!fileExistsInPath($this->file))
-			throw new NotFoundException(__d('me_tools', 'Invalid image'));
+		//Checks if a path has been passed
+		if(empty($this->request->pass[0]))
+			return FALSE;
 		
+		//Decodes the path
+		$this->file = urldecode(base64_decode($this->request->pass[0]));
+		
+		//If the path is relative, then is relative to the webroot
+		$this->file = !Folder::isAbsolute($this->file) ? WWW_ROOT.$this->file : $this->file;
+		
+		if(!file_exists($this->file))
+			throw new NotFoundException(__d('me_tools', 'This image does not exist'));
+				
+		//Sets info about the current image
 		$this->__setInfo();
 		
-		header("Content-type: ".$this->info['mime']);
-		
-		if($this->info['finalWidth'] && $this->info['finalHeight'] && function_exists('gd_info')) {
-			if(!fileExistsinPath($this->thumb))
-				$this->__createThumb();
-			readfile($this->thumb);
+		//If we need a thumb and it doesn't exist
+		if($this->thumb && !file_exists($this->thumb)) {
+			//Creates the thumb dir, if this doesn't exist
+			if(!file_exists($dir = dirname($this->thumb))) {
+				$folder = new Folder();
+				if(!@$folder->create($dir))
+					throw new InternalErrorException(__d('me_tools', 'The thumb directory cannot be created'));
+			}
+
+			//Creates the thumb
+			$this->__createThumb();
 		}
-		else
-			readfile($this->file);
+		
+		header("Content-type: ".$this->info['mime']);
+		readfile(empty($this->thumb) ? $this->file : $this->thumb);
+		
+		exit;
 	}
 }
