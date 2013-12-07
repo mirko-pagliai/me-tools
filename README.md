@@ -27,7 +27,7 @@ Copy and rename `app/Plugin/Config/recaptcha.default.php` in `app/Config/recaptc
 MeTools uses different libraries or scripts:
 
 - JQuery 2.0.3 ([site](http://jquery.com));
-- Bootstrap 3.0.2 ([site](http://getbootstrap.com));
+- Bootstrap 3.0.3, ([site](http://getbootstrap.com)), without Glyphicons;
 - Font Awesome 4.0.3 ([site](http://fortawesome.github.com/Font-Awesome));
 - PHP Markdown 1.4.0 ([site](http://michelf.ca/projects/php-markdown));
 - reCAPTCHA PHP library 1.11 ([site](https://developers.google.com/recaptcha/docs/php));
