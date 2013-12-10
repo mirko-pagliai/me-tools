@@ -178,6 +178,8 @@ class ThumbsController extends MeToolsAppController {
 	 * 
 	 * Please, refer to the class description for more information.
 	 * It's convenient to use `thumb()` or `thumbUrl()` method provided by the `MeHtml` helper.
+	 * @param string $file Encoded file path
+	 * @throws InternalErrorException
 	 * @throws NotFoundException
 	 * @see MeHtmlHelper::thumb(), MeHtmlHelper::thumbUrl()
 	 * @uses file to set the current image path
@@ -185,18 +187,16 @@ class ThumbsController extends MeToolsAppController {
 	 * @uses __createThumb() to create the thumb
 	 * @uses __setInfo() to set info about the current image
 	 */
-	public function thumb() {
-		$this->autoRender = FALSE;
-		
+	public function thumb($file = FALSE) {
 		if(!function_exists('gd_info'))
 			throw new InternalErrorException(__d('me_tools', 'GD libraries are missing'));
 		
 		//Checks if a path has been passed
-		if(empty($this->request->pass[0]))
-			return FALSE;
+		if(empty($file))
+			throw new NotFoundException(__d('me_tools', 'The file has not been specified'));
 		
 		//Decodes the path
-		$this->file = urldecode(base64_decode($this->request->pass[0]));
+		$this->file = urldecode(base64_decode($file));
 		
 		//If the path is relative, then is relative to the webroot
 		$this->file = !Folder::isAbsolute($this->file) ? WWW_ROOT.$this->file : $this->file;
@@ -222,6 +222,7 @@ class ThumbsController extends MeToolsAppController {
 		
 		header("Content-type: ".$this->info['mime']);
 		readfile(empty($this->thumb) ? $this->file : $this->thumb);
+		$this->autoRender = FALSE;
 		
 		exit;
 	}
