@@ -150,8 +150,12 @@ class MeFormHelper extends FormHelper {
 	 * @param mixed $model The model name for which the form is being defined. If `false` no model is used
 	 * @param array $options HTML attributes and options
 	 * @return string An formatted opening FORM tag
+	 * @uses createInline() to create an inline form
 	 */
 	public function create($model = null, $options = array()) {
+		if(!empty($options['inline']) && $options['inline'])
+			return self::createInline($model, $options);
+		
 		$options['class'] = empty($options['class']) ? 'form-base' : $this->Html->__clean($options['class']);
 		
 		return parent::create($model, $options);
@@ -159,6 +163,8 @@ class MeFormHelper extends FormHelper {
 	
 	/**
 	 * Returns an inline form element.
+	 * 
+	 * You can also create an inline form using the `create()` method with the `inline` option.
 	 * 
 	 * Note that by default `createInline` doesn't display errors. To view the errors, however, you must set to TRUE 
 	 * the `errorMessage` of `inputDefaults`. For example:
@@ -171,6 +177,7 @@ class MeFormHelper extends FormHelper {
 	 */
 	public function createInline($model = null, $options = array()) {
 		$this->inline = TRUE;
+		unset($options['inline']);
 		
 		$options['class'] = empty($options['class']) ? 'form-base form-inline' : $this->Html->__clean($options['class']);
 		
