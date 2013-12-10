@@ -492,6 +492,20 @@ class MeHtmlHelper extends HtmlHelper {
 	public function ol($list, $options = array(), $itemOptions = array()) {
 		return self::nestedList($list, $options, $itemOptions, 'ol');
 	}
+	
+	/**
+	 * Returns a formatted P tag.
+	 * @param type $class Class name of the element
+	 * @param string $text Paragraph text
+	 * @param array $options HTML attributes
+	 * @return string Html, P tag.
+	 */
+	public function para($class, $text, $options = array()) {
+		$text = empty($options['icon']) ? $text : self::icon($options['icon']) . $text;
+		unset($options['icon']);
+
+		return parent::para($class, $text, $options);
+	}
 
 	/**
 	 * Adds a js file to the layout.
