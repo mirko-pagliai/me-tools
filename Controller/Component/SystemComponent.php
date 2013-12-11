@@ -37,7 +37,7 @@ class SystemComponent extends Component {
 	public function checkApacheModule($module) {
 		return in_array($module, self::getApacheModules());
 	}
-
+	
 	/**
 	 * Checks if the cache and all its subdirectories are readable and writable
 	 * @return boolean
@@ -56,6 +56,14 @@ class SystemComponent extends Component {
 		}
 		
 		return TRUE;
+	}
+
+	/**
+	 * Checks the cache status (if it's enabled)
+	 * @return boolean
+	 */
+	public function checkCacheStatus() {
+		return !Configure::read('Cache.disable');
 	}
 	
 	/**
