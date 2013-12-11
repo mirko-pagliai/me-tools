@@ -30,8 +30,8 @@
 class SystemComponent extends Component {
 	/**
 	 * Checks if an Apache module is active
-	 * @param string $module Module name
-	 * @return boolean
+	 * @param string $module Name of the module to be checked
+	 * @return boolean TRUE if the module is enabled, FALSE otherwise
 	 * @uses getApacheModules() to get Apache's modules
 	 */
 	public function checkApacheModule($module) {
@@ -40,7 +40,7 @@ class SystemComponent extends Component {
 	
 	/**
 	 * Checks if the cache and all its subdirectories are readable and writable
-	 * @return boolean
+	 * @return boolean TRUE if if the cache and all its subdirectories are readable and writable, FALSE otherwise
 	 */
 	public function checkCache() {
 		//Cache default directories
@@ -60,7 +60,7 @@ class SystemComponent extends Component {
 
 	/**
 	 * Checks the cache status (if it's enabled)
-	 * @return boolean
+	 * @return boolean TRUE if the cache is enabled, FALSE otherwise
 	 */
 	public function checkCacheStatus() {
 		return !Configure::read('Cache.disable');
@@ -69,7 +69,7 @@ class SystemComponent extends Component {
 	/**
 	 * Checks if the current version of PHP is equal to or greater than the required version
 	 * @param string $required_version Required version of PHP
-	 * @return boolean
+	 * @return boolean TRUE if the current version of PHP is equal to or greater than the required version, FALSE otherwise
 	 * @uses getPhpVersion() to get the current version of PHP
 	 */
 	public function checkPhpVersion($required_version) {
@@ -77,17 +77,17 @@ class SystemComponent extends Component {
 	}
 	
 	/**
-	 * Checks if a PHP extension is active
-	 * @param type $extension Extension name
-	 * @return boolean
+	 * Checks if a PHP extension is enabled
+	 * @param string $extension Name of the extension to be checked
+	 * @return boolean TRUE if the extension is enabled, FALSE otherwise
 	 */
 	public function checkPhpExtension($extension) {
 		return extension_loaded($extension);
 	}
 	
 	/**
-	 * Checks if the tmp and all its subdirectories are readable and writable
-	 * @return boolean
+	 * Checks if the TMP and all its subdirectories are readable and writable
+	 * @return boolean TRUE if the TMP and all its subdirectories are readable and writable, FALSE otherwise
 	 */
 	public function checkTmp() {		
 		$tmp = new Folder(TMP);
@@ -100,6 +100,10 @@ class SystemComponent extends Component {
 		return TRUE;
 	}
 	
+	/**
+	 * Checks if the thumbnail directory is readable and writable
+	 * @return boolean TRUE if the thumbnail directory is readable and writable, FALSE otherwise
+	 */
 	public function checkThumbs() {
 		return is_readable(TMP.'thumbs') && is_writable(TMP.'thumbs');
 	}
@@ -139,7 +143,7 @@ class SystemComponent extends Component {
 	
 	/**
 	 * Gets the current version of PHP
-	 * @return string
+	 * @return string Current version of PHP
 	 */
 	public function getPhpVersion() {
 		return PHP_VERSION;
