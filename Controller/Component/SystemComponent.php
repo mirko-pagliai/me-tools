@@ -113,6 +113,15 @@ class SystemComponent extends Component {
 	}
 	
 	/**
+	 * Gets the cache size
+	 * @return int Cache size
+	 */
+	public function getCacheSize() {
+		$cache = new Folder(CACHE);
+		return $cache->dirsize();
+	}
+	
+	/**
 	 * Gets the PHP extensions list
 	 * @return array Extensions list
 	 */
