@@ -136,4 +136,13 @@ class SystemComponent extends Component {
 	public function getPhpVersion() {
 		return PHP_VERSION;
 	}
+	
+	/**
+	 * Gets the thumbnails size
+	 * @return int Thumbnails size
+	 */
+	public function getThumbsSize() {
+		$thumbs = new Folder(TMP.'thumbs');
+		return $thumbs->dirsize();
+	}
 }
