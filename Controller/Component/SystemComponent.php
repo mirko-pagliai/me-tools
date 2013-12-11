@@ -105,6 +105,14 @@ class SystemComponent extends Component {
 	}
 	
 	/**
+	 * Clear the cache
+	 * @return boolean TRUE if the cache was successfully cleared, FALSE otherwise
+	 */
+	public function clearCache() {
+		return Cache::clear(false);
+	}
+	
+	/**
 	 * Gets the Apache modules list
 	 * @return array Modules list
 	 */
