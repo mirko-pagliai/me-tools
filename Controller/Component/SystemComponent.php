@@ -72,8 +72,8 @@ class SystemComponent extends Component {
 	 * @return boolean TRUE if the current version of PHP is equal to or greater than the required version, FALSE otherwise
 	 * @uses getPhpVersion() to get the current version of PHP
 	 */
-	public function checkPhpVersion($required_version) {
-		return version_compare(self::getPhpVersion(), $required_version);
+	public function checkPhpVersion($required_version) {		
+		return version_compare(self::getPhpVersion(), $required_version, '>=');
 	}
 	
 	/**
