@@ -27,7 +27,7 @@
 /**
  * A component for checking the status of the system and perform maintenance tasks.
  */
-class SystemComponent extends Component {
+class SystemComponent extends Component {	
 	/**
 	 * Checks if an Apache module is active
 	 * @param string $module Name of the module to be checked
@@ -114,6 +114,25 @@ class SystemComponent extends Component {
 	 */
 	public function clearCache() {
 		return Cache::clear(false);
+	}
+	
+	/**
+	 * Clear thumbnails
+	 * @return boolean TRUE if thumbnails were successfully cleared, FALSE otherwise
+	 */
+	public function clearThumbs() {
+		$dir = new Folder($tmp = TMP.'thumbs');
+		$files = $dir->find('.*');
+		
+		$success = TRUE;
+		
+		foreach($files as $file) {
+			$file = new File($tmp.DS.$file);
+			if(!$file->delete() && $success)
+				$success = FALSE;
+		}
+		
+		return $success;
 	}
 	
 	/**
