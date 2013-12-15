@@ -221,9 +221,11 @@ table.cake-sql-log tbody tr:nth-child(2n+1) td {
 h1 small, h2 small, h3 small, h4 small, h5 small, h6 small, h1 .small, h2 .small, h3 .small, h4 .small, h5 .small, h6 .small {
 	margin-left: 6px;
 }
+
 /* Breadcrumb separator */
 .breadcrumb > li + li:before {
-    padding: 0 0 0 5px;
+	content: "/";
+    padding: 0 5px;
 }
 
 /* Dropdown menus pulled to the right */
