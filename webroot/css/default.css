@@ -50,6 +50,11 @@ th.min-width, td.min-width {
     white-space: nowrap;
 }
 
+/* Text justify */
+.text-justify {
+	text-align: justify;
+}
+
 /* -------------------------------- */
 /*		Ascending/descending sort	*/
 /* -------------------------------- */
