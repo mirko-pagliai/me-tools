@@ -43,6 +43,13 @@ th.min-width, td.min-width {
     width: 1px;
 }
 
+/* No wrap class */
+.no-wrap {
+	overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
 /* -------------------------------- */
 /*		Ascending/descending sort	*/
 /* -------------------------------- */
