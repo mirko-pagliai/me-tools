@@ -482,6 +482,7 @@ class MeHtmlHelper extends HtmlHelper {
 		 if(!empty($itemOptions['icon'])) {
 			 $options['class'] = empty($options['class']) ? 'fa-ul' : self::__clean('fa-ul', $options['class']);
 			 array_walk($list, function(&$v, $k, $icon) { $v = self::icon($icon).$v; }, $itemOptions['icon']);
+			 unset($itemOptions['icon']);
 		 }
 		 
 		 return self::tag($tag, self::li($list, $itemOptions), $options);
