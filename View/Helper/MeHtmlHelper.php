@@ -362,10 +362,16 @@ class MeHtmlHelper extends HtmlHelper {
 	 * @param array $elements Element list
 	 * @param array $options HTML attributes of the list tag
 	 * @return string Html, element list
-	 * @todo bug with only 1 element?
 	 */
 	public function li($elements, $options = array()) {		
 		$html = '';
+		
+		//If it's only one element
+		if(!is_array($elements)) {
+			$elements = empty($options['icon']) ? $elements : self::icon($options['icon']).$elements;
+			unset($options['icon']);
+			return self::tag('li', $elements, $options);
+		}
 		
 		foreach($elements as $element) {
 			//If the element is an array, then the first value is the element and the second value are element options
@@ -379,7 +385,7 @@ class MeHtmlHelper extends HtmlHelper {
 			$element = empty($elementOption['icon']) ? $element : self::icon($elementOption['icon']).$element;
 			unset($elementOption['icon']);
 			
-			$html .= $this->tag('li', $element, $elementOption);
+			$html .= self::tag('li', $element, $elementOption);
 		}
 		
 		return $html;		
