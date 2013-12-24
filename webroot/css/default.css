@@ -58,6 +58,11 @@ th.min-width, td.min-width {
     white-space: nowrap;
 }
 
+/* Relative class */
+.relative {
+	position: relative;
+}
+
 /* Text justify */
 .text-justify {
 	text-align: justify;
