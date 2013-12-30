@@ -68,6 +68,11 @@ th.min-width, td.min-width {
 	text-align: justify;
 }
 
+/* Vertical align, middle */
+.valing-middle, table.valign-middle td {
+	vertical-align: middle !important;
+}
+
 /* -------------------------------- */
 /*		Ascending/descending sort	*/
 /* -------------------------------- */
@@ -230,6 +235,54 @@ table.cake-sql-log tbody tr:nth-child(2n+1) td {
 /* Togglable tabs, dl */
 .tab-content.tab-content-base dl:last-child {
 	margin: 0;
+}
+
+/* -------------------------------- */
+/*			Table as list			*/
+/* -------------------------------- */
+/* Table as list */
+table.table-as-list {
+	border-collapse: separate;
+}
+
+/* Table as list, cells */
+table.table-as-list td, table.table-as-list th {
+	padding: 10px 15px !important;
+}
+
+/* Table as list, the first cell of each row */
+table.table-as-list tr td:first-child, table.table-as-list tr th:first-child  {
+	border-left: 1px solid #DDD;
+}
+
+/* Table as list, the last cell of each row */
+table.table-as-list tr td:last-child, table.table-as-list tr th:last-child {
+	border-right: 1px solid #DDD;
+}
+
+/* Table as list, cells of the last row */
+table.table-as-list tr:last-child td, table.table-as-list tr:last-child th {
+	border-bottom: 1px solid #DDD;
+}
+
+/* Table as list, the first cell of the first row */
+table.table-as-list tr:first-child td:first-child, table.table-as-list tr:first-child th:first-child {
+	border-top-left-radius: 4px;
+}
+
+/* Table as list, the last cell of the the first row */
+table.table-as-list tr:first-child td:last-child, table.table-as-list tr:first-child th:last-child {
+	border-top-right-radius: 4px;
+}
+
+/* Table as list, the first cell of the last row */
+table.table-as-list tr:last-child td:first-child, table.table-as-list tr:last-child th:first-child {
+	border-bottom-left-radius: 4px;
+}
+
+/* Table as list, the last cell of the last row */
+table.table-as-list tr:last-child td:last-child, table.table-as-list tr:last-child th:last-child {
+	border-bottom-right-radius: 4px;
 }
 
 /* -------------------------------- */
