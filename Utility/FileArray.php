@@ -1,72 +1,56 @@
 <?php
-/**
- * FileArray
- *
- * This file is part of MeTools.
- *
- * MeTools is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Affero General Public License as
- * published by the Free Software Foundation, either version 3 of the
- * License, or (at your option) any later version.
- *
- * MeTools is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Affero General Public License for more details.
- *
- * You should have received a copy of the GNU Affero General Public License
- * along with MeTools.  If not, see <http://www.gnu.org/licenses/>.
- *
- * @author		Mirko Pagliai <mirko.pagliai@gmail.com>
- * @copyright	Copyright (c) 2013, Mirko Pagliai for Nova Atlantis Ltd
- * @license		http://www.gnu.org/licenses/agpl.txt AGPL License
- * @link		http://git.novatlantis.it Nova Atlantis Ltd
- * @package		MeTools\Utility
- */
 
-/**
- * Provides several methods for using a text file as database.
- * It can count, delete, edit, check, search, retrieve and insert data.
- */
 class FileArray  {
 	/**
 	 * File content
-	 * @var array 
+	 * @var mixed Content or FALSE 
 	 */
-	private $content = null;
+	private $content = FALSE;
 	
 	/**
 	 * File object
-	 * @var object 
+	 * @var object File object
 	 */
-	private $file = false;
+	private $file;
 	
 	/**
 	 * File path
-	 * @var string 
+	 * @var string File path
 	 */
-	public $path = null;
+	public $path;
 	
 	/**
-	 * Contruct. Sets the File object, the path and the content
+	 * Contruct. Sets the File object and the content.
+	 * It will create the file, if it doesn't exist
 	 * @param string $path File path
+	 * @uses __read() to reat the file content
 	 * @uses content to set the file content
-	 * @uses file to set the File object
+	 * @uses file to set the file object
 	 * @uses path to set the file path
 	 */
-	public function __construct($path = false) {
-		$this->file = new File($path);
-		$this->path = $path;
+	public function __construct($path) {
+		//If the file exists, it checks if that is writable. Otherwise, it checks if the directory is writable
+		if(file_exists($this->path = $path)) {
+			if(!is_writable($path))
+				throw new InternalErrorException(__d('me_tools', 'The file %s exists, but is not writable', $path));
+		}
+		elseif(file_exists(dirname($path)) && !is_writable(dirname($path)))
+			throw new InternalErrorException(__d('me_tools', 'The directory %s exists, but is not writable', dirname($path)));
+		
+		$this->file = new File($path, TRUE);
 		$this->content = $this->__read();
 	}
 	
 	/**
 	 * Internal function to filter data
 	 * @param array $conditions Conditions
-	 * @return mixed Results or NULL
+	 * @return mixed Results that meet the conditions, otherwise an empty array
+	 * @uses content to get the file content
 	 */
-	private function __filter($conditions=array()) {
-		//Returns all content if there're no conditions
+	private function __filter($conditions = array()) {
+		if(empty($this->content))
+			return array();
+		
 		if(empty($conditions) || !is_array($conditions))
 			return $this->content;
 		
@@ -81,50 +65,44 @@ class FileArray  {
 				$results[$k] = $record;
 		}
 		
-		return !empty($results) ? $results : null;
+		return $results;
 	}
 	
 	/**
 	 * Internal function to read data
-	 * @return mixed Existing data. NULL if there's no existing data or if the file doesn't exist
+	 * @return array Data or an empty array if the data don't exist
+	 * @uses file to get the file object
 	 */
-	private function __read() {
-		//Returns NULL if the file doesn't exist
-		if(!$this->file->exists())
-			return null;
-		
+	private function __read() {		
 		//Gets existing data
-		$data = json_decode($this->file->read(), true);
+		$data = json_decode($this->file->read(), TRUE);
 		
-		//Returns NULL if there's no existing data
 		if(empty($data))
-			return null;
+			return array();
 		
-		//Sorts and return data
+		//Sorts and returns data
 		ksort($data);
 		return $data;
 	}
 	
 	/**
 	 * Internal function to write data
-	 * @param mixed $data Data to insert
-	 * @return boolean Success
+	 * @return boolean TRUE on success, otherwise FALSE
+	 * @uses file to get the file object
 	 */
-	private function __write($data) {
-		return $this->file->write(json_encode($data, JSON_FORCE_OBJECT));
+	private function __write() {		
+		$this->content = empty($this->content) ? NULL : $this->content;
+		
+		return $this->file->write(json_encode($this->content, JSON_FORCE_OBJECT));
 	}
 	
 	/**
-	 * Gets the record count
+	 * Gets the number (count) of records
 	 * @param array $conditions Conditions
-	 * @return int Count
+	 * @return int Number of records
 	 */
 	public function count($conditions=array()) {		
-		//If there're conditions
-		if(!empty($conditions) && is_array($conditions))
-			return count($this->__filter($conditions));
-		else
-			return count($this->content);
+		return count($this->__filter($conditions));
 	}
 	
 	/**
@@ -133,18 +111,12 @@ class FileArray  {
 	 * @return boolean Success
 	 */
 	public function delete($key) {
-		//Returns FALSE if the key doesn't exists
 		if(!$this->exists($key))
-			return false;
+			return FALSE;
 		
-		//Unsets the record
 		unset($this->content[$key]);
-		//Writes data
-		$success = $this->__write($this->content);
-		//Updates the content
-		$this->content = $this->__read();
 		
-		return $success;
+		return $this->__write();
 	}
 	
 	/**
@@ -153,42 +125,36 @@ class FileArray  {
 	 * @param mixed $data Data
 	 * @return boolean Success
 	 */
-	public function edit($key, $data=array()) {
-		//Returns FALSE if the key doesn't exists
+	public function edit($key, $data = array()) {
 		if(!$this->exists($key))
-			return false;
+			return FALSE;
 
-		//Edits data
 		$this->content[$key] = $data;
-		//Writes data
-		$success = $this->__write($this->content);
-		//Updates the content
-		$this->content = $this->__read();
 		
-		return $success;
+		return $this->__write();
 	}
 	
 	/**
-	 * Checks if exists a record with a key
-	 * @param int $key Key to check
-	 * @return bool TRUE if already exists, else FALSE
+	 * Checks if a key already exists
+	 * @param mxied $key Key to check
+	 * @return boolean TRUE if the key already exists, otherwise FALSE
 	 */
 	public function exists($key) {
-		//Returns FALSE if there's no content
 		if(empty($this->content))
-			return false;
+			return FALSE;
 		
-		return key_exists($key, $this->content);
+		return key_exists(Inflector::slug($key, '-'), $this->content);
 	}
 	
 	/**
-	 * Finds records
-	 * @param string $type Search type. It supports "first" (default), "count" and "all"
+	 * Finds records.
+	 * 
+	 * The type should be "first" (default), "count" and "all" or a record key
+	 * @param string $type Search type ("first", "count", "all" or a record key
 	 * @return mixed Results
 	 */
-	public function find($type='first') {		
+	public function find($type = 'first') {		
 		switch($type) {
-			//Finds the first record
 			case 'first':
 				return $this->getFirst();
 				break;
@@ -199,7 +165,7 @@ class FileArray  {
 				return $this->getAll();
 				break;
 			default:
-				return null;
+				return $this->findByKey($type);
 				break;
 		}
 	}
@@ -207,12 +173,11 @@ class FileArray  {
 	/**
 	 * Finds a record by its key
 	 * @param mixed $key Key
-	 * @return mixed Record
+	 * @return mixed Record founded
 	 */
 	public function findByKey($key) {
-		//Returns FALSE if the key doesn't exists
 		if(!$this->exists($key))
-			return false;
+			return FALSE;
 		
 		return $this->content[$key];		
 	}
@@ -220,69 +185,47 @@ class FileArray  {
 	/**
 	 * Gets all records
 	 * @param array $conditions Conditions
-	 * @return mixed All records or NULL
+	 * @return array All records
 	 */
-	public function getAll($conditions=array()) {
-		//If there're conditions
-		if(!empty($conditions) && is_array($conditions))
-			return $this->__filter($conditions);
-		else
-			return $this->content;
+	public function getAll($conditions = array()) {
+		return $this->__filter($conditions);
 	}
 	
 	/**
 	 * Gets the first record
 	 * @param array $conditions Conditions
-	 * @return mixed First record founded or NULL
+	 * @return array First record founded
 	 */
 	public function getFirst($conditions=array()) {
-		//Returns NULL if there's no content
-		if(empty($this->content))
-			return null;
-		
-		//If there're conditions
-		if(!empty($conditions) && is_array($conditions)) {
-			$results = $this->__filter($conditions);
-			return !empty($results) ? reset($results) : null;
-		}
-		else
-			return reset($this->content);
+		$results = $this->__filter($conditions);
+		return reset($results);
 	}
 	
 	/**
 	 * Inserts a new record
-	 * @param mixed $key Data key
-	 * @param mixed $data Data
-	 * @return bool Success
+	 * @param mixed $data Record data
+	 * @param mixed $key Record key
+	 * @return boolean TRUE on success, otherwise FALSE
 	 * @throws InternalErrorException
+	 * @uses exists() to check if the key exists
+	 * @uses content to read and set the file content
+	 * @uses path to get the file path
 	 */
-	public function insert($key=null, $data=array()) {
-		//If existing data are empty
-		if(empty($this->content)) {
-			//Inizializes the array
+	public function insert($data, $key = NULL) {
+		if(!$this->content) {
 			$this->content = array();
-			//If the key is empty, the key will be "1"
 			$key = empty($key) ? 1 : $key;
 		}
 		
-		//If the key is not empty
 		if(!empty($key)) {
-			//Checks if the key already exists
-			if($this->exists($key))
+			if($this->exists($key = Inflector::slug($key, '-')))
 				throw new InternalErrorException(__d('me_tools', 'There\'s already a record with this key in %s', $this->path));
 
-			//Adds passed data, with their key, to existing data
 			$this->content[$key] = $data;
 		}
-		//Else, if the key is empty, pushes passed data
 		else
-			array_push($this->content, $data);
+			$this->content[] = $data;
 		
-		//Writes
-		$success = $this->__write($this->content);
-		//Updates the content
-		$this->content = $this->__read();
-		
-		return $success;
+		return $this->__write();
 	}
 }
