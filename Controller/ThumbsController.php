@@ -80,7 +80,7 @@ class ThumbsController extends MeToolsAppController {
 				$src = imagecreatefromgif($this->file);
 				break;
 			default:
-				throw new NotFoundException(__d('me_tools', 'Invalid mimetype'));
+				throw new InternalErrorException(__d('me_tools', 'Invalid mimetype'));
 				break;
 		}
 		
@@ -193,7 +193,7 @@ class ThumbsController extends MeToolsAppController {
 		
 		//Checks if a path has been passed
 		if(empty($file))
-			throw new NotFoundException(__d('me_tools', 'The file has not been specified'));
+			throw new InternalErrorException(__d('me_tools', 'The file has not been specified'));
 		
 		//Decodes the path
 		$this->file = urldecode(base64_decode($file));
