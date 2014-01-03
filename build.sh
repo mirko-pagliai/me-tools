@@ -16,6 +16,8 @@ cd build/
 
 # Delete uncompressed CSS files
 rm -f $version/webroot/css/datepicker.css
+rm -f $version/webroot/css/default.css
+rm -f $version/webroot/css/forms.css
 rm -f $version/webroot/css/syntaxhighlighter.css
 
 # Delete uncompressed JS files
