@@ -95,12 +95,12 @@ class LibraryHelper extends AppHelper {
 			elseif(fileExistsInPath(App::pluginPath('MeTools').'webroot'.DS.'ckeditor'.DS.'ckeditor_init.js'))
 				$script[] = '/MeTools/ckeditor/ckeditor_init';
 			else
-				return false;
+				return FALSE;
 			
 			return $this->Html->js($script);
 		}
 		
-		return false;
+		return FALSE;
 	}
 	
 	/**
@@ -118,10 +118,10 @@ class LibraryHelper extends AppHelper {
 		
 		if(empty($options))
 			$options = array(
-				'autoclose'			=> true,
+				'autoclose'			=> TRUE,
 				'format'			=> 'yyyy-mm-dd',
-				'todayBtn'			=> true,
-				'todayHighlight'	=> true
+				'todayBtn'			=> TRUE,
+				'todayHighlight'	=> TRUE
 			);
 	
 		//Switch for languange, reading from config
@@ -161,9 +161,9 @@ class LibraryHelper extends AppHelper {
 		
 		if(empty($options))
 			$options = array(
-				'disableFocus'	=> true,
+				'disableFocus'	=> TRUE,
 				'minuteStep'	=> 1,
-				'showMeridian'	=> false
+				'showMeridian'	=> FALSE
 			);
 		
 		$this->output[] = "$('{$input}').timepicker(".json_encode($options).");";

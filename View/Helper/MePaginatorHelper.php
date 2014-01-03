@@ -51,11 +51,11 @@ class MePaginatorHelper extends PaginatorHelper {
 	 * @param array $disabledOptions Options for the disabled pagination link
 	 * @return array Passed arguments
 	 */
-	private function __jump_link($title = null, $options = array(), $disabledTitle = null, $disabledOptions = array()) {
+	private function __jump_link($title = NULL, $options = array(), $disabledTitle = NULL, $disabledOptions = array()) {
 		//If the "disabled title" is empty, it will be set to the title
 		$disabledTitle = !empty($disabledTitle) ? $disabledTitle : $title;
 		
-		$options['escape'] = !empty($options['escape']) ? $options['escape'] : false;
+		$options['escape'] = !empty($options['escape']) ? $options['escape'] : FALSE;
 		$options['tag'] = !empty($options['tag']) ? $options['tag'] : 'li';
 		
 		$disabledOptions['class'] = !empty($disabledOptions['class']) ? $this->Html->__clean($disabledOptions['class']) : 'disabled';
@@ -101,7 +101,7 @@ class MePaginatorHelper extends PaginatorHelper {
 	 * @return string A "next" link or $disabledTitle text if the link is disabled
 	 * @uses __jump_link() jump links
 	 */
-	public function next($title = null, $options = array(), $disabledTitle = null, $disabledOptions = array()) {
+	public function next($title = NULL, $options = array(), $disabledTitle = NULL, $disabledOptions = array()) {
 		$title = !empty($title) ? $title : __d('me_tools', 'Next').' »';
 		
 		//Uses $this->__jump->link() to set arguments
@@ -119,7 +119,7 @@ class MePaginatorHelper extends PaginatorHelper {
 	public function numbers($options = array()) {
 		$options['currentClass'] = !empty($options['currentClass']) ? $this->Html->__clean($options['currentClass']) : 'active';
 		$options['currentTag'] = !empty($options['currentTag']) ? $options['currentTag'] : 'a';
-		$options['separator'] = !empty($options['separator']) ? $options['separator'] : false;
+		$options['separator'] = !empty($options['separator']) ? $options['separator'] : FALSE;
 		$options['tag'] = !empty($options['tag']) ? $options['tag'] : 'li';
 		
 		return parent::numbers($options);
@@ -134,7 +134,7 @@ class MePaginatorHelper extends PaginatorHelper {
 	 * @return string A "prev" link or $disabledTitle text if the link is disabled
 	 * @uses __jump_link() jump links
 	 */
-	public function prev($title = null, $options = array(), $disabledTitle = null, $disabledOptions = array()) {
+	public function prev($title = NULL, $options = array(), $disabledTitle = NULL, $disabledOptions = array()) {
 		$title = !empty($title) ? $title : '« '.__d('me_tools', 'Previous');
 		
 		//Uses $this->__jump->link() to set arguments

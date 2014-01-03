@@ -113,7 +113,7 @@ class SystemComponent extends Component {
 	 * @return boolean TRUE if the cache was successfully cleared, FALSE otherwise
 	 */
 	public function clearCache() {
-		return Cache::clear(false);
+		return Cache::clear(FALSE);
 	}
 	
 	/**

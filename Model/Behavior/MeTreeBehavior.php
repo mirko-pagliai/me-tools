@@ -44,7 +44,7 @@ class MeTreeBehavior extends TreeBehavior {
 	 * @param integer $recursive The number of levels deep to fetch associated records
 	 * @return array An associative array of records, where the id is the key, and the display field is the value
 	 */
-	public function generateTreeList(Model $Model, $conditions = null, $keyPath = null, $valuePath = null, $spacer = '—', $recursive = null) {
+	public function generateTreeList(Model $Model, $conditions = NULL, $keyPath = NULL, $valuePath = NULL, $spacer = '—', $recursive = NULL) {
 		return parent::generateTreeList($Model, $conditions, $keyPath, $valuePath, $spacer, $recursive);
 	}
 }

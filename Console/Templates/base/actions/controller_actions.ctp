@@ -38,7 +38,7 @@
 	 * @param string $id
 	 * @return void
 	 */
-	public function <?php echo $admin ?>view($id = null) {
+	public function <?php echo $admin ?>view($id = NULL) {
 		if(!$this-><?php echo $currentModelName; ?>->exists($id))
 			throw new NotFoundException(__('Invalid <?php echo strtolower($singularHumanName); ?>'));
 			
@@ -91,7 +91,7 @@
 	 * @param string $id
 	 * @return void
 	 */
-	public function <?php echo $admin; ?>edit($id = null) {
+	public function <?php echo $admin; ?>edit($id = NULL) {
 		if(!$this-><?php echo $currentModelName; ?>->exists($id))
 			throw new NotFoundException(__('Invalid <?php echo strtolower($singularHumanName); ?>'));
 			
@@ -134,7 +134,7 @@
 	 * @param string $id
 	 * @return void
 	 */
-	public function <?php echo $admin; ?>delete($id = null) {
+	public function <?php echo $admin; ?>delete($id = NULL) {
 		$this-><?php echo $currentModelName; ?>->id = $id;
 		if(!$this-><?php echo $currentModelName; ?>->exists())
 			throw new NotFoundException(__('Invalid <?php echo strtolower($singularHumanName); ?>'));

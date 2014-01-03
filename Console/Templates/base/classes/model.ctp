@@ -87,9 +87,9 @@ if (!empty($validate)):
 			echo "\t\t\t'$key' => array(\n";
 			echo "\t\t\t\t'rule' => array('$validator'),\n";
 			echo "\t\t\t\t//'message' => 'Your custom message here',\n";
-			echo "\t\t\t\t//'allowEmpty' => false,\n";
-			echo "\t\t\t\t//'required' => false,\n";
-			echo "\t\t\t\t//'last' => false, // Stop validation after this rule\n";
+			echo "\t\t\t\t//'allowEmpty' => FALSE,\n";
+			echo "\t\t\t\t//'required' => FALSE,\n";
+			echo "\t\t\t\t//'last' => FALSE, // Stop validation after this rule\n";
 			echo "\t\t\t\t//'on' => 'create', // Limit validation to 'create' or 'update' operations\n";
 			echo "\t\t\t),\n";
 		endforeach;
@@ -128,7 +128,7 @@ if (!empty($associations['hasMany'])):
 		$out = "\n\t\t'{$relation['alias']}' => array(\n";
 		$out .= "\t\t\t'className' => '{$relation['className']}',\n";
 		$out .= "\t\t\t'foreignKey' => '{$relation['foreignKey']}',\n";
-		$out .= "\t\t\t'dependent' => false,\n";
+		$out .= "\t\t\t'dependent' => FALSE,\n";
 		$out .= "\t\t\t'conditions' => '',\n";
 		$out .= "\t\t\t'fields' => '',\n";
 		$out .= "\t\t\t'order' => '',\n";

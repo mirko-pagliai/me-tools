@@ -1,7 +1,7 @@
 <?php echo "<?php echo \$this->start('sidebar'); ?>\n"; ?>
 <?php
 	echo "\t<li><?php echo \$this->Html->link(__('Edit ".strtolower($singularHumanName)."'), array('action' => 'edit', \${$singularVar}['{$modelClass}']['{$primaryKey}'])); ?></li>\n";
-	echo "\t<li><?php echo \$this->Form->postLink(__('Delete ".strtolower($singularHumanName)."'), array('action' => 'delete', \${$singularVar}['{$modelClass}']['{$primaryKey}']), null, __('Are you sure you want to delete this record?')); ?></li>\n";
+	echo "\t<li><?php echo \$this->Form->postLink(__('Delete ".strtolower($singularHumanName)."'), array('action' => 'delete', \${$singularVar}['{$modelClass}']['{$primaryKey}']), NULL, __('Are you sure you want to delete this record?')); ?></li>\n";
 	echo "\t<li><?php echo \$this->Html->link(__('List ".strtolower($pluralHumanName)."'), array('action' => 'index')); ?></li>\n";
 	echo "\t<li><?php echo \$this->Html->link(__('Add ".strtolower($singularHumanName)."'), array('action' => 'add')); ?></li>\n";
 
@@ -27,16 +27,16 @@
 	<dl class="dl-horizontal">
 <?php
 foreach($fields as $field) {
-	$isKey = false;
+	$isKey = FALSE;
 	if(!empty($associations['belongsTo']))
 		foreach($associations['belongsTo'] as $alias => $details)
 			if($field===$details['foreignKey']) {
-				$isKey = true;
+				$isKey = TRUE;
 				echo "\t\t<dt><?php echo __('".Inflector::humanize(Inflector::underscore($alias))."'); ?></dt>\n";
 				echo "\t\t<dd><?php echo \$this->Html->link(\${$singularVar}['{$alias}']['{$details['displayField']}'], array('controller' => '{$details['controller']}', 'action' => 'view', \${$singularVar}['{$alias}']['{$details['primaryKey']}'])); ?></dd>\n";
 				break;
 			}
-	if($isKey!==true) {
+	if($isKey!==TRUE) {
 		echo "\t\t<dt><?php echo __('".Inflector::humanize($field)."'); ?></dt>\n";
 		echo "\t\t<dd><?php echo \${$singularVar}['{$modelClass}']['{$field}']; ?></dd>\n";
 	}
@@ -96,9 +96,9 @@ foreach ($relations as $alias => $details):
 			echo "\t\t\t\t<tr>\n";
 				echo "\t\t\t\t\t<td class=\"actions\">\n";
 				echo "\t\t\t\t\t\t<div class=\"btn-group\">\n";
-				echo "\t\t\t\t\t\t\t<?php echo \$this->Html->linkButton(null, array('controller' => '{$details['controller']}', 'action' => 'view', \${$otherSingularVar}['{$details['primaryKey']}']), array('icon' => 'icon-eye-open', 'tooltip' => __('View'))); ?>\n";
-				echo "\t\t\t\t\t\t\t<?php echo \$this->Html->linkButton(null, array('controller' => '{$details['controller']}', 'action' => 'edit', \${$otherSingularVar}['{$details['primaryKey']}']), array('icon' => 'icon-pencil', 'tooltip' => __('Edit'))); ?>\n";
-				echo "\t\t\t\t\t\t\t<?php echo \$this->Form->postButton(null, array('controller' => '{$details['controller']}', 'action' => 'delete', \${$otherSingularVar}['{$details['primaryKey']}']), array('class' => 'btn-danger', 'icon' => 'icon-trash', 'tooltip' => __('Delete')), __('Are you sure you want to delete this record?')); ?>\n";
+				echo "\t\t\t\t\t\t\t<?php echo \$this->Html->linkButton(NULL, array('controller' => '{$details['controller']}', 'action' => 'view', \${$otherSingularVar}['{$details['primaryKey']}']), array('icon' => 'icon-eye-open', 'tooltip' => __('View'))); ?>\n";
+				echo "\t\t\t\t\t\t\t<?php echo \$this->Html->linkButton(NULL, array('controller' => '{$details['controller']}', 'action' => 'edit', \${$otherSingularVar}['{$details['primaryKey']}']), array('icon' => 'icon-pencil', 'tooltip' => __('Edit'))); ?>\n";
+				echo "\t\t\t\t\t\t\t<?php echo \$this->Form->postButton(NULL, array('controller' => '{$details['controller']}', 'action' => 'delete', \${$otherSingularVar}['{$details['primaryKey']}']), array('class' => 'btn-danger', 'icon' => 'icon-trash', 'tooltip' => __('Delete')), __('Are you sure you want to delete this record?')); ?>\n";
 				echo "\t\t\t\t\t\t</div>\n";
 				echo "\t\t\t\t\t</td>\n";
 				

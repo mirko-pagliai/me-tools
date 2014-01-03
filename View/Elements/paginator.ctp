@@ -25,7 +25,7 @@
  */
 ?>
 
-<?php if($this->MePaginator->hasPage(null, 2)): #If the page "2" exists, so if there is more than one page ?>
+<?php if($this->MePaginator->hasPage(NULL, 2)): #If the page "2" exists, so if there is more than one page ?>
 	<div class="text-center">
 		<ul class="pagination">
 			<?php

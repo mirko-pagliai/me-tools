@@ -46,7 +46,7 @@ class FileArrayAuthenticate extends FormAuthenticate {
 		
 		//Checks the fields to ensure they are supplied
 		if(!$this->_checkFields($request, $model, $fields))
-			return false;
+			return FALSE;
 		
 		//Searches the user in the fileArray
 		$this->fileArray = new FileArray(APP.'users.txt');
@@ -56,6 +56,6 @@ class FileArrayAuthenticate extends FormAuthenticate {
 		));
 		
 		//Returns user data if user exists, else FALSE
-		return !empty($user) ? $user : false;
+		return !empty($user) ? $user : FALSE;
     }
 }

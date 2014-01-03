@@ -77,8 +77,8 @@ class MeFormHelper extends FormHelper {
 	 * @param string $fieldName Field name, should be "Modelname.fieldname"
 	 * @return string Label text
 	 */
-	protected function __getLabelText($fieldName = null) {
-		if(strpos($fieldName, '.') !== false) {
+	protected function __getLabelText($fieldName = NULL) {
+		if(strpos($fieldName, '.') !== FALSE) {
 			$fieldElements = explode('.', $fieldName);
 			$text = array_pop($fieldElements);
 		}
@@ -147,12 +147,12 @@ class MeFormHelper extends FormHelper {
 	
 	/**
 	 * Returns a form element.
-	 * @param mixed $model The model name for which the form is being defined. If `false` no model is used
+	 * @param mixed $model The model name for which the form is being defined. If `FALSE` no model is used
 	 * @param array $options HTML attributes and options
 	 * @return string An formatted opening FORM tag
 	 * @uses createInline() to create an inline form
 	 */
-	public function create($model = null, $options = array()) {
+	public function create($model = NULL, $options = array()) {
 		if(!empty($options['inline']) && $options['inline'])
 			return self::createInline($model, $options);
 		
@@ -168,21 +168,21 @@ class MeFormHelper extends FormHelper {
 	 * 
 	 * Note that by default `createInline` doesn't display errors. To view the errors, however, you must set to TRUE 
 	 * the `errorMessage` of `inputDefaults`. For example:
-	 * <pre>$this->Form->createInline('Fake', array('inputDefaults' => array('errorMessage' => true)));</pre>
-	 * @param mixed $model The model name for which the form is being defined. If `false` no model is used
+	 * <pre>$this->Form->createInline('Fake', array('inputDefaults' => array('errorMessage' => TRUE)));</pre>
+	 * @param mixed $model The model name for which the form is being defined. If `FALSE` no model is used
 	 * @param array $options HTML attributes and options
 	 * @return string An formatted opening FORM tag
 	 * @uses create() to create the form
 	 * @uses inline to mark the form as an inline form
 	 */
-	public function createInline($model = null, $options = array()) {
+	public function createInline($model = NULL, $options = array()) {
 		$this->inline = TRUE;
 		unset($options['inline']);
 		
 		$options['class'] = empty($options['class']) ? 'form-base form-inline' : $this->Html->__clean($options['class']);
 		
 		//By default it doesn't display errors
-		$options['inputDefaults']['errorMessage'] = empty($options['inputDefaults']['errorMessage']) ? false : $options['inputDefaults']['errorMessage'];
+		$options['inputDefaults']['errorMessage'] = empty($options['inputDefaults']['errorMessage']) ? FALSE : $options['inputDefaults']['errorMessage'];
 		
 		return self::create($model, $options);
 	}
@@ -210,7 +210,7 @@ class MeFormHelper extends FormHelper {
 	 * @uses button to create the submit button
 	 * @uses inline to reset the form status
 	 */
-	public function end($caption = null, $options = array()) {
+	public function end($caption = NULL, $options = array()) {
 		$this->inline = FALSE;
 		
 		//Normally, the `end()` method of the HtmlHelper has only the "option" argument, which is an array. 
@@ -220,7 +220,7 @@ class MeFormHelper extends FormHelper {
 			return parent::end($caption);
 		unset($options['label']);
 		
-		$submit = !empty($caption) ? self::submit($caption, $options) : null;
+		$submit = !empty($caption) ? self::submit($caption, $options) : NULL;
 		
 		return $submit.parent::end();
 	}
@@ -257,13 +257,13 @@ class MeFormHelper extends FormHelper {
 		$type = self::__getInputType($options);
 		
 		if(!isset($options['div']) || !empty($options['div'])) {
-			$hasError = !parent::isFieldError($fieldName) ? null : 'has-error';
+			$hasError = !parent::isFieldError($fieldName) ? NULL : 'has-error';
 			$options['div']['class'] = empty($options['div']['class']) ? "input {$type} {$hasError} form-group" : $this->Html->__clean('input', $type, $hasError, 'form-group', $options['div']['class']);
 		}			
 		
 		if($type === 'textarea') {
-			$options['cols'] = empty($options['cols']) ? null : $options['cols'];
-			$options['rows'] = empty($options['rows']) ? null : $options['rows'];
+			$options['cols'] = empty($options['cols']) ? NULL : $options['cols'];
+			$options['rows'] = empty($options['rows']) ? NULL : $options['rows'];
 		}
 		
 		//If it's not a checkbox and if this is an inline form
@@ -277,7 +277,7 @@ class MeFormHelper extends FormHelper {
 		}
 		
 		if(!empty($options['tip'])) {
-			$options['after'] = empty($options['after']) ? null : $options['after'];
+			$options['after'] = empty($options['after']) ? NULL : $options['after'];
 			if(!is_array($options['tip']))
 				$options['after'] .= $this->Html->tag('span', trim($options['tip']), array('class' => 'help-block'));
 			else
@@ -294,7 +294,7 @@ class MeFormHelper extends FormHelper {
 	 * @param array|string $options HTML attributes, or a string to be used as a class name
 	 * @return string Html
 	 */
-	public function label($fieldName = null, $text = null, $options = array()) {
+	public function label($fieldName = NULL, $text = NULL, $options = array()) {
 		if(!empty($options) && is_string($options))
 			$options = array('class' => $options);
 				
@@ -322,7 +322,7 @@ class MeFormHelper extends FormHelper {
 	 * @see button(), MeHtmlHelper::button()
 	 * @uses postLink() to create a POST button with the confirm message
 	 */
-	public function postButton($title, $url, $options = array(), $confirmMessage = false) {
+	public function postButton($title, $url, $options = array(), $confirmMessage = FALSE) {
 		//In CakePHP, the `postButton()` method doesn't have the `$confirmMessage`, then in this case we need to use `postLink()`
 		if($confirmMessage) {
 			$options['class'] = $this->Html->__getBtnClass($options);
@@ -344,8 +344,8 @@ class MeFormHelper extends FormHelper {
 	 * @return string Html
 	 * @see MeHtmlHelper::link()
 	 */
-	public function postLink($title, $url = null, $options = array(), $confirmMessage = false) {
-		$options['escape'] = empty($options['escape']) ? false : $options['escape'];
+	public function postLink($title, $url = NULL, $options = array(), $confirmMessage = FALSE) {
+		$options['escape'] = empty($options['escape']) ? FALSE : $options['escape'];
 		
 		return parent::postLink($title, $url, $options, $confirmMessage);
 	}
@@ -382,7 +382,7 @@ class MeFormHelper extends FormHelper {
 				empty($attributes['multiple']))
 			$attributes['empty'] = __d('me_tools', 'Select an option');
 		elseif(empty($attributes['empty']))
-			$attributes['empty'] = false;
+			$attributes['empty'] = FALSE;
 		
 		if(empty($attributes['multiple']) || $attributes['multiple']!=='checkbox')
 			$attributes['class'] = empty($attributes['class']) ? 'form-control' : $this->Html->__clean('form-control', $attributes['class']);
@@ -397,7 +397,7 @@ class MeFormHelper extends FormHelper {
 	 * @return string Html
 	 * @uses button() to create the submit button
 	 */
-	public function submit($caption = null, $options = array()) {
+	public function submit($caption = NULL, $options = array()) {
 		$caption = !empty($caption) ? $caption : __d('me_tools', 'Submit');
 		
 		$options['class'] = empty($options['class']) ? 'btn btn-success' : $this->Html->__clean('btn', $options['class']);

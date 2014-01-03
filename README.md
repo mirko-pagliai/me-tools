@@ -13,7 +13,7 @@ MeTools will be maintained under the [Semantic Versioning guidelines](http://sem
 ## Installation
 Extract MeTools in `app/Plugin` and load it in `app/Config/bootstrap.php`:
 
-	CakePlugin::load(array('MeTools' => array('routes' => true)));
+	CakePlugin::load(array('MeTools' => array('routes' => TRUE)));
 
 In your webroot directory, create (or copy) a link to the MeTools webroot:
 
@@ -53,9 +53,9 @@ You should use the LibraryHelper to load CKEditor scripts, within a view or layo
 
 	$this->Library->ckeditor();
 
-If you don't want to use the jQuery adapter for CKEditor, pass `false` as the first argument:
+If you don't want to use the jQuery adapter for CKEditor, pass `FALSE` as the first argument:
 
-	$this->Library->ckeditor(false);
+	$this->Library->ckeditor(FALSE);
 
 Then, within a view, you can create a CKEditor textarea using the MeForm helper:
 

@@ -1,7 +1,7 @@
 <?php 
 	echo "<?php echo \$this->start('sidebar'); ?>\n";
-	if(strpos($action, 'add')===false):
-		echo "\t<li><?php echo \$this->Form->postLink(__('Delete'), array('action' => 'delete', \$this->Form->value('{$modelClass}.{$primaryKey}')), null, __('Are you sure you want to delete this record?')); ?></li>\n";
+	if(strpos($action, 'add')===FALSE):
+		echo "\t<li><?php echo \$this->Form->postLink(__('Delete'), array('action' => 'delete', \$this->Form->value('{$modelClass}.{$primaryKey}')), NULL, __('Are you sure you want to delete this record?')); ?></li>\n";
 	endif;
 		echo "\t<li><?php echo \$this->Html->link(__('List ".strtolower($pluralHumanName)."'), array('action' => 'index')); ?></li>\n";
 
@@ -24,7 +24,7 @@
 			<?php
 				echo "<?php\n";
 				foreach ($fields as $field) {
-					if(strpos($action, 'add') !== false && $field == $primaryKey)
+					if(strpos($action, 'add') !== FALSE && $field == $primaryKey)
 						continue;
 					elseif(!in_array($field, array('created', 'modified', 'updated')))
 						echo "\t\t\t\techo \$this->Form->input('{$field}');\n";

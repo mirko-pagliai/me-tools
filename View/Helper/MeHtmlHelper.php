@@ -55,7 +55,7 @@ class MeHtmlHelper extends HtmlHelper {
 		$values = func_get_args();
 				
 		if(empty($values))
-			return null;
+			return NULL;
 			
 		//If an argument is an array, turns it into a string
 		$values = array_map(function($v) { return !is_array($v) ? $v : implode(' ', $v); }, $values);
@@ -137,7 +137,7 @@ class MeHtmlHelper extends HtmlHelper {
 	 * @see MeFormHelper::button(), MeFormHelper::postButton()
 	 * @uses link()
 	 */
-	public function button($title, $url = '#', $options = array(), $confirmMessage = false) {
+	public function button($title, $url = '#', $options = array(), $confirmMessage = FALSE) {
 		return self::link($title, $url, am($options, array('class' => self::__getBtnClass($options))), $confirmMessage);
 	}
 	
@@ -188,7 +188,7 @@ class MeHtmlHelper extends HtmlHelper {
 			unset($rel);
 		}
 
-		$options['inline'] = empty($options['inline']) ? false : $options['inline'];
+		$options['inline'] = empty($options['inline']) ? FALSE : $options['inline'];
 
 		return parent::css($path, $options);
 	}
@@ -238,7 +238,7 @@ class MeHtmlHelper extends HtmlHelper {
 		//Sets eventual separators
 		 array_walk($links, function(&$v) {
 			 if($v==='divider' || $v==='separator')
-				 $v = array(null, array('class' => 'divider'));
+				 $v = array(NULL, array('class' => 'divider'));
 		 });
 		
 		return self::ul($links, $ulOptions, $itemOptions);
@@ -253,7 +253,7 @@ class MeHtmlHelper extends HtmlHelper {
 	 * @return string Html, breadcrumb
 	 * @see getCrumbList()
 	 */
-	public function getCrumbs($separator = '/', $startText = false) {
+	public function getCrumbs($separator = '/', $startText = FALSE) {
 		if(is_array($startText) && empty($startText['text']))
 			$startText['text'] = FALSE;
 		
@@ -271,7 +271,7 @@ class MeHtmlHelper extends HtmlHelper {
 	 * @param string|array|boolean $startText The first crumb. If is an array, accepted keys are "text", "url" and "icon"
 	 * @return string Html, breadcrumb
 	 */
-	public function getCrumbList($options = array(), $startText = false) {
+	public function getCrumbList($options = array(), $startText = FALSE) {
 		if(is_array($startText) && empty($startText['text']))
 			$startText['text'] = FALSE;
 		
@@ -295,7 +295,7 @@ class MeHtmlHelper extends HtmlHelper {
 	 * @return string Html, icons
 	 * @see http://fortawesome.github.io/Font-Awesome Font Awesome icons
 	 */
-	public function icon($icons = null) {
+	public function icon($icons = NULL) {
 		return self::tag('i', ' ', array('class' => self::__clean('fa', $icons))).' ';
 	}
 	
@@ -402,7 +402,7 @@ class MeHtmlHelper extends HtmlHelper {
 	 * @param string $confirmMessage JavaScript confirmation message
 	 * @return string Html, link
 	 */
-	public function link($title, $url = '#', $options = array(), $confirmMessage = false) {
+	public function link($title, $url = '#', $options = array(), $confirmMessage = FALSE) {
 		$options['escape'] = empty($options['escape']) ? FALSE : $options['escape'];
 		
 		$title = empty($options['icon']) ? $title : self::icon($options['icon']).$title;
@@ -464,8 +464,8 @@ class MeHtmlHelper extends HtmlHelper {
 	 * @param array $options Other attributes for the generated tag
 	 * @return string Html, meta tag
 	 */
-	public function meta($type, $url = null, $options = array()) {
-		$options['inline'] = empty($options['inline']) ? false : $options['inline'];
+	public function meta($type, $url = NULL, $options = array()) {
+		$options['inline'] = empty($options['inline']) ? FALSE : $options['inline'];
 
 		return parent::meta($type, $url, $options);
 	}
@@ -523,7 +523,7 @@ class MeHtmlHelper extends HtmlHelper {
 	 * @return mixed String of <script /> tags or NULL if `$inline` is FALSE or if `$once` is TRUE and the file has been included before
 	 */
 	public function script($url, $options = array()) {
-		$options['inline'] = empty($options['inline']) ? false : $options['inline'];
+		$options['inline'] = empty($options['inline']) ? FALSE : $options['inline'];
 
 		return parent::script($url, $options);
 	}
@@ -578,7 +578,7 @@ class MeHtmlHelper extends HtmlHelper {
 	 * @param array $options HTML attributes
 	 * @return string Html, tag element
 	 */
-	public function tag($name, $text = null, $options = array()) {
+	public function tag($name, $text = NULL, $options = array()) {
 		$text = empty($options['icon']) ? $text : self::icon($options['icon']).$text;
 		unset($options['icon']);
 		
@@ -618,18 +618,18 @@ class MeHtmlHelper extends HtmlHelper {
 	 */
 	public function thumbUrl($path, $options = array()) {		
 		//If the side is defined, then the width and height are NULL (we don't need these)
-		if($options['side'] = empty($options['side']) ? null : $options['side'])
-			$options['width'] = $options['height'] = null;
+		if($options['side'] = empty($options['side']) ? NULL : $options['side'])
+			$options['width'] = $options['height'] = NULL;
 		else {
-			$options['width'] = empty($options['width']) ? null : $options['width'];
-			$options['height'] = empty($options['height']) ? null : $options['height'];
+			$options['width'] = empty($options['width']) ? NULL : $options['width'];
+			$options['height'] = empty($options['height']) ? NULL : $options['height'];
 		}
 		
 		return self::url(am(
-			array('controller' => 'thumbs', 'action' => 'thumb', 'plugin' => 'me_tools', 'admin' => false),
+			array('controller' => 'thumbs', 'action' => 'thumb', 'plugin' => 'me_tools', 'admin' => FALSE),
 			array('?' => array('s' => $options['side'], 'w' => $options['width'], 'h' => $options['height'])),
 			array(urlencode(base64_encode($path)))
-		), true);
+		), TRUE);
 	}
 	
 	/**

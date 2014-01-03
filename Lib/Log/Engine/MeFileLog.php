@@ -43,8 +43,8 @@ class MeFileLog extends FileLog {
 	 */
 	public function write($type, $message) {
 		//Get the client ip
-		$request = new CakeRequest(null, false);
-		$ip = $request->clientIp(false);
+		$request = new CakeRequest(NULL, FALSE);
+		$ip = $request->clientIp(FALSE);
 		
 		$message = empty($ip) ? $message : sprintf('%s (%s)', $message, $ip);
 		
