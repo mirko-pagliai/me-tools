@@ -88,7 +88,7 @@ class MeFormHelper extends FormHelper {
 		if(substr($text, -3) === '_id')
 			$text = substr($text, 0, -3);
 		
-		return __(Inflector::humanize(Inflector::underscore($text)));
+		return Inflector::humanize(Inflector::underscore($text));
 	}
 
 	/**
