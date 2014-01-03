@@ -8,7 +8,7 @@
 	<title>File Component/Auth/FileArrayAuthenticate.php | MeTools</title>
 
 	<script type="text/javascript" src="resources/combined.js?394153670"></script>
-	<script type="text/javascript" src="elementlist.js?3783586847"></script>
+	<script type="text/javascript" src="elementlist.js?1822412547"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360" />
 
 </head>
@@ -156,7 +156,7 @@
 </span><span id="46" class="l"><a class="l" href="#46">46: </a>        
 </span><span id="47" class="l"><a class="l" href="#47">47: </a>        <span class="php-comment">//Checks the fields to ensure they are supplied</span>
 </span><span id="48" class="l"><a class="l" href="#48">48: </a>        <span class="php-keyword1">if</span>(!<span class="php-var">$this</span>-&gt;_checkFields(<span class="php-var">$request</span>, <span class="php-var">$model</span>, <span class="php-var">$fields</span>))
-</span><span id="49" class="l"><a class="l" href="#49">49: </a>            <span class="php-keyword1">return</span> <span class="php-keyword1">false</span>;
+</span><span id="49" class="l"><a class="l" href="#49">49: </a>            <span class="php-keyword1">return</span> <span class="php-keyword1">FALSE</span>;
 </span><span id="50" class="l"><a class="l" href="#50">50: </a>        
 </span><span id="51" class="l"><a class="l" href="#51">51: </a>        <span class="php-comment">//Searches the user in the fileArray</span>
 </span><span id="52" class="l"><a class="l" href="#52">52: </a>        <span class="php-var">$this</span>-&gt;fileArray = <span class="php-keyword1">new</span> FileArray(APP.<span class="php-quote">'users.txt'</span>);
@@ -166,7 +166,7 @@
 </span><span id="56" class="l"><a class="l" href="#56">56: </a>        ));
 </span><span id="57" class="l"><a class="l" href="#57">57: </a>        
 </span><span id="58" class="l"><a class="l" href="#58">58: </a>        <span class="php-comment">//Returns user data if user exists, else FALSE</span>
-</span><span id="59" class="l"><a class="l" href="#59">59: </a>        <span class="php-keyword1">return</span> !<span class="php-keyword1">empty</span>(<span class="php-var">$user</span>) ? <span class="php-var">$user</span> : <span class="php-keyword1">false</span>;
+</span><span id="59" class="l"><a class="l" href="#59">59: </a>        <span class="php-keyword1">return</span> !<span class="php-keyword1">empty</span>(<span class="php-var">$user</span>) ? <span class="php-var">$user</span> : <span class="php-keyword1">FALSE</span>;
 </span><span id="60" class="l"><a class="l" href="#60">60: </a>    }
 </span><span id="61" class="l"><a class="l" href="#61">61: </a></span>}</code></pre>
 

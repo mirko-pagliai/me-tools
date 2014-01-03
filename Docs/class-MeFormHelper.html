@@ -7,7 +7,7 @@
 	<title>Class MeFormHelper | MeTools</title>
 
 	<script type="text/javascript" src="resources/combined.js?394153670"></script>
-	<script type="text/javascript" src="elementlist.js?3783586847"></script>
+	<script type="text/javascript" src="elementlist.js?1822412547"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360" />
 
 </head>
@@ -168,7 +168,7 @@ FormHelper
 				<b>Author:</b>
 				Mirko Pagliai &lt;<a
 href="mailto:mirko.pagliai&#64;gmail.com">mirko.pagliai&#64;<!---->gmail.com</a>&gt;<br />
-		<b>Located at</b> <a href="source-class-MeFormHelper.html#29-440" title="Go to source code">MeFormHelper.php</a><br />
+		<b>Located at</b> <a href="source-class-MeFormHelper.html#29-447" title="Go to source code">MeFormHelper.php</a><br />
 	</div>
 
 
@@ -274,7 +274,7 @@ create inputs of various types.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#___getLabelText">#</a>
-		<code><a href="source-class-MeFormHelper.html#75-92" title="Go to source code">__getLabelText</a>( <span>string <var>$fieldName</var> = <span class="php-keyword1">null</span></span> )</code>
+		<code><a href="source-class-MeFormHelper.html#75-92" title="Go to source code">__getLabelText</a>( <span>string <var>$fieldName</var> = <span class="php-keyword1">NULL</span></span> )</code>
 
 		<div class="description short">
 			
@@ -477,7 +477,7 @@ helper. Please refer to the <code>README</code> file.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_create">#</a>
-		<code><a href="source-class-MeFormHelper.html#148-158" title="Go to source code">create</a>( <span>mixed <var>$model</var> = <span class="php-keyword1">null</span></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-MeFormHelper.html#148-162" title="Go to source code">create</a>( <span>mixed <var>$model</var> = <span class="php-keyword1">NULL</span></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
@@ -494,7 +494,7 @@ helper. Please refer to the <code>README</code> file.</p>
 				<h4>Parameters</h4>
 				<div class="list"><dl>
 					<dt><var>$model</var></dt>
-					<dd><code>mixed</code><br>$model The model name for which the form is being defined. If <code>false</code>
+					<dd><code>mixed</code><br>$model The model name for which the form is being defined. If <code>FALSE</code>
 no model is used</dd>
 					<dt><var>$options</var></dt>
 					<dd><code>array</code><br>$options HTML attributes and options</dd>
@@ -506,6 +506,10 @@ no model is used</dd>
 				</div>
 
 
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-MeFormHelper.html#_createInline">MeFormHelper::createInline()</a></code></code><br>to create an inline form<br />
+				</div>
 				<h4>Used by</h4>
 				<div class="list">
 						<code><code><a href="class-MeFormHelper.html#_createInline">MeFormHelper::createInline()</a></code></code><br>to create the form<br />
@@ -526,7 +530,7 @@ no model is used</dd>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_createInline">#</a>
-		<code><a href="source-class-MeFormHelper.html#160-181" title="Go to source code">createInline</a>( <span>mixed <var>$model</var> = <span class="php-keyword1">null</span></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-MeFormHelper.html#164-188" title="Go to source code">createInline</a>( <span>mixed <var>$model</var> = <span class="php-keyword1">NULL</span></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
@@ -538,18 +542,21 @@ no model is used</dd>
 			
 <p>Returns an inline form element.</p>
 
+<p>You can also create an inline form using the <code>create()</code> method
+with the <code>inline</code> option.</p>
+
 <p>Note that by default <code>createInline</code> doesn't display errors. To
 view the errors, however, you must set to TRUE the <code>errorMessage</code> of
 <code>inputDefaults</code>. For example:</p>
 
-<pre>$this-&gt;Form-&gt;createInline('Fake', array('inputDefaults' =&gt; array('errorMessage' =&gt; true)));</pre>
+<pre>$this-&gt;Form-&gt;createInline('Fake', array('inputDefaults' =&gt; array('errorMessage' =&gt; TRUE)));</pre>
 
 
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
 					<dt><var>$model</var></dt>
-					<dd><code>mixed</code><br>$model The model name for which the form is being defined. If <code>false</code>
+					<dd><code>mixed</code><br>$model The model name for which the form is being defined. If <code>FALSE</code>
 no model is used</dd>
 					<dt><var>$options</var></dt>
 					<dd><code>array</code><br>$options HTML attributes and options</dd>
@@ -565,6 +572,10 @@ no model is used</dd>
 				<div class="list">
 						<code><code><a href="class-MeFormHelper.html#_create">MeFormHelper::create()</a></code></code><br>to create the form<br />
 						<code><code><a href="class-MeFormHelper.html#$inline">MeFormHelper::<var>$inline</var></a></code></code><br>to mark the form as an inline form<br />
+				</div>
+				<h4>Used by</h4>
+				<div class="list">
+						<code><code><a href="class-MeFormHelper.html#_create">MeFormHelper::create()</a></code></code><br>to create an inline form<br />
 				</div>
 
 
@@ -582,7 +593,7 @@ no model is used</dd>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_datepicker">#</a>
-		<code><a href="source-class-MeFormHelper.html#183-196" title="Go to source code">datepicker</a>( <span>string <var>$fieldName</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-MeFormHelper.html#190-203" title="Go to source code">datepicker</a>( <span>string <var>$fieldName</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
@@ -633,7 +644,7 @@ helper.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_end">#</a>
-		<code><a href="source-class-MeFormHelper.html#198-219" title="Go to source code">end</a>( <span>string <var>$caption</var> = <span class="php-keyword1">null</span></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-MeFormHelper.html#205-226" title="Go to source code">end</a>( <span>string <var>$caption</var> = <span class="php-keyword1">NULL</span></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
@@ -682,7 +693,7 @@ helper.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getDefault">#</a>
-		<code><a href="source-class-MeFormHelper.html#221-241" title="Go to source code">getDefault</a>( <span>string <var>$value</var></span>, <span>string <var>$default</var></span> )</code>
+		<code><a href="source-class-MeFormHelper.html#228-248" title="Go to source code">getDefault</a>( <span>string <var>$value</var></span>, <span>string <var>$default</var></span> )</code>
 
 		<div class="description short">
 			
@@ -752,7 +763,7 @@ generate a notice.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_input">#</a>
-		<code><a href="source-class-MeFormHelper.html#243-281" title="Go to source code">input</a>( <span>string <var>$fieldName</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-MeFormHelper.html#250-288" title="Go to source code">input</a>( <span>string <var>$fieldName</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
@@ -803,7 +814,7 @@ generate a notice.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_label">#</a>
-		<code><a href="source-class-MeFormHelper.html#283-302" title="Go to source code">label</a>( <span>string <var>$fieldName</var> = <span class="php-keyword1">null</span></span>, <span>string <var>$text</var> = <span class="php-keyword1">null</span></span>, <span>array|string <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-MeFormHelper.html#290-309" title="Go to source code">label</a>( <span>string <var>$fieldName</var> = <span class="php-keyword1">NULL</span></span>, <span>string <var>$text</var> = <span class="php-keyword1">NULL</span></span>, <span>array|string <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
@@ -852,7 +863,7 @@ will be inflected from the fieldName</dd>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_postButton">#</a>
-		<code><a href="source-class-MeFormHelper.html#304-326" title="Go to source code">postButton</a>( <span>string <var>$title</var></span>, <span>mixed <var>$url</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span>, <span>string <var>$confirmMessage</var> = <span class="php-keyword1">false</span></span> )</code>
+		<code><a href="source-class-MeFormHelper.html#311-333" title="Go to source code">postButton</a>( <span>string <var>$title</var></span>, <span>mixed <var>$url</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span>, <span>string <var>$confirmMessage</var> = <span class="php-keyword1">FALSE</span></span> )</code>
 
 		<div class="description short">
 			
@@ -915,7 +926,7 @@ http://)</dd>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_postLink">#</a>
-		<code><a href="source-class-MeFormHelper.html#328-344" title="Go to source code">postLink</a>( <span>string <var>$title</var></span>, <span>mixed <var>$url</var> = <span class="php-keyword1">null</span></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span>, <span>string <var>$confirmMessage</var> = <span class="php-keyword1">false</span></span> )</code>
+		<code><a href="source-class-MeFormHelper.html#335-351" title="Go to source code">postLink</a>( <span>string <var>$title</var></span>, <span>mixed <var>$url</var> = <span class="php-keyword1">NULL</span></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span>, <span>string <var>$confirmMessage</var> = <span class="php-keyword1">FALSE</span></span> )</code>
 
 		<div class="description short">
 			
@@ -976,7 +987,7 @@ http://)</dd>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_radio">#</a>
-		<code><a href="source-class-MeFormHelper.html#346-357" title="Go to source code">radio</a>( <span>string <var>$fieldName</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span>, <span>array <var>$attributes</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-MeFormHelper.html#353-364" title="Go to source code">radio</a>( <span>string <var>$fieldName</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span>, <span>array <var>$attributes</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
@@ -1024,7 +1035,7 @@ http://)</dd>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_select">#</a>
-		<code><a href="source-class-MeFormHelper.html#359-384" title="Go to source code">select</a>( <span>string <var>$fieldName</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span>, <span>array <var>$attributes</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-MeFormHelper.html#366-391" title="Go to source code">select</a>( <span>string <var>$fieldName</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span>, <span>array <var>$attributes</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
@@ -1070,7 +1081,7 @@ http://)</dd>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_submit">#</a>
-		<code><a href="source-class-MeFormHelper.html#386-410" title="Go to source code">submit</a>( <span>string <var>$caption</var> = <span class="php-keyword1">null</span></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-MeFormHelper.html#393-417" title="Go to source code">submit</a>( <span>string <var>$caption</var> = <span class="php-keyword1">NULL</span></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
@@ -1118,7 +1129,7 @@ http://)</dd>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_textarea">#</a>
-		<code><a href="source-class-MeFormHelper.html#412-422" title="Go to source code">textarea</a>( <span>string <var>$fieldName</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-MeFormHelper.html#419-429" title="Go to source code">textarea</a>( <span>string <var>$fieldName</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
@@ -1162,7 +1173,7 @@ http://)</dd>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_timepicker">#</a>
-		<code><a href="source-class-MeFormHelper.html#424-439" title="Go to source code">timepicker</a>( <span>string <var>$fieldName</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-MeFormHelper.html#431-446" title="Go to source code">timepicker</a>( <span>string <var>$fieldName</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			

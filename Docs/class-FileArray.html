@@ -7,7 +7,7 @@
 	<title>Class FileArray | MeTools</title>
 
 	<script type="text/javascript" src="resources/combined.js?394153670"></script>
-	<script type="text/javascript" src="elementlist.js?3783586847"></script>
+	<script type="text/javascript" src="elementlist.js?1822412547"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360" />
 
 </head>
@@ -138,7 +138,7 @@ delete, edit, check, search, retrieve and insert data.</p>
 				<b>Author:</b>
 				Mirko Pagliai &lt;<a
 href="mailto:mirko.pagliai&#64;gmail.com">mirko.pagliai&#64;<!---->gmail.com</a>&gt;<br />
-		<b>Located at</b> <a href="source-class-FileArray.html#27-288" title="Go to source code">FileArray.php</a><br />
+		<b>Located at</b> <a href="source-class-FileArray.html#27-259" title="Go to source code">FileArray.php</a><br />
 	</div>
 
 
@@ -156,17 +156,19 @@ href="mailto:mirko.pagliai&#64;gmail.com">mirko.pagliai&#64;<!---->gmail.com</a>
 
 		<td class="name"><div>
 		<a class="anchor" href="#___construct">#</a>
-		<code><a href="source-class-FileArray.html#50-61" title="Go to source code">__construct</a>( <span>string <var>$path</var> = <span class="php-keyword1">false</span></span> )</code>
+		<code><a href="source-class-FileArray.html#50-70" title="Go to source code">__construct</a>( <span>string <var>$path</var></span> )</code>
 
 		<div class="description short">
 			
-<p>Contruct. Sets the File object, the path and the content</p>
+<p>Contruct. Sets the File object and the content. It will create the file, if
+it doesn't exist</p>
 
 		</div>
 
 		<div class="description detailed hidden">
 			
-<p>Contruct. Sets the File object, the path and the content</p>
+<p>Contruct. Sets the File object and the content. It will create the file, if
+it doesn't exist</p>
 
 
 
@@ -180,8 +182,9 @@ href="mailto:mirko.pagliai&#64;gmail.com">mirko.pagliai&#64;<!---->gmail.com</a>
 
 				<h4>Uses</h4>
 				<div class="list">
+						<code><code><a href="class-FileArray.html#___read">FileArray::__read()</a></code></code><br>to reat the file content<br />
 						<code><code><a href="class-FileArray.html#$content">FileArray::<var>$content</var></a></code></code><br>to set the file content<br />
-						<code><code><a href="class-FileArray.html#$file">FileArray::<var>$file</var></a></code></code><br>to set the File object<br />
+						<code><code><a href="class-FileArray.html#$file">FileArray::<var>$file</var></a></code></code><br>to set the file object<br />
 						<code><code><a href="class-FileArray.html#$path">FileArray::<var>$path</var></a></code></code><br>to set the file path<br />
 				</div>
 
@@ -200,7 +203,7 @@ href="mailto:mirko.pagliai&#64;gmail.com">mirko.pagliai&#64;<!---->gmail.com</a>
 
 		<td class="name"><div>
 		<a class="anchor" href="#___filter">#</a>
-		<code><a href="source-class-FileArray.html#63-85" title="Go to source code">__filter</a>( <span>array <var>$conditions</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-FileArray.html#72-97" title="Go to source code">__filter</a>( <span>array <var>$conditions</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
@@ -222,10 +225,14 @@ href="mailto:mirko.pagliai&#64;gmail.com">mirko.pagliai&#64;<!---->gmail.com</a>
 
 				<h4>Returns</h4>
 				<div class="list">
-					<code>mixed</code><br>Results or NULL<br />
+					<code>mixed</code><br>Results that meet the conditions, otherwise an empty array<br />
 				</div>
 
 
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-FileArray.html#$content">FileArray::<var>$content</var></a></code></code><br>to get the file content<br />
+				</div>
 
 
 		</div>
@@ -235,14 +242,14 @@ href="mailto:mirko.pagliai&#64;gmail.com">mirko.pagliai&#64;<!---->gmail.com</a>
 
 		<td class="attributes"><code>
 			 private 
-			mixed
+			array
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
 		<a class="anchor" href="#___read">#</a>
-		<code><a href="source-class-FileArray.html#87-106" title="Go to source code">__read</a>( )</code>
+		<code><a href="source-class-FileArray.html#99-114" title="Go to source code">__read</a>( )</code>
 
 		<div class="description short">
 			
@@ -259,10 +266,18 @@ href="mailto:mirko.pagliai&#64;gmail.com">mirko.pagliai&#64;<!---->gmail.com</a>
 
 				<h4>Returns</h4>
 				<div class="list">
-					<code>mixed</code><br>Existing data. NULL if there's no existing data or if the file doesn't exist<br />
+					<code>array</code><br>Data or an empty array if the data don't exist<br />
 				</div>
 
 
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-FileArray.html#$file">FileArray::<var>$file</var></a></code></code><br>to get the file object<br />
+				</div>
+				<h4>Used by</h4>
+				<div class="list">
+						<code><code><a href="class-FileArray.html#___construct">FileArray::__construct()</a></code></code><br>to reat the file content<br />
+				</div>
 
 
 		</div>
@@ -279,7 +294,7 @@ href="mailto:mirko.pagliai&#64;gmail.com">mirko.pagliai&#64;<!---->gmail.com</a>
 
 		<td class="name"><div>
 		<a class="anchor" href="#___write">#</a>
-		<code><a href="source-class-FileArray.html#108-115" title="Go to source code">__write</a>( <span>mixed <var>$data</var></span> )</code>
+		<code><a href="source-class-FileArray.html#116-125" title="Go to source code">__write</a>( )</code>
 
 		<div class="description short">
 			
@@ -293,18 +308,17 @@ href="mailto:mirko.pagliai&#64;gmail.com">mirko.pagliai&#64;<!---->gmail.com</a>
 
 
 
-				<h4>Parameters</h4>
-				<div class="list"><dl>
-					<dt><var>$data</var></dt>
-					<dd><code>mixed</code><br>$data Data to insert</dd>
-				</dl></div>
 
 				<h4>Returns</h4>
 				<div class="list">
-					<code>boolean</code><br>Success<br />
+					<code>boolean</code><br>TRUE on success, otherwise FALSE<br />
 				</div>
 
 
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-FileArray.html#$file">FileArray::<var>$file</var></a></code></code><br>to get the file object<br />
+				</div>
 
 
 		</div>
@@ -321,17 +335,17 @@ href="mailto:mirko.pagliai&#64;gmail.com">mirko.pagliai&#64;<!---->gmail.com</a>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_count">#</a>
-		<code><a href="source-class-FileArray.html#117-128" title="Go to source code">count</a>( <span>array <var>$conditions</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-FileArray.html#127-134" title="Go to source code">count</a>( <span>array <var>$conditions</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
-<p>Gets the record count</p>
+<p>Gets the number (count) of records</p>
 
 		</div>
 
 		<div class="description detailed hidden">
 			
-<p>Gets the record count</p>
+<p>Gets the number (count) of records</p>
 
 
 
@@ -343,7 +357,7 @@ href="mailto:mirko.pagliai&#64;gmail.com">mirko.pagliai&#64;<!---->gmail.com</a>
 
 				<h4>Returns</h4>
 				<div class="list">
-					<code>integer</code><br>Count<br />
+					<code>integer</code><br>Number of records<br />
 				</div>
 
 
@@ -363,7 +377,7 @@ href="mailto:mirko.pagliai&#64;gmail.com">mirko.pagliai&#64;<!---->gmail.com</a>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_delete">#</a>
-		<code><a href="source-class-FileArray.html#130-148" title="Go to source code">delete</a>( <span>mixed <var>$key</var></span> )</code>
+		<code><a href="source-class-FileArray.html#136-148" title="Go to source code">delete</a>( <span>mixed <var>$key</var></span> )</code>
 
 		<div class="description short">
 			
@@ -405,7 +419,7 @@ href="mailto:mirko.pagliai&#64;gmail.com">mirko.pagliai&#64;<!---->gmail.com</a>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_edit">#</a>
-		<code><a href="source-class-FileArray.html#150-169" title="Go to source code">edit</a>( <span>mixed <var>$key</var></span>, <span>mixed <var>$data</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-FileArray.html#150-163" title="Go to source code">edit</a>( <span>mixed <var>$key</var></span>, <span>mixed <var>$data</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
@@ -449,32 +463,36 @@ href="mailto:mirko.pagliai&#64;gmail.com">mirko.pagliai&#64;<!---->gmail.com</a>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_exists">#</a>
-		<code><a href="source-class-FileArray.html#171-182" title="Go to source code">exists</a>( <span>integer <var>$key</var></span> )</code>
+		<code><a href="source-class-FileArray.html#165-175" title="Go to source code">exists</a>( <span>mxied <var>$key</var></span> )</code>
 
 		<div class="description short">
 			
-<p>Checks if exists a record with a key</p>
+<p>Checks if a key already exists</p>
 
 		</div>
 
 		<div class="description detailed hidden">
 			
-<p>Checks if exists a record with a key</p>
+<p>Checks if a key already exists</p>
 
 
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
 					<dt><var>$key</var></dt>
-					<dd><code>integer</code><br>$key Key to check</dd>
+					<dd><code>mxied</code><br>$key Key to check</dd>
 				</dl></div>
 
 				<h4>Returns</h4>
 				<div class="list">
-					<code>boolean</code><br>TRUE if already exists, else FALSE<br />
+					<code>boolean</code><br>TRUE if the key already exists, otherwise FALSE<br />
 				</div>
 
 
+				<h4>Used by</h4>
+				<div class="list">
+						<code><code><a href="class-FileArray.html#_insert">FileArray::insert()</a></code></code><br>to check if the key exists<br />
+				</div>
 
 
 		</div>
@@ -491,24 +509,26 @@ href="mailto:mirko.pagliai&#64;gmail.com">mirko.pagliai&#64;<!---->gmail.com</a>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_find">#</a>
-		<code><a href="source-class-FileArray.html#184-205" title="Go to source code">find</a>( <span>string <var>$type</var> = <span class="php-quote">'first'</span></span> )</code>
+		<code><a href="source-class-FileArray.html#177-199" title="Go to source code">find</a>( <span>string <var>$type</var> = <span class="php-quote">'first'</span></span> )</code>
 
 		<div class="description short">
 			
-<p>Finds records</p>
+<p>Finds records.</p>
 
 		</div>
 
 		<div class="description detailed hidden">
 			
-<p>Finds records</p>
+<p>Finds records.</p>
+
+<p>The type should be "first" (default), "count" and "all" or a record key</p>
 
 
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
 					<dt><var>$type</var></dt>
-					<dd><code>string</code><br>$type Search type. It supports "first" (default), "count" and "all"</dd>
+					<dd><code>string</code><br>$type Search type ("first", "count", "all" or a record key</dd>
 				</dl></div>
 
 				<h4>Returns</h4>
@@ -533,7 +553,7 @@ href="mailto:mirko.pagliai&#64;gmail.com">mirko.pagliai&#64;<!---->gmail.com</a>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_findByKey">#</a>
-		<code><a href="source-class-FileArray.html#207-218" title="Go to source code">findByKey</a>( <span>mixed <var>$key</var></span> )</code>
+		<code><a href="source-class-FileArray.html#201-211" title="Go to source code">findByKey</a>( <span>mixed <var>$key</var></span> )</code>
 
 		<div class="description short">
 			
@@ -555,7 +575,7 @@ href="mailto:mirko.pagliai&#64;gmail.com">mirko.pagliai&#64;<!---->gmail.com</a>
 
 				<h4>Returns</h4>
 				<div class="list">
-					<code>mixed</code><br>Record<br />
+					<code>mixed</code><br>Record founded<br />
 				</div>
 
 
@@ -568,14 +588,14 @@ href="mailto:mirko.pagliai&#64;gmail.com">mirko.pagliai&#64;<!---->gmail.com</a>
 
 		<td class="attributes"><code>
 			 public 
-			mixed
+			array
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getAll">#</a>
-		<code><a href="source-class-FileArray.html#220-231" title="Go to source code">getAll</a>( <span>array <var>$conditions</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-FileArray.html#213-220" title="Go to source code">getAll</a>( <span>array <var>$conditions</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
@@ -597,7 +617,7 @@ href="mailto:mirko.pagliai&#64;gmail.com">mirko.pagliai&#64;<!---->gmail.com</a>
 
 				<h4>Returns</h4>
 				<div class="list">
-					<code>mixed</code><br>All records or NULL<br />
+					<code>array</code><br>All records<br />
 				</div>
 
 
@@ -610,14 +630,14 @@ href="mailto:mirko.pagliai&#64;gmail.com">mirko.pagliai&#64;<!---->gmail.com</a>
 
 		<td class="attributes"><code>
 			 public 
-			mixed
+			array
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getFirst">#</a>
-		<code><a href="source-class-FileArray.html#233-250" title="Go to source code">getFirst</a>( <span>array <var>$conditions</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-FileArray.html#222-230" title="Go to source code">getFirst</a>( <span>array <var>$conditions</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
@@ -639,7 +659,7 @@ href="mailto:mirko.pagliai&#64;gmail.com">mirko.pagliai&#64;<!---->gmail.com</a>
 
 				<h4>Returns</h4>
 				<div class="list">
-					<code>mixed</code><br>First record founded or NULL<br />
+					<code>array</code><br>First record founded<br />
 				</div>
 
 
@@ -659,7 +679,7 @@ href="mailto:mirko.pagliai&#64;gmail.com">mirko.pagliai&#64;<!---->gmail.com</a>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_insert">#</a>
-		<code><a href="source-class-FileArray.html#252-287" title="Go to source code">insert</a>( <span>mixed <var>$key</var> = <span class="php-keyword1">null</span></span>, <span>mixed <var>$data</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-FileArray.html#232-258" title="Go to source code">insert</a>( <span>mixed <var>$data</var></span>, <span>mixed <var>$key</var> = <span class="php-keyword1">NULL</span></span> )</code>
 
 		<div class="description short">
 			
@@ -675,15 +695,15 @@ href="mailto:mirko.pagliai&#64;gmail.com">mirko.pagliai&#64;<!---->gmail.com</a>
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
-					<dt><var>$key</var></dt>
-					<dd><code>mixed</code><br>$key Data key</dd>
 					<dt><var>$data</var></dt>
-					<dd><code>mixed</code><br>$data Data</dd>
+					<dd><code>mixed</code><br>$data Record data</dd>
+					<dt><var>$key</var></dt>
+					<dd><code>mixed</code><br>$key Record key</dd>
 				</dl></div>
 
 				<h4>Returns</h4>
 				<div class="list">
-					<code>boolean</code><br>Success<br />
+					<code>boolean</code><br>TRUE on success, otherwise FALSE<br />
 				</div>
 
 				<h4>Throws</h4>
@@ -691,6 +711,12 @@ href="mailto:mirko.pagliai&#64;gmail.com">mirko.pagliai&#64;<!---->gmail.com</a>
 					<code>InternalErrorException</code><br />
 				</div>
 
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-FileArray.html#_exists">FileArray::exists()</a></code></code><br>to check if the key exists<br />
+						<code><code><a href="class-FileArray.html#$content">FileArray::<var>$content</var></a></code></code><br>to read and set the file content<br />
+						<code><code><a href="class-FileArray.html#$path">FileArray::<var>$path</var></a></code></code><br>to get the file path<br />
+				</div>
 
 
 		</div>
@@ -714,13 +740,13 @@ href="mailto:mirko.pagliai&#64;gmail.com">mirko.pagliai&#64;<!---->gmail.com</a>
 	<tr data-order="content" id="$content">
 		<td class="attributes"><code>
 			private  
-			array
+			mixed
 		</code></td>
 
 		<td class="name">
 				<a href="source-class-FileArray.html#32-36" title="Go to source code"><var>$content</var></a>
 		</td>
-		<td class="value"><code><span class="php-keyword1">null</span></code></td>
+		<td class="value"><code><span class="php-keyword1">FALSE</span></code></td>
 		<td class="description"><div>
 			<a href="#$content" class="anchor">#</a>
 
@@ -738,6 +764,8 @@ href="mailto:mirko.pagliai&#64;gmail.com">mirko.pagliai&#64;<!---->gmail.com</a>
 					<h4>Used by</h4>
 					<div class="list">
 							<code><code><a href="class-FileArray.html#___construct">FileArray::__construct()</a></code></code><br>to set the file content<br />
+							<code><code><a href="class-FileArray.html#___filter">FileArray::__filter()</a></code></code><br>to get the file content<br />
+							<code><code><a href="class-FileArray.html#_insert">FileArray::insert()</a></code></code><br>to read and set the file content<br />
 					</div>
 			</div>
 		</div></td>
@@ -751,7 +779,7 @@ href="mailto:mirko.pagliai&#64;gmail.com">mirko.pagliai&#64;<!---->gmail.com</a>
 		<td class="name">
 				<a href="source-class-FileArray.html#38-42" title="Go to source code"><var>$file</var></a>
 		</td>
-		<td class="value"><code><span class="php-keyword1">false</span></code></td>
+		<td class="value"><code></code></td>
 		<td class="description"><div>
 			<a href="#$file" class="anchor">#</a>
 
@@ -768,7 +796,9 @@ href="mailto:mirko.pagliai&#64;gmail.com">mirko.pagliai&#64;<!---->gmail.com</a>
 
 					<h4>Used by</h4>
 					<div class="list">
-							<code><code><a href="class-FileArray.html#___construct">FileArray::__construct()</a></code></code><br>to set the File object<br />
+							<code><code><a href="class-FileArray.html#___construct">FileArray::__construct()</a></code></code><br>to set the file object<br />
+							<code><code><a href="class-FileArray.html#___read">FileArray::__read()</a></code></code><br>to get the file object<br />
+							<code><code><a href="class-FileArray.html#___write">FileArray::__write()</a></code></code><br>to get the file object<br />
 					</div>
 			</div>
 		</div></td>
@@ -782,7 +812,7 @@ href="mailto:mirko.pagliai&#64;gmail.com">mirko.pagliai&#64;<!---->gmail.com</a>
 		<td class="name">
 				<a href="source-class-FileArray.html#44-48" title="Go to source code"><var>$path</var></a>
 		</td>
-		<td class="value"><code><span class="php-keyword1">null</span></code></td>
+		<td class="value"><code></code></td>
 		<td class="description"><div>
 			<a href="#$path" class="anchor">#</a>
 
@@ -800,6 +830,7 @@ href="mailto:mirko.pagliai&#64;gmail.com">mirko.pagliai&#64;<!---->gmail.com</a>
 					<h4>Used by</h4>
 					<div class="list">
 							<code><code><a href="class-FileArray.html#___construct">FileArray::__construct()</a></code></code><br>to set the file path<br />
+							<code><code><a href="class-FileArray.html#_insert">FileArray::insert()</a></code></code><br>to get the file path<br />
 					</div>
 			</div>
 		</div></td>

@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="generator" content="ApiGen 2.8.0" />
+
+	<title>Class SystemComponent | MeTools</title>
+
+	<script type="text/javascript" src="resources/combined.js?394153670"></script>
+	<script type="text/javascript" src="elementlist.js?1822412547"></script>
+	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360" />
+
+</head>
+
+<body>
+<div id="left">
+	<div id="menu">
+		<a href="index.html" title="Overview"><span>Overview</span></a>
+
+
+		<div id="groups">
+			<h3>Packages</h3>
+			<ul>
+				<li class="active main"><a href="package-MeTools.html">MeTools<span></span></a>
+						<ul>
+				<li class="active main"><a href="package-MeTools.Controller.html">Controller<span></span></a>
+						<ul>
+				<li class="active main"><a href="package-MeTools.Controller.Component.html">Component<span></span></a>
+						<ul>
+				<li class="main"><a href="package-MeTools.Controller.Component.Auth.html">Auth</a>
+						</li>
+							</ul></li></ul></li>
+				<li class="main"><a href="package-MeTools.Lib.html">Lib<span></span></a>
+						<ul>
+				<li class="main"><a href="package-MeTools.Lib.Log.html">Log<span></span></a>
+						<ul>
+				<li class="main"><a href="package-MeTools.Lib.Log.Engine.html">Engine</a>
+						</li>
+							</ul></li></ul></li>
+				<li class="main"><a href="package-MeTools.Model.html">Model<span></span></a>
+						<ul>
+				<li class="main"><a href="package-MeTools.Model.Behavior.html">Behavior</a>
+						</li>
+							</ul></li>
+				<li class="main"><a href="package-MeTools.Utility.html">Utility</a>
+						</li>
+				<li class="main"><a href="package-MeTools.View.html">View<span></span></a>
+						<ul>
+				<li class="main"><a href="package-MeTools.View.Helper.html">Helper</a>
+						</li>
+							</ul></li></ul></li>
+			</ul>
+		</div>
+
+		<hr />
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li><a href="class-CleanerUrlComponent.html">CleanerUrlComponent</a></li>
+				<li><a href="class-MeSessionComponent.html">MeSessionComponent</a></li>
+				<li class="active"><a href="class-SystemComponent.html">SystemComponent</a></li>
+				<li><a href="class-XmlComponent.html">XmlComponent</a></li>
+			</ul>
+
+
+
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+<div id="rightInner">
+	<form id="search">
+		<input type="hidden" name="cx" value="" />
+		<input type="hidden" name="ie" value="UTF-8" />
+		<input type="text" name="q" class="text" />
+		<input type="submit" value="Search" />
+	</form>
+
+	<div id="navigation">
+		<ul>
+			<li>
+				<a href="index.html" title="Overview"><span>Overview</span></a>
+			</li>
+			<li>
+				<a href="package-MeTools.Controller.Component.html" title="Summary of MeTools\Controller\Component"><span>Package</span></a>
+			</li>
+			<li class="active">
+<span>Class</span>			</li>
+		</ul>
+		<ul>
+			<li>
+				<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
+			</li>
+			<li>
+				<a href="todo.html" title="Todo list"><span>Todo</span></a>
+			</li>
+		</ul>
+		<ul>
+			<li>
+				<a href="metools-api-documentation.zip" title="Download documentation as ZIP archive"><span>Download</span></a>
+			</li>
+		</ul>
+	</div>
+
+<div id="content" class="class">
+	<h1>Class SystemComponent</h1>
+
+
+	<div class="description">
+	
+<p>A component for checking the status of the system and perform maintenance
+tasks.</p>
+
+	</div>
+
+	<dl class="tree">
+		<dd style="padding-left:0px">
+Component
+			
+			
+		</dd>
+		<dd style="padding-left:30px">
+			<img src="resources/inherit.png" alt="Extended by" />
+<b><span>SystemComponent</span></b>			
+			
+			
+		</dd>
+	</dl>
+
+
+
+
+
+
+
+
+	<div class="info">
+		
+		
+		
+		<b>Package:</b> <a href="package-MeTools.html">MeTools</a>\<a href="package-MeTools.Controller.html">Controller</a>\<a href="package-MeTools.Controller.Component.html">Component</a><br />
+
+				<b>Copyright:</b>
+				Copyright (c) 2013, Mirko Pagliai for Nova Atlantis Ltd<br />
+				<b>License:</b>
+				<a href="http://www.gnu.org/licenses/agpl.txt">AGPL License</a><br />
+				<b>Author:</b>
+				Mirko Pagliai &lt;<a
+href="mailto:mirko.pagliai&#64;gmail.com">mirko.pagliai&#64;<!---->gmail.com</a>&gt;<br />
+		<b>Located at</b> <a href="source-class-SystemComponent.html#27-179" title="Go to source code">Component/SystemComponent.php</a><br />
+	</div>
+
+
+
+	<table class="summary" id="methods">
+	<caption>Methods summary</caption>
+	<tr data-order="checkApacheModule" id="_checkApacheModule">
+
+		<td class="attributes"><code>
+			 public 
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_checkApacheModule">#</a>
+		<code><a href="source-class-SystemComponent.html#31-39" title="Go to source code">checkApacheModule</a>( <span>string <var>$module</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Checks if an Apache module is active</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Checks if an Apache module is active</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$module</var></dt>
+					<dd><code>string</code><br>$module Name of the module to be checked</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>boolean</code><br>TRUE if the module is enabled, FALSE otherwise<br />
+				</div>
+
+
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-SystemComponent.html#_getApacheModules">SystemComponent::getApacheModules()</a></code></code><br>to get Apache's modules<br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="checkCache" id="_checkCache">
+
+		<td class="attributes"><code>
+			 public 
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_checkCache">#</a>
+		<code><a href="source-class-SystemComponent.html#41-59" title="Go to source code">checkCache</a>( )</code>
+
+		<div class="description short">
+			
+<p>Checks if the cache and all its subdirectories are readable and writable</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Checks if the cache and all its subdirectories are readable and writable</p>
+
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>boolean</code><br>TRUE if if the cache and all its subdirectories are readable and writable, FALSE
+otherwise<br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="checkCacheStatus" id="_checkCacheStatus">
+
+		<td class="attributes"><code>
+			 public 
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_checkCacheStatus">#</a>
+		<code><a href="source-class-SystemComponent.html#61-67" title="Go to source code">checkCacheStatus</a>( )</code>
+
+		<div class="description short">
+			
+<p>Checks the cache status (if it's enabled)</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Checks the cache status (if it's enabled)</p>
+
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>boolean</code><br>TRUE if the cache is enabled, FALSE otherwise<br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="checkPhpVersion" id="_checkPhpVersion">
+
+		<td class="attributes"><code>
+			 public 
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_checkPhpVersion">#</a>
+		<code><a href="source-class-SystemComponent.html#69-77" title="Go to source code">checkPhpVersion</a>( <span>string <var>$required_version</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Checks if the current version of PHP is equal to or greater than the required
+version</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Checks if the current version of PHP is equal to or greater than the required
+version</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$required_version</var></dt>
+					<dd><code>string</code><br>$required_version Required version of PHP</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>boolean</code><br>TRUE if the current version of PHP is equal to or greater than the required
+version, FALSE otherwise<br />
+				</div>
+
+
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-SystemComponent.html#_getPhpVersion">SystemComponent::getPhpVersion()</a></code></code><br>to get the current version of PHP<br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="checkPhpExtension" id="_checkPhpExtension">
+
+		<td class="attributes"><code>
+			 public 
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_checkPhpExtension">#</a>
+		<code><a href="source-class-SystemComponent.html#79-86" title="Go to source code">checkPhpExtension</a>( <span>string <var>$extension</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Checks if a PHP extension is enabled</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Checks if a PHP extension is enabled</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$extension</var></dt>
+					<dd><code>string</code><br>$extension Name of the extension to be checked</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>boolean</code><br>TRUE if the extension is enabled, FALSE otherwise<br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="checkTmp" id="_checkTmp">
+
+		<td class="attributes"><code>
+			 public 
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_checkTmp">#</a>
+		<code><a href="source-class-SystemComponent.html#88-101" title="Go to source code">checkTmp</a>( )</code>
+
+		<div class="description short">
+			
+<p>Checks if the TMP and all its subdirectories are readable and writable</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Checks if the TMP and all its subdirectories are readable and writable</p>
+
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>boolean</code><br>TRUE if the TMP and all its subdirectories are readable and writable, FALSE
+otherwise<br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="checkThumbs" id="_checkThumbs">
+
+		<td class="attributes"><code>
+			 public 
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_checkThumbs">#</a>
+		<code><a href="source-class-SystemComponent.html#103-109" title="Go to source code">checkThumbs</a>( )</code>
+
+		<div class="description short">
+			
+<p>Checks if the thumbnail directory is readable and writable</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Checks if the thumbnail directory is readable and writable</p>
+
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>boolean</code><br>TRUE if the thumbnail directory is readable and writable, FALSE otherwise<br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="clearCache" id="_clearCache">
+
+		<td class="attributes"><code>
+			 public 
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_clearCache">#</a>
+		<code><a href="source-class-SystemComponent.html#111-117" title="Go to source code">clearCache</a>( )</code>
+
+		<div class="description short">
+			
+<p>Clear the cache</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Clear the cache</p>
+
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>boolean</code><br>TRUE if the cache was successfully cleared, FALSE otherwise<br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="clearThumbs" id="_clearThumbs">
+
+		<td class="attributes"><code>
+			 public 
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_clearThumbs">#</a>
+		<code><a href="source-class-SystemComponent.html#119-136" title="Go to source code">clearThumbs</a>( )</code>
+
+		<div class="description short">
+			
+<p>Clear thumbnails</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Clear thumbnails</p>
+
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>boolean</code><br>TRUE if thumbnails were successfully cleared, FALSE otherwise<br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getApacheModules" id="_getApacheModules">
+
+		<td class="attributes"><code>
+			 public 
+			array
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getApacheModules">#</a>
+		<code><a href="source-class-SystemComponent.html#138-144" title="Go to source code">getApacheModules</a>( )</code>
+
+		<div class="description short">
+			
+<p>Gets the Apache modules list</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Gets the Apache modules list</p>
+
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>array</code><br>Modules list<br />
+				</div>
+
+
+				<h4>Used by</h4>
+				<div class="list">
+						<code><code><a href="class-SystemComponent.html#_checkApacheModule">SystemComponent::checkApacheModule()</a></code></code><br>to get Apache's modules<br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getCacheSize" id="_getCacheSize">
+
+		<td class="attributes"><code>
+			 public 
+			integer
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getCacheSize">#</a>
+		<code><a href="source-class-SystemComponent.html#146-153" title="Go to source code">getCacheSize</a>( )</code>
+
+		<div class="description short">
+			
+<p>Gets the cache size</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Gets the cache size</p>
+
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>integer</code><br>Cache size<br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getPhpExtensions" id="_getPhpExtensions">
+
+		<td class="attributes"><code>
+			 public 
+			array
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getPhpExtensions">#</a>
+		<code><a href="source-class-SystemComponent.html#155-161" title="Go to source code">getPhpExtensions</a>( )</code>
+
+		<div class="description short">
+			
+<p>Gets the PHP extensions list</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Gets the PHP extensions list</p>
+
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>array</code><br>Extensions list<br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getPhpVersion" id="_getPhpVersion">
+
+		<td class="attributes"><code>
+			 public 
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getPhpVersion">#</a>
+		<code><a href="source-class-SystemComponent.html#163-169" title="Go to source code">getPhpVersion</a>( )</code>
+
+		<div class="description short">
+			
+<p>Gets the current version of PHP</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Gets the current version of PHP</p>
+
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>string</code><br>Current version of PHP<br />
+				</div>
+
+
+				<h4>Used by</h4>
+				<div class="list">
+						<code><code><a href="class-SystemComponent.html#_checkPhpVersion">SystemComponent::checkPhpVersion()</a></code></code><br>to get the current version of PHP<br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getThumbsSize" id="_getThumbsSize">
+
+		<td class="attributes"><code>
+			 public 
+			integer
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getThumbsSize">#</a>
+		<code><a href="source-class-SystemComponent.html#171-178" title="Go to source code">getThumbsSize</a>( )</code>
+
+		<div class="description short">
+			
+<p>Gets the thumbnails size</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Gets the thumbnails size</p>
+
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>integer</code><br>Thumbnails size<br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+	<div id="footer">
+		MeTools API documentation generated by <a href="http://apigen.org">ApiGen 2.8.0</a>
+	</div>
+</div>
+</div>
+</body>
+</html>

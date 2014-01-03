@@ -8,7 +8,7 @@
 	<title>File MeFileLog.php | MeTools</title>
 
 	<script type="text/javascript" src="resources/combined.js?394153670"></script>
-	<script type="text/javascript" src="elementlist.js?3783586847"></script>
+	<script type="text/javascript" src="elementlist.js?1822412547"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360" />
 
 </head>
@@ -153,8 +153,8 @@
 </span></span><span id="43" class="l"><a class="l" href="#43">43: </a><span class="php-comment">     */</span>
 </span><span id="44" class="l"><a class="l" href="#44">44: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_write" href="#_write">write</a>(<span class="php-var">$type</span>, <span class="php-var">$message</span>) {
 </span><span id="45" class="l"><a class="l" href="#45">45: </a>        <span class="php-comment">//Get the client ip</span>
-</span><span id="46" class="l"><a class="l" href="#46">46: </a>        <span class="php-var">$request</span> = <span class="php-keyword1">new</span> CakeRequest(<span class="php-keyword1">null</span>, <span class="php-keyword1">false</span>);
-</span><span id="47" class="l"><a class="l" href="#47">47: </a>        <span class="php-var">$ip</span> = <span class="php-var">$request</span>-&gt;clientIp(<span class="php-keyword1">false</span>);
+</span><span id="46" class="l"><a class="l" href="#46">46: </a>        <span class="php-var">$request</span> = <span class="php-keyword1">new</span> CakeRequest(<span class="php-keyword1">NULL</span>, <span class="php-keyword1">FALSE</span>);
+</span><span id="47" class="l"><a class="l" href="#47">47: </a>        <span class="php-var">$ip</span> = <span class="php-var">$request</span>-&gt;clientIp(<span class="php-keyword1">FALSE</span>);
 </span><span id="48" class="l"><a class="l" href="#48">48: </a>        
 </span><span id="49" class="l"><a class="l" href="#49">49: </a>        <span class="php-var">$message</span> = <span class="php-keyword1">empty</span>(<span class="php-var">$ip</span>) ? <span class="php-var">$message</span> : <span class="php-keyword2">sprintf</span>(<span class="php-quote">'%s (%s)'</span>, <span class="php-var">$message</span>, <span class="php-var">$ip</span>);
 </span><span id="50" class="l"><a class="l" href="#50">50: </a>        

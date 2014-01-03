@@ -4,7 +4,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="generator" content="ApiGen 2.8.0" />
 
-	<title>Class XmlComponent | MeTools</title>
+	<title>Class MeSessionComponent | MeTools</title>
 
 	<script type="text/javascript" src="resources/combined.js?394153670"></script>
 	<script type="text/javascript" src="elementlist.js?1822412547"></script>
@@ -59,9 +59,9 @@
 			<h3>Classes</h3>
 			<ul>
 				<li><a href="class-CleanerUrlComponent.html">CleanerUrlComponent</a></li>
-				<li><a href="class-MeSessionComponent.html">MeSessionComponent</a></li>
+				<li class="active"><a href="class-MeSessionComponent.html">MeSessionComponent</a></li>
 				<li><a href="class-SystemComponent.html">SystemComponent</a></li>
-				<li class="active"><a href="class-XmlComponent.html">XmlComponent</a></li>
+				<li><a href="class-XmlComponent.html">XmlComponent</a></li>
 			</ul>
 
 
@@ -110,24 +110,40 @@
 	</div>
 
 <div id="content" class="class">
-	<h1>Class XmlComponent</h1>
+	<h1>Class MeSessionComponent</h1>
 
 
 	<div class="description">
 	
-<p>A component to handle XML.</p>
+<p>Provides a way to persist client data between page requests. It acts as a
+wrapper for the <code>$_SESSION</code> as well as providing convenience methods
+for several <code>$_SESSION</code> related functions.</p>
+
+<p>Rewrites <a href="http://api.cakephp.org/2.4/class-SessionComponent.html">SessionComponent</a>.</p>
+
+<p>You should use this component as an alias, for example:</p>
+
+<pre>
+<span class="php-keyword1">public</span> <span
+class="php-var">$component</span> = <span
+class="php-keyword1">array</span>(<span
+class="php-quote">'Session'</span> =&gt; <span
+class="php-keyword1">array</span>(<span
+class="php-quote">'className'</span> =&gt; <span
+class="php-quote">'MeTools.MeSession'</span>));
+</pre>
 
 	</div>
 
 	<dl class="tree">
 		<dd style="padding-left:0px">
-Component
+SessionComponent
 			
 			
 		</dd>
 		<dd style="padding-left:30px">
 			<img src="resources/inherit.png" alt="Extended by" />
-<b><span>XmlComponent</span></b>			
+<b><span>MeSessionComponent</span></b>			
 			
 			
 		</dd>
@@ -153,48 +169,89 @@ Component
 				<b>Author:</b>
 				Mirko Pagliai &lt;<a
 href="mailto:mirko.pagliai&#64;gmail.com">mirko.pagliai&#64;<!---->gmail.com</a>&gt;<br />
-		<b>Located at</b> <a href="source-class-XmlComponent.html#28-49" title="Go to source code">Component/XmlComponent.php</a><br />
+		<b>Located at</b> <a href="source-class-MeSessionComponent.html#29-63" title="Go to source code">Component/MeSessionComponent.php</a><br />
 	</div>
 
 
 
 	<table class="summary" id="methods">
 	<caption>Methods summary</caption>
-	<tr data-order="get" id="_get">
+	<tr data-order="flash" id="_flash">
 
 		<td class="attributes"><code>
 			 public 
-			mixed
+			
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
-		<a class="anchor" href="#_get">#</a>
-		<code><a href="source-class-XmlComponent.html#32-48" title="Go to source code">get</a>( <span>string <var>$url</var></span> )</code>
+		<a class="anchor" href="#_flash">#</a>
+		<code><a href="source-class-MeSessionComponent.html#41-47" title="Go to source code">flash</a>( )</code>
 
 		<div class="description short">
 			
-<p>Gets an XML file (remote or local) and returns it as an array</p>
+<p>Alias for <code>setFlash()</code> method</p>
 
 		</div>
 
 		<div class="description detailed hidden">
 			
-<p>Gets an XML file (remote or local) and returns it as an array</p>
+<p>Alias for <code>setFlash()</code> method</p>
+
+
+
+
+
+
+				<h4>See</h4>
+				<div class="list">
+						<code><code><a href="class-MeSessionComponent.html#_setFlash">MeSessionComponent::setFlash()</a></code></code><br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setFlash" id="_setFlash">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setFlash">#</a>
+		<code><a href="source-class-MeSessionComponent.html#49-62" title="Go to source code">setFlash</a>( <span>string <var>$message</var></span>, <span>string <var>$element</var> = <span class="php-quote">'default'</span></span>, <span>array <var>$params</var> = <span class="php-keyword1">array</span>()</span>, <span>string <var>$key</var> = <span class="php-quote">'flash'</span></span> )</code>
+
+		<div class="description short">
+			
+<p>Used to set a session variable that can be used to output messages in the
+view.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Used to set a session variable that can be used to output messages in the
+view.</p>
 
 
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
-					<dt><var>$url</var></dt>
-					<dd><code>string</code><br>$url XML url or path</dd>
+					<dt><var>$message</var></dt>
+					<dd><code>string</code><br>$message Flash message</dd>
+					<dt><var>$element</var></dt>
+					<dd><code>string</code><br>$element Element to wrap flash message in</dd>
+					<dt><var>$params</var></dt>
+					<dd><code>array</code><br>$params Parameters to be sent to layout as view variables</dd>
+					<dt><var>$key</var></dt>
+					<dd><code>string</code><br>$key Message key, default is 'flash'</dd>
 				</dl></div>
 
-				<h4>Returns</h4>
-				<div class="list">
-					<code>mixed</code><br>Array or NULL<br />
-				</div>
 
 
 
