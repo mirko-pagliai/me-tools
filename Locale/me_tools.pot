@@ -1,11 +1,11 @@
-# LANGUAGE translation of CakePHP Application
-# Copyright YEAR NAME <EMAIL@ADDRESS>
+# LANGUAGE translation of MeTools
+# Copyright Copyright (c) 2013, Mirko Pagliai for Nova Atlantis Ltd <mirko.pagliai@gmail.com>
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2013-09-25 17:28+0200\n"
+"POT-Creation-Date: 2014-01-03 10:44+0100\n"
 "PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
 "Last-Translator: NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
@@ -14,7 +14,35 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: Utility/FileArray.php:268
+#: Controller/ThumbsController.php:83;110
+msgid "Invalid mimetype"
+msgstr ""
+
+#: Controller/ThumbsController.php:192
+msgid "GD libraries are missing"
+msgstr ""
+
+#: Controller/ThumbsController.php:196
+msgid "The file has not been specified"
+msgstr ""
+
+#: Controller/ThumbsController.php:205
+msgid "This image does not exist"
+msgstr ""
+
+#: Controller/ThumbsController.php:216
+msgid "The thumb directory cannot be created"
+msgstr ""
+
+#: Utility/FileArray.php:63
+msgid "The file %s exists, but is not writable"
+msgstr ""
+
+#: Utility/FileArray.php:66
+msgid "The directory %s exists, but is not writable"
+msgstr ""
+
+#: Utility/FileArray.php:250
 msgid "There's already a record with this key in %s"
 msgstr ""
 
@@ -34,23 +62,43 @@ msgstr ""
 msgid "Success"
 msgstr ""
 
-#: View/Helper/MeFormHelper.php:257
+#: View/Helper/MeFormHelper.php:122
+msgid "Check all"
+msgstr ""
+
+#: View/Helper/MeFormHelper.php:123
+msgid "Uncheck all"
+msgstr ""
+
+#: View/Helper/MeFormHelper.php:383
 msgid "Select an option"
 msgstr ""
 
-#: View/Helper/MeFormHelper.php:273
+#: View/Helper/MeFormHelper.php:401
 msgid "Submit"
 msgstr ""
 
-#: View/Helper/MePaginatorHelper.php:78
+#: View/Helper/MeHtmlHelper.php:653
+msgid "Tip"
+msgstr ""
+
+#: View/Helper/MePaginatorHelper.php:77
 msgid "%s - %s of %s"
 msgstr ""
 
-#: View/Helper/MePaginatorHelper.php:106
+#: View/Helper/MePaginatorHelper.php:105
 msgid "Next"
 msgstr ""
 
-#: View/Helper/MePaginatorHelper.php:143
+#: View/Helper/MePaginatorHelper.php:138
 msgid "Previous"
+msgstr ""
+
+#: View/Helper/RecaptchaHelper.php:65
+msgid "Mail keys are not configured"
+msgstr ""
+
+#: View/Helper/RecaptchaHelper.php:69
+msgid "The private mail key is not valid"
 msgstr ""
 
