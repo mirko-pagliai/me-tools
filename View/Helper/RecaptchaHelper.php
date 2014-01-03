@@ -62,11 +62,11 @@ class RecaptchaHelper extends AppHelper {
 		);	
 			
 		if(empty($keys['pub']) || empty($keys['priv']))
-			throw new InternalErrorException(__d('me_cms', 'Mail keys are not configured'));
+			throw new InternalErrorException(__d('me_tools', 'Mail keys are not configured'));
 		
 		//Checks if the private mail key is valid (hexadecimal digits)
 		if(!ctype_xdigit($keys['priv']))
-			throw new InternalErrorException(__d('me_cms', 'The private mail key is not valid'));
+			throw new InternalErrorException(__d('me_tools', 'The private mail key is not valid'));
 
 		parent::__construct($View, $settings);
 	}
