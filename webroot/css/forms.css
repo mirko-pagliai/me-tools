@@ -105,16 +105,19 @@
 /* Checkbox labels, when checkbox is unchecked */
 .form-base input[type='checkbox'] + label:before {
 	color: #999;
-	content: " ";    
+	content: "\f096";
+	font-family: FontAwesome;
 	font-size: 18px;
 	font-weight: normal;
+	margin-right: 4px;
     vertical-align: middle;
 }
 
 /* Checkbox labels, when checkbox is checked */
 .form-base input[type='checkbox']:checked + label:before {
 	color: inherit;
-	content: " ";
+	content: "\f046";
+	margin-right: 1px;
 }
 
 /* -------------------------------- */
