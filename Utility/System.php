@@ -1,6 +1,6 @@
 <?php
 /**
- * SystemComponent
+ * System utility
  *
  * This file is part of MeTools.
  *
@@ -21,20 +21,20 @@
  * @copyright	Copyright (c) 2013, Mirko Pagliai for Nova Atlantis Ltd
  * @license		http://www.gnu.org/licenses/agpl.txt AGPL License
  * @link		http://git.novatlantis.it Nova Atlantis Ltd
- * @package		MeTools\Controller\Component
+ * @package		MeTools\Utility
  */
 
 /**
- * A component for checking the status of the system and perform maintenance tasks.
+ * An utility for checking the status of the system and perform maintenance tasks.
  */
-class SystemComponent extends Component {	
+class System {
 	/**
 	 * Checks if an Apache module is active
 	 * @param string $module Name of the module to be checked
 	 * @return boolean TRUE if the module is enabled, FALSE otherwise
 	 * @uses getApacheModules() to get Apache's modules
 	 */
-	public function checkApacheModule($module) {
+	public static function checkApacheModule($module) {
 		return in_array($module, self::getApacheModules());
 	}
 	
@@ -42,7 +42,7 @@ class SystemComponent extends Component {
 	 * Checks if the cache and all its subdirectories are readable and writable
 	 * @return boolean TRUE if if the cache and all its subdirectories are readable and writable, FALSE otherwise
 	 */
-	public function checkCache() {
+	public static function checkCache() {
 		//Cache default directories
 		$default = array(CACHE, CACHE.'models', CACHE.'persistent', CACHE.'views');
 		
@@ -62,7 +62,7 @@ class SystemComponent extends Component {
 	 * Checks the cache status (if it's enabled)
 	 * @return boolean TRUE if the cache is enabled, FALSE otherwise
 	 */
-	public function checkCacheStatus() {
+	public static function checkCacheStatus() {
 		return !Configure::read('Cache.disable');
 	}
 	
@@ -72,7 +72,7 @@ class SystemComponent extends Component {
 	 * @return boolean TRUE if the current version of PHP is equal to or greater than the required version, FALSE otherwise
 	 * @uses getPhpVersion() to get the current version of PHP
 	 */
-	public function checkPhpVersion($required_version) {		
+	public static function checkPhpVersion($required_version) {		
 		return version_compare(self::getPhpVersion(), $required_version, '>=');
 	}
 	
@@ -81,7 +81,7 @@ class SystemComponent extends Component {
 	 * @param string $extension Name of the extension to be checked
 	 * @return boolean TRUE if the extension is enabled, FALSE otherwise
 	 */
-	public function checkPhpExtension($extension) {
+	public static function checkPhpExtension($extension) {
 		return extension_loaded($extension);
 	}
 	
@@ -89,7 +89,7 @@ class SystemComponent extends Component {
 	 * Checks if the TMP and all its subdirectories are readable and writable
 	 * @return boolean TRUE if the TMP and all its subdirectories are readable and writable, FALSE otherwise
 	 */
-	public function checkTmp() {		
+	public static function checkTmp() {		
 		$tmp = new Folder(TMP);
 		
 		foreach($tmp->tree(TMP, FALSE, 'dir') as $dir) {
@@ -104,7 +104,7 @@ class SystemComponent extends Component {
 	 * Checks if the thumbnail directory is readable and writable
 	 * @return boolean TRUE if the thumbnail directory is readable and writable, FALSE otherwise
 	 */
-	public function checkThumbs() {
+	public static function checkThumbs() {
 		return is_readable(TMP.'thumbs') && is_writable(TMP.'thumbs');
 	}
 	
@@ -112,7 +112,7 @@ class SystemComponent extends Component {
 	 * Clear the cache
 	 * @return boolean TRUE if the cache was successfully cleared, FALSE otherwise
 	 */
-	public function clearCache() {
+	public static function clearCache() {
 		return Cache::clear(FALSE);
 	}
 	
@@ -120,7 +120,7 @@ class SystemComponent extends Component {
 	 * Clear thumbnails
 	 * @return boolean TRUE if thumbnails were successfully cleared, FALSE otherwise
 	 */
-	public function clearThumbs() {
+	public static function clearThumbs() {
 		$dir = new Folder($tmp = TMP.'thumbs');
 		$files = $dir->find('.*');
 		
@@ -139,7 +139,7 @@ class SystemComponent extends Component {
 	 * Gets the Apache modules list
 	 * @return array Modules list
 	 */
-	public function getApacheModules() {
+	public static function getApacheModules() {
 		return apache_get_modules();
 	}
 	
@@ -147,7 +147,7 @@ class SystemComponent extends Component {
 	 * Gets the cache size
 	 * @return int Cache size
 	 */
-	public function getCacheSize() {
+	public static function getCacheSize() {
 		$cache = new Folder(CACHE);
 		return $cache->dirsize();
 	}
@@ -156,7 +156,7 @@ class SystemComponent extends Component {
 	 * Gets the CakePHP version
 	 * @return string CakePHP version
 	 */
-	public function getCakeVersion() {
+	public static function getCakeVersion() {
 		return Configure::version();
 	}
 	
@@ -164,7 +164,7 @@ class SystemComponent extends Component {
 	 * Gets the MeTools version
 	 * @return string MeTools version
 	 */
-	public function getMeToolsVersion() {
+	public static function getMeToolsVersion() {
 		return file_get_contents(APP.'version');
 	}
 	
@@ -172,7 +172,7 @@ class SystemComponent extends Component {
 	 * Gets the PHP extensions list
 	 * @return array Extensions list
 	 */
-	public function getPhpExtensions() {
+	public static function getPhpExtensions() {
 		return get_loaded_extensions();
 	}
 	
@@ -180,7 +180,7 @@ class SystemComponent extends Component {
 	 * Gets the current version of PHP
 	 * @return string Current version of PHP
 	 */
-	public function getPhpVersion() {
+	public static function getPhpVersion() {
 		return PHP_VERSION;
 	}
 	
@@ -188,7 +188,7 @@ class SystemComponent extends Component {
 	 * Gets the thumbnails size
 	 * @return int Thumbnails size
 	 */
-	public function getThumbsSize() {
+	public static function getThumbsSize() {
 		$thumbs = new Folder(TMP.'thumbs');
 		return $thumbs->dirsize();
 	}
