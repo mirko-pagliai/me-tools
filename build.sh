@@ -10,7 +10,7 @@ rm -r -f build/MeTools
 mkdir -p build/MeTools
 
 # Copy in build/MeTools
-cp -R Config/ Console/ Controller/ Lib/ Locale/ Model/ Utility/ \
+cp -a --parents Config/ Console/ Controller/ Lib/ Locale/ita Model/ Utility/ \
 Vendor/ View/ webroot/ COPYNG README.md build/MeTools
 
 # Enter build/MeTools
