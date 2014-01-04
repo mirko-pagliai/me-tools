@@ -1,6 +1,6 @@
 <?php
 /**
- * FileArray
+ * FileArray utility
  *
  * This file is part of MeTools.
  *
