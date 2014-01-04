@@ -27,6 +27,11 @@
 /**
  * Provides several methods for using a text file as database.
  * It can count, delete, edit, check, search, retrieve and insert data.
+ * 
+ * You can use this utility by adding in your controller:
+ * <code>
+ * App::uses('FileArray', 'MeTools.Utility');
+ * </code>
  */
 class FileArray  {
 	/**

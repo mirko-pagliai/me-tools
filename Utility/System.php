@@ -26,6 +26,11 @@
 
 /**
  * An utility for checking the status of the system and perform maintenance tasks.
+ * 
+ * You can use this utility by adding in your controller:
+ * <code>
+ * App::uses('System', 'MeTools.Utility');
+ * </code>
  */
 class System {
 	/**
