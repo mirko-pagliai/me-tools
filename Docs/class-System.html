@@ -4,10 +4,10 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="generator" content="ApiGen 2.8.0" />
 
-	<title>Class SystemComponent | MeTools</title>
+	<title>Class System | MeTools</title>
 
 	<script type="text/javascript" src="resources/combined.js?394153670"></script>
-	<script type="text/javascript" src="elementlist.js?1822412547"></script>
+	<script type="text/javascript" src="elementlist.js?1716851276"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360" />
 
 </head>
@@ -23,9 +23,9 @@
 			<ul>
 				<li class="active main"><a href="package-MeTools.html">MeTools<span></span></a>
 						<ul>
-				<li class="active main"><a href="package-MeTools.Controller.html">Controller<span></span></a>
+				<li class="main"><a href="package-MeTools.Controller.html">Controller<span></span></a>
 						<ul>
-				<li class="active main"><a href="package-MeTools.Controller.Component.html">Component<span></span></a>
+				<li class="main"><a href="package-MeTools.Controller.Component.html">Component<span></span></a>
 						<ul>
 				<li class="main"><a href="package-MeTools.Controller.Component.Auth.html">Auth</a>
 						</li>
@@ -42,7 +42,7 @@
 				<li class="main"><a href="package-MeTools.Model.Behavior.html">Behavior</a>
 						</li>
 							</ul></li>
-				<li class="main"><a href="package-MeTools.Utility.html">Utility</a>
+				<li class="active main"><a href="package-MeTools.Utility.html">Utility</a>
 						</li>
 				<li class="main"><a href="package-MeTools.View.html">View<span></span></a>
 						<ul>
@@ -58,10 +58,8 @@
 		<div id="elements">
 			<h3>Classes</h3>
 			<ul>
-				<li><a href="class-CleanerUrlComponent.html">CleanerUrlComponent</a></li>
-				<li><a href="class-MeSessionComponent.html">MeSessionComponent</a></li>
-				<li class="active"><a href="class-SystemComponent.html">SystemComponent</a></li>
-				<li><a href="class-XmlComponent.html">XmlComponent</a></li>
+				<li><a href="class-FileArray.html">FileArray</a></li>
+				<li class="active"><a href="class-System.html">System</a></li>
 			</ul>
 
 
@@ -89,7 +87,7 @@
 				<a href="index.html" title="Overview"><span>Overview</span></a>
 			</li>
 			<li>
-				<a href="package-MeTools.Controller.Component.html" title="Summary of MeTools\Controller\Component"><span>Package</span></a>
+				<a href="package-MeTools.Utility.html" title="Summary of MeTools\Utility"><span>Package</span></a>
 			</li>
 			<li class="active">
 <span>Class</span>			</li>
@@ -110,29 +108,23 @@
 	</div>
 
 <div id="content" class="class">
-	<h1>Class SystemComponent</h1>
+	<h1>Class System</h1>
 
 
 	<div class="description">
 	
-<p>A component for checking the status of the system and perform maintenance
+<p>An utility for checking the status of the system and perform maintenance
 tasks.</p>
+
+<p>You can use this utility by adding in your controller:</p>
+
+<pre>
+App::uses(<span class="php-quote">'System'</span>, <span
+class="php-quote">'MeTools.Utility'</span>);
+</pre>
 
 	</div>
 
-	<dl class="tree">
-		<dd style="padding-left:0px">
-Component
-			
-			
-		</dd>
-		<dd style="padding-left:30px">
-			<img src="resources/inherit.png" alt="Extended by" />
-<b><span>SystemComponent</span></b>			
-			
-			
-		</dd>
-	</dl>
 
 
 
@@ -145,7 +137,7 @@ Component
 		
 		
 		
-		<b>Package:</b> <a href="package-MeTools.html">MeTools</a>\<a href="package-MeTools.Controller.html">Controller</a>\<a href="package-MeTools.Controller.Component.html">Component</a><br />
+		<b>Package:</b> <a href="package-MeTools.html">MeTools</a>\<a href="package-MeTools.Utility.html">Utility</a><br />
 
 				<b>Copyright:</b>
 				Copyright (c) 2013, Mirko Pagliai for Nova Atlantis Ltd<br />
@@ -154,7 +146,7 @@ Component
 				<b>Author:</b>
 				Mirko Pagliai &lt;<a
 href="mailto:mirko.pagliai&#64;gmail.com">mirko.pagliai&#64;<!---->gmail.com</a>&gt;<br />
-		<b>Located at</b> <a href="source-class-SystemComponent.html#27-179" title="Go to source code">Component/SystemComponent.php</a><br />
+		<b>Located at</b> <a href="source-class-System.html#27-200" title="Go to source code">System.php</a><br />
 	</div>
 
 
@@ -164,7 +156,7 @@ href="mailto:mirko.pagliai&#64;gmail.com">mirko.pagliai&#64;<!---->gmail.com</a>
 	<tr data-order="checkApacheModule" id="_checkApacheModule">
 
 		<td class="attributes"><code>
-			 public 
+			 public static
 			boolean
 			
 			</code>
@@ -172,7 +164,7 @@ href="mailto:mirko.pagliai&#64;gmail.com">mirko.pagliai&#64;<!---->gmail.com</a>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_checkApacheModule">#</a>
-		<code><a href="source-class-SystemComponent.html#31-39" title="Go to source code">checkApacheModule</a>( <span>string <var>$module</var></span> )</code>
+		<code><a href="source-class-System.html#36-44" title="Go to source code">checkApacheModule</a>( <span>string <var>$module</var></span> )</code>
 
 		<div class="description short">
 			
@@ -200,7 +192,7 @@ href="mailto:mirko.pagliai&#64;gmail.com">mirko.pagliai&#64;<!---->gmail.com</a>
 
 				<h4>Uses</h4>
 				<div class="list">
-						<code><code><a href="class-SystemComponent.html#_getApacheModules">SystemComponent::getApacheModules()</a></code></code><br>to get Apache's modules<br />
+						<code><code><a href="class-System.html#_getApacheModules">System::getApacheModules()</a></code></code><br>to get Apache's modules<br />
 				</div>
 
 
@@ -210,7 +202,7 @@ href="mailto:mirko.pagliai&#64;gmail.com">mirko.pagliai&#64;<!---->gmail.com</a>
 	<tr data-order="checkCache" id="_checkCache">
 
 		<td class="attributes"><code>
-			 public 
+			 public static
 			boolean
 			
 			</code>
@@ -218,7 +210,7 @@ href="mailto:mirko.pagliai&#64;gmail.com">mirko.pagliai&#64;<!---->gmail.com</a>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_checkCache">#</a>
-		<code><a href="source-class-SystemComponent.html#41-59" title="Go to source code">checkCache</a>( )</code>
+		<code><a href="source-class-System.html#46-64" title="Go to source code">checkCache</a>( )</code>
 
 		<div class="description short">
 			
@@ -248,7 +240,7 @@ otherwise<br />
 	<tr data-order="checkCacheStatus" id="_checkCacheStatus">
 
 		<td class="attributes"><code>
-			 public 
+			 public static
 			boolean
 			
 			</code>
@@ -256,7 +248,7 @@ otherwise<br />
 
 		<td class="name"><div>
 		<a class="anchor" href="#_checkCacheStatus">#</a>
-		<code><a href="source-class-SystemComponent.html#61-67" title="Go to source code">checkCacheStatus</a>( )</code>
+		<code><a href="source-class-System.html#66-72" title="Go to source code">checkCacheStatus</a>( )</code>
 
 		<div class="description short">
 			
@@ -285,7 +277,7 @@ otherwise<br />
 	<tr data-order="checkPhpVersion" id="_checkPhpVersion">
 
 		<td class="attributes"><code>
-			 public 
+			 public static
 			boolean
 			
 			</code>
@@ -293,7 +285,7 @@ otherwise<br />
 
 		<td class="name"><div>
 		<a class="anchor" href="#_checkPhpVersion">#</a>
-		<code><a href="source-class-SystemComponent.html#69-77" title="Go to source code">checkPhpVersion</a>( <span>string <var>$required_version</var></span> )</code>
+		<code><a href="source-class-System.html#74-82" title="Go to source code">checkPhpVersion</a>( <span>string <var>$required_version</var></span> )</code>
 
 		<div class="description short">
 			
@@ -324,7 +316,7 @@ version, FALSE otherwise<br />
 
 				<h4>Uses</h4>
 				<div class="list">
-						<code><code><a href="class-SystemComponent.html#_getPhpVersion">SystemComponent::getPhpVersion()</a></code></code><br>to get the current version of PHP<br />
+						<code><code><a href="class-System.html#_getPhpVersion">System::getPhpVersion()</a></code></code><br>to get the current version of PHP<br />
 				</div>
 
 
@@ -334,7 +326,7 @@ version, FALSE otherwise<br />
 	<tr data-order="checkPhpExtension" id="_checkPhpExtension">
 
 		<td class="attributes"><code>
-			 public 
+			 public static
 			boolean
 			
 			</code>
@@ -342,7 +334,7 @@ version, FALSE otherwise<br />
 
 		<td class="name"><div>
 		<a class="anchor" href="#_checkPhpExtension">#</a>
-		<code><a href="source-class-SystemComponent.html#79-86" title="Go to source code">checkPhpExtension</a>( <span>string <var>$extension</var></span> )</code>
+		<code><a href="source-class-System.html#84-91" title="Go to source code">checkPhpExtension</a>( <span>string <var>$extension</var></span> )</code>
 
 		<div class="description short">
 			
@@ -376,7 +368,7 @@ version, FALSE otherwise<br />
 	<tr data-order="checkTmp" id="_checkTmp">
 
 		<td class="attributes"><code>
-			 public 
+			 public static
 			boolean
 			
 			</code>
@@ -384,7 +376,7 @@ version, FALSE otherwise<br />
 
 		<td class="name"><div>
 		<a class="anchor" href="#_checkTmp">#</a>
-		<code><a href="source-class-SystemComponent.html#88-101" title="Go to source code">checkTmp</a>( )</code>
+		<code><a href="source-class-System.html#93-106" title="Go to source code">checkTmp</a>( )</code>
 
 		<div class="description short">
 			
@@ -414,7 +406,7 @@ otherwise<br />
 	<tr data-order="checkThumbs" id="_checkThumbs">
 
 		<td class="attributes"><code>
-			 public 
+			 public static
 			boolean
 			
 			</code>
@@ -422,7 +414,7 @@ otherwise<br />
 
 		<td class="name"><div>
 		<a class="anchor" href="#_checkThumbs">#</a>
-		<code><a href="source-class-SystemComponent.html#103-109" title="Go to source code">checkThumbs</a>( )</code>
+		<code><a href="source-class-System.html#108-114" title="Go to source code">checkThumbs</a>( )</code>
 
 		<div class="description short">
 			
@@ -451,7 +443,7 @@ otherwise<br />
 	<tr data-order="clearCache" id="_clearCache">
 
 		<td class="attributes"><code>
-			 public 
+			 public static
 			boolean
 			
 			</code>
@@ -459,7 +451,7 @@ otherwise<br />
 
 		<td class="name"><div>
 		<a class="anchor" href="#_clearCache">#</a>
-		<code><a href="source-class-SystemComponent.html#111-117" title="Go to source code">clearCache</a>( )</code>
+		<code><a href="source-class-System.html#116-122" title="Go to source code">clearCache</a>( )</code>
 
 		<div class="description short">
 			
@@ -488,7 +480,7 @@ otherwise<br />
 	<tr data-order="clearThumbs" id="_clearThumbs">
 
 		<td class="attributes"><code>
-			 public 
+			 public static
 			boolean
 			
 			</code>
@@ -496,7 +488,7 @@ otherwise<br />
 
 		<td class="name"><div>
 		<a class="anchor" href="#_clearThumbs">#</a>
-		<code><a href="source-class-SystemComponent.html#119-136" title="Go to source code">clearThumbs</a>( )</code>
+		<code><a href="source-class-System.html#124-141" title="Go to source code">clearThumbs</a>( )</code>
 
 		<div class="description short">
 			
@@ -525,7 +517,7 @@ otherwise<br />
 	<tr data-order="getApacheModules" id="_getApacheModules">
 
 		<td class="attributes"><code>
-			 public 
+			 public static
 			array
 			
 			</code>
@@ -533,7 +525,7 @@ otherwise<br />
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getApacheModules">#</a>
-		<code><a href="source-class-SystemComponent.html#138-144" title="Go to source code">getApacheModules</a>( )</code>
+		<code><a href="source-class-System.html#143-149" title="Go to source code">getApacheModules</a>( )</code>
 
 		<div class="description short">
 			
@@ -556,7 +548,7 @@ otherwise<br />
 
 				<h4>Used by</h4>
 				<div class="list">
-						<code><code><a href="class-SystemComponent.html#_checkApacheModule">SystemComponent::checkApacheModule()</a></code></code><br>to get Apache's modules<br />
+						<code><code><a href="class-System.html#_checkApacheModule">System::checkApacheModule()</a></code></code><br>to get Apache's modules<br />
 				</div>
 
 
@@ -566,7 +558,7 @@ otherwise<br />
 	<tr data-order="getCacheSize" id="_getCacheSize">
 
 		<td class="attributes"><code>
-			 public 
+			 public static
 			integer
 			
 			</code>
@@ -574,7 +566,7 @@ otherwise<br />
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getCacheSize">#</a>
-		<code><a href="source-class-SystemComponent.html#146-153" title="Go to source code">getCacheSize</a>( )</code>
+		<code><a href="source-class-System.html#151-158" title="Go to source code">getCacheSize</a>( )</code>
 
 		<div class="description short">
 			
@@ -600,10 +592,84 @@ otherwise<br />
 		</div>
 		</div></td>
 	</tr>
+	<tr data-order="getCakeVersion" id="_getCakeVersion">
+
+		<td class="attributes"><code>
+			 public static
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getCakeVersion">#</a>
+		<code><a href="source-class-System.html#160-166" title="Go to source code">getCakeVersion</a>( )</code>
+
+		<div class="description short">
+			
+<p>Gets the CakePHP version</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Gets the CakePHP version</p>
+
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>string</code><br>CakePHP version<br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getMeToolsVersion" id="_getMeToolsVersion">
+
+		<td class="attributes"><code>
+			 public static
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getMeToolsVersion">#</a>
+		<code><a href="source-class-System.html#168-174" title="Go to source code">getMeToolsVersion</a>( )</code>
+
+		<div class="description short">
+			
+<p>Gets the MeTools version</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Gets the MeTools version</p>
+
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>string</code><br>MeTools version<br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
 	<tr data-order="getPhpExtensions" id="_getPhpExtensions">
 
 		<td class="attributes"><code>
-			 public 
+			 public static
 			array
 			
 			</code>
@@ -611,7 +677,7 @@ otherwise<br />
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getPhpExtensions">#</a>
-		<code><a href="source-class-SystemComponent.html#155-161" title="Go to source code">getPhpExtensions</a>( )</code>
+		<code><a href="source-class-System.html#176-182" title="Go to source code">getPhpExtensions</a>( )</code>
 
 		<div class="description short">
 			
@@ -640,7 +706,7 @@ otherwise<br />
 	<tr data-order="getPhpVersion" id="_getPhpVersion">
 
 		<td class="attributes"><code>
-			 public 
+			 public static
 			string
 			
 			</code>
@@ -648,7 +714,7 @@ otherwise<br />
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getPhpVersion">#</a>
-		<code><a href="source-class-SystemComponent.html#163-169" title="Go to source code">getPhpVersion</a>( )</code>
+		<code><a href="source-class-System.html#184-190" title="Go to source code">getPhpVersion</a>( )</code>
 
 		<div class="description short">
 			
@@ -671,7 +737,7 @@ otherwise<br />
 
 				<h4>Used by</h4>
 				<div class="list">
-						<code><code><a href="class-SystemComponent.html#_checkPhpVersion">SystemComponent::checkPhpVersion()</a></code></code><br>to get the current version of PHP<br />
+						<code><code><a href="class-System.html#_checkPhpVersion">System::checkPhpVersion()</a></code></code><br>to get the current version of PHP<br />
 				</div>
 
 
@@ -681,7 +747,7 @@ otherwise<br />
 	<tr data-order="getThumbsSize" id="_getThumbsSize">
 
 		<td class="attributes"><code>
-			 public 
+			 public static
 			integer
 			
 			</code>
@@ -689,7 +755,7 @@ otherwise<br />
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getThumbsSize">#</a>
-		<code><a href="source-class-SystemComponent.html#171-178" title="Go to source code">getThumbsSize</a>( )</code>
+		<code><a href="source-class-System.html#192-199" title="Go to source code">getThumbsSize</a>( )</code>
 
 		<div class="description short">
 			
