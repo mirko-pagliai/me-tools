@@ -1,34 +1,30 @@
 #!/bin/bash
 # Ask for version
+echo "-- MeTools build script --"
 echo "Please, enter the version number: "
 read version
 version="metools-$version"
 
-# Create build/$version
-rm -r -f build/$version
-mkdir -p build/$version
+# Create build/last-version
+rm -r -f build/last-version
+mkdir -p build/last-version
 
-# Copy in build/$version
-cp -R Config/ Console/ Controller/ Lib/ Locale/ Model/ Utility/ Vendor/ View/ webroot/ COPYNG README.md build/$version
+# Copy in build/last-version
+cp -R Config/ Console/ Controller/ Lib/ Locale/ Model/ Utility/ \
+Vendor/ View/ webroot/ COPYNG README.md build/last-version
 
-# Enter build/
-cd build/
+# Enter build/last-version
+cd build/last-version
 
-# Delete uncompressed CSS files
-rm -f $version/webroot/css/datepicker.css
-rm -f $version/webroot/css/default.css
-rm -f $version/webroot/css/forms.css
-rm -f $version/webroot/css/syntaxhighlighter.css
+# Delete uncompressed files
+rm -f webroot/css/datepicker.css webroot/css/default.css \
+webroot/css/forms.css webroot/css/syntaxhighlighter.css \
+webroot/js/bootstrap-datepicker.it.js webroot/js/bootstrap-datepicker.js \
+webroot/js/default.js webroot/js/slugify.js
 
-# Delete uncompressed JS files
-rm -f $version/webroot/js/bootstrap-datepicker.it.js
-rm -f $version/webroot/js/bootstrap-datepicker.js
-rm -f $version/webroot/js/default.js
-rm -f $version/webroot/js/slugify.js
+# Go back to build/
+cd ../
 
-# Create archives
-tar -czf $version.tar.gz $version
+# Create the tar archive
+tar -czf $version.tar.gz last-version/ --strip-components 1
 echo "The file $version.tar.gz was created"
-
-# Delete build/$version
-rm -r -f $version 
