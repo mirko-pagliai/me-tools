@@ -153,6 +153,22 @@ class SystemComponent extends Component {
 	}
 	
 	/**
+	 * Gets the CakePHP version
+	 * @return string CakePHP version
+	 */
+	public function getCakeVersion() {
+		return Configure::version();
+	}
+	
+	/**
+	 * Gets the MeTools version
+	 * @return string MeTools version
+	 */
+	public function getMeToolsVersion() {
+		return file_get_contents(APP.'version');
+	}
+	
+	/**
 	 * Gets the PHP extensions list
 	 * @return array Extensions list
 	 */
