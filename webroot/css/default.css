@@ -242,6 +242,7 @@ table.cake-sql-log tbody tr:nth-child(2n+1) td {
 /* -------------------------------- */
 /* Table as list */
 table.table-as-list {
+	border: 0; /* Necessary if used with table-bordered class */
 	border-collapse: separate;
 }
 
@@ -283,6 +284,17 @@ table.table-as-list tr:last-child td:first-child, table.table-as-list tr:last-ch
 /* Table as list, the last cell of the last row */
 table.table-as-list tr:last-child td:last-child, table.table-as-list tr:last-child th:last-child {
 	border-bottom-right-radius: 4px;
+}
+
+/* Table as list + table bordered, cells */
+table.table-bordered.table-as-list td, table.table-bordered.table-as-list th {
+	border-left: 0;
+	border-top: 0;
+}
+
+/* Table as list + table bordered, cells of the first row */
+table.table-bordered.table-as-list tr:first-child td, table.table-bordered.table-as-list tr:first-child th {
+	border-top: 1px solid #DDD;
 }
 
 /* -------------------------------- */
