@@ -75,7 +75,7 @@ class MeHtmlHelper extends HtmlHelper {
 			return 'btn btn-default';
 		
 		//If "class" doesn't contain a button style, adds "btn-default" to class
-		if(!preg_match('/btn-[a-z]+/', $class = $option['class']))
+		if(!preg_match('/btn-(default|primary|success|info|warning|danger)/', $class = $option['class']))
 			return self::__clean('btn', 'btn-default', $class);
 		else
 			return self::__clean('btn', $class);
