@@ -242,59 +242,69 @@ table.cake-sql-log tbody tr:nth-child(2n+1) td {
 /* -------------------------------- */
 /* Table as list */
 table.table-as-list {
-	border: 0; /* Necessary if used with table-bordered class */
+	border: 0; /* Necessary when used with table-bordered class */
 	border-collapse: separate;
 }
 
-/* Table as list, cells */
-table.table-as-list td, table.table-as-list th {
+/* Table as list, all cells */
+table.table-as-list tr > * {
 	padding: 10px 15px !important;
 }
 
+/* Table as list + table condensed, all cells */
+table.table-as-list.table-condensed tr > * {
+	padding: 7px 12px !important;
+}
+
 /* Table as list, the first cell of each row */
-table.table-as-list tr td:first-child, table.table-as-list tr th:first-child  {
+table.table-as-list tr > :first-child {
 	border-left: 1px solid #DDD;
 }
 
 /* Table as list, the last cell of each row */
-table.table-as-list tr td:last-child, table.table-as-list tr th:last-child {
+table.table-as-list tr > :last-child {
 	border-right: 1px solid #DDD;
 }
 
+/* Table as list, cells of the first row */
+table.table-as-list > :first-child tr:first-child > * {
+	border-top: 1px solid #DDD !important;
+}
+
 /* Table as list, cells of the last row */
-table.table-as-list tr:last-child td, table.table-as-list tr:last-child th {
+table.table-as-list > :last-child tr:last-child > * {
 	border-bottom: 1px solid #DDD;
 }
 
 /* Table as list, the first cell of the first row */
-table.table-as-list tr:first-child td:first-child, table.table-as-list tr:first-child th:first-child {
+table.table-as-list > :first-child tr:first-child :first-child {
 	border-top-left-radius: 4px;
 }
 
 /* Table as list, the last cell of the the first row */
-table.table-as-list tr:first-child td:last-child, table.table-as-list tr:first-child th:last-child {
+table.table-as-list > :first-child tr:first-child :last-child {
 	border-top-right-radius: 4px;
 }
 
 /* Table as list, the first cell of the last row */
-table.table-as-list tr:last-child td:first-child, table.table-as-list tr:last-child th:first-child {
+table.table-as-list > :last-child tr:last-child :first-child {
 	border-bottom-left-radius: 4px;
 }
 
 /* Table as list, the last cell of the last row */
-table.table-as-list tr:last-child td:last-child, table.table-as-list tr:last-child th:last-child {
+table.table-as-list > :last-child tr:last-child :last-child {
 	border-bottom-right-radius: 4px;
 }
 
-/* Table as list + table bordered, cells */
-table.table-bordered.table-as-list td, table.table-bordered.table-as-list th {
+/* Table as list + table bordered, all cells */
+table.table-bordered.table-as-list tr > * {
 	border-left: 0;
 	border-top: 0;
 }
 
-/* Table as list + table bordered, cells of the first row */
-table.table-bordered.table-as-list tr:first-child td, table.table-bordered.table-as-list tr:first-child th {
-	border-top: 1px solid #DDD;
+/* Table as list + table bordered, the first cell of each row */
+table.table-as-list.table-bordered tr > :first-child {
+	border-left: 1px solid #DDD;
 }
 
 /* -------------------------------- */
