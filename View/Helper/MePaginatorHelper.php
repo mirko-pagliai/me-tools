@@ -30,6 +30,11 @@ App::uses('PaginatorHelper', 'View/Helper');
  * Provides functionalities to the generation of pagers.
  * 
  * Rewrites {@link http://api.cakephp.org/2.4/class-PaginatorHelper.html PaginatorHelper}.
+ * 
+ * You should use this helper as an alias, for example:
+ * <code>
+ * public $helpers = array('Paginator' => array('className' => 'MeTools.MePaginator'));
+ * </code>
  */
 class MePaginatorHelper extends PaginatorHelper {
 	/**
