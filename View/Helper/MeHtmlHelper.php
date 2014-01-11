@@ -643,8 +643,8 @@ class MeHtmlHelper extends HtmlHelper {
 	 */
 	public function tip($text, $options = array()) {
 		$text = is_array($text) ? $text : array($text);
-		array_walk($text, function(&$v) { $v = self::para('tip-text', $v); });
-		$text = implode('', $text);
+		array_walk($text, function(&$v) { $v = self::para(NULL, $v); });
+		$text = self::div('tip-text', implode(NULL, $text));
 		
 		$options['class'] = empty($options['class']) ? 'tip' : self::__clean('tip', $options['class']);
 		

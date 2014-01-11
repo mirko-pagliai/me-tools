@@ -155,7 +155,7 @@ th a.desc:after {
 /* -------------------------------- */
 /*				Tips				*/
 /* -------------------------------- */
-/* Tip wrapper */
+/* Tip, wrapper */
 .tip {
 	background: #FFFFAB;
     border-radius: 5px;
@@ -164,14 +164,19 @@ th a.desc:after {
     padding: 10px;
 }
 
-/* Tip title */
+/* Tip, title */
 .tip .tip-title {
 	color: #666;
-    margin-top: 0;
+    margin: 0;
 }
 
-/* Tip text */
-.tip .tip-text {
+/* Tip, text */
+.tip .tip-title + .tip-text {
+	margin-top: 10px;
+}
+
+/* Tip, paragraphs */
+.tip .tip-text p {
 	margin: 0;
 }
 
@@ -184,6 +189,16 @@ th a.desc:after {
 .tip code {
 	background: transparent;
 	padding: 0;
+}
+
+/* Hidden tip, title */
+.tip.tip-hidden .tip-title {
+	cursor: pointer;
+}
+
+/* Hidden tip, text */
+.tip.tip-hidden .tip-text {
+	display: none;
 }
 
 /* -------------------------------- */

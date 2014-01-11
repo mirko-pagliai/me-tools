@@ -45,6 +45,14 @@ $(function() {
 	});
 	
 	/**
+	 * When you click on the title of an hidden tip, it shows the text
+	 */
+	$('.tip.tip-hidden .tip-title').click(function() {
+		$(this).css('cursor', 'default');
+		$(this).next('.tip-text').slideDown('slow');
+	});
+	
+	/**
 	 * Closes a flash message when clicking the close button
 	 */
 	$('#flashMessage .close').click(function() {
