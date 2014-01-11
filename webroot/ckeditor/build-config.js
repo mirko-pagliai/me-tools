@@ -1,5 +1,6 @@
+﻿
 /**
- * @license Copyright (c) 2003-2013, CKSource - Frederico Knabben. All rights reserved.
+ * @license Copyright (c) 2003-2014, CKSource - Frederico Knabben. All rights reserved.
  * For licensing, see LICENSE.html or http://ckeditor.com/license
  */
 
@@ -39,7 +40,6 @@ var CKBUILDER_CONFIG = {
 		'horizontalrule' : 1,
 		'htmlwriter' : 1,
 		'wysiwygarea' : 1,
-		'image' : 1,
 		'indentlist' : 1,
 		'link' : 1,
 		'list' : 1,
@@ -72,17 +72,18 @@ var CKBUILDER_CONFIG = {
 		'justify' : 1,
 		'colordialog' : 1,
 		'font' : 1,
-		'insertpre' : 1,
 		'pagebreak' : 1,
 		'preview' : 1,
 		'selectall' : 1,
 		'showborders' : 1,
-		'youtube' : 1,
 		'tableresize' : 1,
-		'divarea' : 1
+		'divarea' : 1,
+		'lineutils' : 1,
+		'widget' : 1,
+		'image2' : 1
 	},
 	languages : {
 		'en' : 1,
-		'it' : 1,
+		'it' : 1
 	}
 };
