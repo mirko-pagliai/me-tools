@@ -660,7 +660,7 @@ class MeHtmlHelper extends HtmlHelper {
 			
 			$text = self::tag('h4', $title['text'], $title['options']).$text;
 		}
-		unset($options['title']);
+		unset($options['icon'], $options['title']);
 		
 		return self::div($options['class'], $text, $options);
 	}
