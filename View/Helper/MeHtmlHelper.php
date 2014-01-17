@@ -652,11 +652,12 @@ class MeHtmlHelper extends HtmlHelper {
 		
 		if(!isset($options['title']) || $title = $options['title']) {
 			if(empty($title))
-				$title = array('text' => __d('me_tools', 'Tip'), 'icon' => 'fa-magic');
+				$title = array('text' => __d('me_tools', 'Tip'));
 			elseif(!is_array($title))
 				$title = array('text' => $title);
 			
 			$title['class'] = empty($title['class']) ? 'tip-title' : self::__clean('tip-title', $title['class']);
+			$title['icon'] = empty($title['icon']) ? 'fa-magic' : $title['icon'];
 			$title['options'] = $title;
 			unset($title['options']['text']);
 			
