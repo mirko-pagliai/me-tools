@@ -94,7 +94,7 @@ class MeFormHelper extends FormHelper {
 	/**
 	 * Creates a button.
 	 * 
-	 * Tthis method creates a button. To create a POST button, you should use the `postButton()` method.
+	 * This method creates a button. To create a POST button, you should use the `postButton()` method.
 	 * Instead, to create a link with the appearance of a button, you should use the `button()` method provided by the `MeHtml` helper.
 	 * @param string $title The button label or an image
 	 * @param array $options HTML attributes
