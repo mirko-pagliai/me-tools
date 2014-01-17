@@ -138,6 +138,8 @@ class MeHtmlHelper extends HtmlHelper {
 	 * @uses link()
 	 */
 	public function button($title, $url = '#', $options = array(), $confirmMessage = FALSE) {
+		$options['role'] = empty($options['role']) ? 'button' : self::__clean('button', $options['role']);
+		
 		return self::link($title, $url, am($options, array('class' => self::__getBtnClass($options))), $confirmMessage);
 	}
 	
