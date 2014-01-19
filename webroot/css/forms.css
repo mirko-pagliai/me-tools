@@ -120,6 +120,14 @@
 	margin-right: 1px;
 }
 
+/* Disabled checkbox */
+.form-base input[type='checkbox'][disabled],
+.form-base input[type='checkbox'][disabled] + label,
+.form-base input[type='checkbox'].disabled,
+.form-base input[type='checkbox'].disabled + label {
+	cursor: not-allowed;
+}
+
 /* -------------------------------- */
 /*	Checkboxes list in base forms	*/
 /* -------------------------------- */
