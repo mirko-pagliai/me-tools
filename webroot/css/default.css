@@ -172,7 +172,7 @@ th a.desc:after {
 
 /* Tip, text */
 .tip .tip-title + .tip-text {
-	margin-top: 10px;
+	margin-top: 6px;
 }
 
 /* Tip, paragraphs */
@@ -194,6 +194,14 @@ th a.desc:after {
 /* Hidden tip, title */
 .tip.tip-hidden .tip-title {
 	cursor: pointer;
+}
+
+/* Hidden tip, icon after title */
+.tip.tip-hidden .tip-title:after {
+	content: "\f0d7";
+	font-family: FontAwesome;
+    font-size: 14px;
+    margin-left: 8px;
 }
 
 /* Hidden tip, text */
