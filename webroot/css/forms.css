@@ -71,7 +71,12 @@
 /* -------------------------------- */
 /* Help blocks */
 .form-base .input .help-block {
-	margin: 2px 0 0;
+	margin: 0;
+}
+
+/* Help blocks, first block */
+.form-base .input .help-block:first-of-type {
+	margin-top: 4px;
 }
 
 /* Form error messages */
