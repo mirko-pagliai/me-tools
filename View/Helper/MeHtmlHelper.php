@@ -288,17 +288,20 @@ class MeHtmlHelper extends HtmlHelper {
 	/**
 	 * Returns icons. Examples:
 	 * <code>
-	 * echo $this->Html->icon('fa-home');
+	 * echo $this->Html->icon('home');
 	 * </code>
 	 * <code>
-	 * echo $this->Html->icon(array('fa-home', 'fa-fw'));
+	 * echo $this->Html->icon(array('hand-o-right', '2x'));
 	 * </code>
-	 * @param mixed $icons Icon or icons as string or array
+	 * @param mixed $icons Icons as string or array
 	 * @return string Html, icons
 	 * @see http://fortawesome.github.io/Font-Awesome Font Awesome icons
 	 */
 	public function icon($icons = NULL) {
-		return self::tag('i', ' ', array('class' => self::__clean('fa', $icons))).' ';
+		//Adds the "fa" class and prepende the string "fa-" to any other class
+		$icons = preg_replace('/(?<![^ ])(?=[^ ])(?!fa)/', 'fa-', self::__clean('fa', $icons));
+		
+		return self::tag('i', ' ', array('class' => $icons)).' ';
 	}
 	
 	/**
