@@ -114,14 +114,15 @@ class LibraryHelper extends AppHelper {
 	 */
 	public function datepicker($input = '.datepicker', $options = array()) {
 		$this->Html->js('/MeTools/js/bootstrap-datepicker.min');
-		$this->Html->css('/MeTools/css/datepicker.min');
+		$this->Html->css('/MeTools/css/datepicker3.min');
 		
 		if(empty($options))
 			$options = array(
 				'autoclose'			=> TRUE,
 				'format'			=> 'yyyy-mm-dd',
-				'todayBtn'			=> TRUE,
-				'todayHighlight'	=> TRUE
+				'todayBtn'			=> "linked",
+				'todayHighlight'	=> TRUE,
+				'weekStart'			=> 1
 			);
 	
 		//Switch for languange, reading from config
