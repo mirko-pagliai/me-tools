@@ -42,8 +42,25 @@ class MeHtmlHelper extends HtmlHelper {
 	 * @var array
 	 */
 	public $helpers = array('Form' => array('className' => 'MeTools.MeForm'));
-	
-	/**
+        
+        /**
+         * Fancy buttons
+         * @var boolean
+         */
+        private $fancyButtons = FALSE;
+        
+        /**
+         * Default Constructor
+         * @param View $View The View this helper is being attached to
+         * @param array $settings Configuration settings for the helper
+         */
+        public function __construct(View $view, $settings = array()) {
+            parent::__construct($view, $settings);
+            
+            $this->fancyButtons = !empty($settings['fancyButtons']) && $settings['fancyButtons'];
+        }
+
+        /**
 	 * Cleans values to be used as html attributes, removing blank spaces and duplicates. For example:
 	 * <pre>a a b  b c d e e e</pre>
 	 * will become:
@@ -71,15 +88,17 @@ class MeHtmlHelper extends HtmlHelper {
 	 * @return string Button classes
 	 */
 	public function __getBtnClass($option) {
-		if(empty($option['class']))
-			return 'btn btn-default';
-		
-		//If "class" doesn't contain a button style, adds "btn-default" to class
-		if(!preg_match('/btn-(default|primary|success|info|warning|danger)/', $class = $option['class']))
-			return self::__clean('btn', 'btn-default', $class);
-		else
-			return self::__clean('btn', $class);
-	}
+            $default = $this->fancyButtons ? 'btn btn-fancy' : 'btn';
+
+            if(empty($option['class']))
+                return $default.' btn-default';
+
+            //If "class" doesn't contain a button style, adds "btn-default" to class
+            if(!preg_match('/btn-(default|primary|success|info|warning|danger)/', $class = $option['class']))
+                return self::__clean($default, 'btn-default', $class);
+            else
+                return self::__clean($default, $class);
+        }
 	
 	/**
 	 * Parses and handles title and options used to create a link or a button to open a dropdown.
