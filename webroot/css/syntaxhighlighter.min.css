@@ -4,4 +4,4 @@
  * @copyright	Copyright (c) 2013, Mirko Pagliai for Nova Atlantis Ltd
  * @license	http://www.gnu.org/licenses/agpl.txt AGPL License
  */
-.syntaxhighlighter .container:after,.syntaxhighlighter .container:before{content:normal;display:block}
+.syntaxhighlighter .container:after,.syntaxhighlighter .container:before{content:normal;display:block}.syntaxhighlighter .line{line-height:normal !important}

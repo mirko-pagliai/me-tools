@@ -23,6 +23,10 @@
  */
 
 .syntaxhighlighter .container:after, .syntaxhighlighter .container:before {
-	content: normal;
-	display: block;
+    content: normal;
+    display: block;
+}
+
+.syntaxhighlighter .line {
+    line-height: normal !important;
 }
