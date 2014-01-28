@@ -1,4 +1,5 @@
 <?php
+
 /**
  * CleanerUrlComponent
  *
@@ -38,32 +39,32 @@
  * </code>
  */
 class CleanerUrlComponent extends Component {
-	/**
-	 * Called before the controller's beforeFilter method. Execute `cleanUrl`.
-	 * @param Controller $controller
-	 * @see http://api.cakephp.org/2.4/class-Component.html#_initialize CakePHP Api
-	 */
-	public function initialize(Controller $controller) {
-		$this->cleanUrl($controller);
-	}
+    /**
+     * Called before the controller's beforeFilter method. Execute `cleanUrl`.
+     * @param Controller $controller
+     * @see http://api.cakephp.org/2.4/class-Component.html#_initialize CakePHP Api
+     */
+    public function initialize(Controller $controller) {
+        $this->cleanUrl($controller);
+    }
 
-	/**
-	 * Cleans the current url, turning query arguments in named arguments, and executes a redirect.
-	 * @param Controller $controller
-	 */
-	protected function cleanUrl(Controller $controller) {
-		if(!empty($controller->request->query)) {
-			//Merge named arguments with query arguments (note: query arguments will overwrite named arguments)
-			$named = array_merge($controller->request->params['named'], $controller->request->query);
+    /**
+     * Cleans the current url, turning query arguments in named arguments, and executes a redirect.
+     * @param Controller $controller
+     */
+    protected function cleanUrl(Controller $controller) {
+        if(!empty($controller->request->query)) {
+            //Merge named arguments with query arguments (note: query arguments will overwrite named arguments)
+            $named = array_merge($controller->request->params['named'], $controller->request->query);
 
-			//Merge controller, action, plugin, passed arguments (only values) and named values
-			$url = array_merge(array(
-				'controller'	=> $controller->request->params['controller'],
-				'action'		=> $controller->request->params['action'],
-				'plugin'		=> $controller->request->params['plugin']
-			), array_values($controller->request->params['pass']), $named);
+            //Merge controller, action, plugin, passed arguments (only values) and named values
+            $url = array_merge(array(
+               'controller' => $controller->request->params['controller'],
+               'action'     => $controller->request->params['action'],
+               'plugin'     => $controller->request->params['plugin']), 
+                  array_values($controller->request->params['pass']), $named);
 
-			$controller->redirect($url);
-		}
-	}
+            $controller->redirect($url);
+        }
+    }
 }

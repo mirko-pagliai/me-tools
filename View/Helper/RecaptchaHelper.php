@@ -1,4 +1,5 @@
 <?php
+
 /**
  * RecaptchaHelper
  *
@@ -35,80 +36,80 @@ App::import('Vendor', 'MeTools.Recaptcha/recaptchalib');
  * You can use as example the file `app/Plugin/MeTools/Config/recaptcha.default.php`.
  */
 class RecaptchaHelper extends AppHelper {
-	/**
-	 * Mail keys
-	 * @var array
-	 */
-	private $mail_keys = FALSE;
+    /**
+     * Mail keys
+     * @var array
+     */
+    private $mail_keys = FALSE;
 
-	/**
-	 * Helpers
-	 * @var array
-	 */
-	public $helpers = array('Html' => array('className' => 'MeTools.MeHtml'));
+    /**
+     * Helpers
+     * @var array
+     */
+    public $helpers = array('Html' => array('className' => 'MeTools.MeHtml'));
 
-	/**
-	 * Construct
-	 * @param View $View The View this helper is being attached to
-	 * @param array $settings Configuration settings for the helper
-	 * @uses mail_keys to set mail keys
-	 */
-	 public function __construct(View $View, $settings = array()) {
-		Configure::load('recaptcha');
-		
-		$keys = $this->mail_keys = array(
-			'pub'	=> Configure::read('Recaptcha.Mail.Public_key'),
-			'priv'	=> Configure::read('Recaptcha.Mail.Private_key')
-		);	
-			
-		if(empty($keys['pub']) || empty($keys['priv']))
-			throw new InternalErrorException(__d('me_tools', 'Mail keys are not configured'));
-		
-		//Checks if the private mail key is valid (hexadecimal digits)
-		if(!ctype_xdigit($keys['priv']))
-			throw new InternalErrorException(__d('me_tools', 'The private mail key is not valid'));
+    /**
+     * Construct
+     * @param View $View The View this helper is being attached to
+     * @param array $settings Configuration settings for the helper
+     * @uses mail_keys to set mail keys
+     */
+    public function __construct(View $View, $settings = array()) {
+        Configure::load('recaptcha');
 
-		parent::__construct($View, $settings);
-	}
-	
-	/**
-	 * Alias for `mailLink()` method
-	 * @see mailLink()
-	 */
-	public function mail() { 
-		return call_user_func_array(array('RecaptchaHelper', 'mailLink'), func_get_args());
-	}
+        $keys = $this->mail_keys = array(
+           'pub'    => Configure::read('Recaptcha.Mail.Public_key'),
+           'priv'   => Configure::read('Recaptcha.Mail.Private_key')
+        );
 
-	/**
-	 * Creates an HTML link for an hidden email. The link will be open in a popup.
-	 * @param string $title Link title
-	 * @param string $mail Email to hide
-	 * @param array $options HTML attributes
-	 * @return string Html
-         * @see http://repository.novatlantis.it/metools-sandbox/recaptcha/maillinks Examples
-	 * @uses mailUrl to get the url
-	 * @uses MeHtmlHelper::link() to create the link
-	 */
-	public function mailLink($title, $mail, $options=array()) {
-		$link = $this->mailUrl($mail);
+        if(empty($keys['pub']) || empty($keys['priv']))
+            throw new InternalErrorException(__d('me_tools', 'Mail keys are not configured'));
 
-		//Adds the "onclick" options, that allows to open the link in a popup
-		$options['onclick'] = sprintf("window.open('%s', '', 'toolbar=0,scrollbars=0,location=0,statusbar=0,menubar=0,resizable=0,width=500,height=300'); return false;", $link);
-		
-		return $this->Html->link($title, $link, $options);
-	}
+        //Checks if the private mail key is valid (hexadecimal digits)
+        if(!ctype_xdigit($keys['priv']))
+            throw new InternalErrorException(__d('me_tools', 'The private mail key is not valid'));
 
-	/**
-	 * Gets the url for an hidden email. 
-	 * 
-	 * This method will only return a url. If you want to create a link, you should use the `mailLink()` method
-	 * @param string $mail Email to hide
-	 * @return string Url
-	 * @see mailLink()
-         * @see http://repository.novatlantis.it/metools-sandbox/recaptcha/maillinks Examples
-	 * @uses mail_keys to read mail keys
-	 */
-	public function mailUrl($mail) {
-		return !empty($this->mail_keys) ? recaptcha_mailhide_url($this->mail_keys['pub'], $this->mail_keys['priv'], $mail) : NULL;
-	}
+        parent::__construct($View, $settings);
+    }
+
+    /**
+     * Alias for `mailLink()` method
+     * @see mailLink()
+     */
+    public function mail() {
+        return call_user_func_array(array('RecaptchaHelper', 'mailLink'), func_get_args());
+    }
+
+    /**
+     * Creates an HTML link for an hidden email. The link will be open in a popup.
+     * @param string $title Link title
+     * @param string $mail Email to hide
+     * @param array $options HTML attributes
+     * @return string Html
+     * @see http://repository.novatlantis.it/metools-sandbox/recaptcha/maillinks Examples
+     * @uses mailUrl to get the url
+     * @uses MeHtmlHelper::link() to create the link
+     */
+    public function mailLink($title, $mail, $options = array()) {
+        $link = $this->mailUrl($mail);
+
+        //Adds the "onclick" options, that allows to open the link in a popup
+        $options['onclick'] = sprintf("window.open('%s', '', 'toolbar=0,scrollbars=0,location=0,statusbar=0,menubar=0,resizable=0,width=500,height=300'); return false;", $link);
+
+        return $this->Html->link($title, $link, $options);
+    }
+
+    /**
+     * Gets the url for an hidden email. 
+     * 
+     * This method will only return a url. If you want to create a link, you should use the `mailLink()` method
+     * @param string $mail Email to hide
+     * @return string Url
+     * @see mailLink()
+     * @see http://repository.novatlantis.it/metools-sandbox/recaptcha/maillinks Examples
+     * @uses mail_keys to read mail keys
+     */
+    public function mailUrl($mail) {
+        return !empty($this->mail_keys) ? recaptcha_mailhide_url($this->mail_keys['pub'], $this->mail_keys['priv'], $mail) : NULL;
+    }
 }

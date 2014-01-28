@@ -7,16 +7,16 @@
  * Remember: keys for the site and keys form emails ARE DIFFERENT.
  */
 $config = array(
-	'Recaptcha' => array(
-		/**
-		 * Mail keys.
-		 * You can get these keys here: http://www.google.com/recaptcha/mailhide/apikey
-		 */
-		'Mail' => array(
-			//Mail public key
-			'Public_key'	=> 'your-public-key-here',
-			//Mail private key
-			'Private_key'	=> 'your-private-key-here'
-		)
-	)
+   'Recaptcha' => array(
+      /**
+       * Mail keys.
+       * You can get these keys here: http://www.google.com/recaptcha/mailhide/apikey
+       */
+      'Mail' => array(
+         //Mail public key
+         'Public_key' => 'your-public-key-here',
+         //Mail private key
+         'Private_key' => 'your-private-key-here'
+      )
+   )
 );

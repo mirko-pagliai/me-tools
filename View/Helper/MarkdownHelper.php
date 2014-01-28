@@ -1,4 +1,5 @@
 <?php
+
 /**
  * MarkdownHelper
  *
@@ -27,6 +28,7 @@
  */
 App::uses('AppHelper', 'View/Helper');
 App::import('Vendor', 'MeTools.Markdown/Markdown.inc');
+
 use \Michelf\Markdown;
 
 /**

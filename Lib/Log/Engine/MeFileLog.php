@@ -1,4 +1,5 @@
 <?php
+
 /**
  * MeFileLog
  * 
@@ -35,19 +36,19 @@ App::uses('FileLog', 'Log/Engine');
  * by the `FileLog` engine, so that the client IP address is recorded in logs.
  */
 class MeFileLog extends FileLog {
-	/**
-	 * Implements writing to log files.
-	 * @param string $type The type of log you are making.
-	 * @param string $message The message you want to log.
-	 * @return boolean success of write.
-	 */
-	public function write($type, $message) {
-		//Get the client ip
-		$request = new CakeRequest(NULL, FALSE);
-		$ip = $request->clientIp(FALSE);
-		
-		$message = empty($ip) ? $message : sprintf('%s (%s)', $message, $ip);
-		
-		return parent::write($type, $message);
-	}
+    /**
+     * Implements writing to log files.
+     * @param string $type The type of log you are making.
+     * @param string $message The message you want to log.
+     * @return boolean success of write.
+     */
+    public function write($type, $message) {
+        //Get the client ip
+        $request = new CakeRequest(NULL, FALSE);
+        $ip = $request->clientIp(FALSE);
+
+        $message = empty($ip) ? $message : sprintf('%s (%s)', $message, $ip);
+
+        return parent::write($type, $message);
+    }
 }

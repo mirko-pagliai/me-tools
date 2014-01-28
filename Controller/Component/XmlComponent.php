@@ -1,4 +1,5 @@
 <?php
+
 /**
  * XmlComponent
  *
@@ -30,22 +31,22 @@ App::uses('Xml', 'Utility');
  * A component to handle XML.
  */
 class XmlComponent extends Component {
-	/**
-	 * Gets an XML file (remote or local) and returns it as an array
-	 * @param string $url XML url or path
-	 * @return mixed Array or NULL
-         * @see http://repository.novatlantis.it/metools-sandbox/xml/xmlasarray Examples
-	 */
-	public function get($url) {
-		//If it's not a url (but it's a path) and if it's a relative path, the path is relative to APP
-		if(!filter_var($url, FILTER_VALIDATE_URL) && !realpath($url))
-			$url = APP.$url;
-		
-		if(@file_get_contents($url)) {
-			$xml = Xml::toArray(Xml::build($url));
-			
-			//If the array has only one item, returns the first one, otherwise the whole array
-			return count($xml) > 1 ? $xml : array_shift($xml);
-		}
-	}
+    /**
+     * Gets an XML file (remote or local) and returns it as an array
+     * @param string $url XML url or path
+     * @return mixed Array or NULL
+     * @see http://repository.novatlantis.it/metools-sandbox/xml/xmlasarray Examples
+     */
+    public function get($url) {
+        //If it's not a url (but it's a path) and if it's a relative path, the path is relative to APP
+        if(!filter_var($url, FILTER_VALIDATE_URL) && !realpath($url))
+            $url = APP.$url;
+
+        if(@file_get_contents($url)) {
+            $xml = Xml::toArray(Xml::build($url));
+
+            //If the array has only one item, returns the first one, otherwise the whole array
+            return count($xml) > 1 ? $xml : array_shift($xml);
+        }
+    }
 }

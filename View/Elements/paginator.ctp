@@ -26,13 +26,13 @@
 ?>
 
 <?php if($this->Paginator->hasPage(NULL, 2)): #If the page "2" exists, so if there is more than one page ?>
-	<div class="text-center">
-		<ul class="pagination">
-			<?php
-				echo $this->Paginator->prev();
-				echo $this->Paginator->numbers();
-				echo $this->Paginator->next();
-			?>
-		</ul>
-	</div>
+    <div class="text-center">
+        <ul class="pagination">
+            <?php
+                echo $this->Paginator->prev();
+                echo $this->Paginator->numbers();
+                echo $this->Paginator->next();
+            ?>
+        </ul>
+    </div>
 <?php endif; ?>

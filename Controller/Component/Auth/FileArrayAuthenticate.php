@@ -1,4 +1,5 @@
 <?php
+
 /**
  * FileArrayAuthenticate
  *
@@ -31,31 +32,31 @@ App::uses('FileArray', 'MeTools.Utility');
  * data with an array located in `APP/users.txt` and generated through the `FileArray` utility.
  */
 class FileArrayAuthenticate extends FormAuthenticate {
-	/**
-	 * Provides the ability to authenticate using POSTdata with an array located in `APP/users.txt` and 
-	 * generated through the `FileArray` utility.
-	 * @param CakeRequest $request The request that contains login information
-	 * @param CakeResponse $response Unused response object
-	 * @return mixed An array of user data or FALSE on login failure
-	 */
+    /**
+     * Provides the ability to authenticate using POSTdata with an array located in `APP/users.txt` and 
+     * generated through the `FileArray` utility.
+     * @param CakeRequest $request The request that contains login information
+     * @param CakeResponse $response Unused response object
+     * @return mixed An array of user data or FALSE on login failure
+     */
     public function authenticate(CakeRequest $request, CakeResponse $response) {
-		//Gets model and fields
-		$userModel = $this->settings['userModel'];
+        //Gets model and fields
+        $userModel = $this->settings['userModel'];
         list(, $model) = pluginSplit($userModel);
-		$fields = $this->settings['fields'];
-		
-		//Checks the fields to ensure they are supplied
-		if(!$this->_checkFields($request, $model, $fields))
-			return FALSE;
-		
-		//Searches the user in the fileArray
-		$this->fileArray = new FileArray(APP.'users.txt');
-		$user = $this->fileArray->getFirst(array(
-			'username' => $fields['username'], 
-			'password' => md5($fields['password'])
-		));
-		
-		//Returns user data if user exists, else FALSE
-		return !empty($user) ? $user : FALSE;
+        $fields = $this->settings['fields'];
+
+        //Checks the fields to ensure they are supplied
+        if(!$this->_checkFields($request, $model, $fields))
+            return FALSE;
+
+        //Searches the user in the fileArray
+        $this->fileArray = new FileArray(APP.'users.txt');
+        $user = $this->fileArray->getFirst(array(
+           'username' => $fields['username'],
+           'password' => md5($fields['password'])
+        ));
+
+        //Returns user data if user exists, else FALSE
+        return !empty($user) ? $user : FALSE;
     }
 }
