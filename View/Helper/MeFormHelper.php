@@ -17,12 +17,12 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with MeTools.  If not, see <http://www.gnu.org/licenses/>.
  *
- * @author		Mirko Pagliai <mirko.pagliai@gmail.com>
+ * @author	Mirko Pagliai <mirko.pagliai@gmail.com>
  * @copyright	Copyright (c) 2013, Mirko Pagliai for Nova Atlantis Ltd
- * @license		http://www.gnu.org/licenses/agpl.txt AGPL License
- * @link		http://git.novatlantis.it Nova Atlantis Ltd
- * @package		MeTools\View\Helper
- * @see			http://api.cakephp.org/2.4/class-FormHelper.html FormHelper
+ * @license	http://www.gnu.org/licenses/agpl.txt AGPL License
+ * @link	http://git.novatlantis.it Nova Atlantis Ltd
+ * @package	MeTools\View\Helper
+ * @see		http://api.cakephp.org/2.4/class-FormHelper.html FormHelper
  */
 App::uses('FormHelper', 'View/Helper');
 
@@ -100,6 +100,7 @@ class MeFormHelper extends FormHelper {
 	 * @param array $options HTML attributes
 	 * @return string Html
 	 * @see postButton(), MeHtmlHelper::button()
+         * @see http://repository.novatlantis.it/metools-sandbox/forms/buttonslinks Examples
 	 */
 	public function button($title, $options = array()) {
 		$options['type'] = empty($options['type']) ? 'button' : $options['type'];
@@ -115,6 +116,7 @@ class MeFormHelper extends FormHelper {
 	 * @param string $fieldName Field name, should be "Modelname.fieldname"
 	 * @param array $options HTML attributes
 	 * @return string Checkbox list as Html
+         * @see http://repository.novatlantis.it/metools-sandbox/forms/checkboxinputs Examples
 	 * @uses button() to create buttons to check/uncheck all checkboxes
 	 * @uses input() to create checkbox inputs
 	 */
@@ -137,6 +139,7 @@ class MeFormHelper extends FormHelper {
 	 * @param string $fieldName Field name, should be "Modelname.fieldname"
 	 * @param array $options HTML attributes
 	 * @return string Html
+         * @see http://repository.novatlantis.it/metools-sandbox/forms/ckeditor Examples
 	 * @uses input() to create the textarea for CKEditor
 	 */
 	public function ckeditor($fieldName, $options=array()) {
@@ -194,6 +197,7 @@ class MeFormHelper extends FormHelper {
 	 * @param string $fieldName Field name, should be "Modelname.fieldname"
 	 * @param array $options HTML attributes
 	 * @return string Html
+         * @see http://repository.novatlantis.it/metools-sandbox/forms/datepicker Examples
 	 * @uses input() to create the input
 	 */
 	public function datepicker($fieldName, $options=array()) {
@@ -207,6 +211,7 @@ class MeFormHelper extends FormHelper {
 	 * @param string $caption The label appearing on the submit button or an image
 	 * @param array $options Options
 	 * @return string Html
+         * @see http://repository.novatlantis.it/metools-sandbox/forms/endform Examples
 	 * @uses button to create the submit button
 	 * @uses inline to reset the form status
 	 */
@@ -252,6 +257,7 @@ class MeFormHelper extends FormHelper {
 	 * @param string $fieldName Field name, should be "Modelname.fieldname"
 	 * @param array $options HTML attributes
 	 * @return string Html
+         * @see http://repository.novatlantis.it/metools-sandbox/forms/textinputs Examples
 	 */
 	public function input($fieldName, $options = array()) {
 		$type = self::__getInputType($options);
@@ -321,6 +327,7 @@ class MeFormHelper extends FormHelper {
 	 * @param string $confirmMessage JavaScript confirmation message
 	 * @return string Html
 	 * @see button(), MeHtmlHelper::button()
+         * @see http://repository.novatlantis.it/metools-sandbox/forms/buttonslinks Examples
 	 * @uses postLink() to create a POST button with the confirm message
 	 */
 	public function postButton($title, $url, $options = array(), $confirmMessage = FALSE) {
@@ -345,6 +352,7 @@ class MeFormHelper extends FormHelper {
 	 * @param string $confirmMessage JavaScript confirmation message
 	 * @return string Html
 	 * @see MeHtmlHelper::link()
+         * @see http://repository.novatlantis.it/metools-sandbox/forms/buttonslinks Examples
 	 */
 	public function postLink($title, $url = NULL, $options = array(), $confirmMessage = FALSE) {
 		$options['escape'] = empty($options['escape']) ? FALSE : $options['escape'];
@@ -358,6 +366,7 @@ class MeFormHelper extends FormHelper {
 	 * @param array $options Radio options
 	 * @param array $attributes HTML attributes
 	 * @return string Html
+         * @see http://repository.novatlantis.it/metools-sandbox/forms/radioinputs Examples
 	 */
 	public function radio($fieldName, $options = array(), $attributes = array()) {
 		$attributes['separator'] = empty($attributes['separator']) ? '<br />' : $attributes['separator'];
@@ -371,6 +380,7 @@ class MeFormHelper extends FormHelper {
 	 * @param array $options Select options
 	 * @param array $attributes HTML attributes
 	 * @return string Html
+         * @see http://repository.novatlantis.it/metools-sandbox/forms/selectinputs Examples
 	 */
 	public function select($fieldName, $options = array(), $attributes = array()) {
 		//Sets the "empty" attribute to "Select an option" only if:
@@ -397,6 +407,7 @@ class MeFormHelper extends FormHelper {
 	 * @param string $caption The label appearing on the submit button or an image
 	 * @param array $options Options
 	 * @return string Html
+         * @see http://repository.novatlantis.it/metools-sandbox/forms/endform Examples
 	 * @uses button() to create the submit button
 	 */
 	public function submit($caption = NULL, $options = array()) {
@@ -423,6 +434,7 @@ class MeFormHelper extends FormHelper {
 	 * @param string $fieldName Field name, should be "Modelname.fieldname"
 	 * @param array $options HTML attributes
 	 * @return string Html
+         * @see http://repository.novatlantis.it/metools-sandbox/forms/textareas Examples
 	 */
 	public function textarea($fieldName, $options = array()) {
 		$options['class'] = empty($options['class']) ? 'form-control' : $this->Html->__clean('form-control', $options['class']);
@@ -437,6 +449,7 @@ class MeFormHelper extends FormHelper {
 	 * @param string $fieldName Field name, should be "Modelname.fieldname"
 	 * @param array $options HTML attributes
 	 * @return string Html
+         * @see http://repository.novatlantis.it/metools-sandbox/forms/datepicker Examples
 	 * @uses input() to create the input
 	 */
 	public function timepicker($fieldName, $options=array()) {

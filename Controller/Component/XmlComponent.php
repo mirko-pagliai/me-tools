@@ -17,11 +17,12 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with MeTools.  If not, see <http://www.gnu.org/licenses/>.
  *
- * @author		Mirko Pagliai <mirko.pagliai@gmail.com>
+ * @author	Mirko Pagliai <mirko.pagliai@gmail.com>
  * @copyright	Copyright (c) 2013, Mirko Pagliai for Nova Atlantis Ltd
- * @license		http://www.gnu.org/licenses/agpl.txt AGPL License
- * @link		http://git.novatlantis.it Nova Atlantis Ltd
- * @package		MeTools\Controller\Component
+ * @license	http://www.gnu.org/licenses/agpl.txt AGPL License
+ * @link	http://git.novatlantis.it Nova Atlantis Ltd
+ * @package	MeTools\Controller\Component
+ * @see         http://repository.novatlantis.it/metools-sandbox/xml/xmlasarray Examples
  */
 App::uses('Xml', 'Utility');
 
@@ -33,6 +34,7 @@ class XmlComponent extends Component {
 	 * Gets an XML file (remote or local) and returns it as an array
 	 * @param string $url XML url or path
 	 * @return mixed Array or NULL
+         * @see http://repository.novatlantis.it/metools-sandbox/xml/xmlasarray Examples
 	 */
 	public function get($url) {
 		//If it's not a url (but it's a path) and if it's a relative path, the path is relative to APP

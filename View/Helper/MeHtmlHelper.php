@@ -17,12 +17,12 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with MeTools.  If not, see <http://www.gnu.org/licenses/>.
  *
- * @author		Mirko Pagliai <mirko.pagliai@gmail.com>
+ * @author	Mirko Pagliai <mirko.pagliai@gmail.com>
  * @copyright	Copyright (c) 2013, Mirko Pagliai for Nova Atlantis Ltd
- * @license		http://www.gnu.org/licenses/agpl.txt AGPL License
- * @link		http://git.novatlantis.it Nova Atlantis Ltd
- * @package		MeTools\View\Helper
- * @see			http://api.cakephp.org/2.4/class-HtmlHelper.html HtmlHelper
+ * @license	http://www.gnu.org/licenses/agpl.txt AGPL License
+ * @link	http://git.novatlantis.it Nova Atlantis Ltd
+ * @package	MeTools\View\Helper
+ * @see		http://api.cakephp.org/2.4/class-HtmlHelper.html HtmlHelper
  */
 App::uses('HtmlHelper', 'View/Helper');
 
@@ -104,6 +104,7 @@ class MeHtmlHelper extends HtmlHelper {
 	 * or an array where each item itself can be a path string or an array containing `src` and `type` keys.
 	 * @param array $options Array of HTML attributes
 	 * @return string Html, audio tag
+         * @see http://repository.novatlantis.it/metools-sandbox/html/audiovideo Examples
 	 * @uses media()
 	 */
 	public function audio($path, $options = array()) {
@@ -116,6 +117,7 @@ class MeHtmlHelper extends HtmlHelper {
 	 * @param array $options HTML attributes
 	 * @return string Html, badge element
 	 * @see http://getbootstrap.com/components/#badges Bootstrap documentation
+         * @see http://repository.novatlantis.it/metools-sandbox/html/labelbadges Examples
 	 */
 	public function badge($text, $options = array()) {
 		$options['class'] = empty($options['class']) ? 'badge' : self::__clean('badge', $options['class']);
@@ -135,6 +137,7 @@ class MeHtmlHelper extends HtmlHelper {
 	 * @param string $confirmMessage JavaScript confirmation message
 	 * @return string Html, link
 	 * @see MeFormHelper::button(), MeFormHelper::postButton()
+         * @see http://repository.novatlantis.it/metools-sandbox/html/buttonslinks Examples
 	 * @uses link()
 	 */
 	public function button($title, $url = '#', $options = array(), $confirmMessage = FALSE) {
@@ -152,6 +155,7 @@ class MeHtmlHelper extends HtmlHelper {
 	 * @return string Html, button
 	 * @see dropdown()
 	 * @see http://getbootstrap.com/components/#dropdowns Bootstrap documentation
+         * @see http://repository.novatlantis.it/metools-sandbox/html/dropdown Examples
 	 * @uses __parseLinkDropdown() to parse options
 	 * @uses button() to get the button
 	 */
@@ -230,6 +234,7 @@ class MeHtmlHelper extends HtmlHelper {
 	 * @param array $itemOptions Options for each item (`li`) of the dropdown
 	 * @return string Html, dropdown menu
 	 * @see http://getbootstrap.com/components/#dropdowns Bootstrap documentation
+         * @see http://repository.novatlantis.it/metools-sandbox/html/dropdown Examples
 	 * @uses ul() to create the ul element
 	 */
 	public function dropdown($links = array(), $ulOptions = array(), $itemOptions = array()) {		
@@ -254,6 +259,7 @@ class MeHtmlHelper extends HtmlHelper {
 	 * @param string|array|boolean $startText The first crumb. If is an array, accepted keys are "text", "url" and "icon"
 	 * @return string Html, breadcrumb
 	 * @see getCrumbList()
+         * @see http://repository.novatlantis.it/metools-sandbox/html/breadcrumb Examples
 	 */
 	public function getCrumbs($separator = '/', $startText = FALSE) {
 		if(is_array($startText) && empty($startText['text']))
@@ -272,6 +278,7 @@ class MeHtmlHelper extends HtmlHelper {
 	 * @param array $options HTML attributes
 	 * @param string|array|boolean $startText The first crumb. If is an array, accepted keys are "text", "url" and "icon"
 	 * @return string Html, breadcrumb
+         * @see http://repository.novatlantis.it/metools-sandbox/html/breadcrumb Examples
 	 */
 	public function getCrumbList($options = array(), $startText = FALSE) {
 		if(is_array($startText) && empty($startText['text']))
@@ -296,6 +303,7 @@ class MeHtmlHelper extends HtmlHelper {
 	 * @param mixed $icons Icons as string or array
 	 * @return string Html, icons
 	 * @see http://fortawesome.github.io/Font-Awesome Font Awesome icons
+         * @see http://repository.novatlantis.it/metools-sandbox/html/icons Examples
 	 */
 	public function icon($icons = NULL) {
 		//Adds the "fa" class and prepende the string "fa-" to any other class
@@ -317,6 +325,7 @@ class MeHtmlHelper extends HtmlHelper {
 	 * @param string $path Image path (will be relative to `app/webroot/img/`)
 	 * @param $options HTML attributes
 	 * @return string Html, image
+         * @see http://repository.novatlantis.it/metools-sandbox/html/images Examples
 	 */
 	public function image($path, $options = array()) {
 		$options['class'] = empty($options['class']) ? 'img-responsive' : self::__clean('img-responsive', $options['class']);
@@ -352,6 +361,7 @@ class MeHtmlHelper extends HtmlHelper {
 	 * @param string $type Label type
 	 * @return string Html, label
 	 * @see http://getbootstrap.com/components/#labels Bootstrap documentation
+         * @see http://repository.novatlantis.it/metools-sandbox/html/labelbadges Examples
 	 */
 	public function label($text, $options = array(), $type = 'default') {
 		$type = self::__clean('label', 'label-'.$type);
@@ -367,6 +377,7 @@ class MeHtmlHelper extends HtmlHelper {
 	 * @param array $elements Element list
 	 * @param array $options HTML attributes of the list tag
 	 * @return string Html, element list
+         * @see http://repository.novatlantis.it/metools-sandbox/html/lists Examples
 	 */
 	public function li($elements, $options = array()) {		
 		$html = '';
@@ -406,6 +417,7 @@ class MeHtmlHelper extends HtmlHelper {
 	 * @param array $options HTML attributes
 	 * @param string $confirmMessage JavaScript confirmation message
 	 * @return string Html, link
+         * @see http://repository.novatlantis.it/metools-sandbox/html/buttonslinks Examples
 	 */
 	public function link($title, $url = '#', $options = array(), $confirmMessage = FALSE) {
 		$options['escape'] = empty($options['escape']) ? FALSE : $options['escape'];
@@ -433,6 +445,7 @@ class MeHtmlHelper extends HtmlHelper {
 	 * @return string Html, link
 	 * @see dropdown()
 	 * @see http://getbootstrap.com/components/#dropdowns Bootstrap documentation
+         * @see http://repository.novatlantis.it/metools-sandbox/html/dropdown Examples
 	 * @uses __parseLinkDropdown() to parse options
 	 * @uses link() to get the link
 	 */
@@ -468,6 +481,7 @@ class MeHtmlHelper extends HtmlHelper {
 	 * @param mixed $url The address of the external resource or string for content attribute
 	 * @param array $options Other attributes for the generated tag
 	 * @return string Html, meta tag
+         * @see http://repository.novatlantis.it/metools-sandbox/html/audiovideo Examples
 	 */
 	public function meta($type, $url = NULL, $options = array()) {
 		$options['inline'] = empty($options['inline']) ? FALSE : $options['inline'];
@@ -482,6 +496,7 @@ class MeHtmlHelper extends HtmlHelper {
 	 * @param array $itemOptions HTML attributes of the list items
 	 * @param string $tag Type of list tag (ol/ul)
 	 * @return string Html, ol/ul list
+         * @see http://repository.novatlantis.it/metools-sandbox/html/lists Examples
 	 */
 	 public function nestedList($list, $options = array(), $itemOptions = array(), $tag = 'ul') {
 		 if(!empty($itemOptions['icon'])) {
@@ -499,6 +514,7 @@ class MeHtmlHelper extends HtmlHelper {
 	 * @param array $options HTML attributes of the list tag
 	 * @param array $itemOptions HTML attributes of the list items
 	 * @return string Html, ordered list
+         * @see http://repository.novatlantis.it/metools-sandbox/html/lists Examples
 	 * @uses nestedList() to create the list
 	 */
 	public function ol($list, $options = array(), $itemOptions = array()) {
@@ -598,6 +614,7 @@ class MeHtmlHelper extends HtmlHelper {
 	 * @param string $path Image path (absolute or relative to the webroot)
 	 * @param array $options HTML attributes
 	 * @return string Html, tag element
+         * @see http://repository.novatlantis.it/metools-sandbox/html/images Examples
 	 * @uses thumbUrl() to get the url thumb
 	 * @uses image() to display the thumb
 	 */
@@ -619,6 +636,7 @@ class MeHtmlHelper extends HtmlHelper {
 	 * @param array $options HTML attributes
 	 * @return string Html, tag element
 	 * @see thumb()
+         * @see http://repository.novatlantis.it/metools-sandbox/html/images Examples
 	 * @uses url() to generate the thumb url
 	 */
 	public function thumbUrl($path, $options = array()) {		
@@ -644,7 +662,8 @@ class MeHtmlHelper extends HtmlHelper {
 	 * an array, you can use "text" and "options" keys. If you don't want to have a title, the "title" option should be `FALSE`.
 	 * @param string|array $text Tip text, as string or array
 	 * @param array $options HTML attributes
-	 * @return Html, tip block.
+	 * @return Html, tip block
+         * @see http://repository.novatlantis.it/metools-sandbox/html/tips Examples
 	 */
 	public function tip($text, $options = array()) {
 		$text = is_array($text) ? $text : array($text);
@@ -677,6 +696,7 @@ class MeHtmlHelper extends HtmlHelper {
 	 * @param array $options HTML attributes of the list tag
 	 * @param array $itemOptions HTML attributes of the list items
 	 * @return string Html, unordered list
+         * @see http://repository.novatlantis.it/metools-sandbox/html/lists Examples
 	 * @uses nestedList() to create the list
 	 */
 	public function ul($list, $options = array(), $itemOptions = array()) {
@@ -689,6 +709,7 @@ class MeHtmlHelper extends HtmlHelper {
 	 * or an array where each item itself can be a path string or an array containing `src` and `type` keys.
 	 * @param array $options Array of HTML attributes
 	 * @return string Html, video tag
+         * @see http://repository.novatlantis.it/metools-sandbox/html/audiovideo Examples
 	 * @uses media()
 	 */
 	public function video($path, $options = array()) {
