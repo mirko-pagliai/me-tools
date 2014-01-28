@@ -633,7 +633,7 @@ class MeHtmlHelper extends HtmlHelper {
 		return self::url(am(
 			array('controller' => 'thumbs', 'action' => 'thumb', 'plugin' => 'me_tools', 'admin' => FALSE),
 			array('?' => array('s' => $options['side'], 'w' => $options['width'], 'h' => $options['height'])),
-			array(urlencode(base64_encode($path)))
+			array(base64_encode($path))
 		), TRUE);
 	}
 	
