@@ -1,4 +1,5 @@
 <?php
+
 /**
  * MeSessionComponent
  *
@@ -38,26 +39,26 @@ App::uses('SessionComponent', 'Controller/Component');
  * </code>
  */
 class MeSessionComponent extends SessionComponent {
-	/**
-	 * Alias for `setFlash()` method
-	 * @see setFlash()
-	 */
-	public function flash() { 
-		return call_user_func_array(array('MeSessionComponent', 'setFlash'), func_get_args());
-	}
-	
-	/**
-	 * Used to set a session variable that can be used to output messages in the view.
-	 * @param string $message Flash message
-	 * @param string $element Element to wrap flash message in
-	 * @param array $params Parameters to be sent to layout as view variables
-	 * @param string $key Message key, default is 'flash'
-	 */
-	public function setFlash($message, $element = 'default', $params = array(), $key = 'flash') {
-		//Checks if the element exists into MeTools. If so, it uses the MeTools element
-		if(file_exists(App::pluginPath('MeTools').'View'.DS.'Elements'.DS.$element.'.ctp'))
-			$element = 'MeTools.'.$element;
-		
-		parent::setFlash($message, $element, $params, $key);
-	}
+    /**
+     * Alias for `setFlash()` method
+     * @see setFlash()
+     */
+    public function flash() {
+        return call_user_func_array(array('MeSessionComponent', 'setFlash'), func_get_args());
+    }
+
+    /**
+     * Used to set a session variable that can be used to output messages in the view.
+     * @param string $message Flash message
+     * @param string $element Element to wrap flash message in
+     * @param array $params Parameters to be sent to layout as view variables
+     * @param string $key Message key, default is 'flash'
+     */
+    public function setFlash($message, $element = 'default', $params = array(), $key = 'flash') {
+        //Checks if the element exists into MeTools. If so, it uses the MeTools element
+        if(file_exists(App::pluginPath('MeTools').'View'.DS.'Elements'.DS.$element.'.ctp'))
+            $element = 'MeTools.'.$element;
+
+        parent::setFlash($message, $element, $params, $key);
+    }
 }
