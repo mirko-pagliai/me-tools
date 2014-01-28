@@ -17,8 +17,8 @@ Vendor/ View/ webroot/ COPYNG README.md build/MeTools
 cd build/MeTools
 
 # Delete uncompressed files
-rm -f webroot/css/datepicker.css webroot/css/default.css \
-webroot/css/forms.css webroot/css/syntaxhighlighter.css \
+rm -f webroot/css/datepicker3.css webroot/css/default.css \
+webroot/css/fancybuttons.css webroot/css/forms.css webroot/css/syntaxhighlighter.css \
 webroot/js/bootstrap-datepicker.it.js webroot/js/bootstrap-datepicker.js \
 webroot/js/default.js webroot/js/slugify.js
 
