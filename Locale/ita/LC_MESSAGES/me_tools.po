@@ -1,0 +1,126 @@
+# LANGUAGE translation of MeTools
+# Copyright Copyright (c) 2014, Mirko Pagliai for Nova Atlantis Ltd <mirko.pagliai@gmail.com>
+msgid ""
+msgstr ""
+"POT-Creation-Date: 2014-01-31 19:19+0100\n"
+"PO-Revision-Date: 2014-01-31 19:31+0100\n"
+"Last-Translator: Mirko Pagliai <mirko.pagliai@gmail.com>\n"
+"Language-Team: Italian <kde-i18n-it@kde.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Project-Id-Version: \n"
+"Language: it\n"
+"X-Generator: Lokalize 1.5\n"
+
+#: Plugin/MeTools/Controller/ThumbsController.php:84;111
+#: Plugin/MeTools/build/MeTools/Controller/ThumbsController.php:83;110
+#: build/ssmp/Plugin/MeTools/Controller/ThumbsController.php:83;110
+msgid "Invalid mimetype"
+msgstr "Mimetype non valido"
+
+#: Plugin/MeTools/Controller/ThumbsController.php:192
+#: Plugin/MeTools/build/MeTools/Controller/ThumbsController.php:192
+#: build/ssmp/Plugin/MeTools/Controller/ThumbsController.php:192
+msgid "GD libraries are missing"
+msgstr "Le librerie GD non sono presenti"
+
+#: Plugin/MeTools/Controller/ThumbsController.php:196
+#: Plugin/MeTools/build/MeTools/Controller/ThumbsController.php:196
+#: build/ssmp/Plugin/MeTools/Controller/ThumbsController.php:196
+msgid "The file has not been specified"
+msgstr "Il file non è stato specificato"
+
+#: Plugin/MeTools/Controller/ThumbsController.php:205
+#: Plugin/MeTools/build/MeTools/Controller/ThumbsController.php:205
+#: build/ssmp/Plugin/MeTools/Controller/ThumbsController.php:205
+msgid "This image does not exist"
+msgstr "L'immagine non esiste"
+
+#: Plugin/MeTools/Controller/ThumbsController.php:216
+#: Plugin/MeTools/build/MeTools/Controller/ThumbsController.php:216
+#: build/ssmp/Plugin/MeTools/Controller/ThumbsController.php:216
+msgid "The thumb directory cannot be created"
+msgstr "La directory della miniatura non può essere creata"
+
+#: Plugin/MeTools/View/Elements/alert.ctp:30
+#: Plugin/MeTools/build/MeTools/View/Elements/alert.ctp:30
+#: build/ssmp/Plugin/MeTools/View/Elements/alert.ctp:30
+msgid "Alert"
+msgstr "Attenzione"
+
+#: Plugin/MeTools/View/Elements/error.ctp:30
+#: Plugin/MeTools/build/MeTools/View/Elements/error.ctp:30
+#: build/ssmp/Plugin/MeTools/View/Elements/error.ctp:30
+msgid "Error"
+msgstr "Errore"
+
+#: Plugin/MeTools/View/Elements/notice.ctp:30
+#: Plugin/MeTools/build/MeTools/View/Elements/notice.ctp:30
+#: build/ssmp/Plugin/MeTools/View/Elements/notice.ctp:30
+msgid "Notice"
+msgstr "Avviso"
+
+#: Plugin/MeTools/View/Elements/success.ctp:30
+#: Plugin/MeTools/build/MeTools/View/Elements/success.ctp:30
+#: build/ssmp/Plugin/MeTools/View/Elements/success.ctp:30
+msgid "Success"
+msgstr "Successo"
+
+#: Plugin/MeTools/View/Helper/MeFormHelper.php:125
+#: Plugin/MeTools/build/MeTools/View/Helper/MeFormHelper.php:124
+#: build/ssmp/Plugin/MeTools/View/Helper/MeFormHelper.php:122
+msgid "Check all"
+msgstr "Seleziona tutti"
+
+#: Plugin/MeTools/View/Helper/MeFormHelper.php:126
+#: Plugin/MeTools/build/MeTools/View/Helper/MeFormHelper.php:125
+#: build/ssmp/Plugin/MeTools/View/Helper/MeFormHelper.php:123
+msgid "Uncheck all"
+msgstr "Deseleziona tutti"
+
+#: Plugin/MeTools/View/Helper/MeFormHelper.php:398
+#: Plugin/MeTools/build/MeTools/View/Helper/MeFormHelper.php:395
+#: build/ssmp/Plugin/MeTools/View/Helper/MeFormHelper.php:383
+msgid "Select an option"
+msgstr "Seleziona un'opzione"
+
+#: Plugin/MeTools/View/Helper/MeFormHelper.php:417
+#: Plugin/MeTools/build/MeTools/View/Helper/MeFormHelper.php:414
+#: build/ssmp/Plugin/MeTools/View/Helper/MeFormHelper.php:401
+msgid "Submit"
+msgstr "Invia"
+
+#: Plugin/MeTools/View/Helper/MeHtmlHelper.php:684
+#: Plugin/MeTools/build/MeTools/View/Helper/MeHtmlHelper.php:677
+#: build/ssmp/Plugin/MeTools/View/Helper/MeHtmlHelper.php:653
+msgid "Tip"
+msgstr "Suggerimento"
+
+#: Plugin/MeTools/View/Helper/MePaginatorHelper.php:84
+#: Plugin/MeTools/build/MeTools/View/Helper/MePaginatorHelper.php:83
+msgid "%s - %s of %s"
+msgstr "%s - %s di %s"
+
+#: Plugin/MeTools/View/Helper/MePaginatorHelper.php:108
+#: Plugin/MeTools/build/MeTools/View/Helper/MePaginatorHelper.php:111
+msgid "Next"
+msgstr "Successivo"
+
+#: Plugin/MeTools/View/Helper/MePaginatorHelper.php:141
+#: Plugin/MeTools/build/MeTools/View/Helper/MePaginatorHelper.php:144
+msgid "Previous"
+msgstr "Precedente"
+
+#: Plugin/MeTools/View/Helper/RecaptchaHelper.php:66
+#: Plugin/MeTools/build/MeTools/View/Helper/RecaptchaHelper.php:65
+msgid "Mail keys are not configured"
+msgstr "Le chiavi dell'email non sono configurate"
+
+#: Plugin/MeTools/View/Helper/RecaptchaHelper.php:70
+#: Plugin/MeTools/build/MeTools/View/Helper/RecaptchaHelper.php:69
+msgid "The private mail key is not valid"
+msgstr "La chiave privata dell'email non è valida"
+
+
