@@ -16,6 +16,9 @@ Vendor/ View/ webroot/ COPYNG README.md build/MeTools
 # Enter build/MeTools
 cd build/MeTools
 
+# Remove .directory files
+find . -name ".directory" -type f -exec rm -rf {} \;
+
 # Delete uncompressed files
 rm -f webroot/css/datepicker3.css webroot/css/default.css \
 webroot/css/fancybuttons.css webroot/css/forms.css webroot/css/syntaxhighlighter.css \
