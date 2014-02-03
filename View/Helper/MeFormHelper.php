@@ -262,10 +262,20 @@ class MeFormHelper extends FormHelper {
      */
     public function input($fieldName, $options = array()) {
         $type = self::__getInputType($options);
+		
+		$options['after'] = empty($options['after']) ? NULL : $options['after'];
 
         if(!isset($options['div']) || !empty($options['div'])) {
-            $hasError = !parent::isFieldError($fieldName) ? NULL : 'has-error';
-            $options['div']['class'] = empty($options['div']['class']) ? "input {$type} {$hasError} form-group" : $this->Html->__clean('input', $type, $hasError, 'form-group', $options['div']['class']);
+			//Default class for the div wrapper
+			$defaultDivClass = "input {$type} form-group";
+			
+			//If the field has an error
+			if(parent::isFieldError($fieldName)) {
+				$options['after'] = $this->Html->tag('span', '', array('class'  => 'fa fa-times form-control-feedback')).$options['after'];
+				$defaultDivClass .= ' has-error has-feedback';
+			}
+			
+			$options['div']['class'] = empty($options['div']['class']) ? $defaultDivClass : $this->Html->__clean($defaultDivClass, $options['div']['class']);
         }
 
         if($type === 'textarea') {
@@ -284,7 +294,6 @@ class MeFormHelper extends FormHelper {
         }
 
         if(!empty($options['tip'])) {
-            $options['after'] = empty($options['after']) ? NULL : $options['after'];
             if(!is_array($options['tip']))
                 $options['after'] .= $this->Html->tag('span', trim($options['tip']), array('class' => 'help-block'));
             else
