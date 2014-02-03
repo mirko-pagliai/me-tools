@@ -264,8 +264,11 @@ class MeFormHelper extends FormHelper {
         $type = self::__getInputType($options);
 		
 		$options['after'] = empty($options['after']) ? NULL : $options['after'];
-		$options['format'] = empty($options['format']) ? array('before', 'label', 'between', 'input', 'after', 'error') : $options['format'];
-
+		
+		//If it's a checkbox, the input should be before the label
+		if($type === 'checkbox')
+			$options['format'] = empty($options['format']) ? array('before', 'input', 'between', 'label', 'after', 'error') : $options['format'];
+		
         if(!isset($options['div']) || !empty($options['div'])) {
 			//Default class for the div wrapper
 			$defaultDivClass = "input {$type} form-group";
