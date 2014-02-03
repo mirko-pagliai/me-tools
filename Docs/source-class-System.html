@@ -203,26 +203,26 @@
 </span><span id="92" class="l"><a class="l" href="#92"> 92: </a>    }
 </span><span id="93" class="l"><a class="l" href="#93"> 93: </a>
 </span><span id="94" class="l"><a class="l" href="#94"> 94: </a>    <span class="php-comment">/**
-</span></span><span id="95" class="l"><a class="l" href="#95"> 95: </a><span class="php-comment">     * Checks if the TMP and all its subdirectories are readable and writable
-</span></span><span id="96" class="l"><a class="l" href="#96"> 96: </a><span class="php-comment">     * @return boolean TRUE if the TMP and all its subdirectories are readable and writable, FALSE otherwise
+</span></span><span id="95" class="l"><a class="l" href="#95"> 95: </a><span class="php-comment">     * Checks if the thumbnail directory is readable and writable
+</span></span><span id="96" class="l"><a class="l" href="#96"> 96: </a><span class="php-comment">     * @return boolean TRUE if the thumbnail directory is readable and writable, FALSE otherwise
 </span></span><span id="97" class="l"><a class="l" href="#97"> 97: </a><span class="php-comment">     */</span>
-</span><span id="98" class="l"><a class="l" href="#98"> 98: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">static</span> <span class="php-keyword1">function</span> <a id="_checkTmp" href="#_checkTmp">checkTmp</a>() {
-</span><span id="99" class="l"><a class="l" href="#99"> 99: </a>        <span class="php-var">$tmp</span> = <span class="php-keyword1">new</span> Folder(TMP);
-</span><span id="100" class="l"><a class="l" href="#100">100: </a>
-</span><span id="101" class="l"><a class="l" href="#101">101: </a>        <span class="php-keyword1">foreach</span>(<span class="php-var">$tmp</span>-&gt;tree(TMP, <span class="php-keyword1">FALSE</span>, <span class="php-quote">'dir'</span>) <span class="php-keyword1">as</span> <span class="php-var">$dir</span>) {
-</span><span id="102" class="l"><a class="l" href="#102">102: </a>            <span class="php-keyword1">if</span>(!<span class="php-keyword2">is_readable</span>(<span class="php-var">$dir</span>) || !<span class="php-keyword2">is_writable</span>(<span class="php-var">$dir</span>))
-</span><span id="103" class="l"><a class="l" href="#103">103: </a>                <span class="php-keyword1">return</span> <span class="php-keyword1">FALSE</span>;
-</span><span id="104" class="l"><a class="l" href="#104">104: </a>        }
-</span><span id="105" class="l"><a class="l" href="#105">105: </a>
-</span><span id="106" class="l"><a class="l" href="#106">106: </a>        <span class="php-keyword1">return</span> <span class="php-keyword1">TRUE</span>;
-</span><span id="107" class="l"><a class="l" href="#107">107: </a>    }
+</span><span id="98" class="l"><a class="l" href="#98"> 98: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">static</span> <span class="php-keyword1">function</span> <a id="_checkThumbs" href="#_checkThumbs">checkThumbs</a>() {
+</span><span id="99" class="l"><a class="l" href="#99"> 99: </a>        <span class="php-keyword1">return</span> <span class="php-keyword2">is_readable</span>(TMP.<span class="php-quote">'thumbs'</span>) &amp;&amp; <span class="php-keyword2">is_writable</span>(TMP.<span class="php-quote">'thumbs'</span>);
+</span><span id="100" class="l"><a class="l" href="#100">100: </a>    }
+</span><span id="101" class="l"><a class="l" href="#101">101: </a>
+</span><span id="102" class="l"><a class="l" href="#102">102: </a>    <span class="php-comment">/**
+</span></span><span id="103" class="l"><a class="l" href="#103">103: </a><span class="php-comment">     * Checks if the TMP and all its subdirectories are readable and writable
+</span></span><span id="104" class="l"><a class="l" href="#104">104: </a><span class="php-comment">     * @return boolean TRUE if the TMP and all its subdirectories are readable and writable, FALSE otherwise
+</span></span><span id="105" class="l"><a class="l" href="#105">105: </a><span class="php-comment">     */</span>
+</span><span id="106" class="l"><a class="l" href="#106">106: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">static</span> <span class="php-keyword1">function</span> <a id="_checkTmp" href="#_checkTmp">checkTmp</a>() {
+</span><span id="107" class="l"><a class="l" href="#107">107: </a>        <span class="php-var">$tmp</span> = <span class="php-keyword1">new</span> Folder(TMP);
 </span><span id="108" class="l"><a class="l" href="#108">108: </a>
-</span><span id="109" class="l"><a class="l" href="#109">109: </a>    <span class="php-comment">/**
-</span></span><span id="110" class="l"><a class="l" href="#110">110: </a><span class="php-comment">     * Checks if the thumbnail directory is readable and writable
-</span></span><span id="111" class="l"><a class="l" href="#111">111: </a><span class="php-comment">     * @return boolean TRUE if the thumbnail directory is readable and writable, FALSE otherwise
-</span></span><span id="112" class="l"><a class="l" href="#112">112: </a><span class="php-comment">     */</span>
-</span><span id="113" class="l"><a class="l" href="#113">113: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">static</span> <span class="php-keyword1">function</span> <a id="_checkThumbs" href="#_checkThumbs">checkThumbs</a>() {
-</span><span id="114" class="l"><a class="l" href="#114">114: </a>        <span class="php-keyword1">return</span> <span class="php-keyword2">is_readable</span>(TMP.<span class="php-quote">'thumbs'</span>) &amp;&amp; <span class="php-keyword2">is_writable</span>(TMP.<span class="php-quote">'thumbs'</span>);
+</span><span id="109" class="l"><a class="l" href="#109">109: </a>        <span class="php-keyword1">foreach</span>(<span class="php-var">$tmp</span>-&gt;tree(TMP, <span class="php-keyword1">FALSE</span>, <span class="php-quote">'dir'</span>) <span class="php-keyword1">as</span> <span class="php-var">$dir</span>) {
+</span><span id="110" class="l"><a class="l" href="#110">110: </a>            <span class="php-keyword1">if</span>(!<span class="php-keyword2">is_readable</span>(<span class="php-var">$dir</span>) || !<span class="php-keyword2">is_writable</span>(<span class="php-var">$dir</span>))
+</span><span id="111" class="l"><a class="l" href="#111">111: </a>                <span class="php-keyword1">return</span> <span class="php-keyword1">FALSE</span>;
+</span><span id="112" class="l"><a class="l" href="#112">112: </a>        }
+</span><span id="113" class="l"><a class="l" href="#113">113: </a>
+</span><span id="114" class="l"><a class="l" href="#114">114: </a>        <span class="php-keyword1">return</span> <span class="php-keyword1">TRUE</span>;
 </span><span id="115" class="l"><a class="l" href="#115">115: </a>    }
 </span><span id="116" class="l"><a class="l" href="#116">116: </a>
 </span><span id="117" class="l"><a class="l" href="#117">117: </a>    <span class="php-comment">/**
