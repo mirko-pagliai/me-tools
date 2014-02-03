@@ -171,7 +171,7 @@ class System {
      * @return string MeTools version
      */
     public static function getMeToolsVersion() {
-        return file_get_contents(APP.'version');
+        return file_get_contents(App::pluginPath('MeTools').'version');
     }
 
     /**
