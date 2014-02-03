@@ -92,6 +92,14 @@ class System {
     }
 
     /**
+     * Checks if the thumbnail directory is readable and writable
+     * @return boolean TRUE if the thumbnail directory is readable and writable, FALSE otherwise
+     */
+    public static function checkThumbs() {
+        return is_readable(TMP.'thumbs') && is_writable(TMP.'thumbs');
+    }
+
+    /**
      * Checks if the TMP and all its subdirectories are readable and writable
      * @return boolean TRUE if the TMP and all its subdirectories are readable and writable, FALSE otherwise
      */
@@ -104,14 +112,6 @@ class System {
         }
 
         return TRUE;
-    }
-
-    /**
-     * Checks if the thumbnail directory is readable and writable
-     * @return boolean TRUE if the thumbnail directory is readable and writable, FALSE otherwise
-     */
-    public static function checkThumbs() {
-        return is_readable(TMP.'thumbs') && is_writable(TMP.'thumbs');
     }
 
     /**
