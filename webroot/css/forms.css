@@ -88,6 +88,11 @@
     padding: 6px 8px;
 }
 
+/* Select inputs with icon validation state, on error */
+.form-base .has-feedback select.form-error {
+    padding-right: 30.5px;
+}
+
 /* -------------------------------- */
 /*			Checkbox inputs			*/
 /* -------------------------------- */
