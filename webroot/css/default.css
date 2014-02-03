@@ -63,11 +63,6 @@ th.min-width, td.min-width {
 	position: relative;
 }
 
-/* Text justify */
-.text-justify {
-	text-align: justify;
-}
-
 /* Vertical align, middle */
 .valing-middle, table.valign-middle td {
 	vertical-align: middle !important;
