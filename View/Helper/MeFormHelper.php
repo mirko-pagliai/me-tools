@@ -264,7 +264,7 @@ class MeFormHelper extends FormHelper {
         $type = self::__getInputType($options);
 		
 		$options['after'] = empty($options['after']) ? NULL : $options['after'];
-		$options['format'] = empty($options['format']) ? array('before', 'label', 'between', 'input', 'error', 'after') : $options['format'];
+		$options['format'] = empty($options['format']) ? array('before', 'label', 'between', 'input', 'after', 'error') : $options['format'];
 
         if(!isset($options['div']) || !empty($options['div'])) {
 			//Default class for the div wrapper
