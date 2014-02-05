@@ -1,10 +1,11 @@
-# LANGUAGE translation of MeTools
-# Copyright Copyright (c) 2014, Mirko Pagliai for Nova Atlantis Ltd <mirko.pagliai@gmail.com>
+# LANGUAGE translation of CakePHP Application
+# Copyright YEAR NAME <EMAIL@ADDRESS>
 #
 #, fuzzy
 msgid ""
 msgstr ""
-"POT-Creation-Date: 2014-02-05 23:41+0100\n"
+"Project-Id-Version: PROJECT VERSION\n"
+"POT-Creation-Date: 2014-02-05 23:46+0100\n"
 "PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
 "Last-Translator: NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
@@ -63,7 +64,7 @@ msgid "Error"
 msgstr ""
 
 #: View/Common/error_page.ctp:40
-msgid "Have found a bug? Consider the possibility report it."
+msgid "Have found a bug? Consider the possibility report it"
 msgstr ""
 
 #: View/Elements/alert.ctp:30
@@ -79,7 +80,7 @@ msgid "Success"
 msgstr ""
 
 #: View/Errors/error400.ctp:32
-msgid "The requested address was not found on this server:"
+msgid "The requested address was not found on this server"
 msgstr ""
 
 #: View/Errors/missing_action.ctp:29
