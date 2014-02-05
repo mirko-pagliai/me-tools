@@ -4,7 +4,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<meta name="generator" content="ApiGen 2.8.0">
 
-	<title>Class MeToolsAppModel | MeTools</title>
+	<title>Class MeExceptionRenderer | MeTools</title>
 
 	<script type="text/javascript" src="resources/combined.js?3270949158"></script>
 	<script type="text/javascript" src="elementlist.js?3908267367"></script>
@@ -30,16 +30,16 @@
 				<li class="main"><a href="package-MeTools.Controller.Component.Auth.html">Auth</a>
 						</li>
 							</ul></li></ul></li>
-				<li class="main"><a href="package-MeTools.Lib.html">Lib<span></span></a>
+				<li class="active main"><a href="package-MeTools.Lib.html">Lib<span></span></a>
 						<ul>
-				<li class="main"><a href="package-MeTools.Lib.Error.html">Error</a>
+				<li class="active main"><a href="package-MeTools.Lib.Error.html">Error</a>
 						</li>
 				<li class="main"><a href="package-MeTools.Lib.Log.html">Log<span></span></a>
 						<ul>
 				<li class="main"><a href="package-MeTools.Lib.Log.Engine.html">Engine</a>
 						</li>
 							</ul></li></ul></li>
-				<li class="active main"><a href="package-MeTools.Model.html">Model<span></span></a>
+				<li class="main"><a href="package-MeTools.Model.html">Model<span></span></a>
 						<ul>
 				<li class="main"><a href="package-MeTools.Model.Behavior.html">Behavior</a>
 						</li>
@@ -62,7 +62,7 @@
 		<div id="elements">
 			<h3>Classes</h3>
 			<ul>
-				<li class="active"><a href="class-MeToolsAppModel.html">MeToolsAppModel</a></li>
+				<li class="active"><a href="class-MeExceptionRenderer.html">MeExceptionRenderer</a></li>
 			</ul>
 
 
@@ -90,7 +90,7 @@
 				<a href="index.html" title="Overview"><span>Overview</span></a>
 			</li>
 			<li>
-				<a href="package-MeTools.Model.html" title="Summary of MeTools\Model"><span>Package</span></a>
+				<a href="package-MeTools.Lib.Error.html" title="Summary of MeTools\Lib\Error"><span>Package</span></a>
 			</li>
 			<li class="active">
 <span>Class</span>			</li>
@@ -111,24 +111,45 @@
 	</div>
 
 <div id="content" class="class">
-	<h1>Class MeToolsAppModel</h1>
+	<h1>Class MeExceptionRenderer</h1>
 
 
 	<div class="description">
 	
-<p>Application level model.</p>
+<p>This class is used only in order to use the error views from the MeTools
+plugin.</p>
+
+<p>In the <code>app/Config/core.php</code> file, you have to change the
+configuration of the exceptions as follows:</p>
+
+<pre>
+Configure::write(<span class="php-quote">'Exception'</span>, <span
+class="php-keyword1">array</span>(
+    <span
+class="php-quote">'handler'</span> =&gt; <span
+class="php-quote">'ErrorHandler::handleException'</span>,
+    <span
+class="php-quote">'renderer'</span> =&gt; <span
+class="php-quote">'MeTools.MeExceptionRenderer'</span>,
+    <span
+class="php-quote">'log'</span> =&gt; <span
+class="php-keyword1">true</span>
+));
+</pre>
+
+<p>Rewrites <a href="http://api.cakephp.org/2.0/class-ExceptionRenderer.html">ExceptionRenderer</a></p>
 
 	</div>
 
 	<dl class="tree">
 		<dd style="padding-left:0px">
-AppModel
+ExceptionRenderer
 			
 			
 		</dd>
 		<dd style="padding-left:30px">
 			<img src="resources/inherit.png" alt="Extended by">
-<b><span>MeToolsAppModel</span></b>			
+<b><span>MeExceptionRenderer</span></b>			
 			
 			
 		</dd>
@@ -145,7 +166,7 @@ AppModel
 		
 		
 		
-		<b>Package:</b> <a href="package-MeTools.html">MeTools</a>\<a href="package-MeTools.Model.html">Model</a><br>
+		<b>Package:</b> <a href="package-MeTools.html">MeTools</a>\<a href="package-MeTools.Lib.html">Lib</a>\<a href="package-MeTools.Lib.Error.html">Error</a><br>
 
 				<b>Copyright:</b>
 				Copyright (c) 2014, Mirko Pagliai for Nova Atlantis Ltd<br>
@@ -154,11 +175,58 @@ AppModel
 				<b>Author:</b>
 				Mirko Pagliai &lt;<a
 href="mailto:mirko.pagliai&#64;gmail.com">mirko.pagliai&#64;<!-- -->gmail.com</a>&gt;<br>
-		<b>Located at</b> <a href="source-class-MeToolsAppModel.html#28-31" title="Go to source code">MeToolsAppModel.php</a><br>
+		<b>Located at</b> <a href="source-class-MeExceptionRenderer.html#28-54" title="Go to source code">MeExceptionRenderer.php</a><br>
 	</div>
 
 
 
+	<table class="summary" id="methods">
+	<caption>Methods summary</caption>
+	<tr data-order="_getController" id="__getController">
+
+		<td class="attributes"><code>
+			 protected 
+			Controller
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#__getController">#</a>
+		<code><a href="source-class-MeExceptionRenderer.html#44-53" title="Go to source code">_getController</a>( <span><code><a href="class-Exception.html">Exception</a></code> <var>$exception</var></span> )</code>
+
+		<div class="description short">
+			
+<p>This method is used only in order to use the error views from the MeTools
+plugin.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>This method is used only in order to use the error views from the MeTools
+plugin.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$exception</var></dt>
+					<dd><code><code><a href="class-Exception.html">Exception</a></code></code><br>$exception The exception to get a controller for.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>Controller</code><br>
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	</table>
 
 
 
