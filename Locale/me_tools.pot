@@ -4,7 +4,7 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"POT-Creation-Date: 2014-01-31 19:19+0100\n"
+"POT-Creation-Date: 2014-02-05 23:41+0100\n"
 "PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
 "Last-Translator: NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
@@ -13,112 +13,124 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: Plugin/MeTools/Controller/ThumbsController.php:84;111
-#: Plugin/MeTools/build/MeTools/Controller/ThumbsController.php:83;110
-#: build/ssmp/Plugin/MeTools/Controller/ThumbsController.php:83;110
+#: Controller/ThumbsController.php:84;111
 msgid "Invalid mimetype"
 msgstr ""
 
-#: Plugin/MeTools/Controller/ThumbsController.php:192
-#: Plugin/MeTools/build/MeTools/Controller/ThumbsController.php:192
-#: build/ssmp/Plugin/MeTools/Controller/ThumbsController.php:192
+#: Controller/ThumbsController.php:192
 msgid "GD libraries are missing"
 msgstr ""
 
-#: Plugin/MeTools/Controller/ThumbsController.php:196
-#: Plugin/MeTools/build/MeTools/Controller/ThumbsController.php:196
-#: build/ssmp/Plugin/MeTools/Controller/ThumbsController.php:196
+#: Controller/ThumbsController.php:196
 msgid "The file has not been specified"
 msgstr ""
 
-#: Plugin/MeTools/Controller/ThumbsController.php:205
-#: Plugin/MeTools/build/MeTools/Controller/ThumbsController.php:205
-#: build/ssmp/Plugin/MeTools/Controller/ThumbsController.php:205
+#: Controller/ThumbsController.php:205
 msgid "This image does not exist"
 msgstr ""
 
-#: Plugin/MeTools/Controller/ThumbsController.php:216
-#: Plugin/MeTools/build/MeTools/Controller/ThumbsController.php:216
-#: build/ssmp/Plugin/MeTools/Controller/ThumbsController.php:216
+#: Controller/ThumbsController.php:216
 msgid "The thumb directory cannot be created"
 msgstr ""
 
-#: Plugin/MeTools/View/Elements/alert.ctp:30
-#: Plugin/MeTools/build/MeTools/View/Elements/alert.ctp:30
-#: build/ssmp/Plugin/MeTools/View/Elements/alert.ctp:30
-msgid "Alert"
+#: Utility/FileArray.php:69
+msgid "The file %s exists, but is not writable"
 msgstr ""
 
-#: Plugin/MeTools/View/Elements/error.ctp:30
-#: Plugin/MeTools/build/MeTools/View/Elements/error.ctp:30
-#: build/ssmp/Plugin/MeTools/View/Elements/error.ctp:30
+#: Utility/FileArray.php:72
+msgid "The directory %s exists, but is not writable"
+msgstr ""
+
+#: Utility/FileArray.php:256
+msgid "There's already a record with this key in %s"
+msgstr ""
+
+#: View/Common/error_page.ctp:30
+msgid "Oops..."
+msgstr ""
+
+#: View/Common/error_page.ctp:30
+msgid "This is really embarrassing"
+msgstr ""
+
+#: View/Common/error_page.ctp:31
+msgid "Houston, we have an error!"
+msgstr ""
+
+#: View/Common/error_page.ctp:35
+#: View/Elements/error.ctp:30
 msgid "Error"
 msgstr ""
 
-#: Plugin/MeTools/View/Elements/notice.ctp:30
-#: Plugin/MeTools/build/MeTools/View/Elements/notice.ctp:30
-#: build/ssmp/Plugin/MeTools/View/Elements/notice.ctp:30
+#: View/Common/error_page.ctp:40
+msgid "Have found a bug? Consider the possibility report it."
+msgstr ""
+
+#: View/Elements/alert.ctp:30
+msgid "Alert"
+msgstr ""
+
+#: View/Elements/notice.ctp:30
 msgid "Notice"
 msgstr ""
 
-#: Plugin/MeTools/View/Elements/success.ctp:30
-#: Plugin/MeTools/build/MeTools/View/Elements/success.ctp:30
-#: build/ssmp/Plugin/MeTools/View/Elements/success.ctp:30
+#: View/Elements/success.ctp:30
 msgid "Success"
 msgstr ""
 
-#: Plugin/MeTools/View/Helper/MeFormHelper.php:125
-#: Plugin/MeTools/build/MeTools/View/Helper/MeFormHelper.php:124
-#: build/ssmp/Plugin/MeTools/View/Helper/MeFormHelper.php:122
+#: View/Errors/error400.ctp:32
+msgid "The requested address was not found on this server:"
+msgstr ""
+
+#: View/Errors/missing_action.ctp:29
+msgid "The action %s is not defined in controller %s"
+msgstr ""
+
+#: View/Errors/missing_controller.ctp:29
+msgid "%s could not be found"
+msgstr ""
+
+#: View/Errors/missing_view.ctp:29
+msgid "The view for %s%s was not found"
+msgstr ""
+
+#: View/Helper/MeFormHelper.php:125
 msgid "Check all"
 msgstr ""
 
-#: Plugin/MeTools/View/Helper/MeFormHelper.php:126
-#: Plugin/MeTools/build/MeTools/View/Helper/MeFormHelper.php:125
-#: build/ssmp/Plugin/MeTools/View/Helper/MeFormHelper.php:123
+#: View/Helper/MeFormHelper.php:126
 msgid "Uncheck all"
 msgstr ""
 
-#: Plugin/MeTools/View/Helper/MeFormHelper.php:398
-#: Plugin/MeTools/build/MeTools/View/Helper/MeFormHelper.php:395
-#: build/ssmp/Plugin/MeTools/View/Helper/MeFormHelper.php:383
+#: View/Helper/MeFormHelper.php:411
 msgid "Select an option"
 msgstr ""
 
-#: Plugin/MeTools/View/Helper/MeFormHelper.php:417
-#: Plugin/MeTools/build/MeTools/View/Helper/MeFormHelper.php:414
-#: build/ssmp/Plugin/MeTools/View/Helper/MeFormHelper.php:401
+#: View/Helper/MeFormHelper.php:430
 msgid "Submit"
 msgstr ""
 
-#: Plugin/MeTools/View/Helper/MeHtmlHelper.php:684
-#: Plugin/MeTools/build/MeTools/View/Helper/MeHtmlHelper.php:677
-#: build/ssmp/Plugin/MeTools/View/Helper/MeHtmlHelper.php:653
+#: View/Helper/MeHtmlHelper.php:684
 msgid "Tip"
 msgstr ""
 
-#: Plugin/MeTools/View/Helper/MePaginatorHelper.php:84
-#: Plugin/MeTools/build/MeTools/View/Helper/MePaginatorHelper.php:83
+#: View/Helper/MePaginatorHelper.php:84
 msgid "%s - %s of %s"
 msgstr ""
 
-#: Plugin/MeTools/View/Helper/MePaginatorHelper.php:108
-#: Plugin/MeTools/build/MeTools/View/Helper/MePaginatorHelper.php:111
+#: View/Helper/MePaginatorHelper.php:108
 msgid "Next"
 msgstr ""
 
-#: Plugin/MeTools/View/Helper/MePaginatorHelper.php:141
-#: Plugin/MeTools/build/MeTools/View/Helper/MePaginatorHelper.php:144
+#: View/Helper/MePaginatorHelper.php:141
 msgid "Previous"
 msgstr ""
 
-#: Plugin/MeTools/View/Helper/RecaptchaHelper.php:66
-#: Plugin/MeTools/build/MeTools/View/Helper/RecaptchaHelper.php:65
+#: View/Helper/RecaptchaHelper.php:66
 msgid "Mail keys are not configured"
 msgstr ""
 
-#: Plugin/MeTools/View/Helper/RecaptchaHelper.php:70
-#: Plugin/MeTools/build/MeTools/View/Helper/RecaptchaHelper.php:69
+#: View/Helper/RecaptchaHelper.php:70
 msgid "The private mail key is not valid"
 msgstr ""
 
