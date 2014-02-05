@@ -37,7 +37,7 @@
 		if($this->fetch('error_info'))
 			echo $this->fetch('error_info');
 		
-		echo $this->Html->para(NULL, __d('me_tools', 'Have found a bug? Consider the possibility report it.'));
+		echo $this->Html->para(NULL, __d('me_tools', 'Have found a bug? Consider the possibility report it').'.');
 
 		if($this->element('exception_stack_trace'))
 			echo $this->Html->div('stack-trace', $this->element('exception_stack_trace'));
