@@ -23,6 +23,19 @@ In your webroot directory, create (or copy) a link to the MeTools webroot:
 ## Configuration
 Copy and rename `app/Plugin/Config/recaptcha.default.php` in `app/Config/recaptcha.php`, so configure Recaptha keys.
 
+## Error views
+You can use the error views provided by MeTools copying them from `app/Plugin/MeTools/View/Errors` to `app/View/Errors`.
+
+Otherwise you can use the `MeExceptionRenderer` class to handle the errors, which will be displayed directly using 
+the views provided by MeTools. To do this, in the `app/Config/core.php` file, you have to change the configuration 
+of the exceptions as follows:
+
+	Configure::write('Exception', array(
+		'handler' => 'ErrorHandler::handleException',
+		'renderer' => 'MeTools.MeExceptionRenderer',
+		'log' => true
+	));
+
 ### Libraries and script
 MeTools uses different libraries or scripts:
 
