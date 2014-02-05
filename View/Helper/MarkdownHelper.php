@@ -18,12 +18,12 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with MeTools.  If not, see <http://www.gnu.org/licenses/>.
  *
- * @author	Mirko Pagliai <mirko.pagliai@gmail.com>
+ * @author		Mirko Pagliai <mirko.pagliai@gmail.com>
  * @copyright	Copyright (c) 2013, Mirko Pagliai for Nova Atlantis Ltd
- * @license	http://www.gnu.org/licenses/agpl.txt AGPL License
- * @link	http://git.novatlantis.it Nova Atlantis Ltd
- * @package	MeTools\View\Helper
- * @see		http://michelf.ca/projects/php-markdown PHP Markdown
+ * @license		http://www.gnu.org/licenses/agpl.txt AGPL License
+ * @link		http://git.novatlantis.it Nova Atlantis Ltd
+ * @package		MeTools\View\Helper
+ * @see			http://michelf.ca/projects/php-markdown PHP Markdown
  * @see         http://repository.novatlantis.it/metools-sandbox/markdown/markdown Examples
  */
 App::uses('AppHelper', 'View/Helper');
