@@ -205,6 +205,59 @@ th a.desc:after {
 }
 
 /* -------------------------------- */
+/*			Error pages				*/
+/* -------------------------------- */
+/* Error page, title */
+.error-page > h2 {
+	font-size: 26px;
+}
+
+/* Error page, title, small text */
+.error-page > h2 small {
+	font-size: 20px;
+}
+
+/* Error page, error text */
+.error-page  .error-text {
+	display: inline-block;
+    padding: 7px 10px;
+}
+
+/* Error page, error info */
+.error-page .error-info {
+	margin-bottom: 10px;
+}
+
+/* Error page, error info, pre tag */
+.error-page .error-info pre {
+	background: #EEE;
+    display: inline-block;
+    font-size: 12px;
+	margin: 0;    
+    padding: 3px 6px;
+}
+
+/* Error page, stack trace, title */
+.error-page .stack-trace h3 {
+	font-size: 18px;
+	margin-bottom: 5px;
+}
+
+/* Error page, stack trace, title icon */
+.error-page .stack-trace h3:before {
+	content: "\f188";
+	font-family: FontAwesome;
+	margin-right: 4px;
+}
+
+/* Error page, stack trace, list */
+.error-page .stack-trace ul {
+	font-family: monospace,monospace;
+	font-size: 12px;
+	padding-left: 25px;
+}
+
+/* -------------------------------- */
 /*		Cake Sql debug				*/
 /* -------------------------------- */
 /* Table */
