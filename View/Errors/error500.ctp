@@ -1,6 +1,6 @@
 <?php
 /**
- * Error 500.
+ * Error 500. It extends the common error page.
  *
  * This file is part of MeTools.
  *
@@ -25,16 +25,7 @@
  */
 ?>
 
-<div class="error-page">
-	<?php
-		echo $this->Html->tag('h2', __('Oops...').' '.$this->Html->tag('small', __('This is really embarrassing')));
-		echo $this->Html->tag('h4', __('Houston, we have an error!'));
-		
-		echo $this->Html->para('error-text text-danger bg-danger', sprintf('<strong>%s:</strong> %s', __('Error'), $name));
-		
-		echo $this->Html->para(NULL, __('Have found a bug? Consider the possibility report it.'));
-
-		if(Configure::read('debug'))
-			echo $this->Html->div('stack-trace', $this->element('exception_stack_trace'));
-	?>
-</div>
+<?php
+	$this->extend('/Common/error_page');
+	$this->assign('error', $name);
+?>

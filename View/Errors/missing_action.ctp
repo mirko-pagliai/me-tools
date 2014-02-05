@@ -1,6 +1,6 @@
 <?php
 /**
- * Missing action error.
+ * Missing action error. It extends the common error page.
  *
  * This file is part of MeTools.
  *
@@ -24,19 +24,9 @@
  * @package		MeTools\View\Errors
  */
 ?>
-
-<div class="error-page">
-	<?php
-		$error = __('The action %s is not defined in controller %s', '<em>'.$action.'</em>', '<em>'.$controller.'</em>');
-		
-		echo $this->Html->tag('h2', __('Oops...').' '.$this->Html->tag('small', __('This is really embarrassing')));
-		echo $this->Html->tag('h4', __('Houston, we have an error!'));
-		
-		echo $this->Html->para('error-text text-danger bg-danger', sprintf('<strong>%s:</strong> %s.', __('Error'), $error));
-		
-		echo $this->Html->para(NULL, __('Have found a bug? Consider the possibility report it.'));
-
-		if(Configure::read('debug'))
-			echo $this->Html->div('stack-trace', $this->element('exception_stack_trace'));
-	?>
-</div>
+	
+<?php
+	$error = __d('me_tools', 'The action %s is not defined in controller %s', '<em>'.$action.'</em>', '<em>'.$controller.'</em>');
+	$this->extend('/Common/error_page');
+	$this->assign('error', $error);
+?>
