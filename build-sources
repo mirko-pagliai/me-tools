@@ -11,7 +11,7 @@ mkdir -p build/MeTools
 
 # Copy in build/MeTools
 cp -a --parents Config/ Console/ Controller/ Lib/ Locale/ita Model/ Utility/ \
-Vendor/ View/ webroot/ COPYNG README.md build/MeTools
+Vendor/ View/ webroot/ COPYNG README.md version build/MeTools
 
 # Enter build/MeTools
 cd build/MeTools
