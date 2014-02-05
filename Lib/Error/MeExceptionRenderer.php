@@ -28,7 +28,8 @@
 /**
  * This class is used only in order to use the error views from the MeTools plugin.
  * 
- * In `core.php` file, you have to change the configuration of the exceptions as follows:
+ * In the `app/Config/core.php` file, you have to change the configuration of the exceptions 
+ * as follows:
  * <code>
  * Configure::write('Exception', array(
  *     'handler' => 'ErrorHandler::handleException',
