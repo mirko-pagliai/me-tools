@@ -29,7 +29,7 @@
 	$this->extend('/Common/error_page');
 	$this->assign('error', $name);
 	
-	$error_info = $this->Html->para(NULL, __d('me_tools', 'The requested address was not found on this server:'));
+	$error_info = $this->Html->para(NULL, __d('me_tools', 'The requested address was not found on this server').':');
 	$error_info .= $this->Html->tag('pre', Router::url($url, true));
 	$this->assign('error_info', $error_info);
 ?>
