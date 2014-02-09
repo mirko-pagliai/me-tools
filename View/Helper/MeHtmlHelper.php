@@ -555,6 +555,16 @@ class MeHtmlHelper extends HtmlHelper {
     }
 	
 	/**
+	 * Creates a pre tag.
+     * @param string $text Pre text
+     * @param array $options HTML attributes
+     * @return string Html, pre element
+	 */
+	public function pre($text, $options = array()) {
+		return self::tag('pre', $text, $options);
+	}
+	
+	/**
 	 * Creates a small tag.
      * @param string $text Small text
      * @param array $options HTML attributes
