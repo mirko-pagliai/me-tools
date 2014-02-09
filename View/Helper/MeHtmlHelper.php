@@ -127,6 +127,16 @@ class MeHtmlHelper extends HtmlHelper {
 
         return self::tag('span', $text, $options);
     }
+	
+	/**
+	 * Creates a blockquote tag.
+     * @param string $text Blockquote text
+     * @param array $options HTML attributes
+     * @return string Html, blockquote element
+	 */
+	public function blockquote($text, $options = array()) {
+		return self::tag('blockquote', $text, $options);
+	}
 
     /**
      * Creates a link with the appearance of a button.
