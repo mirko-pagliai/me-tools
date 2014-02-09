@@ -181,6 +181,16 @@ class MeHtmlHelper extends HtmlHelper {
 
         return self::button($title, '#', $options);
     }
+	
+	/**
+	 * Creates a code tag.
+     * @param string $text Code text
+     * @param array $options HTML attributes
+     * @return string Html, code element
+	 */
+	public function code($text, $options = array()) {
+		return self::tag('code', $text, $options);
+	}
 
     /**
      * Adds a css file to the layout.
