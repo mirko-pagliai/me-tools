@@ -30,16 +30,16 @@
 		echo $this->Html->tag('h2', __d('me_tools', 'Oops...').' '.$this->Html->tag('small', __d('me_tools', 'This is really embarrassing')));
 		echo $this->Html->tag('h4', __d('me_tools', 'Houston, we have an error!'));
 		
-		if($this->fetch('error'))
+		if($error = $this->fetch('error'))
 			echo $this->Html->para('error-text text-danger bg-danger',
-				sprintf('<strong>%s:</strong> %s', __d('me_tools', 'Error'), $this->fetch('error')));
+				sprintf('<strong>%s:</strong> %s', __d('me_tools', 'Error'), $error));
 		
-		if($this->fetch('error_info'))
-			echo $this->fetch('error_info');
+		if($content = $this->fetch('content'))
+			echo $this->Html->para(NULL, $content);
 		
 		echo $this->Html->para(NULL, __d('me_tools', 'Have found a bug? Consider the possibility report it').'.');
 
-		if($this->element('exception_stack_trace'))
-			echo $this->Html->div('stack-trace', $this->element('exception_stack_trace'));
+		if($stack_trace = $this->element('exception_stack_trace'))
+			echo $this->Html->div('stack-trace', $stack_trace);
 	?>
 </div>
