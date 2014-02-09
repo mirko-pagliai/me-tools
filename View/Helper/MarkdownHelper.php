@@ -43,13 +43,27 @@ class MarkdownHelper extends AppHelper {
         return call_user_func_array(array('MarkdownHelper', 'toHtml'), func_get_args());
     }
 
-    /**
+	/**
      * Converts a string from the Markdown syntax to HTML
      * @param string $string Markdown syntax
+	 * @param bool $clean TRUE if you want the output to be clean
      * @return string Html
      * @see http://repository.novatlantis.it/metools-sandbox/markdown/markdown Examples
-     */
-    function toHtml($string) {
-        return Markdown::defaultTransform($string);
+	 */
+    function toHtml($string, $clean = FALSE) {
+		$html = Markdown::defaultTransform($string);
+		
+		if($clean) {
+			//Removes the "TOC"
+			$html = preg_replace('/(<p>)?\[TOC\](<\/p>)?(\\n)*/', '', $html);
+
+			//Changes headers
+			$html = preg_replace('/<h[4-6]>(.*)<\/h[4-6]>/', '<h6>$1</h6>', $html);
+			$html = preg_replace('/<h3>(.*)<\/h3>/', '<h5>$1</h5>', $html);
+			$html = preg_replace('/<h2>(.*)<\/h2>/', '<h4>$1</h4>', $html);
+			$html = preg_replace('/<h1>(.*)<\/h1>/', '<h3>$1</h3>', $html);
+		}
+		
+		return $html;
     }
 }
