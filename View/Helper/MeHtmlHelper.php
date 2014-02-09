@@ -553,6 +553,16 @@ class MeHtmlHelper extends HtmlHelper {
 
         return parent::para($class, $text, $options);
     }
+	
+	/**
+	 * Creates a small tag.
+     * @param string $text Small text
+     * @param array $options HTML attributes
+     * @return string Html, small element
+	 */
+	public function small($text, $options = array()) {
+		return self::tag('small', $text, $options);
+	}
 
     /**
      * Adds a js file to the layout.
