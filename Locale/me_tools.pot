@@ -1,11 +1,10 @@
-# LANGUAGE translation of CakePHP Application
-# Copyright YEAR NAME <EMAIL@ADDRESS>
+# LANGUAGE translation of MeTools
+# Copyright 2014 Mirko Pagliai <mirko.pagliai@gmail.com>
 #
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2014-02-05 23:46+0100\n"
+"POT-Creation-Date: 2014-02-10 17:14+0100\n"
 "PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
 "Last-Translator: NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
@@ -83,6 +82,14 @@ msgstr ""
 msgid "The requested address was not found on this server"
 msgstr ""
 
+#: View/Errors/fatal_error.ctp:33
+msgid "File"
+msgstr ""
+
+#: View/Errors/fatal_error.ctp:33
+msgid "Line"
+msgstr ""
+
 #: View/Errors/missing_action.ctp:29
 msgid "The action %s is not defined in controller %s"
 msgstr ""
@@ -111,7 +118,7 @@ msgstr ""
 msgid "Submit"
 msgstr ""
 
-#: View/Helper/MeHtmlHelper.php:684
+#: View/Helper/MeHtmlHelper.php:724
 msgid "Tip"
 msgstr ""
 
