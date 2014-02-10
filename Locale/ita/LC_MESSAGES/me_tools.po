@@ -1,18 +1,18 @@
-# LANGUAGE translation of CakePHP Application
-# Copyright YEAR NAME <EMAIL@ADDRESS>
+# LANGUAGE translation of MeTools
+# Copyright 2014 Mirko Pagliai <mirko.pagliai@gmail.com>
 #
 # Mirko Pagliai <mirko.pagliai@gmail.com>, 2014.
 msgid ""
 msgstr ""
-"Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2014-02-05 23:46+0100\n"
-"PO-Revision-Date: 2014-02-05 23:47+0100\n"
+"POT-Creation-Date: 2014-02-10 17:14+0100\n"
+"PO-Revision-Date: 2014-02-10 17:15+0100\n"
 "Last-Translator: Mirko Pagliai <mirko.pagliai@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Project-Id-Version: \n"
 "Language: it\n"
 "X-Generator: Lokalize 1.5\n"
 
@@ -85,6 +85,14 @@ msgstr "Successo"
 msgid "The requested address was not found on this server"
 msgstr "L'indirizzo richiesto non è stato trovato"
 
+#: View/Errors/fatal_error.ctp:33
+msgid "File"
+msgstr "File"
+
+#: View/Errors/fatal_error.ctp:33
+msgid "Line"
+msgstr "Linea"
+
 #: View/Errors/missing_action.ctp:29
 msgid "The action %s is not defined in controller %s"
 msgstr "L'azione %s non è definita nel controller %s"
@@ -113,7 +121,7 @@ msgstr "Seleziona un'opzione"
 msgid "Submit"
 msgstr "Invia"
 
-#: View/Helper/MeHtmlHelper.php:684
+#: View/Helper/MeHtmlHelper.php:724
 msgid "Tip"
 msgstr "Suggerimento"
 
