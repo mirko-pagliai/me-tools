@@ -1,0 +1,148 @@
+# LANGUAGE translation of MeTools
+# Copyright 2014 Mirko Pagliai <mirko.pagliai@gmail.com>
+#
+# Mirko Pagliai <mirko.pagliai@gmail.com>, 2014.
+msgid ""
+msgstr ""
+"POT-Creation-Date: 2014-02-10 17:14+0100\n"
+"PO-Revision-Date: 2014-02-10 17:15+0100\n"
+"Last-Translator: Mirko Pagliai <mirko.pagliai@gmail.com>\n"
+"Language-Team: Italian <kde-i18n-it@kde.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Project-Id-Version: \n"
+"Language: it\n"
+"X-Generator: Lokalize 1.5\n"
+
+#: Controller/ThumbsController.php:84;111
+msgid "Invalid mimetype"
+msgstr "Mimetype non valido"
+
+#: Controller/ThumbsController.php:192
+msgid "GD libraries are missing"
+msgstr "Le librerie GD non sono presenti"
+
+#: Controller/ThumbsController.php:196
+msgid "The file has not been specified"
+msgstr "Il file non è stato specificato"
+
+#: Controller/ThumbsController.php:205
+msgid "This image does not exist"
+msgstr "L'immagine non esiste"
+
+#: Controller/ThumbsController.php:216
+msgid "The thumb directory cannot be created"
+msgstr "La directory della miniatura non può essere creata"
+
+#: Utility/FileArray.php:69
+msgid "The file %s exists, but is not writable"
+msgstr "Il file %s esiste, ma non è scrivibile"
+
+#: Utility/FileArray.php:72
+msgid "The directory %s exists, but is not writable"
+msgstr "La directory %s esiste, ma non è scrivibile"
+
+#: Utility/FileArray.php:256
+msgid "There's already a record with this key in %s"
+msgstr "Esiste già un record con questa chiave in %s"
+
+#: View/Common/error_page.ctp:30
+msgid "Oops..."
+msgstr "Ops..."
+
+#: View/Common/error_page.ctp:30
+msgid "This is really embarrassing"
+msgstr "Questo è veramente imbarazzante"
+
+#: View/Common/error_page.ctp:31
+msgid "Houston, we have an error!"
+msgstr "Houston, abbiamo un errore!"
+
+#: View/Common/error_page.ctp:35
+#: View/Elements/error.ctp:30
+msgid "Error"
+msgstr "Errore"
+
+#: View/Common/error_page.ctp:40
+msgid "Have found a bug? Consider the possibility report it"
+msgstr "Hai trovato un bug? Considera la possibilità di segnalarlo"
+
+#: View/Elements/alert.ctp:30
+msgid "Alert"
+msgstr "Attenzione"
+
+#: View/Elements/notice.ctp:30
+msgid "Notice"
+msgstr "Avviso"
+
+#: View/Elements/success.ctp:30
+msgid "Success"
+msgstr "Successo"
+
+#: View/Errors/error400.ctp:32
+msgid "The requested address was not found on this server"
+msgstr "L'indirizzo richiesto non è stato trovato"
+
+#: View/Errors/fatal_error.ctp:33
+msgid "File"
+msgstr "File"
+
+#: View/Errors/fatal_error.ctp:33
+msgid "Line"
+msgstr "Linea"
+
+#: View/Errors/missing_action.ctp:29
+msgid "The action %s is not defined in controller %s"
+msgstr "L'azione %s non è definita nel controller %s"
+
+#: View/Errors/missing_controller.ctp:29
+msgid "%s could not be found"
+msgstr "%s non può essere trovato"
+
+#: View/Errors/missing_view.ctp:29
+msgid "The view for %s%s was not found"
+msgstr "La view per %s non è stata trovata"
+
+#: View/Helper/MeFormHelper.php:125
+msgid "Check all"
+msgstr "Seleziona tutti"
+
+#: View/Helper/MeFormHelper.php:126
+msgid "Uncheck all"
+msgstr "Deseleziona tutti"
+
+#: View/Helper/MeFormHelper.php:411
+msgid "Select an option"
+msgstr "Seleziona un'opzione"
+
+#: View/Helper/MeFormHelper.php:430
+msgid "Submit"
+msgstr "Invia"
+
+#: View/Helper/MeHtmlHelper.php:724
+msgid "Tip"
+msgstr "Suggerimento"
+
+#: View/Helper/MePaginatorHelper.php:84
+msgid "%s - %s of %s"
+msgstr "%s - %s di %s"
+
+#: View/Helper/MePaginatorHelper.php:108
+msgid "Next"
+msgstr "Successivo"
+
+#: View/Helper/MePaginatorHelper.php:141
+msgid "Previous"
+msgstr "Precedente"
+
+#: View/Helper/RecaptchaHelper.php:66
+msgid "Mail keys are not configured"
+msgstr "Le chiavi dell'email non sono configurate"
+
+#: View/Helper/RecaptchaHelper.php:70
+msgid "The private mail key is not valid"
+msgstr "La chiave privata dell'email non è valida"
+
+
