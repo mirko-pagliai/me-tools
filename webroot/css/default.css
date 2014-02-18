@@ -75,6 +75,12 @@ th.min-width, td.min-width {
 	position: relative;
 }
 
+/* Small element and small class.
+This rewrites Bootstrap, which normally provides a size of 85% */
+small, .small {
+	font-size: 90%;
+}
+
 /* Vertical align, middle */
 .valing-middle, table.valign-middle td {
 	vertical-align: middle !important;
