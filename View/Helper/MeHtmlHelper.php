@@ -578,11 +578,18 @@ class MeHtmlHelper extends HtmlHelper {
 	
 	/**
 	 * Creates a pre tag.
+	 * 
+	 * For use with SyntaxHighlighter, you can use the `brush` option.
      * @param string $text Pre text
      * @param array $options HTML attributes
      * @return string Html, pre element
 	 */
 	public function pre($text, $options = array()) {
+		if(!empty($options['brush'])) {
+			$options['class'] = sprintf('brush: %s', $options['brush']);
+			unset($options['brush']);
+		}
+		
 		return self::tag('pre', $text, $options);
 	}
 	
