@@ -379,7 +379,7 @@ class MeHtmlHelper extends HtmlHelper {
 	/**
 	 * Creates a kbd tag.
 	 * 
-	 * The <kbd> can be used to indicate (to the user) an input that is typically entered via keyboard.
+	 * The <kbd> element can be used to indicate (to the user) an input that is typically entered via keyboard.
      * @param string $text Kbd text
      * @param array $options HTML attributes
      * @return string Html, kbd element
