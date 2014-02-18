@@ -375,6 +375,18 @@ class MeHtmlHelper extends HtmlHelper {
     public function js() {
         return call_user_func_array(array('MeHtmlHelper', 'script'), func_get_args());
     }
+		
+	/**
+	 * Creates a kbd tag.
+	 * 
+	 * The <kbd> can be used to indicate (to the user) an input that is typically entered via keyboard.
+     * @param string $text Kbd text
+     * @param array $options HTML attributes
+     * @return string Html, kbd element
+	 */
+	public function kbd($text, $options = array()) {
+		return self::tag('kbd', $text, $options);
+	}
 
     /**
      * Create a label, according to the Bootstrap component.
