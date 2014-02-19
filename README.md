@@ -70,14 +70,14 @@ If you don't want to use the jQuery adapter for CKEditor, pass `FALSE` as the fi
 
 	$this->Library->ckeditor(FALSE);
 
-Then, within a view, you can create a CKEditor textarea using the MeForm helper:
+Then, within a view, you can create a CKEditor textarea using the MeFormHelper:
 
-	echo $this->MeForm->ckeditor('text');
+	echo $this->Form->ckeditor('text');
 
-Note that the `ckeditor()` method of the MeForm helper takes the same arguments of the `input()` method, 
+Note that the `ckeditor()` method of the MeFormHelper takes the same arguments of the `input()` method, 
 including its options. For example:
 
-	echo $this->MeForm->ckeditor('text', array(
+	echo $this->Form->ckeditor('text', array(
 		'class'	=> 'my_textarea',
 		'label' => 'Body',
 	));
