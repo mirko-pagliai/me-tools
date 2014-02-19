@@ -53,6 +53,26 @@ th.min-width, td.min-width {
     width: 1px;
 }
 
+/* Margin bottom 5px */
+.margin5px, .margin5 {
+	margin-bottom: 5px;
+}
+
+/* Margin bottom 10px */
+.margin10px, .margin10 {
+	margin-bottom: 10px;
+}
+
+/* Margin bottom 15px */
+.margin15px, .margin15 {
+	margin-bottom: 15px;
+}
+
+/* Margin bottom 20px */
+.margin20px, .margin20 {
+	margin-bottom: 20px;
+}
+
 /* No margin class */
 .no-margin, .nomargin {
 	margin: 0 !important;
@@ -68,6 +88,26 @@ th.min-width, td.min-width {
 	overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+}
+
+/* Padding 5px */
+.padding5px, .padding5 {
+	padding: 5px;
+}
+
+/* Padding 10px */
+.padding10px, .padding10 {
+	padding: 10px;
+}
+
+/* Padding 15px */
+.padding15px, .padding15 {
+	padding: 15px;
+}
+
+/* Padding 20px */
+.padding20px, .padding20 {
+	padding: 20px;
 }
 
 /* Relative class */
