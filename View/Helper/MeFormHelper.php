@@ -298,12 +298,16 @@ class MeFormHelper extends FormHelper {
         }
 
         if(!empty($options['tip'])) {
-            if(!is_array($options['tip']))
-                $options['after'] .= $this->Html->tag('span', trim($options['tip']), array('class' => 'help-block'));
-            else
-                $options['after'] .= implode('', array_map(function($v) {
-                          return $this->Html->tag('span', trim($v), array('class' => 'help-block'));
-                      }, $options['tip']));
+			//Tips are shown only if this's not an inline form
+			if(!$this->inline) {
+				if(!is_array($options['tip']))
+					$options['after'] .= $this->Html->tag('span', trim($options['tip']), array('class' => 'help-block'));
+				else
+					$options['after'] .= implode('', array_map(function($v) {
+							  return $this->Html->tag('span', trim($v), array('class' => 'help-block'));
+						  }, $options['tip']));
+			}
+			unset($options['tip']);
         }
 
         return parent::input($fieldName, $options);
