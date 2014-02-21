@@ -37,7 +37,7 @@ class XmlComponent extends Component {
 	 * If the input array doesn't have a root element, this will be added automatically
 	 * @param array $array Input array with data
 	 * @param array $options Options
-	 * @return SimpleXMLElement
+	 * @return object SimpleXMLElement
 	 * @see http://api.cakephp.org/2.4/source-class-Xml.html#154-224 CakePHP documentation
 	 */
 	public function fromArray($array, $options = array()) {
