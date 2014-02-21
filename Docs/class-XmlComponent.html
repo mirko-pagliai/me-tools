@@ -7,7 +7,7 @@
 	<title>Class XmlComponent | MeTools</title>
 
 	<script type="text/javascript" src="resources/combined.js?394153670"></script>
-	<script type="text/javascript" src="elementlist.js?2176451673"></script>
+	<script type="text/javascript" src="elementlist.js?709792412"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360" />
 
 </head>
@@ -154,55 +154,228 @@ Component
 				<b>Author:</b>
 				Mirko Pagliai &lt;<a
 href="mailto:mirko.pagliai&#64;gmail.com">mirko.pagliai&#64;<!---->gmail.com</a>&gt;<br />
-		<b>Located at</b> <a href="source-class-XmlComponent.html#30-52" title="Go to source code">Component/XmlComponent.php</a><br />
+		<b>Located at</b> <a href="source-class-XmlComponent.html#30-104" title="Go to source code">Component/XmlComponent.php</a><br />
 	</div>
 
 
 
 	<table class="summary" id="methods">
 	<caption>Methods summary</caption>
-	<tr data-order="get" id="_get">
+	<tr data-order="fromArray" id="_fromArray">
 
 		<td class="attributes"><code>
 			 public 
-			mixed
+			object
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
-		<a class="anchor" href="#_get">#</a>
-		<code><a href="source-class-XmlComponent.html#34-51" title="Go to source code">get</a>( <span>string <var>$url</var></span> )</code>
+		<a class="anchor" href="#_fromArray">#</a>
+		<code><a href="source-class-XmlComponent.html#34-53" title="Go to source code">fromArray</a>( <span>array <var>$array</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
-<p>Gets an XML file (remote or local) and returns it as an array</p>
+<p>Transforms an array into a SimpleXMLElement.</p>
 
 		</div>
 
 		<div class="description detailed hidden">
 			
-<p>Gets an XML file (remote or local) and returns it as an array</p>
+<p>Transforms an array into a SimpleXMLElement.</p>
+
+<p>If the input array doesn't have a root element, this will be added
+automatically</p>
 
 
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
-					<dt><var>$url</var></dt>
-					<dd><code>string</code><br>$url XML url or path</dd>
+					<dt><var>$array</var></dt>
+					<dd><code>array</code><br>$array Input array with data</dd>
+					<dt><var>$options</var></dt>
+					<dd><code>array</code><br>$options Options</dd>
 				</dl></div>
 
 				<h4>Returns</h4>
 				<div class="list">
-					<code>mixed</code><br>Array or NULL<br />
+					<code>object</code><br>SimpleXMLElement<br />
 				</div>
 
 
 				<h4>See</h4>
 				<div class="list">
 						<a
-href="http://repository.novatlantis.it/metools-sandbox/xml/xmlasarray">http://repository.novatlantis.it/metools-sandbox/xml/xmlasarray</a>
-Examples<br />
+href="http://api.cakephp.org/2.4/source-class-Xml.html#154-224">http://api.cakephp.org/2.4/source-class-Xml.html#154-224</a>
+CakePHP documentation<br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="fromXml" id="_fromXml">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_fromXml">#</a>
+		<code><a href="source-class-XmlComponent.html#55-61" title="Go to source code">fromXml</a>( )</code>
+
+		<div class="description short">
+			
+<p>Alias for <code>toArray()</code> method</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Alias for <code>toArray()</code> method</p>
+
+
+
+
+
+
+				<h4>See</h4>
+				<div class="list">
+						<code><code><a href="class-XmlComponent.html#_fromArray">XmlComponent::fromArray()</a></code></code><br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getAsArray" id="_getAsArray">
+
+		<td class="attributes"><code>
+			 public 
+			array
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getAsArray">#</a>
+		<code><a href="source-class-XmlComponent.html#63-80" title="Go to source code">getAsArray</a>( <span>string <var>$path</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Gets an XML file (passed as a url or path) and returns it as an array.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Gets an XML file (passed as a url or path) and returns it as an array.</p>
+
+<p>If the path is relative, it will be relative to APP.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$path</var></dt>
+					<dd><code>string</code><br>$path XML url/path</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>array</code><br>Array representation of the XML<br />
+				</div>
+
+
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-XmlComponent.html#_toArray">XmlComponent::toArray()</a></code></code><br>to returns the XML structure as an array<br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="toArray" id="_toArray">
+
+		<td class="attributes"><code>
+			 public 
+			array
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_toArray">#</a>
+		<code><a href="source-class-XmlComponent.html#82-95" title="Go to source code">toArray</a>( <span>object <var>$xml</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Returns an XML structure as an array</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Returns an XML structure as an array</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$xml</var></dt>
+					<dd><code>object</code><br>$xml SimpleXMLElement</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>array</code><br>Array representation of the XML<br />
+				</div>
+
+
+				<h4>Used by</h4>
+				<div class="list">
+						<code><code><a href="class-XmlComponent.html#_getAsArray">XmlComponent::getAsArray()</a></code></code><br>to returns the XML structure as an array<br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="toXml" id="_toXml">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_toXml">#</a>
+		<code><a href="source-class-XmlComponent.html#97-103" title="Go to source code">toXml</a>( )</code>
+
+		<div class="description short">
+			
+<p>Alias for <code>fromArray()</code> method</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Alias for <code>fromArray()</code> method</p>
+
+
+
+
+
+
+				<h4>See</h4>
+				<div class="list">
+						<code><code><a href="class-XmlComponent.html#_fromArray">XmlComponent::fromArray()</a></code></code><br />
 				</div>
 
 
