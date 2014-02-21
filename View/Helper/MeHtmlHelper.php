@@ -463,6 +463,10 @@ class MeHtmlHelper extends HtmlHelper {
 
         $title = empty($options['icon']) ? $title : self::icon($options['icon']).$title;
         unset($options['icon']);
+		
+		 //If "class" contains a button style, adds "btn" to class
+        if(!empty($options['class']) && preg_match('/btn-(default|primary|success|info|warning|danger)/', $options['class']))
+			$options['class'] = self::__clean('btn', $options['class']);
 
         return parent::link($title, $url, $options, $confirmMessage);
     }

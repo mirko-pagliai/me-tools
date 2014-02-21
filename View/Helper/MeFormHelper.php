@@ -376,6 +376,10 @@ class MeFormHelper extends FormHelper {
      */
     public function postLink($title, $url = NULL, $options = array(), $confirmMessage = FALSE) {
         $options['escape'] = empty($options['escape']) ? FALSE : $options['escape'];
+		
+		 //If "class" contains a button style, adds "btn" to class
+        if(!empty($options['class']) && preg_match('/btn-(default|primary|success|info|warning|danger)/', $options['class']))
+			$options['class'] = $this->Html->__clean('btn', $options['class']);
 
         return parent::postLink($title, $url, $options, $confirmMessage);
     }
