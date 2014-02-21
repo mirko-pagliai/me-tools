@@ -53,6 +53,11 @@ th.min-width, td.min-width {
     width: 1px;
 }
 
+/* Display none */
+.displayNone, .noDisplay, .no-display {
+	display: none;
+}
+
 /* Margin bottom 5px */
 .margin5px, .margin5, .margin-5px, .margin-5 {
 	margin-bottom: 5px;
