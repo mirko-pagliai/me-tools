@@ -51,25 +51,47 @@ class XmlComponent extends Component {
 		$xml = Xml::fromArray($array, am(array('pretty' => TRUE), $options));
 		return $xml->asXML();
 	}
-	
+
     /**
-     * Gets an XML file (remote or local) and returns it as an array
-     * @param string $url XML url or path
-     * @return mixed Array or NULL
-     * @see http://repository.novatlantis.it/metools-sandbox/xml/xmlasarray Examples
+     * Alias for `toArray()` method
+     * @see fromArray()
      */
-    public function get($url) {
-        //If it's not a url (but it's a path) and if it's a relative path, the path is relative to APP
-        if(!filter_var($url, FILTER_VALIDATE_URL) && !realpath($url))
-            $url = APP.$url;
-
-        if(@file_get_contents($url)) {
-            $xml = Xml::toArray(Xml::build($url));
-
-            //If the array has only one item, returns the first one, otherwise the whole array
-            return count($xml) > 1 ? $xml : array_shift($xml);
-        }
+    public function fromXml() {
+        return call_user_func_array(array('XmlComponent', 'toArray'), func_get_args());
     }
+	
+	/**
+	 * Gets an XML file (passed as a url or path) and returns it as an array.
+	 * 
+	 * If the path is relative, it will be relative to APP.
+     * @param string $path XML url/path
+	 * @return array Array representation of the XML
+	 */
+	public function getAsArray($path) {
+		//If the path is not an url (but it's a real path) and if it's a relative path, the path will be relative to APP
+        if(!filter_var($path, FILTER_VALIDATE_URL) && !realpath($path))
+            $path = APP.$path;
+		
+		if(@file_get_contents($path))
+			return self::toArray($path);
+		else
+			return FALSE;
+	}
+	
+	/**
+	 * Returns an XML structure as an array
+	 * @param object $xml SimpleXMLElement
+	 * @return array Array representation of the XML
+	 */
+	public function toArray($xml) {
+		$xml = Xml::toArray(Xml::build($xml));
+		
+		if(!is_array($xml))
+			return FALSE;
+
+		//If the array has a root element, it returns the array without the root element
+		return count($xml) > 1 ? $xml : array_values($xml)[0];
+	}
 
     /**
      * Alias for `fromArray()` method
