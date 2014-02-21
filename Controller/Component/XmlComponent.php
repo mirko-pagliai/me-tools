@@ -31,6 +31,27 @@ App::uses('Xml', 'Utility');
  * A component to handle XML.
  */
 class XmlComponent extends Component {
+	/**
+	 * Transforms an array into a SimpleXMLElement.
+	 * 
+	 * If the input array doesn't have a root element, this will be added automatically
+	 * @param array $array Input array with data
+	 * @param array $options Options
+	 * @return SimpleXMLElement
+	 * @see http://api.cakephp.org/2.4/source-class-Xml.html#154-224 CakePHP documentation
+	 */
+	public function fromArray($array, $options = array()) {
+		if(empty($array))
+			return FALSE;
+		
+		//Adds the root element, if it doesn't exist
+		if(count($array) > 1)
+			$array = array('root' => $array);
+			
+		$xml = Xml::fromArray($array, am(array('pretty' => TRUE), $options));
+		return $xml->asXML();
+	}
+	
     /**
      * Gets an XML file (remote or local) and returns it as an array
      * @param string $url XML url or path
@@ -48,5 +69,13 @@ class XmlComponent extends Component {
             //If the array has only one item, returns the first one, otherwise the whole array
             return count($xml) > 1 ? $xml : array_shift($xml);
         }
+    }
+
+    /**
+     * Alias for `fromArray()` method
+     * @see fromArray()
+     */
+    public function toXml() {
+        return call_user_func_array(array('XmlComponent', 'fromArray'), func_get_args());
     }
 }
