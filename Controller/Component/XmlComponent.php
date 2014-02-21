@@ -66,6 +66,7 @@ class XmlComponent extends Component {
 	 * If the path is relative, it will be relative to APP.
      * @param string $path XML url/path
 	 * @return array Array representation of the XML
+	 * @uses toArray to returns the XML structure as an array
 	 */
 	public function getAsArray($path) {
 		//If the path is not an url (but it's a real path) and if it's a relative path, the path will be relative to APP
