@@ -78,6 +78,12 @@
 	margin-top: 4px;
 }
 
+/* Help blocks, links */
+.form-base .input .help-block a {
+	color: inherit;
+    text-decoration: underline;
+}
+
 /* Form error messages */
 .form-base .error-message {
 	background: #F2DEDE;
