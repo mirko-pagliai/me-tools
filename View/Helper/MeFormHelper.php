@@ -418,9 +418,9 @@ class MeFormHelper extends FormHelper {
      */
     public function select($fieldName, $options = array(), $attributes = array()) {
         //Sets the "empty" attribute to "Select an option" only if:
-        // 1) "empty", "default" and "value" attributes are empty
+        // 1) "empty" is not set and "default" and "value" attributes are empty
         // 2) this isn't a multiple select or a multiple checkbox
-        if(empty($attributes['empty']) &&
+        if(!isset($attributes['empty']) &&
               empty($attributes['default']) &&
               empty($attributes['value']) &&
               empty($attributes['selected']) &&
