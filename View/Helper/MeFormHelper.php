@@ -333,6 +333,16 @@ class MeFormHelper extends FormHelper {
 
         return parent::label($fieldName, $text, $options);
     }
+	
+	/**
+	 * Creates a legend tag.
+     * @param string $text Legend text
+     * @param array $options HTML attributes
+     * @return string Html, legend element
+	 */
+	public function legend($text, $options = array()) {
+		return $this->Html->tag('legend', $text, $options);
+	}
 
     /**
      * Creates a button with a surrounding form that submits via POST.
