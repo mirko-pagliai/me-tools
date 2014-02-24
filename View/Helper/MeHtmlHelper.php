@@ -277,6 +277,16 @@ class MeHtmlHelper extends HtmlHelper {
 
         return self::ul($links, $ulOptions, $itemOptions);
     }
+	
+	/**
+	 * Creates an "em" (emphasized text) tag.
+     * @param string $text Em text
+     * @param array $options HTML attributes
+     * @return string Html, em element
+	 */
+	public function em($text, $options = array()) {
+		return self::tag('em', $text, $options);
+	}
 
     /**
      * Returns the breadcrumb as links sequence.
@@ -596,16 +606,6 @@ class MeHtmlHelper extends HtmlHelper {
 		
 		return self::tag('pre', $text, $options);
 	}
-	
-	/**
-	 * Creates a small tag.
-     * @param string $text Small text
-     * @param array $options HTML attributes
-     * @return string Html, small element
-	 */
-	public function small($text, $options = array()) {
-		return self::tag('small', $text, $options);
-	}
 
     /**
      * Adds a js file to the layout.
@@ -646,6 +646,26 @@ class MeHtmlHelper extends HtmlHelper {
     public function scriptEnd() {
         return parent::scriptEnd();
     }
+	
+	/**
+	 * Creates a small tag.
+     * @param string $text Small text
+     * @param array $options HTML attributes
+     * @return string Html, small element
+	 */
+	public function small($text, $options = array()) {
+		return self::tag('small', $text, $options);
+	}
+	
+	/**
+	 * Creates a "strong" tag.
+     * @param string $text Strong text
+     * @param array $options HTML attributes
+     * @return string Html, strong element
+	 */
+	public function strong($text, $options = array()) {
+		return self::tag('strong', $text, $options);
+	}
 
     /**
      * Starts capturing output for Javascript code.
