@@ -31,3 +31,5 @@ cd ../
 # Create the tar archive
 tar -czf $version.tar.gz MeTools/*
 echo "The file $version.tar.gz was created"
+
+exit 0
