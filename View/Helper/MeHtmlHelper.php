@@ -658,6 +658,16 @@ class MeHtmlHelper extends HtmlHelper {
 	}
 	
 	/**
+	 * Creates a span tag.
+     * @param string $text Span text
+     * @param array $options HTML attributes
+     * @return string Html, span element
+	 */
+	public function span($text, $options = array()) {
+		return self::tag('span', $text, $options);
+	}
+	
+	/**
 	 * Creates a "strong" tag.
      * @param string $text Strong text
      * @param array $options HTML attributes
