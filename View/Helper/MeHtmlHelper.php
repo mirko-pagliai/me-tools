@@ -388,6 +388,15 @@ class MeHtmlHelper extends HtmlHelper {
 	public function h6($text, $options = array()) {
 		return self::tag('h6', $text, $options);
 	}
+	
+	/**
+	 * Creates an "hr" (horizontal rule) tag.
+     * @param array $options HTML attributes
+     * @return string Html, hr element
+	 */
+	public function hr($options = array()) {
+		return self::tag('hr', NULL, $options);
+	}
 
     /**
      * Returns icons. Examples:
