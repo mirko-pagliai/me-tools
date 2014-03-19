@@ -328,6 +328,66 @@ class MeHtmlHelper extends HtmlHelper {
 
         return parent::getCrumbList(am($options, array('lastClass' => 'active')), $startText);
     }
+	
+	/**
+	 * Creates an "h1" (heading) tag.
+     * @param string $text heading text
+     * @param array $options HTML attributes
+     * @return string Html, h1 element
+	 */
+	public function h1($text, $options = array()) {
+		return self::tag('h1', $text, $options);
+	}
+	
+	/**
+	 * Creates an "h2" (heading) tag.
+     * @param string $text heading text
+     * @param array $options HTML attributes
+     * @return string Html, h2 element
+	 */
+	public function h2($text, $options = array()) {
+		return self::tag('h2', $text, $options);
+	}
+	
+	/**
+	 * Creates an "h3" (heading) tag.
+     * @param string $text heading text
+     * @param array $options HTML attributes
+     * @return string Html, h3 element
+	 */
+	public function h3($text, $options = array()) {
+		return self::tag('h3', $text, $options);
+	}
+	
+	/**
+	 * Creates an "h4" (heading) tag.
+     * @param string $text heading text
+     * @param array $options HTML attributes
+     * @return string Html, h4 element
+	 */
+	public function h4($text, $options = array()) {
+		return self::tag('h4', $text, $options);
+	}
+	
+	/**
+	 * Creates an "h5" (heading) tag.
+     * @param string $text heading text
+     * @param array $options HTML attributes
+     * @return string Html, h5 element
+	 */
+	public function h5($text, $options = array()) {
+		return self::tag('h5', $text, $options);
+	}
+	
+	/**
+	 * Creates an "h6" (heading) tag.
+     * @param string $text heading text
+     * @param array $options HTML attributes
+     * @return string Html, h6 element
+	 */
+	public function h6($text, $options = array()) {
+		return self::tag('h6', $text, $options);
+	}
 
     /**
      * Returns icons. Examples:
