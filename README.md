@@ -36,6 +36,14 @@ of the exceptions as follows:
 		'log' => true
 	));
 
+## Flash messages
+You can use the flash messages views provided by MeTools copying them from `app/Plugin/MeTools/View/Elements` to `app/View/Elements`.
+
+Otherwise you can use the `MeSessionComponent` class to generate flash messages, which will be displayed directly using 
+the views provided by MeTools. To do this, you should use this component as an alias, as follows:
+	
+	public $component = array('Session' => array('className' => 'MeTools.MeSession'));
+
 ### Libraries and script
 MeTools uses different libraries or scripts:
 
