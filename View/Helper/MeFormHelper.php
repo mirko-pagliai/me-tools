@@ -63,12 +63,14 @@ class MeFormHelper extends FormHelper {
         return parent::__call($method, $params);
     }
 
-    /**
+	/**
      * Gets the input type
+     * @param string $fieldName Field name, should be "Modelname.fieldname"
      * @param array $options Options
      * @return string Type name
-     */
-    protected function __getInputType($options) {
+	 */
+    protected function __getInputType($fieldName, $options) {
+		$this->setEntity($fieldName);
         $options = parent::_parseOptions($options);
         return($options['type']);
     }
@@ -261,7 +263,7 @@ class MeFormHelper extends FormHelper {
      * @see http://repository.novatlantis.it/metools-sandbox/forms/textinputs Examples
      */
     public function input($fieldName, $options = array()) {
-        $type = self::__getInputType($options);
+        $type = self::__getInputType($fieldName, $options);
 		
 		$options['after'] = empty($options['after']) ? NULL : $options['after'];
 		
@@ -309,7 +311,7 @@ class MeFormHelper extends FormHelper {
 			}
 			unset($options['tip']);
         }
-
+		
         return parent::input($fieldName, $options);
     }
 
