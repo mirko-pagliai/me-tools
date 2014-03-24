@@ -107,4 +107,13 @@ class TokenComponent extends Component {
 		
 		return empty($save) ? FALSE : $token;
 	}
+	
+	/**
+	 * Deletes a token
+	 * @param int $id Token id
+	 * @return boolean TRUE on success
+	 */
+	public function delete($id) {
+		return $this->Token->delete($id);
+	}
 }
