@@ -54,9 +54,9 @@ class MeSessionComponent extends SessionComponent {
      * @param array $params Parameters to be sent to layout as view variables
      * @param string $key Message key, default is 'flash'
      */
-    public function setFlash($message, $element = 'success', $params = array(), $key = 'flash') {
+    public function setFlash($message, $element = 'success', $params = array(), $key = 'flash') {		
         //Checks if the element exists into MeTools. If so, it uses the MeTools element
-        if(file_exists(App::pluginPath('MeTools').'View'.DS.'Elements'.DS.$element.'.ctp'))
+        if(strpos($element, 'MeTools.') === FALSE && file_exists(App::pluginPath('MeTools').'View'.DS.'Elements'.DS.$element.'.ctp'))
             $element = 'MeTools.'.$element;
 
         parent::setFlash($message, $element, $params, $key);
