@@ -24,6 +24,7 @@
  * @link		http://git.novatlantis.it Nova Atlantis Ltd
  * @package		MeTools\Controller\Component
  */
+App::uses('CakeTime', 'Utility');
 
 /**
  * A component to handle tokens.
@@ -65,18 +66,18 @@ class TokenComponent extends Component {
 	 * If the expiration is empty, will be set to 12 hours.
 	 * @param string $salt Salt to use to generate the token
 	 * @param string $type Type of the token
-	 * @param int $user User ID, otherwise 0 if the token is not related to a user
+	 * @param int $user_id User ID, otherwise 0 if the token is not related to a user
 	 * @param string $expiration Expiration, strftime compatible formatting
 	 * @return mixed The token value on success, otherwise FALSE
 	 * @see http://php.net/strftime strftime documentation
 	 * @uses __createToken() to create the token
 	 */
-	public function create($salt = NULL, $type = NULL, $user = 0, $expiration = NULL) {		
+	public function create($salt = NULL, $type, $user_id = 0, $expiration = NULL) {		
 		$this->Token->create();
 		$save = $this->Token->save(array(
 			'expiration'	=> CakeTime::format(empty($expiration) ? '+12 hours' : $expiration, '%Y-%m-%d %H:%M:%S'),
 			'type'			=> $type,
-			'user_id'		=> $user,
+			'user_id'		=> $user_id,
 			'value'			=> $token = self::__createToken($salt)
 		));
 		
