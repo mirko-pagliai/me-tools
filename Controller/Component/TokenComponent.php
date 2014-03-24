@@ -28,7 +28,7 @@
 /**
  * A component to handle tokens.
  */
-class TokenComponent extends SessionComponent {
+class TokenComponent extends Component {
 	/**
 	 * Construct. It loads the Token model.
 	 * @param ComponentCollection $collection
