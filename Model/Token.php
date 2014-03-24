@@ -30,6 +30,22 @@
  */
 class Token extends MeToolsAppModel {
 	/**
+	 * Called before every deletion operation
+	 * @param boolean $cascade If TRUE records that depend on this record will also be deleted
+	 * @return boolean TRUE if the operation should continue, FALSE if it should abort
+	 */
+	public function beforeDelete($cascade = TRUE) {
+		//Instead of delete only the current token, it also deletes all expired tokens
+		if(!empty($this->id)) {
+			$this->deleteAll(array('OR' => array('id' => $this->id, 'expiration <=' => CakeTime::format(time(), '%Y-%m-%d %H:%M:%S'))), FALSE);
+
+			return FALSE;
+		}
+		
+		return TRUE;
+	}
+	
+	/**
 	 * Executes after model validation and before the data is saved
 	 * @param array $options Options
 	 * @return boolean TRUE if the save operation should continue
