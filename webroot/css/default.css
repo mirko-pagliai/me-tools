@@ -176,6 +176,17 @@ th a.desc:after {
 }
 
 /* -------------------------------- */
+/*				Alerts				*/
+/* -------------------------------- */
+/* Type of alert */
+.alert .type {
+    font-size: 90%;
+    font-weight: bold;
+    margin-right: 8px;
+    text-transform: uppercase;
+}
+
+/* -------------------------------- */
 /*				Labels				*/
 /* -------------------------------- */
 /* Labels on tables of index pages */

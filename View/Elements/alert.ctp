@@ -25,7 +25,10 @@
  */
 ?>
 
-<div id="flashMessage" class="alert alert-warning">
+<div class="alert alert-warning">
     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-    <strong><?php echo __d('me_tools', 'Alert'); ?></strong>: <?php echo lcfirst($message); ?>
+    <?php 
+		echo $this->Html->span(__d('me_tools', 'Alert'), array('class' => 'type'));
+		echo $message;
+	?>
 </div>
