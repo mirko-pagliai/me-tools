@@ -59,6 +59,30 @@ class TokenComponent extends Component {
 	}
 	
 	/**
+	 * Checks if a token exists.
+	 * 
+	 * If the user ID is empty or 0, it will check for a token that is not related to a user.
+	 * @param string $token The token
+	 * @param string $type Type of the token
+	 * @param int $user_id User ID, otherwise 0 if the token is not related to a user
+	 * @return mixed The token ID if the token exists, otherwise FALSE
+	 */
+	public function check($token, $type, $user_id = 0) {
+		$conditions = array(
+			'expiration >'	=> CakeTime::format(time(), '%Y-%m-%d %H:%M:%S'),
+			'type'			=> $type,
+			'value'			=> $token
+		);
+		
+		if(!empty($user_id))
+			$conditions['user_id'] = $user_id;
+		
+		$token = $this->Token->find('first', array('conditions' => $conditions, 'fields' => 'id'));
+		
+		return empty($token['Token']['id']) ? FALSE : $token['Token']['id'];
+	}
+	
+	/**
 	 * Creates and saves a token.
 	 * 
 	 * If the salt is empty, it will use the current timestamp.
