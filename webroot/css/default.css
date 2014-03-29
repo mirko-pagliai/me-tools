@@ -22,6 +22,11 @@
  * @link		http://git.novatlantis.it Nova Atlantis Ltd
  */
 
+/* Elements with tooltips */
+[data-toggle~="tooltip"] {
+	cursor: pointer;
+}
+
 /* Disabled links */
 a.disabled, a[disabled] {
 	color: #333;
