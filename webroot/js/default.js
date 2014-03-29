@@ -24,7 +24,7 @@
  * Closes a flash messages with an animation
  */
 function close_flashMessage() {
-	$('#flashMessage').animate({opacity: '0'}, '800', function(){ $(this).slideUp('200'); });
+	$('.alert').animate({opacity: '0'}, '800', function(){ $(this).slideUp('200'); });
 }
 
 $(function() {	
@@ -55,7 +55,7 @@ $(function() {
 	/**
 	 * Closes a flash message when clicking the close button
 	 */
-	$('#flashMessage .close').click(function() {
+	$('.alert .close').click(function() {
 		close_flashMessage();
 		//It requires "return false" to prevent the default behavior of jQuery
 		return false;
