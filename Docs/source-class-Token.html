@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<meta name="generator" content="ApiGen 2.8.0" />
-	<meta name="robots" content="noindex" />
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta name="generator" content="ApiGen 2.8.0">
+	<meta name="robots" content="noindex">
 
 	<title>File Token.php | MeTools</title>
 
-	<script type="text/javascript" src="resources/combined.js?394153670"></script>
-	<script type="text/javascript" src="elementlist.js?1514114127"></script>
-	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360" />
+	<script type="text/javascript" src="resources/combined.js?4031327329"></script>
+	<script type="text/javascript" src="elementlist.js?2559227079"></script>
+	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360">
 
 </head>
 
@@ -55,7 +55,7 @@
 			</ul>
 		</div>
 
-		<hr />
+		<hr>
 
 
 		<div id="elements">
@@ -78,10 +78,10 @@
 <div id="right">
 <div id="rightInner">
 	<form id="search">
-		<input type="hidden" name="cx" value="" />
-		<input type="hidden" name="ie" value="UTF-8" />
-		<input type="text" name="q" class="text" />
-		<input type="submit" value="Search" />
+		<input type="hidden" name="cx" value="">
+		<input type="hidden" name="ie" value="UTF-8">
+		<input type="text" name="q" class="text">
+		<input type="submit" value="Search">
 	</form>
 
 	<div id="navigation">
@@ -143,23 +143,31 @@
 </span></span><span id="30" class="l"><a class="l" href="#30">30: </a><span class="php-comment"> */</span>
 </span><span id="31" class="l"><a class="l" href="#31">31: </a><span class="php-keyword1">class</span> <a id="Token" href="#Token">Token</a> <span class="php-keyword1">extends</span> MeToolsAppModel {
 </span><span id="32" class="l"><a class="l" href="#32">32: </a>    <span class="php-comment">/**
-</span></span><span id="33" class="l"><a class="l" href="#33">33: </a><span class="php-comment">     * Executes after model validation and before the data is saved
-</span></span><span id="34" class="l"><a class="l" href="#34">34: </a><span class="php-comment">     * @param array $options Options
-</span></span><span id="35" class="l"><a class="l" href="#35">35: </a><span class="php-comment">     * @return boolean TRUE if the save operation should continue
-</span></span><span id="36" class="l"><a class="l" href="#36">36: </a><span class="php-comment">     */</span>
-</span><span id="37" class="l"><a class="l" href="#37">37: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_beforeSave" href="#_beforeSave">beforeSave</a>(<span class="php-var">$options</span> = <span class="php-keyword1">array</span>()) {
-</span><span id="38" class="l"><a class="l" href="#38">38: </a>        <span class="php-comment">//Deletes all expired tokens</span>
-</span><span id="39" class="l"><a class="l" href="#39">39: </a>        <span class="php-var">$conditions</span> = <span class="php-keyword1">array</span>(<span class="php-quote">'expiration &lt;='</span> =&gt; CakeTime::format(<span class="php-keyword2">time</span>(), <span class="php-quote">'%Y-%m-%d %H:%M:%S'</span>));
-</span><span id="40" class="l"><a class="l" href="#40">40: </a>        
-</span><span id="41" class="l"><a class="l" href="#41">41: </a>        <span class="php-comment">//Deletes all the tokens of the same user</span>
-</span><span id="42" class="l"><a class="l" href="#42">42: </a>        <span class="php-keyword1">if</span>(!<span class="php-keyword1">empty</span>(<span class="php-var">$this</span>-&gt;data[<span class="php-var">$this</span>-&gt;alias][<span class="php-quote">'user_id'</span>]))
-</span><span id="43" class="l"><a class="l" href="#43">43: </a>            <span class="php-var">$conditions</span> = <span class="php-keyword1">array</span>(<span class="php-quote">'OR'</span> =&gt; am(<span class="php-keyword1">array</span>(<span class="php-quote">'user_id'</span> =&gt; <span class="php-var">$this</span>-&gt;data[<span class="php-var">$this</span>-&gt;alias][<span class="php-quote">'user_id'</span>]), <span class="php-var">$conditions</span>));
-</span><span id="44" class="l"><a class="l" href="#44">44: </a>        
-</span><span id="45" class="l"><a class="l" href="#45">45: </a>        <span class="php-var">$this</span>-&gt;deleteAll(<span class="php-var">$conditions</span>, <span class="php-keyword1">FALSE</span>);
-</span><span id="46" class="l"><a class="l" href="#46">46: </a>        
-</span><span id="47" class="l"><a class="l" href="#47">47: </a>        <span class="php-keyword1">return</span> <span class="php-keyword1">TRUE</span>;
-</span><span id="48" class="l"><a class="l" href="#48">48: </a>    }
-</span><span id="49" class="l"><a class="l" href="#49">49: </a></span>}</code></pre>
+</span></span><span id="33" class="l"><a class="l" href="#33">33: </a><span class="php-comment">     * Called after every deletion operation.
+</span></span><span id="34" class="l"><a class="l" href="#34">34: </a><span class="php-comment">     */</span>
+</span><span id="35" class="l"><a class="l" href="#35">35: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_afterDelete" href="#_afterDelete">afterDelete</a>() {
+</span><span id="36" class="l"><a class="l" href="#36">36: </a>        <span class="php-comment">//It also deletes all expired tokens</span>
+</span><span id="37" class="l"><a class="l" href="#37">37: </a>        <span class="php-var">$this</span>-&gt;deleteAll(<span class="php-keyword1">array</span>(<span class="php-quote">'expiration &lt;='</span> =&gt; CakeTime::format(<span class="php-keyword2">time</span>(), <span class="php-quote">'%Y-%m-%d %H:%M:%S'</span>)), <span class="php-keyword1">FALSE</span>);
+</span><span id="38" class="l"><a class="l" href="#38">38: </a>    }
+</span><span id="39" class="l"><a class="l" href="#39">39: </a>    
+</span><span id="40" class="l"><a class="l" href="#40">40: </a>    <span class="php-comment">/**
+</span></span><span id="41" class="l"><a class="l" href="#41">41: </a><span class="php-comment">     * Executes after model validation and before the data is saved
+</span></span><span id="42" class="l"><a class="l" href="#42">42: </a><span class="php-comment">     * @param array $options Options
+</span></span><span id="43" class="l"><a class="l" href="#43">43: </a><span class="php-comment">     * @return boolean TRUE if the save operation should continue
+</span></span><span id="44" class="l"><a class="l" href="#44">44: </a><span class="php-comment">     */</span>
+</span><span id="45" class="l"><a class="l" href="#45">45: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_beforeSave" href="#_beforeSave">beforeSave</a>(<span class="php-var">$options</span> = <span class="php-keyword1">array</span>()) {
+</span><span id="46" class="l"><a class="l" href="#46">46: </a>        <span class="php-comment">//Deletes all expired tokens</span>
+</span><span id="47" class="l"><a class="l" href="#47">47: </a>        <span class="php-var">$conditions</span> = <span class="php-keyword1">array</span>(<span class="php-quote">'expiration &lt;='</span> =&gt; CakeTime::format(<span class="php-keyword2">time</span>(), <span class="php-quote">'%Y-%m-%d %H:%M:%S'</span>));
+</span><span id="48" class="l"><a class="l" href="#48">48: </a>        
+</span><span id="49" class="l"><a class="l" href="#49">49: </a>        <span class="php-comment">//Deletes all the tokens of the same user</span>
+</span><span id="50" class="l"><a class="l" href="#50">50: </a>        <span class="php-keyword1">if</span>(!<span class="php-keyword1">empty</span>(<span class="php-var">$this</span>-&gt;data[<span class="php-var">$this</span>-&gt;alias][<span class="php-quote">'user_id'</span>]))
+</span><span id="51" class="l"><a class="l" href="#51">51: </a>            <span class="php-var">$conditions</span> = <span class="php-keyword1">array</span>(<span class="php-quote">'OR'</span> =&gt; am(<span class="php-keyword1">array</span>(<span class="php-quote">'user_id'</span> =&gt; <span class="php-var">$this</span>-&gt;data[<span class="php-var">$this</span>-&gt;alias][<span class="php-quote">'user_id'</span>]), <span class="php-var">$conditions</span>));
+</span><span id="52" class="l"><a class="l" href="#52">52: </a>        
+</span><span id="53" class="l"><a class="l" href="#53">53: </a>        <span class="php-var">$this</span>-&gt;deleteAll(<span class="php-var">$conditions</span>, <span class="php-keyword1">FALSE</span>);
+</span><span id="54" class="l"><a class="l" href="#54">54: </a>        
+</span><span id="55" class="l"><a class="l" href="#55">55: </a>        <span class="php-keyword1">return</span> <span class="php-keyword1">TRUE</span>;
+</span><span id="56" class="l"><a class="l" href="#56">56: </a>    }
+</span><span id="57" class="l"><a class="l" href="#57">57: </a></span>}</code></pre>
 
 	<div id="footer">
 		MeTools API documentation generated by <a href="http://apigen.org">ApiGen 2.8.0</a>
