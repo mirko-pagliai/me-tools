@@ -27,7 +27,11 @@ function close_flashMessage() {
 	$('.alert').animate({opacity: '0'}, '800', function(){ $(this).slideUp('200'); });
 }
 
-$(function() {	
+$(function() {
+	//Enables the tooltips, if there are elements that require them
+	if($('[data-toggle~="tooltip"]').length)
+		$('[data-toggle~="tooltip"]').tooltip();
+	
 	/**
 	 * When you click on "check/uncheck all", it changes the checkboxed state
 	 */
