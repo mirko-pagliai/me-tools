@@ -241,6 +241,26 @@ class MeHtmlHelper extends HtmlHelper {
     public function cssStart() {
         $this->_View->start('css');
     }
+	
+	/**
+	 * Creates an "dd" (describes each term/name in a description list) tag.
+     * @param string $text Text
+     * @param array $options HTML attributes
+     * @return string Html, dd element
+	 */
+	public function dd($text, $options = array()) {
+		return self::tag('dd', $text, $options);
+	}
+	
+	/**
+	 * Creates an "dl" (defines a description list) tag.
+     * @param string $text Text
+     * @param array $options HTML attributes
+     * @return string Html, dl element
+	 */
+	public function dl($text, $options = array()) {
+		return self::tag('dl', $text, $options);
+	}	
 
     /**
      * Creates a dropdown, according to the Bootstrap component. For example:
@@ -277,6 +297,16 @@ class MeHtmlHelper extends HtmlHelper {
 
         return self::ul($links, $ulOptions, $itemOptions);
     }
+	
+	/**
+	 * Creates an "dt" (defines a term/name in a description list) tag.
+     * @param string $text Text
+     * @param array $options HTML attributes
+     * @return string Html, dt element
+	 */
+	public function dt($text, $options = array()) {
+		return self::tag('dt', $text, $options);
+	}
 	
 	/**
 	 * Creates an "em" (emphasized text) tag.
