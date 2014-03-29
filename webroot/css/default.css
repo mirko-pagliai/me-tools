@@ -146,12 +146,12 @@ th a.asc:after, th a.desc:after {
 
 /* Ascending sort */
 th a.asc:after {
-    content: " \f15d";
+    content: " \f160";
 }
 
 /* Descending sort */
 th a.desc:after {
-    content: " \f15e";
+    content: " \f161";
 }
 
 /* -------------------------------- */
