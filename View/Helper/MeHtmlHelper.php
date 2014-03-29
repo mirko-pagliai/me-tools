@@ -482,12 +482,6 @@ class MeHtmlHelper extends HtmlHelper {
      * @see http://repository.novatlantis.it/metools-sandbox/html/labelbadges Examples
      */
     public function label($text, $options = array(), $type = 'default') {
-		//Sets the tooltip
-		if(!empty($options['tooltip'])) {
-			$options['data-toggle'] = 'tooltip';
-			$options['title'] = $options['tooltip'];
-			unset($options['tooltip']);
-		}
 		
         $type = self::__clean('label', 'label-'.$type);
         $options['class'] = empty($options['class']) ? $type : self::__clean($type, $options['class']);
@@ -778,6 +772,13 @@ class MeHtmlHelper extends HtmlHelper {
      * @return string Html, tag element
      */
     public function tag($name, $text = NULL, $options = array()) {
+		//Sets the tooltip
+		if(!empty($options['tooltip'])) {
+			$options['data-toggle'] = 'tooltip';
+			$options['title'] = $options['tooltip'];
+			unset($options['tooltip']);
+		}
+		
         $text = empty($options['icon']) ? $text : self::icon($options['icon']).$text;
         unset($options['icon']);
 
