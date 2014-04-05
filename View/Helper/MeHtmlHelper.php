@@ -38,12 +38,6 @@ App::uses('HtmlHelper', 'View/Helper');
  * </code>
  */
 class MeHtmlHelper extends HtmlHelper {
-    /**
-     * Helpers
-     * @var array
-     */
-    public $helpers = array('Form' => array('className' => 'MeTools.MeForm'));
-
 	/**
 	 * Method that is called automatically when the method doesn't exist.	 * 
 	 * If you pass no more than two parameters, it tries to generate a html tag with the name of the method.
