@@ -310,6 +310,28 @@ class MeHtmlHelper extends HtmlHelper {
     }
 	
 	/**
+	 * Creates an heading. 
+	 * 
+	 * This method is useful if you want to create an heading with a secondary text.
+	 * In this case you have to use the option "small".
+	 * 
+	 * By default, this method creates an h2 tag. To create a different tag, you have to use the "type" option.
+     * @param string $text heading content
+	 * @param array $options HTML attributes
+     * @return string Html, heading tag
+	 */
+	public function heading($text = NULL, $options = array()) {
+		$type = empty($options['type']) ? 'h2' : $options['type'];
+		
+		if(!empty($options['small']))
+			$text = sprintf('%s %s', $text, self::tag('small', $options['small']));
+		
+		unset($options['type'], $options['small']);
+		
+		return self::tag($type, $text, $options);
+	}
+	
+	/**
 	 * Creates an "hr" (horizontal rule) tag.
      * @param array $options HTML attributes
      * @return string Html, hr element
