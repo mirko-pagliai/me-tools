@@ -352,7 +352,8 @@ class MeHtmlHelper extends HtmlHelper {
             $startText['text'] = FALSE;
 
         $options['class'] = empty($options['class']) ? 'breadcrumb' : self::__clean('breadcrumb', $options['class']);
-
+		$options['escape'] = empty($options['escape']) ? FALSE : $options['escape'];
+		
         //Separators are automatically added by Bootstrap in CSS through :before and content.
         unset($options['separator']);
 
