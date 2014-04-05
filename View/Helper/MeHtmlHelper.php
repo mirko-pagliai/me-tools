@@ -44,6 +44,21 @@ class MeHtmlHelper extends HtmlHelper {
      */
     public $helpers = array('Form' => array('className' => 'MeTools.MeForm'));
 
+	/**
+	 * Method that is called automatically when the method doesn't exist.	 * 
+	 * If you pass no more than two parameters, it tries to generate a html tag with the name of the method.
+	 * Otherwise, it provides non fatal errors on missing method calls.
+	 * @param string $method Method to invoke
+	 * @param array $params Array of params for the method
+	 * @return string Html, tag
+	 */
+	public function __call($method, $params) {		
+		if(count($params) <= 2)
+			return self::tag($method, empty($params[0]) ? NULL : $params[0], empty($params[1]) ? NULL : $params[1]);
+		
+		parent::__call($method, $params);
+	}
+	
     /**
      * Cleans values to be used as html attributes, removing blank spaces and duplicates. For example:
      * <pre>a a b  b c d e e e</pre>
@@ -127,16 +142,6 @@ class MeHtmlHelper extends HtmlHelper {
 
         return self::tag('span', $text, $options);
     }
-	
-	/**
-	 * Creates a blockquote tag.
-     * @param string $text Blockquote text
-     * @param array $options HTML attributes
-     * @return string Html, blockquote element
-	 */
-	public function blockquote($text, $options = array()) {
-		return self::tag('blockquote', $text, $options);
-	}
 
     /**
      * Creates a link with the appearance of a button.
@@ -181,16 +186,6 @@ class MeHtmlHelper extends HtmlHelper {
 
         return self::button($title, '#', $options);
     }
-	
-	/**
-	 * Creates a code tag.
-     * @param string $text Code text
-     * @param array $options HTML attributes
-     * @return string Html, code element
-	 */
-	public function code($text, $options = array()) {
-		return self::tag('code', $text, $options);
-	}
 
     /**
      * Adds a css file to the layout.
@@ -241,26 +236,6 @@ class MeHtmlHelper extends HtmlHelper {
     public function cssStart() {
         $this->_View->start('css');
     }
-	
-	/**
-	 * Creates an "dd" (describes each term/name in a description list) tag.
-     * @param string $text Text
-     * @param array $options HTML attributes
-     * @return string Html, dd element
-	 */
-	public function dd($text, $options = array()) {
-		return self::tag('dd', $text, $options);
-	}
-	
-	/**
-	 * Creates an "dl" (defines a description list) tag.
-     * @param string $text Text
-     * @param array $options HTML attributes
-     * @return string Html, dl element
-	 */
-	public function dl($text, $options = array()) {
-		return self::tag('dl', $text, $options);
-	}	
 
     /**
      * Creates a dropdown, according to the Bootstrap component. For example:
@@ -297,26 +272,6 @@ class MeHtmlHelper extends HtmlHelper {
 
         return self::ul($links, $ulOptions, $itemOptions);
     }
-	
-	/**
-	 * Creates an "dt" (defines a term/name in a description list) tag.
-     * @param string $text Text
-     * @param array $options HTML attributes
-     * @return string Html, dt element
-	 */
-	public function dt($text, $options = array()) {
-		return self::tag('dt', $text, $options);
-	}
-	
-	/**
-	 * Creates an "em" (emphasized text) tag.
-     * @param string $text Em text
-     * @param array $options HTML attributes
-     * @return string Html, em element
-	 */
-	public function em($text, $options = array()) {
-		return self::tag('em', $text, $options);
-	}
 
     /**
      * Returns the breadcrumb as links sequence.
@@ -359,66 +314,6 @@ class MeHtmlHelper extends HtmlHelper {
 
         return parent::getCrumbList(am($options, array('lastClass' => 'active')), $startText);
     }
-	
-	/**
-	 * Creates an "h1" (heading) tag.
-     * @param string $text heading text
-     * @param array $options HTML attributes
-     * @return string Html, h1 element
-	 */
-	public function h1($text, $options = array()) {
-		return self::tag('h1', $text, $options);
-	}
-	
-	/**
-	 * Creates an "h2" (heading) tag.
-     * @param string $text heading text
-     * @param array $options HTML attributes
-     * @return string Html, h2 element
-	 */
-	public function h2($text, $options = array()) {
-		return self::tag('h2', $text, $options);
-	}
-	
-	/**
-	 * Creates an "h3" (heading) tag.
-     * @param string $text heading text
-     * @param array $options HTML attributes
-     * @return string Html, h3 element
-	 */
-	public function h3($text, $options = array()) {
-		return self::tag('h3', $text, $options);
-	}
-	
-	/**
-	 * Creates an "h4" (heading) tag.
-     * @param string $text heading text
-     * @param array $options HTML attributes
-     * @return string Html, h4 element
-	 */
-	public function h4($text, $options = array()) {
-		return self::tag('h4', $text, $options);
-	}
-	
-	/**
-	 * Creates an "h5" (heading) tag.
-     * @param string $text heading text
-     * @param array $options HTML attributes
-     * @return string Html, h5 element
-	 */
-	public function h5($text, $options = array()) {
-		return self::tag('h5', $text, $options);
-	}
-	
-	/**
-	 * Creates an "h6" (heading) tag.
-     * @param string $text heading text
-     * @param array $options HTML attributes
-     * @return string Html, h6 element
-	 */
-	public function h6($text, $options = array()) {
-		return self::tag('h6', $text, $options);
-	}
 	
 	/**
 	 * Creates an "hr" (horizontal rule) tag.
@@ -485,18 +380,6 @@ class MeHtmlHelper extends HtmlHelper {
     public function js() {
         return call_user_func_array(array('MeHtmlHelper', 'script'), func_get_args());
     }
-		
-	/**
-	 * Creates a kbd tag.
-	 * 
-	 * The `<kbd>` element can be used to indicate (to the user) an input that is typically entered via keyboard.
-     * @param string $text Kbd text
-     * @param array $options HTML attributes
-     * @return string Html, kbd element
-	 */
-	public function kbd($text, $options = array()) {
-		return self::tag('kbd', $text, $options);
-	}
 
     /**
      * Create a label, according to the Bootstrap component.
@@ -747,36 +630,6 @@ class MeHtmlHelper extends HtmlHelper {
     public function scriptEnd() {
         return parent::scriptEnd();
     }
-	
-	/**
-	 * Creates a small tag.
-     * @param string $text Small text
-     * @param array $options HTML attributes
-     * @return string Html, small element
-	 */
-	public function small($text, $options = array()) {
-		return self::tag('small', $text, $options);
-	}
-	
-	/**
-	 * Creates a span tag.
-     * @param string $text Span text
-     * @param array $options HTML attributes
-     * @return string Html, span element
-	 */
-	public function span($text, $options = array()) {
-		return self::tag('span', $text, $options);
-	}
-	
-	/**
-	 * Creates a "strong" tag.
-     * @param string $text Strong text
-     * @param array $options HTML attributes
-     * @return string Html, strong element
-	 */
-	public function strong($text, $options = array()) {
-		return self::tag('strong', $text, $options);
-	}
 
     /**
      * Starts capturing output for Javascript code.
