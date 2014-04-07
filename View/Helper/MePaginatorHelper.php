@@ -50,7 +50,7 @@ class MePaginatorHelper extends PaginatorHelper {
      * 
      * For example:
      * <code>
-     * list($title, $options, $disabledTitle, $disabledOptions) = $this->__jump_link($title, $options, $disabledTitle, $disabledOptions);
+     * list($title, $options, $disabledTitle, $disabledOptions) = $this->_jump_link($title, $options, $disabledTitle, $disabledOptions);
      * </code>
      * @param string $title Link title
      * @param array $options Options for pagination link
@@ -58,14 +58,14 @@ class MePaginatorHelper extends PaginatorHelper {
      * @param array $disabledOptions Options for the disabled pagination link
      * @return array Passed arguments
      */
-    private function __jump_link($title = NULL, $options = array(), $disabledTitle = NULL, $disabledOptions = array()) {
+    private function _jump_link($title = NULL, $options = array(), $disabledTitle = NULL, $disabledOptions = array()) {
         //If the "disabled title" is empty, it will be set to the title
         $disabledTitle = !empty($disabledTitle) ? $disabledTitle : $title;
 
         $options['escape'] = !empty($options['escape']) ? $options['escape'] : FALSE;
         $options['tag'] = !empty($options['tag']) ? $options['tag'] : 'li';
 
-        $disabledOptions['class'] = !empty($disabledOptions['class']) ? $this->Html->__clean($disabledOptions['class']) : 'disabled';
+        $disabledOptions['class'] = !empty($disabledOptions['class']) ? $this->Html->_clean($disabledOptions['class']) : 'disabled';
         $disabledOptions['disabledTag'] = !empty($disabledOptions['disabledTag']) ? $disabledOptions['disabledTag'] : 'a';
         $disabledOptions['tag'] = !empty($disabledOptions['tag']) ? $disabledOptions['tag'] : 'li';
 
@@ -102,13 +102,13 @@ class MePaginatorHelper extends PaginatorHelper {
      * @param string $disabledTitle Title when the link is disabled
      * @param array $disabledOptions Options for the disabled pagination link
      * @return string A "next" link or $disabledTitle text if the link is disabled
-     * @uses __jump_link() jump links
+     * @uses _jump_link() jump links
      */
     public function next($title = NULL, $options = array(), $disabledTitle = NULL, $disabledOptions = array()) {
         $title = !empty($title) ? $title : __d('me_tools', 'Next').' »';
 
         //Uses $this->__jump->link() to set arguments
-        list($title, $options, $disabledTitle, $disabledOptions) = $this->__jump_link($title, $options, $disabledTitle, $disabledOptions);
+        list($title, $options, $disabledTitle, $disabledOptions) = $this->_jump_link($title, $options, $disabledTitle, $disabledOptions);
 
         return parent::next($title, $options, $disabledTitle, $disabledOptions);
     }
@@ -120,7 +120,7 @@ class MePaginatorHelper extends PaginatorHelper {
      * @return string Mumbers string
      */
     public function numbers($options = array()) {
-        $options['currentClass'] = !empty($options['currentClass']) ? $this->Html->__clean($options['currentClass']) : 'active';
+        $options['currentClass'] = !empty($options['currentClass']) ? $this->Html->_clean($options['currentClass']) : 'active';
         $options['currentTag'] = !empty($options['currentTag']) ? $options['currentTag'] : 'a';
         $options['separator'] = !empty($options['separator']) ? $options['separator'] : FALSE;
         $options['tag'] = !empty($options['tag']) ? $options['tag'] : 'li';
@@ -135,13 +135,13 @@ class MePaginatorHelper extends PaginatorHelper {
      * @param string $disabledTitle Title when the link is disabled
      * @param array $disabledOptions Options for the disabled pagination link
      * @return string A "prev" link or $disabledTitle text if the link is disabled
-     * @uses __jump_link() jump links
+     * @uses _jump_link() jump links
      */
     public function prev($title = NULL, $options = array(), $disabledTitle = NULL, $disabledOptions = array()) {
         $title = !empty($title) ? $title : '« '.__d('me_tools', 'Previous');
 
         //Uses $this->__jump->link() to set arguments
-        list($title, $options, $disabledTitle, $disabledOptions) = $this->__jump_link($title, $options, $disabledTitle, $disabledOptions);
+        list($title, $options, $disabledTitle, $disabledOptions) = $this->_jump_link($title, $options, $disabledTitle, $disabledOptions);
 
         return parent::prev($title, $options, $disabledTitle, $disabledOptions);
     }

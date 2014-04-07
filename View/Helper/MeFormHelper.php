@@ -56,9 +56,10 @@ class MeFormHelper extends FormHelper {
      * @param string $method Method name/input type to make
      * @param array $params Parameters for the method call
      * @return string Formatted input method
+	 * @see http://api.cakephp.org/2.4/class-Helper.html#___call CakePHP Api
      */
     public function __call($method, $params) {
-        $params[1]['class'] = empty($params[1]['class']) ? 'form-control' : $this->Html->__clean('form-control', $params[1]['class']);
+        $params[1]['class'] = empty($params[1]['class']) ? 'form-control' : $this->Html->_clean('form-control', $params[1]['class']);
 
         return parent::__call($method, $params);
     }
@@ -69,7 +70,7 @@ class MeFormHelper extends FormHelper {
      * @param array $options Options
      * @return string Type name
 	 */
-    protected function __getInputType($fieldName, $options) {
+    protected function _getInputType($fieldName, $options) {
 		$this->setEntity($fieldName);
         $options = parent::_parseOptions($options);
         return($options['type']);
@@ -80,7 +81,7 @@ class MeFormHelper extends FormHelper {
      * @param string $fieldName Field name, should be "Modelname.fieldname"
      * @return string Label text
      */
-    protected function __getLabelText($fieldName = NULL) {
+    protected function _getLabelText($fieldName = NULL) {
         if(strpos($fieldName, '.') !== FALSE) {
             $fieldElements = explode('.', $fieldName);
             $text = array_pop($fieldElements);
@@ -111,7 +112,7 @@ class MeFormHelper extends FormHelper {
         $title = empty($options['icon']) ? $title : $this->Html->icon($options['icon']).$title;
         unset($options['icon']);
 
-        return parent::button($title, am($options, array('class' => $this->Html->__getBtnClass($options))));
+        return parent::button($title, am($options, array('class' => $this->Html->_getBtnClass($options))));
     }
 
     /**
@@ -129,7 +130,7 @@ class MeFormHelper extends FormHelper {
         $buttons = $this->Html->div('checkbox-buttons', $buttons);
 
         $options['between'] = empty($options['between']) ? $buttons : $button.$options['between'];
-        $options['div']['class'] = empty($options['div']['class']) ? 'checkboxes-list' : $this->Html->__clean('checkboxes-list', $options['div']['class']);
+        $options['div']['class'] = empty($options['div']['class']) ? 'checkboxes-list' : $this->Html->_clean('checkboxes-list', $options['div']['class']);
 
         return self::input($fieldName, am($options, array('multiple' => 'checkbox')));
     }
@@ -146,7 +147,7 @@ class MeFormHelper extends FormHelper {
      * @uses input() to create the textarea for CKEditor
      */
     public function ckeditor($fieldName, $options = array()) {
-        $options['class'] = empty($options['class']) ? 'wysiwyg' : $this->Html->__clean('wysiwyg', $options['class']);
+        $options['class'] = empty($options['class']) ? 'wysiwyg' : $this->Html->_clean('wysiwyg', $options['class']);
 
         return self::input($fieldName, am($options, array('label' => FALSE, 'required' => FALSE, 'type' => 'textarea')));
     }
@@ -162,7 +163,7 @@ class MeFormHelper extends FormHelper {
         if(!empty($options['inline']) && $options['inline'])
             return self::createInline($model, $options);
 
-        $options['class'] = empty($options['class']) ? 'form-base' : $this->Html->__clean($options['class']);
+        $options['class'] = empty($options['class']) ? 'form-base' : $this->Html->_clean($options['class']);
 
         return parent::create($model, $options);
     }
@@ -185,7 +186,7 @@ class MeFormHelper extends FormHelper {
         $this->inline = TRUE;
         unset($options['inline']);
 
-        $options['class'] = empty($options['class']) ? 'form-base form-inline' : $this->Html->__clean($options['class']);
+        $options['class'] = empty($options['class']) ? 'form-base form-inline' : $this->Html->_clean($options['class']);
 
         //By default it doesn't display errors
         $options['inputDefaults']['errorMessage'] = empty($options['inputDefaults']['errorMessage']) ? FALSE : $options['inputDefaults']['errorMessage'];
@@ -204,7 +205,7 @@ class MeFormHelper extends FormHelper {
      * @uses input() to create the input
      */
     public function datepicker($fieldName, $options = array()) {
-        $options['class'] = empty($options['class']) ? 'datepicker' : $this->Html->__clean('datepicker', $options['class']);
+        $options['class'] = empty($options['class']) ? 'datepicker' : $this->Html->_clean('datepicker', $options['class']);
 
         return self::input($fieldName, am($options, array('type' => 'text')));
     }
@@ -263,7 +264,7 @@ class MeFormHelper extends FormHelper {
      * @see http://repository.novatlantis.it/metools-sandbox/forms/textinputs Examples
      */
     public function input($fieldName, $options = array()) {
-        $type = self::__getInputType($fieldName, $options);
+        $type = self::_getInputType($fieldName, $options);
 		
 		$options['after'] = empty($options['after']) ? NULL : $options['after'];
 		
@@ -281,7 +282,7 @@ class MeFormHelper extends FormHelper {
 				$defaultDivClass .= ' has-error has-feedback';
 			}
 			
-			$options['div']['class'] = empty($options['div']['class']) ? $defaultDivClass : $this->Html->__clean($defaultDivClass, $options['div']['class']);
+			$options['div']['class'] = empty($options['div']['class']) ? $defaultDivClass : $this->Html->_clean($defaultDivClass, $options['div']['class']);
         }
 
         if($type === 'textarea') {
@@ -296,7 +297,7 @@ class MeFormHelper extends FormHelper {
             elseif(is_string($options['label']))
                 $options['label'] = array('text' => $options['label']);
 
-            $options['label']['class'] = empty($options['label']['class']) ? 'sr-only' : $this->Html->__clean('sr-only', $options['label']['class']);
+            $options['label']['class'] = empty($options['label']['class']) ? 'sr-only' : $this->Html->_clean('sr-only', $options['label']['class']);
         }
 
         if(!empty($options['tip'])) {
@@ -326,12 +327,12 @@ class MeFormHelper extends FormHelper {
         if(!empty($options) && is_string($options))
             $options = array('class' => $options);
 
-        $text = empty($text) ? self::__getLabelText($fieldName) : $text;
+        $text = empty($text) ? self::_getLabelText($fieldName) : $text;
 
         $text = empty($options['icon']) ? $text : $this->Html->icon($options['icon']).$text;
         unset($options['icon']);
 
-        $options['class'] = empty($options['class']) ? 'control-label' : $this->Html->__clean('control-label', $options['class']);
+        $options['class'] = empty($options['class']) ? 'control-label' : $this->Html->_clean('control-label', $options['class']);
 
         return parent::label($fieldName, $text, $options);
     }
@@ -365,7 +366,7 @@ class MeFormHelper extends FormHelper {
     public function postButton($title, $url, $options = array(), $confirmMessage = FALSE) {
         //In CakePHP, the `postButton()` method doesn't have the `$confirmMessage`, then in this case we need to use `postLink()`
         if($confirmMessage) {
-            $options['class'] = $this->Html->__getBtnClass($options);
+            $options['class'] = $this->Html->_getBtnClass($options);
             return self::postLink($title, $url, $options, $confirmMessage);
         }
 
@@ -391,7 +392,7 @@ class MeFormHelper extends FormHelper {
 		
 		 //If "class" contains a button style, adds "btn" to class
         if(!empty($options['class']) && preg_match('/btn-(default|primary|success|info|warning|danger)/', $options['class']))
-			$options['class'] = $this->Html->__clean('btn', $options['class']);
+			$options['class'] = $this->Html->_clean('btn', $options['class']);
 
         return parent::postLink($title, $url, $options, $confirmMessage);
     }
@@ -433,7 +434,7 @@ class MeFormHelper extends FormHelper {
             $attributes['empty'] = FALSE;
 
         if(empty($attributes['multiple']) || $attributes['multiple'] !== 'checkbox')
-            $attributes['class'] = empty($attributes['class']) ? 'form-control' : $this->Html->__clean('form-control', $attributes['class']);
+            $attributes['class'] = empty($attributes['class']) ? 'form-control' : $this->Html->_clean('form-control', $attributes['class']);
 
         return parent::select($fieldName, $options, $attributes);
     }
@@ -449,7 +450,7 @@ class MeFormHelper extends FormHelper {
     public function submit($caption = NULL, $options = array()) {
         $caption = !empty($caption) ? $caption : __d('me_tools', 'Submit');
 
-        $options['class'] = empty($options['class']) ? 'btn btn-success' : $this->Html->__clean('btn', $options['class']);
+        $options['class'] = empty($options['class']) ? 'btn btn-success' : $this->Html->_clean('btn', $options['class']);
         $options['type'] = 'submit';
         $options['value'] = $caption;
 
@@ -460,7 +461,7 @@ class MeFormHelper extends FormHelper {
         $divOptions = empty($options['div']) ? array() : $options['div'];
         unset($options['div']);
 
-        $divOptions['class'] = empty($divOptions['class']) ? 'submit' : $this->Html->__clean('submit', $divOptions['class']);
+        $divOptions['class'] = empty($divOptions['class']) ? 'submit' : $this->Html->_clean('submit', $divOptions['class']);
 
         return $this->Html->div($divOptions['class'], self::button($caption, $options), $divOptions);
     }
@@ -473,7 +474,7 @@ class MeFormHelper extends FormHelper {
      * @see http://repository.novatlantis.it/metools-sandbox/forms/textareas Examples
      */
     public function textarea($fieldName, $options = array()) {
-        $options['class'] = empty($options['class']) ? 'form-control' : $this->Html->__clean('form-control', $options['class']);
+        $options['class'] = empty($options['class']) ? 'form-control' : $this->Html->_clean('form-control', $options['class']);
 
         return parent::textarea($fieldName, $options);
     }
@@ -489,9 +490,9 @@ class MeFormHelper extends FormHelper {
      * @uses input() to create the input
      */
     public function timepicker($fieldName, $options = array()) {
-        $options['class'] = empty($options['class']) ? 'timepicker' : $this->Html->__clean('timepicker', $options['class']);
+        $options['class'] = empty($options['class']) ? 'timepicker' : $this->Html->_clean('timepicker', $options['class']);
 
-        $options['div']['class'] = empty($options['div']['class']) ? 'bootstrap-timepicker' : $this->Html->__clean('bootstrap-timepicker', $options['div']['class']);
+        $options['div']['class'] = empty($options['div']['class']) ? 'bootstrap-timepicker' : $this->Html->_clean('bootstrap-timepicker', $options['div']['class']);
 
         return self::input($fieldName, am($options, array('type' => 'text')));
     }

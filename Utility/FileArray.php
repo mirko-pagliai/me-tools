@@ -57,7 +57,7 @@ class FileArray {
      * Contruct. Sets the File object and the content.
      * It will create the file, if it doesn't exist
      * @param string $path File path
-     * @uses __read() to reat the file content
+     * @uses _read() to reat the file content
      * @uses content to set the file content
      * @uses file to set the file object
      * @uses path to set the file path
@@ -72,7 +72,7 @@ class FileArray {
             throw new InternalErrorException(__d('me_tools', 'The directory %s exists, but is not writable', dirname($path)));
 
         $this->file = new File($path, TRUE);
-        $this->content = $this->__read();
+        $this->content = $this->_read();
     }
 
     /**
@@ -81,7 +81,7 @@ class FileArray {
      * @return mixed Results that meet the conditions, otherwise an empty array
      * @uses content to get the file content
      */
-    private function __filter($conditions = array()) {
+    private function _filter($conditions = array()) {
         if(empty($this->content))
             return array();
 
@@ -107,7 +107,7 @@ class FileArray {
      * @return array Data or an empty array if the data don't exist
      * @uses file to get the file object
      */
-    private function __read() {
+    private function _read() {
         //Gets existing data
         $data = json_decode($this->file->read(), TRUE);
 
@@ -124,7 +124,7 @@ class FileArray {
      * @return boolean TRUE on success, otherwise FALSE
      * @uses file to get the file object
      */
-    private function __write() {
+    private function _write() {
         $this->content = empty($this->content) ? NULL : $this->content;
 
         return $this->file->write(json_encode($this->content, JSON_FORCE_OBJECT));
@@ -136,7 +136,7 @@ class FileArray {
      * @return int Number of records
      */
     public function count($conditions = array()) {
-        return count($this->__filter($conditions));
+        return count($this->_filter($conditions));
     }
 
     /**
@@ -150,7 +150,7 @@ class FileArray {
 
         unset($this->content[$key]);
 
-        return $this->__write();
+        return $this->_write();
     }
 
     /**
@@ -165,7 +165,7 @@ class FileArray {
 
         $this->content[$key] = $data;
 
-        return $this->__write();
+        return $this->_write();
     }
 
     /**
@@ -222,7 +222,7 @@ class FileArray {
      * @return array All records
      */
     public function getAll($conditions = array()) {
-        return $this->__filter($conditions);
+        return $this->_filter($conditions);
     }
 
     /**
@@ -231,7 +231,7 @@ class FileArray {
      * @return array First record founded
      */
     public function getFirst($conditions = array()) {
-        $results = $this->__filter($conditions);
+        $results = $this->_filter($conditions);
         return reset($results);
     }
 
@@ -260,6 +260,6 @@ class FileArray {
         else
             $this->content[] = $data;
 
-        return $this->__write();
+        return $this->_write();
     }
 }

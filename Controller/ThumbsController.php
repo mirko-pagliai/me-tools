@@ -69,7 +69,7 @@ class ThumbsController extends MeToolsAppController {
      * @uses thumb to get the thumb path
      * @throws NotFoundException
      */
-    protected function __createThumb() {
+    protected function _createThumb() {
         switch($this->info['mime']) {
             case 'image/jpeg':
                 $src = imagecreatefromjpeg($this->file);
@@ -122,7 +122,7 @@ class ThumbsController extends MeToolsAppController {
      * @uses info to set info about the current image
      * @uses thumb to set the thumb path
      */
-    protected function __setInfo() {
+    protected function _setInfo() {
         $imageSize = getimagesize($this->file);
 
         $this->info = array(
@@ -184,8 +184,8 @@ class ThumbsController extends MeToolsAppController {
      * @see MeHtmlHelper::thumb(), MeHtmlHelper::thumbUrl()
      * @uses file to set the current image path
      * @uses thumb to get the thumb path
-     * @uses __createThumb() to create the thumb
-     * @uses __setInfo() to set info about the current image
+     * @uses _createThumb() to create the thumb
+     * @uses _setInfo() to set info about the current image
      */
     public function thumb($file = FALSE) {
         if(!function_exists('gd_info'))
@@ -205,7 +205,7 @@ class ThumbsController extends MeToolsAppController {
             throw new NotFoundException(__d('me_tools', 'This image does not exist'));
 
         //Sets info about the current image
-        $this->__setInfo();
+        $this->_setInfo();
 
         //If we need a thumb and it doesn't exist
         if($this->thumb && !file_exists($this->thumb)) {
@@ -217,7 +217,7 @@ class ThumbsController extends MeToolsAppController {
             }
 
             //Creates the thumb
-            $this->__createThumb();
+            $this->_createThumb();
         }
 
         header("Content-type: ".$this->info['mime']);

@@ -45,6 +45,7 @@ class MeHtmlHelper extends HtmlHelper {
 	 * @param string $method Method to invoke
 	 * @param array $params Array of params for the method
 	 * @return string Html, tag
+	 * @see http://api.cakephp.org/2.4/class-Helper.html#___call CakePHP Api
 	 */
 	public function __call($method, $params) {		
 		if(count($params) <= 2)
@@ -61,7 +62,7 @@ class MeHtmlHelper extends HtmlHelper {
      * @param mixed $value Value as string or array
      * @return string Cleaned value
      */
-    public function __clean() {
+    public function _clean() {
         $values = func_get_args();
 
         if(empty($values))
@@ -82,15 +83,15 @@ class MeHtmlHelper extends HtmlHelper {
      * @param array $option Button options
      * @return string Button classes
      */
-    public function __getBtnClass($option) {
+    public function _getBtnClass($option) {
         if(empty($option['class']))
             return 'btn btn-default';
 
         //If "class" doesn't contain a button style, adds "btn-default" to class
         if(!preg_match('/btn-(default|primary|success|info|warning|danger)/', $class = $option['class']))
-            return self::__clean('btn', 'btn-default', $class);
+            return self::_clean('btn', 'btn-default', $class);
         else
-            return self::__clean('btn', $class);
+            return self::_clean('btn', $class);
     }
 
     /**
@@ -101,9 +102,9 @@ class MeHtmlHelper extends HtmlHelper {
      * @param array $options HTML attributes
      * @return array Title and options
      */
-    private function __parseLinkDropdown($title, $options = array()) {
-        $options['class'] = empty($options['class']) ? 'dropdown-toggle' : self::__clean('dropdown-toggle', $options['class']);
-        $options['data-toggle'] = empty($options['data-toggle']) ? 'dropdown' : self::__clean('dropdown', $options['data-toggle']);
+    private function _parseLinkDropdown($title, $options = array()) {
+        $options['class'] = empty($options['class']) ? 'dropdown-toggle' : self::_clean('dropdown-toggle', $options['class']);
+        $options['data-toggle'] = empty($options['data-toggle']) ? 'dropdown' : self::_clean('dropdown', $options['data-toggle']);
 
         $title .= '&nbsp;'.self::icon('fa-caret-down');
 
@@ -132,7 +133,7 @@ class MeHtmlHelper extends HtmlHelper {
      * @see http://repository.novatlantis.it/metools-sandbox/html/labelbadges Examples
      */
     public function badge($text, $options = array()) {
-        $options['class'] = empty($options['class']) ? 'badge' : self::__clean('badge', $options['class']);
+        $options['class'] = empty($options['class']) ? 'badge' : self::_clean('badge', $options['class']);
 
         return self::tag('span', $text, $options);
     }
@@ -153,9 +154,9 @@ class MeHtmlHelper extends HtmlHelper {
      * @uses link()
      */
     public function button($title, $url = '#', $options = array(), $confirmMessage = FALSE) {
-        $options['role'] = empty($options['role']) ? 'button' : self::__clean('button', $options['role']);
+        $options['role'] = empty($options['role']) ? 'button' : self::_clean('button', $options['role']);
 
-        return self::link($title, $url, am($options, array('class' => self::__getBtnClass($options))), $confirmMessage);
+        return self::link($title, $url, am($options, array('class' => self::_getBtnClass($options))), $confirmMessage);
     }
 
     /**
@@ -168,7 +169,7 @@ class MeHtmlHelper extends HtmlHelper {
      * @see dropdown()
      * @see http://getbootstrap.com/components/#dropdowns Bootstrap documentation
      * @see http://repository.novatlantis.it/metools-sandbox/html/dropdown Examples
-     * @uses __parseLinkDropdown() to parse options
+     * @uses _parseLinkDropdown() to parse options
      * @uses button() to get the button
      */
     public function buttonDropdown($title, $options = array()) {
@@ -176,7 +177,7 @@ class MeHtmlHelper extends HtmlHelper {
         if(func_num_args() === 3)
             $options = func_get_arg(2);
 
-        list($title, $options) = self::__parseLinkDropdown($title, $options);
+        list($title, $options) = self::_parseLinkDropdown($title, $options);
 
         return self::button($title, '#', $options);
     }
@@ -254,9 +255,9 @@ class MeHtmlHelper extends HtmlHelper {
      * @uses ul() to create the ul element
      */
     public function dropdown($links = array(), $ulOptions = array(), $itemOptions = array()) {
-        $ulOptions['class'] = empty($ulOptions['class']) ? 'dropdown-menu' : self::__clean('dropdown-menu', $ulOptions['class']);
-        $ulOptions['role'] = empty($ulOptions['role']) ? 'menu' : self::__clean('menu', $ulOptions['role']);
-        $itemOptions['role'] = empty($itemOptions['role']) ? 'presentation' : self::__clean('presentation', $itemOptions['role']);
+        $ulOptions['class'] = empty($ulOptions['class']) ? 'dropdown-menu' : self::_clean('dropdown-menu', $ulOptions['class']);
+        $ulOptions['role'] = empty($ulOptions['role']) ? 'menu' : self::_clean('menu', $ulOptions['role']);
+        $itemOptions['role'] = empty($itemOptions['role']) ? 'presentation' : self::_clean('presentation', $itemOptions['role']);
 
         //Sets eventual separators
         array_walk($links, function(&$v) {
@@ -300,7 +301,7 @@ class MeHtmlHelper extends HtmlHelper {
         if(is_array($startText) && empty($startText['text']))
             $startText['text'] = FALSE;
 
-        $options['class'] = empty($options['class']) ? 'breadcrumb' : self::__clean('breadcrumb', $options['class']);
+        $options['class'] = empty($options['class']) ? 'breadcrumb' : self::_clean('breadcrumb', $options['class']);
 		$options['escape'] = empty($options['escape']) ? FALSE : $options['escape'];
 		
         //Separators are automatically added by Bootstrap in CSS through :before and content.
@@ -355,7 +356,7 @@ class MeHtmlHelper extends HtmlHelper {
      */
     public function icon($icons = NULL) {
         //Adds the "fa" class and prepende the string "fa-" to any other class
-        $icons = preg_replace('/(?<![^ ])(?=[^ ])(?!fa)/', 'fa-', self::__clean('fa', $icons));
+        $icons = preg_replace('/(?<![^ ])(?=[^ ])(?!fa)/', 'fa-', self::_clean('fa', $icons));
 
         return self::tag('i', ' ', array('class' => $icons)).' ';
     }
@@ -376,7 +377,7 @@ class MeHtmlHelper extends HtmlHelper {
      * @see http://repository.novatlantis.it/metools-sandbox/html/images Examples
      */
     public function image($path, $options = array()) {
-        $options['class'] = empty($options['class']) ? 'img-responsive' : self::__clean('img-responsive', $options['class']);
+        $options['class'] = empty($options['class']) ? 'img-responsive' : self::_clean('img-responsive', $options['class']);
 
         return parent::image($path, $options);
     }
@@ -413,8 +414,8 @@ class MeHtmlHelper extends HtmlHelper {
      */
     public function label($text, $options = array(), $type = 'default') {
 		
-        $type = self::__clean('label', 'label-'.$type);
-        $options['class'] = empty($options['class']) ? $type : self::__clean($type, $options['class']);
+        $type = self::_clean('label', 'label-'.$type);
+        $options['class'] = empty($options['class']) ? $type : self::_clean($type, $options['class']);
 
         return self::tag('span', $text, $options);
     }
@@ -476,7 +477,7 @@ class MeHtmlHelper extends HtmlHelper {
 		
 		 //If "class" contains a button style, adds "btn" to class
         if(!empty($options['class']) && preg_match('/btn-(default|primary|success|info|warning|danger)/', $options['class']))
-			$options['class'] = self::__clean('btn', $options['class']);
+			$options['class'] = self::_clean('btn', $options['class']);
 
         return parent::link($title, $url, $options, $confirmMessage);
     }
@@ -499,7 +500,7 @@ class MeHtmlHelper extends HtmlHelper {
      * @see dropdown()
      * @see http://getbootstrap.com/components/#dropdowns Bootstrap documentation
      * @see http://repository.novatlantis.it/metools-sandbox/html/dropdown Examples
-     * @uses __parseLinkDropdown() to parse options
+     * @uses _parseLinkDropdown() to parse options
      * @uses link() to get the link
      */
     public function linkDropdown($title, $options = array()) {
@@ -507,7 +508,7 @@ class MeHtmlHelper extends HtmlHelper {
         if(func_num_args() === 3)
             $options = func_get_arg(2);
 
-        list($title, $options) = self::__parseLinkDropdown($title, $options);
+        list($title, $options) = self::_parseLinkDropdown($title, $options);
 
         return self::link($title, '#', $options);
     }
@@ -553,7 +554,7 @@ class MeHtmlHelper extends HtmlHelper {
      */
     public function nestedList($list, $options = array(), $itemOptions = array(), $tag = 'ul') {
         if(!empty($itemOptions['icon'])) {
-            $options['class'] = empty($options['class']) ? 'fa-ul' : self::__clean('fa-ul', $options['class']);
+            $options['class'] = empty($options['class']) ? 'fa-ul' : self::_clean('fa-ul', $options['class']);
             array_walk($list, function(&$v, $k, $icon) {
                 $v = self::icon($icon).$v;
             }, $itemOptions['icon']);
@@ -747,7 +748,7 @@ class MeHtmlHelper extends HtmlHelper {
         });
         $text = self::div('tip-text', implode(NULL, $text));
 
-        $options['class'] = empty($options['class']) ? 'tip' : self::__clean('tip', $options['class']);
+        $options['class'] = empty($options['class']) ? 'tip' : self::_clean('tip', $options['class']);
 
         if(!isset($options['title']) || $title = $options['title']) {
             if(empty($title))
@@ -755,7 +756,7 @@ class MeHtmlHelper extends HtmlHelper {
             elseif(!is_array($title))
                 $title = array('text' => $title);
 
-            $title['class'] = empty($title['class']) ? 'tip-title' : self::__clean('tip-title', $title['class']);
+            $title['class'] = empty($title['class']) ? 'tip-title' : self::_clean('tip-title', $title['class']);
             $title['icon'] = empty($title['icon']) ? 'fa-magic' : $title['icon'];
             $title['options'] = $title;
             unset($title['options']['text']);

@@ -49,7 +49,7 @@ class TokenComponent extends Component {
 	 * @param string $method Method to use (sha1/sha256/md5/blowfish)
 	 * @return string Token
 	 */
-	private function __createToken($salt = NULL, $maxLenght = 25) {
+	private function _createToken($salt = NULL, $maxLenght = 25) {
 		$token = Security::hash(empty($salt) ? time() : $salt, 'sha1', TRUE);
 		
 		//Truncates the token, if it's longer than the maximum length
@@ -94,7 +94,7 @@ class TokenComponent extends Component {
 	 * @param string $expiration Expiration, strftime compatible formatting
 	 * @return mixed The token value on success, otherwise FALSE
 	 * @see http://php.net/strftime strftime documentation
-	 * @uses __createToken() to create the token
+	 * @uses _createToken() to create the token
 	 */
 	public function create($salt = NULL, $type, $user_id = 0, $expiration = NULL) {		
 		$this->Token->create();
@@ -102,7 +102,7 @@ class TokenComponent extends Component {
 			'expiration'	=> CakeTime::format(empty($expiration) ? '+12 hours' : $expiration, '%Y-%m-%d %H:%M:%S'),
 			'type'			=> $type,
 			'user_id'		=> $user_id,
-			'value'			=> $token = self::__createToken($salt)
+			'value'			=> $token = self::_createToken($salt)
 		));
 		
 		return empty($save) ? FALSE : $token;
