@@ -201,8 +201,8 @@ class ThumbsController extends MeToolsAppController {
         //If the path is relative, then is relative to the webroot
         $this->file = !Folder::isAbsolute($this->file) ? WWW_ROOT.$this->file : $this->file;
 
-        if(!file_exists($this->file))
-            throw new NotFoundException(__d('me_tools', 'This image does not exist'));
+        if(!is_readable($this->file))
+            throw new NotFoundException(__d('me_tools', 'This image doesn\'t exist or is not readable'));
 
         //Sets info about the current image
         $this->_setInfo();
