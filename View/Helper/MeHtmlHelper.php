@@ -470,6 +470,13 @@ class MeHtmlHelper extends HtmlHelper {
      * @see http://repository.novatlantis.it/metools-sandbox/html/buttonslinks Examples
      */
     public function link($title, $url = '#', $options = array(), $confirmMessage = FALSE) {
+		//Sets the tooltip
+		if(!empty($options['tooltip'])) {
+			$options['data-toggle'] = 'tooltip';
+			$options['title'] = $options['tooltip'];
+			unset($options['tooltip']);
+		}
+		
         $options['escape'] = empty($options['escape']) ? FALSE : $options['escape'];
 
         $title = empty($options['icon']) ? $title : self::icon($options['icon']).$title;
