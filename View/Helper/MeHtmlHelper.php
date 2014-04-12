@@ -39,7 +39,7 @@ App::uses('HtmlHelper', 'View/Helper');
  */
 class MeHtmlHelper extends HtmlHelper {
 	/**
-	 * Method that is called automatically when the method doesn't exist.	 * 
+	 * Method that is called automatically when the method doesn't exist.
 	 * If you pass no more than two parameters, it tries to generate a html tag with the name of the method.
 	 * Otherwise, it provides non fatal errors on missing method calls.
 	 * @param string $method Method to invoke
