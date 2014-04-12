@@ -488,7 +488,7 @@ class MeHtmlHelper extends HtmlHelper {
 		$options = self::_setTooltip($options);
 		
         $options['escape'] = empty($options['escape']) ? FALSE : $options['escape'];
-
+		$options['title'] = empty($options['title']) ? strip_tags($title) : $options['title'];
         $title = empty($options['icon']) ? $title : self::icon($options['icon']).$title;
         unset($options['icon']);
 		
@@ -524,7 +524,9 @@ class MeHtmlHelper extends HtmlHelper {
         //Backward compatibility, in which case they are 3 passed arguments
         if(func_num_args() === 3)
             $options = func_get_arg(2);
-
+		
+		$options['title'] = empty($options['title']) ? strip_tags($title) : $options['title'];
+		
         list($title, $options) = self::_parseLinkDropdown($title, $options);
 
         return self::link($title, '#', $options);
