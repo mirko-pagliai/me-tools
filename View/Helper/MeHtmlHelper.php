@@ -110,6 +110,21 @@ class MeHtmlHelper extends HtmlHelper {
 
         return array($title, $options);
     }
+	
+	/**
+	 * Handles the options of an element to add tooltips
+	 * @param array $options Element options
+	 * @return array Options
+	 */
+	private function _setTooltip($options) {
+		if(!empty($options['tooltip'])) {
+			$options['data-toggle'] = 'tooltip';
+			$options['title'] = $options['tooltip'];
+			unset($options['tooltip']);
+		}
+		
+		return $options;
+	}
 
     /**
      * Returns an audio element
@@ -470,12 +485,7 @@ class MeHtmlHelper extends HtmlHelper {
      * @see http://repository.novatlantis.it/metools-sandbox/html/buttonslinks Examples
      */
     public function link($title, $url = '#', $options = array(), $confirmMessage = FALSE) {
-		//Sets the tooltip
-		if(!empty($options['tooltip'])) {
-			$options['data-toggle'] = 'tooltip';
-			$options['title'] = $options['tooltip'];
-			unset($options['tooltip']);
-		}
+		$options = self::_setTooltip($options);
 		
         $options['escape'] = empty($options['escape']) ? FALSE : $options['escape'];
 
@@ -680,12 +690,7 @@ class MeHtmlHelper extends HtmlHelper {
      * @return string Html, tag element
      */
     public function tag($name, $text = NULL, $options = array()) {
-		//Sets the tooltip
-		if(!empty($options['tooltip'])) {
-			$options['data-toggle'] = 'tooltip';
-			$options['title'] = $options['tooltip'];
-			unset($options['tooltip']);
-		}
+		$options = self::_setTooltip($options);
 		
         $text = empty($options['icon']) ? $text : self::icon($options['icon']).$text;
         unset($options['icon']);
