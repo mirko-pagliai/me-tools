@@ -27,18 +27,18 @@
 
 <div class="error-page">
 	<?php
-		echo $this->Html->tag('h3', __d('me_tools', 'Oops...').' '.$this->Html->tag('small', __d('me_tools', 'This is really embarrassing')));
+		echo $this->Html->heading(__d('me_tools', 'Oops...'), array('class' => 'margin-5', 'small' => __d('me_tools', 'This is really embarrassing')));
 		
-		if($title = $this->fetch('title'))
-			echo $this->Html->tag('h2', $title, array('class' => 'margin-10'));
+		if($title = trim($this->fetch('title')))
+			echo $this->Html->h2($title, array('class' => 'margin-5'));
 		
-		echo $this->Html->tag('h4', __d('me_tools', 'Houston, we have an error!'));
+		echo $this->Html->h4(__d('me_tools', 'Houston, we have an error!'));
 		
-		if($error = $this->fetch('error'))
-			echo $this->Html->para('error-text text-danger bg-danger',
-				sprintf('<strong>%s:</strong> %s', __d('me_tools', 'Error'), $error));
+		if($error = trim($this->fetch('error')))
+			echo $this->Html->para('error-text text-danger bg-danger margin-10',
+				sprintf('%s: %s', $this->Html->strong(__d('me_tools', 'Error')), $error));
 		
-		if($content = $this->fetch('content'))
+		if($content = trim($this->fetch('content')))
 			echo $this->Html->para(NULL, $content);
 		
 		echo $this->Html->para(NULL, __d('me_tools', 'Have found a bug? Consider the possibility report it').'.');
