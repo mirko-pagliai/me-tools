@@ -27,7 +27,11 @@
 
 <div class="error-page">
 	<?php
-		echo $this->Html->tag('h2', __d('me_tools', 'Oops...').' '.$this->Html->tag('small', __d('me_tools', 'This is really embarrassing')));
+		echo $this->Html->tag('h3', __d('me_tools', 'Oops...').' '.$this->Html->tag('small', __d('me_tools', 'This is really embarrassing')));
+		
+		if($title = $this->fetch('title'))
+			echo $this->Html->tag('h2', $title, array('class' => 'margin-10'));
+		
 		echo $this->Html->tag('h4', __d('me_tools', 'Houston, we have an error!'));
 		
 		if($error = $this->fetch('error'))
