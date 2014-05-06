@@ -47,7 +47,7 @@ the views provided by MeTools. To do this, you should use this component as an a
 ### Libraries and script
 MeTools uses different libraries or scripts:
 
-- jQuery 2.1.0 ([site](http://jquery.com));
+- jQuery 2.1.1 ([site](http://jquery.com));
 - Bootstrap 3.1.1, ([site](http://getbootstrap.com)), without Glyphicons;
 - Font Awesome 4.0.3 ([site](http://fortawesome.github.com/Font-Awesome));
 - PHP Markdown 1.4.0 ([site](http://michelf.ca/projects/php-markdown));
