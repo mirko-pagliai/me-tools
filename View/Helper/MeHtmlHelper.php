@@ -339,6 +339,8 @@ class MeHtmlHelper extends HtmlHelper {
 	public function heading($text = NULL, $options = array()) {
 		$type = empty($options['type']) ? 'h2' : $options['type'];
 		
+        $options['class'] = empty($options['class']) ? 'heading' : self::_clean('heading', $options['class']);
+		
 		if(!empty($options['small']))
 			$text = sprintf('%s %s', $text, self::tag('small', $options['small']));
 		
