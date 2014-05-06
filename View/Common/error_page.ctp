@@ -41,7 +41,7 @@
 		if($content = trim($this->fetch('content')))
 			echo $this->Html->para(NULL, $content);
 		
-		echo $this->Html->para(NULL, __d('me_tools', 'Have found a bug? Consider the possibility report it').'.');
+		echo $this->Html->para(NULL, __d('me_tools', 'Have found a bug? Please, consider the possibility to report it').'.');
 
 		if($stack_trace = $this->element('exception_stack_trace'))
 			echo $this->Html->div('stack-trace', $stack_trace);
