@@ -48,8 +48,8 @@ the views provided by MeTools. To do this, you should use this component as an a
 MeTools uses different libraries or scripts:
 
 - jQuery 2.1.1 ([site](http://jquery.com));
-- Bootstrap 3.1.1, ([site](http://getbootstrap.com)), without Glyphicons;
-- Font Awesome 4.0.3 ([site](http://fortawesome.github.com/Font-Awesome));
+- Bootstrap 3.1.1 ([site](http://getbootstrap.com)), without Glyphicons;
+- Font Awesome 4.1.0 ([site](http://fortawesome.github.com/Font-Awesome));
 - PHP Markdown 1.4.1 ([site](http://michelf.ca/projects/php-markdown));
 - reCAPTCHA PHP library 1.11 ([site](https://developers.google.com/recaptcha/docs/php));
 - Datepicker for Bootstrap 1.3.0 by Andrew Rowls ([site](http://eternicode.github.io/bootstrap-datepicker));
