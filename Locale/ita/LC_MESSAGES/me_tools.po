@@ -1,0 +1,155 @@
+# LANGUAGE translation of MeTools
+# Copyright 2014 Mirko Pagliai <mirko.pagliai@gmail.com>
+#
+# Mirko Pagliai <mirko.pagliai@gmail.com>, 2014.
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"POT-Creation-Date: 2014-05-19 20:07+0000\n"
+"PO-Revision-Date: 2014-05-19 22:13+0200\n"
+"Last-Translator: Mirko Pagliai <mirko.pagliai@gmail.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: it\n"
+
+#: Plugin/MeTools/Controller/ThumbsController.php:84;111
+msgid "Invalid mimetype"
+msgstr "Mimetype non valido"
+
+#: Plugin/MeTools/Controller/ThumbsController.php:192
+msgid "GD libraries are missing"
+msgstr "Le librerie GD non sono presenti"
+
+#: Plugin/MeTools/Controller/ThumbsController.php:196
+msgid "The file has not been specified"
+msgstr "Il file non è stato specificato"
+
+#: Plugin/MeTools/Controller/ThumbsController.php:205
+msgid "This image doesn't exist or is not readable"
+msgstr "Questa immagine non esiste oppure non è leggibile"
+
+#: Plugin/MeTools/Controller/ThumbsController.php:216
+msgid "The thumb directory cannot be created"
+msgstr "La directory della miniatura non può essere creata"
+
+#: Plugin/MeTools/Utility/FileArray.php:69
+msgid "The file %s exists, but is not writable"
+msgstr "Il file %s esiste, ma non è scrivibile"
+
+#: Plugin/MeTools/Utility/FileArray.php:72
+msgid "The directory %s exists, but is not writable"
+msgstr "La directory %s esiste, ma non è scrivibile"
+
+#: Plugin/MeTools/Utility/FileArray.php:256
+msgid "There's already a record with this key in %s"
+msgstr "Esiste già un record con questa chiave in %s"
+
+#: Plugin/MeTools/View/Common/error_page.ctp:30
+msgid "Oops..."
+msgstr "Ops..."
+
+#: Plugin/MeTools/View/Common/error_page.ctp:30
+msgid "This is really embarrassing"
+msgstr "Questo è veramente imbarazzante"
+
+#: Plugin/MeTools/View/Common/error_page.ctp:35
+msgid "Houston, we have an error!"
+msgstr "Houston, abbiamo un errore!"
+
+#: Plugin/MeTools/View/Common/error_page.ctp:39
+msgid "Error"
+msgstr "Errore"
+
+#: Plugin/MeTools/View/Common/error_page.ctp:44
+msgid "Have found a bug? Please, consider the possibility to report it"
+msgstr "Hai trovato un bug? Per favore, considera la possibilità di segnalarlo"
+
+#: Plugin/MeTools/View/Errors/error400.ctp:32
+msgid "The requested address was not found on this server"
+msgstr "L'indirizzo richiesto non è stato trovato"
+
+#: Plugin/MeTools/View/Errors/fatal_error.ctp:33
+msgid "File"
+msgstr "File"
+
+#: Plugin/MeTools/View/Errors/fatal_error.ctp:33
+msgid "Line"
+msgstr "Linea"
+
+#: Plugin/MeTools/View/Errors/missing_action.ctp:29
+msgid "The action %s is not defined in controller %s"
+msgstr "L'azione %s non è definita nel controller %s"
+
+#: Plugin/MeTools/View/Errors/missing_connection.ctp:29
+msgid "a database connection using \"%s\" was missing or unable to connect"
+msgstr ""
+"la connessione al database \"%s\" non è presente oppure è impossibile "
+"connettersi"
+
+#: Plugin/MeTools/View/Errors/missing_connection.ctp:32
+msgid "The database server returned this error: \"%s\""
+msgstr "Il server del database ha restituito questo errore: \"%s\""
+
+#: Plugin/MeTools/View/Errors/missing_connection.ctp:35
+msgid "Missing database connection"
+msgstr "Connessione al database non presente"
+
+#: Plugin/MeTools/View/Errors/missing_controller.ctp:29
+msgid "%s could not be found"
+msgstr "%s non può essere trovato"
+
+#: Plugin/MeTools/View/Errors/missing_table.ctp:29
+msgid "Table %1$s for model %2$s was not found in datasource %3$s."
+msgstr "La tabella %1$s per il modello %2$s non è stata trovata in %3$s."
+
+#: Plugin/MeTools/View/Errors/missing_table.ctp:32
+msgid "Missing database table"
+msgstr "Tabella del database non presente"
+
+#: Plugin/MeTools/View/Errors/missing_view.ctp:29
+msgid "The view for %s%s was not found"
+msgstr "La view per %s non è stata trovata"
+
+#: Plugin/MeTools/View/Helper/MeFormHelper.php:128
+msgid "Check all"
+msgstr "Seleziona tutti"
+
+#: Plugin/MeTools/View/Helper/MeFormHelper.php:129
+msgid "Uncheck all"
+msgstr "Deseleziona tutti"
+
+#: Plugin/MeTools/View/Helper/MeFormHelper.php:432
+msgid "Select an option"
+msgstr "Seleziona un'opzione"
+
+#: Plugin/MeTools/View/Helper/MeFormHelper.php:451
+msgid "Submit"
+msgstr "Invia"
+
+#: Plugin/MeTools/View/Helper/MeHtmlHelper.php:771
+msgid "Tip"
+msgstr "Suggerimento"
+
+#: Plugin/MeTools/View/Helper/MePaginatorHelper.php:84
+msgid "%s - %s of %s"
+msgstr "%s - %s di %s"
+
+#: Plugin/MeTools/View/Helper/MePaginatorHelper.php:108
+msgid "Next"
+msgstr "Successivo"
+
+#: Plugin/MeTools/View/Helper/MePaginatorHelper.php:141
+msgid "Previous"
+msgstr "Precedente"
+
+#: Plugin/MeTools/View/Helper/RecaptchaHelper.php:66
+msgid "Mail keys are not configured"
+msgstr "Le chiavi dell'email non sono configurate"
+
+#: Plugin/MeTools/View/Helper/RecaptchaHelper.php:70
+msgid "The private mail key is not valid"
+msgstr "La chiave privata dell'email non è valida"
+
+
