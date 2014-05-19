@@ -4,7 +4,8 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"POT-Creation-Date: 2014-02-24 17:43+0000\n"
+"Project-Id-Version: PROJECT VERSION\n"
+"POT-Creation-Date: 2014-05-19 20:07+0000\n"
 "PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
 "Last-Translator: NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
@@ -13,132 +14,139 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: Controller/ThumbsController.php:84;111
+#: Plugin/MeTools/Controller/ThumbsController.php:84;111
 msgid "Invalid mimetype"
 msgstr ""
 
-#: Controller/ThumbsController.php:192
+#: Plugin/MeTools/Controller/ThumbsController.php:192
 msgid "GD libraries are missing"
 msgstr ""
 
-#: Controller/ThumbsController.php:196
+#: Plugin/MeTools/Controller/ThumbsController.php:196
 msgid "The file has not been specified"
 msgstr ""
 
-#: Controller/ThumbsController.php:205
-msgid "This image does not exist"
+#: Plugin/MeTools/Controller/ThumbsController.php:205
+msgid "This image doesn't exist or is not readable"
 msgstr ""
 
-#: Controller/ThumbsController.php:216
+#: Plugin/MeTools/Controller/ThumbsController.php:216
 msgid "The thumb directory cannot be created"
 msgstr ""
 
-#: Utility/FileArray.php:69
+#: Plugin/MeTools/Utility/FileArray.php:69
 msgid "The file %s exists, but is not writable"
 msgstr ""
 
-#: Utility/FileArray.php:72
+#: Plugin/MeTools/Utility/FileArray.php:72
 msgid "The directory %s exists, but is not writable"
 msgstr ""
 
-#: Utility/FileArray.php:256
+#: Plugin/MeTools/Utility/FileArray.php:256
 msgid "There's already a record with this key in %s"
 msgstr ""
 
-#: View/Common/error_page.ctp:30
+#: Plugin/MeTools/View/Common/error_page.ctp:30
 msgid "Oops..."
 msgstr ""
 
-#: View/Common/error_page.ctp:30
+#: Plugin/MeTools/View/Common/error_page.ctp:30
 msgid "This is really embarrassing"
 msgstr ""
 
-#: View/Common/error_page.ctp:31
+#: Plugin/MeTools/View/Common/error_page.ctp:35
 msgid "Houston, we have an error!"
 msgstr ""
 
-#: View/Common/error_page.ctp:35
-#: View/Elements/error.ctp:30
+#: Plugin/MeTools/View/Common/error_page.ctp:39
 msgid "Error"
 msgstr ""
 
-#: View/Common/error_page.ctp:40
-msgid "Have found a bug? Consider the possibility report it"
+#: Plugin/MeTools/View/Common/error_page.ctp:44
+msgid "Have found a bug? Please, consider the possibility to report it"
 msgstr ""
 
-#: View/Elements/alert.ctp:30
-msgid "Alert"
-msgstr ""
-
-#: View/Elements/notice.ctp:30
-msgid "Notice"
-msgstr ""
-
-#: View/Elements/success.ctp:30
-msgid "Success"
-msgstr ""
-
-#: View/Errors/error400.ctp:32
+#: Plugin/MeTools/View/Errors/error400.ctp:32
 msgid "The requested address was not found on this server"
 msgstr ""
 
-#: View/Errors/fatal_error.ctp:33
+#: Plugin/MeTools/View/Errors/fatal_error.ctp:33
 msgid "File"
 msgstr ""
 
-#: View/Errors/fatal_error.ctp:33
+#: Plugin/MeTools/View/Errors/fatal_error.ctp:33
 msgid "Line"
 msgstr ""
 
-#: View/Errors/missing_action.ctp:29
+#: Plugin/MeTools/View/Errors/missing_action.ctp:29
 msgid "The action %s is not defined in controller %s"
 msgstr ""
 
-#: View/Errors/missing_controller.ctp:29
+#: Plugin/MeTools/View/Errors/missing_connection.ctp:29
+msgid "a database connection using \"%s\" was missing or unable to connect"
+msgstr ""
+
+#: Plugin/MeTools/View/Errors/missing_connection.ctp:32
+msgid "The database server returned this error: \"%s\""
+msgstr ""
+
+#: Plugin/MeTools/View/Errors/missing_connection.ctp:35
+msgid "Missing database connection"
+msgstr ""
+
+#: Plugin/MeTools/View/Errors/missing_controller.ctp:29
 msgid "%s could not be found"
 msgstr ""
 
-#: View/Errors/missing_view.ctp:29
+#: Plugin/MeTools/View/Errors/missing_table.ctp:29
+msgid "Table %1$s for model %2$s was not found in datasource %3$s."
+msgstr ""
+
+#: Plugin/MeTools/View/Errors/missing_table.ctp:32
+msgid "Missing database table"
+msgstr ""
+
+#: Plugin/MeTools/View/Errors/missing_view.ctp:29
 msgid "The view for %s%s was not found"
 msgstr ""
 
-#: View/Helper/MeFormHelper.php:125
+#: Plugin/MeTools/View/Helper/MeFormHelper.php:128
 msgid "Check all"
 msgstr ""
 
-#: View/Helper/MeFormHelper.php:126
+#: Plugin/MeTools/View/Helper/MeFormHelper.php:129
 msgid "Uncheck all"
 msgstr ""
 
-#: View/Helper/MeFormHelper.php:429
+#: Plugin/MeTools/View/Helper/MeFormHelper.php:432
 msgid "Select an option"
 msgstr ""
 
-#: View/Helper/MeFormHelper.php:448
+#: Plugin/MeTools/View/Helper/MeFormHelper.php:451
 msgid "Submit"
 msgstr ""
 
-#: View/Helper/MeHtmlHelper.php:747
+#: Plugin/MeTools/View/Helper/MeHtmlHelper.php:771
 msgid "Tip"
 msgstr ""
 
-#: View/Helper/MePaginatorHelper.php:84
+#: Plugin/MeTools/View/Helper/MePaginatorHelper.php:84
 msgid "%s - %s of %s"
 msgstr ""
 
-#: View/Helper/MePaginatorHelper.php:108
+#: Plugin/MeTools/View/Helper/MePaginatorHelper.php:108
 msgid "Next"
 msgstr ""
 
-#: View/Helper/MePaginatorHelper.php:141
+#: Plugin/MeTools/View/Helper/MePaginatorHelper.php:141
 msgid "Previous"
 msgstr ""
 
-#: View/Helper/RecaptchaHelper.php:66
+#: Plugin/MeTools/View/Helper/RecaptchaHelper.php:66
 msgid "Mail keys are not configured"
 msgstr ""
 
-#: View/Helper/RecaptchaHelper.php:70
+#: Plugin/MeTools/View/Helper/RecaptchaHelper.php:70
 msgid "The private mail key is not valid"
 msgstr ""
 
