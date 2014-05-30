@@ -18,7 +18,7 @@
 ?>
 
 <div class="<?php echo $pluralVar; ?> form">
-	<h2><?php printf("<?php echo __('%s %s'); ?>", Inflector::humanize(preg_replace('/(admin_|manager_|_)/', '', $action)), strtolower($singularHumanName)); ?></h2>
+	<?php printf("<?php echo \$this->Html->h2(__('%s %s')); ?>\n", Inflector::humanize(preg_replace('/(admin_|manager_|_)/', '', $action)), strtolower($singularHumanName)); ?>
 	<?php echo "<?php echo \$this->Form->create('{$modelClass}', array('class' => 'form-base')); ?>\n"; ?>
 		<fieldset>
 			<?php
