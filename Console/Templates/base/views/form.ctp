@@ -18,7 +18,7 @@
 ?>
 
 <div class="<?php echo $pluralVar; ?> form">
-	<h2><?php printf("<?php echo __('%s %s'); ?>", Inflector::humanize(substr(strrchr($action, "_"), 1)), strtolower($singularHumanName)); ?></h2>
+	<h2><?php printf("<?php echo __('%s %s'); ?>", Inflector::humanize(preg_replace('/(admin_|manager_|_)/', '', $action)), strtolower($singularHumanName)); ?></h2>
 	<?php echo "<?php echo \$this->Form->create('{$modelClass}', array('class' => 'form-base')); ?>\n"; ?>
 		<fieldset>
 			<?php
@@ -35,5 +35,5 @@
 				echo "\t\t\t?>\n";
 			?>
 		</fieldset>
-	<?php echo "<?php echo \$this->Form->end(__('".sprintf('%s %s', Inflector::humanize(substr(strrchr($action, "_"), 1)), strtolower($singularHumanName))."')); ?>\n"; ?>
+	<?php echo "<?php echo \$this->Form->end(__('".sprintf('%s %s', Inflector::humanize(preg_replace('/(admin_|manager_|_)/', '', $action)), strtolower($singularHumanName))."')); ?>\n"; ?>
 </div>
