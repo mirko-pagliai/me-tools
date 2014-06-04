@@ -122,7 +122,7 @@ class LibraryHelper extends AppHelper {
         if(empty($options))
             $options = array(
                'autoclose'      => TRUE,
-               'format'         => 'yyyy-mm-dd',
+               'format'         => 'yyyy/mm/dd',
                'todayBtn'       => "linked",
                'todayHighlight' => TRUE,
                'weekStart'      => 1
