@@ -100,7 +100,7 @@ class LibraryHelper extends AppHelper {
             else
                 return FALSE;
 
-            return $this->Html->js($script);
+            return $this->Html->js($script, array('inline' => FALSE));
         }
 
         return FALSE;
@@ -116,8 +116,8 @@ class LibraryHelper extends AppHelper {
      * @see http://bootstrap-datepicker.readthedocs.org Bootstrap Datepicker documentation
      */
     public function datepicker($input = '.datepicker', $options = array()) {
-        $this->Html->js('/MeTools/js/bootstrap-datepicker.min');
-        $this->Html->css('/MeTools/css/datepicker3.min');
+        $this->Html->js('/MeTools/js/bootstrap-datepicker.min', array('inline' => FALSE));
+        $this->Html->css('/MeTools/css/datepicker3.min', array('inline' => FALSE));
 
         if(empty($options))
             $options = array(
@@ -146,7 +146,7 @@ class LibraryHelper extends AppHelper {
      * @param string $targetField Target field
      */
     public function slugify($sourceField = 'form #title', $targetField = 'form #slug') {
-        $this->Html->js('/MeTools/js/slugify.min');
+        $this->Html->js('/MeTools/js/slugify.min', array('inline' => FALSE));
         $this->output[] = "$().slugify('{$sourceField}', '{$targetField}');";
     }
 
@@ -160,8 +160,8 @@ class LibraryHelper extends AppHelper {
      * @see http://jdewit.github.io/bootstrap-timepicker Bootstrap Timepicker documentation
      */
     public function timepicker($input = '.timepicker', $options = array()) {
-        $this->Html->js('/MeTools/js/bootstrap-timepicker.min');
-        $this->Html->css('/MeTools/css/bootstrap-timepicker.min');
+        $this->Html->js('/MeTools/js/bootstrap-timepicker.min', array('inline' => FALSE));
+        $this->Html->css('/MeTools/css/bootstrap-timepicker.min', array('inline' => FALSE));
 
         if(empty($options))
             $options = array(
