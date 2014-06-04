@@ -26,7 +26,7 @@
 				foreach ($fields as $field) {
 					if(strpos($action, 'add') !== FALSE && $field == $primaryKey)
 						continue;
-					elseif(preg_match('/.+_count/', $field))
+					elseif(preg_match('/^.+_count$/', $field))
 						continue;
 					elseif(!in_array($field, array('created', 'modified', 'updated')))
 						echo "\t\t\t\techo \$this->Form->input('{$field}');\n";
