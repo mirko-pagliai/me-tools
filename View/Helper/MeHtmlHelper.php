@@ -223,6 +223,14 @@ class MeHtmlHelper extends HtmlHelper {
         }
 
         $options['inline'] = empty($options['inline']) ? FALSE : $options['inline'];
+		
+		if(is_array($path)) {
+			$out = NULL;
+			foreach($path as $sPath)
+				$out .= parent::css($sPath, $options);
+			
+			return $out;
+		}
 
         return parent::css($path, $options);
     }
@@ -639,7 +647,15 @@ class MeHtmlHelper extends HtmlHelper {
      */
     public function script($url, $options = array()) {
         $options['inline'] = empty($options['inline']) ? FALSE : $options['inline'];
-
+		
+		if(is_array($url)) {
+			$out = NULL;
+			foreach($url as $path)
+				$out .= parent::script($path, $options);
+			
+			return $out;
+		}
+		
         return parent::script($url, $options);
     }
 
