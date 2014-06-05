@@ -96,9 +96,9 @@ foreach ($relations as $alias => $details):
 			echo "\t\t\t\t<tr>\n";
 				echo "\t\t\t\t\t<td class=\"actions\">\n";
 				echo "\t\t\t\t\t\t<div class=\"btn-group\">\n";
-				echo "\t\t\t\t\t\t\t<?php echo \$this->Html->linkButton(NULL, array('controller' => '{$details['controller']}', 'action' => 'view', \${$otherSingularVar}['{$details['primaryKey']}']), array('icon' => 'icon-eye-open', 'tooltip' => __('View'))); ?>\n";
-				echo "\t\t\t\t\t\t\t<?php echo \$this->Html->linkButton(NULL, array('controller' => '{$details['controller']}', 'action' => 'edit', \${$otherSingularVar}['{$details['primaryKey']}']), array('icon' => 'icon-pencil', 'tooltip' => __('Edit'))); ?>\n";
-				echo "\t\t\t\t\t\t\t<?php echo \$this->Form->postButton(NULL, array('controller' => '{$details['controller']}', 'action' => 'delete', \${$otherSingularVar}['{$details['primaryKey']}']), array('class' => 'btn-danger', 'icon' => 'icon-trash', 'tooltip' => __('Delete')), __('Are you sure you want to delete this record?')); ?>\n";
+				echo "\t\t\t\t\t\t\t<?php echo \$this->Html->linkButton(NULL, array('controller' => '{$details['controller']}', 'action' => 'view', \${$otherSingularVar}['{$details['primaryKey']}']), array('icon' => 'eye', 'tooltip' => __('View'))); ?>\n";
+				echo "\t\t\t\t\t\t\t<?php echo \$this->Html->linkButton(NULL, array('controller' => '{$details['controller']}', 'action' => 'edit', \${$otherSingularVar}['{$details['primaryKey']}']), array('icon' => 'pencil', 'tooltip' => __('Edit'))); ?>\n";
+				echo "\t\t\t\t\t\t\t<?php echo \$this->Form->postButton(NULL, array('controller' => '{$details['controller']}', 'action' => 'delete', \${$otherSingularVar}['{$details['primaryKey']}']), array('class' => 'btn-danger', 'icon' => 'trash-o', 'tooltip' => __('Delete')), __('Are you sure you want to delete this record?')); ?>\n";
 				echo "\t\t\t\t\t\t</div>\n";
 				echo "\t\t\t\t\t</td>\n";
 				
