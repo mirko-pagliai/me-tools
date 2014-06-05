@@ -270,3 +270,44 @@
     transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
     width: 50px !important;
 }
+
+/* -------------------------------- */
+/*		jQuery-ui autocomplete		*/
+/* -------------------------------- */
+/* Autocomplete menu, list */
+.ui-autocomplete {
+    background: #F1F1F1;
+    border: 1px solid #CCC;
+	border-radius: 4px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, .075) inset;
+    list-style: none;
+	margin-top: 1px;
+    padding: 4px;
+	position: absolute;
+}
+
+/* Autocomplete menu, link */
+.ui-autocomplete a {
+	cursor: pointer;
+	display: block;
+    line-height: 1.2;
+    padding: 3px 6px 4px;
+    text-decoration: none;
+}
+
+/* Autocomplete menu, hover link */
+.ui-autocomplete a:hover {
+    background: #CCC;
+}
+
+/* Helper hidden accessible */
+.ui-helper-hidden-accessible {
+    border: 0 none;
+    clip: rect(0px, 0px, 0px, 0px);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+}
