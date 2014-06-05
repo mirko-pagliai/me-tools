@@ -80,7 +80,7 @@ foreach ($relations as $alias => $details):
 <?php echo "\n\n<?php if(!empty(\${$singularVar}['{$alias}'])): ?>\n"; ?>
 	<div class="related">
 		<h3><?php echo "<?php echo __('Related ".strtolower($otherPluralHumanName)."'); ?>"; ?></h3>
-		<div class="btn-group pull-right">
+		<div class="btn-group pull-right margin-10">
 			<?php echo "<?php echo \$this->Html->linkButton(__('New ".strtolower(Inflector::humanize(Inflector::underscore($alias)))."'), array('controller' => '{$details['controller']}', 'action' => 'add'), array('icon' => 'plus')); ?>\n"; ?>
 		</div>
 		<table class="table table-striped table-bordered">
