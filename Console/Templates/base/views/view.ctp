@@ -17,7 +17,7 @@
 <?php echo "<?php echo \$this->end(); ?>\n"; ?>
 
 <div class="<?php echo $pluralVar; ?> view">
-	<h2><?php echo "<?php echo __('".ucfirst(strtolower($singularHumanName))."'); ?>"; ?></h2>
+	<?php echo "<?php echo \$this->Html->h2(__('".ucfirst(strtolower($singularHumanName))."')); ?>\n"; ?>
 	
 	<div class="view-buttons">
 		<?php echo "<?php echo \$this->Html->linkButton(__('Edit'), array('action' => 'edit', \${$singularVar}['{$modelClass}']['{$primaryKey}']), array('icon' => 'fa-pencil', 'tooltip' => __('Edit'))); ?>\n"; ?>
@@ -26,34 +26,38 @@
 	
 	<dl class="dl-horizontal">
 <?php
+echo "\t\t<?php\n";
 foreach($fields as $field) {
 	$isKey = FALSE;
 	if(!empty($associations['belongsTo']))
 		foreach($associations['belongsTo'] as $alias => $details)
 			if($field===$details['foreignKey']) {
 				$isKey = TRUE;
-				echo "\t\t<dt><?php echo __('".Inflector::humanize(Inflector::underscore($alias))."'); ?></dt>\n";
-				echo "\t\t<dd><?php echo \$this->Html->link(\${$singularVar}['{$alias}']['{$details['displayField']}'], array('controller' => '{$details['controller']}', 'action' => 'view', \${$singularVar}['{$alias}']['{$details['primaryKey']}'])); ?></dd>\n";
+				echo "\t\t\techo \$this->Html->dt(__('".Inflector::humanize(Inflector::underscore($alias))."'));\n";
+				echo "\t\t\techo \$this->Html->dd(\$this->Html->link(\${$singularVar}['{$alias}']['{$details['displayField']}'], array('controller' => '{$details['controller']}', 'action' => 'view', \${$singularVar}['{$alias}']['{$details['primaryKey']}'])));\n";
 				break;
 			}
 	if($isKey!==TRUE) {
-		echo "\t\t<dt><?php echo __('".Inflector::humanize($field)."'); ?></dt>\n";
-		echo "\t\t<dd><?php echo \${$singularVar}['{$modelClass}']['{$field}']; ?></dd>\n";
+		echo "\t\t\techo \$this->Html->dt(__('".Inflector::humanize($field)."'));\n";
+		echo "\t\t\techo \$this->Html->dd(\${$singularVar}['{$modelClass}']['{$field}']);\n";
 	}
 }
+echo "\t\t?>\n";
 ?>
 	</dl>
 </div><?php if(!empty($associations['hasOne'])) :
 	foreach($associations['hasOne'] as $alias => $details): ?>
 	<div class="related">
-		<h3><?php echo "<?php echo __('Related ".Inflector::humanize($details['controller'])."'); ?>"; ?></h3>
+		<?php echo "<?php echo \$this->Html->h3(__('Related ".Inflector::humanize($details['controller'])."')); ?>\n"; ?>
 	<?php echo "<?php if(!empty(\${$singularVar}['{$alias}'])): ?>\n"; ?>
 		<dl>
 	<?php
+		echo "\t\t<?php\n";
 			foreach($details['fields'] as $field) {
-				echo "\t\t<dt><?php echo __('".Inflector::humanize($field)."'); ?></dt>\n";
-				echo "\t\t<dd>\n\t<?php echo \${$singularVar}['{$alias}']['{$field}']; ?>\n&nbsp;</dd>\n";
+				echo "\t\t\techo \$this->Html->dt(__('".Inflector::humanize($field)."'));\n";
+				echo "\t\t\techo \$this->Html->dd(\${$singularVar}['{$alias}']['{$field}']);\n";
 			}
+		echo "\t\t?>\n"
 	?>
 		</dl>
 	<?php echo "<?php endif; ?>\n"; ?>
@@ -79,10 +83,11 @@ foreach ($relations as $alias => $details):
 	?>
 <?php echo "\n\n<?php if(!empty(\${$singularVar}['{$alias}'])): ?>\n"; ?>
 	<div class="related">
-		<h3><?php echo "<?php echo __('Related ".strtolower($otherPluralHumanName)."'); ?>"; ?></h3>
+		<?php echo "<?php echo \$this->Html->h3(__('Related ".strtolower($otherPluralHumanName)."')); ?>\n"; ?>
 		<div class="btn-group pull-right margin-10">
 			<?php echo "<?php echo \$this->Html->linkButton(__('New ".strtolower(Inflector::humanize(Inflector::underscore($alias)))."'), array('controller' => '{$details['controller']}', 'action' => 'add'), array('icon' => 'plus')); ?>\n"; ?>
 		</div>
+		
 		<table class="table table-striped table-bordered">
 			<tr>
 				<th></th>
