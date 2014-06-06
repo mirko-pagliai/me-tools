@@ -27,9 +27,9 @@
 		echo "\t<?php foreach(\${$pluralVar} as \${$singularVar}): ?>\n";
 			echo "\t\t\t<tr>\n";
 				echo "\t\t\t\t<td class=\"actions\">\n";
-					echo "\t\t\t\t\t<?php echo \$this->Html->linkButton(NULL, array('action' => 'view', \${$singularVar}['{$modelClass}']['{$primaryKey}']), array('icon' => 'fa-eye', 'tooltip' => __('View'))); ?>\n";
-					echo "\t\t\t\t\t<?php echo \$this->Html->linkButton(NULL, array('action' => 'edit', \${$singularVar}['{$modelClass}']['{$primaryKey}']), array('icon' => 'fa-pencil', 'tooltip' => __('Edit'))); ?>\n";
-					echo "\t\t\t\t\t<?php echo \$this->Form->postButton(NULL, array('action' => 'delete', \${$singularVar}['{$modelClass}']['{$primaryKey}']), array('class' => 'btn-danger', 'icon' => 'fa-trash-o', 'tooltip' => __('Delete')), __('Are you sure you want to delete this ".strtolower($singularHumanName)."?')); ?>\n";
+					echo "\t\t\t\t\t<?php echo \$this->Html->linkButton(NULL, array('action' => 'view', \${$singularVar}['{$modelClass}']['{$primaryKey}']), array('icon' => 'eye', 'tooltip' => __('View'))); ?>\n";
+					echo "\t\t\t\t\t<?php echo \$this->Html->linkButton(NULL, array('action' => 'edit', \${$singularVar}['{$modelClass}']['{$primaryKey}']), array('icon' => 'pencil', 'tooltip' => __('Edit'))); ?>\n";
+					echo "\t\t\t\t\t<?php echo \$this->Form->postButton(NULL, array('action' => 'delete', \${$singularVar}['{$modelClass}']['{$primaryKey}']), array('class' => 'btn-danger', 'icon' => 'trash-o', 'tooltip' => __('Delete')), __('Are you sure you want to delete this ".strtolower($singularHumanName)."?')); ?>\n";
 				echo "\t\t\t\t</td>\n";
 
 				foreach($fields as $field) {

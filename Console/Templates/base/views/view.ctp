@@ -20,8 +20,8 @@
 	<?php echo "<?php echo \$this->Html->h2(__('".ucfirst(strtolower($singularHumanName))."')); ?>\n"; ?>
 	
 	<div class="view-buttons">
-		<?php echo "<?php echo \$this->Html->linkButton(__('Edit'), array('action' => 'edit', \${$singularVar}['{$modelClass}']['{$primaryKey}']), array('icon' => 'fa-pencil', 'tooltip' => __('Edit'))); ?>\n"; ?>
-		<?php echo "<?php echo \$this->Form->postButton(__('Delete'), array('action' => 'delete', \${$singularVar}['{$modelClass}']['{$primaryKey}']), array('class' => 'btn-danger', 'icon' => 'fa-trash-o', 'tooltip' => __('Delete')), __('Are you sure you want to delete this ".strtolower($singularHumanName)."?')); ?>\n"; ?>
+		<?php echo "<?php echo \$this->Html->linkButton(__('Edit'), array('action' => 'edit', \${$singularVar}['{$modelClass}']['{$primaryKey}']), array('icon' => 'pencil', 'tooltip' => __('Edit'))); ?>\n"; ?>
+		<?php echo "<?php echo \$this->Form->postButton(__('Delete'), array('action' => 'delete', \${$singularVar}['{$modelClass}']['{$primaryKey}']), array('class' => 'btn-danger', 'icon' => 'trash-o', 'tooltip' => __('Delete')), __('Are you sure you want to delete this ".strtolower($singularHumanName)."?')); ?>\n"; ?>
 	</div>
 	
 	<dl class="dl-horizontal">
