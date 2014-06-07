@@ -51,8 +51,13 @@ class MarkdownHelper extends AppHelper {
      * @see http://repository.novatlantis.it/metools-sandbox/markdown/markdown Examples
 	 */
     function toHtml($string, $clean = FALSE) {
+		//Converts some code blocks as used by some sites, such as Bitbucket
+		$string = preg_replace_callback('/```\s+(#!\S+\s+)?(((?!```)\t*.*\s+)+)\s*```/m', function($match) {
+			return PHP_EOL.preg_replace('/(\t*.*\s+)/m', '	$1', $match[2]);
+		}, $string);
+
 		$html = Markdown::defaultTransform($string);
-		
+
 		if($clean) {
 			//Removes the "TOC"
 			$html = preg_replace('/(<p>)?\[TOC\](<\/p>)?(\\n)*/', '', $html);
@@ -63,7 +68,7 @@ class MarkdownHelper extends AppHelper {
 			$html = preg_replace('/<h2>(.*)<\/h2>/', '<h4>$1</h4>', $html);
 			$html = preg_replace('/<h1>(.*)<\/h1>/', '<h3>$1</h3>', $html);
 		}
-		
+
 		return $html;
-    }
+	}
 }
