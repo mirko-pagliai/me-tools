@@ -132,16 +132,15 @@ class System {
      */
     public static function clearThumbs() {
         $dir = new Folder($tmp = TMP.'thumbs');
-        $files = $dir->find('.*');
-
+        $files = $dir->findRecursive('.+\..+');
         $success = TRUE;
-
+		
         foreach($files as $file) {
-            $file = new File($tmp.DS.$file);
+            $file = new File($file);
             if(!$file->delete() && $success)
                 $success = FALSE;
         }
-
+		
         return $success;
     }
 
