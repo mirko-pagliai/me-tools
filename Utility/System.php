@@ -119,7 +119,7 @@ class System {
     }
 
     /**
-     * Clear the cache
+     * Clears the cache
      * @return boolean TRUE if the cache was successfully cleared, FALSE otherwise
      */
     public static function clearCache() {
@@ -127,7 +127,7 @@ class System {
     }
 
     /**
-     * Clear thumbnails
+     * Clears thumbnails
      * @return boolean TRUE if thumbnails were successfully cleared, FALSE otherwise
      */
     public static function clearThumbs() {
