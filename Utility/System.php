@@ -53,7 +53,7 @@ class System {
         $default = array(CACHE, CACHE.'models', CACHE.'persistent', CACHE.'views');
 
         //Directories in the cache
-        $cache = new Folder(CACHE);
+        $cache = new Folder();
         $cache = $cache->tree(CACHE, FALSE, 'dir');
 
         foreach(array_unique(am($cache, $default)) as $dir) {
@@ -104,7 +104,7 @@ class System {
      * @return boolean TRUE if the TMP and all its subdirectories are readable and writable, FALSE otherwise
      */
     public static function checkTmp() {
-        $tmp = new Folder(TMP);
+        $tmp = new Folder();
 
         foreach($tmp->tree(TMP, FALSE, 'dir') as $dir) {
             if(!is_readable($dir) || !is_writable($dir))
