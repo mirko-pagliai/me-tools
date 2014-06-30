@@ -35,6 +35,26 @@
  */
 class System {
 	/**
+	 * Checks if a directory and its subdirectories are readable and writable
+	 * @param string $path Path
+	 * @return boolean TRUE if they are readable and writable, FALSE otherwise
+	 */
+	private static function _dirIsWritable($directory) {
+		if(!is_readable($directory))
+			return FALSE;
+		
+		$folder = new Folder();
+
+        foreach($folder->tree($directory, FALSE, 'dir') as $dir) {
+            if(!is_readable($dir) || !is_writable($dir))
+                return FALSE;
+        }
+
+        return TRUE;
+	}
+
+
+	/**
      * Checks if an Apache module is active
      * @param string $module Name of the module to be checked
      * @return boolean TRUE if the module is enabled, FALSE otherwise
@@ -46,22 +66,11 @@ class System {
 
     /**
      * Checks if the cache and all its subdirectories are readable and writable
-     * @return boolean TRUE if if the cache and all its subdirectories are readable and writable, FALSE otherwise
+     * @return boolean TRUE if if the cache is readable and writable, FALSE otherwise
+	 * @uses _dirIsWritable to check if is readable and writable
      */
     public static function checkCache() {
-        //Cache default directories
-        $default = array(CACHE, CACHE.'models', CACHE.'persistent', CACHE.'views');
-
-        //Directories in the cache
-        $cache = new Folder();
-        $cache = $cache->tree(CACHE, FALSE, 'dir');
-
-        foreach(array_unique(am($cache, $default)) as $dir) {
-            if(!is_readable($dir) || !is_writable($dir))
-                return FALSE;
-        }
-
-        return TRUE;
+		return self::_dirIsWritable(CACHE);
     }
 
     /**
@@ -94,31 +103,19 @@ class System {
     /**
      * Checks if the thumbnail directory is readable and writable
      * @return boolean TRUE if the thumbnail directory is readable and writable, FALSE otherwise
+	 * @uses _dirIsWritable to check if is readable and writable
      */
     public static function checkThumbs() {
-		$thumbs = new Folder();
-
-        foreach($thumbs->tree(TMP.'thumbs', FALSE, 'dir') as $dir) {
-            if(!is_readable($dir) || !is_writable($dir))
-                return FALSE;
-        }
-
-        return TRUE;
+		return self::_dirIsWritable(TMP.'thumbs');
     }
 
     /**
      * Checks if the TMP and all its subdirectories are readable and writable
-     * @return boolean TRUE if the TMP and all its subdirectories are readable and writable, FALSE otherwise
+     * @return boolean TRUE if the temporary directory is readable and writable, FALSE otherwise
+	 * @uses _dirIsWritable to check if is readable and writable
      */
     public static function checkTmp() {
-        $tmp = new Folder();
-
-        foreach($tmp->tree(TMP, FALSE, 'dir') as $dir) {
-            if(!is_readable($dir) || !is_writable($dir))
-                return FALSE;
-        }
-
-        return TRUE;
+		return self::_dirIsWritable(TMP);
     }
 
     /**
