@@ -34,7 +34,7 @@
  * </code>
  */
 class System {
-    /**
+	/**
      * Checks if an Apache module is active
      * @param string $module Name of the module to be checked
      * @return boolean TRUE if the module is enabled, FALSE otherwise
@@ -96,7 +96,14 @@ class System {
      * @return boolean TRUE if the thumbnail directory is readable and writable, FALSE otherwise
      */
     public static function checkThumbs() {
-        return is_readable(TMP.'thumbs') && is_writable(TMP.'thumbs');
+		$thumbs = new Folder();
+
+        foreach($thumbs->tree(TMP.'thumbs', FALSE, 'dir') as $dir) {
+            if(!is_readable($dir) || !is_writable($dir))
+                return FALSE;
+        }
+
+        return TRUE;
     }
 
     /**
