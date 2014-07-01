@@ -4,35 +4,43 @@
 # Mirko Pagliai <mirko.pagliai@gmail.com>, 2014.
 msgid ""
 msgstr ""
-"Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2014-05-19 20:07+0000\n"
-"PO-Revision-Date: 2014-05-19 22:13+0200\n"
-"Last-Translator: Mirko Pagliai <mirko.pagliai@gmail.com>\n"
+"POT-Creation-Date: 2014-07-01 13:14+0000\n"
+"PO-Revision-Date: 2014-07-01 15:16+0200\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Last-Translator: Mirko Pagliai <mirko.pagliai@gmail.com>\n"
+"Language-Team: Italian <>\n"
 "Language: it\n"
 
-#: Plugin/MeTools/Controller/ThumbsController.php:84;111
-msgid "Invalid mimetype"
-msgstr "Mimetype non valido"
+#: Plugin/MeTools/Controller/ThumbsController.php:58
+msgid "The %s library is missing"
+msgstr "La libreria %s non è presente"
 
-#: Plugin/MeTools/Controller/ThumbsController.php:192
-msgid "GD libraries are missing"
-msgstr "Le librerie GD non sono presenti"
+#: Plugin/MeTools/Controller/ThumbsController.php:127;171
+msgid "The target directory %s is not writable"
+msgstr "La directory di destinazione %s non è scrivibile"
 
-#: Plugin/MeTools/Controller/ThumbsController.php:196
+#: Plugin/MeTools/Controller/ThumbsController.php:135;178
+msgid "The thumbnail %s has not been created"
+msgstr "La miniatura %s non è stata creata"
+
+#: Plugin/MeTools/Controller/ThumbsController.php:167
+msgid "%s is not avalaible"
+msgstr "%s non è disponibile"
+
+#: Plugin/MeTools/Controller/ThumbsController.php:215
 msgid "The file has not been specified"
 msgstr "Il file non è stato specificato"
 
-#: Plugin/MeTools/Controller/ThumbsController.php:205
-msgid "This image doesn't exist or is not readable"
-msgstr "Questa immagine non esiste oppure non è leggibile"
+#: Plugin/MeTools/Controller/ThumbsController.php:223
+msgid "The file %s doesn't exist or is not readable"
+msgstr "Il file %s non esiste oppure non è leggibile"
 
-#: Plugin/MeTools/Controller/ThumbsController.php:216
-msgid "The thumb directory cannot be created"
-msgstr "La directory della miniatura non può essere creata"
+#: Plugin/MeTools/Controller/ThumbsController.php:237
+msgid "The mime type %s is not supported"
+msgstr "Il mime type %s non è supportato"
 
 #: Plugin/MeTools/Utility/FileArray.php:69
 msgid "The file %s exists, but is not writable"
@@ -128,7 +136,7 @@ msgstr "Seleziona un'opzione"
 msgid "Submit"
 msgstr "Invia"
 
-#: Plugin/MeTools/View/Helper/MeHtmlHelper.php:771
+#: Plugin/MeTools/View/Helper/MeHtmlHelper.php:792
 msgid "Tip"
 msgstr "Suggerimento"
 
