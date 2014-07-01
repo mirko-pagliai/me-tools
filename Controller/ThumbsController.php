@@ -234,7 +234,7 @@ class ThumbsController extends MeToolsAppController {
 			$thumb = $this->_videoThumb($file);
 		//Else, if the mime type is not known
 		else
-			throw new InternalErrorException(__d('me_tools', 'The mimetype %s is not supported', $mime));
+			throw new InternalErrorException(__d('me_tools', 'The mime type %s is not supported', $mime));
 		
 		//Renders the thumbnail
 		header("Content-type: image/jpeg");
