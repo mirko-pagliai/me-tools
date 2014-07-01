@@ -4,7 +4,7 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"POT-Creation-Date: 2014-07-01 13:06+0000\n"
+"POT-Creation-Date: 2014-07-01 13:14+0000\n"
 "PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
@@ -36,7 +36,7 @@ msgid "The file %s doesn't exist or is not readable"
 msgstr ""
 
 #: Plugin/MeTools/Controller/ThumbsController.php:237
-msgid "The mimetype %s is not supported"
+msgid "The mime type %s is not supported"
 msgstr ""
 
 #: Plugin/MeTools/Utility/FileArray.php:69
