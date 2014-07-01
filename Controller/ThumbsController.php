@@ -55,7 +55,7 @@ class ThumbsController extends MeToolsAppController {
 	private function _imageThumb($file) {
 		//Checks for Imagick
         if(!extension_loaded('imagick'))
-            throw new InternalErrorException(__d('me_tools', '%s libraries are missing', 'Imagick'));
+            throw new InternalErrorException(__d('me_tools', 'The %s library is missing', 'Imagick'));
 		
 		//Gets the maximum sizes
 		$maxWidth = (int) $this->request->query('w');
