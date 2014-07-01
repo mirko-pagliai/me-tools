@@ -7,7 +7,7 @@
 	<title>Class ThumbsController | MeTools</title>
 
 	<script type="text/javascript" src="resources/combined.js?394153670"></script>
-	<script type="text/javascript" src="elementlist.js?4172933711"></script>
+	<script type="text/javascript" src="elementlist.js?2469793865"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360" />
 
 </head>
@@ -115,23 +115,26 @@
 
 	<div class="description">
 	
-<p>Creates and displays image thumbs.</p>
+<p>Creates and displays thumbnails for image and video files.</p>
 
 <p>The <code>thumb()</code> action takes the maximum width and/or the maximum
-height as query string (<code>w</code> and <code>h</code> parameters). It can
-also create square thumbs. In this case, it's sufficient to indicate square side
-in the query string (<code>s</code> parameter). With square thumbs, the initial
-image will be cut off if it is rectangular.</p>
+height as query string parameters (<code>w</code> and <code>h</code>
+parameters). It can also create square thumbs. In this case, it's sufficient to
+indicate the maximum side in the query string (<code>s</code> parameter). With
+square thumbs, the initial image will be cut off if it is rectangular.</p>
 
-<p><code>ThumbsController</code> doesn't just show the thumb, but creates a real
-thumb in the temporary directory (<code>app/tmp/thumbs</code>), which can be
-used later when the same thumbs will be required (as if it were a cache).</p>
+<p>You can set the maximum height only for image files. Instead, the video
+thumbnails can be created using the maximum width or maximum side.</p>
 
-<p>To display a thumb or get the thumb url, you hav to use <code>thumb()</code>
-or <code>thumbUrl()</code> methods provided by the <code>MeHtml</code> helper.
-The <code>thumb()</code> method, using this controller, creates the thumb and
-returns the HTML code to show it. The <code>thumbUrl()</code> method creates the
-thumbs and returns its url.</p>
+<p><code>ThumbsController</code> doesn't just show thumbnails, but creates real
+thumbnails in the temporary directory (<code>app/tmp/thumbs</code>), which can
+be used later when the same thumbs will be required (as if it were a cache).</p>
+
+<p>To display a thumbnail or get the url for a thumbnail, you have to use
+<code>thumb()</code> or <code>thumbUrl()</code> methods provided by the
+<code>MeHtml</code> helper. The <code>thumb()</code> method, using this
+controller, creates the thumbnail and returns the HTML code to show it. The
+<code>thumbUrl()</code> method creates the thumbs and returns its url.</p>
 
 	</div>
 
@@ -178,99 +181,107 @@ AppController
 href="mailto:mirko.pagliai&#64;gmail.com">mirko.pagliai&#64;<!---->gmail.com</a>&gt;<br />
 				<b>See:</b>
 				<code><code><a href="class-MeHtmlHelper.html#_thumb">MeHtmlHelper::thumb()</a></code></code>, <code><code><a href="class-MeHtmlHelper.html#_thumbUrl">MeHtmlHelper::thumbUrl()</a></code></code><br />
-		<b>Located at</b> <a href="source-class-ThumbsController.html#30-229" title="Go to source code">ThumbsController.php</a><br />
+		<b>Located at</b> <a href="source-class-ThumbsController.html#30-246" title="Go to source code">ThumbsController.php</a><br />
 	</div>
 
 
 
 	<table class="summary" id="methods">
 	<caption>Methods summary</caption>
-	<tr data-order="_createThumb" id="__createThumb">
+	<tr data-order="_imageThumb" id="__imageThumb">
 
 		<td class="attributes"><code>
-			 protected 
-			
+			 private 
+			string
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
-		<a class="anchor" href="#__createThumb">#</a>
-		<code><a href="source-class-ThumbsController.html#65-117" title="Go to source code">_createThumb</a>( )</code>
+		<a class="anchor" href="#__imageThumb">#</a>
+		<code><a href="source-class-ThumbsController.html#49-138" title="Go to source code">_imageThumb</a>( <span>object <var>$file</var></span> )</code>
 
 		<div class="description short">
 			
-<p>Creates the thumb.</p>
+<p>Creates a thumbnail of an image.</p>
 
 		</div>
 
 		<div class="description detailed hidden">
 			
-<p>Creates the thumb.</p>
+<p>Creates a thumbnail of an image.</p>
 
 
 
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$file</var></dt>
+					<dd><code>object</code><br>$file File object</dd>
+				</dl></div>
 
+				<h4>Returns</h4>
+				<div class="list">
+					<code>string</code><br>Thumbnail path, if a thumbnail has been created<br />
+				</div>
 
 				<h4>Throws</h4>
 				<div class="list">
-					<code>NotFoundException</code><br />
+					<code>InternalErrorException</code><br />
 				</div>
 
-				<h4>Uses</h4>
-				<div class="list">
-						<code><code><a href="class-ThumbsController.html#$file">ThumbsController::<var>$file</var></a></code></code><br>to get the current image path<br />
-						<code><code><a href="class-ThumbsController.html#$info">ThumbsController::<var>$info</var></a></code></code><br>to get info about the current image<br />
-						<code><code><a href="class-ThumbsController.html#$thumb">ThumbsController::<var>$thumb</var></a></code></code><br>to get the thumb path<br />
-				</div>
 				<h4>Used by</h4>
 				<div class="list">
-						<code><code><a href="class-ThumbsController.html#_thumb">ThumbsController::thumb()</a></code></code><br>to create the thumb<br />
+						<code><code><a href="class-ThumbsController.html#_thumb">ThumbsController::thumb()</a></code></code><br>to create a thumbnail of an image<br />
 				</div>
 
 
 		</div>
 		</div></td>
 	</tr>
-	<tr data-order="_setInfo" id="__setInfo">
+	<tr data-order="_videoThumb" id="__videoThumb">
 
 		<td class="attributes"><code>
-			 protected 
-			
+			 private 
+			string
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
-		<a class="anchor" href="#__setInfo">#</a>
-		<code><a href="source-class-ThumbsController.html#119-174" title="Go to source code">_setInfo</a>( )</code>
+		<a class="anchor" href="#__videoThumb">#</a>
+		<code><a href="source-class-ThumbsController.html#140-198" title="Go to source code">_videoThumb</a>( <span>object <var>$file</var></span> )</code>
 
 		<div class="description short">
 			
-<p>Sets info (max sizes, final sizes, mimetype) about the current image and the
-thumb path.</p>
+<p>Creates a thumbnail of a video.</p>
 
 		</div>
 
 		<div class="description detailed hidden">
 			
-<p>Sets info (max sizes, final sizes, mimetype) about the current image and the
-thumb path.</p>
+<p>Creates a thumbnail of a video.</p>
 
 
 
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$file</var></dt>
+					<dd><code>object</code><br>$file File object</dd>
+				</dl></div>
 
-
-
-				<h4>Uses</h4>
+				<h4>Returns</h4>
 				<div class="list">
-						<code><code><a href="class-ThumbsController.html#$file">ThumbsController::<var>$file</var></a></code></code><br>to get the current image path<br />
-						<code><code><a href="class-ThumbsController.html#$info">ThumbsController::<var>$info</var></a></code></code><br>to set info about the current image<br />
-						<code><code><a href="class-ThumbsController.html#$thumb">ThumbsController::<var>$thumb</var></a></code></code><br>to set the thumb path<br />
+					<code>string</code><br>Thumbnail path, if a thumbnail has been created<br />
 				</div>
+
+				<h4>Throws</h4>
+				<div class="list">
+					<code>InternalErrorException</code><br />
+				</div>
+
 				<h4>Used by</h4>
 				<div class="list">
-						<code><code><a href="class-ThumbsController.html#_thumb">ThumbsController::thumb()</a></code></code><br>to set info about the current image<br />
+						<code><code><a href="class-ThumbsController.html#_thumb">ThumbsController::thumb()</a></code></code><br>to create a thumbnail of a video<br />
 				</div>
 
 
@@ -288,19 +299,17 @@ thumb path.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_thumb">#</a>
-		<code><a href="source-class-ThumbsController.html#176-228" title="Go to source code">thumb</a>( <span>string <var>$file</var> = <span class="php-keyword1">FALSE</span></span> )</code>
+		<code><a href="source-class-ThumbsController.html#200-245" title="Go to source code">thumb</a>( <span>string <var>$file</var> = <span class="php-keyword1">FALSE</span></span> )</code>
 
 		<div class="description short">
 			
-<p>Shows (and creates) a thumb for an image, if it's necessary to create a
-thumb.</p>
+<p>Creates and shows thumbnails for images and video.</p>
 
 		</div>
 
 		<div class="description detailed hidden">
 			
-<p>Shows (and creates) a thumb for an image, if it's necessary to create a
-thumb.</p>
+<p>Creates and shows thumbnails for images and video.</p>
 
 <p>Please, refer to the class description for more information. It's convenient
 to use <code>thumb()</code> or <code>thumbUrl()</code> method provided by the
@@ -311,7 +320,7 @@ to use <code>thumb()</code> or <code>thumbUrl()</code> method provided by the
 				<h4>Parameters</h4>
 				<div class="list"><dl>
 					<dt><var>$file</var></dt>
-					<dd><code>string</code><br>$file Encoded file path</dd>
+					<dd><code>string</code><br>$file File path, encoded by <code>base64_encode()</code></dd>
 				</dl></div>
 
 
@@ -327,10 +336,8 @@ to use <code>thumb()</code> or <code>thumbUrl()</code> method provided by the
 				</div>
 				<h4>Uses</h4>
 				<div class="list">
-						<code><code><a href="class-ThumbsController.html#$file">ThumbsController::<var>$file</var></a></code></code><br>to set the current image path<br />
-						<code><code><a href="class-ThumbsController.html#$thumb">ThumbsController::<var>$thumb</var></a></code></code><br>to get the thumb path<br />
-						<code><code><a href="class-ThumbsController.html#__createThumb">ThumbsController::_createThumb()</a></code></code><br>to create the thumb<br />
-						<code><code><a href="class-ThumbsController.html#__setInfo">ThumbsController::_setInfo()</a></code></code><br>to set info about the current image<br />
+						<code><code><a href="class-ThumbsController.html#__imageThumb">ThumbsController::_imageThumb()</a></code></code><br>to create a thumbnail of an image<br />
+						<code><code><a href="class-ThumbsController.html#__videoThumb">ThumbsController::_videoThumb()</a></code></code><br>to create a thumbnail of a video<br />
 				</div>
 
 
@@ -350,109 +357,6 @@ to use <code>thumb()</code> or <code>thumbUrl()</code> method provided by the
 
 
 
-	<table class="summary" id="properties">
-	<caption>Properties summary</caption>
-	<tr data-order="file" id="$file">
-		<td class="attributes"><code>
-			protected  
-			string
-		</code></td>
-
-		<td class="name">
-				<a href="source-class-ThumbsController.html#46-50" title="Go to source code"><var>$file</var></a>
-		</td>
-		<td class="value"><code><span class="php-keyword1">FALSE</span></code></td>
-		<td class="description"><div>
-			<a href="#$file" class="anchor">#</a>
-
-			<div class="description short">
-				
-<p>Current image path</p>
-
-			</div>
-
-			<div class="description detailed hidden">
-				
-<p>Current image path</p>
-
-
-					<h4>Used by</h4>
-					<div class="list">
-							<code><code><a href="class-ThumbsController.html#__createThumb">ThumbsController::_createThumb()</a></code></code><br>to get the current image path<br />
-							<code><code><a href="class-ThumbsController.html#__setInfo">ThumbsController::_setInfo()</a></code></code><br>to get the current image path<br />
-							<code><code><a href="class-ThumbsController.html#_thumb">ThumbsController::thumb()</a></code></code><br>to set the current image path<br />
-					</div>
-			</div>
-		</div></td>
-	</tr>
-	<tr data-order="info" id="$info">
-		<td class="attributes"><code>
-			protected  
-			array
-		</code></td>
-
-		<td class="name">
-				<a href="source-class-ThumbsController.html#52-57" title="Go to source code"><var>$info</var></a>
-		</td>
-		<td class="value"><code><span class="php-keyword1">array</span>()</code></td>
-		<td class="description"><div>
-			<a href="#$info" class="anchor">#</a>
-
-			<div class="description short">
-				
-<p>Info about the current image. It will contain the initial, the max and the
-final sizes (width and height) and the the mimetype.</p>
-
-			</div>
-
-			<div class="description detailed hidden">
-				
-<p>Info about the current image. It will contain the initial, the max and the
-final sizes (width and height) and the the mimetype.</p>
-
-
-					<h4>Used by</h4>
-					<div class="list">
-							<code><code><a href="class-ThumbsController.html#__createThumb">ThumbsController::_createThumb()</a></code></code><br>to get info about the current image<br />
-							<code><code><a href="class-ThumbsController.html#__setInfo">ThumbsController::_setInfo()</a></code></code><br>to set info about the current image<br />
-					</div>
-			</div>
-		</div></td>
-	</tr>
-	<tr data-order="thumb" id="$thumb">
-		<td class="attributes"><code>
-			protected  
-			string
-		</code></td>
-
-		<td class="name">
-				<a href="source-class-ThumbsController.html#59-63" title="Go to source code"><var>$thumb</var></a>
-		</td>
-		<td class="value"><code><span class="php-keyword1">FALSE</span></code></td>
-		<td class="description"><div>
-			<a href="#$thumb" class="anchor">#</a>
-
-			<div class="description short">
-				
-<p>Thumb path.</p>
-
-			</div>
-
-			<div class="description detailed hidden">
-				
-<p>Thumb path.</p>
-
-
-					<h4>Used by</h4>
-					<div class="list">
-							<code><code><a href="class-ThumbsController.html#__createThumb">ThumbsController::_createThumb()</a></code></code><br>to get the thumb path<br />
-							<code><code><a href="class-ThumbsController.html#__setInfo">ThumbsController::_setInfo()</a></code></code><br>to set the thumb path<br />
-							<code><code><a href="class-ThumbsController.html#_thumb">ThumbsController::thumb()</a></code></code><br>to get the thumb path<br />
-					</div>
-			</div>
-		</div></td>
-	</tr>
-	</table>
 
 
 

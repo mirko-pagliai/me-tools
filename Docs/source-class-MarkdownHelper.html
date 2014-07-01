@@ -8,7 +8,7 @@
 	<title>File MarkdownHelper.php | MeTools</title>
 
 	<script type="text/javascript" src="resources/combined.js?394153670"></script>
-	<script type="text/javascript" src="elementlist.js?4172933711"></script>
+	<script type="text/javascript" src="elementlist.js?2469793865"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360" />
 
 </head>
@@ -168,22 +168,27 @@
 </span></span><span id="51" class="l"><a class="l" href="#51">51: </a><span class="php-comment">     * @see http://repository.novatlantis.it/metools-sandbox/markdown/markdown Examples
 </span></span><span id="52" class="l"><a class="l" href="#52">52: </a><span class="php-comment">     */</span>
 </span><span id="53" class="l"><a class="l" href="#53">53: </a>    <span class="php-keyword1">function</span> <a id="_toHtml" href="#_toHtml">toHtml</a>(<span class="php-var">$string</span>, <span class="php-var">$clean</span> = <span class="php-keyword1">FALSE</span>) {
-</span><span id="54" class="l"><a class="l" href="#54">54: </a>        <span class="php-var">$html</span> = Markdown::defaultTransform(<span class="php-var">$string</span>);
-</span><span id="55" class="l"><a class="l" href="#55">55: </a>        
-</span><span id="56" class="l"><a class="l" href="#56">56: </a>        <span class="php-keyword1">if</span>(<span class="php-var">$clean</span>) {
-</span><span id="57" class="l"><a class="l" href="#57">57: </a>            <span class="php-comment">//Removes the &quot;TOC&quot;</span>
-</span><span id="58" class="l"><a class="l" href="#58">58: </a>            <span class="php-var">$html</span> = <span class="php-keyword2">preg_replace</span>(<span class="php-quote">'/(&lt;p&gt;)?\[TOC\](&lt;\/p&gt;)?(\\n)*/'</span>, <span class="php-quote">''</span>, <span class="php-var">$html</span>);
-</span><span id="59" class="l"><a class="l" href="#59">59: </a>
-</span><span id="60" class="l"><a class="l" href="#60">60: </a>            <span class="php-comment">//Changes headers</span>
-</span><span id="61" class="l"><a class="l" href="#61">61: </a>            <span class="php-var">$html</span> = <span class="php-keyword2">preg_replace</span>(<span class="php-quote">'/&lt;h[4-6]&gt;(.*)&lt;\/h[4-6]&gt;/'</span>, <span class="php-quote">'&lt;h6&gt;$1&lt;/h6&gt;'</span>, <span class="php-var">$html</span>);
-</span><span id="62" class="l"><a class="l" href="#62">62: </a>            <span class="php-var">$html</span> = <span class="php-keyword2">preg_replace</span>(<span class="php-quote">'/&lt;h3&gt;(.*)&lt;\/h3&gt;/'</span>, <span class="php-quote">'&lt;h5&gt;$1&lt;/h5&gt;'</span>, <span class="php-var">$html</span>);
-</span><span id="63" class="l"><a class="l" href="#63">63: </a>            <span class="php-var">$html</span> = <span class="php-keyword2">preg_replace</span>(<span class="php-quote">'/&lt;h2&gt;(.*)&lt;\/h2&gt;/'</span>, <span class="php-quote">'&lt;h4&gt;$1&lt;/h4&gt;'</span>, <span class="php-var">$html</span>);
-</span><span id="64" class="l"><a class="l" href="#64">64: </a>            <span class="php-var">$html</span> = <span class="php-keyword2">preg_replace</span>(<span class="php-quote">'/&lt;h1&gt;(.*)&lt;\/h1&gt;/'</span>, <span class="php-quote">'&lt;h3&gt;$1&lt;/h3&gt;'</span>, <span class="php-var">$html</span>);
-</span><span id="65" class="l"><a class="l" href="#65">65: </a>        }
-</span><span id="66" class="l"><a class="l" href="#66">66: </a>        
-</span><span id="67" class="l"><a class="l" href="#67">67: </a>        <span class="php-keyword1">return</span> <span class="php-var">$html</span>;
-</span><span id="68" class="l"><a class="l" href="#68">68: </a>    }
-</span><span id="69" class="l"><a class="l" href="#69">69: </a></span>}</code></pre>
+</span><span id="54" class="l"><a class="l" href="#54">54: </a>        <span class="php-comment">//Converts some code blocks as used by some sites, such as Bitbucket</span>
+</span><span id="55" class="l"><a class="l" href="#55">55: </a>        <span class="php-var">$string</span> = <span class="php-keyword2">preg_replace_callback</span>(<span class="php-quote">'/```\s+(#!\S+\s+)?(((?!```)\t*.*\s+)+)\s*```/m'</span>, <span class="php-keyword1">function</span>(<span class="php-var">$match</span>) {
+</span><span id="56" class="l"><a class="l" href="#56">56: </a>            <span class="php-keyword1">return</span> PHP_EOL.<span class="php-keyword2">preg_replace</span>(<span class="php-quote">'/(\t*.*\s+)/m'</span>, <span class="php-quote">'  $1'</span>, <span class="php-var">$match</span>[<span class="php-num">2</span>]);
+</span><span id="57" class="l"><a class="l" href="#57">57: </a>        }, <span class="php-var">$string</span>);
+</span><span id="58" class="l"><a class="l" href="#58">58: </a>
+</span><span id="59" class="l"><a class="l" href="#59">59: </a>        <span class="php-var">$html</span> = Markdown::defaultTransform(<span class="php-var">$string</span>);
+</span><span id="60" class="l"><a class="l" href="#60">60: </a>
+</span><span id="61" class="l"><a class="l" href="#61">61: </a>        <span class="php-keyword1">if</span>(<span class="php-var">$clean</span>) {
+</span><span id="62" class="l"><a class="l" href="#62">62: </a>            <span class="php-comment">//Removes the &quot;TOC&quot;</span>
+</span><span id="63" class="l"><a class="l" href="#63">63: </a>            <span class="php-var">$html</span> = <span class="php-keyword2">preg_replace</span>(<span class="php-quote">'/(&lt;p&gt;)?\[TOC\](&lt;\/p&gt;)?(\\n)*/'</span>, <span class="php-quote">''</span>, <span class="php-var">$html</span>);
+</span><span id="64" class="l"><a class="l" href="#64">64: </a>
+</span><span id="65" class="l"><a class="l" href="#65">65: </a>            <span class="php-comment">//Changes headers</span>
+</span><span id="66" class="l"><a class="l" href="#66">66: </a>            <span class="php-var">$html</span> = <span class="php-keyword2">preg_replace</span>(<span class="php-quote">'/&lt;h[4-6]&gt;(.*)&lt;\/h[4-6]&gt;/'</span>, <span class="php-quote">'&lt;h6&gt;$1&lt;/h6&gt;'</span>, <span class="php-var">$html</span>);
+</span><span id="67" class="l"><a class="l" href="#67">67: </a>            <span class="php-var">$html</span> = <span class="php-keyword2">preg_replace</span>(<span class="php-quote">'/&lt;h3&gt;(.*)&lt;\/h3&gt;/'</span>, <span class="php-quote">'&lt;h5&gt;$1&lt;/h5&gt;'</span>, <span class="php-var">$html</span>);
+</span><span id="68" class="l"><a class="l" href="#68">68: </a>            <span class="php-var">$html</span> = <span class="php-keyword2">preg_replace</span>(<span class="php-quote">'/&lt;h2&gt;(.*)&lt;\/h2&gt;/'</span>, <span class="php-quote">'&lt;h4&gt;$1&lt;/h4&gt;'</span>, <span class="php-var">$html</span>);
+</span><span id="69" class="l"><a class="l" href="#69">69: </a>            <span class="php-var">$html</span> = <span class="php-keyword2">preg_replace</span>(<span class="php-quote">'/&lt;h1&gt;(.*)&lt;\/h1&gt;/'</span>, <span class="php-quote">'&lt;h3&gt;$1&lt;/h3&gt;'</span>, <span class="php-var">$html</span>);
+</span><span id="70" class="l"><a class="l" href="#70">70: </a>        }
+</span><span id="71" class="l"><a class="l" href="#71">71: </a>
+</span><span id="72" class="l"><a class="l" href="#72">72: </a>        <span class="php-keyword1">return</span> <span class="php-var">$html</span>;
+</span><span id="73" class="l"><a class="l" href="#73">73: </a>    }
+</span><span id="74" class="l"><a class="l" href="#74">74: </a></span>}</code></pre>
 
 	<div id="footer">
 		MeTools API documentation generated by <a href="http://apigen.org">ApiGen 2.8.0</a>

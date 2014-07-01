@@ -8,7 +8,7 @@
 	<title>File LibraryHelper.php | MeTools</title>
 
 	<script type="text/javascript" src="resources/combined.js?394153670"></script>
-	<script type="text/javascript" src="elementlist.js?4172933711"></script>
+	<script type="text/javascript" src="elementlist.js?2469793865"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360" />
 
 </head>
@@ -217,7 +217,7 @@
 </span><span id="100" class="l"><a class="l" href="#100">100: </a>            <span class="php-keyword1">else</span>
 </span><span id="101" class="l"><a class="l" href="#101">101: </a>                <span class="php-keyword1">return</span> <span class="php-keyword1">FALSE</span>;
 </span><span id="102" class="l"><a class="l" href="#102">102: </a>
-</span><span id="103" class="l"><a class="l" href="#103">103: </a>            <span class="php-keyword1">return</span> <span class="php-var">$this</span>-&gt;Html-&gt;js(<span class="php-var">$script</span>);
+</span><span id="103" class="l"><a class="l" href="#103">103: </a>            <span class="php-keyword1">return</span> <span class="php-var">$this</span>-&gt;Html-&gt;js(<span class="php-var">$script</span>, <span class="php-keyword1">array</span>(<span class="php-quote">'inline'</span> =&gt; <span class="php-keyword1">FALSE</span>));
 </span><span id="104" class="l"><a class="l" href="#104">104: </a>        }
 </span><span id="105" class="l"><a class="l" href="#105">105: </a>
 </span><span id="106" class="l"><a class="l" href="#106">106: </a>        <span class="php-keyword1">return</span> <span class="php-keyword1">FALSE</span>;
@@ -233,13 +233,13 @@
 </span></span><span id="116" class="l"><a class="l" href="#116">116: </a><span class="php-comment">     * @see http://bootstrap-datepicker.readthedocs.org Bootstrap Datepicker documentation
 </span></span><span id="117" class="l"><a class="l" href="#117">117: </a><span class="php-comment">     */</span>
 </span><span id="118" class="l"><a class="l" href="#118">118: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_datepicker" href="#_datepicker">datepicker</a>(<span class="php-var">$input</span> = <span class="php-quote">'.datepicker'</span>, <span class="php-var">$options</span> = <span class="php-keyword1">array</span>()) {
-</span><span id="119" class="l"><a class="l" href="#119">119: </a>        <span class="php-var">$this</span>-&gt;Html-&gt;js(<span class="php-quote">'/MeTools/js/bootstrap-datepicker.min'</span>);
-</span><span id="120" class="l"><a class="l" href="#120">120: </a>        <span class="php-var">$this</span>-&gt;Html-&gt;css(<span class="php-quote">'/MeTools/css/datepicker3.min'</span>);
+</span><span id="119" class="l"><a class="l" href="#119">119: </a>        <span class="php-var">$this</span>-&gt;Html-&gt;js(<span class="php-quote">'/MeTools/js/bootstrap-datepicker.min'</span>, <span class="php-keyword1">array</span>(<span class="php-quote">'inline'</span> =&gt; <span class="php-keyword1">FALSE</span>));
+</span><span id="120" class="l"><a class="l" href="#120">120: </a>        <span class="php-var">$this</span>-&gt;Html-&gt;css(<span class="php-quote">'/MeTools/css/datepicker3.min'</span>, <span class="php-keyword1">array</span>(<span class="php-quote">'inline'</span> =&gt; <span class="php-keyword1">FALSE</span>));
 </span><span id="121" class="l"><a class="l" href="#121">121: </a>
 </span><span id="122" class="l"><a class="l" href="#122">122: </a>        <span class="php-keyword1">if</span>(<span class="php-keyword1">empty</span>(<span class="php-var">$options</span>))
 </span><span id="123" class="l"><a class="l" href="#123">123: </a>            <span class="php-var">$options</span> = <span class="php-keyword1">array</span>(
 </span><span id="124" class="l"><a class="l" href="#124">124: </a>               <span class="php-quote">'autoclose'</span>      =&gt; <span class="php-keyword1">TRUE</span>,
-</span><span id="125" class="l"><a class="l" href="#125">125: </a>               <span class="php-quote">'format'</span>         =&gt; <span class="php-quote">'yyyy-mm-dd'</span>,
+</span><span id="125" class="l"><a class="l" href="#125">125: </a>               <span class="php-quote">'format'</span>         =&gt; <span class="php-quote">'yyyy/mm/dd'</span>,
 </span><span id="126" class="l"><a class="l" href="#126">126: </a>               <span class="php-quote">'todayBtn'</span>       =&gt; <span class="php-quote">&quot;linked&quot;</span>,
 </span><span id="127" class="l"><a class="l" href="#127">127: </a>               <span class="php-quote">'todayHighlight'</span> =&gt; <span class="php-keyword1">TRUE</span>,
 </span><span id="128" class="l"><a class="l" href="#128">128: </a>               <span class="php-quote">'weekStart'</span>      =&gt; <span class="php-num">1</span>
@@ -263,7 +263,7 @@
 </span></span><span id="146" class="l"><a class="l" href="#146">146: </a><span class="php-comment">     * @param string $targetField Target field
 </span></span><span id="147" class="l"><a class="l" href="#147">147: </a><span class="php-comment">     */</span>
 </span><span id="148" class="l"><a class="l" href="#148">148: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_slugify" href="#_slugify">slugify</a>(<span class="php-var">$sourceField</span> = <span class="php-quote">'form #title'</span>, <span class="php-var">$targetField</span> = <span class="php-quote">'form #slug'</span>) {
-</span><span id="149" class="l"><a class="l" href="#149">149: </a>        <span class="php-var">$this</span>-&gt;Html-&gt;js(<span class="php-quote">'/MeTools/js/slugify.min'</span>);
+</span><span id="149" class="l"><a class="l" href="#149">149: </a>        <span class="php-var">$this</span>-&gt;Html-&gt;js(<span class="php-quote">'/MeTools/js/slugify.min'</span>, <span class="php-keyword1">array</span>(<span class="php-quote">'inline'</span> =&gt; <span class="php-keyword1">FALSE</span>));
 </span><span id="150" class="l"><a class="l" href="#150">150: </a>        <span class="php-var">$this</span>-&gt;output[] = <span class="php-quote">&quot;</span><span class="php-var">$</span><span class="php-quote">().slugify('</span><span class="php-var">{$sourceField}</span><span class="php-quote">', '</span><span class="php-var">{$targetField}</span><span class="php-quote">');&quot;</span>;
 </span><span id="151" class="l"><a class="l" href="#151">151: </a>    }
 </span><span id="152" class="l"><a class="l" href="#152">152: </a>
@@ -277,8 +277,8 @@
 </span></span><span id="160" class="l"><a class="l" href="#160">160: </a><span class="php-comment">     * @see http://jdewit.github.io/bootstrap-timepicker Bootstrap Timepicker documentation
 </span></span><span id="161" class="l"><a class="l" href="#161">161: </a><span class="php-comment">     */</span>
 </span><span id="162" class="l"><a class="l" href="#162">162: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_timepicker" href="#_timepicker">timepicker</a>(<span class="php-var">$input</span> = <span class="php-quote">'.timepicker'</span>, <span class="php-var">$options</span> = <span class="php-keyword1">array</span>()) {
-</span><span id="163" class="l"><a class="l" href="#163">163: </a>        <span class="php-var">$this</span>-&gt;Html-&gt;js(<span class="php-quote">'/MeTools/js/bootstrap-timepicker.min'</span>);
-</span><span id="164" class="l"><a class="l" href="#164">164: </a>        <span class="php-var">$this</span>-&gt;Html-&gt;css(<span class="php-quote">'/MeTools/css/bootstrap-timepicker.min'</span>);
+</span><span id="163" class="l"><a class="l" href="#163">163: </a>        <span class="php-var">$this</span>-&gt;Html-&gt;js(<span class="php-quote">'/MeTools/js/bootstrap-timepicker.min'</span>, <span class="php-keyword1">array</span>(<span class="php-quote">'inline'</span> =&gt; <span class="php-keyword1">FALSE</span>));
+</span><span id="164" class="l"><a class="l" href="#164">164: </a>        <span class="php-var">$this</span>-&gt;Html-&gt;css(<span class="php-quote">'/MeTools/css/bootstrap-timepicker.min'</span>, <span class="php-keyword1">array</span>(<span class="php-quote">'inline'</span> =&gt; <span class="php-keyword1">FALSE</span>));
 </span><span id="165" class="l"><a class="l" href="#165">165: </a>
 </span><span id="166" class="l"><a class="l" href="#166">166: </a>        <span class="php-keyword1">if</span>(<span class="php-keyword1">empty</span>(<span class="php-var">$options</span>))
 </span><span id="167" class="l"><a class="l" href="#167">167: </a>            <span class="php-var">$options</span> = <span class="php-keyword1">array</span>(
