@@ -28,202 +28,219 @@ App::uses('MeToolsAppController', 'MeTools.Controller');
 App::uses('Folder', 'Utility');
 
 /**
- * Creates and displays image thumbs.
+ * Creates and displays thumbnails for image and video files.
  * 
- * The `thumb()` action takes the maximum width and/or the maximum height as query string (`w` and `h` parameters).
- * It can also create square thumbs. In this case, it's sufficient to indicate square side in the query string (`s` parameter).
+ * The `thumb()` action takes the maximum width and/or the maximum height as query string parameters (`w` and `h` parameters).
+ * It can also create square thumbs. In this case, it's sufficient to indicate the maximum side in the query string (`s` parameter).
  * With square thumbs, the initial image will be cut off if it is rectangular.
  * 
- * `ThumbsController` doesn't just show the thumb, but creates a real thumb in the temporary directory (`app/tmp/thumbs`), 
+ * You can set the maximum height only for image files.
+ * Instead, the video thumbnails can be created using the maximum width or maximum side.
+ * 
+ * `ThumbsController` doesn't just show thumbnails, but creates real thumbnails in the temporary directory (`app/tmp/thumbs`), 
  * which can be used later when the same thumbs will be required (as if it were a cache).
  * 
- * To display a thumb or get the thumb url, you hav to use `thumb()` or `thumbUrl()` methods provided by the `MeHtml` helper.
- * The `thumb()` method, using this controller, creates the thumb and returns the HTML code to show it.
+ * To display a thumbnail or get the url for a thumbnail, you have to use `thumb()` or `thumbUrl()` methods provided by the `MeHtml` helper.
+ * The `thumb()` method, using this controller, creates the thumbnail and returns the HTML code to show it.
  * The `thumbUrl()` method creates the thumbs and returns its url.
  * @see MeHtmlHelper::thumb(), MeHtmlHelper::thumbUrl()
  */
 class ThumbsController extends MeToolsAppController {
-    /**
-     * Current image path
-     * @var string Image path
-     */
-    protected $file = FALSE;
+	/**
+	 * Creates a thumbnail of an image.
+	 * @param object $file File object
+	 * @return string Thumbnail path, if a thumbnail has been created
+	 * @throws InternalErrorException
+	 */
+	private function _imageThumb($file) {
+		//Checks for Imagick
+        if(!extension_loaded('imagick'))
+            throw new InternalErrorException(__d('me_tools', '%s libraries are missing', 'Imagick'));
+		
+		//Gets the maximum sizes
+		$maxWidth = (int) $this->request->query('w');
+        $maxHeight = (int) $this->request->query('h');
+        $maxSide = (int) $this->request->query('s');
+		
+		//If no size is specified, then it's not necessary to create a thumbnail
+		if(!$maxWidth && !$maxHeight && !$maxSide)
+			return $file->path;
+		
+		//Creates the Imagick object
+		$image = new Imagick($file->path);
+		
+		//If the max side is defined (then has been requested a square thumb)
+		if($maxSide) {
+			//If the maximum side is larger than the width and height, then the maximum side is equal to the smallest size
+			if($maxSide > $image->getImageWidth() || $maxSide > $image->getImageHeight())
+				$maxSide = $image->getImageWidth() > $image->getImageHeight() ? $image->getImageHeight() : $image->getImageWidth();
+						
+			//Creates the thumbnail
+			$image->cropThumbnailImage($finalWidth = $finalHeight = $maxSide, $maxSide);
+		}
+		//Else, if the maximum width and the maximum height are defined
+		elseif($maxWidth && $maxHeight) {
+            //Tries to get the final sizes from the width
+            $finalWidth = floor($image->getImageWidth() * $maxHeight / $image->getImageHeight());
 
-    /**
-     * Info about the current image.
-     * It will contain the initial, the max and the final sizes (width and height) and the the mimetype.
-     * @var array Array of info
-     */
-    protected $info = array();
-
-    /**
-     * Thumb path.
-     * @var string Thumb path
-     */
-    protected $thumb = FALSE;
-
-    /**
-     * Creates the thumb.
-     * @uses file to get the current image path
-     * @uses info to get info about the current image
-     * @uses thumb to get the thumb path
-     * @throws NotFoundException
-     */
-    protected function _createThumb() {
-        switch($this->info['mime']) {
-            case 'image/jpeg':
-                $src = imagecreatefromjpeg($this->file);
-                break;
-            case 'image/png':
-                $src = imagecreatefrompng($this->file);
-                break;
-            case 'image/gif':
-                $src = imagecreatefromgif($this->file);
-                break;
-            default:
-                throw new InternalErrorException(__d('me_tools', 'Invalid mimetype'));
-                break;
-        }
-
-        $thumb = imagecreatetruecolor($this->info['finalWidth'], $this->info['finalHeight']);
-
-        //Transparency for png images
-        if($this->info['mime'] === 'image/png') {
-            imagealphablending($thumb, FALSE);
-            imagesavealpha($thumb, TRUE);
-        }
-
-        imagecopyresampled($thumb, $src, 0, 0, $this->info['x'], $this->info['y'], $this->info['finalWidth'], $this->info['finalHeight'], $this->info['width'], $this->info['height']);
-
-        $target = is_writable(dirname($this->thumb)) ? $this->thumb : NULL;
-
-        switch($this->info['mime']) {
-            case 'image/jpeg':
-                imagejpeg($thumb, $target, 100);
-                break;
-            case 'image/png':
-                imagepng($thumb, $target, 0);
-                break;
-            case 'image/gif':
-                imagegif($thumb, $target);
-                break;
-            default:
-                throw new InternalErrorException(__d('me_tools', 'Invalid mimetype'));
-                break;
-        }
-
-        imagedestroy($src);
-        imagedestroy($thumb);
-    }
-
-    /**
-     * Sets info (max sizes, final sizes, mimetype) about the current image and the thumb path.
-     * @uses file to get the current image path
-     * @uses info to set info about the current image
-     * @uses thumb to set the thumb path
-     */
-    protected function _setInfo() {
-        $imageSize = getimagesize($this->file);
-
-        $this->info = array(
-           'mime'       => $imageSize['mime'],
-           'filename'   => pathinfo($this->file, PATHINFO_FILENAME),
-           'extension'  => pathinfo($this->file, PATHINFO_EXTENSION),
-           'width'      => $imageSize[0],
-           'height'     => $imageSize[1],
-           'maxWidth'   => (int) $this->request->query('w'),
-           'maxHeight'  => (int) $this->request->query('h'),
-           'side'       => (int) $this->request->query('s')
-        );
-
-        //Sets empty values. These values will be set later, depending on the size and on the request
-        $this->info['x'] = $this->info['y'] = $this->info['finalWidth'] = $this->info['finalHeight'] = $finalWidth = $finalHeight = 0;
-
-        //If the side (for square thumbs) is defined
-        if($finalWidth = $finalHeight = $this->info['side']) {
-            if($this->info['width'] < $this->info['height'])
-                $this->info['y'] = floor(($this->info['height'] - ($this->info['height'] = $this->info['width'])) / 2);
-            else
-                $this->info['x'] = floor(($this->info['width'] - ($this->info['width'] = $this->info['height'])) / 2);
-        }
-        //Else, if the maximum width and the maximum height are defined
-        elseif($this->info['maxWidth'] && $this->info['maxHeight']) {
-            //Tries to get final sizes from the width
-            $finalWidth = $this->info['width'] * $this->info['maxHeight'] / $this->info['height'];
-
-            //If the final width is greater than the maximum width, get final sizes from the final height
-            if($finalWidth > $this->info['maxWidth'])
-                $finalHeight = $this->info['height'] * ($finalWidth = $this->info['maxWidth']) / $this->info['width'];
+            //If the final width is greater than the maximum width, it gets the final sizes from the final height
+            if($finalWidth > $maxWidth)
+                $finalHeight = floor($image->getImageHeight() * ($finalWidth = $maxWidth) / $image->getImageWidth());
             //Else, the final height is the maximum height
             else
-                $finalHeight = $this->info['maxHeight'];
-        }
+                $finalHeight = $maxHeight;
+		
+			//Creates the thumbnail
+			$image->thumbnailImage($finalWidth, $finalHeight);
+		}
         //Else, if only the maximum width is defined
-        elseif($this->info['maxWidth'])
-            $finalHeight = $this->info['height'] * ($finalWidth = $this->info['maxWidth']) / $this->info['width'];
+		elseif($maxWidth) {
+			//If the maximum width is greater than the actual width, then it's not necessary to create a thumbnail
+			if(($finalWidth = $maxWidth) >= $image->getImageWidth())
+				return $file->path;
+			
+			//Gets the final height and creates the thumbnail
+			$finalHeight = floor($finalWidth * $image->getImageHeight() / $image->getImageWidth());
+			$image->thumbnailImage($finalWidth, 0);
+			
+		}
         //Else, if only the maximum height is defined
-        elseif($this->info['maxHeight'])
-            $finalWidth = $this->info['width'] * ($finalHeight = $this->info['maxHeight']) / $this->info['height'];
-
-        //If final sizes are defined and are lowen than initial sizes
-        if($finalWidth && $finalHeight && ($finalWidth < $this->info['width'] || $finalHeight < $this->info['height'])) {
-            $this->info['finalWidth'] = (int) floor($finalWidth);
-            $this->info['finalHeight'] = (int) floor($finalHeight);
-            $this->thumb = TMP.'thumbs'.DS.md5($this->file).'_'.$this->info['finalWidth'].'x'.$this->info['finalHeight'].'.'.$this->info['extension'];
-        }
-    }
-
-    /**
-     * Shows (and creates) a thumb for an image, if it's necessary to create a thumb.
+		else {
+			//If the maximum height is greater than the actual height, then it's not necessary to create a thumbnail
+			if(($finalHeight = $maxHeight) >= $image->getImageHeight())
+				return $file->path;
+			
+			//Gets the final width and creates the thumbnail
+			$finalWidth = floor($finalHeight * $image->getImageWidth() / $image->getImageHeight());
+			$image->thumbnailImage(0, $finalHeight);
+		}
+		
+		//Gets the thumbnail path
+		$thumb = TMP.'thumbs'.DS.'photos'.DS.md5($file->path).'_'.$finalWidth.'x'.$finalHeight.'.jpg';
+		
+		//Checks if the thumbnail already exists
+		if(is_readable($thumb))
+			return $thumb;
+		
+		//Checks if the target directory is writable
+		if(!is_writable(dirname($thumb)))
+            throw new InternalErrorException(__d('me_tools', 'The target directory %s is not writable', dirname($thumb)));
+		
+		//Writes the image to the output directory and destroys the Imagick object
+		$image->writeImage($thumb);
+		$image->destroy();
+		
+		//Checks if the thumbnail has been created
+		if(!is_readable($thumb))
+            throw new InternalErrorException(__d('me_tools', 'The thumbnail %s has not been created', $thumb));
+		
+		return $thumb;
+	}
+	
+	/**
+	 * Creates a thumbnail of a video.
+	 * @param object $file File object
+	 * @return string Thumbnail path, if a thumbnail has been created
+	 * @throws InternalErrorException
+	 */
+	private function _videoThumb($file) {
+		//Gets the maximum sizes
+		$maxWidth = (int) $this->request->query('w');
+        $maxSide = (int) $this->request->query('s');
+		
+		//If no size is specified, it sets a maximum width
+		if(!$maxWidth && !$maxSide)
+			$maxWidth = 270;
+		
+		//Gets the thumbnail path
+		if($maxSide)
+			$thumb = TMP.'thumbs'.DS.'videos'.DS.md5($file->path).'_s'.($maxWidth = $maxSide).'.jpg';
+		else
+			$thumb = TMP.'thumbs'.DS.'videos'.DS.md5($file->path).'_w'.$maxWidth.'.jpg';
+				
+		//Checks if the thumbnail already exists
+		if(is_readable($thumb))
+			return $thumb;
+		
+		//Checks for ffmpegthumbnailer
+		if(empty(shell_exec('which ffmpegthumbnailer')))
+            throw new InternalErrorException(__d('me_tools', '%s is not avalaible', 'ffmpegthumbnailer'));
+		
+		//Checks if the target directory is writable
+		if(!is_writable(dirname($thumb)))
+            throw new InternalErrorException(__d('me_tools', 'The target directory %s is not writable', dirname($thumb)));
+		
+		//Creates the thumbnail
+		shell_exec($cmd = sprintf('ffmpegthumbnailer -s %s -q 10 -f -i \'%s\' -o \'%s\'', $maxWidth, $file->path, $thumb));
+		
+		//Checks if the thumbnail has been created
+		if(!is_readable($thumb))
+            throw new InternalErrorException(__d('me_tools', 'The thumbnail %s has not been created', $thumb));
+		
+		//If the max side is defined (then has been requested a square thumb)
+		if($maxSide) {
+			//Creates the Imagick object
+			$image = new Imagick($thumb);
+			
+			//If the height of the thumbnail is larger than the width
+			if($image->getImageHeight() < $image->getImageWidth()) {
+				//Adds a border
+				$border = ($image->getImageWidth() - $image->getImageHeight()) / 2;
+				$image->borderImage('#000000', 0, $border);
+				
+				//Writes the image to output directory and destroys the Imagick object
+				$image->writeImage($thumb);
+				$image->destroy();
+			}
+		}
+		
+		return $thumb;
+	}
+	
+	/**
+	 * Creates and shows thumbnails for images and video.
      * 
      * Please, refer to the class description for more information.
      * It's convenient to use `thumb()` or `thumbUrl()` method provided by the `MeHtml` helper.
-     * @param string $file Encoded file path
-     * @throws InternalErrorException
-     * @throws NotFoundException
+	 * @param string $file File path, encoded by `base64_encode()`
+	 * @throws InternalErrorException
+	 * @throws NotFoundException
      * @see MeHtmlHelper::thumb(), MeHtmlHelper::thumbUrl()
-     * @uses file to set the current image path
-     * @uses thumb to get the thumb path
-     * @uses _createThumb() to create the thumb
-     * @uses _setInfo() to set info about the current image
-     */
+	 * @uses _imageThumb() to create a thumbnail of an image
+	 * @uses _videoThumb() to create a thumbnail of a video
+	 */
     public function thumb($file = FALSE) {
-        if(!function_exists('gd_info'))
-            throw new InternalErrorException(__d('me_tools', 'GD libraries are missing'));
-
-        //Checks if a path has been passed
+		//Checks the file path
         if(empty($file))
             throw new InternalErrorException(__d('me_tools', 'The file has not been specified'));
 
-        //Decodes the path
-        $this->file = urldecode(base64_decode($file));
+        //Decodes the path. If the path is relative, then it's relative to the webroot
+        $file = urldecode(base64_decode($file));
+        $file = !Folder::isAbsolute($file) ? WWW_ROOT.$file : $file;
 
-        //If the path is relative, then is relative to the webroot
-        $this->file = !Folder::isAbsolute($this->file) ? WWW_ROOT.$this->file : $this->file;
+		//Checks if the file is readable
+        if(!is_readable($file))
+            throw new NotFoundException(__d('me_tools', 'The file %s doesn\'t exist or is not readable', $file));
+		
+		//Now `$file` is the File object
+		$file = new File($file);
+		$mime = $file->mime();
 
-        if(!is_readable($this->file))
-            throw new NotFoundException(__d('me_tools', 'This image doesn\'t exist or is not readable'));
-
-        //Sets info about the current image
-        $this->_setInfo();
-
-        //If we need a thumb and it doesn't exist
-        if($this->thumb && !file_exists($this->thumb)) {
-            //Creates the thumb dir, if this doesn't exist
-            if(!file_exists($dir = dirname($this->thumb))) {
-                $folder = new Folder();
-                if(!@$folder->create($dir))
-                    throw new InternalErrorException(__d('me_tools', 'The thumb directory cannot be created'));
-            }
-
-            //Creates the thumb
-            $this->_createThumb();
-        }
-
-        header("Content-type: ".$this->info['mime']);
-        readfile(empty($this->thumb) ? $this->file : $this->thumb);
+		//If the file is an image
+		if(preg_match('/image\/\S+/', $mime))
+			$thumb = $this->_imageThumb($file);
+		//Else, if the file is a video
+		elseif(preg_match('/video\/\S+/', $mime) || $mime == 'application/ogg')
+			$thumb = $this->_videoThumb($file);
+		//Else, if the mime type is not known
+		else
+			throw new InternalErrorException(__d('me_tools', 'The mimetype %s is not supported', $mime));
+		
+		//Renders the thumbnail
+		header("Content-type: image/jpeg");
+        readfile($thumb);
+		
         $this->autoRender = FALSE;
-
         exit;
     }
 }

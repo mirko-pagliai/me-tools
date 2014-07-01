@@ -719,16 +719,18 @@ class MeHtmlHelper extends HtmlHelper {
     }
 
     /**
-     * Creates (or gets, if it already exists) and returns a thumbnail.
+	 * Creates and returns a thumbnail of an image or a video.
      * 
-     * To get the thumb, you need to use the "width" and/or the "height" option. 
-     * For square thumbs, you need to use the "side" option.
+     * To get a thumbnail, you have to use `width` and/or `height` options. 
+     * To get a square thumbnail, you have to use the `side` option.
+	 * 
+	 * You can use the `height` option only for image files.
      * @param string $path Image path (absolute or relative to the webroot)
      * @param array $options HTML attributes
      * @return string Html, tag element
      * @see http://repository.novatlantis.it/metools-sandbox/html/images Examples
-     * @uses thumbUrl() to get the url thumb
-     * @uses image() to display the thumb
+     * @uses thumbUrl() to get the url thumbnail
+     * @uses image() to display the thumbnail
      */
     public function thumb($path, $options = array()) {
         $path = self::thumbUrl($path, $options);
@@ -738,20 +740,23 @@ class MeHtmlHelper extends HtmlHelper {
     }
 
     /**
-     * Creates (or gets, if it already exists) and returns the url for a thumbnail.
+	 * Creates and returns the url for a thumbnail of an image or a video.
      * 
-     * To get the thumb, you need to use `width` and/or `height` options. 
-     * For square thumbs, you need to use the `side` option.
+     * To get a thumbnail, you have to use `width` and/or `height` options. 
+     * To get a square thumbnail, you have to use the `side` option.
+	 * 
+	 * You can use the `height` option only for image files.
      * 
-     * Note that to directly display a thumb, you should use the `thumb()` method. This method only returns the url of the thumbnail.
+     * Note that to directly display a thumbnail, you should use the `thumb()` method. 
+	 * This method only returns the url of the thumbnail.
      * @param string $path Image path (absolute or relative to the webroot)
      * @param array $options HTML attributes
      * @return string Html, tag element
      * @see thumb()
      * @see http://repository.novatlantis.it/metools-sandbox/html/images Examples
-     * @uses url() to generate the thumb url
+     * @uses url() to generate the thumbnail url
      */
-    public function thumbUrl($path, $options = array()) {
+    public function thumbUrl($path, $options = array()) {		
         //If the side is defined, then the width and height are NULL (we don't need these)
         if($options['side'] = empty($options['side']) ? NULL : $options['side'])
             $options['width'] = $options['height'] = NULL;
