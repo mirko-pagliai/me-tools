@@ -35,6 +35,11 @@ a.disabled, a[disabled] {
     pointer-events: none;
 }
 
+/* Thumbnails as links */
+a.thumbnail {
+	text-decoration: none;
+}
+
 /* Dt and dd elements */
 dt, dd {
 	margin-bottom: 1px;
