@@ -59,8 +59,13 @@ th.min-width, td.min-width {
 }
 
 /* Display none */
-.displayNone, .noDisplay, .no-display {
+.displayNone, .display-none, .noDisplay, .no-display {
 	display: none;
+}
+
+/* No margin class */
+.margin0, .margin-0, .no-margin, .nomargin {
+	margin: 0 !important;
 }
 
 /* Margin bottom 5px */
@@ -83,13 +88,8 @@ th.min-width, td.min-width {
 	margin-bottom: 20px;
 }
 
-/* No margin class */
-.no-margin, .nomargin {
-	margin: 0 !important;
-}
-
 /* No padding class */
-.no-padding, .nopadding {
+.padding0, .padding-0, .no-padding, .nopadding {
 	padding: 0 !important;
 }
 
@@ -114,13 +114,13 @@ th.min-width, td.min-width {
 }
 
 /* Relative class */
-.relative {
+.position-relative, .relative {
 	position: relative;
 }
 
 /* Small element and small class.
 This rewrites Bootstrap, which normally provides a size of 85% */
-small, .small {
+small, .small, .small-text, .text-small {
 	font-size: 90%;
 }
 
@@ -132,7 +132,7 @@ small, .small {
 }
 
 /* Vertical align, middle */
-.valing-middle, table.valign-middle td {
+.valing-middle, .vertical-align-middle, table.valign-middle td {
 	vertical-align: middle !important;
 }
 
