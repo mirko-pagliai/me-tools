@@ -214,10 +214,7 @@ class System {
 			
 		unset($whereis[0]);
 		
-		if(empty($whereis))
-			return FALSE;
-		
-		return $whereis;
+		return empty($whereis) ? FALSE : $whereis;
 	}
 	
 	/**
@@ -230,9 +227,6 @@ class System {
 	public static function which($command) {
 		$which = exec(sprintf('which %s', $command));
 		
-		if(empty($which))
-			return FALSE;
-		
-		return $which;
+		return empty($which) ? FALSE : $which;
 	}
 }
