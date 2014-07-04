@@ -201,4 +201,15 @@ class System {
         $thumbs = new Folder(TMP.'thumbs');
         return $thumbs->dirsize();
     }
+	
+	/**
+	 * Executes the `which` command on Unix systems.
+	 * 
+	 * It shows the full path of (shell) commands.  
+	 * @param string $command Command
+	 * @return string Full path of command or an empty string
+	 */
+	public static function which($command) {
+		return exec(sprintf('which %s', $command));
+	}
 }
