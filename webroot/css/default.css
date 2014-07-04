@@ -93,13 +93,6 @@ th.min-width, td.min-width {
 	padding: 0 !important;
 }
 
-/* No wrap class */
-.no-wrap {
-	overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-
 /* Padding 5px */
 .padding5px, .padding5, .padding-5px, .padding-5 {
 	padding: 5px;
@@ -129,6 +122,13 @@ th.min-width, td.min-width {
 This rewrites Bootstrap, which normally provides a size of 85% */
 small, .small {
 	font-size: 90%;
+}
+
+/* Text truncated with ellipses */
+.text-truncate, .text-truncated, .text-ellipsis {
+	overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 /* Vertical align, middle */
