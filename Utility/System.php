@@ -203,13 +203,36 @@ class System {
     }
 	
 	/**
+	 * Executes the `whereis` command on Unix systems.
+	 * 
+	 * It locates the binary files for a command.
+	 * @param string $command Command
+	 * @return mixed Array of binary files, otherwise FALSE
+	 */
+	public static function whereis($command) {
+		$whereis = explode(' ', exec(sprintf('whereis -b %s', $command)));
+			
+		unset($whereis[0]);
+		
+		if(empty($whereis))
+			return FALSE;
+		
+		return $whereis;
+	}
+	
+	/**
 	 * Executes the `which` command on Unix systems.
 	 * 
-	 * It shows the full path of (shell) commands.  
+	 * It shows the full path of (shell) commands.
 	 * @param string $command Command
-	 * @return string Full path of command or an empty string
+	 * @return mixed Full path of command, otherwise FALSE
 	 */
 	public static function which($command) {
-		return exec(sprintf('which %s', $command));
+		$which = exec(sprintf('which %s', $command));
+		
+		if(empty($which))
+			return FALSE;
+		
+		return $which;
 	}
 }
