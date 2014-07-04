@@ -26,6 +26,7 @@
  */
 App::uses('MeToolsAppController', 'MeTools.Controller');
 App::uses('Folder', 'Utility');
+App::uses('System', 'MeTools.Utility');
 
 /**
  * Creates and displays thumbnails for image and video files.
@@ -163,7 +164,7 @@ class ThumbsController extends MeToolsAppController {
 			return $thumb;
 		
 		//Checks for ffmpegthumbnailer
-		if(empty(shell_exec('which ffmpegthumbnailer')))
+		if(empty(System::which('ffmpegthumbnailer')))
             throw new InternalErrorException(__d('me_tools', '%s is not avalaible', 'ffmpegthumbnailer'));
 		
 		//Checks if the target directory is writable
