@@ -4,40 +4,38 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2014-07-05 10:48+0000\n"
+"POT-Creation-Date: 2014-07-01 13:14+0000\n"
 "PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
-"Last-Translator: Mirko Pagliai <mirko.pagliai@gmail.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: Plugin/MeTools/Controller/ThumbsController.php:59
+#: Plugin/MeTools/Controller/ThumbsController.php:58
 msgid "The %s library is missing"
 msgstr ""
 
-#: Plugin/MeTools/Controller/ThumbsController.php:128;172
+#: Plugin/MeTools/Controller/ThumbsController.php:127;171
 msgid "The target directory %s is not writable"
 msgstr ""
 
-#: Plugin/MeTools/Controller/ThumbsController.php:136;179
+#: Plugin/MeTools/Controller/ThumbsController.php:135;178
 msgid "The thumbnail %s has not been created"
 msgstr ""
 
-#: Plugin/MeTools/Controller/ThumbsController.php:168
+#: Plugin/MeTools/Controller/ThumbsController.php:167
 msgid "%s is not avalaible"
 msgstr ""
 
-#: Plugin/MeTools/Controller/ThumbsController.php:216
+#: Plugin/MeTools/Controller/ThumbsController.php:215
 msgid "The file has not been specified"
 msgstr ""
 
-#: Plugin/MeTools/Controller/ThumbsController.php:224
+#: Plugin/MeTools/Controller/ThumbsController.php:223
 msgid "The file %s doesn't exist or is not readable"
 msgstr ""
 
-#: Plugin/MeTools/Controller/ThumbsController.php:238
+#: Plugin/MeTools/Controller/ThumbsController.php:237
 msgid "The mime type %s is not supported"
 msgstr ""
 
