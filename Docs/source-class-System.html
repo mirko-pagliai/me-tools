@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<meta name="generator" content="ApiGen 2.8.0" />
-	<meta name="robots" content="noindex" />
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta name="generator" content="ApiGen 2.8.0">
+	<meta name="robots" content="noindex">
 
 	<title>File System.php | MeTools</title>
 
-	<script type="text/javascript" src="resources/combined.js?394153670"></script>
-	<script type="text/javascript" src="elementlist.js?2469793865"></script>
-	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360" />
+	<script type="text/javascript" src="resources/combined.js?4031327329"></script>
+	<script type="text/javascript" src="elementlist.js?3227970881"></script>
+	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360">
 
 </head>
 
@@ -55,7 +55,7 @@
 			</ul>
 		</div>
 
-		<hr />
+		<hr>
 
 
 		<div id="elements">
@@ -78,10 +78,10 @@
 <div id="right">
 <div id="rightInner">
 	<form id="search">
-		<input type="hidden" name="cx" value="" />
-		<input type="hidden" name="ie" value="UTF-8" />
-		<input type="text" name="q" class="text" />
-		<input type="submit" value="Search" />
+		<input type="hidden" name="cx" value="">
+		<input type="hidden" name="ie" value="UTF-8">
+		<input type="text" name="q" class="text">
+		<input type="submit" value="Search">
 	</form>
 
 	<div id="navigation">
@@ -314,7 +314,35 @@
 </span><span id="201" class="l"><a class="l" href="#201">201: </a>        <span class="php-var">$thumbs</span> = <span class="php-keyword1">new</span> Folder(TMP.<span class="php-quote">'thumbs'</span>);
 </span><span id="202" class="l"><a class="l" href="#202">202: </a>        <span class="php-keyword1">return</span> <span class="php-var">$thumbs</span>-&gt;dirsize();
 </span><span id="203" class="l"><a class="l" href="#203">203: </a>    }
-</span><span id="204" class="l"><a class="l" href="#204">204: </a></span>}</code></pre>
+</span><span id="204" class="l"><a class="l" href="#204">204: </a>    
+</span><span id="205" class="l"><a class="l" href="#205">205: </a>    <span class="php-comment">/**
+</span></span><span id="206" class="l"><a class="l" href="#206">206: </a><span class="php-comment">     * Executes the `whereis` command on Unix systems.
+</span></span><span id="207" class="l"><a class="l" href="#207">207: </a><span class="php-comment">     * 
+</span></span><span id="208" class="l"><a class="l" href="#208">208: </a><span class="php-comment">     * It locates the binary files for a command.
+</span></span><span id="209" class="l"><a class="l" href="#209">209: </a><span class="php-comment">     * @param string $command Command
+</span></span><span id="210" class="l"><a class="l" href="#210">210: </a><span class="php-comment">     * @return mixed Array of binary files, otherwise FALSE
+</span></span><span id="211" class="l"><a class="l" href="#211">211: </a><span class="php-comment">     */</span>
+</span><span id="212" class="l"><a class="l" href="#212">212: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">static</span> <span class="php-keyword1">function</span> <a id="_whereis" href="#_whereis">whereis</a>(<span class="php-var">$command</span>) {
+</span><span id="213" class="l"><a class="l" href="#213">213: </a>        <span class="php-var">$whereis</span> = <span class="php-keyword2">explode</span>(<span class="php-quote">' '</span>, <span class="php-keyword2">exec</span>(<span class="php-keyword2">sprintf</span>(<span class="php-quote">'whereis -b %s'</span>, <span class="php-var">$command</span>)));
+</span><span id="214" class="l"><a class="l" href="#214">214: </a>            
+</span><span id="215" class="l"><a class="l" href="#215">215: </a>        <span class="php-keyword1">unset</span>(<span class="php-var">$whereis</span>[<span class="php-num">0</span>]);
+</span><span id="216" class="l"><a class="l" href="#216">216: </a>        
+</span><span id="217" class="l"><a class="l" href="#217">217: </a>        <span class="php-keyword1">return</span> <span class="php-keyword1">empty</span>(<span class="php-var">$whereis</span>) ? <span class="php-keyword1">FALSE</span> : <span class="php-var">$whereis</span>;
+</span><span id="218" class="l"><a class="l" href="#218">218: </a>    }
+</span><span id="219" class="l"><a class="l" href="#219">219: </a>    
+</span><span id="220" class="l"><a class="l" href="#220">220: </a>    <span class="php-comment">/**
+</span></span><span id="221" class="l"><a class="l" href="#221">221: </a><span class="php-comment">     * Executes the `which` command on Unix systems.
+</span></span><span id="222" class="l"><a class="l" href="#222">222: </a><span class="php-comment">     * 
+</span></span><span id="223" class="l"><a class="l" href="#223">223: </a><span class="php-comment">     * It shows the full path of (shell) commands.
+</span></span><span id="224" class="l"><a class="l" href="#224">224: </a><span class="php-comment">     * @param string $command Command
+</span></span><span id="225" class="l"><a class="l" href="#225">225: </a><span class="php-comment">     * @return mixed Full path of command, otherwise FALSE
+</span></span><span id="226" class="l"><a class="l" href="#226">226: </a><span class="php-comment">     */</span>
+</span><span id="227" class="l"><a class="l" href="#227">227: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">static</span> <span class="php-keyword1">function</span> <a id="_which" href="#_which">which</a>(<span class="php-var">$command</span>) {
+</span><span id="228" class="l"><a class="l" href="#228">228: </a>        <span class="php-var">$which</span> = <span class="php-keyword2">exec</span>(<span class="php-keyword2">sprintf</span>(<span class="php-quote">'which %s'</span>, <span class="php-var">$command</span>));
+</span><span id="229" class="l"><a class="l" href="#229">229: </a>        
+</span><span id="230" class="l"><a class="l" href="#230">230: </a>        <span class="php-keyword1">return</span> <span class="php-keyword1">empty</span>(<span class="php-var">$which</span>) ? <span class="php-keyword1">FALSE</span> : <span class="php-var">$which</span>;
+</span><span id="231" class="l"><a class="l" href="#231">231: </a>    }
+</span><span id="232" class="l"><a class="l" href="#232">232: </a></span>}</code></pre>
 
 	<div id="footer">
 		MeTools API documentation generated by <a href="http://apigen.org">ApiGen 2.8.0</a>
