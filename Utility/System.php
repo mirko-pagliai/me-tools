@@ -203,6 +203,15 @@ class System {
     }
 	
 	/**
+	 * Checks if is the root user
+	 * @return boolean TRUE if is the root user, otherwise FALSE
+	 */
+	public static function is_root() {
+		//`posix_getuid()` returns 0 is root
+		return !posix_getuid();
+	}
+	
+	/**
 	 * Executes the `whereis` command on Unix systems.
 	 * 
 	 * It locates the binary files for a command.
