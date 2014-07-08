@@ -78,6 +78,11 @@ th.min-width, td.min-width {
 	margin: 0 !important;
 }
 
+/* No margin top class */
+.margintop0, .margin-top-0, .no-margin-top, .nomargintop {
+	margin-top: 0;
+}
+
 /* Margin bottom 5px */
 .margin5px, .margin5, .margin-5px, .margin-5 {
 	margin-bottom: 5px;
