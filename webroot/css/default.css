@@ -68,6 +68,11 @@ th.min-width, td.min-width {
 	display: none;
 }
 
+/* Em (italic) text */
+.em, .em-text {
+	font-style: italic;
+}
+
 /* No margin class */
 .margin0, .margin-0, .no-margin, .nomargin {
 	margin: 0 !important;
@@ -127,6 +132,11 @@ th.min-width, td.min-width {
 This rewrites Bootstrap, which normally provides a size of 85% */
 small, .small, .small-text, .text-small {
 	font-size: 90%;
+}
+
+/* Strong text */
+.strong, .strong-text {
+	font-weight: bold;
 }
 
 /* Text truncated with ellipses */
