@@ -44,6 +44,16 @@ the views provided by MeTools. To do this, you should use this component as an a
 	
 	public $component = array('Session' => array('className' => 'MeTools.MeSession'));
 
+## Paginator
+You can use the `MePaginator` helper to generate pagination controls such as page numbers and next/previous links. To do this,
+you should use this component as an alias, as follows:
+
+	public $helpers = array('Paginator' => array('className' => 'MeTools.MePaginator'));
+
+Then, inside of your views, you can use the appropriate element:
+
+	echo $this->element('MeTools.paginator');
+
 ### Libraries and script
 MeTools uses different libraries or scripts:
 
