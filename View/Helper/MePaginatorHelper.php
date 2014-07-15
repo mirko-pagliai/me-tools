@@ -120,7 +120,7 @@ class MePaginatorHelper extends PaginatorHelper {
      * Returns a set of numbers for the paged result set uses a modulus to decide how many numbers 
      * to show on each side of the current page (default: 8). Rewrites <i>$this->Paginator->numbers()</i>
      * @param array $options Options for the numbers
-     * @return string Mumbers string
+     * @return string Numbers string
      */
     public function numbers($options = array()) {
         $options['currentClass'] = !empty($options['currentClass']) ? $this->Html->_clean($options['currentClass']) : 'active';
