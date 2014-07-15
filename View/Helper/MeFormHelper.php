@@ -448,8 +448,6 @@ class MeFormHelper extends FormHelper {
      * @uses button() to create the submit button
      */
     public function submit($caption = NULL, $options = array()) {
-        $caption = !empty($caption) ? $caption : __d('me_tools', 'Submit');
-
         $options['class'] = empty($options['class']) ? 'btn btn-success' : $this->Html->_clean('btn', $options['class']);
         $options['type'] = 'submit';
         $options['value'] = $caption;
