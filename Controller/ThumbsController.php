@@ -215,13 +215,22 @@ class ThumbsController extends MeToolsAppController {
         if(empty($file))
             throw new InternalErrorException(__d('me_tools', 'The file has not been specified'));
 
-        //Decodes the path. If the path is relative, then it's relative to the webroot
+        //Decodes the path. 
         $file = urldecode(base64_decode($file));
-        $file = !Folder::isAbsolute($file) ? WWW_ROOT.$file : $file;
+		
+		//If is a remote file, it saves the file into /tmp 
+		if(filter_var($file, FILTER_VALIDATE_URL)) {
+			$remote = file_get_contents($file);
+			$file = DS.'tmp'.DS.pathinfo($file, PATHINFO_BASENAME);
+			file_put_contents(DS.'tmp'.DS.pathinfo($file, PATHINFO_BASENAME), $remote);
+		}
+		//Else, if is a local file, if the path is relative, then it's relative to the webroot
+		else
+			$file = !Folder::isAbsolute($file) ? WWW_ROOT.$file : $file;
 
 		//Checks if the file is readable
-        if(!is_readable($file))
-            throw new NotFoundException(__d('me_tools', 'The file %s doesn\'t exist or is not readable', $file));
+		if(!is_readable($file))
+			throw new NotFoundException(__d('me_tools', 'The file %s doesn\'t exist or is not readable', $file));
 		
 		//Now `$file` is the File object
 		$file = new File($file);
