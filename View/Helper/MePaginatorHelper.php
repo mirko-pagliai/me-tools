@@ -105,6 +105,11 @@ class MePaginatorHelper extends PaginatorHelper {
      * @uses _jump_link() jump links
      */
     public function next($title = NULL, $options = array(), $disabledTitle = NULL, $disabledOptions = array()) {
+		if(empty($disabledOptions) && !empty($options)) {
+			$disabledOptions = $options;
+			$disabledOptions['class'] = $this->Html->_clean($disabledOptions['class'], 'disabled');
+		}
+		
         //Uses `$this->__jump->link()` to set arguments
         list($title, $options, $disabledTitle, $disabledOptions) = $this->_jump_link($title, $options, $disabledTitle, $disabledOptions);
 
@@ -136,6 +141,11 @@ class MePaginatorHelper extends PaginatorHelper {
      * @uses _jump_link() jump links
      */
     public function prev($title = NULL, $options = array(), $disabledTitle = NULL, $disabledOptions = array()) {
+		if(empty($disabledOptions) && !empty($options)) {
+			$disabledOptions = $options;
+			$disabledOptions['class'] = $this->Html->_clean($disabledOptions['class'], 'disabled');
+		}
+		
         //Uses $this->__jump->link() to set arguments
         list($title, $options, $disabledTitle, $disabledOptions) = $this->_jump_link($title, $options, $disabledTitle, $disabledOptions);
 
