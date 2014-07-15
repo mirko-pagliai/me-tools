@@ -136,8 +136,6 @@ class MePaginatorHelper extends PaginatorHelper {
      * @uses _jump_link() jump links
      */
     public function prev($title = NULL, $options = array(), $disabledTitle = NULL, $disabledOptions = array()) {
-        $title = !empty($title) ? $title : '« '.__d('me_tools', 'Previous');
-
         //Uses $this->__jump->link() to set arguments
         list($title, $options, $disabledTitle, $disabledOptions) = $this->_jump_link($title, $options, $disabledTitle, $disabledOptions);
 
