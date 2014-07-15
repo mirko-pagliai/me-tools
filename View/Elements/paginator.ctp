@@ -29,9 +29,9 @@
     <div class="text-center">
         <ul class="pagination">
             <?php
-                echo $this->Paginator->prev();
+                echo $this->Paginator->prev(sprintf('« %s', __d('me_tools', 'Previous')));
                 echo $this->Paginator->numbers();
-                echo $this->Paginator->next();
+                echo $this->Paginator->next(sprintf('%s »', __d('me_tools', 'Next')));
             ?>
         </ul>
     </div>
