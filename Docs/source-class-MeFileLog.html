@@ -168,7 +168,7 @@
 </span><span id="49" class="l"><a class="l" href="#49">49: </a>
 </span><span id="50" class="l"><a class="l" href="#50">50: </a>        <span class="php-var">$message</span> = <span class="php-keyword1">empty</span>(<span class="php-var">$ip</span>) ? <span class="php-var">$message</span> : <span class="php-keyword2">sprintf</span>(<span class="php-quote">'%s (%s)'</span>, <span class="php-var">$message</span>, <span class="php-var">$ip</span>);
 </span><span id="51" class="l"><a class="l" href="#51">51: </a>
-</span><span id="52" class="l"><a class="l" href="#52">52: </a>        <span class="php-keyword1">return</span> parent::write(<span class="php-var">$type</span>, <span class="php-var">$message</span>);
+</span><span id="52" class="l"><a class="l" href="#52">52: </a>        <span class="php-keyword1">return</span> parent::write(<span class="php-var">$type</span>, <span class="php-keyword2">lcfirst</span>(<span class="php-var">$message</span>));
 </span><span id="53" class="l"><a class="l" href="#53">53: </a>    }
 </span><span id="54" class="l"><a class="l" href="#54">54: </a></span>}</code></pre>
 
