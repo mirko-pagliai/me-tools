@@ -49,6 +49,6 @@ class MeFileLog extends FileLog {
 
         $message = empty($ip) ? $message : sprintf('%s (%s)', $message, $ip);
 
-        return parent::write($type, $message);
+        return parent::write($type, lcfirst($message));
     }
 }
