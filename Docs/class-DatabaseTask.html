@@ -4,7 +4,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<meta name="generator" content="ApiGen 2.8.0">
 
-	<title>Class CleanerUrlComponent | MeTools</title>
+	<title>Class DatabaseTask | MeTools</title>
 
 	<script type="text/javascript" src="resources/combined.js?117538352"></script>
 	<script type="text/javascript" src="elementlist.js?2143260574"></script>
@@ -23,16 +23,16 @@
 			<ul>
 				<li class="active main"><a href="package-MeTools.html">MeTools<span></span></a>
 						<ul>
-				<li class="main"><a href="package-MeTools.Console.html">Console<span></span></a>
+				<li class="active main"><a href="package-MeTools.Console.html">Console<span></span></a>
 						<ul>
-				<li class="main"><a href="package-MeTools.Console.Command.html">Command<span></span></a>
+				<li class="active main"><a href="package-MeTools.Console.Command.html">Command<span></span></a>
 						<ul>
-				<li class="main"><a href="package-MeTools.Console.Command.Task.html">Task</a>
+				<li class="active main"><a href="package-MeTools.Console.Command.Task.html">Task</a>
 						</li>
 							</ul></li></ul></li>
-				<li class="active main"><a href="package-MeTools.Controller.html">Controller<span></span></a>
+				<li class="main"><a href="package-MeTools.Controller.html">Controller<span></span></a>
 						<ul>
-				<li class="active main"><a href="package-MeTools.Controller.Component.html">Component<span></span></a>
+				<li class="main"><a href="package-MeTools.Controller.Component.html">Component<span></span></a>
 						<ul>
 				<li class="main"><a href="package-MeTools.Controller.Component.Auth.html">Auth</a>
 						</li>
@@ -67,10 +67,7 @@
 		<div id="elements">
 			<h3>Classes</h3>
 			<ul>
-				<li class="active"><a href="class-CleanerUrlComponent.html">CleanerUrlComponent</a></li>
-				<li><a href="class-MeSessionComponent.html">MeSessionComponent</a></li>
-				<li><a href="class-TokenComponent.html">TokenComponent</a></li>
-				<li><a href="class-XmlComponent.html">XmlComponent</a></li>
+				<li class="active"><a href="class-DatabaseTask.html">DatabaseTask</a></li>
 			</ul>
 
 
@@ -98,7 +95,7 @@
 				<a href="index.html" title="Overview"><span>Overview</span></a>
 			</li>
 			<li>
-				<a href="package-MeTools.Controller.Component.html" title="Summary of MeTools\Controller\Component"><span>Package</span></a>
+				<a href="package-MeTools.Console.Command.Task.html" title="Summary of MeTools\Console\Command\Task"><span>Package</span></a>
 			</li>
 			<li class="active">
 <span>Class</span>			</li>
@@ -119,42 +116,24 @@
 	</div>
 
 <div id="content" class="class">
-	<h1>Class CleanerUrlComponent</h1>
+	<h1>Class DatabaseTask</h1>
 
 
 	<div class="description">
 	
-<p>A component to clean the current url, removing the query string.</p>
-
-<p>For example:</p>
-
-<pre>/admin/users?var1=a&amp;var2=b</pre>
-
-<p>will become:</p>
-
-<pre>/admin/users/index/var1:a/var2:b</pre>
-
-<p>To use the <code>CleanerUrl</code> component, you need to add it to the
-components list in your controller:</p>
-
-<pre>
-<span class="php-keyword1">public</span> <span
-class="php-var">$components</span> = <span
-class="php-keyword1">array</span>(<span
-class="php-quote">'MeTools.CleanerUrl'</span>);
-</pre>
+<p>A task to manage the database.</p>
 
 	</div>
 
 	<dl class="tree">
 		<dd style="padding-left:0px">
-Component
+Shell
 			
 			
 		</dd>
 		<dd style="padding-left:30px">
 			<img src="resources/inherit.png" alt="Extended by">
-<b><span>CleanerUrlComponent</span></b>			
+<b><span>DatabaseTask</span></b>			
 			
 			
 		</dd>
@@ -171,7 +150,7 @@ Component
 		
 		
 		
-		<b>Package:</b> <a href="package-MeTools.html">MeTools</a>\<a href="package-MeTools.Controller.html">Controller</a>\<a href="package-MeTools.Controller.Component.html">Component</a><br>
+		<b>Package:</b> <a href="package-MeTools.html">MeTools</a>\<a href="package-MeTools.Console.html">Console</a>\<a href="package-MeTools.Console.Command.html">Command</a>\<a href="package-MeTools.Console.Command.Task.html">Task</a><br>
 
 				<b>Copyright:</b>
 				Copyright (c) 2014, Mirko Pagliai for Nova Atlantis Ltd<br>
@@ -180,14 +159,51 @@ Component
 				<b>Author:</b>
 				Mirko Pagliai &lt;<a
 href="mailto:mirko.pagliai&#64;gmail.com">mirko.pagliai&#64;<!-- -->gmail.com</a>&gt;<br>
-		<b>Located at</b> <a href="source-class-CleanerUrlComponent.html#28-70" title="Go to source code">Component/CleanerUrlComponent.php</a><br>
+		<b>Located at</b> <a href="source-class-DatabaseTask.html#28-96" title="Go to source code">Task/DatabaseTask.php</a><br>
 	</div>
 
 
 
 	<table class="summary" id="methods">
 	<caption>Methods summary</caption>
-	<tr data-order="initialize" id="_initialize">
+	<tr data-order="_getTables" id="__getTables">
+
+		<td class="attributes"><code>
+			 private 
+			array
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#__getTables">#</a>
+		<code><a href="source-class-DatabaseTask.html#32-47" title="Go to source code">_getTables</a>( )</code>
+
+		<div class="description short">
+			
+<p>Gets the table list.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Gets the table list.</p>
+
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>array</code><br>tables<br>
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="check" id="_check">
 
 		<td class="attributes"><code>
 			 public 
@@ -197,73 +213,101 @@ href="mailto:mirko.pagliai&#64;gmail.com">mirko.pagliai&#64;<!-- -->gmail.com</a
 		</td>
 
 		<td class="name"><div>
-		<a class="anchor" href="#_initialize">#</a>
-		<code><a href="source-class-CleanerUrlComponent.html#42-49" title="Go to source code">initialize</a>( <span>Controller <var>$controller</var></span> )</code>
+		<a class="anchor" href="#_check">#</a>
+		<code><a href="source-class-DatabaseTask.html#49-66" title="Go to source code">check</a>( <span>boolean <var>$out</var> = <span class="php-keyword1">FALSE</span></span> )</code>
 
 		<div class="description short">
 			
-<p>Called before the controller's beforeFilter method. Execute
-<code>cleanUrl</code>.</p>
+<p>Checks if the database connection is working properly.</p>
 
 		</div>
 
 		<div class="description detailed hidden">
 			
-<p>Called before the controller's beforeFilter method. Execute
-<code>cleanUrl</code>.</p>
+<p>Checks if the database connection is working properly.</p>
 
 
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
-					<dt><var>$controller</var></dt>
-					<dd><code>Controller</code><br>$controller</dd>
+					<dt><var>$out</var></dt>
+					<dd><code>boolean</code><br>$out TRUE if you want to print output</dd>
 				</dl></div>
 
 
 
-				<h4>See</h4>
-				<div class="list">
-						<a
-href="http://api.cakephp.org/2.4/class-Component.html#_initialize">http://api.cakephp.org/2.4/class-Component.html#_initialize</a>
-CakePHP Api<br>
-				</div>
 
 
 		</div>
 		</div></td>
 	</tr>
-	<tr data-order="cleanUrl" id="_cleanUrl">
+	<tr data-order="create" id="_create">
 
 		<td class="attributes"><code>
-			 protected 
+			 public 
 			
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
-		<a class="anchor" href="#_cleanUrl">#</a>
-		<code><a href="source-class-CleanerUrlComponent.html#51-69" title="Go to source code">cleanUrl</a>( <span>Controller <var>$controller</var></span> )</code>
+		<a class="anchor" href="#_create">#</a>
+		<code><a href="source-class-DatabaseTask.html#68-77" title="Go to source code">create</a>( <span>boolean <var>$out</var> = <span class="php-keyword1">FALSE</span></span> )</code>
 
 		<div class="description short">
 			
-<p>Cleans the current url, turning query arguments in named arguments, and
-executes a redirect.</p>
+<p>Creates the database tables.</p>
 
 		</div>
 
 		<div class="description detailed hidden">
 			
-<p>Cleans the current url, turning query arguments in named arguments, and
-executes a redirect.</p>
+<p>Creates the database tables.</p>
 
 
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
-					<dt><var>$controller</var></dt>
-					<dd><code>Controller</code><br>$controller</dd>
+					<dt><var>$out</var></dt>
+					<dd><code>boolean</code><br>$out TRUE if you want to print output</dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="truncate" id="_truncate">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_truncate">#</a>
+		<code><a href="source-class-DatabaseTask.html#79-95" title="Go to source code">truncate</a>( <span>boolean <var>$out</var> = <span class="php-keyword1">FALSE</span></span> )</code>
+
+		<div class="description short">
+			
+<p>Truncates all tables in the database.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Truncates all tables in the database.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$out</var></dt>
+					<dd><code>boolean</code><br>$out TRUE if you want to print output</dd>
 				</dl></div>
 
 
