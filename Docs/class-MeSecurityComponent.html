@@ -4,7 +4,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<meta name="generator" content="ApiGen 2.8.0">
 
-	<title>Class FileArrayAuthenticate | MeTools</title>
+	<title>Class MeSecurityComponent | MeTools</title>
 
 	<script type="text/javascript" src="resources/combined.js?117538352"></script>
 	<script type="text/javascript" src="elementlist.js?3054638047"></script>
@@ -34,7 +34,7 @@
 						<ul>
 				<li class="active main"><a href="package-MeTools.Controller.Component.html">Component<span></span></a>
 						<ul>
-				<li class="active main"><a href="package-MeTools.Controller.Component.Auth.html">Auth</a>
+				<li class="main"><a href="package-MeTools.Controller.Component.Auth.html">Auth</a>
 						</li>
 							</ul></li></ul></li>
 				<li class="main"><a href="package-MeTools.Lib.html">Lib<span></span></a>
@@ -67,7 +67,11 @@
 		<div id="elements">
 			<h3>Classes</h3>
 			<ul>
-				<li class="active"><a href="class-FileArrayAuthenticate.html">FileArrayAuthenticate</a></li>
+				<li><a href="class-CleanerUrlComponent.html">CleanerUrlComponent</a></li>
+				<li class="active"><a href="class-MeSecurityComponent.html">MeSecurityComponent</a></li>
+				<li><a href="class-MeSessionComponent.html">MeSessionComponent</a></li>
+				<li><a href="class-TokenComponent.html">TokenComponent</a></li>
+				<li><a href="class-XmlComponent.html">XmlComponent</a></li>
 			</ul>
 
 
@@ -95,7 +99,7 @@
 				<a href="index.html" title="Overview"><span>Overview</span></a>
 			</li>
 			<li>
-				<a href="package-MeTools.Controller.Component.Auth.html" title="Summary of MeTools\Controller\Component\Auth"><span>Package</span></a>
+				<a href="package-MeTools.Controller.Component.html" title="Summary of MeTools\Controller\Component"><span>Package</span></a>
 			</li>
 			<li class="active">
 <span>Class</span>			</li>
@@ -116,27 +120,38 @@
 	</div>
 
 <div id="content" class="class">
-	<h1>Class FileArrayAuthenticate</h1>
+	<h1>Class MeSecurityComponent</h1>
 
 
 	<div class="description">
 	
-<p>An authentication adapter for <code>AuthComponent</code>. Provides the
-ability to authenticate using POST data with an array located in
-<code>APP/users.txt</code> and generated through the <code>FileArray</code>
-utility.</p>
+<p>Provides an easy way to integrate tighter security in the application.</p>
+
+<p>Rewrites <a href="http://api.cakephp.org/2.5/class-SecurityComponent.html">SecurityComponent</a>.</p>
+
+<p>You should use this component as an alias, for example:</p>
+
+<pre>
+<span class="php-keyword1">public</span> <span
+class="php-var">$component</span> = <span
+class="php-keyword1">array</span>(<span
+class="php-quote">'Security'</span> =&gt; <span
+class="php-keyword1">array</span>(<span
+class="php-quote">'className'</span> =&gt; <span
+class="php-quote">'MeTools.MeSecurityComponent'</span>));
+</pre>
 
 	</div>
 
 	<dl class="tree">
 		<dd style="padding-left:0px">
-FormAuthenticate
+SecurityComponent
 			
 			
 		</dd>
 		<dd style="padding-left:30px">
 			<img src="resources/inherit.png" alt="Extended by">
-<b><span>FileArrayAuthenticate</span></b>			
+<b><span>MeSecurityComponent</span></b>			
 			
 			
 		</dd>
@@ -153,7 +168,7 @@ FormAuthenticate
 		
 		
 		
-		<b>Package:</b> <a href="package-MeTools.html">MeTools</a>\<a href="package-MeTools.Controller.html">Controller</a>\<a href="package-MeTools.Controller.Component.html">Component</a>\<a href="package-MeTools.Controller.Component.Auth.html">Auth</a><br>
+		<b>Package:</b> <a href="package-MeTools.html">MeTools</a>\<a href="package-MeTools.Controller.html">Controller</a>\<a href="package-MeTools.Controller.Component.html">Component</a><br>
 
 				<b>Copyright:</b>
 				Copyright (c) 2014, Mirko Pagliai for Nova Atlantis Ltd<br>
@@ -162,53 +177,96 @@ FormAuthenticate
 				<b>Author:</b>
 				Mirko Pagliai &lt;<a
 href="mailto:mirko.pagliai&#64;gmail.com">mirko.pagliai&#64;<!-- -->gmail.com</a>&gt;<br>
-		<b>Located at</b> <a href="source-class-FileArrayAuthenticate.html#30-62" title="Go to source code">Component/Auth/FileArrayAuthenticate.php</a><br>
+		<b>Located at</b> <a href="source-class-MeSecurityComponent.html#30-86" title="Go to source code">Component/MeSecurityComponent.php</a><br>
 	</div>
 
 
 
 	<table class="summary" id="methods">
 	<caption>Methods summary</caption>
-	<tr data-order="authenticate" id="_authenticate">
+	<tr data-order="initialize" id="_initialize">
 
 		<td class="attributes"><code>
 			 public 
-			mixed
+			
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
-		<a class="anchor" href="#_authenticate">#</a>
-		<code><a href="source-class-FileArrayAuthenticate.html#35-61" title="Go to source code">authenticate</a>( <span>CakeRequest <var>$request</var></span>, <span>CakeResponse <var>$response</var></span> )</code>
+		<a class="anchor" href="#_initialize">#</a>
+		<code><a href="source-class-MeSecurityComponent.html#41-48" title="Go to source code">initialize</a>( <span>Controller <var>$controller</var></span> )</code>
 
 		<div class="description short">
 			
-<p>Provides the ability to authenticate using POSTdata with an array located in
-<code>APP/users.txt</code> and generated through the <code>FileArray</code>
-utility.</p>
+<p>Called before the controller's beforeFilter method.</p>
 
 		</div>
 
 		<div class="description detailed hidden">
 			
-<p>Provides the ability to authenticate using POSTdata with an array located in
-<code>APP/users.txt</code> and generated through the <code>FileArray</code>
-utility.</p>
+<p>Called before the controller's beforeFilter method.</p>
 
 
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
-					<dt><var>$request</var></dt>
-					<dd><code>CakeRequest</code><br>$request The request that contains login information</dd>
-					<dt><var>$response</var></dt>
-					<dd><code>CakeResponse</code><br>$response Unused response object</dd>
+					<dt><var>$controller</var></dt>
+					<dd><code>Controller</code><br>$controller</dd>
+				</dl></div>
+
+
+
+				<h4>See</h4>
+				<div class="list">
+						<a
+href="http://api.cakephp.org/2.5/class-Component.html#_initialize">http://api.cakephp.org/2.5/class-Component.html#_initialize</a>
+CakePHP Api<br>
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="allowIp" id="_allowIp">
+
+		<td class="attributes"><code>
+			 public 
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_allowIp">#</a>
+		<code><a href="source-class-MeSecurityComponent.html#50-85" title="Go to source code">allowIp</a>( <span>string <var>$allowed_ip</var> = <span class="php-keyword1">NULL</span></span> )</code>
+
+		<div class="description short">
+			
+<p>Checks if the user's IP address is part of a list of allowed IP addresses.
+Note that access to localhost will always be admitted.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Checks if the user's IP address is part of a list of allowed IP addresses.
+Note that access to localhost will always be admitted.</p>
+
+<p>Addresses can be separated by a comma, a comma and a space or a pipe. The
+asterisk can be used as a wildcard.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$allowed_ip</var></dt>
+					<dd><code>string</code><br>$allowed_ip allowed IP addresses</dd>
 				</dl></div>
 
 				<h4>Returns</h4>
 				<div class="list">
-					<code>mixed</code><br>An array of user data or FALSE on login failure<br>
+					<code>boolean</code><br>TRUE if the user's IP address is part of allowed addresses, otherwise FALSE.<br>
 				</div>
 
 
