@@ -452,8 +452,9 @@ class MeFormHelper extends FormHelper {
         $options['type'] = 'submit';
         $options['value'] = $caption;
 
-        //If is set the "div" option and this is FALSE or if this is an inline form, returns the button without a wrapper
-        if((isset($options['div']) && !$options['div']) || !empty($this->inline))
+        //If is set the "div" option and this is FALSE or if this is an inline form and it's not 
+		//set the "div" option, returns the button without a wrapper
+        if((isset($options['div']) && !$options['div']) || (!empty($this->inline) && !isset($options['div'])))
             return self::button($caption, $options);
 
         $divOptions = empty($options['div']) ? array() : $options['div'];
