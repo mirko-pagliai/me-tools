@@ -576,49 +576,50 @@
 </span><span id="452" class="l"><a class="l" href="#452">452: </a>        <span class="php-var">$options</span>[<span class="php-quote">'type'</span>] = <span class="php-quote">'submit'</span>;
 </span><span id="453" class="l"><a class="l" href="#453">453: </a>        <span class="php-var">$options</span>[<span class="php-quote">'value'</span>] = <span class="php-var">$caption</span>;
 </span><span id="454" class="l"><a class="l" href="#454">454: </a>
-</span><span id="455" class="l"><a class="l" href="#455">455: </a>        <span class="php-comment">//If is set the &quot;div&quot; option and this is FALSE or if this is an inline form, returns the button without a wrapper</span>
-</span><span id="456" class="l"><a class="l" href="#456">456: </a>        <span class="php-keyword1">if</span>((<span class="php-keyword1">isset</span>(<span class="php-var">$options</span>[<span class="php-quote">'div'</span>]) &amp;&amp; !<span class="php-var">$options</span>[<span class="php-quote">'div'</span>]) || !<span class="php-keyword1">empty</span>(<span class="php-var">$this</span>-&gt;inline))
-</span><span id="457" class="l"><a class="l" href="#457">457: </a>            <span class="php-keyword1">return</span> self::button(<span class="php-var">$caption</span>, <span class="php-var">$options</span>);
-</span><span id="458" class="l"><a class="l" href="#458">458: </a>
-</span><span id="459" class="l"><a class="l" href="#459">459: </a>        <span class="php-var">$divOptions</span> = <span class="php-keyword1">empty</span>(<span class="php-var">$options</span>[<span class="php-quote">'div'</span>]) ? <span class="php-keyword1">array</span>() : <span class="php-var">$options</span>[<span class="php-quote">'div'</span>];
-</span><span id="460" class="l"><a class="l" href="#460">460: </a>        <span class="php-keyword1">unset</span>(<span class="php-var">$options</span>[<span class="php-quote">'div'</span>]);
-</span><span id="461" class="l"><a class="l" href="#461">461: </a>
-</span><span id="462" class="l"><a class="l" href="#462">462: </a>        <span class="php-var">$divOptions</span>[<span class="php-quote">'class'</span>] = <span class="php-keyword1">empty</span>(<span class="php-var">$divOptions</span>[<span class="php-quote">'class'</span>]) ? <span class="php-quote">'submit'</span> : <span class="php-var">$this</span>-&gt;Html-&gt;_clean(<span class="php-quote">'submit'</span>, <span class="php-var">$divOptions</span>[<span class="php-quote">'class'</span>]);
-</span><span id="463" class="l"><a class="l" href="#463">463: </a>
-</span><span id="464" class="l"><a class="l" href="#464">464: </a>        <span class="php-keyword1">return</span> <span class="php-var">$this</span>-&gt;Html-&gt;div(<span class="php-var">$divOptions</span>[<span class="php-quote">'class'</span>], self::button(<span class="php-var">$caption</span>, <span class="php-var">$options</span>), <span class="php-var">$divOptions</span>);
-</span><span id="465" class="l"><a class="l" href="#465">465: </a>    }
-</span><span id="466" class="l"><a class="l" href="#466">466: </a>
-</span><span id="467" class="l"><a class="l" href="#467">467: </a>    <span class="php-comment">/**
-</span></span><span id="468" class="l"><a class="l" href="#468">468: </a><span class="php-comment">     * Creates a textarea element.
-</span></span><span id="469" class="l"><a class="l" href="#469">469: </a><span class="php-comment">     * @param string $fieldName Field name, should be &quot;Modelname.fieldname&quot;
-</span></span><span id="470" class="l"><a class="l" href="#470">470: </a><span class="php-comment">     * @param array $options HTML attributes
-</span></span><span id="471" class="l"><a class="l" href="#471">471: </a><span class="php-comment">     * @return string Html
-</span></span><span id="472" class="l"><a class="l" href="#472">472: </a><span class="php-comment">     * @see http://repository.novatlantis.it/metools-sandbox/forms/textareas Examples
-</span></span><span id="473" class="l"><a class="l" href="#473">473: </a><span class="php-comment">     */</span>
-</span><span id="474" class="l"><a class="l" href="#474">474: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_textarea" href="#_textarea">textarea</a>(<span class="php-var">$fieldName</span>, <span class="php-var">$options</span> = <span class="php-keyword1">array</span>()) {
-</span><span id="475" class="l"><a class="l" href="#475">475: </a>        <span class="php-var">$options</span>[<span class="php-quote">'class'</span>] = <span class="php-keyword1">empty</span>(<span class="php-var">$options</span>[<span class="php-quote">'class'</span>]) ? <span class="php-quote">'form-control'</span> : <span class="php-var">$this</span>-&gt;Html-&gt;_clean(<span class="php-quote">'form-control'</span>, <span class="php-var">$options</span>[<span class="php-quote">'class'</span>]);
-</span><span id="476" class="l"><a class="l" href="#476">476: </a>
-</span><span id="477" class="l"><a class="l" href="#477">477: </a>        <span class="php-keyword1">return</span> parent::textarea(<span class="php-var">$fieldName</span>, <span class="php-var">$options</span>);
-</span><span id="478" class="l"><a class="l" href="#478">478: </a>    }
-</span><span id="479" class="l"><a class="l" href="#479">479: </a>
-</span><span id="480" class="l"><a class="l" href="#480">480: </a>    <span class="php-comment">/**
-</span></span><span id="481" class="l"><a class="l" href="#481">481: </a><span class="php-comment">     * Creates a text input for timepicker.
-</span></span><span id="482" class="l"><a class="l" href="#482">482: </a><span class="php-comment">     * 
-</span></span><span id="483" class="l"><a class="l" href="#483">483: </a><span class="php-comment">     * To add the script for timepicker, you should use the `Library` helper.
-</span></span><span id="484" class="l"><a class="l" href="#484">484: </a><span class="php-comment">     * @param string $fieldName Field name, should be &quot;Modelname.fieldname&quot;
-</span></span><span id="485" class="l"><a class="l" href="#485">485: </a><span class="php-comment">     * @param array $options HTML attributes
-</span></span><span id="486" class="l"><a class="l" href="#486">486: </a><span class="php-comment">     * @return string Html
-</span></span><span id="487" class="l"><a class="l" href="#487">487: </a><span class="php-comment">     * @see http://repository.novatlantis.it/metools-sandbox/forms/datepicker Examples
-</span></span><span id="488" class="l"><a class="l" href="#488">488: </a><span class="php-comment">     * @uses input() to create the input
-</span></span><span id="489" class="l"><a class="l" href="#489">489: </a><span class="php-comment">     */</span>
-</span><span id="490" class="l"><a class="l" href="#490">490: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_timepicker" href="#_timepicker">timepicker</a>(<span class="php-var">$fieldName</span>, <span class="php-var">$options</span> = <span class="php-keyword1">array</span>()) {
-</span><span id="491" class="l"><a class="l" href="#491">491: </a>        <span class="php-var">$options</span>[<span class="php-quote">'class'</span>] = <span class="php-keyword1">empty</span>(<span class="php-var">$options</span>[<span class="php-quote">'class'</span>]) ? <span class="php-quote">'timepicker'</span> : <span class="php-var">$this</span>-&gt;Html-&gt;_clean(<span class="php-quote">'timepicker'</span>, <span class="php-var">$options</span>[<span class="php-quote">'class'</span>]);
-</span><span id="492" class="l"><a class="l" href="#492">492: </a>
-</span><span id="493" class="l"><a class="l" href="#493">493: </a>        <span class="php-var">$options</span>[<span class="php-quote">'div'</span>][<span class="php-quote">'class'</span>] = <span class="php-keyword1">empty</span>(<span class="php-var">$options</span>[<span class="php-quote">'div'</span>][<span class="php-quote">'class'</span>]) ? <span class="php-quote">'bootstrap-timepicker'</span> : <span class="php-var">$this</span>-&gt;Html-&gt;_clean(<span class="php-quote">'bootstrap-timepicker'</span>, <span class="php-var">$options</span>[<span class="php-quote">'div'</span>][<span class="php-quote">'class'</span>]);
-</span><span id="494" class="l"><a class="l" href="#494">494: </a>
-</span><span id="495" class="l"><a class="l" href="#495">495: </a>        <span class="php-keyword1">return</span> self::input(<span class="php-var">$fieldName</span>, am(<span class="php-var">$options</span>, <span class="php-keyword1">array</span>(<span class="php-quote">'type'</span> =&gt; <span class="php-quote">'text'</span>)));
-</span><span id="496" class="l"><a class="l" href="#496">496: </a>    }
-</span><span id="497" class="l"><a class="l" href="#497">497: </a></span>}</code></pre>
+</span><span id="455" class="l"><a class="l" href="#455">455: </a>        <span class="php-comment">//If is set the &quot;div&quot; option and this is FALSE or if this is an inline form and it's not </span>
+</span><span id="456" class="l"><a class="l" href="#456">456: </a>        <span class="php-comment">//set the &quot;div&quot; option, returns the button without a wrapper</span>
+</span><span id="457" class="l"><a class="l" href="#457">457: </a>        <span class="php-keyword1">if</span>((<span class="php-keyword1">isset</span>(<span class="php-var">$options</span>[<span class="php-quote">'div'</span>]) &amp;&amp; !<span class="php-var">$options</span>[<span class="php-quote">'div'</span>]) || (<span class="php-var">$this</span>-&gt;inline &amp;&amp; !<span class="php-keyword1">isset</span>(<span class="php-var">$options</span>[<span class="php-quote">'div'</span>])))
+</span><span id="458" class="l"><a class="l" href="#458">458: </a>            <span class="php-keyword1">return</span> self::button(<span class="php-var">$caption</span>, <span class="php-var">$options</span>);
+</span><span id="459" class="l"><a class="l" href="#459">459: </a>
+</span><span id="460" class="l"><a class="l" href="#460">460: </a>        <span class="php-var">$divOptions</span> = <span class="php-keyword1">empty</span>(<span class="php-var">$options</span>[<span class="php-quote">'div'</span>]) ? <span class="php-keyword1">array</span>() : <span class="php-var">$options</span>[<span class="php-quote">'div'</span>];
+</span><span id="461" class="l"><a class="l" href="#461">461: </a>        <span class="php-keyword1">unset</span>(<span class="php-var">$options</span>[<span class="php-quote">'div'</span>]);
+</span><span id="462" class="l"><a class="l" href="#462">462: </a>
+</span><span id="463" class="l"><a class="l" href="#463">463: </a>        <span class="php-var">$divOptions</span>[<span class="php-quote">'class'</span>] = <span class="php-keyword1">empty</span>(<span class="php-var">$divOptions</span>[<span class="php-quote">'class'</span>]) ? <span class="php-quote">'submit'</span> : <span class="php-var">$this</span>-&gt;Html-&gt;_clean(<span class="php-quote">'submit'</span>, <span class="php-var">$divOptions</span>[<span class="php-quote">'class'</span>]);
+</span><span id="464" class="l"><a class="l" href="#464">464: </a>
+</span><span id="465" class="l"><a class="l" href="#465">465: </a>        <span class="php-keyword1">return</span> <span class="php-var">$this</span>-&gt;Html-&gt;div(<span class="php-var">$divOptions</span>[<span class="php-quote">'class'</span>], self::button(<span class="php-var">$caption</span>, <span class="php-var">$options</span>), <span class="php-var">$divOptions</span>);
+</span><span id="466" class="l"><a class="l" href="#466">466: </a>    }
+</span><span id="467" class="l"><a class="l" href="#467">467: </a>
+</span><span id="468" class="l"><a class="l" href="#468">468: </a>    <span class="php-comment">/**
+</span></span><span id="469" class="l"><a class="l" href="#469">469: </a><span class="php-comment">     * Creates a textarea element.
+</span></span><span id="470" class="l"><a class="l" href="#470">470: </a><span class="php-comment">     * @param string $fieldName Field name, should be &quot;Modelname.fieldname&quot;
+</span></span><span id="471" class="l"><a class="l" href="#471">471: </a><span class="php-comment">     * @param array $options HTML attributes
+</span></span><span id="472" class="l"><a class="l" href="#472">472: </a><span class="php-comment">     * @return string Html
+</span></span><span id="473" class="l"><a class="l" href="#473">473: </a><span class="php-comment">     * @see http://repository.novatlantis.it/metools-sandbox/forms/textareas Examples
+</span></span><span id="474" class="l"><a class="l" href="#474">474: </a><span class="php-comment">     */</span>
+</span><span id="475" class="l"><a class="l" href="#475">475: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_textarea" href="#_textarea">textarea</a>(<span class="php-var">$fieldName</span>, <span class="php-var">$options</span> = <span class="php-keyword1">array</span>()) {
+</span><span id="476" class="l"><a class="l" href="#476">476: </a>        <span class="php-var">$options</span>[<span class="php-quote">'class'</span>] = <span class="php-keyword1">empty</span>(<span class="php-var">$options</span>[<span class="php-quote">'class'</span>]) ? <span class="php-quote">'form-control'</span> : <span class="php-var">$this</span>-&gt;Html-&gt;_clean(<span class="php-quote">'form-control'</span>, <span class="php-var">$options</span>[<span class="php-quote">'class'</span>]);
+</span><span id="477" class="l"><a class="l" href="#477">477: </a>
+</span><span id="478" class="l"><a class="l" href="#478">478: </a>        <span class="php-keyword1">return</span> parent::textarea(<span class="php-var">$fieldName</span>, <span class="php-var">$options</span>);
+</span><span id="479" class="l"><a class="l" href="#479">479: </a>    }
+</span><span id="480" class="l"><a class="l" href="#480">480: </a>
+</span><span id="481" class="l"><a class="l" href="#481">481: </a>    <span class="php-comment">/**
+</span></span><span id="482" class="l"><a class="l" href="#482">482: </a><span class="php-comment">     * Creates a text input for timepicker.
+</span></span><span id="483" class="l"><a class="l" href="#483">483: </a><span class="php-comment">     * 
+</span></span><span id="484" class="l"><a class="l" href="#484">484: </a><span class="php-comment">     * To add the script for timepicker, you should use the `Library` helper.
+</span></span><span id="485" class="l"><a class="l" href="#485">485: </a><span class="php-comment">     * @param string $fieldName Field name, should be &quot;Modelname.fieldname&quot;
+</span></span><span id="486" class="l"><a class="l" href="#486">486: </a><span class="php-comment">     * @param array $options HTML attributes
+</span></span><span id="487" class="l"><a class="l" href="#487">487: </a><span class="php-comment">     * @return string Html
+</span></span><span id="488" class="l"><a class="l" href="#488">488: </a><span class="php-comment">     * @see http://repository.novatlantis.it/metools-sandbox/forms/datepicker Examples
+</span></span><span id="489" class="l"><a class="l" href="#489">489: </a><span class="php-comment">     * @uses input() to create the input
+</span></span><span id="490" class="l"><a class="l" href="#490">490: </a><span class="php-comment">     */</span>
+</span><span id="491" class="l"><a class="l" href="#491">491: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_timepicker" href="#_timepicker">timepicker</a>(<span class="php-var">$fieldName</span>, <span class="php-var">$options</span> = <span class="php-keyword1">array</span>()) {
+</span><span id="492" class="l"><a class="l" href="#492">492: </a>        <span class="php-var">$options</span>[<span class="php-quote">'class'</span>] = <span class="php-keyword1">empty</span>(<span class="php-var">$options</span>[<span class="php-quote">'class'</span>]) ? <span class="php-quote">'timepicker'</span> : <span class="php-var">$this</span>-&gt;Html-&gt;_clean(<span class="php-quote">'timepicker'</span>, <span class="php-var">$options</span>[<span class="php-quote">'class'</span>]);
+</span><span id="493" class="l"><a class="l" href="#493">493: </a>
+</span><span id="494" class="l"><a class="l" href="#494">494: </a>        <span class="php-var">$options</span>[<span class="php-quote">'div'</span>][<span class="php-quote">'class'</span>] = <span class="php-keyword1">empty</span>(<span class="php-var">$options</span>[<span class="php-quote">'div'</span>][<span class="php-quote">'class'</span>]) ? <span class="php-quote">'bootstrap-timepicker'</span> : <span class="php-var">$this</span>-&gt;Html-&gt;_clean(<span class="php-quote">'bootstrap-timepicker'</span>, <span class="php-var">$options</span>[<span class="php-quote">'div'</span>][<span class="php-quote">'class'</span>]);
+</span><span id="495" class="l"><a class="l" href="#495">495: </a>
+</span><span id="496" class="l"><a class="l" href="#496">496: </a>        <span class="php-keyword1">return</span> self::input(<span class="php-var">$fieldName</span>, am(<span class="php-var">$options</span>, <span class="php-keyword1">array</span>(<span class="php-quote">'type'</span> =&gt; <span class="php-quote">'text'</span>)));
+</span><span id="497" class="l"><a class="l" href="#497">497: </a>    }
+</span><span id="498" class="l"><a class="l" href="#498">498: </a></span>}</code></pre>
 
 	<div id="footer">
 		MeTools API documentation generated by <a href="http://apigen.org">ApiGen 2.8.0</a>
