@@ -38,7 +38,7 @@ class XmlComponent extends Component {
 	 * @param array $array Input array with data
 	 * @param array $options Options
 	 * @return object SimpleXMLElement
-	 * @see http://api.cakephp.org/2.4/source-class-Xml.html#154-224 CakePHP documentation
+	 * @see http://api.cakephp.org/2.5/source-class-Xml.html#154-224 CakePHP documentation
 	 */
 	public function fromArray($array, $options = array()) {
 		if(empty($array))

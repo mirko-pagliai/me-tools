@@ -23,14 +23,14 @@
  * @license		http://www.gnu.org/licenses/agpl.txt AGPL License
  * @link		http://git.novatlantis.it Nova Atlantis Ltd
  * @package		MeTools\Lib\Log\Engine
- * @see			http://api.cakephp.org/2.4/class-FileLog.html CakePHP Api
+ * @see			http://api.cakephp.org/2.5/class-FileLog.html CakePHP Api
  */
 App::uses('FileLog', 'Log/Engine');
 
 /**
  * File Storage stream for logging. Writes log files.
  * 
- * Rewrites {@link http://api.cakephp.org/2.4/class-FileLog.html FileLog}.
+ * Rewrites {@link http://api.cakephp.org/2.5/class-FileLog.html FileLog}.
  * 
  * This class is only useful to rewrite the `write()` method provided 
  * by the `FileLog` engine, so that the client IP address is recorded in logs.

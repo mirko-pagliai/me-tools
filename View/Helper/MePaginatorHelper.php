@@ -23,7 +23,7 @@
  * @license		http://www.gnu.org/licenses/agpl.txt AGPL License
  * @link		http://git.novatlantis.it Nova Atlantis Ltd
  * @package		MeTools\View\Helper
- * @see			http://api.cakephp.org/2.4/class-PaginatorHelper.html PaginatorHelper
+ * @see			http://api.cakephp.org/2.5/class-PaginatorHelper.html PaginatorHelper
  * @see         http://repository.novatlantis.it/metools-sandbox/html/pagination Examples
  */
 App::uses('PaginatorHelper', 'View/Helper');
@@ -31,7 +31,7 @@ App::uses('PaginatorHelper', 'View/Helper');
 /**
  * Provides functionalities to the generation of pagers.
  * 
- * Rewrites {@link http://api.cakephp.org/2.4/class-PaginatorHelper.html PaginatorHelper}.
+ * Rewrites {@link http://api.cakephp.org/2.5/class-PaginatorHelper.html PaginatorHelper}.
  * 
  * You should use this helper as an alias, for example:
  * <code>

@@ -23,14 +23,14 @@
  * @license		http://www.gnu.org/licenses/agpl.txt AGPL License
  * @link		http://git.novatlantis.it Nova Atlantis Ltd
  * @package		MeTools\View\Helper
- * @see			http://api.cakephp.org/2.4/class-HtmlHelper.html HtmlHelper
+ * @see			http://api.cakephp.org/2.5/class-HtmlHelper.html HtmlHelper
  */
 App::uses('HtmlHelper', 'View/Helper');
 
 /**
  * Provides functionalities for HTML code.
  * 
- * Rewrites {@link http://api.cakephp.org/2.4/class-HtmlHelper.html HtmlHelper}.
+ * Rewrites {@link http://api.cakephp.org/2.5/class-HtmlHelper.html HtmlHelper}.
  * 
  * You should use this helper as an alias, for example:
  * <code>
@@ -45,7 +45,7 @@ class MeHtmlHelper extends HtmlHelper {
 	 * @param string $method Method to invoke
 	 * @param array $params Array of params for the method
 	 * @return string Html, tag
-	 * @see http://api.cakephp.org/2.4/class-Helper.html#___call CakePHP Api
+	 * @see http://api.cakephp.org/2.5/class-Helper.html#___call CakePHP Api
 	 */
 	public function __call($method, $params) {		
 		if(count($params) <= 2)

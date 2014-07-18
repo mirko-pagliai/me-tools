@@ -46,7 +46,7 @@ class LibraryHelper extends AppHelper {
      * Before layout callback. beforeLayout is called before the layout is rendered.
      * @param string $layoutFile The layout about to be rendered
      * @return void
-     * @see http://api.cakephp.org/2.4/class-Helper.html#_beforeLayout CakePHP Api
+     * @see http://api.cakephp.org/2.5/class-Helper.html#_beforeLayout CakePHP Api
      */
     public function beforeLayout($layoutFile) {
         //Writes the output
