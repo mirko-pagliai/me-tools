@@ -177,7 +177,7 @@ SecurityComponent
 				<b>Author:</b>
 				Mirko Pagliai &lt;<a
 href="mailto:mirko.pagliai&#64;gmail.com">mirko.pagliai&#64;<!-- -->gmail.com</a>&gt;<br>
-		<b>Located at</b> <a href="source-class-MeSecurityComponent.html#30-86" title="Go to source code">Component/MeSecurityComponent.php</a><br>
+		<b>Located at</b> <a href="source-class-MeSecurityComponent.html#30-90" title="Go to source code">Component/MeSecurityComponent.php</a><br>
 	</div>
 
 
@@ -239,29 +239,28 @@ CakePHP Api<br>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_allowIp">#</a>
-		<code><a href="source-class-MeSecurityComponent.html#50-85" title="Go to source code">allowIp</a>( <span>string <var>$allowed_ip</var> = <span class="php-keyword1">NULL</span></span> )</code>
+		<code><a href="source-class-MeSecurityComponent.html#50-89" title="Go to source code">allowIp</a>( <span>array <var>$allowed_ip</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
-<p>Checks if the user's IP address is part of a list of allowed IP addresses.
+<p>Checks if the user's IP address is part of an array of allowed IP addresses.
 Note that access to localhost will always be admitted.</p>
 
 		</div>
 
 		<div class="description detailed hidden">
 			
-<p>Checks if the user's IP address is part of a list of allowed IP addresses.
+<p>Checks if the user's IP address is part of an array of allowed IP addresses.
 Note that access to localhost will always be admitted.</p>
 
-<p>Addresses can be separated by a comma, a comma and a space or a pipe. The
-asterisk can be used as a wildcard.</p>
+<p>The asterisk can be used as a wildcard.</p>
 
 
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
 					<dt><var>$allowed_ip</var></dt>
-					<dd><code>string</code><br>$allowed_ip allowed IP addresses</dd>
+					<dd><code>array</code><br>$allowed_ip allowed IP addresses</dd>
 				</dl></div>
 
 				<h4>Returns</h4>
