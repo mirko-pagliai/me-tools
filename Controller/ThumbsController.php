@@ -164,7 +164,7 @@ class ThumbsController extends MeToolsAppController {
 			return $thumb;
 		
 		//Checks for ffmpegthumbnailer
-		if(empty(System::which('ffmpegthumbnailer')))
+		if(!(System::which('ffmpegthumbnailer')))
             throw new InternalErrorException(__d('me_tools', '%s is not avalaible', 'ffmpegthumbnailer'));
 		
 		//Checks if the target directory is writable
