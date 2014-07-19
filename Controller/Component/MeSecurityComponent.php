@@ -48,35 +48,39 @@ class MeSecurityComponent extends SecurityComponent {
 	}
 
 	/**
-	 * Checks if the user's IP address is part of a list of allowed IP addresses.
+	 * Checks if the user's IP address is part of an array of allowed IP addresses.
 	 * Note that access to localhost will always be admitted.
 	 * 
-	 * Addresses can be separated by a comma, a comma and a space or a pipe.
 	 * The asterisk can be used as a wildcard.
-	 * @param string $allowed_ip allowed IP addresses
+	 * @param array $allowed_ip allowed IP addresses
 	 * @return boolean TRUE if the user's IP address is part of allowed addresses, otherwise FALSE.
 	 */
-	public function allowIp($allowed_ip = NULL) {
+	public function allowIp($allowed_ip = array()) {
 		if(!is_object($this->request))
 			return FALSE;
 		
 		$ip = $this->request->clientIp(TRUE);
 		
         //Skips if it's localhost or if the control has already happened and was successful
-        if($ip == '127.0.0.1' || $ip == '::1' || $this->Session->read('allowed_ip'))
+        if(in_array($ip, array('127.0.0.1', '::1')) || $this->Session->read('allowed_ip'))
             return TRUE;
 		
 		if(empty($allowed_ip))
 			return FALSE;
 		
+		//If the list is a string, it turns it into an array
+		$allowed_ip = is_array($allowed_ip) ? $allowed_ip : array($allowed_ip);
+				
 		//For addresses that end with a zero, it changes the zero with an asterisk
 		$allowed_ip = preg_replace('/((([0-9]{1,3}|\*)\.){3})(0)/', '$1*', $allowed_ip);
+				
+		$allowed_ip = array_map('preg_quote', $allowed_ip);
 		
 		//Changes whitespace character, commas and pipes with pipes. It also changes the asterisks
-		$allowed_ip = preg_replace(array('/[\s,|]+/', '/\\\\\*/'), array('|', '[0-9]{1,3}'), preg_quote($allowed_ip));
-		
+		$allowed_ip = preg_replace('/\\\\\*/', '[0-9]{1,3}', $allowed_ip);
+				
 		//If the IP doesn't match with any of allowed IPs, exit with error
-        if(!preg_match('/^('.$allowed_ip.')$/', $ip))
+        if(!preg_match(sprintf('/^(%s)$/', implode('|', $allowed_ip)), $ip))
             return FALSE;
 		
         //In any other case, saves the result in the session
