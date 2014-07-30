@@ -207,7 +207,7 @@ class System {
 	 * @return boolean TRUE if is the root user, otherwise FALSE
 	 */
 	public static function is_root() {
-		//`posix_getuid()` returns 0 is root
+		//`posix_getuid()` returns 0 if is the root user
 		return !posix_getuid();
 	}
 	
