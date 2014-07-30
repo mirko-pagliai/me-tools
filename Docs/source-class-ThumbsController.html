@@ -284,7 +284,7 @@
 </span><span id="164" class="l"><a class="l" href="#164">164: </a>            <span class="php-keyword1">return</span> <span class="php-var">$thumb</span>;
 </span><span id="165" class="l"><a class="l" href="#165">165: </a>        
 </span><span id="166" class="l"><a class="l" href="#166">166: </a>        <span class="php-comment">//Checks for ffmpegthumbnailer</span>
-</span><span id="167" class="l"><a class="l" href="#167">167: </a>        <span class="php-keyword1">if</span>(<span class="php-keyword1">empty</span>(<span class="php-keyword2">System</span>::which(<span class="php-quote">'ffmpegthumbnailer'</span>)))
+</span><span id="167" class="l"><a class="l" href="#167">167: </a>        <span class="php-keyword1">if</span>(!<span class="php-keyword2">System</span>::which(<span class="php-quote">'ffmpegthumbnailer'</span>))
 </span><span id="168" class="l"><a class="l" href="#168">168: </a>            <span class="php-keyword1">throw</span> <span class="php-keyword1">new</span> InternalErrorException(__d(<span class="php-quote">'me_tools'</span>, <span class="php-quote">'%s is not avalaible'</span>, <span class="php-quote">'ffmpegthumbnailer'</span>));
 </span><span id="169" class="l"><a class="l" href="#169">169: </a>        
 </span><span id="170" class="l"><a class="l" href="#170">170: </a>        <span class="php-comment">//Checks if the target directory is writable</span>
