@@ -33,8 +33,8 @@
 
 	/**
 	 * View <?php echo strtolower($singularHumanName)."\n"; ?>
+	 * @param string $id <?php echo ucfirst(strtolower($singularHumanName)); ?> id
 	 * @throws NotFoundException
-	 * @param string $id
 	 */
 	public function <?php echo $admin ?>view($id = NULL) {
 		if(!$this-><?php echo $currentModelName; ?>->exists($id))
@@ -84,8 +84,8 @@
 <?php $compact = array(); ?>
 	/**
 	 * Edit <?php echo strtolower($singularHumanName)."\n"; ?>
+	 * @param string $id <?php echo ucfirst(strtolower($singularHumanName)); ?> id
 	 * @throws NotFoundException
-	 * @param string $id
 	 */
 	public function <?php echo $admin; ?>edit($id = NULL) {
 		if(!$this-><?php echo $currentModelName; ?>->exists($id))
@@ -126,8 +126,8 @@
 
 	/**
 	 * Delete <?php echo strtolower($singularHumanName)."\n"; ?>
+	 * @param string $id <?php echo ucfirst(strtolower($singularHumanName)); ?> id
 	 * @throws NotFoundException
-	 * @param string $id
 	 */
 	public function <?php echo $admin; ?>delete($id = NULL) {
 		$this-><?php echo $currentModelName; ?>->id = $id;
