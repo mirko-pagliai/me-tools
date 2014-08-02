@@ -162,6 +162,7 @@ small, .small, .small-text, .text-small {
 th a.asc:after, th a.desc:after {
 	font-family: FontAwesome;
     font-weight: normal;
+	white-space: nowrap;
 }
 
 /* Ascending sort */
