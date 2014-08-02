@@ -28,7 +28,7 @@
 		
 		$this->set(array(
 			'<?php echo $pluralName ?>'		=> $this->paginate(),
-			'subtitle'	=> <?php echo "__('".ucfirst(strtolower(Inflector::pluralize($singularHumanName)))."')\n"; ?>
+			'title_for_layout'	=> <?php echo "__('".ucfirst(strtolower(Inflector::pluralize($singularHumanName)))."')\n"; ?>
 		));
 	}
 
@@ -45,7 +45,7 @@
 		$this->set('<?php echo $singularName; ?>', $this-><?php echo $currentModelName; ?>->find('first', array(
 			'conditions' => array('<?php echo $currentModelName; ?>.'.$this-><?php echo $currentModelName; ?>->primaryKey => $id)
 		)));
-		<?php echo "\$this->set('subtitle', __('View ".strtolower($singularHumanName)."'));\n"; ?>
+		<?php echo "\$this->set('title_for_layout', __('View ".strtolower($singularHumanName)."'));\n"; ?>
 	}
 
 <?php $compact = array(); ?>
@@ -80,7 +80,7 @@
 		endforeach;
 	endforeach;
 	
-	echo "\n\t\t\$this->set('subtitle', __('Add ".strtolower($singularHumanName)."'));\n";
+	echo "\n\t\t\$this->set('title_for_layout', __('Add ".strtolower($singularHumanName)."'));\n";
 ?>
 	}
 
@@ -124,7 +124,7 @@
 			endforeach;
 		endforeach;
 	
-		echo "\n\t\t\$this->set('subtitle', __('Edit ".strtolower($singularHumanName)."'));\n";
+		echo "\n\t\t\$this->set('title_for_layout', __('Edit ".strtolower($singularHumanName)."'));\n";
 	?>
 	}
 
