@@ -42,7 +42,7 @@ You can use the flash messages views provided by MeTools copying them from `app/
 Otherwise you can use the `MeSession` component to generate flash messages, which will be displayed directly using 
 the views provided by MeTools. To do this, you should use this component as an alias, as follows:
 	
-	public $component = array('Session' => array('className' => 'MeTools.MeSession'));
+	public $components = array('Session' => array('className' => 'MeTools.MeSession'));
 
 ## Paginator
 You can use the `MePaginator` helper to generate pagination controls such as page numbers and next/previous links. To do this,
