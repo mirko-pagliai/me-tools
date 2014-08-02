@@ -21,7 +21,6 @@
 
 	/**
 	 * List <?php echo strtolower(Inflector::pluralize($singularHumanName))."\n"; ?>
-	 * @return void
 	 */
 	public function <?php echo $admin ?>index() {
 		$this-><?php echo $currentModelName ?>->recursive = 0;
@@ -36,7 +35,6 @@
 	 * View <?php echo strtolower($singularHumanName)."\n"; ?>
 	 * @throws NotFoundException
 	 * @param string $id
-	 * @return void
 	 */
 	public function <?php echo $admin ?>view($id = NULL) {
 		if(!$this-><?php echo $currentModelName; ?>->exists($id))
@@ -51,7 +49,6 @@
 <?php $compact = array(); ?>
 	/**
 	 * Add <?php echo strtolower($singularHumanName)."\n"; ?>
-	 * @return void
 	 */
 	public function <?php echo $admin ?>add() {
 		if($this->request->is('post')) {
@@ -89,7 +86,6 @@
 	 * Edit <?php echo strtolower($singularHumanName)."\n"; ?>
 	 * @throws NotFoundException
 	 * @param string $id
-	 * @return void
 	 */
 	public function <?php echo $admin; ?>edit($id = NULL) {
 		if(!$this-><?php echo $currentModelName; ?>->exists($id))
@@ -132,7 +128,6 @@
 	 * Delete <?php echo strtolower($singularHumanName)."\n"; ?>
 	 * @throws NotFoundException
 	 * @param string $id
-	 * @return void
 	 */
 	public function <?php echo $admin; ?>delete($id = NULL) {
 		$this-><?php echo $currentModelName; ?>->id = $id;
