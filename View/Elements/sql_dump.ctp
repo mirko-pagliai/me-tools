@@ -25,4 +25,7 @@
  */
 ?>
 
-<?php echo $this->Html->div('visible-lg', $this->element('sql_dump')); ?>
+<?php
+	if($sql_dump = $this->element('sql_dump'))
+		echo $this->Html->div('visible-lg', $sql_dump);
+?>
