@@ -1,20 +1,23 @@
-<?php 
-	echo "<?php echo \$this->start('sidebar'); ?>\n";
+<?php
+	echo "<?php\n";
+	echo "\t\$this->start('sidebar');\n";
+	
 	if(strpos($action, 'add')===FALSE):
-		echo "\t<li><?php echo \$this->Form->postLink(__('Delete'), array('action' => 'delete', \$this->Form->value('{$modelClass}.{$primaryKey}')), NULL, __('Are you sure you want to delete this record?')); ?></li>\n";
+		echo "\t\techo \$this->Html->li(\$this->Form->postLink(__('Delete'), array('action' => 'delete', \$this->Form->value('{$modelClass}.{$primaryKey}')), NULL, __('Are you sure you want to delete this record?')));\n";
 	endif;
-		echo "\t<li><?php echo \$this->Html->link(__('List ".strtolower($pluralHumanName)."'), array('action' => 'index')); ?></li>\n";
+		echo "\t\techo \$this->Html->li(\$this->Html->link(__('List ".strtolower($pluralHumanName)."'), array('action' => 'index'));\n";
 
 	$done = array();
 	foreach($associations as $type => $data)
 		foreach($data as $alias => $details)
 			if($details['controller']!=$this->name && !in_array($details['controller'], $done)) {
-				echo "\t<li><?php echo \$this->Html->link(__('List ".strtolower(Inflector::humanize($details['controller']))."'), array('controller' => '{$details['controller']}', 'action' => 'index')); ?></li>\n";
-				echo "\t<li><?php echo \$this->Html->link(__('Add ".strtolower(Inflector::humanize(Inflector::underscore($alias)))."'), array('controller' => '{$details['controller']}', 'action' => 'add')); ?></li>\n";
+				echo "\t\techo \$this->Html->li(\$this->Html->link(__('List ".strtolower(Inflector::humanize($details['controller']))."'), array('controller' => '{$details['controller']}', 'action' => 'index')));\n";
+				echo "\t\techo \$this->Html->li(\$this->Html->link(__('Add ".strtolower(Inflector::humanize(Inflector::underscore($alias)))."'), array('controller' => '{$details['controller']}', 'action' => 'add')));\n";
 				$done[] = $details['controller'];
 			}
-			
-	echo "<?php echo \$this->end(); ?>\n"; 
+	
+	echo "\t\$this->end();\n";
+	echo "?>\n";
 ?>
 
 <div class="<?php echo $pluralVar; ?> form">

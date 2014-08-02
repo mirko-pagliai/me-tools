@@ -1,17 +1,21 @@
-<?php echo "<?php echo \$this->start('sidebar'); ?>\n"; ?>
-	<li><?php echo "<?php echo \$this->Html->link(__('Add ".strtolower($singularHumanName)."'), array('action' => 'add')); ?>"; ?></li>
 <?php
+	echo "<?php\n";
+	echo "\t\$this->start('sidebar');\n";
+	echo "\t\techo \$this->Html->li(\$this->Html->link(__('Add ".strtolower($singularHumanName)."'), array('action' => 'add')));\n";
+
 	$done = array();
 	foreach($associations as $type => $data) {
 		foreach($data as $alias => $details) {
 			if($details['controller']!=$this->name && !in_array($details['controller'], $done)) {
-				echo "\t<li><?php echo \$this->Html->link(__('List ".strtolower(Inflector::humanize($details['controller']))."'), array('controller' => '{$details['controller']}', 'action' => 'index')); ?></li>\n";
-				echo "\t<li><?php echo \$this->Html->link(__('Add ".strtolower(Inflector::humanize(Inflector::underscore($alias)))."'), array('controller' => '{$details['controller']}', 'action' => 'add')); ?></li>\n";
+				echo "\t\techo \$this->Html->li(\$this->Html->link(__('List ".strtolower(Inflector::humanize($details['controller']))."'), array('controller' => '{$details['controller']}', 'action' => 'index')));\n";
+				echo "\t\techo \$this->Html->li(\$this->Html->link(__('Add ".strtolower(Inflector::humanize(Inflector::underscore($alias)))."'), array('controller' => '{$details['controller']}', 'action' => 'add')));\n";
 				$done[] = $details['controller'];
 			}
 		}
 	}
-	echo "<?php echo \$this->end(); ?>\n"; 
+	
+	echo "\t\$this->end();\n";
+	echo "?>\n";
 ?>
 	
 <div class="<?php echo $pluralVar; ?> index">
