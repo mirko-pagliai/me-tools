@@ -44,6 +44,10 @@ the views provided by MeTools. To do this, you should use this component as an a
 	
 	public $components = array('Session' => array('className' => 'MeTools.MeSession'));
 
+Now you can generate flash messages like this:
+	
+	$this->Session->flash('This is an error message', 'error');
+
 ## Paginator
 You can use the `MePaginator` helper to generate pagination controls such as page numbers and next/previous links. To do this,
 you should use this component as an alias, as follows:
