@@ -54,6 +54,13 @@ Then, inside of your views, you can use the appropriate element:
 
 	echo $this->element('MeTools.paginator');
 
+## SQL Dump
+To show the SQL dump, you can use the appropriate element:
+
+	echo $this->element('MeTools.sql_dump');
+
+This will display the SQL dump only when available and only if the user is not using a mobile device.
+
 ### Libraries and script
 MeTools uses different libraries or scripts:
 
