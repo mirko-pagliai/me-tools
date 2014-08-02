@@ -35,7 +35,7 @@ App::uses('SessionComponent', 'Controller/Component');
  * 
  * You should use this component as an alias, for example:
  * <code>
- * public $component = array('Session' => array('className' => 'MeTools.MeSession'));
+ * public $components = array('Session' => array('className' => 'MeTools.MeSession'));
  * </code>
  */
 class MeSessionComponent extends SessionComponent {
