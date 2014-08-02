@@ -41,9 +41,9 @@
 				for (var i=0, l=from.length ; i<l ; i++)
 					str = str.replace(new RegExp(from.charAt(i), 'g'), to.charAt(i));
 				return str.replace(/[^a-z0-9 -]/g, '')	//Remove invalid chars
-				.replace(/^\s+|\s+$/g, '')			//Trim
-				.replace(/\s+/g, '-')				//Collapse whitespace and replace by -
-				.replace(/-+/g, '-');				//Collapse dashes
+				.replace(/^\s+|\s+$/g, '')				//Trim
+				.replace(/\s+/g, '-')					//Collapse whitespace and replace by -
+				.replace(/-+/g, '-');					//Collapse dashes
 			}
 
 			//When changing the source or the target (the slug field)
