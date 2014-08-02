@@ -5,7 +5,7 @@
 	if(strpos($action, 'add')===FALSE):
 		echo "\t\techo \$this->Html->li(\$this->Form->postLink(__('Delete'), array('action' => 'delete', \$this->Form->value('{$modelClass}.{$primaryKey}')), NULL, __('Are you sure you want to delete this record?')));\n";
 	endif;
-		echo "\t\techo \$this->Html->li(\$this->Html->link(__('List ".strtolower($pluralHumanName)."'), array('action' => 'index'));\n";
+		echo "\t\techo \$this->Html->li(\$this->Html->link(__('List ".strtolower($pluralHumanName)."'), array('action' => 'index')));\n";
 
 	$done = array();
 	foreach($associations as $type => $data)
