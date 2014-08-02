@@ -28,7 +28,7 @@
 		
 		$this->set(array(
 			'<?php echo $pluralName ?>'		=> $this->paginate(),
-			'subtitle'	=> <?php echo "__('".Inflector::pluralize($singularHumanName)."')\n"; ?>
+			'subtitle'	=> <?php echo "__('".ucfirst(strtolower(Inflector::pluralize($singularHumanName)))."')\n"; ?>
 		));
 	}
 
