@@ -1,7 +1,10 @@
 /**
  * Slugify plugin
  *
- * It reads the value of a source field, then it generates and sets the slug in the target field
+ * It reads the value of a source field, then it generates and sets the slug in the target field.
+ * 
+ * You should not use this plugin directly. Instead, you should use the `slugify()` method 
+ * provided by `LibraryHelper`.
  * 
  * This file is part of MeTools.
  *
