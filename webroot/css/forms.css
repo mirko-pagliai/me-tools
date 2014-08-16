@@ -94,6 +94,12 @@
     padding: 6px 8px;
 }
 
+/* Form error messages, error list */
+.form-base .error-message ul {
+	margin: 0;
+    padding-left: 15px;
+}
+
 /* Select inputs with icon validation state, on error */
 .form-base .has-feedback select.form-error {
     padding-right: 30.5px;
