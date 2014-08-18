@@ -2,13 +2,13 @@
 MeTools is a CakePHP plugin to improve applications development.  
 It provides some useful tools, such as components, helpers and javascript libraries.
 
-You can found MeTools APIs [here](//repository.novatlantis.it/metools/API) and 
-the sandbox repository [here](//github.com/mirko-pagliai/MeToolsSandbox). 
-You can try the sandbox [here](//repository.novatlantis.it/metools-sandbox).
+You can found MeTools APIs [here](http://repository.novatlantis.it/metools/API) and 
+the sandbox repository [here](http://github.com/mirko-pagliai/MeToolsSandbox). 
+You can try the sandbox [here](http://repository.novatlantis.it/metools-sandbox).
 
 ## Versioning
 For transparency and insight into our release cycle, and for striving to maintain backward compatibility, 
-MeTools will be maintained under the [Semantic Versioning guidelines](//semver.org).
+MeTools will be maintained under the [Semantic Versioning guidelines](http://semver.org).
 
 ## Installation
 Extract MeTools in `app/Plugin` and load it in `app/Config/bootstrap.php`:
@@ -68,19 +68,19 @@ This will display the SQL dump only when available and only if the user is not u
 ### Libraries and script
 MeTools uses different libraries or scripts:
 
-- jQuery 2.1.1 ([site](//jquery.com));
-- Bootstrap 3.2.0 ([site](//getbootstrap.com)), without Glyphicons;
-- Font Awesome 4.1.0 ([site](//fortawesome.github.com/Font-Awesome));
-- PHP Markdown 1.4.1 ([site](//michelf.ca/projects/php-markdown));
-- reCAPTCHA PHP library 1.11 ([site](//developers.google.com/recaptcha/docs/php));
-- Bootstrap v3 datetimepicker widget ([site](//github.com/Eonasdan/bootstrap-datetimepicker)).
+- jQuery 2.1.1 ([site](http://jquery.com));
+- Bootstrap 3.2.0 ([site](http://getbootstrap.com)), without Glyphicons;
+- Font Awesome 4.1.0 ([site](http://fortawesome.github.com/Font-Awesome));
+- PHP Markdown 1.4.1 ([site](http://michelf.ca/projects/php-markdown));
+- reCAPTCHA PHP library 1.11 ([site](https://developers.google.com/recaptcha/docs/php));
+- Bootstrap v3 datetimepicker widget ([site](https://github.com/Eonasdan/bootstrap-datetimepicker)).
 
 ## CKEditor
 MeTools doesn't contain a copy of CKEditor, because it would be too heavy, because it's highly configurable (you 
 can customize the package and choose which plugins to download) and because it's not necessary for all projects.
 
-So you need to download CKEditor from its [site](//ckeditor.com/download), preferably by 
-[configuring plugins](//ckeditor.com/builder).  
+So you need to download CKEditor from its [site](http://ckeditor.com/download), preferably by 
+[configuring plugins](http://ckeditor.com/builder).  
 If you like, you can upload `build-config.js` 
 that is located in `app/Plugin/MeTools/webroot/ckeditor`. This contain a valid configuration in most cases.
 
