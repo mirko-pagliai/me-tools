@@ -70,6 +70,8 @@
 /* -------------------------------- */
 /* Help blocks */
 .form-base .input .help-block {
+	font-family: sans-serif, Arial;
+    font-size: 11px;
 	margin: 0;
 }
 
