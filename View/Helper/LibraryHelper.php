@@ -49,7 +49,6 @@ class LibraryHelper extends AppHelper {
 	 * @return string jQuery code
 	 */
 	private function _datetimepicker($input, $options = array()) {
-		
 		 $this->Html->js(array(
 			'/MeTools/js/moment-with-locales.min',
 			'/MeTools/js/bootstrap-datetimepicker.min'
