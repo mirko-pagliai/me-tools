@@ -55,6 +55,16 @@ class LibraryHelper extends AppHelper {
 		), array('inline' => FALSE));
         $this->Html->css('/MeTools/css/bootstrap-datetimepicker.min', array('inline' => FALSE));
 		
+		//Merge options with defaults
+		$options = am($options, array(
+			'icons' => array(
+				'time' => 'fa fa-clock-o',
+				'date' => 'fa fa-calendar',
+				'up' => 'fa fa-arrow-up',
+				'down' => 'fa fa-arrow-down'
+			)
+		));
+		
         //Switch for languange, reading from config
 		if(empty($options['language']))
 			switch(Configure::read('Config.language')) {
@@ -138,13 +148,29 @@ class LibraryHelper extends AppHelper {
      * @param array $options Options for datepicker
      * @see MeFormHelper::datepicker()
      * @see https://github.com/Eonasdan/bootstrap-datetimepicker Bootstrap v3 datetimepicker widget documentation
-	 * @uses _datetimepicker() to generate the timepicker
+	 * @uses _datetimepicker() to generate the datepicker
      */
 	public function datepicker($input = NULL, $options = array()) {
 		$input = empty($input) ? '.datepicker' : $input;
 		
 		//Merge options with defaults
 		$options = am($options, array('pickTime' => FALSE));
+		
+        $this->output[] = $this->_datetimepicker($input, $options);
+	}
+	
+	 /**
+     * Adds a datetimepicker to the `$input` field.
+     * 
+     * To create an input field compatible with datetimepicker, you should use the `datetimepicker()` method provided by `MeForm` helper.
+     * @param string $input Target field. Default is '.datetimepicker'
+     * @param array $options Options for datetimepicker
+     * @see MeFormHelper::datetimepicker()
+     * @see https://github.com/Eonasdan/bootstrap-datetimepicker Bootstrap v3 datetimepicker widget documentation
+	 * @uses _datetimepicker() to generate the datetimepicker
+     */
+	public function datetimepicker($input = NULL, $options = array()) {
+		$input = empty($input) ? '.datetimepicker' : $input;
 		
         $this->output[] = $this->_datetimepicker($input, $options);
 	}

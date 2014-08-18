@@ -209,6 +209,22 @@ class MeFormHelper extends FormHelper {
 
         return self::input($fieldName, am($options, array('type' => 'text')));
     }
+	
+    /**
+     * Creates a datetimepicker input.
+     * 
+     * To add the script for datetimepicker, you should use the `Library` helper.
+     * @param string $fieldName Field name, should be "Modelname.fieldname"
+     * @param array $options HTML attributes
+     * @return string Html
+     * @see http://repository.novatlantis.it/metools-sandbox/forms/datepicker Examples
+     * @uses input() to create the input
+     */
+    public function datetimepicker($fieldName, $options = array()) {
+        $options['class'] = empty($options['class']) ? 'datetimepicker' : $this->Html->_clean('datetimepicker', $options['class']);
+
+        return self::input($fieldName, am($options, array('type' => 'text')));
+    }
 
     /**
      * Closes an HTML form, cleans up values, and writes hidden input fields.
