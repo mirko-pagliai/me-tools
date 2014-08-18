@@ -110,12 +110,14 @@ class LibraryHelper extends AppHelper {
      * Adds a datepicker to the `$input` field.
      * 
      * To create an input field compatible with datepicker, you should use the `datepicker()` method provided by `MeForm` helper.
-     * @param string $input Target field
+     * @param string $input Target field. Default is '.datepicker'
      * @param array $options Options for datepicker
      * @see MeFormHelper::datepicker()
      * @see https://github.com/Eonasdan/bootstrap-datetimepicker Bootstrap v3 datetimepicker widget documentation
      */
-	public function datepicker($input = '.datepicker', $options = array()) {
+	public function datepicker($input = NULL, $options = array()) {
+		$input = empty($input) ? '.datepicker' : $input;
+		
         $this->Html->js(array(
 			'/MeTools/js/moment-with-locales.min',
 			'/MeTools/js/bootstrap-datetimepicker.min'
@@ -126,11 +128,12 @@ class LibraryHelper extends AppHelper {
 		$options = am($options, array('pickTime' => FALSE));
 		
         //Switch for languange, reading from config
-        switch(Configure::read('Config.language')) {
-            case 'ita':
-                $options['language'] = 'it';
-                break;
-        }
+		if(empty($options['language']))
+			switch(Configure::read('Config.language')) {
+				case 'ita':
+					$options['language'] = 'it';
+					break;
+			}
 		
         $this->output[] = "$('{$input}').datetimepicker(".json_encode($options).");";
 	}
@@ -151,12 +154,14 @@ class LibraryHelper extends AppHelper {
      * Adds a timepicker to the `$input` field.
      * 
      * To create an input field compatible with datepicker, you should use the `timepicker()` method provided by `MeForm` helper.
-     * @param string $input Target field
+     * @param string $input Target field. Default is '.timepicker'
      * @param array $options Options for timepicker
      * @see MeFormHelper::timepicker()
      * @see https://github.com/Eonasdan/bootstrap-datetimepicker Bootstrap v3 datetimepicker widget documentation
      */
-	public function timepicker($input = '.timepicker', $options = array()) {
+	public function timepicker($input = NULL, $options = array()) {
+		$input = empty($input) ? '.timepicker' : $input;
+		
 		 $this->Html->js(array(
 			'/MeTools/js/moment-with-locales.min',
 			'/MeTools/js/bootstrap-datetimepicker.min'
@@ -167,11 +172,12 @@ class LibraryHelper extends AppHelper {
 		$options = am($options, array('pickDate' => FALSE));
 		
         //Switch for languange, reading from config
-        switch(Configure::read('Config.language')) {
-            case 'ita':
-                $options['language'] = 'it';
-                break;
-        }
+		if(empty($options['language']))
+			switch(Configure::read('Config.language')) {
+				case 'ita':
+					$options['language'] = 'it';
+					break;
+			}
 		
         $this->output[] = "$('{$input}').datetimepicker(".json_encode($options).");";
 	}
