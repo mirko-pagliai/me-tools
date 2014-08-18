@@ -28,4 +28,22 @@
 /**
  * Application level controller.
  */
-class MeToolsAppController extends AppController { }
+class MeToolsAppController extends AppController {
+	/**
+	 * Checks if the user is logged in
+	 * @return boolean TRUE if the user is logged in, otherwise FALSE
+	 */
+	protected function isLogged() {
+		return !empty($this->Auth->user('id'));
+	}
+
+	/**
+	 * Called after the controller action is run, but before the view is rendered. 
+	 * It's used to perform logic or set view variables that are required on every request.
+	 */
+	public function beforeRender() {
+		//Sets the user authentication data
+		$this->set('auth', $this->Auth->user());
+	}
+	
+}
