@@ -7,7 +7,7 @@
 	<title>Class LibraryHelper | MeTools</title>
 
 	<script type="text/javascript" src="resources/combined.js?117538352"></script>
-	<script type="text/javascript" src="elementlist.js?1581115217"></script>
+	<script type="text/javascript" src="elementlist.js?3559746332"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360">
 
 </head>
@@ -164,13 +164,63 @@ AppHelper
 				<b>Author:</b>
 				Mirko Pagliai &lt;<a
 href="mailto:mirko.pagliai&#64;gmail.com">mirko.pagliai&#64;<!-- -->gmail.com</a>&gt;<br>
-		<b>Located at</b> <a href="source-class-LibraryHelper.html#29-175" title="Go to source code">LibraryHelper.php</a><br>
+		<b>Located at</b> <a href="source-class-LibraryHelper.html#29-208" title="Go to source code">LibraryHelper.php</a><br>
 	</div>
 
 
 
 	<table class="summary" id="methods">
 	<caption>Methods summary</caption>
+	<tr data-order="_datetimepicker" id="__datetimepicker">
+
+		<td class="attributes"><code>
+			 private 
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#__datetimepicker">#</a>
+		<code><a href="source-class-LibraryHelper.html#45-77" title="Go to source code">_datetimepicker</a>( <span>string <var>$input</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
+
+		<div class="description short">
+			
+<p>Internal function to generate datepicker and timepicker.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Internal function to generate datepicker and timepicker.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$input</var></dt>
+					<dd><code>string</code><br>$input Target field</dd>
+					<dt><var>$options</var></dt>
+					<dd><code>array</code><br>$options Options for datepicker</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>string</code><br>jQuery code<br>
+				</div>
+
+
+				<h4>Used by</h4>
+				<div class="list">
+						<code><code><a href="class-LibraryHelper.html#_datepicker">LibraryHelper::datepicker()</a></code></code><br>to generate the datepicker<br>
+						<code><code><a href="class-LibraryHelper.html#_datetimepicker">LibraryHelper::datetimepicker()</a></code></code><br>to generate the datetimepicker<br>
+						<code><code><a href="class-LibraryHelper.html#_timepicker">LibraryHelper::timepicker()</a></code></code><br>to generate the timepicker<br>
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
 	<tr data-order="beforeLayout" id="_beforeLayout">
 
 		<td class="attributes"><code>
@@ -182,7 +232,7 @@ href="mailto:mirko.pagliai&#64;gmail.com">mirko.pagliai&#64;<!-- -->gmail.com</a
 
 		<td class="name"><div>
 		<a class="anchor" href="#_beforeLayout">#</a>
-		<code><a href="source-class-LibraryHelper.html#45-59" title="Go to source code">beforeLayout</a>( <span>string <var>$layoutFile</var></span> )</code>
+		<code><a href="source-class-LibraryHelper.html#79-93" title="Go to source code">beforeLayout</a>( <span>string <var>$layoutFile</var></span> )</code>
 
 		<div class="description short">
 			
@@ -228,7 +278,7 @@ CakePHP Api<br>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_ckeditor">#</a>
-		<code><a href="source-class-LibraryHelper.html#61-107" title="Go to source code">ckeditor</a>( <span>boolean <var>$jquery</var> = <span class="php-keyword1">TRUE</span></span> )</code>
+		<code><a href="source-class-LibraryHelper.html#95-141" title="Go to source code">ckeditor</a>( <span>boolean <var>$jquery</var> = <span class="php-keyword1">TRUE</span></span> )</code>
 
 		<div class="description short">
 			
@@ -282,7 +332,7 @@ documentation<br>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_datepicker">#</a>
-		<code><a href="source-class-LibraryHelper.html#109-139" title="Go to source code">datepicker</a>( <span>string <var>$input</var> = <span class="php-quote">'.datepicker'</span></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-LibraryHelper.html#143-160" title="Go to source code">datepicker</a>( <span>string <var>$input</var> = <span class="php-keyword1">NULL</span></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
@@ -302,7 +352,7 @@ documentation<br>
 				<h4>Parameters</h4>
 				<div class="list"><dl>
 					<dt><var>$input</var></dt>
-					<dd><code>string</code><br>$input Target field</dd>
+					<dd><code>string</code><br>$input Target field. Default is '.datepicker'</dd>
 					<dt><var>$options</var></dt>
 					<dd><code>array</code><br>$options Options for datepicker</dd>
 				</dl></div>
@@ -313,8 +363,66 @@ documentation<br>
 				<div class="list">
 						<code><code><a href="class-MeFormHelper.html#_datepicker">MeFormHelper::datepicker()</a></code></code><br>
 						<a
-href="http://bootstrap-datepicker.readthedocs.org">http://bootstrap-datepicker.readthedocs.org</a>
-Bootstrap Datepicker documentation<br>
+href="https://github.com/Eonasdan/bootstrap-datetimepicker">https://github.com/Eonasdan/bootstrap-datetimepicker</a>
+Bootstrap v3 datetimepicker widget documentation<br>
+				</div>
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-LibraryHelper.html#__datetimepicker">LibraryHelper::_datetimepicker()</a></code></code><br>to generate the datepicker<br>
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="datetimepicker" id="_datetimepicker">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_datetimepicker">#</a>
+		<code><a href="source-class-LibraryHelper.html#162-176" title="Go to source code">datetimepicker</a>( <span>string <var>$input</var> = <span class="php-keyword1">NULL</span></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
+
+		<div class="description short">
+			
+<p>Adds a datetimepicker to the <code>$input</code> field.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Adds a datetimepicker to the <code>$input</code> field.</p>
+
+<p>To create an input field compatible with datetimepicker, you should use the
+<code>datetimepicker()</code> method provided by <code>MeForm</code> helper.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$input</var></dt>
+					<dd><code>string</code><br>$input Target field. Default is '.datetimepicker'</dd>
+					<dt><var>$options</var></dt>
+					<dd><code>array</code><br>$options Options for datetimepicker</dd>
+				</dl></div>
+
+
+
+				<h4>See</h4>
+				<div class="list">
+						<code><code><a href="class-MeFormHelper.html#_datetimepicker">MeFormHelper::datetimepicker()</a></code></code><br>
+						<a
+href="https://github.com/Eonasdan/bootstrap-datetimepicker">https://github.com/Eonasdan/bootstrap-datetimepicker</a>
+Bootstrap v3 datetimepicker widget documentation<br>
+				</div>
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-LibraryHelper.html#__datetimepicker">LibraryHelper::_datetimepicker()</a></code></code><br>to generate the datetimepicker<br>
 				</div>
 
 
@@ -332,7 +440,7 @@ Bootstrap Datepicker documentation<br>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_slugify">#</a>
-		<code><a href="source-class-LibraryHelper.html#141-151" title="Go to source code">slugify</a>( <span>string <var>$sourceField</var> = <span class="php-quote">'form #title'</span></span>, <span>string <var>$targetField</var> = <span class="php-quote">'form #slug'</span></span> )</code>
+		<code><a href="source-class-LibraryHelper.html#178-188" title="Go to source code">slugify</a>( <span>string <var>$sourceField</var> = <span class="php-quote">'form #title'</span></span>, <span>string <var>$targetField</var> = <span class="php-quote">'form #slug'</span></span> )</code>
 
 		<div class="description short">
 			
@@ -375,7 +483,7 @@ slug in the <code>$targetField</code>.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_timepicker">#</a>
-		<code><a href="source-class-LibraryHelper.html#153-174" title="Go to source code">timepicker</a>( <span>string <var>$input</var> = <span class="php-quote">'.timepicker'</span></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-LibraryHelper.html#190-207" title="Go to source code">timepicker</a>( <span>string <var>$input</var> = <span class="php-keyword1">NULL</span></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
@@ -395,7 +503,7 @@ slug in the <code>$targetField</code>.</p>
 				<h4>Parameters</h4>
 				<div class="list"><dl>
 					<dt><var>$input</var></dt>
-					<dd><code>string</code><br>$input Target field</dd>
+					<dd><code>string</code><br>$input Target field. Default is '.timepicker'</dd>
 					<dt><var>$options</var></dt>
 					<dd><code>array</code><br>$options Options for timepicker</dd>
 				</dl></div>
@@ -406,8 +514,12 @@ slug in the <code>$targetField</code>.</p>
 				<div class="list">
 						<code><code><a href="class-MeFormHelper.html#_timepicker">MeFormHelper::timepicker()</a></code></code><br>
 						<a
-href="http://jdewit.github.io/bootstrap-timepicker">http://jdewit.github.io/bootstrap-timepicker</a>
-Bootstrap Timepicker documentation<br>
+href="https://github.com/Eonasdan/bootstrap-datetimepicker">https://github.com/Eonasdan/bootstrap-datetimepicker</a>
+Bootstrap v3 datetimepicker widget documentation<br>
+				</div>
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-LibraryHelper.html#__datetimepicker">LibraryHelper::_datetimepicker()</a></code></code><br>to generate the timepicker<br>
 				</div>
 
 
