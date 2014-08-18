@@ -73,8 +73,7 @@ MeTools uses different libraries or scripts:
 - Font Awesome 4.1.0 ([site](http://fortawesome.github.com/Font-Awesome));
 - PHP Markdown 1.4.1 ([site](http://michelf.ca/projects/php-markdown));
 - reCAPTCHA PHP library 1.11 ([site](https://developers.google.com/recaptcha/docs/php));
-- Datepicker for Bootstrap 1.3.0 by Andrew Rowls ([site](http://eternicode.github.io/bootstrap-datepicker));
-- Bootstrap Timepicker ([site](http://jdewit.github.io/bootstrap-timepicker)).
+- Bootstrap v3 datetimepicker widget ([site](http://github.com/Eonasdan/bootstrap-datetimepicker)).
 
 ## CKEditor
 MeTools doesn't contain a copy of CKEditor, because it would be too heavy, because it's highly configurable (you 

@@ -113,30 +113,27 @@ class LibraryHelper extends AppHelper {
      * @param string $input Target field
      * @param array $options Options for datepicker
      * @see MeFormHelper::datepicker()
-     * @see http://bootstrap-datepicker.readthedocs.org Bootstrap Datepicker documentation
+     * @see https://github.com/Eonasdan/bootstrap-datetimepicker Bootstrap v3 datetimepicker widget documentation
      */
-    public function datepicker($input = '.datepicker', $options = array()) {
-        $this->Html->js('/MeTools/js/bootstrap-datepicker.min', array('inline' => FALSE));
-        $this->Html->css('/MeTools/css/datepicker3.min', array('inline' => FALSE));
-
-        if(empty($options))
-            $options = array(
-               'autoclose'      => TRUE,
-               'format'         => 'yyyy/mm/dd',
-               'todayBtn'       => "linked",
-               'todayHighlight' => TRUE,
-               'weekStart'      => 1
-            );
-
+	public function datepicker($input = '.datepicker', $options = array()) {
+        $this->Html->js(array(
+			'/MeTools/js/moment-with-locales.min',
+			'/MeTools/js/bootstrap-datetimepicker.min'
+		), array('inline' => FALSE));
+        $this->Html->css('/MeTools/css/bootstrap-datetimepicker.min', array('inline' => FALSE));
+		
+		//Merge options with defaults
+		$options = am($options, array('pickTime' => FALSE));
+		
         //Switch for languange, reading from config
         switch(Configure::read('Config.language')) {
             case 'ita':
                 $options['language'] = 'it';
                 break;
         }
-
-        $this->output[] = "$('{$input}').datepicker(".json_encode($options).");";
-    }
+		
+        $this->output[] = "$('{$input}').datetimepicker(".json_encode($options).");";
+	}
 
     /**
      * Through "slugify.js", it provides the slug of a field. 
@@ -157,19 +154,25 @@ class LibraryHelper extends AppHelper {
      * @param string $input Target field
      * @param array $options Options for timepicker
      * @see MeFormHelper::timepicker()
-     * @see http://jdewit.github.io/bootstrap-timepicker Bootstrap Timepicker documentation
+     * @see https://github.com/Eonasdan/bootstrap-datetimepicker Bootstrap v3 datetimepicker widget documentation
      */
-    public function timepicker($input = '.timepicker', $options = array()) {
-        $this->Html->js('/MeTools/js/bootstrap-timepicker.min', array('inline' => FALSE));
-        $this->Html->css('/MeTools/css/bootstrap-timepicker.min', array('inline' => FALSE));
-
-        if(empty($options))
-            $options = array(
-               'disableFocus'   => TRUE,
-               'minuteStep'     => 1,
-               'showMeridian'   => FALSE
-            );
-
-        $this->output[] = "$('{$input}').timepicker(".json_encode($options).");";
-    }
+	public function timepicker($input = '.timepicker', $options = array()) {
+		 $this->Html->js(array(
+			'/MeTools/js/moment-with-locales.min',
+			'/MeTools/js/bootstrap-datetimepicker.min'
+		), array('inline' => FALSE));
+        $this->Html->css('/MeTools/css/bootstrap-datetimepicker.min', array('inline' => FALSE));
+		
+		//Merge options with defaults
+		$options = am($options, array('pickDate' => FALSE));
+		
+        //Switch for languange, reading from config
+        switch(Configure::read('Config.language')) {
+            case 'ita':
+                $options['language'] = 'it';
+                break;
+        }
+		
+        $this->output[] = "$('{$input}').datetimepicker(".json_encode($options).");";
+	}
 }
