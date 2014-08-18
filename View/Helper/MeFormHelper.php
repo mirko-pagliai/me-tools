@@ -207,6 +207,8 @@ class MeFormHelper extends FormHelper {
     public function datepicker($fieldName, $options = array()) {
         $options['class'] = empty($options['class']) ? 'datepicker' : $this->Html->_clean('datepicker', $options['class']);
 
+		$options['data-date-format'] = empty($options['data-date-format']) ? 'YYYY-MM-DD HH:mm' : $options['data-date-format'];
+		
         return self::input($fieldName, am($options, array('type' => 'text')));
     }
 	
@@ -223,6 +225,8 @@ class MeFormHelper extends FormHelper {
     public function datetimepicker($fieldName, $options = array()) {
         $options['class'] = empty($options['class']) ? 'datetimepicker' : $this->Html->_clean('datetimepicker', $options['class']);
 
+		$options['data-date-format'] = empty($options['data-date-format']) ? 'YYYY-MM-DD HH:mm' : $options['data-date-format'];
+		
         return self::input($fieldName, am($options, array('type' => 'text')));
     }
 
@@ -509,6 +513,8 @@ class MeFormHelper extends FormHelper {
 
         $options['div']['class'] = empty($options['div']['class']) ? 'bootstrap-timepicker' : $this->Html->_clean('bootstrap-timepicker', $options['div']['class']);
 
+		$options['data-date-format'] = empty($options['data-date-format']) ? 'YYYY-MM-DD HH:mm' : $options['data-date-format'];
+		
         return self::input($fieldName, am($options, array('type' => 'text')));
     }
 }
