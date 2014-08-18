@@ -41,7 +41,32 @@ class LibraryHelper extends AppHelper {
      * @var array 
      */
     private $output = array();
-
+	
+	/**
+	 * Internal function to generate datepicker and timepicker.
+     * @param string $input Target field
+     * @param array $options Options for datepicker
+	 * @return string jQuery code
+	 */
+	private function _datetimepicker($input, $options = array()) {
+		
+		 $this->Html->js(array(
+			'/MeTools/js/moment-with-locales.min',
+			'/MeTools/js/bootstrap-datetimepicker.min'
+		), array('inline' => FALSE));
+        $this->Html->css('/MeTools/css/bootstrap-datetimepicker.min', array('inline' => FALSE));
+		
+        //Switch for languange, reading from config
+		if(empty($options['language']))
+			switch(Configure::read('Config.language')) {
+				case 'ita':
+					$options['language'] = 'it';
+					break;
+			}
+		
+		return "$('{$input}').datetimepicker(".json_encode($options).");";
+	}
+	
     /**
      * Before layout callback. beforeLayout is called before the layout is rendered.
      * @param string $layoutFile The layout about to be rendered
@@ -114,28 +139,15 @@ class LibraryHelper extends AppHelper {
      * @param array $options Options for datepicker
      * @see MeFormHelper::datepicker()
      * @see https://github.com/Eonasdan/bootstrap-datetimepicker Bootstrap v3 datetimepicker widget documentation
+	 * @uses _datetimepicker() to generate the timepicker
      */
 	public function datepicker($input = NULL, $options = array()) {
 		$input = empty($input) ? '.datepicker' : $input;
 		
-        $this->Html->js(array(
-			'/MeTools/js/moment-with-locales.min',
-			'/MeTools/js/bootstrap-datetimepicker.min'
-		), array('inline' => FALSE));
-        $this->Html->css('/MeTools/css/bootstrap-datetimepicker.min', array('inline' => FALSE));
-		
 		//Merge options with defaults
 		$options = am($options, array('pickTime' => FALSE));
 		
-        //Switch for languange, reading from config
-		if(empty($options['language']))
-			switch(Configure::read('Config.language')) {
-				case 'ita':
-					$options['language'] = 'it';
-					break;
-			}
-		
-        $this->output[] = "$('{$input}').datetimepicker(".json_encode($options).");";
+        $this->output[] = $this->_datetimepicker($input, $options);
 	}
 
     /**
@@ -149,7 +161,7 @@ class LibraryHelper extends AppHelper {
         $this->Html->js('/MeTools/js/slugify.min', array('inline' => FALSE));
         $this->output[] = "$().slugify('{$sourceField}', '{$targetField}');";
     }
-
+	
     /**
      * Adds a timepicker to the `$input` field.
      * 
@@ -158,27 +170,14 @@ class LibraryHelper extends AppHelper {
      * @param array $options Options for timepicker
      * @see MeFormHelper::timepicker()
      * @see https://github.com/Eonasdan/bootstrap-datetimepicker Bootstrap v3 datetimepicker widget documentation
+	 * @uses _datetimepicker() to generate the timepicker
      */
 	public function timepicker($input = NULL, $options = array()) {
 		$input = empty($input) ? '.timepicker' : $input;
 		
-		 $this->Html->js(array(
-			'/MeTools/js/moment-with-locales.min',
-			'/MeTools/js/bootstrap-datetimepicker.min'
-		), array('inline' => FALSE));
-        $this->Html->css('/MeTools/css/bootstrap-datetimepicker.min', array('inline' => FALSE));
-		
 		//Merge options with defaults
 		$options = am($options, array('pickDate' => FALSE));
 		
-        //Switch for languange, reading from config
-		if(empty($options['language']))
-			switch(Configure::read('Config.language')) {
-				case 'ita':
-					$options['language'] = 'it';
-					break;
-			}
-		
-        $this->output[] = "$('{$input}').datetimepicker(".json_encode($options).");";
+		$this->output[] = $this->_datetimepicker($input, $options);
 	}
 }
