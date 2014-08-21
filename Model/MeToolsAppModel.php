@@ -28,4 +28,22 @@
 /**
  * Application level model.
  */
-class MeToolsAppModel extends AppModel { }
+class MeToolsAppModel extends AppModel {
+	/**
+	 * Behaviors
+	 * @var array 
+	 */
+	public $actsAs = array('Containable');
+	
+	/**
+	 * Recursive level
+	 * @var int
+	 */
+	public $recursive = -1;
+	
+	/**
+	 * Validation domain
+	 * @var string 
+	 */
+	public $validationDomain = 'validation_errors';
+}
