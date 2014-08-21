@@ -30,14 +30,6 @@
  */
 class MeToolsAppController extends AppController {
 	/**
-	 * Checks if the user is logged in
-	 * @return boolean TRUE if the user is logged in, otherwise FALSE
-	 */
-	protected function isLogged() {
-		return !empty($this->Auth->user('id'));
-	}
-
-	/**
 	 * Called before the controller action. 
 	 * It's used to perform logic before each controller action.
 	 */
@@ -56,4 +48,11 @@ class MeToolsAppController extends AppController {
 		$this->set('auth', $this->Auth->user());
 	}
 	
+	/**
+	 * Checks if the user is logged in
+	 * @return boolean TRUE if the user is logged in, otherwise FALSE
+	 */
+	protected function isLogged() {
+		return !empty($this->Auth->user('id'));
+	}
 }
