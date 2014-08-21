@@ -1,6 +1,8 @@
 <?php
 /**
  * Paginator.
+ * 
+ * Before using this element, remember to load the MePaginator helper provided by MeTools.
  *
  * This file is part of MeTools.
  *
