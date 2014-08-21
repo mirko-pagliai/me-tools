@@ -366,7 +366,7 @@ class MeHtmlHelper extends HtmlHelper {
 		return self::tag('hr', NULL, $options);
 	}
 
-    /**
+	/**
      * Returns icons. Examples:
      * <code>
      * echo $this->Html->icon('home');
@@ -375,15 +375,18 @@ class MeHtmlHelper extends HtmlHelper {
      * echo $this->Html->icon(array('hand-o-right', '2x'));
      * </code>
      * @param mixed $icons Icons as string or array
+     * @param array $options HTML attributes
      * @return string Html, icons
      * @see http://fortawesome.github.io/Font-Awesome Font Awesome icons
      * @see http://repository.novatlantis.it/metools-sandbox/html/icons Examples
-     */
-    public function icon($icons = NULL) {
+	 */
+    public function icon($icons = NULL, $options = array()) {
         //Adds the "fa" class and prepende the string "fa-" to any other class
         $icons = preg_replace('/(?<![^ ])(?=[^ ])(?!fa)/', 'fa-', self::_clean('fa', $icons));
-
-        return self::tag('i', ' ', array('class' => $icons)).' ';
+		
+		$options['class'] = empty($options['class']) ? $icons : self::_clean($icons, $options['class']);
+		
+        return self::tag('i', ' ', $options);
     }
 
     /**
