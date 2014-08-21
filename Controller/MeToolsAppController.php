@@ -38,6 +38,16 @@ class MeToolsAppController extends AppController {
 	}
 
 	/**
+	 * Called before the controller action. 
+	 * It's used to perform logic before each controller action.
+	 */
+	public function beforeFilter() {
+		//Sets the element that will be used for flash auth errors
+		//http://stackoverflow.com/a/20545037/1480263
+		$this->Auth->flash['element'] = 'MeTools.error';
+	}
+	
+	/**
 	 * Called after the controller action is run, but before the view is rendered. 
 	 * It's used to perform logic or set view variables that are required on every request.
 	 */
