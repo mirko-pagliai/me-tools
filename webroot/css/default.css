@@ -58,28 +58,33 @@ dd pre {
 }
 
 /* Cells with the minimum width */
-th.min-width, td.min-width {
+th.min-width, th.minWidth, 
+td.min-width, td.minWidth {
 	white-space: nowrap;
     width: 1px;
 }
 
 /* Display none */
-.displayNone, .display-none, .noDisplay, .no-display {
+.display-none, .displayNone, 
+.no-display, .noDisplay {
 	display: none;
 }
 
 /* Em (italic) text */
-.em, .em-text {
+.em,
+.em-text, .emText {
 	font-style: italic;
 }
 
 /* No margin class */
-.margin0, .margin-0, .no-margin, .nomargin {
+.margin0, .margin-0,
+.no-margin, .noMargin {
 	margin: 0 !important;
 }
 
 /* No margin top class */
-.margintop0, .margin-top-0, .no-margin-top, .nomargintop {
+.margintop0, .margin-top-0, 
+.no-margin-top, .noMarginTop {
 	margin-top: 0;
 }
 
@@ -104,7 +109,8 @@ th.min-width, td.min-width {
 }
 
 /* No padding class */
-.padding0, .padding-0, .no-padding, .nopadding {
+.padding0, .padding-0,
+.no-padding, .noPadding {
 	padding: 0 !important;
 }
 
@@ -129,30 +135,39 @@ th.min-width, td.min-width {
 }
 
 /* Relative class */
-.position-relative, .relative {
+.relative,
+.position-relative, .positionRelative {
 	position: relative;
 }
 
 /* Small element and small class.
 This rewrites Bootstrap, which normally provides a size of 85% */
-small, .small, .small-text, .text-small {
+small, .small, 
+.small-text, .smallText,
+.text-small, .textSmall {
 	font-size: 90%;
 }
 
 /* Strong text */
-.strong, .strong-text {
+.strong,
+.strong-text, .strongText {
 	font-weight: bold;
 }
 
 /* Text truncated with ellipses */
-.text-truncate, .text-truncated, .text-ellipsis {
+.text-truncate, .textTruncate, 
+.text-truncated, .textTruncated,
+.text-ellipsis, .textEllipsis {
 	overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
 }
 
 /* Vertical align, middle */
-.valing-middle, .vertical-align-middle, table.valign-middle td {
+.valing-middle, .valingMiddle,
+.vertical-align-middle, .verticalAlignMiddle,
+table.valign-middle td, table.valignMiddle td,
+table.vertical-align-middle td, table.verticalAlignMiddle td  {
 	vertical-align: middle !important;
 }
 
