@@ -64,6 +64,12 @@ td.min-width, td.minWidth {
     width: 1px;
 }
 
+/* Pointer cursor */
+.cursor-pointer, .cursorPointer,
+.pointer {
+	cursor: pointer;
+}
+
 /* Display none */
 .display-none, .displayNone, 
 .no-display, .noDisplay {
