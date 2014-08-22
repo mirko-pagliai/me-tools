@@ -95,46 +95,49 @@ class LibraryHelper extends AppHelper {
     /**
      * Loads all CKEditor scripts.
      * 
-     * To know how to install and configure CKEditor, please refer to the `README` file.
+     * To know how to install and configure CKEditor, please refer to the `README.md` file.
+	 * 
+	 * CKEditor must be located into `APP/webroot/ckeditor` or `APP/webroot/js/ckeditor`.
      * 
-     * To create an input field compatible with CKEditor, you should use the `ckeditor()` method provided by `MeForm` helper.
+     * To create an input field for CKEditor, you should use the `ckeditor()` method provided by `MeForm` helper.
      * @param bool $jquery FALSE if you don't want to use the jquery adapter
      * @return mixed String of <script /> tags
      * @see MeFormHelper::ckeditor()
      * @see http://docs.cksource.com CKEditor documentation
      */
     public function ckeditor($jquery = TRUE) {
-        $url = '/ckeditor';
-
-        //Checks if CKEditor script (ckeditor.js) exists
-        //It seeks in app/webroot/ckeditor and app/webroot/js/ckeditor
-        if(fileExistsInPath(WWW_ROOT.'ckeditor'.DS.'ckeditor.js'))
+        //Checks for CKEditor into APP/webroot/ckeditor
+        if(is_readable(WWW_ROOT.'ckeditor'.DS.'ckeditor.js')) {
             $path = WWW_ROOT.'ckeditor';
-        elseif(fileExistsInPath(WWW_ROOT.'js'.DS.'ckeditor'.DS.'ckeditor.js')) {
+			$url = '/ckeditor';
+		}
+        //Else, checks for CKEditor into APP/webroot/js/ckeditor
+        elseif(is_readable(WWW_ROOT.'js'.DS.'ckeditor'.DS.'ckeditor.js')) {
             $path = WWW_ROOT.'js'.DS.'ckeditor';
-            $url = '/js'.$url;
+            $url = '/js/ckeditor';
         }
 
         //If CKEditor script exists
         if(!empty($path) && !empty($url)) {
-            $script = array($url.'/ckeditor');
+            $scripts = array($url.'/ckeditor');
 
-            //Checks if the jQuery adapter exists
-            if($jquery && fileExistsInPath($path.DS.'adapters'.DS.'jquery.js'))
-                $script[] = $url.'/adapters/jquery';
+            //Checks for the jQuery adapter
+            if($jquery && is_readable($path.DS.'adapters'.DS.'jquery.js'))
+                $scripts[] = $url.'/adapters/jquery';
 
-            //Checks if the init script exists
-            //It seeks in app/webroot/js, app/webroot/ckeditor, app/webroot/js/ckeditor and app/Plugin/MeTools/webroot/ckeditor
-            if(fileExistsInPath(WWW_ROOT.'js'.DS.'ckeditor_init.js'))
-                $script[] = 'ckeditor_init';
-            elseif(fileExistsInPath($path.DS.'ckeditor_init.js'))
-                $script[] = $url.'/ckeditor_init';
-            elseif(fileExistsInPath(App::pluginPath('MeTools').'webroot'.DS.'ckeditor'.DS.'ckeditor_init.js'))
-                $script[] = '/MeTools/ckeditor/ckeditor_init';
+            //Checks for the init script into APP/webroot/js
+            if(is_readable(WWW_ROOT.'js'.DS.'ckeditor_init.js'))
+                $scripts[] = 'ckeditor_init';
+            //Else, checks for the init script into APP/webroot/ckeditor and APP/webroot/js/ckeditor
+            elseif(is_readable($path.DS.'ckeditor_init.js'))
+                $scripts[] = $url.'/ckeditor_init';
+            //Else, checks for the init script into APP/Plugin/MeTools/webroot/ckeditor
+            elseif(is_readable(App::pluginPath('MeTools').'webroot'.DS.'ckeditor'.DS.'ckeditor_init.js'))
+                $scripts[] = '/MeTools/ckeditor/ckeditor_init';
             else
                 return FALSE;
 
-            return $this->Html->js($script, array('inline' => FALSE));
+            return $this->Html->js($scripts, array('inline' => FALSE));
         }
 
         return FALSE;
