@@ -1,3 +1,9 @@
+/**
+ * This file is part of MeTools.
+ * @author		Mirko Pagliai <mirko.pagliai@gmail.com>
+ * @copyright	Copyright (c) 2014, Mirko Pagliai for Nova Atlantis Ltd
+ * @license		http://www.gnu.org/licenses/agpl.txt AGPL License
+ */
 $(function() {
 	$('textarea.ckeditor').ckeditor({
 		disableNativeSpellChecker: false,
