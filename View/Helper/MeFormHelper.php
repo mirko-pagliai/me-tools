@@ -139,7 +139,7 @@ class MeFormHelper extends FormHelper {
      * Creates a CKEditor textarea.
      * 
      * To add the script for CKEditor, you should use the `Library` helper.
-     * Please refer to the `README` file.
+     * Please refer to the `README.md` file.
      * @param string $fieldName Field name, should be "Modelname.fieldname"
      * @param array $options HTML attributes
      * @return string Html
@@ -147,9 +147,9 @@ class MeFormHelper extends FormHelper {
      * @uses input() to create the textarea for CKEditor
      */
     public function ckeditor($fieldName, $options = array()) {
-        $options['class'] = empty($options['class']) ? 'wysiwyg' : $this->Html->_clean('wysiwyg', $options['class']);
+        $options['class'] = empty($options['class']) ? 'ckeditor' : $this->Html->_clean('ckeditor', $options['class']);
 
-        return self::input($fieldName, am($options, array('label' => FALSE, 'required' => FALSE, 'type' => 'textarea')));
+        return self::input($fieldName, am($options, array('type' => 'textarea')));
     }
 
     /**
