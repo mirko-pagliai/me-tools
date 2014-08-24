@@ -213,9 +213,9 @@
 /*			Float forms				*/
 /* -------------------------------- */
 /* Float form */
-.form-base .float-form {
+.form-base > .float-form {
 	background: #F7F5FA;
-    border-radius: 5px 5px 5px 5px;
+    border-radius: 5px;
     float: right;
     margin: 0 0 20px 20px;
 	max-width: 26%;
@@ -224,18 +224,18 @@
 }
 
 /* Float form on left */
-.form-base .float-form.float-left {
+.form-base > .float-form.float-left {
 	float: left;
 	margin: 0 20px 20px 0;
 }
 
-/* Last child of a float forms */
-.form-base .float-form div.input:last-child {
+/* Float form, last input wrapper */
+.form-base > .float-form div.input:last-child {
 	margin-bottom: 0;
 }
 
-/* Selects on float forms */
-.form-base .float-form select {
+/* Float form, select input */
+.form-base > .float-form select {
 	width: 100% !important;
 }
 
