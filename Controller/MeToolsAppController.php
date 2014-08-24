@@ -36,7 +36,8 @@ class MeToolsAppController extends AppController {
 	public function beforeFilter() {
 		//Sets the element that will be used for flash auth errors
 		//http://stackoverflow.com/a/20545037/1480263
-		$this->Auth->flash['element'] = 'MeTools.error';
+		if(!empty($this->Auth))
+			$this->Auth->flash['element'] = 'MeTools.error';
 	}
 	
 	/**
@@ -45,7 +46,8 @@ class MeToolsAppController extends AppController {
 	 */
 	public function beforeRender() {
 		//Sets the user authentication data
-		$this->set('auth', $this->Auth->user());
+		if(!empty($this->Auth))
+			$this->set('auth', $this->Auth->user());
 	}
 	
 	/**
