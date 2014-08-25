@@ -28,7 +28,7 @@
 /**
  * Application level controller.
  */
-class MeToolsAppController extends AppController {
+class MeToolsAppController extends Controller {
 	/**
 	 * Called before the controller action. 
 	 * It's used to perform logic before each controller action.
