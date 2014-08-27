@@ -739,6 +739,8 @@ class MeHtmlHelper extends HtmlHelper {
         $path = self::thumbUrl($path, $options);
         unset($options['side'], $options['width'], $options['height']);
 
+        $options['class'] = empty($options['class']) ? 'thumb' : self::_clean('thumb', $options['class']);
+
         return self::image($path, $options);
     }
 
