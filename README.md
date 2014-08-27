@@ -70,7 +70,7 @@ MeTools uses different libraries or scripts:
 
 - jQuery 2.1.1 ([site](http://jquery.com));
 - Bootstrap 3.2.0 ([site](http://getbootstrap.com)), without Glyphicons;
-- Font Awesome 4.1.0 ([site](http://fortawesome.github.com/Font-Awesome));
+- Font Awesome 4.2.0 ([site](http://fortawesome.github.com/Font-Awesome));
 - PHP Markdown 1.4.1 ([site](http://michelf.ca/projects/php-markdown));
 - reCAPTCHA PHP library 1.11 ([site](https://developers.google.com/recaptcha/docs/php));
 - Bootstrap v3 datetimepicker widget 3.1.2 ([site](https://github.com/Eonasdan/bootstrap-datetimepicker)).
