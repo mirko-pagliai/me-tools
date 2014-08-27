@@ -21,6 +21,16 @@
  */
 
 /**
+ * Function to auto-submit a form.
+ * 
+ * Example:
+ * <select onchange="send_form(this)"></select>
+ */
+function send_form(element) {
+	$(element).closest('form').submit();
+}
+
+/**
  * Closes a flash messages with an animation
  */
 function close_flashMessage() {
