@@ -1,14 +1,14 @@
 <?php
 	echo "<?php\n";
 	echo "\t\$this->start('sidebar');\n";
-	echo "\t\techo \$this->Html->li(\$this->Html->link(__('Add ".strtolower($singularHumanName)."'), array('action' => 'add')));\n";
+	echo "\t\techo \$this->Html->li(\$this->Html->link(__d('me_cms_backend', 'Add ".strtolower($singularHumanName)."'), array('action' => 'add')));\n";
 
 	$done = array();
 	foreach($associations as $type => $data) {
 		foreach($data as $alias => $details) {
 			if($details['controller']!=$this->name && !in_array($details['controller'], $done)) {
-				echo "\t\techo \$this->Html->li(\$this->Html->link(__('List ".strtolower(Inflector::humanize($details['controller']))."'), array('controller' => '{$details['controller']}', 'action' => 'index')));\n";
-				echo "\t\techo \$this->Html->li(\$this->Html->link(__('Add ".strtolower(Inflector::humanize(Inflector::underscore($alias)))."'), array('controller' => '{$details['controller']}', 'action' => 'add')));\n";
+				echo "\t\techo \$this->Html->li(\$this->Html->link(__d('me_cms_backend', 'List ".strtolower(Inflector::humanize($details['controller']))."'), array('controller' => '{$details['controller']}', 'action' => 'index')));\n";
+				echo "\t\techo \$this->Html->li(\$this->Html->link(__d('me_cms_backend', 'Add ".strtolower(Inflector::humanize(Inflector::underscore($alias)))."'), array('controller' => '{$details['controller']}', 'action' => 'add')));\n";
 				$done[] = $details['controller'];
 			}
 		}
@@ -19,7 +19,7 @@
 ?>
 	
 <div class="<?php echo $pluralVar; ?> index">
-	<?php echo "<?php echo \$this->Html->h2(__('".ucfirst(strtolower($pluralHumanName))."')); ?>\n"; ?>
+	<?php echo "<?php echo \$this->Html->h2(__d('me_cms_backend', '".ucfirst(strtolower($pluralHumanName))."')); ?>\n"; ?>
 	<table class="table table-striped">
 		<tr>
 			<th></th>
@@ -31,9 +31,9 @@
 		echo "\t<?php foreach(\${$pluralVar} as \${$singularVar}): ?>\n";
 			echo "\t\t\t<tr>\n";
 				echo "\t\t\t\t<td class=\"actions\">\n";
-					echo "\t\t\t\t\t<?php echo \$this->Html->linkButton(NULL, array('action' => 'view', \${$singularVar}['{$modelClass}']['{$primaryKey}']), array('icon' => 'eye', 'tooltip' => __('View'))); ?>\n";
-					echo "\t\t\t\t\t<?php echo \$this->Html->linkButton(NULL, array('action' => 'edit', \${$singularVar}['{$modelClass}']['{$primaryKey}']), array('icon' => 'pencil', 'tooltip' => __('Edit'))); ?>\n";
-					echo "\t\t\t\t\t<?php echo \$this->Form->postButton(NULL, array('action' => 'delete', \${$singularVar}['{$modelClass}']['{$primaryKey}']), array('class' => 'btn-danger', 'icon' => 'trash-o', 'tooltip' => __('Delete')), __('Are you sure you want to delete this ".strtolower($singularHumanName)."?')); ?>\n";
+					echo "\t\t\t\t\t<?php echo \$this->Html->linkButton(NULL, array('action' => 'view', \${$singularVar}['{$modelClass}']['{$primaryKey}']), array('icon' => 'eye', 'tooltip' => __d('me_cms_backend', 'View'))); ?>\n";
+					echo "\t\t\t\t\t<?php echo \$this->Html->linkButton(NULL, array('action' => 'edit', \${$singularVar}['{$modelClass}']['{$primaryKey}']), array('icon' => 'pencil', 'tooltip' => __d('me_cms_backend', 'Edit'))); ?>\n";
+					echo "\t\t\t\t\t<?php echo \$this->Form->postButton(NULL, array('action' => 'delete', \${$singularVar}['{$modelClass}']['{$primaryKey}']), array('class' => 'btn-danger', 'icon' => 'trash-o', 'tooltip' => __d('me_cms_backend', 'Delete')), __d('me_cms_backend', 'Are you sure you want to delete this ".strtolower($singularHumanName)."?')); ?>\n";
 				echo "\t\t\t\t</td>\n";
 
 				foreach($fields as $field) {
