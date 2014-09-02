@@ -863,101 +863,103 @@
 </span><span id="739" class="l"><a class="l" href="#739">739: </a>        <span class="php-var">$path</span> = self::thumbUrl(<span class="php-var">$path</span>, <span class="php-var">$options</span>);
 </span><span id="740" class="l"><a class="l" href="#740">740: </a>        <span class="php-keyword1">unset</span>(<span class="php-var">$options</span>[<span class="php-quote">'side'</span>], <span class="php-var">$options</span>[<span class="php-quote">'width'</span>], <span class="php-var">$options</span>[<span class="php-quote">'height'</span>]);
 </span><span id="741" class="l"><a class="l" href="#741">741: </a>
-</span><span id="742" class="l"><a class="l" href="#742">742: </a>        <span class="php-keyword1">return</span> self::image(<span class="php-var">$path</span>, <span class="php-var">$options</span>);
-</span><span id="743" class="l"><a class="l" href="#743">743: </a>    }
-</span><span id="744" class="l"><a class="l" href="#744">744: </a>
-</span><span id="745" class="l"><a class="l" href="#745">745: </a>    <span class="php-comment">/**
-</span></span><span id="746" class="l"><a class="l" href="#746">746: </a><span class="php-comment">     * Creates and returns the url for a thumbnail of an image or a video.
-</span></span><span id="747" class="l"><a class="l" href="#747">747: </a><span class="php-comment">     * 
-</span></span><span id="748" class="l"><a class="l" href="#748">748: </a><span class="php-comment">     * To get a thumbnail, you have to use `width` and/or `height` options. 
-</span></span><span id="749" class="l"><a class="l" href="#749">749: </a><span class="php-comment">     * To get a square thumbnail, you have to use the `side` option.
-</span></span><span id="750" class="l"><a class="l" href="#750">750: </a><span class="php-comment">     * 
-</span></span><span id="751" class="l"><a class="l" href="#751">751: </a><span class="php-comment">     * You can use the `height` option only for image files.
+</span><span id="742" class="l"><a class="l" href="#742">742: </a>        <span class="php-var">$options</span>[<span class="php-quote">'class'</span>] = <span class="php-keyword1">empty</span>(<span class="php-var">$options</span>[<span class="php-quote">'class'</span>]) ? <span class="php-quote">'thumb'</span> : self::_clean(<span class="php-quote">'thumb'</span>, <span class="php-var">$options</span>[<span class="php-quote">'class'</span>]);
+</span><span id="743" class="l"><a class="l" href="#743">743: </a>
+</span><span id="744" class="l"><a class="l" href="#744">744: </a>        <span class="php-keyword1">return</span> self::image(<span class="php-var">$path</span>, <span class="php-var">$options</span>);
+</span><span id="745" class="l"><a class="l" href="#745">745: </a>    }
+</span><span id="746" class="l"><a class="l" href="#746">746: </a>
+</span><span id="747" class="l"><a class="l" href="#747">747: </a>    <span class="php-comment">/**
+</span></span><span id="748" class="l"><a class="l" href="#748">748: </a><span class="php-comment">     * Creates and returns the url for a thumbnail of an image or a video.
+</span></span><span id="749" class="l"><a class="l" href="#749">749: </a><span class="php-comment">     * 
+</span></span><span id="750" class="l"><a class="l" href="#750">750: </a><span class="php-comment">     * To get a thumbnail, you have to use `width` and/or `height` options. 
+</span></span><span id="751" class="l"><a class="l" href="#751">751: </a><span class="php-comment">     * To get a square thumbnail, you have to use the `side` option.
 </span></span><span id="752" class="l"><a class="l" href="#752">752: </a><span class="php-comment">     * 
-</span></span><span id="753" class="l"><a class="l" href="#753">753: </a><span class="php-comment">     * Note that to directly display a thumbnail, you should use the `thumb()` method. 
-</span></span><span id="754" class="l"><a class="l" href="#754">754: </a><span class="php-comment">     * This method only returns the url of the thumbnail.
-</span></span><span id="755" class="l"><a class="l" href="#755">755: </a><span class="php-comment">     * @param string $path Image path (absolute or relative to the webroot)
-</span></span><span id="756" class="l"><a class="l" href="#756">756: </a><span class="php-comment">     * @param array $options HTML attributes
-</span></span><span id="757" class="l"><a class="l" href="#757">757: </a><span class="php-comment">     * @return string Html, tag element
-</span></span><span id="758" class="l"><a class="l" href="#758">758: </a><span class="php-comment">     * @see thumb()
-</span></span><span id="759" class="l"><a class="l" href="#759">759: </a><span class="php-comment">     * @see http://repository.novatlantis.it/metools-sandbox/html/images Examples
-</span></span><span id="760" class="l"><a class="l" href="#760">760: </a><span class="php-comment">     * @uses url() to generate the thumbnail url
-</span></span><span id="761" class="l"><a class="l" href="#761">761: </a><span class="php-comment">     */</span>
-</span><span id="762" class="l"><a class="l" href="#762">762: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_thumbUrl" href="#_thumbUrl">thumbUrl</a>(<span class="php-var">$path</span>, <span class="php-var">$options</span> = <span class="php-keyword1">array</span>()) {       
-</span><span id="763" class="l"><a class="l" href="#763">763: </a>        <span class="php-comment">//If the side is defined, then the width and height are NULL (we don't need these)</span>
-</span><span id="764" class="l"><a class="l" href="#764">764: </a>        <span class="php-keyword1">if</span>(<span class="php-var">$options</span>[<span class="php-quote">'side'</span>] = <span class="php-keyword1">empty</span>(<span class="php-var">$options</span>[<span class="php-quote">'side'</span>]) ? <span class="php-keyword1">NULL</span> : <span class="php-var">$options</span>[<span class="php-quote">'side'</span>])
-</span><span id="765" class="l"><a class="l" href="#765">765: </a>            <span class="php-var">$options</span>[<span class="php-quote">'width'</span>] = <span class="php-var">$options</span>[<span class="php-quote">'height'</span>] = <span class="php-keyword1">NULL</span>;
-</span><span id="766" class="l"><a class="l" href="#766">766: </a>        <span class="php-keyword1">else</span> {
-</span><span id="767" class="l"><a class="l" href="#767">767: </a>            <span class="php-var">$options</span>[<span class="php-quote">'width'</span>] = <span class="php-keyword1">empty</span>(<span class="php-var">$options</span>[<span class="php-quote">'width'</span>]) ? <span class="php-keyword1">NULL</span> : <span class="php-var">$options</span>[<span class="php-quote">'width'</span>];
-</span><span id="768" class="l"><a class="l" href="#768">768: </a>            <span class="php-var">$options</span>[<span class="php-quote">'height'</span>] = <span class="php-keyword1">empty</span>(<span class="php-var">$options</span>[<span class="php-quote">'height'</span>]) ? <span class="php-keyword1">NULL</span> : <span class="php-var">$options</span>[<span class="php-quote">'height'</span>];
-</span><span id="769" class="l"><a class="l" href="#769">769: </a>        }
-</span><span id="770" class="l"><a class="l" href="#770">770: </a>
-</span><span id="771" class="l"><a class="l" href="#771">771: </a>        <span class="php-keyword1">return</span> self::url(am(<span class="php-keyword1">array</span>(<span class="php-quote">'controller'</span> =&gt; <span class="php-quote">'thumbs'</span>, <span class="php-quote">'action'</span> =&gt; <span class="php-quote">'thumb'</span>, <span class="php-quote">'plugin'</span> =&gt; <span class="php-quote">'me_tools'</span>, <span class="php-quote">'admin'</span> =&gt; <span class="php-keyword1">FALSE</span>), <span class="php-keyword1">array</span>(<span class="php-quote">'?'</span> =&gt; <span class="php-keyword1">array</span>(<span class="php-quote">'s'</span> =&gt; <span class="php-var">$options</span>[<span class="php-quote">'side'</span>], <span class="php-quote">'w'</span> =&gt; <span class="php-var">$options</span>[<span class="php-quote">'width'</span>], <span class="php-quote">'h'</span> =&gt; <span class="php-var">$options</span>[<span class="php-quote">'height'</span>])), <span class="php-keyword1">array</span>(<span class="php-keyword2">base64_encode</span>(<span class="php-var">$path</span>))), <span class="php-keyword1">TRUE</span>);
-</span><span id="772" class="l"><a class="l" href="#772">772: </a>    }
-</span><span id="773" class="l"><a class="l" href="#773">773: </a>
-</span><span id="774" class="l"><a class="l" href="#774">774: </a>    <span class="php-comment">/**
-</span></span><span id="775" class="l"><a class="l" href="#775">775: </a><span class="php-comment">     * Returns a tip block.
-</span></span><span id="776" class="l"><a class="l" href="#776">776: </a><span class="php-comment">     * 
-</span></span><span id="777" class="l"><a class="l" href="#777">777: </a><span class="php-comment">     * By default, the tip block will have a title. To change the title, use the &quot;title&quot; option. If the &quot;title&quot; option is 
-</span></span><span id="778" class="l"><a class="l" href="#778">778: </a><span class="php-comment">     * an array, you can use &quot;text&quot; and &quot;options&quot; keys. If you don't want to have a title, the &quot;title&quot; option should be `FALSE`.
-</span></span><span id="779" class="l"><a class="l" href="#779">779: </a><span class="php-comment">     * @param string|array $text Tip text, as string or array
-</span></span><span id="780" class="l"><a class="l" href="#780">780: </a><span class="php-comment">     * @param array $options HTML attributes
-</span></span><span id="781" class="l"><a class="l" href="#781">781: </a><span class="php-comment">     * @return Html, tip block
-</span></span><span id="782" class="l"><a class="l" href="#782">782: </a><span class="php-comment">     * @see http://repository.novatlantis.it/metools-sandbox/html/tips Examples
-</span></span><span id="783" class="l"><a class="l" href="#783">783: </a><span class="php-comment">     */</span>
-</span><span id="784" class="l"><a class="l" href="#784">784: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_tip" href="#_tip">tip</a>(<span class="php-var">$text</span>, <span class="php-var">$options</span> = <span class="php-keyword1">array</span>()) {
-</span><span id="785" class="l"><a class="l" href="#785">785: </a>        <span class="php-var">$text</span> = <span class="php-keyword2">is_array</span>(<span class="php-var">$text</span>) ? <span class="php-var">$text</span> : <span class="php-keyword1">array</span>(<span class="php-var">$text</span>);
-</span><span id="786" class="l"><a class="l" href="#786">786: </a>        <span class="php-keyword2">array_walk</span>(<span class="php-var">$text</span>, <span class="php-keyword1">function</span>(&amp;<span class="php-var">$v</span>) {
-</span><span id="787" class="l"><a class="l" href="#787">787: </a>            <span class="php-var">$v</span> = self::para(<span class="php-keyword1">NULL</span>, <span class="php-var">$v</span>);
-</span><span id="788" class="l"><a class="l" href="#788">788: </a>        });
-</span><span id="789" class="l"><a class="l" href="#789">789: </a>        <span class="php-var">$text</span> = self::div(<span class="php-quote">'tip-text'</span>, <span class="php-keyword2">implode</span>(<span class="php-keyword1">NULL</span>, <span class="php-var">$text</span>));
-</span><span id="790" class="l"><a class="l" href="#790">790: </a>
-</span><span id="791" class="l"><a class="l" href="#791">791: </a>        <span class="php-var">$options</span>[<span class="php-quote">'class'</span>] = <span class="php-keyword1">empty</span>(<span class="php-var">$options</span>[<span class="php-quote">'class'</span>]) ? <span class="php-quote">'tip'</span> : self::_clean(<span class="php-quote">'tip'</span>, <span class="php-var">$options</span>[<span class="php-quote">'class'</span>]);
+</span></span><span id="753" class="l"><a class="l" href="#753">753: </a><span class="php-comment">     * You can use the `height` option only for image files.
+</span></span><span id="754" class="l"><a class="l" href="#754">754: </a><span class="php-comment">     * 
+</span></span><span id="755" class="l"><a class="l" href="#755">755: </a><span class="php-comment">     * Note that to directly display a thumbnail, you should use the `thumb()` method. 
+</span></span><span id="756" class="l"><a class="l" href="#756">756: </a><span class="php-comment">     * This method only returns the url of the thumbnail.
+</span></span><span id="757" class="l"><a class="l" href="#757">757: </a><span class="php-comment">     * @param string $path Image path (absolute or relative to the webroot)
+</span></span><span id="758" class="l"><a class="l" href="#758">758: </a><span class="php-comment">     * @param array $options HTML attributes
+</span></span><span id="759" class="l"><a class="l" href="#759">759: </a><span class="php-comment">     * @return string Html, tag element
+</span></span><span id="760" class="l"><a class="l" href="#760">760: </a><span class="php-comment">     * @see thumb()
+</span></span><span id="761" class="l"><a class="l" href="#761">761: </a><span class="php-comment">     * @see http://repository.novatlantis.it/metools-sandbox/html/images Examples
+</span></span><span id="762" class="l"><a class="l" href="#762">762: </a><span class="php-comment">     * @uses url() to generate the thumbnail url
+</span></span><span id="763" class="l"><a class="l" href="#763">763: </a><span class="php-comment">     */</span>
+</span><span id="764" class="l"><a class="l" href="#764">764: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_thumbUrl" href="#_thumbUrl">thumbUrl</a>(<span class="php-var">$path</span>, <span class="php-var">$options</span> = <span class="php-keyword1">array</span>()) {       
+</span><span id="765" class="l"><a class="l" href="#765">765: </a>        <span class="php-comment">//If the side is defined, then the width and height are NULL (we don't need these)</span>
+</span><span id="766" class="l"><a class="l" href="#766">766: </a>        <span class="php-keyword1">if</span>(<span class="php-var">$options</span>[<span class="php-quote">'side'</span>] = <span class="php-keyword1">empty</span>(<span class="php-var">$options</span>[<span class="php-quote">'side'</span>]) ? <span class="php-keyword1">NULL</span> : <span class="php-var">$options</span>[<span class="php-quote">'side'</span>])
+</span><span id="767" class="l"><a class="l" href="#767">767: </a>            <span class="php-var">$options</span>[<span class="php-quote">'width'</span>] = <span class="php-var">$options</span>[<span class="php-quote">'height'</span>] = <span class="php-keyword1">NULL</span>;
+</span><span id="768" class="l"><a class="l" href="#768">768: </a>        <span class="php-keyword1">else</span> {
+</span><span id="769" class="l"><a class="l" href="#769">769: </a>            <span class="php-var">$options</span>[<span class="php-quote">'width'</span>] = <span class="php-keyword1">empty</span>(<span class="php-var">$options</span>[<span class="php-quote">'width'</span>]) ? <span class="php-keyword1">NULL</span> : <span class="php-var">$options</span>[<span class="php-quote">'width'</span>];
+</span><span id="770" class="l"><a class="l" href="#770">770: </a>            <span class="php-var">$options</span>[<span class="php-quote">'height'</span>] = <span class="php-keyword1">empty</span>(<span class="php-var">$options</span>[<span class="php-quote">'height'</span>]) ? <span class="php-keyword1">NULL</span> : <span class="php-var">$options</span>[<span class="php-quote">'height'</span>];
+</span><span id="771" class="l"><a class="l" href="#771">771: </a>        }
+</span><span id="772" class="l"><a class="l" href="#772">772: </a>
+</span><span id="773" class="l"><a class="l" href="#773">773: </a>        <span class="php-keyword1">return</span> self::url(am(<span class="php-keyword1">array</span>(<span class="php-quote">'controller'</span> =&gt; <span class="php-quote">'thumbs'</span>, <span class="php-quote">'action'</span> =&gt; <span class="php-quote">'thumb'</span>, <span class="php-quote">'plugin'</span> =&gt; <span class="php-quote">'me_tools'</span>, <span class="php-quote">'admin'</span> =&gt; <span class="php-keyword1">FALSE</span>), <span class="php-keyword1">array</span>(<span class="php-quote">'?'</span> =&gt; <span class="php-keyword1">array</span>(<span class="php-quote">'s'</span> =&gt; <span class="php-var">$options</span>[<span class="php-quote">'side'</span>], <span class="php-quote">'w'</span> =&gt; <span class="php-var">$options</span>[<span class="php-quote">'width'</span>], <span class="php-quote">'h'</span> =&gt; <span class="php-var">$options</span>[<span class="php-quote">'height'</span>])), <span class="php-keyword1">array</span>(<span class="php-keyword2">base64_encode</span>(<span class="php-var">$path</span>))), <span class="php-keyword1">TRUE</span>);
+</span><span id="774" class="l"><a class="l" href="#774">774: </a>    }
+</span><span id="775" class="l"><a class="l" href="#775">775: </a>
+</span><span id="776" class="l"><a class="l" href="#776">776: </a>    <span class="php-comment">/**
+</span></span><span id="777" class="l"><a class="l" href="#777">777: </a><span class="php-comment">     * Returns a tip block.
+</span></span><span id="778" class="l"><a class="l" href="#778">778: </a><span class="php-comment">     * 
+</span></span><span id="779" class="l"><a class="l" href="#779">779: </a><span class="php-comment">     * By default, the tip block will have a title. To change the title, use the &quot;title&quot; option. If the &quot;title&quot; option is 
+</span></span><span id="780" class="l"><a class="l" href="#780">780: </a><span class="php-comment">     * an array, you can use &quot;text&quot; and &quot;options&quot; keys. If you don't want to have a title, the &quot;title&quot; option should be `FALSE`.
+</span></span><span id="781" class="l"><a class="l" href="#781">781: </a><span class="php-comment">     * @param string|array $text Tip text, as string or array
+</span></span><span id="782" class="l"><a class="l" href="#782">782: </a><span class="php-comment">     * @param array $options HTML attributes
+</span></span><span id="783" class="l"><a class="l" href="#783">783: </a><span class="php-comment">     * @return Html, tip block
+</span></span><span id="784" class="l"><a class="l" href="#784">784: </a><span class="php-comment">     * @see http://repository.novatlantis.it/metools-sandbox/html/tips Examples
+</span></span><span id="785" class="l"><a class="l" href="#785">785: </a><span class="php-comment">     */</span>
+</span><span id="786" class="l"><a class="l" href="#786">786: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_tip" href="#_tip">tip</a>(<span class="php-var">$text</span>, <span class="php-var">$options</span> = <span class="php-keyword1">array</span>()) {
+</span><span id="787" class="l"><a class="l" href="#787">787: </a>        <span class="php-var">$text</span> = <span class="php-keyword2">is_array</span>(<span class="php-var">$text</span>) ? <span class="php-var">$text</span> : <span class="php-keyword1">array</span>(<span class="php-var">$text</span>);
+</span><span id="788" class="l"><a class="l" href="#788">788: </a>        <span class="php-keyword2">array_walk</span>(<span class="php-var">$text</span>, <span class="php-keyword1">function</span>(&amp;<span class="php-var">$v</span>) {
+</span><span id="789" class="l"><a class="l" href="#789">789: </a>            <span class="php-var">$v</span> = self::para(<span class="php-keyword1">NULL</span>, <span class="php-var">$v</span>);
+</span><span id="790" class="l"><a class="l" href="#790">790: </a>        });
+</span><span id="791" class="l"><a class="l" href="#791">791: </a>        <span class="php-var">$text</span> = self::div(<span class="php-quote">'tip-text'</span>, <span class="php-keyword2">implode</span>(<span class="php-keyword1">NULL</span>, <span class="php-var">$text</span>));
 </span><span id="792" class="l"><a class="l" href="#792">792: </a>
-</span><span id="793" class="l"><a class="l" href="#793">793: </a>        <span class="php-keyword1">if</span>(!<span class="php-keyword1">isset</span>(<span class="php-var">$options</span>[<span class="php-quote">'title'</span>]) || <span class="php-var">$title</span> = <span class="php-var">$options</span>[<span class="php-quote">'title'</span>]) {
-</span><span id="794" class="l"><a class="l" href="#794">794: </a>            <span class="php-keyword1">if</span>(<span class="php-keyword1">empty</span>(<span class="php-var">$title</span>))
-</span><span id="795" class="l"><a class="l" href="#795">795: </a>                <span class="php-var">$title</span> = <span class="php-keyword1">array</span>(<span class="php-quote">'text'</span> =&gt; __d(<span class="php-quote">'me_tools'</span>, <span class="php-quote">'Tip'</span>));
-</span><span id="796" class="l"><a class="l" href="#796">796: </a>            <span class="php-keyword1">elseif</span>(!<span class="php-keyword2">is_array</span>(<span class="php-var">$title</span>))
-</span><span id="797" class="l"><a class="l" href="#797">797: </a>                <span class="php-var">$title</span> = <span class="php-keyword1">array</span>(<span class="php-quote">'text'</span> =&gt; <span class="php-var">$title</span>);
-</span><span id="798" class="l"><a class="l" href="#798">798: </a>
-</span><span id="799" class="l"><a class="l" href="#799">799: </a>            <span class="php-var">$title</span>[<span class="php-quote">'class'</span>] = <span class="php-keyword1">empty</span>(<span class="php-var">$title</span>[<span class="php-quote">'class'</span>]) ? <span class="php-quote">'tip-title'</span> : self::_clean(<span class="php-quote">'tip-title'</span>, <span class="php-var">$title</span>[<span class="php-quote">'class'</span>]);
-</span><span id="800" class="l"><a class="l" href="#800">800: </a>            <span class="php-var">$title</span>[<span class="php-quote">'icon'</span>] = <span class="php-keyword1">empty</span>(<span class="php-var">$title</span>[<span class="php-quote">'icon'</span>]) ? <span class="php-quote">'fa-magic'</span> : <span class="php-var">$title</span>[<span class="php-quote">'icon'</span>];
-</span><span id="801" class="l"><a class="l" href="#801">801: </a>            <span class="php-var">$title</span>[<span class="php-quote">'options'</span>] = <span class="php-var">$title</span>;
-</span><span id="802" class="l"><a class="l" href="#802">802: </a>            <span class="php-keyword1">unset</span>(<span class="php-var">$title</span>[<span class="php-quote">'options'</span>][<span class="php-quote">'text'</span>]);
-</span><span id="803" class="l"><a class="l" href="#803">803: </a>
-</span><span id="804" class="l"><a class="l" href="#804">804: </a>            <span class="php-var">$text</span> = self::tag(<span class="php-quote">'h4'</span>, <span class="php-var">$title</span>[<span class="php-quote">'text'</span>], <span class="php-var">$title</span>[<span class="php-quote">'options'</span>]).<span class="php-var">$text</span>;
-</span><span id="805" class="l"><a class="l" href="#805">805: </a>        }
-</span><span id="806" class="l"><a class="l" href="#806">806: </a>        <span class="php-keyword1">unset</span>(<span class="php-var">$options</span>[<span class="php-quote">'icon'</span>], <span class="php-var">$options</span>[<span class="php-quote">'title'</span>]);
-</span><span id="807" class="l"><a class="l" href="#807">807: </a>
-</span><span id="808" class="l"><a class="l" href="#808">808: </a>        <span class="php-keyword1">return</span> self::div(<span class="php-var">$options</span>[<span class="php-quote">'class'</span>], <span class="php-var">$text</span>, <span class="php-var">$options</span>);
-</span><span id="809" class="l"><a class="l" href="#809">809: </a>    }
-</span><span id="810" class="l"><a class="l" href="#810">810: </a>
-</span><span id="811" class="l"><a class="l" href="#811">811: </a>    <span class="php-comment">/**
-</span></span><span id="812" class="l"><a class="l" href="#812">812: </a><span class="php-comment">     * Returns an unordered list (`ul`) out of an array.
-</span></span><span id="813" class="l"><a class="l" href="#813">813: </a><span class="php-comment">     * @param array $list Element list
-</span></span><span id="814" class="l"><a class="l" href="#814">814: </a><span class="php-comment">     * @param array $options HTML attributes of the list tag
-</span></span><span id="815" class="l"><a class="l" href="#815">815: </a><span class="php-comment">     * @param array $itemOptions HTML attributes of the list items
-</span></span><span id="816" class="l"><a class="l" href="#816">816: </a><span class="php-comment">     * @return string Html, unordered list
-</span></span><span id="817" class="l"><a class="l" href="#817">817: </a><span class="php-comment">     * @see http://repository.novatlantis.it/metools-sandbox/html/lists Examples
-</span></span><span id="818" class="l"><a class="l" href="#818">818: </a><span class="php-comment">     * @uses nestedList() to create the list
-</span></span><span id="819" class="l"><a class="l" href="#819">819: </a><span class="php-comment">     */</span>
-</span><span id="820" class="l"><a class="l" href="#820">820: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_ul" href="#_ul">ul</a>(<span class="php-var">$list</span>, <span class="php-var">$options</span> = <span class="php-keyword1">array</span>(), <span class="php-var">$itemOptions</span> = <span class="php-keyword1">array</span>()) {
-</span><span id="821" class="l"><a class="l" href="#821">821: </a>        <span class="php-keyword1">return</span> self::nestedList(<span class="php-var">$list</span>, <span class="php-var">$options</span>, <span class="php-var">$itemOptions</span>, <span class="php-quote">'ul'</span>);
-</span><span id="822" class="l"><a class="l" href="#822">822: </a>    }
-</span><span id="823" class="l"><a class="l" href="#823">823: </a>
-</span><span id="824" class="l"><a class="l" href="#824">824: </a>    <span class="php-comment">/**
-</span></span><span id="825" class="l"><a class="l" href="#825">825: </a><span class="php-comment">     * Returns a video element
-</span></span><span id="826" class="l"><a class="l" href="#826">826: </a><span class="php-comment">     * @param string|array $path File path, relative to the `webroot/{$options['pathPrefix']}` directory
-</span></span><span id="827" class="l"><a class="l" href="#827">827: </a><span class="php-comment">     * or an array where each item itself can be a path string or an array containing `src` and `type` keys.
-</span></span><span id="828" class="l"><a class="l" href="#828">828: </a><span class="php-comment">     * @param array $options Array of HTML attributes
-</span></span><span id="829" class="l"><a class="l" href="#829">829: </a><span class="php-comment">     * @return string Html, video tag
-</span></span><span id="830" class="l"><a class="l" href="#830">830: </a><span class="php-comment">     * @see http://repository.novatlantis.it/metools-sandbox/html/audiovideo Examples
-</span></span><span id="831" class="l"><a class="l" href="#831">831: </a><span class="php-comment">     * @uses media()
-</span></span><span id="832" class="l"><a class="l" href="#832">832: </a><span class="php-comment">     */</span>
-</span><span id="833" class="l"><a class="l" href="#833">833: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_video" href="#_video">video</a>(<span class="php-var">$path</span>, <span class="php-var">$options</span> = <span class="php-keyword1">array</span>()) {
-</span><span id="834" class="l"><a class="l" href="#834">834: </a>        <span class="php-keyword1">return</span> self::media(<span class="php-var">$path</span>, am(<span class="php-var">$options</span>, <span class="php-keyword1">array</span>(<span class="php-quote">'tag'</span> =&gt; <span class="php-quote">'video'</span>)));
-</span><span id="835" class="l"><a class="l" href="#835">835: </a>    }
-</span><span id="836" class="l"><a class="l" href="#836">836: </a></span>}</code></pre>
+</span><span id="793" class="l"><a class="l" href="#793">793: </a>        <span class="php-var">$options</span>[<span class="php-quote">'class'</span>] = <span class="php-keyword1">empty</span>(<span class="php-var">$options</span>[<span class="php-quote">'class'</span>]) ? <span class="php-quote">'tip'</span> : self::_clean(<span class="php-quote">'tip'</span>, <span class="php-var">$options</span>[<span class="php-quote">'class'</span>]);
+</span><span id="794" class="l"><a class="l" href="#794">794: </a>
+</span><span id="795" class="l"><a class="l" href="#795">795: </a>        <span class="php-keyword1">if</span>(!<span class="php-keyword1">isset</span>(<span class="php-var">$options</span>[<span class="php-quote">'title'</span>]) || <span class="php-var">$title</span> = <span class="php-var">$options</span>[<span class="php-quote">'title'</span>]) {
+</span><span id="796" class="l"><a class="l" href="#796">796: </a>            <span class="php-keyword1">if</span>(<span class="php-keyword1">empty</span>(<span class="php-var">$title</span>))
+</span><span id="797" class="l"><a class="l" href="#797">797: </a>                <span class="php-var">$title</span> = <span class="php-keyword1">array</span>(<span class="php-quote">'text'</span> =&gt; __d(<span class="php-quote">'me_tools'</span>, <span class="php-quote">'Tip'</span>));
+</span><span id="798" class="l"><a class="l" href="#798">798: </a>            <span class="php-keyword1">elseif</span>(!<span class="php-keyword2">is_array</span>(<span class="php-var">$title</span>))
+</span><span id="799" class="l"><a class="l" href="#799">799: </a>                <span class="php-var">$title</span> = <span class="php-keyword1">array</span>(<span class="php-quote">'text'</span> =&gt; <span class="php-var">$title</span>);
+</span><span id="800" class="l"><a class="l" href="#800">800: </a>
+</span><span id="801" class="l"><a class="l" href="#801">801: </a>            <span class="php-var">$title</span>[<span class="php-quote">'class'</span>] = <span class="php-keyword1">empty</span>(<span class="php-var">$title</span>[<span class="php-quote">'class'</span>]) ? <span class="php-quote">'tip-title'</span> : self::_clean(<span class="php-quote">'tip-title'</span>, <span class="php-var">$title</span>[<span class="php-quote">'class'</span>]);
+</span><span id="802" class="l"><a class="l" href="#802">802: </a>            <span class="php-var">$title</span>[<span class="php-quote">'icon'</span>] = <span class="php-keyword1">empty</span>(<span class="php-var">$title</span>[<span class="php-quote">'icon'</span>]) ? <span class="php-quote">'fa-magic'</span> : <span class="php-var">$title</span>[<span class="php-quote">'icon'</span>];
+</span><span id="803" class="l"><a class="l" href="#803">803: </a>            <span class="php-var">$title</span>[<span class="php-quote">'options'</span>] = <span class="php-var">$title</span>;
+</span><span id="804" class="l"><a class="l" href="#804">804: </a>            <span class="php-keyword1">unset</span>(<span class="php-var">$title</span>[<span class="php-quote">'options'</span>][<span class="php-quote">'text'</span>]);
+</span><span id="805" class="l"><a class="l" href="#805">805: </a>
+</span><span id="806" class="l"><a class="l" href="#806">806: </a>            <span class="php-var">$text</span> = self::tag(<span class="php-quote">'h4'</span>, <span class="php-var">$title</span>[<span class="php-quote">'text'</span>], <span class="php-var">$title</span>[<span class="php-quote">'options'</span>]).<span class="php-var">$text</span>;
+</span><span id="807" class="l"><a class="l" href="#807">807: </a>        }
+</span><span id="808" class="l"><a class="l" href="#808">808: </a>        <span class="php-keyword1">unset</span>(<span class="php-var">$options</span>[<span class="php-quote">'icon'</span>], <span class="php-var">$options</span>[<span class="php-quote">'title'</span>]);
+</span><span id="809" class="l"><a class="l" href="#809">809: </a>
+</span><span id="810" class="l"><a class="l" href="#810">810: </a>        <span class="php-keyword1">return</span> self::div(<span class="php-var">$options</span>[<span class="php-quote">'class'</span>], <span class="php-var">$text</span>, <span class="php-var">$options</span>);
+</span><span id="811" class="l"><a class="l" href="#811">811: </a>    }
+</span><span id="812" class="l"><a class="l" href="#812">812: </a>
+</span><span id="813" class="l"><a class="l" href="#813">813: </a>    <span class="php-comment">/**
+</span></span><span id="814" class="l"><a class="l" href="#814">814: </a><span class="php-comment">     * Returns an unordered list (`ul`) out of an array.
+</span></span><span id="815" class="l"><a class="l" href="#815">815: </a><span class="php-comment">     * @param array $list Element list
+</span></span><span id="816" class="l"><a class="l" href="#816">816: </a><span class="php-comment">     * @param array $options HTML attributes of the list tag
+</span></span><span id="817" class="l"><a class="l" href="#817">817: </a><span class="php-comment">     * @param array $itemOptions HTML attributes of the list items
+</span></span><span id="818" class="l"><a class="l" href="#818">818: </a><span class="php-comment">     * @return string Html, unordered list
+</span></span><span id="819" class="l"><a class="l" href="#819">819: </a><span class="php-comment">     * @see http://repository.novatlantis.it/metools-sandbox/html/lists Examples
+</span></span><span id="820" class="l"><a class="l" href="#820">820: </a><span class="php-comment">     * @uses nestedList() to create the list
+</span></span><span id="821" class="l"><a class="l" href="#821">821: </a><span class="php-comment">     */</span>
+</span><span id="822" class="l"><a class="l" href="#822">822: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_ul" href="#_ul">ul</a>(<span class="php-var">$list</span>, <span class="php-var">$options</span> = <span class="php-keyword1">array</span>(), <span class="php-var">$itemOptions</span> = <span class="php-keyword1">array</span>()) {
+</span><span id="823" class="l"><a class="l" href="#823">823: </a>        <span class="php-keyword1">return</span> self::nestedList(<span class="php-var">$list</span>, <span class="php-var">$options</span>, <span class="php-var">$itemOptions</span>, <span class="php-quote">'ul'</span>);
+</span><span id="824" class="l"><a class="l" href="#824">824: </a>    }
+</span><span id="825" class="l"><a class="l" href="#825">825: </a>
+</span><span id="826" class="l"><a class="l" href="#826">826: </a>    <span class="php-comment">/**
+</span></span><span id="827" class="l"><a class="l" href="#827">827: </a><span class="php-comment">     * Returns a video element
+</span></span><span id="828" class="l"><a class="l" href="#828">828: </a><span class="php-comment">     * @param string|array $path File path, relative to the `webroot/{$options['pathPrefix']}` directory
+</span></span><span id="829" class="l"><a class="l" href="#829">829: </a><span class="php-comment">     * or an array where each item itself can be a path string or an array containing `src` and `type` keys.
+</span></span><span id="830" class="l"><a class="l" href="#830">830: </a><span class="php-comment">     * @param array $options Array of HTML attributes
+</span></span><span id="831" class="l"><a class="l" href="#831">831: </a><span class="php-comment">     * @return string Html, video tag
+</span></span><span id="832" class="l"><a class="l" href="#832">832: </a><span class="php-comment">     * @see http://repository.novatlantis.it/metools-sandbox/html/audiovideo Examples
+</span></span><span id="833" class="l"><a class="l" href="#833">833: </a><span class="php-comment">     * @uses media()
+</span></span><span id="834" class="l"><a class="l" href="#834">834: </a><span class="php-comment">     */</span>
+</span><span id="835" class="l"><a class="l" href="#835">835: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_video" href="#_video">video</a>(<span class="php-var">$path</span>, <span class="php-var">$options</span> = <span class="php-keyword1">array</span>()) {
+</span><span id="836" class="l"><a class="l" href="#836">836: </a>        <span class="php-keyword1">return</span> self::media(<span class="php-var">$path</span>, am(<span class="php-var">$options</span>, <span class="php-keyword1">array</span>(<span class="php-quote">'tag'</span> =&gt; <span class="php-quote">'video'</span>)));
+</span><span id="837" class="l"><a class="l" href="#837">837: </a>    }
+</span><span id="838" class="l"><a class="l" href="#838">838: </a></span>}</code></pre>
 
 	<div id="footer">
 		MeTools API documentation generated by <a href="http://apigen.org">ApiGen 2.8.0</a>
