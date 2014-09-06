@@ -55,6 +55,7 @@ class MeToolsAppController extends Controller {
 	 * @return boolean TRUE if the user is logged in, otherwise FALSE
 	 */
 	protected function isLogged() {
-		return !empty($this->Auth->user('id'));
+		$id = $this->Auth->user('id');
+		return !empty($id);
 	}
 }
