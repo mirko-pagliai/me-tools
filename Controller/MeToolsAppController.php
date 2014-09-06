@@ -58,7 +58,6 @@ class MeToolsAppController extends Controller {
 		return !empty($this->request->params['admin']);
 	}
 
-
 	/**
 	 * Checks if the user is logged in
 	 * @return boolean TRUE if the user is logged in, otherwise FALSE
