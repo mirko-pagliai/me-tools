@@ -82,11 +82,6 @@ td.min-width, td.minWidth {
 	font-style: italic;
 }
 
-/* Font awesome's icons */
-.fa {
-    margin-right: 4px;
-}
-
 /* No margin class */
 .margin0, .margin-0,
 .no-margin, .noMargin {
