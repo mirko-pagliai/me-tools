@@ -123,6 +123,7 @@ form input[type='checkbox'] {
 /* Checkbox labels */
 form input[type='checkbox'] + label {
 	cursor: pointer;
+	padding: 0;
 }
 
 /* Checkbox labels, when checkbox is unchecked */
@@ -140,7 +141,6 @@ form input[type='checkbox'] + label:before {
 form input[type='checkbox']:checked + label:before {
 	color: inherit;
 	content: "\f046";
-	margin-right: 1px;
 }
 
 /* Disabled checkbox */
