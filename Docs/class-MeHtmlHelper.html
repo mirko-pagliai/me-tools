@@ -7,7 +7,7 @@
 	<title>Class MeHtmlHelper | MeTools</title>
 
 	<script type="text/javascript" src="resources/combined.js?117538352"></script>
-	<script type="text/javascript" src="elementlist.js?2897168095"></script>
+	<script type="text/javascript" src="elementlist.js?3067465168"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360">
 
 </head>
@@ -67,6 +67,7 @@
 		<div id="elements">
 			<h3>Classes</h3>
 			<ul>
+				<li><a href="class-DropdownHelper.html">DropdownHelper</a></li>
 				<li><a href="class-LibraryHelper.html">LibraryHelper</a></li>
 				<li><a href="class-MarkdownHelper.html">MarkdownHelper</a></li>
 				<li><a href="class-MeFormHelper.html">MeFormHelper</a></li>
@@ -128,7 +129,7 @@
 	
 <p>Provides functionalities for HTML code.</p>
 
-<p>Rewrites <a href="http://api.cakephp.org/2.5/class-HtmlHelper.html">HtmlHelper</a>.</p>
+<p>Rewrites the <a href="http://api.cakephp.org/2.5/class-HtmlHelper.html">HtmlHelper</a>.</p>
 
 <p>You should use this helper as an alias, for example:</p>
 
@@ -177,7 +178,7 @@ HtmlHelper
 				<b>Author:</b>
 				Mirko Pagliai &lt;<a
 href="mailto:mirko.pagliai&#64;gmail.com">mirko.pagliai&#64;<!-- -->gmail.com</a>&gt;<br>
-		<b>Located at</b> <a href="source-class-MeHtmlHelper.html#30-838" title="Go to source code">MeHtmlHelper.php</a><br>
+		<b>Located at</b> <a href="source-class-MeHtmlHelper.html#30-712" title="Go to source code">MeHtmlHelper.php</a><br>
 	</div>
 
 
@@ -195,7 +196,7 @@ href="mailto:mirko.pagliai&#64;gmail.com">mirko.pagliai&#64;<!-- -->gmail.com</a
 
 		<td class="name"><div>
 		<a class="anchor" href="#___call">#</a>
-		<code><a href="source-class-MeHtmlHelper.html#41-55" title="Go to source code">__call</a>( <span>string <var>$method</var></span>, <span>array <var>$params</var></span> )</code>
+		<code><a href="source-class-MeHtmlHelper.html#41-56" title="Go to source code">__call</a>( <span>string <var>$method</var></span>, <span>array <var>$params</var></span> )</code>
 
 		<div class="description short">
 			
@@ -225,7 +226,7 @@ calls.</p>
 
 				<h4>Returns</h4>
 				<div class="list">
-					<code>string</code><br>Html, tag<br>
+					<code>string</code><br>Html code<br>
 				</div>
 
 
@@ -233,197 +234,267 @@ calls.</p>
 				<div class="list">
 						<a
 href="http://api.cakephp.org/2.5/class-Helper.html#___call">http://api.cakephp.org/2.5/class-Helper.html#___call</a>
-CakePHP Api<br>
+CakePHP API<br>
 				</div>
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="_clean" id="__clean">
-
-		<td class="attributes"><code>
-			 public 
-			string
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#__clean">#</a>
-		<code><a href="source-class-MeHtmlHelper.html#57-79" title="Go to source code">_clean</a>( )</code>
-
-		<div class="description short">
-			
-<p>Cleans values to be used as html attributes, removing blank spaces and
-duplicates. For example:</p>
-
-<pre>a a b  b c d e e e</pre>
-
-<p>will become:</p>
-
-<pre>a b c d e</pre>
-
-		</div>
-
-		<div class="description detailed hidden">
-			
-<p>Cleans values to be used as html attributes, removing blank spaces and
-duplicates. For example:</p>
-
-<pre>a a b  b c d e e e</pre>
-
-<p>will become:</p>
-
-<pre>a b c d e</pre>
-
-
-
-
-				<h4>Returns</h4>
+				<h4>Uses</h4>
 				<div class="list">
-					<code>string</code><br>Cleaned value<br>
+						<code><code><a href="class-MeHtmlHelper.html#_tag">MeHtmlHelper::tag()</a></code></code> <br>
 				</div>
-
-
 
 
 		</div>
 		</div></td>
 	</tr>
-	<tr data-order="_getBtnClass" id="__getBtnClass">
+	<tr data-order="_addButtonClasses" id="__addButtonClasses">
 
 		<td class="attributes"><code>
 			 public 
-			string
+			
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
-		<a class="anchor" href="#__getBtnClass">#</a>
-		<code><a href="source-class-MeHtmlHelper.html#81-95" title="Go to source code">_getBtnClass</a>( <span>array <var>$option</var></span> )</code>
+		<a class="anchor" href="#__addButtonClasses">#</a>
+		<code><a href="source-class-MeHtmlHelper.html#58-71" title="Go to source code">_addButtonClasses</a>( <span>array <var>$options</var></span>, <span>string <var>$defaultClass</var> = <span class="php-quote">'default'</span></span> )</code>
 
 		<div class="description short">
 			
-<p>Get classes for a button</p>
+<p>Add button classes.</p>
 
 		</div>
 
 		<div class="description detailed hidden">
 			
-<p>Get classes for a button</p>
+<p>Add button classes.</p>
 
 
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
-					<dt><var>$option</var></dt>
-					<dd><code>array</code><br>$option Button options</dd>
+					<dt><var>$options</var></dt>
+					<dd><code>array</code><br>$options Array of HTML attributes</dd>
+					<dt><var>$defaultClass</var></dt>
+					<dd><code>string</code><br>$defaultClass Default class (eg. <code>default</code>, <code>primary</code>,
+<code>success</code>, etc)</dd>
 				</dl></div>
 
-				<h4>Returns</h4>
+
+
+				<h4>Uses</h4>
 				<div class="list">
-					<code>string</code><br>Button classes<br>
+						<code><code><a href="class-MeHtmlHelper.html#__addOptionValue">MeHtmlHelper::_addOptionValue()</a></code></code> <br>
 				</div>
-
-
+				<h4>Used by</h4>
+				<div class="list">
+						<code><code><a href="class-MeFormHelper.html#_button">MeFormHelper::button()</a></code></code> <br>
+						<code><code><a href="class-MeFormHelper.html#_postButton">MeFormHelper::postButton()</a></code></code> <br>
+						<code><code><a href="class-MeFormHelper.html#_submit">MeFormHelper::submit()</a></code></code> <br>
+						<code><code><a href="class-MeHtmlHelper.html#_button">MeHtmlHelper::button()</a></code></code> <br>
+				</div>
 
 
 		</div>
 		</div></td>
 	</tr>
-	<tr data-order="_parseLinkDropdown" id="__parseLinkDropdown">
+	<tr data-order="_addIcons" id="__addIcons">
 
 		<td class="attributes"><code>
-			 private 
+			 public 
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#__addIcons">#</a>
+		<code><a href="source-class-MeHtmlHelper.html#73-85" title="Go to source code">_addIcons</a>( <span>string <var>$text</var></span>, <span>array <var>$options</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Adds icons to text.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Adds icons to text.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$text</var></dt>
+					<dd><code>string</code><br>$text Text</dd>
+					<dt><var>$options</var></dt>
+					<dd><code>array</code><br>$options Array of HTML attributes</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>string</code><br>Text with icons<br>
+				</div>
+
+
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-MeHtmlHelper.html#_icons">MeHtmlHelper::icons()</a></code></code> <br>
+				</div>
+				<h4>Used by</h4>
+				<div class="list">
+						<code><code><a href="class-MeFormHelper.html#_button">MeFormHelper::button()</a></code></code> <br>
+						<code><code><a href="class-MeFormHelper.html#_label">MeFormHelper::label()</a></code></code> <br>
+						<code><code><a href="class-MeHtmlHelper.html#_link">MeHtmlHelper::link()</a></code></code> <br>
+						<code><code><a href="class-MeHtmlHelper.html#_nestedList">MeHtmlHelper::nestedList()</a></code></code> <br>
+						<code><code><a href="class-MeHtmlHelper.html#_para">MeHtmlHelper::para()</a></code></code> <br>
+						<code><code><a href="class-MeHtmlHelper.html#_tag">MeHtmlHelper::tag()</a></code></code> <br>
+						<code><code><a href="class-MeHtmlHelper.html#_tip">MeHtmlHelper::tip()</a></code></code> <br>
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="_addOptionValue" id="__addOptionValue">
+
+		<td class="attributes"><code>
+			 public 
 			array
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
-		<a class="anchor" href="#__parseLinkDropdown">#</a>
-		<code><a href="source-class-MeHtmlHelper.html#97-112" title="Go to source code">_parseLinkDropdown</a>( <span>string <var>$title</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<a class="anchor" href="#__addOptionValue">#</a>
+		<code><a href="source-class-MeHtmlHelper.html#87-115" title="Go to source code">_addOptionValue</a>( <span>string <var>$name</var></span>, <span>string <var>$values</var></span>, <span>array <var>$options</var></span> )</code>
 
 		<div class="description short">
 			
-<p>Parses and handles title and options used to create a link or a button to
-open a dropdown.</p>
+<p>Adds values to an option.</p>
 
 		</div>
 
 		<div class="description detailed hidden">
 			
-<p>Parses and handles title and options used to create a link or a button to
-open a dropdown.</p>
-
-<p>You should not use this method directly, but <code>buttonDropdown()</code> or
-<code>linkDropdown()</code>.</p>
+<p>Adds values to an option.</p>
 
 
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
-					<dt><var>$title</var></dt>
-					<dd><code>string</code><br>$title Link/button title</dd>
+					<dt><var>$name</var></dt>
+					<dd><code>string</code><br>$name Option name</dd>
+					<dt><var>$values</var></dt>
+					<dd><code>string</code><br>$values Option values</dd>
 					<dt><var>$options</var></dt>
-					<dd><code>array</code><br>$options HTML attributes</dd>
+					<dd><code>array</code><br>$options Array of HTML attributes</dd>
 				</dl></div>
 
 				<h4>Returns</h4>
 				<div class="list">
-					<code>array</code><br>Title and options<br>
+					<code>array</code><br>Array of HTML attributes<br>
 				</div>
 
 
 				<h4>Used by</h4>
 				<div class="list">
-						<code><code><a href="class-MeHtmlHelper.html#_buttonDropdown">MeHtmlHelper::buttonDropdown()</a></code></code><br>to parse options<br>
-						<code><code><a href="class-MeHtmlHelper.html#_linkDropdown">MeHtmlHelper::linkDropdown()</a></code></code><br>to parse options<br>
+						<code><code><a href="class-DropdownHelper.html#__parseLink">DropdownHelper::_parseLink()</a></code></code> <br>
+						<code><code><a href="class-DropdownHelper.html#_dropdown">DropdownHelper::dropdown()</a></code></code> <br>
+						<code><code><a href="class-MeFormHelper.html#___call">MeFormHelper::__call()</a></code></code> <br>
+						<code><code><a href="class-MeFormHelper.html#_ckeditor">MeFormHelper::ckeditor()</a></code></code> <br>
+						<code><code><a href="class-MeFormHelper.html#_checkboxList">MeFormHelper::checkboxList()</a></code></code> <br>
+						<code><code><a href="class-MeFormHelper.html#_create">MeFormHelper::create()</a></code></code> <br>
+						<code><code><a href="class-MeFormHelper.html#_createInline">MeFormHelper::createInline()</a></code></code> <br>
+						<code><code><a href="class-MeFormHelper.html#_datepicker">MeFormHelper::datepicker()</a></code></code> <br>
+						<code><code><a href="class-MeFormHelper.html#_datetimepicker">MeFormHelper::datetimepicker()</a></code></code> <br>
+						<code><code><a href="class-MeFormHelper.html#_input">MeFormHelper::input()</a></code></code> <br>
+						<code><code><a href="class-MeFormHelper.html#_radio">MeFormHelper::radio()</a></code></code> <br>
+						<code><code><a href="class-MeFormHelper.html#_select">MeFormHelper::select()</a></code></code> <br>
+						<code><code><a href="class-MeFormHelper.html#_submit">MeFormHelper::submit()</a></code></code> <br>
+						<code><code><a href="class-MeFormHelper.html#_timepicker">MeFormHelper::timepicker()</a></code></code> <br>
+						<code><code><a href="class-MeHtmlHelper.html#__addButtonClasses">MeHtmlHelper::_addButtonClasses()</a></code></code> <br>
+						<code><code><a href="class-MeHtmlHelper.html#_badge">MeHtmlHelper::badge()</a></code></code> <br>
+						<code><code><a href="class-MeHtmlHelper.html#_button">MeHtmlHelper::button()</a></code></code> <br>
+						<code><code><a href="class-MeHtmlHelper.html#_getCrumbList">MeHtmlHelper::getCrumbList()</a></code></code> <br>
+						<code><code><a href="class-MeHtmlHelper.html#_icons">MeHtmlHelper::icons()</a></code></code> <br>
+						<code><code><a href="class-MeHtmlHelper.html#_image">MeHtmlHelper::image()</a></code></code> <br>
+						<code><code><a href="class-MeHtmlHelper.html#_label">MeHtmlHelper::label()</a></code></code> <br>
+						<code><code><a href="class-MeHtmlHelper.html#_nestedList">MeHtmlHelper::nestedList()</a></code></code> <br>
+						<code><code><a href="class-MeHtmlHelper.html#_pre">MeHtmlHelper::pre()</a></code></code> <br>
+						<code><code><a href="class-MeHtmlHelper.html#_thumb">MeHtmlHelper::thumb()</a></code></code> <br>
+						<code><code><a href="class-MeHtmlHelper.html#_tip">MeHtmlHelper::tip()</a></code></code> <br>
+						<code><code><a href="class-MePaginatorHelper.html#__jump_link">MePaginatorHelper::_jump_link()</a></code></code> <br>
+						<code><code><a href="class-MePaginatorHelper.html#_next">MePaginatorHelper::next()</a></code></code> <br>
+						<code><code><a href="class-MePaginatorHelper.html#_numbers">MePaginatorHelper::numbers()</a></code></code> <br>
+						<code><code><a href="class-MePaginatorHelper.html#_prev">MePaginatorHelper::prev()</a></code></code> <br>
 				</div>
 
 
 		</div>
 		</div></td>
 	</tr>
-	<tr data-order="_setTooltip" id="__setTooltip">
+	<tr data-order="_addOptionDefault" id="__addOptionDefault">
 
 		<td class="attributes"><code>
-			 private 
+			 public 
 			array
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
-		<a class="anchor" href="#__setTooltip">#</a>
-		<code><a href="source-class-MeHtmlHelper.html#114-127" title="Go to source code">_setTooltip</a>( <span>array <var>$options</var></span> )</code>
+		<a class="anchor" href="#__addOptionDefault">#</a>
+		<code><a href="source-class-MeHtmlHelper.html#117-128" title="Go to source code">_addOptionDefault</a>( <span>string <var>$name</var></span>, <span>string <var>$value</var></span>, <span>array <var>$options</var></span> )</code>
 
 		<div class="description short">
 			
-<p>Handles the options of an element to add tooltips</p>
+<p>Adds a default value to an option.</p>
 
 		</div>
 
 		<div class="description detailed hidden">
 			
-<p>Handles the options of an element to add tooltips</p>
+<p>Adds a default value to an option.</p>
 
 
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
+					<dt><var>$name</var></dt>
+					<dd><code>string</code><br>$name Option name</dd>
+					<dt><var>$value</var></dt>
+					<dd><code>string</code><br>$value Option value</dd>
 					<dt><var>$options</var></dt>
-					<dd><code>array</code><br>$options Element options</dd>
+					<dd><code>array</code><br>$options Array of HTML attributes</dd>
 				</dl></div>
 
 				<h4>Returns</h4>
 				<div class="list">
-					<code>array</code><br>Options<br>
+					<code>array</code><br>Array of HTML attributes<br>
 				</div>
 
 
+				<h4>Used by</h4>
+				<div class="list">
+						<code><code><a href="class-MeFormHelper.html#_button">MeFormHelper::button()</a></code></code> <br>
+						<code><code><a href="class-MeFormHelper.html#_createInline">MeFormHelper::createInline()</a></code></code> <br>
+						<code><code><a href="class-MeFormHelper.html#_datepicker">MeFormHelper::datepicker()</a></code></code> <br>
+						<code><code><a href="class-MeFormHelper.html#_datetimepicker">MeFormHelper::datetimepicker()</a></code></code> <br>
+						<code><code><a href="class-MeFormHelper.html#_input">MeFormHelper::input()</a></code></code> <br>
+						<code><code><a href="class-MeFormHelper.html#_postLink">MeFormHelper::postLink()</a></code></code> <br>
+						<code><code><a href="class-MeFormHelper.html#_select">MeFormHelper::select()</a></code></code> <br>
+						<code><code><a href="class-MeFormHelper.html#_timepicker">MeFormHelper::timepicker()</a></code></code> <br>
+						<code><code><a href="class-MeHtmlHelper.html#_css">MeHtmlHelper::css()</a></code></code> <br>
+						<code><code><a href="class-MeHtmlHelper.html#_link">MeHtmlHelper::link()</a></code></code> <br>
+						<code><code><a href="class-MeHtmlHelper.html#_media">MeHtmlHelper::media()</a></code></code> <br>
+						<code><code><a href="class-MeHtmlHelper.html#_meta">MeHtmlHelper::meta()</a></code></code> <br>
+						<code><code><a href="class-MeHtmlHelper.html#_script">MeHtmlHelper::script()</a></code></code> <br>
+						<code><code><a href="class-MeHtmlHelper.html#_scriptBlock">MeHtmlHelper::scriptBlock()</a></code></code> <br>
+						<code><code><a href="class-MeHtmlHelper.html#_scriptStart">MeHtmlHelper::scriptStart()</a></code></code> <br>
+						<code><code><a href="class-MeHtmlHelper.html#_tip">MeHtmlHelper::tip()</a></code></code> <br>
+						<code><code><a href="class-MePaginatorHelper.html#__jump_link">MePaginatorHelper::_jump_link()</a></code></code> <br>
+						<code><code><a href="class-MePaginatorHelper.html#_numbers">MePaginatorHelper::numbers()</a></code></code> <br>
+				</div>
 
 
 		</div>
@@ -440,42 +511,36 @@ open a dropdown.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_audio">#</a>
-		<code><a href="source-class-MeHtmlHelper.html#129-140" title="Go to source code">audio</a>( <span>string|array <var>$path</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-MeHtmlHelper.html#130-140" title="Go to source code">audio</a>( <span>string|array <var>$path</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
-<p>Returns an audio element</p>
+<p>Returns an <code>&lt;audio&gt;</code> element.</p>
 
 		</div>
 
 		<div class="description detailed hidden">
 			
-<p>Returns an audio element</p>
+<p>Returns an <code>&lt;audio&gt;</code> element.</p>
 
 
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
 					<dt><var>$path</var></dt>
-					<dd><code>string|array</code><br>$path File path, relative to the <code>webroot/{$options['pathPrefix']}</code>
-directory or an array where each item itself can be a path string or an array
-containing <code>src</code> and <code>type</code> keys.</dd>
+					<dd><code>string|array</code><br>$path File path, relative to the <code>webroot/files/</code> directory or an
+array where each item itself can be a path string or an array containing
+<code>src</code> and <code>type</code> keys.</dd>
 					<dt><var>$options</var></dt>
 					<dd><code>array</code><br>$options Array of HTML attributes</dd>
 				</dl></div>
 
 				<h4>Returns</h4>
 				<div class="list">
-					<code>string</code><br>Html, audio tag<br>
+					<code>string</code><br>Html code<br>
 				</div>
 
 
-				<h4>See</h4>
-				<div class="list">
-						<a
-href="http://repository.novatlantis.it/metools-sandbox/html/audiovideo">http://repository.novatlantis.it/metools-sandbox/html/audiovideo</a>
-Examples<br>
-				</div>
 				<h4>Uses</h4>
 				<div class="list">
 						<code><code><a href="class-MeHtmlHelper.html#_media">MeHtmlHelper::media()</a></code></code> <br>
@@ -496,17 +561,17 @@ Examples<br>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_badge">#</a>
-		<code><a href="source-class-MeHtmlHelper.html#142-154" title="Go to source code">badge</a>( <span>string <var>$text</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-MeHtmlHelper.html#142-155" title="Go to source code">badge</a>( <span>string <var>$text</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
-<p>Creates a badge, according to the Bootstrap component.</p>
+<p>Creates a badge, according to Bootstrap.</p>
 
 		</div>
 
 		<div class="description detailed hidden">
 			
-<p>Creates a badge, according to the Bootstrap component.</p>
+<p>Creates a badge, according to Bootstrap.</p>
 
 
 
@@ -520,7 +585,7 @@ Examples<br>
 
 				<h4>Returns</h4>
 				<div class="list">
-					<code>string</code><br>Html, badge element<br>
+					<code>string</code><br>Html code<br>
 				</div>
 
 
@@ -529,9 +594,11 @@ Examples<br>
 						<a
 href="http://getbootstrap.com/components/#badges">http://getbootstrap.com/components/#badges</a>
 Bootstrap documentation<br>
-						<a
-href="http://repository.novatlantis.it/metools-sandbox/html/labelbadges">http://repository.novatlantis.it/metools-sandbox/html/labelbadges</a>
-Examples<br>
+				</div>
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-MeHtmlHelper.html#__addOptionValue">MeHtmlHelper::_addOptionValue()</a></code></code> <br>
+						span()<br>
 				</div>
 
 
@@ -549,7 +616,7 @@ Examples<br>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_button">#</a>
-		<code><a href="source-class-MeHtmlHelper.html#156-175" title="Go to source code">button</a>( <span>string <var>$title</var></span>, <span>mixed <var>$url</var> = <span class="php-quote">'#'</span></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span>, <span>string <var>$confirmMessage</var> = <span class="php-keyword1">FALSE</span></span> )</code>
+		<code><a href="source-class-MeHtmlHelper.html#157-178" title="Go to source code">button</a>( <span>string <var>$title</var></span>, <span>string|array <var>$url</var> = <span class="php-quote">'#'</span></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span>, <span>string <var>$confirmMessage</var> = <span class="php-keyword1">FALSE</span></span> )</code>
 
 		<div class="description short">
 			
@@ -562,9 +629,9 @@ Examples<br>
 <p>Creates a link with the appearance of a button.</p>
 
 <p>This method creates a link with the appearance of a button. To create a POST
-button, you should use the <code>postButton()</code> method provided by the
-<code>MeForm</code> helper. Instead, to create a normal button, you should use
-the <code>button()</code> method provided by the <code>MeForm</code> helper.</p>
+button, you should use the <code>postButton()</code> method provided by
+<code>MeFormHelper</code>. Instead, to create a normal button, you should use
+the <code>button()</code> method provided by <code>MeFormHelper</code>.</p>
 
 
 
@@ -573,98 +640,32 @@ the <code>button()</code> method provided by the <code>MeForm</code> helper.</p>
 					<dt><var>$title</var></dt>
 					<dd><code>string</code><br>$title Link title</dd>
 					<dt><var>$url</var></dt>
-					<dd><code>mixed</code><br>$url Cake-relative URL, array of URL parameters or external URL (starts with
-http://)</dd>
+					<dd><code>string|array</code><br>$url Cake-relative URL or array of URL parameters or external URL</dd>
 					<dt><var>$options</var></dt>
-					<dd><code>array</code><br>$options HTML attributes</dd>
+					<dd><code>array</code><br>$options Array of options and HTML attributes</dd>
 					<dt><var>$confirmMessage</var></dt>
 					<dd><code>string</code><br>$confirmMessage JavaScript confirmation message</dd>
 				</dl></div>
 
 				<h4>Returns</h4>
 				<div class="list">
-					<code>string</code><br>Html, link<br>
+					<code>string</code><br>Html code<br>
 				</div>
 
 
 				<h4>See</h4>
 				<div class="list">
 						<code><code><a href="class-MeFormHelper.html#_button">MeFormHelper::button()</a></code></code>, <code><code><a href="class-MeFormHelper.html#_postButton">MeFormHelper::postButton()</a></code></code><br>
-						<a
-href="http://repository.novatlantis.it/metools-sandbox/html/buttonslinks">http://repository.novatlantis.it/metools-sandbox/html/buttonslinks</a>
-Examples<br>
 				</div>
 				<h4>Uses</h4>
 				<div class="list">
+						<code><code><a href="class-MeHtmlHelper.html#__addButtonClasses">MeHtmlHelper::_addButtonClasses()</a></code></code> <br>
+						<code><code><a href="class-MeHtmlHelper.html#__addOptionValue">MeHtmlHelper::_addOptionValue()</a></code></code> <br>
 						<code><code><a href="class-MeHtmlHelper.html#_link">MeHtmlHelper::link()</a></code></code> <br>
 				</div>
 				<h4>Used by</h4>
 				<div class="list">
-						<code><code><a href="class-MeHtmlHelper.html#_buttonDropdown">MeHtmlHelper::buttonDropdown()</a></code></code><br>to get the button<br>
-				</div>
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="buttonDropdown" id="_buttonDropdown">
-
-		<td class="attributes"><code>
-			 public 
-			string
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_buttonDropdown">#</a>
-		<code><a href="source-class-MeHtmlHelper.html#177-198" title="Go to source code">buttonDropdown</a>( <span>string <var>$title</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
-
-		<div class="description short">
-			
-<p>Creates a button to open a dropdown menu, according to the Bootstrap
-component.</p>
-
-		</div>
-
-		<div class="description detailed hidden">
-			
-<p>Creates a button to open a dropdown menu, according to the Bootstrap
-component.</p>
-
-<p>Note that this method creates only a button. To create a dropdown menu, you
-should use the <code>dropdown()</code> method.</p>
-
-
-
-				<h4>Parameters</h4>
-				<div class="list"><dl>
-					<dt><var>$title</var></dt>
-					<dd><code>string</code><br>$title Button title</dd>
-					<dt><var>$options</var></dt>
-					<dd><code>array</code><br>$options HTML attributes</dd>
-				</dl></div>
-
-				<h4>Returns</h4>
-				<div class="list">
-					<code>string</code><br>Html, button<br>
-				</div>
-
-
-				<h4>See</h4>
-				<div class="list">
-						<code><code><a href="class-MeHtmlHelper.html#_dropdown">MeHtmlHelper::dropdown()</a></code></code><br>
-						<a
-href="http://getbootstrap.com/components/#dropdowns">http://getbootstrap.com/components/#dropdowns</a>
-Bootstrap documentation<br>
-						<a
-href="http://repository.novatlantis.it/metools-sandbox/html/dropdown">http://repository.novatlantis.it/metools-sandbox/html/dropdown</a>
-Examples<br>
-				</div>
-				<h4>Uses</h4>
-				<div class="list">
-						<code><code><a href="class-MeHtmlHelper.html#__parseLinkDropdown">MeHtmlHelper::_parseLinkDropdown()</a></code></code><br>to parse options<br>
-						<code><code><a href="class-MeHtmlHelper.html#_button">MeHtmlHelper::button()</a></code></code><br>to get the button<br>
+						<code><code><a href="class-DropdownHelper.html#_button">DropdownHelper::button()</a></code></code> <br>
 				</div>
 
 
@@ -682,7 +683,7 @@ Examples<br>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_css">#</a>
-		<code><a href="source-class-MeHtmlHelper.html#200-236" title="Go to source code">css</a>( <span>mixed <var>$path</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-MeHtmlHelper.html#180-200" title="Go to source code">css</a>( <span>mixed <var>$path</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
@@ -695,7 +696,7 @@ Examples<br>
 <p>Adds a css file to the layout.</p>
 
 <p>If it's used in the layout, you should set the <code>inline</code> option to
-<code>TRUE</code></p>
+<code>TRUE</code>.</p>
 
 
 
@@ -704,15 +705,23 @@ Examples<br>
 					<dt><var>$path</var></dt>
 					<dd><code>mixed</code><br>$path Css filename or an array of css filenames</dd>
 					<dt><var>$options</var></dt>
-					<dd><code>array</code><br>$options HTML attributes</dd>
+					<dd><code>array</code><br>$options Array of options and HTML attributes</dd>
 				</dl></div>
 
 				<h4>Returns</h4>
 				<div class="list">
-					<code>string</code><br>Html, <code>link</code> or <code>style</code> tag<br>
+					<code>string</code><br>Html, <code>&lt;link&gt;</code> or <code>&gt;style&gt;</code> tag<br>
 				</div>
 
 
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-MeHtmlHelper.html#__addOptionDefault">MeHtmlHelper::_addOptionDefault()</a></code></code> <br>
+				</div>
+				<h4>Used by</h4>
+				<div class="list">
+						<code><code><a href="class-LibraryHelper.html#__datetimepicker">LibraryHelper::_datetimepicker()</a></code></code> <br>
+				</div>
 
 
 		</div>
@@ -729,7 +738,7 @@ Examples<br>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_cssEnd">#</a>
-		<code><a href="source-class-MeHtmlHelper.html#238-246" title="Go to source code">cssEnd</a>( )</code>
+		<code><a href="source-class-MeHtmlHelper.html#202-210" title="Go to source code">cssEnd</a>( )</code>
 
 		<div class="description short">
 			
@@ -768,7 +777,7 @@ Examples<br>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_cssStart">#</a>
-		<code><a href="source-class-MeHtmlHelper.html#248-256" title="Go to source code">cssStart</a>( )</code>
+		<code><a href="source-class-MeHtmlHelper.html#212-220" title="Go to source code">cssStart</a>( )</code>
 
 		<div class="description short">
 			
@@ -796,142 +805,6 @@ Examples<br>
 		</div>
 		</div></td>
 	</tr>
-	<tr data-order="dropdown" id="_dropdown">
-
-		<td class="attributes"><code>
-			 public 
-			string
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_dropdown">#</a>
-		<code><a href="source-class-MeHtmlHelper.html#258-292" title="Go to source code">dropdown</a>( <span>array <var>$links</var> = <span class="php-keyword1">array</span>()</span>, <span>array <var>$ulOptions</var> = <span class="php-keyword1">array</span>()</span>, <span>array <var>$itemOptions</var> = <span class="php-keyword1">array</span>()</span> )</code>
-
-		<div class="description short">
-			
-<p>Creates a dropdown, according to the Bootstrap component. For example:</p>
-
-<pre>
-&lt;div <span class="php-keyword1">class</span>=<span
-class="php-quote">&quot;dropdown&quot;</span>&gt;
-   <span
-class="xlang">&lt;?php</span>
-      <span class="php-keyword1">echo</span> <span
-class="php-var">$this</span>-&gt;Html-&gt;buttonDropdown(<span
-class="php-quote">'Open the dropdown'</span>, <span
-class="php-keyword1">array</span>(<span
-class="php-quote">'icon'</span> =&gt; <span
-class="php-quote">'fa-bell'</span>));
-      <span
-class="php-keyword1">echo</span> <span
-class="php-var">$this</span>-&gt;Html-&gt;dropdown(<span
-class="php-keyword1">array</span>(
-         <span
-class="php-var">$this</span>-&gt;Html-&gt;<span
-class="php-keyword2">link</span>(<span class="php-quote">'Github'</span>, <span
-class="php-quote">'http://github.com'</span>, <span
-class="php-keyword1">array</span>(<span
-class="php-quote">'icon'</span> =&gt; <span
-class="php-quote">'fa-github'</span>)),
-         <span
-class="php-quote">'divider'</span>,
-         <span
-class="php-var">$this</span>-&gt;Html-&gt;<span
-class="php-keyword2">link</span>(<span
-class="php-quote">'Stack Overflow'</span>, <span
-class="php-quote">'http://stackoverflow.com'</span>, <span
-class="php-keyword1">array</span>(<span
-class="php-quote">'icon'</span> =&gt; <span
-class="php-quote">'fa-stack-overflow'</span>))
-      ));
-   <span
-class="xlang">?&gt;</span>
-&lt;/div&gt;
-</pre>
-
-		</div>
-
-		<div class="description detailed hidden">
-			
-<p>Creates a dropdown, according to the Bootstrap component. For example:</p>
-
-<pre>
-&lt;div <span class="php-keyword1">class</span>=<span
-class="php-quote">&quot;dropdown&quot;</span>&gt;
-   <span
-class="xlang">&lt;?php</span>
-      <span class="php-keyword1">echo</span> <span
-class="php-var">$this</span>-&gt;Html-&gt;buttonDropdown(<span
-class="php-quote">'Open the dropdown'</span>, <span
-class="php-keyword1">array</span>(<span
-class="php-quote">'icon'</span> =&gt; <span
-class="php-quote">'fa-bell'</span>));
-      <span
-class="php-keyword1">echo</span> <span
-class="php-var">$this</span>-&gt;Html-&gt;dropdown(<span
-class="php-keyword1">array</span>(
-         <span
-class="php-var">$this</span>-&gt;Html-&gt;<span
-class="php-keyword2">link</span>(<span class="php-quote">'Github'</span>, <span
-class="php-quote">'http://github.com'</span>, <span
-class="php-keyword1">array</span>(<span
-class="php-quote">'icon'</span> =&gt; <span
-class="php-quote">'fa-github'</span>)),
-         <span
-class="php-quote">'divider'</span>,
-         <span
-class="php-var">$this</span>-&gt;Html-&gt;<span
-class="php-keyword2">link</span>(<span
-class="php-quote">'Stack Overflow'</span>, <span
-class="php-quote">'http://stackoverflow.com'</span>, <span
-class="php-keyword1">array</span>(<span
-class="php-quote">'icon'</span> =&gt; <span
-class="php-quote">'fa-stack-overflow'</span>))
-      ));
-   <span
-class="xlang">?&gt;</span>
-&lt;/div&gt;
-</pre>
-
-
-
-				<h4>Parameters</h4>
-				<div class="list"><dl>
-					<dt><var>$links</var></dt>
-					<dd><code>array</code><br>$links Array of links for the dropdown (you should use the <code>link()</code>
-method for each link) or "divider" to create a divider</dd>
-					<dt><var>$ulOptions</var></dt>
-					<dd><code>array</code><br>$ulOptions Options for the dropdown</dd>
-					<dt><var>$itemOptions</var></dt>
-					<dd><code>array</code><br>$itemOptions Options for each item (<code>li</code>) of the dropdown</dd>
-				</dl></div>
-
-				<h4>Returns</h4>
-				<div class="list">
-					<code>string</code><br>Html, dropdown menu<br>
-				</div>
-
-
-				<h4>See</h4>
-				<div class="list">
-						<a
-href="http://getbootstrap.com/components/#dropdowns">http://getbootstrap.com/components/#dropdowns</a>
-Bootstrap documentation<br>
-						<a
-href="http://repository.novatlantis.it/metools-sandbox/html/dropdown">http://repository.novatlantis.it/metools-sandbox/html/dropdown</a>
-Examples<br>
-				</div>
-				<h4>Uses</h4>
-				<div class="list">
-						<code><code><a href="class-MeHtmlHelper.html#_ul">MeHtmlHelper::ul()</a></code></code><br>to create the ul element<br>
-				</div>
-
-
-		</div>
-		</div></td>
-	</tr>
 	<tr data-order="getCrumbs" id="_getCrumbs">
 
 		<td class="attributes"><code>
@@ -943,17 +816,17 @@ Examples<br>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getCrumbs">#</a>
-		<code><a href="source-class-MeHtmlHelper.html#294-311" title="Go to source code">getCrumbs</a>( <span>string <var>$separator</var> = <span class="php-quote">'/'</span></span>, <span>string|array|boolean <var>$startText</var> = <span class="php-keyword1">FALSE</span></span> )</code>
+		<code><a href="source-class-MeHtmlHelper.html#222-240" title="Go to source code">getCrumbs</a>( <span>string <var>$separator</var> = <span class="php-quote">'/'</span></span>, <span>string|array|boolean <var>$startText</var> = <span class="php-keyword1">FALSE</span></span> )</code>
 
 		<div class="description short">
 			
-<p>Returns the breadcrumb as links sequence.</p>
+<p>Returns the breadcrumb as a links sequence.</p>
 
 		</div>
 
 		<div class="description detailed hidden">
 			
-<p>Returns the breadcrumb as links sequence.</p>
+<p>Returns the breadcrumb as a links sequence.</p>
 
 <p>Note that it's better to use the <code>getCrumbList()</code> method, which
 offers better compatibility with Bootstrap.</p>
@@ -971,16 +844,18 @@ offers better compatibility with Bootstrap.</p>
 
 				<h4>Returns</h4>
 				<div class="list">
-					<code>string</code><br>Html, breadcrumb<br>
+					<code>string</code><br>Html code<br>
 				</div>
 
 
 				<h4>See</h4>
 				<div class="list">
 						<code><code><a href="class-MeHtmlHelper.html#_getCrumbList">MeHtmlHelper::getCrumbList()</a></code></code><br>
-						<a
-href="http://repository.novatlantis.it/metools-sandbox/html/breadcrumb">http://repository.novatlantis.it/metools-sandbox/html/breadcrumb</a>
-Examples<br>
+				</div>
+				<h4>Uses</h4>
+				<div class="list">
+						div()<br>
+						span()<br>
 				</div>
 
 
@@ -998,7 +873,7 @@ Examples<br>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getCrumbList">#</a>
-		<code><a href="source-class-MeHtmlHelper.html#313-334" title="Go to source code">getCrumbList</a>( <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span>, <span>string|array|boolean <var>$startText</var> = <span class="php-keyword1">FALSE</span></span> )</code>
+		<code><a href="source-class-MeHtmlHelper.html#242-263" title="Go to source code">getCrumbList</a>( <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span>, <span>string|array|boolean <var>$startText</var> = <span class="php-keyword1">FALSE</span></span> )</code>
 
 		<div class="description short">
 			
@@ -1020,23 +895,21 @@ of these two options.</p>
 				<h4>Parameters</h4>
 				<div class="list"><dl>
 					<dt><var>$options</var></dt>
-					<dd><code>array</code><br>$options HTML attributes</dd>
+					<dd><code>array</code><br>$options Array of options and HTML attributes</dd>
 					<dt><var>$startText</var></dt>
-					<dd><code>string|array|boolean</code><br>$startText The first crumb. If is an array, accepted keys are "text", "url" and
-"icon"</dd>
+					<dd><code>string|array|boolean</code><br>$startText The first crumb. If is an array, accepted keys are <code>text</code>,
+<code>url</code> and <code>icon</code></dd>
 				</dl></div>
 
 				<h4>Returns</h4>
 				<div class="list">
-					<code>string</code><br>Html, breadcrumb<br>
+					<code>string</code><br>Html code<br>
 				</div>
 
 
-				<h4>See</h4>
+				<h4>Uses</h4>
 				<div class="list">
-						<a
-href="http://repository.novatlantis.it/metools-sandbox/html/breadcrumb">http://repository.novatlantis.it/metools-sandbox/html/breadcrumb</a>
-Examples<br>
+						<code><code><a href="class-MeHtmlHelper.html#__addOptionValue">MeHtmlHelper::_addOptionValue()</a></code></code> <br>
 				</div>
 
 
@@ -1054,7 +927,7 @@ Examples<br>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_heading">#</a>
-		<code><a href="source-class-MeHtmlHelper.html#336-358" title="Go to source code">heading</a>( <span>string <var>$text</var> = <span class="php-keyword1">NULL</span></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-MeHtmlHelper.html#265-288" title="Go to source code">heading</a>( <span>string <var>$text</var> = <span class="php-keyword1">NULL</span></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
@@ -1066,11 +939,12 @@ Examples<br>
 			
 <p>Creates an heading.</p>
 
-<p>This method is useful if you want to create an heading with a secondary text.
-In this case you have to use the option "small".</p>
+<p>This method is useful if you want to create an heading with a secondary text,
+according to Bootstrap. In this case you have to use the <code>small</code>
+option.</p>
 
-<p>By default, this method creates an h2 tag. To create a different tag, you
-have to use the "type" option.</p>
+<p>By default, this method creates an <code>&lt;h2&gt;</code> tag. To create a
+different tag, you have to use the <code>type</code> option.</p>
 
 
 
@@ -1079,15 +953,26 @@ have to use the "type" option.</p>
 					<dt><var>$text</var></dt>
 					<dd><code>string</code><br>$text heading content</dd>
 					<dt><var>$options</var></dt>
-					<dd><code>array</code><br>$options HTML attributes</dd>
+					<dd><code>array</code><br>$options Array of options and HTML attributes</dd>
 				</dl></div>
 
 				<h4>Returns</h4>
 				<div class="list">
-					<code>string</code><br>Html, heading tag<br>
+					<code>string</code><br>Html code<br>
 				</div>
 
 
+				<h4>See</h4>
+				<div class="list">
+						<a
+href="http://getbootstrap.com/css/#type-headings">http://getbootstrap.com/css/#type-headings</a>
+Bootstrap documentation<br>
+				</div>
+				<h4>Uses</h4>
+				<div class="list">
+						small()<br>
+						<code><code><a href="class-MeHtmlHelper.html#_tag">MeHtmlHelper::tag()</a></code></code> <br>
+				</div>
 
 
 		</div>
@@ -1097,24 +982,24 @@ have to use the "type" option.</p>
 
 		<td class="attributes"><code>
 			 public 
-			string
+			
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_hr">#</a>
-		<code><a href="source-class-MeHtmlHelper.html#360-367" title="Go to source code">hr</a>( <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-MeHtmlHelper.html#290-298" title="Go to source code">hr</a>( <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
-<p>Creates an "hr" (horizontal rule) tag.</p>
+<p>Creates an horizontal rule (<code>&lt;hr&gt;</code> tag).</p>
 
 		</div>
 
 		<div class="description detailed hidden">
 			
-<p>Creates an "hr" (horizontal rule) tag.</p>
+<p>Creates an horizontal rule (<code>&lt;hr&gt;</code> tag).</p>
 
 
 
@@ -1124,12 +1009,12 @@ have to use the "type" option.</p>
 					<dd><code>array</code><br>$options HTML attributes</dd>
 				</dl></div>
 
-				<h4>Returns</h4>
+
+
+				<h4>Uses</h4>
 				<div class="list">
-					<code>string</code><br>Html, hr element<br>
+						<code><code><a href="class-MeHtmlHelper.html#_tag">MeHtmlHelper::tag()</a></code></code> <br>
 				</div>
-
-
 
 
 		</div>
@@ -1139,77 +1024,37 @@ have to use the "type" option.</p>
 
 		<td class="attributes"><code>
 			 public 
-			string
+			
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_icon">#</a>
-		<code><a href="source-class-MeHtmlHelper.html#369-390" title="Go to source code">icon</a>( <span>mixed <var>$icons</var> = <span class="php-keyword1">NULL</span></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-MeHtmlHelper.html#300-306" title="Go to source code">icon</a>( )</code>
 
 		<div class="description short">
 			
-<p>Returns icons. Examples:</p>
-
-<pre>
-<span class="php-keyword1">echo</span> <span
-class="php-var">$this</span>-&gt;Html-&gt;icon(<span
-class="php-quote">'home'</span>);
-</pre>
-
-<pre>
-<span class="php-keyword1">echo</span> <span
-class="php-var">$this</span>-&gt;Html-&gt;icon(<span
-class="php-keyword1">array</span>(<span
-class="php-quote">'hand-o-right'</span>, <span
-class="php-quote">'2x'</span>));
-</pre>
+<p>Alias for <code>icons()</code> method</p>
 
 		</div>
 
 		<div class="description detailed hidden">
 			
-<p>Returns icons. Examples:</p>
-
-<pre>
-<span class="php-keyword1">echo</span> <span
-class="php-var">$this</span>-&gt;Html-&gt;icon(<span
-class="php-quote">'home'</span>);
-</pre>
-
-<pre>
-<span class="php-keyword1">echo</span> <span
-class="php-var">$this</span>-&gt;Html-&gt;icon(<span
-class="php-keyword1">array</span>(<span
-class="php-quote">'hand-o-right'</span>, <span
-class="php-quote">'2x'</span>));
-</pre>
+<p>Alias for <code>icons()</code> method</p>
 
 
 
-				<h4>Parameters</h4>
-				<div class="list"><dl>
-					<dt><var>$icons</var></dt>
-					<dd><code>mixed</code><br>$icons Icons as string or array</dd>
-					<dt><var>$options</var></dt>
-					<dd><code>array</code><br>$options HTML attributes</dd>
-				</dl></div>
 
-				<h4>Returns</h4>
-				<div class="list">
-					<code>string</code><br>Html, icons<br>
-				</div>
 
 
 				<h4>See</h4>
 				<div class="list">
-						<a
-href="http://fortawesome.github.io/Font-Awesome">http://fortawesome.github.io/Font-Awesome</a>
-Font Awesome icons<br>
-						<a
-href="http://repository.novatlantis.it/metools-sandbox/html/icons">http://repository.novatlantis.it/metools-sandbox/html/icons</a>
-Examples<br>
+						<code><code><a href="class-MeHtmlHelper.html#_icons">MeHtmlHelper::icons()</a></code></code><br>
+				</div>
+				<h4>Used by</h4>
+				<div class="list">
+						<code><code><a href="class-DropdownHelper.html#__parseLink">DropdownHelper::_parseLink()</a></code></code> <br>
 				</div>
 
 
@@ -1220,33 +1065,83 @@ Examples<br>
 
 		<td class="attributes"><code>
 			 public 
-			
+			string
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_icons">#</a>
-		<code><a href="source-class-MeHtmlHelper.html#392-398" title="Go to source code">icons</a>( )</code>
+		<code><a href="source-class-MeHtmlHelper.html#308-330" title="Go to source code">icons</a>( <span>string|array <var>$icons</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
-<p>Alias for <code>icon()</code> method</p>
+<p>Returns icons. Examples:</p>
+
+<pre>
+<span class="php-keyword1">echo</span> <span
+class="php-var">$this</span>-&gt;Html-&gt;icons(<span
+class="php-quote">'home'</span>);
+</pre>
+
+<pre>
+<span class="php-keyword1">echo</span> <span
+class="php-var">$this</span>-&gt;Html-&gt;icons(<span
+class="php-keyword1">array</span>(<span
+class="php-quote">'hand-o-right'</span>, <span
+class="php-quote">'2x'</span>));
+</pre>
 
 		</div>
 
 		<div class="description detailed hidden">
 			
-<p>Alias for <code>icon()</code> method</p>
+<p>Returns icons. Examples:</p>
+
+<pre>
+<span class="php-keyword1">echo</span> <span
+class="php-var">$this</span>-&gt;Html-&gt;icons(<span
+class="php-quote">'home'</span>);
+</pre>
+
+<pre>
+<span class="php-keyword1">echo</span> <span
+class="php-var">$this</span>-&gt;Html-&gt;icons(<span
+class="php-keyword1">array</span>(<span
+class="php-quote">'hand-o-right'</span>, <span
+class="php-quote">'2x'</span>));
+</pre>
 
 
 
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$icons</var></dt>
+					<dd><code>string|array</code><br>$icons Icons</dd>
+					<dt><var>$options</var></dt>
+					<dd><code>array</code><br>$options Array of options and HTML attributes</dd>
+				</dl></div>
 
+				<h4>Returns</h4>
+				<div class="list">
+					<code>string</code><br>Html code<br>
+				</div>
 
 
 				<h4>See</h4>
 				<div class="list">
-						<code><code><a href="class-MeHtmlHelper.html#_icon">MeHtmlHelper::icon()</a></code></code><br>
+						<a
+href="http://fortawesome.github.io/Font-Awesome">http://fortawesome.github.io/Font-Awesome</a>
+Font Awesome icons<br>
+				</div>
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-MeHtmlHelper.html#__addOptionValue">MeHtmlHelper::_addOptionValue()</a></code></code> <br>
+						<code><code><a href="class-MeHtmlHelper.html#_tag">MeHtmlHelper::tag()</a></code></code> <br>
+				</div>
+				<h4>Used by</h4>
+				<div class="list">
+						<code><code><a href="class-MeHtmlHelper.html#__addIcons">MeHtmlHelper::_addIcons()</a></code></code> <br>
 				</div>
 
 
@@ -1264,17 +1159,17 @@ Examples<br>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_image">#</a>
-		<code><a href="source-class-MeHtmlHelper.html#400-411" title="Go to source code">image</a>( <span>string <var>$path</var></span>, <span>mixed <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-MeHtmlHelper.html#332-343" title="Go to source code">image</a>( <span>string <var>$path</var></span>, <span>mixed <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
-<p>Creates an IMG element.</p>
+<p>Creates an <code>&lt;img&gt;</code> element.</p>
 
 		</div>
 
 		<div class="description detailed hidden">
 			
-<p>Creates an IMG element.</p>
+<p>Creates an <code>&lt;img&gt;</code> element.</p>
 
 
 
@@ -1283,24 +1178,22 @@ Examples<br>
 					<dt><var>$path</var></dt>
 					<dd><code>string</code><br>$path Image path (will be relative to <code>app/webroot/img/</code>)</dd>
 					<dt><var>$options</var></dt>
-					<dd><code>mixed</code><br>$options HTML attributes</dd>
+					<dd><code>mixed</code><br>$options Array of options and HTML attributes</dd>
 				</dl></div>
 
 				<h4>Returns</h4>
 				<div class="list">
-					<code>string</code><br>Html, image<br>
+					<code>string</code><br>Html code<br>
 				</div>
 
 
-				<h4>See</h4>
+				<h4>Uses</h4>
 				<div class="list">
-						<a
-href="http://repository.novatlantis.it/metools-sandbox/html/images">http://repository.novatlantis.it/metools-sandbox/html/images</a>
-Examples<br>
+						<code><code><a href="class-MeHtmlHelper.html#__addOptionValue">MeHtmlHelper::_addOptionValue()</a></code></code> <br>
 				</div>
 				<h4>Used by</h4>
 				<div class="list">
-						<code><code><a href="class-MeHtmlHelper.html#_thumb">MeHtmlHelper::thumb()</a></code></code><br>to display the thumbnail<br>
+						<code><code><a href="class-MeHtmlHelper.html#_thumb">MeHtmlHelper::thumb()</a></code></code><br>to<br>
 				</div>
 
 
@@ -1318,17 +1211,17 @@ Examples<br>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_img">#</a>
-		<code><a href="source-class-MeHtmlHelper.html#413-419" title="Go to source code">img</a>( )</code>
+		<code><a href="source-class-MeHtmlHelper.html#345-351" title="Go to source code">img</a>( )</code>
 
 		<div class="description short">
 			
-<p>Alias for <code>image()</code> method</p>
+<p>Alias for <code>image()</code> method.</p>
 
 		</div>
 
 		<div class="description detailed hidden">
 			
-<p>Alias for <code>image()</code> method</p>
+<p>Alias for <code>image()</code> method.</p>
 
 
 
@@ -1355,7 +1248,7 @@ Examples<br>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_js">#</a>
-		<code><a href="source-class-MeHtmlHelper.html#421-427" title="Go to source code">js</a>( )</code>
+		<code><a href="source-class-MeHtmlHelper.html#353-359" title="Go to source code">js</a>( )</code>
 
 		<div class="description short">
 			
@@ -1376,6 +1269,12 @@ Examples<br>
 				<div class="list">
 						<code><code><a href="class-MeHtmlHelper.html#_script">MeHtmlHelper::script()</a></code></code><br>
 				</div>
+				<h4>Used by</h4>
+				<div class="list">
+						<code><code><a href="class-LibraryHelper.html#__datetimepicker">LibraryHelper::_datetimepicker()</a></code></code> <br>
+						<code><code><a href="class-LibraryHelper.html#_ckeditor">LibraryHelper::ckeditor()</a></code></code> <br>
+						<code><code><a href="class-LibraryHelper.html#_slugify">LibraryHelper::slugify()</a></code></code> <br>
+				</div>
 
 
 		</div>
@@ -1392,7 +1291,7 @@ Examples<br>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_label">#</a>
-		<code><a href="source-class-MeHtmlHelper.html#429-449" title="Go to source code">label</a>( <span>string <var>$text</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span>, <span>string <var>$type</var> = <span class="php-quote">'default'</span></span> )</code>
+		<code><a href="source-class-MeHtmlHelper.html#361-380" title="Go to source code">label</a>( <span>string <var>$text</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span>, <span>string <var>$type</var> = <span class="php-quote">'default'</span></span> )</code>
 
 		<div class="description short">
 			
@@ -1405,12 +1304,12 @@ Examples<br>
 <p>Create a label, according to the Bootstrap component.</p>
 
 <p>This method creates only a label element. Not to be confused with the
-<code>label()</code> method of the <code>MeForm</code> helper, which creates a
-label for a form input.</p>
+<code>label()</code> method provided by the <code>MeFormhelper</code>, which
+creates a label for a form input.</p>
 
 <p>Supported type are: <code>default</code>, <code>primary</code>,
 <code>success</code>, <code>info</code>, <code>warning</code> and
-<code>danger</code></p>
+<code>danger</code>.</p>
 
 
 
@@ -1426,7 +1325,7 @@ label for a form input.</p>
 
 				<h4>Returns</h4>
 				<div class="list">
-					<code>string</code><br>Html, label<br>
+					<code>string</code><br>Html code<br>
 				</div>
 
 
@@ -1435,9 +1334,11 @@ label for a form input.</p>
 						<a
 href="http://getbootstrap.com/components/#labels">http://getbootstrap.com/components/#labels</a>
 Bootstrap documentation<br>
-						<a
-href="http://repository.novatlantis.it/metools-sandbox/html/labelbadges">http://repository.novatlantis.it/metools-sandbox/html/labelbadges</a>
-Examples<br>
+				</div>
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-MeHtmlHelper.html#__addOptionValue">MeHtmlHelper::_addOptionValue()</a></code></code> <br>
+						span()<br>
 				</div>
 
 
@@ -1455,42 +1356,41 @@ Examples<br>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_li">#</a>
-		<code><a href="source-class-MeHtmlHelper.html#451-486" title="Go to source code">li</a>( <span>array <var>$elements</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-MeHtmlHelper.html#382-398" title="Go to source code">li</a>( <span>array <var>$elements</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
-<p>Returns element list (<code>li</code>) out of an array.</p>
+<p>Returns an elements list (<code>&lt;li&gt;</code>).</p>
 
 		</div>
 
 		<div class="description detailed hidden">
 			
-<p>Returns element list (<code>li</code>) out of an array.</p>
-
-<p>If the element is an array, then the firse value is the element and the
-second value are options.</p>
+<p>Returns an elements list (<code>&lt;li&gt;</code>).</p>
 
 
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
 					<dt><var>$elements</var></dt>
-					<dd><code>array</code><br>$elements Element list</dd>
+					<dd><code>array</code><br>$elements Elements list</dd>
 					<dt><var>$options</var></dt>
 					<dd><code>array</code><br>$options HTML attributes of the list tag</dd>
 				</dl></div>
 
 				<h4>Returns</h4>
 				<div class="list">
-					<code>string</code><br>Html, element list<br>
+					<code>string</code><br>Html code<br>
 				</div>
 
 
-				<h4>See</h4>
+				<h4>Uses</h4>
 				<div class="list">
-						<a
-href="http://repository.novatlantis.it/metools-sandbox/html/lists">http://repository.novatlantis.it/metools-sandbox/html/lists</a>
-Examples<br>
+						<code><code><a href="class-MeHtmlHelper.html#_tag">MeHtmlHelper::tag()</a></code></code> <br>
+				</div>
+				<h4>Used by</h4>
+				<div class="list">
+						<code><code><a href="class-MePaginatorHelper.html#_counterLink">MePaginatorHelper::counterLink()</a></code></code> <br>
 				</div>
 
 
@@ -1508,53 +1408,49 @@ Examples<br>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_link">#</a>
-		<code><a href="source-class-MeHtmlHelper.html#488-513" title="Go to source code">link</a>( <span>string <var>$title</var></span>, <span>mixed <var>$url</var> = <span class="php-quote">'#'</span></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span>, <span>string <var>$confirmMessage</var> = <span class="php-keyword1">FALSE</span></span> )</code>
+		<code><a href="source-class-MeHtmlHelper.html#400-419" title="Go to source code">link</a>( <span>string <var>$title</var></span>, <span>string|array <var>$url</var> = <span class="php-quote">'#'</span></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span>, <span>string <var>$confirmMessage</var> = <span class="php-keyword1">FALSE</span></span> )</code>
 
 		<div class="description short">
 			
-<p>Creates a link.</p>
+<p>Creates an HTML link.</p>
 
 		</div>
 
 		<div class="description detailed hidden">
 			
-<p>Creates a link.</p>
-
-<p>Note: this method creates a normal link. To create a POST link, you should
-use the <code>postLink()</code> method of the <code>MeForm</code> helper.</p>
+<p>Creates an HTML link.</p>
 
 
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
 					<dt><var>$title</var></dt>
-					<dd><code>string</code><br>$title Link title</dd>
+					<dd><code>string</code><br>$title The content to be wrapped by &lt;a&gt; tags</dd>
 					<dt><var>$url</var></dt>
-					<dd><code>mixed</code><br>$url Cake-relative URL, array of URL parameters or external URL (starts with
-http://)</dd>
+					<dd><code>string|array</code><br>$url Cake-relative URL or array of URL parameters or external URL</dd>
 					<dt><var>$options</var></dt>
-					<dd><code>array</code><br>$options HTML attributes</dd>
+					<dd><code>array</code><br>$options Array of options and HTML attributes</dd>
 					<dt><var>$confirmMessage</var></dt>
 					<dd><code>string</code><br>$confirmMessage JavaScript confirmation message</dd>
 				</dl></div>
 
 				<h4>Returns</h4>
 				<div class="list">
-					<code>string</code><br>Html, link<br>
+					<code>string</code><br>Html code<br>
 				</div>
 
 
-				<h4>See</h4>
+				<h4>Uses</h4>
 				<div class="list">
-						<a
-href="http://repository.novatlantis.it/metools-sandbox/html/buttonslinks">http://repository.novatlantis.it/metools-sandbox/html/buttonslinks</a>
-Examples<br>
+						<code><code><a href="class-MeHtmlHelper.html#__addIcons">MeHtmlHelper::_addIcons()</a></code></code> <br>
+						<code><code><a href="class-MeHtmlHelper.html#__addOptionDefault">MeHtmlHelper::_addOptionDefault()</a></code></code> <br>
 				</div>
 				<h4>Used by</h4>
 				<div class="list">
+						<code><code><a href="class-DropdownHelper.html#_link">DropdownHelper::link()</a></code></code> <br>
 						<code><code><a href="class-MeHtmlHelper.html#_button">MeHtmlHelper::button()</a></code></code> <br>
-						<code><code><a href="class-MeHtmlHelper.html#_linkDropdown">MeHtmlHelper::linkDropdown()</a></code></code><br>to get the link<br>
-						<code><code><a href="class-RecaptchaHelper.html#_mailLink">RecaptchaHelper::mailLink()</a></code></code><br>to create the link<br>
+						<code><code><a href="class-MePaginatorHelper.html#_counterLink">MePaginatorHelper::counterLink()</a></code></code> <br>
+						<code><code><a href="class-RecaptchaHelper.html#_mailLink">RecaptchaHelper::mailLink()</a></code></code> <br>
 				</div>
 
 
@@ -1572,7 +1468,7 @@ Examples<br>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_linkButton">#</a>
-		<code><a href="source-class-MeHtmlHelper.html#515-521" title="Go to source code">linkButton</a>( )</code>
+		<code><a href="source-class-MeHtmlHelper.html#421-427" title="Go to source code">linkButton</a>( )</code>
 
 		<div class="description short">
 			
@@ -1598,70 +1494,6 @@ Examples<br>
 		</div>
 		</div></td>
 	</tr>
-	<tr data-order="linkDropdown" id="_linkDropdown">
-
-		<td class="attributes"><code>
-			 public 
-			string
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_linkDropdown">#</a>
-		<code><a href="source-class-MeHtmlHelper.html#523-546" title="Go to source code">linkDropdown</a>( <span>string <var>$title</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
-
-		<div class="description short">
-			
-<p>Creates a link to open a dropdown menu, according to the Bootstrap
-component.</p>
-
-		</div>
-
-		<div class="description detailed hidden">
-			
-<p>Creates a link to open a dropdown menu, according to the Bootstrap
-component.</p>
-
-<p>Note that this method creates only a link. To create a dropdown menu, you
-should use the <code>dropdown()</code> method.</p>
-
-
-
-				<h4>Parameters</h4>
-				<div class="list"><dl>
-					<dt><var>$title</var></dt>
-					<dd><code>string</code><br>$title Link title</dd>
-					<dt><var>$options</var></dt>
-					<dd><code>array</code><br>$options HTML attributes</dd>
-				</dl></div>
-
-				<h4>Returns</h4>
-				<div class="list">
-					<code>string</code><br>Html, link<br>
-				</div>
-
-
-				<h4>See</h4>
-				<div class="list">
-						<code><code><a href="class-MeHtmlHelper.html#_dropdown">MeHtmlHelper::dropdown()</a></code></code><br>
-						<a
-href="http://getbootstrap.com/components/#dropdowns">http://getbootstrap.com/components/#dropdowns</a>
-Bootstrap documentation<br>
-						<a
-href="http://repository.novatlantis.it/metools-sandbox/html/dropdown">http://repository.novatlantis.it/metools-sandbox/html/dropdown</a>
-Examples<br>
-				</div>
-				<h4>Uses</h4>
-				<div class="list">
-						<code><code><a href="class-MeHtmlHelper.html#__parseLinkDropdown">MeHtmlHelper::_parseLinkDropdown()</a></code></code><br>to parse options<br>
-						<code><code><a href="class-MeHtmlHelper.html#_link">MeHtmlHelper::link()</a></code></code><br>to get the link<br>
-				</div>
-
-
-		</div>
-		</div></td>
-	</tr>
 	<tr data-order="media" id="_media">
 
 		<td class="attributes"><code>
@@ -1673,36 +1505,42 @@ Examples<br>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_media">#</a>
-		<code><a href="source-class-MeHtmlHelper.html#548-559" title="Go to source code">media</a>( <span>string|array <var>$path</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-MeHtmlHelper.html#429-441" title="Go to source code">media</a>( <span>string|array <var>$path</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
-<p>Returns an audio/video element</p>
+<p>Returns an <code>&lt;audio&gt;</code> or <code>&lt;video&gt;</code>
+element.</p>
 
 		</div>
 
 		<div class="description detailed hidden">
 			
-<p>Returns an audio/video element</p>
+<p>Returns an <code>&lt;audio&gt;</code> or <code>&lt;video&gt;</code>
+element.</p>
 
 
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
 					<dt><var>$path</var></dt>
-					<dd><code>string|array</code><br>$path File path, relative to the <code>webroot/{$options['pathPrefix']}</code>
-directory or an array where each item itself can be a path string or an array
-containing <code>src</code> and <code>type</code> keys.</dd>
+					<dd><code>string|array</code><br>$path File path, relative to the <code>webroot/files/</code> directory or an
+array where each item itself can be a path string or an array containing
+<code>src</code> and <code>type</code> keys.</dd>
 					<dt><var>$options</var></dt>
-					<dd><code>array</code><br>$options Array of HTML attributes</dd>
+					<dd><code>array</code><br>$options Array of options and HTML attributes</dd>
 				</dl></div>
 
 				<h4>Returns</h4>
 				<div class="list">
-					<code>string</code><br>Html, audio or video tag<br>
+					<code>string</code><br>Html code<br>
 				</div>
 
 
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-MeHtmlHelper.html#__addOptionDefault">MeHtmlHelper::_addOptionDefault()</a></code></code> <br>
+				</div>
 				<h4>Used by</h4>
 				<div class="list">
 						<code><code><a href="class-MeHtmlHelper.html#_audio">MeHtmlHelper::audio()</a></code></code> <br>
@@ -1724,20 +1562,20 @@ containing <code>src</code> and <code>type</code> keys.</dd>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_meta">#</a>
-		<code><a href="source-class-MeHtmlHelper.html#561-576" title="Go to source code">meta</a>( <span>string <var>$type</var></span>, <span>mixed <var>$url</var> = <span class="php-keyword1">NULL</span></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-MeHtmlHelper.html#443-458" title="Go to source code">meta</a>( <span>string <var>$type</var></span>, <span>mixed <var>$url</var> = <span class="php-keyword1">NULL</span></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
-<p>Creates a meta tag.</p>
+<p>Creates a <code>&lt;meta&gt;</code> tag.</p>
 
 		</div>
 
 		<div class="description detailed hidden">
 			
-<p>Creates a meta tag.</p>
+<p>Creates a <code>&lt;meta&gt;</code> tag.</p>
 
-<p>For a custom meta tag, the first parameter should be set to an array. For
-example:
+<p>For a custom <code>&lt;meta&gt;</code> tag, the first parameter should be set
+to an array. For example:
 <code>&lt;span class="php-keyword1"&gt;echo&lt;/span&gt; &lt;span class="php-var"&gt;$this&lt;/span&gt;-&gt;Html-&gt;meta(&lt;span class="php-keyword1"&gt;array&lt;/span&gt;(&lt;span class="php-quote"&gt;'name'&lt;/span&gt; =&gt; &lt;span class="php-quote"&gt;'robots'&lt;/span&gt;, &lt;span class="php-quote"&gt;'content'&lt;/span&gt; =&gt; &lt;span class="php-quote"&gt;'noindex'&lt;/span&gt;));</code></p>
 
 
@@ -1754,15 +1592,13 @@ example:
 
 				<h4>Returns</h4>
 				<div class="list">
-					<code>string</code><br>Html, meta tag<br>
+					<code>string</code><br>Html code<br>
 				</div>
 
 
-				<h4>See</h4>
+				<h4>Uses</h4>
 				<div class="list">
-						<a
-href="http://repository.novatlantis.it/metools-sandbox/html/audiovideo">http://repository.novatlantis.it/metools-sandbox/html/audiovideo</a>
-Examples<br>
+						<code><code><a href="class-MeHtmlHelper.html#__addOptionDefault">MeHtmlHelper::_addOptionDefault()</a></code></code> <br>
 				</div>
 
 
@@ -1780,24 +1616,24 @@ Examples<br>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_nestedList">#</a>
-		<code><a href="source-class-MeHtmlHelper.html#578-597" title="Go to source code">nestedList</a>( <span>array <var>$list</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span>, <span>array <var>$itemOptions</var> = <span class="php-keyword1">array</span>()</span>, <span>string <var>$tag</var> = <span class="php-quote">'ul'</span></span> )</code>
+		<code><a href="source-class-MeHtmlHelper.html#460-487" title="Go to source code">nestedList</a>( <span>array <var>$list</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span>, <span>array <var>$itemOptions</var> = <span class="php-keyword1">array</span>()</span>, <span>string <var>$tag</var> = <span class="php-quote">'ul'</span></span> )</code>
 
 		<div class="description short">
 			
-<p>Returns a list (<code>ol</code>/<code>ul</code>) out of an array.</p>
+<p>Returns a list (<code>&lt;ol&gt;</code> or <code>&lt;ul&gt;</code> tag).</p>
 
 		</div>
 
 		<div class="description detailed hidden">
 			
-<p>Returns a list (<code>ol</code>/<code>ul</code>) out of an array.</p>
+<p>Returns a list (<code>&lt;ol&gt;</code> or <code>&lt;ul&gt;</code> tag).</p>
 
 
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
 					<dt><var>$list</var></dt>
-					<dd><code>array</code><br>$list Element list</dd>
+					<dd><code>array</code><br>$list Elements list</dd>
 					<dt><var>$options</var></dt>
 					<dd><code>array</code><br>$options HTML attributes of the list tag</dd>
 					<dt><var>$itemOptions</var></dt>
@@ -1808,15 +1644,14 @@ Examples<br>
 
 				<h4>Returns</h4>
 				<div class="list">
-					<code>string</code><br>Html, ol/ul list<br>
+					<code>string</code><br>Html code<br>
 				</div>
 
 
-				<h4>See</h4>
+				<h4>Uses</h4>
 				<div class="list">
-						<a
-href="http://repository.novatlantis.it/metools-sandbox/html/lists">http://repository.novatlantis.it/metools-sandbox/html/lists</a>
-Examples<br>
+						<code><code><a href="class-MeHtmlHelper.html#__addIcons">MeHtmlHelper::_addIcons()</a></code></code> <br>
+						<code><code><a href="class-MeHtmlHelper.html#__addOptionValue">MeHtmlHelper::_addOptionValue()</a></code></code> <br>
 				</div>
 				<h4>Used by</h4>
 				<div class="list">
@@ -1839,24 +1674,24 @@ Examples<br>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_ol">#</a>
-		<code><a href="source-class-MeHtmlHelper.html#599-610" title="Go to source code">ol</a>( <span>array <var>$list</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span>, <span>array <var>$itemOptions</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-MeHtmlHelper.html#489-499" title="Go to source code">ol</a>( <span>array <var>$list</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span>, <span>array <var>$itemOptions</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
-<p>Returns an ordered list (<code>ol</code>) out of an array.</p>
+<p>Returns an ordered list (<code>&lt;ol&gt;</code> tag).</p>
 
 		</div>
 
 		<div class="description detailed hidden">
 			
-<p>Returns an ordered list (<code>ol</code>) out of an array.</p>
+<p>Returns an ordered list (<code>&lt;ol&gt;</code> tag).</p>
 
 
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
 					<dt><var>$list</var></dt>
-					<dd><code>array</code><br>$list Element list</dd>
+					<dd><code>array</code><br>$list Elements list</dd>
 					<dt><var>$options</var></dt>
 					<dd><code>array</code><br>$options HTML attributes of the list tag</dd>
 					<dt><var>$itemOptions</var></dt>
@@ -1865,16 +1700,10 @@ Examples<br>
 
 				<h4>Returns</h4>
 				<div class="list">
-					<code>string</code><br>Html, ordered list<br>
+					<code>string</code><br>Html code<br>
 				</div>
 
 
-				<h4>See</h4>
-				<div class="list">
-						<a
-href="http://repository.novatlantis.it/metools-sandbox/html/lists">http://repository.novatlantis.it/metools-sandbox/html/lists</a>
-Examples<br>
-				</div>
 				<h4>Uses</h4>
 				<div class="list">
 						<code><code><a href="class-MeHtmlHelper.html#_nestedList">MeHtmlHelper::nestedList()</a></code></code><br>to create the list<br>
@@ -1895,36 +1724,44 @@ Examples<br>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_para">#</a>
-		<code><a href="source-class-MeHtmlHelper.html#612-624" title="Go to source code">para</a>( <span>type <var>$class</var></span>, <span>string <var>$text</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-MeHtmlHelper.html#501-514" title="Go to source code">para</a>( <span>type <var>$class</var></span>, <span>string <var>$text</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
-<p>Returns a formatted P tag.</p>
+<p>Returns a formatted <code>&lt;p&gt;</code> tag.</p>
 
 		</div>
 
 		<div class="description detailed hidden">
 			
-<p>Returns a formatted P tag.</p>
+<p>Returns a formatted <code>&lt;p&gt;</code> tag.</p>
 
 
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
 					<dt><var>$class</var></dt>
-					<dd><code>type</code><br>$class Class name of the element</dd>
+					<dd><code>type</code><br>$class Class name</dd>
 					<dt><var>$text</var></dt>
 					<dd><code>string</code><br>$text Paragraph text</dd>
 					<dt><var>$options</var></dt>
-					<dd><code>array</code><br>$options HTML attributes</dd>
+					<dd><code>array</code><br>$options Array of options and HTML attributes</dd>
 				</dl></div>
 
 				<h4>Returns</h4>
 				<div class="list">
-					<code>string</code><br>Html, P tag.<br>
+					<code>string</code><br>Html code<br>
 				</div>
 
 
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-MeHtmlHelper.html#__addIcons">MeHtmlHelper::_addIcons()</a></code></code> <br>
+				</div>
+				<h4>Used by</h4>
+				<div class="list">
+						<code><code><a href="class-MeHtmlHelper.html#_tip">MeHtmlHelper::tip()</a></code></code> <br>
+				</div>
 
 
 		</div>
@@ -1941,17 +1778,17 @@ Examples<br>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_pre">#</a>
-		<code><a href="source-class-MeHtmlHelper.html#626-641" title="Go to source code">pre</a>( <span>string <var>$text</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-MeHtmlHelper.html#516-533" title="Go to source code">pre</a>( <span>string <var>$text</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
-<p>Creates a pre tag.</p>
+<p>Returns a <code>&lt;pre&gt;</code> tag.</p>
 
 		</div>
 
 		<div class="description detailed hidden">
 			
-<p>Creates a pre tag.</p>
+<p>Returns a <code>&lt;pre&gt;</code> tag.</p>
 
 <p>For use with SyntaxHighlighter, you can use the <code>brush</code>
 option.</p>
@@ -1963,15 +1800,20 @@ option.</p>
 					<dt><var>$text</var></dt>
 					<dd><code>string</code><br>$text Pre text</dd>
 					<dt><var>$options</var></dt>
-					<dd><code>array</code><br>$options HTML attributes</dd>
+					<dd><code>array</code><br>$options Array of options and HTML attributes</dd>
 				</dl></div>
 
 				<h4>Returns</h4>
 				<div class="list">
-					<code>string</code><br>Html, pre element<br>
+					<code>string</code><br>Html code<br>
 				</div>
 
 
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-MeHtmlHelper.html#__addOptionValue">MeHtmlHelper::_addOptionValue()</a></code></code> <br>
+						<code><code><a href="class-MeHtmlHelper.html#_tag">MeHtmlHelper::tag()</a></code></code> <br>
+				</div>
 
 
 		</div>
@@ -1988,7 +1830,7 @@ option.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_script">#</a>
-		<code><a href="source-class-MeHtmlHelper.html#643-663" title="Go to source code">script</a>( <span>mixed <var>$url</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-MeHtmlHelper.html#535-556" title="Go to source code">script</a>( <span>mixed <var>$url</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
@@ -2001,7 +1843,7 @@ option.</p>
 <p>Adds a js file to the layout.</p>
 
 <p>If it's used in the layout, you should set the <code>inline</code> option to
-<code>TRUE</code></p>
+<code>TRUE</code>.</p>
 
 
 
@@ -2010,16 +1852,20 @@ option.</p>
 					<dt><var>$url</var></dt>
 					<dd><code>mixed</code><br>$url Javascript files as string or array</dd>
 					<dt><var>$options</var></dt>
-					<dd><code>array</code><br>$options HTML attributes</dd>
+					<dd><code>array</code><br>$options Array of options and HTML attributes</dd>
 				</dl></div>
 
 				<h4>Returns</h4>
 				<div class="list">
-					<code>mixed</code><br>String of &lt;script /&gt; tags or NULL if <code>$inline</code> is FALSE or if
-<code>$once</code> is TRUE and the file has been included before<br>
+					<code>mixed</code><br>String of <code>&lt;script /&gt;</code> tags or NULL if <code>$inline</code> is
+FALSE or if <code>$once</code> is TRUE and the file has been included before<br>
 				</div>
 
 
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-MeHtmlHelper.html#__addOptionDefault">MeHtmlHelper::_addOptionDefault()</a></code></code> <br>
+				</div>
 
 
 		</div>
@@ -2029,14 +1875,14 @@ option.</p>
 
 		<td class="attributes"><code>
 			 public 
-			string
+			mixed
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_scriptBlock">#</a>
-		<code><a href="source-class-MeHtmlHelper.html#665-675" title="Go to source code">scriptBlock</a>( <span>string <var>$code</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-MeHtmlHelper.html#558-569" title="Go to source code">scriptBlock</a>( <span>string <var>$code</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
@@ -2055,50 +1901,8 @@ option.</p>
 					<dt><var>$code</var></dt>
 					<dd><code>string</code><br>$code Javascript code</dd>
 					<dt><var>$options</var></dt>
-					<dd><code>array</code><br>$options HTML attributes</dd>
+					<dd><code>array</code><br>$options Array of options and HTML attributes</dd>
 				</dl></div>
-
-				<h4>Returns</h4>
-				<div class="list">
-					<code>string</code><br>Html, javascript code<br>
-				</div>
-
-
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="scriptEnd" id="_scriptEnd">
-
-		<td class="attributes"><code>
-			 public 
-			mixed
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_scriptEnd">#</a>
-		<code><a href="source-class-MeHtmlHelper.html#677-689" title="Go to source code">scriptEnd</a>( )</code>
-
-		<div class="description short">
-			
-<p>Ends capturing output for Javascript code.</p>
-
-		</div>
-
-		<div class="description detailed hidden">
-			
-<p>Ends capturing output for Javascript code.</p>
-
-<p>To start capturing output, see the <code>scriptStart()</code> method.</p>
-
-<p>To capture output with a single method, you can also use the
-<code>scriptBlock()</code> method.</p>
-
-
-
 
 				<h4>Returns</h4>
 				<div class="list">
@@ -2106,10 +1910,13 @@ option.</p>
 				</div>
 
 
-				<h4>See</h4>
+				<h4>Uses</h4>
 				<div class="list">
-						<code><code><a href="class-MeHtmlHelper.html#_scriptBlock">MeHtmlHelper::scriptBlock()</a></code></code><br>
-						<code><code><a href="class-MeHtmlHelper.html#_scriptStart">MeHtmlHelper::scriptStart()</a></code></code><br>
+						<code><code><a href="class-MeHtmlHelper.html#__addOptionDefault">MeHtmlHelper::_addOptionDefault()</a></code></code> <br>
+				</div>
+				<h4>Used by</h4>
+				<div class="list">
+						<code><code><a href="class-LibraryHelper.html#_beforeLayout">LibraryHelper::beforeLayout()</a></code></code> <br>
 				</div>
 
 
@@ -2127,7 +1934,7 @@ option.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_scriptStart">#</a>
-		<code><a href="source-class-MeHtmlHelper.html#691-706" title="Go to source code">scriptStart</a>( <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-MeHtmlHelper.html#571-586" title="Go to source code">scriptStart</a>( <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
@@ -2139,7 +1946,7 @@ option.</p>
 			
 <p>Starts capturing output for Javascript code.</p>
 
-<p>To end capturing output, see the <code>scriptEnd()</code> method.</p>
+<p>To end capturing output, you can use the <code>scriptEnd()</code> method.</p>
 
 <p>To capture output with a single method, you can also use the
 <code>scriptBlock()</code> method.</p>
@@ -2161,7 +1968,10 @@ option.</p>
 				<h4>See</h4>
 				<div class="list">
 						<code><code><a href="class-MeHtmlHelper.html#_scriptBlock">MeHtmlHelper::scriptBlock()</a></code></code><br>
-						<code><code><a href="class-MeHtmlHelper.html#_scriptEnd">MeHtmlHelper::scriptEnd()</a></code></code><br>
+				</div>
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-MeHtmlHelper.html#__addOptionDefault">MeHtmlHelper::_addOptionDefault()</a></code></code> <br>
 				</div>
 
 
@@ -2179,7 +1989,7 @@ option.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_tag">#</a>
-		<code><a href="source-class-MeHtmlHelper.html#708-722" title="Go to source code">tag</a>( <span>string <var>$name</var></span>, <span>string <var>$text</var> = <span class="php-keyword1">NULL</span></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-MeHtmlHelper.html#588-601" title="Go to source code">tag</a>( <span>string <var>$name</var></span>, <span>string <var>$text</var> = <span class="php-keyword1">NULL</span></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
@@ -2196,19 +2006,32 @@ option.</p>
 				<h4>Parameters</h4>
 				<div class="list"><dl>
 					<dt><var>$name</var></dt>
-					<dd><code>string</code><br>$name Tag name.</dd>
+					<dd><code>string</code><br>$name Tag name</dd>
 					<dt><var>$text</var></dt>
 					<dd><code>string</code><br>$text Tag content. If NULL, only a start tag will be printed</dd>
 					<dt><var>$options</var></dt>
-					<dd><code>array</code><br>$options HTML attributes</dd>
+					<dd><code>array</code><br>$options Array of options and HTML attributes</dd>
 				</dl></div>
 
 				<h4>Returns</h4>
 				<div class="list">
-					<code>string</code><br>Html, tag element<br>
+					<code>string</code><br>Html code<br>
 				</div>
 
 
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-MeHtmlHelper.html#__addIcons">MeHtmlHelper::_addIcons()</a></code></code> <br>
+				</div>
+				<h4>Used by</h4>
+				<div class="list">
+						<code><code><a href="class-MeHtmlHelper.html#___call">MeHtmlHelper::__call()</a></code></code> <br>
+						<code><code><a href="class-MeHtmlHelper.html#_heading">MeHtmlHelper::heading()</a></code></code> <br>
+						<code><code><a href="class-MeHtmlHelper.html#_hr">MeHtmlHelper::hr()</a></code></code> <br>
+						<code><code><a href="class-MeHtmlHelper.html#_icons">MeHtmlHelper::icons()</a></code></code> <br>
+						<code><code><a href="class-MeHtmlHelper.html#_li">MeHtmlHelper::li()</a></code></code> <br>
+						<code><code><a href="class-MeHtmlHelper.html#_pre">MeHtmlHelper::pre()</a></code></code> <br>
+				</div>
 
 
 		</div>
@@ -2225,7 +2048,7 @@ option.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_thumb">#</a>
-		<code><a href="source-class-MeHtmlHelper.html#724-745" title="Go to source code">thumb</a>( <span>string <var>$path</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-MeHtmlHelper.html#603-624" title="Go to source code">thumb</a>( <span>string <var>$path</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
@@ -2250,25 +2073,20 @@ option.</p>
 					<dt><var>$path</var></dt>
 					<dd><code>string</code><br>$path Image path (absolute or relative to the webroot)</dd>
 					<dt><var>$options</var></dt>
-					<dd><code>array</code><br>$options HTML attributes</dd>
+					<dd><code>array</code><br>$options Array of options and HTML attributes</dd>
 				</dl></div>
 
 				<h4>Returns</h4>
 				<div class="list">
-					<code>string</code><br>Html, tag element<br>
+					<code>string</code><br>Html code<br>
 				</div>
 
 
-				<h4>See</h4>
-				<div class="list">
-						<a
-href="http://repository.novatlantis.it/metools-sandbox/html/images">http://repository.novatlantis.it/metools-sandbox/html/images</a>
-Examples<br>
-				</div>
 				<h4>Uses</h4>
 				<div class="list">
-						<code><code><a href="class-MeHtmlHelper.html#_thumbUrl">MeHtmlHelper::thumbUrl()</a></code></code><br>to get the url thumbnail<br>
-						<code><code><a href="class-MeHtmlHelper.html#_image">MeHtmlHelper::image()</a></code></code><br>to display the thumbnail<br>
+						<code><code><a href="class-MeHtmlHelper.html#__addOptionValue">MeHtmlHelper::_addOptionValue()</a></code></code> <br>
+						<code><code><a href="class-MeHtmlHelper.html#_thumbUrl">MeHtmlHelper::thumbUrl()</a></code></code> <br>
+						<code><code><a href="class-MeHtmlHelper.html#_image">MeHtmlHelper::image()</a></code></code><br>to<br>
 				</div>
 
 
@@ -2286,7 +2104,7 @@ Examples<br>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_thumbUrl">#</a>
-		<code><a href="source-class-MeHtmlHelper.html#747-774" title="Go to source code">thumbUrl</a>( <span>string <var>$path</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-MeHtmlHelper.html#626-650" title="Go to source code">thumbUrl</a>( <span>string <var>$path</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
@@ -2315,29 +2133,22 @@ thumbnail.</p>
 					<dt><var>$path</var></dt>
 					<dd><code>string</code><br>$path Image path (absolute or relative to the webroot)</dd>
 					<dt><var>$options</var></dt>
-					<dd><code>array</code><br>$options HTML attributes</dd>
+					<dd><code>array</code><br>$options Array of options and HTML attributes</dd>
 				</dl></div>
 
 				<h4>Returns</h4>
 				<div class="list">
-					<code>string</code><br>Html, tag element<br>
+					<code>string</code><br>Url<br>
 				</div>
 
 
 				<h4>See</h4>
 				<div class="list">
 						<code><code><a href="class-MeHtmlHelper.html#_thumb">MeHtmlHelper::thumb()</a></code></code><br>
-						<a
-href="http://repository.novatlantis.it/metools-sandbox/html/images">http://repository.novatlantis.it/metools-sandbox/html/images</a>
-Examples<br>
-				</div>
-				<h4>Uses</h4>
-				<div class="list">
-						url() to generate the thumbnail url<br>
 				</div>
 				<h4>Used by</h4>
 				<div class="list">
-						<code><code><a href="class-MeHtmlHelper.html#_thumb">MeHtmlHelper::thumb()</a></code></code><br>to get the url thumbnail<br>
+						<code><code><a href="class-MeHtmlHelper.html#_thumb">MeHtmlHelper::thumb()</a></code></code> <br>
 				</div>
 
 
@@ -2348,14 +2159,14 @@ Examples<br>
 
 		<td class="attributes"><code>
 			 public 
-			Html,
+			Html
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_tip">#</a>
-		<code><a href="source-class-MeHtmlHelper.html#776-811" title="Go to source code">tip</a>( <span>string|array <var>$text</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-MeHtmlHelper.html#652-687" title="Go to source code">tip</a>( <span>string <var>$text</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
@@ -2368,31 +2179,33 @@ Examples<br>
 <p>Returns a tip block.</p>
 
 <p>By default, the tip block will have a title. To change the title, use the
-"title" option. If the "title" option is an array, you can use "text" and
-"options" keys. If you don't want to have a title, the "title" option should be
-<code>FALSE</code>.</p>
+<code>title</code> option. If the <code>title</code> option is If you don't want
+to have a title, the <code>title</code> option should be <code>FALSE</code>.</p>
 
 
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
 					<dt><var>$text</var></dt>
-					<dd><code>string|array</code><br>$text Tip text, as string or array</dd>
+					<dd><code>string</code><br>$text Tip text</dd>
 					<dt><var>$options</var></dt>
 					<dd><code>array</code><br>$options HTML attributes</dd>
 				</dl></div>
 
 				<h4>Returns</h4>
 				<div class="list">
-					<code>Html,</code><br>tip block<br>
+					<code>Html</code><br>code<br>
 				</div>
 
 
-				<h4>See</h4>
+				<h4>Uses</h4>
 				<div class="list">
-						<a
-href="http://repository.novatlantis.it/metools-sandbox/html/tips">http://repository.novatlantis.it/metools-sandbox/html/tips</a>
-Examples<br>
+						<code><code><a href="class-MeHtmlHelper.html#__addIcons">MeHtmlHelper::_addIcons()</a></code></code> <br>
+						<code><code><a href="class-MeHtmlHelper.html#__addOptionValue">MeHtmlHelper::_addOptionValue()</a></code></code> <br>
+						<code><code><a href="class-MeHtmlHelper.html#__addOptionDefault">MeHtmlHelper::_addOptionDefault()</a></code></code> <br>
+						div()<br>
+						h4()<br>
+						<code><code><a href="class-MeHtmlHelper.html#_para">MeHtmlHelper::para()</a></code></code> <br>
 				</div>
 
 
@@ -2410,24 +2223,24 @@ Examples<br>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_ul">#</a>
-		<code><a href="source-class-MeHtmlHelper.html#813-824" title="Go to source code">ul</a>( <span>array <var>$list</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span>, <span>array <var>$itemOptions</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-MeHtmlHelper.html#689-699" title="Go to source code">ul</a>( <span>array <var>$list</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span>, <span>array <var>$itemOptions</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
-<p>Returns an unordered list (<code>ul</code>) out of an array.</p>
+<p>Returns an unordered list (<code>&lt;ul&gt;</code> tag).</p>
 
 		</div>
 
 		<div class="description detailed hidden">
 			
-<p>Returns an unordered list (<code>ul</code>) out of an array.</p>
+<p>Returns an unordered list (<code>&lt;ul&gt;</code> tag).</p>
 
 
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
 					<dt><var>$list</var></dt>
-					<dd><code>array</code><br>$list Element list</dd>
+					<dd><code>array</code><br>$list Elements list</dd>
 					<dt><var>$options</var></dt>
 					<dd><code>array</code><br>$options HTML attributes of the list tag</dd>
 					<dt><var>$itemOptions</var></dt>
@@ -2436,23 +2249,17 @@ Examples<br>
 
 				<h4>Returns</h4>
 				<div class="list">
-					<code>string</code><br>Html, unordered list<br>
+					<code>string</code><br>Html code<br>
 				</div>
 
 
-				<h4>See</h4>
-				<div class="list">
-						<a
-href="http://repository.novatlantis.it/metools-sandbox/html/lists">http://repository.novatlantis.it/metools-sandbox/html/lists</a>
-Examples<br>
-				</div>
 				<h4>Uses</h4>
 				<div class="list">
 						<code><code><a href="class-MeHtmlHelper.html#_nestedList">MeHtmlHelper::nestedList()</a></code></code><br>to create the list<br>
 				</div>
 				<h4>Used by</h4>
 				<div class="list">
-						<code><code><a href="class-MeHtmlHelper.html#_dropdown">MeHtmlHelper::dropdown()</a></code></code><br>to create the ul element<br>
+						<code><code><a href="class-DropdownHelper.html#_dropdown">DropdownHelper::dropdown()</a></code></code> <br>
 				</div>
 
 
@@ -2470,42 +2277,36 @@ Examples<br>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_video">#</a>
-		<code><a href="source-class-MeHtmlHelper.html#826-837" title="Go to source code">video</a>( <span>string|array <var>$path</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-MeHtmlHelper.html#701-711" title="Go to source code">video</a>( <span>string|array <var>$path</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
-<p>Returns a video element</p>
+<p>Returns a <code>&lt;video&gt;</code> element</p>
 
 		</div>
 
 		<div class="description detailed hidden">
 			
-<p>Returns a video element</p>
+<p>Returns a <code>&lt;video&gt;</code> element</p>
 
 
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
 					<dt><var>$path</var></dt>
-					<dd><code>string|array</code><br>$path File path, relative to the <code>webroot/{$options['pathPrefix']}</code>
-directory or an array where each item itself can be a path string or an array
-containing <code>src</code> and <code>type</code> keys.</dd>
+					<dd><code>string|array</code><br>$path File path, relative to the <code>webroot/files/</code> directory or an
+array where each item itself can be a path string or an array containing
+<code>src</code> and <code>type</code> keys.</dd>
 					<dt><var>$options</var></dt>
-					<dd><code>array</code><br>$options Array of HTML attributes</dd>
+					<dd><code>array</code><br>$options Array of options and HTML attributes</dd>
 				</dl></div>
 
 				<h4>Returns</h4>
 				<div class="list">
-					<code>string</code><br>Html, video tag<br>
+					<code>string</code><br>Html code<br>
 				</div>
 
 
-				<h4>See</h4>
-				<div class="list">
-						<a
-href="http://repository.novatlantis.it/metools-sandbox/html/audiovideo">http://repository.novatlantis.it/metools-sandbox/html/audiovideo</a>
-Examples<br>
-				</div>
 				<h4>Uses</h4>
 				<div class="list">
 						<code><code><a href="class-MeHtmlHelper.html#_media">MeHtmlHelper::media()</a></code></code> <br>

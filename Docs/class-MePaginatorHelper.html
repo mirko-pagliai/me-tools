@@ -7,7 +7,7 @@
 	<title>Class MePaginatorHelper | MeTools</title>
 
 	<script type="text/javascript" src="resources/combined.js?117538352"></script>
-	<script type="text/javascript" src="elementlist.js?2897168095"></script>
+	<script type="text/javascript" src="elementlist.js?3067465168"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360">
 
 </head>
@@ -67,6 +67,7 @@
 		<div id="elements">
 			<h3>Classes</h3>
 			<ul>
+				<li><a href="class-DropdownHelper.html">DropdownHelper</a></li>
 				<li><a href="class-LibraryHelper.html">LibraryHelper</a></li>
 				<li><a href="class-MarkdownHelper.html">MarkdownHelper</a></li>
 				<li><a href="class-MeFormHelper.html">MeFormHelper</a></li>
@@ -177,7 +178,7 @@ PaginatorHelper
 				<b>Author:</b>
 				Mirko Pagliai &lt;<a
 href="mailto:mirko.pagliai&#64;gmail.com">mirko.pagliai&#64;<!-- -->gmail.com</a>&gt;<br>
-		<b>Located at</b> <a href="source-class-MePaginatorHelper.html#31-154" title="Go to source code">MePaginatorHelper.php</a><br>
+		<b>Located at</b> <a href="source-class-MePaginatorHelper.html#30-162" title="Go to source code">MePaginatorHelper.php</a><br>
 	</div>
 
 
@@ -195,7 +196,7 @@ href="mailto:mirko.pagliai&#64;gmail.com">mirko.pagliai&#64;<!-- -->gmail.com</a
 
 		<td class="name"><div>
 		<a class="anchor" href="#__jump_link">#</a>
-		<code><a href="source-class-MePaginatorHelper.html#48-73" title="Go to source code">_jump_link</a>( <span>string <var>$title</var> = <span class="php-keyword1">NULL</span></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span>, <span>string <var>$disabledTitle</var> = <span class="php-keyword1">NULL</span></span>, <span>array <var>$disabledOptions</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-MePaginatorHelper.html#47-74" title="Go to source code">_jump_link</a>( <span>string <var>$title</var> = <span class="php-keyword1">NULL</span></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span>, <span>string <var>$disabledTitle</var> = <span class="php-keyword1">NULL</span></span>, <span>array <var>$disabledOptions</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
@@ -240,10 +241,15 @@ class="php-var">$disabledOptions</span>);
 				</div>
 
 
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-MeHtmlHelper.html#__addOptionDefault">MeHtmlHelper::_addOptionDefault()</a></code></code> <br>
+						<code><code><a href="class-MeHtmlHelper.html#__addOptionValue">MeHtmlHelper::_addOptionValue()</a></code></code> <br>
+				</div>
 				<h4>Used by</h4>
 				<div class="list">
-						<code><code><a href="class-MePaginatorHelper.html#_next">MePaginatorHelper::next()</a></code></code><br>jump links<br>
-						<code><code><a href="class-MePaginatorHelper.html#_prev">MePaginatorHelper::prev()</a></code></code><br>jump links<br>
+						<code><code><a href="class-MePaginatorHelper.html#_next">MePaginatorHelper::next()</a></code></code> <br>
+						<code><code><a href="class-MePaginatorHelper.html#_prev">MePaginatorHelper::prev()</a></code></code> <br>
 				</div>
 
 
@@ -261,7 +267,7 @@ class="php-var">$disabledOptions</span>);
 
 		<td class="name"><div>
 		<a class="anchor" href="#_counter">#</a>
-		<code><a href="source-class-MePaginatorHelper.html#75-87" title="Go to source code">counter</a>( <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-MePaginatorHelper.html#76-88" title="Go to source code">counter</a>( <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
@@ -274,7 +280,7 @@ class="php-var">$disabledOptions</span>);
 <p>Returns a counter string for the paged result set.</p>
 
 <p>By default, returns something like "1 - 20 of 50", which means that you're
-viewing records 1 to 20 of 50 total</p>
+viewing records 1 to 20 of 50 total.</p>
 
 
 
@@ -290,6 +296,10 @@ viewing records 1 to 20 of 50 total</p>
 				</div>
 
 
+				<h4>Used by</h4>
+				<div class="list">
+						<code><code><a href="class-MePaginatorHelper.html#_counterLink">MePaginatorHelper::counterLink()</a></code></code> <br>
+				</div>
 
 
 		</div>
@@ -306,17 +316,17 @@ viewing records 1 to 20 of 50 total</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_counterLink">#</a>
-		<code><a href="source-class-MePaginatorHelper.html#89-96" title="Go to source code">counterLink</a>( <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-MePaginatorHelper.html#90-100" title="Go to source code">counterLink</a>( <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
-<p>Returns the counter string as disabled link</p>
+<p>Returns the counter string as disabled link.</p>
 
 		</div>
 
 		<div class="description detailed hidden">
 			
-<p>Returns the counter string as disabled link</p>
+<p>Returns the counter string as disabled link.</p>
 
 
 
@@ -332,6 +342,12 @@ viewing records 1 to 20 of 50 total</p>
 				</div>
 
 
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-MePaginatorHelper.html#_counter">MePaginatorHelper::counter()</a></code></code> <br>
+						<code><code><a href="class-MeHtmlHelper.html#_li">MeHtmlHelper::li()</a></code></code> <br>
+						<code><code><a href="class-MeHtmlHelper.html#_link">MeHtmlHelper::link()</a></code></code> <br>
+				</div>
 
 
 		</div>
@@ -348,7 +364,7 @@ viewing records 1 to 20 of 50 total</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_next">#</a>
-		<code><a href="source-class-MePaginatorHelper.html#98-117" title="Go to source code">next</a>( <span>string <var>$title</var> = <span class="php-keyword1">NULL</span></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span>, <span>string <var>$disabledTitle</var> = <span class="php-keyword1">NULL</span></span>, <span>array <var>$disabledOptions</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-MePaginatorHelper.html#102-122" title="Go to source code">next</a>( <span>string <var>$title</var> = <span class="php-keyword1">NULL</span></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span>, <span>string <var>$disabledTitle</var> = <span class="php-keyword1">NULL</span></span>, <span>array <var>$disabledOptions</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
@@ -382,7 +398,8 @@ viewing records 1 to 20 of 50 total</p>
 
 				<h4>Uses</h4>
 				<div class="list">
-						<code><code><a href="class-MePaginatorHelper.html#__jump_link">MePaginatorHelper::_jump_link()</a></code></code><br>jump links<br>
+						<code><code><a href="class-MePaginatorHelper.html#__jump_link">MePaginatorHelper::_jump_link()</a></code></code> <br>
+						<code><code><a href="class-MeHtmlHelper.html#__addOptionValue">MeHtmlHelper::_addOptionValue()</a></code></code> <br>
 				</div>
 
 
@@ -400,28 +417,26 @@ viewing records 1 to 20 of 50 total</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_numbers">#</a>
-		<code><a href="source-class-MePaginatorHelper.html#119-132" title="Go to source code">numbers</a>( <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-MePaginatorHelper.html#124-139" title="Go to source code">numbers</a>( <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
 <p>Returns a set of numbers for the paged result set uses a modulus to decide
-how many numbers to show on each side of the current page (default: 8). Rewrites
-<i>$this-&gt;Paginator-&gt;numbers()</i></p>
+how many numbers . to show on each side of the current page (default: 8).</p>
 
 		</div>
 
 		<div class="description detailed hidden">
 			
 <p>Returns a set of numbers for the paged result set uses a modulus to decide
-how many numbers to show on each side of the current page (default: 8). Rewrites
-<i>$this-&gt;Paginator-&gt;numbers()</i></p>
+how many numbers . to show on each side of the current page (default: 8).</p>
 
 
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
 					<dt><var>$options</var></dt>
-					<dd><code>array</code><br>$options Options for the numbers</dd>
+					<dd><code>array</code><br>$options Options for the numbers.</dd>
 				</dl></div>
 
 				<h4>Returns</h4>
@@ -430,6 +445,11 @@ how many numbers to show on each side of the current page (default: 8). Rewrites
 				</div>
 
 
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-MeHtmlHelper.html#__addOptionDefault">MeHtmlHelper::_addOptionDefault()</a></code></code> <br>
+						<code><code><a href="class-MeHtmlHelper.html#__addOptionValue">MeHtmlHelper::_addOptionValue()</a></code></code> <br>
+				</div>
 
 
 		</div>
@@ -446,7 +466,7 @@ how many numbers to show on each side of the current page (default: 8). Rewrites
 
 		<td class="name"><div>
 		<a class="anchor" href="#_prev">#</a>
-		<code><a href="source-class-MePaginatorHelper.html#134-153" title="Go to source code">prev</a>( <span>string <var>$title</var> = <span class="php-keyword1">NULL</span></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span>, <span>string <var>$disabledTitle</var> = <span class="php-keyword1">NULL</span></span>, <span>array <var>$disabledOptions</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-MePaginatorHelper.html#141-161" title="Go to source code">prev</a>( <span>string <var>$title</var> = <span class="php-keyword1">NULL</span></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span>, <span>string <var>$disabledTitle</var> = <span class="php-keyword1">NULL</span></span>, <span>array <var>$disabledOptions</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
@@ -480,7 +500,8 @@ how many numbers to show on each side of the current page (default: 8). Rewrites
 
 				<h4>Uses</h4>
 				<div class="list">
-						<code><code><a href="class-MePaginatorHelper.html#__jump_link">MePaginatorHelper::_jump_link()</a></code></code><br>jump links<br>
+						<code><code><a href="class-MePaginatorHelper.html#__jump_link">MePaginatorHelper::_jump_link()</a></code></code> <br>
+						<code><code><a href="class-MeHtmlHelper.html#__addOptionValue">MeHtmlHelper::_addOptionValue()</a></code></code> <br>
 				</div>
 
 
@@ -509,7 +530,7 @@ how many numbers to show on each side of the current page (default: 8). Rewrites
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-MePaginatorHelper.html#42-46" title="Go to source code"><var>$helpers</var></a>
+				<a href="source-class-MePaginatorHelper.html#41-45" title="Go to source code"><var>$helpers</var></a>
 		</td>
 		<td class="value"><code><span class="php-keyword1">array</span>(<span class="php-quote">'Html'</span> =&gt; <span class="php-keyword1">array</span>(<span class="php-quote">'className'</span> =&gt; <span class="php-quote">'MeTools.MeHtml'</span>))</code></td>
 		<td class="description"><div>

@@ -7,7 +7,7 @@
 	<title>Class RecaptchaHelper | MeTools</title>
 
 	<script type="text/javascript" src="resources/combined.js?117538352"></script>
-	<script type="text/javascript" src="elementlist.js?2897168095"></script>
+	<script type="text/javascript" src="elementlist.js?3067465168"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360">
 
 </head>
@@ -67,6 +67,7 @@
 		<div id="elements">
 			<h3>Classes</h3>
 			<ul>
+				<li><a href="class-DropdownHelper.html">DropdownHelper</a></li>
 				<li><a href="class-LibraryHelper.html">LibraryHelper</a></li>
 				<li><a href="class-MarkdownHelper.html">MarkdownHelper</a></li>
 				<li><a href="class-MeFormHelper.html">MeFormHelper</a></li>
@@ -168,7 +169,7 @@ AppHelper
 				<b>Author:</b>
 				Mirko Pagliai &lt;<a
 href="mailto:mirko.pagliai&#64;gmail.com">mirko.pagliai&#64;<!-- -->gmail.com</a>&gt;<br>
-		<b>Located at</b> <a href="source-class-RecaptchaHelper.html#32-115" title="Go to source code">RecaptchaHelper.php</a><br>
+		<b>Located at</b> <a href="source-class-RecaptchaHelper.html#32-113" title="Go to source code">RecaptchaHelper.php</a><br>
 	</div>
 
 
@@ -212,7 +213,7 @@ href="mailto:mirko.pagliai&#64;gmail.com">mirko.pagliai&#64;<!-- -->gmail.com</a
 
 				<h4>Uses</h4>
 				<div class="list">
-						<code><code><a href="class-RecaptchaHelper.html#$mail_keys">RecaptchaHelper::<var>$mail_keys</var></a></code></code><br>to set mail keys<br>
+						<code><code><a href="class-RecaptchaHelper.html#$mail_keys">RecaptchaHelper::<var>$mail_keys</var></a></code></code> <br>
 				</div>
 
 
@@ -267,7 +268,7 @@ href="mailto:mirko.pagliai&#64;gmail.com">mirko.pagliai&#64;<!-- -->gmail.com</a
 
 		<td class="name"><div>
 		<a class="anchor" href="#_mailLink">#</a>
-		<code><a href="source-class-RecaptchaHelper.html#83-100" title="Go to source code">mailLink</a>( <span>string <var>$title</var></span>, <span>string <var>$mail</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-RecaptchaHelper.html#83-99" title="Go to source code">mailLink</a>( <span>string <var>$title</var></span>, <span>string <var>$mail</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
@@ -290,25 +291,19 @@ popup.</p>
 					<dt><var>$mail</var></dt>
 					<dd><code>string</code><br>$mail Email to hide</dd>
 					<dt><var>$options</var></dt>
-					<dd><code>array</code><br>$options HTML attributes</dd>
+					<dd><code>array</code><br>$options Array of options and HTML attributes</dd>
 				</dl></div>
 
 				<h4>Returns</h4>
 				<div class="list">
-					<code>string</code><br>Html<br>
+					<code>string</code><br>Html code<br>
 				</div>
 
 
-				<h4>See</h4>
-				<div class="list">
-						<a
-href="http://repository.novatlantis.it/metools-sandbox/recaptcha/maillinks">http://repository.novatlantis.it/metools-sandbox/recaptcha/maillinks</a>
-Examples<br>
-				</div>
 				<h4>Uses</h4>
 				<div class="list">
-						<code><code><a href="class-RecaptchaHelper.html#_mailUrl">RecaptchaHelper::mailUrl()</a></code></code><br>to get the url<br>
-						<code><code><a href="class-MeHtmlHelper.html#_link">MeHtmlHelper::link()</a></code></code><br>to create the link<br>
+						<code><code><a href="class-RecaptchaHelper.html#_mailUrl">RecaptchaHelper::mailUrl()</a></code></code> <br>
+						<code><code><a href="class-MeHtmlHelper.html#_link">MeHtmlHelper::link()</a></code></code> <br>
 				</div>
 
 
@@ -326,7 +321,7 @@ Examples<br>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_mailUrl">#</a>
-		<code><a href="source-class-RecaptchaHelper.html#102-114" title="Go to source code">mailUrl</a>( <span>string <var>$mail</var></span> )</code>
+		<code><a href="source-class-RecaptchaHelper.html#101-112" title="Go to source code">mailUrl</a>( <span>string <var>$mail</var></span> )</code>
 
 		<div class="description short">
 			
@@ -358,17 +353,14 @@ use the <code>mailLink()</code> method</p>
 				<h4>See</h4>
 				<div class="list">
 						<code><code><a href="class-RecaptchaHelper.html#_mailLink">RecaptchaHelper::mailLink()</a></code></code><br>
-						<a
-href="http://repository.novatlantis.it/metools-sandbox/recaptcha/maillinks">http://repository.novatlantis.it/metools-sandbox/recaptcha/maillinks</a>
-Examples<br>
 				</div>
 				<h4>Uses</h4>
 				<div class="list">
-						<code><code><a href="class-RecaptchaHelper.html#$mail_keys">RecaptchaHelper::<var>$mail_keys</var></a></code></code><br>to read mail keys<br>
+						<code><code><a href="class-RecaptchaHelper.html#$mail_keys">RecaptchaHelper::<var>$mail_keys</var></a></code></code> <br>
 				</div>
 				<h4>Used by</h4>
 				<div class="list">
-						<code><code><a href="class-RecaptchaHelper.html#_mailLink">RecaptchaHelper::mailLink()</a></code></code><br>to get the url<br>
+						<code><code><a href="class-RecaptchaHelper.html#_mailLink">RecaptchaHelper::mailLink()</a></code></code> <br>
 				</div>
 
 
@@ -416,8 +408,8 @@ Examples<br>
 
 					<h4>Used by</h4>
 					<div class="list">
-							<code><code><a href="class-RecaptchaHelper.html#___construct">RecaptchaHelper::__construct()</a></code></code><br>to set mail keys<br>
-							<code><code><a href="class-RecaptchaHelper.html#_mailUrl">RecaptchaHelper::mailUrl()</a></code></code><br>to read mail keys<br>
+							<code><code><a href="class-RecaptchaHelper.html#___construct">RecaptchaHelper::__construct()</a></code></code> <br>
+							<code><code><a href="class-RecaptchaHelper.html#_mailUrl">RecaptchaHelper::mailUrl()</a></code></code> <br>
 					</div>
 			</div>
 		</div></td>
