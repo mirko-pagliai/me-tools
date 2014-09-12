@@ -24,7 +24,6 @@
  * @link		http://git.novatlantis.it Nova Atlantis Ltd
  * @package		MeTools\View\Helper
  * @see			http://michelf.ca/projects/php-markdown PHP Markdown
- * @see         http://repository.novatlantis.it/metools-sandbox/markdown/markdown Examples
  */
 App::uses('AppHelper', 'View/Helper');
 App::import('Vendor', 'MeTools.Markdown/Markdown.inc');
@@ -36,7 +35,7 @@ use \Michelf\Markdown;
  */
 class MarkdownHelper extends AppHelper {
     /**
-     * Alias for `toHtml()` method
+     * Alias for `toHtml()` method.
      * @see toHtml()
      */
     public function fromMarkdown() {
@@ -44,11 +43,11 @@ class MarkdownHelper extends AppHelper {
     }
 
 	/**
-     * Converts a string from the Markdown syntax to HTML
+     * Converts a string from the Markdown syntax to HTML.
      * @param string $string Markdown syntax
 	 * @param bool $clean TRUE if you want the output to be clean
-     * @return string Html
-     * @see http://repository.novatlantis.it/metools-sandbox/markdown/markdown Examples
+     * @return string Html code
+	 * @see http://michelf.ca/projects/php-markdown PHP Markdown
 	 */
     function toHtml($string, $clean = FALSE) {
 		//Converts some code blocks as used by some sites, such as Bitbucket

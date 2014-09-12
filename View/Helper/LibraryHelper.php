@@ -45,25 +45,25 @@ class LibraryHelper extends AppHelper {
 	/**
 	 * Internal function to generate datepicker and timepicker.
      * @param string $input Target field
-     * @param array $options Options for datepicker
+     * @param array $options Options for the datepicker
 	 * @return string jQuery code
+	 * @uses MeHtmlHelper::css()
+	 * @uses MeHtmlHelper::js()
 	 */
 	private function _datetimepicker($input, $options = array()) {
-		 $this->Html->js(array(
+		$this->Html->js(array(
 			'/MeTools/js/moment-with-locales.min',
 			'/MeTools/js/bootstrap-datetimepicker.min'
 		), array('inline' => FALSE));
         $this->Html->css('/MeTools/css/bootstrap-datetimepicker.min', array('inline' => FALSE));
 		
 		//Merge options with defaults
-		$options = am($options, array(
-			'icons' => array(
-				'time' => 'fa fa-clock-o',
-				'date' => 'fa fa-calendar',
-				'up' => 'fa fa-arrow-up',
-				'down' => 'fa fa-arrow-down'
-			)
-		));
+		$options = am($options, array('icons' => array(
+			'time' => 'fa fa-clock-o',
+			'date' => 'fa fa-calendar',
+			'up' => 'fa fa-arrow-up',
+			'down' => 'fa fa-arrow-down'
+		)));
 		
         //Switch for languange, reading from config
 		if(empty($options['language']))
@@ -73,14 +73,14 @@ class LibraryHelper extends AppHelper {
 					break;
 			}
 		
-		return "$('{$input}').datetimepicker(".json_encode($options).");";
+		return sprintf('$("%s").datetimepicker(%s);', $input, json_encode($options));
 	}
 	
     /**
      * Before layout callback. beforeLayout is called before the layout is rendered.
      * @param string $layoutFile The layout about to be rendered
-     * @return void
-     * @see http://api.cakephp.org/2.5/class-Helper.html#_beforeLayout CakePHP Api
+	 * @uses output
+	 * @uses MeHtmlHelper::scriptBlock()
      */
     public function beforeLayout($layoutFile) {
         //Writes the output
@@ -88,7 +88,7 @@ class LibraryHelper extends AppHelper {
             $this->output = array_map(function($v) {
                 return "\t".$v.PHP_EOL;
             }, $this->output);
-            $this->Html->scriptBlock("$(function() {".PHP_EOL.implode('', $this->output)."});");
+			$this->Html->scriptBlock(sprintf('$(function() {%s});', PHP_EOL.implode('', $this->output)));
         }
     }
 
@@ -99,11 +99,12 @@ class LibraryHelper extends AppHelper {
 	 * 
 	 * CKEditor must be located into `APP/webroot/ckeditor` or `APP/webroot/js/ckeditor`.
      * 
-     * To create an input field for CKEditor, you should use the `ckeditor()` method provided by `MeForm` helper.
-     * @param bool $jquery FALSE if you don't want to use the jquery adapter
+     * To create an input field for CKEditor, you should use the `ckeditor()` method provided by the `MeFormHelper`.
+     * @param bool $jquery FALSE if you don't want to use the jQuery adapter
      * @return mixed String of <script /> tags
      * @see MeFormHelper::ckeditor()
      * @see http://docs.cksource.com CKEditor documentation
+	 * @uses MeHtmlHelper::js()
      */
     public function ckeditor($jquery = TRUE) {
         //Checks for CKEditor into APP/webroot/ckeditor
@@ -146,12 +147,13 @@ class LibraryHelper extends AppHelper {
     /**
      * Adds a datepicker to the `$input` field.
      * 
-     * To create an input field compatible with datepicker, you should use the `datepicker()` method provided by `MeForm` helper.
-     * @param string $input Target field. Default is '.datepicker'
-     * @param array $options Options for datepicker
+     * To create an input field compatible with datepicker, you should use the `datepicker()` method provided by the `MeFormHelper`.
+     * @param string $input Target field. Default is `.datepicker`
+     * @param array $options Options for the datepicker
      * @see MeFormHelper::datepicker()
      * @see https://github.com/Eonasdan/bootstrap-datetimepicker Bootstrap v3 datetimepicker widget documentation
-	 * @uses _datetimepicker() to generate the datepicker
+	 * @uses output
+	 * @uses _datetimepicker()
      */
 	public function datepicker($input = NULL, $options = array()) {
 		$input = empty($input) ? '.datepicker' : $input;
@@ -159,46 +161,50 @@ class LibraryHelper extends AppHelper {
 		//Merge options with defaults
 		$options = am($options, array('pickTime' => FALSE));
 		
-        $this->output[] = $this->_datetimepicker($input, $options);
+        $this->output[] = self::_datetimepicker($input, $options);
 	}
 	
 	 /**
      * Adds a datetimepicker to the `$input` field.
      * 
-     * To create an input field compatible with datetimepicker, you should use the `datetimepicker()` method provided by `MeForm` helper.
-     * @param string $input Target field. Default is '.datetimepicker'
-     * @param array $options Options for datetimepicker
+     * To create an input field compatible with datetimepicker, you should use the `datetimepicker()` method provided by the `MeFormHelper`.
+     * @param string $input Target field. Default is `.datetimepicker`
+     * @param array $options Options for the datetimepicker
      * @see MeFormHelper::datetimepicker()
      * @see https://github.com/Eonasdan/bootstrap-datetimepicker Bootstrap v3 datetimepicker widget documentation
-	 * @uses _datetimepicker() to generate the datetimepicker
+	 * @uses output
+	 * @uses _datetimepicker()
      */
 	public function datetimepicker($input = NULL, $options = array()) {
 		$input = empty($input) ? '.datetimepicker' : $input;
 		
-        $this->output[] = $this->_datetimepicker($input, $options);
+        $this->output[] = self::_datetimepicker($input, $options);
 	}
 
     /**
-     * Through "slugify.js", it provides the slug of a field. 
+     * Through `slugify.js`, it provides the slug of a field. 
      * 
      * It reads the value of the `$sourceField` field and it sets its slug in the `$targetField`.
      * @param string $sourceField Source field
      * @param string $targetField Target field
+	 * @uses output
+	 * @uses MeHtmlHelper::js()
      */
     public function slugify($sourceField = 'form #title', $targetField = 'form #slug') {
         $this->Html->js('/MeTools/js/slugify.min', array('inline' => FALSE));
-        $this->output[] = "$().slugify('{$sourceField}', '{$targetField}');";
+        $this->output[] = sprintf('$().slugify("%s", "%s");', $sourceField, $targetField);
     }
 	
     /**
      * Adds a timepicker to the `$input` field.
      * 
-     * To create an input field compatible with datepicker, you should use the `timepicker()` method provided by `MeForm` helper.
-     * @param string $input Target field. Default is '.timepicker'
-     * @param array $options Options for timepicker
+     * To create an input field compatible with datepicker, you should use the `timepicker()` method provided by the `MeFormHelper`.
+     * @param string $input Target field. Default is `.timepicker`
+     * @param array $options Options for the timepicker
      * @see MeFormHelper::timepicker()
      * @see https://github.com/Eonasdan/bootstrap-datetimepicker Bootstrap v3 datetimepicker widget documentation
-	 * @uses _datetimepicker() to generate the timepicker
+	 * @uses output
+	 * @uses _datetimepicker()
      */
 	public function timepicker($input = NULL, $options = array()) {
 		$input = empty($input) ? '.timepicker' : $input;
@@ -206,6 +212,6 @@ class LibraryHelper extends AppHelper {
 		//Merge options with defaults
 		$options = am($options, array('pickDate' => FALSE));
 		
-		$this->output[] = $this->_datetimepicker($input, $options);
+		$this->output[] = self::_datetimepicker($input, $options);
 	}
 }

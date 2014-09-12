@@ -30,7 +30,7 @@ App::uses('HtmlHelper', 'View/Helper');
 /**
  * Provides functionalities for HTML code.
  * 
- * Rewrites {@link http://api.cakephp.org/2.5/class-HtmlHelper.html HtmlHelper}.
+ * Rewrites the {@link http://api.cakephp.org/2.5/class-HtmlHelper.html HtmlHelper}.
  * 
  * You should use this helper as an alias, for example:
  * <code>
@@ -44,8 +44,9 @@ class MeHtmlHelper extends HtmlHelper {
 	 * Otherwise, it provides non fatal errors on missing method calls.
 	 * @param string $method Method to invoke
 	 * @param array $params Array of params for the method
-	 * @return string Html, tag
-	 * @see http://api.cakephp.org/2.5/class-Helper.html#___call CakePHP Api
+	 * @return string Html code
+	 * @see http://api.cakephp.org/2.5/class-Helper.html#___call CakePHP API
+	 * @uses tag()
 	 */
 	public function __call($method, $params) {		
 		if(count($params) <= 2)
@@ -55,84 +56,83 @@ class MeHtmlHelper extends HtmlHelper {
 	}
 	
     /**
-     * Cleans values to be used as html attributes, removing blank spaces and duplicates. For example:
-     * <pre>a a b  b c d e e e</pre>
-     * will become:
-     * <pre>a b c d e</pre>
-     * @param mixed $value Value as string or array
-     * @return string Cleaned value
-     */
-    public function _clean() {
-        $values = func_get_args();
-
-        if(empty($values))
-            return NULL;
-
-        //If an argument is an array, turns it into a string
-        $values = array_map(function($v) {
-            return !is_array($v) ? $v : implode(' ', $v);
-        }, $values);
-        //Turns all arguments into a string
-        $values = implode(' ', $values);
-
-        return implode(' ', array_unique(array_filter(explode(' ', $values))));
-    }
-
-    /**
-     * Get classes for a button
-     * @param array $option Button options
-     * @return string Button classes
-     */
-    public function _getBtnClass($option) {
-        if(empty($option['class']))
-            return 'btn btn-default';
-
-        //If "class" doesn't contain a button style, adds "btn-default" to class
-        if(!preg_match('/btn-(default|primary|success|info|warning|danger)/', $class = $option['class']))
-            return self::_clean('btn', 'btn-default', $class);
-        else
-            return self::_clean('btn', $class);
-    }
-
-    /**
-     * Parses and handles title and options used to create a link or a button to open a dropdown.
-     * 
-     * You should not use this method directly, but `buttonDropdown()` or `linkDropdown()`.
-     * @param string $title Link/button title
-     * @param array $options HTML attributes
-     * @return array Title and options
-     */
-    private function _parseLinkDropdown($title, $options = array()) {
-        $options['class'] = empty($options['class']) ? 'dropdown-toggle' : self::_clean('dropdown-toggle', $options['class']);
-        $options['data-toggle'] = empty($options['data-toggle']) ? 'dropdown' : self::_clean('dropdown', $options['data-toggle']);
-
-        $title .= '&nbsp;'.self::icon('fa-caret-down');
-
-        return array($title, $options);
+     * Add button classes.
+	 * @param array $options Array of HTML attributes
+	 * @param string $defaultClass Default class (eg. `default`, `primary`, `success`, etc)
+	 * @param array $options Array of HTML attributes
+	 * @uses _addOptionValue()
+	 */
+    public function _addButtonClasses($options, $defaultClass = 'default') {
+        //If "class" doesn't contain a button style, adds "btn-default" classes
+        if(empty($options['class']) || !preg_match('/btn-(default|primary|success|info|warning|danger)/', $options['class']))
+			return self::_addOptionValue('class', array('btn', sprintf('btn-%s', $defaultClass)), $options);
+        
+		return self::_addOptionValue('class', 'btn', $options);
     }
 	
 	/**
-	 * Handles the options of an element to add tooltips
-	 * @param array $options Element options
-	 * @return array Options
+	 * Adds icons to text.
+	 * @param string $text Text
+	 * @param array $options Array of HTML attributes
+	 * @return string Text with icons
+	 * @uses icons()
 	 */
-	private function _setTooltip($options) {
-		if(!empty($options['tooltip'])) {
-			$options['data-toggle'] = 'tooltip';
-			$options['title'] = $options['tooltip'];
-			unset($options['tooltip']);
+	public function _addIcons($text, $options) {
+		if(empty($options['icon']))
+			return $text;
+		
+		return sprintf('%s %s', self::icons($options['icon']), $text);
+	}
+	
+	/**
+	 * Adds values to an option.
+	 * @param string $name Option name
+	 * @param string $values Option values
+	 * @param array $options Array of HTML attributes
+	 * @return array Array of HTML attributes
+	 */
+	public function _addOptionValue($name, $values, $options) {
+		//If the values are an array or multiple arrays, turns them into a string
+		if(is_array($values)) {
+			//If a single value is an array, turns it into a string
+			$values = array_map(function($v) {
+				return is_array($v) ? implode(' ', $v) : $v;
+			}, $values);
+			//Turns all the values into a string
+			$values = implode(' ', $values);
 		}
+		
+		//Turns the values into an array
+		$values = explode(' ', $values);
+		
+		//Turns the current value into an array
+		$options[$name] = empty($options[$name]) ? NULL : explode(' ', $options[$name]);
+				
+		//Adds the values to the current value, removing empty values and duplicates, and turns it into a string
+		$options[$name] = implode(' ', array_unique(array_filter(am($options[$name], $values))));
+		
+		return $options;
+	}
+	
+	/**
+	 * Adds a default value to an option.
+	 * @param string $name Option name
+	 * @param string $value Option value
+	 * @param array $options Array of HTML attributes
+	 * @return array Array of HTML attributes
+	 */
+	public function _addOptionDefault($name, $value, $options) {
+		$options[$name] = empty($options[$name]) ? $value : $options[$name];
 		
 		return $options;
 	}
 
     /**
-     * Returns an audio element
-     * @param string|array $path File path, relative to the `webroot/{$options['pathPrefix']}` directory
-     * or an array where each item itself can be a path string or an array containing `src` and `type` keys.
+     * Returns an `<audio>` element.
+     * @param string|array $path File path, relative to the `webroot/files/` directory or an array
+	 * where each item itself can be a path string or an array containing `src` and `type` keys.
      * @param array $options Array of HTML attributes
-     * @return string Html, audio tag
-     * @see http://repository.novatlantis.it/metools-sandbox/html/audiovideo Examples
+     * @return string Html code
      * @uses media()
      */
     public function audio($path, $options = array()) {
@@ -140,99 +140,63 @@ class MeHtmlHelper extends HtmlHelper {
     }
 
     /**
-     * Creates a badge, according to the Bootstrap component.
+     * Creates a badge, according to Bootstrap.
      * @param string $text Badge text
      * @param array $options HTML attributes
-     * @return string Html, badge element
+     * @return string Html code
      * @see http://getbootstrap.com/components/#badges Bootstrap documentation
-     * @see http://repository.novatlantis.it/metools-sandbox/html/labelbadges Examples
+	 * @uses _addOptionValue()
+	 * @uses span()
      */
     public function badge($text, $options = array()) {
-        $options['class'] = empty($options['class']) ? 'badge' : self::_clean('badge', $options['class']);
+		$options = self::_addOptionValue('class', 'badge', $options);
 
-        return self::tag('span', $text, $options);
+        return self::span($text, $options);
     }
 
-    /**
+	/**
      * Creates a link with the appearance of a button.
      * 
      * This method creates a link with the appearance of a button.
-     * To create a POST button, you should use the `postButton()` method provided by the `MeForm` helper.
-     * Instead, to create a normal button, you should use the `button()` method provided by the `MeForm` helper.
+     * To create a POST button, you should use the `postButton()` method provided by `MeFormHelper`.
+     * Instead, to create a normal button, you should use the `button()` method provided by `MeFormHelper`.
      * @param string $title Link title
-     * @param mixed $url Cake-relative URL, array of URL parameters or external URL (starts with http://)
-     * @param array $options HTML attributes
-     * @param string $confirmMessage JavaScript confirmation message
-     * @return string Html, link
+	 * @param string|array $url Cake-relative URL or array of URL parameters or external URL
+	 * @param array $options Array of options and HTML attributes
+	 * @param string $confirmMessage JavaScript confirmation message
+	 * @return string Html code
      * @see MeFormHelper::button(), MeFormHelper::postButton()
-     * @see http://repository.novatlantis.it/metools-sandbox/html/buttonslinks Examples
+	 * @uses _addButtonClasses()
+	 * @uses _addOptionValue()
      * @uses link()
-     */
+	 */
     public function button($title, $url = '#', $options = array(), $confirmMessage = FALSE) {
-        $options['role'] = empty($options['role']) ? 'button' : self::_clean('button', $options['role']);
-
-        return self::link($title, $url, am($options, array('class' => self::_getBtnClass($options))), $confirmMessage);
+		$options = self::_addOptionValue('role', 'button', $options);
+		$options = self::_addButtonClasses($options);
+		
+		return self::link($title, $url, $options, $confirmMessage);
     }
-
-    /**
-     * Creates a button to open a dropdown menu, according to the Bootstrap component.
-     * 
-     * Note that this method creates only a button. To create a dropdown menu, you should use the `dropdown()` method.
-     * @param string $title Button title
-     * @param array $options HTML attributes
-     * @return string Html, button
-     * @see dropdown()
-     * @see http://getbootstrap.com/components/#dropdowns Bootstrap documentation
-     * @see http://repository.novatlantis.it/metools-sandbox/html/dropdown Examples
-     * @uses _parseLinkDropdown() to parse options
-     * @uses button() to get the button
-     */
-    public function buttonDropdown($title, $options = array()) {
-        //Backward compatibility, in which case they are 3 passed arguments
-        if(func_num_args() === 3)
-            $options = func_get_arg(2);
-
-        list($title, $options) = self::_parseLinkDropdown($title, $options);
-
-        return self::button($title, '#', $options);
-    }
-
+	
     /**
      * Adds a css file to the layout.
      *
-     * If it's used in the layout, you should set the `inline` option to `TRUE`
+     * If it's used in the layout, you should set the `inline` option to `TRUE`.
      * @param mixed $path Css filename or an array of css filenames
-     * @param array $options HTML attributes
-     * @return string Html, `link` or `style` tag
+	 * @param array $options Array of options and HTML attributes
+     * @return string Html, `<link>` or `>style>` tag
+	 * @uses _addOptionDefault()
      */
     public function css($path, $options = array()) {
-        /**
-         * From 2.4, the API for HtmlHelper::css() has been changed and the 
-         * method accepts only two options. This code ensures backward compatibility.
-         */
-        if(!is_array($options)) {
-            $rel = $options;
-            $options = array();
-            if($rel)
-                $options['rel'] = $rel;
-
-            if(func_num_args() > 2)
-                $options = func_get_arg(2) + $options;
-
-            unset($rel);
-        }
-
-        $options['inline'] = empty($options['inline']) ? FALSE : $options['inline'];
+		$options = self::_addOptionDefault('inline', FALSE, $options);
 		
-		if(is_array($path)) {
-			$out = NULL;
-			foreach($path as $sPath)
-				$out .= parent::css($sPath, $options);
+		if(!is_array($path))
+			return parent::css($path, $options);
 			
-			return $out;
-		}
-
-        return parent::css($path, $options);
+		array_walk($path, function(&$v, $k, $options) {
+			$v = parent::css($v, $options);
+		}, $options);
+			
+		return implode(PHP_EOL, $path);
     }
 
     /**
@@ -256,76 +220,41 @@ class MeHtmlHelper extends HtmlHelper {
     }
 
     /**
-     * Creates a dropdown, according to the Bootstrap component. For example:
-     * <code>
-     * <div class="dropdown">
-     *    <?php
-     *       echo $this->Html->buttonDropdown('Open the dropdown', array('icon' => 'fa-bell'));
-     *       echo $this->Html->dropdown(array(
-     *          $this->Html->link('Github', 'http://github.com', array('icon' => 'fa-github')),
-     *          'divider',
-     *          $this->Html->link('Stack Overflow', 'http://stackoverflow.com', array('icon' => 'fa-stack-overflow'))
-     *       ));
-     *    ?>
-     * </div>
-     * </code>
-     * @param array $links Array of links for the dropdown (you should use the `link()` method for each link) or "divider" to create a divider
-     * @param array $ulOptions Options for the dropdown
-     * @param array $itemOptions Options for each item (`li`) of the dropdown
-     * @return string Html, dropdown menu
-     * @see http://getbootstrap.com/components/#dropdowns Bootstrap documentation
-     * @see http://repository.novatlantis.it/metools-sandbox/html/dropdown Examples
-     * @uses ul() to create the ul element
-     */
-    public function dropdown($links = array(), $ulOptions = array(), $itemOptions = array()) {
-        $ulOptions['class'] = empty($ulOptions['class']) ? 'dropdown-menu' : self::_clean('dropdown-menu', $ulOptions['class']);
-        $ulOptions['role'] = empty($ulOptions['role']) ? 'menu' : self::_clean('menu', $ulOptions['role']);
-        $itemOptions['role'] = empty($itemOptions['role']) ? 'presentation' : self::_clean('presentation', $itemOptions['role']);
-
-        //Sets eventual separators
-        array_walk($links, function(&$v) {
-            if($v === 'divider' || $v === 'separator')
-                $v = array(NULL, array('class' => 'divider'));
-        });
-
-        return self::ul($links, $ulOptions, $itemOptions);
-    }
-
-    /**
-     * Returns the breadcrumb as links sequence.
+     * Returns the breadcrumb as a links sequence.
      * 
      * Note that it's better to use the `getCrumbList()` method, which offers better compatibility with Bootstrap.
      * @param string $separator Crumbs separator
      * @param string|array|boolean $startText The first crumb. If is an array, accepted keys are "text", "url" and "icon"
-     * @return string Html, breadcrumb
+     * @return string Html code
      * @see getCrumbList()
-     * @see http://repository.novatlantis.it/metools-sandbox/html/breadcrumb Examples
+	 * @uses div()
+	 * @uses span()
      */
     public function getCrumbs($separator = '/', $startText = FALSE) {
         if(is_array($startText) && empty($startText['text']))
             $startText['text'] = FALSE;
 
-        $separator = $this->tag('span', trim($separator), array('class' => 'separator'));
+        $separator = self::span(trim($separator), array('class' => 'separator'));
 
-        return $this->div('breadcrumb', parent::getCrumbs($separator, $startText));
+        return self::div('breadcrumb', parent::getCrumbs($separator, $startText));
     }
 
     /**
      * Returns the breadcrumb as a (x)html list.
      * 
-     * Note that the `lastClass` option is set automatically as required by Bootstrap and separators (`separator` option) are automatically 
-     * added by Bootstrap in CSS through :before and content. So you should not use any of these two options.
-     * @param array $options HTML attributes
-     * @param string|array|boolean $startText The first crumb. If is an array, accepted keys are "text", "url" and "icon"
-     * @return string Html, breadcrumb
-     * @see http://repository.novatlantis.it/metools-sandbox/html/breadcrumb Examples
+     * Note that the `lastClass` option is set automatically as required by Bootstrap and separators (`separator` option) are
+	 * automatically  added by Bootstrap in CSS through :before and content. So you should not use any of these two options.
+	 * @param array $options Array of options and HTML attributes
+     * @param string|array|boolean $startText The first crumb. If is an array, accepted keys are `text`, `url` and `icon`
+     * @return string Html code
+	 * @uses _addOptionValue()
      */
     public function getCrumbList($options = array(), $startText = FALSE) {
         if(is_array($startText) && empty($startText['text']))
             $startText['text'] = FALSE;
 
-        $options['class'] = empty($options['class']) ? 'breadcrumb' : self::_clean('breadcrumb', $options['class']);
-		$options['escape'] = empty($options['escape']) ? FALSE : $options['escape'];
+		$options = self::_addOptionValue('class', 'breadcrumb', $options);
+		$options = self::_addOptionValue('escape', FALSE, $options);
 		
         //Separators are automatically added by Bootstrap in CSS through :before and content.
         unset($options['separator']);
@@ -336,21 +265,22 @@ class MeHtmlHelper extends HtmlHelper {
 	/**
 	 * Creates an heading. 
 	 * 
-	 * This method is useful if you want to create an heading with a secondary text.
-	 * In this case you have to use the option "small".
+	 * This method is useful if you want to create an heading with a secondary text, according to Bootstrap.
+	 * In this case you have to use the `small` option.
 	 * 
-	 * By default, this method creates an h2 tag. To create a different tag, you have to use the "type" option.
+	 * By default, this method creates an `<h2>` tag. To create a different tag, you have to use the `type` option.
      * @param string $text heading content
-	 * @param array $options HTML attributes
-     * @return string Html, heading tag
+	 * @param array $options Array of options and HTML attributes
+     * @return string Html code
+	 * @see http://getbootstrap.com/css/#type-headings Bootstrap documentation
+	 * @uses small()
+	 * @uses tag()
 	 */
 	public function heading($text = NULL, $options = array()) {
 		$type = empty($options['type']) ? 'h2' : $options['type'];
-		
-        $options['class'] = empty($options['class']) ? 'heading' : self::_clean('heading', $options['class']);
-		
+				
 		if(!empty($options['small']))
-			$text = sprintf('%s %s', $text, self::tag('small', $options['small']));
+			$text = sprintf('%s %s', $text, self::small($options['small']));
 		
 		unset($options['type'], $options['small']);
 		
@@ -358,66 +288,68 @@ class MeHtmlHelper extends HtmlHelper {
 	}
 	
 	/**
-	 * Creates an "hr" (horizontal rule) tag.
+	 * Creates an horizontal rule (`<hr>` tag).
      * @param array $options HTML attributes
-     * @return string Html, hr element
+	 * @param array $options Array of options and HTML attributes
+	 * @uses tag()
 	 */
 	public function hr($options = array()) {
 		return self::tag('hr', NULL, $options);
 	}
 
+    /**
+     * Alias for `icons()` method
+     * @see icons()
+     */
+    public function icon() {
+        return call_user_func_array(array('MeHtmlHelper', 'icons'), func_get_args());
+    }
+	
 	/**
      * Returns icons. Examples:
      * <code>
-     * echo $this->Html->icon('home');
+     * echo $this->Html->icons('home');
      * </code>
      * <code>
-     * echo $this->Html->icon(array('hand-o-right', '2x'));
+     * echo $this->Html->icons(array('hand-o-right', '2x'));
      * </code>
-     * @param mixed $icons Icons as string or array
-     * @param array $options HTML attributes
-     * @return string Html, icons
+	 * @param string|array $icons Icons
+	 * @param array $options Array of options and HTML attributes
+     * @return string Html code
      * @see http://fortawesome.github.io/Font-Awesome Font Awesome icons
-     * @see http://repository.novatlantis.it/metools-sandbox/html/icons Examples
+	 * @uses _addOptionValue()
+	 * @uses tag()
 	 */
-    public function icon($icons = NULL, $options = array()) {
-        //Adds the "fa" class and prepende the string "fa-" to any other class
-        $icons = preg_replace('/(?<![^ ])(?=[^ ])(?!fa)/', 'fa-', self::_clean('fa', $icons));
+	public function icons($icons, $options = array()) {
+        //Adds the "fa" class and prepends the string "fa-" to any other class
+		$icons = preg_replace('/(?<![^ ])(?=[^ ])(?!fa)/', 'fa-', $icons);
 		
-		$options['class'] = empty($options['class']) ? $icons : self::_clean($icons, $options['class']);
+		$options = self::_addOptionValue('class', array('fa', $icons), $options);
 		
-        return self::tag('i', ' ', $options);
-    }
-
-    /**
-     * Alias for `icon()` method
-     * @see icon()
-     */
-    public function icons() {
-        return call_user_func_array(array('MeHtmlHelper', 'icons'), func_get_args());
-    }
-
-    /**
-     * Creates an IMG element.
-     * @param string $path Image path (will be relative to `app/webroot/img/`)
-     * @param $options HTML attributes
-     * @return string Html, image
-     * @see http://repository.novatlantis.it/metools-sandbox/html/images Examples
-     */
+		return self::tag('i', ' ', $options);
+	}
+	
+	/**
+	 * Creates an `<img>` element.
+	 * @param string $path Image path (will be relative to `app/webroot/img/`)
+	 * @param $options Array of options and HTML attributes
+	 * @return string Html code
+	 * @uses _addOptionValue()
+	 */
     public function image($path, $options = array()) {
-        $options['class'] = empty($options['class']) ? 'img-responsive' : self::_clean('img-responsive', $options['class']);
-
+		$options = self::_addOptionValue('class', 'img-responsive', $options);
+		
         return parent::image($path, $options);
     }
-
+	
     /**
-     * Alias for `image()` method
+     * Alias for `image()` method.
      * @see image()
      */
     public function img() {
         return call_user_func_array(array('MeHtmlHelper', 'image'), func_get_args());
     }
-
+	
     /**
      * Alias for `script()` method
      * @see script()
@@ -429,88 +361,62 @@ class MeHtmlHelper extends HtmlHelper {
     /**
      * Create a label, according to the Bootstrap component.
      * 
-     * This method creates only a label element. Not to be confused with the `label()` method of the `MeForm` helper, which 
-     * creates a label for a form input.
+     * This method creates only a label element. Not to be confused with the `label()` method provided by 
+	 * the `MeFormhelper`, which creates a label for a form input.
      * 
-     * Supported type are: `default`, `primary`, `success`, `info`, `warning` and `danger`
+     * Supported type are: `default`, `primary`, `success`, `info`, `warning` and `danger`.
      * @param string $text Label text
      * @param array $options HTML attributes of the list tag
      * @param string $type Label type
-     * @return string Html, label
+     * @return string Html code
      * @see http://getbootstrap.com/components/#labels Bootstrap documentation
-     * @see http://repository.novatlantis.it/metools-sandbox/html/labelbadges Examples
+	 * @uses _addOptionValue()
+	 * @uses span()
      */
     public function label($text, $options = array(), $type = 'default') {
-		
-        $type = self::_clean('label', 'label-'.$type);
-        $options['class'] = empty($options['class']) ? $type : self::_clean($type, $options['class']);
+		$options = self::_addOptionValue('class', array('label', sprintf('label-%s', $type)), $options);
 
-        return self::tag('span', $text, $options);
+        return self::span($text, $options);
     }
-
+	
     /**
-     * Returns element list (`li`) out of an array.
-     * 
-     * If the element is an array, then the firse value is the element and the second value are options.
-     * @param array $elements Element list
+     * Returns an elements list (`<li>`).
+     * @param array $elements Elements list
      * @param array $options HTML attributes of the list tag
-     * @return string Html, element list
-     * @see http://repository.novatlantis.it/metools-sandbox/html/lists Examples
+     * @return string Html code
+	 * @uses tag()
      */
-    public function li($elements, $options = array()) {
-        $html = '';
-
-        //If it's only one element
-        if(!is_array($elements)) {
-            $elements = empty($options['icon']) ? $elements : self::icon($options['icon']).$elements;
-            unset($options['icon']);
-            return self::tag('li', $elements, $options);
-        }
-
-        foreach($elements as $element) {
-            //If the element is an array, then the first value is the element and the second value are element options
-            if(is_array($element)) {
-                $elementOption = am($options, $element[1]);
-                $element = $element[0];
-            }
-            else
-                $elementOption = $options;
-
-            $element = empty($elementOption['icon']) ? $element : self::icon($elementOption['icon']).$element;
-            unset($elementOption['icon']);
-
-            $html .= self::tag('li', $element, $elementOption);
-        }
-
-        return $html;
-    }
-
-    /**
-     * Creates a link.
-     * 
-     * Note: this method creates a normal link.
-     * To create a POST link, you should use the `postLink()` method of the `MeForm` helper.
-     * @param string $title Link title
-     * @param mixed $url Cake-relative URL, array of URL parameters or external URL (starts with http://)
-     * @param array $options HTML attributes
-     * @param string $confirmMessage JavaScript confirmation message
-     * @return string Html, link
-     * @see http://repository.novatlantis.it/metools-sandbox/html/buttonslinks Examples
-     */
-    public function link($title, $url = '#', $options = array(), $confirmMessage = FALSE) {
-		$options = self::_setTooltip($options);
+	public function li($elements, $options = array()) {
+		if(!is_array($elements))
+			return self::tag('li', $elements, $options);
+				
+		array_walk($elements, function(&$v, $k, $options){
+			$v = self::tag('li', $v, $options);
+		}, $options);
 		
-        $options['escape'] = empty($options['escape']) ? FALSE : $options['escape'];
-		$options['title'] = empty($options['title']) ? strip_tags($title) : $options['title'];
-        $title = empty($options['icon']) ? $title : self::icon($options['icon']).$title;
-        unset($options['icon']);
+		return implode(PHP_EOL, $elements);
+	}
+	
+	/**
+	 * Creates an HTML link.
+	 * @param string $title The content to be wrapped by <a> tags
+	 * @param string|array $url Cake-relative URL or array of URL parameters or external URL
+	 * @param array $options Array of options and HTML attributes
+	 * @param string $confirmMessage JavaScript confirmation message
+	 * @return string Html code
+	 * @uses _addIcons()
+	 * @uses _addOptionDefault()
+	 */
+	public function link($title, $url = '#', $options = array(), $confirmMessage = FALSE) {
+		$title = self::_addIcons($title, $options);
+		unset($options['icon']);
 		
-		 //If "class" contains a button style, adds "btn" to class
-        if(!empty($options['class']) && preg_match('/btn-(default|primary|success|info|warning|danger)/', $options['class']))
-			$options['class'] = self::_clean('btn', $options['class']);
-
+		$options['title'] = empty($options['title']) ? trim(strip_tags($title)) : trim(strip_tags($options['title']));
+		
+		$options = self::_addOptionDefault('escape', FALSE, $options);
+		
         return parent::link($title, $url, $options, $confirmMessage);
-    }
+	}
 
     /**
      * Alias for `button()`
@@ -521,88 +427,71 @@ class MeHtmlHelper extends HtmlHelper {
     }
 
     /**
-     * Creates a link to open a dropdown menu, according to the Bootstrap component.
-     * 
-     * Note that this method creates only a link. To create a dropdown menu, you should use the `dropdown()` method.
-     * @param string $title Link title
-     * @param array $options HTML attributes
-     * @return string Html, link
-     * @see dropdown()
-     * @see http://getbootstrap.com/components/#dropdowns Bootstrap documentation
-     * @see http://repository.novatlantis.it/metools-sandbox/html/dropdown Examples
-     * @uses _parseLinkDropdown() to parse options
-     * @uses link() to get the link
-     */
-    public function linkDropdown($title, $options = array()) {
-        //Backward compatibility, in which case they are 3 passed arguments
-        if(func_num_args() === 3)
-            $options = func_get_arg(2);
-		
-		$options['title'] = empty($options['title']) ? strip_tags($title) : $options['title'];
-		
-        list($title, $options) = self::_parseLinkDropdown($title, $options);
-
-        return self::link($title, '#', $options);
-    }
-
-    /**
-     * Returns an audio/video element
-     * @param string|array $path File path, relative to the `webroot/{$options['pathPrefix']}` directory
-     * or an array where each item itself can be a path string or an array containing `src` and `type` keys.
-     * @param array $options Array of HTML attributes
-     * @return string Html, audio or video tag
+     * Returns an `<audio>` or `<video>` element.
+     * @param string|array $path File path, relative to the `webroot/files/` directory or an array
+	 * where each item itself can be a path string or an array containing `src` and `type` keys.
+	 * @param array $options Array of options and HTML attributes
+     * @return string Html code
+	 * @uses _addOptionDefault()
      */
     public function media($path, $options = array()) {
-        $options['controls'] = isset($options['controls']) && empty($options['controls']) ? FALSE : TRUE;
+		$options = self::_addOptionDefault('controls', !empty($options['controls']) || !isset($options['controls']), $options);
 
         return parent::media($path, $options);
     }
 
     /**
-     * Creates a meta tag. 
+     * Creates a `<meta>` tag. 
      *
-     * For a custom meta tag, the first parameter should be set to an array. For example:
+     * For a custom `<meta>` tag, the first parameter should be set to an array. For example:
      * <code>echo $this->Html->meta(array('name' => 'robots', 'content' => 'noindex'));</code>
      * @param string $type The title of the external resource
      * @param mixed $url The address of the external resource or string for content attribute
      * @param array $options Other attributes for the generated tag
-     * @return string Html, meta tag
-     * @see http://repository.novatlantis.it/metools-sandbox/html/audiovideo Examples
+     * @return string Html code
+	 * @uses _addOptionDefault()
      */
     public function meta($type, $url = NULL, $options = array()) {
-        $options['inline'] = empty($options['inline']) ? FALSE : $options['inline'];
-
+		$options = self::_addOptionDefault('inline', FALSE, $options);
+		
         return parent::meta($type, $url, $options);
     }
-
+	
     /**
-     * Returns a list (`ol`/`ul`) out of an array.
-     * @param array $list Element list
+     * Returns a list (`<ol>` or `<ul>` tag).
+     * @param array $list Elements list
      * @param array $options HTML attributes of the list tag
      * @param array $itemOptions HTML attributes of the list items
      * @param string $tag Type of list tag (ol/ul)
-     * @return string Html, ol/ul list
-     * @see http://repository.novatlantis.it/metools-sandbox/html/lists Examples
+     * @return string Html code
+	 * @uses _addIcons()
+	 * @uses _addOptionValue()
      */
     public function nestedList($list, $options = array(), $itemOptions = array(), $tag = 'ul') {
-        if(!empty($itemOptions['icon'])) {
-            $options['class'] = empty($options['class']) ? 'fa-ul' : self::_clean('fa-ul', $options['class']);
-            array_walk($list, function(&$v, $k, $icon) {
-                $v = self::icon($icon).$v;
-            }, $itemOptions['icon']);
-            unset($itemOptions['icon']);
+		if(!empty($itemOptions['icon'])) {
+			$options['icon'] = $itemOptions['icon'];
+			unset($itemOptions['icon']);
+		}
+		
+        if(!empty($options['icon'])) {
+			$options = self::_addOptionValue('class', 'fa-ul', $options);
+			$options = self::_addOptionValue('icon', 'li', $options);
+			
+			foreach($list as $k => $text)
+				$list[$k] = self::_addIcons($text, $options);
+			
+			unset($options['icon']);
         }
 
-        return self::tag($tag, self::li($list, $itemOptions), $options);
+		return parent::nestedList($list, $options, $itemOptions, $tag);
     }
 
     /**
-     * Returns an ordered list (`ol`) out of an array.
-     * @param array $list Element list
+     * Returns an ordered list (`<ol>` tag).
+     * @param array $list Elements list
      * @param array $options HTML attributes of the list tag
      * @param array $itemOptions HTML attributes of the list items
-     * @return string Html, ordered list
-     * @see http://repository.novatlantis.it/metools-sandbox/html/lists Examples
+     * @return string Html code
      * @uses nestedList() to create the list
      */
     public function ol($list, $options = array(), $itemOptions = array()) {
@@ -610,117 +499,107 @@ class MeHtmlHelper extends HtmlHelper {
     }
 
     /**
-     * Returns a formatted P tag.
-     * @param type $class Class name of the element
+     * Returns a formatted `<p>` tag.
+     * @param type $class Class name
      * @param string $text Paragraph text
-     * @param array $options HTML attributes
-     * @return string Html, P tag.
+	 * @param array $options Array of options and HTML attributes
+     * @return string Html code
+	 * @uses _addIcons()
      */
     public function para($class, $text, $options = array()) {
-        $text = empty($options['icon']) ? $text : self::icon($options['icon']).$text;
+		$text = self::_addIcons($text, $options);
         unset($options['icon']);
 
         return parent::para($class, $text, $options);
     }
 	
 	/**
-	 * Creates a pre tag.
+	 * Returns a `<pre>` tag.
 	 * 
 	 * For use with SyntaxHighlighter, you can use the `brush` option.
      * @param string $text Pre text
-     * @param array $options HTML attributes
-     * @return string Html, pre element
+	 * @param array $options Array of options and HTML attributes
+     * @return string Html code
+	 * @uses _addOptionValue()
+	 * @uses tag()
 	 */
 	public function pre($text, $options = array()) {
 		if(!empty($options['brush'])) {
-			$options['class'] = sprintf('brush: %s', $options['brush']);
+			$options = self::_addOptionValue('class', sprintf('brush: %s', $options['brush']), $options);
 			unset($options['brush']);
 		}
 		
 		return self::tag('pre', $text, $options);
 	}
-
+	
     /**
      * Adds a js file to the layout.
      * 
-     * If it's used in the layout, you should set the `inline` option to `TRUE`
+     * If it's used in the layout, you should set the `inline` option to `TRUE`.
      * @param mixed $url Javascript files as string or array
-     * @param array $options HTML attributes
-     * @return mixed String of <script /> tags or NULL if `$inline` is FALSE or if `$once` is TRUE and the file has been included before
+	 * @param array $options Array of options and HTML attributes
+     * @return mixed String of `<script />` tags or NULL if `$inline` is FALSE or if `$once` is TRUE
+	 * and the file has been included before
+	 * @uses _addOptionDefault()
      */
     public function script($url, $options = array()) {
-        $options['inline'] = empty($options['inline']) ? FALSE : $options['inline'];
+		$options = self::_addOptionDefault('inline', FALSE, $options);
 		
-		if(is_array($url)) {
-			$out = NULL;
-			foreach($url as $path)
-				$out .= parent::script($path, $options);
+		if(!is_array($url))
+			return parent::script($url, $options);
+				
+		array_walk($url, function(&$v, $k, $options) {
+			$v = parent::script($v, $options);
+		}, $options);
 			
-			return $out;
-		}
-		
-        return parent::script($url, $options);
+		return implode(PHP_EOL, $url);
     }
 
     /**
      * Returns a Javascript code block.
      * @param string $code Javascript code
-     * @param array $options HTML attributes
-     * @return string Html, javascript code
+	 * @param array $options Array of options and HTML attributes
+     * @return mixed A script tag or NULL
+	 * @uses _addOptionDefault()
      */
     public function scriptBlock($code, $options = array()) {
-        $options['inline'] = empty($options['inline']) ? FALSE : $options['inline'];
+		$options = self::_addOptionDefault('inline', FALSE, $options);
 
         return parent::scriptBlock($code, $options);
     }
 
     /**
-     * Ends capturing output for Javascript code.
-     * 
-     * To start capturing output, see the `scriptStart()` method.
-     * 
-     * To capture output with a single method, you can also use the `scriptBlock()` method.
-     * @return mixed A script tag or NULL
-     * @see scriptBlock()
-     * @see scriptStart()
-     */
-    public function scriptEnd() {
-        return parent::scriptEnd();
-    }
-
-    /**
      * Starts capturing output for Javascript code.
      * 
-     * To end capturing output, see the `scriptEnd()` method.
+     * To end capturing output, you can use the `scriptEnd()` method.
      * 
      * To capture output with a single method, you can also use the `scriptBlock()` method.
      * @param array $options Options for the code block
      * @return mixed A script tag or NULL
      * @see scriptBlock()
-     * @see scriptEnd()
+	 * @uses _addOptionDefault()
      */
     public function scriptStart($options = array()) {
-        $options['inline'] = empty($options['inline']) ? FALSE : $options['inline'];
+		$options = self::_addOptionDefault('inline', FALSE, $options);
 
         return parent::scriptStart($options);
     }
 
     /**
      * Returns a formatted block tag.
-     * @param string $name Tag name.
+     * @param string $name Tag name
      * @param string $text Tag content. If NULL, only a start tag will be printed
-     * @param array $options HTML attributes
-     * @return string Html, tag element
+	 * @param array $options Array of options and HTML attributes
+     * @return string Html code
+	 * @uses _addIcons()
      */
     public function tag($name, $text = NULL, $options = array()) {
-		$options = self::_setTooltip($options);
-		
-        $text = empty($options['icon']) ? $text : self::icon($options['icon']).$text;
+		$text = self::_addIcons($text, $options);
         unset($options['icon']);
 
         return parent::tag($name, $text, $options);
     }
-
+	
     /**
 	 * Creates and returns a thumbnail of an image or a video.
      * 
@@ -729,21 +608,21 @@ class MeHtmlHelper extends HtmlHelper {
 	 * 
 	 * You can use the `height` option only for image files.
      * @param string $path Image path (absolute or relative to the webroot)
-     * @param array $options HTML attributes
-     * @return string Html, tag element
-     * @see http://repository.novatlantis.it/metools-sandbox/html/images Examples
-     * @uses thumbUrl() to get the url thumbnail
-     * @uses image() to display the thumbnail
+	 * @param array $options Array of options and HTML attributes
+     * @return string Html code
+	 * @uses _addOptionValue()
+     * @uses thumbUrl()
+     * @uses image() to
      */
     public function thumb($path, $options = array()) {
         $path = self::thumbUrl($path, $options);
         unset($options['side'], $options['width'], $options['height']);
-
-        $options['class'] = empty($options['class']) ? 'thumb' : self::_clean('thumb', $options['class']);
+		
+		$options = self::_addOptionValue('class', 'thumb', $options);
 
         return self::image($path, $options);
     }
-
+	
     /**
 	 * Creates and returns the url for a thumbnail of an image or a video.
      * 
@@ -755,68 +634,64 @@ class MeHtmlHelper extends HtmlHelper {
      * Note that to directly display a thumbnail, you should use the `thumb()` method. 
 	 * This method only returns the url of the thumbnail.
      * @param string $path Image path (absolute or relative to the webroot)
-     * @param array $options HTML attributes
-     * @return string Html, tag element
+	 * @param array $options Array of options and HTML attributes
+     * @return string Url
      * @see thumb()
-     * @see http://repository.novatlantis.it/metools-sandbox/html/images Examples
-     * @uses url() to generate the thumbnail url
      */
     public function thumbUrl($path, $options = array()) {		
         //If the side is defined, then the width and height are NULL (we don't need these)
         if($options['side'] = empty($options['side']) ? NULL : $options['side'])
             $options['width'] = $options['height'] = NULL;
-        else {
-            $options['width'] = empty($options['width']) ? NULL : $options['width'];
-            $options['height'] = empty($options['height']) ? NULL : $options['height'];
-        }
-
-        return self::url(am(array('controller' => 'thumbs', 'action' => 'thumb', 'plugin' => 'me_tools', 'admin' => FALSE), array('?' => array('s' => $options['side'], 'w' => $options['width'], 'h' => $options['height'])), array(base64_encode($path))), TRUE);
+        
+        $options['width'] = empty($options['width']) ? NULL : $options['width'];
+        $options['height'] = empty($options['height']) ? NULL : $options['height'];
+		
+        return parent::url(am(array('controller' => 'thumbs', 'action' => 'thumb', 'plugin' => 'me_tools', 'admin' => FALSE), array('?' => array('s' => $options['side'], 'w' => $options['width'], 'h' => $options['height'])), array(base64_encode($path))), TRUE);
     }
 
     /**
      * Returns a tip block.
      * 
-     * By default, the tip block will have a title. To change the title, use the "title" option. If the "title" option is 
-     * an array, you can use "text" and "options" keys. If you don't want to have a title, the "title" option should be `FALSE`.
-     * @param string|array $text Tip text, as string or array
+     * By default, the tip block will have a title. To change the title, use the `title` option. 
+	 * If the `title` option is  If you don't want to have a title, the `title` option should be `FALSE`.
+     * @param string $text Tip text
      * @param array $options HTML attributes
-     * @return Html, tip block
-     * @see http://repository.novatlantis.it/metools-sandbox/html/tips Examples
+     * @return Html code
+	 * @uses _addIcons()
+	 * @uses _addOptionValue()
+	 * @uses _addOptionDefault()
+	 * @uses div()
+	 * @uses h4()
+	 * @uses para()
      */
     public function tip($text, $options = array()) {
         $text = is_array($text) ? $text : array($text);
         array_walk($text, function(&$v) {
             $v = self::para(NULL, $v);
         });
-        $text = self::div('tip-text', implode(NULL, $text));
+        $text = self::div('tip-text', implode(PHP_EOL, $text));
+		
+		if(!isset($options['title']) || $options['title']) {
+			$options = self::_addOptionDefault('title', __d('me_tools', 'Tip'), $options);
+			$options = self::_addOptionDefault('icon', 'magic', $options);
+			$options['title'] = self::_addIcons($options['title'], $options);
+			
+			$text = self::h4($options['title'], array('class' => 'tip-title')).PHP_EOL.$text;
+		}
+		
+		unset($options['icon'], $options['title']);        
 
-        $options['class'] = empty($options['class']) ? 'tip' : self::_clean('tip', $options['class']);
-
-        if(!isset($options['title']) || $title = $options['title']) {
-            if(empty($title))
-                $title = array('text' => __d('me_tools', 'Tip'));
-            elseif(!is_array($title))
-                $title = array('text' => $title);
-
-            $title['class'] = empty($title['class']) ? 'tip-title' : self::_clean('tip-title', $title['class']);
-            $title['icon'] = empty($title['icon']) ? 'fa-magic' : $title['icon'];
-            $title['options'] = $title;
-            unset($title['options']['text']);
-
-            $text = self::tag('h4', $title['text'], $title['options']).$text;
-        }
-        unset($options['icon'], $options['title']);
-
+		$options = self::_addOptionValue('class', 'tip', $options);
+		
         return self::div($options['class'], $text, $options);
     }
 
     /**
-     * Returns an unordered list (`ul`) out of an array.
-     * @param array $list Element list
+     * Returns an unordered list (`<ul>` tag).
+     * @param array $list Elements list
      * @param array $options HTML attributes of the list tag
      * @param array $itemOptions HTML attributes of the list items
-     * @return string Html, unordered list
-     * @see http://repository.novatlantis.it/metools-sandbox/html/lists Examples
+     * @return string Html code
      * @uses nestedList() to create the list
      */
     public function ul($list, $options = array(), $itemOptions = array()) {
@@ -824,12 +699,11 @@ class MeHtmlHelper extends HtmlHelper {
     }
 
     /**
-     * Returns a video element
-     * @param string|array $path File path, relative to the `webroot/{$options['pathPrefix']}` directory
-     * or an array where each item itself can be a path string or an array containing `src` and `type` keys.
-     * @param array $options Array of HTML attributes
-     * @return string Html, video tag
-     * @see http://repository.novatlantis.it/metools-sandbox/html/audiovideo Examples
+     * Returns a `<video>` element
+     * @param string|array $path File path, relative to the `webroot/files/` directory or an array
+	 * where each item itself can be a path string or an array containing `src` and `type` keys.
+	 * @param array $options Array of options and HTML attributes
+     * @return string Html code
      * @uses media()
      */
     public function video($path, $options = array()) {

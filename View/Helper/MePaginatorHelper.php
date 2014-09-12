@@ -24,7 +24,6 @@
  * @link		http://git.novatlantis.it Nova Atlantis Ltd
  * @package		MeTools\View\Helper
  * @see			http://api.cakephp.org/2.5/class-PaginatorHelper.html PaginatorHelper
- * @see         http://repository.novatlantis.it/metools-sandbox/html/pagination Examples
  */
 App::uses('PaginatorHelper', 'View/Helper');
 
@@ -57,17 +56,19 @@ class MePaginatorHelper extends PaginatorHelper {
      * @param string $disabledTitle Title when the link is disabled
      * @param array $disabledOptions Options for the disabled pagination link
      * @return array Passed arguments
+	 * @uses MeHtmlHelper::_addOptionDefault()
+	 * @uses MeHtmlHelper::_addOptionValue()
      */
     private function _jump_link($title = NULL, $options = array(), $disabledTitle = NULL, $disabledOptions = array()) {
         //If the "disabled title" is empty, it will be set to the title
-        $disabledTitle = !empty($disabledTitle) ? $disabledTitle : $title;
+        $disabledTitle = empty($disabledTitle) ? $title : $disabledTitle;
 
-        $options['escape'] = !empty($options['escape']) ? $options['escape'] : FALSE;
-        $options['tag'] = !empty($options['tag']) ? $options['tag'] : 'li';
+		$options = $this->Html->_addOptionDefault('escape', FALSE, $options);
+		$options = $this->Html->_addOptionDefault('tag', 'li', $options);
 
-        $disabledOptions['class'] = !empty($disabledOptions['class']) ? $this->Html->_clean($disabledOptions['class']) : 'disabled';
-        $disabledOptions['disabledTag'] = !empty($disabledOptions['disabledTag']) ? $disabledOptions['disabledTag'] : 'a';
-        $disabledOptions['tag'] = !empty($disabledOptions['tag']) ? $disabledOptions['tag'] : 'li';
+		$disabledOptions = $this->Html->_addOptionValue('class', 'disabled', $disabledOptions);
+		$disabledOptions = $this->Html->_addOptionDefault('disabledTag', 'a', $disabledOptions);
+		$disabledOptions = $this->Html->_addOptionDefault('tag', 'li', $disabledOptions);
 
         return array($title, $options, $disabledTitle, $disabledOptions);
     }
@@ -75,24 +76,27 @@ class MePaginatorHelper extends PaginatorHelper {
     /**
      * Returns a counter string for the paged result set.
      * 
-     * By default, returns something like "1 - 20 of 50", which means that you're viewing records 1 to 20 of 50 total
+     * By default, returns something like "1 - 20 of 50", which means that you're viewing records 1 to 20 of 50 total.
      * @param array $options Options for the counter string
      * @return string Counter string
      */
     public function counter($options = array()) {
         //"format" option default "{:start} - {:end} of {:count}"
-        $options['format'] = !empty($options['format']) ? $options['format'] : __d('me_tools', '%s - %s of %s', '{:start}', '{:end}', '{:count}');
+		$options = $this->Html->_addOptionDefault('format', __d('me_tools', '%s - %s of %s', '{:start}', '{:end}', '{:count}'), $options);
 
         return parent::counter($options);
     }
 
     /**
-     * Returns the counter string as disabled link
+     * Returns the counter string as disabled link.
      * @param array $options Options for the counter string
      * @return string Counter string as disabled link
+	 * @uses counter()
+	 * @uses MeHtmlHelper::li()
+	 * @uses MeHtmlHelper::link()
      */
     public function counterLink($options = array()) {
-        return $this->Html->tag('li', $this->Html->link($this->counter($options), '#'), array('class' => 'disabled'));
+        return $this->Html->li($this->Html->link(self::counter($options), '#'), array('class' => 'disabled'));
     }
 
     /**
@@ -102,31 +106,34 @@ class MePaginatorHelper extends PaginatorHelper {
      * @param string $disabledTitle Title when the link is disabled
      * @param array $disabledOptions Options for the disabled pagination link
      * @return string A "next" link or $disabledTitle text if the link is disabled
-     * @uses _jump_link() jump links
+     * @uses _jump_link()
+	 * @uses MeHtmlHelper::_addOptionValue()
      */
     public function next($title = NULL, $options = array(), $disabledTitle = NULL, $disabledOptions = array()) {
 		if(empty($disabledOptions) && !empty($options)) {
 			$disabledOptions = $options;
-			$disabledOptions['class'] = $this->Html->_clean($disabledOptions['class'], 'disabled');
+			$disabledOptions = $this->Html->_addOptionValue('class', 'disabled', $disabledOptions);
 		}
 		
-        //Uses `$this->__jump->link()` to set arguments
-        list($title, $options, $disabledTitle, $disabledOptions) = $this->_jump_link($title, $options, $disabledTitle, $disabledOptions);
+        //Uses `self::__jump->link()` to set arguments
+        list($title, $options, $disabledTitle, $disabledOptions) = self::_jump_link($title, $options, $disabledTitle, $disabledOptions);
 
         return parent::next($title, $options, $disabledTitle, $disabledOptions);
     }
 
     /**
-     * Returns a set of numbers for the paged result set uses a modulus to decide how many numbers 
-     * to show on each side of the current page (default: 8). Rewrites <i>$this->Paginator->numbers()</i>
-     * @param array $options Options for the numbers
+     * Returns a set of numbers for the paged result set uses a modulus to decide how many numbers .
+     * to show on each side of the current page (default: 8).
+     * @param array $options Options for the numbers.
      * @return string Numbers string
+	 * @uses MeHtmlHelper::_addOptionDefault()
+	 * @uses MeHtmlHelper::_addOptionValue()
      */
     public function numbers($options = array()) {
-        $options['currentClass'] = !empty($options['currentClass']) ? $this->Html->_clean($options['currentClass']) : 'active';
-        $options['currentTag'] = !empty($options['currentTag']) ? $options['currentTag'] : 'a';
-        $options['separator'] = !empty($options['separator']) ? $options['separator'] : FALSE;
-        $options['tag'] = !empty($options['tag']) ? $options['tag'] : 'li';
+		$options = $this->Html->_addOptionValue('currentClass', 'active', $options);
+		$options = $this->Html->_addOptionDefault('currentTag',  'a', $options);
+		$options = $this->Html->_addOptionDefault('separator', FALSE, $options);
+		$options = $this->Html->_addOptionDefault('tag', 'li', $options);
 
         return parent::numbers($options);
     }
@@ -138,16 +145,17 @@ class MePaginatorHelper extends PaginatorHelper {
      * @param string $disabledTitle Title when the link is disabled
      * @param array $disabledOptions Options for the disabled pagination link
      * @return string A "prev" link or $disabledTitle text if the link is disabled
-     * @uses _jump_link() jump links
+     * @uses _jump_link()
+	 * @uses MeHtmlHelper::_addOptionValue()
      */
     public function prev($title = NULL, $options = array(), $disabledTitle = NULL, $disabledOptions = array()) {
 		if(empty($disabledOptions) && !empty($options)) {
 			$disabledOptions = $options;
-			$disabledOptions['class'] = $this->Html->_clean($disabledOptions['class'], 'disabled');
+			$disabledOptions = $this->Html->_addOptionValue('class', 'disabled', $disabledOptions);
 		}
 		
-        //Uses $this->__jump->link() to set arguments
-        list($title, $options, $disabledTitle, $disabledOptions) = $this->_jump_link($title, $options, $disabledTitle, $disabledOptions);
+        //Uses self::__jump->link() to set arguments
+        list($title, $options, $disabledTitle, $disabledOptions) = self::_jump_link($title, $options, $disabledTitle, $disabledOptions);
 
         return parent::prev($title, $options, $disabledTitle, $disabledOptions);
     }

@@ -52,7 +52,7 @@ class RecaptchaHelper extends AppHelper {
      * Construct
      * @param View $View The View this helper is being attached to
      * @param array $settings Configuration settings for the helper
-     * @uses mail_keys to set mail keys
+     * @uses mail_keys
      */
     public function __construct(View $View, $settings = array()) {
         Configure::load('recaptcha');
@@ -84,14 +84,13 @@ class RecaptchaHelper extends AppHelper {
      * Creates an HTML link for an hidden email. The link will be open in a popup.
      * @param string $title Link title
      * @param string $mail Email to hide
-     * @param array $options HTML attributes
-     * @return string Html
-     * @see http://repository.novatlantis.it/metools-sandbox/recaptcha/maillinks Examples
-     * @uses mailUrl to get the url
-     * @uses MeHtmlHelper::link() to create the link
+	 * @param array $options Array of options and HTML attributes
+     * @return string Html code
+     * @uses mailUrl()
+     * @uses MeHtmlHelper::link()
      */
     public function mailLink($title, $mail, $options = array()) {
-        $link = $this->mailUrl($mail);
+        $link = self::mailUrl($mail);
 
         //Adds the "onclick" options, that allows to open the link in a popup
         $options['onclick'] = sprintf("window.open('%s', '', 'toolbar=0,scrollbars=0,location=0,statusbar=0,menubar=0,resizable=0,width=500,height=300'); return false;", $link);
@@ -106,8 +105,7 @@ class RecaptchaHelper extends AppHelper {
      * @param string $mail Email to hide
      * @return string Url
      * @see mailLink()
-     * @see http://repository.novatlantis.it/metools-sandbox/recaptcha/maillinks Examples
-     * @uses mail_keys to read mail keys
+     * @uses mail_keys
      */
     public function mailUrl($mail) {
         return !empty($this->mail_keys) ? recaptcha_mailhide_url($this->mail_keys['pub'], $this->mail_keys['priv'], $mail) : NULL;
