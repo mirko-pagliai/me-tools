@@ -22,7 +22,7 @@
 
 <div class="<?php echo $pluralVar; ?> form">
 	<?php printf("<?php echo \$this->Html->h2(__d('me_cms_backend', '%s %s')); ?>\n", Inflector::humanize(preg_replace('/(admin_|manager_|_)/', '', $action)), strtolower($singularHumanName)); ?>
-	<?php echo "<?php echo \$this->Form->create('{$modelClass}', array('class' => 'form-base')); ?>\n"; ?>
+	<?php echo "<?php echo \$this->Form->create('{$modelClass}'); ?>\n"; ?>
 		<fieldset>
 			<?php
 				echo "<?php\n";
