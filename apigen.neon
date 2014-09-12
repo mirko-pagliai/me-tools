@@ -2,6 +2,7 @@ accessLevels: "public,protected,private"
 autocomplete: "classes,constants,functions,methods,properties,classconstants"
 destination: Docs
 download: yes
+exclude: {*.old, *.old.*} 
 source: {Console/Command, Controller, Lib/Error, Lib/Log, Model, Utility, View/Helper}
 main: MeTools
 php: no
