@@ -23,15 +23,15 @@
  */
 
 /* Labels for required inputs */
-.form-base label.required:after,
-.form-base div.required > label:after {
+form label.required:after,
+form div.required > label:after {
 	color: #e32;
 	content: '*';
 	display: inline;
 }
 
 /* Legends for radio inputs */
-.form-base fieldset fieldset legend {
+form fieldset fieldset legend {
     border: 0;
     font-size: 14px;
     font-weight: bold;
@@ -39,28 +39,28 @@
 }
 
 /* Legends into radio wrappers */
-.form-base .radio legend {
+form .radio legend {
 	margin-left: -20px;
 }
 
 /* Labels for radio inputs */
-.form-base input[type=radio] + label {
+form input[type=radio] + label {
 	font-weight: normal;
 	margin-left: 3px;
 }
 
 /* Select inputs */
-.form-base select {
+form select {
 	padding: 6px 0 6px 10px;
 }
 
 /* Select inputs, options */
-.form-base select option {
+form select option {
 	padding-right: 16px;
 }
 
 /* Textareas */
-.form-base textarea {
+form textarea {
 	min-height: 34px;
 	resize: vertical;
 }
@@ -69,25 +69,25 @@
 /*		Help blocks and errors		*/
 /* -------------------------------- */
 /* Help blocks */
-.form-base .input .help-block {
+form .input .help-block {
 	font-family: sans-serif, Arial;
     font-size: 11px;
 	margin: 3px 0 0;
 }
 
 /* Help blocks, first block */
-.form-base .input .help-block:first-of-type {
+form .input .help-block:first-of-type {
 	margin-top: 4px;
 }
 
 /* Help blocks, links */
-.form-base .input .help-block a {
+form .input .help-block a {
 	color: inherit;
     text-decoration: underline;
 }
 
 /* Form error messages */
-.form-base .error-message {
+form .error-message {
 	background: #F2DEDE;
 	color: #B94A48;
 	border-radius: 4px;
@@ -97,13 +97,13 @@
 }
 
 /* Form error messages, error list */
-.form-base .error-message ul {
+form .error-message ul {
 	margin: 0;
     padding-left: 15px;
 }
 
 /* Select inputs with icon validation state, on error */
-.form-base .has-feedback select.form-error {
+form .has-feedback select.form-error {
     padding-right: 30.5px;
 }
 
@@ -111,22 +111,22 @@
 /*			Checkbox inputs			*/
 /* -------------------------------- */
 /* Div for checkboxes */
-.form-base div.checkbox {
+form div.checkbox {
 	padding-left: 0;
 }
 
 /* It hides the checkbox, which will be replaced with an icon in the label */
-.form-base input[type='checkbox'] {
+form input[type='checkbox'] {
 	display: none;
 }
 
 /* Checkbox labels */
-.form-base input[type='checkbox'] + label {
+form input[type='checkbox'] + label {
 	cursor: pointer;
 }
 
 /* Checkbox labels, when checkbox is unchecked */
-.form-base input[type='checkbox'] + label:before {
+form input[type='checkbox'] + label:before {
 	color: #999;
 	content: "\f096";
 	font-family: FontAwesome;
@@ -137,17 +137,17 @@
 }
 
 /* Checkbox labels, when checkbox is checked */
-.form-base input[type='checkbox']:checked + label:before {
+form input[type='checkbox']:checked + label:before {
 	color: inherit;
 	content: "\f046";
 	margin-right: 1px;
 }
 
 /* Disabled checkbox */
-.form-base input[type='checkbox'][disabled],
-.form-base input[type='checkbox'][disabled] + label,
-.form-base input[type='checkbox'].disabled,
-.form-base input[type='checkbox'].disabled + label {
+form input[type='checkbox'][disabled],
+form input[type='checkbox'][disabled] + label,
+form input[type='checkbox'].disabled,
+form input[type='checkbox'].disabled + label {
 	cursor: not-allowed;
 }
 
@@ -155,7 +155,7 @@
 /*	Checkboxes list in base forms	*/
 /* -------------------------------- */
 /* Containter */
-.form-base .checkboxes-list {
+form .checkboxes-list {
 	background: #F7F5FA;
     border-radius: 4px;
 	color: #555;
@@ -163,29 +163,29 @@
 }
 
 /* Title */
-.form-base .checkboxes-list > label {
+form .checkboxes-list > label {
     font-size: 18px;
     font-weight: 500;
     margin: 0 5px 10px;
 }
 
 /* Buttons to check/uncheck all */
-.form-base .checkboxes-list .checkbox-buttons {
+form .checkboxes-list .checkbox-buttons {
 	margin-bottom: 10px;
 }
 
 /* Buttons to check/uncheck all, first button */
-.form-base .checkboxes-list .checkbox-buttons button:first-child {
+form .checkboxes-list .checkbox-buttons button:first-child {
 	margin-right: 4px;
 }
 
 /* Checkbox wrapper */
-.form-base .checkboxes-list .checkbox {
+form .checkboxes-list .checkbox {
 	margin: 0;
 }
 
 /* Labels */
-.form-base .checkboxes-list input[type='checkbox'] + label {
+form .checkboxes-list input[type='checkbox'] + label {
 	margin-left: 10px;
 }
 
@@ -193,19 +193,19 @@
 /*			Inline forms			*/
 /* -------------------------------- */
 /* Wrappers */
-.form-base.form-inline fieldset > .input, .form-base.form-inline fieldset > button {
+form.form-inline fieldset > .input, form.form-inline fieldset > button {
 	margin-right: 4px;
 	min-height: 37px;
 	vertical-align: top;
 }
 
 /* Wrappers, last wrapper */
-.form-base.form-inline fieldset > .input:last-child, .form-base.form-inline fieldset > button:last-child {
+form.form-inline fieldset > .input:last-child, form.form-inline fieldset > button:last-child {
 	margin: 0;
 }
 
 /* Checkbox labels */
-.form-base.form-inline .checkbox label {
+form.form-inline .checkbox label {
 	line-height: 37px;
 }
 
@@ -213,7 +213,7 @@
 /*			Float forms				*/
 /* -------------------------------- */
 /* Float form */
-.form-base > .float-form {
+form > .float-form {
 	background: #F7F5FA;
     border-radius: 5px;
     float: right;
@@ -224,18 +224,18 @@
 }
 
 /* Float form on left */
-.form-base > .float-form.float-left {
+form > .float-form.float-left {
 	float: left;
 	margin: 0 20px 20px 0;
 }
 
 /* Float form, last input wrapper */
-.form-base > .float-form div.input:last-child {
+form > .float-form div.input:last-child {
 	margin-bottom: 0;
 }
 
 /* Float form, select input */
-.form-base > .float-form select {
+form > .float-form select {
 	width: 100% !important;
 }
 
@@ -251,12 +251,12 @@
 /*			Bootstrap rewrite		*/
 /* -------------------------------- */
 /* General buttons and inputs */
-.form-base button, .form-base input.form-control, .form-base select.form-control {
+form button, form input.form-control, form select.form-control {
 	min-height: 37px;
 }
 
 /* Textareas without "row" attribute */
-.form-base textarea:not([rows]).form-control {
+form textarea:not([rows]).form-control {
 	height: 150px;
 }
 
@@ -264,7 +264,7 @@
 /*	Date and timepicker rewrite		*/
 /* -------------------------------- */
 /* Datepicker input */
-.form-base input.datepicker {
+form input.datepicker {
 	padding: 6px 12px;
 }
 
