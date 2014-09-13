@@ -37,7 +37,7 @@ App::uses('Folder', 'Utility');
  */
 class System {
 	/**
-	 * Checks if a directory and its subdirectories are readable and writable
+	 * Checks if a directory and its subdirectories are readable and writable.
 	 * @param string $path Path
 	 * @return boolean TRUE if they are readable and writable, FALSE otherwise
 	 */
@@ -57,26 +57,26 @@ class System {
 
 
 	/**
-     * Checks if an Apache module is active
+     * Checks if an Apache module is enabled.
      * @param string $module Name of the module to be checked
      * @return boolean TRUE if the module is enabled, FALSE otherwise
-     * @uses getApacheModules() to get Apache's modules
+     * @uses getApacheModules()
      */
     public static function checkApacheModule($module) {
         return in_array($module, self::getApacheModules());
     }
 
     /**
-     * Checks if the cache and all its subdirectories are readable and writable
+     * Checks if the cache is readable and writable.
      * @return boolean TRUE if if the cache is readable and writable, FALSE otherwise
-	 * @uses _dirIsWritable to check if is readable and writable
+	 * @uses _dirIsWritable()
      */
     public static function checkCache() {
 		return self::_dirIsWritable(CACHE);
     }
 
     /**
-     * Checks the cache status (if it's enabled)
+     * Checks if the cache is enabled.
      * @return boolean TRUE if the cache is enabled, FALSE otherwise
      */
     public static function checkCacheStatus() {
@@ -84,17 +84,17 @@ class System {
     }
 
     /**
-     * Checks if the current version of PHP is equal to or greater than the required version
-     * @param string $required_version Required version of PHP
-     * @return boolean TRUE if the current version of PHP is equal to or greater than the required version, FALSE otherwise
-     * @uses getPhpVersion() to get the current version of PHP
+     * Checks if the current version of PHP is equal to or greater than the required version.
+     * @param string $required Required version of PHP
+     * @return boolean TRUE if the current version is equal to or greater than the required version, FALSE otherwise
+     * @uses getPhpVersion()
      */
-    public static function checkPhpVersion($required_version) {
-        return version_compare(self::getPhpVersion(), $required_version, '>=');
+    public static function checkPhpVersion($required) {
+        return version_compare(self::getPhpVersion(), $required, '>=');
     }
 
     /**
-     * Checks if a PHP extension is enabled
+     * Checks if a PHP extension is enabled.
      * @param string $extension Name of the extension to be checked
      * @return boolean TRUE if the extension is enabled, FALSE otherwise
      */
@@ -103,25 +103,25 @@ class System {
     }
 
     /**
-     * Checks if the thumbnail directory is readable and writable
+     * Checks if the thumbnail directory is readable and writable.
      * @return boolean TRUE if the thumbnail directory is readable and writable, FALSE otherwise
-	 * @uses _dirIsWritable to check if is readable and writable
+	 * @uses _dirIsWritable()
      */
     public static function checkThumbs() {
-		return self::_dirIsWritable(TMP.'thumbs');
+		return self::_dirIsWritable(TMP.'thumbs'.DS.'photos') && self::_dirIsWritable(TMP.'thumbs'.DS.'videos');
     }
 
     /**
-     * Checks if the TMP and all its subdirectories are readable and writable
+     * Checks if the temporary directory is readable and writable.
      * @return boolean TRUE if the temporary directory is readable and writable, FALSE otherwise
-	 * @uses _dirIsWritable to check if is readable and writable
+	 * @uses _dirIsWritable()
      */
     public static function checkTmp() {
 		return self::_dirIsWritable(TMP);
     }
 
     /**
-     * Clears the cache
+     * Clears the cache.
      * @return boolean TRUE if the cache was successfully cleared, FALSE otherwise
      */
     public static function clearCache() {
@@ -129,7 +129,7 @@ class System {
     }
 
     /**
-     * Clears thumbnails
+     * Clears thumbnails.
      * @return boolean TRUE if thumbnails were successfully cleared, FALSE otherwise
      */
     public static function clearThumbs() {
@@ -147,7 +147,7 @@ class System {
     }
 
     /**
-     * Gets the Apache modules list
+     * Gets the Apache modules list.
      * @return array Modules list
      */
     public static function getApacheModules() {
@@ -155,7 +155,7 @@ class System {
     }
 
     /**
-     * Gets the cache size
+     * Gets the cache size.
      * @return int Cache size
      */
     public static function getCacheSize() {
@@ -164,7 +164,7 @@ class System {
     }
 
     /**
-     * Gets the CakePHP version
+     * Gets the CakePHP version.
      * @return string CakePHP version
      */
     public static function getCakeVersion() {
@@ -172,7 +172,7 @@ class System {
     }
 
     /**
-     * Gets the MeTools version
+     * Gets the MeTools version.
      * @return string MeTools version
      */
     public static function getMeToolsVersion() {
@@ -180,7 +180,7 @@ class System {
     }
 
     /**
-     * Gets the PHP extensions list
+     * Gets the PHP extensions list.
      * @return array Extensions list
      */
     public static function getPhpExtensions() {
@@ -188,7 +188,7 @@ class System {
     }
 
     /**
-     * Gets the current version of PHP
+     * Gets the current version of PHP.
      * @return string Current version of PHP
      */
     public static function getPhpVersion() {
@@ -196,7 +196,7 @@ class System {
     }
 
     /**
-     * Gets the thumbnails size
+     * Gets the thumbnails size.
      * @return int Thumbnails size
      */
     public static function getThumbsSize() {
@@ -205,7 +205,7 @@ class System {
     }
 	
 	/**
-	 * Checks if is the root user
+	 * Checks if is the root user.
 	 * @return boolean TRUE if is the root user, otherwise FALSE
 	 */
 	public static function is_root() {
