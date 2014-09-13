@@ -37,26 +37,6 @@ App::uses('Folder', 'Utility');
  */
 class System {
 	/**
-	 * Checks if a directory and its subdirectories are readable and writable.
-	 * @param string $path Path
-	 * @return boolean TRUE if they are readable and writable, FALSE otherwise
-	 */
-	private static function _dirIsWritable($directory) {
-		if(!is_readable($directory))
-			return FALSE;
-		
-		$folder = new Folder();
-
-        foreach($folder->tree($directory, FALSE, 'dir') as $dir) {
-            if(!is_readable($dir) || !is_writable($dir))
-                return FALSE;
-        }
-
-        return TRUE;
-	}
-
-
-	/**
      * Checks if an Apache module is enabled.
      * @param string $module Name of the module to be checked
      * @return boolean TRUE if the module is enabled, FALSE otherwise
@@ -69,10 +49,10 @@ class System {
     /**
      * Checks if the cache is readable and writable.
      * @return boolean TRUE if if the cache is readable and writable, FALSE otherwise
-	 * @uses _dirIsWritable()
+	 * @uses dirIsWritable()
      */
     public static function checkCache() {
-		return self::_dirIsWritable(CACHE);
+		return self::dirIsWritable(CACHE);
     }
 
     /**
@@ -86,10 +66,10 @@ class System {
     /**
      * Checks if the logs directory is readable and writable.
      * @return boolean TRUE if if the logs directory is readable and writable, FALSE otherwise
-	 * @uses _dirIsWritable()
+	 * @uses dirIsWritable()
      */
 	public static function checkLogs() {
-		return self::_dirIsWritable(LOGS);
+		return self::dirIsWritable(LOGS);
 	}
 
     /**
@@ -116,19 +96,19 @@ class System {
     /**
      * Checks if the thumbnail directory is readable and writable.
      * @return boolean TRUE if the thumbnail directory is readable and writable, FALSE otherwise
-	 * @uses _dirIsWritable()
+	 * @uses dirIsWritable()
      */
     public static function checkThumbs() {
-		return self::_dirIsWritable(TMP.'thumbs'.DS.'photos') && self::_dirIsWritable(TMP.'thumbs'.DS.'videos');
+		return self::dirIsWritable(TMP.'thumbs'.DS.'photos') && self::dirIsWritable(TMP.'thumbs'.DS.'videos');
     }
 
     /**
      * Checks if the temporary directory is readable and writable.
      * @return boolean TRUE if the temporary directory is readable and writable, FALSE otherwise
-	 * @uses _dirIsWritable()
+	 * @uses dirIsWritable()
      */
     public static function checkTmp() {
-		return self::_dirIsWritable(TMP);
+		return self::dirIsWritable(TMP);
     }
 
     /**
@@ -156,6 +136,25 @@ class System {
 		
         return $success;
     }
+	
+	/**
+	 * Checks if a directory and its subdirectories are readable and writable.
+	 * @param string $path Path
+	 * @return boolean TRUE if they are readable and writable, FALSE otherwise
+	 */
+	public static function dirIsWritable($directory) {
+		if(!is_readable($directory))
+			return FALSE;
+		
+		$folder = new Folder();
+
+        foreach($folder->tree($directory, FALSE, 'dir') as $dir) {
+            if(!is_readable($dir) || !is_writable($dir))
+                return FALSE;
+        }
+
+        return TRUE;
+	}
 
     /**
      * Gets the Apache modules list.
