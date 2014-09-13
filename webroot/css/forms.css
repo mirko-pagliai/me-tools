@@ -30,19 +30,6 @@ form div.required > label:after {
 	display: inline;
 }
 
-/* Legends for radio inputs */
-form fieldset fieldset legend {
-    border: 0;
-    font-size: 14px;
-    font-weight: bold;
-    margin-bottom: 5px;
-}
-
-/* Legends into radio wrappers */
-form .radio legend {
-	margin-left: -20px;
-}
-
 /* Labels for radio inputs */
 form input[type=radio] + label {
 	font-weight: normal;
@@ -193,15 +180,15 @@ form .checkboxes-list input[type='checkbox'] + label {
 /*			Inline forms			*/
 /* -------------------------------- */
 /* Wrappers */
-form.form-inline fieldset > .input, form.form-inline fieldset > button {
+form.form-inline > .input, form.form-inline > button {
 	margin-right: 4px;
 	min-height: 37px;
 	vertical-align: top;
 }
 
 /* Wrappers, last wrapper */
-form.form-inline fieldset > .input:last-child, form.form-inline fieldset > button:last-child {
-	margin: 0;
+form.form-inline > .input:last-child, form.form-inline > button:last-child {
+	margin-right: 0;
 }
 
 /* Checkbox labels */
