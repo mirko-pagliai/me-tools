@@ -149,8 +149,8 @@ class MeFormHelper extends FormHelper {
      */
     public function checkboxList($fieldName, $options = array()) {		
 		$buttons = $this->Html->div('checkbox-buttons', 
-			self::button(__d('me_tools', 'Check all'), array('class' => 'checkAll', 'icon' => 'check-square-o')).
-			self::button(__d('me_tools', 'Uncheck all'), array('class' => 'uncheckAll', 'icon' => 'minus-square-o'))
+			self::button(__d('me_tools', 'Check all'), array('class' => 'checkAll btn-sm', 'icon' => 'check-square-o')).
+			self::button(__d('me_tools', 'Uncheck all'), array('class' => 'uncheckAll btn-sm', 'icon' => 'minus-square-o'))
 		);
 
         $options['between'] = empty($options['between']) ? $buttons : $buttons.$options['between'];
