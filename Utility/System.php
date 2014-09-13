@@ -196,6 +196,31 @@ class System {
     public static function getPhpVersion() {
         return PHP_VERSION;
     }
+	
+	/**
+	 * Gets the version number for each plugin.
+	 * @param string|array $except Plugins to exclude
+	 * @return mixed array with the version number for each plugin
+	 */
+	public static function getPluginsVersion($except = NULL) {
+		//Gets plugins
+		$plugins = CakePlugin::loaded();
+		
+		//Removes the exceptions from the list
+		if(is_string($except) || is_array($except)) {
+			$except = is_array($except) ? $except : array($except);
+			$plugins = array_diff($plugins, $except);
+		}
+		
+		//For each plugin, gets the name and the version number
+		$pluginsTmp = array();
+		foreach($plugins as $plugin) {
+			if(is_readable($file = CakePlugin::path($plugin).'version'))
+				$pluginsTmp[] = array('name' => $plugin, 'version' => trim(file_get_contents($file)));
+		}
+		
+		return $pluginsTmp;
+	}
 
     /**
      * Gets the thumbnails size.
