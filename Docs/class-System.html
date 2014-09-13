@@ -7,7 +7,7 @@
 	<title>Class System | MeTools</title>
 
 	<script type="text/javascript" src="resources/combined.js?117538352"></script>
-	<script type="text/javascript" src="elementlist.js?3067465168"></script>
+	<script type="text/javascript" src="elementlist.js?119307696"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360">
 
 </head>
@@ -154,61 +154,13 @@ class="php-quote">'MeTools.Utility'</span>);
 				<b>Author:</b>
 				Mirko Pagliai &lt;<a
 href="mailto:mirko.pagliai&#64;gmail.com">mirko.pagliai&#64;<!-- -->gmail.com</a>&gt;<br>
-		<b>Located at</b> <a href="source-class-System.html#28-241" title="Go to source code">System.php</a><br>
+		<b>Located at</b> <a href="source-class-System.html#30-278" title="Go to source code">System.php</a><br>
 	</div>
 
 
 
 	<table class="summary" id="methods">
 	<caption>Methods summary</caption>
-	<tr data-order="_dirIsWritable" id="__dirIsWritable">
-
-		<td class="attributes"><code>
-			 private static
-			boolean
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#__dirIsWritable">#</a>
-		<code><a href="source-class-System.html#37-54" title="Go to source code">_dirIsWritable</a>( <span>string <var>$directory</var></span> )</code>
-
-		<div class="description short">
-			
-<p>Checks if a directory and its subdirectories are readable and writable</p>
-
-		</div>
-
-		<div class="description detailed hidden">
-			
-<p>Checks if a directory and its subdirectories are readable and writable</p>
-
-
-
-				<h4>Parameters</h4>
-				<div class="list"><dl>
-					<dt><var>$directory</var></dt>
-					<dd><code>string</code><br>$path Path</dd>
-				</dl></div>
-
-				<h4>Returns</h4>
-				<div class="list">
-					<code>boolean</code><br>TRUE if they are readable and writable, FALSE otherwise<br>
-				</div>
-
-
-				<h4>Used by</h4>
-				<div class="list">
-						<code><code><a href="class-System.html#_checkCache">System::checkCache()</a></code></code><br>to check if is readable and writable<br>
-						<code><code><a href="class-System.html#_checkThumbs">System::checkThumbs()</a></code></code><br>to check if is readable and writable<br>
-						<code><code><a href="class-System.html#_checkTmp">System::checkTmp()</a></code></code><br>to check if is readable and writable<br>
-				</div>
-
-
-		</div>
-		</div></td>
-	</tr>
 	<tr data-order="checkApacheModule" id="_checkApacheModule">
 
 		<td class="attributes"><code>
@@ -220,17 +172,17 @@ href="mailto:mirko.pagliai&#64;gmail.com">mirko.pagliai&#64;<!-- -->gmail.com</a
 
 		<td class="name"><div>
 		<a class="anchor" href="#_checkApacheModule">#</a>
-		<code><a href="source-class-System.html#57-65" title="Go to source code">checkApacheModule</a>( <span>string <var>$module</var></span> )</code>
+		<code><a href="source-class-System.html#39-47" title="Go to source code">checkApacheModule</a>( <span>string <var>$module</var></span> )</code>
 
 		<div class="description short">
 			
-<p>Checks if an Apache module is active</p>
+<p>Checks if an Apache module is enabled.</p>
 
 		</div>
 
 		<div class="description detailed hidden">
 			
-<p>Checks if an Apache module is active</p>
+<p>Checks if an Apache module is enabled.</p>
 
 
 
@@ -248,7 +200,7 @@ href="mailto:mirko.pagliai&#64;gmail.com">mirko.pagliai&#64;<!-- -->gmail.com</a
 
 				<h4>Uses</h4>
 				<div class="list">
-						<code><code><a href="class-System.html#_getApacheModules">System::getApacheModules()</a></code></code><br>to get Apache's modules<br>
+						<code><code><a href="class-System.html#_getApacheModules">System::getApacheModules()</a></code></code> <br>
 				</div>
 
 
@@ -266,17 +218,17 @@ href="mailto:mirko.pagliai&#64;gmail.com">mirko.pagliai&#64;<!-- -->gmail.com</a
 
 		<td class="name"><div>
 		<a class="anchor" href="#_checkCache">#</a>
-		<code><a href="source-class-System.html#67-74" title="Go to source code">checkCache</a>( )</code>
+		<code><a href="source-class-System.html#49-56" title="Go to source code">checkCache</a>( )</code>
 
 		<div class="description short">
 			
-<p>Checks if the cache and all its subdirectories are readable and writable</p>
+<p>Checks if the cache is readable and writable.</p>
 
 		</div>
 
 		<div class="description detailed hidden">
 			
-<p>Checks if the cache and all its subdirectories are readable and writable</p>
+<p>Checks if the cache is readable and writable.</p>
 
 
 
@@ -289,7 +241,7 @@ href="mailto:mirko.pagliai&#64;gmail.com">mirko.pagliai&#64;<!-- -->gmail.com</a
 
 				<h4>Uses</h4>
 				<div class="list">
-						<code><code><a href="class-System.html#__dirIsWritable">System::_dirIsWritable()</a></code></code><br>to check if is readable and writable<br>
+						<code><code><a href="class-System.html#_dirIsWritable">System::dirIsWritable()</a></code></code> <br>
 				</div>
 
 
@@ -307,17 +259,17 @@ href="mailto:mirko.pagliai&#64;gmail.com">mirko.pagliai&#64;<!-- -->gmail.com</a
 
 		<td class="name"><div>
 		<a class="anchor" href="#_checkCacheStatus">#</a>
-		<code><a href="source-class-System.html#76-82" title="Go to source code">checkCacheStatus</a>( )</code>
+		<code><a href="source-class-System.html#58-64" title="Go to source code">checkCacheStatus</a>( )</code>
 
 		<div class="description short">
 			
-<p>Checks the cache status (if it's enabled)</p>
+<p>Checks if the cache is enabled.</p>
 
 		</div>
 
 		<div class="description detailed hidden">
 			
-<p>Checks the cache status (if it's enabled)</p>
+<p>Checks if the cache is enabled.</p>
 
 
 
@@ -328,6 +280,47 @@ href="mailto:mirko.pagliai&#64;gmail.com">mirko.pagliai&#64;<!-- -->gmail.com</a
 				</div>
 
 
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="checkLogs" id="_checkLogs">
+
+		<td class="attributes"><code>
+			 public static
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_checkLogs">#</a>
+		<code><a href="source-class-System.html#66-73" title="Go to source code">checkLogs</a>( )</code>
+
+		<div class="description short">
+			
+<p>Checks if the logs directory is readable and writable.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Checks if the logs directory is readable and writable.</p>
+
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>boolean</code><br>TRUE if if the logs directory is readable and writable, FALSE otherwise<br>
+				</div>
+
+
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-System.html#_dirIsWritable">System::dirIsWritable()</a></code></code> <br>
+				</div>
 
 
 		</div>
@@ -344,38 +337,40 @@ href="mailto:mirko.pagliai&#64;gmail.com">mirko.pagliai&#64;<!-- -->gmail.com</a
 
 		<td class="name"><div>
 		<a class="anchor" href="#_checkPhpVersion">#</a>
-		<code><a href="source-class-System.html#84-92" title="Go to source code">checkPhpVersion</a>( <span>string <var>$required_version</var></span> )</code>
+		<code><a href="source-class-System.html#75-85" title="Go to source code">checkPhpVersion</a>( <span>string <var>$required</var> = <span class="php-quote">'5.2.8'</span></span> )</code>
 
 		<div class="description short">
 			
 <p>Checks if the current version of PHP is equal to or greater than the required
-version</p>
+version.</p>
 
 		</div>
 
 		<div class="description detailed hidden">
 			
 <p>Checks if the current version of PHP is equal to or greater than the required
-version</p>
+version.</p>
+
+<p>CakePHP 2.x requires at least the <code>5.2.8</code> version.</p>
 
 
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
-					<dt><var>$required_version</var></dt>
-					<dd><code>string</code><br>$required_version Required version of PHP</dd>
+					<dt><var>$required</var></dt>
+					<dd><code>string</code><br>$required Required version of PHP</dd>
 				</dl></div>
 
 				<h4>Returns</h4>
 				<div class="list">
-					<code>boolean</code><br>TRUE if the current version of PHP is equal to or greater than the required
-version, FALSE otherwise<br>
+					<code>boolean</code><br>TRUE if the current version is equal to or greater than the required version,
+FALSE otherwise<br>
 				</div>
 
 
 				<h4>Uses</h4>
 				<div class="list">
-						<code><code><a href="class-System.html#_getPhpVersion">System::getPhpVersion()</a></code></code><br>to get the current version of PHP<br>
+						<code><code><a href="class-System.html#_getPhpVersion">System::getPhpVersion()</a></code></code> <br>
 				</div>
 
 
@@ -393,17 +388,17 @@ version, FALSE otherwise<br>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_checkPhpExtension">#</a>
-		<code><a href="source-class-System.html#94-101" title="Go to source code">checkPhpExtension</a>( <span>string <var>$extension</var></span> )</code>
+		<code><a href="source-class-System.html#87-94" title="Go to source code">checkPhpExtension</a>( <span>string <var>$extension</var></span> )</code>
 
 		<div class="description short">
 			
-<p>Checks if a PHP extension is enabled</p>
+<p>Checks if a PHP extension is enabled.</p>
 
 		</div>
 
 		<div class="description detailed hidden">
 			
-<p>Checks if a PHP extension is enabled</p>
+<p>Checks if a PHP extension is enabled.</p>
 
 
 
@@ -435,17 +430,17 @@ version, FALSE otherwise<br>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_checkThumbs">#</a>
-		<code><a href="source-class-System.html#103-110" title="Go to source code">checkThumbs</a>( )</code>
+		<code><a href="source-class-System.html#96-103" title="Go to source code">checkThumbs</a>( )</code>
 
 		<div class="description short">
 			
-<p>Checks if the thumbnail directory is readable and writable</p>
+<p>Checks if the thumbnail directory is readable and writable.</p>
 
 		</div>
 
 		<div class="description detailed hidden">
 			
-<p>Checks if the thumbnail directory is readable and writable</p>
+<p>Checks if the thumbnail directory is readable and writable.</p>
 
 
 
@@ -458,7 +453,7 @@ version, FALSE otherwise<br>
 
 				<h4>Uses</h4>
 				<div class="list">
-						<code><code><a href="class-System.html#__dirIsWritable">System::_dirIsWritable()</a></code></code><br>to check if is readable and writable<br>
+						<code><code><a href="class-System.html#_dirIsWritable">System::dirIsWritable()</a></code></code> <br>
 				</div>
 
 
@@ -476,17 +471,17 @@ version, FALSE otherwise<br>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_checkTmp">#</a>
-		<code><a href="source-class-System.html#112-119" title="Go to source code">checkTmp</a>( )</code>
+		<code><a href="source-class-System.html#105-112" title="Go to source code">checkTmp</a>( )</code>
 
 		<div class="description short">
 			
-<p>Checks if the TMP and all its subdirectories are readable and writable</p>
+<p>Checks if the temporary directory is readable and writable.</p>
 
 		</div>
 
 		<div class="description detailed hidden">
 			
-<p>Checks if the TMP and all its subdirectories are readable and writable</p>
+<p>Checks if the temporary directory is readable and writable.</p>
 
 
 
@@ -499,7 +494,7 @@ version, FALSE otherwise<br>
 
 				<h4>Uses</h4>
 				<div class="list">
-						<code><code><a href="class-System.html#__dirIsWritable">System::_dirIsWritable()</a></code></code><br>to check if is readable and writable<br>
+						<code><code><a href="class-System.html#_dirIsWritable">System::dirIsWritable()</a></code></code> <br>
 				</div>
 
 
@@ -517,17 +512,17 @@ version, FALSE otherwise<br>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_clearCache">#</a>
-		<code><a href="source-class-System.html#121-127" title="Go to source code">clearCache</a>( )</code>
+		<code><a href="source-class-System.html#114-120" title="Go to source code">clearCache</a>( )</code>
 
 		<div class="description short">
 			
-<p>Clears the cache</p>
+<p>Clears the cache.</p>
 
 		</div>
 
 		<div class="description detailed hidden">
 			
-<p>Clears the cache</p>
+<p>Clears the cache.</p>
 
 
 
@@ -554,17 +549,17 @@ version, FALSE otherwise<br>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_clearThumbs">#</a>
-		<code><a href="source-class-System.html#129-145" title="Go to source code">clearThumbs</a>( )</code>
+		<code><a href="source-class-System.html#122-138" title="Go to source code">clearThumbs</a>( )</code>
 
 		<div class="description short">
 			
-<p>Clears thumbnails</p>
+<p>Clears thumbnails.</p>
 
 		</div>
 
 		<div class="description detailed hidden">
 			
-<p>Clears thumbnails</p>
+<p>Clears thumbnails.</p>
 
 
 
@@ -575,6 +570,55 @@ version, FALSE otherwise<br>
 				</div>
 
 
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="dirIsWritable" id="_dirIsWritable">
+
+		<td class="attributes"><code>
+			 public static
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_dirIsWritable">#</a>
+		<code><a href="source-class-System.html#140-157" title="Go to source code">dirIsWritable</a>( <span>string <var>$directory</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Checks if a directory and its subdirectories are readable and writable.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Checks if a directory and its subdirectories are readable and writable.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$directory</var></dt>
+					<dd><code>string</code><br>$path Path</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>boolean</code><br>TRUE if they are readable and writable, FALSE otherwise<br>
+				</div>
+
+
+				<h4>Used by</h4>
+				<div class="list">
+						<code><code><a href="class-System.html#_checkCache">System::checkCache()</a></code></code> <br>
+						<code><code><a href="class-System.html#_checkLogs">System::checkLogs()</a></code></code> <br>
+						<code><code><a href="class-System.html#_checkThumbs">System::checkThumbs()</a></code></code> <br>
+						<code><code><a href="class-System.html#_checkTmp">System::checkTmp()</a></code></code> <br>
+				</div>
 
 
 		</div>
@@ -591,17 +635,17 @@ version, FALSE otherwise<br>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getApacheModules">#</a>
-		<code><a href="source-class-System.html#147-153" title="Go to source code">getApacheModules</a>( )</code>
+		<code><a href="source-class-System.html#159-165" title="Go to source code">getApacheModules</a>( )</code>
 
 		<div class="description short">
 			
-<p>Gets the Apache modules list</p>
+<p>Gets the Apache modules list.</p>
 
 		</div>
 
 		<div class="description detailed hidden">
 			
-<p>Gets the Apache modules list</p>
+<p>Gets the Apache modules list.</p>
 
 
 
@@ -614,7 +658,7 @@ version, FALSE otherwise<br>
 
 				<h4>Used by</h4>
 				<div class="list">
-						<code><code><a href="class-System.html#_checkApacheModule">System::checkApacheModule()</a></code></code><br>to get Apache's modules<br>
+						<code><code><a href="class-System.html#_checkApacheModule">System::checkApacheModule()</a></code></code> <br>
 				</div>
 
 
@@ -632,17 +676,17 @@ version, FALSE otherwise<br>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getCacheSize">#</a>
-		<code><a href="source-class-System.html#155-162" title="Go to source code">getCacheSize</a>( )</code>
+		<code><a href="source-class-System.html#167-174" title="Go to source code">getCacheSize</a>( )</code>
 
 		<div class="description short">
 			
-<p>Gets the cache size</p>
+<p>Gets the cache size.</p>
 
 		</div>
 
 		<div class="description detailed hidden">
 			
-<p>Gets the cache size</p>
+<p>Gets the cache size.</p>
 
 
 
@@ -669,17 +713,17 @@ version, FALSE otherwise<br>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getCakeVersion">#</a>
-		<code><a href="source-class-System.html#164-170" title="Go to source code">getCakeVersion</a>( )</code>
+		<code><a href="source-class-System.html#176-182" title="Go to source code">getCakeVersion</a>( )</code>
 
 		<div class="description short">
 			
-<p>Gets the CakePHP version</p>
+<p>Gets the CakePHP version.</p>
 
 		</div>
 
 		<div class="description detailed hidden">
 			
-<p>Gets the CakePHP version</p>
+<p>Gets the CakePHP version.</p>
 
 
 
@@ -706,17 +750,17 @@ version, FALSE otherwise<br>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getMeToolsVersion">#</a>
-		<code><a href="source-class-System.html#172-178" title="Go to source code">getMeToolsVersion</a>( )</code>
+		<code><a href="source-class-System.html#184-190" title="Go to source code">getMeToolsVersion</a>( )</code>
 
 		<div class="description short">
 			
-<p>Gets the MeTools version</p>
+<p>Gets the MeTools version.</p>
 
 		</div>
 
 		<div class="description detailed hidden">
 			
-<p>Gets the MeTools version</p>
+<p>Gets the MeTools version.</p>
 
 
 
@@ -743,17 +787,17 @@ version, FALSE otherwise<br>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getPhpExtensions">#</a>
-		<code><a href="source-class-System.html#180-186" title="Go to source code">getPhpExtensions</a>( )</code>
+		<code><a href="source-class-System.html#192-198" title="Go to source code">getPhpExtensions</a>( )</code>
 
 		<div class="description short">
 			
-<p>Gets the PHP extensions list</p>
+<p>Gets the PHP extensions list.</p>
 
 		</div>
 
 		<div class="description detailed hidden">
 			
-<p>Gets the PHP extensions list</p>
+<p>Gets the PHP extensions list.</p>
 
 
 
@@ -780,17 +824,17 @@ version, FALSE otherwise<br>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getPhpVersion">#</a>
-		<code><a href="source-class-System.html#188-194" title="Go to source code">getPhpVersion</a>( )</code>
+		<code><a href="source-class-System.html#200-206" title="Go to source code">getPhpVersion</a>( )</code>
 
 		<div class="description short">
 			
-<p>Gets the current version of PHP</p>
+<p>Gets the current version of PHP.</p>
 
 		</div>
 
 		<div class="description detailed hidden">
 			
-<p>Gets the current version of PHP</p>
+<p>Gets the current version of PHP.</p>
 
 
 
@@ -803,8 +847,50 @@ version, FALSE otherwise<br>
 
 				<h4>Used by</h4>
 				<div class="list">
-						<code><code><a href="class-System.html#_checkPhpVersion">System::checkPhpVersion()</a></code></code><br>to get the current version of PHP<br>
+						<code><code><a href="class-System.html#_checkPhpVersion">System::checkPhpVersion()</a></code></code> <br>
 				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getPluginsVersion" id="_getPluginsVersion">
+
+		<td class="attributes"><code>
+			 public static
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getPluginsVersion">#</a>
+		<code><a href="source-class-System.html#208-231" title="Go to source code">getPluginsVersion</a>( <span>string|array <var>$except</var> = <span class="php-keyword1">NULL</span></span> )</code>
+
+		<div class="description short">
+			
+<p>Gets the version number for each plugin.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Gets the version number for each plugin.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$except</var></dt>
+					<dd><code>string|array</code><br>$except Plugins to exclude</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>mixed</code><br>array with the version number for each plugin<br>
+				</div>
+
+
 
 
 		</div>
@@ -821,17 +907,17 @@ version, FALSE otherwise<br>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getThumbsSize">#</a>
-		<code><a href="source-class-System.html#196-203" title="Go to source code">getThumbsSize</a>( )</code>
+		<code><a href="source-class-System.html#233-240" title="Go to source code">getThumbsSize</a>( )</code>
 
 		<div class="description short">
 			
-<p>Gets the thumbnails size</p>
+<p>Gets the thumbnails size.</p>
 
 		</div>
 
 		<div class="description detailed hidden">
 			
-<p>Gets the thumbnails size</p>
+<p>Gets the thumbnails size.</p>
 
 
 
@@ -858,17 +944,17 @@ version, FALSE otherwise<br>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_is_root">#</a>
-		<code><a href="source-class-System.html#205-212" title="Go to source code">is_root</a>( )</code>
+		<code><a href="source-class-System.html#242-249" title="Go to source code">is_root</a>( )</code>
 
 		<div class="description short">
 			
-<p>Checks if is the root user</p>
+<p>Checks if is the root user.</p>
 
 		</div>
 
 		<div class="description detailed hidden">
 			
-<p>Checks if is the root user</p>
+<p>Checks if is the root user.</p>
 
 
 
@@ -895,7 +981,7 @@ version, FALSE otherwise<br>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_whereis">#</a>
-		<code><a href="source-class-System.html#214-227" title="Go to source code">whereis</a>( <span>string <var>$command</var></span> )</code>
+		<code><a href="source-class-System.html#251-264" title="Go to source code">whereis</a>( <span>string <var>$command</var></span> )</code>
 
 		<div class="description short">
 			
@@ -939,7 +1025,7 @@ version, FALSE otherwise<br>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_which">#</a>
-		<code><a href="source-class-System.html#229-240" title="Go to source code">which</a>( <span>string <var>$command</var></span> )</code>
+		<code><a href="source-class-System.html#266-277" title="Go to source code">which</a>( <span>string <var>$command</var></span> )</code>
 
 		<div class="description short">
 			
