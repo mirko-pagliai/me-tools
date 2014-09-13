@@ -25,6 +25,8 @@
  * @package		MeTools\Utility
  */
 
+App::uses('Folder', 'Utility');
+
 /**
  * An utility for checking the status of the system and perform maintenance tasks.
  * 
