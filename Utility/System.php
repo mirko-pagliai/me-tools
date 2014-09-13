@@ -126,8 +126,8 @@ class System {
     public static function clearThumbs() {
         $dir = new Folder($tmp = TMP.'thumbs');
         $files = $dir->findRecursive('.+\..+');
-        $success = TRUE;
-		
+        
+		$success = TRUE;
         foreach($files as $file) {
             $file = new File($file);
             if(!$file->delete() && $success)
