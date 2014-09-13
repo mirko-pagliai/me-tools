@@ -82,6 +82,15 @@ class System {
     public static function checkCacheStatus() {
         return !Configure::read('Cache.disable');
     }
+	
+    /**
+     * Checks if the logs directory is readable and writable.
+     * @return boolean TRUE if if the logs directory is readable and writable, FALSE otherwise
+	 * @uses _dirIsWritable()
+     */
+	public static function checkLogs() {
+		return self::_dirIsWritable(LOGS);
+	}
 
     /**
      * Checks if the current version of PHP is equal to or greater than the required version.
