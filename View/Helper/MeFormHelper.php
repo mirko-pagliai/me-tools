@@ -169,8 +169,8 @@ class MeFormHelper extends FormHelper {
 	 * @uses createInline()
 	 * @uses MeHtmlHelper::_addOptionValue()
      */
-    public function create($model = NULL, $options = array()) {
-        if(!empty($options['inline']) && $options['inline'])
+    public function create($model = NULL, $options = array()) {		
+        if(!empty($options['inline']) || in_array('inline', $options))
             return self::createInline($model, $options);
 		
 		$options = $this->Html->_addOptionValue('role', 'form', $options);
