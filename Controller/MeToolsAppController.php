@@ -54,16 +54,7 @@ class MeToolsAppController extends Controller {
 	 * Checks if this is an admin request
 	 * @return boolean TRUE if is an admin request, otherwise FALSE
 	 */
-	protected function isAdmin() {
+	protected function isAdminRequest() {
 		return !empty($this->request->params['admin']);
-	}
-
-	/**
-	 * Checks if the user is logged in
-	 * @return boolean TRUE if the user is logged in, otherwise FALSE
-	 */
-	protected function isLogged() {
-		$id = $this->Auth->user('id');
-		return !empty($id);
 	}
 }
