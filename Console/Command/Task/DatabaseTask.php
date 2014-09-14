@@ -67,10 +67,14 @@ class DatabaseTask extends Shell {
 	
 	/**
 	 * Creates the database tables.
+	 * @param string $plugin Plugin to use
 	 * @param boolean $out TRUE if you want to print output
 	 */
-	public function create($out = FALSE) {
-		$this->dispatchShell('schema', 'create', '-y', '-q');
+	public function create($plugin = NULL, $out = FALSE) {
+		if(!empty($plugin))
+			$this->dispatchShell('schema', 'create', '--yes', '--quiet', '--plugin', $plugin);
+		else
+			$this->dispatchShell('schema', 'create', '--yes', '--quiet');
 		
 		if($out)
 			$this->out('<info>The database tables have been created.</info>');
