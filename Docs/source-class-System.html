@@ -352,49 +352,53 @@
 </span><span id="233" class="l"><a class="l" href="#233">233: </a>    <span class="php-comment">/**
 </span></span><span id="234" class="l"><a class="l" href="#234">234: </a><span class="php-comment">     * Gets the thumbnails size.
 </span></span><span id="235" class="l"><a class="l" href="#235">235: </a><span class="php-comment">     * @return int Thumbnails size
-</span></span><span id="236" class="l"><a class="l" href="#236">236: </a><span class="php-comment">     */</span>
-</span><span id="237" class="l"><a class="l" href="#237">237: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">static</span> <span class="php-keyword1">function</span> <a id="_getThumbsSize" href="#_getThumbsSize">getThumbsSize</a>() {
-</span><span id="238" class="l"><a class="l" href="#238">238: </a>        <span class="php-var">$thumbs</span> = <span class="php-keyword1">new</span> Folder(TMP.<span class="php-quote">'thumbs'</span>);
-</span><span id="239" class="l"><a class="l" href="#239">239: </a>        <span class="php-keyword1">return</span> <span class="php-var">$thumbs</span>-&gt;dirsize();
-</span><span id="240" class="l"><a class="l" href="#240">240: </a>    }
-</span><span id="241" class="l"><a class="l" href="#241">241: </a>    
-</span><span id="242" class="l"><a class="l" href="#242">242: </a>    <span class="php-comment">/**
-</span></span><span id="243" class="l"><a class="l" href="#243">243: </a><span class="php-comment">     * Checks if is the root user.
-</span></span><span id="244" class="l"><a class="l" href="#244">244: </a><span class="php-comment">     * @return boolean TRUE if is the root user, otherwise FALSE
-</span></span><span id="245" class="l"><a class="l" href="#245">245: </a><span class="php-comment">     */</span>
-</span><span id="246" class="l"><a class="l" href="#246">246: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">static</span> <span class="php-keyword1">function</span> <a id="_is_root" href="#_is_root">is_root</a>() {
-</span><span id="247" class="l"><a class="l" href="#247">247: </a>        <span class="php-comment">//`posix_getuid()` returns 0 if is the root user</span>
-</span><span id="248" class="l"><a class="l" href="#248">248: </a>        <span class="php-keyword1">return</span> !<span class="php-keyword2">posix_getuid</span>();
-</span><span id="249" class="l"><a class="l" href="#249">249: </a>    }
-</span><span id="250" class="l"><a class="l" href="#250">250: </a>    
-</span><span id="251" class="l"><a class="l" href="#251">251: </a>    <span class="php-comment">/**
-</span></span><span id="252" class="l"><a class="l" href="#252">252: </a><span class="php-comment">     * Executes the `whereis` command on Unix systems.
-</span></span><span id="253" class="l"><a class="l" href="#253">253: </a><span class="php-comment">     * 
-</span></span><span id="254" class="l"><a class="l" href="#254">254: </a><span class="php-comment">     * It locates the binary files for a command.
-</span></span><span id="255" class="l"><a class="l" href="#255">255: </a><span class="php-comment">     * @param string $command Command
-</span></span><span id="256" class="l"><a class="l" href="#256">256: </a><span class="php-comment">     * @return mixed Array of binary files, otherwise FALSE
-</span></span><span id="257" class="l"><a class="l" href="#257">257: </a><span class="php-comment">     */</span>
-</span><span id="258" class="l"><a class="l" href="#258">258: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">static</span> <span class="php-keyword1">function</span> <a id="_whereis" href="#_whereis">whereis</a>(<span class="php-var">$command</span>) {
-</span><span id="259" class="l"><a class="l" href="#259">259: </a>        <span class="php-var">$whereis</span> = <span class="php-keyword2">explode</span>(<span class="php-quote">' '</span>, <span class="php-keyword2">exec</span>(<span class="php-keyword2">sprintf</span>(<span class="php-quote">'whereis -b %s'</span>, <span class="php-var">$command</span>)));
-</span><span id="260" class="l"><a class="l" href="#260">260: </a>            
-</span><span id="261" class="l"><a class="l" href="#261">261: </a>        <span class="php-keyword1">unset</span>(<span class="php-var">$whereis</span>[<span class="php-num">0</span>]);
-</span><span id="262" class="l"><a class="l" href="#262">262: </a>        
-</span><span id="263" class="l"><a class="l" href="#263">263: </a>        <span class="php-keyword1">return</span> <span class="php-keyword1">empty</span>(<span class="php-var">$whereis</span>) ? <span class="php-keyword1">FALSE</span> : <span class="php-var">$whereis</span>;
-</span><span id="264" class="l"><a class="l" href="#264">264: </a>    }
-</span><span id="265" class="l"><a class="l" href="#265">265: </a>    
-</span><span id="266" class="l"><a class="l" href="#266">266: </a>    <span class="php-comment">/**
-</span></span><span id="267" class="l"><a class="l" href="#267">267: </a><span class="php-comment">     * Executes the `which` command on Unix systems.
-</span></span><span id="268" class="l"><a class="l" href="#268">268: </a><span class="php-comment">     * 
-</span></span><span id="269" class="l"><a class="l" href="#269">269: </a><span class="php-comment">     * It shows the full path of (shell) commands.
-</span></span><span id="270" class="l"><a class="l" href="#270">270: </a><span class="php-comment">     * @param string $command Command
-</span></span><span id="271" class="l"><a class="l" href="#271">271: </a><span class="php-comment">     * @return mixed Full path of command, otherwise FALSE
-</span></span><span id="272" class="l"><a class="l" href="#272">272: </a><span class="php-comment">     */</span>
-</span><span id="273" class="l"><a class="l" href="#273">273: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">static</span> <span class="php-keyword1">function</span> <a id="_which" href="#_which">which</a>(<span class="php-var">$command</span>) {
-</span><span id="274" class="l"><a class="l" href="#274">274: </a>        <span class="php-var">$which</span> = <span class="php-keyword2">exec</span>(<span class="php-keyword2">sprintf</span>(<span class="php-quote">'which %s'</span>, <span class="php-var">$command</span>));
-</span><span id="275" class="l"><a class="l" href="#275">275: </a>        
-</span><span id="276" class="l"><a class="l" href="#276">276: </a>        <span class="php-keyword1">return</span> <span class="php-keyword1">empty</span>(<span class="php-var">$which</span>) ? <span class="php-keyword1">FALSE</span> : <span class="php-var">$which</span>;
-</span><span id="277" class="l"><a class="l" href="#277">277: </a>    }
-</span><span id="278" class="l"><a class="l" href="#278">278: </a></span>}</code></pre>
+</span></span><span id="236" class="l"><a class="l" href="#236">236: </a><span class="php-comment">     * @uses checkThumbs()
+</span></span><span id="237" class="l"><a class="l" href="#237">237: </a><span class="php-comment">     */</span>
+</span><span id="238" class="l"><a class="l" href="#238">238: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">static</span> <span class="php-keyword1">function</span> <a id="_getThumbsSize" href="#_getThumbsSize">getThumbsSize</a>() {
+</span><span id="239" class="l"><a class="l" href="#239">239: </a>        <span class="php-keyword1">if</span>(!self::checkThumbs())
+</span><span id="240" class="l"><a class="l" href="#240">240: </a>            <span class="php-keyword1">return</span> <span class="php-keyword1">FALSE</span>;
+</span><span id="241" class="l"><a class="l" href="#241">241: </a>        
+</span><span id="242" class="l"><a class="l" href="#242">242: </a>        <span class="php-var">$thumbs</span> = <span class="php-keyword1">new</span> Folder(TMP.<span class="php-quote">'thumbs'</span>);
+</span><span id="243" class="l"><a class="l" href="#243">243: </a>        <span class="php-keyword1">return</span> <span class="php-var">$thumbs</span>-&gt;dirsize();
+</span><span id="244" class="l"><a class="l" href="#244">244: </a>    }
+</span><span id="245" class="l"><a class="l" href="#245">245: </a>    
+</span><span id="246" class="l"><a class="l" href="#246">246: </a>    <span class="php-comment">/**
+</span></span><span id="247" class="l"><a class="l" href="#247">247: </a><span class="php-comment">     * Checks if is the root user.
+</span></span><span id="248" class="l"><a class="l" href="#248">248: </a><span class="php-comment">     * @return boolean TRUE if is the root user, otherwise FALSE
+</span></span><span id="249" class="l"><a class="l" href="#249">249: </a><span class="php-comment">     */</span>
+</span><span id="250" class="l"><a class="l" href="#250">250: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">static</span> <span class="php-keyword1">function</span> <a id="_is_root" href="#_is_root">is_root</a>() {
+</span><span id="251" class="l"><a class="l" href="#251">251: </a>        <span class="php-comment">//`posix_getuid()` returns 0 if is the root user</span>
+</span><span id="252" class="l"><a class="l" href="#252">252: </a>        <span class="php-keyword1">return</span> !<span class="php-keyword2">posix_getuid</span>();
+</span><span id="253" class="l"><a class="l" href="#253">253: </a>    }
+</span><span id="254" class="l"><a class="l" href="#254">254: </a>    
+</span><span id="255" class="l"><a class="l" href="#255">255: </a>    <span class="php-comment">/**
+</span></span><span id="256" class="l"><a class="l" href="#256">256: </a><span class="php-comment">     * Executes the `whereis` command on Unix systems.
+</span></span><span id="257" class="l"><a class="l" href="#257">257: </a><span class="php-comment">     * 
+</span></span><span id="258" class="l"><a class="l" href="#258">258: </a><span class="php-comment">     * It locates the binary files for a command.
+</span></span><span id="259" class="l"><a class="l" href="#259">259: </a><span class="php-comment">     * @param string $command Command
+</span></span><span id="260" class="l"><a class="l" href="#260">260: </a><span class="php-comment">     * @return mixed Array of binary files, otherwise FALSE
+</span></span><span id="261" class="l"><a class="l" href="#261">261: </a><span class="php-comment">     */</span>
+</span><span id="262" class="l"><a class="l" href="#262">262: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">static</span> <span class="php-keyword1">function</span> <a id="_whereis" href="#_whereis">whereis</a>(<span class="php-var">$command</span>) {
+</span><span id="263" class="l"><a class="l" href="#263">263: </a>        <span class="php-var">$whereis</span> = <span class="php-keyword2">explode</span>(<span class="php-quote">' '</span>, <span class="php-keyword2">exec</span>(<span class="php-keyword2">sprintf</span>(<span class="php-quote">'whereis -b %s'</span>, <span class="php-var">$command</span>)));
+</span><span id="264" class="l"><a class="l" href="#264">264: </a>            
+</span><span id="265" class="l"><a class="l" href="#265">265: </a>        <span class="php-keyword1">unset</span>(<span class="php-var">$whereis</span>[<span class="php-num">0</span>]);
+</span><span id="266" class="l"><a class="l" href="#266">266: </a>        
+</span><span id="267" class="l"><a class="l" href="#267">267: </a>        <span class="php-keyword1">return</span> <span class="php-keyword1">empty</span>(<span class="php-var">$whereis</span>) ? <span class="php-keyword1">FALSE</span> : <span class="php-var">$whereis</span>;
+</span><span id="268" class="l"><a class="l" href="#268">268: </a>    }
+</span><span id="269" class="l"><a class="l" href="#269">269: </a>    
+</span><span id="270" class="l"><a class="l" href="#270">270: </a>    <span class="php-comment">/**
+</span></span><span id="271" class="l"><a class="l" href="#271">271: </a><span class="php-comment">     * Executes the `which` command on Unix systems.
+</span></span><span id="272" class="l"><a class="l" href="#272">272: </a><span class="php-comment">     * 
+</span></span><span id="273" class="l"><a class="l" href="#273">273: </a><span class="php-comment">     * It shows the full path of (shell) commands.
+</span></span><span id="274" class="l"><a class="l" href="#274">274: </a><span class="php-comment">     * @param string $command Command
+</span></span><span id="275" class="l"><a class="l" href="#275">275: </a><span class="php-comment">     * @return mixed Full path of command, otherwise FALSE
+</span></span><span id="276" class="l"><a class="l" href="#276">276: </a><span class="php-comment">     */</span>
+</span><span id="277" class="l"><a class="l" href="#277">277: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">static</span> <span class="php-keyword1">function</span> <a id="_which" href="#_which">which</a>(<span class="php-var">$command</span>) {
+</span><span id="278" class="l"><a class="l" href="#278">278: </a>        <span class="php-var">$which</span> = <span class="php-keyword2">exec</span>(<span class="php-keyword2">sprintf</span>(<span class="php-quote">'which %s'</span>, <span class="php-var">$command</span>));
+</span><span id="279" class="l"><a class="l" href="#279">279: </a>        
+</span><span id="280" class="l"><a class="l" href="#280">280: </a>        <span class="php-keyword1">return</span> <span class="php-keyword1">empty</span>(<span class="php-var">$which</span>) ? <span class="php-keyword1">FALSE</span> : <span class="php-var">$which</span>;
+</span><span id="281" class="l"><a class="l" href="#281">281: </a>    }
+</span><span id="282" class="l"><a class="l" href="#282">282: </a></span>}</code></pre>
 
 	<div id="footer">
 		MeTools API documentation generated by <a href="http://apigen.org">ApiGen 2.8.0</a>
