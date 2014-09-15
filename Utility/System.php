@@ -233,8 +233,12 @@ class System {
     /**
      * Gets the thumbnails size.
      * @return int Thumbnails size
+	 * @uses checkThumbs()
      */
     public static function getThumbsSize() {
+		if(!self::checkThumbs())
+			return FALSE;
+		
         $thumbs = new Folder(TMP.'thumbs');
         return $thumbs->dirsize();
     }
