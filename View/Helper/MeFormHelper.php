@@ -278,6 +278,10 @@ class MeFormHelper extends FormHelper {
 		$type = self::_getInputType($fieldName, $options);
 		$options = $this->Html->_addOptionDefault('after', NULL, $options);
 		
+		//Changes the "autocomplete" value from "FALSE" to "off"
+		if(isset($options['autocomplete']) && !$options['autocomplete'])
+			$options['autocomplete'] = 'off';
+		
 		//If it's a checkbox, the input should be before the label
 		if($type === 'checkbox')
 			$options = $this->Html->_addOptionDefault('format', array('before', 'input', 'between', 'label', 'after', 'error'), $options);
