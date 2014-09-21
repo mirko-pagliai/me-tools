@@ -48,6 +48,8 @@ class MeToolsAppController extends Controller {
 		//Sets the user authentication data
 		if(!empty($this->Auth))
 			$this->set('auth', $this->Auth->user());
+		
+		$this->set('isMobile', $this->request->isMobile());
 	}
 	
 	/**
