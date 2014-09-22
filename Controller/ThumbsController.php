@@ -215,7 +215,10 @@ class ThumbsController extends MeToolsAppController {
         if(empty($file))
             throw new InternalErrorException(__d('me_tools', 'The file has not been specified'));
 
-        //Decodes the path. 
+		//Removes the fake file extension from the path
+		$file = pathinfo($file, PATHINFO_FILENAME);
+		
+        //Decodes the path
         $file = urldecode(base64_decode($file));
 		
 		//If is a remote file, it saves the file into /tmp 

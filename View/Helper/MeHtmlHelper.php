@@ -646,7 +646,9 @@ class MeHtmlHelper extends HtmlHelper {
         $options['width'] = empty($options['width']) ? NULL : $options['width'];
         $options['height'] = empty($options['height']) ? NULL : $options['height'];
 		
-        return parent::url(am(array('controller' => 'thumbs', 'action' => 'thumb', 'plugin' => 'me_tools', 'admin' => FALSE), array('?' => array('s' => $options['side'], 'w' => $options['width'], 'h' => $options['height'])), array(base64_encode($path))), TRUE);
+		$ext = strtolower(pathinfo($path, PATHINFO_EXTENSION));
+		
+        return parent::url(am(array('controller' => 'thumbs', 'action' => 'thumb', 'plugin' => 'me_tools', 'admin' => FALSE, 'ext' => $ext), array('?' => array('s' => $options['side'], 'w' => $options['width'], 'h' => $options['height'])), array(base64_encode($path))), TRUE);
     }
 
     /**
