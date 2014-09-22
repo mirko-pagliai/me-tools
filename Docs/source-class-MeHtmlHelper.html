@@ -771,70 +771,72 @@
 </span><span id="646" class="l"><a class="l" href="#646">646: </a>        <span class="php-var">$options</span>[<span class="php-quote">'width'</span>] = <span class="php-keyword1">empty</span>(<span class="php-var">$options</span>[<span class="php-quote">'width'</span>]) ? <span class="php-keyword1">NULL</span> : <span class="php-var">$options</span>[<span class="php-quote">'width'</span>];
 </span><span id="647" class="l"><a class="l" href="#647">647: </a>        <span class="php-var">$options</span>[<span class="php-quote">'height'</span>] = <span class="php-keyword1">empty</span>(<span class="php-var">$options</span>[<span class="php-quote">'height'</span>]) ? <span class="php-keyword1">NULL</span> : <span class="php-var">$options</span>[<span class="php-quote">'height'</span>];
 </span><span id="648" class="l"><a class="l" href="#648">648: </a>        
-</span><span id="649" class="l"><a class="l" href="#649">649: </a>        <span class="php-keyword1">return</span> parent::url(am(<span class="php-keyword1">array</span>(<span class="php-quote">'controller'</span> =&gt; <span class="php-quote">'thumbs'</span>, <span class="php-quote">'action'</span> =&gt; <span class="php-quote">'thumb'</span>, <span class="php-quote">'plugin'</span> =&gt; <span class="php-quote">'me_tools'</span>, <span class="php-quote">'admin'</span> =&gt; <span class="php-keyword1">FALSE</span>), <span class="php-keyword1">array</span>(<span class="php-quote">'?'</span> =&gt; <span class="php-keyword1">array</span>(<span class="php-quote">'s'</span> =&gt; <span class="php-var">$options</span>[<span class="php-quote">'side'</span>], <span class="php-quote">'w'</span> =&gt; <span class="php-var">$options</span>[<span class="php-quote">'width'</span>], <span class="php-quote">'h'</span> =&gt; <span class="php-var">$options</span>[<span class="php-quote">'height'</span>])), <span class="php-keyword1">array</span>(<span class="php-keyword2">base64_encode</span>(<span class="php-var">$path</span>))), <span class="php-keyword1">TRUE</span>);
-</span><span id="650" class="l"><a class="l" href="#650">650: </a>    }
-</span><span id="651" class="l"><a class="l" href="#651">651: </a>
-</span><span id="652" class="l"><a class="l" href="#652">652: </a>    <span class="php-comment">/**
-</span></span><span id="653" class="l"><a class="l" href="#653">653: </a><span class="php-comment">     * Returns a tip block.
-</span></span><span id="654" class="l"><a class="l" href="#654">654: </a><span class="php-comment">     * 
-</span></span><span id="655" class="l"><a class="l" href="#655">655: </a><span class="php-comment">     * By default, the tip block will have a title. To change the title, use the `title` option. 
-</span></span><span id="656" class="l"><a class="l" href="#656">656: </a><span class="php-comment">     * If the `title` option is  If you don't want to have a title, the `title` option should be `FALSE`.
-</span></span><span id="657" class="l"><a class="l" href="#657">657: </a><span class="php-comment">     * @param string $text Tip text
-</span></span><span id="658" class="l"><a class="l" href="#658">658: </a><span class="php-comment">     * @param array $options HTML attributes
-</span></span><span id="659" class="l"><a class="l" href="#659">659: </a><span class="php-comment">     * @return Html code
-</span></span><span id="660" class="l"><a class="l" href="#660">660: </a><span class="php-comment">     * @uses _addIcons()
-</span></span><span id="661" class="l"><a class="l" href="#661">661: </a><span class="php-comment">     * @uses _addOptionValue()
-</span></span><span id="662" class="l"><a class="l" href="#662">662: </a><span class="php-comment">     * @uses _addOptionDefault()
-</span></span><span id="663" class="l"><a class="l" href="#663">663: </a><span class="php-comment">     * @uses div()
-</span></span><span id="664" class="l"><a class="l" href="#664">664: </a><span class="php-comment">     * @uses h4()
-</span></span><span id="665" class="l"><a class="l" href="#665">665: </a><span class="php-comment">     * @uses para()
-</span></span><span id="666" class="l"><a class="l" href="#666">666: </a><span class="php-comment">     */</span>
-</span><span id="667" class="l"><a class="l" href="#667">667: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_tip" href="#_tip">tip</a>(<span class="php-var">$text</span>, <span class="php-var">$options</span> = <span class="php-keyword1">array</span>()) {
-</span><span id="668" class="l"><a class="l" href="#668">668: </a>        <span class="php-var">$text</span> = <span class="php-keyword2">is_array</span>(<span class="php-var">$text</span>) ? <span class="php-var">$text</span> : <span class="php-keyword1">array</span>(<span class="php-var">$text</span>);
-</span><span id="669" class="l"><a class="l" href="#669">669: </a>        <span class="php-keyword2">array_walk</span>(<span class="php-var">$text</span>, <span class="php-keyword1">function</span>(&amp;<span class="php-var">$v</span>) {
-</span><span id="670" class="l"><a class="l" href="#670">670: </a>            <span class="php-var">$v</span> = self::para(<span class="php-keyword1">NULL</span>, <span class="php-var">$v</span>);
-</span><span id="671" class="l"><a class="l" href="#671">671: </a>        });
-</span><span id="672" class="l"><a class="l" href="#672">672: </a>        <span class="php-var">$text</span> = self::div(<span class="php-quote">'tip-text'</span>, <span class="php-keyword2">implode</span>(PHP_EOL, <span class="php-var">$text</span>));
-</span><span id="673" class="l"><a class="l" href="#673">673: </a>        
-</span><span id="674" class="l"><a class="l" href="#674">674: </a>        <span class="php-keyword1">if</span>(!<span class="php-keyword1">isset</span>(<span class="php-var">$options</span>[<span class="php-quote">'title'</span>]) || <span class="php-var">$options</span>[<span class="php-quote">'title'</span>]) {
-</span><span id="675" class="l"><a class="l" href="#675">675: </a>            <span class="php-var">$options</span> = self::_addOptionDefault(<span class="php-quote">'title'</span>, __d(<span class="php-quote">'me_tools'</span>, <span class="php-quote">'Tip'</span>), <span class="php-var">$options</span>);
-</span><span id="676" class="l"><a class="l" href="#676">676: </a>            <span class="php-var">$options</span> = self::_addOptionDefault(<span class="php-quote">'icon'</span>, <span class="php-quote">'magic'</span>, <span class="php-var">$options</span>);
-</span><span id="677" class="l"><a class="l" href="#677">677: </a>            <span class="php-var">$options</span>[<span class="php-quote">'title'</span>] = self::_addIcons(<span class="php-var">$options</span>[<span class="php-quote">'title'</span>], <span class="php-var">$options</span>);
-</span><span id="678" class="l"><a class="l" href="#678">678: </a>            
-</span><span id="679" class="l"><a class="l" href="#679">679: </a>            <span class="php-var">$text</span> = self::h4(<span class="php-var">$options</span>[<span class="php-quote">'title'</span>], <span class="php-keyword1">array</span>(<span class="php-quote">'class'</span> =&gt; <span class="php-quote">'tip-title'</span>)).PHP_EOL.<span class="php-var">$text</span>;
-</span><span id="680" class="l"><a class="l" href="#680">680: </a>        }
-</span><span id="681" class="l"><a class="l" href="#681">681: </a>        
-</span><span id="682" class="l"><a class="l" href="#682">682: </a>        <span class="php-keyword1">unset</span>(<span class="php-var">$options</span>[<span class="php-quote">'icon'</span>], <span class="php-var">$options</span>[<span class="php-quote">'title'</span>]);        
-</span><span id="683" class="l"><a class="l" href="#683">683: </a>
-</span><span id="684" class="l"><a class="l" href="#684">684: </a>        <span class="php-var">$options</span> = self::_addOptionValue(<span class="php-quote">'class'</span>, <span class="php-quote">'tip'</span>, <span class="php-var">$options</span>);
-</span><span id="685" class="l"><a class="l" href="#685">685: </a>        
-</span><span id="686" class="l"><a class="l" href="#686">686: </a>        <span class="php-keyword1">return</span> self::div(<span class="php-var">$options</span>[<span class="php-quote">'class'</span>], <span class="php-var">$text</span>, <span class="php-var">$options</span>);
-</span><span id="687" class="l"><a class="l" href="#687">687: </a>    }
-</span><span id="688" class="l"><a class="l" href="#688">688: </a>
-</span><span id="689" class="l"><a class="l" href="#689">689: </a>    <span class="php-comment">/**
-</span></span><span id="690" class="l"><a class="l" href="#690">690: </a><span class="php-comment">     * Returns an unordered list (`&lt;ul&gt;` tag).
-</span></span><span id="691" class="l"><a class="l" href="#691">691: </a><span class="php-comment">     * @param array $list Elements list
-</span></span><span id="692" class="l"><a class="l" href="#692">692: </a><span class="php-comment">     * @param array $options HTML attributes of the list tag
-</span></span><span id="693" class="l"><a class="l" href="#693">693: </a><span class="php-comment">     * @param array $itemOptions HTML attributes of the list items
-</span></span><span id="694" class="l"><a class="l" href="#694">694: </a><span class="php-comment">     * @return string Html code
-</span></span><span id="695" class="l"><a class="l" href="#695">695: </a><span class="php-comment">     * @uses nestedList() to create the list
-</span></span><span id="696" class="l"><a class="l" href="#696">696: </a><span class="php-comment">     */</span>
-</span><span id="697" class="l"><a class="l" href="#697">697: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_ul" href="#_ul">ul</a>(<span class="php-var">$list</span>, <span class="php-var">$options</span> = <span class="php-keyword1">array</span>(), <span class="php-var">$itemOptions</span> = <span class="php-keyword1">array</span>()) {
-</span><span id="698" class="l"><a class="l" href="#698">698: </a>        <span class="php-keyword1">return</span> self::nestedList(<span class="php-var">$list</span>, <span class="php-var">$options</span>, <span class="php-var">$itemOptions</span>, <span class="php-quote">'ul'</span>);
-</span><span id="699" class="l"><a class="l" href="#699">699: </a>    }
-</span><span id="700" class="l"><a class="l" href="#700">700: </a>
-</span><span id="701" class="l"><a class="l" href="#701">701: </a>    <span class="php-comment">/**
-</span></span><span id="702" class="l"><a class="l" href="#702">702: </a><span class="php-comment">     * Returns a `&lt;video&gt;` element
-</span></span><span id="703" class="l"><a class="l" href="#703">703: </a><span class="php-comment">     * @param string|array $path File path, relative to the `webroot/files/` directory or an array
-</span></span><span id="704" class="l"><a class="l" href="#704">704: </a><span class="php-comment">     * where each item itself can be a path string or an array containing `src` and `type` keys.
-</span></span><span id="705" class="l"><a class="l" href="#705">705: </a><span class="php-comment">     * @param array $options Array of options and HTML attributes
-</span></span><span id="706" class="l"><a class="l" href="#706">706: </a><span class="php-comment">     * @return string Html code
-</span></span><span id="707" class="l"><a class="l" href="#707">707: </a><span class="php-comment">     * @uses media()
-</span></span><span id="708" class="l"><a class="l" href="#708">708: </a><span class="php-comment">     */</span>
-</span><span id="709" class="l"><a class="l" href="#709">709: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_video" href="#_video">video</a>(<span class="php-var">$path</span>, <span class="php-var">$options</span> = <span class="php-keyword1">array</span>()) {
-</span><span id="710" class="l"><a class="l" href="#710">710: </a>        <span class="php-keyword1">return</span> self::media(<span class="php-var">$path</span>, am(<span class="php-var">$options</span>, <span class="php-keyword1">array</span>(<span class="php-quote">'tag'</span> =&gt; <span class="php-quote">'video'</span>)));
-</span><span id="711" class="l"><a class="l" href="#711">711: </a>    }
-</span><span id="712" class="l"><a class="l" href="#712">712: </a></span>}</code></pre>
+</span><span id="649" class="l"><a class="l" href="#649">649: </a>        <span class="php-var">$ext</span> = <span class="php-keyword2">strtolower</span>(<span class="php-keyword2">pathinfo</span>(<span class="php-var">$path</span>, PATHINFO_EXTENSION));
+</span><span id="650" class="l"><a class="l" href="#650">650: </a>        
+</span><span id="651" class="l"><a class="l" href="#651">651: </a>        <span class="php-keyword1">return</span> parent::url(am(<span class="php-keyword1">array</span>(<span class="php-quote">'controller'</span> =&gt; <span class="php-quote">'thumbs'</span>, <span class="php-quote">'action'</span> =&gt; <span class="php-quote">'thumb'</span>, <span class="php-quote">'plugin'</span> =&gt; <span class="php-quote">'me_tools'</span>, <span class="php-quote">'admin'</span> =&gt; <span class="php-keyword1">FALSE</span>, <span class="php-quote">'ext'</span> =&gt; <span class="php-var">$ext</span>), <span class="php-keyword1">array</span>(<span class="php-quote">'?'</span> =&gt; <span class="php-keyword1">array</span>(<span class="php-quote">'s'</span> =&gt; <span class="php-var">$options</span>[<span class="php-quote">'side'</span>], <span class="php-quote">'w'</span> =&gt; <span class="php-var">$options</span>[<span class="php-quote">'width'</span>], <span class="php-quote">'h'</span> =&gt; <span class="php-var">$options</span>[<span class="php-quote">'height'</span>])), <span class="php-keyword1">array</span>(<span class="php-keyword2">base64_encode</span>(<span class="php-var">$path</span>))), <span class="php-keyword1">TRUE</span>);
+</span><span id="652" class="l"><a class="l" href="#652">652: </a>    }
+</span><span id="653" class="l"><a class="l" href="#653">653: </a>
+</span><span id="654" class="l"><a class="l" href="#654">654: </a>    <span class="php-comment">/**
+</span></span><span id="655" class="l"><a class="l" href="#655">655: </a><span class="php-comment">     * Returns a tip block.
+</span></span><span id="656" class="l"><a class="l" href="#656">656: </a><span class="php-comment">     * 
+</span></span><span id="657" class="l"><a class="l" href="#657">657: </a><span class="php-comment">     * By default, the tip block will have a title. To change the title, use the `title` option. 
+</span></span><span id="658" class="l"><a class="l" href="#658">658: </a><span class="php-comment">     * If the `title` option is  If you don't want to have a title, the `title` option should be `FALSE`.
+</span></span><span id="659" class="l"><a class="l" href="#659">659: </a><span class="php-comment">     * @param string $text Tip text
+</span></span><span id="660" class="l"><a class="l" href="#660">660: </a><span class="php-comment">     * @param array $options HTML attributes
+</span></span><span id="661" class="l"><a class="l" href="#661">661: </a><span class="php-comment">     * @return Html code
+</span></span><span id="662" class="l"><a class="l" href="#662">662: </a><span class="php-comment">     * @uses _addIcons()
+</span></span><span id="663" class="l"><a class="l" href="#663">663: </a><span class="php-comment">     * @uses _addOptionValue()
+</span></span><span id="664" class="l"><a class="l" href="#664">664: </a><span class="php-comment">     * @uses _addOptionDefault()
+</span></span><span id="665" class="l"><a class="l" href="#665">665: </a><span class="php-comment">     * @uses div()
+</span></span><span id="666" class="l"><a class="l" href="#666">666: </a><span class="php-comment">     * @uses h4()
+</span></span><span id="667" class="l"><a class="l" href="#667">667: </a><span class="php-comment">     * @uses para()
+</span></span><span id="668" class="l"><a class="l" href="#668">668: </a><span class="php-comment">     */</span>
+</span><span id="669" class="l"><a class="l" href="#669">669: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_tip" href="#_tip">tip</a>(<span class="php-var">$text</span>, <span class="php-var">$options</span> = <span class="php-keyword1">array</span>()) {
+</span><span id="670" class="l"><a class="l" href="#670">670: </a>        <span class="php-var">$text</span> = <span class="php-keyword2">is_array</span>(<span class="php-var">$text</span>) ? <span class="php-var">$text</span> : <span class="php-keyword1">array</span>(<span class="php-var">$text</span>);
+</span><span id="671" class="l"><a class="l" href="#671">671: </a>        <span class="php-keyword2">array_walk</span>(<span class="php-var">$text</span>, <span class="php-keyword1">function</span>(&amp;<span class="php-var">$v</span>) {
+</span><span id="672" class="l"><a class="l" href="#672">672: </a>            <span class="php-var">$v</span> = self::para(<span class="php-keyword1">NULL</span>, <span class="php-var">$v</span>);
+</span><span id="673" class="l"><a class="l" href="#673">673: </a>        });
+</span><span id="674" class="l"><a class="l" href="#674">674: </a>        <span class="php-var">$text</span> = self::div(<span class="php-quote">'tip-text'</span>, <span class="php-keyword2">implode</span>(PHP_EOL, <span class="php-var">$text</span>));
+</span><span id="675" class="l"><a class="l" href="#675">675: </a>        
+</span><span id="676" class="l"><a class="l" href="#676">676: </a>        <span class="php-keyword1">if</span>(!<span class="php-keyword1">isset</span>(<span class="php-var">$options</span>[<span class="php-quote">'title'</span>]) || <span class="php-var">$options</span>[<span class="php-quote">'title'</span>]) {
+</span><span id="677" class="l"><a class="l" href="#677">677: </a>            <span class="php-var">$options</span> = self::_addOptionDefault(<span class="php-quote">'title'</span>, __d(<span class="php-quote">'me_tools'</span>, <span class="php-quote">'Tip'</span>), <span class="php-var">$options</span>);
+</span><span id="678" class="l"><a class="l" href="#678">678: </a>            <span class="php-var">$options</span> = self::_addOptionDefault(<span class="php-quote">'icon'</span>, <span class="php-quote">'magic'</span>, <span class="php-var">$options</span>);
+</span><span id="679" class="l"><a class="l" href="#679">679: </a>            <span class="php-var">$options</span>[<span class="php-quote">'title'</span>] = self::_addIcons(<span class="php-var">$options</span>[<span class="php-quote">'title'</span>], <span class="php-var">$options</span>);
+</span><span id="680" class="l"><a class="l" href="#680">680: </a>            
+</span><span id="681" class="l"><a class="l" href="#681">681: </a>            <span class="php-var">$text</span> = self::h4(<span class="php-var">$options</span>[<span class="php-quote">'title'</span>], <span class="php-keyword1">array</span>(<span class="php-quote">'class'</span> =&gt; <span class="php-quote">'tip-title'</span>)).PHP_EOL.<span class="php-var">$text</span>;
+</span><span id="682" class="l"><a class="l" href="#682">682: </a>        }
+</span><span id="683" class="l"><a class="l" href="#683">683: </a>        
+</span><span id="684" class="l"><a class="l" href="#684">684: </a>        <span class="php-keyword1">unset</span>(<span class="php-var">$options</span>[<span class="php-quote">'icon'</span>], <span class="php-var">$options</span>[<span class="php-quote">'title'</span>]);        
+</span><span id="685" class="l"><a class="l" href="#685">685: </a>
+</span><span id="686" class="l"><a class="l" href="#686">686: </a>        <span class="php-var">$options</span> = self::_addOptionValue(<span class="php-quote">'class'</span>, <span class="php-quote">'tip'</span>, <span class="php-var">$options</span>);
+</span><span id="687" class="l"><a class="l" href="#687">687: </a>        
+</span><span id="688" class="l"><a class="l" href="#688">688: </a>        <span class="php-keyword1">return</span> self::div(<span class="php-var">$options</span>[<span class="php-quote">'class'</span>], <span class="php-var">$text</span>, <span class="php-var">$options</span>);
+</span><span id="689" class="l"><a class="l" href="#689">689: </a>    }
+</span><span id="690" class="l"><a class="l" href="#690">690: </a>
+</span><span id="691" class="l"><a class="l" href="#691">691: </a>    <span class="php-comment">/**
+</span></span><span id="692" class="l"><a class="l" href="#692">692: </a><span class="php-comment">     * Returns an unordered list (`&lt;ul&gt;` tag).
+</span></span><span id="693" class="l"><a class="l" href="#693">693: </a><span class="php-comment">     * @param array $list Elements list
+</span></span><span id="694" class="l"><a class="l" href="#694">694: </a><span class="php-comment">     * @param array $options HTML attributes of the list tag
+</span></span><span id="695" class="l"><a class="l" href="#695">695: </a><span class="php-comment">     * @param array $itemOptions HTML attributes of the list items
+</span></span><span id="696" class="l"><a class="l" href="#696">696: </a><span class="php-comment">     * @return string Html code
+</span></span><span id="697" class="l"><a class="l" href="#697">697: </a><span class="php-comment">     * @uses nestedList() to create the list
+</span></span><span id="698" class="l"><a class="l" href="#698">698: </a><span class="php-comment">     */</span>
+</span><span id="699" class="l"><a class="l" href="#699">699: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_ul" href="#_ul">ul</a>(<span class="php-var">$list</span>, <span class="php-var">$options</span> = <span class="php-keyword1">array</span>(), <span class="php-var">$itemOptions</span> = <span class="php-keyword1">array</span>()) {
+</span><span id="700" class="l"><a class="l" href="#700">700: </a>        <span class="php-keyword1">return</span> self::nestedList(<span class="php-var">$list</span>, <span class="php-var">$options</span>, <span class="php-var">$itemOptions</span>, <span class="php-quote">'ul'</span>);
+</span><span id="701" class="l"><a class="l" href="#701">701: </a>    }
+</span><span id="702" class="l"><a class="l" href="#702">702: </a>
+</span><span id="703" class="l"><a class="l" href="#703">703: </a>    <span class="php-comment">/**
+</span></span><span id="704" class="l"><a class="l" href="#704">704: </a><span class="php-comment">     * Returns a `&lt;video&gt;` element
+</span></span><span id="705" class="l"><a class="l" href="#705">705: </a><span class="php-comment">     * @param string|array $path File path, relative to the `webroot/files/` directory or an array
+</span></span><span id="706" class="l"><a class="l" href="#706">706: </a><span class="php-comment">     * where each item itself can be a path string or an array containing `src` and `type` keys.
+</span></span><span id="707" class="l"><a class="l" href="#707">707: </a><span class="php-comment">     * @param array $options Array of options and HTML attributes
+</span></span><span id="708" class="l"><a class="l" href="#708">708: </a><span class="php-comment">     * @return string Html code
+</span></span><span id="709" class="l"><a class="l" href="#709">709: </a><span class="php-comment">     * @uses media()
+</span></span><span id="710" class="l"><a class="l" href="#710">710: </a><span class="php-comment">     */</span>
+</span><span id="711" class="l"><a class="l" href="#711">711: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_video" href="#_video">video</a>(<span class="php-var">$path</span>, <span class="php-var">$options</span> = <span class="php-keyword1">array</span>()) {
+</span><span id="712" class="l"><a class="l" href="#712">712: </a>        <span class="php-keyword1">return</span> self::media(<span class="php-var">$path</span>, am(<span class="php-var">$options</span>, <span class="php-keyword1">array</span>(<span class="php-quote">'tag'</span> =&gt; <span class="php-quote">'video'</span>)));
+</span><span id="713" class="l"><a class="l" href="#713">713: </a>    }
+</span><span id="714" class="l"><a class="l" href="#714">714: </a></span>}</code></pre>
 
 	<div id="footer">
 		MeTools API documentation generated by <a href="http://apigen.org">ApiGen 2.8.0</a>
