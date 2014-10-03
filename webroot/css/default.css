@@ -57,6 +57,11 @@ dd pre {
 	border: 0;
 }
 
+/* Iframe*/
+iframe {
+	max-width: 100%;
+}
+
 /* Cells with the minimum width */
 th.min-width, th.minWidth, 
 td.min-width, td.minWidth {
