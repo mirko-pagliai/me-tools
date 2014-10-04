@@ -59,6 +59,7 @@ dd pre {
 
 /* Iframe*/
 iframe {
+	border: 0;
 	max-width: 100%;
 }
 
