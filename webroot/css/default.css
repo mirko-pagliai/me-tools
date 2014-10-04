@@ -120,6 +120,16 @@ td.min-width, td.minWidth {
 	margin-bottom: 20px;
 }
 
+/* No wrap, text truncated with ellipses */
+.no-wrap, .noWrap,
+.text-truncate, .textTruncate, 
+.text-truncated, .textTruncated,
+.text-ellipsis, .textEllipsis {
+	overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
 /* No padding class */
 .padding0, .padding-0,
 .no-padding, .noPadding {
@@ -164,15 +174,6 @@ small, .small,
 .strong,
 .strong-text, .strongText {
 	font-weight: bold;
-}
-
-/* Text truncated with ellipses */
-.text-truncate, .textTruncate, 
-.text-truncated, .textTruncated,
-.text-ellipsis, .textEllipsis {
-	overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
 }
 
 /* Vertical align, middle */
