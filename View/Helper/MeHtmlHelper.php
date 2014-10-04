@@ -330,6 +330,15 @@ class MeHtmlHelper extends HtmlHelper {
 	}
 	
 	/**
+	 * Create an `iframe` element.
+	 * @param array $options Array of options and HTML attributes
+     * @return string Html code
+	 */
+	public function iframe($options = array()) {
+		return self::tag('iframe', ' ', $options);
+	}
+	
+	/**
 	 * Creates an `<img>` element.
 	 * @param string $path Image path (will be relative to `app/webroot/img/`)
 	 * @param $options Array of options and HTML attributes
