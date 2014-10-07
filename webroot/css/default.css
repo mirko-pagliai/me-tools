@@ -539,3 +539,30 @@ h1 small, h2 small, h3 small, h4 small, h5 small, h6 small, h1 .small, h2 .small
 .pre-scrollable {
     overflow-y: auto;
 }
+
+/* -------------------------------- */
+/*		Bootstrap Carousel icons	*/
+/* -------------------------------- */
+/* Both icons */
+.carousel-control.left .fa, .carousel-control.right .fa {
+    display: inline-block;
+    font-size: 30px;
+    height: 30px;
+    margin-top: -15px;
+    position: absolute;
+    top: 50%;
+    z-index: 5;
+    width: 30px;
+}
+
+/* Left icon */
+.carousel-control.left .fa {
+    left: 50%;
+    margin-left: -15px;
+}
+
+/* Right icon */
+.carousel-control.right .fa {
+    margin-right: -15px;
+    right: 50%;
+}
