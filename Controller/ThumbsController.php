@@ -24,7 +24,7 @@
  * @link		http://git.novatlantis.it Nova Atlantis Ltd
  * @package		MeTools\Controller
  */
-App::uses('MeToolsAppController', 'MeTools.Controller');
+App::uses('Controller', 'Controller');
 App::uses('Folder', 'Utility');
 App::uses('System', 'MeTools.Utility');
 
@@ -46,7 +46,7 @@ App::uses('System', 'MeTools.Utility');
  * The `thumbUrl()` method creates the thumbs and returns its url.
  * @see MeHtmlHelper::thumb(), MeHtmlHelper::thumbUrl()
  */
-class ThumbsController extends MeToolsAppController {
+class ThumbsController extends Controller {
 	/**
 	 * Creates a thumbnail of an image.
 	 * @param object $file File object
