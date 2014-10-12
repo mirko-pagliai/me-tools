@@ -33,7 +33,7 @@
 				echo "\t\t\t\t<td class=\"actions\">\n";
 					echo "\t\t\t\t\t<?php echo \$this->Html->linkButton(NULL, array('action' => 'view', \${$singularVar}['{$modelClass}']['{$primaryKey}']), array('icon' => 'eye', 'tooltip' => __d('me_cms_backend', 'View'))); ?>\n";
 					echo "\t\t\t\t\t<?php echo \$this->Html->linkButton(NULL, array('action' => 'edit', \${$singularVar}['{$modelClass}']['{$primaryKey}']), array('icon' => 'pencil', 'tooltip' => __d('me_cms_backend', 'Edit'))); ?>\n";
-					echo "\t\t\t\t\t<?php echo \$this->Form->postButton(NULL, array('action' => 'delete', \${$singularVar}['{$modelClass}']['{$primaryKey}']), array('class' => 'btn-danger', 'icon' => 'trash-o', 'tooltip' => __d('me_cms_backend', 'Delete')), __d('me_cms_backend', 'Are you sure you want to delete this ".strtolower($singularHumanName)."?')); ?>\n";
+					echo "\t\t\t\t\t<?php echo \$this->Form->postButton(NULL, array('action' => 'delete', \${$singularVar}['{$modelClass}']['{$primaryKey}']), array('class' => 'btn-danger', 'icon' => 'trash-o', 'tooltip' => __d('me_cms_backend', 'Delete')), __d('me_cms_backend', 'Are you sure you want to delete this?')); ?>\n";
 				echo "\t\t\t\t</td>\n";
 
 				foreach($fields as $field) {
