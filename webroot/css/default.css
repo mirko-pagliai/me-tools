@@ -540,6 +540,11 @@ h1 small, h2 small, h3 small, h4 small, h5 small, h6 small, h1 .small, h2 .small
     overflow-y: auto;
 }
 
+/* Well, last paragraph */
+.well p:last-child {
+	margin-bottom: 0;
+}
+
 /* -------------------------------- */
 /*		Bootstrap Carousel icons	*/
 /* -------------------------------- */
