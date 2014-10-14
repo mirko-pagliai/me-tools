@@ -120,6 +120,16 @@ td.min-width, td.minWidth {
 	margin-bottom: 20px;
 }
 
+/* Margin bottom 30px */
+.margin30px, .margin30, .margin-30px, .margin-30 {
+	margin-bottom: 30px;
+}
+
+/* Margin bottom 40px */
+.margin40px, .margin40, .margin-40px, .margin-40 {
+	margin-bottom: 40px;
+}
+
 /* No wrap, text truncated with ellipses */
 .no-wrap, .noWrap,
 .text-truncate, .textTruncate, 
