@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<meta name="generator" content="ApiGen 2.8.0" />
-	<meta name="robots" content="noindex" />
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta name="generator" content="ApiGen 2.8.0">
+	<meta name="robots" content="noindex">
 
 	<title>File MeHtmlHelper.php | MeTools</title>
 
-	<script type="text/javascript" src="resources/combined.js?394153670"></script>
+	<script type="text/javascript" src="resources/combined.js?117538352"></script>
 	<script type="text/javascript" src="elementlist.js?1545298742"></script>
-	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360" />
+	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360">
 
 </head>
 
@@ -62,7 +62,7 @@
 			</ul>
 		</div>
 
-		<hr />
+		<hr>
 
 
 		<div id="elements">
@@ -90,10 +90,10 @@
 <div id="right">
 <div id="rightInner">
 	<form id="search">
-		<input type="hidden" name="cx" value="" />
-		<input type="hidden" name="ie" value="UTF-8" />
-		<input type="text" name="q" class="text" />
-		<input type="submit" value="Search" />
+		<input type="hidden" name="cx" value="">
+		<input type="hidden" name="ie" value="UTF-8">
+		<input type="text" name="q" class="text">
+		<input type="submit" value="Search">
 	</form>
 
 	<div id="navigation">
@@ -446,9 +446,9 @@
 </span></span><span id="321" class="l"><a class="l" href="#321">321: </a><span class="php-comment">     * @uses tag()
 </span></span><span id="322" class="l"><a class="l" href="#322">322: </a><span class="php-comment">     */</span>
 </span><span id="323" class="l"><a class="l" href="#323">323: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_icons" href="#_icons">icons</a>(<span class="php-var">$icons</span>, <span class="php-var">$options</span> = <span class="php-keyword1">array</span>()) {
-</span><span id="324" class="l"><a class="l" href="#324">324: </a>        <span class="php-comment">//Adds the &quot;fa&quot; class and prepends the string &quot;fa-&quot; to any other class</span>
-</span><span id="325" class="l"><a class="l" href="#325">325: </a>        <span class="php-var">$icons</span> = <span class="php-keyword2">preg_replace</span>(<span class="php-quote">'/(?&lt;![^ ])(?=[^ ])(?!fa)/'</span>, <span class="php-quote">'fa-'</span>, <span class="php-var">$icons</span>);
-</span><span id="326" class="l"><a class="l" href="#326">326: </a>        
+</span><span id="324" class="l"><a class="l" href="#324">324: </a>        <span class="php-comment">//Prepends the string &quot;fa-&quot; to any other class</span>
+</span><span id="325" class="l"><a class="l" href="#325">325: </a>        <span class="php-var">$icons</span> = <span class="php-keyword2">preg_replace</span>(<span class="php-quote">'/(?&lt;![^ ])(?=[^ ])(?!fa-)/'</span>, <span class="php-quote">'fa-'</span>, <span class="php-var">$icons</span>);
+</span><span id="326" class="l"><a class="l" href="#326">326: </a>        <span class="php-comment">//Adds the &quot;fa&quot; class</span>
 </span><span id="327" class="l"><a class="l" href="#327">327: </a>        <span class="php-var">$options</span> = self::_addOptionValue(<span class="php-quote">'class'</span>, <span class="php-keyword1">array</span>(<span class="php-quote">'fa'</span>, <span class="php-var">$icons</span>), <span class="php-var">$options</span>);
 </span><span id="328" class="l"><a class="l" href="#328">328: </a>        
 </span><span id="329" class="l"><a class="l" href="#329">329: </a>        <span class="php-keyword1">return</span> self::tag(<span class="php-quote">'i'</span>, <span class="php-quote">' '</span>, <span class="php-var">$options</span>);
