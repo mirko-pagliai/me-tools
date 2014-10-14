@@ -321,9 +321,9 @@ class MeHtmlHelper extends HtmlHelper {
 	 * @uses tag()
 	 */
 	public function icons($icons, $options = array()) {
-        //Adds the "fa" class and prepends the string "fa-" to any other class
-		$icons = preg_replace('/(?<![^ ])(?=[^ ])(?!fa)/', 'fa-', $icons);
-		
+        //Prepends the string "fa-" to any other class
+		$icons = preg_replace('/(?<![^ ])(?=[^ ])(?!fa-)/', 'fa-', $icons);
+		//Adds the "fa" class
 		$options = self::_addOptionValue('class', array('fa', $icons), $options);
 		
 		return self::tag('i', ' ', $options);
