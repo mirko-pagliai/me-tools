@@ -105,6 +105,8 @@ Then, use the `--config` (or `-c`) option:
 
 This combines and compresses `first.css` and `second.css` and creates `result.min.css` as result.
 
+Remember, if you use the configuration file, you must not specify the file extension.
+
 ## Libraries and script
 MeTools uses different libraries or scripts:
 

@@ -42,9 +42,10 @@ App::uses('System', 'MeTools.Utility');
 class AssetCompressShell extends MeToolsAppShell {
 	/**
 	 * Parses arguments or a config file, checks values and returns input and output files
+	 * @param string $type `css` or `js`
 	 * @return array Input and output files
 	 */
-	private function _parse() {
+	private function _parse($type) {
 		//Checks if there are at least 2 arguments or a config file
 		if(count($this->args) < 2 && empty($this->params['config']))
 			$this->error('you have to indicate at least two arguments, an input file and an output file, or a configuration file by using the option');
@@ -58,6 +59,11 @@ class AssetCompressShell extends MeToolsAppShell {
 			//Sets each line of the configuration file as an argument
 			$this->args = explode(PHP_EOL, file_get_contents($config));
 			
+			//Adds the file extensions
+			array_walk($this->args, function(&$filename, $k, $type) {
+				$filename = sprintf('%s.%s', $filename, $type);
+			}, $type);
+						
 			//Checks if there are at least 2 files
 			if(count($this->args) < 2)
 				$this->error('you have to indicate at least two arguments, an input file and an output file');
@@ -94,8 +100,8 @@ class AssetCompressShell extends MeToolsAppShell {
 			$this->error(sprintf('I can\'t find %s', 'Clean-css'));
 		
 		//Gets the output file and the input files
-		list($input, $output) = $this->_parse();
-		
+		list($input, $output) = $this->_parse('css');
+				
 		//Executes the command
 		exec(sprintf('%s -o %s %s', $cleancss, $output, implode(' ', $input)));
 	}
@@ -110,7 +116,7 @@ class AssetCompressShell extends MeToolsAppShell {
 			$this->error(sprintf('I can\'t find %s', 'UglifyJS'));
 		
 		//Gets the output file and the input files
-		list($input, $output) = $this->_parse();
+		list($input, $output) = $this->_parse('js');
 		
 		//Executes the command
 		exec(sprintf('%s --compress --mangle -o %s %s', $uglifyjs, $output, implode(' ', $input)));
