@@ -122,8 +122,11 @@ class AssetCompressShell extends MeToolsAppShell {
 		//Gets the output file and the input files
 		list($input, $output) = $this->_parse('js');
 		
+		//Sets the comments option for UglifyJS
+		$comments = '/!|@[Ll]icen[sc]e|@[Pp]reserve/';
+		
 		//Executes the command
-		exec(sprintf('%s --compress --mangle -o %s %s', $uglifyjs, $output, implode(' ', $input)));
+		exec(sprintf('%s --mangle --comments "%s" -o %s %s', $uglifyjs, $comments, $output, implode(' ', $input)));
 	}
 	
 	/**
