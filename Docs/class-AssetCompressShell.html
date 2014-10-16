@@ -4,7 +4,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="generator" content="ApiGen 2.8.0" />
 
-	<title>Class Token | MeTools</title>
+	<title>Class AssetCompressShell | MeTools</title>
 
 	<script type="text/javascript" src="resources/combined.js?394153670"></script>
 	<script type="text/javascript" src="elementlist.js?3013621888"></script>
@@ -23,9 +23,9 @@
 			<ul>
 				<li class="active main"><a href="package-MeTools.html">MeTools<span></span></a>
 						<ul>
-				<li class="main"><a href="package-MeTools.Console.html">Console<span></span></a>
+				<li class="active main"><a href="package-MeTools.Console.html">Console<span></span></a>
 						<ul>
-				<li class="main"><a href="package-MeTools.Console.Command.html">Command<span></span></a>
+				<li class="active main"><a href="package-MeTools.Console.Command.html">Command<span></span></a>
 						<ul>
 				<li class="main"><a href="package-MeTools.Console.Command.Task.html">Task</a>
 						</li>
@@ -46,7 +46,7 @@
 				<li class="main"><a href="package-MeTools.Lib.Log.Engine.html">Engine</a>
 						</li>
 							</ul></li></ul></li>
-				<li class="active main"><a href="package-MeTools.Model.html">Model<span></span></a>
+				<li class="main"><a href="package-MeTools.Model.html">Model<span></span></a>
 						<ul>
 				<li class="main"><a href="package-MeTools.Model.Behavior.html">Behavior</a>
 						</li>
@@ -67,8 +67,8 @@
 		<div id="elements">
 			<h3>Classes</h3>
 			<ul>
-				<li><a href="class-MeToolsAppModel.html">MeToolsAppModel</a></li>
-				<li class="active"><a href="class-Token.html">Token</a></li>
+				<li class="active"><a href="class-AssetCompressShell.html">AssetCompressShell</a></li>
+				<li><a href="class-MeToolsAppShell.html">MeToolsAppShell</a></li>
 			</ul>
 
 
@@ -96,7 +96,7 @@
 				<a href="index.html" title="Overview"><span>Overview</span></a>
 			</li>
 			<li>
-				<a href="package-MeTools.Model.html" title="Summary of MeTools\Model"><span>Package</span></a>
+				<a href="package-MeTools.Console.Command.html" title="Summary of MeTools\Console\Command"><span>Package</span></a>
 			</li>
 			<li class="active">
 <span>Class</span>			</li>
@@ -117,31 +117,39 @@
 	</div>
 
 <div id="content" class="class">
-	<h1>Class Token</h1>
+	<h1>Class AssetCompressShell</h1>
 
 
 	<div class="description">
 	
-<p>Token model</p>
+<p>This shell allows you to combine and compress css and js files.</p>
+
+<p>To use this shell, you have to install on your system <code>Clean-css</code>
+and <code>UglifyJS</code>. As root user:</p>
+
+<pre>
+npm install clean-css -g
+npm install uglify-js -g
+</pre>
 
 	</div>
 
 	<dl class="tree">
 		<dd style="padding-left:0px">
-AppModel
+Shell
 			
 			
 		</dd>
 		<dd style="padding-left:30px">
 			<img src="resources/inherit.png" alt="Extended by" />
-			<a href="class-MeToolsAppModel.html"><span>MeToolsAppModel</span></a>
+			<a href="class-MeToolsAppShell.html"><span>MeToolsAppShell</span></a>
 			
 			
 			
 		</dd>
 		<dd style="padding-left:60px">
 			<img src="resources/inherit.png" alt="Extended by" />
-<b><span>Token</span></b>			
+<b><span>AssetCompressShell</span></b>			
 			
 			
 		</dd>
@@ -158,7 +166,7 @@ AppModel
 		
 		
 		
-		<b>Package:</b> <a href="package-MeTools.html">MeTools</a>\<a href="package-MeTools.Model.html">Model</a><br />
+		<b>Package:</b> <a href="package-MeTools.html">MeTools</a>\<a href="package-MeTools.Console.html">Console</a>\<a href="package-MeTools.Console.Command.html">Command</a><br />
 
 				<b>Copyright:</b>
 				Copyright (c) 2014, Mirko Pagliai for Nova Atlantis Ltd<br />
@@ -167,80 +175,162 @@ AppModel
 				<b>Author:</b>
 				Mirko Pagliai &lt;<a
 href="mailto:mirko.pagliai&#64;gmail.com">mirko.pagliai&#64;<!---->gmail.com</a>&gt;<br />
-		<b>Located at</b> <a href="source-class-Token.html#28-57" title="Go to source code">Token.php</a><br />
+		<b>Located at</b> <a href="source-class-AssetCompressShell.html#33-140" title="Go to source code">AssetCompressShell.php</a><br />
 	</div>
 
 
 
 	<table class="summary" id="methods">
 	<caption>Methods summary</caption>
-	<tr data-order="afterDelete" id="_afterDelete">
+	<tr data-order="_parse" id="__parse">
 
 		<td class="attributes"><code>
-			 public 
-			
+			 private 
+			array
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
-		<a class="anchor" href="#_afterDelete">#</a>
-		<code><a href="source-class-Token.html#32-38" title="Go to source code">afterDelete</a>( )</code>
+		<a class="anchor" href="#__parse">#</a>
+		<code><a href="source-class-AssetCompressShell.html#43-84" title="Go to source code">_parse</a>( )</code>
 
 		<div class="description short">
 			
-<p>Called after every deletion operation.</p>
+<p>Parses arguments or a config file, checks values and returns input and output
+files</p>
 
 		</div>
 
 		<div class="description detailed hidden">
 			
-<p>Called after every deletion operation.</p>
+<p>Parses arguments or a config file, checks values and returns input and output
+files</p>
 
 
 
 
+				<h4>Returns</h4>
+				<div class="list">
+					<code>array</code><br>Input and output files<br />
+				</div>
 
 
+				<h4>Used by</h4>
+				<div class="list">
+						<code><code><a href="class-AssetCompressShell.html#_css">AssetCompressShell::css()</a></code></code> <br />
+						<code><code><a href="class-AssetCompressShell.html#_js">AssetCompressShell::js()</a></code></code> <br />
+				</div>
 
 
 		</div>
 		</div></td>
 	</tr>
-	<tr data-order="beforeSave" id="_beforeSave">
+	<tr data-order="css" id="_css">
 
 		<td class="attributes"><code>
 			 public 
-			boolean
+			
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
-		<a class="anchor" href="#_beforeSave">#</a>
-		<code><a href="source-class-Token.html#40-56" title="Go to source code">beforeSave</a>( <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<a class="anchor" href="#_css">#</a>
+		<code><a href="source-class-AssetCompressShell.html#86-101" title="Go to source code">css</a>( )</code>
 
 		<div class="description short">
 			
-<p>Executes after model validation and before the data is saved</p>
+<p>Combines and compresses css files</p>
 
 		</div>
 
 		<div class="description detailed hidden">
 			
-<p>Executes after model validation and before the data is saved</p>
+<p>Combines and compresses css files</p>
 
 
 
-				<h4>Parameters</h4>
-				<div class="list"><dl>
-					<dt><var>$options</var></dt>
-					<dd><code>array</code><br>$options Options</dd>
-				</dl></div>
+
+
+
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-AssetCompressShell.html#__parse">AssetCompressShell::_parse()</a></code></code> <br />
+						<code><code><a href="class-System.html#_which">System::which()</a></code></code> <br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="js" id="_js">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_js">#</a>
+		<code><a href="source-class-AssetCompressShell.html#103-117" title="Go to source code">js</a>( )</code>
+
+		<div class="description short">
+			
+<p>Combine and compresses js files</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Combine and compresses js files</p>
+
+
+
+
+
+
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-AssetCompressShell.html#__parse">AssetCompressShell::_parse()</a></code></code> <br />
+						<code><code><a href="class-System.html#_which">System::which()</a></code></code> <br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getOptionParser" id="_getOptionParser">
+
+		<td class="attributes"><code>
+			 public 
+			ConsoleOptionParser
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getOptionParser">#</a>
+		<code><a href="source-class-AssetCompressShell.html#119-139" title="Go to source code">getOptionParser</a>( )</code>
+
+		<div class="description short">
+			
+<p>Gets the option parser instance and configures it.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Gets the option parser instance and configures it.</p>
+
+
+
 
 				<h4>Returns</h4>
 				<div class="list">
-					<code>boolean</code><br>TRUE if the save operation should continue<br />
+					<code>ConsoleOptionParser</code><br />
 				</div>
 
 
@@ -251,28 +341,26 @@ href="mailto:mirko.pagliai&#64;gmail.com">mirko.pagliai&#64;<!---->gmail.com</a>
 	</tr>
 	</table>
 
-
-
-
-
-
-
-
-
-
-
-
-
 	<table class="summary inherited">
-	<caption>Properties inherited from <a href="class-MeToolsAppModel.html#properties">MeToolsAppModel</a></caption>
+	<caption>Methods inherited from <a href="class-MeToolsAppShell.html#methods">MeToolsAppShell</a></caption>
 	<tr>
 		<td><code>
-			<a href="class-MeToolsAppModel.html#$actsAs"><var>$actsAs</var></a>, 
-			<a href="class-MeToolsAppModel.html#$recursive"><var>$recursive</var></a>, 
-			<a href="class-MeToolsAppModel.html#$validationDomain"><var>$validationDomain</var></a>
+			<a href="class-MeToolsAppShell.html#__welcome">_welcome()</a>
 		</code></td>
 	</tr>
 	</table>
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
