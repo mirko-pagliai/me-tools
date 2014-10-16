@@ -65,7 +65,47 @@ To show the SQL dump, you can use the appropriate element:
 
 This will display the SQL dump only when available and only if the user is not using a mobile device.
 
-### Libraries and script
+## AssetCompress Shell
+The `AssetCompressShell` allows you to combine and compress css and js files.
+
+To use the `AssetCompressShell`, you have to install on your system `Clean-css` and `UglifyJS`. As root user:
+
+	npm install clean-css -g
+	npm install uglify-js -g
+ 
+The shell has two methods: `css()` and `js`. Simply pass as arguments the input files and, as the last argument, the output file.
+
+For example:
+	
+	cake MeTools.AssetCompress css webroot/css/default.css webroot/css/default.min.css
+
+This compresses `default.css` and creates `default.min.css` as result.
+
+For example:
+	
+	cake MeTools.AssetCompress css webroot/css/first.css webroot/css/second.css webroot/css/result.min.css
+
+This combines and compresses `first.css` and `second.css` and creates `result.min.css` as result.
+
+If you use the `--force` (or `-f`) option, the file will be overwritten without prompting.
+
+### Using a configuration file
+Rather than indicating files as arguments, you can use a configuration file. Each file should be on a single line and the last 
+line will be used as the output file. 
+
+For example, create the `Config/assets/default_asset.ini` file:
+
+	webroot/css/first.css
+	webroot/css/second.css
+	webroot/css/result.min.css
+
+Then, use the `--config` (or `-c`) option:
+
+	cake MeTools.AssetCompress css -c Config/assets/default_asset.ini
+
+This combines and compresses `first.css` and `second.css` and creates `result.min.css` as result.
+
+## Libraries and script
 MeTools uses different libraries or scripts:
 
 - jQuery 2.1.1 ([site](http://jquery.com));
