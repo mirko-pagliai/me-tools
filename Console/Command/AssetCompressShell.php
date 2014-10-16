@@ -59,7 +59,7 @@ class AssetCompressShell extends MeToolsAppShell {
 			$this->args = explode(PHP_EOL, file_get_contents($config));
 			
 			//Checks if there are at least 2 files
-			if(count($this->args))
+			if(count($this->args) < 2)
 				$this->error('you have to indicate at least two arguments, an input file and an output file');
 		}
 		
