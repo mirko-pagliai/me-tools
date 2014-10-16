@@ -111,7 +111,7 @@ class AssetCompressShell extends MeToolsAppShell {
 	}
 	
 	/**
-	 * Combine and compresses js files
+	 * Combines and compresses js files
 	 * @uses _parse()
 	 * @uses System::which()
 	 */
