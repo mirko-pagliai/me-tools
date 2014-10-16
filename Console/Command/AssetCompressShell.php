@@ -79,6 +79,10 @@ class AssetCompressShell extends MeToolsAppShell {
 				$this->error(sprintf('%s doesn\'t exists or is not readable', $file));
 		}
 		
+		//Checks if the output directory is writable
+		if(!is_writable(dirname($output)))
+				$this->error(sprintf('%s doesn\'t exists or is not writeable', $output));
+		
 		//If the output file already exists and has not been used the "force" option, it asks if it should be overwritten
 		if(file_exists($output) && empty($this->params['force']) && $this->in(sprintf('The file %s already exists. Do you want to overwrite it?', $output), array('y', 'n'), 'y') === 'n') {
 			$this->out('Ok, i\'m exiting...');
