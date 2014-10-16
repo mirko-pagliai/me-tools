@@ -93,7 +93,7 @@ If you use the `--force` (or `-f`) option, the file will be overwritten without 
 Rather than indicating files as arguments, you can use a configuration file. Each file should be on a single line and the last 
 line will be used as the output file. 
 
-For example, create the `Config/assets/default_asset.ini` file:
+For example, create the `Config/assets_css/default.ini` file:
 
 	webroot/css/first.css
 	webroot/css/second.css
@@ -101,7 +101,7 @@ For example, create the `Config/assets/default_asset.ini` file:
 
 Then, use the `--config` (or `-c`) option:
 
-	cake MeTools.AssetCompress css -c Config/assets/default_asset.ini
+	cake MeTools.AssetCompress css -c Config/assets_css/default.ini
 
 This combines and compresses `first.css` and `second.css` and creates `result.min.css` as result.
 
