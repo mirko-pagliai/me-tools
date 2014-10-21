@@ -22,11 +22,8 @@ find . -name ".directory" -type f -exec rm -rf {} \;
 # Remove old files
 find . -name "*.old.*" -type f -exec rm -rf {} \;
 
-# Delete uncompressed files
-rm -f webroot/css/datepicker3.css webroot/css/default.css \
-webroot/css/fancybuttons.css webroot/css/forms.css webroot/css/syntaxhighlighter.css \
-webroot/js/bootstrap-datepicker.it.js webroot/js/bootstrap-datepicker.js \
-webroot/js/default.js webroot/js/slugify.js
+# Delete some uncompressed files
+rm -f webroot/js/slugify.js
 
 # Go back to build/
 cd ../
