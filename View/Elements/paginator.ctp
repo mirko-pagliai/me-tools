@@ -27,19 +27,25 @@
  */
 ?>
 
-<?php
-	//If the page "2" exists, so if there is more than one page
-	if($this->Paginator->hasPage(NULL, 2)) {
-		echo $this->Html->div('text-center hidden-xs', $this->Html->ul(array(
-			$this->Paginator->prev(sprintf('« %s', __d('me_tools', 'Previous'))),
-			$this->Paginator->numbers(),
-			$this->Paginator->next(sprintf('%s »', __d('me_tools', 'Next')))
-		), array('class' => 'pagination')));
-		
-		echo $this->Html->div('text-center visible-xs', $this->Html->ul(array(
-            $this->Paginator->prev('«'),
-            $this->Paginator->numbers(array('modulus' => '6')),
-            $this->Paginator->next('»')
-		), array('class' => 'pagination')));
-	}
-?>
+<?php if($this->Paginator->hasPage(NULL, 2)): ?>
+	<div class="text-center">
+		<div class="hidden-xs">
+			<ul class="pagination">
+				<?php
+					echo $this->Paginator->prev(sprintf('« %s', __d('me_tools', 'Previous')));
+					echo $this->Paginator->numbers();
+					echo $this->Paginator->next(sprintf('%s »', __d('me_tools', 'Next')));
+				?>
+			</ul>
+		</div>
+		<div class="visible-xs">
+			<ul class="pagination">
+				<?php
+					echo $this->Paginator->prev('«');
+					echo $this->Paginator->numbers(array('modulus' => '6'));
+					echo $this->Paginator->next('»');
+				?>
+			</ul>
+		</div>
+	</div>
+<?php endif; ?>
