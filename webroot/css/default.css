@@ -53,6 +53,12 @@ td.min-width, td.minWidth {
     width: 1px;
 }
 
+/* Display as block */
+.block,
+.display-block, .displayBlock {
+	display: block;
+}
+
 /* Pointer cursor */
 .cursor-pointer, .cursorPointer,
 .pointer {
@@ -69,6 +75,18 @@ td.min-width, td.minWidth {
 .em,
 .em-text, .emText {
 	font-style: italic;
+}
+
+/* Display as inline */
+.inline,
+.display-inline, .displayInline {
+	display: inline;
+}
+
+/* Display as inline-block */
+.inline-block,
+.display-inline-block, .displayInlineBlock {
+	display: inline-block;
 }
 
 /* No margin class */
