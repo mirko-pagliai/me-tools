@@ -220,14 +220,18 @@ class System {
 			$plugins = array_diff($plugins, $except);
 		}
 		
+		$version = array();
+		
 		//For each plugin, gets the name and the version number
-		$pluginsTmp = array();
-		foreach($plugins as $plugin) {
-			if(is_readable($file = CakePlugin::path($plugin).'version'))
-				$pluginsTmp[] = array('name' => $plugin, 'version' => trim(file_get_contents($file)));
+		foreach($plugins as $name) {
+			$folder = new Folder($path = CakePlugin::path($name));
+			$files = $folder->find('version(\.txt)?');
+			
+			if(!empty($files[0]))
+				$version[] = array('name' => $name, 'version' => trim(file_get_contents($path.$files[0])));
 		}
 		
-		return $pluginsTmp;
+		return $version;
 	}
 
     /**
