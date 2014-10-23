@@ -48,154 +48,164 @@ App::uses('System', 'MeTools.Utility');
  */
 class ThumbsController extends Controller {
 	/**
-	 * Creates a thumbnail of an image.
-	 * @param object $file File object
-	 * @return string Thumbnail path, if a thumbnail has been created
-	 * @throws InternalErrorException
+	 * Max height of the thumb.
+	 * It will be set by `beforeFilter()`.
+	 * @var int
 	 */
-	private function _imageThumb($file) {
+	protected $maxHeight;
+	
+	/**
+	 * Max side of the thumb.
+	 * It will be set by `beforeFilter()`.
+	 * @var int
+	 */
+	protected $maxSide;
+	
+	/**
+	 * Max width of the thumb.
+	 * It will be set by `beforeFilter()`.
+	 * @var int
+	 */
+	protected $maxWidth;
+	
+	/**
+	 * File object
+	 * @var object
+	 */
+	protected $object;
+	
+	/**
+	 * Thumb path
+	 * @var string 
+	 */
+	protected $thumb;
+
+	/**
+	 * Creates a thumbnail of an image.
+	 * @return void
+	 * @throws InternalErrorException
+	 * @uses maxHeight
+	 * @uses maxSide
+	 * @uses maxWidth
+	 * @uses thumb
+	 */
+	protected function _imageThumb() {
 		//Checks for Imagick
         if(!extension_loaded('imagick'))
             throw new InternalErrorException(__d('me_tools', 'The %s library is missing', 'Imagick'));
-		
-		//Gets the maximum sizes
-		$maxWidth = (int) $this->request->query('w');
-        $maxHeight = (int) $this->request->query('h');
-        $maxSide = (int) $this->request->query('s');
-		
-		//If no size is specified, then it's not necessary to create a thumbnail
-		if(!$maxWidth && !$maxHeight && !$maxSide)
-			return $file->path;
-		
+				
 		//Creates the Imagick object
-		$image = new Imagick($file->path);
+		$imagick = new Imagick($this->object->path);
 		
 		//If the max side is defined (then has been requested a square thumb)
-		if($maxSide) {
+		if($this->maxSide) {
 			//If the maximum side is larger than the width and height, then the maximum side is equal to the smallest size
-			if($maxSide > $image->getImageWidth() || $maxSide > $image->getImageHeight())
-				$maxSide = $image->getImageWidth() > $image->getImageHeight() ? $image->getImageHeight() : $image->getImageWidth();
+			if($this->maxSide > $imagick->getImageWidth() || $this->maxSide > $imagick->getImageHeight())
+				$this->maxSide = $imagick->getImageWidth() > $imagick->getImageHeight() ? $imagick->getImageHeight() : $imagick->getImageWidth();
 						
 			//Creates the thumbnail
-			$image->cropThumbnailImage($finalWidth = $finalHeight = $maxSide, $maxSide);
+			$imagick->cropThumbnailImage($finalWidth = $finalHeight = $this->maxSide, $this->maxSide);
 		}
 		//Else, if the maximum width and the maximum height are defined
-		elseif($maxWidth && $maxHeight) {
+		elseif($this->maxWidth && $this->maxHeight) {
             //Tries to get the final sizes from the width
-            $finalWidth = floor($image->getImageWidth() * $maxHeight / $image->getImageHeight());
+            $finalWidth = floor($imagick->getImageWidth() * $this->maxHeight / $imagick->getImageHeight());
 
             //If the final width is greater than the maximum width, it gets the final sizes from the final height
-            if($finalWidth > $maxWidth)
-                $finalHeight = floor($image->getImageHeight() * ($finalWidth = $maxWidth) / $image->getImageWidth());
+            if($finalWidth > $this->maxWidth)
+                $finalHeight = floor($imagick->getImageHeight() * ($finalWidth = $this->maxWidth) / $imagick->getImageWidth());
             //Else, the final height is the maximum height
             else
-                $finalHeight = $maxHeight;
+                $finalHeight = $this->maxHeight;
 		
 			//Creates the thumbnail
-			$image->thumbnailImage($finalWidth, $finalHeight);
+			$imagick->thumbnailImage($finalWidth, $finalHeight);
 		}
         //Else, if only the maximum width is defined
-		elseif($maxWidth) {
-			//If the maximum width is greater than the actual width, then it's not necessary to create a thumbnail
-			if(($finalWidth = $maxWidth) >= $image->getImageWidth())
-				return $file->path;
+		elseif($this->maxWidth) {
+			//If the maximum width is greater than the actual width, then it's not necessary
+			//to create a thumbnail and the thumbnail will be the original image
+			if(($finalWidth = $this->maxWidth) >= $imagick->getImageWidth()) {
+				$this->thumb = $this->object->path;
+				return;
+			}
 			
 			//Gets the final height and creates the thumbnail
-			$finalHeight = floor($finalWidth * $image->getImageHeight() / $image->getImageWidth());
-			$image->thumbnailImage($finalWidth, 0);
+			$finalHeight = floor($finalWidth * $imagick->getImageHeight() / $imagick->getImageWidth());
+			$imagick->thumbnailImage($finalWidth, 0);
 			
 		}
         //Else, if only the maximum height is defined
 		else {
-			//If the maximum height is greater than the actual height, then it's not necessary to create a thumbnail
-			if(($finalHeight = $maxHeight) >= $image->getImageHeight())
-				return $file->path;
-			
+			//If the maximum height is greater than the actual height, then it's not necessary
+			//to create a thumbnail and the thumbnail will be the original image
+			if(($finalHeight = $this->maxHeight) >= $imagick->getImageHeight()) {
+				$this->thumb = $this->object->path;
+				return;
+			}
+				
 			//Gets the final width and creates the thumbnail
-			$finalWidth = floor($finalHeight * $image->getImageWidth() / $image->getImageHeight());
-			$image->thumbnailImage(0, $finalHeight);
+			$finalWidth = floor($finalHeight * $imagick->getImageWidth() / $imagick->getImageHeight());
+			$imagick->thumbnailImage(0, $finalHeight);
 		}
 		
-		//Gets the thumbnail path
-		$thumb = TMP.'thumbs'.DS.'photos'.DS.md5($file->path).'_'.$finalWidth.'x'.$finalHeight.'.jpg';
-		
-		//Checks if the thumbnail already exists
-		if(is_readable($thumb))
-			return $thumb;
-		
-		//Checks if the target directory is writable
-		if(!is_writable(dirname($thumb)))
-            throw new InternalErrorException(__d('me_tools', 'The target directory %s is not writable', dirname($thumb)));
-		
 		//Writes the image to the output directory and destroys the Imagick object
-		$image->writeImage($thumb);
-		$image->destroy();
+		$imagick->writeImage($this->thumb);
+		$imagick->destroy();
 		
 		//Checks if the thumbnail has been created
-		if(!is_readable($thumb))
-            throw new InternalErrorException(__d('me_tools', 'The thumbnail %s has not been created', $thumb));
-		
-		return $thumb;
+		if(!is_readable($this->thumb))
+            throw new InternalErrorException(__d('me_tools', 'The thumbnail %s has not been created', $this->thumb));
 	}
 	
 	/**
 	 * Creates a thumbnail of a video.
-	 * @param object $file File object
-	 * @return string Thumbnail path, if a thumbnail has been created
 	 * @throws InternalErrorException
+	 * @uses maxSide
+	 * @uses maxWidth
+	 * @uses thumb
 	 */
-	private function _videoThumb($file) {
-		//Gets the maximum sizes
-		$maxWidth = (int) $this->request->query('w');
-        $maxSide = (int) $this->request->query('s');
-		
-		//If no size is specified, it sets a maximum width
-		if(!$maxWidth && !$maxSide)
-			$maxWidth = 270;
-		
-		//Gets the thumbnail path
-		if($maxSide)
-			$thumb = TMP.'thumbs'.DS.'videos'.DS.md5($file->path).'_s'.($maxWidth = $maxSide).'.jpg';
-		else
-			$thumb = TMP.'thumbs'.DS.'videos'.DS.md5($file->path).'_w'.$maxWidth.'.jpg';
-				
-		//Checks if the thumbnail already exists
-		if(is_readable($thumb))
-			return $thumb;
-		
+	protected function _videoThumb() {
 		//Checks for ffmpegthumbnailer
 		if(!System::which('ffmpegthumbnailer'))
             throw new InternalErrorException(__d('me_tools', '%s is not avalaible', 'ffmpegthumbnailer'));
 		
-		//Checks if the target directory is writable
-		if(!is_writable(dirname($thumb)))
-            throw new InternalErrorException(__d('me_tools', 'The target directory %s is not writable', dirname($thumb)));
-		
 		//Creates the thumbnail
-		shell_exec($cmd = sprintf('ffmpegthumbnailer -s %s -q 10 -f -i \'%s\' -o \'%s\'', $maxWidth, $file->path, $thumb));
+		shell_exec(sprintf('ffmpegthumbnailer -s %s -q 10 -f -i \'%s\' -o \'%s\'', empty($this->maxSide) ? $this->maxWidth : $this->maxSide, $this->object>path, $this->thumb));
 		
 		//Checks if the thumbnail has been created
-		if(!is_readable($thumb))
-            throw new InternalErrorException(__d('me_tools', 'The thumbnail %s has not been created', $thumb));
+		if(!is_readable($this->thumb))
+            throw new InternalErrorException(__d('me_tools', 'The thumbnail %s has not been created', $this->thumb));
 		
 		//If the max side is defined (then has been requested a square thumb)
-		if($maxSide) {
+		if($this->maxSide) {
 			//Creates the Imagick object
-			$image = new Imagick($thumb);
+			$imagick = new Imagick($this->thumb);
 			
 			//If the height of the thumbnail is larger than the width
-			if($image->getImageHeight() < $image->getImageWidth()) {
+			if($imagick->getImageHeight() < $imagick->getImageWidth()) {
 				//Adds a border
-				$border = ($image->getImageWidth() - $image->getImageHeight()) / 2;
-				$image->borderImage('#000000', 0, $border);
+				$imagick->borderImage('#000000', 0, ($imagick->getImageWidth() - $imagick->getImageHeight()) / 2);
 				
 				//Writes the image to output directory and destroys the Imagick object
-				$image->writeImage($thumb);
-				$image->destroy();
+				$imagick->writeImage($this->thumb);
+				$imagick->destroy();
 			}
 		}
-		
-		return $thumb;
+	}
+	
+	/**
+	 * Called before the controller action. 
+	 * It's used to perform logic before each controller action.
+	 * @uses maxHeight
+	 * @uses maxSide
+	 * @uses maxWidth
+	 */
+	public function beforeFilter() {
+		//Sets the maximum sizes
+		$this->maxWidth = (int) $this->request->query('w');
+        $this->maxHeight = (int) $this->request->query('h');
+        $this->maxSide = (int) $this->request->query('s');
 	}
 	
 	/**
@@ -207,51 +217,92 @@ class ThumbsController extends Controller {
 	 * @throws InternalErrorException
 	 * @throws NotFoundException
      * @see MeHtmlHelper::thumb(), MeHtmlHelper::thumbUrl()
-	 * @uses _imageThumb() to create a thumbnail of an image
-	 * @uses _videoThumb() to create a thumbnail of a video
+	 * @uses maxHeight
+	 * @uses maxSide
+	 * @uses maxWidth
+	 * @uses thumb
+	 * @uses _imageThumb()
+	 * @uses _videoThumb()
 	 */
-    public function thumb($file = FALSE) {
-		//Checks the file path
-        if(empty($file))
-            throw new InternalErrorException(__d('me_tools', 'The file has not been specified'));
-
+    public function thumb($file) {
 		//Removes the fake file extension from the path
 		$file = pathinfo($file, PATHINFO_FILENAME);
 		
         //Decodes the path
         $file = urldecode(base64_decode($file));
 		
-		//If is a remote file, it saves the file into /tmp 
+		//If the file is remote
 		if(filter_var($file, FILTER_VALIDATE_URL)) {
-			$remote = file_get_contents($file);
-			$file = DS.'tmp'.DS.pathinfo($file, PATHINFO_BASENAME);
-			file_put_contents(DS.'tmp'.DS.pathinfo($file, PATHINFO_BASENAME), $remote);
+			//Downloads the file into /tmp, if not already done
+			if(!is_readable($tmp = DS.'tmp'.DS.pathinfo($file, PATHINFO_BASENAME)))
+				file_put_contents($tmp, file_get_contents($file));
+			
+			//The file is the temporary file
+			$file = $tmp;
 		}
-		//Else, if is a local file, if the path is relative, then it's relative to the webroot
-		else
-			$file = !Folder::isAbsolute($file) ? WWW_ROOT.$file : $file;
-
+		//Else, if the file is local and its path is relative, then the path will be relative to the webroot
+		elseif(!Folder::isAbsolute($file))
+			$file = WWW_ROOT.$file;
+		
 		//Checks if the file is readable
 		if(!is_readable($file))
 			throw new NotFoundException(__d('me_tools', 'The file %s doesn\'t exist or is not readable', $file));
-		
-		//Now `$file` is the File object
-		$file = new File($file);
-		$mime = $file->mime();
 
+		//File object
+		$this->object = new File($file);
+		
 		//If the file is an image
-		if(preg_match('/image\/\S+/', $mime))
-			$thumb = $this->_imageThumb($file);
+		if(preg_match('/image\/\S+/', $mime = $this->object->mime())) {
+			//Sets the thumb path
+			$this->thumb = TMP.'thumbs'.DS.'photos'.DS.md5($this->object->path);
+			
+			if($this->maxSide)
+				$this->thumb .= '_s'.$this->maxSide;
+			elseif($this->maxWidth || $this->maxHeight) {
+				if($this->maxWidth)
+					$this->thumb .= '_w'.$this->maxWidth;
+				if($this->maxHeight)
+					$this->thumb .= '_h'.$this->maxHeight;
+			}
+			else
+				throw new InternalErrorException(__d('me_tools', 'No maximum size specified'));
+		}
 		//Else, if the file is a video
-		elseif(preg_match('/video\/\S+/', $mime) || $mime == 'application/ogg')
-			$thumb = $this->_videoThumb($file);
+		elseif(preg_match('/video\/\S+/', $mime) || $mime == 'application/ogg') {
+			//Sets the thumb path
+			$this->thumb = TMP.'thumbs'.DS.'videos'.DS.md5($this->object->path);
+			
+			if($this->maxSide)
+				$this->thumb .= '_s'.$this->maxSide;
+			elseif($this->maxWidth)
+				$this->thumb .= '_w'.$this->maxWidth;
+			else
+				throw new InternalErrorException(__d('me_tools', 'No maximum size specified'));
+		}
 		//Else, if the mime type is not known
 		else
 			throw new InternalErrorException(__d('me_tools', 'The mime type %s is not supported', $mime));
 		
+		$this->thumb .= '.jpg';
+			
+		//Now the thumbnail path has been set
+		
+		//If the thumbnail does not yet exist
+		if(!is_readable($this->thumb)) {		
+			//Checks if the target directory is writable
+			if(!is_writable(dirname($this->thumb)))
+				throw new InternalErrorException(__d('me_tools', 'The target directory %s is not writable', dirname($this->thumb)));
+			
+			//Creates the thumbnail
+			if(preg_match('/image\/\S+/', $mime))
+				$this->_imageThumb();
+			else
+				$this->_videoThumb();
+		}
+		
 		//Renders the thumbnail
 		header("Content-type: image/jpeg");
-        readfile($thumb);
+        readfile($this->thumb);
 		
         $this->autoRender = FALSE;
         exit;
