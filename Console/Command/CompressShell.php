@@ -1,7 +1,7 @@
 <?php
 
 /**
- * AssetCompressShell
+ * CompressShell
  *
  * This file is part of MeTools.
  *
@@ -39,7 +39,7 @@ App::uses('System', 'MeTools.Utility');
  * npm install uglify-js -g
  * </code>
  */
-class AssetCompressShell extends MeToolsAppShell {
+class CompressShell extends MeToolsAppShell {
 	/**
 	 * Parses arguments or a config file, checks values and returns input and output files
 	 * @param string $type `css` or `js`

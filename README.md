@@ -65,10 +65,10 @@ To show the SQL dump, you can use the appropriate element:
 
 This will display the SQL dump only when available and only if the user is not using a mobile device.
 
-## AssetCompress Shell
-The `AssetCompressShell` allows you to combine and compress css and js files.
+## Compress Shell
+The `CompressShell` allows you to combine and compress css and js files.
 
-To use the `AssetCompressShell`, you have to install on your system `Clean-css` and `UglifyJS`. As root user:
+To use the `CompressShell`, you have to install on your system `Clean-css` and `UglifyJS`. As root user:
 
 	npm install clean-css -g
 	npm install uglify-js -g
@@ -77,13 +77,13 @@ The shell has two methods: `css()` and `js`. Simply pass as arguments the input 
 
 For example:
 	
-	cake MeTools.AssetCompress css webroot/css/default.css webroot/css/default.min.css
+	cake MeTools.Compress css webroot/css/default.css webroot/css/default.min.css
 
 This compresses `default.css` and creates `default.min.css` as result.
 
 For example:
 	
-	cake MeTools.AssetCompress css webroot/css/first.css webroot/css/second.css webroot/css/result.min.css
+	cake MeTools.Compress css webroot/css/first.css webroot/css/second.css webroot/css/result.min.css
 
 This combines and compresses `first.css` and `second.css` and creates `result.min.css` as result.
 
@@ -101,7 +101,7 @@ For example, create the `Config/assets_css/default.ini` file:
 
 Then, use the `--config` (or `-c`) option:
 
-	cake MeTools.AssetCompress css -c Config/assets_css/default.ini
+	cake MeTools.Compress css -c Config/assets_css/default.ini
 
 This combines and compresses `first.css` and `second.css` and creates `result.min.css` as result.
 
