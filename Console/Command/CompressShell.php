@@ -28,6 +28,7 @@
  */
 
 App::uses('MeToolsAppShell', 'MeTools.Console/Command');
+App::uses('Folder', 'Utility');
 App::uses('System', 'MeTools.Utility');
 
 /**
@@ -43,7 +44,7 @@ class CompressShell extends MeToolsAppShell {
 	/**
 	 * Parses arguments or a config file, checks values and returns input and output files
 	 * @param string $type `css` or `js`
-	 * @return array Input and output files
+	 * @return mixed Input and output files
 	 */
 	private function _parse($type) {
 		//Checks if there are at least 2 arguments or a config file
@@ -83,14 +84,68 @@ class CompressShell extends MeToolsAppShell {
 		if(!is_writable(dirname($output)))
 			$this->error(sprintf('%s doesn\'t exists or is not writeable', $output));
 		
-		//If the output file already exists and has not been used the "force" option, it asks if it should be overwritten
-		if(file_exists($output) && empty($this->params['force']) && $this->in(sprintf('The file %s already exists. Do you want to overwrite it?', $output), array('y', 'n'), 'y') === 'n') {
-			$this->out('Ok, i\'m exiting...');
-			exit;
+		//If the output file already exists and has not been used the "force" option
+		if(file_exists($output) && empty($this->params['force'])) {
+			//Asks if the output file should be overwritten
+			if($this->in(sprintf('The file %s already exists. Do you want to overwrite it?', $output), array('y', 'n'), 'y') === 'n')
+				return array(FALSE, FALSE);
 		}
 		
 		//Returns input and output files
 		return array($input, $output);
+	}
+	
+	/**
+	 * Searches all the configuration files and automatically compresses
+	 */
+	public function auto() {
+		//Adds the main application app (`APP`)
+		$paths = array(APP);
+		
+		//For each view path of the main application
+		foreach(App::path('View') as $viewPath) {
+			//Gets themes
+			$folder = new Folder($viewPath.'Themed');
+			
+			//For each theme, adds the theme path (`APP/View/Theme/ThemeName`)
+			foreach(array_values($folder->read())[0] as $theme)
+				$paths[] = $viewPath.'Themed'.DS.$theme.DS;
+		}
+		
+		//For each plugin
+		foreach(CakePlugin::loaded() as $plugin) {
+			//Adds the path to the plugin (`APP/Plugin/PluginName`)
+			$paths[] = App::pluginPath($plugin);
+			
+			//For each plugin view path
+			foreach(App::path('View', $plugin) as $viewPath) {
+				//Gets themes
+				$folder = new Folder($viewPath.'Themed');
+
+				//For each plugin theme, adds the plugin theme path (`APP/View/Theme/ThemeName/View/Theme/ThemeName`)
+				foreach(array_values($folder->read())[0] as $theme) {
+					$paths[] = $viewPath.'Themed'.DS.$theme;
+				}
+			}
+		}
+		
+		//Now we have found all the path for configuration files
+		//For each path
+		foreach($paths as $path) {
+			//Gets the assets css paths
+			$folder = new Folder($path = $path.'Config'.DS.'assets_css');
+			
+			//For each css configuration files, compresses
+			foreach($folder->find('.*\.ini') as $config)
+				$this->dispatchShell('MeTools.Compress', 'css', '--config', $path.DS.$config);
+			
+			//Gets the assets js paths
+			$folder = new Folder($path = $path.'Config'.DS.'assets_js');
+			
+			//For each css configuration files, compresses
+			foreach($folder->find('.*\.ini') as $config)
+				$this->dispatchShell('MeTools.Compress', 'js', '--config', $path.DS.$config);
+		}
 	}
 	
 	/**
@@ -105,6 +160,9 @@ class CompressShell extends MeToolsAppShell {
 		
 		//Gets the output file and the input files
 		list($input, $output) = $this->_parse('css');
+		
+		if(!$input || !$output)
+			return;
 				
 		//Executes the command
 		exec(sprintf('%s -o %s %s', $cleancss, $output, implode(' ', $input)));
@@ -122,6 +180,9 @@ class CompressShell extends MeToolsAppShell {
 		//Gets the output file and the input files
 		list($input, $output) = $this->_parse('js');
 		
+		if(!$input || !$output)
+			return;
+		
 		//Sets the comments option for UglifyJS
 		$comments = '/!|@[Ll]icen[sc]e|@[Pp]reserve/';
 		
@@ -134,18 +195,28 @@ class CompressShell extends MeToolsAppShell {
 	 * @return ConsoleOptionParser
 	 */
 	public function getOptionParser() {
-		$parser = parent::getOptionParser();
-		$parser->addSubcommand('css', array(
-			'help' => 'Combines and compresses css files'
-		))->addSubcommand('js', array(
-			'help' => 'Combines and compresses js files'
-		))->addOption('config', array(
+		//Sets the `config` option
+		$configOption = array('config' => array(
 			'help'	=> 'Configuration file',
 			'short' => 'c'
-		))->addOption('force', array(
+		));
+		//Sets the `force` option
+		$forceOption = array('force' => array(
 			'boolean'	=> TRUE,
 			'help'		=> 'Force overwriting existing files without prompting',
 			'short'		=> 'f'
+		));
+		
+		$parser = parent::getOptionParser();
+		$parser->addSubcommand('auto', array(
+			'help'		=> 'Searches all the configuration files and automatically compresses',
+			'parser'	=> array('options' => $forceOption)
+		))->addSubcommand('css', array(
+			'help'		=> 'Combines and compresses a css file',
+			'parser'	=> array('options' => am($configOption, $forceOption))
+		))->addSubcommand('js', array(
+			'help'		=> 'Combines and compresses a js file',
+			'parser'	=> array('options' => am($configOption, $forceOption))
 		));
 		
 		return $parser;
