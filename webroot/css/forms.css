@@ -162,6 +162,12 @@ form .checkboxes-list input[type='checkbox'] + label {
 /* -------------------------------- */
 /*			Inline forms			*/
 /* -------------------------------- */
+/* Labels */
+form.form-inline label {
+	line-height: 37px;
+	margin-right: 10px;
+}
+
 /* Wrappers */
 form.form-inline > .input, form.form-inline > button {
 	margin-right: 4px;
@@ -172,11 +178,6 @@ form.form-inline > .input, form.form-inline > button {
 /* Wrappers, last wrapper */
 form.form-inline > .input:last-child, form.form-inline > button:last-child {
 	margin-right: 0;
-}
-
-/* Checkbox labels */
-form.form-inline .checkbox label {
-	line-height: 37px;
 }
 
 /* -------------------------------- */
