@@ -136,7 +136,7 @@ class ThumbsController extends Controller {
 			
 		}
         //Else, if only the maximum height is defined
-		else {
+		elseif($this->maxHeight) {
 			//If the maximum height is greater than the actual height, then it's not necessary
 			//to create a thumbnail and the thumbnail will be the original image
 			if(($finalHeight = $this->maxHeight) >= $imagick->getImageHeight()) {
@@ -147,6 +147,11 @@ class ThumbsController extends Controller {
 			//Gets the final width and creates the thumbnail
 			$finalWidth = floor($finalHeight * $imagick->getImageWidth() / $imagick->getImageHeight());
 			$imagick->thumbnailImage(0, $finalHeight);
+		}
+		//Else, if no maximum size is specified it's not necessary to create a thumbnail and the thumbnail will be the original image
+		else {
+			$this->thumb = $this->object->path;
+			return;	
 		}
 		
 		//Writes the image to the output directory and destroys the Imagick object
@@ -265,7 +270,7 @@ class ThumbsController extends Controller {
 					$this->thumb .= '_h'.$this->maxHeight;
 			}
 			else
-				throw new InternalErrorException(__d('me_tools', 'No maximum size specified'));
+				$this->thumb .= '_orig';
 		}
 		//Else, if the file is a video
 		elseif(preg_match('/video\/\S+/', $mime) || $mime == 'application/ogg') {
@@ -277,7 +282,7 @@ class ThumbsController extends Controller {
 			elseif($this->maxWidth)
 				$this->thumb .= '_w'.$this->maxWidth;
 			else
-				throw new InternalErrorException(__d('me_tools', 'No maximum size specified'));
+				$this->thumb .= '_orig';
 		}
 		//Else, if the mime type is not known
 		else
@@ -288,7 +293,7 @@ class ThumbsController extends Controller {
 		//Now the thumbnail path has been set
 		
 		//If the thumbnail does not yet exist
-		if(!is_readable($this->thumb)) {		
+		if(!is_readable($this->thumb)) {
 			//Checks if the target directory is writable
 			if(!is_writable(dirname($this->thumb)))
 				throw new InternalErrorException(__d('me_tools', 'The target directory %s is not writable', dirname($this->thumb)));
