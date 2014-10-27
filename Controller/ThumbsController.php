@@ -136,7 +136,7 @@ class ThumbsController extends Controller {
 			
 		}
         //Else, if only the maximum height is defined
-		elseif($this->maxHeight) {
+		else {
 			//If the maximum height is greater than the actual height, then it's not necessary
 			//to create a thumbnail and the thumbnail will be the original image
 			if(($finalHeight = $this->maxHeight) >= $imagick->getImageHeight()) {
@@ -147,11 +147,6 @@ class ThumbsController extends Controller {
 			//Gets the final width and creates the thumbnail
 			$finalWidth = floor($finalHeight * $imagick->getImageWidth() / $imagick->getImageHeight());
 			$imagick->thumbnailImage(0, $finalHeight);
-		}
-		//Else, if no maximum size is specified it's not necessary to create a thumbnail and the thumbnail will be the original image
-		else {
-			$this->thumb = $this->object->path;
-			return;	
 		}
 		
 		//Writes the image to the output directory and destroys the Imagick object
@@ -258,37 +253,46 @@ class ThumbsController extends Controller {
 		
 		//If the file is an image
 		if(preg_match('/image\/\S+/', $mime = $this->object->mime())) {
+			//If no maximum size is specified, it's not necessary to create a thumbnail
+			if(!$this->maxSide && !$this->maxWidth && !$this->maxHeight) {
+				//Renders the original image
+				header(sprintf('Content-type: %s', $mime));
+				readfile($this->object->path);
+
+				$this->autoRender = FALSE;
+				exit;
+			}
+			
 			//Sets the thumb path
 			$this->thumb = TMP.'thumbs'.DS.'photos'.DS.md5($this->object->path);
 			
 			if($this->maxSide)
-				$this->thumb .= '_s'.$this->maxSide;
-			elseif($this->maxWidth || $this->maxHeight) {
+				$this->thumb = sprintf('%s_s_%s', $this->thumb, $this->maxSide);
+			else {
 				if($this->maxWidth)
-					$this->thumb .= '_w'.$this->maxWidth;
+					$this->thumb = sprintf('%s_w_%s', $this->thumb, $this->maxWidth);
 				if($this->maxHeight)
-					$this->thumb .= '_h'.$this->maxHeight;
+					$this->thumb = sprintf('%s_h_%s', $this->thumb, $this->maxHeight);
 			}
-			else
-				$this->thumb .= '_orig';
 		}
 		//Else, if the file is a video
 		elseif(preg_match('/video\/\S+/', $mime) || $mime == 'application/ogg') {
+			if(!$this->maxSide && !$this->maxWidth)
+				$this->maxSide = 270;
+			
 			//Sets the thumb path
 			$this->thumb = TMP.'thumbs'.DS.'videos'.DS.md5($this->object->path);
 			
 			if($this->maxSide)
-				$this->thumb .= '_s'.$this->maxSide;
+				$this->thumb = sprintf('%s_s_%s', $this->thumb, $this->maxSide);
 			elseif($this->maxWidth)
-				$this->thumb .= '_w'.$this->maxWidth;
-			else
-				$this->thumb .= '_orig';
+				$this->thumb = sprintf('%s_w_%s', $this->thumb, $this->maxWidth);
 		}
 		//Else, if the mime type is not known
 		else
 			throw new InternalErrorException(__d('me_tools', 'The mime type %s is not supported', $mime));
 		
-		$this->thumb .= '.jpg';
+		$this->thumb = sprintf('%s.jpg', $this->thumb);
 			
 		//Now the thumbnail path has been set
 		
@@ -306,7 +310,7 @@ class ThumbsController extends Controller {
 		}
 		
 		//Renders the thumbnail
-		header("Content-type: image/jpeg");
+		header('Content-type: image/jpeg');
         readfile($this->thumb);
 		
         $this->autoRender = FALSE;
