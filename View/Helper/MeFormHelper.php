@@ -252,7 +252,8 @@ class MeFormHelper extends FormHelper {
      * @param array $options HTML attributes and options
      * @return string Html code
      * @uses inline
-	 * @uses _addOptionDefault()
+	 * @uses MeHtmlHelper::_addOptionDefault()
+	 * @uses submit()
      */
     public function end($caption = NULL, $options = array()) {
         //Normally, the `end()` method has only the `option` argument, which is an array. 
