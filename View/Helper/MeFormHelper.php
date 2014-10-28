@@ -261,7 +261,7 @@ class MeFormHelper extends FormHelper {
 		//Normally, the `end()` method of the `HtmlHelper` has only the `option` argument, which is an array. 
         //So, this allows compatibility with the original method.
         //Look at {@link http://api.cakephp.org/2.5/source-class-FormHelper.html#477-527}		
-		if(!empty($options))
+		if(!empty($caption) && !empty($options))
 			$caption = am($options, array('label' => $caption));
 		
         $this->inline = FALSE;
