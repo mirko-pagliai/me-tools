@@ -143,7 +143,7 @@ class System {
 	 * @return boolean TRUE if they are readable and writable, FALSE otherwise
 	 */
 	public static function dirIsWritable($directory) {
-		if(!is_readable($directory))
+		if(!is_readable($directory) || !is_writable($directory))
 			return FALSE;
 		
 		$folder = new Folder();
