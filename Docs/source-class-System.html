@@ -262,7 +262,7 @@
 </span></span><span id="143" class="l"><a class="l" href="#143">143: </a><span class="php-comment">     * @return boolean TRUE if they are readable and writable, FALSE otherwise
 </span></span><span id="144" class="l"><a class="l" href="#144">144: </a><span class="php-comment">     */</span>
 </span><span id="145" class="l"><a class="l" href="#145">145: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">static</span> <span class="php-keyword1">function</span> <a id="_dirIsWritable" href="#_dirIsWritable">dirIsWritable</a>(<span class="php-var">$directory</span>) {
-</span><span id="146" class="l"><a class="l" href="#146">146: </a>        <span class="php-keyword1">if</span>(!<span class="php-keyword2">is_readable</span>(<span class="php-var">$directory</span>))
+</span><span id="146" class="l"><a class="l" href="#146">146: </a>        <span class="php-keyword1">if</span>(!<span class="php-keyword2">is_readable</span>(<span class="php-var">$directory</span>) || !<span class="php-keyword2">is_writable</span>(<span class="php-var">$directory</span>))
 </span><span id="147" class="l"><a class="l" href="#147">147: </a>            <span class="php-keyword1">return</span> <span class="php-keyword1">FALSE</span>;
 </span><span id="148" class="l"><a class="l" href="#148">148: </a>        
 </span><span id="149" class="l"><a class="l" href="#149">149: </a>        <span class="php-var">$folder</span> = <span class="php-keyword1">new</span> Folder();
