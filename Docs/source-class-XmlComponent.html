@@ -8,7 +8,7 @@
 	<title>File Component/XmlComponent.php | MeTools</title>
 
 	<script type="text/javascript" src="resources/combined.js?117538352"></script>
-	<script type="text/javascript" src="elementlist.js?1941762486"></script>
+	<script type="text/javascript" src="elementlist.js?4178211455"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360">
 
 </head>
@@ -68,7 +68,6 @@
 		<div id="elements">
 			<h3>Classes</h3>
 			<ul>
-				<li><a href="class-CleanerUrlComponent.html">CleanerUrlComponent</a></li>
 				<li><a href="class-MeSecurityComponent.html">MeSecurityComponent</a></li>
 				<li><a href="class-MeSessionComponent.html">MeSessionComponent</a></li>
 				<li><a href="class-TokenComponent.html">TokenComponent</a></li>
@@ -180,7 +179,7 @@
 </span></span><span id="57" class="l"><a class="l" href="#57"> 57: </a><span class="php-comment">     * @see fromArray()
 </span></span><span id="58" class="l"><a class="l" href="#58"> 58: </a><span class="php-comment">     */</span>
 </span><span id="59" class="l"><a class="l" href="#59"> 59: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_fromXml" href="#_fromXml">fromXml</a>() {
-</span><span id="60" class="l"><a class="l" href="#60"> 60: </a>        <span class="php-keyword1">return</span> <span class="php-keyword2">call_user_func_array</span>(<span class="php-keyword1">array</span>(<span class="php-quote">'XmlComponent'</span>, <span class="php-quote">'toArray'</span>), <span class="php-keyword2">func_get_args</span>());
+</span><span id="60" class="l"><a class="l" href="#60"> 60: </a>        <span class="php-keyword1">return</span> <span class="php-keyword2">call_user_func_array</span>(<span class="php-keyword1">array</span>(<span class="php-keyword2">get_class</span>(), <span class="php-quote">'toArray'</span>), <span class="php-keyword2">func_get_args</span>());
 </span><span id="61" class="l"><a class="l" href="#61"> 61: </a>    }
 </span><span id="62" class="l"><a class="l" href="#62"> 62: </a>    
 </span><span id="63" class="l"><a class="l" href="#63"> 63: </a>    <span class="php-comment">/**
@@ -222,7 +221,7 @@
 </span></span><span id="99" class="l"><a class="l" href="#99"> 99: </a><span class="php-comment">     * @see fromArray()
 </span></span><span id="100" class="l"><a class="l" href="#100">100: </a><span class="php-comment">     */</span>
 </span><span id="101" class="l"><a class="l" href="#101">101: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_toXml" href="#_toXml">toXml</a>() {
-</span><span id="102" class="l"><a class="l" href="#102">102: </a>        <span class="php-keyword1">return</span> <span class="php-keyword2">call_user_func_array</span>(<span class="php-keyword1">array</span>(<span class="php-quote">'XmlComponent'</span>, <span class="php-quote">'fromArray'</span>), <span class="php-keyword2">func_get_args</span>());
+</span><span id="102" class="l"><a class="l" href="#102">102: </a>        <span class="php-keyword1">return</span> <span class="php-keyword2">call_user_func_array</span>(<span class="php-keyword1">array</span>(<span class="php-keyword2">get_class</span>(), <span class="php-quote">'fromArray'</span>), <span class="php-keyword2">func_get_args</span>());
 </span><span id="103" class="l"><a class="l" href="#103">103: </a>    }
 </span><span id="104" class="l"><a class="l" href="#104">104: </a></span>}</code></pre>
 
