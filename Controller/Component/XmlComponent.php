@@ -57,7 +57,7 @@ class XmlComponent extends Component {
      * @see fromArray()
      */
     public function fromXml() {
-        return call_user_func_array(array('XmlComponent', 'toArray'), func_get_args());
+        return call_user_func_array(array(get_class(), 'toArray'), func_get_args());
     }
 	
 	/**
@@ -99,6 +99,6 @@ class XmlComponent extends Component {
      * @see fromArray()
      */
     public function toXml() {
-        return call_user_func_array(array('XmlComponent', 'fromArray'), func_get_args());
+        return call_user_func_array(array(get_class(), 'fromArray'), func_get_args());
     }
 }

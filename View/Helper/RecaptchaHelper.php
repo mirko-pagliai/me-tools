@@ -77,7 +77,7 @@ class RecaptchaHelper extends AppHelper {
      * @see mailLink()
      */
     public function mail() {
-        return call_user_func_array(array('RecaptchaHelper', 'mailLink'), func_get_args());
+        return call_user_func_array(array(get_class(), 'mailLink'), func_get_args());
     }
 
     /**

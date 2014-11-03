@@ -302,7 +302,7 @@ class MeHtmlHelper extends HtmlHelper {
      * @see icons()
      */
     public function icon() {
-        return call_user_func_array(array('MeHtmlHelper', 'icons'), func_get_args());
+        return call_user_func_array(array(get_class(), 'icons'), func_get_args());
     }
 	
 	/**
@@ -356,7 +356,7 @@ class MeHtmlHelper extends HtmlHelper {
      * @see image()
      */
     public function img() {
-        return call_user_func_array(array('MeHtmlHelper', 'image'), func_get_args());
+        return call_user_func_array(array(get_class(), 'image'), func_get_args());
     }
 	
     /**
@@ -364,7 +364,7 @@ class MeHtmlHelper extends HtmlHelper {
      * @see script()
      */
     public function js() {
-        return call_user_func_array(array('MeHtmlHelper', 'script'), func_get_args());
+        return call_user_func_array(array(get_class(), 'script'), func_get_args());
     }
 
     /**
@@ -432,7 +432,7 @@ class MeHtmlHelper extends HtmlHelper {
      * @see button()
      */
     public function linkButton() {
-        return call_user_func_array(array('MeHtmlHelper', 'button'), func_get_args());
+        return call_user_func_array(array(get_class(), 'button'), func_get_args());
     }
 
     /**

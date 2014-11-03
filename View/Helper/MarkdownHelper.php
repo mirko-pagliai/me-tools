@@ -39,7 +39,7 @@ class MarkdownHelper extends AppHelper {
      * @see toHtml()
      */
     public function fromMarkdown() {
-        return call_user_func_array(array('MarkdownHelper', 'toHtml'), func_get_args());
+        return call_user_func_array(array(get_class(), 'toHtml'), func_get_args());
     }
 
 	/**

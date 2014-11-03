@@ -44,7 +44,7 @@ class MeSessionComponent extends SessionComponent {
      * @see setFlash()
      */
     public function flash() {
-        return call_user_func_array(array('MeSessionComponent', 'setFlash'), func_get_args());
+        return call_user_func_array(array(get_class(), 'setFlash'), func_get_args());
     }
 
     /**
