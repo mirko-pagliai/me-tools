@@ -420,8 +420,9 @@ class MeHtmlHelper extends HtmlHelper {
 		$title = self::_addIcons($title, $options);
 		unset($options['icon']);
 		
-		$options['title'] = empty($options['title']) ? trim(strip_tags($title)) : trim(strip_tags($options['title']));
-		
+		$options = self::_addOptionDefault('title', $title, $options);
+		$options['title'] = trim(h(strip_tags($options['title'])));
+				
 		$options = self::_addOptionDefault('escape', FALSE, $options);
 		
         return parent::link($title, $url, $options, $confirmMessage);
