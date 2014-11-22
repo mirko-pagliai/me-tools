@@ -66,68 +66,9 @@ To show the SQL dump, you can use the appropriate element:
 This will display the SQL dump only when available and only if the user is not using a mobile device.
 
 ## Compress Shell
-The `CompressShell` allows you to combine and compress css and js files.
+The `CompressShell` allows you to combine and compress css and js files.  
+See the [page](//github.com/mirko-pagliai/MeTools/wiki/Compress-Shell) on our wiki.
 
-To use the `CompressShell`, you have to first install on your system `Clean-css` and `UglifyJS`. As root user:
-
-	npm install clean-css -g
-	npm install uglify-js -g
-
-The shell has three methods, the two main methods are `css()` and `js`.  
-With `css()` or `js()`, simply pass as arguments the input file (or files) and the output file as the last argument.
-
-For example:
-	
-	cake MeTools.Compress css webroot/css/default.css webroot/css/default.min.css
-
-This will compress `default.css` and will create `default.min.css` as result.
-
-For example:
-	
-	cake MeTools.Compress css webroot/css/first.css webroot/css/second.css webroot/css/result.min.css
-
-This will combine and compress `first.css` and `second.css` and will create `result.min.css` as result.
-
-If you use the `--force` (or `-f`) option, the output file will be overwritten without prompting.
-
-### Using a configuration file
-Rather than indicating files as arguments, you can use a configuration file. Each file should be on a single line and the last 
-line will be used as the output file. 
-
-For example, create the `Config/assets_css/default.ini` file:
-
-	webroot/css/first.css
-	webroot/css/second.css
-	webroot/css/result.min.css
-
-Then, use the `--config` (or `-c`) option:
-
-	cake MeTools.Compress css -c Config/assets_css/default.ini
-
-This will combine and compress `first.css` and `second.css` and will create `result.min.css` as result.
-
-Remember: if you use the configuration file, you must not specify the file extension.
-
-### Using the automatic method
-The shell has a third method, `auto()`. This will automatically search all the `ini` configuration files, if they are located
-into `Config/assets_css` or `Config/assets_js`.
-
-It will search into: 
-
-	- the main application; 
-	- themes of the main application;
-	- plugins; 
-	- themes of the plugins.
-
-For example, let's assume that your application has a theme called `MyTheme` and a plugin called `MyPlugin`. It will search 
-all `ini` files that are located into:
-
-	APP/Config/assets_css
-	APP/Config/assets_js
-	APP/Plugin/MyPlugin/Config/assets_css
-	APP/Plugin/MyPlugin/Config/assets_js
-	APP/View/Themed/MyTheme/Config/assets_css
-	APP/View/Themed/MyTheme/Config/assets_js
 
 ## Libraries and script
 MeTools uses different libraries or scripts:
