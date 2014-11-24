@@ -42,7 +42,7 @@
 			<ul class="pagination">
 				<?php
 					echo $this->Paginator->prev('«');
-					echo $this->Paginator->numbers(array('modulus' => '6'));
+					echo $this->Paginator->numbers(array('modulus' => '5'));
 					echo $this->Paginator->next('»');
 				?>
 			</ul>
