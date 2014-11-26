@@ -235,7 +235,7 @@ class ThumbsController extends Controller {
 		//If the file is remote
 		if(filter_var($file, FILTER_VALIDATE_URL)) {
 			//Downloads the file into /tmp, if not already done
-			if(!is_readable($tmp = DS.'tmp'.DS.md5($file).pathinfo($file, PATHINFO_EXTENSION)))
+			if(!is_readable($tmp = DS.'tmp'.DS.md5($file).'.'.pathinfo($file, PATHINFO_EXTENSION)))
 				file_put_contents($tmp, file_get_contents($file));
 			
 			//The file is the temporary file
@@ -275,6 +275,9 @@ class ThumbsController extends Controller {
 				if($this->maxHeight)
 					$this->thumb = sprintf('%s_h_%s', $this->thumb, $this->maxHeight);
 			}
+			
+			//Sets the thumbnail path
+			$this->thumb = sprintf('%s.%s', $this->thumb, $this->object->ext());
 		}
 		//Else, if the file is a video
 		elseif(preg_match('/video\/\S+/', $mime) || $mime == 'application/ogg') {
@@ -288,14 +291,13 @@ class ThumbsController extends Controller {
 				$this->thumb = sprintf('%s_s_%s', $this->thumb, $this->maxSide);
 			elseif($this->maxWidth)
 				$this->thumb = sprintf('%s_w_%s', $this->thumb, $this->maxWidth);
+		
+			//Sets the thumbnail path
+			$this->thumb = sprintf('%s.jpg', $this->thumb);
 		}
 		//Else, if the mime type is not known
 		else
 			throw new InternalErrorException(__d('me_tools', 'The mime type %s is not supported', $mime));
-		
-		$this->thumb = sprintf('%s.%s', $this->thumb, $this->object->ext());
-			
-		//Now the thumbnail path has been set
 		
 		//If the thumbnail does not yet exist
 		if(!is_readable($this->thumb)) {
