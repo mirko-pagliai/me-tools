@@ -293,7 +293,7 @@ class ThumbsController extends Controller {
 		else
 			throw new InternalErrorException(__d('me_tools', 'The mime type %s is not supported', $mime));
 		
-		$this->thumb = sprintf('%s.jpg', $this->thumb);
+		$this->thumb = sprintf('%s.%s', $this->thumb, $this->object->ext());
 			
 		//Now the thumbnail path has been set
 		
