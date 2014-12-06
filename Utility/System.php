@@ -140,7 +140,7 @@ class System {
      */
     public static function clearThumbs() {
         $dir = new Folder($tmp = TMP.'thumbs');
-        $files = $dir->findRecursive('.+\..+');
+        $files = $dir->findRecursive();
         
 		$success = TRUE;
         foreach($files as $file) {
