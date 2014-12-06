@@ -139,12 +139,14 @@ class System {
      * @return boolean TRUE if thumbnails were successfully cleared, FALSE otherwise
      */
     public static function clearThumbs() {
-        $dir = new Folder($tmp = TMP.'thumbs');
-        $files = $dir->findRecursive();
-        
+        $dir = new Folder(TMP.'thumbs');
 		$success = TRUE;
-        foreach($files as $file) {
+		
+		//For each file
+        foreach($dir->findRecursive() as $file) {
             $file = new File($file);
+			
+			//Deletes the file
             if(!$file->delete() && $success)
                 $success = FALSE;
         }
