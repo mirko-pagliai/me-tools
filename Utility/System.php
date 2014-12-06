@@ -113,10 +113,25 @@ class System {
 
     /**
      * Clears the cache.
-     * @return boolean TRUE if the cache was successfully cleared, FALSE otherwise
-     */
+	 * @return boolean TRUE if the cache is writable, otherwise FALSE
+	 */
     public static function clearCache() {
-        return Cache::clear(FALSE);
+		if(!self::checkCache())
+			return FALSE;
+		
+		$dir = new Folder(CACHE);
+		
+		//For each file
+		foreach($dir->findRecursive() as $file) {
+			if(!is_writable($file))
+				continue;
+			
+			//Deletes the file
+			$file = new File($file);
+			$file->delete();
+		}
+		
+		return TRUE;
     }
 
     /**
