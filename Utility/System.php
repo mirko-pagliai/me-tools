@@ -113,32 +113,37 @@ class System {
 
     /**
      * Clears the cache.
-	 * @return boolean TRUE if the cache is writable, otherwise FALSE
+     * @return boolean TRUE if the cache is writable and were successfully cleared, FALSE otherwise
+	 * @uses checkCache()
 	 */
     public static function clearCache() {
 		if(!self::checkCache())
 			return FALSE;
 		
 		$dir = new Folder(CACHE);
+		$success = TRUE;
 		
 		//For each file
 		foreach($dir->findRecursive() as $file) {
-			if(!is_writable($file))
-				continue;
+			$file = new File($file);
 			
 			//Deletes the file
-			$file = new File($file);
-			$file->delete();
+            if(!$file->delete() && $success)
+                $success = FALSE;
 		}
 		
-		return TRUE;
+        return $success;
     }
 
     /**
-     * Clears thumbnails.
-     * @return boolean TRUE if thumbnails were successfully cleared, FALSE otherwise
+     * Clears the thumbnails.
+     * @return boolean TRUE if the thumbnails are writable and were successfully cleared, FALSE otherwise
+	 * @uses checkThumbs()
      */
     public static function clearThumbs() {
+		if(!self::checkThumbs())
+			return FALSE;
+		
         $dir = new Folder(TMP.'thumbs');
 		$success = TRUE;
 		
