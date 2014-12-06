@@ -154,7 +154,7 @@ class="php-quote">'MeTools.Utility'</span>);
 				<b>Author:</b>
 				Mirko Pagliai &lt;<a
 href="mailto:mirko.pagliai&#64;gmail.com">mirko.pagliai&#64;<!-- -->gmail.com</a>&gt;<br>
-		<b>Located at</b> <a href="source-class-System.html#30-286" title="Go to source code">System.php</a><br>
+		<b>Located at</b> <a href="source-class-System.html#30-308" title="Go to source code">System.php</a><br>
 	</div>
 
 
@@ -242,6 +242,10 @@ href="mailto:mirko.pagliai&#64;gmail.com">mirko.pagliai&#64;<!-- -->gmail.com</a
 				<h4>Uses</h4>
 				<div class="list">
 						<code><code><a href="class-System.html#_dirIsWritable">System::dirIsWritable()</a></code></code> <br>
+				</div>
+				<h4>Used by</h4>
+				<div class="list">
+						<code><code><a href="class-System.html#_clearCache">System::clearCache()</a></code></code> <br>
 				</div>
 
 
@@ -457,6 +461,7 @@ FALSE otherwise<br>
 				</div>
 				<h4>Used by</h4>
 				<div class="list">
+						<code><code><a href="class-System.html#_clearThumbs">System::clearThumbs()</a></code></code> <br>
 						<code><code><a href="class-System.html#_getThumbsSize">System::getThumbsSize()</a></code></code> <br>
 				</div>
 
@@ -516,7 +521,7 @@ FALSE otherwise<br>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_clearCache">#</a>
-		<code><a href="source-class-System.html#114-120" title="Go to source code">clearCache</a>( )</code>
+		<code><a href="source-class-System.html#114-136" title="Go to source code">clearCache</a>( )</code>
 
 		<div class="description short">
 			
@@ -533,10 +538,14 @@ FALSE otherwise<br>
 
 				<h4>Returns</h4>
 				<div class="list">
-					<code>boolean</code><br>TRUE if the cache was successfully cleared, FALSE otherwise<br>
+					<code>boolean</code><br>TRUE if the cache is writable and were successfully cleared, FALSE otherwise<br>
 				</div>
 
 
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-System.html#_checkCache">System::checkCache()</a></code></code> <br>
+				</div>
 
 
 		</div>
@@ -553,27 +562,32 @@ FALSE otherwise<br>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_clearThumbs">#</a>
-		<code><a href="source-class-System.html#122-138" title="Go to source code">clearThumbs</a>( )</code>
+		<code><a href="source-class-System.html#138-160" title="Go to source code">clearThumbs</a>( )</code>
 
 		<div class="description short">
 			
-<p>Clears thumbnails.</p>
+<p>Clears the thumbnails.</p>
 
 		</div>
 
 		<div class="description detailed hidden">
 			
-<p>Clears thumbnails.</p>
+<p>Clears the thumbnails.</p>
 
 
 
 
 				<h4>Returns</h4>
 				<div class="list">
-					<code>boolean</code><br>TRUE if thumbnails were successfully cleared, FALSE otherwise<br>
+					<code>boolean</code><br>TRUE if the thumbnails are writable and were successfully cleared, FALSE
+otherwise<br>
 				</div>
 
 
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-System.html#_checkThumbs">System::checkThumbs()</a></code></code> <br>
+				</div>
 
 
 		</div>
@@ -590,7 +604,7 @@ FALSE otherwise<br>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_dirIsWritable">#</a>
-		<code><a href="source-class-System.html#140-157" title="Go to source code">dirIsWritable</a>( <span>string <var>$directory</var></span> )</code>
+		<code><a href="source-class-System.html#162-179" title="Go to source code">dirIsWritable</a>( <span>string <var>$directory</var></span> )</code>
 
 		<div class="description short">
 			
@@ -639,7 +653,7 @@ FALSE otherwise<br>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getApacheModules">#</a>
-		<code><a href="source-class-System.html#159-165" title="Go to source code">getApacheModules</a>( )</code>
+		<code><a href="source-class-System.html#181-187" title="Go to source code">getApacheModules</a>( )</code>
 
 		<div class="description short">
 			
@@ -680,7 +694,7 @@ FALSE otherwise<br>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getCacheSize">#</a>
-		<code><a href="source-class-System.html#167-174" title="Go to source code">getCacheSize</a>( )</code>
+		<code><a href="source-class-System.html#189-196" title="Go to source code">getCacheSize</a>( )</code>
 
 		<div class="description short">
 			
@@ -717,7 +731,7 @@ FALSE otherwise<br>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getCakeVersion">#</a>
-		<code><a href="source-class-System.html#176-182" title="Go to source code">getCakeVersion</a>( )</code>
+		<code><a href="source-class-System.html#198-204" title="Go to source code">getCakeVersion</a>( )</code>
 
 		<div class="description short">
 			
@@ -754,7 +768,7 @@ FALSE otherwise<br>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getMeToolsVersion">#</a>
-		<code><a href="source-class-System.html#184-190" title="Go to source code">getMeToolsVersion</a>( )</code>
+		<code><a href="source-class-System.html#206-212" title="Go to source code">getMeToolsVersion</a>( )</code>
 
 		<div class="description short">
 			
@@ -791,7 +805,7 @@ FALSE otherwise<br>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getPhpExtensions">#</a>
-		<code><a href="source-class-System.html#192-198" title="Go to source code">getPhpExtensions</a>( )</code>
+		<code><a href="source-class-System.html#214-220" title="Go to source code">getPhpExtensions</a>( )</code>
 
 		<div class="description short">
 			
@@ -828,7 +842,7 @@ FALSE otherwise<br>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getPhpVersion">#</a>
-		<code><a href="source-class-System.html#200-206" title="Go to source code">getPhpVersion</a>( )</code>
+		<code><a href="source-class-System.html#222-228" title="Go to source code">getPhpVersion</a>( )</code>
 
 		<div class="description short">
 			
@@ -869,7 +883,7 @@ FALSE otherwise<br>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getPluginsVersion">#</a>
-		<code><a href="source-class-System.html#208-235" title="Go to source code">getPluginsVersion</a>( <span>string|array <var>$except</var> = <span class="php-keyword1">NULL</span></span> )</code>
+		<code><a href="source-class-System.html#230-257" title="Go to source code">getPluginsVersion</a>( <span>string|array <var>$except</var> = <span class="php-keyword1">NULL</span></span> )</code>
 
 		<div class="description short">
 			
@@ -911,7 +925,7 @@ FALSE otherwise<br>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getThumbsSize">#</a>
-		<code><a href="source-class-System.html#237-248" title="Go to source code">getThumbsSize</a>( )</code>
+		<code><a href="source-class-System.html#259-270" title="Go to source code">getThumbsSize</a>( )</code>
 
 		<div class="description short">
 			
@@ -952,7 +966,7 @@ FALSE otherwise<br>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_is_root">#</a>
-		<code><a href="source-class-System.html#250-257" title="Go to source code">is_root</a>( )</code>
+		<code><a href="source-class-System.html#272-279" title="Go to source code">is_root</a>( )</code>
 
 		<div class="description short">
 			
@@ -989,7 +1003,7 @@ FALSE otherwise<br>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_whereis">#</a>
-		<code><a href="source-class-System.html#259-272" title="Go to source code">whereis</a>( <span>string <var>$command</var></span> )</code>
+		<code><a href="source-class-System.html#281-294" title="Go to source code">whereis</a>( <span>string <var>$command</var></span> )</code>
 
 		<div class="description short">
 			
@@ -1033,7 +1047,7 @@ FALSE otherwise<br>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_which">#</a>
-		<code><a href="source-class-System.html#274-285" title="Go to source code">which</a>( <span>string <var>$command</var></span> )</code>
+		<code><a href="source-class-System.html#296-307" title="Go to source code">which</a>( <span>string <var>$command</var></span> )</code>
 
 		<div class="description short">
 			
