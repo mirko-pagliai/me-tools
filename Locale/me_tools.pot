@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2014-10-12 17:21+0200\n"
+"POT-Creation-Date: 2014-12-07 16:09+0100\n"
 "PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
 "Last-Translator: Mirko Pagliai <mirko.pagliai@gmail.com>\n"
 "MIME-Version: 1.0\n"
@@ -13,32 +13,28 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: Controller/ThumbsController.php:59
+#: Controller/ThumbsController.php:96
 msgid "The %s library is missing"
 msgstr ""
 
-#: Controller/ThumbsController.php:128;172
-msgid "The target directory %s is not writable"
-msgstr ""
-
-#: Controller/ThumbsController.php:136;179
+#: Controller/ThumbsController.php:159;179
 msgid "The thumbnail %s has not been created"
 msgstr ""
 
-#: Controller/ThumbsController.php:168
+#: Controller/ThumbsController.php:172
 msgid "%s is not avalaible"
 msgstr ""
 
-#: Controller/ThumbsController.php:216
-msgid "The file has not been specified"
-msgstr ""
-
-#: Controller/ThumbsController.php:236
+#: Controller/ThumbsController.php:250
 msgid "The file %s doesn't exist or is not readable"
 msgstr ""
 
-#: Controller/ThumbsController.php:250
+#: Controller/ThumbsController.php:300
 msgid "The mime type %s is not supported"
+msgstr ""
+
+#: Controller/ThumbsController.php:306
+msgid "The target directory %s is not writable"
 msgstr ""
 
 #: View/Common/error_page.ctp:30
@@ -61,11 +57,11 @@ msgstr ""
 msgid "Have found a bug? Please, consider the possibility to report it"
 msgstr ""
 
-#: View/Elements/paginator.ctp:34
+#: View/Elements/paginator.ctp:35
 msgid "Previous"
 msgstr ""
 
-#: View/Elements/paginator.ctp:36
+#: View/Elements/paginator.ctp:37
 msgid "Next"
 msgstr ""
 
@@ -126,23 +122,19 @@ msgstr ""
 msgid "The view for %s%s was not found"
 msgstr ""
 
-#: View/Helper/MeFormHelper.old.php:128
 #: View/Helper/MeFormHelper.php:152
 msgid "Check all"
 msgstr ""
 
-#: View/Helper/MeFormHelper.old.php:129
 #: View/Helper/MeFormHelper.php:153
 msgid "Uncheck all"
 msgstr ""
 
-#: View/Helper/MeFormHelper.old.php:452
-#: View/Helper/MeFormHelper.php:432
+#: View/Helper/MeFormHelper.php:453
 msgid "Select an option"
 msgstr ""
 
-#: View/Helper/MeHtmlHelper.old.php:797
-#: View/Helper/MeHtmlHelper.php:686
+#: View/Helper/MeHtmlHelper.php:687
 msgid "Tip"
 msgstr ""
 
