@@ -4,7 +4,6 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PROJECT VERSION\n"
 "POT-Creation-Date: 2014-12-07 16:09+0100\n"
 "PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
 "Last-Translator: Mirko Pagliai <mirko.pagliai@gmail.com>\n"
