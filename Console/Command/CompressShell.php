@@ -137,14 +137,22 @@ class CompressShell extends MeToolsAppShell {
 			
 			//For each css configuration files, compresses
 			foreach($folder->find('.*\.ini') as $config)
-				$this->dispatchShell('MeTools.Compress', 'css', '--config', $cssPath.DS.$config, $this->params['force'] ? '--force' : NULL);
+				$this->dispatchShell('MeTools.Compress', 'css', '--config', $cssPath.DS.$config,
+					$this->params['force'] ? '--force' : NULL,
+					$this->params['quiet'] ? '--quiet' : NULL,
+					$this->params['verbose'] ? '--verbose' : NULL
+				);
 
 			//Gets the assets js paths
 			$folder = new Folder($jsPath = $path.'Config'.DS.'assets_js');
 			
 			//For each css configuration files, compresses
 			foreach($folder->find('.*\.ini') as $config)
-				$this->dispatchShell('MeTools.Compress', 'js', '--config', $jsPath.DS.$config, $this->params['force'] ? '--force' : NULL);
+				$this->dispatchShell('MeTools.Compress', 'js', '--config', $jsPath.DS.$config,
+					$this->params['force'] ? '--force' : NULL,
+					$this->params['quiet'] ? '--quiet' : NULL,
+					$this->params['verbose'] ? '--verbose' : NULL
+				);
 		}
 	}
 	
