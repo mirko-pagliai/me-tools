@@ -183,7 +183,7 @@ class MeHtmlHelper extends HtmlHelper {
      * If it's used in the layout, you should set the `inline` option to `TRUE`.
      * @param mixed $path Css filename or an array of css filenames
 	 * @param array $options Array of options and HTML attributes
-     * @return string Html, `<link>` or `>style>` tag
+     * @return string Html, `<link>` or `<style>` tag
 	 * @uses _addOptionDefault()
      */
     public function css($path, $options = array()) {
