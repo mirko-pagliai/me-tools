@@ -82,7 +82,7 @@ class CompressShell extends MeToolsAppShell {
 		
 		//Checks if the output directory is writable
 		if(!is_writable(dirname($output)))
-			$this->error(sprintf('%s doesn\'t exists or is not writeable', $output));
+			$this->error(sprintf('%s doesn\'t exists or is not writeable', dirname($output)));
 		
 		//If the output file already exists and has not been used the "force" option
 		if(file_exists($output) && empty($this->params['force'])) {
