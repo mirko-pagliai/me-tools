@@ -163,6 +163,8 @@ class CompressShell extends MeToolsAppShell {
 		
 		if(!$input || !$output)
 			return;
+		
+		$this->out('<success>'.sprintf('The file %s was created or updated', $output).'</success>');
 				
 		//Executes the command
 		exec(sprintf('%s -o %s %s', $cleancss, $output, implode(' ', $input)));
@@ -182,6 +184,8 @@ class CompressShell extends MeToolsAppShell {
 		
 		if(!$input || !$output)
 			return;
+		
+		$this->out('<success>'.sprintf('The file %s was created or updated', $output).'</success>');
 		
 		//Sets the comments option for UglifyJS
 		$comments = '/!|@[Ll]icen[sc]e|@[Pp]reserve/';
