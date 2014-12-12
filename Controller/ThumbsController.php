@@ -231,11 +231,11 @@ class ThumbsController extends Controller {
 		
         //Decodes the path
         $file = urldecode(base64_decode($file));
-		
+				
 		//If the file is remote
 		if(filter_var($file, FILTER_VALIDATE_URL)) {
 			//Downloads the file into /tmp, if not already done
-			if(!is_readable($tmp = DS.'tmp'.DS.'thumbs'.DS.md5($file).'.'.pathinfo($file, PATHINFO_EXTENSION)))
+			if(!is_readable($tmp = DS.'tmp'.DS.md5($file).'.'.pathinfo($file, PATHINFO_EXTENSION)))
 				file_put_contents($tmp, file_get_contents($file));
 			
 			//The file is the temporary file
