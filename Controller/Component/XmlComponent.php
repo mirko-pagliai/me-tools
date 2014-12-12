@@ -68,15 +68,17 @@ class XmlComponent extends Component {
 	 * @return array Array representation of the XML
 	 * @uses toArray() to returns the XML structure as an array
 	 */
-	public function getAsArray($path) {
-		//If the path is not an url (but it's a real path) and if it's a relative path, the path will be relative to APP
-        if(!filter_var($path, FILTER_VALIDATE_URL) && !realpath($path))
-            $path = APP.$path;
+	public function getAsArray($path) {		
+		//If the path is an url, sets the context
+		if(filter_var($path, FILTER_VALIDATE_URL))
+			$context = stream_context_create(array('http' => array('method' => 'GET', 'timeout' => 5)));
+		//Else, if the path is a relative path, then the path will be relative to the APP
+		elseif(!realpath($path))
+			$path = APP.$path;
 		
-		if(@file_get_contents($path))
-			return self::toArray($path);
-		else
-			return FALSE;
+		$content = @file_get_contents($path, FALSE, empty($context) ? NULL : $context);
+		
+		return empty($content) ? FALSE : self::toArray($content);
 	}
 	
 	/**
