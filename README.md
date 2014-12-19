@@ -73,7 +73,7 @@ See the [page](//github.com/mirko-pagliai/MeTools/wiki/Compress-Shell) on our wi
 ## Libraries and script
 MeTools uses different libraries or scripts:
 
-- jQuery 2.1.1 ([site](http://jquery.com));
+- jQuery 2.1.3 ([site](http://jquery.com));
 - Bootstrap 3.3.1 ([site](http://getbootstrap.com)), without Glyphicons;
 - Font Awesome 4.2.0 ([site](http://fortawesome.github.com/Font-Awesome));
 - PHP Markdown 1.4.1 ([site](http://michelf.ca/projects/php-markdown));
