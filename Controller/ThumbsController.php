@@ -231,24 +231,29 @@ class ThumbsController extends Controller {
 		
         //Decodes the path
         $file = urldecode(base64_decode($file));
-				
+
 		//If the file is remote
-		if(filter_var($file, FILTER_VALIDATE_URL)) {
-			//Downloads the file into /tmp, if not already done
-			if(!is_readable($tmp = DS.'tmp'.DS.md5($file).'.'.pathinfo($file, PATHINFO_EXTENSION)))
+		if(filter_var($file, FILTER_VALIDATE_URL)) {			
+			//Downloads the file, if not already done
+			if(!is_readable($tmp = TMP.'thumbs'.DS.'remotes'.DS.md5($file).'.'.pathinfo($file, PATHINFO_EXTENSION))) {
+				//Checks if the target directory is writable
+				if(!is_writable(dirname($tmp)))
+					throw new InternalErrorException(__d('me_tools', 'The target directory %s is not writable', dirname($tmp)));
+				
+				//Downloads the file
 				file_put_contents($tmp, file_get_contents($file));
-			
-			//The file is the temporary file
+			}
+			//The file is now the temporary file
 			$file = $tmp;
 		}
 		//Else, if the file is local and its path is relative, then the path will be relative to the webroot
 		elseif(!Folder::isAbsolute($file))
 			$file = WWW_ROOT.$file;
-		
+
 		//Checks if the file is readable
 		if(!is_readable($file))
 			throw new NotFoundException(__d('me_tools', 'The file %s doesn\'t exist or is not readable', $file));
-
+		
 		//File object
 		$this->object = new File($file);
 		

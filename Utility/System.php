@@ -99,7 +99,7 @@ class System {
 	 * @uses dirIsWritable()
      */
     public static function checkThumbs() {
-		return self::dirIsWritable(TMP.'thumbs'.DS.'photos') && self::dirIsWritable(TMP.'thumbs'.DS.'videos');
+		return self::dirIsWritable(TMP.'thumbs'.DS.'photos') && self::dirIsWritable(TMP.'thumbs'.DS.'remotes') && self::dirIsWritable(TMP.'thumbs'.DS.'videos');
     }
 
     /**
