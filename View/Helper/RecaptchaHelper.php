@@ -48,6 +48,19 @@ class RecaptchaHelper extends AppHelper {
      */
     public $helpers = array('Html' => array('className' => 'MeTools.MeHtml'));
 
+	/**
+	 * Obfuscates an email address
+	 * @param string $mail Mail address
+	 * @return string Mail address obfuscated
+	 */
+	private function obfuscate($mail) {
+		$mail = explode("@", $mail);
+		$name = implode(array_slice($mail, 0, count($mail) - 1), '@');
+		$lenght  = floor(strlen($name) / 2);
+
+		return substr($name, 0, $lenght).str_repeat('*', $lenght)."@".end($mail);
+	}
+	
     /**
      * Construct
      * @param View $View The View this helper is being attached to
@@ -87,9 +100,13 @@ class RecaptchaHelper extends AppHelper {
 	 * @param array $options Array of options and HTML attributes
      * @return string Html code
      * @uses mailUrl()
+	 * @uses obfuscate()
      * @uses MeHtmlHelper::link()
      */
-    public function mailLink($title, $mail, $options = array()) {
+    public function mailLink($title, $mail = NULL, $options = array()) {
+		if(empty($mail))
+			$title = $this->obfuscate($mail = $title);
+		
         $link = self::mailUrl($mail);
 
         //Adds the "onclick" options, that allows to open the link in a popup
