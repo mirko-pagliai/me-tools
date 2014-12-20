@@ -52,6 +52,7 @@ class RecaptchaHelper extends AppHelper {
 	 * Obfuscates an email address
 	 * @param string $mail Mail address
 	 * @return string Mail address obfuscated
+	 * @see http://stackoverflow.com/a/20545505/1480263
 	 */
 	private function obfuscate($mail) {
 		$mail = explode("@", $mail);
