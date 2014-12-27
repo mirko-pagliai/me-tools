@@ -187,6 +187,7 @@ class MeHtmlHelper extends HtmlHelper {
 	 * @uses _addOptionDefault()
      */
     public function css($path, $options = array()) {
+		$options = self::_addOptionDefault('once', TRUE, $options);
 		$options = self::_addOptionDefault('inline', FALSE, $options);
 		
 		if(!is_array($path))
