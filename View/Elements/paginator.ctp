@@ -32,18 +32,24 @@
 		<div class="hidden-xs">
 			<ul class="pagination">
 				<?php
-					echo $this->Paginator->prev(sprintf('« %s', __d('me_tools', 'Previous')));
+					echo $this->Paginator->prev($this->Html->icon('caret-left'));
 					echo $this->Paginator->numbers();
-					echo $this->Paginator->next(sprintf('%s »', __d('me_tools', 'Next')));
+					echo $this->Paginator->next($this->Html->icon('caret-right'));
 				?>
 			</ul>
 		</div>
 		<div class="visible-xs">
 			<ul class="pagination">
 				<?php
-					echo $this->Paginator->prev('«');
-					echo $this->Paginator->numbers(array('modulus' => '5'));
-					echo $this->Paginator->next('»');
+					if($this->Paginator->hasPrev() && $this->Paginator->hasNext()) {
+						echo $this->Paginator->prev(NULL, array('icon' => 'caret-left'));
+						echo $this->Html->li($this->Html->span(__d('me_tools', 'Page %d', $this->Paginator->current())));
+						echo $this->Paginator->next(NULL, array('icon' => 'caret-right'));
+					}
+					elseif(!$this->Paginator->hasPrev())
+						echo $this->Paginator->next(sprintf('%s %s', __d('me_tools', 'Next'), $this->Html->icon('caret-right')));
+					else
+						echo $this->Paginator->prev(sprintf('%s %s', $this->Html->icon('caret-left'), __d('me_tools', 'Previous')));
 				?>
 			</ul>
 		</div>
