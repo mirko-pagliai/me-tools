@@ -541,9 +541,15 @@ h1 small, h2 small, h3 small, h4 small, h5 small, h6 small, h1 .small, h2 .small
 	font-weight: bold;
 }
 
-/* Disabled links in pagination */ 
+/* Disabled links on pagination */ 
 .pagination > .disabled > span, .pagination > .disabled > a, .pagination > .disabled > a:hover, .pagination > .disabled > a:focus {
     cursor: default;
+}
+
+/* Span elements on pagination */
+.pagination > li > span:hover, .pagination > li > span:focus {
+	background: #fff;
+	color: #337ab7;
 }
 
 /* "Pre" tag scrollable */
