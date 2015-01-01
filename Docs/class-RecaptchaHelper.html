@@ -7,7 +7,7 @@
 	<title>Class RecaptchaHelper | MeTools</title>
 
 	<script type="text/javascript" src="resources/combined.js?117538352"></script>
-	<script type="text/javascript" src="elementlist.js?4178211455"></script>
+	<script type="text/javascript" src="elementlist.js?3680598281"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360">
 
 </head>
@@ -169,13 +169,64 @@ AppHelper
 				<b>Author:</b>
 				Mirko Pagliai &lt;<a
 href="mailto:mirko.pagliai&#64;gmail.com">mirko.pagliai&#64;<!-- -->gmail.com</a>&gt;<br>
-		<b>Located at</b> <a href="source-class-RecaptchaHelper.html#32-113" title="Go to source code">RecaptchaHelper.php</a><br>
+		<b>Located at</b> <a href="source-class-RecaptchaHelper.html#32-131" title="Go to source code">RecaptchaHelper.php</a><br>
 	</div>
 
 
 
 	<table class="summary" id="methods">
 	<caption>Methods summary</caption>
+	<tr data-order="obfuscate" id="_obfuscate">
+
+		<td class="attributes"><code>
+			 private 
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_obfuscate">#</a>
+		<code><a href="source-class-RecaptchaHelper.html#51-63" title="Go to source code">obfuscate</a>( <span>string <var>$mail</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Obfuscates an email address</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Obfuscates an email address</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$mail</var></dt>
+					<dd><code>string</code><br>$mail Mail address</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>string</code><br>Mail address obfuscated<br>
+				</div>
+
+
+				<h4>See</h4>
+				<div class="list">
+						<a
+href="http://stackoverflow.com/a/20545505/1480263">http://stackoverflow.com/a/20545505/1480263</a><br>
+				</div>
+				<h4>Used by</h4>
+				<div class="list">
+						<code><code><a href="class-RecaptchaHelper.html#_mailLink">RecaptchaHelper::mailLink()</a></code></code> <br>
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
 	<tr data-order="__construct" id="___construct">
 
 		<td class="attributes"><code>
@@ -187,7 +238,7 @@ href="mailto:mirko.pagliai&#64;gmail.com">mirko.pagliai&#64;<!-- -->gmail.com</a
 
 		<td class="name"><div>
 		<a class="anchor" href="#___construct">#</a>
-		<code><a href="source-class-RecaptchaHelper.html#51-73" title="Go to source code">__construct</a>( <span>View <var>$View</var></span>, <span>array <var>$settings</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-RecaptchaHelper.html#65-87" title="Go to source code">__construct</a>( <span>View <var>$View</var></span>, <span>array <var>$settings</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
@@ -231,7 +282,7 @@ href="mailto:mirko.pagliai&#64;gmail.com">mirko.pagliai&#64;<!-- -->gmail.com</a
 
 		<td class="name"><div>
 		<a class="anchor" href="#_mail">#</a>
-		<code><a href="source-class-RecaptchaHelper.html#75-81" title="Go to source code">mail</a>( )</code>
+		<code><a href="source-class-RecaptchaHelper.html#89-95" title="Go to source code">mail</a>( )</code>
 
 		<div class="description short">
 			
@@ -268,7 +319,7 @@ href="mailto:mirko.pagliai&#64;gmail.com">mirko.pagliai&#64;<!-- -->gmail.com</a
 
 		<td class="name"><div>
 		<a class="anchor" href="#_mailLink">#</a>
-		<code><a href="source-class-RecaptchaHelper.html#83-99" title="Go to source code">mailLink</a>( <span>string <var>$title</var></span>, <span>string <var>$mail</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-RecaptchaHelper.html#97-117" title="Go to source code">mailLink</a>( <span>string <var>$title</var></span>, <span>string <var>$mail</var> = <span class="php-keyword1">NULL</span></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			
@@ -303,6 +354,7 @@ popup.</p>
 				<h4>Uses</h4>
 				<div class="list">
 						<code><code><a href="class-RecaptchaHelper.html#_mailUrl">RecaptchaHelper::mailUrl()</a></code></code> <br>
+						<code><code><a href="class-RecaptchaHelper.html#_obfuscate">RecaptchaHelper::obfuscate()</a></code></code> <br>
 						<code><code><a href="class-MeHtmlHelper.html#_link">MeHtmlHelper::link()</a></code></code> <br>
 				</div>
 
@@ -321,7 +373,7 @@ popup.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_mailUrl">#</a>
-		<code><a href="source-class-RecaptchaHelper.html#101-112" title="Go to source code">mailUrl</a>( <span>string <var>$mail</var></span> )</code>
+		<code><a href="source-class-RecaptchaHelper.html#119-130" title="Go to source code">mailUrl</a>( <span>string <var>$mail</var></span> )</code>
 
 		<div class="description short">
 			
