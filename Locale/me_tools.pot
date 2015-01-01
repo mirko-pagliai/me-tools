@@ -4,7 +4,7 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"POT-Creation-Date: 2014-12-07 16:09+0100\n"
+"POT-Creation-Date: 2015-01-01 19:42+0100\n"
 "Last-Translator: Mirko Pagliai <mirko.pagliai@gmail.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
@@ -23,16 +23,16 @@ msgstr ""
 msgid "%s is not avalaible"
 msgstr ""
 
-#: Controller/ThumbsController.php:250
+#: Controller/ThumbsController.php:241;311
+msgid "The target directory %s is not writable"
+msgstr ""
+
+#: Controller/ThumbsController.php:255
 msgid "The file %s doesn't exist or is not readable"
 msgstr ""
 
-#: Controller/ThumbsController.php:300
+#: Controller/ThumbsController.php:305
 msgid "The mime type %s is not supported"
-msgstr ""
-
-#: Controller/ThumbsController.php:306
-msgid "The target directory %s is not writable"
 msgstr ""
 
 #: View/Common/error_page.ctp:30
@@ -55,12 +55,16 @@ msgstr ""
 msgid "Have found a bug? Please, consider the possibility to report it"
 msgstr ""
 
-#: View/Elements/paginator.ctp:35
-msgid "Previous"
+#: View/Elements/paginator.ctp:46
+msgid "Page %d"
 msgstr ""
 
-#: View/Elements/paginator.ctp:37
+#: View/Elements/paginator.ctp:50
 msgid "Next"
+msgstr ""
+
+#: View/Elements/paginator.ctp:52
+msgid "Previous"
 msgstr ""
 
 #: View/Errors/error400.ctp:32
@@ -132,7 +136,7 @@ msgstr ""
 msgid "Select an option"
 msgstr ""
 
-#: View/Helper/MeHtmlHelper.php:687
+#: View/Helper/MeHtmlHelper.php:688
 msgid "Tip"
 msgstr ""
 
@@ -140,11 +144,11 @@ msgstr ""
 msgid "%s - %s of %s"
 msgstr ""
 
-#: View/Helper/RecaptchaHelper.php:66
+#: View/Helper/RecaptchaHelper.php:80
 msgid "Mail keys are not configured"
 msgstr ""
 
-#: View/Helper/RecaptchaHelper.php:70
+#: View/Helper/RecaptchaHelper.php:84
 msgid "The private mail key is not valid"
 msgstr ""
 
