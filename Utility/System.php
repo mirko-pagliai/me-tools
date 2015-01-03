@@ -43,7 +43,12 @@ class System {
      * @uses getApacheModules()
      */
     public static function checkApacheModule($module) {
-        return in_array($module, self::getApacheModules());
+		$modules = self::getApacheModules();
+		
+		if(empty($modules))
+			return FALSE;
+		
+        return in_array($module, $modules);
     }
 
     /**
@@ -183,6 +188,9 @@ class System {
      * @return array Modules list
      */
     public static function getApacheModules() {
+		if(!function_exists('apache_get_modules'))
+			return FALSE;
+		
         return apache_get_modules();
     }
 
