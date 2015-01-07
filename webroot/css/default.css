@@ -65,12 +65,6 @@ td.min-width, td.minWidth {
 	cursor: pointer;
 }
 
-/* Display none */
-.display-none, .displayNone, 
-.no-display, .noDisplay {
-	display: none;
-}
-
 /* Em (italic) text */
 .em,
 .em-text, .emText {
