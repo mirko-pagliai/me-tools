@@ -127,31 +127,27 @@ class LibraryHelper extends AppHelper {
             $path = WWW_ROOT.'js'.DS.'ckeditor';
             $url = '/js/ckeditor';
         }
+		
+		//Checks for CKEditor scripts
+		if(empty($path) || empty($url))
+			return FALSE;
 
-        //If CKEditor script exists
-        if(!empty($path) && !empty($url)) {
-            $scripts = array($url.'/ckeditor');
+		$scripts = array($url.'/ckeditor');
 
-            //Checks for the jQuery adapter
-            if($jquery && is_readable($path.DS.'adapters'.DS.'jquery.js'))
-                $scripts[] = $url.'/adapters/jquery';
+		//Checks for the jQuery adapter
+		if($jquery && is_readable($path.DS.'adapters'.DS.'jquery.js'))
+			$scripts[] = $url.'/adapters/jquery';
 
-            //Checks for the init script into APP/webroot/js
-            if(is_readable(WWW_ROOT.'js'.DS.'ckeditor_init.js'))
-                $scripts[] = 'ckeditor_init';
-            //Else, checks for the init script into APP/webroot/ckeditor and APP/webroot/js/ckeditor
-            elseif(is_readable($path.DS.'ckeditor_init.js'))
-                $scripts[] = $url.'/ckeditor_init';
-            //Else, checks for the init script into APP/Plugin/MeTools/webroot/ckeditor
-            elseif(is_readable(App::pluginPath('MeTools').'webroot'.DS.'ckeditor'.DS.'ckeditor_init.js'))
-                $scripts[] = '/MeTools/ckeditor/ckeditor_init';
-            else
-                return FALSE;
+		//Checks for the init script into APP/webroot/js
+		if(is_readable(WWW_ROOT.'js'.DS.'ckeditor_init.js'))
+			$scripts[] = 'ckeditor_init';
+		//Else, checks for the init script into APP/Plugin/MeTools/webroot/ckeditor
+		elseif(is_readable(App::pluginPath('MeTools').'webroot'.DS.'ckeditor'.DS.'ckeditor_init.js'))
+			$scripts[] = '/MeTools/ckeditor/ckeditor_init';
+		else
+			return FALSE;
 
-            return $this->Html->js($scripts, array('inline' => FALSE));
-        }
-
-        return FALSE;
+		return $this->Html->js($scripts, array('inline' => FALSE));
     }
 
     /**

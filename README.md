@@ -92,7 +92,7 @@ that is located in `app/Plugin/MeTools/webroot/ckeditor`. This contain a valid c
 
 Once you have downloaded CKEditor, you must extract it in `app/webroot/ckeditor` or `app/webroot/js/ckeditor`.  
 Finally, you can edit `ckeditor_init.js` located in `app/Plugin/MeTools/webroot/ckeditor`, that MeTools uses to 
-instantiate CKEditor. For ease, you can copy it in `app/webroot/js`, `app/webroot/ckeditor` or `app/webroot/js/ckeditor`.  
+instantiate CKEditor. For ease, you can copy it in `app/webroot/js`.  
 If MeTools doesn't find `ckeditor_init.js` in the webroot of your app, it will use its own file in the plugin webroot.
 
 ### How to user CKEditor with MeTools
