@@ -47,6 +47,7 @@ class LibraryHelper extends AppHelper {
      * @param string $input Target field
      * @param array $options Options for the datepicker
 	 * @return string jQuery code
+	 * @uses MeHtmlHelper::_addOptionDefault()
 	 * @uses MeHtmlHelper::css()
 	 * @uses MeHtmlHelper::js()
 	 */
@@ -56,22 +57,20 @@ class LibraryHelper extends AppHelper {
 			'/MeTools/js/bootstrap-datetimepicker.min'
 		), array('block' => 'script_bottom', 'inline' => FALSE));
         $this->Html->css('/MeTools/css/bootstrap-datetimepicker.min', array('block' => 'css_bottom', 'inline' => FALSE));
-		
-		//Merge options with defaults
-		$options = am($options, array('icons' => array(
+				
+		$options = $this->Html->_addOptionDefault('icons', array(
 			'time' => 'fa fa-clock-o',
 			'date' => 'fa fa-calendar',
 			'up' => 'fa fa-arrow-up',
 			'down' => 'fa fa-arrow-down'
-		)));
+		), $options);
 		
         //Switch for languange, reading from config
-		if(empty($options['language']))
-			switch(Configure::read('Config.language')) {
-				case 'ita':
-					$options['language'] = 'it';
-					break;
-			}
+		switch(Configure::read('Config.language')) {
+			case 'ita':
+				$options = $this->Html->_addOptionDefault('language', 'it', $options);
+				break;
+		}
 		
 		return sprintf('$("%s").datetimepicker(%s);', $input, json_encode($options));
 	}
@@ -88,6 +87,7 @@ class LibraryHelper extends AppHelper {
             $this->output = array_map(function($v) {
                 return "\t".$v.PHP_EOL;
             }, $this->output);
+			
 			$this->Html->scriptBlock(sprintf('$(function() {%s});', PHP_EOL.implode('', $this->output)));
         }
     }
@@ -166,12 +166,12 @@ class LibraryHelper extends AppHelper {
      * @see https://github.com/Eonasdan/bootstrap-datetimepicker Bootstrap v3 datetimepicker widget documentation
 	 * @uses output
 	 * @uses _datetimepicker()
+	 * @uses MeHtmlHelper::_addOptionDefault()
      */
 	public function datepicker($input = NULL, $options = array()) {
 		$input = empty($input) ? '.datepicker' : $input;
 		
-		//Merge options with defaults
-		$options = am($options, array('pickTime' => FALSE));
+		$options = $this->Html->_addOptionDefault('pickTime', FALSE, $options);
 		
         $this->output[] = self::_datetimepicker($input, $options);
 	}
@@ -204,6 +204,7 @@ class LibraryHelper extends AppHelper {
      */
     public function slugify($sourceField = 'form #title', $targetField = 'form #slug') {
         $this->Html->js('/MeTools/js/slugify.min', array('block' => 'script_bottom', 'inline' => FALSE));
+		
         $this->output[] = sprintf('$().slugify("%s", "%s");', $sourceField, $targetField);
     }
 	
@@ -217,12 +218,12 @@ class LibraryHelper extends AppHelper {
      * @see https://github.com/Eonasdan/bootstrap-datetimepicker Bootstrap v3 datetimepicker widget documentation
 	 * @uses output
 	 * @uses _datetimepicker()
+	 * @uses MeHtmlHelper::_addOptionDefault()
      */
 	public function timepicker($input = NULL, $options = array()) {
 		$input = empty($input) ? '.timepicker' : $input;
 		
-		//Merge options with defaults
-		$options = am($options, array('pickDate' => FALSE));
+		$options = $this->Html->_addOptionDefault('pickTime', FALSE, $options);
 		
 		$this->output[] = self::_datetimepicker($input, $options);
 	}
