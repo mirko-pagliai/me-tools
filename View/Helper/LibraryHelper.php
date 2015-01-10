@@ -54,8 +54,8 @@ class LibraryHelper extends AppHelper {
 		$this->Html->js(array(
 			'/MeTools/js/moment-with-locales.min',
 			'/MeTools/js/bootstrap-datetimepicker.min'
-		), array('inline' => FALSE));
-        $this->Html->css('/MeTools/css/bootstrap-datetimepicker.min', array('inline' => FALSE));
+		), array('block' => 'script_bottom', 'inline' => FALSE));
+        $this->Html->css('/MeTools/css/bootstrap-datetimepicker.min', array('block' => 'css_bottom', 'inline' => FALSE));
 		
 		//Merge options with defaults
 		$options = am($options, array('icons' => array(
@@ -147,7 +147,7 @@ class LibraryHelper extends AppHelper {
 		else
 			return FALSE;
 
-		return $this->Html->js($scripts, array('inline' => FALSE));
+		return $this->Html->js($scripts, array('block' => 'script_bottom', 'inline' => FALSE));
     }
 
     /**
@@ -197,7 +197,7 @@ class LibraryHelper extends AppHelper {
 	 * @uses MeHtmlHelper::js()
      */
     public function slugify($sourceField = 'form #title', $targetField = 'form #slug') {
-        $this->Html->js('/MeTools/js/slugify.min', array('inline' => FALSE));
+        $this->Html->js('/MeTools/js/slugify.min', array('block' => 'script_bottom', 'inline' => FALSE));
         $this->output[] = sprintf('$().slugify("%s", "%s");', $sourceField, $targetField);
     }
 	

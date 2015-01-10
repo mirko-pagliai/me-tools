@@ -20,6 +20,14 @@ Nella webroot, creare (o copiare) un link alla webroot di MeTools:
 	cd app/webroot
 	ln -s ../Plugin/MeTools/webroot/ MeTools
 
+Alcuni file `js` e `css` vengono aggiungi alla fine del layout. Modifica il tuo layout aggiungendo prima
+del tag `</body>`:
+
+		<?php
+			echo $this->fetch('css_bottom');
+			echo $this->fetch('script_bottom');
+		?>
+
 ## Configurazione
 Copiare e rinominare `app/Plugin/Config/recaptcha.default.php` in `app/Config/recaptcha.php`,
 quindi configurare le chiavi di Recaptha.
