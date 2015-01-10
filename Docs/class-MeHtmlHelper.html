@@ -7,7 +7,7 @@
 	<title>Class MeHtmlHelper | MeTools</title>
 
 	<script type="text/javascript" src="resources/combined.js?117538352"></script>
-	<script type="text/javascript" src="elementlist.js?3680598281"></script>
+	<script type="text/javascript" src="elementlist.js?190655437"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360">
 
 </head>
@@ -68,6 +68,7 @@
 			<h3>Classes</h3>
 			<ul>
 				<li><a href="class-DropdownHelper.html">DropdownHelper</a></li>
+				<li><a href="class-LayoutHelper.html">LayoutHelper</a></li>
 				<li><a href="class-LibraryHelper.html">LibraryHelper</a></li>
 				<li><a href="class-MarkdownHelper.html">MarkdownHelper</a></li>
 				<li><a href="class-MeFormHelper.html">MeFormHelper</a></li>
@@ -178,7 +179,7 @@ HtmlHelper
 				<b>Author:</b>
 				Mirko Pagliai &lt;<a
 href="mailto:mirko.pagliai&#64;gmail.com">mirko.pagliai&#64;<!-- -->gmail.com</a>&gt;<br>
-		<b>Located at</b> <a href="source-class-MeHtmlHelper.html#30-735" title="Go to source code">MeHtmlHelper.php</a><br>
+		<b>Located at</b> <a href="source-class-MeHtmlHelper.html#30-725" title="Go to source code">MeHtmlHelper.php</a><br>
 	</div>
 
 
@@ -721,6 +722,7 @@ the <code>button()</code> method provided by <code>MeFormHelper</code>.</p>
 				</div>
 				<h4>Used by</h4>
 				<div class="list">
+						<code><code><a href="class-LayoutHelper.html#_css">LayoutHelper::css()</a></code></code> <br>
 						<code><code><a href="class-LibraryHelper.html#__datetimepicker">LibraryHelper::_datetimepicker()</a></code></code> <br>
 				</div>
 
@@ -1645,7 +1647,7 @@ to an array. For example:
 				</div>
 				<h4>Used by</h4>
 				<div class="list">
-						<code><code><a href="class-MeHtmlHelper.html#_viewport">MeHtmlHelper::viewport()</a></code></code> <br>
+						<code><code><a href="class-LayoutHelper.html#_viewport">LayoutHelper::viewport()</a></code></code> <br>
 				</div>
 
 
@@ -1912,6 +1914,10 @@ FALSE or if <code>$once</code> is TRUE and the file has been included before<br>
 				<h4>Uses</h4>
 				<div class="list">
 						<code><code><a href="class-MeHtmlHelper.html#__addOptionDefault">MeHtmlHelper::_addOptionDefault()</a></code></code> <br>
+				</div>
+				<h4>Used by</h4>
+				<div class="list">
+						<code><code><a href="class-LayoutHelper.html#_script">LayoutHelper::script()</a></code></code> <br>
 				</div>
 
 
@@ -2358,53 +2364,6 @@ array where each item itself can be a path string or an array containing
 				<h4>Uses</h4>
 				<div class="list">
 						<code><code><a href="class-MeHtmlHelper.html#_media">MeHtmlHelper::media()</a></code></code> <br>
-				</div>
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="viewport" id="_viewport">
-
-		<td class="attributes"><code>
-			 public 
-			string
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_viewport">#</a>
-		<code><a href="source-class-MeHtmlHelper.html#726-734" title="Go to source code">viewport</a>( )</code>
-
-		<div class="description short">
-			
-<p>Adds the <code>viewport</code> meta tag as required by Bootstrap.</p>
-
-		</div>
-
-		<div class="description detailed hidden">
-			
-<p>Adds the <code>viewport</code> meta tag as required by Bootstrap.</p>
-
-
-
-
-				<h4>Returns</h4>
-				<div class="list">
-					<code>string</code><br>Html code<br>
-				</div>
-
-
-				<h4>See</h4>
-				<div class="list">
-						<a
-href="http://getbootstrap.com/css/#overview-mobile">http://getbootstrap.com/css/#overview-mobile</a>
-Bootstrap documentation<br>
-				</div>
-				<h4>Uses</h4>
-				<div class="list">
-						<code><code><a href="class-MeHtmlHelper.html#_meta">MeHtmlHelper::meta()</a></code></code> <br>
 				</div>
 
 
