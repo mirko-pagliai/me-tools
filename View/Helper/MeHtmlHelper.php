@@ -722,14 +722,4 @@ class MeHtmlHelper extends HtmlHelper {
     public function video($path, $options = array()) {
         return self::media($path, am($options, array('tag' => 'video')));
     }
-	
-	/**
-	 * Adds the `viewport` meta tag as required by Bootstrap.
-     * @return string Html code
-     * @see http://getbootstrap.com/css/#overview-mobile Bootstrap documentation
-     * @uses meta()
-	 */
-	public function viewport() {
-		return self::meta(array('name' => 'viewport', 'content' => 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no'));
-	}
 }
