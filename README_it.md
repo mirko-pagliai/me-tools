@@ -84,7 +84,7 @@ MeTools include diverse librerie e script:
 - PHP Markdown 1.4.1 ([sito](http://michelf.ca/projects/php-markdown));
 - reCAPTCHA PHP library 1.11 ([sito](https://developers.google.com/recaptcha));
 - Bootstrap v3 datetimepicker widget 3.1.3 ([sito](https://github.com/Eonasdan/bootstrap-datetimepicker));
-- Moment.js 2.8.4 ([sito](http://momentjs.com/)), inclusi i "locales".
+- Moment.js 2.9.0 ([sito](http://momentjs.com/)), inclusi i "locales".
 
 ## CKEditor
 MeTools non contiene una copia di CKEditor, perché è troppo pesante, perché è altamente configurabile (è possibile
