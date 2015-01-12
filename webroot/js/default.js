@@ -19,7 +19,9 @@ function send_form(element) {
  * Closes a flash messages with an animation
  */
 function close_flashMessage() {
-	$('.alert').animate({opacity: '0'}, '800', function(){ $(this).slideUp('200'); });
+	$('.alert').animate({opacity: '0'}, '800', function() { 
+		$(this).slideUp('200');
+	});
 }
 
 $(function() {
