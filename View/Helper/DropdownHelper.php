@@ -124,7 +124,6 @@ class DropdownHelper extends AppHelper {
         list($title, $options) = self::_parseLink($title, $options);
 
         return $this->Html->link($title, '#', $options);
-		
 	}
 	
     /**
