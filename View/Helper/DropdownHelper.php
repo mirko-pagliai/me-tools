@@ -126,4 +126,12 @@ class DropdownHelper extends AppHelper {
         return $this->Html->link($title, '#', $options);
 		
 	}
+	
+    /**
+     * Alias for `dropdown()` method
+     * @see dropdown()
+     */
+    public function menu() {
+        return call_user_func_array(array(get_class(), 'dropdown'), func_get_args());
+    }
 }
