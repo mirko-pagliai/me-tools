@@ -130,7 +130,7 @@ td.min-width, td.minWidth {
 .text-truncate, .textTruncate, 
 .text-truncated, .textTruncated,
 .text-ellipsis, .textEllipsis {
-	overflow-x: hidden;
+	overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
 }
