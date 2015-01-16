@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 
-	<title>Package MeTools\Utility | MeTools API</title>
+	<title>Class Plugin | MeTools API</title>
 
 	<link rel="stylesheet" href="resources/style.css?e99947befd7bf673c6b43ff75e9e0f170c88a60e">
 
@@ -18,7 +18,7 @@
 		<div id="groups">
 				<h3>Packages</h3>
 			<ul>
-				<li class="active main">
+				<li class="main">
 					<a href="package-MeTools.html">
 						MeTools<span></span>
 					</a>
@@ -95,7 +95,7 @@
 
 						</li>
 							</ul></li>
-				<li class="active main">
+				<li class="main">
 					<a href="package-MeTools.Utility.html">
 						Utility					</a>
 
@@ -123,7 +123,7 @@
 			<ul>
 				<li><a href="class-Apache.html">Apache</a></li>
 				<li><a href="class-Php.html">Php</a></li>
-				<li><a href="class-Plugin.html">Plugin</a></li>
+				<li class="active"><a href="class-Plugin.html">Plugin</a></li>
 				<li><a href="class-System.html">System</a></li>
 				<li><a href="class-Unix.html">Unix</a></li>
 			</ul>
@@ -151,11 +151,10 @@
 			<li>
 				<a href="index.html" title="Overview"><span>Overview</span></a>
 			</li>
-			<li class="active">
-<span>Package</span>			</li>
 			<li>
-				<a href="class-XmlComponent.html" title="Summary of XmlComponent"><span>Class</span></a>
-			</li>
+<span>Package</span>			</li>
+			<li class="active">
+<span>Class</span>			</li>
 		</ul>
 		<ul>
 			<li>
@@ -166,34 +165,137 @@
 		</ul>
 	</div>
 
-<div id="content" class="package">
-	<h1>Package <a href="package-MeTools.html">MeTools</a>\Utility</h1>
+<div id="content" class="class">
+	<h1>Class Plugin</h1>
+
+
+	<div class="description">
+	<p>An utility to handle plugins.</p>
+
+<p>You can use this utility by adding in your controller:</p>
+
+<pre>App::uses(<span class="php-quote">'Plugin'</span>, <span class="php-quote">'MeTools.Utility'</span>);</pre>
+	</div>
 
 
 
-<table class="summary" id="classes">
-<caption>Classes summary</caption>
-<tr>
-	<td class="name"><a href="class-Apache.html">Apache</a></td>
-	<td>An utility to handle Apache.</td>
-</tr>
-<tr>
-	<td class="name"><a href="class-Php.html">Php</a></td>
-	<td>An utility to handle PHP.</td>
-</tr>
-<tr>
-	<td class="name"><a href="class-Plugin.html">Plugin</a></td>
-	<td>An utility to handle plugins.</td>
-</tr>
-<tr>
-	<td class="name"><a href="class-System.html">System</a></td>
-	<td>An utility for checking the status of the system and perform maintenance tasks.</td>
-</tr>
-<tr>
-	<td class="name"><a href="class-Unix.html">Unix</a></td>
-	<td>An utility to handle Unix.</td>
-</tr>
-</table>
+
+
+
+
+
+
+	<div class="info">
+		
+		
+		
+		<b>Package:</b> <a href="package-MeTools.html">MeTools</a>\<a href="package-MeTools.Utility.html">Utility</a><br>
+
+				<b>Copyright:</b>
+				Copyright (c) 2015, Mirko Pagliai for Nova Atlantis Ltd<br>
+				<b>License:</b>
+				<a href="http://www.gnu.org/licenses/agpl.txt">AGPL License</a><br>
+				<b>Author:</b>
+				Mirko Pagliai <a href="&#109;&#97;&#x69;&#x6c;&#116;&#111;&#x3a;&#x6d;&#105;&#114;&#x6b;&#x6f;&#46;&#112;&#x61;&#x67;l&#105;&#x61;&#x69;&#64;&#103;&#109;&#x61;&#x69;&#108;&#46;&#x63;&#x6f;&#109;">&#x6d;&#105;&#114;&#x6b;&#x6f;&#46;&#112;&#x61;&#x67;l&#105;&#x61;&#x69;&#64;&#103;&#109;&#x61;&#x69;&#108;&#46;&#x63;&#x6f;&#109;</a><br>
+			<b>Located at</b> <a href="source-class-Plugin.html#27-78" title="Go to source code">Plugin.php</a>
+		<br>
+	</div>
+
+
+
+	<table class="summary methods" id="methods">
+	<caption>Methods summary</caption>
+	<tr data-order="getVersion" id="_getVersion">
+
+		<td class="attributes"><code>
+			 public static
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getVersion">#</a>
+		<code><a href="source-class-Plugin.html#36-49" title="Go to source code">getVersion</a>( <span> <var>$plugin</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+				<h4>Used by</h4>
+				<div class="list">
+						<code><a href="class-Plugin.html#_getVersions">Plugin::getVersions()</a></code><br>
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getVersions" id="_getVersions">
+
+		<td class="attributes"><code>
+			 public static
+
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getVersions">#</a>
+		<code><a href="source-class-Plugin.html#51-77" title="Go to source code">getVersions</a>( <span>string|array <var>$except</var> = <span class="php-keyword1">NULL</span></span> )</code>
+
+		<div class="description short">
+			<p>Gets the version number for each plugin.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Gets the version number for each plugin.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$except</var></dt>
+					<dd>Plugins to exclude</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					mixed<br>array with the version number for each plugin
+				</div>
+
+
+				<h4>Uses</h4>
+				<div class="list">
+						<code><a href="class-Plugin.html#_getVersion">Plugin::getVersion()</a></code><br>
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -206,7 +308,7 @@
 	</div>
 </div>
 </div>
-<script src="resources/combined.js?44e93de8fc3b749f55d0fae2da59a38c45b15f0b"></script>
-<script src="elementlist.js?ce3a017781d29cb57c0b5456e35ef610f39f0c0b"></script>
+<script src="resources/combined.js"></script>
+<script src="elementlist.js"></script>
 </body>
 </html>

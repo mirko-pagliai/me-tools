@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 
-	<title>Class CompressShell | MeTools API</title>
+	<title>Class Unix | MeTools API</title>
 
 	<link rel="stylesheet" href="resources/style.css?e99947befd7bf673c6b43ff75e9e0f170c88a60e">
 
@@ -121,8 +121,11 @@
 		<div id="elements">
 			<h3>Classes</h3>
 			<ul>
-				<li class="active"><a href="class-CompressShell.html">CompressShell</a></li>
-				<li><a href="class-MeToolsAppShell.html">MeToolsAppShell</a></li>
+				<li><a href="class-Apache.html">Apache</a></li>
+				<li><a href="class-Php.html">Php</a></li>
+				<li><a href="class-Plugin.html">Plugin</a></li>
+				<li><a href="class-System.html">System</a></li>
+				<li class="active"><a href="class-Unix.html">Unix</a></li>
 			</ul>
 
 
@@ -163,38 +166,17 @@
 	</div>
 
 <div id="content" class="class">
-	<h1>Class CompressShell</h1>
+	<h1>Class Unix</h1>
 
 
 	<div class="description">
-	<p>This shell allows you to combine and compress css and js files.</p>
+	<p>An utility to handle Unix.</p>
 
-<p>To use this shell, you have to install on your system <code>Clean-css</code> and <code>UglifyJS</code>. As root user:</p>
+<p>You can use this utility by adding in your controller:</p>
 
-<pre>npm install clean-css -g
-npm install uglify-js -g</pre>
+<pre>App::uses(<span class="php-quote">'Unix'</span>, <span class="php-quote">'MeTools.Utility'</span>);</pre>
 	</div>
 
-	<dl class="tree">
-		<dd style="padding-left:0px">
-Shell
-			
-			
-		</dd>
-		<dd style="padding-left:30px">
-			<img src="resources/inherit.png" alt="Extended by">
-			<a href="class-MeToolsAppShell.html"><span>MeToolsAppShell</span></a>
-			
-			
-			
-		</dd>
-		<dd style="padding-left:60px">
-			<img src="resources/inherit.png" alt="Extended by">
-<b><span>CompressShell</span></b>			
-			
-			
-		</dd>
-	</dl>
 
 
 
@@ -207,7 +189,7 @@ Shell
 		
 		
 		
-		<b>Package:</b> <a href="package-MeTools.html">MeTools</a>\<a href="package-MeTools.Console.html">Console</a>\<a href="package-MeTools.Console.Command.html">Command</a><br>
+		<b>Package:</b> <a href="package-MeTools.html">MeTools</a>\<a href="package-MeTools.Utility.html">Utility</a><br>
 
 				<b>Copyright:</b>
 				Copyright (c) 2015, Mirko Pagliai for Nova Atlantis Ltd<br>
@@ -215,7 +197,7 @@ Shell
 				<a href="http://www.gnu.org/licenses/agpl.txt">AGPL License</a><br>
 				<b>Author:</b>
 				Mirko Pagliai <a href="&#109;&#97;&#x69;&#x6c;&#116;&#111;&#x3a;&#x6d;&#105;&#114;&#x6b;&#x6f;&#46;&#112;&#x61;&#x67;l&#105;&#x61;&#x69;&#64;&#103;&#109;&#x61;&#x69;&#108;&#46;&#x63;&#x6f;&#109;">&#x6d;&#105;&#114;&#x6b;&#x6f;&#46;&#112;&#x61;&#x67;l&#105;&#x61;&#x69;&#64;&#103;&#109;&#x61;&#x69;&#108;&#46;&#x63;&#x6f;&#109;</a><br>
-			<b>Located at</b> <a href="source-class-CompressShell.html#35-237" title="Go to source code">CompressShell.php</a>
+			<b>Located at</b> <a href="source-class-Unix.html#27-73" title="Go to source code">Unix.php</a>
 		<br>
 	</div>
 
@@ -223,10 +205,44 @@ Shell
 
 	<table class="summary methods" id="methods">
 	<caption>Methods summary</caption>
-	<tr data-order="_parse" id="__parse">
+	<tr data-order="is_root" id="_is_root">
 
 		<td class="attributes"><code>
-			 private 
+			 public static
+
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_is_root">#</a>
+		<code><a href="source-class-Unix.html#36-43" title="Go to source code">is_root</a>( )</code>
+
+		<div class="description short">
+			<p>Checks if the current user is the root user.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Checks if the current user is the root user.</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					boolean<br>TRUE if is the root user, otherwise FALSE
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="whereis" id="_whereis">
+
+		<td class="attributes"><code>
+			 public static
 
 			mixed
 			
@@ -234,26 +250,69 @@ Shell
 		</td>
 
 		<td class="name"><div>
-		<a class="anchor" href="#__parse">#</a>
-		<code><a href="source-class-CompressShell.html#45-97" title="Go to source code">_parse</a>( <span>string <var>$type</var></span> )</code>
+		<a class="anchor" href="#_whereis">#</a>
+		<code><a href="source-class-Unix.html#45-58" title="Go to source code">whereis</a>( <span>string <var>$command</var></span> )</code>
 
 		<div class="description short">
-			<p>Parses arguments or a config file, checks values and returns input and output files</p>
+			<p>Executes the <code>whereis</code> command.</p>
 		</div>
 
 		<div class="description detailed hidden">
-			<p>Parses arguments or a config file, checks values and returns input and output files</p>
+			<p>Executes the <code>whereis</code> command.</p>
+
+<p>It locates the binary files for a command.</p>
 
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
-					<dt><var>$type</var></dt>
-					<dd><code>css</code> or <code>js</code></dd>
+					<dt><var>$command</var></dt>
+					<dd>Command</dd>
 				</dl></div>
 
 				<h4>Returns</h4>
 				<div class="list">
-					mixed<br>Input and output files
+					mixed<br>Array of binary files, otherwise FALSE
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="which" id="_which">
+
+		<td class="attributes"><code>
+			 public static
+
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_which">#</a>
+		<code><a href="source-class-Unix.html#60-71" title="Go to source code">which</a>( <span>string <var>$command</var></span> )</code>
+
+		<div class="description short">
+			<p>Executes the <code>which</code> command.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Executes the <code>which</code> command.</p>
+
+<p>It shows the full path of (shell) commands.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$command</var></dt>
+					<dd>Command</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					mixed<br>Full path of command, otherwise FALSE
 				</div>
 
 
@@ -261,141 +320,8 @@ Shell
 				<div class="list">
 						<code><a href="class-CompressShell.html#_css">CompressShell::css()</a></code><br>
 						<code><a href="class-CompressShell.html#_js">CompressShell::js()</a></code><br>
+						<code><a href="class-ThumbsController.html#__videoThumb">ThumbsController::_videoThumb()</a></code><br>
 				</div>
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="auto" id="_auto">
-
-		<td class="attributes"><code>
-			 public 
-
-			
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_auto">#</a>
-		<code><a href="source-class-CompressShell.html#99-158" title="Go to source code">auto</a>( )</code>
-
-		<div class="description short">
-			<p>Searches all the configuration files and automatically compresses</p>
-		</div>
-
-		<div class="description detailed hidden">
-			<p>Searches all the configuration files and automatically compresses</p>
-
-
-
-
-
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="css" id="_css">
-
-		<td class="attributes"><code>
-			 public 
-
-			
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_css">#</a>
-		<code><a href="source-class-CompressShell.html#160-180" title="Go to source code">css</a>( )</code>
-
-		<div class="description short">
-			<p>Combines and compresses css files</p>
-		</div>
-
-		<div class="description detailed hidden">
-			<p>Combines and compresses css files</p>
-
-
-
-
-
-				<h4>Uses</h4>
-				<div class="list">
-						<code><a href="class-CompressShell.html#__parse">CompressShell::_parse()</a></code><br>
-						<code><a href="class-Unix.html#_which">Unix::which()</a></code><br>
-				</div>
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="js" id="_js">
-
-		<td class="attributes"><code>
-			 public 
-
-			
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_js">#</a>
-		<code><a href="source-class-CompressShell.html#182-204" title="Go to source code">js</a>( )</code>
-
-		<div class="description short">
-			<p>Combines and compresses js files</p>
-		</div>
-
-		<div class="description detailed hidden">
-			<p>Combines and compresses js files</p>
-
-
-
-
-
-				<h4>Uses</h4>
-				<div class="list">
-						<code><a href="class-CompressShell.html#__parse">CompressShell::_parse()</a></code><br>
-						<code><a href="class-Unix.html#_which">Unix::which()</a></code><br>
-				</div>
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="getOptionParser" id="_getOptionParser">
-
-		<td class="attributes"><code>
-			 public 
-
-			ConsoleOptionParser
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_getOptionParser">#</a>
-		<code><a href="source-class-CompressShell.html#206-236" title="Go to source code">getOptionParser</a>( )</code>
-
-		<div class="description short">
-			<p>Gets the option parser instance and configures it.</p>
-		</div>
-
-		<div class="description detailed hidden">
-			<p>Gets the option parser instance and configures it.</p>
-
-
-
-				<h4>Returns</h4>
-				<div class="list">
-					ConsoleOptionParser
-				</div>
-
-
 
 
 		</div>
@@ -403,14 +329,6 @@ Shell
 	</tr>
 	</table>
 
-	<table class="summary inherited">
-	<caption>Methods inherited from <a href="class-MeToolsAppShell.html#methods">MeToolsAppShell</a></caption>
-	<tr>
-		<td><code>
-			<a href="class-MeToolsAppShell.html#__welcome">_welcome()</a>
-		</code></td>
-	</tr>
-	</table>
 
 
 
