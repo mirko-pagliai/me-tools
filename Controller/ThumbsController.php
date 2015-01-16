@@ -28,6 +28,7 @@
 App::uses('Controller', 'Controller');
 App::uses('Folder', 'Utility');
 App::uses('System', 'MeTools.Utility');
+App::uses('Unix', 'MeTools.Utility');
 
 /**
  * Creates and displays thumbnails for image and video files.
@@ -165,10 +166,11 @@ class ThumbsController extends Controller {
 	 * @uses maxSide
 	 * @uses maxWidth
 	 * @uses thumb
+	 * @uses Unix::which()
 	 */
 	protected function _videoThumb() {
 		//Checks for ffmpegthumbnailer
-		if(!System::which('ffmpegthumbnailer'))
+		if(!Unix::which('ffmpegthumbnailer'))
             throw new InternalErrorException(__d('me_tools', '%s is not avalaible', 'ffmpegthumbnailer'));
 		
 		//Creates the thumbnail

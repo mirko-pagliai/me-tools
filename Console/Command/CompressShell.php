@@ -30,6 +30,7 @@
 App::uses('MeToolsAppShell', 'MeTools.Console/Command');
 App::uses('Folder', 'Utility');
 App::uses('System', 'MeTools.Utility');
+App::uses('Unix', 'MeTools.Utility');
 
 /**
  * This shell allows you to combine and compress css and js files.
@@ -159,11 +160,11 @@ class CompressShell extends MeToolsAppShell {
 	/**
 	 * Combines and compresses css files
 	 * @uses _parse()
-	 * @uses System::which()
+	 * @uses Unix::which()
 	 */
 	public function css() {
 		//Checks for Clean-css
-		if(!($cleancss = System::which('cleancss')))
+		if(!($cleancss = Unix::which('cleancss')))
 			$this->error(sprintf('I can\'t find %s', 'Clean-css'));
 		
 		//Gets the output file and the input files
@@ -181,10 +182,10 @@ class CompressShell extends MeToolsAppShell {
 	/**
 	 * Combines and compresses js files
 	 * @uses _parse()
-	 * @uses System::which()
+	 * @uses Unix::which()
 	 */
 	public function js() {
-		if(!($uglifyjs = System::which('uglifyjs')))
+		if(!($uglifyjs = Unix::which('uglifyjs')))
 			$this->error(sprintf('I can\'t find %s', 'UglifyJS'));
 		
 		//Gets the output file and the input files
