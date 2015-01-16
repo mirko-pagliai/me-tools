@@ -1,10 +1,9 @@
-accessLevels: "public,protected,private"
-autocomplete: "classes,constants,functions,methods,properties,classconstants"
+accessLevels: [public, protected, private]
 destination: Docs
-download: yes
+download: false
 exclude: {*.old, *.old.*} 
 source: {Console/Command, Controller, Lib/Error, Lib/Log, Model, Utility, View/Helper}
 main: MeTools
-php: no
-title: "MeTools"
-todo: "yes"
+php: false
+title: MeTools API
+todo: true
