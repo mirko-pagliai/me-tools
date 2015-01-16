@@ -27,6 +27,7 @@
 
 App::uses('Controller', 'Controller');
 App::uses('Folder', 'Utility');
+App::uses('Php', 'MeTools.Utility');
 App::uses('System', 'MeTools.Utility');
 App::uses('Unix', 'MeTools.Utility');
 
@@ -90,10 +91,11 @@ class ThumbsController extends Controller {
 	 * @uses maxSide
 	 * @uses maxWidth
 	 * @uses thumb
+	 * @uses Php::checkExt()
 	 */
 	protected function _imageThumb() {
 		//Checks for Imagick
-        if(!extension_loaded('imagick'))
+        if(!Php::checkExt('imagick'))
             throw new InternalErrorException(__d('me_tools', 'The %s library is missing', 'Imagick'));
 				
 		//Creates the Imagick object
