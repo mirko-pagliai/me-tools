@@ -242,6 +242,12 @@ th a.desc:after {
 /* -------------------------------- */
 /*				Alerts				*/
 /* -------------------------------- */
+/* Alert */
+.alert {
+	border-radius: 6px;
+    border-width: 0 0 3px;
+}
+
 /* Type of alert */
 .alert .type {
     font-size: 90%;
