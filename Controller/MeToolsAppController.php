@@ -33,7 +33,7 @@ class MeToolsAppController extends Controller {
 	/**
 	 * Checks if the specified action is the current one. The action can be a string or an array of actions.
 	 * 
-	 * Optionally, it can also check the controller.
+	 * Optionally, it can also check the controller. The controller can be a string or an array of controllers.
 	 * 
 	 * Example:
 	 * <code>
@@ -47,7 +47,7 @@ class MeToolsAppController extends Controller {
 	 * </code>
 	 * It returns TRUE if the current action is `edit` or `delete` and if the controller is `users`, otherwise FALSE.
 	 * @param string|array $action Action name
-	 * @param string $controller Controller name
+	 * @param string|array $controller Controller name
 	 * @return bool TRUE if it's the current one, otherwise FALSE
 	 * @uses isController()
 	 */
@@ -72,11 +72,14 @@ class MeToolsAppController extends Controller {
 	}
 	
 	/**
-	 * Checks if the specified controller is the current one
-	 * @param string $controller Controller name
+	 * Checks if the specified controller is the current one. The controller can be a string or an array of controllers.
+	 * @param string|array $controller Controller name
 	 * @return bool TRUE if it's the current one, otherwise FALSE
 	 */
 	public function isController($controller) {
+		if(is_array($controller))
+			return in_array($this->request->params['controller'], $controller);
+		
 		return $this->request->params['controller'] === $controller;
 	}
 	
