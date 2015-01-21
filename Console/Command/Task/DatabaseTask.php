@@ -24,6 +24,8 @@
  * @package		MeTools\Console\Command\Task
  */
 
+App::uses('ConnectionManager', 'Model');
+
 /**
  * A task to manage the database.
  */
