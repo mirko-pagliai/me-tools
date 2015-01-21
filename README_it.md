@@ -87,7 +87,7 @@ Consulta la [pagina](//github.com/mirko-pagliai/MeTools/wiki/Compress-Shell) del
 MeTools include diverse librerie e script:
 
 - jQuery 2.1.3 ([sito](http://jquery.com));
-- Bootstrap 3.3.1 ([sito](http://getbootstrap.com)), senza le Glyphicons;
+- Bootstrap 3.3.2 ([sito](http://getbootstrap.com)), senza le Glyphicons;
 - Font Awesome 4.2.0 ([sito](http://fortawesome.github.com/Font-Awesome));
 - PHP Markdown 1.4.1 ([sito](http://michelf.ca/projects/php-markdown));
 - reCAPTCHA PHP library 1.11 ([sito](https://developers.google.com/recaptcha));
