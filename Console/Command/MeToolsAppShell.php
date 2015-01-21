@@ -25,6 +25,8 @@
  * @package		MeTools\Console\Command
  */
 
+App::uses('Unix', 'MeTools.Utility');
+
 /**
  * Application level shell.
  */
@@ -35,4 +37,13 @@ class MeToolsAppShell extends Shell {
 	 * This method only resets the welcome message.
 	 */
 	protected function _welcome() { }
+	
+	/**
+	 * Checks if the current user is the root user.
+	 */
+	protected function is_root() {
+		//Checks if is the root user
+		if(!Unix::is_root())
+			$this->error('this shell needs to be run by root (or using sudo)!');
+	}
 }
