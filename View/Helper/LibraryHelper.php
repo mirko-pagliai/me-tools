@@ -47,6 +47,7 @@ class LibraryHelper extends AppHelper {
      * @param string $input Target field
      * @param array $options Options for the datepicker
 	 * @return string jQuery code
+     * @see http://eonasdan.github.io/bootstrap-datetimepicker Bootstrap 3 Datepicker v4 documentation
 	 * @uses MeHtmlHelper::_addOptionDefault()
 	 * @uses MeHtmlHelper::css()
 	 * @uses MeHtmlHelper::js()
@@ -62,15 +63,15 @@ class LibraryHelper extends AppHelper {
 			'time' => 'fa fa-clock-o',
 			'date' => 'fa fa-calendar',
 			'up' => 'fa fa-arrow-up',
-			'down' => 'fa fa-arrow-down'
+			'down' => 'fa fa-arrow-down',
+			'previous' => 'fa fa-arrow-left',
+			'next' => 'fa fa-arrow-right',
+			'today' => 'fa fa-dot-circle-o',
+			'clear' => 'fa fa-trash'
 		), $options);
 		
-        //Switch for languange, reading from config
-		switch(Configure::read('Config.language')) {
-			case 'ita':
-				$options = $this->Html->_addOptionDefault('language', 'it', $options);
-				break;
-		}
+		if(empty($options['locale']) && !empty(Configure::read('Config.language')))
+			$options = $this->Html->_addOptionDefault('locale', Configure::read('Config.language'), $options);
 		
 		return sprintf('$("%s").datetimepicker(%s);', $input, json_encode($options));
 	}
@@ -163,7 +164,7 @@ class LibraryHelper extends AppHelper {
      * @param string $input Target field. Default is `.datepicker`
      * @param array $options Options for the datepicker
      * @see MeFormHelper::datepicker()
-     * @see https://github.com/Eonasdan/bootstrap-datetimepicker Bootstrap v3 datetimepicker widget documentation
+     * @see http://eonasdan.github.io/bootstrap-datetimepicker Bootstrap 3 Datepicker v4 documentation
 	 * @uses output
 	 * @uses _datetimepicker()
 	 * @uses MeHtmlHelper::_addOptionDefault()
@@ -183,7 +184,7 @@ class LibraryHelper extends AppHelper {
      * @param string $input Target field. Default is `.datetimepicker`
      * @param array $options Options for the datetimepicker
      * @see MeFormHelper::datetimepicker()
-     * @see https://github.com/Eonasdan/bootstrap-datetimepicker Bootstrap v3 datetimepicker widget documentation
+     * @see http://eonasdan.github.io/bootstrap-datetimepicker Bootstrap 3 Datepicker v4 documentation
 	 * @uses output
 	 * @uses _datetimepicker()
      */
