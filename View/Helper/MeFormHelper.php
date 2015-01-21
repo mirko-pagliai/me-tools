@@ -391,11 +391,9 @@ class MeFormHelper extends FormHelper {
      * @param string $confirmMessage JavaScript confirmation message
      * @return string Html code
      * @see MeHtmlHelper::link()
-	 * @uses MeHtmlHelper::_addButtonClasses()
 	 * @uses MeHtmlHelper::_addOptionDefault()
      */
     public function postLink($title, $url = NULL, $options = array(), $confirmMessage = FALSE) {
-		$options = $this->Html->_addButtonClasses($options);
 		$options = $this->Html->_addOptionDefault('escape', FALSE, $options);
 
         return parent::postLink($title, $url, $options, $confirmMessage);
