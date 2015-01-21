@@ -90,9 +90,9 @@ class System {
 		
 		$dir = new Folder(CACHE);
 		$success = TRUE;
-		
-		//For each file
-		foreach($dir->findRecursive() as $file) {
+				
+		//For each file, except `empty` files
+		foreach($dir->findRecursive('.*(?<!empty)$') as $file) {			
 			$file = new File($file);
 			
 			//Deletes the file
