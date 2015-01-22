@@ -70,8 +70,10 @@ class LibraryHelper extends AppHelper {
 			'clear' => 'fa fa-trash'
 		), $options);
 		
-		if(empty($options['locale']) && !empty(Configure::read('Config.language')))
-			$options = $this->Html->_addOptionDefault('locale', Configure::read('Config.language'), $options);
+		$locale = Configure::read('Config.language');
+		
+		if(empty($options['locale']) && !empty($locale))
+			$options = $this->Html->_addOptionDefault('locale', $locale, $options);
 		
 		return sprintf('$("%s").datetimepicker(%s);', $input, json_encode($options));
 	}
