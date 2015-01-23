@@ -32,7 +32,12 @@
  * App::uses('Plugin', 'MeTools.Utility');
  * </code>
  */
-class Plugin {	
+class Plugin {
+	/**
+	 * Gets the version for a plugin.
+	 * @param string $plugin Plugin name
+	 * @return mixed Version number or FALSE
+	 */
 	public static function getVersion($plugin) {
 		$path = CakePlugin::path($plugin);
 		
