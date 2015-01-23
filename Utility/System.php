@@ -169,7 +169,7 @@ class System {
 	 * @uses Plugin::getPath()
 	 */
 	public static function getChangelogs() {
-		return array_filter(array_map(function($path) {
+		return array_values(array_filter(array_map(function($path) {
 			//Gets the current locale
 			$locale = Configure::read('Config.language');
 			
@@ -179,7 +179,7 @@ class System {
 				return $file;
 			else
 				return FALSE;	
-		}, am(array(APP), Plugin::getPath())));
+		}, am(array(APP), Plugin::getPath()))));
 	}
 
     /**
