@@ -197,7 +197,7 @@
 				<a href="http://www.gnu.org/licenses/agpl.txt">AGPL License</a><br>
 				<b>Author:</b>
 				Mirko Pagliai <a href="&#109;&#97;&#x69;&#x6c;&#116;&#111;&#x3a;&#x6d;&#105;&#114;&#x6b;&#x6f;&#46;&#112;&#x61;&#x67;l&#105;&#x61;&#x69;&#64;&#103;&#109;&#x61;&#x69;&#108;&#46;&#x63;&#x6f;&#109;">&#x6d;&#105;&#114;&#x6b;&#x6f;&#46;&#112;&#x61;&#x67;l&#105;&#x61;&#x69;&#64;&#103;&#109;&#x61;&#x69;&#108;&#46;&#x63;&#x6f;&#109;</a><br>
-			<b>Located at</b> <a href="source-class-Plugin.html#27-78" title="Go to source code">Plugin.php</a>
+			<b>Located at</b> <a href="source-class-Plugin.html#27-110" title="Go to source code">Plugin.php</a>
 		<br>
 	</div>
 
@@ -205,31 +205,137 @@
 
 	<table class="summary methods" id="methods">
 	<caption>Methods summary</caption>
+	<tr data-order="getAll" id="_getAll">
+
+		<td class="attributes"><code>
+			 public static
+
+			array
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getAll">#</a>
+		<code><a href="source-class-Plugin.html#36-42" title="Go to source code">getAll</a>( )</code>
+
+		<div class="description short">
+			<p>Gets all loaded plugins.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Gets all loaded plugins.</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					array<br>Plugins
+				</div>
+
+
+				<h4>Used by</h4>
+				<div class="list">
+						<code><a href="class-CompressShell.html#_auto">CompressShell::auto()</a></code><br>
+						<code><a href="class-Plugin.html#_getPath">Plugin::getPath()</a></code><br>
+						<code><a href="class-Plugin.html#_getVersions">Plugin::getVersions()</a></code><br>
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getPath" id="_getPath">
+
+		<td class="attributes"><code>
+			 public static
+
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getPath">#</a>
+		<code><a href="source-class-Plugin.html#44-59" title="Go to source code">getPath</a>( <span>string <var>$plugin</var> = <span class="php-keyword1">FALSE</span></span> )</code>
+
+		<div class="description short">
+			<p>Gets a path for a plugin.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Gets a path for a plugin.</p>
+
+<p>If <code>$plugin</code> is not a string, returns all the plugins path.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$plugin</var></dt>
+					<dd>Plugin name</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					mixed<br>Plugin path or all plugins path
+				</div>
+
+
+				<h4>Uses</h4>
+				<div class="list">
+						<code><a href="class-Plugin.html#_getAll">Plugin::getAll()</a></code><br>
+				</div>
+				<h4>Used by</h4>
+				<div class="list">
+						<code><a href="class-CompressShell.html#_auto">CompressShell::auto()</a></code><br>
+						<code><a href="class-LibraryHelper.html#_ckeditor">LibraryHelper::ckeditor()</a></code><br>
+						<code><a href="class-MeSessionComponent.html#_setFlash">MeSessionComponent::setFlash()</a></code><br>
+						<code><a href="class-Plugin.html#_getVersion">Plugin::getVersion()</a></code><br>
+						<code><a href="class-System.html#_getChangelogs">System::getChangelogs()</a></code><br>
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
 	<tr data-order="getVersion" id="_getVersion">
 
 		<td class="attributes"><code>
 			 public static
 
-			
+			mixed
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getVersion">#</a>
-		<code><a href="source-class-Plugin.html#36-49" title="Go to source code">getVersion</a>( <span> <var>$plugin</var></span> )</code>
+		<code><a href="source-class-Plugin.html#61-80" title="Go to source code">getVersion</a>( <span>string <var>$plugin</var></span> )</code>
 
 		<div class="description short">
-			
+			<p>Gets the version for a plugin.</p>
 		</div>
 
 		<div class="description detailed hidden">
-			
+			<p>Gets the version for a plugin.</p>
 
 
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$plugin</var></dt>
+					<dd>Plugin name</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					mixed<br>Version number or FALSE
+				</div>
 
 
-
+				<h4>Uses</h4>
+				<div class="list">
+						<code><a href="class-Plugin.html#_getPath">Plugin::getPath()</a></code><br>
+				</div>
 				<h4>Used by</h4>
 				<div class="list">
 						<code><a href="class-Plugin.html#_getVersions">Plugin::getVersions()</a></code><br>
@@ -251,7 +357,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getVersions">#</a>
-		<code><a href="source-class-Plugin.html#51-77" title="Go to source code">getVersions</a>( <span>string|array <var>$except</var> = <span class="php-keyword1">NULL</span></span> )</code>
+		<code><a href="source-class-Plugin.html#82-109" title="Go to source code">getVersions</a>( <span>string|array <var>$except</var> = <span class="php-keyword1">NULL</span></span> )</code>
 
 		<div class="description short">
 			<p>Gets the version number for each plugin.</p>
@@ -275,6 +381,7 @@
 
 				<h4>Uses</h4>
 				<div class="list">
+						<code><a href="class-Plugin.html#_getAll">Plugin::getAll()</a></code><br>
 						<code><a href="class-Plugin.html#_getVersion">Plugin::getVersion()</a></code><br>
 				</div>
 
