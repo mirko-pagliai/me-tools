@@ -28,6 +28,7 @@
 
 App::uses('MeToolsAppShell', 'MeTools.Console/Command');
 App::uses('Folder', 'Utility');
+App::uses('Plugin', 'MeTools.Utility');
 App::uses('System', 'MeTools.Utility');
 App::uses('Unix', 'MeTools.Utility');
 
@@ -97,6 +98,8 @@ class CompressShell extends MeToolsAppShell {
 	
 	/**
 	 * Searches all the configuration files and automatically compresses
+	 * @uses Plugin::getAll()
+	 * @uses Plugin::getPath()
 	 */
 	public function auto() {
 		//Adds the main application app (`APP`)
@@ -113,9 +116,9 @@ class CompressShell extends MeToolsAppShell {
 		}
 		
 		//For each plugin
-		foreach(CakePlugin::loaded() as $plugin) {
+		foreach(Plugin::getAll() as $plugin) {
 			//Adds the path to the plugin (`APP/Plugin/PluginName`)
-			$paths[] = App::pluginPath($plugin);
+			$paths[] = Plugin::getPath($plugin);
 			
 			//For each plugin view path
 			foreach(App::path('View', $plugin) as $viewPath) {

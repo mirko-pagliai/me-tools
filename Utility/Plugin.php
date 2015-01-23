@@ -34,12 +34,38 @@
  */
 class Plugin {
 	/**
+	 * Gets all loaded plugins.
+	 * @return array Plugins
+	 */
+	public static function getAll() {
+		return CakePlugin::loaded();
+	}
+	
+	/**
+	 * Gets a path for a plugin.
+	 * 
+	 * If `$plugin` is not a string, returns all the plugins path.
+	 * @param string $plugin Plugin name
+	 * @return mixed Plugin path or all plugins path
+	 * @uses getAll()
+	 */
+	public static function getPath($plugin = FALSE) {
+		if(is_string($plugin))
+			return CakePlugin::path($plugin);
+		
+		return array_map(function($v){
+			return self::getPath($v);
+		}, self::getAll());
+	}
+	
+	/**
 	 * Gets the version for a plugin.
 	 * @param string $plugin Plugin name
 	 * @return mixed Version number or FALSE
+	 * @uses getPath()
 	 */
 	public static function getVersion($plugin) {
-		$path = CakePlugin::path($plugin);
+		$path = self::getPath($plugin);
 		
 		if(empty($path))
 			return FALSE;
@@ -57,11 +83,12 @@ class Plugin {
 	 * Gets the version number for each plugin.
 	 * @param string|array $except Plugins to exclude
 	 * @return mixed array with the version number for each plugin
+	 * @uses getAll()
 	 * @uses getVersion()
 	 */
 	public static function getVersions($except = NULL) {
 		//Gets plugins
-		$plugins = CakePlugin::loaded();
+		$plugins = self::getAll();
 		
 		//Removes the exceptions
 		if(is_string($except) || is_array($except)) {

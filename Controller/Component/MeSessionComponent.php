@@ -1,5 +1,4 @@
 <?php
-
 /**
  * MeSessionComponent
  *
@@ -25,7 +24,9 @@
  * @package		MeTools\Controller\Component
  * @see			http://api.cakephp.org/2.5/class-SessionComponent.html SessionComponent
  */
+
 App::uses('SessionComponent', 'Controller/Component');
+App::uses('Plugin', 'MeTools.Utility');
 
 /**
  * Provides a way to persist client data between page requests. It acts as a wrapper for the 
@@ -53,10 +54,11 @@ class MeSessionComponent extends SessionComponent {
      * @param string $element Element to wrap flash message in
      * @param array $params Parameters to be sent to layout as view variables
      * @param string $key Message key, default is 'flash'
+	 * @uses Plugin::getPath()
      */
     public function setFlash($message, $element = 'success', $params = array(), $key = 'flash') {		
         //Checks if the element exists into MeTools. If so, it uses the MeTools element
-        if(strpos($element, 'MeTools.') === FALSE && file_exists(App::pluginPath('MeTools').'View'.DS.'Elements'.DS.$element.'.ctp'))
+        if(strpos($element, 'MeTools.') === FALSE && file_exists(Plugin::getPath('MeTools').'View'.DS.'Elements'.DS.$element.'.ctp'))
             $element = 'MeTools.'.$element;
 
         parent::setFlash($message, $element, $params, $key);

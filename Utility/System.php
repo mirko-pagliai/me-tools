@@ -25,6 +25,7 @@
  */
 
 App::uses('Folder', 'Utility');
+App::uses('Plugin', 'MeTools.Utility');
 
 /**
  * An utility for checking the status of the system and perform maintenance tasks.
@@ -162,6 +163,24 @@ class System {
     public static function getCakeVersion() {
         return Configure::version();
     }
+	
+	/**
+	 * Gets all changelog files. It searchs into APP and all loaded plugins.
+	 * @uses Plugin::getPath()
+	 */
+	public static function getChangelogs() {
+		return array_filter(array_map(function($path) {
+			//Gets the current locale
+			$locale = Configure::read('Config.language');
+			
+			if(!empty($locale) && is_readable($file = sprintf('%sCHANGELOG_%s.md', $path, $locale)))
+				return $file;
+			elseif(is_readable($file = $path.'CHANGELOG.md'))
+				return $file;
+			else
+				return FALSE;	
+		}, am(array(APP), Plugin::getPath())));
+	}
 
     /**
      * Gets the thumbnails size.

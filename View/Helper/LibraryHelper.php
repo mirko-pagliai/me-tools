@@ -1,5 +1,4 @@
 <?php
-
 /**
  * LibraryHelper
  *
@@ -24,7 +23,9 @@
  * @link		http://git.novatlantis.it Nova Atlantis Ltd
  * @package		MeTools\View\Helper
  */
+
 App::uses('AppHelper', 'View/Helper');
+App::uses('Plugin', 'MeTools.Utility');
 
 /**
  * Allows to easily use some libraries, particularly JavaScript libraries.
@@ -124,6 +125,7 @@ class LibraryHelper extends AppHelper {
      * @see MeFormHelper::ckeditor()
      * @see http://docs.cksource.com CKEditor documentation
 	 * @uses MeHtmlHelper::js()
+	 * @uses Plugin::getPath()
      */
     public function ckeditor($jquery = TRUE) {
         //Checks for CKEditor into APP/webroot/ckeditor
@@ -151,7 +153,7 @@ class LibraryHelper extends AppHelper {
 		if(is_readable(WWW_ROOT.'js'.DS.'ckeditor_init.js'))
 			$scripts[] = 'ckeditor_init';
 		//Else, checks for the init script into APP/Plugin/MeTools/webroot/ckeditor
-		elseif(is_readable(App::pluginPath('MeTools').'webroot'.DS.'ckeditor'.DS.'ckeditor_init.js'))
+		elseif(is_readable(Plugin::getPath('MeTools').'webroot'.DS.'ckeditor'.DS.'ckeditor_init.js'))
 			$scripts[] = '/MeTools/ckeditor/ckeditor_init';
 		else
 			return FALSE;
