@@ -16,6 +16,24 @@ function send_form(element) {
 }
 
 /**
+ * Extended disable function.
+ * 
+ * Example:
+ * $(this).disable(true);
+ * @see http://stackoverflow.com/a/16788240/1480263
+ */
+jQuery.fn.extend({
+	disable: function(state) {
+		return this.each(function() {			
+			if($(this).is('input, button'))
+				$(this).prop('disabled', state);
+			else
+				$(this).toggleClass('disabled', state);
+		});
+	}
+});
+
+/**
  * Closes a flash messages with an animation
  */
 function close_flashMessage() {
@@ -60,6 +78,14 @@ $(function() {
 		close_flashMessage();
 		//It requires "return false" to prevent the default behavior of jQuery
 		return false;
+	});
+	
+	/**
+	 * Buttons, inputs, links, etc. that should be disabled after the click.
+	 * To disable after the click, you have to use `should-be-disabled` or `will-be-disabled` class.
+	 */
+	$('.should-be-disabled, .will-be-disabled').click(function(event) {
+		$(this).disable(true).removeClass('should-be-disabled will-be-disabled');
 	});
 	
 	/**
