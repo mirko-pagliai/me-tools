@@ -36,9 +36,9 @@ $(function() {
 		/**
 		 * To use KCFinder, you have to comment out these lines and indicate the position of KCFinder
 		 */
-		//filebrowserBrowseUrl:			'kcfinder/browse.php?type=files',
-		//filebrowserImageBrowseUrl:	'kcfinder/browse.php?type=images',
-		//filebrowserUploadUrl:			'kcfinder/upload.php?type=files',
-		//filebrowserImageUploadUrl:	'kcfinder/upload.php?type=images',
+		//filebrowserBrowseUrl:			'../../kcfinder/browse.php?type=files',
+		//filebrowserImageBrowseUrl:	'../../kcfinder/browse.php?type=images',
+		//filebrowserUploadUrl:			'../../kcfinder/upload.php?type=files',
+		//filebrowserImageUploadUrl:	'../../kcfinder/upload.php?type=images'
 	});
 });
