@@ -81,11 +81,10 @@ $(function() {
 	});
 	
 	/**
-	 * Buttons, inputs, links, etc. that should be disabled after the click.
-	 * To disable after the click, you have to use `should-be-disabled` or `will-be-disabled` class.
+	 * Submits button will be disabled when the form is submitted.
 	 */
-	$('.should-be-disabled, .will-be-disabled').click(function(event) {
-		$(this).disable(true).removeClass('should-be-disabled will-be-disabled');
+	$('form').submit(function() {
+		$(':submit', this).disable(true);
 	});
 	
 	/**
