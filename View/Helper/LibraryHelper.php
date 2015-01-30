@@ -161,6 +161,43 @@ class LibraryHelper extends AppHelper {
 
 		return $this->Html->js($scripts, array('block' => 'script_bottom'));
     }
+
+    /**
+     * Adds a datepicker to the `$input` field.
+     * 
+     * To create an input field compatible with datepicker, you should use the `datepicker()` method provided by the `MeFormHelper`.
+     * @param string $input Target field. Default is `.datepicker`
+     * @param array $options Options for the datepicker
+     * @see MeFormHelper::datepicker()
+     * @see http://eonasdan.github.io/bootstrap-datetimepicker Bootstrap 3 Datepicker v4 documentation
+	 * @uses output
+	 * @uses _datetimepicker()
+	 * @uses MeHtmlHelper::_addOptionDefault()
+     */
+	public function datepicker($input = NULL, $options = array()) {
+		$input = empty($input) ? '.datepicker' : $input;
+		
+		$options = $this->Html->_addOptionDefault('pickTime', FALSE, $options);
+		
+        $this->output[] = self::_datetimepicker($input, $options);
+	}
+	
+	 /**
+     * Adds a datetimepicker to the `$input` field.
+     * 
+     * To create an input field compatible with datetimepicker, you should use the `datetimepicker()` method provided by the `MeFormHelper`.
+     * @param string $input Target field. Default is `.datetimepicker`
+     * @param array $options Options for the datetimepicker
+     * @see MeFormHelper::datetimepicker()
+     * @see http://eonasdan.github.io/bootstrap-datetimepicker Bootstrap 3 Datepicker v4 documentation
+	 * @uses output
+	 * @uses _datetimepicker()
+     */
+	public function datetimepicker($input = NULL, $options = array()) {
+		$input = empty($input) ? '.datetimepicker' : $input;
+		
+        $this->output[] = self::_datetimepicker($input, $options);
+	}
 	
 	/**
      * Loads all FancyBox scripts.
@@ -199,43 +236,6 @@ class LibraryHelper extends AppHelper {
 			return FALSE;
 		
 		return $this->Html->js($scripts, array('block' => 'script_bottom'));
-	}
-
-    /**
-     * Adds a datepicker to the `$input` field.
-     * 
-     * To create an input field compatible with datepicker, you should use the `datepicker()` method provided by the `MeFormHelper`.
-     * @param string $input Target field. Default is `.datepicker`
-     * @param array $options Options for the datepicker
-     * @see MeFormHelper::datepicker()
-     * @see http://eonasdan.github.io/bootstrap-datetimepicker Bootstrap 3 Datepicker v4 documentation
-	 * @uses output
-	 * @uses _datetimepicker()
-	 * @uses MeHtmlHelper::_addOptionDefault()
-     */
-	public function datepicker($input = NULL, $options = array()) {
-		$input = empty($input) ? '.datepicker' : $input;
-		
-		$options = $this->Html->_addOptionDefault('pickTime', FALSE, $options);
-		
-        $this->output[] = self::_datetimepicker($input, $options);
-	}
-	
-	 /**
-     * Adds a datetimepicker to the `$input` field.
-     * 
-     * To create an input field compatible with datetimepicker, you should use the `datetimepicker()` method provided by the `MeFormHelper`.
-     * @param string $input Target field. Default is `.datetimepicker`
-     * @param array $options Options for the datetimepicker
-     * @see MeFormHelper::datetimepicker()
-     * @see http://eonasdan.github.io/bootstrap-datetimepicker Bootstrap 3 Datepicker v4 documentation
-	 * @uses output
-	 * @uses _datetimepicker()
-     */
-	public function datetimepicker($input = NULL, $options = array()) {
-		$input = empty($input) ? '.datetimepicker' : $input;
-		
-        $this->output[] = self::_datetimepicker($input, $options);
 	}
 
     /**
