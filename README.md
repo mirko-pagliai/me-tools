@@ -11,13 +11,13 @@ For transparency and insight into our release cycle and to maintain backward com
 MeTools will be maintained under the [Semantic Versioning guidelines](http://semver.org).
 
 ## Installation
-Extract MeTools in `app/Plugin` and load it in `app/Config/bootstrap.php`:
+Extract MeTools in `APP/Plugin` and load it in `APP/Config/bootstrap.php`:
 
 	CakePlugin::load(array('MeTools' => array('routes' => TRUE)));
 
 In the webroot directory, create (or copy) a link to the MeTools webroot:
 
-	cd app/webroot
+	cd APP/webroot
 	ln -s ../Plugin/MeTools/webroot/ MeTools
 
 Some `js` and `css` files are added to the end of the layout. Edit your layout by adding before 
@@ -29,16 +29,16 @@ the `</body>` tag:
 		?>
 
 ## Configuration
-Copy and rename `app/Plugin/Config/recaptcha.default.php` in `app/Config/recaptcha.php`,
+Copy and rename `APP/Plugin/Config/recaptcha.default.php` in `APP/Config/recaptcha.php`,
 so configure Recaptha keys.
 
 ## Error views
-You can use the error views provided by MeTools copying them from `app/Plugin/MeTools/View/Errors`
-to `app/View/Errors`.
+You can use the error views provided by MeTools copying them from `APP/Plugin/MeTools/View/Errors`
+to `APP/View/Errors`.
 
 Otherwise you can use the `MeExceptionRenderer` class to handle the errors,
 which will be displayed directly using the views provided by MeTools.  
-To do this, in the `app/Config/core.php` file, you have to change the configuration of the exceptions as follows:
+To do this, in the `APP/Config/core.php` file, you have to change the configuration of the exceptions as follows:
 
 	Configure::write('Exception', array(
 		'handler' => 'ErrorHandler::handleException',
@@ -47,8 +47,8 @@ To do this, in the `app/Config/core.php` file, you have to change the configurat
 	));
 
 ## Flash messages
-You can use the flash messages views provided by MeTools copying them from `app/Plugin/MeTools/View/Elements`
-to `app/View/Elements`.
+You can use the flash messages views provided by MeTools copying them from `APP/Plugin/MeTools/View/Elements`
+to `APP/View/Elements`.
 
 Otherwise you can use the `MeSession` component to generate flash messages, 
 which will be displayed directly using the views provided by MeTools.  
@@ -94,19 +94,29 @@ MeTools includes different libraries and scripts:
 - Bootstrap 3 Date/Time Picker v4 4.4.0 ([site](https://github.com/Eonasdan/bootstrap-datetimepicker));
 - Moment.js 2.9.0 ([site](http://momentjs.com/)), with locales.
 
+## FancyBox.
+MeTools doesn't contain a copy of FancyBox.
+
+So you need to download FancyBox from its [site](http://fancyapps.com/fancybox).
+
+Once you have downloaded FancyBox, you must extract it in `APP/webroot/fancybox`.  
+Finally, you can edit `fancybox_init.js` located in `APP/Plugin/MeTools/webroot/fancybox`, that MeTools uses to 
+instantiate FancyBox. For ease, you can copy it in `APP/webroot/js`.  
+If MeTools doesn't find the `fancybox_init.js` file in your app webroot,
+it will use its own file in the plugin webroot.
+
 ## CKEditor
-MeTools doesn't contain a copy of CKEditor, because it would be too heavy, because it's highly configurable (you 
-can customize the package and choose which plugins to download) and because it's not necessary for all projects.
+MeTools doesn't contain a copy of CKEditor.
 
 So you need to download CKEditor from its [site](http://ckeditor.com/download), preferably by 
 [configuring plugins](http://ckeditor.com/builder).  
-If you like, you can upload the `build-config.js` file, that is located in `app/Plugin/MeTools/webroot/ckeditor`.
+If you like, you can upload the `build-config.js` file, that is located in `APP/Plugin/MeTools/webroot/ckeditor`.
 This contain a valid configuration in most cases.
 
-Once you have downloaded CKEditor, you must extract it in `app/webroot/ckeditor` or `app/webroot/js/ckeditor`.  
-Finally, you can edit `ckeditor_init.js` located in `app/Plugin/MeTools/webroot/ckeditor`, that MeTools uses to 
-instantiate CKEditor. For ease, you can copy it in `app/webroot/js`.  
-If MeTools doesn't find the `ckeditor_init.js` file in the app webroot,
+Once you have downloaded CKEditor, you must extract it in `APP/webroot/ckeditor` or `APP/webroot/js/ckeditor`.  
+Finally, you can edit `ckeditor_init.js` located in `APP/Plugin/MeTools/webroot/ckeditor`, that MeTools uses to 
+instantiate CKEditor. For ease, you can copy it in `APP/webroot/js`.  
+If MeTools doesn't find the `ckeditor_init.js` file in your app webroot,
 it will use its own file in the plugin webroot.
 
 ### How to user CKEditor with MeTools
