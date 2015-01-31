@@ -11,13 +11,13 @@ Per la trasparenza e la comprensione del nostro ciclo di rilascio e mantenere la
 MeTools viene rilasciato seguendo le [linee guida del versionamento semantico](http://semver.org/lang/it).
 
 ## Installazione
-Estrarre MeTools in `app/Plugin` e caricalo in `app/Config/bootstrap.php`:
+Estrarre MeTools in `APP/Plugin` e caricalo in `APP/Config/bootstrap.php`:
 
 	CakePlugin::load(array('MeTools' => array('routes' => TRUE)));
 
 Nella webroot, creare (o copiare) un link alla webroot di MeTools:
 
-	cd app/webroot
+	cd APP/webroot
 	ln -s ../Plugin/MeTools/webroot/ MeTools
 
 Alcuni file `js` e `css` vengono aggiungi alla fine del layout. Modifica il tuo layout aggiungendo prima
@@ -29,16 +29,16 @@ del tag `</body>`:
 		?>
 
 ## Configurazione
-Copiare e rinominare `app/Plugin/Config/recaptcha.default.php` in `app/Config/recaptcha.php`,
+Copiare e rinominare `APP/Plugin/Config/recaptcha.default.php` in `APP/Config/recaptcha.php`,
 quindi configurare le chiavi di Recaptha.
 
 ## View per gli errori
-È possibile utilizzare le view per gli errori fornite da MeTools, copiandole da `app/Plugin/MeTools/View/Errors`
-in `app/View/Errors`.
+È possibile utilizzare le view per gli errori fornite da MeTools, copiandole da `APP/Plugin/MeTools/View/Errors`
+in `APP/View/Errors`.
 
 Altrimenti è possibile possibile utilizzare la classe `MeExceptionRenderer` per gestire gli errori,
 che saranno così visualizzati utilizzando le view fornite da MeTools.  
-Per questo, nel file `app/Config/core.php`, è necessario modificare la configurazione delle eccezioni così:
+Per questo, nel file `APP/Config/core.php`, è necessario modificare la configurazione delle eccezioni così:
 
 	Configure::write('Exception', array(
 		'handler' => 'ErrorHandler::handleException',
@@ -47,8 +47,8 @@ Per questo, nel file `app/Config/core.php`, è necessario modificare la configur
 	));
 
 ## Messaggi flash
-È possibile utilizzare le view per i messaggi flash fornite da MeTools, copiandole da `app/Plugin/MeTools/View/Elements`
-in `app/View/Elements`.
+È possibile utilizzare le view per i messaggi flash fornite da MeTools, copiandole da `APP/Plugin/MeTools/View/Elements`
+in `APP/View/Elements`.
 
 Altrimenti è possibile utilizzare il componente `MeSession` per generare i messaggi flash,
 che saranno così visualizzati utilizzando le view fornite da MeTools.  
@@ -95,18 +95,17 @@ MeTools include diverse librerie e script:
 - Moment.js 2.9.0 ([sito](http://momentjs.com/)), inclusi i "locales".
 
 ## CKEditor
-MeTools non contiene una copia di CKEditor, perché è troppo pesante, perché è altamente configurabile (è possibile
-personalizzare il pacchetto e scegliere quali plugin scaricare) e perché non è necessario per tutti i progetti.
+MeTools non contiene una copia di CKEditor.
 
 Quindi è necessario scaricare CKEditor dal suo [sito](http://ckeditor.com/download), preribilmente 
 [configurando i plugin](http://ckeditor.com/builder).  
-Se lo ritieni utile, puoi fare l'upload del file `build-config.js`, che si trova in `app/Plugin/MeTools/webroot/ckeditor`.
+Se lo ritieni utile, puoi fare l'upload del file `build-config.js`, che si trova in `APP/Plugin/MeTools/webroot/ckeditor`.
 Questo contiene una configurazione valida per molti casi.
 
-Dopo aver scaricato CKEditor, estrarlo in `app/webroot/ckeditor` o `app/webroot/js/ckeditor`.  
-Infine, modificare il file `ckeditor_init.js` in `app/Plugin/MeTools/webroot/ckeditor`, utilizzato da MeTools per
-instanziare CKEditor. Più semplicemente, copiarlo in `app/webroot/js`.  
-Se MeTools non trova il file `ckeditor_init.js` nella webroot dell'applicazione,
+Dopo aver scaricato CKEditor, estrarlo in `APP/webroot/ckeditor` o `APP/webroot/js/ckeditor`.  
+Infine, modificare il file `ckeditor_init.js` in `APP/Plugin/MeTools/webroot/ckeditor`, utilizzato da MeTools per
+instanziare CKEditor. Più semplicemente, copiarlo in `APP/webroot/js`.  
+Se MeTools non trova il file `ckeditor_init.js` nella webroot della tua applicazione,
 utilizzerà il suo file nella webroot del plugin.
 
 ### Come utilizzare CKEditor con MeTools
@@ -129,3 +128,14 @@ incluse le sue opzioni. Per esempio:
 		'class'	=> 'my_textarea',
 		'label' => 'Body',
 	));
+
+## FancyBox.
+MeTools non contiene una copia di FancyBox.
+
+Quindi è necessario scaricare FancyBox dal suo [sito](http://fancyapps.com/fancybox).
+
+Dopo aver scaricato FancyBox, estrarlo in `APP/webroot/fancybox`.  
+Infine, modificare il file `fancybox_init.js` in `APP/Plugin/MeTools/webroot/fancybox`, utilizzato da MeTools per
+instanziare FancyBox. Più semplicemente, copiarlo in `APP/webroot/js`.  
+Se MeTools non trova il file `fancybox_init.js` nella webroot della tua applicazione,
+utilizzerà il suo file nella webroot del plugin.
