@@ -93,24 +93,17 @@ class LibraryHelper extends AppHelper {
                 return "\t".$v.PHP_EOL;
             }, $this->output);
 			
-			$this->Html->scriptBlock(sprintf('$(function() {%s});', PHP_EOL.implode('', $this->output)));
+			$this->Html->scriptBlock(sprintf('$(function() {%s});', PHP_EOL.implode('', $this->output)), array('block' => 'script_bottom'));
         }
     }
 	
 	/**
 	 * Create a script block for Google Analytics.
 	 * @param string $id Analytics ID
-     * @param array $options Options
-	 * @uses MeHtmlHelper::_addOptionDefault()
-	 * @uses MeHtmlHelper::scriptBlock()
+	 * @uses output
 	 */
-	public function analytics($id = FALSE, $options = array()) {
-		if(empty($id))
-			return NULL;
-		
-		$options = $this->Html->_addOptionDefault('block', 'script_bottom', $options);
-		
-		$this->Html->scriptBlock(sprintf('!function(e,a,t,n,c,o,s){e.GoogleAnalyticsObject=c,e[c]=e[c]||function(){(e[c].q=e[c].q||[]).push(arguments)},e[c].l=1*new Date,o=a.createElement(t),s=a.getElementsByTagName(t)[0],o.async=1,o.src=n,s.parentNode.insertBefore(o,s)}(window,document,"script","//www.google-analytics.com/analytics.js","ga"),ga("create","%s","auto"),ga("send","pageview");', $id), $options);
+	public function analytics($id) {		
+        $this->output[] = sprintf('!function(e,a,t,n,c,o,s){e.GoogleAnalyticsObject=c,e[c]=e[c]||function(){(e[c].q=e[c].q||[]).push(arguments)},e[c].l=1*new Date,o=a.createElement(t),s=a.getElementsByTagName(t)[0],o.async=1,o.src=n,s.parentNode.insertBefore(o,s)}(window,document,"script","//www.google-analytics.com/analytics.js","ga"),ga("create","%s","auto"),ga("send","pageview");', $id);
 	}
 
     /**
@@ -122,19 +115,19 @@ class LibraryHelper extends AppHelper {
      * 
      * To create an input field for CKEditor, you should use the `ckeditor()` method provided by the `MeFormHelper`.
      * @param bool $jquery FALSE if you don't want to use the jQuery adapter
-     * @return mixed String of <script /> tags
+     * @return bool
      * @see MeFormHelper::ckeditor()
      * @see http://docs.cksource.com CKEditor documentation
 	 * @uses MeHtmlHelper::js()
 	 * @uses Plugin::getPath()
      */
     public function ckeditor($jquery = TRUE) {
-        //Checks for CKEditor into APP/webroot/ckeditor/
+        //Checks for CKEditor into `APP/webroot/ckeditor/`
         if(is_readable(WWW_ROOT.'ckeditor'.DS.'ckeditor.js')) {
             $path = WWW_ROOT.'ckeditor';
 			$url = '/ckeditor';
 		}
-        //Else, checks for CKEditor into APP/webroot/js/ckeditor/
+        //Else, checks for CKEditor into `APP/webroot/js/ckeditor/`
         elseif(is_readable(WWW_ROOT.'js'.DS.'ckeditor'.DS.'ckeditor.js')) {
             $path = WWW_ROOT.'js'.DS.'ckeditor';
             $url = '/js/ckeditor';
@@ -150,16 +143,18 @@ class LibraryHelper extends AppHelper {
 		if($jquery && is_readable($path.DS.'adapters'.DS.'jquery.js'))
 			$scripts[] = $url.'/adapters/jquery';
 
-		//Checks for the init script into APP/webroot/js/
+		//Checks for the init script into `APP/webroot/js/`
 		if(is_readable(WWW_ROOT.'js'.DS.'ckeditor_init.js'))
 			$scripts[] = 'ckeditor_init';
-		//Else, checks for the init script into APP/Plugin/MeTools/webroot/ckeditor/
+		//Else, checks for the init script into `APP/Plugin/MeTools/webroot/ckeditor/`
 		elseif(is_readable(Plugin::getPath('MeTools').'webroot'.DS.'ckeditor'.DS.'ckeditor_init.js'))
 			$scripts[] = '/MeTools/ckeditor/ckeditor_init';
 		else
 			return FALSE;
 
-		return $this->Html->js($scripts, array('block' => 'script_bottom'));
+		$this->Html->js($scripts, array('block' => 'script_bottom'));
+		
+		return TRUE;
     }
 
     /**
@@ -203,18 +198,18 @@ class LibraryHelper extends AppHelper {
      * Loads all FancyBox scripts.
 	 * 
 	 * FancyBox must be located into `APP/webroot/fancybox`.
-     * @return mixed String of <script /> tags or FALSE
+     * @return bool
      * @see http://fancyapps.com/fancybox/#docs FancyBox documentation
 	 * @uses MeHtmlHelper::css()
 	 * @uses MeHtmlHelper::js()
 	 * @uses Plugin::getPath()
 	 */
 	public function fancybox() {
-        //Checks for FancyBox into `APP/webroot/fancybox`
+        //Checks for FancyBox into `APP/webroot/fancybox/`
         if(!is_readable(WWW_ROOT.'fancybox'.DS.'jquery.fancybox.pack.js'))
 			return FALSE;
 		
-		//Checks for assets into `APP/webroot/assets`
+		//Checks for assets into `APP/webroot/assets/`
 		if(!is_readable(WWW_ROOT.'assets'.DS.'fancybox.min.css') || !is_readable(WWW_ROOT.'assets'.DS.'fancybox.min.js'))
 			return FALSE;
 		
@@ -239,7 +234,9 @@ class LibraryHelper extends AppHelper {
 		else
 			return FALSE;
 		
-		return $this->Html->js($script, array('block' => 'script_bottom'));
+		$this->Html->js($script, array('block' => 'script_bottom'));
+		
+		return TRUE;
 	}
 
     /**
