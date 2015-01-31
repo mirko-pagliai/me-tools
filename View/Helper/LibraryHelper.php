@@ -35,7 +35,7 @@ class LibraryHelper extends AppHelper {
      * Helpers
      * @var array
      */
-    public $helpers = array('Html' => array('className' => 'MeTools.MeHtml'));
+    public $helpers = array('MeTools.Layout', 'Html' => array('className' => 'MeTools.MeHtml'));
 
     /**
      * It will contain the output code
@@ -203,39 +203,43 @@ class LibraryHelper extends AppHelper {
      * Loads all FancyBox scripts.
 	 * 
 	 * FancyBox must be located into `APP/webroot/fancybox`.
-     * @return mixed String of <script /> tags
+     * @return mixed String of <script /> tags or FALSE
      * @see http://fancyapps.com/fancybox/#docs FancyBox documentation
 	 * @uses MeHtmlHelper::css()
 	 * @uses MeHtmlHelper::js()
 	 * @uses Plugin::getPath()
 	 */
 	public function fancybox() {
-        //Checks for FancyBox into APP/webroot/fancybox
+        //Checks for FancyBox into `APP/webroot/fancybox`
         if(!is_readable(WWW_ROOT.'fancybox'.DS.'jquery.fancybox.pack.js'))
 			return FALSE;
 		
-		$this->Html->css(array(
+		//Checks for assets into `APP/webroot/assets`
+		if(!is_readable(WWW_ROOT.'assets'.DS.'fancybox.min.css') || !is_readable(WWW_ROOT.'assets'.DS.'fancybox.min.js'))
+			return FALSE;
+		
+		$this->Layout->css(array(
 			'/fancybox/jquery.fancybox',
 			'/fancybox/helpers/jquery.fancybox-buttons',
-			'/fancybox/helpers/jquery.fancybox-thumbs',
-		), array('block' => 'css_bottom'));
+			'/fancybox/helpers/jquery.fancybox-thumbs'
+		), '/webroot/assets/fancybox.min', array('block' => 'css_bottom'));
 		
-		$scripts = array(
+		$this->Layout->js(array(
 			'/fancybox/jquery.fancybox.pack',
 			'/fancybox/helpers/jquery.fancybox-buttons',
 			'/fancybox/helpers/jquery.fancybox-thumbs'
-		);
+		), '/webroot/assets/fancybox.min', array('block' => 'css_bottom'));
 		
-		//Checks for the init script into APP/webroot/js/
+		//Checks for the init script into `APP/webroot/js/`
 		if(is_readable(WWW_ROOT.'js'.DS.'fancybox_init.js'))
-			$scripts[] = 'fancybox_init';
-		//Else, checks for the init script into APP/Plugin/MeTools/webroot/fancybox/
+			$script = 'fancybox_init';
+		//Else, checks for the init script into `APP/Plugin/MeTools/webroot/fancybox/`
 		elseif(is_readable(Plugin::getPath('MeTools').'webroot'.DS.'fancybox'.DS.'fancybox_init.js'))
-			$scripts[] = '/MeTools/fancybox/fancybox_init';
+			$script = '/MeTools/fancybox/fancybox_init';
 		else
 			return FALSE;
 		
-		return $this->Html->js($scripts, array('block' => 'script_bottom'));
+		return $this->Html->js($script, array('block' => 'script_bottom'));
 	}
 
     /**
