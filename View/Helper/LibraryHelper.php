@@ -57,8 +57,9 @@ class LibraryHelper extends AppHelper {
 		$this->Html->js(array(
 			'/MeTools/js/moment-with-locales.min',
 			'/MeTools/js/bootstrap-datetimepicker.min'
-		), array('block' => 'script_bottom', 'inline' => FALSE));
-        $this->Html->css('/MeTools/css/bootstrap-datetimepicker.min', array('block' => 'css_bottom', 'inline' => FALSE));
+		), array('block' => 'script_bottom'));
+		
+        $this->Html->css('/MeTools/css/bootstrap-datetimepicker.min', array('block' => 'css_bottom'));
 				
 		$options = $this->Html->_addOptionDefault('icons', array(
 			'time' => 'fa fa-clock-o',
@@ -128,12 +129,12 @@ class LibraryHelper extends AppHelper {
 	 * @uses Plugin::getPath()
      */
     public function ckeditor($jquery = TRUE) {
-        //Checks for CKEditor into APP/webroot/ckeditor
+        //Checks for CKEditor into APP/webroot/ckeditor/
         if(is_readable(WWW_ROOT.'ckeditor'.DS.'ckeditor.js')) {
             $path = WWW_ROOT.'ckeditor';
 			$url = '/ckeditor';
 		}
-        //Else, checks for CKEditor into APP/webroot/js/ckeditor
+        //Else, checks for CKEditor into APP/webroot/js/ckeditor/
         elseif(is_readable(WWW_ROOT.'js'.DS.'ckeditor'.DS.'ckeditor.js')) {
             $path = WWW_ROOT.'js'.DS.'ckeditor';
             $url = '/js/ckeditor';
@@ -149,16 +150,16 @@ class LibraryHelper extends AppHelper {
 		if($jquery && is_readable($path.DS.'adapters'.DS.'jquery.js'))
 			$scripts[] = $url.'/adapters/jquery';
 
-		//Checks for the init script into APP/webroot/js
+		//Checks for the init script into APP/webroot/js/
 		if(is_readable(WWW_ROOT.'js'.DS.'ckeditor_init.js'))
 			$scripts[] = 'ckeditor_init';
-		//Else, checks for the init script into APP/Plugin/MeTools/webroot/ckeditor
+		//Else, checks for the init script into APP/Plugin/MeTools/webroot/ckeditor/
 		elseif(is_readable(Plugin::getPath('MeTools').'webroot'.DS.'ckeditor'.DS.'ckeditor_init.js'))
 			$scripts[] = '/MeTools/ckeditor/ckeditor_init';
 		else
 			return FALSE;
 
-		return $this->Html->js($scripts, array('block' => 'script_bottom', 'inline' => FALSE));
+		return $this->Html->js($scripts, array('block' => 'script_bottom'));
     }
 
     /**
@@ -197,6 +198,45 @@ class LibraryHelper extends AppHelper {
 		
         $this->output[] = self::_datetimepicker($input, $options);
 	}
+	
+	/**
+     * Loads all FancyBox scripts.
+	 * 
+	 * FancyBox must be located into `APP/webroot/fancybox`.
+     * @return mixed String of <script /> tags
+     * @see http://fancyapps.com/fancybox/#docs FancyBox documentation
+	 * @uses MeHtmlHelper::css()
+	 * @uses MeHtmlHelper::js()
+	 * @uses Plugin::getPath()
+	 */
+	public function fancybox() {
+        //Checks for FancyBox into APP/webroot/fancybox
+        if(!is_readable(WWW_ROOT.'fancybox'.DS.'jquery.fancybox.pack.js'))
+			return FALSE;
+		
+		$this->Html->css(array(
+			'/fancybox/jquery.fancybox',
+			'/fancybox/helpers/jquery.fancybox-buttons',
+			'/fancybox/helpers/jquery.fancybox-thumbs',
+		), array('block' => 'css_bottom'));
+		
+		$scripts = array(
+			'/fancybox/jquery.fancybox.pack',
+			'/fancybox/helpers/jquery.fancybox-buttons',
+			'/fancybox/helpers/jquery.fancybox-thumbs'
+		);
+		
+		//Checks for the init script into APP/webroot/js/
+		if(is_readable(WWW_ROOT.'js'.DS.'fancybox_init.js'))
+			$scripts[] = 'fancybox_init';
+		//Else, checks for the init script into APP/Plugin/MeTools/webroot/fancybox/
+		elseif(is_readable(Plugin::getPath('MeTools').'webroot'.DS.'fancybox'.DS.'fancybox_init.js'))
+			$scripts[] = '/MeTools/fancybox/fancybox_init';
+		else
+			return FALSE;
+		
+		return $this->Html->js($scripts, array('block' => 'script_bottom'));
+	}
 
     /**
      * Through `slugify.js`, it provides the slug of a field. 
@@ -208,7 +248,7 @@ class LibraryHelper extends AppHelper {
 	 * @uses MeHtmlHelper::js()
      */
     public function slugify($sourceField = 'form #title', $targetField = 'form #slug') {
-        $this->Html->js('/MeTools/js/slugify.min', array('block' => 'script_bottom', 'inline' => FALSE));
+        $this->Html->js('/MeTools/js/slugify.min', array('block' => 'script_bottom'));
 		
         $this->output[] = sprintf('$().slugify("%s", "%s");', $sourceField, $targetField);
     }
