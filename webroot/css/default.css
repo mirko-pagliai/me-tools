@@ -43,6 +43,7 @@ dd pre {
 /* Iframe*/
 iframe {
 	border: 0;
+	display: block;
 	max-width: 100%;
 }
 
