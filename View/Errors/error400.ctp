@@ -1,6 +1,6 @@
 <?php
 /**
- * Error 400. It extends the common error page.
+ * Error 400.
  *
  * This file is part of MeTools.
  *
@@ -24,10 +24,20 @@
  * @package		MeTools\View\Errors
  */
 ?>
-
-<?php
-	$this->extend('/Common/error_page');
-	$this->assign('error', $name);
 	
-	echo $this->Html->para(NULL, sprintf('%s: %s', __d('me_tools', 'The requested address was not found on this server'), $this->Html->code(Router::url($url, true))));
+<?php
+	if(!$this->get('title_for_layout'))
+		$this->set('title_for_layout', __d('me_tools', 'Error'));
 ?>
+
+<div class="errors view">
+	<h2><?php echo $message; ?></h2>
+	<p>
+		<strong><?php echo __d('me_tools', 'Error'); ?>: </strong>
+		<?php echo __d('me_tools', 'The requested address: %s was not found', '<strong>'.$url.'</strong>'); ?>
+	</p>
+	<?php
+		if(Configure::read('debug'))
+			echo $this->element('exception_stack_trace');
+	?>
+</div>
