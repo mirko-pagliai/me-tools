@@ -42,13 +42,12 @@
  */
 class MeExceptionRenderer extends ExceptionRenderer {
 	/**
-	 * This method is used only in order to use the error views from the MeTools plugin.
-	 * @param Exception $exception The exception to get a controller for.
-	 * @return Controller
+	 * Generate the response using the controller object.
+	 * @param string $template The template to render.
 	 */
-	protected function _getController($exception) {
-		$controller = parent::_getController($exception);
-		$controller->plugin = 'MeTools';
-		return $controller;
+	protected function _outputMessage($template) {
+		$template = sprintf('%s.%s', 'MeTools', $template);
+		
+		parent::_outputMessage($template);
 	}
 }
