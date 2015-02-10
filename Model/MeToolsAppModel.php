@@ -25,10 +25,12 @@
  * @package		MeTools\Model
  */
 
+App::uses('Model', 'Model');
+
 /**
  * Application level model.
  */
-class MeToolsAppModel extends AppModel {
+class MeToolsAppModel extends Model {
 	/**
 	 * Behaviors
 	 * @var array 
