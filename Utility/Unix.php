@@ -35,9 +35,12 @@
 class Unix {
 	/**
 	 * Checks if the current user is the root user.
-	 * @return boolean TRUE if is the root user, otherwise FALSE
+	 * @return mixed TRUE if is the root user, otherwise FALSE. NULL if cannot check
 	 */
 	public static function is_root() {
+		if(!function_exists('posix_getuid'))
+			return NULL;
+		
 		//`posix_getuid()` returns 0 if is the root user
 		return !posix_getuid();
 	}
