@@ -71,7 +71,7 @@ class Apache {
 	 * Gets the version.
 	 * @return string Version
 	 */
-	public static function version() {
+	public static function getVersion() {
 		return apache_get_version();
 	}
 }
