@@ -50,7 +50,7 @@ class Apache {
     public static function checkModule($module) {
 		$modules = self::getModules();
 		
-		if(empty($modules))
+		if(is_null($modules) || empty($modules))
 			return NULL;
 		
         return in_array($module, $modules);
@@ -58,20 +58,23 @@ class Apache {
 	
     /**
      * Gets modules.
-     * @return mixed Modules list or FALSE
+     * @return mixed Modules list. NULL if cannot check
      */
     public static function getModules() {
 		if(!function_exists('apache_get_modules'))
-			return FALSE;
+			return NULL;
 		
         return apache_get_modules();
     }
 	
 	/**
 	 * Gets the version.
-	 * @return string Version
+	 * @return mixed Version. NULL if cannot check
 	 */
 	public static function getVersion() {
+		if(!function_exists('apache_get_version'))
+			return NULL;
+		
 		return apache_get_version();
 	}
 }
