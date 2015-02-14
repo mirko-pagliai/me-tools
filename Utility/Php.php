@@ -44,9 +44,12 @@ class Php {
     /**
      * Checks if an extension is enabled.
      * @param string $extension Extension to be checked
-     * @return boolean TRUE if the extension is enabled, FALSE otherwise
+     * @return mixed TRUE if the extension is enabled, FALSE otherwise. NULL if cannot check
      */
     public static function checkExtension($extension) {
+		if(!function_exists('extension_loaded'))
+			return NULL;
+		
         return extension_loaded($extension);
     }
 	
