@@ -2,7 +2,7 @@ accessLevels: [public, protected, private]
 destination: Docs
 download: false
 exclude: {*.old, *.old.*} 
-source: {Console/Command, Controller, Lib/Error, Lib/Log, Model, Utility, View/Helper}
+source: {Console/Command, Controller, Lib, Model, Utility, View/Helper}
 main: MeTools
 php: false
 title: MeTools API
