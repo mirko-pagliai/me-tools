@@ -44,21 +44,21 @@ class Apache {
 	/**
      * Checks if a module is enabled.
      * @param string $module Name of the module to be checked
-     * @return boolean TRUE if the module is enabled, FALSE otherwise
+     * @return mixed TRUE if the module is enabled, FALSE otherwise. NULL if cannot check
      * @uses getModules()
      */
     public static function checkModule($module) {
 		$modules = self::getModules();
 		
 		if(empty($modules))
-			return FALSE;
+			return NULL;
 		
         return in_array($module, $modules);
     }
 	
     /**
      * Gets modules.
-     * @return array Modules list
+     * @return mixed Modules list or FALSE
      */
     public static function getModules() {
 		if(!function_exists('apache_get_modules'))
