@@ -66,4 +66,12 @@ class Apache {
 		
         return apache_get_modules();
     }
+	
+	/**
+	 * Gets the version.
+	 * @return string Version
+	 */
+	public static function version() {
+		return apache_get_version();
+	}
 }
