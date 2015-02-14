@@ -197,7 +197,7 @@
 				<a href="http://www.gnu.org/licenses/agpl.txt">AGPL License</a><br>
 				<b>Author:</b>
 				Mirko Pagliai <a href="&#109;&#97;&#x69;&#x6c;&#116;&#111;&#x3a;&#x6d;&#105;&#114;&#x6b;&#x6f;&#46;&#112;&#x61;&#x67;l&#105;&#x61;&#x69;&#64;&#103;&#109;&#x61;&#x69;&#108;&#46;&#x63;&#x6f;&#109;">&#x6d;&#105;&#114;&#x6b;&#x6f;&#46;&#112;&#x61;&#x67;l&#105;&#x61;&#x69;&#64;&#103;&#109;&#x61;&#x69;&#108;&#46;&#x63;&#x6f;&#109;</a><br>
-			<b>Located at</b> <a href="source-class-Php.html#27-72" title="Go to source code">Php.php</a>
+			<b>Located at</b> <a href="source-class-Php.html#27-75" title="Go to source code">Php.php</a>
 		<br>
 	</div>
 
@@ -248,14 +248,14 @@
 		<td class="attributes"><code>
 			 public static
 
-			boolean
+			mixed
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_checkExtension">#</a>
-		<code><a href="source-class-Php.html#44-51" title="Go to source code">checkExtension</a>( <span>string <var>$extension</var></span> )</code>
+		<code><a href="source-class-Php.html#44-54" title="Go to source code">checkExtension</a>( <span>string <var>$extension</var></span> )</code>
 
 		<div class="description short">
 			<p>Checks if an extension is enabled.</p>
@@ -273,7 +273,7 @@
 
 				<h4>Returns</h4>
 				<div class="list">
-					boolean<br>TRUE if the extension is enabled, FALSE otherwise
+					mixed<br>TRUE if the extension is enabled, FALSE otherwise. NULL if cannot check
 				</div>
 
 
@@ -294,7 +294,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_checkVersion">#</a>
-		<code><a href="source-class-Php.html#53-63" title="Go to source code">checkVersion</a>( <span>string <var>$required</var> = <span class="php-quote">'5.2.8'</span></span> )</code>
+		<code><a href="source-class-Php.html#56-66" title="Go to source code">checkVersion</a>( <span>string <var>$required</var> = <span class="php-quote">'5.2.8'</span></span> )</code>
 
 		<div class="description short">
 			<p>Checks if the current version of PHP is equal to or greater than the required version.</p>
@@ -339,7 +339,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getVersion">#</a>
-		<code><a href="source-class-Php.html#65-71" title="Go to source code">getVersion</a>( )</code>
+		<code><a href="source-class-Php.html#68-74" title="Go to source code">getVersion</a>( )</code>
 
 		<div class="description short">
 			<p>Gets the current version.</p>
