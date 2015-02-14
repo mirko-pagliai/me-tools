@@ -1,8 +1,8 @@
 # 1.x ramo
-## 1.1 ramo
-### 1.1.1
+## 1.2 ramo
+### 1.2.0
 * aggiornato Font Awesome alla versione 4.3.0;
 * supporto per FancyBox;
 * risolto un bug nelle viste degli errori;
-* aggiunti alcuni metodi alle utility `Plugin` e `System`;
+* aggiunti alcuni metodi all'utility `Plugin`. L'utility `System` è stata divisa in più utility;
 * aggiungo il file di changelog.
