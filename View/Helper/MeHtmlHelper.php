@@ -40,12 +40,10 @@ App::uses('HtmlHelper', 'View/Helper');
 class MeHtmlHelper extends HtmlHelper {
 	/**
 	 * Method that is called automatically when the method doesn't exist.
+	 * 
 	 * If you pass no more than two parameters, it tries to generate a html tag with the name of the method.
-	 * Otherwise, it provides non fatal errors on missing method calls.
 	 * @param string $method Method to invoke
 	 * @param array $params Array of params for the method
-	 * @return string Html code
-	 * @see http://api.cakephp.org/2.5/class-Helper.html#___call CakePHP API
 	 * @uses tag()
 	 */
 	public function __call($method, $params) {
