@@ -48,7 +48,7 @@ class MeHtmlHelper extends HtmlHelper {
 	 * @see http://api.cakephp.org/2.5/class-Helper.html#___call CakePHP API
 	 * @uses tag()
 	 */
-	public function __call($method, $params) {		
+	public function __call($method, $params) {
 		if(count($params) <= 2)
 			return self::tag($method, empty($params[0]) ? NULL : $params[0], empty($params[1]) ? NULL : $params[1]);
 		
