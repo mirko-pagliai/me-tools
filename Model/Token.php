@@ -33,12 +33,12 @@ class Token extends MeToolsAppModel {
 	 * Called after every deletion operation.
 	 */
 	public function afterDelete() {
-		//It also deletes all expired tokens
+		//Deletes all expired tokens
 		$this->deleteAll(array('expiration <=' => CakeTime::format(time(), '%Y-%m-%d %H:%M:%S')), FALSE);
 	}
 	
 	/**
-	 * Executes after model validation and before the data is saved
+	 * Executes after model validation and before the data is saved.
 	 * @param array $options Options
 	 * @return boolean TRUE if the save operation should continue
 	 */

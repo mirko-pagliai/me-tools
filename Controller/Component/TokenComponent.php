@@ -1,5 +1,4 @@
 <?php
-
 /**
  * TokenComponent
  *
@@ -31,12 +30,15 @@ App::uses('CakeTime', 'Utility');
  */
 class TokenComponent extends Component {
 	/**
-	 * Construct. It loads the Token model.
+	 * Construct. 
+	 * 
+	 * It loads the `Token` model.
 	 * @param ComponentCollection $collection
 	 * @param array $settings Array of configuration settings
 	 */
 	public function __construct(ComponentCollection $collection, $settings = array()) {
 		parent::__construct($collection, $settings);
+		
 		$this->Token = ClassRegistry::init('MeTools.Token');
 	}
 	
@@ -46,16 +48,13 @@ class TokenComponent extends Component {
 	 * If the salt is empty, it will use the current timestamp.
 	 * @param string $salt Salt to use to generate the token
 	 * @param int $maxLenght Maximum length of the token
-	 * @param string $method Method to use (sha1/sha256/md5/blowfish)
 	 * @return string Token
 	 */
-	private function _createToken($salt = NULL, $maxLenght = 25) {
+	protected function _createToken($salt = NULL, $maxLenght = 25) {
 		$token = Security::hash(empty($salt) ? time() : $salt, 'sha1', TRUE);
 		
 		//Truncates the token, if it's longer than the maximum length
-		$token = strlen($token) > $maxLenght ? substr($token, 0, $maxLenght) : $token;
-		
-		return $token;
+		return strlen($token) > $maxLenght ? substr($token, 0, $maxLenght) : $token;
 	}
 	
 	/**
@@ -86,32 +85,31 @@ class TokenComponent extends Component {
 	 * Creates and saves a token.
 	 * 
 	 * If the salt is empty, it will use the current timestamp.
-	 * If the user ID is empty or 0, it will create a token that is not related to a user.
+	 * If the user ID is NULL, it will create a token that is not related to an user.
 	 * If the expiration is empty, will be set to 12 hours.
 	 * @param string $salt Salt to use to generate the token
 	 * @param string $type Type of the token
-	 * @param int $user_id User ID, otherwise 0 if the token is not related to a user
+	 * @param int $user_id User ID
 	 * @param string $expiration Expiration, strftime compatible formatting
 	 * @return mixed The token value on success, otherwise FALSE
 	 * @see http://php.net/strftime strftime documentation
 	 * @uses _createToken() to create the token
 	 */
-	public function create($salt = NULL, $type, $user_id = 0, $expiration = NULL) {		
+	public function create($salt = NULL, $type = NULL, $user_id = NULL, $data = NULL, $expiry = NULL) {		
 		$this->Token->create();
-		$save = $this->Token->save(array(
-			'expiration'	=> CakeTime::format(empty($expiration) ? '+12 hours' : $expiration, '%Y-%m-%d %H:%M:%S'),
-			'type'			=> $type,
-			'user_id'		=> $user_id,
-			'value'			=> $token = self::_createToken($salt)
-		));
 		
-		return empty($save) ? FALSE : $token;
+		$save = $this->Token->save(am(array(
+			'expiry'	=> CakeTime::format(empty($expiry) ? '+12 hours' : $expiry, '%Y-%m-%d %H:%M:%S'),
+			'token'		=> $token = self::_createToken($salt)
+		), compact('data', 'type', 'user_id')));
+		
+		return $save ? $token : FALSE;
 	}
 	
 	/**
-	 * Deletes a token
-	 * @param int $id Token id
-	 * @return boolean TRUE on success
+	 * Deletes a token.
+	 * @param int $id Token ID
+	 * @return boolean
 	 */
 	public function delete($id) {
 		return $this->Token->delete($id);
