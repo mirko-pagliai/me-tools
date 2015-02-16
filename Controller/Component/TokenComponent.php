@@ -85,23 +85,17 @@ class TokenComponent extends Component {
 	 * Creates and saves a token.
 	 * 
 	 * If the salt is empty, it will use the current timestamp.
-	 * If the user ID is NULL, it will create a token that is not related to an user.
-	 * If the expiration is empty, will be set to 12 hours.
 	 * @param string $salt Salt to use to generate the token
-	 * @param string $type Type of the token
-	 * @param int $user_id User ID
-	 * @param string $expiration Expiration, strftime compatible formatting
+	 * @param array $options Options (`data`, `expiry`, `type` and `user_id`)
 	 * @return mixed The token value on success, otherwise FALSE
 	 * @see http://php.net/strftime strftime documentation
 	 * @uses _createToken() to create the token
 	 */
-	public function create($salt = NULL, $type = NULL, $user_id = NULL, $data = NULL, $expiry = NULL) {		
-		$this->Token->create();
+	public function create($salt = NULL, $options = array()) {
+		$options['expiry'] = CakeTime::format(empty($options['expiry']) ? '+12 hours' : $options['expiry'], '%Y-%m-%d %H:%M:%S');
 		
-		$save = $this->Token->save(am(array(
-			'expiry'	=> CakeTime::format(empty($expiry) ? '+12 hours' : $expiry, '%Y-%m-%d %H:%M:%S'),
-			'token'		=> $token = self::_createToken($salt)
-		), compact('data', 'type', 'user_id')));
+		$this->Token->create();
+		$save = $this->Token->save(am(array('token'	=> $token = self::_createToken($salt)), $options));
 		
 		return $save ? $token : FALSE;
 	}
