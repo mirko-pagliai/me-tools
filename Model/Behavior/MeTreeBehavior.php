@@ -23,14 +23,14 @@
  * @license		http://www.gnu.org/licenses/agpl.txt AGPL License
  * @link		http://git.novatlantis.it Nova Atlantis Ltd
  * @package		MeTools\Model\Behavior
- * @see			http://api.cakephp.org/2.5/source-class-TreeBehavior.html CakePHP Api
+ * @see			http://api.cakephp.org/2.6/source-class-TreeBehavior.html CakePHP Api
  */
 App::uses('TreeBehavior', 'Model/Behavior');
 
 /**
  * Tree behavior class. Enables a model object to act as a node-based tree.
  * 
- * Rewrites {@link http://api.cakephp.org/2.5/source-class-TreeBehavior.html TreeBehavior}.
+ * Rewrites {@link http://api.cakephp.org/2.6/source-class-TreeBehavior.html TreeBehavior}.
  * 
  * This class is only useful to rewrite the `generateTreeList()` method provided by the `TreeBehavior` behavior.
  */

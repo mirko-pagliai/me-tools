@@ -23,14 +23,14 @@
  * @license		http://www.gnu.org/licenses/agpl.txt AGPL License
  * @link		http://git.novatlantis.it Nova Atlantis Ltd
  * @package		MeTools\Controller\Component
- * @see			http://api.cakephp.org/2.5/class-SecurityComponent.html SecurityComponent
+ * @see			http://api.cakephp.org/2.6/class-SecurityComponent.html SecurityComponent
  */
 App::uses('SecurityComponent', 'Controller/Component');
 
 /**
  * Provides an easy way to integrate tighter security in the application.
  * 
- * Rewrites {@link http://api.cakephp.org/2.5/class-SecurityComponent.html SecurityComponent}.
+ * Rewrites {@link http://api.cakephp.org/2.6/class-SecurityComponent.html SecurityComponent}.
  * 
  * You should use this component as an alias, for example:
  * <code>
@@ -41,7 +41,7 @@ class MeSecurityComponent extends SecurityComponent {
     /**
      * Called before the controller's beforeFilter method.
      * @param Controller $controller
-     * @see http://api.cakephp.org/2.5/class-Component.html#_initialize CakePHP Api
+     * @see http://api.cakephp.org/2.6/class-Component.html#_initialize CakePHP Api
      */	
 	public function initialize(Controller $controller) {
 		$this->request = $controller->request;

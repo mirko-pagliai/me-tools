@@ -23,14 +23,14 @@
  * @license		http://www.gnu.org/licenses/agpl.txt AGPL License
  * @link		http://git.novatlantis.it Nova Atlantis Ltd
  * @package		MeTools\View\Helper
- * @see			http://api.cakephp.org/2.5/class-FormHelper.html FormHelper
+ * @see			http://api.cakephp.org/2.6/class-FormHelper.html FormHelper
  */
 App::uses('FormHelper', 'View/Helper');
 
 /**
  * Provides functionalities for forms.
  * 
- * Rewrites {@link http://api.cakephp.org/2.5/class-FormHelper.html FormHelper}.
+ * Rewrites {@link http://api.cakephp.org/2.6/class-FormHelper.html FormHelper}.
  * 
  * You should use this helper as an alias, for example:
  * <code>
@@ -56,7 +56,7 @@ class MeFormHelper extends FormHelper {
      * @param string $method Method name/input type to make
      * @param array $params Parameters for the method call
      * @return string Formatted input method
-	 * @see http://api.cakephp.org/2.5/class-Helper.html#___call CakePHP Api
+	 * @see http://api.cakephp.org/2.6/class-Helper.html#___call CakePHP Api
 	 * @uses MeHtmlHelper::_addOptionValue()
      */
     public function __call($method, $params) {
@@ -258,7 +258,7 @@ class MeFormHelper extends FormHelper {
     public function end($caption = NULL, $options = array()) {
         //Normally, the `end()` method has only the `option` argument, which is an array. 
         //So, this allows compatibility with the original method.
-        //Look at {@link http://api.cakephp.org/2.5/source-class-FormHelper.html#477-527}
+        //Look at {@link http://api.cakephp.org/2.6/source-class-FormHelper.html#477-527}
 		if(is_array($caption)) {
 			$options = $caption;
 			$caption = empty($options['label']) ? NULL : $options['label'];

@@ -22,7 +22,7 @@
  * @license		http://www.gnu.org/licenses/agpl.txt AGPL License
  * @link		http://git.novatlantis.it Nova Atlantis Ltd
  * @package		MeTools\Controller\Component
- * @see			http://api.cakephp.org/2.5/class-SessionComponent.html SessionComponent
+ * @see			http://api.cakephp.org/2.6/class-SessionComponent.html SessionComponent
  */
 
 App::uses('SessionComponent', 'Controller/Component');
@@ -32,7 +32,7 @@ App::uses('Plugin', 'MeTools.Utility');
  * Provides a way to persist client data between page requests. It acts as a wrapper for the 
  * `$_SESSION` as well as providing convenience methods for several `$_SESSION` related functions.
  * 
- * Rewrites {@link http://api.cakephp.org/2.5/class-SessionComponent.html SessionComponent}.
+ * Rewrites {@link http://api.cakephp.org/2.6/class-SessionComponent.html SessionComponent}.
  * 
  * You should use this component as an alias, for example:
  * <code>
