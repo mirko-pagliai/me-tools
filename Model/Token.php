@@ -34,7 +34,7 @@ class Token extends MeToolsAppModel {
 	 */
 	public function afterDelete() {
 		//Deletes all expired tokens
-		$this->deleteAll(array('expiration <=' => CakeTime::format(time(), '%Y-%m-%d %H:%M:%S')), FALSE);
+		$this->deleteAll(array('expiry <=' => CakeTime::format(time(), '%Y-%m-%d %H:%M:%S')), FALSE);
 	}
 	
 	/**
@@ -44,7 +44,7 @@ class Token extends MeToolsAppModel {
 	 */
 	public function beforeSave($options = array()) {
 		//Deletes all expired tokens
-		$conditions = array('expiration <=' => CakeTime::format(time(), '%Y-%m-%d %H:%M:%S'));
+		$conditions = array('expiry <=' => CakeTime::format(time(), '%Y-%m-%d %H:%M:%S'));
 		
 		//Deletes all the tokens of the same user
 		if(!empty($this->data[$this->alias]['user_id']))
