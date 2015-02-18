@@ -64,13 +64,29 @@ class Token extends MeToolsAppModel {
 	);
 	
 	/**
+	 * Deletes all expired tokens, based on the date and the same user
+	 * @param mixed $user_id User ID or NULL
+	 * @return boolean
+	 */
+	protected function deleteExpired($user_id = NULL) {
+		//Deletes all expired tokens
+		$conditions = array('expiry <=' => CakeTime::format(time(), '%Y-%m-%d %H:%M:%S'));
+		
+		//Deletes the token of the same user
+		if(!empty($user_id))
+			$conditions = array('OR' => am(array('user_id' => $user_id), $conditions));
+		
+		return $this->deleteAll($conditions, FALSE);
+	}
+
+	/**
 	 * Called after every deletion operation.
 	 */
 	public function afterDelete() {
 		parent::afterDelete();
 		
 		//Deletes all expired tokens
-		$this->deleteAll(array('expiry <=' => CakeTime::format(time(), '%Y-%m-%d %H:%M:%S')), FALSE);
+		$this->deleteExpired();
 	}
 	
 	/**
@@ -92,13 +108,7 @@ class Token extends MeToolsAppModel {
 			$this->data[$this->alias]['expiry'] = CakeTime::format('+12 hours', '%Y-%m-%d %H:%M:%S');
 		
 		//Deletes all expired tokens
-		$conditions = array('expiry <=' => CakeTime::format(time(), '%Y-%m-%d %H:%M:%S'));
-		
-		//Deletes all the tokens of the same user
-		if(!empty($this->data[$this->alias]['user_id']))
-			$conditions = array('OR' => am(array('user_id' => $this->data[$this->alias]['user_id']), $conditions));
-		
-		$this->deleteAll($conditions, FALSE);
+		$this->deleteExpired(empty($this->data[$this->alias]['user_id']) ? NULL : $this->data[$this->alias]['user_id']);
 		
 		return TRUE;
 	}
