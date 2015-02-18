@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Token model
  *
@@ -25,10 +24,45 @@
  * @package		MeTools\Model
  */
 
+App::uses('MeToolsAppModel', 'MeTools.Model');
+
 /**
- * Token model
+ * Token Model
+ * @property User $User
  */
 class Token extends MeToolsAppModel {
+	/**
+	 * Validation rules
+	 * @var array
+	 */
+	public $validate = array(
+		'id' => array(
+			'blankOnCreate' => array(
+				'message'	=> 'Can not be changed',
+				'on'		=> 'create',
+				'rule'		=> 'blank'
+			)
+		),
+		'user_id' => array(
+			'allowEmpty'	=> TRUE,
+			'message'		=> 'You have to select an option',
+			'rule'			=> array('naturalNumber')
+		),
+		'type' => array(
+			'allowEmpty'	=> TRUE,
+			'message'		=> 'Must be at most %d chars',
+			'rule'			=> array('maxLength', 255)
+		),
+		'token' => array(
+			'message'	=> 'Must be at most %d chars',
+			'rule'		=> array('maxLength', 255)
+		),
+		'expiry' => array(
+			'message'	=> 'Must be a valid datetime',
+			'rule'		=> array('datetime')
+		),
+	);
+	
 	/**
 	 * Called after every deletion operation.
 	 */
