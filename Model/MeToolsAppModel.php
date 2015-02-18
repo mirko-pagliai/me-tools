@@ -47,5 +47,5 @@ class MeToolsAppModel extends Model {
 	 * Validation domain
 	 * @var string 
 	 */
-	public $validationDomain = 'validation_errors';
+	public $validationDomain = 'validation_me_tools';
 }
