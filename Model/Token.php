@@ -55,7 +55,7 @@ class Token extends MeToolsAppModel {
 		),
 		'token' => array(
 			'message'	=> 'Must be at most %d chars',
-			'rule'		=> array('maxLength', 255)
+			'rule'		=> array('maxLength', 25)
 		),
 		'expiry' => array(
 			'message'	=> 'Must be a valid datetime',
@@ -74,9 +74,21 @@ class Token extends MeToolsAppModel {
 	/**
 	 * Executes after model validation and before the data is saved.
 	 * @param array $options Options
-	 * @return boolean TRUE if the save operation should continue
+	 * @return boolean TRUE
 	 */
 	public function beforeSave($options = array()) {
+		parent::beforeSave($options);
+		
+		//Token hash
+		if(!empty($this->data[$this->alias]['token'])) {
+			$this->data[$this->alias]['token'] = Security::hash($this->data[$this->alias]['token'], 'sha1', TRUE);
+			$this->data[$this->alias]['token'] = substr($this->data[$this->alias]['token'], 0, 25);
+		}
+		
+		//Expiry, default 12 hours
+		if(empty($this->data[$this->alias]['expiry']))
+			$this->data[$this->alias]['expiry'] = CakeTime::format('+12 hours', '%Y-%m-%d %H:%M:%S');
+		
 		//Deletes all expired tokens
 		$conditions = array('expiry <=' => CakeTime::format(time(), '%Y-%m-%d %H:%M:%S'));
 		
