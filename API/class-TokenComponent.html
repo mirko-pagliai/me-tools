@@ -194,7 +194,7 @@ Component
 				<a href="http://www.gnu.org/licenses/agpl.txt">AGPL License</a><br>
 				<b>Author:</b>
 				Mirko Pagliai <a href="&#109;&#97;&#x69;&#x6c;&#116;&#111;&#x3a;&#x6d;&#105;&#114;&#x6b;&#x6f;&#46;&#112;&#x61;&#x67;l&#105;&#x61;&#x69;&#64;&#103;&#109;&#x61;&#x69;&#108;&#46;&#x63;&#x6f;&#109;">&#x6d;&#105;&#114;&#x6b;&#x6f;&#46;&#112;&#x61;&#x67;l&#105;&#x61;&#x69;&#64;&#103;&#109;&#x61;&#x69;&#108;&#46;&#x63;&#x6f;&#109;</a><br>
-			<b>Located at</b> <a href="source-class-TokenComponent.html#29-119" title="Go to source code">Component/TokenComponent.php</a>
+			<b>Located at</b> <a href="source-class-TokenComponent.html#28-81" title="Go to source code">Component/TokenComponent.php</a>
 		<br>
 	</div>
 
@@ -214,14 +214,16 @@ Component
 
 		<td class="name"><div>
 		<a class="anchor" href="#___construct">#</a>
-		<code><a href="source-class-TokenComponent.html#33-41" title="Go to source code">__construct</a>( <span>ComponentCollection <var>$collection</var></span>, <span>array <var>$settings</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-TokenComponent.html#32-43" title="Go to source code">__construct</a>( <span>ComponentCollection <var>$collection</var></span>, <span>array <var>$settings</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
-			<p>Construct. It loads the Token model.</p>
+			<p>Construct.</p>
 		</div>
 
 		<div class="description detailed hidden">
-			<p>Construct. It loads the Token model.</p>
+			<p>Construct.</p>
+
+<p>It loads the <code>Token</code> model.</p>
 
 
 				<h4>Parameters</h4>
@@ -239,68 +241,19 @@ Component
 		</div>
 		</div></td>
 	</tr>
-	<tr data-order="_createToken" id="__createToken">
-
-		<td class="attributes"><code>
-			 private 
-
-			string
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#__createToken">#</a>
-		<code><a href="source-class-TokenComponent.html#43-59" title="Go to source code">_createToken</a>( <span>string <var>$salt</var> = <span class="php-keyword1">NULL</span></span>, <span>integer <var>$maxLenght</var> = <span class="php-num">25</span></span>, <span>string <var>$method</var>,…</span> )</code>
-
-		<div class="description short">
-			<p>Creates a token. Internal function.</p>
-		</div>
-
-		<div class="description detailed hidden">
-			<p>Creates a token. Internal function.</p>
-
-<p>If the salt is empty, it will use the current timestamp.</p>
-
-
-				<h4>Parameters</h4>
-				<div class="list"><dl>
-					<dt><var>$salt</var></dt>
-					<dd>Salt to use to generate the token</dd>
-					<dt><var>$maxLenght</var></dt>
-					<dd>Maximum length of the token</dd>
-					<dt><var>$method</var>,…</dt>
-					<dd>Method to use (sha1/sha256/md5/blowfish)</dd>
-				</dl></div>
-
-				<h4>Returns</h4>
-				<div class="list">
-					string<br>Token
-				</div>
-
-
-				<h4>Used by</h4>
-				<div class="list">
-						<code><a href="class-TokenComponent.html#_create">TokenComponent::create()</a></code><br>to create the token<br>
-				</div>
-
-
-		</div>
-		</div></td>
-	</tr>
 	<tr data-order="check" id="_check">
 
 		<td class="attributes"><code>
 			 public 
 
-			mixed
+			boolean
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_check">#</a>
-		<code><a href="source-class-TokenComponent.html#61-83" title="Go to source code">check</a>( <span>string <var>$token</var></span>, <span>string <var>$type</var></span>, <span>integer <var>$user_id</var> = <span class="php-num">0</span></span> )</code>
+		<code><a href="source-class-TokenComponent.html#45-55" title="Go to source code">check</a>( <span>string <var>$token</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			<p>Checks if a token exists.</p>
@@ -309,22 +262,18 @@ Component
 		<div class="description detailed hidden">
 			<p>Checks if a token exists.</p>
 
-<p>If the user ID is empty or 0, it will check for a token that is not related to a user.</p>
-
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
 					<dt><var>$token</var></dt>
-					<dd>The token</dd>
-					<dt><var>$type</var></dt>
-					<dd>Type of the token</dd>
-					<dt><var>$user_id</var></dt>
-					<dd>User ID, otherwise 0 if the token is not related to a user</dd>
+					<dd>Token</dd>
+					<dt><var>$options</var></dt>
+					<dd>Options (<code>data</code>, <code>expiry</code>, <code>type</code> and <code>user_id</code>)</dd>
 				</dl></div>
 
 				<h4>Returns</h4>
 				<div class="list">
-					mixed<br>The token ID if the token exists, otherwise FALSE
+					boolean
 				</div>
 
 
@@ -345,7 +294,7 @@ Component
 
 		<td class="name"><div>
 		<a class="anchor" href="#_create">#</a>
-		<code><a href="source-class-TokenComponent.html#85-109" title="Go to source code">create</a>( <span>string <var>$salt</var></span>, <span>string <var>$type</var></span>, <span>integer <var>$user_id</var> = <span class="php-num">0</span></span>, <span>string <var>$expiration</var> = <span class="php-keyword1">NULL</span></span> )</code>
+		<code><a href="source-class-TokenComponent.html#57-71" title="Go to source code">create</a>( <span>string <var>$salt</var> = <span class="php-keyword1">NULL</span></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			<p>Creates and saves a token.</p>
@@ -354,21 +303,15 @@ Component
 		<div class="description detailed hidden">
 			<p>Creates and saves a token.</p>
 
-<p>If the salt is empty, it will use the current timestamp.
-If the user ID is empty or 0, it will create a token that is not related to a user.
-If the expiration is empty, will be set to 12 hours.</p>
+<p>If the salt is empty, it will use the current timestamp.</p>
 
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
 					<dt><var>$salt</var></dt>
 					<dd>Salt to use to generate the token</dd>
-					<dt><var>$type</var></dt>
-					<dd>Type of the token</dd>
-					<dt><var>$user_id</var></dt>
-					<dd>User ID, otherwise 0 if the token is not related to a user</dd>
-					<dt><var>$expiration</var></dt>
-					<dd>Expiration, strftime compatible formatting</dd>
+					<dt><var>$options</var></dt>
+					<dd>Options (<code>data</code>, <code>expiry</code>, <code>type</code> and <code>user_id</code>)</dd>
 				</dl></div>
 
 				<h4>Returns</h4>
@@ -380,10 +323,6 @@ If the expiration is empty, will be set to 12 hours.</p>
 				<h4>See</h4>
 				<div class="list">
 						http://php.net/strftime strftime documentation<br>
-				</div>
-				<h4>Uses</h4>
-				<div class="list">
-						<code><a href="class-TokenComponent.html#__createToken">TokenComponent::_createToken()</a></code><br>to create the token<br>
 				</div>
 
 
@@ -402,25 +341,25 @@ If the expiration is empty, will be set to 12 hours.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_delete">#</a>
-		<code><a href="source-class-TokenComponent.html#111-118" title="Go to source code">delete</a>( <span>integer <var>$id</var></span> )</code>
+		<code><a href="source-class-TokenComponent.html#73-80" title="Go to source code">delete</a>( <span>string <var>$token</var></span> )</code>
 
 		<div class="description short">
-			<p>Deletes a token</p>
+			<p>Deletes a token.</p>
 		</div>
 
 		<div class="description detailed hidden">
-			<p>Deletes a token</p>
+			<p>Deletes a token.</p>
 
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
-					<dt><var>$id</var></dt>
-					<dd>Token id</dd>
+					<dt><var>$token</var></dt>
+					<dd>Token</dd>
 				</dl></div>
 
 				<h4>Returns</h4>
 				<div class="list">
-					boolean<br>TRUE on success
+					boolean
 				</div>
 
 
