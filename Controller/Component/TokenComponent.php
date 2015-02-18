@@ -43,21 +43,6 @@ class TokenComponent extends Component {
 	}
 	
 	/**
-	 * Creates a token. Internal function.
-	 * 
-	 * If the salt is empty, it will use the current timestamp.
-	 * @param string $salt Salt to use to generate the token
-	 * @param int $maxLenght Maximum length of the token
-	 * @return string Token
-	 */
-	protected function _createToken($salt = NULL, $maxLenght = 25) {
-		$token = Security::hash(empty($salt) ? time() : $salt, 'sha1', TRUE);
-		
-		//Truncates the token, if it's longer than the maximum length
-		return strlen($token) > $maxLenght ? substr($token, 0, $maxLenght) : $token;
-	}
-	
-	/**
 	 * Checks if a token exists.
 	 * 
 	 * If the user ID is empty or 0, it will check for a token that is not related to a user.
@@ -89,15 +74,12 @@ class TokenComponent extends Component {
 	 * @param array $options Options (`data`, `expiry`, `type` and `user_id`)
 	 * @return mixed The token value on success, otherwise FALSE
 	 * @see http://php.net/strftime strftime documentation
-	 * @uses _createToken() to create the token
 	 */
 	public function create($salt = NULL, $options = array()) {
-		$options['expiry'] = CakeTime::format(empty($options['expiry']) ? '+12 hours' : $options['expiry'], '%Y-%m-%d %H:%M:%S');
+		//Saves the token
+		$save = $this->Token->save(am(array('token' => empty($salt) ? time() : $salt), $options));
 		
-		$this->Token->create();
-		$save = $this->Token->save(am(array('token'	=> $token = self::_createToken($salt)), $options));
-		
-		return $save ? $token : FALSE;
+		return $save['Token']['token'] ? $save['Token']['token'] : FALSE;
 	}
 	
 	/**
