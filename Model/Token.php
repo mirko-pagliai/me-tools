@@ -32,6 +32,12 @@ App::uses('MeToolsAppModel', 'MeTools.Model');
  */
 class Token extends MeToolsAppModel {
 	/**
+	 * Find methods
+	 * @var array
+	 */
+    public $findMethods = array('active' => TRUE);
+	
+	/**
 	 * Validation rules
 	 * @var array
 	 */
@@ -62,6 +68,28 @@ class Token extends MeToolsAppModel {
 			'rule'		=> array('datetime')
 		),
 	);
+	
+	/**
+	 * "Active" find method. It finds for active records.
+	 * @param string $state Either "before" or "after"
+	 * @param array $query
+	 * @param array $results
+	 * @return mixed Query or results
+	 */
+	protected function _findActive($state, $query, $results = array()) {
+		if($state === 'before') {
+			//Only unexpired tokens
+			$query['conditions']['expiry >'] = CakeTime::format(time(), '%Y-%m-%d %H:%M:%S');
+			$query['limit'] = 1;
+			
+			return $query;
+		}
+		
+		if($query['limit'] === 1 && !empty($results[0]))
+			return $results[0];
+		
+        return $results;
+    }
 	
 	/**
 	 * Deletes all expired tokens, based on the date and the same user
