@@ -1,5 +1,8 @@
 # 1.x branch
 ## 1.2 branch
+### 1.2.1
+* the `Token` component and model have been entirely rewritten.
+
 ### 1.2.0
 * updated Font Awesome to 4.3.0 version;
 * support for FancyBox;
