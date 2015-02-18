@@ -72,10 +72,10 @@ class TokenComponent extends Component {
 	
 	/**
 	 * Deletes a token.
-	 * @param int $id Token ID
+	 * @param string $token Token
 	 * @return boolean
 	 */
-	public function delete($id) {
-		return $this->Token->delete($id);
+	public function delete($token) {
+		return $this->Token->deleteAll(compact('token'));
 	}
 }
