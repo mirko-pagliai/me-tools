@@ -107,7 +107,7 @@ form input[type='checkbox'] + label:before {
 	font-family: FontAwesome;
 	font-size: 18px;
 	font-weight: normal;
-	margin-right: 4px;
+	margin-right: 5px;
     vertical-align: middle;
 }
 
@@ -115,6 +115,7 @@ form input[type='checkbox'] + label:before {
 form input[type='checkbox']:checked + label:before {
 	color: inherit;
 	content: "\f046";
+	margin-right: 2px;
 }
 
 /* Disabled checkbox */
