@@ -41,7 +41,7 @@ class LibraryHelper extends AppHelper {
      * It will contain the output code
      * @var array 
      */
-    private $output = array();
+    protected $output = array();
 	
 	/**
 	 * Internal function to generate datepicker and timepicker.
@@ -94,16 +94,27 @@ class LibraryHelper extends AppHelper {
             }, $this->output);
 			
 			$this->Html->scriptBlock(sprintf('$(function() {%s});', PHP_EOL.implode('', $this->output)), array('block' => 'script_bottom'));
-        }
+        
+			//Resets output
+			$this->output = array();
+		}
+		
     }
 	
 	/**
 	 * Create a script block for Google Analytics.
 	 * @param string $id Analytics ID
+	 * @param array $options Options
+	 * @return boolean
 	 * @uses output
 	 */
-	public function analytics($id) {		
-        $this->output[] = sprintf('!function(e,a,t,n,c,o,s){e.GoogleAnalyticsObject=c,e[c]=e[c]||function(){(e[c].q=e[c].q||[]).push(arguments)},e[c].l=1*new Date,o=a.createElement(t),s=a.getElementsByTagName(t)[0],o.async=1,o.src=n,s.parentNode.insertBefore(o,s)}(window,document,"script","//www.google-analytics.com/analytics.js","ga"),ga("create","%s","auto"),ga("send","pageview");', $id);
+	public function analytics($id = NULL, $options = array()) {
+		if(empty($id))
+			return FALSE;
+		
+		$options = $this->Html->_addOptionDefault('block', 'script_bottom', $options);
+		
+		return $this->Html->scriptBlock(sprintf('!function(e,a,t,n,c,o,s){e.GoogleAnalyticsObject=c,e[c]=e[c]||function(){(e[c].q=e[c].q||[]).push(arguments)},e[c].l=1*new Date,o=a.createElement(t),s=a.getElementsByTagName(t)[0],o.async=1,o.src=n,s.parentNode.insertBefore(o,s)}(window,document,"script","//www.google-analytics.com/analytics.js","ga"),ga("create","%s","auto"),ga("send","pageview");', $id), $options);
 	}
 
     /**
