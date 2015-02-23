@@ -1,5 +1,4 @@
 <?php
-
 /**
  * RecaptchaHelper
  *
@@ -23,9 +22,10 @@
  * @license		http://www.gnu.org/licenses/agpl.txt AGPL License
  * @link		http://git.novatlantis.it Nova Atlantis Ltd
  * @package		MeTools\View\Helper
- * @see			http://developers.google.com/recaptcha/docs/php reCAPTCHA PHP library
- * @see			http://www.google.com/recaptcha/mailhide/apikey reCAPTCHA mail keys
+ * @see			https://www.google.com/recaptcha reCAPTCHA site
+ * @see			http://www.google.com/recaptcha/mailhide/apikey reCAPTCHA for mails
  */
+
 App::uses('AppHelper', 'View/Helper');
 App::import('Vendor', 'MeTools.Recaptcha/recaptchalib');
 
@@ -37,30 +37,16 @@ App::import('Vendor', 'MeTools.Recaptcha/recaptchalib');
  */
 class RecaptchaHelper extends AppHelper {
     /**
-     * Mail keys
+	 * reCAPTCHA mail keys
      * @var array
      */
-    private $mail_keys = FALSE;
+    private $mail_keys = array();
 
     /**
      * Helpers
      * @var array
      */
     public $helpers = array('Html' => array('className' => 'MeTools.MeHtml'));
-
-	/**
-	 * Obfuscates an email address
-	 * @param string $mail Mail address
-	 * @return string Mail address obfuscated
-	 * @see http://stackoverflow.com/a/20545505/1480263
-	 */
-	private function obfuscate($mail) {
-		$mail = explode("@", $mail);
-		$name = implode(array_slice($mail, 0, count($mail) - 1), '@');
-		$lenght  = floor(strlen($name) / 2);
-
-		return substr($name, 0, $lenght).str_repeat('*', $lenght)."@".end($mail);
-	}
 	
     /**
      * Construct
@@ -71,20 +57,23 @@ class RecaptchaHelper extends AppHelper {
     public function __construct(View $View, $settings = array()) {
         Configure::load('recaptcha');
 
-        $keys = $this->mail_keys = array(
-           'pub'    => Configure::read('Recaptcha.Mail.Public_key'),
-           'priv'   => Configure::read('Recaptcha.Mail.Private_key')
-        );
-
-        if(empty($keys['pub']) || empty($keys['priv']))
-            throw new InternalErrorException(__d('me_tools', 'Mail keys are not configured'));
-
-        //Checks if the private mail key is valid (hexadecimal digits)
-        if(!ctype_xdigit($keys['priv']))
-            throw new InternalErrorException(__d('me_tools', 'The private mail key is not valid'));
+		$this->mail_keys = Configure::read('Recaptcha.Mail');
 
         parent::__construct($View, $settings);
     }
+
+	/**
+	 * Obfuscates an email address.
+	 * @param string $mail Mail address
+	 * @return string Mail address obfuscated
+	 * @see http://stackoverflow.com/a/20545505/1480263
+	 */
+	private function obfuscate($mail) {
+		$name = implode(array_slice($mail = explode("@", $mail), 0, count($mail) - 1), '@');
+		$lenght  = floor(strlen($name) / 2);
+
+		return substr($name, 0, $lenght).str_repeat('*', $lenght)."@".end($mail);
+	}
 
     /**
      * Alias for `mailLink()` method
@@ -100,32 +89,37 @@ class RecaptchaHelper extends AppHelper {
      * @param string $mail Email to hide
 	 * @param array $options Array of options and HTML attributes
      * @return string Html code
-     * @uses mailUrl()
 	 * @uses obfuscate()
+     * @uses mailUrl()
      * @uses MeHtmlHelper::link()
-     */
+	 */
     public function mailLink($title, $mail = NULL, $options = array()) {
-		if(empty($mail))
-			$title = $this->obfuscate($mail = $title);
-		
+		$title = empty($mail) ? $this->obfuscate($mail = $title) : $title;
         $link = self::mailUrl($mail);
 
-        //Adds the "onclick" options, that allows to open the link in a popup
-        $options['onclick'] = sprintf("window.open('%s', '', 'toolbar=0,scrollbars=0,location=0,statusbar=0,menubar=0,resizable=0,width=500,height=300'); return false;", $link);
-
+		$options = $this->Html->_addOptionValue('onclick', sprintf("window.open('%s', '', 'toolbar=0,scrollbars=0,location=0,statusbar=0,menubar=0,resizable=0,width=500,height=300'); return false;", $link), $options);
+		
         return $this->Html->link($title, $link, $options);
     }
 
-    /**
+	/**
      * Gets the url for an hidden email. 
      * 
      * This method will only return a url. If you want to create a link, you should use the `mailLink()` method
      * @param string $mail Email to hide
      * @return string Url
-     * @see mailLink()
+	 * @throws InternalErrorException
      * @uses mail_keys
-     */
+	 */
     public function mailUrl($mail) {
-        return !empty($this->mail_keys) ? recaptcha_mailhide_url($this->mail_keys['pub'], $this->mail_keys['priv'], $mail) : NULL;
+		//Checks for mail keys
+        if(empty($this->mail_keys['public']) || empty($this->mail_keys['private']))
+            throw new InternalErrorException(__d('me_tools', 'Mail keys are not configured'));
+
+        //Checks if the private mail key is valid (hexadecimal digits)
+        if(!ctype_xdigit($this->mail_keys['private']))
+            throw new InternalErrorException(__d('me_tools', 'The private mail key is not valid'));
+		
+        return recaptcha_mailhide_url($this->mail_keys['public'], $this->mail_keys['private'], $mail);
     }
 }

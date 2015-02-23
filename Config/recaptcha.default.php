@@ -1,22 +1,33 @@
 <?php
-
 /**
  * Before using Recaptcha, you have to get keys:
- * http://www.google.com/recaptcha
+ * https://www.google.com/recaptcha
+ * 
  * When you have keys, set them below and RENAME THIS FILE in "recaptcha.php".
- * Remember: keys for the site and keys form emails ARE DIFFERENT.
+ * Remember: keys for forms and keys for emails ARE DIFFERENT.
  */
+
 $config = array(
    'Recaptcha' => array(
+	   /**
+	    * Form keys.
+	    * You can get these keys here: https://www.google.com/recaptcha/admin
+	    */
+	   'Form' => array(
+         //Form public key
+         'public' => 'your-public-key-here',
+         //Form private key
+         'private' => 'your-private-key-here'
+	   ),
       /**
        * Mail keys.
        * You can get these keys here: http://www.google.com/recaptcha/mailhide/apikey
        */
       'Mail' => array(
          //Mail public key
-         'Public_key' => 'your-public-key-here',
+         'public' => 'your-public-key-here',
          //Mail private key
-         'Private_key' => 'your-private-key-here'
+         'private' => 'your-private-key-here'
       )
    )
 );
