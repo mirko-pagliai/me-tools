@@ -170,7 +170,7 @@ You can use as example the file <code>app/Plugin/MeTools/Config/recaptcha.defaul
 
 	<dl class="tree">
 		<dd style="padding-left:0px">
-AppHelper
+Helper
 			
 			
 		</dd>
@@ -201,7 +201,7 @@ AppHelper
 				<a href="http://www.gnu.org/licenses/agpl.txt">AGPL License</a><br>
 				<b>Author:</b>
 				Mirko Pagliai <a href="&#109;&#97;&#x69;&#x6c;&#116;&#111;&#x3a;&#x6d;&#105;&#114;&#x6b;&#x6f;&#46;&#112;&#x61;&#x67;l&#105;&#x61;&#x69;&#64;&#103;&#109;&#x61;&#x69;&#108;&#46;&#x63;&#x6f;&#109;">&#x6d;&#105;&#114;&#x6b;&#x6f;&#46;&#112;&#x61;&#x67;l&#105;&#x61;&#x69;&#64;&#103;&#109;&#x61;&#x69;&#108;&#46;&#x63;&#x6f;&#109;</a><br>
-			<b>Located at</b> <a href="source-class-RecaptchaHelper.html#32-131" title="Go to source code">RecaptchaHelper.php</a>
+			<b>Located at</b> <a href="source-class-RecaptchaHelper.html#31-163" title="Go to source code">RecaptchaHelper.php</a>
 		<br>
 	</div>
 
@@ -209,53 +209,6 @@ AppHelper
 
 	<table class="summary methods" id="methods">
 	<caption>Methods summary</caption>
-	<tr data-order="obfuscate" id="_obfuscate">
-
-		<td class="attributes"><code>
-			 private 
-
-			string
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_obfuscate">#</a>
-		<code><a href="source-class-RecaptchaHelper.html#51-63" title="Go to source code">obfuscate</a>( <span>string <var>$mail</var></span> )</code>
-
-		<div class="description short">
-			<p>Obfuscates an email address</p>
-		</div>
-
-		<div class="description detailed hidden">
-			<p>Obfuscates an email address</p>
-
-
-				<h4>Parameters</h4>
-				<div class="list"><dl>
-					<dt><var>$mail</var></dt>
-					<dd>Mail address</dd>
-				</dl></div>
-
-				<h4>Returns</h4>
-				<div class="list">
-					string<br>Mail address obfuscated
-				</div>
-
-
-				<h4>See</h4>
-				<div class="list">
-						http://stackoverflow.com/a/20545505/1480263<br>
-				</div>
-				<h4>Used by</h4>
-				<div class="list">
-						<code><a href="class-RecaptchaHelper.html#_mailLink">RecaptchaHelper::mailLink()</a></code><br>
-				</div>
-
-
-		</div>
-		</div></td>
-	</tr>
 	<tr data-order="__construct" id="___construct">
 
 		<td class="attributes"><code>
@@ -268,7 +221,7 @@ AppHelper
 
 		<td class="name"><div>
 		<a class="anchor" href="#___construct">#</a>
-		<code><a href="source-class-RecaptchaHelper.html#65-87" title="Go to source code">__construct</a>( <span>View <var>$View</var></span>, <span>array <var>$settings</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-RecaptchaHelper.html#56-73" title="Go to source code">__construct</a>( <span>View <var>$View</var></span>, <span>array <var>$settings</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			<p>Construct</p>
@@ -297,6 +250,102 @@ AppHelper
 		</div>
 		</div></td>
 	</tr>
+	<tr data-order="_obfuscate" id="__obfuscate">
+
+		<td class="attributes"><code>
+			 protected 
+
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#__obfuscate">#</a>
+		<code><a href="source-class-RecaptchaHelper.html#75-86" title="Go to source code">_obfuscate</a>( <span>string <var>$mail</var></span> )</code>
+
+		<div class="description short">
+			<p>Internal function to obfuscate an email address.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Internal function to obfuscate an email address.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$mail</var></dt>
+					<dd>Mail address</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					string<br>Mail address obfuscated
+				</div>
+
+
+				<h4>See</h4>
+				<div class="list">
+						http://stackoverflow.com/a/20545505/1480263<br>
+				</div>
+				<h4>Used by</h4>
+				<div class="list">
+						<code><a href="class-RecaptchaHelper.html#_mailLink">RecaptchaHelper::mailLink()</a></code><br>
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="display" id="_display">
+
+		<td class="attributes"><code>
+			 public 
+
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_display">#</a>
+		<code><a href="source-class-RecaptchaHelper.html#88-106" title="Go to source code">display</a>( <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span>, <span>array <var>$optionsScript</var> = <span class="php-keyword1">array</span>()</span> )</code>
+
+		<div class="description short">
+			<p>Displays the reCAPTCHA widget</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Displays the reCAPTCHA widget</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$options</var></dt>
+					<dd>reCAPTCHA widget options</dd>
+					<dt><var>$optionsScript</var></dt>
+					<dd>Script option</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					string<br>Html
+				</div>
+
+				<h4>Throws</h4>
+				<div class="list">
+					InternalErrorException
+				</div>
+
+				<h4>See</h4>
+				<div class="list">
+						https://developers.google.com/recaptcha/docs/display#config reCAPTCHA widget options<br>
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
 	<tr data-order="mail" id="_mail">
 
 		<td class="attributes"><code>
@@ -309,7 +358,7 @@ AppHelper
 
 		<td class="name"><div>
 		<a class="anchor" href="#_mail">#</a>
-		<code><a href="source-class-RecaptchaHelper.html#89-95" title="Go to source code">mail</a>( )</code>
+		<code><a href="source-class-RecaptchaHelper.html#108-114" title="Go to source code">mail</a>( )</code>
 
 		<div class="description short">
 			<p>Alias for <code>mailLink()</code> method</p>
@@ -343,7 +392,7 @@ AppHelper
 
 		<td class="name"><div>
 		<a class="anchor" href="#_mailLink">#</a>
-		<code><a href="source-class-RecaptchaHelper.html#97-117" title="Go to source code">mailLink</a>( <span>string <var>$title</var></span>, <span>string <var>$mail</var> = <span class="php-keyword1">NULL</span></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-RecaptchaHelper.html#116-133" title="Go to source code">mailLink</a>( <span>string <var>$title</var></span>, <span>string <var>$mail</var> = <span class="php-keyword1">NULL</span></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			<p>Creates an HTML link for an hidden email. The link will be open in a popup.</p>
@@ -371,8 +420,8 @@ AppHelper
 
 				<h4>Uses</h4>
 				<div class="list">
+						<code><a href="class-RecaptchaHelper.html#__obfuscate">RecaptchaHelper::_obfuscate()</a></code><br>
 						<code><a href="class-RecaptchaHelper.html#_mailUrl">RecaptchaHelper::mailUrl()</a></code><br>
-						<code><a href="class-RecaptchaHelper.html#_obfuscate">RecaptchaHelper::obfuscate()</a></code><br>
 						<code><a href="class-MeHtmlHelper.html#_link">MeHtmlHelper::link()</a></code><br>
 				</div>
 
@@ -392,7 +441,7 @@ AppHelper
 
 		<td class="name"><div>
 		<a class="anchor" href="#_mailUrl">#</a>
-		<code><a href="source-class-RecaptchaHelper.html#119-130" title="Go to source code">mailUrl</a>( <span>string <var>$mail</var></span> )</code>
+		<code><a href="source-class-RecaptchaHelper.html#135-154" title="Go to source code">mailUrl</a>( <span>string <var>$mail</var></span> )</code>
 
 		<div class="description short">
 			<p>Gets the url for an hidden email.</p>
@@ -415,11 +464,11 @@ AppHelper
 					string<br>Url
 				</div>
 
-
-				<h4>See</h4>
+				<h4>Throws</h4>
 				<div class="list">
-						<code><a href="class-RecaptchaHelper.html#_mailLink">RecaptchaHelper::mailLink()</a></code><br>
+					InternalErrorException
 				</div>
+
 				<h4>Uses</h4>
 				<div class="list">
 						<code><a href="class-RecaptchaHelper.html#$mail_keys">RecaptchaHelper::<var>$mail_keys</var></a></code><br>
@@ -427,6 +476,40 @@ AppHelper
 				<h4>Used by</h4>
 				<div class="list">
 						<code><a href="class-RecaptchaHelper.html#_mailLink">RecaptchaHelper::mailLink()</a></code><br>
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="recaptcha" id="_recaptcha">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_recaptcha">#</a>
+		<code><a href="source-class-RecaptchaHelper.html#156-162" title="Go to source code">recaptcha</a>( )</code>
+
+		<div class="description short">
+			<p>Alias for <code>display()</code> method</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Alias for <code>display()</code> method</p>
+
+
+
+
+
+				<h4>See</h4>
+				<div class="list">
+						<code><a href="class-RecaptchaHelper.html#_display">RecaptchaHelper::display()</a></code><br>
 				</div>
 
 
@@ -448,6 +531,31 @@ AppHelper
 
 	<table class="summary properties" id="properties">
 	<caption>Properties summary</caption>
+	<tr data-order="keys" id="$keys">
+		<td class="attributes"><code>
+			private  
+			array
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-RecaptchaHelper.html#38-42" title="Go to source code"><var>$keys</var></a>
+
+			<div class="description short">
+				<p>reCAPTCHA form keys</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>reCAPTCHA form keys</p>
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$keys" class="anchor">#</a>
+				<code><span class="php-keyword1">array</span>()</code>
+			</div>
+		</td>
+	</tr>
 	<tr data-order="mail_keys" id="$mail_keys">
 		<td class="attributes"><code>
 			private  
@@ -455,14 +563,14 @@ AppHelper
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-RecaptchaHelper.html#39-43" title="Go to source code"><var>$mail_keys</var></a>
+				<a href="source-class-RecaptchaHelper.html#44-48" title="Go to source code"><var>$mail_keys</var></a>
 
 			<div class="description short">
-				<p>Mail keys</p>
+				<p>reCAPTCHA mail keys</p>
 			</div>
 
 			<div class="description detailed hidden">
-				<p>Mail keys</p>
+				<p>reCAPTCHA mail keys</p>
 
 					<h4>Used by</h4>
 					<div class="list">
@@ -474,7 +582,7 @@ AppHelper
 		<td class="value">
 			<div>
 				<a href="#$mail_keys" class="anchor">#</a>
-				<code><span class="php-keyword1">FALSE</span></code>
+				<code><span class="php-keyword1">array</span>()</code>
 			</div>
 		</td>
 	</tr>
@@ -485,7 +593,7 @@ AppHelper
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-RecaptchaHelper.html#45-49" title="Go to source code"><var>$helpers</var></a>
+				<a href="source-class-RecaptchaHelper.html#50-54" title="Go to source code"><var>$helpers</var></a>
 
 			<div class="description short">
 				<p>Helpers</p>

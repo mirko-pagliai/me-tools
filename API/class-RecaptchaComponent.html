@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 
-	<title>Class TokenComponent | MeTools API</title>
+	<title>Class RecaptchaComponent | MeTools API</title>
 
 	<link rel="stylesheet" href="resources/style.css?e99947befd7bf673c6b43ff75e9e0f170c88a60e">
 
@@ -112,8 +112,8 @@
 			<ul>
 				<li><a href="class-MeSecurityComponent.html">MeSecurityComponent</a></li>
 				<li><a href="class-MeSessionComponent.html">MeSessionComponent</a></li>
-				<li><a href="class-RecaptchaComponent.html">RecaptchaComponent</a></li>
-				<li class="active"><a href="class-TokenComponent.html">TokenComponent</a></li>
+				<li class="active"><a href="class-RecaptchaComponent.html">RecaptchaComponent</a></li>
+				<li><a href="class-TokenComponent.html">TokenComponent</a></li>
 				<li><a href="class-XmlComponent.html">XmlComponent</a></li>
 			</ul>
 
@@ -155,11 +155,14 @@
 	</div>
 
 <div id="content" class="class">
-	<h1>Class TokenComponent</h1>
+	<h1>Class RecaptchaComponent</h1>
 
 
 	<div class="description">
-	<p>A component to handle tokens.</p>
+	<p>A component to check for reCAPTCHA.</p>
+
+<p>Before using this comoonent, you have to configure keys in <code>app/Config/recaptcha.php</code>.
+You can use as example the file <code>app/Plugin/MeTools/Config/recaptcha.default.php</code>.</p>
 	</div>
 
 	<dl class="tree">
@@ -170,7 +173,7 @@ Component
 		</dd>
 		<dd style="padding-left:30px">
 			<img src="resources/inherit.png" alt="Extended by">
-<b><span>TokenComponent</span></b>			
+<b><span>RecaptchaComponent</span></b>			
 			
 			
 		</dd>
@@ -195,7 +198,7 @@ Component
 				<a href="http://www.gnu.org/licenses/agpl.txt">AGPL License</a><br>
 				<b>Author:</b>
 				Mirko Pagliai <a href="&#109;&#97;&#x69;&#x6c;&#116;&#111;&#x3a;&#x6d;&#105;&#114;&#x6b;&#x6f;&#46;&#112;&#x61;&#x67;l&#105;&#x61;&#x69;&#64;&#103;&#109;&#x61;&#x69;&#108;&#46;&#x63;&#x6f;&#109;">&#x6d;&#105;&#114;&#x6b;&#x6f;&#46;&#112;&#x61;&#x67;l&#105;&#x61;&#x69;&#64;&#103;&#109;&#x61;&#x69;&#108;&#46;&#x63;&#x6f;&#109;</a><br>
-			<b>Located at</b> <a href="source-class-TokenComponent.html#28-81" title="Go to source code">Component/TokenComponent.php</a>
+			<b>Located at</b> <a href="source-class-RecaptchaComponent.html#30-116" title="Go to source code">Component/RecaptchaComponent.php</a>
 		<br>
 	</div>
 
@@ -215,28 +218,70 @@ Component
 
 		<td class="name"><div>
 		<a class="anchor" href="#___construct">#</a>
-		<code><a href="source-class-TokenComponent.html#32-43" title="Go to source code">__construct</a>( <span>ComponentCollection <var>$collection</var></span>, <span>array <var>$settings</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-RecaptchaComponent.html#55-66" title="Go to source code">__construct</a>( <span>ComponentCollection <var>$collection</var></span>, <span>array <var>$settings</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
-			<p>Construct.</p>
+			<p>Constructor.</p>
 		</div>
 
 		<div class="description detailed hidden">
-			<p>Construct.</p>
-
-<p>It loads the <code>Token</code> model.</p>
+			<p>Constructor.</p>
 
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
 					<dt><var>$collection</var></dt>
-					<dd></dd>
+					<dd>A ComponentCollection this component can use to lazy load its components</dd>
 					<dt><var>$settings</var></dt>
-					<dd>Array of configuration settings</dd>
+					<dd>Array of configuration settings.</dd>
 				</dl></div>
 
 
 
+				<h4>Uses</h4>
+				<div class="list">
+						<code><a href="class-RecaptchaComponent.html#$error">RecaptchaComponent::<var>$error</var></a></code><br>
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="startup" id="_startup">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_startup">#</a>
+		<code><a href="source-class-RecaptchaComponent.html#68-86" title="Go to source code">startup</a>( <span>Controller <var>$controller</var></span> )</code>
+
+		<div class="description short">
+			<p>Is called after the controller's beforeFilter method but before the controller executes the current action handler.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Is called after the controller's beforeFilter method but before the controller executes the current action handler.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$controller</var></dt>
+					<dd></dd>
+				</dl></div>
+
+
+
+				<h4>Uses</h4>
+				<div class="list">
+						<code><a href="class-RecaptchaComponent.html#$controller">RecaptchaComponent::<var>$controller</var></a></code><br>
+						<code><a href="class-RecaptchaComponent.html#$keys">RecaptchaComponent::<var>$keys</var></a></code><br>
+				</div>
 
 
 		</div>
@@ -254,116 +299,33 @@ Component
 
 		<td class="name"><div>
 		<a class="anchor" href="#_check">#</a>
-		<code><a href="source-class-TokenComponent.html#45-55" title="Go to source code">check</a>( <span>string <var>$token</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-RecaptchaComponent.html#88-115" title="Go to source code">check</a>( )</code>
 
 		<div class="description short">
-			<p>Checks if a token exists.</p>
+			<p>Checks for reCAPTCHA.</p>
 		</div>
 
 		<div class="description detailed hidden">
-			<p>Checks if a token exists.</p>
+			<p>Checks for reCAPTCHA.</p>
 
 
-				<h4>Parameters</h4>
-				<div class="list"><dl>
-					<dt><var>$token</var></dt>
-					<dd>Token</dd>
-					<dt><var>$options</var></dt>
-					<dd>Options (<code>data</code>, <code>expiry</code>, <code>type</code> and <code>user_id</code>)</dd>
-				</dl></div>
 
 				<h4>Returns</h4>
 				<div class="list">
-					boolean
-				</div>
-
-
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="create" id="_create">
-
-		<td class="attributes"><code>
-			 public 
-
-			mixed
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_create">#</a>
-		<code><a href="source-class-TokenComponent.html#57-71" title="Go to source code">create</a>( <span>string <var>$salt</var> = <span class="php-keyword1">NULL</span></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
-
-		<div class="description short">
-			<p>Creates and saves a token.</p>
-		</div>
-
-		<div class="description detailed hidden">
-			<p>Creates and saves a token.</p>
-
-<p>If the salt is empty, it will use the current timestamp.</p>
-
-
-				<h4>Parameters</h4>
-				<div class="list"><dl>
-					<dt><var>$salt</var></dt>
-					<dd>Salt to use to generate the token</dd>
-					<dt><var>$options</var></dt>
-					<dd>Options (<code>data</code>, <code>expiry</code>, <code>type</code> and <code>user_id</code>)</dd>
-				</dl></div>
-
-				<h4>Returns</h4>
-				<div class="list">
-					mixed<br>The token value on success, otherwise FALSE
+					boolean<br>TRUE on success, otherwise FALSE
 				</div>
 
 
 				<h4>See</h4>
 				<div class="list">
-						http://php.net/strftime strftime documentation<br>
+						https://developers.google.com/recaptcha/docs/verify<br>
 				</div>
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="delete" id="_delete">
-
-		<td class="attributes"><code>
-			 public 
-
-			boolean
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_delete">#</a>
-		<code><a href="source-class-TokenComponent.html#73-80" title="Go to source code">delete</a>( <span>string <var>$token</var></span> )</code>
-
-		<div class="description short">
-			<p>Deletes a token.</p>
-		</div>
-
-		<div class="description detailed hidden">
-			<p>Deletes a token.</p>
-
-
-				<h4>Parameters</h4>
-				<div class="list"><dl>
-					<dt><var>$token</var></dt>
-					<dd>Token</dd>
-				</dl></div>
-
-				<h4>Returns</h4>
+				<h4>Uses</h4>
 				<div class="list">
-					boolean
+						<code><a href="class-RecaptchaComponent.html#$controller">RecaptchaComponent::<var>$controller</var></a></code><br>
+						<code><a href="class-RecaptchaComponent.html#$keys">RecaptchaComponent::<var>$keys</var></a></code><br>
+						HttpSocket::post()<br>
 				</div>
-
-
 
 
 		</div>
@@ -382,6 +344,98 @@ Component
 
 
 
+	<table class="summary properties" id="properties">
+	<caption>Properties summary</caption>
+	<tr data-order="controller" id="$controller">
+		<td class="attributes"><code>
+			protected  
+			object
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-RecaptchaComponent.html#37-41" title="Go to source code"><var>$controller</var></a>
+
+			<div class="description short">
+				<p>Controller</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Controller</p>
+
+					<h4>Used by</h4>
+					<div class="list">
+							<code><a href="class-RecaptchaComponent.html#_startup">RecaptchaComponent::startup()</a></code><br>
+							<code><a href="class-RecaptchaComponent.html#_check">RecaptchaComponent::check()</a></code><br>
+					</div>
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$controller" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="error" id="$error">
+		<td class="attributes"><code>
+			public  
+			string
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-RecaptchaComponent.html#43-47" title="Go to source code"><var>$error</var></a>
+
+			<div class="description short">
+				<p>Error</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Error</p>
+
+					<h4>Used by</h4>
+					<div class="list">
+							<code><a href="class-RecaptchaComponent.html#___construct">RecaptchaComponent::__construct()</a></code><br>
+					</div>
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$error" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="keys" id="$keys">
+		<td class="attributes"><code>
+			private  
+			array
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-RecaptchaComponent.html#49-53" title="Go to source code"><var>$keys</var></a>
+
+			<div class="description short">
+				<p>reCAPTCHA form keys</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>reCAPTCHA form keys</p>
+
+					<h4>Used by</h4>
+					<div class="list">
+							<code><a href="class-RecaptchaComponent.html#_startup">RecaptchaComponent::startup()</a></code><br>
+							<code><a href="class-RecaptchaComponent.html#_check">RecaptchaComponent::check()</a></code><br>
+					</div>
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$keys" class="anchor">#</a>
+				<code><span class="php-keyword1">array</span>()</code>
+			</div>
+		</td>
+	</tr>
+	</table>
 
 
 
