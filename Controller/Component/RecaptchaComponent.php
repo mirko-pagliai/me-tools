@@ -93,11 +93,11 @@ class RecaptchaComponent extends Component {
 	 * @uses keys
 	 * @uses HttpSocket::post()
 	 */
-	public function check() {
-		$response = $this->controller->request->data['g-recaptcha-response'];
-		
-		if(empty($response))
+	public function check() {		
+		if(empty($this->controller->request->data['g-recaptcha-response']))
 			return FALSE;
+		else
+			$response = $this->controller->request->data['g-recaptcha-response'];
 		
 		//Post request
 		$http = new HttpSocket();
