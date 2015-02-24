@@ -28,10 +28,6 @@ the `</body>` tag:
 			echo $this->fetch('script_bottom');
 		?>
 
-## Configuration
-Copy and rename `APP/Plugin/Config/recaptcha.default.php` in `APP/Config/recaptcha.php`,
-so configure Recaptha keys.
-
 ## Error views
 You can use the error views provided by MeTools copying them from `APP/Plugin/MeTools/View/Errors`
 to `APP/View/Errors`.
@@ -82,6 +78,8 @@ This will display the SQL dump only when available and only if the user is not u
 The `CompressShell` allows you to combine and compress css and js files.  
 See the [page](//github.com/mirko-pagliai/MeTools/wiki/Compress-Shell) on our wiki.
 
+## reCAPTCHA
+To use reCAPTCHA, see the [page](//github.com/mirko-pagliai/MeTools/wiki/reCAPTCHA) on our wiki.
 
 ## Libraries and script
 MeTools includes different libraries and scripts:
@@ -91,7 +89,7 @@ MeTools includes different libraries and scripts:
 - Font Awesome 4.3.0 ([site](http://fortawesome.github.com/Font-Awesome));
 - PHP Markdown 1.4.1 ([site](http://michelf.ca/projects/php-markdown));
 - reCAPTCHA PHP library 1.11 ([site](https://developers.google.com/recaptcha));
-- Bootstrap 3 Date/Time Picker v4 4.4.0 ([site](https://github.com/Eonasdan/bootstrap-datetimepicker));
+- Bootstrap 3 Date/Time Picker 4.4.0 ([site](https://github.com/Eonasdan/bootstrap-datetimepicker));
 - Moment.js 2.9.0 ([site](http://momentjs.com/)), with locales.
 
 ## CKEditor

@@ -82,6 +82,8 @@ Questo visualizzare il dump SQL solo quando disponibile e solo se l'utente non s
 La shell `CompressShell` permette di combinare e comprime file css e js.  
 Consulta la [pagina](//github.com/mirko-pagliai/MeTools/wiki/Compress-Shell) del nostro wiki.
 
+## reCAPTCHA
+Per usare reCAPTCHA, consulta la [pagina](//github.com/mirko-pagliai/MeTools/wiki/reCAPTCHA) del nostro wiki.
 
 ## Librerie e script
 MeTools include diverse librerie e script:
@@ -91,7 +93,7 @@ MeTools include diverse librerie e script:
 - Font Awesome 4.3.0 ([sito](http://fortawesome.github.com/Font-Awesome));
 - PHP Markdown 1.4.1 ([sito](http://michelf.ca/projects/php-markdown));
 - reCAPTCHA PHP library 1.11 ([sito](https://developers.google.com/recaptcha));
-- Bootstrap 3 Date/Time Picker v4 4.4.0 ([sito](https://github.com/Eonasdan/bootstrap-datetimepicker));
+- Bootstrap 3 Date/Time Picker 4.4.0 ([sito](https://github.com/Eonasdan/bootstrap-datetimepicker));
 - Moment.js 2.9.0 ([sito](http://momentjs.com/)), inclusi i "locales".
 
 ## CKEditor
