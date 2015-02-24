@@ -1,6 +1,7 @@
 # 1.x ramo
 ## 1.2 ramo
 ### 1.2.1
+* supporto completo per reCAPTCHA;
 * il componente e il modello `Token` sono stati interamente riscritti;
 * risolto un bug per il metodo `analytics()`;
 

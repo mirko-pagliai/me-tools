@@ -26,7 +26,6 @@
  * @see			http://www.google.com/recaptcha/mailhide/apikey reCAPTCHA for mails
  */
 
-App::uses('AppHelper', 'View/Helper');
 App::import('Vendor', 'MeTools.Recaptcha/recaptchalib');
 
 /**
@@ -35,7 +34,13 @@ App::import('Vendor', 'MeTools.Recaptcha/recaptchalib');
  * Before using this helper, you have to configure keys in `app/Config/recaptcha.php`.
  * You can use as example the file `app/Plugin/MeTools/Config/recaptcha.default.php`.
  */
-class RecaptchaHelper extends AppHelper {
+class RecaptchaHelper extends Helper {
+	/**
+	 * reCAPTCHA form keys
+	 * @var array Keys
+	 */
+	private $keys = array();
+	
     /**
 	 * reCAPTCHA mail keys
      * @var array
@@ -55,24 +60,49 @@ class RecaptchaHelper extends AppHelper {
      * @uses mail_keys
      */
     public function __construct(View $View, $settings = array()) {
-        Configure::load('recaptcha');
+		//Loads the configuration file
+		Configure::load('recaptcha');
+		
+		//Gets form keys
+		$this->keys = Configure::read('Recaptcha.Form');
 
+		//Gets mail keys
 		$this->mail_keys = Configure::read('Recaptcha.Mail');
 
         parent::__construct($View, $settings);
     }
 
 	/**
-	 * Obfuscates an email address.
+	 * Internal function to obfuscate an email address.
 	 * @param string $mail Mail address
 	 * @return string Mail address obfuscated
 	 * @see http://stackoverflow.com/a/20545505/1480263
 	 */
-	private function obfuscate($mail) {
+	protected function _obfuscate($mail) {
 		$name = implode(array_slice($mail = explode("@", $mail), 0, count($mail) - 1), '@');
 		$lenght  = floor(strlen($name) / 2);
 
 		return substr($name, 0, $lenght).str_repeat('*', $lenght)."@".end($mail);
+	}
+	
+	/**
+	 * Displays the reCAPTCHA widget
+	 * @param array $options reCAPTCHA widget options
+	 * @param array $optionsScript Script option
+	 * @return string Html
+	 * @throws InternalErrorException
+	 * @see https://developers.google.com/recaptcha/docs/display#config reCAPTCHA widget options
+	 */
+	public function display($options = array(), $optionsScript = array()) {
+		//Checks for form keys
+		if(empty($this->keys['public']) || empty($this->keys['private']))
+            throw new InternalErrorException(__d('me_tools', 'Form keys are not configured'));
+		
+		$optionsScript = $this->Html->_addOptionDefault('block', 'script_bottom', $optionsScript);
+		
+		$this->Html->js('https://www.google.com/recaptcha/api.js', am($optionsScript, array('async' => TRUE, 'defer' => TRUE)));
+		
+		return $this->Html->div('g-recaptcha', ' ', am($options, array('data-sitekey' => '6LfohAITAAAAAKWx57-NpKVWwspqbrQEPeiazeou')));
 	}
 
     /**
@@ -89,12 +119,12 @@ class RecaptchaHelper extends AppHelper {
      * @param string $mail Email to hide
 	 * @param array $options Array of options and HTML attributes
      * @return string Html code
-	 * @uses obfuscate()
+	 * @uses _obfuscate()
      * @uses mailUrl()
      * @uses MeHtmlHelper::link()
 	 */
     public function mailLink($title, $mail = NULL, $options = array()) {
-		$title = empty($mail) ? $this->obfuscate($mail = $title) : $title;
+		$title = empty($mail) ? $this->_obfuscate($mail = $title) : $title;
         $link = self::mailUrl($mail);
 
 		$options = $this->Html->_addOptionValue('onclick', sprintf("window.open('%s', '', 'toolbar=0,scrollbars=0,location=0,statusbar=0,menubar=0,resizable=0,width=500,height=300'); return false;", $link), $options);
@@ -122,4 +152,12 @@ class RecaptchaHelper extends AppHelper {
 		
         return recaptcha_mailhide_url($this->mail_keys['public'], $this->mail_keys['private'], $mail);
     }
+	
+    /**
+     * Alias for `display()` method
+     * @see display()
+     */
+	public function recaptcha() {
+        return call_user_func_array(array(get_class(), 'display'), func_get_args());
+	}
 }
