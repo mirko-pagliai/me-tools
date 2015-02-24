@@ -3,7 +3,7 @@
 ### 1.2.1
 * full support for reCAPTCHA;
 * the `Token` component and model have been entirely rewritten;
-* fixed bug for the `analytics()` method;
+* fixed bug for the `analytics()` method.
 
 ### 1.2.0
 * updated Font Awesome to 4.3.0 version;
