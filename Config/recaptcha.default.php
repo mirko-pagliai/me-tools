@@ -1,6 +1,6 @@
 <?php
 /**
- * Before using Recaptcha, you have to get keys:
+ * Before using reCAPTCHA, you have to get keys:
  * https://www.google.com/recaptcha
  * 
  * When you have keys, set them below and RENAME THIS FILE in "recaptcha.php".
