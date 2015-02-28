@@ -1,5 +1,8 @@
 # 1.x branch
 ## 1.2 branch
+### 1.2.2
+* fixed bug for the Datepicker.
+
 ### 1.2.1
 * full support for reCAPTCHA;
 * the `Token` component and model have been entirely rewritten;

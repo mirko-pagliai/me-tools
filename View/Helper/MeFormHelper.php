@@ -222,7 +222,7 @@ class MeFormHelper extends FormHelper {
      */
     public function datepicker($fieldName, $options = array()) {
 		$options = $this->Html->_addOptionValue('class', 'datepicker', $options);
-		$options = $this->Html->_addOptionDefault('data-date-format', 'YYYY-MM-DD HH:mm', $options);
+		$options = $this->Html->_addOptionDefault('data-date-format', 'YYYY-MM-DD', $options);
 		
         return self::input($fieldName, am($options, array('type' => 'text')));
     }

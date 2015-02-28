@@ -9,6 +9,11 @@ form {
 	margin-bottom: 20px;
 }
 
+/* Form, input wrapper */
+form .input {
+	position: relative;
+}
+
 /* Labels for required inputs */
 form label.required:after,
 form div.required > label:after {
@@ -242,25 +247,6 @@ form button, form input.form-control, form select.form-control {
 /* Textareas without "row" attribute */
 form textarea:not([rows]).form-control {
 	height: 150px;
-}
-
-/* -------------------------------- */
-/*	Date and timepicker rewrite		*/
-/* -------------------------------- */
-/* Datepicker input */
-form input.datepicker {
-	padding: 6px 12px;
-}
-
-/* Timepicker input */
-.bootstrap-timepicker-widget input {
-    background-color: #FFF;
-    border: 1px solid #CCC;
-    box-shadow: 0 1px 1px rgba(0, 0, 0, .075) inset;
-    color: #555;
-    height: 34px;
-    transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
-    width: 50px !important;
 }
 
 /* -------------------------------- */

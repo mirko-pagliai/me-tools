@@ -183,7 +183,7 @@ class LibraryHelper extends AppHelper {
 	public function datepicker($input = NULL, $options = array()) {
 		$input = empty($input) ? '.datepicker' : $input;
 		
-		$options = $this->Html->_addOptionDefault('pickTime', FALSE, $options);
+		$options = $this->Html->_addOptionDefault('format', 'YYYY/MM/DD', $options);
 		
         $this->output[] = self::_datetimepicker($input, $options);
 	}

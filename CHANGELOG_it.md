@@ -1,5 +1,8 @@
 # 1.x ramo
 ## 1.2 ramo
+### 1.2.2
+* risolto un bug per il Datepicker.
+
 ### 1.2.1
 * supporto completo per reCAPTCHA;
 * il componente e il modello `Token` sono stati interamente riscritti;
