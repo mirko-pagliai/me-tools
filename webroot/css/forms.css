@@ -179,14 +179,14 @@ form.form-inline label {
 }
 
 /* Wrappers */
-form.form-inline > .input, form.form-inline > button {
+form.form-inline .input, form.form-inline button {
 	margin-right: 4px;
 	min-height: 37px;
 	vertical-align: top;
 }
 
 /* Wrappers, last wrapper */
-form.form-inline > .input:last-child, form.form-inline > button:last-child {
+form.form-inline .input:last-child, form.form-inline button:last-child {
 	margin-right: 0;
 }
 
