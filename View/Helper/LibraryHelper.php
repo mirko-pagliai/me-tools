@@ -60,7 +60,10 @@ class LibraryHelper extends AppHelper {
 		), array('block' => 'script_bottom'));
 		
         $this->Html->css('/MeTools/css/bootstrap-datetimepicker.min', array('block' => 'css_bottom'));
-				
+		
+		//Shows the "Clear" button in the icon toolbar
+		$options = $this->Html->_addOptionDefault('showClear', TRUE, $options);
+		
 		$options = $this->Html->_addOptionDefault('icons', array(
 			'time' => 'fa fa-clock-o',
 			'date' => 'fa fa-calendar',
