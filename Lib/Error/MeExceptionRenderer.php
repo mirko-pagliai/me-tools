@@ -22,7 +22,7 @@
  * @license		http://www.gnu.org/licenses/agpl.txt AGPL License
  * @link		http://git.novatlantis.it Nova Atlantis Ltd
  * @package		MeTools\Lib\Error
- * @see			http://api.cakephp.org/2.0/class-ExceptionRenderer.html
+ * @see			http://api.cakephp.org/2.6/class-ExceptionRenderer.html
  */
 
 /**
@@ -38,7 +38,7 @@
  * ));
  * </code>
  * 
- * Rewrites {@link http://api.cakephp.org/2.0/class-ExceptionRenderer.html ExceptionRenderer}
+ * Rewrites {@link http://api.cakephp.org/2.6/class-ExceptionRenderer.html ExceptionRenderer}
  */
 class MeExceptionRenderer extends ExceptionRenderer {
 	/**
