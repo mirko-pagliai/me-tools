@@ -33,6 +33,8 @@ App::uses('System', 'MeTools.Utility');
 class CacheShell extends MeToolsAppShell {
 	/**
 	 * Clears the cache.
+	 * @uses System::checkCache()
+	 * @uses System::clearCache()
 	 */
 	public function clear() {
 		if(!System::checkCache())
