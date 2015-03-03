@@ -89,19 +89,22 @@ class System {
 		if(!self::checkCache())
 			return FALSE;
 		
-		$dir = new Folder(CACHE);
 		$success = TRUE;
-				
-		//For each file, except `empty` files
-		foreach($dir->findRecursive('.*(?<!empty)$') as $file) {			
-			$file = new File($file);
-			
-			//Deletes the file
-            if(!$file->delete() && $success)
-                $success = FALSE;
+		
+		//Cleans all cached values for all cache configurations
+		foreach(Cache::configured() as $config) {
+			if(!Cache::clear(FALSE, $config) && $success)
+				$success = FALSE;
 		}
 		
-        return $success;
+		//Clean all keys from the cache belonging to all group configurations
+		foreach(Cache::groupConfigs() as $groups) 
+			foreach($groups as $group) {
+				if(!Cache::clearGroup($group) && $success)
+					$success = FALSE;
+			}
+		
+		return $success;
     }
 
     /**
