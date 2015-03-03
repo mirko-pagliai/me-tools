@@ -39,6 +39,7 @@ class MeToolsAppShell extends Shell {
 	
 	/**
 	 * Checks if the current user is the root user.
+	 * @uses Unix::is_root()
 	 */
 	protected function is_root() {
 		//Checks if is the root user
