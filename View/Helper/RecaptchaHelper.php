@@ -57,6 +57,7 @@ class RecaptchaHelper extends Helper {
      * Construct
      * @param View $View The View this helper is being attached to
      * @param array $settings Configuration settings for the helper
+	 * @uses keys
      * @uses mail_keys
      */
     public function __construct(View $View, $settings = array()) {
@@ -92,6 +93,8 @@ class RecaptchaHelper extends Helper {
 	 * @return string Html
 	 * @throws InternalErrorException
 	 * @see https://developers.google.com/recaptcha/docs/display#config reCAPTCHA widget options
+	 * @uses keys
+	 * @uses MeHtmlHelper::_addOptionDefault()
 	 */
 	public function display($options = array(), $optionsScript = array()) {
 		//Checks for form keys
@@ -102,7 +105,7 @@ class RecaptchaHelper extends Helper {
 		
 		$this->Html->js('https://www.google.com/recaptcha/api.js', am($optionsScript, array('async' => TRUE, 'defer' => TRUE)));
 		
-		return $this->Html->div('g-recaptcha', ' ', am($options, array('data-sitekey' => '6LfohAITAAAAAKWx57-NpKVWwspqbrQEPeiazeou')));
+		return $this->Html->div('g-recaptcha', ' ', am($options, array('data-sitekey' => $this->keys['public'])));
 	}
 
     /**
@@ -121,7 +124,7 @@ class RecaptchaHelper extends Helper {
      * @return string Html code
 	 * @uses _obfuscate()
      * @uses mailUrl()
-     * @uses MeHtmlHelper::link()
+     * @uses MeHtmlHelper::_addOptionValue()
 	 */
     public function mailLink($title, $mail = NULL, $options = array()) {
 		$title = empty($mail) ? $this->_obfuscate($mail = $title) : $title;
