@@ -90,12 +90,16 @@ class RecaptchaComponent extends Component {
 	 * @return bool TRUE on success, otherwise FALSE
 	 * @see https://developers.google.com/recaptcha/docs/verify
 	 * @uses controller
+	 * @uses error
 	 * @uses keys
 	 * @uses HttpSocket::post()
 	 */
-	public function check() {		
-		if(empty($this->controller->request->data['g-recaptcha-response']))
+	public function check() {
+		//Checks for response
+		if(empty($this->controller->request->data['g-recaptcha-response'])) {
+			$this->error = __d('me_tools', 'You have not filled out the %s control', 'reCAPTCHA');	
 			return FALSE;
+		}
 		else
 			$response = $this->controller->request->data['g-recaptcha-response'];
 		
@@ -104,13 +108,13 @@ class RecaptchaComponent extends Component {
 		$results = $http->post('https://www.google.com/recaptcha/api/siteverify', am(array(
 			'remoteip'	=> $this->controller->request->clientIp(TRUE),
 			'secret'	=> $this->keys['private']
-		), compact('response')));  
-
-		if(empty($results))
+		), compact('response')));
+				
+		if(empty($results) || !$results = json_decode($results, TRUE) || empty($results['success'])) {
+			$this->error = __d('me_tools', 'It was not possible to verify the %s control', 'reCAPTCHA');
 			return FALSE;
+		}
 		
-		$results = json_decode($results, TRUE);
-		
-		return empty($results['success']) ? FALSE: $results['success'];
+		return TRUE;
 	}
 }
