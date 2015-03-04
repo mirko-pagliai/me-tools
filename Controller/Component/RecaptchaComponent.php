@@ -44,7 +44,7 @@ class RecaptchaComponent extends Component {
 	 * Error
 	 * @var string 
 	 */
-	public $error;
+	protected $error = NULL;
 	
 	/**
 	 * reCAPTCHA form keys
@@ -116,5 +116,14 @@ class RecaptchaComponent extends Component {
 		}
 		
 		return TRUE;
+	}
+	
+	/**
+	 * Gets the last error.
+	 * @return mixed Error or NULL
+	 * @uses error
+	 */
+	public function getError() {
+		return $this->error;
 	}
 }
