@@ -198,7 +198,7 @@ Component
 				<a href="http://www.gnu.org/licenses/agpl.txt">AGPL License</a><br>
 				<b>Author:</b>
 				Mirko Pagliai <a href="&#109;&#97;&#x69;&#x6c;&#116;&#111;&#x3a;&#x6d;&#105;&#114;&#x6b;&#x6f;&#46;&#112;&#x61;&#x67;l&#105;&#x61;&#x69;&#64;&#103;&#109;&#x61;&#x69;&#108;&#46;&#x63;&#x6f;&#109;">&#x6d;&#105;&#114;&#x6b;&#x6f;&#46;&#112;&#x61;&#x67;l&#105;&#x61;&#x69;&#64;&#103;&#109;&#x61;&#x69;&#108;&#46;&#x63;&#x6f;&#109;</a><br>
-			<b>Located at</b> <a href="source-class-RecaptchaComponent.html#30-116" title="Go to source code">Component/RecaptchaComponent.php</a>
+			<b>Located at</b> <a href="source-class-RecaptchaComponent.html#30-129" title="Go to source code">Component/RecaptchaComponent.php</a>
 		<br>
 	</div>
 
@@ -299,7 +299,7 @@ Component
 
 		<td class="name"><div>
 		<a class="anchor" href="#_check">#</a>
-		<code><a href="source-class-RecaptchaComponent.html#88-115" title="Go to source code">check</a>( )</code>
+		<code><a href="source-class-RecaptchaComponent.html#88-119" title="Go to source code">check</a>( )</code>
 
 		<div class="description short">
 			<p>Checks for reCAPTCHA.</p>
@@ -323,8 +323,47 @@ Component
 				<h4>Uses</h4>
 				<div class="list">
 						<code><a href="class-RecaptchaComponent.html#$controller">RecaptchaComponent::<var>$controller</var></a></code><br>
+						<code><a href="class-RecaptchaComponent.html#$error">RecaptchaComponent::<var>$error</var></a></code><br>
 						<code><a href="class-RecaptchaComponent.html#$keys">RecaptchaComponent::<var>$keys</var></a></code><br>
 						HttpSocket::post()<br>
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getError" id="_getError">
+
+		<td class="attributes"><code>
+			 public 
+
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getError">#</a>
+		<code><a href="source-class-RecaptchaComponent.html#121-128" title="Go to source code">getError</a>( )</code>
+
+		<div class="description short">
+			<p>Gets the last error.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Gets the last error.</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					mixed<br>Error or NULL
+				</div>
+
+
+				<h4>Uses</h4>
+				<div class="list">
+						<code><a href="class-RecaptchaComponent.html#$error">RecaptchaComponent::<var>$error</var></a></code><br>
 				</div>
 
 
@@ -378,7 +417,7 @@ Component
 	</tr>
 	<tr data-order="error" id="$error">
 		<td class="attributes"><code>
-			public  
+			protected  
 			string
 		</code></td>
 
@@ -395,13 +434,15 @@ Component
 					<h4>Used by</h4>
 					<div class="list">
 							<code><a href="class-RecaptchaComponent.html#___construct">RecaptchaComponent::__construct()</a></code><br>
+							<code><a href="class-RecaptchaComponent.html#_check">RecaptchaComponent::check()</a></code><br>
+							<code><a href="class-RecaptchaComponent.html#_getError">RecaptchaComponent::getError()</a></code><br>
 					</div>
 			</div>
 		</td>
 		<td class="value">
 			<div>
 				<a href="#$error" class="anchor">#</a>
-				<code></code>
+				<code><span class="php-keyword1">NULL</span></code>
 			</div>
 		</td>
 	</tr>
