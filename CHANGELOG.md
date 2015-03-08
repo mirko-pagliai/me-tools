@@ -2,6 +2,7 @@
 ## 1.2 branch
 ### 1.2.2
 * fixed bug for the Datepicker;
+* updated Bootstrap 3 Date/Time Picker to 4.7.14;
 * updated PHP Markdown to 1.5.0.
 
 ### 1.2.1

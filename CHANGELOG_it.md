@@ -2,6 +2,7 @@
 ## 1.2 ramo
 ### 1.2.2
 * risolto un bug per il Datepicker;
+* aggiornato Bootstrap 3 Date/Time Picker alla versione 4.7.14;
 * aggiornato PHP Markdown alla versione 1.5.0.
 
 ### 1.2.1

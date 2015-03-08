@@ -93,7 +93,7 @@ MeTools include diverse librerie e script:
 - Font Awesome 4.3.0 ([sito](http://fortawesome.github.com/Font-Awesome));
 - PHP Markdown 1.5.0 ([sito](http://michelf.ca/projects/php-markdown));
 - reCAPTCHA PHP library 1.11 ([sito](https://developers.google.com/recaptcha));
-- Bootstrap 3 Date/Time Picker 4.4.0 ([sito](https://github.com/Eonasdan/bootstrap-datetimepicker));
+- Bootstrap 3 Date/Time Picker 4.7.14 ([sito](https://github.com/Eonasdan/bootstrap-datetimepicker));
 - Moment.js 2.9.0 ([sito](http://momentjs.com/)), inclusi i "locales".
 
 ## CKEditor
