@@ -4,7 +4,8 @@
 # Mirko Pagliai, 2015.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2015-02-24 15:37+0100\n"
+"Project-Id-Version: PROJECT VERSION\n"
+"PO-Revision-Date: 2015-03-08 18:32+0100\n"
 "Last-Translator: Mirko Pagliai\n"
 "Language-Team: Italian <>\n"
 "MIME-Version: 1.0\n"
@@ -38,14 +39,18 @@ msgstr "Il file %s non esiste oppure non è leggibile"
 msgid "The mime type %s is not supported"
 msgstr "Il mime type %s non è supportato"
 
-#: Controller/Component/RecaptchaComponent.php:65
+#: Controller/Component/RecaptchaComponent.php:65;100
 msgid "You have not filled out the %s control"
 msgstr "Non hai compilato il controllo di %s"
 
 #: Controller/Component/RecaptchaComponent.php:83
-#: View/Helper/RecaptchaHelper.php:99
+#: View/Helper/RecaptchaHelper.php:102
 msgid "Form keys are not configured"
 msgstr "Le chiavi dei form non sono configurate"
+
+#: Controller/Component/RecaptchaComponent.php:114
+msgid "It was not possible to verify the %s control"
+msgstr "Non è stato possibile verificare il controllo %s"
 
 #: View/Elements/paginator.ctp:46
 msgid "Page %d"
@@ -92,11 +97,11 @@ msgstr "Suggerimento"
 msgid "%s - %s of %s"
 msgstr "%s - %s di %s"
 
-#: View/Helper/RecaptchaHelper.php:147
+#: View/Helper/RecaptchaHelper.php:150
 msgid "Mail keys are not configured"
 msgstr "Le chiavi dell'email non sono configurate"
 
-#: View/Helper/RecaptchaHelper.php:151
+#: View/Helper/RecaptchaHelper.php:154
 msgid "The private mail key is not valid"
 msgstr "La chiave privata dell'email non è valida"
 

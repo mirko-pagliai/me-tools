@@ -37,13 +37,17 @@ msgstr ""
 msgid "The mime type %s is not supported"
 msgstr ""
 
-#: Controller/Component/RecaptchaComponent.php:65
+#: Controller/Component/RecaptchaComponent.php:65;100
 msgid "You have not filled out the %s control"
 msgstr ""
 
 #: Controller/Component/RecaptchaComponent.php:83
-#: View/Helper/RecaptchaHelper.php:99
+#: View/Helper/RecaptchaHelper.php:102
 msgid "Form keys are not configured"
+msgstr ""
+
+#: Controller/Component/RecaptchaComponent.php:114
+msgid "It was not possible to verify the %s control"
 msgstr ""
 
 #: View/Elements/paginator.ctp:46
@@ -91,11 +95,11 @@ msgstr ""
 msgid "%s - %s of %s"
 msgstr ""
 
-#: View/Helper/RecaptchaHelper.php:147
+#: View/Helper/RecaptchaHelper.php:150
 msgid "Mail keys are not configured"
 msgstr ""
 
-#: View/Helper/RecaptchaHelper.php:151
+#: View/Helper/RecaptchaHelper.php:154
 msgid "The private mail key is not valid"
 msgstr ""
 
