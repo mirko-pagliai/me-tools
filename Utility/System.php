@@ -63,15 +63,6 @@ class System {
 	}
 
     /**
-     * Checks if the thumbnail directory is readable and writable.
-     * @return boolean TRUE if the thumbnail directory is readable and writable, FALSE otherwise
-	 * @uses dirIsWritable()
-     */
-    public static function checkThumbs() {
-		return self::dirIsWritable(TMP.'thumbs'.DS.'photos') && self::dirIsWritable(TMP.'thumbs'.DS.'remotes') && self::dirIsWritable(TMP.'thumbs'.DS.'videos');
-    }
-
-    /**
      * Checks if the temporary directory is readable and writable.
      * @return boolean TRUE if the temporary directory is readable and writable, FALSE otherwise
 	 * @uses dirIsWritable()
