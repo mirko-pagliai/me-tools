@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 
-	<title>Class System | MeTools API</title>
+	<title>Class Thumbs | MeTools API</title>
 
 	<link rel="stylesheet" href="resources/style.css?e99947befd7bf673c6b43ff75e9e0f170c88a60e">
 
@@ -113,8 +113,8 @@
 				<li><a href="class-Apache.html">Apache</a></li>
 				<li><a href="class-Php.html">Php</a></li>
 				<li><a href="class-Plugin.html">Plugin</a></li>
-				<li class="active"><a href="class-System.html">System</a></li>
-				<li><a href="class-Thumbs.html">Thumbs</a></li>
+				<li><a href="class-System.html">System</a></li>
+				<li class="active"><a href="class-Thumbs.html">Thumbs</a></li>
 				<li><a href="class-Unix.html">Unix</a></li>
 			</ul>
 
@@ -156,15 +156,15 @@
 	</div>
 
 <div id="content" class="class">
-	<h1>Class System</h1>
+	<h1>Class Thumbs</h1>
 
 
 	<div class="description">
-	<p>An utility for checking the status of the system and perform maintenance tasks.</p>
+	<p>An utility to handle the thumbnails.</p>
 
 <p>You can use this utility by adding in your controller:</p>
 
-<pre>App::uses(<span class="php-quote">'System'</span>, <span class="php-quote">'MeTools.Utility'</span>);</pre>
+<pre>App::uses(<span class="php-quote">'Thumbs'</span>, <span class="php-quote">'MeTools.Utility'</span>);</pre>
 	</div>
 
 
@@ -187,7 +187,7 @@
 				<a href="http://www.gnu.org/licenses/agpl.txt">AGPL License</a><br>
 				<b>Author:</b>
 				Mirko Pagliai <a href="&#109;&#97;&#x69;&#x6c;&#116;&#111;&#x3a;&#x6d;&#105;&#114;&#x6b;&#x6f;&#46;&#112;&#x61;&#x67;l&#105;&#x61;&#x69;&#64;&#103;&#109;&#x61;&#x69;&#108;&#46;&#x63;&#x6f;&#109;">&#x6d;&#105;&#114;&#x6b;&#x6f;&#46;&#112;&#x61;&#x67;l&#105;&#x61;&#x69;&#64;&#103;&#109;&#x61;&#x69;&#108;&#46;&#x63;&#x6f;&#109;</a><br>
-			<b>Located at</b> <a href="source-class-System.html#30-154" title="Go to source code">System.php</a>
+			<b>Located at</b> <a href="source-class-Thumbs.html#30-140" title="Go to source code">Thumbs.php</a>
 		<br>
 	</div>
 
@@ -195,7 +195,7 @@
 
 	<table class="summary methods" id="methods">
 	<caption>Methods summary</caption>
-	<tr data-order="checkCache" id="_checkCache">
+	<tr data-order="check" id="_check">
 
 		<td class="attributes"><code>
 			 public static
@@ -206,273 +206,208 @@
 		</td>
 
 		<td class="name"><div>
-		<a class="anchor" href="#_checkCache">#</a>
-		<code><a href="source-class-System.html#39-46" title="Go to source code">checkCache</a>( )</code>
+		<a class="anchor" href="#_check">#</a>
+		<code><a href="source-class-Thumbs.html#39-48" title="Go to source code">check</a>( )</code>
 
 		<div class="description short">
-			<p>Checks if the cache is readable and writable.</p>
+			<p>Checks if all thumbnail directories are readable and writable.</p>
 		</div>
 
 		<div class="description detailed hidden">
-			<p>Checks if the cache is readable and writable.</p>
+			<p>Checks if all thumbnail directories are readable and writable.</p>
 
 
 
 				<h4>Returns</h4>
 				<div class="list">
-					boolean<br>TRUE if if the cache is readable and writable, FALSE otherwise
+					boolean<br>TRUE if all thumbnail directories are readable and writable, FALSE otherwise
 				</div>
 
 
 				<h4>Uses</h4>
 				<div class="list">
-						<code><a href="class-System.html#_dirIsWritable">System::dirIsWritable()</a></code><br>
-				</div>
-				<h4>Used by</h4>
-				<div class="list">
-						<code><a href="class-CacheShell.html#_clear">CacheShell::clear()</a></code><br>
-						<code><a href="class-System.html#_clearCache">System::clearCache()</a></code><br>
-				</div>
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="checkCacheStatus" id="_checkCacheStatus">
-
-		<td class="attributes"><code>
-			 public static
-
-			boolean
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_checkCacheStatus">#</a>
-		<code><a href="source-class-System.html#48-54" title="Go to source code">checkCacheStatus</a>( )</code>
-
-		<div class="description short">
-			<p>Checks if the cache is enabled.</p>
-		</div>
-
-		<div class="description detailed hidden">
-			<p>Checks if the cache is enabled.</p>
-
-
-
-				<h4>Returns</h4>
-				<div class="list">
-					boolean<br>TRUE if the cache is enabled, FALSE otherwise
-				</div>
-
-
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="checkLogs" id="_checkLogs">
-
-		<td class="attributes"><code>
-			 public static
-
-			boolean
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_checkLogs">#</a>
-		<code><a href="source-class-System.html#56-63" title="Go to source code">checkLogs</a>( )</code>
-
-		<div class="description short">
-			<p>Checks if the logs directory is readable and writable.</p>
-		</div>
-
-		<div class="description detailed hidden">
-			<p>Checks if the logs directory is readable and writable.</p>
-
-
-
-				<h4>Returns</h4>
-				<div class="list">
-					boolean<br>TRUE if if the logs directory is readable and writable, FALSE otherwise
-				</div>
-
-
-				<h4>Uses</h4>
-				<div class="list">
-						<code><a href="class-System.html#_dirIsWritable">System::dirIsWritable()</a></code><br>
-				</div>
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="checkTmp" id="_checkTmp">
-
-		<td class="attributes"><code>
-			 public static
-
-			boolean
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_checkTmp">#</a>
-		<code><a href="source-class-System.html#65-72" title="Go to source code">checkTmp</a>( )</code>
-
-		<div class="description short">
-			<p>Checks if the temporary directory is readable and writable.</p>
-		</div>
-
-		<div class="description detailed hidden">
-			<p>Checks if the temporary directory is readable and writable.</p>
-
-
-
-				<h4>Returns</h4>
-				<div class="list">
-					boolean<br>TRUE if the temporary directory is readable and writable, FALSE otherwise
-				</div>
-
-
-				<h4>Uses</h4>
-				<div class="list">
-						<code><a href="class-System.html#_dirIsWritable">System::dirIsWritable()</a></code><br>
-				</div>
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="clearCache" id="_clearCache">
-
-		<td class="attributes"><code>
-			 public static
-
-			boolean
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_clearCache">#</a>
-		<code><a href="source-class-System.html#74-99" title="Go to source code">clearCache</a>( )</code>
-
-		<div class="description short">
-			<p>Clears the cache.</p>
-		</div>
-
-		<div class="description detailed hidden">
-			<p>Clears the cache.</p>
-
-
-
-				<h4>Returns</h4>
-				<div class="list">
-					boolean<br>TRUE if the cache is writable and were successfully cleared, FALSE otherwise
-				</div>
-
-
-				<h4>Uses</h4>
-				<div class="list">
-						<code><a href="class-System.html#_checkCache">System::checkCache()</a></code><br>
-				</div>
-				<h4>Used by</h4>
-				<div class="list">
-						<code><a href="class-CacheShell.html#_clear">CacheShell::clear()</a></code><br>
-				</div>
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="dirIsWritable" id="_dirIsWritable">
-
-		<td class="attributes"><code>
-			 public static
-
-			boolean
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_dirIsWritable">#</a>
-		<code><a href="source-class-System.html#101-118" title="Go to source code">dirIsWritable</a>( <span>string <var>$directory</var></span> )</code>
-
-		<div class="description short">
-			<p>Checks if a directory and its subdirectories are readable and writable.</p>
-		</div>
-
-		<div class="description detailed hidden">
-			<p>Checks if a directory and its subdirectories are readable and writable.</p>
-
-
-				<h4>Parameters</h4>
-				<div class="list"><dl>
-					<dt><var>$directory</var></dt>
-					<dd>$path Path</dd>
-				</dl></div>
-
-				<h4>Returns</h4>
-				<div class="list">
-					boolean<br>TRUE if they are readable and writable, FALSE otherwise
-				</div>
-
-
-				<h4>Used by</h4>
-				<div class="list">
-						<code><a href="class-System.html#_checkCache">System::checkCache()</a></code><br>
-						<code><a href="class-System.html#_checkLogs">System::checkLogs()</a></code><br>
-						<code><a href="class-System.html#_checkTmp">System::checkTmp()</a></code><br>
 						<code><a href="class-Thumbs.html#_checkPhotos">Thumbs::checkPhotos()</a></code><br>
 						<code><a href="class-Thumbs.html#_checkRemotes">Thumbs::checkRemotes()</a></code><br>
 						<code><a href="class-Thumbs.html#_checkVideos">Thumbs::checkVideos()</a></code><br>
 				</div>
+				<h4>Used by</h4>
+				<div class="list">
+						<code><a href="class-Thumbs.html#_clear">Thumbs::clear()</a></code><br>
+						<code><a href="class-Thumbs.html#_getSize">Thumbs::getSize()</a></code><br>
+				</div>
 
 
 		</div>
 		</div></td>
 	</tr>
-	<tr data-order="getCacheSize" id="_getCacheSize">
+	<tr data-order="checkPhotos" id="_checkPhotos">
 
 		<td class="attributes"><code>
 			 public static
 
-			integer
+			boolean
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
-		<a class="anchor" href="#_getCacheSize">#</a>
-		<code><a href="source-class-System.html#120-127" title="Go to source code">getCacheSize</a>( )</code>
+		<a class="anchor" href="#_checkPhotos">#</a>
+		<code><a href="source-class-Thumbs.html#50-58" title="Go to source code">checkPhotos</a>( )</code>
 
 		<div class="description short">
-			<p>Gets the cache size.</p>
+			<p>Checks if the photos directory is readable and writable</p>
 		</div>
 
 		<div class="description detailed hidden">
-			<p>Gets the cache size.</p>
+			<p>Checks if the photos directory is readable and writable</p>
 
 
 
 				<h4>Returns</h4>
 				<div class="list">
-					integer<br>Cache size
+					boolean<br>TRUE if the photos directory is readable and writable, FALSE otherwise
 				</div>
 
 
+				<h4>Uses</h4>
+				<div class="list">
+						<code><a href="class-Thumbs.html#_getPhotosPath">Thumbs::getPhotosPath()</a></code><br>
+						<code><a href="class-System.html#_dirIsWritable">System::dirIsWritable()</a></code><br>
+				</div>
+				<h4>Used by</h4>
+				<div class="list">
+						<code><a href="class-Thumbs.html#_check">Thumbs::check()</a></code><br>
+				</div>
 
 
 		</div>
 		</div></td>
 	</tr>
-	<tr data-order="getCakeVersion" id="_getCakeVersion">
+	<tr data-order="checkRemotes" id="_checkRemotes">
+
+		<td class="attributes"><code>
+			 public static
+
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_checkRemotes">#</a>
+		<code><a href="source-class-Thumbs.html#60-68" title="Go to source code">checkRemotes</a>( )</code>
+
+		<div class="description short">
+			<p>Checks if the remotes directory is readable and writable</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Checks if the remotes directory is readable and writable</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					boolean<br>TRUE if the remotes directory is readable and writable, FALSE otherwise
+				</div>
+
+
+				<h4>Uses</h4>
+				<div class="list">
+						<code><a href="class-Thumbs.html#_getRemotesPath">Thumbs::getRemotesPath()</a></code><br>
+						<code><a href="class-System.html#_dirIsWritable">System::dirIsWritable()</a></code><br>
+				</div>
+				<h4>Used by</h4>
+				<div class="list">
+						<code><a href="class-Thumbs.html#_check">Thumbs::check()</a></code><br>
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="checkVideos" id="_checkVideos">
+
+		<td class="attributes"><code>
+			 public static
+
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_checkVideos">#</a>
+		<code><a href="source-class-Thumbs.html#70-78" title="Go to source code">checkVideos</a>( )</code>
+
+		<div class="description short">
+			<p>Checks if the videos directory is readable and writable</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Checks if the videos directory is readable and writable</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					boolean<br>TRUE if the videos directory is readable and writable, FALSE otherwise
+				</div>
+
+
+				<h4>Uses</h4>
+				<div class="list">
+						<code><a href="class-Thumbs.html#_getVideosPath">Thumbs::getVideosPath()</a></code><br>
+						<code><a href="class-System.html#_dirIsWritable">System::dirIsWritable()</a></code><br>
+				</div>
+				<h4>Used by</h4>
+				<div class="list">
+						<code><a href="class-Thumbs.html#_check">Thumbs::check()</a></code><br>
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="clear" id="_clear">
+
+		<td class="attributes"><code>
+			 public static
+
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_clear">#</a>
+		<code><a href="source-class-Thumbs.html#80-102" title="Go to source code">clear</a>( )</code>
+
+		<div class="description short">
+			<p>Clears the thumbnails</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Clears the thumbnails</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					boolean<br>TRUE if the thumbnails are writable and were successfully cleared, FALSE otherwise
+				</div>
+
+
+				<h4>Uses</h4>
+				<div class="list">
+						<code><a href="class-Thumbs.html#_check">Thumbs::check()</a></code><br>
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getPhotosPath" id="_getPhotosPath">
 
 		<td class="attributes"><code>
 			 public static
@@ -483,57 +418,141 @@
 		</td>
 
 		<td class="name"><div>
-		<a class="anchor" href="#_getCakeVersion">#</a>
-		<code><a href="source-class-System.html#129-135" title="Go to source code">getCakeVersion</a>( )</code>
+		<a class="anchor" href="#_getPhotosPath">#</a>
+		<code><a href="source-class-Thumbs.html#104-110" title="Go to source code">getPhotosPath</a>( )</code>
 
 		<div class="description short">
-			<p>Gets the CakePHP version.</p>
+			<p>Gets the photos path</p>
 		</div>
 
 		<div class="description detailed hidden">
-			<p>Gets the CakePHP version.</p>
+			<p>Gets the photos path</p>
 
 
 
 				<h4>Returns</h4>
 				<div class="list">
-					string<br>CakePHP version
+					string<br>Photos path
 				</div>
 
 
+				<h4>Used by</h4>
+				<div class="list">
+						<code><a href="class-Thumbs.html#_checkPhotos">Thumbs::checkPhotos()</a></code><br>
+				</div>
 
 
 		</div>
 		</div></td>
 	</tr>
-	<tr data-order="getChangelogs" id="_getChangelogs">
+	<tr data-order="getRemotesPath" id="_getRemotesPath">
 
 		<td class="attributes"><code>
 			 public static
 
-			
+			string
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
-		<a class="anchor" href="#_getChangelogs">#</a>
-		<code><a href="source-class-System.html#137-153" title="Go to source code">getChangelogs</a>( )</code>
+		<a class="anchor" href="#_getRemotesPath">#</a>
+		<code><a href="source-class-Thumbs.html#112-118" title="Go to source code">getRemotesPath</a>( )</code>
 
 		<div class="description short">
-			<p>Gets all changelog files. It searchs into APP and all loaded plugins.</p>
+			<p>Gets the remotes path</p>
 		</div>
 
 		<div class="description detailed hidden">
-			<p>Gets all changelog files. It searchs into APP and all loaded plugins.</p>
+			<p>Gets the remotes path</p>
 
 
 
+				<h4>Returns</h4>
+				<div class="list">
+					string<br>Remotes path
+				</div>
+
+
+				<h4>Used by</h4>
+				<div class="list">
+						<code><a href="class-Thumbs.html#_checkRemotes">Thumbs::checkRemotes()</a></code><br>
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getSize" id="_getSize">
+
+		<td class="attributes"><code>
+			 public static
+
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getSize">#</a>
+		<code><a href="source-class-Thumbs.html#120-131" title="Go to source code">getSize</a>( )</code>
+
+		<div class="description short">
+			<p>Gets the thumbnails size</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Gets the thumbnails size</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					mixed<br>Thumbnails size
+				</div>
 
 
 				<h4>Uses</h4>
 				<div class="list">
-						<code><a href="class-Plugin.html#_getPath">Plugin::getPath()</a></code><br>
+						<code><a href="class-Thumbs.html#_check">Thumbs::check()</a></code><br>
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getVideosPath" id="_getVideosPath">
+
+		<td class="attributes"><code>
+			 public static
+
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getVideosPath">#</a>
+		<code><a href="source-class-Thumbs.html#133-139" title="Go to source code">getVideosPath</a>( )</code>
+
+		<div class="description short">
+			<p>Gets the videos path</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Gets the videos path</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					string<br>Videos path
+				</div>
+
+
+				<h4>Used by</h4>
+				<div class="list">
+						<code><a href="class-Thumbs.html#_checkVideos">Thumbs::checkVideos()</a></code><br>
 				</div>
 
 
