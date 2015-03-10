@@ -258,6 +258,16 @@ th a.desc:after {
 }
 
 /* -------------------------------- */
+/*		Contextual backgrounds		*/
+/* -------------------------------- */
+/* Codes block on contextual backgrounds */
+.bg-danger code, .bg-info code, .bg-primary code, .bg-success code, .bg-warning code {
+	background: inherit;
+    color: inherit;
+    line-height: 100%;
+}
+
+/* -------------------------------- */
 /*				Labels				*/
 /* -------------------------------- */
 /* Labels on tables of index pages */
