@@ -24,6 +24,7 @@
  * @package		MeTools\Utility
  */
 
+App::uses('Folder', 'Utility');
 App::uses('System', 'MeTools.Utility');
 
 /**
@@ -76,6 +77,30 @@ class Thumbs {
 		return System::dirIsWritable(self::getVideosPath());
 	}
 	
+    /**
+     * Clears the thumbnails
+     * @return boolean TRUE if the thumbnails are writable and were successfully cleared, FALSE otherwise
+	 * @uses check()
+     */
+    public static function clear() {
+		if(!self::check())
+			return FALSE;
+		
+        $dir = new Folder(TMP.'thumbs');
+		$success = TRUE;
+		
+		//For each file
+        foreach($dir->findRecursive() as $file) {
+            $file = new File($file);
+			
+			//Deletes the file
+            if(!$file->delete() && $success)
+                $success = FALSE;
+        }
+		
+        return $success;
+    }
+	
 	/**
 	 * Gets the photos path
 	 * @return string Photos path
@@ -91,6 +116,19 @@ class Thumbs {
     public static function getRemotesPath() {
 		return TMP.'thumbs'.DS.'remotes';
 	}
+
+    /**
+     * Gets the thumbnails size
+     * @return mixed Thumbnails size
+	 * @uses check()
+     */
+    public static function getSize() {
+		if(!self::check())
+			return FALSE;
+		
+        $thumbs = new Folder(TMP.'thumbs');
+        return $thumbs->dirsize();
+    }
 	
 	/**
 	 * Gets the videos path

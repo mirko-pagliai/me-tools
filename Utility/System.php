@@ -97,30 +97,6 @@ class System {
 		
 		return $success;
     }
-
-    /**
-     * Clears the thumbnails.
-     * @return boolean TRUE if the thumbnails are writable and were successfully cleared, FALSE otherwise
-	 * @uses checkThumbs()
-     */
-    public static function clearThumbs() {
-		if(!self::checkThumbs())
-			return FALSE;
-		
-        $dir = new Folder(TMP.'thumbs');
-		$success = TRUE;
-		
-		//For each file
-        foreach($dir->findRecursive() as $file) {
-            $file = new File($file);
-			
-			//Deletes the file
-            if(!$file->delete() && $success)
-                $success = FALSE;
-        }
-		
-        return $success;
-    }
 	
 	/**
 	 * Checks if a directory and its subdirectories are readable and writable.
@@ -175,17 +151,4 @@ class System {
 				return FALSE;	
 		}, am(array(APP), Plugin::getPath()))));
 	}
-
-    /**
-     * Gets the thumbnails size.
-     * @return int Thumbnails size
-	 * @uses checkThumbs()
-     */
-    public static function getThumbsSize() {
-		if(!self::checkThumbs())
-			return FALSE;
-		
-        $thumbs = new Folder(TMP.'thumbs');
-        return $thumbs->dirsize();
-    }
 }
