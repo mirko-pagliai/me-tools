@@ -57,14 +57,6 @@ class Thumbs {
 	}
 	
 	/**
-	 * Gets the photos path
-	 * @return string Photos path
-	 */
-    public static function getPhotosPath() {
-		return TMP.'thumbs'.DS.'photos';
-	}
-	
-	/**
      * Checks if the remotes directory is readable and writable
      * @return boolean TRUE if the remotes directory is readable and writable, FALSE otherwise
 	 * @uses getRemotesPath()
@@ -75,14 +67,6 @@ class Thumbs {
 	}
 	
 	/**
-	 * Gets the remotes path
-	 * @return string Remotes path
-	 */
-    public static function getRemotesPath() {
-		return TMP.'thumbs'.DS.'remotes';
-	}
-	
-	/**
      * Checks if the videos directory is readable and writable
      * @return boolean TRUE if the videos directory is readable and writable, FALSE otherwise
 	 * @uses getVideosPath()
@@ -90,6 +74,22 @@ class Thumbs {
 	 */
     public static function checkVideos() {
 		return System::dirIsWritable(self::getVideosPath());
+	}
+	
+	/**
+	 * Gets the photos path
+	 * @return string Photos path
+	 */
+    public static function getPhotosPath() {
+		return TMP.'thumbs'.DS.'photos';
+	}
+	
+	/**
+	 * Gets the remotes path
+	 * @return string Remotes path
+	 */
+    public static function getRemotesPath() {
+		return TMP.'thumbs'.DS.'remotes';
 	}
 	
 	/**
