@@ -24,6 +24,8 @@
  * @package		MeTools\Utility
  */
 
+App::uses('Folder', 'Utility');
+
 /**
  * An utility to handle plugins.
  * 
