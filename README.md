@@ -85,7 +85,7 @@ To use reCAPTCHA, see the [page](//github.com/mirko-pagliai/MeTools/wiki/reCAPTC
 MeTools includes different libraries and scripts:
 
 - jQuery 2.1.3 ([site](http://jquery.com));
-- Bootstrap 3.3.2 ([site](http://getbootstrap.com)), without Glyphicons;
+- Bootstrap 3.3.4 ([site](http://getbootstrap.com)), without Glyphicons;
 - Font Awesome 4.3.0 ([site](http://fortawesome.github.com/Font-Awesome));
 - PHP Markdown 1.5.0 ([site](http://michelf.ca/projects/php-markdown));
 - reCAPTCHA PHP library 1.11 ([site](https://developers.google.com/recaptcha));

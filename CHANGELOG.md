@@ -3,6 +3,7 @@
 ### 1.2.2
 * full support for reCAPTCHA. Rewritten the `RecaptchaComponent`;
 * fixed bug for the Datepicker;
+* updated Bootstrap to 3.3.4 version.
 * updated Bootstrap 3 Date/Time Picker to 4.7.14;
 * updated PHP Markdown to 1.5.0.
 
