@@ -27,7 +27,14 @@ use Cake\View\Helper\HtmlHelper;
 use Cake\View\View;
 
 /**
- * MeHtml helper
+ * Provides functionalities for HTML code.
+ * 
+ * Rewrites the {@link http://api.cakephp.org/3.0/class-Cake.View.Helper.HtmlHelper.html HtmlHelper}.
+ * 
+ * You should use this helper as an alias, for example:
+ * <code>
+ * public $helpers = ['Html' => ['className' => 'MeTools.MeHtml']];
+ * </code>
  */
 class MeHtmlHelper extends HtmlHelper {
     /**
@@ -115,6 +122,52 @@ class MeHtmlHelper extends HtmlHelper {
     public function _addValue() {
         return call_user_func_array(array(get_class(), '_addOptionValue'), func_get_args());
     }
+
+    /**
+     * Creates a badge, according to Bootstrap.
+     * @param string $text Badge text
+	 * @param array $options Array of options and HTML attributes
+     * @return string Html code
+     * @see http://getbootstrap.com/components/#badges Bootstrap documentation
+	 * @uses _addValue()
+	 * @uses span()
+     */
+    public function badge($text, array $options = []) {
+		$options = self::_addValue('class', 'badge', $options);
+
+        return self::span($text, $options);
+    }
+	
+	/**
+     * Creates a link with the appearance of a button.
+     * 
+     * This method creates a link with the appearance of a button.
+     * To create a POST button, you should use the `postButton()` method provided by `MeFormHelper`.
+     * Instead, to create a normal button, you should use the `button()` method provided by `MeFormHelper`.
+     * @param string $title Button title
+	 * @param string|array $url Cake-relative URL or array of URL parameters or external URL
+	 * @param array $options Array of options and HTML attributes
+	 * @return string Html code
+	 * @uses _addButtonClass()
+	 * @uses _addValue()
+	 * @uses link()
+	 */
+	public function button($title, $url = NULL, array $options = []) {
+		$options = self::_addValue('role', 'button', $options);
+		$options = self::_addButtonClass($options);
+		
+		return self::link($title, $url, $options);
+	}
+	
+	/**
+	 * Creates an horizontal rule (`<hr>` tag).
+     * @param array $options HTML attributes
+	 * @param array $options Array of options and HTML attributes
+	 * @uses tag()
+	 */
+	public function hr(array $options = []) {
+		return self::tag('hr', NULL, $options);
+	}
 	
 	/**
      * Returns icon or icons. Examples:
@@ -148,6 +201,28 @@ class MeHtmlHelper extends HtmlHelper {
         return call_user_func_array(array(get_class(), 'icon'), func_get_args());
     }
 	
+	/**
+	 * Create an `iframe` element.
+	 * @param array $options Array of options and HTML attributes
+     * @return string Html code
+	 */
+	public function iframe(array $options = []) {
+		return self::tag('iframe', ' ', $options);
+	}
+	
+	/**
+	 * Creates an `<img>` element.
+	 * @param string $path Image path (will be relative to `app/webroot/img/`)
+	 * @param $options Array of options and HTML attributes
+	 * @return string Html code
+	 * @uses _addValue()
+	 */
+    public function image($path, array $options = []) {
+		$options = self::_addValue('class', 'img-responsive', $options);
+		
+        return parent::image($path, $options);
+    }
+	
     /**
      * Alias for `image()` method.
      * @see image()
@@ -163,27 +238,27 @@ class MeHtmlHelper extends HtmlHelper {
     public function js() {
         return call_user_func_array(array(get_class(), 'script'), func_get_args());
     }
-	
-	/**
-     * Creates a link with the appearance of a button.
+
+    /**
+     * Create a label, according to the Bootstrap component.
      * 
-     * This method creates a link with the appearance of a button.
-     * To create a POST button, you should use the `postButton()` method provided by `MeFormHelper`.
-     * Instead, to create a normal button, you should use the `button()` method provided by `MeFormHelper`.
-     * @param string $title Button title
-	 * @param string|array $url Cake-relative URL or array of URL parameters or external URL
-	 * @param array $options Array of options and HTML attributes
-	 * @return string Html code
-	 * @uses _addButtonClass()
+     * This method creates only a label element. Not to be confused with the `label()` method provided by 
+	 * the `MeFormhelper`, which creates a label for a form input.
+     * 
+     * Supported type are: `default`, `primary`, `success`, `info`, `warning` and `danger`.
+     * @param string $text Label text
+     * @param array $options HTML attributes of the list tag
+     * @param string $type Label type
+     * @return string Html code
+     * @see http://getbootstrap.com/components/#labels Bootstrap documentation
 	 * @uses _addValue()
-	 * @uses link()
-	 */
-	public function button($title, $url = NULL, array $options = []) {
-		$options = self::_addValue('role', 'button', $options);
-		$options = self::_addButtonClass($options);
-		
-		return self::link($title, $url, $options);
-	}
+	 * @uses span()
+     */
+    public function label($text, array $options = [], $type = 'default') {
+		$options = self::_addValue('class', array('label', sprintf('label-%s', $type)), $options);
+
+        return self::span($text, $options);
+    }
 	
 	/**
 	 * Creates an HTML link
@@ -206,4 +281,61 @@ class MeHtmlHelper extends HtmlHelper {
 		
 		return parent::link($title, $url, $options);
 	}
+
+    /**
+     * Alias for `button()` method.
+     * @see button()
+     */
+    public function linkButton() {
+        return call_user_func_array(array(get_class(), 'button'), func_get_args());
+    }
+
+    /**
+     * Returns a formatted `<p>` tag.
+     * @param type $class Class name
+     * @param string $text Paragraph text
+	 * @param array $options Array of options and HTML attributes
+     * @return string Html code
+	 * @uses _addIcon()
+     */
+    public function para($class, $text, array $options = []) {
+		$text = self::_addIcon($text, $options);
+        unset($options['icon']);
+
+        return parent::para($class, $text, $options);
+    }
+	
+	/**
+	 * Returns a `<pre>` tag.
+	 * 
+	 * To use with SyntaxHighlighter, you can use the `brush` option.
+     * @param string $text Pre text
+	 * @param array $options Array of options and HTML attributes
+     * @return string Html code
+	 * @uses _addValue()
+	 * @uses tag()
+	 */
+	public function pre($text, array $options = []) {
+		if(!empty($options['brush'])) {
+			$options = self::_addValue('class', sprintf('brush: %s', $options['brush']), $options);
+			unset($options['brush']);
+		}
+		
+		return self::tag('pre', $text, $options);
+	}
+
+    /**
+     * Returns a formatted block tag.
+     * @param string $name Tag name
+     * @param string $text Tag content. If NULL, only a start tag will be printed
+	 * @param array $options Array of options and HTML attributes
+     * @return string Html code
+	 * @uses _addIcon()
+     */
+    public function tag($name, $text = NULL, array $options = []) {
+		$text = self::_addIcon($text, $options);
+        unset($options['icon']);
+
+        return parent::tag($name, $text, $options);
+    }
 }

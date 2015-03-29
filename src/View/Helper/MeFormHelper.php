@@ -27,7 +27,14 @@ use Cake\View\Helper\FormHelper;
 use Cake\View\View;
 
 /**
- * MeForm helper
+ * Provides functionalities for forms.
+ * 
+ * Rewrites {@link http://api.cakephp.org/3.0/class-Cake.View.Helper.FormHelper.html FormHelper}.
+ * 
+ * You should use this helper as an alias, for example:
+ * <code>
+ * public $helpers = ['Form' => ['className' => 'MeTools.MeForm']];
+ * </code>
  */
 class MeFormHelper extends FormHelper {
 	/**
@@ -35,6 +42,17 @@ class MeFormHelper extends FormHelper {
 	 * @var array
 	 */
 	public $helpers = ['Html' => ['className' => 'MeTools.MeHtml'], 'Url'];
+	
+	/**
+	 * Creates a `<legend>` tag.
+     * @param string $text Legend text
+     * @param array $options HTML attributes and options
+     * @return string Html code
+	 * @uses MeHtmlHelper::legend()
+	 */
+	public function legend($text, array $options = []) {
+		return $this->Html->legend($text, $options);
+	}
 	
 	/**
      * Creates a button with a surrounding form that submits via POST.
