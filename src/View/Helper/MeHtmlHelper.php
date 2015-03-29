@@ -48,7 +48,7 @@ class MeHtmlHelper extends HtmlHelper {
     public function _addButtonClass($options, $class = 'default') {
         //If "class" doesn't contain a button style, adds the "btn-default" classes
         if(empty($options['class']) || !preg_match('/btn-(default|primary|success|info|warning|danger)/', $options['class']))
-			return self::_addValue('class', array('btn', sprintf('btn-%s', $class)), $options);
+			return self::_addValue('class', ['btn', sprintf('btn-%s', $class)], $options);
         
 		return self::_addValue('class', 'btn', $options);
     }
@@ -58,7 +58,7 @@ class MeHtmlHelper extends HtmlHelper {
      * @see _addOptionDefault()
      */
     public function _addDefault() {
-        return call_user_func_array(array(get_class(), '_addOptionDefault'), func_get_args());
+        return call_user_func_array([get_class(), '_addOptionDefault'], func_get_args());
     }
 	
 	/**
@@ -77,7 +77,7 @@ class MeHtmlHelper extends HtmlHelper {
      * @see _addIcon()
      */
     public function _addIcons() {
-        return call_user_func_array(array(get_class(), '_addIcon'), func_get_args());
+        return call_user_func_array([get_class(), '_addIcon'], func_get_args());
     }
 	
 	/**
@@ -120,7 +120,7 @@ class MeHtmlHelper extends HtmlHelper {
      * @see _addOptionValue()
      */
     public function _addValue() {
-        return call_user_func_array(array(get_class(), '_addOptionValue'), func_get_args());
+        return call_user_func_array([get_class(), '_addOptionValue'], func_get_args());
     }
 
     /**
@@ -175,7 +175,7 @@ class MeHtmlHelper extends HtmlHelper {
      * echo $this->Html->icon('home');
      * </code>
      * <code>
-     * echo $this->Html->icon(array('hand-o-right', '2x'));
+     * echo $this->Html->icon(['hand-o-right', '2x']);
      * </code>
 	 * @param string|array $icon Icon or icons
 	 * @param array $options Array of options and HTML attributes
@@ -188,7 +188,7 @@ class MeHtmlHelper extends HtmlHelper {
 		$icon = preg_replace('/(?<![^ ])(?=[^ ])(?!fa-)/', 'fa-', $icon);
 		
 		//Adds the "fa" class
-		$options = self::_addValue('class', array('fa', $icon), $options);
+		$options = self::_addValue('class', ['fa', $icon], $options);
 		
 		return self::tag('i', ' ', $options);
 	}
@@ -198,7 +198,7 @@ class MeHtmlHelper extends HtmlHelper {
      * @see icon()
      */
     public function icons() {
-        return call_user_func_array(array(get_class(), 'icon'), func_get_args());
+        return call_user_func_array([get_class(), 'icon'], func_get_args());
     }
 	
 	/**
@@ -228,7 +228,7 @@ class MeHtmlHelper extends HtmlHelper {
      * @see image()
      */
     public function img() {
-        return call_user_func_array(array(get_class(), 'image'), func_get_args());
+        return call_user_func_array([get_class(), 'image'], func_get_args());
     }
 	
     /**
@@ -236,7 +236,7 @@ class MeHtmlHelper extends HtmlHelper {
      * @see script()
      */
     public function js() {
-        return call_user_func_array(array(get_class(), 'script'), func_get_args());
+        return call_user_func_array([get_class(), 'script'], func_get_args());
     }
 
     /**
@@ -255,7 +255,7 @@ class MeHtmlHelper extends HtmlHelper {
 	 * @uses span()
      */
     public function label($text, array $options = [], $type = 'default') {
-		$options = self::_addValue('class', array('label', sprintf('label-%s', $type)), $options);
+		$options = self::_addValue('class', ['label', sprintf('label-%s', $type)], $options);
 
         return self::span($text, $options);
     }
@@ -287,7 +287,7 @@ class MeHtmlHelper extends HtmlHelper {
      * @see button()
      */
     public function linkButton() {
-        return call_user_func_array(array(get_class(), 'button'), func_get_args());
+        return call_user_func_array([get_class(), 'button'], func_get_args());
     }
 
     /**

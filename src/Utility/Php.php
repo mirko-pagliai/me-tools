@@ -61,7 +61,7 @@ class Php {
      * @see checkExtension()
      */
     public static function extension() {
-        return call_user_func_array(array(get_class(), 'checkExtension'), func_get_args());
+        return call_user_func_array([get_class(), 'checkExtension'], func_get_args());
     }
 
     /**
@@ -77,6 +77,6 @@ class Php {
      * @see getVersion()
      */
     public static function version() {
-        return call_user_func_array(array(get_class(), 'getVersion'), func_get_args());
+        return call_user_func_array([get_class(), 'getVersion'], func_get_args());
     }
 }

@@ -39,7 +39,7 @@ class MePlugin {
      * @see getAll()
      */
     public static function all() {
-        return call_user_func_array(array(get_class(), 'getAll'), func_get_args());
+        return call_user_func_array([get_class(), 'getAll'], func_get_args());
     }
 	
 	/**
@@ -100,7 +100,7 @@ class MePlugin {
 		
 		//Removes exceptions
 		if(is_string($except) || is_array($except)) {
-			$except = is_array($except) ? $except : array($except);
+			$except = is_array($except) ? $except : [$except];
 			$plugins = array_diff($plugins, $except);
 		}
 		
@@ -112,7 +112,7 @@ class MePlugin {
 		//For each plugin, sets the name and the version number
 		foreach($plugins as $plugin)
 			if(self::version($plugin))
-				$versions[] = array('name' => $plugin, 'version' => self::version($plugin));
+				$versions[] = ['name' => $plugin, 'version' => self::version($plugin)];
 		
 		return $versions;
 	}
@@ -122,7 +122,7 @@ class MePlugin {
      * @see getPath()
      */
     public static function path() {
-        return call_user_func_array(array(get_class(), 'getPath'), func_get_args());
+        return call_user_func_array([get_class(), 'getPath'], func_get_args());
     }
 	
     /**
@@ -130,7 +130,7 @@ class MePlugin {
      * @see getVersion()
      */
     public static function version() {
-        return call_user_func_array(array(get_class(), 'getVersion'), func_get_args());
+        return call_user_func_array([get_class(), 'getVersion'], func_get_args());
     }
 	
     /**
@@ -138,6 +138,6 @@ class MePlugin {
      * @see getVersions()
      */
     public static function versions() {
-        return call_user_func_array(array(get_class(), 'getVersions'), func_get_args());
+        return call_user_func_array([get_class(), 'getVersions'], func_get_args());
     }
 }

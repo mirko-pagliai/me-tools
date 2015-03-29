@@ -73,7 +73,7 @@ class Apache {
      * @see checkModule()
      */
     public static function module() {
-        return call_user_func_array(array(get_class(), 'checkModule'), func_get_args());
+        return call_user_func_array([get_class(), 'checkModule'], func_get_args());
     }
 	
     /**
@@ -81,7 +81,7 @@ class Apache {
      * @see getModules()
      */
     public static function modules() {
-        return call_user_func_array(array(get_class(), 'getModules'), func_get_args());
+        return call_user_func_array([get_class(), 'getModules'], func_get_args());
     }
 	
     /**
@@ -89,6 +89,6 @@ class Apache {
      * @see getVersion()
      */
     public static function version() {
-        return call_user_func_array(array(get_class(), 'getVersion'), func_get_args());
+        return call_user_func_array([get_class(), 'getVersion'], func_get_args());
     }
 }
