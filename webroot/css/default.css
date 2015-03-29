@@ -1,0 +1,33 @@
+/*!
+ * This file is part of MeTools.
+ * @author		Mirko Pagliai <mirko.pagliai@gmail.com>
+ * @copyright	Copyright (c) 2015, Mirko Pagliai for Nova Atlantis Ltd
+ * @license		http://www.gnu.org/licenses/agpl.txt AGPL License
+ */
+
+/* -------------------------------- */
+/*		Ascending/descending sort	*/
+/* -------------------------------- */
+th a.asc:after, th a.desc:after {
+	font-family: FontAwesome;
+    font-weight: normal;
+	white-space: nowrap;
+}
+
+/* Ascending sort */
+th a.asc:after {
+    content: " \f160";
+}
+
+/* Descending sort */
+th a.desc:after {
+    content: " \f161";
+}
+
+/* -------------------------------- */
+/*			Bootstrap rewrite		*/
+/* -------------------------------- */
+/* Disabled links on pagination */ 
+.pagination > .disabled > a, .pagination > .disabled > a:focus, .pagination > .disabled > a:hover, .pagination > .disabled > span, .pagination > .disabled > span:focus, .pagination > .disabled > span:hover {
+    cursor: default;
+}
