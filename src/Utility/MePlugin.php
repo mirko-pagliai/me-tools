@@ -28,7 +28,7 @@ use Cake\Filesystem\Folder;
 /**
  * An utility to handle plugins.
  * 
- * You can use this utility by adding in your controller:
+ * You can use this utility by adding:
  * <code>
  * use MeTools\Utility\MePlugin;
  * </code>
