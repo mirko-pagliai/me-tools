@@ -1,0 +1,9 @@
+accessLevels: [public, protected, private]
+destination: API
+download: false
+exclude: {*.old, *.old.*} 
+source: {src/Controller, src/View/Helper}
+main: MeTools
+php: false
+title: MeTools API
+todo: true
