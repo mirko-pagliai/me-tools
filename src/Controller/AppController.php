@@ -19,7 +19,6 @@
  * @copyright	Copyright (c) 2015, Mirko Pagliai for Nova Atlantis Ltd
  * @license		http://www.gnu.org/licenses/agpl.txt AGPL License
  * @link		http://git.novatlantis.it Nova Atlantis Ltd
- * @see			http://api.cakephp.org/3.0/class-Cake.View.Helper.FormHelper.html FormHelper
  */
 namespace MeTools\Controller;
 
