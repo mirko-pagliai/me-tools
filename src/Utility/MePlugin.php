@@ -111,7 +111,8 @@ class MePlugin {
 		
 		//For each plugin, sets the name and the version number
 		foreach($plugins as $plugin)
-			$versions[] = array('name' => $plugin, 'version' => self::version($plugin));
+			if(self::version($plugin))
+				$versions[] = array('name' => $plugin, 'version' => self::version($plugin));
 		
 		return $versions;
 	}
