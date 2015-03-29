@@ -71,9 +71,9 @@ $fields = collection($fields)
 				$pk = '$' . $singularVar . '->' . $primaryKey[0];
 		%>
 			<td class="actions">
-						<?= $this->Html->link(__('View'), ['action' => 'view', <%= $pk %>]) ?>
-						<?= $this->Html->link(__('Edit'), ['action' => 'edit', <%= $pk %>]) ?>
-						<?= $this->Form->postLink(__('Delete'), ['action' => 'delete', <%= $pk %>], ['confirm' => __('Are you sure you want to delete # {0}?', <%= $pk %>)]) ?>
+						<?= $this->Html->button(__('View'), ['action' => 'view', <%= $pk %>], ['icon' => 'eye']) ?>
+						<?= $this->Html->button(__('Edit'), ['action' => 'edit', <%= $pk %>], ['icon' => 'pencil']) ?>
+						<?= $this->Form->postButton(__('Delete'), ['action' => 'delete', <%= $pk %>], ['confirm' => __('Are you sure you want to delete # {0}?', <%= $pk %>), 'icon' => 'trash']) ?>
 					</td>
 				</tr>
 			<?php endforeach; ?>
