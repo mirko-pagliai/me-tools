@@ -37,6 +37,25 @@ use Cake\View\View;
  * </code>
  */
 class MeHtmlHelper extends HtmlHelper {
+	/**
+	 * Construct the widgets and binds the default context providers.
+	 * 
+	 * This method only ewrites the default configuration (`$_defaultConfig`).
+	 * @param Cake\View\View $view The View this helper is being attached to
+	 * @param array $config Configuration settings for the helper
+	 * @see http://api.cakephp.org/3.0/class-Cake.View.Helper.HtmlHelper.html#$_defaultConfig
+	 * @uses HtmlHelper::__construct()
+	 * @uses _defaultConfig
+	 */
+	public function __construct(View $view, $config = []) {
+		//Rewrites the default configuration
+		$this->_defaultConfig['templates'] = array_merge($this->_defaultConfig['templates'], [
+			'image' => '<img class="img-responsive" src="{{url}}"{{attrs}}/>',
+		]);
+		
+        parent::__construct($view, $config);
+    }
+	
     /**
      * Add button class
 	 * @param array $options Options
@@ -209,19 +228,6 @@ class MeHtmlHelper extends HtmlHelper {
 	public function iframe(array $options = []) {
 		return self::tag('iframe', ' ', $options);
 	}
-	
-	/**
-	 * Creates an `<img>` element.
-	 * @param string $path Image path (will be relative to `app/webroot/img/`)
-	 * @param $options Array of options and HTML attributes
-	 * @return string Html code
-	 * @uses _addValue()
-	 */
-    public function image($path, array $options = []) {
-		$options = self::_addValue('class', 'img-responsive', $options);
-		
-        return parent::image($path, $options);
-    }
 	
     /**
      * Alias for `image()` method.
