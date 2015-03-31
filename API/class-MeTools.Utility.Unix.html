@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>Class MeTools\Utility\Unix | MeTools API</title>
+
+	<link rel="stylesheet" href="resources/style.css?e99947befd7bf673c6b43ff75e9e0f170c88a60e">
+
+</head>
+
+<body>
+<div id="left">
+	<div id="menu">
+		<a href="index.html" title="Overview"><span>Overview</span></a>
+
+
+		<div id="groups">
+				<h3>Namespaces</h3>
+			<ul>
+				<li class="active main">
+					<a href="namespace-MeTools.html">
+						MeTools<span></span>
+					</a>
+
+						<ul>
+				<li class="main">
+					<a href="namespace-MeTools.Controller.html">
+						Controller<span></span>
+					</a>
+
+						<ul>
+				<li class="main">
+					<a href="namespace-MeTools.Controller.Component.html">
+						Component					</a>
+
+						</li>
+							</ul></li>
+				<li class="main">
+					<a href="namespace-MeTools.Shell.html">
+						Shell					</a>
+
+						</li>
+				<li class="active main">
+					<a href="namespace-MeTools.Utility.html">
+						Utility					</a>
+
+						</li>
+				<li class="main">
+					<a href="namespace-MeTools.View.html">
+						View<span></span>
+					</a>
+
+						<ul>
+				<li class="main">
+					<a href="namespace-MeTools.View.Helper.html">
+						Helper					</a>
+
+						</li>
+							</ul></li></ul></li>
+			</ul>
+		</div>
+
+		<hr>
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li><a href="class-MeTools.Utility.Apache.html">Apache</a></li>
+				<li><a href="class-MeTools.Utility.MePlugin.html">MePlugin</a></li>
+				<li><a href="class-MeTools.Utility.Php.html">Php</a></li>
+				<li><a href="class-MeTools.Utility.System.html">System</a></li>
+				<li><a href="class-MeTools.Utility.Thumbs.html">Thumbs</a></li>
+				<li class="active"><a href="class-MeTools.Utility.Unix.html">Unix</a></li>
+			</ul>
+
+
+
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+<div id="rightInner">
+	<form id="search">
+		<input type="hidden" name="cx" value="">
+		<input type="hidden" name="ie" value="UTF-8">
+		<input type="text" name="q" class="text" placeholder="Search">
+	</form>
+
+	<div id="navigation">
+		<ul>
+			<li>
+				<a href="index.html" title="Overview"><span>Overview</span></a>
+			</li>
+			<li>
+				<a href="namespace-MeTools.Utility.html" title="Summary of MeTools\Utility"><span>Namespace</span></a>
+			</li>
+			<li class="active">
+<span>Class</span>			</li>
+		</ul>
+		<ul>
+			<li>
+				<a href="todo.html" title="Todo list"><span>Todo</span></a>
+			</li>
+		</ul>
+		<ul>
+		</ul>
+	</div>
+
+<div id="content" class="class">
+	<h1>Class Unix</h1>
+
+
+	<div class="description">
+	<p>An utility to handle Unix.</p>
+
+<p>You can use this utility by adding:</p>
+
+<pre><span class="php-keyword1">use</span> MeTools\Utility\Unix;</pre>
+	</div>
+
+
+
+
+
+
+
+
+
+	<div class="info">
+		
+		
+		<b>Namespace:</b> <a href="namespace-MeTools.html">MeTools</a>\<a href="namespace-MeTools.Utility.html">Utility</a><br>
+		
+
+			<b>Located at</b> <a href="source-class-MeTools.Utility.Unix.html#25-73" title="Go to source code">Unix.php</a>
+		<br>
+	</div>
+
+
+
+	<table class="summary methods" id="methods">
+	<caption>Methods summary</caption>
+	<tr data-order="is_root" id="_is_root">
+
+		<td class="attributes"><code>
+			 public static
+
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_is_root">#</a>
+		<code><a href="source-class-MeTools.Utility.Unix.html#34-44" title="Go to source code">is_root</a>( )</code>
+
+		<div class="description short">
+			<p>Checks if the current user is the root user.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Checks if the current user is the root user.</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					mixed<br>TRUE if is the root user, otherwise FALSE. NULL if cannot check
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="whereis" id="_whereis">
+
+		<td class="attributes"><code>
+			 public static
+
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_whereis">#</a>
+		<code><a href="source-class-MeTools.Utility.Unix.html#46-59" title="Go to source code">whereis</a>( <span>string <var>$command</var></span> )</code>
+
+		<div class="description short">
+			<p>Executes the <code>whereis</code> command.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Executes the <code>whereis</code> command.</p>
+
+<p>It locates the binary files for a command.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$command</var></dt>
+					<dd>Command</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					mixed<br>Array of binary files, otherwise FALSE
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="which" id="_which">
+
+		<td class="attributes"><code>
+			 public static
+
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_which">#</a>
+		<code><a href="source-class-MeTools.Utility.Unix.html#61-72" title="Go to source code">which</a>( <span>string <var>$command</var></span> )</code>
+
+		<div class="description short">
+			<p>Executes the <code>which</code> command.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Executes the <code>which</code> command.</p>
+
+<p>It shows the full path of (shell) commands.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$command</var></dt>
+					<dd>Command</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					mixed<br>Full path of command, otherwise FALSE
+				</div>
+
+
+				<h4>Used by</h4>
+				<div class="list">
+						<code><a href="class-MeTools.Controller.ThumbsController.html#__videoThumb">MeTools\Controller\ThumbsController::_videoThumb()</a></code><br>
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+	<div id="footer">
+		MeTools API API documentation generated by <a href="http://apigen.org">ApiGen</a>
+	</div>
+</div>
+</div>
+<script src="resources/combined.js"></script>
+<script src="elementlist.js"></script>
+</body>
+</html>
