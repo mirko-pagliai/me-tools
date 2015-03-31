@@ -2,7 +2,7 @@ accessLevels: [public, protected, private]
 destination: API
 download: false
 exclude: {*.old, *.old.*} 
-source: {src/Controller, src/Utility, src/View/Helper}
+source: {src/Controller, src/Shell, src/Utility, src/View/Helper}
 main: MeTools
 php: false
 title: MeTools API
