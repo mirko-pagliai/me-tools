@@ -191,9 +191,9 @@ class ThumbsController extends AppController {
      * @see ThumbHelper::image(), ThumbHelper::url()
 	 * @throws InternalErrorException
 	 * @throws NotFoundException
-	 * @uses Thumbs::getPhotoPath()
-	 * @uses Thumbs::getRemotePath()
-	 * @uses Thumbs::getVideoPath()
+	 * @uses Thumbs::photo()
+	 * @uses Thumbs::remote()
+	 * @uses Thumbs::video()
 	 * @uses _imageThumb()
 	 * @uses _videoThumb()
 	 * @uses object
@@ -210,7 +210,7 @@ class ThumbsController extends AppController {
 		//If the file is remote
 		if(filter_var($file, FILTER_VALIDATE_URL)) {			
 			//Downloads the file, if not already done
-			if(!is_readable($tmp = Thumbs::getRemotePath(md5($file).'.'.pathinfo($file, PATHINFO_EXTENSION)))) {
+			if(!is_readable($tmp = Thumbs::remote(md5($file).'.'.pathinfo($file, PATHINFO_EXTENSION)))) {
 				//Checks if the target directory is writable
 				if(!is_writable(dirname($tmp)))
 					throw new InternalErrorException(__d('me_tools', 'The directory {0} is not writable', dirname($tmp)));
@@ -249,7 +249,7 @@ class ThumbsController extends AppController {
 			}
 			
 			//Sets the thumb path
-			$this->thumb = Thumbs::getPhotoPath(md5($this->object->path));
+			$this->thumb = Thumbs::photo(md5($this->object->path));
 			
 			if($this->sizes['side'])
 				$this->thumb = sprintf('%s_s_%s', $this->thumb, $this->sizes['side']);
@@ -269,7 +269,7 @@ class ThumbsController extends AppController {
 				$this->sizes['side'] = 270;
 			
 			//Sets the thumb path
-			$this->thumb = Thumbs::getVideoPath(md5($this->object->path));
+			$this->thumb = Thumbs::video(md5($this->object->path));
 			
 			if($this->sizes['side'])
 				$this->thumb = sprintf('%s_s_%s', $this->thumb, $this->sizes['side']);
