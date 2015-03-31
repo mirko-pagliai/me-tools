@@ -28,7 +28,7 @@ $fields = collection($fields)
     })
     ->take(7);
 %>
-<div class="actions col-md-3 col-lg-2">
+<?php $this->start('sidebar'); ?>
     <h3><?= __('Actions') ?></h3>
     <ul class="side-nav">
         <li><?= $this->Html->link(__('New <%= $singularHumanName %>'), ['action' => 'add']) ?></li>
@@ -47,8 +47,9 @@ $fields = collection($fields)
     endforeach;
 %>
     </ul>
-</div>
-<div class="<%= $pluralVar %> index col-md-9 col-lg-10">
+<?php $this->end('sidebar'); ?>
+
+<div class="<%= $pluralVar %> index">
     <table class="table">
 		<thead>
 			<tr>
