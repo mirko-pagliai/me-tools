@@ -158,6 +158,18 @@ class MeHtmlHelper extends HtmlHelper {
     }
 
     /**
+     * Returns an `<audio>` element.
+     * @param string|array $path File path, relative to the `webroot/files/` directory or an array
+	 * where each item itself can be a path string or an array containing `src` and `type` keys.
+     * @param array $options Array of HTML attributes
+     * @return string Html code
+     * @uses media()
+     */
+    public function audio($path, array $options = []) {
+        return self::media($path, array_merge($options, ['tag' => 'audio']));
+    }
+	
+    /**
      * Creates a badge, according to Bootstrap.
      * @param string $text Badge text
 	 * @param array $options Array of options and HTML attributes
@@ -345,6 +357,24 @@ class MeHtmlHelper extends HtmlHelper {
         return self::span($text, $options);
     }
 	
+    /**
+     * Returns an elements list (`<li>`).
+     * @param string|array $elements Elements list
+     * @param array $options HTML attributes of the list tag
+     * @return string Html code
+	 * @uses tag()
+     */
+	public function li($elements, array $options = []) {
+		if(!is_array($elements))
+			return self::tag('li', $elements, $options);
+				
+		array_walk($elements, function(&$v, $k, $options){
+			$v = self::tag('li', $v, $options);
+		}, $options);
+		
+		return implode(PHP_EOL, $elements);
+	}
+	
 	/**
 	 * Creates an HTML link
 	 * @param string $title The content to be wrapped by <a> tags
@@ -375,6 +405,20 @@ class MeHtmlHelper extends HtmlHelper {
         return call_user_func_array([get_class(), 'button'], func_get_args());
     }
 
+    /**
+     * Returns an `<audio>` or `<video>` element.
+     * @param string|array $path File path, relative to the `webroot/files/` directory or an array
+	 * where each item itself can be a path string or an array containing `src` and `type` keys.
+	 * @param array $options Array of options and HTML attributes
+     * @return string Html code
+	 * @uses _addDefault()
+     */
+    public function media($path, array $options = []) {
+		$options = self::_addDefault('controls', !empty($options['controls']) || !isset($options['controls']), $options);
+
+        return parent::media($path, $options);
+    }
+
 	/**
 	 * Creates a link to an external resource and handles basic meta tags.
 	 * @param string|array $type The title of the external resource
@@ -388,6 +432,46 @@ class MeHtmlHelper extends HtmlHelper {
 		
         return parent::meta($type, $content, $options);
 	}
+	
+	/**
+     * Returns a list (`<ol>` or `<ul>` tag).
+     * @param array $list Elements list
+     * @param array $options HTML attributes of the list tag
+     * @param array $itemOptions HTML attributes of the list items
+     * @param string $tag Type of list tag (ol/ul)
+     * @return string Html code
+	 * @uses _addIcon()
+	 * @uses _addValue()
+	 */
+	public function nestedList(array $list, array $options = [], array $itemOptions = []) {
+		if(!empty($itemOptions['icon']))
+			$options['icon'] = $itemOptions['icon'];
+		
+		if(!empty($options['icon'])) {
+			$options = self::_addValue('class', 'fa-ul', $options);
+			$options = self::_addValue('icon', 'li', $options);
+			
+			array_walk($list, function(&$v, $k, $options) {
+				$v = self::_addIcon($v, $options);
+			}, $options);
+        }
+			
+		unset($options['icon'], $itemOptions['icon']);
+		
+		return parent::nestedList($list, $options, $itemOptions);
+	}
+
+    /**
+     * Returns an unordered list (`<ol>` tag).
+     * @param array $list Elements list
+     * @param array $options HTML attributes of the list tag
+     * @param array $itemOptions HTML attributes of the list items
+     * @return string Html code
+     * @uses nestedList()
+     */
+    public function ol(array $list, array $options = [], array $itemOptions = []) {
+        return self::nestedList($list, array_merge($options, ['tag' => 'ol']), $itemOptions);
+    }
 	
     /**
      * Returns a formatted `<p>` tag.
@@ -482,5 +566,29 @@ class MeHtmlHelper extends HtmlHelper {
         unset($options['icon']);
 
         return parent::tag($name, $text, $options);
+    }
+
+    /**
+     * Returns an unordered list (`<ul>` tag).
+     * @param array $list Elements list
+     * @param array $options HTML attributes of the list tag
+     * @param array $itemOptions HTML attributes of the list items
+     * @return string Html code
+     * @uses nestedList()
+     */
+    public function ul(array $list, array $options = [], array $itemOptions = []) {
+        return self::nestedList($list, array_merge($options, ['tag' => 'ul']), $itemOptions);
+    }
+
+    /**
+     * Returns a `<video>` element
+     * @param string|array $path File path, relative to the `webroot/files/` directory or an array
+	 * where each item itself can be a path string or an array containing `src` and `type` keys.
+	 * @param array $options Array of options and HTML attributes
+     * @return string Html code
+     * @uses media()
+     */
+    public function video($path, array $options = []) {
+        return self::media($path, array_merge($options, ['tag' => 'video']));
     }
 }
