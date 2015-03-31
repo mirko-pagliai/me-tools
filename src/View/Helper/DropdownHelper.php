@@ -53,7 +53,7 @@ class DropdownHelper extends Helper {
 		$options = $this->Html->_addValue('class', 'dropdown-toggle', $options);
 		$options = $this->Html->_addValue('data-toggle', 'dropdown', $options);
 
-        return array($title, $options);
+        return [$title, $options];
     }
 	
     /**
@@ -82,11 +82,11 @@ class DropdownHelper extends Helper {
      * <code>
      * <div class="dropdown">
      *    <?php
-     *       echo $this->Html->button('Open the dropdown', array('icon' => 'fa-bell'));
-     *       echo $this->Html->dropdown(array(
-     *          $this->Html->link('Github', 'http://github.com', array('icon' => 'fa-github')),
-     *          $this->Html->link('Stack Overflow', 'http://stackoverflow.com', array('icon' => 'fa-stack-overflow'))
-     *       ));
+     *       echo $this->Html->button('Open the dropdown', ['icon' => 'fa-bell']);
+     *       echo $this->Html->dropdown([
+     *          $this->Html->link('Github', 'http://github.com', ['icon' => 'fa-github']),
+     *          $this->Html->link('Stack Overflow', 'http://stackoverflow.com', ['icon' => 'fa-stack-overflow'])
+     *       ]);
      *    ?>
      * </div>
      * </code>
@@ -132,6 +132,6 @@ class DropdownHelper extends Helper {
      * @see dropdown()
      */
     public function menu() {
-        return call_user_func_array(array(get_class(), 'dropdown'), func_get_args());
+        return call_user_func_array([get_class(), 'dropdown'], func_get_args());
     }
 }

@@ -107,7 +107,7 @@ class MePlugin {
 		if(empty($plugins))
 			return FALSE;
 		
-		$versions = array();
+		$versions = [];
 		
 		//For each plugin, sets the name and the version number
 		foreach($plugins as $plugin)
