@@ -6,6 +6,16 @@
  */
 
 /* -------------------------------- */
+/*				HTML				*/
+/* -------------------------------- */
+/* Iframe*/
+iframe {
+	border: 0;
+	display: block;
+	max-width: 100%;
+}
+
+/* -------------------------------- */
 /*		Ascending/descending sort	*/
 /* -------------------------------- */
 th a.asc:after, th a.desc:after {
