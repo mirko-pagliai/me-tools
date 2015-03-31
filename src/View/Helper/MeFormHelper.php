@@ -62,7 +62,6 @@ class MeFormHelper extends FormHelper {
 			'inputContainerError' => '<div class="input form-group {{type}}{{required}} has-error">{{content}}{{error}}</div>',
 			'select' => '<select class="form-control" name="{{name}}"{{attrs}}>{{content}}</select>',
 			'selectMultiple' => '<select class="form-control" name="{{name}}[]" multiple="multiple"{{attrs}}>{{content}}</select>',
-			'radio' => '<input class="form-control" type="radio" name="{{name}}" value="{{value}}"{{attrs}}>',
 			'textarea' => '<textarea class="form-control" name="{{name}}"{{attrs}}>{{value}}</textarea>',
 			'submitContainer' => '<div class="submit form-group">{{content}}</div>'
 		]);
