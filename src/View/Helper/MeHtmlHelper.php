@@ -38,6 +38,21 @@ use Cake\View\View;
  */
 class MeHtmlHelper extends HtmlHelper {
 	/**
+	 * Method that is called automatically when the method doesn't exist.
+	 * 
+	 * If you pass no more than two parameters, it tries to generate a html tag with the name of the method.
+	 * @param string $method Method to invoke
+	 * @param array $params Array of params for the method
+	 * @uses tag()
+	 */
+	public function __call($method, $params) {
+		if(count($params) <= 2)
+			return self::tag($method, empty($params[0]) ? NULL : $params[0], empty($params[1]) ? [] : $params[1]);
+		
+		parent::__call($method, $params);
+	}
+	
+	/**
 	 * Construct the widgets and binds the default context providers.
 	 * 
 	 * This method only ewrites the default configuration (`$_defaultConfig`).
@@ -179,6 +194,66 @@ class MeHtmlHelper extends HtmlHelper {
 	}
 	
 	/**
+     * Adds a css file to the layout.
+     *
+     * If it's used in the layout, you should set the `inline` option to `TRUE`.
+     * @param mixed $path Css filename or an array of css filenames
+	 * @param array $options Array of options and HTML attributes
+     * @return string Html, `<link>` or `<style>` tag
+	 * @uses _addDefault()
+	 */
+	public function css($path, array $options = []) {
+		$options = self::_addDefault('block', TRUE, $options);
+		
+		parent::css($path, $options);
+	}
+
+    /**
+     * Ends capturing output for a CSS block.
+     * 
+     * To start capturing output, see the `cssStart()` method.
+     * @see cssStart()
+     */
+    public function cssEnd() {
+        $this->_View->end();
+    }
+
+    /**
+     * Starts capturing output for a CSS block.
+     * 
+     * To end capturing output, see the `cssEnd()` method.
+     * @see cssEnd()
+     */
+    public function cssStart() {
+        $this->_View->start('css');
+    }
+	
+	/**
+	 * Creates an heading. 
+	 * 
+	 * This method is useful if you want to create an heading with a secondary text, according to Bootstrap.
+	 * In this case you have to use the `small` option.
+	 * 
+	 * By default, this method creates an `<h2>` tag. To create a different tag, you have to use the `type` option.
+     * @param string $text heading content
+	 * @param array $options Array of options and HTML attributes
+     * @return string Html code
+	 * @see http://getbootstrap.com/css/#type-headings Bootstrap documentation
+	 * @uses small()
+	 * @uses tag()
+	 */
+	public function heading($text, array $options = []) {
+		$type = empty($options['type']) || !preg_match('/^h[1-6]$/', $options['type']) ? 'h2' : $options['type'];
+				
+		if(!empty($options['small']) && is_string($options['small']))
+			$text = sprintf('%s %s', $text, self::small($options['small']));
+		
+		unset($options['type'], $options['small']);
+		
+		return self::tag($type, $text, $options);
+	}
+	
+	/**
 	 * Creates an horizontal rule (`<hr>` tag).
      * @param array $options HTML attributes
 	 * @param array $options Array of options and HTML attributes
@@ -222,10 +297,14 @@ class MeHtmlHelper extends HtmlHelper {
 	
 	/**
 	 * Create an `iframe` element.
+	 * @param string $url Url for the iframe
 	 * @param array $options Array of options and HTML attributes
      * @return string Html code
+	 * @uses tag()
 	 */
-	public function iframe(array $options = []) {
+	public function iframe($url, array $options = []) {
+		$options['src'] = $url;
+		
 		return self::tag('iframe', ' ', $options);
 	}
 	
@@ -296,6 +375,20 @@ class MeHtmlHelper extends HtmlHelper {
         return call_user_func_array([get_class(), 'button'], func_get_args());
     }
 
+	/**
+	 * Creates a link to an external resource and handles basic meta tags.
+	 * @param string|array $type The title of the external resource
+	 * @param string|array|null $content The address of the external resource or string for content attribute
+	 * @param array $options Other attributes for the generated tag. If the type attribute is html,
+	 *		rss, atom, or icon, the mime-type is returned
+	 * @return string A completed `<link />` element
+	 */
+	public function meta($type, $content = NULL, array $options = []) {
+		$options = self::_addDefault('block', TRUE, $options);
+		
+        return parent::meta($type, $content, $options);
+	}
+	
     /**
      * Returns a formatted `<p>` tag.
      * @param type $class Class name
@@ -329,6 +422,52 @@ class MeHtmlHelper extends HtmlHelper {
 		
 		return self::tag('pre', $text, $options);
 	}
+
+    /**
+     * Adds a js file to the layout.
+     * 
+     * If it's used in the layout, you should set the `inline` option to `TRUE`.
+     * @param mixed $url Javascript files as string or array
+	 * @param array $options Array of options and HTML attributes
+     * @return mixed String of `<script />` tags or NULL if `$inline` is FALSE or if `$once` is TRUE
+	 * and the file has been included before
+	 * @uses _addDefault()
+     */
+	public function script($url, array $options = []) {
+		$options = self::_addDefault('block', TRUE, $options);
+
+        return parent::script($url, $options);
+	}
+	
+    /**
+     * Returns a Javascript code block.
+     * @param string $code Javascript code
+	 * @param array $options Array of options and HTML attributes
+     * @return mixed A script tag or NULL
+	 * @uses _addDefault()
+     */
+    public function scriptBlock($code, array $options = []) {
+		$options = self::_addDefault('block', TRUE, $options);
+
+        return parent::scriptBlock($code, $options);
+    }
+
+    /**
+     * Starts capturing output for Javascript code.
+     * 
+     * To end capturing output, you can use the `scriptEnd()` method.
+     * 
+     * To capture output with a single method, you can also use the `scriptBlock()` method.
+     * @param array $options Options for the code block
+     * @return mixed A script tag or NULL
+     * @see scriptBlock()
+	 * @uses _addDefault()
+     */
+    public function scriptStart(array $options = []) {
+		$options = self::_addDefault('block', TRUE, $options);
+
+        return parent::scriptStart($options);
+    }
 
     /**
      * Returns a formatted block tag.
