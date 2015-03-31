@@ -44,7 +44,7 @@ class MeFlashComponent extends FlashComponent {
 	 * @param string $name Element name to use
 	 * @param array $args Parameters to pass
 	 * @return void
-	 * @uses MePlugin::path()
+	 * @uses MeTools\Utility\MePlugin::path()
 	 */
 	public function __call($name, $args) {
 		$name = strtolower($name);

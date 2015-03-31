@@ -59,8 +59,8 @@ class MeHtmlHelper extends HtmlHelper {
 	 * @param Cake\View\View $view The View this helper is being attached to
 	 * @param array $config Configuration settings for the helper
 	 * @see http://api.cakephp.org/3.0/class-Cake.View.Helper.HtmlHelper.html#$_defaultConfig
-	 * @uses HtmlHelper::__construct()
-	 * @uses _defaultConfig
+	 * @uses Cake\View\Helper\HtmlHelper::::__construct()
+	 * @uses Cake\View\Helper\HtmlHelper::$_defaultConfig
 	 */
 	public function __construct(View $view, $config = []) {
 		//Rewrites the default configuration
@@ -176,12 +176,12 @@ class MeHtmlHelper extends HtmlHelper {
      * @return string Html code
      * @see http://getbootstrap.com/components/#badges Bootstrap documentation
 	 * @uses _addValue()
-	 * @uses span()
+	 * @uses tag()
      */
     public function badge($text, array $options = []) {
 		$options = self::_addValue('class', 'badge', $options);
 
-        return self::span($text, $options);
+        return self::tag('span', $text, $options);
     }
 	
 	/**
@@ -225,6 +225,7 @@ class MeHtmlHelper extends HtmlHelper {
      * 
      * To start capturing output, see the `cssStart()` method.
      * @see cssStart()
+	 * @uses Cake\View\ViewBlock::end()
      */
     public function cssEnd() {
         $this->_View->end();
@@ -235,6 +236,7 @@ class MeHtmlHelper extends HtmlHelper {
      * 
      * To end capturing output, see the `cssEnd()` method.
      * @see cssEnd()
+	 * @uses Cake\View\ViewBlock::start()
      */
     public function cssStart() {
         $this->_View->start('css');
@@ -349,12 +351,12 @@ class MeHtmlHelper extends HtmlHelper {
      * @return string Html code
      * @see http://getbootstrap.com/components/#labels Bootstrap documentation
 	 * @uses _addValue()
-	 * @uses span()
+	 * @uses tag()
      */
     public function label($text, array $options = [], $type = 'default') {
 		$options = self::_addValue('class', ['label', sprintf('label-%s', $type)], $options);
 
-        return self::span($text, $options);
+        return self::tag('span', $text, $options);
     }
 	
     /**

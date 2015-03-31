@@ -47,9 +47,9 @@ class InstallShell extends AppShell {
 	 * <code>
 	 * bin/cake MeTools.install folders
 	 * </code>
-	 * @used Thumbs::photo()
-	 * @used Thumbs::remote()
-	 * @used Thumbs::video()
+	 * @uses MeTools\Utility\Thumbs::photo()
+	 * @uses MeTools\Utility\Thumbs::remote()
+	 * @uses MeTools\Utility\Thumbs::video()
 	 */
 	public function folders() {
 		$paths = [];

@@ -25,7 +25,7 @@ namespace MeTools\Shell;
 use Cake\Console\Shell;
 
 /**
- * pplication level shell
+ * Application level shell
  */
 class AppShell extends Shell {
 	/**
@@ -35,6 +35,7 @@ class AppShell extends Shell {
 	 * @param int $level The message's output level, see above
 	 * @return int|bool Returns the number of bytes returned from writing to stdout
 	 * @see http://api.cakephp.org/3.0/class-Cake.Console.Shell.html#_out
+	 * @uses Cake\Console\Shell::out()
 	 */
 	public function comment($message = NULL, $newlines = 1, $level = Shell::NORMAL) {
 		return parent::out(sprintf('<comment>%s</comment>', $message), $newlines, $level);
@@ -47,6 +48,7 @@ class AppShell extends Shell {
 	 * @param int $level The message's output level, see above
 	 * @return int|bool Returns the number of bytes returned from writing to stdout
 	 * @see http://api.cakephp.org/3.0/class-Cake.Console.Shell.html#_out
+	 * @uses Cake\Console\Shell::out()
 	 */
 	public function info($message = NULL, $newlines = 1, $level = Shell::NORMAL) {
 		return parent::out(sprintf('<info>%s</info>', $message), $newlines, $level);
@@ -59,6 +61,7 @@ class AppShell extends Shell {
 	 * @param int $level The message's output level, see above
 	 * @return int|bool Returns the number of bytes returned from writing to stdout
 	 * @see http://api.cakephp.org/3.0/class-Cake.Console.Shell.html#_out
+	 * @uses Cake\Console\Shell::out()
 	 */
 	public function question($message = NULL, $newlines = 1, $level = Shell::NORMAL) {
 		return parent::out(sprintf('<question>%s</question>', $message), $newlines, $level);
@@ -71,6 +74,7 @@ class AppShell extends Shell {
 	 * @param int $level The message's output level, see above
 	 * @return int|bool Returns the number of bytes returned from writing to stdout
 	 * @see http://api.cakephp.org/3.0/class-Cake.Console.Shell.html#_out
+	 * @uses Cake\Console\Shell::out()
 	 */
 	public function success($message = NULL, $newlines = 1, $level = Shell::NORMAL) {
 		return parent::out(sprintf('<success>%s</success>', $message), $newlines, $level);
@@ -83,6 +87,7 @@ class AppShell extends Shell {
 	 * @param int $level The message's output level, see above
 	 * @return int|bool Returns the number of bytes returned from writing to stdout
 	 * @see http://api.cakephp.org/3.0/class-Cake.Console.Shell.html#_out
+	 * @uses Cake\Console\Shell::out()
 	 */
 	public function warning($message = NULL, $newlines = 1, $level = Shell::NORMAL) {
 		return parent::out(sprintf('<warning>%s</warning>', $message), $newlines, $level);

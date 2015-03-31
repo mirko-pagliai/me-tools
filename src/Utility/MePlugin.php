@@ -45,7 +45,7 @@ class MePlugin {
 	/**
 	 * Gets all loaded plugins.
 	 * @return array Plugins
-	 * @uses Plugin::loaded()
+	 * @uses Cake\Core\Plugin::loaded()
 	 */
 	public static function getAll() {
 		return Plugin::loaded();
@@ -57,7 +57,7 @@ class MePlugin {
 	 * If `$plugin` is not a string, returns all the plugins path.
 	 * @param mixed $plugin Plugin name
 	 * @return mixed Plugin path or all plugins path
-	 * @uses Plugin::path()
+	 * @uses Cake\Core\Plugin::path()
 	 * @uses getAll()
 	 */
 	public static function getPath($plugin = NULL) {

@@ -46,14 +46,14 @@ use MeTools\Utility\Unix;
  * To display a thumbnail or get the url for a thumbnail, you have to use `image()` and `url()` methods provided by `ThumbHelper`.
  * The `ThumbHelper::image()` method, using this controller, creates the thumbnail and returns the HTML code to show it.
  * The `ThumbHelper::url()` method creates the thumbs and returns its url.
- * @see ThumbHelper::image(), ThumbHelper::url()
+ * @see MeTools\View\Helper\ThumbHelper::image(), MeTools\View\Helper\ThumbHelper::url()
  */
 class ThumbsController extends AppController {	
 	/**
 	 * File object
 	 * @var object
 	 */
-	protected $object;
+	protected $file;
 	
 	/**
 	 * Thumb sizes
@@ -71,8 +71,8 @@ class ThumbsController extends AppController {
 	 * Creates a thumbnail from an image file
 	 * @return void
 	 * @throws InternalErrorException
-	 * @uses Php::extension()
-	 * @uses object
+	 * @uses MeTools\Utility\Php::extension()
+	 * @uses file
 	 * @uses sizes
 	 * @uses thumb
 	 */
@@ -82,7 +82,7 @@ class ThumbsController extends AppController {
             throw new InternalErrorException(__d('me_tools', 'The {0} library is missing', 'Imagick'));
 				
 		//Creates the Imagick object
-		$imagick = new \Imagick($this->object->path);
+		$imagick = new \Imagick($this->file->path);
 		
 		//If the max side is defined (then has been requested a square thumb)
 		if($this->sizes['side']) {
@@ -113,7 +113,7 @@ class ThumbsController extends AppController {
 			//If the maximum width is greater than the actual width, then it's not necessary
 			//to create a thumbnail and the thumbnail will be the original image
 			if(($finalWidth = $this->sizes['width']) >= $imagick->getImageWidth()) {
-				$this->thumb = $this->object->path;
+				$this->thumb = $this->file->path;
 				return;
 			}
 			
@@ -127,7 +127,7 @@ class ThumbsController extends AppController {
 			//If the maximum height is greater than the actual height, then it's not necessary
 			//to create a thumbnail and the thumbnail will be the original image
 			if(($finalHeight = $this->sizes['height']) >= $imagick->getImageHeight()) {
-				$this->thumb = $this->object->path;
+				$this->thumb = $this->file->path;
 				return;
 			}
 				
@@ -149,7 +149,7 @@ class ThumbsController extends AppController {
 	 * Creates a thumbnail from a video file
 	 * @return void
 	 * @throws InternalErrorException
-	 * @uses Unix::which()
+	 * @uses MeTools\Utility\Unix::which()
 	 * @uses sizes
 	 * @uses thumb
 	 */
@@ -159,7 +159,7 @@ class ThumbsController extends AppController {
             throw new InternalErrorException(__d('me_tools', '{0} is not avalaible', 'ffmpegthumbnailer'));
 		
 		//Creates the thumbnail
-		shell_exec(sprintf('ffmpegthumbnailer -s %s -q 10 -f -i \'%s\' -o \'%s\'', empty($this->sizes['side']) ? $this->sizes['width'] : $this->sizes['side'], $this->object>path, $this->thumb));
+		shell_exec(sprintf('ffmpegthumbnailer -s %s -q 10 -f -i \'%s\' -o \'%s\'', empty($this->sizes['side']) ? $this->sizes['width'] : $this->sizes['side'], $this->file>path, $this->thumb));
 		
 		//Checks if the thumbnail has been created
 		if(!is_readable($this->thumb))
@@ -188,15 +188,14 @@ class ThumbsController extends AppController {
      * Please, refer to the class description for more information.
      * It's convenient to use `image()` or `url()` methods provided by `ThumbHelper`.
 	 * @param string $file File path, encoded by `base64_encode()`
-     * @see ThumbHelper::image(), ThumbHelper::url()
+     * @see MeTools\View\Helper\ThumbHelper::image(), MeTools\View\Helper\ThumbHelper::url()
 	 * @throws InternalErrorException
-	 * @throws NotFoundException
-	 * @uses Thumbs::photo()
-	 * @uses Thumbs::remote()
-	 * @uses Thumbs::video()
+	 * @uses MeTools\Utility\Thumbs::photo()
+	 * @uses MeTools\Utility\Thumbs::remote()
+	 * @uses MeTools\Utility\Thumbs::video()
 	 * @uses _imageThumb()
 	 * @uses _videoThumb()
-	 * @uses object
+	 * @uses file
 	 * @uses sizes
 	 * @uses thumb
 	 */
@@ -227,29 +226,29 @@ class ThumbsController extends AppController {
 
 		//Checks if the file is readable
 		if(!is_readable($file))
-			throw new NotFoundException(__d('me_tools', 'The file {0} doesn\'t exist or is not readable', $file));
+			throw new InternalErrorException(__d('me_tools', 'The file {0} doesn\'t exist or is not readable', $file));
 		
 		//Creates the File object
-		$this->object = new File($file);
+		$this->file = new File($file);
 		
 		//Sets the maximum sizes		
 		foreach(['side', 'width', 'height'] as $v)
 			$this->sizes[$v] = (int) $this->request->query($v);
 		
 		//If the file is an image
-		if(preg_match('/image\/\S+/', $mime = $this->object->mime())) {
+		if(preg_match('/image\/\S+/', $mime = $this->file->mime())) {
 			//If no maximum size is specified, it's not necessary to create a thumbnail
 			if(empty(array_filter($this->sizes))) {
 				//Renders the original image
 				header(sprintf('Content-type: %s', $mime));
-				readfile($this->object->path);
+				readfile($this->file->path);
 
 				$this->autoRender = FALSE;
 				exit;
 			}
 			
 			//Sets the thumb path
-			$this->thumb = Thumbs::photo(md5($this->object->path));
+			$this->thumb = Thumbs::photo(md5($this->file->path));
 			
 			if($this->sizes['side'])
 				$this->thumb = sprintf('%s_s_%s', $this->thumb, $this->sizes['side']);
@@ -261,7 +260,7 @@ class ThumbsController extends AppController {
 			}
 			
 			//Sets the thumbnail path
-			$this->thumb = sprintf('%s.%s', $this->thumb, $this->object->ext());
+			$this->thumb = sprintf('%s.%s', $this->thumb, $this->file->ext());
 		}
 		//Else, if the file is a video
 		elseif(preg_match('/video\/\S+/', $mime) || $mime == 'application/ogg') {
@@ -269,7 +268,7 @@ class ThumbsController extends AppController {
 				$this->sizes['side'] = 270;
 			
 			//Sets the thumb path
-			$this->thumb = Thumbs::video(md5($this->object->path));
+			$this->thumb = Thumbs::video(md5($this->file->path));
 			
 			if($this->sizes['side'])
 				$this->thumb = sprintf('%s_s_%s', $this->thumb, $this->sizes['side']);

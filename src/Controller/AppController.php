@@ -24,6 +24,7 @@ namespace MeTools\Controller;
 
 use App\Controller\AppController as BaseController;
 
-class AppController extends BaseController {
-
-}
+/**
+ * Application level controller
+ */
+class AppController extends BaseController { }

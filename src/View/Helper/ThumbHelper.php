@@ -49,7 +49,7 @@ class ThumbHelper extends Helper {
 	 * @param array $options Array of options and HTML attributes
      * @return string Url
      * @see image()
-	 * @uses UrlHelper::build()
+	 * @uses Cake\View\Helper\UrlHelper::build()
 	 */
 	public function url($path, array $options = []) {
 		$sizes = [];

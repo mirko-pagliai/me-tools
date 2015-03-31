@@ -50,8 +50,8 @@ class MeFormHelper extends FormHelper {
 	 * @param Cake\View\View $view The View this helper is being attached to
 	 * @param array $config Configuration settings for the helper
 	 * @see http://api.cakephp.org/3.0/class-Cake.View.Helper.FormHelper.html#$_defaultConfig
-	 * @uses FormHelper::__construct()
-	 * @uses _defaultConfig
+	 * @uses Cake\View\Helper\FormHelper::__construct()
+	 * @uses Cake\View\Helper\FormHelper::$_defaultConfig
 	 */
 	public function __construct(View $view, $config = []) {
 		//Rewrites the default configuration
@@ -118,10 +118,10 @@ class MeFormHelper extends FormHelper {
      * @param string $text Legend text
      * @param array $options HTML attributes and options
      * @return string Html code
-	 * @uses MeHtmlHelper::legend()
+	 * @uses MeHtmlHelper::tag()
 	 */
 	public function legend($text, array $options = []) {
-		return $this->Html->legend($text, $options);
+		return $this->Html->tag('legend', $text, $options);
 	}
 	
 	/**

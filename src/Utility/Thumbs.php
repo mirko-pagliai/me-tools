@@ -48,31 +48,31 @@ class Thumbs {
 	/**
      * Checks if the photos directory is readable and writable
      * @return boolean TRUE if the photos directory is readable and writable, FALSE otherwise
-	 * @uses getPhotosPath()
 	 * @uses System::dirWritable()
+	 * @uses photo()
 	 */
     public static function checkPhotos() {
-		return System::dirWritable(self::getPhotosPath());
+		return System::dirWritable(self::photo());
 	}
 	
 	/**
      * Checks if the remotes directory is readable and writable
      * @return boolean TRUE if the remotes directory is readable and writable, FALSE otherwise
-	 * @uses getRemotesPath()
 	 * @uses System::dirWritable()
+	 * @uses remote()
 	 */
     public static function checkRemotes() {
-		return System::dirWritable(self::getRemotesPath());
+		return System::dirWritable(self::remote());
 	}
 	
 	/**
      * Checks if the videos directory is readable and writable
      * @return boolean TRUE if the videos directory is readable and writable, FALSE otherwise
-	 * @uses getVideosPath()
 	 * @uses System::dirWritable()
+	 * @uses video()
 	 */
     public static function checkVideos() {
-		return System::dirWritable(self::getVideosPath());
+		return System::dirWritable(self::video());
 	}
 	
     /**
