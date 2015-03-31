@@ -159,4 +159,36 @@ class Thumbs {
 		
 		return $path;
 	}
+	
+    /**
+     * Alias for `getPhotoPath()` method.
+     * @see getPhotoPath()
+     */
+    public static function photo() {
+        return call_user_func_array([get_class(), 'getPhotoPath'], func_get_args());
+    }
+	
+    /**
+     * Alias for `getRemotePath()` method.
+     * @see getRemotePath()
+     */
+    public static function remote() {
+        return call_user_func_array([get_class(), 'getRemotePath'], func_get_args());
+    }
+	
+    /**
+     * Alias for `getSize()` method.
+     * @see getVideoPath()
+     */
+    public static function size() {
+        return call_user_func_array([get_class(), 'getSize'], func_get_args());
+    }
+	
+    /**
+     * Alias for `getVideoPath()` method.
+     * @see getVideoPath()
+     */
+    public static function video() {
+        return call_user_func_array([get_class(), 'getVideoPath'], func_get_args());
+    }
 }
