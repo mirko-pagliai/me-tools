@@ -95,10 +95,10 @@ $fields = collection($fields)
 				$pk = '$' . $singularVar . '->' . $primaryKey[0];
 		%>
 			<td class="actions">
-				<div class="btn-group" role="group" aria-label="actions">
-						<?= $this->Html->button(__('View'), ['action' => 'view', <%= $pk %>], ['class' => 'btn-sm', 'icon' => 'eye']) ?>
-						<?= $this->Html->button(__('Edit'), ['action' => 'edit', <%= $pk %>], ['class' => 'btn-sm', 'icon' => 'pencil']) ?>
-						<?= $this->Form->postButton(__('Delete'), ['action' => 'delete', <%= $pk %>], ['class' => 'btn-sm', 'confirm' => __('Are you sure you want to delete # {0}?', <%= $pk %>), 'icon' => 'trash']) ?>
+				<div class="btn-group btn-group-sm" role="group" aria-label="actions">
+						<?= $this->Html->button(__('View'), ['action' => 'view', <%= $pk %>], ['icon' => 'eye']) ?>
+						<?= $this->Html->button(__('Edit'), ['action' => 'edit', <%= $pk %>], ['icon' => 'pencil']) ?>
+						<?= $this->Form->postButton(__('Delete'), ['action' => 'delete', <%= $pk %>], ['confirm' => __('Are you sure you want to delete # {0}?', <%= $pk %>), 'icon' => 'trash']) ?>
 					</td>
 				</div>
 				</tr>
