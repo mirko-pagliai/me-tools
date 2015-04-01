@@ -38,15 +38,15 @@ $fields = collection($fields)
             )
         ?></li>
 <% endif; %>
-        <li><?= $this->Html->link(__('List <%= $pluralHumanName %>'), ['action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('List <%= strtolower($pluralHumanName) %>'), ['action' => 'index']) ?></li>
 <%
         $done = [];
         foreach ($associations as $type => $data) {
             foreach ($data as $alias => $details) {
                 if ($details['controller'] != $this->name && !in_array($details['controller'], $done)) {
 %>
-        <li><?= $this->Html->link(__('List <%= $this->_pluralHumanName($alias) %>'), ['controller' => '<%= $details['controller'] %>', 'action' => 'index']) %> </li>
-        <li><?= $this->Html->link(__('New <%= $this->_singularHumanName($alias) %>'), ['controller' => '<%= $details['controller'] %>', 'action' => 'add']) %> </li>
+        <li><?= $this->Html->link(__('List <%= strtolower($this->_pluralHumanName($alias)) %>'), ['controller' => '<%= $details['controller'] %>', 'action' => 'index']) %> </li>
+        <li><?= $this->Html->link(__('New <%= strtolower($this->_singularHumanName($alias)) %>'), ['controller' => '<%= $details['controller'] %>', 'action' => 'add']) %> </li>
 <%
                     $done[] = $details['controller'];
                 }

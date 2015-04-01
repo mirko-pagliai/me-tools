@@ -28,18 +28,20 @@ $fields = collection($fields)
     })
     ->take(7);
 %>
+<?php $this->assign('title', 'List <%= strtolower($pluralHumanName) %>'); ?>
+
 <?php $this->start('sidebar'); ?>
     <h3><?= __('Actions') ?></h3>
     <ul class="side-nav">
-        <li><?= $this->Html->link(__('New <%= $singularHumanName %>'), ['action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('New <%= strtolower($singularHumanName) %>'), ['action' => 'add']) ?></li>
 <%
     $done = [];
     foreach ($associations as $type => $data):
         foreach ($data as $alias => $details):
             if ($details['controller'] != $this->name && !in_array($details['controller'], $done)):
 %>
-        <li><?= $this->Html->link(__('List <%= $this->_pluralHumanName($alias) %>'), ['controller' => '<%= $details['controller'] %>', 'action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New <%= $this->_singularHumanName($alias) %>'), ['controller' => '<%= $details['controller'] %>', 'action' => 'add']) ?> </li>
+        <li><?= $this->Html->link(__('List <%= strtolower($this->_pluralHumanName($alias)) %>'), ['controller' => '<%= $details['controller'] %>', 'action' => 'index']) ?> </li>
+        <li><?= $this->Html->link(__('New <%= strtolower($this->_singularHumanName($alias)) %>'), ['controller' => '<%= $details['controller'] %>', 'action' => 'add']) ?> </li>
 <%
                 $done[] = $details['controller'];
             endif;
@@ -93,10 +95,12 @@ $fields = collection($fields)
 				$pk = '$' . $singularVar . '->' . $primaryKey[0];
 		%>
 			<td class="actions">
-						<?= $this->Html->button(__('View'), ['action' => 'view', <%= $pk %>], ['icon' => 'eye']) ?>
-						<?= $this->Html->button(__('Edit'), ['action' => 'edit', <%= $pk %>], ['icon' => 'pencil']) ?>
-						<?= $this->Form->postButton(__('Delete'), ['action' => 'delete', <%= $pk %>], ['confirm' => __('Are you sure you want to delete # {0}?', <%= $pk %>), 'icon' => 'trash']) ?>
+				<div class="btn-group" role="group" aria-label="actions">
+						<?= $this->Html->button(__('View'), ['action' => 'view', <%= $pk %>], ['class' => 'btn-sm', 'icon' => 'eye']) ?>
+						<?= $this->Html->button(__('Edit'), ['action' => 'edit', <%= $pk %>], ['class' => 'btn-sm', 'icon' => 'pencil']) ?>
+						<?= $this->Form->postButton(__('Delete'), ['action' => 'delete', <%= $pk %>], ['class' => 'btn-sm', 'confirm' => __('Are you sure you want to delete # {0}?', <%= $pk %>), 'icon' => 'trash']) ?>
 					</td>
+				</div>
 				</tr>
 			<?php endforeach; ?>
 		</tbody>
