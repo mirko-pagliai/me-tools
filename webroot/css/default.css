@@ -16,6 +16,22 @@ iframe {
 }
 
 /* -------------------------------- */
+/*				Tables				*/
+/* -------------------------------- */
+/* Actions */
+.table td.actions {
+	width: 1px;
+	white-space: nowrap;
+}
+
+/* Actions, buttons */
+table td.actions .btn {
+	min-width: 14px;
+    padding: 4px 8px;
+}
+
+
+/* -------------------------------- */
 /*		Ascending/descending sort	*/
 /* -------------------------------- */
 th a.asc:after, th a.desc:after {
@@ -35,6 +51,15 @@ th a.desc:after {
 }
 
 /* -------------------------------- */
+/*				Alerts				*/
+/* -------------------------------- */
+/* Alert */
+.alert {
+    border-width: 0 0 3px;
+	padding: 10px 15px;
+}
+
+/* -------------------------------- */
 /*			Bootstrap rewrite		*/
 /* -------------------------------- */
 /* Buttons on buttons group. Fixed a Bootstrap bug */
@@ -45,4 +70,9 @@ th a.desc:after {
 /* Disabled links on pagination */ 
 .pagination > .disabled > a, .pagination > .disabled > a:focus, .pagination > .disabled > a:hover, .pagination > .disabled > span, .pagination > .disabled > span:focus, .pagination > .disabled > span:hover {
     cursor: default;
+}
+
+/* Table, middle vertical align */
+.table > tbody > tr > td, .table > tbody > tr > th, .table > tfoot > tr > td, .table > tfoot > tr > th, .table > thead > tr > td, .table > thead > tr > th {
+    vertical-align: middle;
 }
