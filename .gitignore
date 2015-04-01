@@ -1,3 +1,4 @@
+.directory
 *_old
 *.old.*
 tests/
