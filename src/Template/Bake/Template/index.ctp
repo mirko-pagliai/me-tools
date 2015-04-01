@@ -58,7 +58,7 @@ $fields = collection($fields)
 	<% foreach ($fields as $field): %>
 			<th><?= $this->Paginator->sort('<%= $field %>') ?></th>
 	<% endforeach; %>
-			<th class="actions"><?= __('Actions') ?></th>
+			<th class="actions text-center"><?= __('Actions') ?></th>
 			</tr>
 		</thead>
 		<tbody>
