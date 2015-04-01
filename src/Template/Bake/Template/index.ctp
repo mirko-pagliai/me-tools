@@ -95,12 +95,10 @@ $fields = collection($fields)
 				$pk = '$' . $singularVar . '->' . $primaryKey[0];
 		%>
 			<td class="actions">
-				<div class="btn-group btn-group-sm" role="group" aria-label="actions">
-						<?= $this->Html->button(__('View'), ['action' => 'view', <%= $pk %>], ['icon' => 'eye']) ?>
-						<?= $this->Html->button(__('Edit'), ['action' => 'edit', <%= $pk %>], ['icon' => 'pencil']) ?>
-						<?= $this->Form->postButton(__('Delete'), ['action' => 'delete', <%= $pk %>], ['confirm' => __('Are you sure you want to delete # {0}?', <%= $pk %>), 'icon' => 'trash']) ?>
+						<?= $this->Html->button(NULL, ['action' => 'view', <%= $pk %>], ['icon' => 'eye', 'title' => __('View')]) ?>
+						<?= $this->Html->button(NULL, ['action' => 'edit', <%= $pk %>], ['icon' => 'pencil', 'title' => __('Edit')]) ?>
+						<?= $this->Form->postButton(NULL, ['action' => 'delete', <%= $pk %>], ['title' => __('Delete'), 'confirm' => __('Are you sure you want to delete # {0}?', <%= $pk %>), 'icon' => 'trash']) ?>
 					</td>
-				</div>
 				</tr>
 			<?php endforeach; ?>
 		</tbody>
