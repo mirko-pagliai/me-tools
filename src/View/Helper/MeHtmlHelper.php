@@ -64,7 +64,7 @@ class MeHtmlHelper extends HtmlHelper {
 	 */
 	public function __construct(View $view, $config = []) {
 		//Rewrites the default configuration
-		$this->_defaultConfig['templates'] = array_merge($this->_defaultConfig['templates'], [
+		$this->_defaultConfig['templates'] = am($this->_defaultConfig['templates'], [
 			'image' => '<img class="img-responsive" src="{{url}}"{{attrs}}/>',
 		]);
 		
@@ -142,7 +142,7 @@ class MeHtmlHelper extends HtmlHelper {
 			}, $values));
 								
 		//Merges passed values with current values
-		$values = empty($options[$name]) ? explode(' ', $values) : array_merge(explode(' ', $options[$name]), explode(' ', $values));
+		$values = empty($options[$name]) ? explode(' ', $values) : am(explode(' ', $options[$name]), explode(' ', $values));
 		
 		//Removes empty values and duplicates, then turns into a string
 		$options[$name] = implode(' ', array_unique(array_filter($values)));
@@ -166,7 +166,7 @@ class MeHtmlHelper extends HtmlHelper {
      * @uses media()
      */
     public function audio($path, array $options = []) {
-        return self::media($path, array_merge($options, ['tag' => 'audio']));
+        return self::media($path, am($options, ['tag' => 'audio']));
     }
 	
     /**
@@ -472,7 +472,7 @@ class MeHtmlHelper extends HtmlHelper {
      * @uses nestedList()
      */
     public function ol(array $list, array $options = [], array $itemOptions = []) {
-        return self::nestedList($list, array_merge($options, ['tag' => 'ol']), $itemOptions);
+        return self::nestedList($list, am($options, ['tag' => 'ol']), $itemOptions);
     }
 	
     /**
@@ -579,7 +579,7 @@ class MeHtmlHelper extends HtmlHelper {
      * @uses nestedList()
      */
     public function ul(array $list, array $options = [], array $itemOptions = []) {
-        return self::nestedList($list, array_merge($options, ['tag' => 'ul']), $itemOptions);
+        return self::nestedList($list, am($options, ['tag' => 'ul']), $itemOptions);
     }
 
     /**
@@ -591,6 +591,6 @@ class MeHtmlHelper extends HtmlHelper {
      * @uses media()
      */
     public function video($path, array $options = []) {
-        return self::media($path, array_merge($options, ['tag' => 'video']));
+        return self::media($path, am($options, ['tag' => 'video']));
     }
 }

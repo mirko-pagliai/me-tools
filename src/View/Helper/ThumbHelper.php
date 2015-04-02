@@ -61,7 +61,7 @@ class ThumbHelper extends Helper {
 		$path = base64_encode($path);
 		$url = ['controller' => 'Thumbs', 'action' => 'thumb', 'plugin' => 'MeTools', 'admin' => FALSE, 'ext' => $ext];
 		
-		return $this->Url->build(array_merge($url, ['?' => $sizes], [$path]), TRUE);
+		return $this->Url->build(am($url, ['?' => $sizes], [$path]), TRUE);
 	}
 	
 	/**

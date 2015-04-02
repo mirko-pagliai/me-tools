@@ -55,7 +55,7 @@ class MeFormHelper extends FormHelper {
 	 */
 	public function __construct(View $view, $config = []) {
 		//Rewrites the default configuration
-		$this->_defaultConfig['templates'] = array_merge($this->_defaultConfig['templates'], [
+		$this->_defaultConfig['templates'] = am($this->_defaultConfig['templates'], [
 			'file' => '<input type="file" class="form-control" name="{{name}}"{{attrs}}>',
 			'input' => '<input type="{{type}}" class="form-control" name="{{name}}"{{attrs}}>',
 			'inputContainer' => '<div class="input form-group {{type}}{{required}}">{{content}}</div>',
