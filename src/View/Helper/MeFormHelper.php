@@ -93,6 +93,22 @@ class MeFormHelper extends FormHelper {
 	}
 	
 	/**
+	 * Creates a checkbox input element.
+     * @param string $fieldName Field name, should be "Modelname.fieldname"
+     * @param array $options HTML attributes and options
+	 * @return string Html code
+	 */
+	public function checkbox($fieldName, array $options = []) {
+		//Checkboxes inputs outside of the label
+		$this->templates([
+			'nestingLabel' => '{{input}}<label{{attrs}}>{{text}}</label>',
+			'formGroup' => '{{input}}{{label}}'
+		]);
+		
+		return parent::checkbox($fieldName, $options);
+	}
+	
+	/**
 	 * Generates an input element complete with label and wrapper div.
      * @param string $fieldName Field name, should be "Modelname.fieldname"
      * @param array $options HTML attributes and options
