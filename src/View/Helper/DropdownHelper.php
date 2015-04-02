@@ -28,6 +28,11 @@ use Cake\View\View;
 
 /**
  * Provides functionalities for creating dropdown menus, according to Bootstrap.
+ * 
+ * The `menu()` method creates a full dropdown menu, with a link to open the menu and the menu itself.
+ * 
+ * Otherwise you can use the `button()` or the `link()`method, which generate a link or a button to open the menu, 
+ * followed by the `dropdown()` method, which generates only the menu.
  */
 class DropdownHelper extends Helper {
 	/**
@@ -59,11 +64,11 @@ class DropdownHelper extends Helper {
     /**
      * Creates a button to open a dropdown menu, according to Bootstrap.
      * 
-     * Note that this method creates only a button. To create a dropdown menu, you should use the `dropdown()` method.
+     * Note that this method creates only a link. To create a full dropdown menu, you should use the `menu()` method.
      * @param string $title Button title
 	 * @param array $options Array of options and HTML attributes
      * @return string Html code
-     * @see dropdown()
+     * @see menu()
      * @see http://getbootstrap.com/components/#dropdowns Bootstrap documentation
      * @uses MeHtmlHelper::button()
      * @uses __parseLink()
@@ -78,22 +83,15 @@ class DropdownHelper extends Helper {
     }
 	
 	/**
-	 * Creates a dropdown menu, according to Bootstrap. For example:
-     * <code>
-     * <div class="dropdown">
-     *    <?php
-     *       echo $this->Html->button('Open the dropdown', ['icon' => 'fa-bell']);
-     *       echo $this->Html->dropdown([
-     *          $this->Html->link('Github', 'http://github.com', ['icon' => 'fa-github']),
-     *          $this->Html->link('Stack Overflow', 'http://stackoverflow.com', ['icon' => 'fa-stack-overflow'])
-     *       ]);
-     *    ?>
-     * </div>
-     * </code>
+	 * Creates a dropdown menu.
+     * 
+     * Note that this method creates only a dropdown submenu, without the a link or a button to open the menu.
+	 * To create a full dropdown menu, you should use the `menu()` method.
      * @param array $links Array of links for the dropdown (you should use the `MeHtmlHelper::link()` method for each link)
      * @param array $options Options for the dropdown (`<ul>` element)
      * @param array $itemOptions Options for each item (`<li>` element)
      * @return string Html code
+     * @see menu()
      * @see http://getbootstrap.com/components/#dropdowns Bootstrap documentation
 	 * @uses MeHtmlHelper::_addValue()
 	 * @uses MeHtmlHelper::ul()
@@ -109,11 +107,11 @@ class DropdownHelper extends Helper {
 	/**
      * Creates a link to open a dropdown menu, according to Bootstrap.
      * 
-     * Note that this method creates only a link. To create a dropdown menu, you should use the `dropdown()` method.
+     * Note that this method creates only a link. To create a full dropdown menu, you should use the `menu()` method.
      * @param string $title Link title
 	 * @param array $options Array of options and HTML attributes
      * @return string Html code
-     * @see dropdown()
+     * @see menu()
      * @see http://getbootstrap.com/components/#dropdowns Bootstrap documentation
      * @uses MeHtmlHelper::link()
      * @uses __parseLink()
@@ -127,11 +125,31 @@ class DropdownHelper extends Helper {
         return $this->Html->link($title, '#', $options);
 	}
 	
-    /**
-     * Alias for `dropdown()` method
-     * @see dropdown()
-     */
-    public function menu() {
-        return call_user_func_array([get_class(), 'dropdown'], func_get_args());
+	/**
+	 * Creates a full menu, according to Bootstrap. For example:
+     * <code>
+     * <div class="dropdown">
+     *	<?php
+     *		echo $this->Dropdown->menu('Open the dropdown', ['icon' => 'fa-bell'], [
+     *			$this->Html->link('Github', 'http://github.com', ['icon' => 'fa-github']),
+     *          $this->Html->link('Stack Overflow', 'http://stackoverflow.com', ['icon' => 'fa-stack-overflow'])
+     *		]);
+     *	?>
+     * </div>
+     * </code>
+     * @param string $title Link title
+	 * @param array $titleOptions Array of options and HTML attributes
+     * @param array $links Array of links for the dropdown (you should use the `MeHtmlHelper::link()` method for each link)
+     * @param array $dropdownOptions Options for the dropdown (`<ul>` element)
+     * @param array $itemOptions Options for each item (`<li>` element)
+     * @return string Html code
+	 * @uses dropdown()
+	 * @uses link()
+	 */
+    public function menu($title, array $titleOptions = [], array $links = [], array $dropdownOptions = [], array $itemOptions = []) {
+		return implode(PHP_EOL, [
+			$this->link($title, $titleOptions),
+			$this->dropdown($links, $dropdownOptions, $itemOptions)
+		]);
     }
 }
