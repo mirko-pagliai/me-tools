@@ -4,3 +4,35 @@
  * @copyright	Copyright (c) 2015, Mirko Pagliai for Nova Atlantis Ltd
  * @license		http://www.gnu.org/licenses/agpl.txt AGPL License
  */
+
+/* -------------------------------- */
+/*			Checkbox inputs			*/
+/* -------------------------------- */
+/* It hides the checkbox, which will be replaced with an icon in the label */
+form input[type='checkbox'] {
+	display: none;
+}
+
+/* Checkbox labels */
+form input[type='checkbox'] + label {
+	cursor: pointer;
+	padding: 0;
+}
+
+/* Checkbox labels, when checkbox is unchecked */
+form input[type='checkbox'] + label:before {
+	color: #999;
+	content: "\f096";
+	font-family: FontAwesome;
+	font-size: 18px;
+	font-weight: normal;
+	margin-right: 5px;
+    vertical-align: middle;
+}
+
+/* Checkbox labels, when checkbox is checked */
+form input[type='checkbox']:checked + label:before {
+	color: inherit;
+	content: "\f046";
+	margin-right: 2px;
+}
