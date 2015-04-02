@@ -52,6 +52,7 @@ $fields = collection($fields)
 <?php $this->end('sidebar'); ?>
 
 <div class="<%= $pluralVar %> index">
+	<?= $this->Html->h2(__('List <%= strtolower($pluralHumanName) %>')) ?>
     <table class="table">
 		<thead>
 			<tr>

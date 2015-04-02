@@ -57,9 +57,9 @@ $fields = collection($fields)
 <?php $this->end('sidebar'); ?>
 
 <div class="<%= $pluralVar %> form">
+	<?= $this->Html->h2(__('<%= Inflector::humanize($action) %> <%= $singularHumanName %>')) ?>
     <?= $this->Form->create($<%= $singularVar %>); ?>
     <fieldset>
-        <legend><?= __('<%= Inflector::humanize($action) %> <%= $singularHumanName %>') ?></legend>
         <?php
 <%
         foreach ($fields as $field) {

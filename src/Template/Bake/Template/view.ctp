@@ -86,7 +86,7 @@ $pk = "\$$singularVar->{$primaryKey[0]}";
 <?php $this->end('sidebar'); ?>
 
 <div class="<%= $pluralVar %> view">
-    <h2><?= h($<%= $singularVar %>-><%= $displayField %>) ?></h2>
+	<?= $this->Html->h2(h($<%= $singularVar %>-><%= $displayField %>)) ?>
     <div class="row">
 <% if ($groupedFields['string']) : %>
         <div class="large-5 columns strings">
