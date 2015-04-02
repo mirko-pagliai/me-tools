@@ -127,6 +127,25 @@ class MeFormHelper extends FormHelper {
 	}
 	
 	/**
+     * Returns a formatted `<label>` element. 
+	 * Will automatically generate a `for` attribute if one is not provided.
+     * @param string $fieldName Field name, should be "Modelname.fieldname"
+     * @param string $text Text that will appear in the label field. If is left undefined the text will be inflected from the fieldName
+     * @param array|string $options HTML attributes, or a string to be used as a class name
+	 * @return string Html code
+	 * @uses MeHtmlHelper::_addDefault()
+	 * @uses MeHtmlHelper::_addIcon()
+	 */
+	public function label($fieldName, $text = NULL, array $options = []) {
+		$options = $this->Html->_addDefault('escape', FALSE, $options);
+
+		$text = $this->Html->_addIcon($text, $options);
+        unset($options['icon']);
+		
+		return parent::label($fieldName, $text, $options);
+	}
+	
+	/**
 	 * Creates a `<legend>` tag.
      * @param string $text Legend text
      * @param array $options HTML attributes and options
