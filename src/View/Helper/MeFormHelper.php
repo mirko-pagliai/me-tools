@@ -49,13 +49,12 @@ class MeFormHelper extends FormHelper {
 	 * This method only ewrites the default configuration (`$_defaultConfig`).
 	 * @param Cake\View\View $view The View this helper is being attached to
 	 * @param array $config Configuration settings for the helper
-	 * @see http://api.cakephp.org/3.0/class-Cake.View.Helper.FormHelper.html#$_defaultConfig
-	 * @uses Cake\View\Helper\FormHelper::__construct()
-	 * @uses Cake\View\Helper\FormHelper::$_defaultConfig
 	 */
 	public function __construct(View $view, $config = []) {
-		//Rewrites the default configuration
-		$this->_defaultConfig['templates'] = am($this->_defaultConfig['templates'], [
+        parent::__construct($view, $config);
+		
+		//Rewrites templates
+		$this->templates([
 			'file' => '<input type="file" class="form-control" name="{{name}}"{{attrs}}>',
 			'input' => '<input type="{{type}}" class="form-control" name="{{name}}"{{attrs}}>',
 			'inputContainer' => '<div class="input form-group {{type}}{{required}}">{{content}}</div>',
@@ -65,8 +64,6 @@ class MeFormHelper extends FormHelper {
 			'textarea' => '<textarea class="form-control" name="{{name}}"{{attrs}}>{{value}}</textarea>',
 			'submitContainer' => '<div class="submit form-group">{{content}}</div>'
 		]);
-		
-        parent::__construct($view, $config);
     }
 	
 	/**
