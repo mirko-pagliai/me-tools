@@ -69,9 +69,12 @@
 			<h3>Classes</h3>
 			<ul>
 				<li><a href="class-MeTools.View.Helper.DropdownHelper.html">MeTools\View\Helper\DropdownHelper</a></li>
+				<li><a href="class-MeTools.View.Helper.LibraryHelper.html">MeTools\View\Helper\LibraryHelper</a></li>
+				<li><a href="class-MeTools.View.Helper.MarkdownHelper.html">MeTools\View\Helper\MarkdownHelper</a></li>
 				<li><a href="class-MeTools.View.Helper.MeFormHelper.html">MeTools\View\Helper\MeFormHelper</a></li>
 				<li><a href="class-MeTools.View.Helper.MeHtmlHelper.html">MeTools\View\Helper\MeHtmlHelper</a></li>
 				<li><a href="class-MeTools.View.Helper.MePaginatorHelper.html">MeTools\View\Helper\MePaginatorHelper</a></li>
+				<li><a href="class-MeTools.View.Helper.RecaptchaHelper.html">MeTools\View\Helper\RecaptchaHelper</a></li>
 				<li class="active"><a href="class-MeTools.View.Helper.ThumbHelper.html">MeTools\View\Helper\ThumbHelper</a></li>
 			</ul>
 
@@ -179,7 +182,7 @@
 </span></span><span id="64" class="l"><a href="#64"> 64: </a><span class="php-comment">     */</span>
 </span><span id="65" class="l"><a href="#65"> 65: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> __construct(View <span class="php-var">$view</span>, <span class="php-var">$config</span> = []) {
 </span><span id="66" class="l"><a href="#66"> 66: </a>        <span class="php-comment">//Rewrites the default configuration</span>
-</span><span id="67" class="l"><a href="#67"> 67: </a>        <span class="php-var">$this</span>-&gt;_defaultConfig[<span class="php-quote">'templates'</span>] = <span class="php-keyword2">array_merge</span>(<span class="php-var">$this</span>-&gt;_defaultConfig[<span class="php-quote">'templates'</span>], [
+</span><span id="67" class="l"><a href="#67"> 67: </a>        <span class="php-var">$this</span>-&gt;_defaultConfig[<span class="php-quote">'templates'</span>] = am(<span class="php-var">$this</span>-&gt;_defaultConfig[<span class="php-quote">'templates'</span>], [
 </span><span id="68" class="l"><a href="#68"> 68: </a>            <span class="php-quote">'image'</span> =&gt; <span class="php-quote">'&lt;img class=&quot;img-responsive&quot; src=&quot;{{url}}&quot;{{attrs}}/&gt;'</span>,
 </span><span id="69" class="l"><a href="#69"> 69: </a>        ]);
 </span><span id="70" class="l"><a href="#70"> 70: </a>        
@@ -257,7 +260,7 @@
 </span><span id="142" class="l"><a href="#142">142: </a>            }, <span class="php-var">$values</span>));
 </span><span id="143" class="l"><a href="#143">143: </a>                                
 </span><span id="144" class="l"><a href="#144">144: </a>        <span class="php-comment">//Merges passed values with current values</span>
-</span><span id="145" class="l"><a href="#145">145: </a>        <span class="php-var">$values</span> = <span class="php-keyword1">empty</span>(<span class="php-var">$options</span>[<span class="php-var">$name</span>]) ? <span class="php-keyword2">explode</span>(<span class="php-quote">' '</span>, <span class="php-var">$values</span>) : <span class="php-keyword2">array_merge</span>(<span class="php-keyword2">explode</span>(<span class="php-quote">' '</span>, <span class="php-var">$options</span>[<span class="php-var">$name</span>]), <span class="php-keyword2">explode</span>(<span class="php-quote">' '</span>, <span class="php-var">$values</span>));
+</span><span id="145" class="l"><a href="#145">145: </a>        <span class="php-var">$values</span> = <span class="php-keyword1">empty</span>(<span class="php-var">$options</span>[<span class="php-var">$name</span>]) ? <span class="php-keyword2">explode</span>(<span class="php-quote">' '</span>, <span class="php-var">$values</span>) : am(<span class="php-keyword2">explode</span>(<span class="php-quote">' '</span>, <span class="php-var">$options</span>[<span class="php-var">$name</span>]), <span class="php-keyword2">explode</span>(<span class="php-quote">' '</span>, <span class="php-var">$values</span>));
 </span><span id="146" class="l"><a href="#146">146: </a>        
 </span><span id="147" class="l"><a href="#147">147: </a>        <span class="php-comment">//Removes empty values and duplicates, then turns into a string</span>
 </span><span id="148" class="l"><a href="#148">148: </a>        <span class="php-var">$options</span>[<span class="php-var">$name</span>] = <span class="php-keyword2">implode</span>(<span class="php-quote">' '</span>, <span class="php-keyword2">array_unique</span>(<span class="php-keyword2">array_filter</span>(<span class="php-var">$values</span>)));
@@ -281,7 +284,7 @@
 </span></span><span id="166" class="l"><a href="#166">166: </a><span class="php-comment">     * @uses media()
 </span></span><span id="167" class="l"><a href="#167">167: </a><span class="php-comment">     */</span>
 </span><span id="168" class="l"><a href="#168">168: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> audio(<span class="php-var">$path</span>, <span class="php-keyword1">array</span> <span class="php-var">$options</span> = []) {
-</span><span id="169" class="l"><a href="#169">169: </a>        <span class="php-keyword1">return</span> self::media(<span class="php-var">$path</span>, <span class="php-keyword2">array_merge</span>(<span class="php-var">$options</span>, [<span class="php-quote">'tag'</span> =&gt; <span class="php-quote">'audio'</span>]));
+</span><span id="169" class="l"><a href="#169">169: </a>        <span class="php-keyword1">return</span> self::media(<span class="php-var">$path</span>, am(<span class="php-var">$options</span>, [<span class="php-quote">'tag'</span> =&gt; <span class="php-quote">'audio'</span>]));
 </span><span id="170" class="l"><a href="#170">170: </a>    }
 </span><span id="171" class="l"><a href="#171">171: </a>    
 </span><span id="172" class="l"><a href="#172">172: </a>    <span class="php-comment">/**
@@ -587,7 +590,7 @@
 </span></span><span id="472" class="l"><a href="#472">472: </a><span class="php-comment">     * @uses nestedList()
 </span></span><span id="473" class="l"><a href="#473">473: </a><span class="php-comment">     */</span>
 </span><span id="474" class="l"><a href="#474">474: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> ol(<span class="php-keyword1">array</span> <span class="php-var">$list</span>, <span class="php-keyword1">array</span> <span class="php-var">$options</span> = [], <span class="php-keyword1">array</span> <span class="php-var">$itemOptions</span> = []) {
-</span><span id="475" class="l"><a href="#475">475: </a>        <span class="php-keyword1">return</span> self::nestedList(<span class="php-var">$list</span>, <span class="php-keyword2">array_merge</span>(<span class="php-var">$options</span>, [<span class="php-quote">'tag'</span> =&gt; <span class="php-quote">'ol'</span>]), <span class="php-var">$itemOptions</span>);
+</span><span id="475" class="l"><a href="#475">475: </a>        <span class="php-keyword1">return</span> self::nestedList(<span class="php-var">$list</span>, am(<span class="php-var">$options</span>, [<span class="php-quote">'tag'</span> =&gt; <span class="php-quote">'ol'</span>]), <span class="php-var">$itemOptions</span>);
 </span><span id="476" class="l"><a href="#476">476: </a>    }
 </span><span id="477" class="l"><a href="#477">477: </a>    
 </span><span id="478" class="l"><a href="#478">478: </a>    <span class="php-comment">/**
@@ -694,7 +697,7 @@
 </span></span><span id="579" class="l"><a href="#579">579: </a><span class="php-comment">     * @uses nestedList()
 </span></span><span id="580" class="l"><a href="#580">580: </a><span class="php-comment">     */</span>
 </span><span id="581" class="l"><a href="#581">581: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> ul(<span class="php-keyword1">array</span> <span class="php-var">$list</span>, <span class="php-keyword1">array</span> <span class="php-var">$options</span> = [], <span class="php-keyword1">array</span> <span class="php-var">$itemOptions</span> = []) {
-</span><span id="582" class="l"><a href="#582">582: </a>        <span class="php-keyword1">return</span> self::nestedList(<span class="php-var">$list</span>, <span class="php-keyword2">array_merge</span>(<span class="php-var">$options</span>, [<span class="php-quote">'tag'</span> =&gt; <span class="php-quote">'ul'</span>]), <span class="php-var">$itemOptions</span>);
+</span><span id="582" class="l"><a href="#582">582: </a>        <span class="php-keyword1">return</span> self::nestedList(<span class="php-var">$list</span>, am(<span class="php-var">$options</span>, [<span class="php-quote">'tag'</span> =&gt; <span class="php-quote">'ul'</span>]), <span class="php-var">$itemOptions</span>);
 </span><span id="583" class="l"><a href="#583">583: </a>    }
 </span><span id="584" class="l"><a href="#584">584: </a>
 </span><span id="585" class="l"><a href="#585">585: </a>    <span class="php-comment">/**
@@ -706,7 +709,7 @@
 </span></span><span id="591" class="l"><a href="#591">591: </a><span class="php-comment">     * @uses media()
 </span></span><span id="592" class="l"><a href="#592">592: </a><span class="php-comment">     */</span>
 </span><span id="593" class="l"><a href="#593">593: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> video(<span class="php-var">$path</span>, <span class="php-keyword1">array</span> <span class="php-var">$options</span> = []) {
-</span><span id="594" class="l"><a href="#594">594: </a>        <span class="php-keyword1">return</span> self::media(<span class="php-var">$path</span>, <span class="php-keyword2">array_merge</span>(<span class="php-var">$options</span>, [<span class="php-quote">'tag'</span> =&gt; <span class="php-quote">'video'</span>]));
+</span><span id="594" class="l"><a href="#594">594: </a>        <span class="php-keyword1">return</span> self::media(<span class="php-var">$path</span>, am(<span class="php-var">$options</span>, [<span class="php-quote">'tag'</span> =&gt; <span class="php-quote">'video'</span>]));
 </span><span id="595" class="l"><a href="#595">595: </a>    }
 </span><span id="596" class="l"><a href="#596">596: </a>}</span></code></pre>
 
@@ -716,6 +719,6 @@
 </div>
 </div>
 <script src="resources/combined.js?44e93de8fc3b749f55d0fae2da59a38c45b15f0b"></script>
-<script src="elementlist.js?d030210b12d7294fd40c8d8e376e6dc1c2d35a2a"></script>
+<script src="elementlist.js?9766496e0d7f8fda54ed7e563439d92ad8e5048f"></script>
 </body>
 </html>
