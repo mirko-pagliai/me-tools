@@ -121,6 +121,11 @@
 
 	<div class="description">
 	<p>Provides functionalities for creating dropdown menus, according to Bootstrap.</p>
+
+<p>The <code>menu()</code> method creates a full dropdown menu, with a link to open the menu and the menu itself.</p>
+
+<p>Otherwise you can use the <code>button()</code> or the <code>link()</code>method, which generate a link or a button to open the menu,
+followed by the <code>dropdown()</code> method, which generates only the menu.</p>
 	</div>
 
 	<dl class="tree">
@@ -150,7 +155,7 @@ Cake\View\Helper
 		<b>Namespace:</b> <a href="namespace-MeTools.html">MeTools</a>\<a href="namespace-MeTools.View.html">View</a>\<a href="namespace-MeTools.View.Helper.html">Helper</a><br>
 		
 
-			<b>Located at</b> <a href="source-class-MeTools.View.Helper.DropdownHelper.html#29-137" title="Go to source code">DropdownHelper.php</a>
+			<b>Located at</b> <a href="source-class-MeTools.View.Helper.DropdownHelper.html#29-155" title="Go to source code">DropdownHelper.php</a>
 		<br>
 	</div>
 
@@ -170,7 +175,7 @@ Cake\View\Helper
 
 		<td class="name"><div>
 		<a class="anchor" href="#___parseLink">#</a>
-		<code><a href="source-class-MeTools.View.Helper.DropdownHelper.html#39-57" title="Go to source code">__parseLink</a>( <span>string <var>$title</var></span>, <span>array <var>$options</var> = []</span> )</code>
+		<code><a href="source-class-MeTools.View.Helper.DropdownHelper.html#44-62" title="Go to source code">__parseLink</a>( <span>string <var>$title</var></span>, <span>array <var>$options</var> = []</span> )</code>
 
 		<div class="description short">
 			<p>Parses and handles title and options used to create a link or a button to open a dropdown.</p>
@@ -227,7 +232,7 @@ Cake\View\Helper
 
 		<td class="name"><div>
 		<a class="anchor" href="#_button">#</a>
-		<code><a href="source-class-MeTools.View.Helper.DropdownHelper.html#59-78" title="Go to source code">button</a>( <span>string <var>$title</var></span>, <span>array <var>$options</var> = []</span> )</code>
+		<code><a href="source-class-MeTools.View.Helper.DropdownHelper.html#64-83" title="Go to source code">button</a>( <span>string <var>$title</var></span>, <span>array <var>$options</var> = []</span> )</code>
 
 		<div class="description short">
 			<p>Creates a button to open a dropdown menu, according to Bootstrap.</p>
@@ -236,7 +241,7 @@ Cake\View\Helper
 		<div class="description detailed hidden">
 			<p>Creates a button to open a dropdown menu, according to Bootstrap.</p>
 
-<p>Note that this method creates only a button. To create a dropdown menu, you should use the <code>dropdown()</code> method.</p>
+<p>Note that this method creates only a link. To create a full dropdown menu, you should use the <code>menu()</code> method.</p>
 
 
 				<h4>Parameters</h4>
@@ -255,7 +260,7 @@ Cake\View\Helper
 
 				<h4>See</h4>
 				<div class="list">
-						<code><a href="class-MeTools.View.Helper.DropdownHelper.html#_dropdown">MeTools\View\Helper\DropdownHelper::dropdown()</a></code><br>
+						<code><a href="class-MeTools.View.Helper.DropdownHelper.html#_menu">MeTools\View\Helper\DropdownHelper::menu()</a></code><br>
 						http://getbootstrap.com/components/#dropdowns Bootstrap documentation<br>
 				</div>
 				<h4>Uses</h4>
@@ -280,34 +285,17 @@ Cake\View\Helper
 
 		<td class="name"><div>
 		<a class="anchor" href="#_dropdown">#</a>
-		<code><a href="source-class-MeTools.View.Helper.DropdownHelper.html#80-107" title="Go to source code">dropdown</a>( <span>array <var>$links</var> = []</span>, <span>array <var>$options</var> = []</span>, <span>array <var>$itemOptions</var> = []</span> )</code>
+		<code><a href="source-class-MeTools.View.Helper.DropdownHelper.html#85-105" title="Go to source code">dropdown</a>( <span>array <var>$links</var> = []</span>, <span>array <var>$options</var> = []</span>, <span>array <var>$itemOptions</var> = []</span> )</code>
 
 		<div class="description short">
-			<p>Creates a dropdown menu, according to Bootstrap. For example:</p>
-
-<pre>&lt;div <span class="php-keyword1">class</span>=<span class="php-quote">&quot;dropdown&quot;</span>&gt;
-   <span class="xlang">&lt;?php</span>
-      <span class="php-keyword1">echo</span> <span class="php-var">$this</span>-&gt;Html-&gt;button(<span class="php-quote">'Open the dropdown'</span>, [<span class="php-quote">'icon'</span> =&gt; <span class="php-quote">'fa-bell'</span>]);
-      <span class="php-keyword1">echo</span> <span class="php-var">$this</span>-&gt;Html-&gt;dropdown([
-         <span class="php-var">$this</span>-&gt;Html-&gt;<span class="php-keyword2">link</span>(<span class="php-quote">'Github'</span>, <span class="php-quote">'http://github.com'</span>, [<span class="php-quote">'icon'</span> =&gt; <span class="php-quote">'fa-github'</span>]),
-         <span class="php-var">$this</span>-&gt;Html-&gt;<span class="php-keyword2">link</span>(<span class="php-quote">'Stack Overflow'</span>, <span class="php-quote">'http://stackoverflow.com'</span>, [<span class="php-quote">'icon'</span> =&gt; <span class="php-quote">'fa-stack-overflow'</span>])
-      ]);
-   <span class="xlang">?&gt;</span>
-&lt;/div&gt;</pre>
+			<p>Creates a dropdown menu.</p>
 		</div>
 
 		<div class="description detailed hidden">
-			<p>Creates a dropdown menu, according to Bootstrap. For example:</p>
+			<p>Creates a dropdown menu.</p>
 
-<pre>&lt;div <span class="php-keyword1">class</span>=<span class="php-quote">&quot;dropdown&quot;</span>&gt;
-   <span class="xlang">&lt;?php</span>
-      <span class="php-keyword1">echo</span> <span class="php-var">$this</span>-&gt;Html-&gt;button(<span class="php-quote">'Open the dropdown'</span>, [<span class="php-quote">'icon'</span> =&gt; <span class="php-quote">'fa-bell'</span>]);
-      <span class="php-keyword1">echo</span> <span class="php-var">$this</span>-&gt;Html-&gt;dropdown([
-         <span class="php-var">$this</span>-&gt;Html-&gt;<span class="php-keyword2">link</span>(<span class="php-quote">'Github'</span>, <span class="php-quote">'http://github.com'</span>, [<span class="php-quote">'icon'</span> =&gt; <span class="php-quote">'fa-github'</span>]),
-         <span class="php-var">$this</span>-&gt;Html-&gt;<span class="php-keyword2">link</span>(<span class="php-quote">'Stack Overflow'</span>, <span class="php-quote">'http://stackoverflow.com'</span>, [<span class="php-quote">'icon'</span> =&gt; <span class="php-quote">'fa-stack-overflow'</span>])
-      ]);
-   <span class="xlang">?&gt;</span>
-&lt;/div&gt;</pre>
+<p>Note that this method creates only a dropdown submenu, without the a link or a button to open the menu.
+To create a full dropdown menu, you should use the <code>menu()</code> method.</p>
 
 
 				<h4>Parameters</h4>
@@ -328,12 +316,17 @@ Cake\View\Helper
 
 				<h4>See</h4>
 				<div class="list">
+						<code><a href="class-MeTools.View.Helper.DropdownHelper.html#_menu">MeTools\View\Helper\DropdownHelper::menu()</a></code><br>
 						http://getbootstrap.com/components/#dropdowns Bootstrap documentation<br>
 				</div>
 				<h4>Uses</h4>
 				<div class="list">
 						<code><a href="class-MeTools.View.Helper.MeHtmlHelper.html#__addValue">MeTools\View\Helper\MeHtmlHelper::_addValue()</a></code><br>
 						<code><a href="class-MeTools.View.Helper.MeHtmlHelper.html#_ul">MeTools\View\Helper\MeHtmlHelper::ul()</a></code><br>
+				</div>
+				<h4>Used by</h4>
+				<div class="list">
+						<code><a href="class-MeTools.View.Helper.DropdownHelper.html#_menu">MeTools\View\Helper\DropdownHelper::menu()</a></code><br>
 				</div>
 
 
@@ -352,7 +345,7 @@ Cake\View\Helper
 
 		<td class="name"><div>
 		<a class="anchor" href="#_link">#</a>
-		<code><a href="source-class-MeTools.View.Helper.DropdownHelper.html#109-128" title="Go to source code">link</a>( <span>string <var>$title</var></span>, <span>array <var>$options</var> = []</span> )</code>
+		<code><a href="source-class-MeTools.View.Helper.DropdownHelper.html#107-126" title="Go to source code">link</a>( <span>string <var>$title</var></span>, <span>array <var>$options</var> = []</span> )</code>
 
 		<div class="description short">
 			<p>Creates a link to open a dropdown menu, according to Bootstrap.</p>
@@ -361,7 +354,7 @@ Cake\View\Helper
 		<div class="description detailed hidden">
 			<p>Creates a link to open a dropdown menu, according to Bootstrap.</p>
 
-<p>Note that this method creates only a link. To create a dropdown menu, you should use the <code>dropdown()</code> method.</p>
+<p>Note that this method creates only a link. To create a full dropdown menu, you should use the <code>menu()</code> method.</p>
 
 
 				<h4>Parameters</h4>
@@ -380,13 +373,17 @@ Cake\View\Helper
 
 				<h4>See</h4>
 				<div class="list">
-						<code><a href="class-MeTools.View.Helper.DropdownHelper.html#_dropdown">MeTools\View\Helper\DropdownHelper::dropdown()</a></code><br>
+						<code><a href="class-MeTools.View.Helper.DropdownHelper.html#_menu">MeTools\View\Helper\DropdownHelper::menu()</a></code><br>
 						http://getbootstrap.com/components/#dropdowns Bootstrap documentation<br>
 				</div>
 				<h4>Uses</h4>
 				<div class="list">
 						<code><a href="class-MeTools.View.Helper.MeHtmlHelper.html#_link">MeTools\View\Helper\MeHtmlHelper::link()</a></code><br>
 						<code><a href="class-MeTools.View.Helper.DropdownHelper.html#___parseLink">MeTools\View\Helper\DropdownHelper::__parseLink()</a></code><br>
+				</div>
+				<h4>Used by</h4>
+				<div class="list">
+						<code><a href="class-MeTools.View.Helper.DropdownHelper.html#_menu">MeTools\View\Helper\DropdownHelper::menu()</a></code><br>
 				</div>
 
 
@@ -398,29 +395,65 @@ Cake\View\Helper
 		<td class="attributes"><code>
 			 public 
 
-			
+			string
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_menu">#</a>
-		<code><a href="source-class-MeTools.View.Helper.DropdownHelper.html#130-136" title="Go to source code">menu</a>( )</code>
+		<code><a href="source-class-MeTools.View.Helper.DropdownHelper.html#128-154" title="Go to source code">menu</a>( <span>string <var>$title</var></span>, <span>array <var>$titleOptions</var> = []</span>, <span>array <var>$links</var> = []</span>, <span>array <var>$dropdownOptions</var> = []</span>, <span>array <var>$itemOptions</var> = []</span> )</code>
 
 		<div class="description short">
-			<p>Alias for <code>dropdown()</code> method</p>
+			<p>Creates a full menu, according to Bootstrap. For example:</p>
+
+<pre>&lt;div <span class="php-keyword1">class</span>=<span class="php-quote">&quot;dropdown&quot;</span>&gt;
+<span class="xlang">&lt;?php</span>
+    <span class="php-keyword1">echo</span> <span class="php-var">$this</span>-&gt;Dropdown-&gt;menu(<span class="php-quote">'Open the dropdown'</span>, [<span class="php-quote">'icon'</span> =&gt; <span class="php-quote">'fa-bell'</span>], [
+        <span class="php-var">$this</span>-&gt;Html-&gt;<span class="php-keyword2">link</span>(<span class="php-quote">'Github'</span>, <span class="php-quote">'http://github.com'</span>, [<span class="php-quote">'icon'</span> =&gt; <span class="php-quote">'fa-github'</span>]),
+         <span class="php-var">$this</span>-&gt;Html-&gt;<span class="php-keyword2">link</span>(<span class="php-quote">'Stack Overflow'</span>, <span class="php-quote">'http://stackoverflow.com'</span>, [<span class="php-quote">'icon'</span> =&gt; <span class="php-quote">'fa-stack-overflow'</span>])
+    ]);
+<span class="xlang">?&gt;</span>
+&lt;/div&gt;</pre>
 		</div>
 
 		<div class="description detailed hidden">
-			<p>Alias for <code>dropdown()</code> method</p>
+			<p>Creates a full menu, according to Bootstrap. For example:</p>
+
+<pre>&lt;div <span class="php-keyword1">class</span>=<span class="php-quote">&quot;dropdown&quot;</span>&gt;
+<span class="xlang">&lt;?php</span>
+    <span class="php-keyword1">echo</span> <span class="php-var">$this</span>-&gt;Dropdown-&gt;menu(<span class="php-quote">'Open the dropdown'</span>, [<span class="php-quote">'icon'</span> =&gt; <span class="php-quote">'fa-bell'</span>], [
+        <span class="php-var">$this</span>-&gt;Html-&gt;<span class="php-keyword2">link</span>(<span class="php-quote">'Github'</span>, <span class="php-quote">'http://github.com'</span>, [<span class="php-quote">'icon'</span> =&gt; <span class="php-quote">'fa-github'</span>]),
+         <span class="php-var">$this</span>-&gt;Html-&gt;<span class="php-keyword2">link</span>(<span class="php-quote">'Stack Overflow'</span>, <span class="php-quote">'http://stackoverflow.com'</span>, [<span class="php-quote">'icon'</span> =&gt; <span class="php-quote">'fa-stack-overflow'</span>])
+    ]);
+<span class="xlang">?&gt;</span>
+&lt;/div&gt;</pre>
 
 
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$title</var></dt>
+					<dd>Link title</dd>
+					<dt><var>$titleOptions</var></dt>
+					<dd>Array of options and HTML attributes</dd>
+					<dt><var>$links</var></dt>
+					<dd>Array of links for the dropdown (you should use the <code>MeHtmlHelper::link()</code> method for each link)</dd>
+					<dt><var>$dropdownOptions</var></dt>
+					<dd>Options for the dropdown (<code>&lt;ul&gt;</code> element)</dd>
+					<dt><var>$itemOptions</var></dt>
+					<dd>Options for each item (<code>&lt;li&gt;</code> element)</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					string<br>Html code
+				</div>
 
 
-
-				<h4>See</h4>
+				<h4>Uses</h4>
 				<div class="list">
 						<code><a href="class-MeTools.View.Helper.DropdownHelper.html#_dropdown">MeTools\View\Helper\DropdownHelper::dropdown()</a></code><br>
+						<code><a href="class-MeTools.View.Helper.DropdownHelper.html#_link">MeTools\View\Helper\DropdownHelper::link()</a></code><br>
 				</div>
 
 
@@ -449,7 +482,7 @@ Cake\View\Helper
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-MeTools.View.Helper.DropdownHelper.html#33-37" title="Go to source code"><var>$helpers</var></a>
+				<a href="source-class-MeTools.View.Helper.DropdownHelper.html#38-42" title="Go to source code"><var>$helpers</var></a>
 
 			<div class="description short">
 				<p>Helpers</p>

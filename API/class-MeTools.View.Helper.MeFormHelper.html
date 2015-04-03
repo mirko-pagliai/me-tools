@@ -156,7 +156,7 @@ Cake\View\Helper\FormHelper
 		<b>Namespace:</b> <a href="namespace-MeTools.html">MeTools</a>\<a href="namespace-MeTools.View.html">View</a>\<a href="namespace-MeTools.View.Helper.html">Helper</a><br>
 		
 
-			<b>Located at</b> <a href="source-class-MeTools.View.Helper.MeFormHelper.html#29-187" title="Go to source code">MeFormHelper.php</a>
+			<b>Located at</b> <a href="source-class-MeTools.View.Helper.MeFormHelper.html#29-219" title="Go to source code">MeFormHelper.php</a>
 		<br>
 	</div>
 
@@ -176,7 +176,7 @@ Cake\View\Helper\FormHelper
 
 		<td class="name"><div>
 		<a class="anchor" href="#___construct">#</a>
-		<code><a href="source-class-MeTools.View.Helper.MeFormHelper.html#46-70" title="Go to source code">__construct</a>( <span>Cake\View\View <var>$view</var></span>, <span>array <var>$config</var> = []</span> )</code>
+		<code><a href="source-class-MeTools.View.Helper.MeFormHelper.html#46-67" title="Go to source code">__construct</a>( <span>Cake\View\View <var>$view</var></span>, <span>array <var>$config</var> = []</span> )</code>
 
 		<div class="description short">
 			<p>Construct the widgets and binds the default context providers.</p>
@@ -198,15 +198,6 @@ Cake\View\Helper\FormHelper
 
 
 
-				<h4>See</h4>
-				<div class="list">
-						http://api.cakephp.org/3.0/class-Cake.View.Helper.FormHelper.html#$_defaultConfig<br>
-				</div>
-				<h4>Uses</h4>
-				<div class="list">
-						Cake\View\Helper\FormHelper::__construct()<br>
-						Cake\View\Helper\FormHelper::$_defaultConfig<br>
-				</div>
 
 
 		</div>
@@ -224,7 +215,7 @@ Cake\View\Helper\FormHelper
 
 		<td class="name"><div>
 		<a class="anchor" href="#_button">#</a>
-		<code><a href="source-class-MeTools.View.Helper.MeFormHelper.html#72-93" title="Go to source code">button</a>( <span>string <var>$title</var></span>, <span>array <var>$options</var> = []</span> )</code>
+		<code><a href="source-class-MeTools.View.Helper.MeFormHelper.html#69-90" title="Go to source code">button</a>( <span>string <var>$title</var></span>, <span>array <var>$options</var> = []</span> )</code>
 
 		<div class="description short">
 			<p>Creates a button.</p>
@@ -266,6 +257,47 @@ Instead, to create a link with the appearance of a button, you should use the <c
 		</div>
 		</div></td>
 	</tr>
+	<tr data-order="checkbox" id="_checkbox">
+
+		<td class="attributes"><code>
+			 public 
+
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_checkbox">#</a>
+		<code><a href="source-class-MeTools.View.Helper.MeFormHelper.html#92-106" title="Go to source code">checkbox</a>( <span>string <var>$fieldName</var></span>, <span>array <var>$options</var> = []</span> )</code>
+
+		<div class="description short">
+			<p>Creates a checkbox input element.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Creates a checkbox input element.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$fieldName</var></dt>
+					<dd>Field name, should be "Modelname.fieldname"</dd>
+					<dt><var>$options</var></dt>
+					<dd>HTML attributes and options</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					string<br>Html code
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
 	<tr data-order="input" id="_input">
 
 		<td class="attributes"><code>
@@ -278,7 +310,7 @@ Instead, to create a link with the appearance of a button, you should use the <c
 
 		<td class="name"><div>
 		<a class="anchor" href="#_input">#</a>
-		<code><a href="source-class-MeTools.View.Helper.MeFormHelper.html#95-114" title="Go to source code">input</a>( <span>string <var>$fieldName</var></span>, <span>array <var>$options</var> = []</span> )</code>
+		<code><a href="source-class-MeTools.View.Helper.MeFormHelper.html#108-127" title="Go to source code">input</a>( <span>string <var>$fieldName</var></span>, <span>array <var>$options</var> = []</span> )</code>
 
 		<div class="description short">
 			<p>Generates an input element complete with label and wrapper div.</p>
@@ -311,6 +343,56 @@ Instead, to create a link with the appearance of a button, you should use the <c
 		</div>
 		</div></td>
 	</tr>
+	<tr data-order="label" id="_label">
+
+		<td class="attributes"><code>
+			 public 
+
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_label">#</a>
+		<code><a href="source-class-MeTools.View.Helper.MeFormHelper.html#129-146" title="Go to source code">label</a>( <span>string <var>$fieldName</var></span>, <span>string <var>$text</var> = <span class="php-keyword1">NULL</span></span>, <span>array <var>$options</var> = []</span> )</code>
+
+		<div class="description short">
+			<p>Returns a formatted <code>&lt;label&gt;</code> element.
+Will automatically generate a <code>for</code> attribute if one is not provided.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Returns a formatted <code>&lt;label&gt;</code> element.
+Will automatically generate a <code>for</code> attribute if one is not provided.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$fieldName</var></dt>
+					<dd>Field name, should be "Modelname.fieldname"</dd>
+					<dt><var>$text</var></dt>
+					<dd>Text that will appear in the label field. If is left undefined the text will be inflected from the fieldName</dd>
+					<dt><var>$options</var></dt>
+					<dd>HTML attributes, or a string to be used as a class name</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					string<br>Html code
+				</div>
+
+
+				<h4>Uses</h4>
+				<div class="list">
+						<code><a href="class-MeTools.View.Helper.MeHtmlHelper.html#__addDefault">MeTools\View\Helper\MeHtmlHelper::_addDefault()</a></code><br>
+						<code><a href="class-MeTools.View.Helper.MeHtmlHelper.html#__addIcon">MeTools\View\Helper\MeHtmlHelper::_addIcon()</a></code><br>
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
 	<tr data-order="legend" id="_legend">
 
 		<td class="attributes"><code>
@@ -323,7 +405,7 @@ Instead, to create a link with the appearance of a button, you should use the <c
 
 		<td class="name"><div>
 		<a class="anchor" href="#_legend">#</a>
-		<code><a href="source-class-MeTools.View.Helper.MeFormHelper.html#116-125" title="Go to source code">legend</a>( <span>string <var>$text</var></span>, <span>array <var>$options</var> = []</span> )</code>
+		<code><a href="source-class-MeTools.View.Helper.MeFormHelper.html#148-157" title="Go to source code">legend</a>( <span>string <var>$text</var></span>, <span>array <var>$options</var> = []</span> )</code>
 
 		<div class="description short">
 			<p>Creates a <code>&lt;legend&gt;</code> tag.</p>
@@ -368,7 +450,7 @@ Instead, to create a link with the appearance of a button, you should use the <c
 
 		<td class="name"><div>
 		<a class="anchor" href="#_postButton">#</a>
-		<code><a href="source-class-MeTools.View.Helper.MeFormHelper.html#127-147" title="Go to source code">postButton</a>( <span>string <var>$title</var></span>, <span>string|array <var>$url</var></span>, <span>array <var>$options</var> = []</span> )</code>
+		<code><a href="source-class-MeTools.View.Helper.MeFormHelper.html#159-179" title="Go to source code">postButton</a>( <span>string <var>$title</var></span>, <span>string|array <var>$url</var></span>, <span>array <var>$options</var> = []</span> )</code>
 
 		<div class="description short">
 			<p>Creates a button with a surrounding form that submits via POST.</p>
@@ -422,7 +504,7 @@ To create a button with the appearance of a link, you should use the <code>butto
 
 		<td class="name"><div>
 		<a class="anchor" href="#_postLink">#</a>
-		<code><a href="source-class-MeTools.View.Helper.MeFormHelper.html#149-173" title="Go to source code">postLink</a>( <span>string <var>$title</var></span>, <span>string|array <var>$url</var> = <span class="php-keyword1">NULL</span></span>, <span>array <var>$options</var> = []</span> )</code>
+		<code><a href="source-class-MeTools.View.Helper.MeFormHelper.html#181-205" title="Go to source code">postLink</a>( <span>string <var>$title</var></span>, <span>string|array <var>$url</var> = <span class="php-keyword1">NULL</span></span>, <span>array <var>$options</var> = []</span> )</code>
 
 		<div class="description short">
 			<p>Creates a link with a surrounding form that submits via POST.</p>
@@ -478,7 +560,7 @@ To create a button with the appearance of a link, you should use the <code>butto
 
 		<td class="name"><div>
 		<a class="anchor" href="#_submit">#</a>
-		<code><a href="source-class-MeTools.View.Helper.MeFormHelper.html#175-186" title="Go to source code">submit</a>( <span>string <var>$caption</var> = <span class="php-keyword1">null</span></span>, <span>array <var>$options</var> = []</span> )</code>
+		<code><a href="source-class-MeTools.View.Helper.MeFormHelper.html#207-218" title="Go to source code">submit</a>( <span>string <var>$caption</var> = <span class="php-keyword1">null</span></span>, <span>array <var>$options</var> = []</span> )</code>
 
 		<div class="description short">
 			<p>Creates a submit button.</p>
