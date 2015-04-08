@@ -4,6 +4,16 @@
  * @copyright	Copyright (c) 2015, Mirko Pagliai for Nova Atlantis Ltd
  * @license		http://www.gnu.org/licenses/agpl.txt AGPL License
  */
+/* -------------------------------- */
+/*			Required fields			*/
+/* -------------------------------- */
+/* Labels for required inputs */
+form label.required:after,
+form div.required > label:after {
+	color: #e32;
+	content: '*';
+	display: inline;
+}
 
 /* -------------------------------- */
 /*			Checkbox inputs			*/
@@ -35,4 +45,24 @@ form input[type='checkbox']:checked + label:before {
 	color: inherit;
 	content: "\f046";
 	margin-right: 2px;
+}
+
+/* -------------------------------- */
+/*				Errors				*/
+/* -------------------------------- */
+/* Error messages */
+form .error-message {
+	background: #f2dede;
+    border-radius: 4px;
+    color: #b94a48;
+    font-size: 95%;
+    margin-top: 3px;
+    padding: 4px 8px 6px;
+}
+
+/* Error messages, list */
+form .error-message ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
 }
