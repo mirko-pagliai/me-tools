@@ -36,6 +36,37 @@ class ThumbHelper extends Helper {
 	public $helpers = ['Html' => ['className' => 'MeTools.MeHtml'], 'Url'];
 	
 	/**
+	 * Creates and returns a thumbnail of an image or a video.
+     * 
+     * To get a thumbnail, you have to use `width` and/or `height` options. 
+     * To get a square thumbnail, you have to use the `side` option.
+	 * 
+	 * You can use the `height` option only for image files.
+     * @param string $path Image path (absolute or relative to the webroot)
+	 * @param array $options Array of options and HTML attributes
+	 * @return string Html code
+	 * @uses MeHtmlHelper::_addValue()
+	 * @uses MeHtmlHelper::img()
+	 * @uses url()
+	 */
+	public function image($path, array $options = []) {
+        $path = self::url($path, $options);
+        unset($options['side'], $options['width'], $options['height']);
+		
+		$options = $this->Html->_addValue('class', 'thumb', $options);
+
+        return $this->Html->img($path, $options);
+	}
+	
+    /**
+     * Alias for `image()` method.
+     * @see image()
+     */
+    public function img() {
+        return call_user_func_array([get_class(), 'image'], func_get_args());
+    }
+	
+	/**
 	 * Creates and returns the url for a thumbnail of an image or a video.
      * 
      * To get a thumbnail, you have to use `width` and/or `height` options. 
@@ -62,28 +93,5 @@ class ThumbHelper extends Helper {
 		$url = ['controller' => 'Thumbs', 'action' => 'thumb', 'plugin' => 'MeTools', 'admin' => FALSE, 'ext' => $ext];
 		
 		return $this->Url->build(am($url, ['?' => $sizes], [$path]), TRUE);
-	}
-	
-	/**
-	 * Creates and returns a thumbnail of an image or a video.
-     * 
-     * To get a thumbnail, you have to use `width` and/or `height` options. 
-     * To get a square thumbnail, you have to use the `side` option.
-	 * 
-	 * You can use the `height` option only for image files.
-     * @param string $path Image path (absolute or relative to the webroot)
-	 * @param array $options Array of options and HTML attributes
-	 * @return string Html code
-	 * @uses MeHtmlHelper::_addValue()
-	 * @uses MeHtmlHelper::img()
-	 * @uses url()
-	 */
-	public function image($path, array $options = []) {
-        $path = self::url($path, $options);
-        unset($options['side'], $options['width'], $options['height']);
-		
-		$options = $this->Html->_addValue('class', 'thumb', $options);
-
-        return $this->Html->img($path, $options);
 	}
 }
