@@ -123,6 +123,13 @@ class MeFormHelper extends FormHelper {
 		if(isset($options['autocomplete']) && !$options['autocomplete'])
 			$options['autocomplete'] = 'off';
 		
+		//Sets the default templates
+		//These values can be overwritten by other methods
+		$this->templates([
+			'nestingLabel' => '{{hidden}}<label{{attrs}}>{{input}}{{text}}</label>',
+			'formGroup' => '{{label}}{{input}}'
+		]);
+		
         return parent::input($fieldName, $options);
 	}
 	
