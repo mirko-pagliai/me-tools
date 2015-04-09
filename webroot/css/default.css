@@ -26,6 +26,11 @@ iframe {
 /* -------------------------------- */
 /*				Tables				*/
 /* -------------------------------- */
+/* Header cells, links */
+.table th a {
+	text-decoration: none;
+}
+
 /* Actions */
 .table td.actions {
 	width: 1px;
