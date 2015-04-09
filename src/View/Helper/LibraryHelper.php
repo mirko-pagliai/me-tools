@@ -23,6 +23,7 @@
  */
 namespace MeTools\View\Helper;
 
+use Cake\Event\Event;
 use Cake\View\Helper;
 use Cake\View\View;
 
@@ -30,4 +31,51 @@ use Cake\View\View;
  * Library helper
  */
 class LibraryHelper extends Helper {
+	/**
+	 * Helpers
+	 * @var array
+	 */
+	public $helpers = ['Html' => ['className' => 'MeTools.MeHtml']];
+	
+    /**
+     * It will contain the output code
+     * @var array 
+     */
+    protected $output = [];
+
+    /**
+     * Before layout callback. beforeLayout is called before the layout is rendered.
+	 * @param Event $event An Event instance
+     * @param string $layoutFile The layout about to be rendered
+	 * @uses MeTools\View\Helper\MeHtmlHelper::scriptBlock()
+	 * @uses output
+     */
+    public function beforeLayout(Event $event, $layoutFile) {
+        //Writes the output
+        if(!empty($this->output)) {
+            $this->output = implode(PHP_EOL, array_map(function($v){ 
+				return "\t".$v;
+			}, $this->output));
+			
+			$this->Html->scriptBlock(sprintf('$(function() {%s});', PHP_EOL.$this->output.PHP_EOL), ['block' => 'script_bottom']);
+        
+			//Resets the output
+			$this->output = [];
+		}
+    }
+	
+    /**
+     * Through `slugify.js`, it provides the slug of a field. 
+     * 
+     * It reads the value of the `$sourceField` field and it sets its slug in the `$targetField`.
+     * @param string $sourceField Source field
+     * @param string $targetField Target field
+	 * @uses MeTools\View\Helper\MeHtmlHelper::js()
+	 * @uses output
+     */
+    public function slugify($sourceField = 'form #title', $targetField = 'form #slug') {
+        $this->Html->js('MeTools.slugify.min.js', ['block' => 'script_bottom']);
+		
+        $this->output[] = sprintf('$().slugify("%s", "%s");', $sourceField, $targetField);
+    }
 }
