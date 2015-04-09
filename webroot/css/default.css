@@ -26,8 +26,8 @@ iframe {
 /* -------------------------------- */
 /*				Tables				*/
 /* -------------------------------- */
-/* Header cells, links */
-.table th a {
+/* Table header, header cells, links */
+.table > thead > tr > th a {
 	text-decoration: none;
 }
 
