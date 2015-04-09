@@ -35,6 +35,7 @@ form input[type='checkbox'] {
 /* Checkbox labels */
 form input[type='checkbox'] + label {
 	cursor: pointer;
+	font-weight: bold;
 	padding: 0;
 }
 
@@ -74,4 +75,42 @@ form .error-message ul {
     list-style: none;
     margin: 0;
     padding: 0;
+}
+
+/* -------------------------------- */
+/*			Float forms				*/
+/* -------------------------------- */
+/* Float form */
+form > .float-form {
+	background: #F7F5FA;
+	border-radius: 5px;
+	margin-bottom: 10px;
+	padding: 12px;
+}
+
+/* Small devices, medium devices and large devices */
+@media (min-width: 768px) {
+	/* Float form */
+	form > .float-form {
+		float: right;
+		margin: 0 0 20px 20px;
+		max-width: 26%;
+		min-width: 20%;
+	}
+
+	/* Float form on left */
+	form > .float-form.float-left {
+		float: left;
+		margin: 0 20px 20px 0;
+	}
+
+	/* Float form, last input wrapper */
+	form > .float-form div.input:last-child {
+		margin-bottom: 0;
+	}
+
+	/* Float form, select input */
+	form > .float-form select {
+		width: 100% !important;
+	}
 }
