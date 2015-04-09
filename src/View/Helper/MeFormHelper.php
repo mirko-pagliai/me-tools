@@ -139,6 +139,44 @@ class MeFormHelper extends FormHelper {
 		
 		return parent::checkbox($fieldName, $options);
 	}
+
+    /**
+     * Creates a datepicker input.
+     * 
+     * To add the script for datepicker, you should use the `LibraryHelper`.
+     * @param string $fieldName Field name, should be "Modelname.fieldname"
+     * @param array $options HTML attributes and options
+     * @return string Html code
+	 * @see MeTools\View\Helper\LibraryHelper::datepicker()
+	 * @uses MeTools\View\Helper\MeHtmlHelper::_addDefault()
+	 * @uses MeTools\View\Helper\MeHtmlHelper::_addValue()
+     * @uses input()
+     */
+    public function datepicker($fieldName, $options = array()) {
+		$options = $this->Html->_addValue('class', 'datepicker', $options);
+		$options = $this->Html->_addDefault('data-date-format', 'YYYY-MM-DD', $options);
+		
+        return self::input($fieldName, am($options, ['type' => 'text']));
+    }
+	
+    /**
+     * Creates a datetimepicker input.
+     * 
+     * To add the script for datetimepicker, you should use the `LibraryHelper`.
+     * @param string $fieldName Field name, should be "Modelname.fieldname"
+     * @param array $options HTML attributes and options
+     * @return string Html code
+	 * @see MeTools\View\Helper\LibraryHelper::datetimepicker()
+	 * @uses MeTools\View\Helper\MeHtmlHelper::_addDefault()
+	 * @uses MeTools\View\Helper\MeHtmlHelper::_addValue()
+     * @uses input()
+     */
+    public function datetimepicker($fieldName, $options = array()) {
+		$options = $this->Html->_addValue('class', 'datetimepicker', $options);
+		$options = $this->Html->_addDefault('data-date-format', 'YYYY-MM-DD HH:mm', $options);
+		
+        return self::input($fieldName, am($options, ['type' => 'text']));
+	}
 	
 	/**
 	 * Generates an input element complete with label and wrapper div.

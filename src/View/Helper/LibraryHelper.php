@@ -23,6 +23,7 @@
  */
 namespace MeTools\View\Helper;
 
+use Cake\Core\Configure;
 use Cake\Event\Event;
 use Cake\View\Helper;
 use Cake\View\View;
@@ -42,6 +43,47 @@ class LibraryHelper extends Helper {
      * @var array 
      */
     protected $output = [];
+	
+	/**
+	 * Internal function to generate datepicker and timepicker.
+     * @param string $input Target field
+     * @param array $options Options for the datepicker
+	 * @return string jQuery code
+     * @see http://eonasdan.github.io/bootstrap-datetimepicker Bootstrap 3 Datepicker v4 documentation
+	 * @uses MeTools\View\Helper\MeHtmlHelper::_addDefault()
+	 * @uses MeTools\View\Helper\MeHtmlHelper::css()
+	 * @uses MeTools\View\Helper\MeHtmlHelper::js()
+	 */
+	protected function _datetimepicker($input, array $options = []) {
+		$this->Html->js([
+			'MeTools.moment-with-locales.min',
+			'MeTools.bootstrap-datetimepicker.min'
+		], ['block' => 'script_bottom']);
+		
+        $this->Html->css('MeTools.bootstrap-datetimepicker.min', ['block' => 'css_bottom']);
+		
+		//Shows the "Clear" button in the icon toolbar
+		$options = $this->Html->_addDefault('showClear', TRUE, $options);
+		
+		$options = $this->Html->_addDefault('icons', [
+			'time' => 'fa fa-clock-o',
+			'date' => 'fa fa-calendar',
+			'up' => 'fa fa-arrow-up',
+			'down' => 'fa fa-arrow-down',
+			'previous' => 'fa fa-arrow-left',
+			'next' => 'fa fa-arrow-right',
+			'today' => 'fa fa-dot-circle-o',
+			'clear' => 'fa fa-trash'
+		], $options);
+		
+		//TO-DO: fix
+//		$locale = Configure::read('Config.language');
+//		
+//		if(empty($options['locale']) && !empty($locale))
+//			$options = $this->Html->_addDefault('locale', $locale, $options);
+		
+		return sprintf('$("%s").datetimepicker(%s);', $input, json_encode($options));
+	}
 
     /**
      * Before layout callback. beforeLayout is called before the layout is rendered.
@@ -63,6 +105,43 @@ class LibraryHelper extends Helper {
 			$this->output = [];
 		}
     }
+
+    /**
+     * Adds a datepicker to the `$input` field.
+     * 
+     * To create an input field compatible with datepicker, you should use the `datepicker()` method provided by the `MeFormHelper`.
+     * @param string $input Target field. Default is `.datepicker`
+     * @param array $options Options for the datepicker
+     * @see MeFormHelper::datepicker()
+     * @see http://eonasdan.github.io/bootstrap-datetimepicker Bootstrap 3 Datepicker v4 documentation
+	 * @uses MeTools\View\Helper\MeHtmlHelper::_addDefault()
+	 * @uses output
+	 * @uses _datetimepicker()
+     */
+	public function datepicker($input = NULL, array $options = []) {
+		$input = empty($input) ? '.datepicker' : $input;
+		
+		$options = $this->Html->_addDefault('format', 'YYYY/MM/DD', $options);
+		
+        $this->output[] = self::_datetimepicker($input, $options);
+	}
+	
+	 /**
+     * Adds a datetimepicker to the `$input` field.
+     * 
+     * To create an input field compatible with datetimepicker, you should use the `datetimepicker()` method provided by the `MeFormHelper`.
+     * @param string $input Target field. Default is `.datetimepicker`
+     * @param array $options Options for the datetimepicker
+     * @see MeFormHelper::datetimepicker()
+     * @see http://eonasdan.github.io/bootstrap-datetimepicker Bootstrap 3 Datepicker v4 documentation
+	 * @uses output
+	 * @uses _datetimepicker()
+     */
+	public function datetimepicker($input = NULL, array $options = []) {
+		$input = empty($input) ? '.datetimepicker' : $input;
+		
+        $this->output[] = self::_datetimepicker($input, $options);
+	}
 	
     /**
      * Through `slugify.js`, it provides the slug of a field. 
