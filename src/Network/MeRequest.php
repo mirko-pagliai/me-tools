@@ -34,6 +34,14 @@ use Cake\Network\Request;
  */
 class MeRequest extends Request {
 	/**
+	 * Checks if the current request has a prefix
+	 * @return bool TRUE if the current request has a prefix, otherwise FALSE
+	 */
+	public function hasPrefix() {
+		return !empty($this->param('prefix'));
+	}
+	
+	/**
 	 * Checks if the specified action is the current action.
 	 * The action name can be passed as string or array.
 	 * 
