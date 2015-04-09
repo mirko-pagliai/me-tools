@@ -49,8 +49,8 @@ class DropdownHelper extends Helper {
      * @param array $options HTML attributes and options
      * @return array Array with title and options
 	 * @see button(), link()
-	 * @uses MeHtmlHelper::_addValue()
-	 * @uses MeHtmlHelper::icon()
+	 * @uses MeTools\View\Helper\MeHtmlHelper::_addValue()
+	 * @uses MeTools\View\Helper\MeHtmlHelper::icon()
      */
     protected function __parseLink($title, array $options = []) {
 		$title = sprintf('%s %s', $title, $this->Html->icon('caret-down'));
@@ -70,7 +70,7 @@ class DropdownHelper extends Helper {
      * @return string Html code
      * @see menu()
      * @see http://getbootstrap.com/components/#dropdowns Bootstrap documentation
-     * @uses MeHtmlHelper::button()
+     * @uses MeTools\View\Helper\MeHtmlHelper::button()
      * @uses __parseLink()
      */
     public function button($title, array $options = []) {
@@ -93,8 +93,8 @@ class DropdownHelper extends Helper {
      * @return string Html code
      * @see menu()
      * @see http://getbootstrap.com/components/#dropdowns Bootstrap documentation
-	 * @uses MeHtmlHelper::_addValue()
-	 * @uses MeHtmlHelper::ul()
+	 * @uses MeTools\View\Helper\MeHtmlHelper::_addValue()
+	 * @uses MeTools\View\Helper\MeHtmlHelper::ul()
 	 */
 	public function dropdown(array $links = [], array $options = [], array $itemOptions = []) {
 		$options = $this->Html->_addValue('class', 'dropdown-menu', $options);
@@ -113,7 +113,7 @@ class DropdownHelper extends Helper {
      * @return string Html code
      * @see menu()
      * @see http://getbootstrap.com/components/#dropdowns Bootstrap documentation
-     * @uses MeHtmlHelper::link()
+     * @uses MeTools\View\Helper\MeHtmlHelper::link()
      * @uses __parseLink()
 	 */
 	public function link($title, array $options = []) {

@@ -75,9 +75,9 @@ class MeFormHelper extends FormHelper {
      * @param array $options HTML attributes and options
      * @return string Html code
      * @see postButton(), MeHtmlHelper::button()
-	 * @uses MeHtmlHelper::_addButtonClass()
-	 * @uses MeHtmlHelper::_addDefault()
-	 * @uses MeHtmlHelper::_addIcon()
+	 * @uses MeTools\View\Helper\MeHtmlHelper::_addButtonClass()
+	 * @uses MeTools\View\Helper\MeHtmlHelper::_addDefault()
+	 * @uses MeTools\View\Helper\MeHtmlHelper::_addIcon()
 	 */
 	public function button($title, array $options = []) {
 		$options = $this->Html->_addButtonClass($options);
@@ -110,7 +110,7 @@ class MeFormHelper extends FormHelper {
      * @param string $fieldName Field name, should be "Modelname.fieldname"
      * @param array $options HTML attributes and options
 	 * @return string Html code
-	 * @uses MeHtmlHelper::_addDefault()
+	 * @uses MeTools\View\Helper\MeHtmlHelper::_addDefault()
 	 */
     public function input($fieldName, array $options = []) {
 		//If the field name contains the word "password", then the field type is "password"
@@ -140,8 +140,8 @@ class MeFormHelper extends FormHelper {
      * @param string $text Text that will appear in the label field. If is left undefined the text will be inflected from the fieldName
      * @param array|string $options HTML attributes, or a string to be used as a class name
 	 * @return string Html code
-	 * @uses MeHtmlHelper::_addDefault()
-	 * @uses MeHtmlHelper::_addIcon()
+	 * @uses MeTools\View\Helper\MeHtmlHelper::_addDefault()
+	 * @uses MeTools\View\Helper\MeHtmlHelper::_addIcon()
 	 */
 	public function label($fieldName, $text = NULL, array $options = []) {
 		$options = $this->Html->_addDefault('escape', FALSE, $options);
@@ -157,7 +157,7 @@ class MeFormHelper extends FormHelper {
      * @param string $text Legend text
      * @param array $options HTML attributes and options
      * @return string Html code
-	 * @uses MeHtmlHelper::tag()
+	 * @uses MeTools\View\Helper\MeHtmlHelper::tag()
 	 */
 	public function legend($text, array $options = []) {
 		return $this->Html->tag('legend', $text, $options);
@@ -174,8 +174,8 @@ class MeFormHelper extends FormHelper {
 	 * @param string|array $url Cake-relative URL or array of URL parameters or external URL
 	 * @param array $options Array of options and HTML attributes
 	 * @return string Html code
-	 * @uses MeHtmlHelper::_addButtonClass()
-	 * @uses MeHtmlHelper::_addValue()
+	 * @uses MeTools\View\Helper\MeHtmlHelper::_addButtonClass()
+	 * @uses MeTools\View\Helper\MeHtmlHelper::_addValue()
 	 * @uses postLink()
 	 */
 	public function postButton($title, $url, array $options = []) {
@@ -195,8 +195,8 @@ class MeFormHelper extends FormHelper {
 	 * @param string|array $url Cake-relative URL or array of URL parameters or external URL
 	 * @param array $options Array of options and HTML attributes
 	 * @return string Html code
-	 * @uses MeHtmlHelper::_addDefault()
-	 * @uses MeHtmlHelper::_addIcon()
+	 * @uses MeTools\View\Helper\MeHtmlHelper::_addDefault()
+	 * @uses MeTools\View\Helper\MeHtmlHelper::_addIcon()
 	 */
 	public function postLink($title, $url = NULL, array $options = []) {
 		$title = $this->Html->_addIcon($title, $options);
@@ -216,7 +216,7 @@ class MeFormHelper extends FormHelper {
      * @param string $caption The label appearing on the submit button or an image
      * @param array $options HTML attributes and options
      * @return string Html code
-	 * @uses MeHtmlHelper::_addButtonClass()
+	 * @uses MeTools\View\Helper\MeHtmlHelper::_addButtonClass()
 	 */
 	public function submit($caption = null, array $options = []) {
 		$options = $this->Html->_addButtonClass($options, 'success');

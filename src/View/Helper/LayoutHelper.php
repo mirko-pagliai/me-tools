@@ -42,7 +42,7 @@ class LayoutHelper extends Helper {
 	 * @param bool $zooming Enabled or disabled zooming capabilities on mobile devices
      * @return string Html code
      * @see http://getbootstrap.com/css/#overview-mobile Bootstrap documentation
-     * @uses MeHtmlHelper::meta()
+     * @uses MeTools\View\Helper\MeHtmlHelper::meta()
 	 */
 	public function viewport($zooming = FALSE) {
 		$content = 'width=device-width, initial-scale=1';

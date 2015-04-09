@@ -45,8 +45,8 @@ class ThumbHelper extends Helper {
      * @param string $path Image path (absolute or relative to the webroot)
 	 * @param array $options Array of options and HTML attributes
 	 * @return string Html code
-	 * @uses MeHtmlHelper::_addValue()
-	 * @uses MeHtmlHelper::img()
+	 * @uses MeTools\View\Helper\MeHtmlHelper::_addValue()
+	 * @uses MeTools\View\Helper\MeHtmlHelper::img()
 	 * @uses url()
 	 */
 	public function image($path, array $options = []) {
