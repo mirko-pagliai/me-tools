@@ -68,6 +68,7 @@
 			<h3>Classes</h3>
 			<ul>
 				<li><a href="class-MeTools.View.Helper.DropdownHelper.html">DropdownHelper</a></li>
+				<li><a href="class-MeTools.View.Helper.LayoutHelper.html">LayoutHelper</a></li>
 				<li><a href="class-MeTools.View.Helper.LibraryHelper.html">LibraryHelper</a></li>
 				<li><a href="class-MeTools.View.Helper.MarkdownHelper.html">MarkdownHelper</a></li>
 				<li><a href="class-MeTools.View.Helper.MeFormHelper.html">MeFormHelper</a></li>
@@ -150,7 +151,7 @@ Cake\View\Helper
 		<b>Namespace:</b> <a href="namespace-MeTools.html">MeTools</a>\<a href="namespace-MeTools.View.html">View</a>\<a href="namespace-MeTools.View.Helper.html">Helper</a><br>
 		
 
-			<b>Located at</b> <a href="source-class-MeTools.View.Helper.ThumbHelper.html#28-89" title="Go to source code">ThumbHelper.php</a>
+			<b>Located at</b> <a href="source-class-MeTools.View.Helper.ThumbHelper.html#28-97" title="Go to source code">Helper/ThumbHelper.php</a>
 		<br>
 	</div>
 
@@ -158,6 +159,92 @@ Cake\View\Helper
 
 	<table class="summary methods" id="methods">
 	<caption>Methods summary</caption>
+	<tr data-order="image" id="_image">
+
+		<td class="attributes"><code>
+			 public 
+
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_image">#</a>
+		<code><a href="source-class-MeTools.View.Helper.ThumbHelper.html#38-59" title="Go to source code">image</a>( <span>string <var>$path</var></span>, <span>array <var>$options</var> = []</span> )</code>
+
+		<div class="description short">
+			<p>Creates and returns a thumbnail of an image or a video.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Creates and returns a thumbnail of an image or a video.</p>
+
+<p>To get a thumbnail, you have to use <code>width</code> and/or <code>height</code> options.
+To get a square thumbnail, you have to use the <code>side</code> option.</p>
+
+<p>You can use the <code>height</code> option only for image files.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$path</var></dt>
+					<dd>Image path (absolute or relative to the webroot)</dd>
+					<dt><var>$options</var></dt>
+					<dd>Array of options and HTML attributes</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					string<br>Html code
+				</div>
+
+
+				<h4>Uses</h4>
+				<div class="list">
+						<code><a href="class-MeTools.View.Helper.MeHtmlHelper.html#__addValue">MeTools\View\Helper\MeHtmlHelper::_addValue()</a></code><br>
+						<code><a href="class-MeTools.View.Helper.MeHtmlHelper.html#_img">MeTools\View\Helper\MeHtmlHelper::img()</a></code><br>
+						<code><a href="class-MeTools.View.Helper.ThumbHelper.html#_url">MeTools\View\Helper\ThumbHelper::url()</a></code><br>
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="img" id="_img">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_img">#</a>
+		<code><a href="source-class-MeTools.View.Helper.ThumbHelper.html#61-67" title="Go to source code">img</a>( )</code>
+
+		<div class="description short">
+			<p>Alias for <code>image()</code> method.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Alias for <code>image()</code> method.</p>
+
+
+
+
+
+				<h4>See</h4>
+				<div class="list">
+						<code><a href="class-MeTools.View.Helper.ThumbHelper.html#_image">MeTools\View\Helper\ThumbHelper::image()</a></code><br>
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
 	<tr data-order="url" id="_url">
 
 		<td class="attributes"><code>
@@ -170,7 +257,7 @@ Cake\View\Helper
 
 		<td class="name"><div>
 		<a class="anchor" href="#_url">#</a>
-		<code><a href="source-class-MeTools.View.Helper.ThumbHelper.html#38-65" title="Go to source code">url</a>( <span>string <var>$path</var></span>, <span>array <var>$options</var> = []</span> )</code>
+		<code><a href="source-class-MeTools.View.Helper.ThumbHelper.html#69-96" title="Go to source code">url</a>( <span>string <var>$path</var></span>, <span>array <var>$options</var> = []</span> )</code>
 
 		<div class="description short">
 			<p>Creates and returns the url for a thumbnail of an image or a video.</p>
@@ -213,58 +300,6 @@ This method only returns the url of the thumbnail.</p>
 				<h4>Used by</h4>
 				<div class="list">
 						<code><a href="class-MeTools.View.Helper.ThumbHelper.html#_image">MeTools\View\Helper\ThumbHelper::image()</a></code><br>
-				</div>
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="image" id="_image">
-
-		<td class="attributes"><code>
-			 public 
-
-			string
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_image">#</a>
-		<code><a href="source-class-MeTools.View.Helper.ThumbHelper.html#67-88" title="Go to source code">image</a>( <span>string <var>$path</var></span>, <span>array <var>$options</var> = []</span> )</code>
-
-		<div class="description short">
-			<p>Creates and returns a thumbnail of an image or a video.</p>
-		</div>
-
-		<div class="description detailed hidden">
-			<p>Creates and returns a thumbnail of an image or a video.</p>
-
-<p>To get a thumbnail, you have to use <code>width</code> and/or <code>height</code> options.
-To get a square thumbnail, you have to use the <code>side</code> option.</p>
-
-<p>You can use the <code>height</code> option only for image files.</p>
-
-
-				<h4>Parameters</h4>
-				<div class="list"><dl>
-					<dt><var>$path</var></dt>
-					<dd>Image path (absolute or relative to the webroot)</dd>
-					<dt><var>$options</var></dt>
-					<dd>Array of options and HTML attributes</dd>
-				</dl></div>
-
-				<h4>Returns</h4>
-				<div class="list">
-					string<br>Html code
-				</div>
-
-
-				<h4>Uses</h4>
-				<div class="list">
-						<code><a href="class-MeTools.View.Helper.MeHtmlHelper.html#__addValue">MeTools\View\Helper\MeHtmlHelper::_addValue()</a></code><br>
-						<code><a href="class-MeTools.View.Helper.MeHtmlHelper.html#_img">MeTools\View\Helper\MeHtmlHelper::img()</a></code><br>
-						<code><a href="class-MeTools.View.Helper.ThumbHelper.html#_url">MeTools\View\Helper\ThumbHelper::url()</a></code><br>
 				</div>
 
 

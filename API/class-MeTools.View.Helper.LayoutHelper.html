@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 
-	<title>Class MeTools\View\Helper\MarkdownHelper | MeTools API</title>
+	<title>Class MeTools\View\Helper\LayoutHelper | MeTools API</title>
 
 	<link rel="stylesheet" href="resources/style.css?e99947befd7bf673c6b43ff75e9e0f170c88a60e">
 
@@ -68,9 +68,9 @@
 			<h3>Classes</h3>
 			<ul>
 				<li><a href="class-MeTools.View.Helper.DropdownHelper.html">DropdownHelper</a></li>
-				<li><a href="class-MeTools.View.Helper.LayoutHelper.html">LayoutHelper</a></li>
+				<li class="active"><a href="class-MeTools.View.Helper.LayoutHelper.html">LayoutHelper</a></li>
 				<li><a href="class-MeTools.View.Helper.LibraryHelper.html">LibraryHelper</a></li>
-				<li class="active"><a href="class-MeTools.View.Helper.MarkdownHelper.html">MarkdownHelper</a></li>
+				<li><a href="class-MeTools.View.Helper.MarkdownHelper.html">MarkdownHelper</a></li>
 				<li><a href="class-MeTools.View.Helper.MeFormHelper.html">MeFormHelper</a></li>
 				<li><a href="class-MeTools.View.Helper.MeHtmlHelper.html">MeHtmlHelper</a></li>
 				<li><a href="class-MeTools.View.Helper.MePaginatorHelper.html">MePaginatorHelper</a></li>
@@ -117,11 +117,13 @@
 	</div>
 
 <div id="content" class="class">
-	<h1>Class MarkdownHelper</h1>
+	<h1>Class LayoutHelper</h1>
 
 
 	<div class="description">
-	<p>Markdown helper</p>
+	<p>Layout Helper.</p>
+
+<p>This helper allows you to gerate the layouts.</p>
 	</div>
 
 	<dl class="tree">
@@ -132,7 +134,7 @@ Cake\View\Helper
 		</dd>
 		<dd style="padding-left:30px">
 			<img src="resources/inherit.png" alt="Extended by">
-<b><span>MeTools\View\Helper\MarkdownHelper</span></b>			
+<b><span>MeTools\View\Helper\LayoutHelper</span></b>			
 			
 			
 		</dd>
@@ -151,12 +153,62 @@ Cake\View\Helper
 		<b>Namespace:</b> <a href="namespace-MeTools.html">MeTools</a>\<a href="namespace-MeTools.View.html">View</a>\<a href="namespace-MeTools.View.Helper.html">Helper</a><br>
 		
 
-			<b>Located at</b> <a href="source-class-MeTools.View.Helper.MarkdownHelper.html#29-33" title="Go to source code">Helper/MarkdownHelper.php</a>
+			<b>Located at</b> <a href="source-class-MeTools.View.Helper.LayoutHelper.html#28-55" title="Go to source code">Helper/LayoutHelper.php</a>
 		<br>
 	</div>
 
 
 
+	<table class="summary methods" id="methods">
+	<caption>Methods summary</caption>
+	<tr data-order="viewport" id="_viewport">
+
+		<td class="attributes"><code>
+			 public 
+
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_viewport">#</a>
+		<code><a href="source-class-MeTools.View.Helper.LayoutHelper.html#40-54" title="Go to source code">viewport</a>( <span>boolean <var>$zooming</var> = <span class="php-keyword1">FALSE</span></span> )</code>
+
+		<div class="description short">
+			<p>Adds the <code>viewport</code> meta tag as required by Bootstrap.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Adds the <code>viewport</code> meta tag as required by Bootstrap.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$zooming</var></dt>
+					<dd>Enabled or disabled zooming capabilities on mobile devices</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					string<br>Html code
+				</div>
+
+
+				<h4>See</h4>
+				<div class="list">
+						http://getbootstrap.com/css/#overview-mobile Bootstrap documentation<br>
+				</div>
+				<h4>Uses</h4>
+				<div class="list">
+						<code><a href="class-MeTools.View.Helper.MeHtmlHelper.html#_meta">MeTools\View\Helper\MeHtmlHelper::meta()</a></code><br>
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	</table>
 
 
 
@@ -169,6 +221,34 @@ Cake\View\Helper
 
 
 
+	<table class="summary properties" id="properties">
+	<caption>Properties summary</caption>
+	<tr data-order="helpers" id="$helpers">
+		<td class="attributes"><code>
+			public  
+			array
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-MeTools.View.Helper.LayoutHelper.html#34-38" title="Go to source code"><var>$helpers</var></a>
+
+			<div class="description short">
+				<p>Helpers</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Helpers</p>
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$helpers" class="anchor">#</a>
+				<code>[<span class="php-quote">'Html'</span> =&gt; [<span class="php-quote">'className'</span> =&gt; <span class="php-quote">'MeTools.MeHtml'</span>]]</code>
+			</div>
+		</td>
+	</tr>
+	</table>
 
 
 
