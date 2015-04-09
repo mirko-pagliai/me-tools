@@ -561,11 +561,19 @@ class MeHtmlHelper extends HtmlHelper {
      * @param string $text Tag content. If NULL, only a start tag will be printed
 	 * @param array $options Array of options and HTML attributes
      * @return string Html code
+	 * @uses _addDefault()
 	 * @uses _addIcon()
+	 * @uses _addValue()
      */
     public function tag($name, $text = NULL, array $options = []) {
 		$text = self::_addIcon($text, $options);
-        unset($options['icon']);
+		
+		if(!empty($options['tooltip'])) {
+			$options = self::_addValue('data-toggle', 'tooltip', $options);
+			$options = self::_addDefault('title', $options['tooltip'], $options);
+		}
+		
+        unset($options['icon'], $options['tooltip']);
 
         return parent::tag($name, $text, $options);
     }
