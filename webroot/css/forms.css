@@ -58,6 +58,27 @@ form input[type='checkbox']:checked + label:before {
 }
 
 /* -------------------------------- */
+/*			Help blocks (tips)		*/
+/* -------------------------------- */
+/* Help blocks */
+form .input .help-block {
+	font-family: sans-serif, Arial;
+    font-size: 11px;
+	margin: 3px 0 0;
+}
+
+/* Help blocks, first block */
+form .input .help-block:first-of-type {
+	margin-top: 4px;
+}
+
+/* Help blocks, links */
+form .input .help-block a {
+	color: inherit;
+    text-decoration: underline;
+}
+
+/* -------------------------------- */
 /*				Errors				*/
 /* -------------------------------- */
 /* Error messages */
@@ -105,7 +126,7 @@ form > .float-form {
 	}
 
 	/* Float form, last input wrapper */
-	form > .float-form div.input:last-child {
+	form > .float-form .input:last-child {
 		margin-bottom: 0;
 	}
 

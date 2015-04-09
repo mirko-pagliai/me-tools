@@ -57,14 +57,49 @@ class MeFormHelper extends FormHelper {
 		$this->templates([
 			'file' => '<input type="file" class="form-control" name="{{name}}"{{attrs}}>',
 			'input' => '<input type="{{type}}" class="form-control" name="{{name}}"{{attrs}}>',
-			'inputContainer' => '<div class="input form-group {{type}}{{required}}">{{content}}</div>',
-			'inputContainerError' => '<div class="input form-group {{type}}{{required}} has-error">{{content}}{{error}}</div>',
+			'inputContainer' => '<div class="input form-group {{type}}{{required}}">{{content}}{{tip}}</div>',
+			'inputContainerError' => '<div class="input form-group {{type}}{{required}} has-error">{{content}}{{tip}}{{error}}</div>',
 			'select' => '<select class="form-control" name="{{name}}"{{attrs}}>{{content}}</select>',
 			'selectMultiple' => '<select class="form-control" name="{{name}}[]" multiple="multiple"{{attrs}}>{{content}}</select>',
 			'textarea' => '<textarea class="form-control" name="{{name}}"{{attrs}}>{{value}}</textarea>',
 			'submitContainer' => '<div class="submit form-group">{{content}}</div>'
 		]);
     }
+	
+	/**
+	 * Generates an input element.
+	 * This method is used only to provide the "tip" functionality.
+	 * @param string $fieldName the field name
+	 * @param array $options The options for the input element
+	 * @return string The generated input element
+	 * @see http://api.cakephp.org/3.0/class-Cake.View.Helper.FormHelper.html#__getInput
+	 */
+	protected function _getInput($fieldName, $options) {
+		unset($options['tip']);
+		
+		return parent::_getInput($fieldName, $options);
+	}
+	
+	/**
+	 * Generates an input container template.
+	 * This method is used only to provide the "tip" functionality.
+	 * @param array $options The options for input container template
+	 * @return string The generated input container template
+	 * @see http://api.cakephp.org/3.0/class-Cake.View.Helper.FormHelper.html#__inputContainerTemplate
+	 */
+	protected function _inputContainerTemplate($options) {
+         $inputContainerTemplate = $options['options']['type'] . 'Container' . $options['errorSuffix'];
+         if(!$this->templater()->get($inputContainerTemplate))
+             $inputContainerTemplate = 'inputContainer' . $options['errorSuffix'];
+ 
+         return $this->templater()->format($inputContainerTemplate, [
+             'content' => $options['content'],
+             'error' => $options['error'],
+             'required' => $options['options']['required'] ? ' required' : '',
+			 'tip' => empty($options['options']['tip']) ? NULL : $options['options']['tip'],
+             'type' => $options['options']['type']
+         ]);
+     }
 	
 	/**
      * Creates a button.
@@ -111,6 +146,7 @@ class MeFormHelper extends FormHelper {
      * @param array $options HTML attributes and options
 	 * @return string Html code
 	 * @uses MeTools\View\Helper\MeHtmlHelper::_addDefault()
+	 * @uses MeTools\View\Helper\MeHtmlHelper::span()
 	 */
     public function input($fieldName, array $options = []) {
 		//If the field name contains the word "password", then the field type is "password"
@@ -129,6 +165,12 @@ class MeFormHelper extends FormHelper {
 			'nestingLabel' => '{{hidden}}<label{{attrs}}>{{input}}{{text}}</label>',
 			'formGroup' => '{{label}}{{input}}'
 		]);
+		
+		if(!empty($options['tip'])) {
+			$options['tip'] = implode(PHP_EOL, array_map(function($v) {
+				return $this->Html->span(trim($v), ['class' => 'help-block']);
+			}, is_array($options['tip']) ? $options['tip'] : [$options['tip']]));
+		}
 		
         return parent::input($fieldName, $options);
 	}
