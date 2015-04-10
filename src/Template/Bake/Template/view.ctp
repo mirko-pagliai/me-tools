@@ -59,7 +59,7 @@ $groupedFields = collection($fields)
 $groupedFields += ['number' => [], 'string' => [], 'boolean' => [], 'date' => [], 'text' => []];
 $pk = "\$$singularVar->{$primaryKey[0]}";
 %>
-<?php $this->assign('title', 'View <%= strtolower($singularHumanName) %>'); ?>
+<?php $this->assign('title', __('View <%= strtolower($singularHumanName) %>')); ?>
 
 <?php $this->start('sidebar'); ?>
     <h3><?= __('Actions') ?></h3>

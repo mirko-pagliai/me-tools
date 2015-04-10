@@ -28,7 +28,7 @@ $fields = collection($fields)
     })
     ->take(7);
 %>
-<?php $this->assign('title', 'List <%= strtolower($pluralHumanName) %>'); ?>
+<?php $this->assign('title', __('List <%= strtolower($pluralHumanName) %>')); ?>
 
 <?php $this->start('sidebar'); ?>
     <h3><?= __('Actions') ?></h3>
@@ -53,7 +53,7 @@ $fields = collection($fields)
 
 <div class="<%= $pluralVar %> index">
 	<?= $this->Html->h2(__('List <%= strtolower($pluralHumanName) %>')) ?>
-    <table class="table">
+    <table class="table table-hover">
 		<thead>
 			<tr>
 	<% foreach ($fields as $field): %>
@@ -104,5 +104,5 @@ $fields = collection($fields)
 			<?php endforeach; ?>
 		</tbody>
     </table>
-	<?= $this->element('MeTools.paginator'); ?>
+	<?= $this->element('MeTools.paginator') ?>
 </div>

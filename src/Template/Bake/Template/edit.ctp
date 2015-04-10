@@ -21,7 +21,7 @@
  * @link		http://git.novatlantis.it Nova Atlantis Ltd
  */
 %>
-<?php $this->assign('title', 'Edit <%= strtolower($singularHumanName) %>'); ?>
+<?php $this->assign('title', __('Edit <%= strtolower($singularHumanName) %>')); ?>
 
 <%
 echo $this->element('form');

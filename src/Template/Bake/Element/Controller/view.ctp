@@ -39,5 +39,4 @@ $allAssociations = array_merge(
         ]);
 		
         $this->set('<%= $singularName %>', $<%= $singularName %>);
-        $this->set('_serialize', ['<%= $singularName %>']);
     }
