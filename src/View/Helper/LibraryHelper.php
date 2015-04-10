@@ -112,7 +112,7 @@ class LibraryHelper extends Helper {
      * To create an input field compatible with datepicker, you should use the `datepicker()` method provided by the `MeFormHelper`.
      * @param string $input Target field. Default is `.datepicker`
      * @param array $options Options for the datepicker
-     * @see MeFormHelper::datepicker()
+     * @see MeTools\View\Helper\MeFormHelper::datepicker()
      * @see http://eonasdan.github.io/bootstrap-datetimepicker Bootstrap 3 Datepicker v4 documentation
 	 * @uses MeTools\View\Helper\MeHtmlHelper::_addDefault()
 	 * @uses output
@@ -132,7 +132,7 @@ class LibraryHelper extends Helper {
      * To create an input field compatible with datetimepicker, you should use the `datetimepicker()` method provided by the `MeFormHelper`.
      * @param string $input Target field. Default is `.datetimepicker`
      * @param array $options Options for the datetimepicker
-     * @see MeFormHelper::datetimepicker()
+     * @see MeTools\View\Helper\MeFormHelper::datetimepicker()
      * @see http://eonasdan.github.io/bootstrap-datetimepicker Bootstrap 3 Datepicker v4 documentation
 	 * @uses output
 	 * @uses _datetimepicker()
@@ -157,4 +157,24 @@ class LibraryHelper extends Helper {
 		
         $this->output[] = sprintf('$().slugify("%s", "%s");', $sourceField, $targetField);
     }
+	
+    /**
+     * Adds a timepicker to the `$input` field.
+     * 
+     * To create an input field compatible with datepicker, you should use the `timepicker()` method provided by the `MeFormHelper`.
+     * @param string $input Target field. Default is `.timepicker`
+     * @param array $options Options for the timepicker
+     * @see MeTools\View\Helper\MeFormHelper::timepicker()
+     * @see https://github.com/Eonasdan/bootstrap-datetimepicker Bootstrap v3 datetimepicker widget documentation
+	 * @uses MeTools\View\Helper\MeHtmlHelper::_addDefault()
+	 * @uses output
+	 * @uses _datetimepicker()
+     */
+	public function timepicker($input = NULL, array $options = []) {
+		$input = empty($input) ? '.timepicker' : $input;
+		
+		$options = $this->Html->_addDefault('pickTime', FALSE, $options);
+		
+		$this->output[] = self::_datetimepicker($input, $options);
+	}
 }
