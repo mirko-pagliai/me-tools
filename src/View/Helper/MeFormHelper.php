@@ -191,11 +191,15 @@ class MeFormHelper extends FormHelper {
 		if(preg_match('/password/', $fieldName))
 			$options = $this->Html->_addDefault('type', 'password', $options);
 		
-		//$type = self::_inputType($fieldName, $options);
-		
 		//Changes the "autocomplete" value from "FALSE" to "off"
 		if(isset($options['autocomplete']) && !$options['autocomplete'])
 			$options['autocomplete'] = 'off';
+		
+		//If it's a textarea
+		if(self::_inputType($fieldName, $options) === 'textarea') {
+			$options = $this->Html->_addDefault('cols', NULL, $options);
+			$options = $this->Html->_addDefault('rows', NULL, $options);
+        }
 		
 		//Sets the default templates
 		//These values can be overwritten by other methods
@@ -204,11 +208,10 @@ class MeFormHelper extends FormHelper {
 			'formGroup' => '{{label}}{{input}}'
 		]);
 		
-		if(!empty($options['tip'])) {
+		if(!empty($options['tip']))
 			$options['tip'] = implode(PHP_EOL, array_map(function($v) {
 				return $this->Html->span(trim($v), ['class' => 'help-block']);
 			}, is_array($options['tip']) ? $options['tip'] : [$options['tip']]));
-		}
 		
         return parent::input($fieldName, $options);
 	}
