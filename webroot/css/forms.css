@@ -25,6 +25,14 @@ form div.required > label:after {
 }
 
 /* -------------------------------- */
+/*				Textareas			*/
+/* -------------------------------- */
+/* Textareas */
+form textarea {
+	resize: vertical;
+}
+
+/* -------------------------------- */
 /*			Checkbox inputs			*/
 /* -------------------------------- */
 /* It hides the checkbox, which will be replaced with an icon in the label */
