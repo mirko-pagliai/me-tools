@@ -102,6 +102,6 @@ $fields = collection($fields)
 %>
         ?>
     </fieldset>
-    <?= $this->Form->submit(__('Submit')) ?>
+    <?= $this->Form->submit(__('<%= Inflector::humanize($action) %> <%= $singularHumanName %>')) ?>
     <?= $this->Form->end() ?>
 </div>

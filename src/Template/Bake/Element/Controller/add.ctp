@@ -33,11 +33,11 @@ $compact = ["'" . $singularName . "'"];
             $<%= $singularName %> = $this-><%= $currentModelName %>->patchEntity($<%= $singularName %>, $this->request->data);
 			
             if($this-><%= $currentModelName; %>->save($<%= $singularName %>)) {
-                $this->Flash->success('The <%= strtolower($singularHumanName) %> has been saved');
+                $this->Flash->success(__('The <%= strtolower($singularHumanName) %> has been saved'));
                 return $this->redirect(['action' => 'index']);
             } 
 			else
-                $this->Flash->error('The <%= strtolower($singularHumanName) %> could not be saved. Please, try again');
+                $this->Flash->error(__('The <%= strtolower($singularHumanName) %> could not be saved. Please, try again'));
         }
 <%
         $associations = array_merge(
@@ -56,5 +56,4 @@ $compact = ["'" . $singularName . "'"];
 %>
 
         $this->set(compact(<%= join(', ', $compact) %>));
-        $this->set('_serialize', ['<%=$singularName%>']);
     }
