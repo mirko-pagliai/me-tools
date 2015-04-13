@@ -55,13 +55,13 @@ class MeFormHelper extends FormHelper {
 		
 		//Rewrites templates
 		$this->templates([
-			'file' => '<input type="file" class="form-control" name="{{name}}"{{attrs}}>',
-			'input' => '<input type="{{type}}" class="form-control" name="{{name}}"{{attrs}}>',
+			'file' => '<input type="file" name="{{name}}"{{attrs}}>',
+			'input' => '<input type="{{type}}" name="{{name}}"{{attrs}}>',
 			'inputContainer' => '<div class="input form-group {{type}}{{required}}">{{content}}{{tip}}</div>',
 			'inputContainerError' => '<div class="input form-group {{type}}{{required}} has-error">{{content}}{{tip}}{{error}}</div>',
-			'select' => '<select class="form-control" name="{{name}}"{{attrs}}>{{content}}</select>',
-			'selectMultiple' => '<select class="form-control" name="{{name}}[]" multiple="multiple"{{attrs}}>{{content}}</select>',
-			'textarea' => '<textarea class="form-control" name="{{name}}"{{attrs}}>{{value}}</textarea>',
+			'select' => '<select name="{{name}}"{{attrs}}>{{content}}</select>',
+			'selectMultiple' => '<select name="{{name}}[]" multiple="multiple"{{attrs}}>{{content}}</select>',
+			'textarea' => '<textarea name="{{name}}"{{attrs}}>{{value}}</textarea>',
 			'submitContainer' => '<div class="submit form-group">{{content}}</div>'
 		]);
     }
@@ -139,6 +139,23 @@ class MeFormHelper extends FormHelper {
 		
 		return parent::checkbox($fieldName, $options);
 	}
+	
+    /**
+     * Creates a CKEditor textarea.
+     * 
+     * To add the script for CKEditor, you should use the `LibraryHelper`.
+     * @param string $fieldName Field name, should be "Modelname.fieldname"
+     * @param array $options HTML attributes and options
+     * @return string Html code
+	 * @see MeTools\View\Helper\LibraryHelper::ckeditor()
+	 * @uses MeTools\View\Helper\MeHtmlHelper::_addValue()
+     * @uses input()
+     */
+    public function ckeditor($fieldName, array $options = []) {
+		$options = $this->Html->_addValue('class', 'ckeditor', $options);
+
+        return self::input($fieldName, am($options, ['type' => 'textarea']));
+    }
 
     /**
      * Creates a datepicker input.
@@ -184,9 +201,12 @@ class MeFormHelper extends FormHelper {
      * @param array $options HTML attributes and options
 	 * @return string Html code
 	 * @uses MeTools\View\Helper\MeHtmlHelper::_addDefault()
+	 * @uses MeTools\View\Helper\MeHtmlHelper::_addValue()
 	 * @uses MeTools\View\Helper\MeHtmlHelper::span()
 	 */
     public function input($fieldName, array $options = []) {
+		$options = $this->Html->_addValue('class', 'form-control', $options);
+		
 		//If the field name contains the word "password", then the field type is "password"
 		if(preg_match('/password/', $fieldName))
 			$options = $this->Html->_addDefault('type', 'password', $options);
