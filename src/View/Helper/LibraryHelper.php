@@ -27,6 +27,7 @@ use Cake\Core\Configure;
 use Cake\Event\Event;
 use Cake\View\Helper;
 use Cake\View\View;
+use MeTools\Utility\MePlugin;
 
 /**
  * Library helper
@@ -104,6 +105,57 @@ class LibraryHelper extends Helper {
 			//Resets the output
 			$this->output = [];
 		}
+    }
+	
+	/**
+     * Loads all CKEditor scripts.
+     * 
+     * To know how to install and configure CKEditor, please refer to the `README.md` file.
+	 * 
+	 * CKEditor must be located into `APP/webroot/ckeditor` or `APP/webroot/js/ckeditor`.
+     * 
+     * To create an input field for CKEditor, you should use the `ckeditor()` method provided by the `MeFormHelper`.
+     * @param bool $jquery FALSE if you don't want to use the jQuery adapter
+     * @return bool
+     * @see MeTools\View\Helper\MeFormHelper::ckeditor()
+     * @see http://docs.cksource.com CKEditor documentation
+	 * @uses MeTools\View\Helper\MeHtmlHelper::js()
+	 * @uses MeTools\Utility\MePlugin::getPath()
+     */
+    public function ckeditor($jquery = TRUE) {
+		$scripts = [];
+		
+        //Checks for CKEditor into `APP/webroot/ckeditor/`
+        if(is_readable(WWW_ROOT.'ckeditor'.DS.'ckeditor.js')) {
+            $path = WWW_ROOT.'ckeditor';
+			$url = '/ckeditor';
+		}
+        //Else, checks for CKEditor into `APP/webroot/js/ckeditor/`
+        elseif(is_readable(WWW_ROOT.'js'.DS.'ckeditor'.DS.'ckeditor.js')) {
+            $path = WWW_ROOT.'js'.DS.'ckeditor';
+            $url = '/js/ckeditor';
+        }
+		else
+			return FALSE;
+
+		$scripts[] = $url.'/ckeditor';
+
+		//Checks for the jQuery adapter
+		if($jquery && is_readable($path.DS.'adapters'.DS.'jquery.js'))
+			$scripts[] = $url.'/adapters/jquery';
+
+		//Checks for the init script into `APP/webroot/js/`
+		if(is_readable(WWW_ROOT.'js'.DS.'ckeditor_init.js'))
+			$scripts[] = 'ckeditor_init';
+		//Else, checks for the init script into `APP/Plugin/MeTools/webroot/ckeditor/`
+		elseif(is_readable(MePlugin::getPath('MeTools').'webroot'.DS.'ckeditor'.DS.'ckeditor_init.js'))
+			$scripts[] = '/MeTools/ckeditor/ckeditor_init';
+		else
+			return FALSE;
+
+		$this->Html->js($scripts, ['block' => 'script_bottom']);
+		
+		return TRUE;
     }
 
     /**
