@@ -30,10 +30,10 @@ $allAssociations = array_merge(
 
     /**
      * Views <%= strtolower($singularHumanName) %>
-     * @param string $id <%= $singularHumanName %> id
+     * @param string $id <%= $singularHumanName %> ID
      * @throws \Cake\Network\Exception\NotFoundException
      */
-    public function view($id = null) {
+    public function view($id = NULL) {
         $<%= $singularName%> = $this-><%= $currentModelName %>->get($id, [
             'contain' => [<%= $this->Bake->stringifyList($allAssociations, ['indent' => false]) %>]
         ]);
