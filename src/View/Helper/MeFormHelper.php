@@ -129,8 +129,11 @@ class MeFormHelper extends FormHelper {
      * @param string $fieldName Field name, should be "Modelname.fieldname"
      * @param array $options HTML attributes and options
 	 * @return string Html code
+	 * @uses MeTools\View\Helper\MeHtmlHelper::_addDefault()
 	 */
 	public function checkbox($fieldName, array $options = []) {
+		$options = $this->Html->_addDefault('hiddenField', TRUE, $options);
+		
 		//Checkboxes inputs outside of the label
 		$this->templates([
 			'nestingLabel' => '{{input}}<label{{attrs}}>{{text}}</label>',
