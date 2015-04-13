@@ -123,8 +123,6 @@ class LibraryHelper extends Helper {
 	 * @uses MeTools\Utility\MePlugin::getPath()
      */
     public function ckeditor($jquery = TRUE) {
-		$scripts = [];
-		
         //Checks for CKEditor into `APP/webroot/ckeditor/`
         if(is_readable(WWW_ROOT.'ckeditor'.DS.'ckeditor.js')) {
             $path = WWW_ROOT.'ckeditor';
@@ -138,7 +136,7 @@ class LibraryHelper extends Helper {
 		else
 			return FALSE;
 
-		$scripts[] = $url.'/ckeditor';
+		$scripts = [$url.'/ckeditor'];
 
 		//Checks for the jQuery adapter
 		if($jquery && is_readable($path.DS.'adapters'.DS.'jquery.js'))
