@@ -8,6 +8,11 @@
 /* -------------------------------- */
 /*				Wrappers			*/
 /* -------------------------------- */
+/* Form, input wrapper */
+form .input {
+	position: relative;
+}
+
 /* Submit wrapper after fieldset */
 form fieldset + .submit {
 	margin: 0;
@@ -142,4 +147,12 @@ form > .float-form {
 	form > .float-form select {
 		width: 100% !important;
 	}
+}
+
+/* -------------------------------- */
+/*				CKEditor			*/
+/* -------------------------------- */
+/* Content div */
+.cke_wysiwyg_div {
+	padding: 10px 12px !important;
 }
