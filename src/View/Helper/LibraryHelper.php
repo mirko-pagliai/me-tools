@@ -82,6 +82,8 @@ class LibraryHelper extends Helper {
 //		
 //		if(empty($options['locale']) && !empty($locale))
 //			$options = $this->Html->_addDefault('locale', $locale, $options);
+		//Shows the "Clear" button in the icon toolbar
+		$options = $this->Html->_addDefault('locale', 'en-gb', $options);
 		
 		return sprintf('$("%s").datetimepicker(%s);', $input, json_encode($options));
 	}
