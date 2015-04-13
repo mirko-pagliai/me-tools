@@ -27,10 +27,10 @@ $compact = ["'" . $singularName . "'"];
 
     /**
      * Edits <%= strtolower($singularHumanName) %>
-     * @param string $id <%= $singularHumanName %> id
+     * @param string $id <%= $singularHumanName %> ID
      * @throws \Cake\Network\Exception\NotFoundException
      */
-    public function edit($id = null)  {
+    public function edit($id = NULL)  {
         $<%= $singularName %> = $this-><%= $currentModelName %>->get($id, [
             'contain' => [<%= $this->Bake->stringifyList($belongsToMany, ['indent' => false]) %>]
         ]);

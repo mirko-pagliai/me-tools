@@ -23,10 +23,10 @@
 %>
     /**
      * Deletes <%= strtolower($singularHumanName) %>
-     * @param string $id <%= $singularHumanName %> id
+     * @param string $id <%= $singularHumanName %> ID
      * @throws \Cake\Network\Exception\NotFoundException
      */
-    public function delete($id = null) {
+    public function delete($id = NULL) {
         $this->request->allowMethod(['post', 'delete']);
 		
         $<%= $singularName %> = $this-><%= $currentModelName %>->get($id);
