@@ -8,6 +8,11 @@
 /* -------------------------------- */
 /*				Wrappers			*/
 /* -------------------------------- */
+/* Form element */
+form {
+	margin-bottom: 20px;
+}
+
 /* Form, input wrapper */
 form .input {
 	position: relative;
@@ -147,6 +152,20 @@ form > .float-form {
 	form > .float-form select {
 		width: 100% !important;
 	}
+}
+
+/* -------------------------------- */
+/*			Inline forms			*/
+/* -------------------------------- */
+/* Wrappers */
+form.form-inline .input, form.form-inline button {
+	margin-right: 4px;
+	vertical-align: top;
+}
+
+/* Wrappers, last wrapper */
+form.form-inline .input:last-child, form.form-inline button:last-child {
+	margin-right: 0;
 }
 
 /* -------------------------------- */

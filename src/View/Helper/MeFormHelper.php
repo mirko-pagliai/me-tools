@@ -44,6 +44,13 @@ class MeFormHelper extends FormHelper {
 	public $helpers = ['Html' => ['className' => 'MeTools.MeHtml'], 'Url'];
 	
 	/**
+	 * Property to check if we're working with an inline form.
+     * It's changed by `createInline()` method.
+     * @var bool
+     */
+	protected $inline = FALSE;
+
+	/**
 	 * Construct the widgets and binds the default context providers.
 	 * 
 	 * This method only ewrites the default configuration (`$_defaultConfig`).
@@ -57,8 +64,6 @@ class MeFormHelper extends FormHelper {
 		$this->templates([
 			'file' => '<input type="file" name="{{name}}"{{attrs}}>',
 			'input' => '<input type="{{type}}" name="{{name}}"{{attrs}}>',
-			'inputContainer' => '<div class="input form-group {{type}}{{required}}">{{content}}{{tip}}</div>',
-			'inputContainerError' => '<div class="input form-group {{type}}{{required}} has-error">{{content}}{{tip}}{{error}}</div>',
 			'select' => '<select name="{{name}}"{{attrs}}>{{content}}</select>',
 			'selectMultiple' => '<select name="{{name}}[]" multiple="multiple"{{attrs}}>{{content}}</select>',
 			'textarea' => '<textarea name="{{name}}"{{attrs}}>{{value}}</textarea>',
@@ -115,8 +120,12 @@ class MeFormHelper extends FormHelper {
 	 * @uses MeTools\View\Helper\MeHtmlHelper::_addIcon()
 	 */
 	public function button($title, array $options = []) {
-		$options = $this->Html->_addButtonClass($options);
 		$options = $this->Html->_addDefault('type', 'button', $options);
+		
+		if($options['type'] !== 'submit')
+			$options = $this->Html->_addButtonClass($options);
+		else
+			$options = $this->Html->_addButtonClass($options, 'success');
 		
 		$title = $this->Html->_addIcon($title, $options);
         unset($options['icon']);
@@ -158,6 +167,44 @@ class MeFormHelper extends FormHelper {
 		$options = $this->Html->_addValue('class', 'ckeditor', $options);
 
         return self::input($fieldName, am($options, ['type' => 'textarea']));
+    }
+	
+    /**
+     * Returns a `<form>` element.
+     * @param mixed $model The model name for which the form is being defined. If `FALSE` no model is used
+     * @param array $options HTML attributes and options
+     * @return string An formatted opening `<form>` tag
+	 * @uses createInline()
+     */
+    public function create($model = NULL, array $options = []) {		
+        if(!empty($options['inline']))
+            return self::createInline($model, $options);
+
+        return parent::create($model, $options);
+    }
+	
+    /**
+     * Returns an inline form element.
+     * 
+     * You can also create an inline form using the `create()` method with the `inline` option.
+     * 
+     * Note that by default `createInline` doesn't display errors. To view the errors, however, you have to set 
+	 * to `TRUE` the `errorMessage` option of `inputDefaults`. For example:
+     * <code>$this->Form->createInline('Fake', array('inputDefaults' => array('errorMessage' => TRUE)));</code>
+     * @param mixed $model The model name for which the form is being defined. If `FALSE` no model is used
+     * @param array $options HTML attributes and options
+     * @return string An formatted opening `<form>` tag
+	 * @uses MeHtmlHelper::_addValue()
+     * @uses create()
+     * @uses inline
+     */
+    public function createInline($model = NULL, array $options = []) {
+        $this->inline = TRUE;
+        unset($options['inline']);
+
+		$options = $this->Html->_addValue('class', 'form-inline', $options);
+
+        return self::create($model, $options);
     }
 
     /**
@@ -208,6 +255,9 @@ class MeFormHelper extends FormHelper {
 	 * @uses MeTools\View\Helper\MeHtmlHelper::span()
 	 */
     public function input($fieldName, array $options = []) {
+		//Gets the input type
+		$type = empty($options['type']) ? self::_inputType($fieldName, $options) : $options['type'];
+		
 		$options = $this->Html->_addValue('class', 'form-control', $options);
 		
 		//If the field name contains the word "password", then the field type is "password"
@@ -219,7 +269,7 @@ class MeFormHelper extends FormHelper {
 			$options['autocomplete'] = 'off';
 		
 		//If it's a textarea
-		if(self::_inputType($fieldName, $options) === 'textarea') {
+		if($type === 'textarea') {
 			$options = $this->Html->_addDefault('cols', NULL, $options);
 			$options = $this->Html->_addDefault('rows', NULL, $options);
         }
@@ -227,10 +277,32 @@ class MeFormHelper extends FormHelper {
 		//Sets the default templates
 		//These values can be overwritten by other methods
 		$this->templates([
-			'nestingLabel' => '{{hidden}}<label{{attrs}}>{{input}}{{text}}</label>',
-			'formGroup' => '{{label}}{{input}}'
+			'formGroup' => '{{label}}{{input}}',
+			'inputContainer' => '<div class="input form-group {{type}}{{required}}">{{content}}{{tip}}</div>',
+			'inputContainerError' => '<div class="input form-group {{type}}{{required}} has-error">{{content}}{{tip}}{{error}}</div>',
+			'nestingLabel' => '{{hidden}}<label{{attrs}}>{{input}}{{text}}</label>'
 		]);
 		
+		//If is an inline form
+		if($this->inline) {
+			//By default, disables tips and error messages
+			$this->templates([
+				'inputContainer' => '<div class="input form-group {{type}}{{required}}">{{content}}</div>',
+				'inputContainerError' => '<div class="input form-group {{type}}{{required}} has-error">{{content}}</div>'
+			]);
+			
+			//If it is not a checkbox
+			if($type !== "checkbox") {
+				if(empty($options['label']))
+					$options['label'] = [];
+				elseif(is_string($options['label']))
+					$options['label'] = ['text' => $options['label']];
+
+				$options['label'] = $this->Html->_addValue('class', 'sr-only', $options['label']);
+			}
+		}
+		
+		//Sets tips
 		if(!empty($options['tip']))
 			$options['tip'] = implode(PHP_EOL, array_map(function($v) {
 				return $this->Html->span(trim($v), ['class' => 'help-block']);
@@ -322,11 +394,9 @@ class MeFormHelper extends FormHelper {
      * @param string $caption The label appearing on the submit button or an image
      * @param array $options HTML attributes and options
      * @return string Html code
-	 * @uses MeTools\View\Helper\MeHtmlHelper::_addButtonClass()
+	 * @uses button()
 	 */
-	public function submit($caption = null, array $options = []) {
-		$options = $this->Html->_addButtonClass($options, 'success');
-		
-		return parent::submit($caption, $options);
+	public function submit($caption = NULL, array $options = []) {	
+		return self::button($caption, am(['type' => 'submit'] ,$options));
 	}
 }
