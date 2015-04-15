@@ -25,9 +25,51 @@ namespace MeTools\View\Helper;
 
 use Cake\View\Helper;
 use Cake\View\View;
+use MeTools\Utility\MePlugin;
+
+require_once MePlugin::path('MeTools').'vendor'.DS.'Markdown'.DS.'Markdown.inc.php';
 
 /**
- * Markdown helper
+ * Markdown helper.
+ * 
+ * Converts from Markdown syntax to HTML.
  */
 class MarkdownHelper extends Helper {
+    /**
+     * Alias for `toHtml()` method.
+     * @see toHtml()
+     */
+    public function fromMarkdown() {
+        return call_user_func_array([get_class(), 'toHtml'], func_get_args());
+    }
+
+	/**
+     * Converts a string from the Markdown syntax to HTML.
+     * @param string $string Markdown syntax
+	 * @param bool $clean TRUE if you want the output to be clean
+     * @return string Html code
+	 * @see http://michelf.ca/projects/php-markdown PHP Markdown
+	 * @uses Michelf\Markdown::defaultTransform()
+	 */
+    function toHtml($string, $clean = FALSE) {
+		//Converts some code blocks as used by some sites, such as Bitbucket
+		$string = preg_replace_callback('/```\s+(#!\S+\s+)?(((?!```)\t*.*\s+)+)\s*```/m', function($match) {
+			return PHP_EOL.preg_replace('/(\t*.*\s+)/m', '	$1', $match[2]);
+		}, $string);
+
+		$html = \Michelf\Markdown::defaultTransform($string);
+
+		if($clean) {
+			//Removes the "TOC"
+			$html = preg_replace('/(<p>)?\[TOC\](<\/p>)?(\\n)*/', '', $html);
+
+			//Changes headers
+			$html = preg_replace('/<h[4-6]>(.*)<\/h[4-6]>/', '<h6>$1</h6>', $html);
+			$html = preg_replace('/<h3>(.*)<\/h3>/', '<h5>$1</h5>', $html);
+			$html = preg_replace('/<h2>(.*)<\/h2>/', '<h4>$1</h4>', $html);
+			$html = preg_replace('/<h1>(.*)<\/h1>/', '<h3>$1</h3>', $html);
+		}
+
+		return $html;
+	}
 }
