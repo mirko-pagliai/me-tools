@@ -219,7 +219,7 @@ class MeFormHelper extends FormHelper {
 	 * @uses MeTools\View\Helper\MeHtmlHelper::_addValue()
      * @uses input()
      */
-    public function datepicker($fieldName, $options = array()) {
+    public function datepicker($fieldName, array $options = []) {
 		$options = $this->Html->_addValue('class', 'datepicker', $options);
 		$options = $this->Html->_addDefault('data-date-format', 'YYYY-MM-DD', $options);
 		
@@ -238,7 +238,7 @@ class MeFormHelper extends FormHelper {
 	 * @uses MeTools\View\Helper\MeHtmlHelper::_addValue()
      * @uses input()
      */
-    public function datetimepicker($fieldName, $options = array()) {
+    public function datetimepicker($fieldName, array $options = []) {
 		$options = $this->Html->_addValue('class', 'datetimepicker', $options);
 		$options = $this->Html->_addDefault('data-date-format', 'YYYY-MM-DD HH:mm', $options);
 		
@@ -399,4 +399,23 @@ class MeFormHelper extends FormHelper {
 	public function submit($caption = NULL, array $options = []) {	
 		return self::button($caption, am(['type' => 'submit'] ,$options));
 	}
+
+    /**
+     * Creates a text input for timepicker.
+     * 
+     * To add the script for timepicker, you should use the `LibraryHelper`.
+     * @param string $fieldName Field name, should be "Modelname.fieldname"
+     * @param array $options HTML attributes and options
+     * @return string Html code
+	 * @see MeTools\View\Helper\LibraryHelper::timepicker()
+	 * @uses MeTools\View\Helper\MeHtmlHelper::_addDefault()
+	 * @uses MeTools\View\Helper\MeHtmlHelper::_addValue()
+     * @uses input()
+     */
+    public function timepicker($fieldName, array $options = []) {
+		$options = $this->Html->_addValue('class', 'timepicker', $options);
+		$options = $this->Html->_addDefault('data-date-format', 'HH:mm', $options);
+		
+        return self::input($fieldName, am($options, ['type' => 'text']));
+    }
 }
