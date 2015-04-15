@@ -40,7 +40,7 @@ $compact = ["'" . $singularName . "'"];
 			
             if($this-><%= $currentModelName; %>->save($<%= $singularName %>)) {
                 $this->Flash->success(__('The <%= strtolower($singularHumanName) %> has been saved'));
-                return $this->redirect(['action' => 'index']);
+                return $this->setAction('index');
             } 
 			else
                 $this->Flash->error(__('The <%= strtolower($singularHumanName) %> could not be saved. Please, try again'));
