@@ -23,6 +23,7 @@
 namespace MeTools\Utility;
 
 use Cake\Filesystem\Folder;
+use MeTools\Utility\MePlugin;
 
 /**
  * An utility for checking the status of the system and perform maintenance tasks.
@@ -33,6 +34,14 @@ use Cake\Filesystem\Folder;
  * </code>
  */
 class System {
+    /**
+     * Alias for `getChangelogs()` method.
+     * @see getChangelogs()
+     */
+    public static function changelogs() {
+        return call_user_func_array([get_class(), 'getChangelogs'], func_get_args());
+    }
+	
 	/**
 	 * Checks if a directory and its subdirectories are readable and writable
 	 * @param string $path Path
@@ -58,5 +67,56 @@ class System {
      */
     public static function dirWritable() {
         return call_user_func_array([get_class(), 'dirIsWritable'], func_get_args());
+    }
+	
+	/**
+	 * Gets all changelog files. 
+	 * 
+	 * It searchs into `ROOT` and all loaded plugins.
+	 * @uses MeTools\Utility\MePlugin::getPath()
+	 * @return array Changelog files
+	 */
+	public static function getChangelogs() {
+		//Set paths
+		$paths = am([ROOT.DS], MePlugin::getPath());
+		
+		//Gets changelog files
+		$files = ac(array_map(function($path) {
+			//TO-DO: fix
+			//Gets the current locale
+			//$locale = Configure::read('Config.language');
+			$locale = 'it';
+
+			if(!empty($locale) && is_readable($file = sprintf($path.'CHANGELOG_%s.md', $locale)))
+				return str_replace(ROOT.DS, NULL, $file);
+			elseif(is_readable($file = $path.'CHANGELOG.md'))
+				return str_replace(ROOT.DS, NULL, $file);
+			else
+				return FALSE;	
+		}, $paths));
+		
+		//Re-indexes, starting to 1, and returns
+		return array_combine(range(1, count($files)), array_values($files));
+	}
+	
+	/**
+	 * Gets all logs files.
+	 * @return array Log files
+	 */
+	public static function getLogs() {
+		//Gets log files
+		$dir = new Folder(LOGS);
+		$files = $dir->find('[^\.]+\.log(\.[^\-]+)?', TRUE);
+		
+		//Re-indexes, starting to 1, and returns
+		return array_combine(range(1, count($files)), array_values($files));
+	}
+	
+    /**
+     * Alias for `getLogs()` method.
+     * @see getLogs()
+     */
+    public static function logs() {
+        return call_user_func_array([get_class(), 'getLogs'], func_get_args());
     }
 }
