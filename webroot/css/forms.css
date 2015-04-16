@@ -157,6 +157,12 @@ form > .float-form {
 /* -------------------------------- */
 /*			Inline forms			*/
 /* -------------------------------- */
+/* Labels */
+form.form-inline label {
+	line-height: 34px;
+	margin: 0 10px 0 0;
+}
+
 /* Wrappers */
 form.form-inline .input, form.form-inline button {
 	margin-right: 4px;
