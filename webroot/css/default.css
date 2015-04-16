@@ -14,6 +14,80 @@
 }
 
 /* -------------------------------- */
+/*				Margins				*/
+/* -------------------------------- */
+/* No margin class */
+.margin0, .margin-0,
+.no-margin, .noMargin {
+	margin: 0 !important;
+}
+
+/* No margin top class */
+.margintop0, .margin-top-0, 
+.no-margin-top, .noMarginTop {
+	margin-top: 0;
+}
+
+/* Margin bottom 5px */
+.margin5px, .margin5, .margin-5px, .margin-5 {
+	margin-bottom: 5px;
+}
+
+/* Margin bottom 10px */
+.margin10px, .margin10, .margin-10px, .margin-10 {
+	margin-bottom: 10px;
+}
+
+/* Margin bottom 15px */
+.margin15px, .margin15, .margin-15px, .margin-15 {
+	margin-bottom: 15px;
+}
+
+/* Margin bottom 20px */
+.margin20px, .margin20, .margin-20px, .margin-20 {
+	margin-bottom: 20px;
+}
+
+/* Margin bottom 30px */
+.margin30px, .margin30, .margin-30px, .margin-30 {
+	margin-bottom: 30px;
+}
+
+/* Margin bottom 40px */
+.margin40px, .margin40, .margin-40px, .margin-40 {
+	margin-bottom: 40px;
+}
+
+/* -------------------------------- */
+/*				Paddings			*/
+/* -------------------------------- */
+/* No padding class */
+.padding0, .padding-0,
+.no-padding, .noPadding {
+	padding: 0 !important;
+}
+
+/* Padding 5px */
+.padding5px, .padding5, .padding-5px, .padding-5 {
+	padding: 5px;
+}
+
+/* Padding 10px */
+.padding10px, .padding10, .padding-10px, .padding-10 {
+	padding: 10px;
+}
+
+/* Padding 15px */
+.padding15px, .padding15, .padding-15px, .padding-15 {
+	padding: 15px;
+}
+
+/* Padding 20px */
+.padding20px, .padding20, .padding-20px, .padding-20 {
+	padding: 20px;
+}
+
+/* -------------------------------- */
 /*				HTML				*/
 /* -------------------------------- */
 /* Iframe*/
@@ -44,7 +118,6 @@ iframe {
     width: 1px;
 }
 
-
 /* -------------------------------- */
 /*		Ascending/descending sort	*/
 /* -------------------------------- */
@@ -71,6 +144,16 @@ th a.desc:after {
 .alert {
     border-width: 0 0 3px;
 	padding: 10px 15px;
+}
+
+/* -------------------------------- */
+/*		Contextual backgrounds		*/
+/* -------------------------------- */
+/* Code blocks on contextual backgrounds */
+.bg-danger code, .bg-info code, .bg-primary code, .bg-success code, .bg-warning code {
+	background: inherit;
+    color: inherit;
+    line-height: 100%;
 }
 
 /* -------------------------------- */
