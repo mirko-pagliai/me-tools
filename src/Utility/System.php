@@ -22,6 +22,8 @@
  */
 namespace MeTools\Utility;
 
+use Cake\Cache\Cache;
+use Cake\Core\Configure;
 use Cake\Filesystem\Folder;
 use MeTools\Utility\MePlugin;
 
@@ -35,11 +37,94 @@ use MeTools\Utility\MePlugin;
  */
 class System {
     /**
+     * Alias for `getCacheSize()` method.
+     * @see getCacheSize()
+     */
+    public static function cacheSize() {
+        return call_user_func_array([get_class(), 'getCacheSize'], func_get_args());
+    }
+	
+    /**
+     * Alias for `checkCacheStatus()` method.
+     * @see checkCacheStatus()
+     */
+    public static function cacheStatus() {
+        return call_user_func_array([get_class(), 'checkCacheStatus'], func_get_args());
+    }
+	
+    /**
+     * Alias for `getCakeVersion()` method.
+     * @see getCakeVersion()
+     */
+    public static function cakeVersion() {
+        return call_user_func_array([get_class(), 'getCakeVersion'], func_get_args());
+    }
+	
+    /**
      * Alias for `getChangelogs()` method.
      * @see getChangelogs()
      */
     public static function changelogs() {
         return call_user_func_array([get_class(), 'getChangelogs'], func_get_args());
+    }
+	
+    /**
+     * Checks if the cache is readable and writable.
+     * @return boolean TRUE if if the cache is readable and writable, FALSE otherwise
+	 * @uses dirIsWritable()
+     */
+    public static function checkCache() {
+		return self::dirIsWritable(CACHE);
+    }
+
+    /**
+     * Checks if the cache is enabled.
+     * @return boolean TRUE if the cache is enabled, FALSE otherwise
+     */
+    public static function checkCacheStatus() {
+		return Cache::enabled();
+    }
+	
+    /**
+     * Checks if the logs directory is readable and writable.
+     * @return boolean TRUE if if the logs directory is readable and writable, FALSE otherwise
+	 * @uses dirIsWritable()
+     */
+	public static function checkLogs() {
+		return self::dirIsWritable(LOGS);
+	}
+	
+    /**
+     * Checks if the temporary directory is readable and writable.
+     * @return boolean TRUE if the temporary directory is readable and writable, FALSE otherwise
+	 * @uses dirIsWritable()
+     */
+    public static function checkTmp() {
+		return self::dirIsWritable(TMP);
+    }
+	
+	/**
+     * Clears the cache
+     * @return boolean TRUE if the cache is writable and were successfully cleared, FALSE otherwise
+	 */
+    public static function clearCache() {
+		//TO-DO: check
+		$success = TRUE;
+		
+		//Cleans all cached values for all cache configurations
+		foreach(Cache::configured() as $config) {
+			if(!Cache::clear(FALSE, $config) && $success)
+				$success = FALSE;
+		}
+		
+		//Clean all keys from the cache belonging to all group configurations
+		foreach(Cache::groupConfigs() as $groups) 
+			foreach($groups as $group) {
+				if(!Cache::clearGroup($group) && $success)
+					$success = FALSE;
+			}
+		
+		return $success;
     }
 	
 	/**
@@ -67,6 +152,23 @@ class System {
      */
     public static function dirWritable() {
         return call_user_func_array([get_class(), 'dirIsWritable'], func_get_args());
+    }
+	
+    /**
+     * Gets the cache size.
+     * @return int Cache size
+     */
+    public static function getCacheSize() {
+        $cache = new Folder(CACHE);
+        return $cache->dirsize();
+    }
+
+    /**
+     * Gets the CakePHP version.
+     * @return string CakePHP version
+     */
+    public static function getCakeVersion() {
+        return Configure::version();
     }
 	
 	/**
