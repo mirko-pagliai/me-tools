@@ -22,6 +22,7 @@
  */
 namespace MeTools\Utility;
 
+use Cake\Filesystem\File;
 use Cake\Filesystem\Folder;
 use MeTools\Utility\System;
 
