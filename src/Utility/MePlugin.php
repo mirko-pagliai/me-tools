@@ -30,7 +30,7 @@ use Cake\Filesystem\Folder;
  * 
  * You can use this utility by adding:
  * <code>
- * use MeTools\Utility\MePlugin;
+ * use MeTools\Utility\MePlugin as Plugin;
  * </code>
  */
 class MePlugin {

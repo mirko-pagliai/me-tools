@@ -56,7 +56,7 @@ class MeRequest extends Request {
 	 * 
 	 * Example:
 	 * <code>
-	 * $this->request->isAction(array('edit', 'delete'), 'Pages');
+	 * $this->request->isAction(['edit', 'delete'], 'Pages');
 	 * </code>
 	 * returns TRUE if the current action is `edit` or `delete` and if the current controller is `Pages`, otherwise FALSE.
 	 * @param string|array $action Action name

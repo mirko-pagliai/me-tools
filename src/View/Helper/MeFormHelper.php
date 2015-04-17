@@ -188,9 +188,7 @@ class MeFormHelper extends FormHelper {
      * 
      * You can also create an inline form using the `create()` method with the `inline` option.
      * 
-     * Note that by default `createInline` doesn't display errors. To view the errors, however, you have to set 
-	 * to `TRUE` the `errorMessage` option of `inputDefaults`. For example:
-     * <code>$this->Form->createInline('Fake', array('inputDefaults' => array('errorMessage' => TRUE)));</code>
+     * Note that by default `createInline` doesn't display errors.
      * @param mixed $model The model name for which the form is being defined. If `FALSE` no model is used
      * @param array $options HTML attributes and options
      * @return string An formatted opening `<form>` tag
