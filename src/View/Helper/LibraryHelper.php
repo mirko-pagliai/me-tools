@@ -27,7 +27,7 @@ use Cake\Core\Configure;
 use Cake\Event\Event;
 use Cake\View\Helper;
 use Cake\View\View;
-use MeTools\Utility\MePlugin;
+use MeTools\Utility\MePlugin as Plugin;
 
 /**
  * Library helper
@@ -122,7 +122,7 @@ class LibraryHelper extends Helper {
      * @see MeTools\View\Helper\MeFormHelper::ckeditor()
      * @see http://docs.cksource.com CKEditor documentation
 	 * @uses MeTools\View\Helper\MeHtmlHelper::js()
-	 * @uses MeTools\Utility\MePlugin::getPath()
+	 * @uses MeTools\Utility\Plugin::getPath()
      */
     public function ckeditor($jquery = TRUE) {
         //Checks for CKEditor into `APP/webroot/ckeditor/`
@@ -148,7 +148,7 @@ class LibraryHelper extends Helper {
 		if(is_readable(WWW_ROOT.'js'.DS.'ckeditor_init.js'))
 			$scripts[] = 'ckeditor_init';
 		//Else, checks for the init script into `APP/Plugin/MeTools/webroot/ckeditor/`
-		elseif(is_readable(MePlugin::getPath('MeTools').'webroot'.DS.'ckeditor'.DS.'ckeditor_init.js'))
+		elseif(is_readable(Plugin::getPath('MeTools').'webroot'.DS.'ckeditor'.DS.'ckeditor_init.js'))
 			$scripts[] = '/MeTools/ckeditor/ckeditor_init';
 		else
 			return FALSE;

@@ -25,7 +25,7 @@ namespace MeTools\Utility;
 use Cake\Cache\Cache;
 use Cake\Core\Configure;
 use Cake\Filesystem\Folder;
-use MeTools\Utility\MePlugin;
+use MeTools\Utility\MePlugin as Plugin;
 
 /**
  * An utility for checking the status of the system and perform maintenance tasks.
@@ -175,12 +175,12 @@ class System {
 	 * Gets all changelog files. 
 	 * 
 	 * It searchs into `ROOT` and all loaded plugins.
-	 * @uses MeTools\Utility\MePlugin::getPath()
+	 * @uses MeTools\Utility\Plugin::getPath()
 	 * @return array Changelog files
 	 */
 	public static function getChangelogs() {
 		//Set paths
-		$paths = am([ROOT.DS], MePlugin::getPath());
+		$paths = am([ROOT.DS], Plugin::getPath());
 		
 		//Gets changelog files
 		$files = ac(array_map(function($path) {

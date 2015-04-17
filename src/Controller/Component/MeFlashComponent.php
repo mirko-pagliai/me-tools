@@ -25,7 +25,7 @@ namespace MeTools\Controller\Component;
 
 use Cake\Controller\Component\FlashComponent;
 use Cake\Controller\ComponentRegistry;
-use MeTools\Utility\MePlugin;
+use MeTools\Utility\MePlugin as Plugin;
 
 /**
  * Provides a way to persist client data between page requests. It acts as a wrapper for the 
@@ -44,12 +44,12 @@ class MeFlashComponent extends FlashComponent {
 	 * @param string $name Element name to use
 	 * @param array $args Parameters to pass
 	 * @return void
-	 * @uses MeTools\Utility\MePlugin::path()
+	 * @uses MeTools\Utility\Plugin::path()
 	 */
 	public function __call($name, $args) {
 		$name = strtolower($name);
 		
-		if(empty($args[1]['plugin']) && is_readable(MePlugin::path('MeTools').'src'.DS.'Template'.DS.'Element'.DS.'Flash'.DS.$name.'.ctp'))
+		if(empty($args[1]['plugin']) && is_readable(Plugin::path('MeTools').'src'.DS.'Template'.DS.'Element'.DS.'Flash'.DS.$name.'.ctp'))
 			$args[1]['plugin'] = 'MeTools';
 		
 		return parent::__call($name, $args);
