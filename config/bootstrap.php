@@ -24,3 +24,17 @@ if(!function_exists('ac')) {
 		return is_array($array) ? array_unique(array_filter($array)) : $array;
 	}
 }
+
+if(!function_exists('fv')) {
+	/**
+	 * Returns the first value of an array
+	 * @param array $array Array
+	 * @return mixed First value
+	 */
+	function fv($array) {
+		if(empty($array) || !is_array($array))
+			return NULL;
+		
+		return array_values($array)[0];
+	}
+}
