@@ -36,5 +36,5 @@
         else
             $this->Flash->error(__('The <%= strtolower($singularHumanName) %> could not be deleted. Please, try again'));
 			
-        return $this->setAction('index');
+        return $this->redirect(['action' => 'index']);
     }
