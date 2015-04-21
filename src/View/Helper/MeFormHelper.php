@@ -388,6 +388,22 @@ class MeFormHelper extends FormHelper {
 	}
 	
 	/**
+	 * Returns a formatted SELECT element
+	 * @param string $fieldName Name attribute of the SELECT
+	 * @param array|\Traversable $options Array of the OPTION elements (as 'value'=>'Text' pairs) to be 
+	 * used in the SELECT element
+	 * @param array $attributes The HTML attributes of the select element
+	 * @return string Formatted SELECT element
+	 * @uses MeTools\View\Helper\MeHtmlHelper::_addDefault()
+	 */
+	public function select($fieldName, $options = [], array $attributes = []) {
+		if(empty($options['empty']) && (empty($attributes['required']) || $attributes['required'] === FALSE))
+			$attributes = $this->Html->_addDefault('empty', TRUE, $attributes);
+		
+		return parent::select($fieldName, $options, $attributes);
+	}
+	
+	/**
      * Creates a submit button.
      * @param string $caption The label appearing on the submit button or an image
      * @param array $options HTML attributes and options
