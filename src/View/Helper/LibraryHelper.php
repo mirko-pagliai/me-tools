@@ -110,6 +110,16 @@ class LibraryHelper extends Helper {
     }
 	
 	/**
+	 * Create a script block for Google Analytics
+	 * @param string $id Analytics ID
+	 * @uses MeTools\View\Helper\MeHtmlHelper::_addDefault()
+	 * @uses MeTools\View\Helper\MeHtmlHelper::scriptBlock()
+	 */
+	public function analytics($id) {
+		return $this->Html->scriptBlock(sprintf('!function(e,a,t,n,c,o,s){e.GoogleAnalyticsObject=c,e[c]=e[c]||function(){(e[c].q=e[c].q||[]).push(arguments)},e[c].l=1*new Date,o=a.createElement(t),s=a.getElementsByTagName(t)[0],o.async=1,o.src=n,s.parentNode.insertBefore(o,s)}(window,document,"script","//www.google-analytics.com/analytics.js","ga"),ga("create","%s","auto"),ga("send","pageview");', $id), ['block' => 'script_bottom']);
+	}
+	
+	/**
      * Loads all CKEditor scripts.
      * 
      * To know how to install and configure CKEditor, please refer to the `README.md` file.
