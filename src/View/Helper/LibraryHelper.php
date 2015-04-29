@@ -24,7 +24,6 @@
 namespace MeTools\View\Helper;
 
 use Cake\Core\Configure;
-use Cake\Event\Event;
 use Cake\View\Helper;
 use Cake\View\View;
 use MeTools\Utility\MePlugin as Plugin;
@@ -89,12 +88,12 @@ class LibraryHelper extends Helper {
 
     /**
      * Before layout callback. beforeLayout is called before the layout is rendered.
-	 * @param Event $event An Event instance
+	 * @param \Cake\Event\Event $event An Event instance
      * @param string $layoutFile The layout about to be rendered
 	 * @uses MeTools\View\Helper\MeHtmlHelper::scriptBlock()
 	 * @uses output
      */
-    public function beforeLayout(Event $event, $layoutFile) {
+    public function beforeLayout(\Cake\Event\Event $event, $layoutFile) {
         //Writes the output
         if(!empty($this->output)) {
             $this->output = implode(PHP_EOL, array_map(function($v){ 
