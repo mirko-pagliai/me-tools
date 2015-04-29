@@ -106,9 +106,12 @@ class System {
 	/**
      * Clears the cache
      * @return boolean TRUE if the cache is writable and were successfully cleared, FALSE otherwise
+	 * @uses Cake\Cache\Cache::clear()
+	 * @uses Cake\Cache\Cache::clearGroup()
+	 * @uses Cake\Cache\Cache::configured()
+	 * @uses Cake\Cache\Cache::groupConfigs()
 	 */
     public static function clearCache() {
-		//TO-DO: check
 		$success = TRUE;
 		
 		//Cleans all cached values for all cache configurations
