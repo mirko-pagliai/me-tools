@@ -127,7 +127,7 @@ class MeFormHelper extends FormHelper {
 			$options = $this->Html->_addButtonClass($options, 'success');
 		
 		$title = $this->Html->_addIcon($title, $options);
-        unset($options['icon']);
+        unset($options['icon'], $options['icon-align']);
 		
 		return parent::button($title, $options);
 	}
@@ -313,7 +313,7 @@ class MeFormHelper extends FormHelper {
 		$options = addDefault('escape', FALSE, $options);
 
 		$text = $this->Html->_addIcon($text, $options);
-        unset($options['icon']);
+        unset($options['icon'], $options['icon-align']);
 		
 		return parent::label($fieldName, $text, $options);
 	}
@@ -364,7 +364,7 @@ class MeFormHelper extends FormHelper {
 	 */
 	public function postLink($title, $url = NULL, array $options = []) {
 		$title = $this->Html->_addIcon($title, $options);
-		unset($options['icon']);
+		unset($options['icon'], $options['icon-align']);
 				
 		$options = addDefault('title', $title, $options);
 		$options['title'] = trim(h(strip_tags($options['title'])));

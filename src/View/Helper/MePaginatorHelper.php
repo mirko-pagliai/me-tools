@@ -51,7 +51,7 @@ class MePaginatorHelper extends PaginatorHelper {
 	 */
 	public function next($title = 'Next >>', array $options = []) {
 		$title = $this->Html->_addIcon($title, $options);
-		unset($options['icon']);
+		unset($options['icon'], $options['icon-align']);
 		
 		$options = addDefault('escape', FALSE, $options);
 		
@@ -66,7 +66,7 @@ class MePaginatorHelper extends PaginatorHelper {
 	 */
 	public function prev($title = '<< Previous', array $options = []) {
 		$title = $this->Html->_addIcon($title, $options);
-		unset($options['icon']);
+		unset($options['icon'], $options['icon-align']);
 		
 		$options = addDefault('escape', FALSE, $options);
 		

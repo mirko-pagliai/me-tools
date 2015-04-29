@@ -94,6 +94,9 @@ class MeHtmlHelper extends HtmlHelper {
 	 * @uses icon()
 	 */
 	public function _addIcon($text, $options) {
+		if(!empty($options['icon-align']) && $options['icon-align'] === 'right')
+			return empty($options['icon']) ? $text : sprintf('%s %s', $text, self::icon($options['icon']));
+		
 		return empty($options['icon']) ? $text : sprintf('%s %s', self::icon($options['icon']), $text);
 	}
 	
@@ -330,7 +333,7 @@ class MeHtmlHelper extends HtmlHelper {
 	 */
 	public function link($title, $url = NULL, array $options = []) {
 		$title = self::_addIcon($title, $options);
-		unset($options['icon']);
+		unset($options['icon'], $options['icon-align']);
 		
 		$options = addDefault('title', $title, $options);
 		$options['title'] = trim(h(strip_tags($options['title'])));
@@ -398,7 +401,7 @@ class MeHtmlHelper extends HtmlHelper {
 			}, $options);
         }
 			
-		unset($options['icon'], $itemOptions['icon']);
+		unset($options['icon'], $options['icon-align'], $itemOptions['icon']);
 		
 		return parent::nestedList($list, $options, $itemOptions);
 	}
@@ -425,7 +428,7 @@ class MeHtmlHelper extends HtmlHelper {
      */
     public function para($class, $text, array $options = []) {
 		$text = self::_addIcon($text, $options);
-        unset($options['icon']);
+        unset($options['icon'], $options['icon-align']);
 
         return parent::para($class, $text, $options);
     }
@@ -507,7 +510,7 @@ class MeHtmlHelper extends HtmlHelper {
 			$options = addDefault('title', $options['tooltip'], $options);
 		}
 		
-        unset($options['icon'], $options['tooltip']);
+        unset($options['icon'], $options['icon-align'], $options['tooltip']);
 
         return parent::tag($name, $text, $options);
     }
