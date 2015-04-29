@@ -29,7 +29,7 @@
 				<?php
 					echo $this->Paginator->prev(NULL, ['icon' => 'caret-left']);
 					echo $this->Paginator->numbers();
-					echo $this->Paginator->prev(NULL, ['icon' => 'caret-right']);
+					echo $this->Paginator->next(NULL, ['icon' => 'caret-right']);
 				?>
 			</ul>
 		</div>
@@ -39,10 +39,10 @@
 					if($this->Paginator->hasPrev() && $this->Paginator->hasNext()) {
 						echo $this->Paginator->prev(NULL, ['icon' => 'caret-left']);
 						echo $this->Html->li($this->Html->span(__d('me_tools', 'Page %d', $this->Paginator->current())));
-						echo $this->Paginator->prev(NULL, ['icon' => 'caret-right']);
+						echo $this->Paginator->next(NULL, ['icon' => 'caret-right']);
 					}
 					elseif(!$this->Paginator->hasPrev())
-						echo $this->Paginator->prev(__d('me_tools', 'Next'), ['icon' => 'caret-right']);
+						echo $this->Paginator->next(__d('me_tools', 'Next'), ['icon' => 'caret-right']);
 					else
 						echo $this->Paginator->prev(__d('me_tools', 'Previous'), ['icon' => 'caret-left']);
 				?>
