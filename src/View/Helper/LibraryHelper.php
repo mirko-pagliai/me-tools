@@ -51,7 +51,6 @@ class LibraryHelper extends Helper {
      * @param array $options Options for the datepicker
 	 * @return string jQuery code
      * @see http://eonasdan.github.io/bootstrap-datetimepicker Bootstrap 3 Datepicker v4 documentation
-	 * @uses MeTools\View\Helper\MeHtmlHelper::_addDefault()
 	 * @uses MeTools\View\Helper\MeHtmlHelper::css()
 	 * @uses MeTools\View\Helper\MeHtmlHelper::js()
 	 */
@@ -64,9 +63,9 @@ class LibraryHelper extends Helper {
         $this->Html->css('MeTools.bootstrap-datetimepicker.min', ['block' => 'css_bottom']);
 		
 		//Shows the "Clear" button in the icon toolbar
-		$options = $this->Html->_addDefault('showClear', TRUE, $options);
+		$options = addDefault('showClear', TRUE, $options);
 		
-		$options = $this->Html->_addDefault('icons', [
+		$options = addDefault('icons', [
 			'time' => 'fa fa-clock-o',
 			'date' => 'fa fa-calendar',
 			'up' => 'fa fa-arrow-up',
@@ -81,9 +80,9 @@ class LibraryHelper extends Helper {
 //		$locale = Configure::read('Config.language');
 //		
 //		if(empty($options['locale']) && !empty($locale))
-//			$options = $this->Html->_addDefault('locale', $locale, $options);
+//			$options = addDefault('locale', $locale, $options);
 		//Shows the "Clear" button in the icon toolbar
-		$options = $this->Html->_addDefault('locale', 'en-gb', $options);
+		$options = addDefault('locale', 'en-gb', $options);
 		
 		return sprintf('$("%s").datetimepicker(%s);', $input, json_encode($options));
 	}
@@ -112,7 +111,6 @@ class LibraryHelper extends Helper {
 	/**
 	 * Create a script block for Google Analytics
 	 * @param string $id Analytics ID
-	 * @uses MeTools\View\Helper\MeHtmlHelper::_addDefault()
 	 * @uses MeTools\View\Helper\MeHtmlHelper::scriptBlock()
 	 */
 	public function analytics($id) {
@@ -176,14 +174,13 @@ class LibraryHelper extends Helper {
      * @param array $options Options for the datepicker
      * @see MeTools\View\Helper\MeFormHelper::datepicker()
      * @see http://eonasdan.github.io/bootstrap-datetimepicker Bootstrap 3 Datepicker v4 documentation
-	 * @uses MeTools\View\Helper\MeHtmlHelper::_addDefault()
 	 * @uses output
 	 * @uses _datetimepicker()
      */
 	public function datepicker($input = NULL, array $options = []) {
 		$input = empty($input) ? '.datepicker' : $input;
 		
-		$options = $this->Html->_addDefault('format', 'YYYY/MM/DD', $options);
+		$options = addDefault('format', 'YYYY/MM/DD', $options);
 		
         $this->output[] = self::_datetimepicker($input, $options);
 	}
@@ -228,14 +225,13 @@ class LibraryHelper extends Helper {
      * @param array $options Options for the timepicker
      * @see MeTools\View\Helper\MeFormHelper::timepicker()
      * @see https://github.com/Eonasdan/bootstrap-datetimepicker Bootstrap v3 datetimepicker widget documentation
-	 * @uses MeTools\View\Helper\MeHtmlHelper::_addDefault()
 	 * @uses output
 	 * @uses _datetimepicker()
      */
 	public function timepicker($input = NULL, array $options = []) {
 		$input = empty($input) ? '.timepicker' : $input;
 		
-		$options = $this->Html->_addDefault('pickTime', FALSE, $options);
+		$options = addDefault('pickTime', FALSE, $options);
 		
 		$this->output[] = self::_datetimepicker($input, $options);
 	}

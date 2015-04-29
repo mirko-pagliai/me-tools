@@ -53,7 +53,7 @@ class MePaginatorHelper extends PaginatorHelper {
 		$title = $this->Html->_addIcon($title, $options);
 		unset($options['icon']);
 		
-		$options = $this->Html->_addDefault('escape', FALSE, $options);
+		$options = addDefault('escape', FALSE, $options);
 		
 		return parent::next($title, $options);
 	}
@@ -68,7 +68,7 @@ class MePaginatorHelper extends PaginatorHelper {
 		$title = $this->Html->_addIcon($title, $options);
 		unset($options['icon']);
 		
-		$options = $this->Html->_addDefault('escape', FALSE, $options);
+		$options = addDefault('escape', FALSE, $options);
 		
 		return parent::prev($title, $options);
 	}

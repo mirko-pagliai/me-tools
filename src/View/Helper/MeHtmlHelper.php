@@ -77,22 +77,13 @@ class MeHtmlHelper extends HtmlHelper {
 	 * @param string $class Class (eg. `default`, `primary`, `success`, etc)
 	 * @param array $options Options
 	 * @see http://getbootstrap.com/css/#buttons-options
-	 * @uses _addValue()
 	 */
     public function _addButtonClass($options, $class = 'default') {
         //If "class" doesn't contain a button style, adds the "btn-default" classes
         if(empty($options['class']) || !preg_match('/btn-(default|primary|success|info|warning|danger)/', $options['class']))
-			return self::_addValue('class', ['btn', sprintf('btn-%s', $class)], $options);
+			return addValue('class', ['btn', sprintf('btn-%s', $class)], $options);
         
-		return self::_addValue('class', 'btn', $options);
-    }
-	
-    /**
-     * Alias for `_addOptionDefault()` method
-     * @see _addOptionDefault()
-     */
-    public function _addDefault() {
-        return call_user_func_array([get_class(), '_addOptionDefault'], func_get_args());
+		return addValue('class', 'btn', $options);
     }
 	
 	/**
@@ -113,49 +104,6 @@ class MeHtmlHelper extends HtmlHelper {
     public function _addIcons() {
         return call_user_func_array([get_class(), '_addIcon'], func_get_args());
     }
-	
-	/**
-	 * Adds a default value to an option
-	 * @param string $name Option name
-	 * @param string $value Option value
-	 * @param array $options Options
-	 * @return array Options
-	 */
-	public function _addOptionDefault($name, $value, $options) {
-		$options[$name] = empty($options[$name]) ? $value : $options[$name];
-		
-		return $options;
-	}
-	
-	/**
-	 * Adds the value to an option
-	 * @param string $name Option name
-	 * @param string $values Option values
-	 * @param array $options Options
-	 * @return array Options
-	 */
-	public function _addOptionValue($name, $values, $options) {
-		//If values are an array or multiple arrays, turns them into a string
-		if(is_array($values))
-			$values = implode(' ', array_map(function($v) {
-				return is_array($v) ? implode(' ', $v) : $v;
-			}, $values));
-								
-		//Merges passed values with current values
-		$values = empty($options[$name]) ? explode(' ', $values) : am(explode(' ', $options[$name]), explode(' ', $values));
-		
-		//Removes empty values and duplicates, then turns into a string
-		$options[$name] = implode(' ', array_unique(array_filter($values)));
-		
-		return $options;
-	}
-    /**
-     * Alias for `_addOptionValue()` method
-     * @see _addOptionValue()
-     */
-    public function _addValue() {
-        return call_user_func_array([get_class(), '_addOptionValue'], func_get_args());
-    }
 
     /**
      * Returns an `<audio>` element.
@@ -175,11 +123,10 @@ class MeHtmlHelper extends HtmlHelper {
 	 * @param array $options Array of options and HTML attributes
      * @return string Html code
      * @see http://getbootstrap.com/components/#badges Bootstrap documentation
-	 * @uses _addValue()
 	 * @uses tag()
      */
     public function badge($text, array $options = []) {
-		$options = self::_addValue('class', 'badge', $options);
+		$options = addValue('class', 'badge', $options);
 
         return self::tag('span', $text, $options);
     }
@@ -195,11 +142,10 @@ class MeHtmlHelper extends HtmlHelper {
 	 * @param array $options Array of options and HTML attributes
 	 * @return string Html code
 	 * @uses _addButtonClass()
-	 * @uses _addValue()
 	 * @uses link()
 	 */
 	public function button($title, $url = NULL, array $options = []) {
-		$options = self::_addValue('role', 'button', $options);
+		$options = addValue('role', 'button', $options);
 		$options = self::_addButtonClass($options);
 		
 		return self::link($title, $url, $options);
@@ -212,10 +158,9 @@ class MeHtmlHelper extends HtmlHelper {
      * @param mixed $path Css filename or an array of css filenames
 	 * @param array $options Array of options and HTML attributes
      * @return string Html, `<link>` or `<style>` tag
-	 * @uses _addDefault()
 	 */
 	public function css($path, array $options = []) {
-		$options = self::_addDefault('block', TRUE, $options);
+		$options = addDefault('block', TRUE, $options);
 		
 		parent::css($path, $options);
 	}
@@ -289,14 +234,13 @@ class MeHtmlHelper extends HtmlHelper {
 	 * @param array $options Array of options and HTML attributes
      * @return string Html code
      * @see http://fortawesome.github.io/Font-Awesome Font Awesome icons
-	 * @uses _addValue()
 	 */
 	public function icon($icon, array $options = []) {
         //Prepends the string "fa-" to any other class
 		$icon = preg_replace('/(?<![^ ])(?=[^ ])(?!fa-)/', 'fa-', $icon);
 		
 		//Adds the "fa" class
-		$options = self::_addValue('class', ['fa', $icon], $options);
+		$options = addValue('class', ['fa', $icon], $options);
 		
 		return self::tag('i', ' ', $options);
 	}
@@ -350,11 +294,10 @@ class MeHtmlHelper extends HtmlHelper {
      * @param string $type Label type
      * @return string Html code
      * @see http://getbootstrap.com/components/#labels Bootstrap documentation
-	 * @uses _addValue()
 	 * @uses tag()
      */
     public function label($text, array $options = [], $type = 'default') {
-		$options = self::_addValue('class', ['label', sprintf('label-%s', $type)], $options);
+		$options = addValue('class', ['label', sprintf('label-%s', $type)], $options);
 
         return self::tag('span', $text, $options);
     }
@@ -383,18 +326,17 @@ class MeHtmlHelper extends HtmlHelper {
 	 * @param string|array $url Cake-relative URL or array of URL parameters or external URL
 	 * @param array $options Array of options and HTML attributes
 	 * @return string Html code
-	 * @uses _addDefault()
 	 * @uses _addIcon()
 	 */
 	public function link($title, $url = NULL, array $options = []) {
 		$title = self::_addIcon($title, $options);
 		unset($options['icon']);
 		
-		$options = self::_addDefault('title', $title, $options);
+		$options = addDefault('title', $title, $options);
 		$options['title'] = trim(h(strip_tags($options['title'])));
 
-		$options = self::_addDefault('escape', FALSE, $options);
-		$options = self::_addDefault('escapeTitle', FALSE, $options);
+		$options = addDefault('escape', FALSE, $options);
+		$options = addDefault('escapeTitle', FALSE, $options);
 		
 		return parent::link($title, $url, $options);
 	}
@@ -413,10 +355,9 @@ class MeHtmlHelper extends HtmlHelper {
 	 * where each item itself can be a path string or an array containing `src` and `type` keys.
 	 * @param array $options Array of options and HTML attributes
      * @return string Html code
-	 * @uses _addDefault()
      */
     public function media($path, array $options = []) {
-		$options = self::_addDefault('controls', !empty($options['controls']) || !isset($options['controls']), $options);
+		$options = addDefault('controls', !empty($options['controls']) || !isset($options['controls']), $options);
 
         return parent::media($path, $options);
     }
@@ -430,7 +371,7 @@ class MeHtmlHelper extends HtmlHelper {
 	 * @return string A completed `<link />` element
 	 */
 	public function meta($type, $content = NULL, array $options = []) {
-		$options = self::_addDefault('block', TRUE, $options);
+		$options = addDefault('block', TRUE, $options);
 		
         return parent::meta($type, $content, $options);
 	}
@@ -443,15 +384,14 @@ class MeHtmlHelper extends HtmlHelper {
      * @param string $tag Type of list tag (ol/ul)
      * @return string Html code
 	 * @uses _addIcon()
-	 * @uses _addValue()
 	 */
 	public function nestedList(array $list, array $options = [], array $itemOptions = []) {
 		if(!empty($itemOptions['icon']))
 			$options['icon'] = $itemOptions['icon'];
 		
 		if(!empty($options['icon'])) {
-			$options = self::_addValue('class', 'fa-ul', $options);
-			$options = self::_addValue('icon', 'li', $options);
+			$options = addValue('class', 'fa-ul', $options);
+			$options = addValue('icon', 'li', $options);
 			
 			array_walk($list, function(&$v, $k, $options) {
 				$v = self::_addIcon($v, $options);
@@ -497,12 +437,11 @@ class MeHtmlHelper extends HtmlHelper {
      * @param string $text Pre text
 	 * @param array $options Array of options and HTML attributes
      * @return string Html code
-	 * @uses _addValue()
 	 * @uses tag()
 	 */
 	public function pre($text, array $options = []) {
 		if(!empty($options['brush'])) {
-			$options = self::_addValue('class', sprintf('brush: %s', $options['brush']), $options);
+			$options = addValue('class', sprintf('brush: %s', $options['brush']), $options);
 			unset($options['brush']);
 		}
 		
@@ -517,10 +456,9 @@ class MeHtmlHelper extends HtmlHelper {
 	 * @param array $options Array of options and HTML attributes
      * @return mixed String of `<script />` tags or NULL if `$inline` is FALSE or if `$once` is TRUE
 	 * and the file has been included before
-	 * @uses _addDefault()
      */
 	public function script($url, array $options = []) {
-		$options = self::_addDefault('block', TRUE, $options);
+		$options = addDefault('block', TRUE, $options);
 
         return parent::script($url, $options);
 	}
@@ -530,10 +468,9 @@ class MeHtmlHelper extends HtmlHelper {
      * @param string $code Javascript code
 	 * @param array $options Array of options and HTML attributes
      * @return mixed A script tag or NULL
-	 * @uses _addDefault()
      */
     public function scriptBlock($code, array $options = []) {
-		$options = self::_addDefault('block', TRUE, $options);
+		$options = addDefault('block', TRUE, $options);
 
         return parent::scriptBlock($code, $options);
     }
@@ -547,10 +484,9 @@ class MeHtmlHelper extends HtmlHelper {
      * @param array $options Options for the code block
      * @return mixed A script tag or NULL
      * @see scriptBlock()
-	 * @uses _addDefault()
      */
     public function scriptStart(array $options = []) {
-		$options = self::_addDefault('block', TRUE, $options);
+		$options = addDefault('block', TRUE, $options);
 
         return parent::scriptStart($options);
     }
@@ -561,16 +497,14 @@ class MeHtmlHelper extends HtmlHelper {
      * @param string $text Tag content. If NULL, only a start tag will be printed
 	 * @param array $options Array of options and HTML attributes
      * @return string Html code
-	 * @uses _addDefault()
 	 * @uses _addIcon()
-	 * @uses _addValue()
      */
     public function tag($name, $text = NULL, array $options = []) {
 		$text = self::_addIcon($text, $options);
 		
 		if(!empty($options['tooltip'])) {
-			$options = self::_addValue('data-toggle', 'tooltip', $options);
-			$options = self::_addDefault('title', $options['tooltip'], $options);
+			$options = addValue('data-toggle', 'tooltip', $options);
+			$options = addDefault('title', $options['tooltip'], $options);
 		}
 		
         unset($options['icon'], $options['tooltip']);

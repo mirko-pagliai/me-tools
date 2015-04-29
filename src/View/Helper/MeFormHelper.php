@@ -116,11 +116,10 @@ class MeFormHelper extends FormHelper {
      * @return string Html code
      * @see postButton(), MeHtmlHelper::button()
 	 * @uses MeTools\View\Helper\MeHtmlHelper::_addButtonClass()
-	 * @uses MeTools\View\Helper\MeHtmlHelper::_addDefault()
 	 * @uses MeTools\View\Helper\MeHtmlHelper::_addIcon()
 	 */
 	public function button($title, array $options = []) {
-		$options = $this->Html->_addDefault('type', 'button', $options);
+		$options = addDefault('type', 'button', $options);
 		
 		if($options['type'] !== 'submit')
 			$options = $this->Html->_addButtonClass($options);
@@ -160,11 +159,10 @@ class MeFormHelper extends FormHelper {
      * @param array $options HTML attributes and options
      * @return string Html code
 	 * @see MeTools\View\Helper\LibraryHelper::ckeditor()
-	 * @uses MeTools\View\Helper\MeHtmlHelper::_addValue()
      * @uses input()
      */
     public function ckeditor($fieldName, array $options = []) {
-		$options = $this->Html->_addValue('class', 'ckeditor', $options);
+		$options = addValue('class', 'ckeditor', $options);
 
         return self::input($fieldName, am($options, ['type' => 'textarea']));
     }
@@ -192,7 +190,6 @@ class MeFormHelper extends FormHelper {
      * @param mixed $model The model name for which the form is being defined. If `FALSE` no model is used
      * @param array $options HTML attributes and options
      * @return string An formatted opening `<form>` tag
-	 * @uses MeHtmlHelper::_addValue()
      * @uses create()
      * @uses inline
      */
@@ -200,7 +197,7 @@ class MeFormHelper extends FormHelper {
         $this->inline = TRUE;
         unset($options['inline']);
 
-		$options = $this->Html->_addValue('class', 'form-inline', $options);
+		$options = addValue('class', 'form-inline', $options);
 
         return self::create($model, $options);
     }
@@ -213,13 +210,11 @@ class MeFormHelper extends FormHelper {
      * @param array $options HTML attributes and options
      * @return string Html code
 	 * @see MeTools\View\Helper\LibraryHelper::datepicker()
-	 * @uses MeTools\View\Helper\MeHtmlHelper::_addDefault()
-	 * @uses MeTools\View\Helper\MeHtmlHelper::_addValue()
      * @uses input()
      */
     public function datepicker($fieldName, array $options = []) {
-		$options = $this->Html->_addValue('class', 'datepicker', $options);
-		$options = $this->Html->_addDefault('data-date-format', 'YYYY-MM-DD', $options);
+		$options = addValue('class', 'datepicker', $options);
+		$options = addDefault('data-date-format', 'YYYY-MM-DD', $options);
 		
         return self::input($fieldName, am($options, ['type' => 'text']));
     }
@@ -232,13 +227,11 @@ class MeFormHelper extends FormHelper {
      * @param array $options HTML attributes and options
      * @return string Html code
 	 * @see MeTools\View\Helper\LibraryHelper::datetimepicker()
-	 * @uses MeTools\View\Helper\MeHtmlHelper::_addDefault()
-	 * @uses MeTools\View\Helper\MeHtmlHelper::_addValue()
      * @uses input()
      */
     public function datetimepicker($fieldName, array $options = []) {
-		$options = $this->Html->_addValue('class', 'datetimepicker', $options);
-		$options = $this->Html->_addDefault('data-date-format', 'YYYY-MM-DD HH:mm', $options);
+		$options = addValue('class', 'datetimepicker', $options);
+		$options = addDefault('data-date-format', 'YYYY-MM-DD HH:mm', $options);
 		
         return self::input($fieldName, am($options, ['type' => 'text']));
 	}
@@ -248,19 +241,17 @@ class MeFormHelper extends FormHelper {
      * @param string $fieldName Field name, should be "Modelname.fieldname"
      * @param array $options HTML attributes and options
 	 * @return string Html code
-	 * @uses MeTools\View\Helper\MeHtmlHelper::_addDefault()
-	 * @uses MeTools\View\Helper\MeHtmlHelper::_addValue()
 	 * @uses MeTools\View\Helper\MeHtmlHelper::span()
 	 */
     public function input($fieldName, array $options = []) {
 		//Gets the input type
 		$type = empty($options['type']) ? self::_inputType($fieldName, $options) : $options['type'];
 		
-		$options = $this->Html->_addValue('class', 'form-control', $options);
+		$options = addValue('class', 'form-control', $options);
 		
 		//If the field name contains the word "password", then the field type is "password"
 		if(preg_match('/password/', $fieldName))
-			$options = $this->Html->_addDefault('type', 'password', $options);
+			$options = addDefault('type', 'password', $options);
 		
 		//Changes the "autocomplete" value from "FALSE" to "off"
 		if(isset($options['autocomplete']) && !$options['autocomplete'])
@@ -268,8 +259,8 @@ class MeFormHelper extends FormHelper {
 		
 		//If it's a textarea
 		if($type === 'textarea') {
-			$options = $this->Html->_addDefault('cols', NULL, $options);
-			$options = $this->Html->_addDefault('rows', NULL, $options);
+			$options = addDefault('cols', NULL, $options);
+			$options = addDefault('rows', NULL, $options);
         }
 		
 		//Sets the default templates
@@ -296,7 +287,7 @@ class MeFormHelper extends FormHelper {
 				elseif(is_string($options['label']))
 					$options['label'] = ['text' => $options['label']];
 
-				$options['label'] = $this->Html->_addValue('class', 'sr-only', $options['label']);
+				$options['label'] = addValue('class', 'sr-only', $options['label']);
 			}
 		}
 		
@@ -316,11 +307,10 @@ class MeFormHelper extends FormHelper {
      * @param string $text Text that will appear in the label field. If is left undefined the text will be inflected from the fieldName
      * @param array|string $options HTML attributes, or a string to be used as a class name
 	 * @return string Html code
-	 * @uses MeTools\View\Helper\MeHtmlHelper::_addDefault()
 	 * @uses MeTools\View\Helper\MeHtmlHelper::_addIcon()
 	 */
 	public function label($fieldName, $text = NULL, array $options = []) {
-		$options = $this->Html->_addDefault('escape', FALSE, $options);
+		$options = addDefault('escape', FALSE, $options);
 
 		$text = $this->Html->_addIcon($text, $options);
         unset($options['icon']);
@@ -351,11 +341,10 @@ class MeFormHelper extends FormHelper {
 	 * @param array $options Array of options and HTML attributes
 	 * @return string Html code
 	 * @uses MeTools\View\Helper\MeHtmlHelper::_addButtonClass()
-	 * @uses MeTools\View\Helper\MeHtmlHelper::_addValue()
 	 * @uses postLink()
 	 */
 	public function postButton($title, $url, array $options = []) {
-		$options = $this->Html->_addValue('role', 'button', $options);
+		$options = addValue('role', 'button', $options);
 		$options = $this->Html->_addButtonClass($options);
 
         return self::postLink($title, $url, $options);		
@@ -371,18 +360,17 @@ class MeFormHelper extends FormHelper {
 	 * @param string|array $url Cake-relative URL or array of URL parameters or external URL
 	 * @param array $options Array of options and HTML attributes
 	 * @return string Html code
-	 * @uses MeTools\View\Helper\MeHtmlHelper::_addDefault()
 	 * @uses MeTools\View\Helper\MeHtmlHelper::_addIcon()
 	 */
 	public function postLink($title, $url = NULL, array $options = []) {
 		$title = $this->Html->_addIcon($title, $options);
 		unset($options['icon']);
 				
-		$options = $this->Html->_addDefault('title', $title, $options);
+		$options = addDefault('title', $title, $options);
 		$options['title'] = trim(h(strip_tags($options['title'])));
 
-		$options = $this->Html->_addDefault('escape', FALSE, $options);
-		$options = $this->Html->_addDefault('escapeTitle', FALSE, $options);
+		$options = addDefault('escape', FALSE, $options);
+		$options = addDefault('escapeTitle', FALSE, $options);
 
         return parent::postLink($title, $url, $options);
 	}
@@ -394,11 +382,10 @@ class MeFormHelper extends FormHelper {
 	 * used in the SELECT element
 	 * @param array $attributes The HTML attributes of the select element
 	 * @return string Formatted SELECT element
-	 * @uses MeTools\View\Helper\MeHtmlHelper::_addDefault()
 	 */
 	public function select($fieldName, $options = [], array $attributes = []) {
 		if(empty($options['empty']) && (empty($attributes['required']) || $attributes['required'] === FALSE))
-			$attributes = $this->Html->_addDefault('empty', TRUE, $attributes);
+			$attributes = addDefault('empty', TRUE, $attributes);
 		
 		return parent::select($fieldName, $options, $attributes);
 	}
@@ -422,13 +409,11 @@ class MeFormHelper extends FormHelper {
      * @param array $options HTML attributes and options
      * @return string Html code
 	 * @see MeTools\View\Helper\LibraryHelper::timepicker()
-	 * @uses MeTools\View\Helper\MeHtmlHelper::_addDefault()
-	 * @uses MeTools\View\Helper\MeHtmlHelper::_addValue()
      * @uses input()
      */
     public function timepicker($fieldName, array $options = []) {
-		$options = $this->Html->_addValue('class', 'timepicker', $options);
-		$options = $this->Html->_addDefault('data-date-format', 'HH:mm', $options);
+		$options = addValue('class', 'timepicker', $options);
+		$options = addDefault('data-date-format', 'HH:mm', $options);
 		
         return self::input($fieldName, am($options, ['type' => 'text']));
     }

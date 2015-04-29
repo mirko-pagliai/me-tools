@@ -1,4 +1,5 @@
 <?php
+
 if(!function_exists('am')) {
 	/**
 	* Merge a group of arrays.
@@ -36,5 +37,63 @@ if(!function_exists('fv')) {
 			return NULL;
 		
 		return array_values($array)[0];
+	}
+}
+
+if(!function_exists('addDefault')) {
+    /**
+     * Alias for `addOptionDefault()` function
+     */
+	function addDefault() {
+		return call_user_func_array('addOptionDefault', func_get_args());
+	}
+}
+
+if(!function_exists('addValue')) {
+    /**
+     * Alias for `addOptionValue()` function
+     */
+	function addValue() {
+		return call_user_func_array('addOptionValue', func_get_args());
+	}
+}
+
+if(!function_exists('addOptionDefault')) {
+	/**
+	 * Adds a default value to an option
+	 * @param string $name Option name
+	 * @param string $value Option value
+	 * @param array $options Options
+	 * @return array Options
+	 */
+	function addOptionDefault($name, $value, $options) {
+		$options[$name] = empty($options[$name]) ? $value : $options[$name];
+		
+		return $options;
+	}
+}
+
+if(!function_exists('addOptionValue')) {
+	/**
+	 * Adds the value to an option
+	 * @param string $name Option name
+	 * @param string $values Option values
+	 * @param array $options Options
+	 * @return array Options
+	 */
+	function addOptionValue($name, $values, $options) {
+		//If values are an array or multiple arrays, turns them into a string
+		if(is_array($values))
+			$values = implode(' ', array_map(function($v) {
+				return is_array($v) ? implode(' ', $v) : $v;
+			}, $values));
+								
+		//Merges passed values with current values
+		$values = empty($options[$name]) ? explode(' ', $values) : am(explode(' ', $options[$name]), explode(' ', $values));
+		
+		//Removes empty values and duplicates, then turns into a string
+		$options[$name] = implode(' ', array_unique(array_filter($values)));
+		
+		return $options;
 	}
 }
