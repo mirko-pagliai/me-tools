@@ -257,8 +257,15 @@ class MeFormHelper extends FormHelper {
 		if(isset($options['autocomplete']) && !$options['autocomplete'])
 			$options['autocomplete'] = 'off';
 		
-		//If it's a textarea
-		if($type === 'textarea') {
+		//If it's a select
+		if($type === 'select') {
+			//By default, the `empty` option will be automatically added (with `FALSE` value)
+			//This option will be used by the `select()` method to see if the option has been added by the user or not
+			if(!isset($options['empty']))
+				$options = addDefault('remove_empty', TRUE, $options);
+		}
+		//Else, if it's a textarea
+		elseif($type === 'textarea') {
 			$options = addDefault('cols', NULL, $options);
 			$options = addDefault('rows', NULL, $options);
         }
@@ -384,7 +391,12 @@ class MeFormHelper extends FormHelper {
 	 * @return string Formatted SELECT element
 	 */
 	public function select($fieldName, $options = [], array $attributes = []) {
-		if(empty($options['empty']) && (empty($attributes['required']) || $attributes['required'] === FALSE))
+		//If there's the `remove_empty` option, it means that the `empty` option has been added automatically 
+		//by default and not by the user. Then, it removes the `empty` and `remove_empty` options
+		if(!empty($attributes['remove_empty']))
+			unset($attributes['empty'], $attributes['remove_empty']);
+		
+		if(!isset($attributes['empty']) && empty($attributes['default']) && empty($attributes['value']))
 			$attributes = addDefault('empty', TRUE, $attributes);
 		
 		return parent::select($fieldName, $options, $attributes);
