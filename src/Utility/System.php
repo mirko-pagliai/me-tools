@@ -213,6 +213,9 @@ class System {
 		$dir = new Folder(LOGS);
 		$files = $dir->find('[^\.]+\.log(\.[^\-]+)?', TRUE);
 		
+		if(empty($files))
+			return [];
+		
 		//Re-indexes, starting to 1, and returns
 		return array_combine(range(1, count($files)), array_values($files));
 	}
