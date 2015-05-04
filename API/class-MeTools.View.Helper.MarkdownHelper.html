@@ -121,7 +121,9 @@
 
 
 	<div class="description">
-	<p>Markdown helper</p>
+	<p>Markdown helper.</p>
+
+<p>Converts from Markdown syntax to HTML.</p>
 	</div>
 
 	<dl class="tree">
@@ -151,12 +153,98 @@ Cake\View\Helper
 		<b>Namespace:</b> <a href="namespace-MeTools.html">MeTools</a>\<a href="namespace-MeTools.View.html">View</a>\<a href="namespace-MeTools.View.Helper.html">Helper</a><br>
 		
 
-			<b>Located at</b> <a href="source-class-MeTools.View.Helper.MarkdownHelper.html#29-33" title="Go to source code">Helper/MarkdownHelper.php</a>
+			<b>Located at</b> <a href="source-class-MeTools.View.Helper.MarkdownHelper.html#32-75" title="Go to source code">Helper/MarkdownHelper.php</a>
 		<br>
 	</div>
 
 
 
+	<table class="summary methods" id="methods">
+	<caption>Methods summary</caption>
+	<tr data-order="fromMarkdown" id="_fromMarkdown">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_fromMarkdown">#</a>
+		<code><a href="source-class-MeTools.View.Helper.MarkdownHelper.html#38-44" title="Go to source code">fromMarkdown</a>( )</code>
+
+		<div class="description short">
+			<p>Alias for <code>toHtml()</code> method.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Alias for <code>toHtml()</code> method.</p>
+
+
+
+
+
+				<h4>See</h4>
+				<div class="list">
+						<code><a href="class-MeTools.View.Helper.MarkdownHelper.html#_toHtml">MeTools\View\Helper\MarkdownHelper::toHtml()</a></code><br>
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="toHtml" id="_toHtml">
+
+		<td class="attributes"><code>
+			 public 
+
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_toHtml">#</a>
+		<code><a href="source-class-MeTools.View.Helper.MarkdownHelper.html#46-74" title="Go to source code">toHtml</a>( <span>string <var>$string</var></span>, <span>boolean <var>$clean</var> = <span class="php-keyword1">FALSE</span></span> )</code>
+
+		<div class="description short">
+			<p>Converts a string from the Markdown syntax to HTML.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Converts a string from the Markdown syntax to HTML.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$string</var></dt>
+					<dd>Markdown syntax</dd>
+					<dt><var>$clean</var></dt>
+					<dd>TRUE if you want the output to be clean</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					string<br>Html code
+				</div>
+
+
+				<h4>See</h4>
+				<div class="list">
+						http://michelf.ca/projects/php-markdown PHP Markdown<br>
+				</div>
+				<h4>Uses</h4>
+				<div class="list">
+						Michelf\Markdown::defaultTransform()<br>
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	</table>
 
 
 

@@ -144,7 +144,7 @@
 </span><span id="25" class="l"><a href="#25">25: </a>
 </span><span id="26" class="l"><a href="#26">26: </a><span class="php-keyword1">use</span> Cake\Controller\Component\FlashComponent;
 </span><span id="27" class="l"><a href="#27">27: </a><span class="php-keyword1">use</span> Cake\Controller\ComponentRegistry;
-</span><span id="28" class="l"><a href="#28">28: </a><span class="php-keyword1">use</span> MeTools\Utility\MePlugin;
+</span><span id="28" class="l"><a href="#28">28: </a><span class="php-keyword1">use</span> MeTools\Utility\MePlugin <span class="php-keyword1">as</span> Plugin;
 </span><span id="29" class="l"><a href="#29">29: </a>
 </span><span id="30" class="l"><a href="#30">30: </a><span class="php-comment">/**
 </span></span><span id="31" class="l"><a href="#31">31: </a><span class="php-comment"> * Provides a way to persist client data between page requests. It acts as a wrapper for the 
@@ -163,12 +163,12 @@
 </span></span><span id="44" class="l"><a href="#44">44: </a><span class="php-comment">     * @param string $name Element name to use
 </span></span><span id="45" class="l"><a href="#45">45: </a><span class="php-comment">     * @param array $args Parameters to pass
 </span></span><span id="46" class="l"><a href="#46">46: </a><span class="php-comment">     * @return void
-</span></span><span id="47" class="l"><a href="#47">47: </a><span class="php-comment">     * @uses MeTools\Utility\MePlugin::path()
+</span></span><span id="47" class="l"><a href="#47">47: </a><span class="php-comment">     * @uses MeTools\Utility\Plugin::path()
 </span></span><span id="48" class="l"><a href="#48">48: </a><span class="php-comment">     */</span>
 </span><span id="49" class="l"><a href="#49">49: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> __call(<span class="php-var">$name</span>, <span class="php-var">$args</span>) {
 </span><span id="50" class="l"><a href="#50">50: </a>        <span class="php-var">$name</span> = <span class="php-keyword2">strtolower</span>(<span class="php-var">$name</span>);
 </span><span id="51" class="l"><a href="#51">51: </a>        
-</span><span id="52" class="l"><a href="#52">52: </a>        <span class="php-keyword1">if</span>(<span class="php-keyword1">empty</span>(<span class="php-var">$args</span>[<span class="php-num">1</span>][<span class="php-quote">'plugin'</span>]) &amp;&amp; <span class="php-keyword2">is_readable</span>(MePlugin::path(<span class="php-quote">'MeTools'</span>).<span class="php-quote">'src'</span>.DS.<span class="php-quote">'Template'</span>.DS.<span class="php-quote">'Element'</span>.DS.<span class="php-quote">'Flash'</span>.DS.<span class="php-var">$name</span>.<span class="php-quote">'.ctp'</span>))
+</span><span id="52" class="l"><a href="#52">52: </a>        <span class="php-keyword1">if</span>(<span class="php-keyword1">empty</span>(<span class="php-var">$args</span>[<span class="php-num">1</span>][<span class="php-quote">'plugin'</span>]) &amp;&amp; <span class="php-keyword2">is_readable</span>(Plugin::path(<span class="php-quote">'MeTools'</span>).<span class="php-quote">'src'</span>.DS.<span class="php-quote">'Template'</span>.DS.<span class="php-quote">'Element'</span>.DS.<span class="php-quote">'Flash'</span>.DS.<span class="php-var">$name</span>.<span class="php-quote">'.ctp'</span>))
 </span><span id="53" class="l"><a href="#53">53: </a>            <span class="php-var">$args</span>[<span class="php-num">1</span>][<span class="php-quote">'plugin'</span>] = <span class="php-quote">'MeTools'</span>;
 </span><span id="54" class="l"><a href="#54">54: </a>        
 </span><span id="55" class="l"><a href="#55">55: </a>        <span class="php-keyword1">return</span> parent::__call(<span class="php-var">$name</span>, <span class="php-var">$args</span>);
