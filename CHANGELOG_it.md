@@ -6,7 +6,6 @@
 * aggiunto `ThumbHelper` per la generazione delle miniature;
 * aggiornato Moment.js alla versione 2.10.0.
 
-
 # 1.x ramo
 ## 1.2 ramo
 ### 1.2.2
