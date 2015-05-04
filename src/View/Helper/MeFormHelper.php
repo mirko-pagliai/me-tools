@@ -237,6 +237,20 @@ class MeFormHelper extends FormHelper {
 	}
 	
 	/**
+	 * Closes an HTML form, cleans up values set by `FormHelper::create()`, and writes 
+	 * hidden input fields where appropriate.
+	 * @param array $secureAttributes Secure attibutes which will be passed as HTML 
+	 * attributes into the hidden input elements generated for the Security Component.
+	 * @return string Html code
+	 * @uses inline
+	 */
+	public function end(array $secureAttributes = []) {
+		$this->inline = FALSE;
+		
+		return parent::end($secureAttributes);
+	}
+	
+	/**
 	 * Generates an input element complete with label and wrapper div.
      * @param string $fieldName Field name, should be "Modelname.fieldname"
      * @param array $options HTML attributes and options
