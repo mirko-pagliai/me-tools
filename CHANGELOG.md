@@ -1,3 +1,11 @@
+# 2.x branch
+## 2.0 branch
+### 2.0.0-alpha
+* all the code has been completely rewritten for CakePHP 3.x. Several optimizations have been applied;
+* added the `MeRequest` class to handle HTTP requests;
+* added the `ThumbHelper` to generate thumbnails;
+* updated Moment.js to 2.10.0.
+
 # 1.x branch
 ## 1.2 branch
 ### 1.2.2

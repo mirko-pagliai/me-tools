@@ -1,3 +1,12 @@
+# 2.x ramo
+## 2.0 ramo
+### 2.0.0-alpha
+* tutto il codice è stato interamente riscritto per CakePHP 3.x. Sono state applicate svariate ottimizzazioni;
+* aggiunta la classe `MeRequest` per gestire le richieste HTTP;
+* aggiunto `ThumbHelper` per la generazione delle miniature;
+* aggiornato Moment.js alla versione 2.10.0.
+
+
 # 1.x ramo
 ## 1.2 ramo
 ### 1.2.2
