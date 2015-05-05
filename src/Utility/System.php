@@ -69,38 +69,35 @@ class System {
     }
 	
     /**
-     * Checks if the cache is readable and writable.
-     * @return boolean TRUE if if the cache is readable and writable, FALSE otherwise
-	 * @uses dirIsWritable()
+     * Checks if the cache is readable and writable
+     * @return boolean
      */
     public static function checkCache() {
-		return self::dirIsWritable(CACHE);
+		return folder_is_writable(CACHE);
     }
 
     /**
-     * Checks if the cache is enabled.
-     * @return boolean TRUE if the cache is enabled, FALSE otherwise
+     * Checks if the cache is enabled
+     * @return boolean
      */
     public static function checkCacheStatus() {
 		return Cache::enabled();
     }
 	
     /**
-     * Checks if the logs directory is readable and writable.
-     * @return boolean TRUE if if the logs directory is readable and writable, FALSE otherwise
-	 * @uses dirIsWritable()
+     * Checks if the logs directory is readable and writable
+     * @return boolean
      */
 	public static function checkLogs() {
-		return self::dirIsWritable(LOGS);
+		return folder_is_writable(LOGS);
 	}
 	
     /**
      * Checks if the temporary directory is readable and writable.
-     * @return boolean TRUE if the temporary directory is readable and writable, FALSE otherwise
-	 * @uses dirIsWritable()
+     * @return boolean
      */
     public static function checkTmp() {
-		return self::dirIsWritable(TMP);
+		return folder_is_writable(TMP);
     }
 	
 	/**
@@ -128,33 +125,6 @@ class System {
 			}
 		
 		return $success;
-    }
-	
-	/**
-	 * Checks if a directory and its subdirectories are readable and writable
-	 * @param string $path Path
-	 * @return boolean TRUE if they are readable and writable, FALSE otherwise
-	 */
-	public static function dirIsWritable($directory) {
-		if(!is_readable($directory) || !is_writable($directory))
-			return FALSE;
-		
-		$folder = new Folder();
-
-        foreach($folder->tree($directory, FALSE, 'dir') as $dir) {
-            if(!is_readable($dir) || !is_writable($dir))
-                return FALSE;
-        }
-
-        return TRUE;
-	}
-	
-    /**
-     * Alias for `dirIsWritable()` method.
-     * @see dirIsWritable()
-     */
-    public static function dirWritable() {
-        return call_user_func_array([get_class(), 'dirIsWritable'], func_get_args());
     }
 	
     /**

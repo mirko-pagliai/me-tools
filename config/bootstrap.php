@@ -83,6 +83,36 @@ if(!function_exists('am')) {
 	}
 }
 
+if(!function_exists('folder_is_writable')) {
+	/**
+	 * Checks if a directory and its subdirectories are readable and writable
+	 * @param string $dir Directory path
+	 * @return boolean
+	 */
+	function folder_is_writable($dir) {
+		if(!is_readable($dir) || !is_writable($dir))
+			return FALSE;
+		
+		$folder = new \Cake\Filesystem\Folder();
+
+        foreach($folder->tree($dir, FALSE, 'dir') as $subdir)
+            if(!is_readable($subdir) || !is_writable($subdir))
+                return FALSE;
+
+        return TRUE;
+	}
+}
+
+if(!function_exists('folder_is_writeable')) {
+    /**
+     * Alias for `folder_is_writable()` function
+     */
+	function folder_is_writeable() {
+		return call_user_func_array('folder_is_writable', func_get_args());
+	}
+	
+}
+
 if(!function_exists('fv')) {
 	/**
 	 * Returns the first value of an array

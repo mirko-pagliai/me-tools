@@ -24,7 +24,6 @@ namespace MeTools\Utility;
 
 use Cake\Filesystem\File;
 use Cake\Filesystem\Folder;
-use MeTools\Utility\System;
 
 /**
  * An utility to handle thumbnails.
@@ -49,31 +48,28 @@ class Thumbs {
 	/**
      * Checks if the photos directory is readable and writable
      * @return boolean TRUE if the photos directory is readable and writable, FALSE otherwise
-	 * @uses System::dirWritable()
 	 * @uses photo()
 	 */
     public static function checkPhotos() {
-		return System::dirWritable(self::photo());
+		return folder_is_writable(self::photo());
 	}
 	
 	/**
      * Checks if the remotes directory is readable and writable
      * @return boolean TRUE if the remotes directory is readable and writable, FALSE otherwise
-	 * @uses System::dirWritable()
 	 * @uses remote()
 	 */
     public static function checkRemotes() {
-		return System::dirWritable(self::remote());
+		return folder_is_writable(self::remote());
 	}
 	
 	/**
      * Checks if the videos directory is readable and writable
      * @return boolean TRUE if the videos directory is readable and writable, FALSE otherwise
-	 * @uses System::dirWritable()
 	 * @uses video()
 	 */
     public static function checkVideos() {
-		return System::dirWritable(self::video());
+		return folder_is_writable(self::video());
 	}
 	
     /**
