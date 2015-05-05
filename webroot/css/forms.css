@@ -39,6 +39,7 @@ form div.required > label:after {
 /* -------------------------------- */
 /* Textareas */
 form textarea {
+	min-height: 28px;
 	resize: vertical;
 }
 
