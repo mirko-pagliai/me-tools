@@ -1,5 +1,16 @@
 <?php
 
+if(!function_exists('af')) {
+	/**
+	 * Cleans an array, removing empty values (`array_filter()`)
+	 * @param array $array Array
+	 * @return array Array
+	 */
+	function af($array) {
+		return is_array($array) ? array_filter($array) : $array;
+	}
+}
+
 if(!function_exists('am')) {
 	/**
 	* Merge a group of arrays.
@@ -11,17 +22,6 @@ if(!function_exists('am')) {
 			$array = array_merge(empty($array) ? [] : $array, is_array($arg) ? $arg : [$arg]);
 		
 		return $array;
-	}
-}
-
-if(!function_exists('af')) {
-	/**
-	 * Cleans an array, removing empty values (`array_filter()`)
-	 * @param array $array Array
-	 * @return array Array
-	 */
-	function af($array) {
-		return is_array($array) ? array_filter($array) : $array;
 	}
 }
 
