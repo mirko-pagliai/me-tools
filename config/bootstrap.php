@@ -16,13 +16,12 @@ if(!function_exists('am')) {
 
 if(!function_exists('ac')) {
 	/**
-	 * Cleans an array.
-	 * Removes empty values (`array_filter()`) and duplicates (`ærray_unique()`)
+	 * Cleans an array, removing empty values (`array_filter()`)
 	 * @param array $array Array
 	 * @return array Array
 	 */
 	function ac($array) {
-		return is_array($array) ? array_unique(array_filter($array)) : $array;
+		return is_array($array) ? array_filter($array) : $array;
 	}
 }
 
