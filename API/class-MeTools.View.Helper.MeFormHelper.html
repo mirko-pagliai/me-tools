@@ -159,7 +159,7 @@ Cake\View\Helper\FormHelper
 		<b>Namespace:</b> <a href="namespace-MeTools.html">MeTools</a>\<a href="namespace-MeTools.View.html">View</a>\<a href="namespace-MeTools.View.Helper.html">Helper</a><br>
 		
 
-			<b>Located at</b> <a href="source-class-MeTools.View.Helper.MeFormHelper.html#29-432" title="Go to source code">Helper/MeFormHelper.php</a>
+			<b>Located at</b> <a href="source-class-MeTools.View.Helper.MeFormHelper.html#29-446" title="Go to source code">Helper/MeFormHelper.php</a>
 		<br>
 	</div>
 
@@ -652,6 +652,52 @@ Instead, to create a link with the appearance of a button, you should use the <c
 		</div>
 		</div></td>
 	</tr>
+	<tr data-order="end" id="_end">
+
+		<td class="attributes"><code>
+			 public 
+
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_end">#</a>
+		<code><a href="source-class-MeTools.View.Helper.MeFormHelper.html#239-251" title="Go to source code">end</a>( <span>array <var>$secureAttributes</var> = []</span> )</code>
+
+		<div class="description short">
+			<p>Closes an HTML form, cleans up values set by <code>FormHelper::create()</code>, and writes
+hidden input fields where appropriate.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Closes an HTML form, cleans up values set by <code>FormHelper::create()</code>, and writes
+hidden input fields where appropriate.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$secureAttributes</var></dt>
+					<dd><p>Secure attibutes which will be passed as HTML
+attributes into the hidden input elements generated for the Security Component.</p></dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					string<br>Html code
+				</div>
+
+
+				<h4>Uses</h4>
+				<div class="list">
+						<code><a href="class-MeTools.View.Helper.MeFormHelper.html#$inline">MeTools\View\Helper\MeFormHelper::<var>$inline</var></a></code><br>
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
 	<tr data-order="input" id="_input">
 
 		<td class="attributes"><code>
@@ -664,7 +710,7 @@ Instead, to create a link with the appearance of a button, you should use the <c
 
 		<td class="name"><div>
 		<a class="anchor" href="#_input">#</a>
-		<code><a href="source-class-MeTools.View.Helper.MeFormHelper.html#239-308" title="Go to source code">input</a>( <span>string <var>$fieldName</var></span>, <span>array <var>$options</var> = []</span> )</code>
+		<code><a href="source-class-MeTools.View.Helper.MeFormHelper.html#253-322" title="Go to source code">input</a>( <span>string <var>$fieldName</var></span>, <span>array <var>$options</var> = []</span> )</code>
 
 		<div class="description short">
 			<p>Generates an input element complete with label and wrapper div.</p>
@@ -716,7 +762,7 @@ Instead, to create a link with the appearance of a button, you should use the <c
 
 		<td class="name"><div>
 		<a class="anchor" href="#_label">#</a>
-		<code><a href="source-class-MeTools.View.Helper.MeFormHelper.html#310-326" title="Go to source code">label</a>( <span>string <var>$fieldName</var></span>, <span>string <var>$text</var> = <span class="php-keyword1">NULL</span></span>, <span>array <var>$options</var> = []</span> )</code>
+		<code><a href="source-class-MeTools.View.Helper.MeFormHelper.html#324-340" title="Go to source code">label</a>( <span>string <var>$fieldName</var></span>, <span>string <var>$text</var> = <span class="php-keyword1">NULL</span></span>, <span>array <var>$options</var> = []</span> )</code>
 
 		<div class="description short">
 			<p>Returns a formatted <code>&lt;label&gt;</code> element.
@@ -765,7 +811,7 @@ Will automatically generate a <code>for</code> attribute if one is not provided.
 
 		<td class="name"><div>
 		<a class="anchor" href="#_legend">#</a>
-		<code><a href="source-class-MeTools.View.Helper.MeFormHelper.html#328-337" title="Go to source code">legend</a>( <span>string <var>$text</var></span>, <span>array <var>$options</var> = []</span> )</code>
+		<code><a href="source-class-MeTools.View.Helper.MeFormHelper.html#342-351" title="Go to source code">legend</a>( <span>string <var>$text</var></span>, <span>array <var>$options</var> = []</span> )</code>
 
 		<div class="description short">
 			<p>Creates a <code>&lt;legend&gt;</code> tag.</p>
@@ -810,7 +856,7 @@ Will automatically generate a <code>for</code> attribute if one is not provided.
 
 		<td class="name"><div>
 		<a class="anchor" href="#_postButton">#</a>
-		<code><a href="source-class-MeTools.View.Helper.MeFormHelper.html#339-358" title="Go to source code">postButton</a>( <span>string <var>$title</var></span>, <span>string|array <var>$url</var></span>, <span>array <var>$options</var> = []</span> )</code>
+		<code><a href="source-class-MeTools.View.Helper.MeFormHelper.html#353-372" title="Go to source code">postButton</a>( <span>string <var>$title</var></span>, <span>string|array <var>$url</var></span>, <span>array <var>$options</var> = []</span> )</code>
 
 		<div class="description short">
 			<p>Creates a button with a surrounding form that submits via POST.</p>
@@ -863,7 +909,7 @@ To create a button with the appearance of a link, you should use the <code>butto
 
 		<td class="name"><div>
 		<a class="anchor" href="#_postLink">#</a>
-		<code><a href="source-class-MeTools.View.Helper.MeFormHelper.html#360-383" title="Go to source code">postLink</a>( <span>string <var>$title</var></span>, <span>string|array <var>$url</var> = <span class="php-keyword1">NULL</span></span>, <span>array <var>$options</var> = []</span> )</code>
+		<code><a href="source-class-MeTools.View.Helper.MeFormHelper.html#374-397" title="Go to source code">postLink</a>( <span>string <var>$title</var></span>, <span>string|array <var>$url</var> = <span class="php-keyword1">NULL</span></span>, <span>array <var>$options</var> = []</span> )</code>
 
 		<div class="description short">
 			<p>Creates a link with a surrounding form that submits via POST.</p>
@@ -918,7 +964,7 @@ To create a button with the appearance of a link, you should use the <code>butto
 
 		<td class="name"><div>
 		<a class="anchor" href="#_select">#</a>
-		<code><a href="source-class-MeTools.View.Helper.MeFormHelper.html#385-403" title="Go to source code">select</a>( <span>string <var>$fieldName</var></span>, <span>array|Traversable <var>$options</var> = []</span>, <span>array <var>$attributes</var> = []</span> )</code>
+		<code><a href="source-class-MeTools.View.Helper.MeFormHelper.html#399-417" title="Go to source code">select</a>( <span>string <var>$fieldName</var></span>, <span>array|Traversable <var>$options</var> = []</span>, <span>array <var>$attributes</var> = []</span> )</code>
 
 		<div class="description short">
 			<p>Returns a formatted SELECT element</p>
@@ -962,7 +1008,7 @@ used in the SELECT element</p></dd>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_submit">#</a>
-		<code><a href="source-class-MeTools.View.Helper.MeFormHelper.html#405-414" title="Go to source code">submit</a>( <span>string <var>$caption</var> = <span class="php-keyword1">NULL</span></span>, <span>array <var>$options</var> = []</span> )</code>
+		<code><a href="source-class-MeTools.View.Helper.MeFormHelper.html#419-428" title="Go to source code">submit</a>( <span>string <var>$caption</var> = <span class="php-keyword1">NULL</span></span>, <span>array <var>$options</var> = []</span> )</code>
 
 		<div class="description short">
 			<p>Creates a submit button.</p>
@@ -1007,7 +1053,7 @@ used in the SELECT element</p></dd>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_timepicker">#</a>
-		<code><a href="source-class-MeTools.View.Helper.MeFormHelper.html#416-431" title="Go to source code">timepicker</a>( <span>string <var>$fieldName</var></span>, <span>array <var>$options</var> = []</span> )</code>
+		<code><a href="source-class-MeTools.View.Helper.MeFormHelper.html#430-445" title="Go to source code">timepicker</a>( <span>string <var>$fieldName</var></span>, <span>array <var>$options</var> = []</span> )</code>
 
 		<div class="description short">
 			<p>Creates a text input for timepicker.</p>
@@ -1107,6 +1153,7 @@ It's changed by <code>createInline()</code> method.</p>
 					<h4>Used by</h4>
 					<div class="list">
 							<code><a href="class-MeTools.View.Helper.MeFormHelper.html#_createInline">MeTools\View\Helper\MeFormHelper::createInline()</a></code><br>
+							<code><a href="class-MeTools.View.Helper.MeFormHelper.html#_end">MeTools\View\Helper\MeFormHelper::end()</a></code><br>
 					</div>
 			</div>
 		</td>
