@@ -113,6 +113,17 @@ if(!function_exists('folder_is_writeable')) {
 	
 }
 
+if(!function_exists('rtt')) {
+	/**
+	 * Returns the relative path (to the APP root) of an absolute path
+	 * @param string $path Absolute path
+	 * @return string Relativa path
+	 */
+	function rtt($path) {
+		return str_replace(ROOT.DS, NULL, $path);
+	}
+}
+
 if(!function_exists('fv')) {
 	/**
 	 * Returns the first value of an array
