@@ -14,13 +14,13 @@ if(!function_exists('am')) {
 	}
 }
 
-if(!function_exists('ac')) {
+if(!function_exists('af')) {
 	/**
 	 * Cleans an array, removing empty values (`array_filter()`)
 	 * @param array $array Array
 	 * @return array Array
 	 */
-	function ac($array) {
+	function af($array) {
 		return is_array($array) ? array_filter($array) : $array;
 	}
 }

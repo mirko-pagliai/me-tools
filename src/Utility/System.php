@@ -186,7 +186,7 @@ class System {
 		$paths = am([ROOT.DS], Plugin::getPath());
 		
 		//Gets changelog files
-		$files = ac(array_map(function($path) {
+		$files = af(array_map(function($path) {
 			//TO-DO: fix
 			//Gets the current locale
 			//$locale = Configure::read('Config.language');
