@@ -13,6 +13,22 @@
 	cursor: pointer;
 }
 
+/* Em (italic) text */
+.em, .em-text, .emText {
+	font-style: italic;
+}
+
+/* Small element and small class.
+This rewrites Bootstrap, which normally provides a size of 85% */
+small, .small, .small-text, .smallText, .text-small, .textSmall {
+	font-size: 90%;
+}
+
+/* Strong text */
+.strong, .strong-text, .strongText {
+	font-weight: bold;
+}
+
 /* -------------------------------- */
 /*				Margins				*/
 /* -------------------------------- */
