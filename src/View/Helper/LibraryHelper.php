@@ -205,6 +205,47 @@ class LibraryHelper extends Helper {
         $this->output[] = self::_datetimepicker($input, $options);
 	}
 	
+	/**
+     * Loads all FancyBox scripts.
+	 * 
+	 * FancyBox must be located into `APP/webroot/fancybox`.
+     * @return bool
+     * @see http://fancyapps.com/fancybox/#docs FancyBox documentation
+	 * @uses MeTools\View\Helper\MeHtmlHelper::css()
+	 * @uses MeTools\View\Helper\MeHtmlHelper::js()
+	 * @uses MeTools\Utility\MePlugin::getPath()
+	 */
+	public function fancybox() {
+        //Checks for FancyBox into `APP/webroot/fancybox/`
+        if(!is_readable(WWW_ROOT.'fancybox'.DS.'jquery.fancybox.pack.js'))
+			return FALSE;
+		
+		$this->Html->css([
+			'/fancybox/jquery.fancybox',
+			'/fancybox/helpers/jquery.fancybox-buttons',
+			'/fancybox/helpers/jquery.fancybox-thumbs'
+		], ['block' => 'css_bottom']);
+		
+		$this->Html->js([
+			'/fancybox/jquery.fancybox.pack',
+			'/fancybox/helpers/jquery.fancybox-buttons',
+			'/fancybox/helpers/jquery.fancybox-thumbs'
+		], ['block' => 'script_bottom']);
+		
+		//Checks for the init script into `APP/webroot/js/`
+		if(is_readable(WWW_ROOT.'js'.DS.'fancybox_init.js'))
+			$script = 'fancybox_init';
+		//Else, checks for the init script into `APP/Plugin/MeTools/webroot/fancybox/`
+		elseif(is_readable(Plugin::getPath('MeTools').'webroot'.DS.'fancybox'.DS.'fancybox_init.js'))
+			$script = 'MeTools./fancybox/fancybox_init';
+		else
+			return FALSE;
+		
+		$this->Html->js($script, ['block' => 'script_bottom']);
+		
+		return TRUE;
+	}
+	
     /**
      * Through `slugify.js`, it provides the slug of a field. 
      * 
