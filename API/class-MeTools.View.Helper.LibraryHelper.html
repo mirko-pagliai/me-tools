@@ -153,7 +153,7 @@ Cake\View\Helper
 		<b>Namespace:</b> <a href="namespace-MeTools.html">MeTools</a>\<a href="namespace-MeTools.View.html">View</a>\<a href="namespace-MeTools.View.Helper.html">Helper</a><br>
 		
 
-			<b>Located at</b> <a href="source-class-MeTools.View.Helper.LibraryHelper.html#31-237" title="Go to source code">Helper/LibraryHelper.php</a>
+			<b>Located at</b> <a href="source-class-MeTools.View.Helper.LibraryHelper.html#31-282" title="Go to source code">Helper/LibraryHelper.php</a>
 		<br>
 	</div>
 
@@ -264,14 +264,14 @@ Cake\View\Helper
 		<td class="attributes"><code>
 			 public 
 
-			
+			mixed
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_analytics">#</a>
-		<code><a href="source-class-MeTools.View.Helper.LibraryHelper.html#110-117" title="Go to source code">analytics</a>( <span>string <var>$id</var></span> )</code>
+		<code><a href="source-class-MeTools.View.Helper.LibraryHelper.html#110-121" title="Go to source code">analytics</a>( <span>string <var>$id</var></span> )</code>
 
 		<div class="description short">
 			<p>Create a script block for Google Analytics</p>
@@ -287,6 +287,10 @@ Cake\View\Helper
 					<dd>Analytics ID</dd>
 				</dl></div>
 
+				<h4>Returns</h4>
+				<div class="list">
+					mixed<br>Html code or NULL if is localhost
+				</div>
 
 
 				<h4>Uses</h4>
@@ -310,7 +314,7 @@ Cake\View\Helper
 
 		<td class="name"><div>
 		<a class="anchor" href="#_ckeditor">#</a>
-		<code><a href="source-class-MeTools.View.Helper.LibraryHelper.html#119-166" title="Go to source code">ckeditor</a>( <span>boolean <var>$jquery</var> = <span class="php-keyword1">TRUE</span></span> )</code>
+		<code><a href="source-class-MeTools.View.Helper.LibraryHelper.html#123-170" title="Go to source code">ckeditor</a>( <span>boolean <var>$jquery</var> = <span class="php-keyword1">TRUE</span></span> )</code>
 
 		<div class="description short">
 			<p>Loads all CKEditor scripts.</p>
@@ -346,7 +350,7 @@ Cake\View\Helper
 				<h4>Uses</h4>
 				<div class="list">
 						<code><a href="class-MeTools.View.Helper.MeHtmlHelper.html#_js">MeTools\View\Helper\MeHtmlHelper::js()</a></code><br>
-						MeTools\Utility\Plugin::getPath()<br>
+						MeTools\Utility\Plugin::path()<br>
 				</div>
 
 
@@ -365,7 +369,7 @@ Cake\View\Helper
 
 		<td class="name"><div>
 		<a class="anchor" href="#_datepicker">#</a>
-		<code><a href="source-class-MeTools.View.Helper.LibraryHelper.html#168-185" title="Go to source code">datepicker</a>( <span>string <var>$input</var> = <span class="php-keyword1">NULL</span></span>, <span>array <var>$options</var> = []</span> )</code>
+		<code><a href="source-class-MeTools.View.Helper.LibraryHelper.html#172-189" title="Go to source code">datepicker</a>( <span>string <var>$input</var> = <span class="php-keyword1">NULL</span></span>, <span>array <var>$options</var> = []</span> )</code>
 
 		<div class="description short">
 			<p>Adds a datepicker to the <code>$input</code> field.</p>
@@ -414,7 +418,7 @@ Cake\View\Helper
 
 		<td class="name"><div>
 		<a class="anchor" href="#_datetimepicker">#</a>
-		<code><a href="source-class-MeTools.View.Helper.LibraryHelper.html#187-202" title="Go to source code">datetimepicker</a>( <span>string <var>$input</var> = <span class="php-keyword1">NULL</span></span>, <span>array <var>$options</var> = []</span> )</code>
+		<code><a href="source-class-MeTools.View.Helper.LibraryHelper.html#191-206" title="Go to source code">datetimepicker</a>( <span>string <var>$input</var> = <span class="php-keyword1">NULL</span></span>, <span>array <var>$options</var> = []</span> )</code>
 
 		<div class="description short">
 			<p>Adds a datetimepicker to the <code>$input</code> field.</p>
@@ -451,6 +455,52 @@ Cake\View\Helper
 		</div>
 		</div></td>
 	</tr>
+	<tr data-order="fancybox" id="_fancybox">
+
+		<td class="attributes"><code>
+			 public 
+
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_fancybox">#</a>
+		<code><a href="source-class-MeTools.View.Helper.LibraryHelper.html#208-247" title="Go to source code">fancybox</a>( )</code>
+
+		<div class="description short">
+			<p>Loads all FancyBox scripts.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Loads all FancyBox scripts.</p>
+
+<p>FancyBox must be located into <code>APP/webroot/fancybox</code>.</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					boolean
+				</div>
+
+
+				<h4>See</h4>
+				<div class="list">
+						http://fancyapps.com/fancybox/#docs FancyBox documentation<br>
+				</div>
+				<h4>Uses</h4>
+				<div class="list">
+						<code><a href="class-MeTools.View.Helper.MeHtmlHelper.html#_css">MeTools\View\Helper\MeHtmlHelper::css()</a></code><br>
+						<code><a href="class-MeTools.View.Helper.MeHtmlHelper.html#_js">MeTools\View\Helper\MeHtmlHelper::js()</a></code><br>
+						<code><a href="class-MeTools.Utility.MePlugin.html#_path">MeTools\Utility\MePlugin::path()</a></code><br>
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
 	<tr data-order="slugify" id="_slugify">
 
 		<td class="attributes"><code>
@@ -463,7 +513,7 @@ Cake\View\Helper
 
 		<td class="name"><div>
 		<a class="anchor" href="#_slugify">#</a>
-		<code><a href="source-class-MeTools.View.Helper.LibraryHelper.html#204-217" title="Go to source code">slugify</a>( <span>string <var>$sourceField</var> = <span class="php-quote">'form #title'</span></span>, <span>string <var>$targetField</var> = <span class="php-quote">'form #slug'</span></span> )</code>
+		<code><a href="source-class-MeTools.View.Helper.LibraryHelper.html#249-262" title="Go to source code">slugify</a>( <span>string <var>$sourceField</var> = <span class="php-quote">'form #title'</span></span>, <span>string <var>$targetField</var> = <span class="php-quote">'form #slug'</span></span> )</code>
 
 		<div class="description short">
 			<p>Through <code>slugify.js</code>, it provides the slug of a field.</p>
@@ -507,7 +557,7 @@ Cake\View\Helper
 
 		<td class="name"><div>
 		<a class="anchor" href="#_timepicker">#</a>
-		<code><a href="source-class-MeTools.View.Helper.LibraryHelper.html#219-236" title="Go to source code">timepicker</a>( <span>string <var>$input</var> = <span class="php-keyword1">NULL</span></span>, <span>array <var>$options</var> = []</span> )</code>
+		<code><a href="source-class-MeTools.View.Helper.LibraryHelper.html#264-281" title="Go to source code">timepicker</a>( <span>string <var>$input</var> = <span class="php-keyword1">NULL</span></span>, <span>array <var>$options</var> = []</span> )</code>
 
 		<div class="description short">
 			<p>Adds a timepicker to the <code>$input</code> field.</p>
