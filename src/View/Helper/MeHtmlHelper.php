@@ -482,7 +482,7 @@ class MeHtmlHelper extends HtmlHelper {
      * @see scriptBlock()
      */
     public function scriptStart(array $options = []) {
-		$options = addDefault('block', TRUE, $options);
+		$options = addDefault('block', 'script_bottom', $options);
 
         return parent::scriptStart($options);
     }
