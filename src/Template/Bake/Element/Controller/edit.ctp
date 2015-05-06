@@ -43,7 +43,7 @@ $compact = ["'" . $singularName . "'"];
                 return $this->redirect(['action' => 'index']);
             } 
 			else
-                $this->Flash->error(__('The <%= strtolower($singularHumanName) %> could not be saved. Please, try again'));
+                $this->Flash->error(__('The <%= strtolower($singularHumanName) %> could not be saved'));
         }
 <%
         foreach (array_merge($belongsTo, $belongsToMany) as $assoc):
