@@ -49,7 +49,7 @@ class MeFlashComponent extends FlashComponent {
 	public function __call($name, $args) {
 		$name = strtolower($name);
 		
-		if(empty($args[1]['plugin']) && is_readable(Plugin::path('MeTools').'src'.DS.'Template'.DS.'Element'.DS.'Flash'.DS.$name.'.ctp'))
+		if(empty($args[1]['plugin']) && is_readable(Plugin::path('MeTools', 'src'.DS.'Template'.DS.'Element'.DS.'Flash'.DS.$name.'.ctp')))
 			$args[1]['plugin'] = 'MeTools';
 		
 		return parent::__call($name, $args);

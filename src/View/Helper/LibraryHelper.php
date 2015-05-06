@@ -133,7 +133,7 @@ class LibraryHelper extends Helper {
      * @see MeTools\View\Helper\MeFormHelper::ckeditor()
      * @see http://docs.cksource.com CKEditor documentation
 	 * @uses MeTools\View\Helper\MeHtmlHelper::js()
-	 * @uses MeTools\Utility\Plugin::getPath()
+	 * @uses MeTools\Utility\Plugin::path()
      */
     public function ckeditor($jquery = TRUE) {
         //Checks for CKEditor into `APP/webroot/ckeditor/`
@@ -159,7 +159,7 @@ class LibraryHelper extends Helper {
 		if(is_readable(WWW_ROOT.'js'.DS.'ckeditor_init.js'))
 			$scripts[] = 'ckeditor_init';
 		//Else, checks for the init script into `APP/Plugin/MeTools/webroot/ckeditor/`
-		elseif(is_readable(Plugin::getPath('MeTools').'webroot'.DS.'ckeditor'.DS.'ckeditor_init.js'))
+		elseif(is_readable(Plugin::path('MeTools', 'webroot'.DS.'ckeditor'.DS.'ckeditor_init.js')))
 			$scripts[] = '/MeTools/ckeditor/ckeditor_init';
 		else
 			return FALSE;
@@ -213,7 +213,7 @@ class LibraryHelper extends Helper {
      * @see http://fancyapps.com/fancybox/#docs FancyBox documentation
 	 * @uses MeTools\View\Helper\MeHtmlHelper::css()
 	 * @uses MeTools\View\Helper\MeHtmlHelper::js()
-	 * @uses MeTools\Utility\MePlugin::getPath()
+	 * @uses MeTools\Utility\MePlugin::path()
 	 */
 	public function fancybox() {
         //Checks for FancyBox into `APP/webroot/fancybox/`
@@ -236,7 +236,7 @@ class LibraryHelper extends Helper {
 		if(is_readable(WWW_ROOT.'js'.DS.'fancybox_init.js'))
 			$script = 'fancybox_init';
 		//Else, checks for the init script into `APP/Plugin/MeTools/webroot/fancybox/`
-		elseif(is_readable(Plugin::getPath('MeTools').'webroot'.DS.'fancybox'.DS.'fancybox_init.js'))
+		elseif(is_readable(Plugin::path('MeTools', 'webroot'.DS.'fancybox'.DS.'fancybox_init.js')))
 			$script = 'MeTools./fancybox/fancybox_init';
 		else
 			return FALSE;

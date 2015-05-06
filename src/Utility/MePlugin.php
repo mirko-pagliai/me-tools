@@ -55,14 +55,18 @@ class MePlugin {
 	 * Gets a path for a plugin or for all plugins.
 	 * 
 	 * If `$plugin` is not a string, returns all the plugins path.
-	 * @param mixed $plugin Plugin name
+	 * @param string $plugin Plugin name (optional)
+	 * @param string $filename Filename from plugin (optional)
 	 * @return mixed Plugin path or all plugins path
 	 * @uses Cake\Core\Plugin::path()
-	 * @uses getAll()
+	 * @uses all()
 	 */
-	public static function getPath($plugin = NULL) {
-		if(is_string($plugin))
-			return Plugin::path($plugin);
+	public static function getPath($plugin = NULL, $filename = NULL) {
+		if(is_string($plugin)) {
+			$path = Plugin::path($plugin);
+			
+			return is_string($filename) ? $path.$filename : $path;
+		}
 		
 		return array_map(function($v){
 			return self::path($v);
