@@ -122,13 +122,13 @@ if(!function_exists('is_localhost')) {
 	}
 }
 
-if(!function_exists('rtt')) {
+if(!function_exists('rtr')) {
 	/**
 	 * Returns the relative path (to the APP root) of an absolute path
 	 * @param string $path Absolute path
 	 * @return string Relativa path
 	 */
-	function rtt($path) {
+	function rtr($path) {
 		return str_replace(ROOT.DS, NULL, $path);
 	}
 }
