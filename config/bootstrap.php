@@ -110,7 +110,16 @@ if(!function_exists('folder_is_writeable')) {
 	function folder_is_writeable() {
 		return call_user_func_array('folder_is_writable', func_get_args());
 	}
-	
+}
+
+if(!function_exists('is_localhost')) {
+	/**
+	 * Checks if is localhost
+	 * @return bool
+	 */
+    function is_localhost() {
+		return in_array($_SERVER['REMOTE_ADDR'], ['127.0.0.1', '::1']);
+	}
 }
 
 if(!function_exists('rtt')) {
