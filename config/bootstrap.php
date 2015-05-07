@@ -104,6 +104,20 @@ if(!function_exists('am')) {
 	}
 }
 
+if(!function_exists('fk')) {
+	/**
+	 * Returns the first key of an array
+	 * @param array $array Array
+	 * @return string First key
+	 */
+	function fk($array) {
+		if(empty($array) || !is_array($array))
+			return NULL;
+		
+		return current(array_keys($array));
+	}
+}
+
 if(!function_exists('folder_is_writable')) {
 	/**
 	 * Checks if a directory and its subdirectories are readable and writable
