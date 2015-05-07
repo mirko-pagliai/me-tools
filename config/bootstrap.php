@@ -30,15 +30,6 @@ if(!function_exists('addDefault')) {
 	}
 }
 
-if(!function_exists('addValue')) {
-    /**
-     * Alias for `addOptionValue()` function
-     */
-	function addValue() {
-		return call_user_func_array('addOptionValue', func_get_args());
-	}
-}
-
 if(!function_exists('addOptionDefault')) {
 	/**
 	 * Adds a default value to an option
@@ -76,6 +67,15 @@ if(!function_exists('addOptionValue')) {
 		$options[$name] = implode(' ', array_unique(array_filter($values)));
 		
 		return $options;
+	}
+}
+
+if(!function_exists('addValue')) {
+    /**
+     * Alias for `addOptionValue()` function
+     */
+	function addValue() {
+		return call_user_func_array('addOptionValue', func_get_args());
 	}
 }
 
@@ -133,6 +133,20 @@ if(!function_exists('folder_is_writeable')) {
 	}
 }
 
+if(!function_exists('fv')) {
+	/**
+	 * Returns the first value of an array
+	 * @param array $array Array
+	 * @return mixed First value
+	 */
+	function fv($array) {
+		if(empty($array) || !is_array($array))
+			return NULL;
+		
+		return array_values($array)[0];
+	}
+}
+
 if(!function_exists('is_localhost')) {
 	/**
 	 * Checks if is localhost
@@ -151,19 +165,5 @@ if(!function_exists('rtr')) {
 	 */
 	function rtr($path) {
 		return str_replace(ROOT.DS, NULL, $path);
-	}
-}
-
-if(!function_exists('fv')) {
-	/**
-	 * Returns the first value of an array
-	 * @param array $array Array
-	 * @return mixed First value
-	 */
-	function fv($array) {
-		if(empty($array) || !is_array($array))
-			return NULL;
-		
-		return array_values($array)[0];
 	}
 }
