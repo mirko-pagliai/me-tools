@@ -2,6 +2,8 @@
 ## 2.0 branch
 ### 2.0.0-alpha
 * all the code has been completely rewritten for CakePHP 3.x. Several optimizations have been applied;
+* for the actions of loading/adding files, error messages are more intelligible;
+* added the `MeEmail` class to simplify sending emails;
 * added the `MeRequest` class to handle HTTP requests;
 * added the `ThumbHelper` to generate thumbnails;
 * updated Moment.js to 2.10.0.
