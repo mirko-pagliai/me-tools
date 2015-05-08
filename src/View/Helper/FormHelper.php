@@ -23,7 +23,7 @@
  */
 namespace MeTools\View\Helper;
 
-use Cake\View\Helper\FormHelper;
+use Cake\View\Helper\FormHelper as CakeFormHelper;
 use Cake\View\View;
 
 /**
@@ -33,15 +33,15 @@ use Cake\View\View;
  * 
  * You should use this helper as an alias, for example:
  * <code>
- * public $helpers = ['Form' => ['className' => 'MeTools.MeForm']];
+ * public $helpers = ['Form' => ['className' => 'MeTools.Form']];
  * </code>
  */
-class MeFormHelper extends FormHelper {
+class FormHelper extends CakeFormHelper {
 	/**
 	 * Helpers
 	 * @var array
 	 */
-	public $helpers = ['Html' => ['className' => 'MeTools.MeHtml'], 'Url'];
+	public $helpers = ['Html' => ['className' => 'MeTools.Html'], 'Url'];
 	
 	/**
 	 * Property to check if we're working with an inline form.
@@ -110,13 +110,13 @@ class MeFormHelper extends FormHelper {
      * Creates a button.
      * 
      * This method creates a button. To create a POST button, you should use the `postButton()` method.
-     * Instead, to create a link with the appearance of a button, you should use the `button()` method provided by `MeHtmlHelper`.
+     * Instead, to create a link with the appearance of a button, you should use the `button()` method provided by `HtmlHelper`.
      * @param string $title The button label or an image
      * @param array $options HTML attributes and options
      * @return string Html code
-     * @see postButton(), MeHtmlHelper::button()
-	 * @uses MeTools\View\Helper\MeHtmlHelper::_addButtonClass()
-	 * @uses MeTools\View\Helper\MeHtmlHelper::_addIcon()
+     * @see postButton(), HtmlHelper::button()
+	 * @uses MeTools\View\Helper\HtmlHelper::_addButtonClass()
+	 * @uses MeTools\View\Helper\HtmlHelper::_addIcon()
 	 */
 	public function button($title, array $options = []) {
 		$options = addDefault('type', 'button', $options);
@@ -255,7 +255,7 @@ class MeFormHelper extends FormHelper {
      * @param string $fieldName Field name, should be "Modelname.fieldname"
      * @param array $options HTML attributes and options
 	 * @return string Html code
-	 * @uses MeTools\View\Helper\MeHtmlHelper::span()
+	 * @uses MeTools\View\Helper\HtmlHelper::span()
 	 */
     public function input($fieldName, array $options = []) {
 		//Gets the input type
@@ -328,7 +328,7 @@ class MeFormHelper extends FormHelper {
      * @param string $text Text that will appear in the label field. If is left undefined the text will be inflected from the fieldName
      * @param array|string $options HTML attributes, or a string to be used as a class name
 	 * @return string Html code
-	 * @uses MeTools\View\Helper\MeHtmlHelper::_addIcon()
+	 * @uses MeTools\View\Helper\HtmlHelper::_addIcon()
 	 */
 	public function label($fieldName, $text = NULL, array $options = []) {
 		$options = addDefault('escape', FALSE, $options);
@@ -344,7 +344,7 @@ class MeFormHelper extends FormHelper {
      * @param string $text Legend text
      * @param array $options HTML attributes and options
      * @return string Html code
-	 * @uses MeTools\View\Helper\MeHtmlHelper::tag()
+	 * @uses MeTools\View\Helper\HtmlHelper::tag()
 	 */
 	public function legend($text, array $options = []) {
 		return $this->Html->tag('legend', $text, $options);
@@ -356,12 +356,12 @@ class MeFormHelper extends FormHelper {
      * This method creates a button in a form element. So don't use this method in an already opened form.
      * 
      * To create a normal button, you should use the `button()` method.
-     * To create a button with the appearance of a link, you should use the `button()` method provided by the `MeHtmlHelper`.
+     * To create a button with the appearance of a link, you should use the `button()` method provided by the `HtmlHelper`.
      * @param string $title Button title
 	 * @param string|array $url Cake-relative URL or array of URL parameters or external URL
 	 * @param array $options Array of options and HTML attributes
 	 * @return string Html code
-	 * @uses MeTools\View\Helper\MeHtmlHelper::_addButtonClass()
+	 * @uses MeTools\View\Helper\HtmlHelper::_addButtonClass()
 	 * @uses postLink()
 	 */
 	public function postButton($title, $url, array $options = []) {
@@ -376,12 +376,12 @@ class MeFormHelper extends FormHelper {
      * 
      * This method creates a link in a form element. So don't use this method in an already opened form.
      *  
-     * To create a normal link, you should use the `link()` method of the `MeHtmlHelper`.
+     * To create a normal link, you should use the `link()` method of the `HtmlHelper`.
 	 * @param string $title The content to be wrapped by <a> tags
 	 * @param string|array $url Cake-relative URL or array of URL parameters or external URL
 	 * @param array $options Array of options and HTML attributes
 	 * @return string Html code
-	 * @uses MeTools\View\Helper\MeHtmlHelper::_addIcon()
+	 * @uses MeTools\View\Helper\HtmlHelper::_addIcon()
 	 */
 	public function postLink($title, $url = NULL, array $options = []) {
 		$title = $this->Html->_addIcon($title, $options);

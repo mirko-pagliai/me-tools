@@ -35,14 +35,14 @@ class LayoutHelper extends Helper {
 	 * Helpers
 	 * @var array
 	 */
-	public $helpers = ['Html' => ['className' => 'MeTools.MeHtml']];
+	public $helpers = ['Html' => ['className' => 'MeTools.Html']];
 	
 	/**
 	 * Adds the `viewport` meta tag as required by Bootstrap.
 	 * @param bool $zooming Enabled or disabled zooming capabilities on mobile devices
      * @return string Html code
      * @see http://getbootstrap.com/css/#overview-mobile Bootstrap documentation
-     * @uses MeTools\View\Helper\MeHtmlHelper::meta()
+     * @uses MeTools\View\Helper\HtmlHelper::meta()
 	 */
 	public function viewport($zooming = FALSE) {
 		$content = 'width=device-width, initial-scale=1';

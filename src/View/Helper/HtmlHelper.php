@@ -23,7 +23,7 @@
  */
 namespace MeTools\View\Helper;
 
-use Cake\View\Helper\HtmlHelper;
+use Cake\View\Helper\HtmlHelper as CakeHtmlHelper;
 use Cake\View\View;
 
 /**
@@ -33,10 +33,10 @@ use Cake\View\View;
  * 
  * You should use this helper as an alias, for example:
  * <code>
- * public $helpers = ['Html' => ['className' => 'MeTools.MeHtml']];
+ * public $helpers = ['Html' => ['className' => 'MeTools.Html']];
  * </code>
  */
-class MeHtmlHelper extends HtmlHelper {
+class HtmlHelper extends CakeHtmlHelper {
 	/**
 	 * Method that is called automatically when the method doesn't exist.
 	 * 
@@ -119,8 +119,8 @@ class MeHtmlHelper extends HtmlHelper {
      * Creates a link with the appearance of a button.
      * 
      * This method creates a link with the appearance of a button.
-     * To create a POST button, you should use the `postButton()` method provided by `MeFormHelper`.
-     * Instead, to create a normal button, you should use the `button()` method provided by `MeFormHelper`.
+     * To create a POST button, you should use the `postButton()` method provided by `FormHelper`.
+     * Instead, to create a normal button, you should use the `button()` method provided by `FormHelper`.
      * @param string $title Button title
 	 * @param string|array $url Cake-relative URL or array of URL parameters or external URL
 	 * @param array $options Array of options and HTML attributes
@@ -282,7 +282,7 @@ class MeHtmlHelper extends HtmlHelper {
      * Create a label, according to the Bootstrap component.
      * 
      * This method creates only a label element. Not to be confused with the `label()` method provided by 
-	 * the `MeFormhelper`, which creates a label for a form input.
+	 * the `Formhelper`, which creates a label for a form input.
      * 
      * Supported type are: `default`, `primary`, `success`, `info`, `warning` and `danger`.
      * @param string $text Label text

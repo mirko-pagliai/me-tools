@@ -47,7 +47,7 @@ class Email extends CakeEmail {
 	 * Helpers to be used in the render
 	 * @var array
 	 */
-	protected $_helpers = ['Html' => ['className' => 'MeTools.MeHtml']];
+	protected $_helpers = ['Html' => ['className' => 'MeTools.Html']];
 	
 	/**
 	 * View for render
@@ -65,7 +65,7 @@ class Email extends CakeEmail {
 	public function reset() {
 		parent::reset();
 		
-		$this->_helpers = ['Html' => ['className' => 'MeTools.MeHtml']];
+		$this->_helpers = ['Html' => ['className' => 'MeTools.Html']];
 		$this->_viewRender = 'MeTools.Email';
 		
 		return $this;

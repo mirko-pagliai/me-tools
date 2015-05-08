@@ -39,7 +39,7 @@ class DropdownHelper extends Helper {
 	 * Helpers
 	 * @var array
 	 */
-	public $helpers = ['Html' => ['className' => 'MeTools.MeHtml']];
+	public $helpers = ['Html' => ['className' => 'MeTools.Html']];
 	
     /**
      * Parses and handles title and options used to create a link or a button to open a dropdown.
@@ -49,7 +49,7 @@ class DropdownHelper extends Helper {
      * @param array $options HTML attributes and options
      * @return array Array with title and options
 	 * @see button(), link()
-	 * @uses MeTools\View\Helper\MeHtmlHelper::icon()
+	 * @uses MeTools\View\Helper\HtmlHelper::icon()
      */
     protected function __parseLink($title, array $options = []) {
 		$title = sprintf('%s %s', $title, $this->Html->icon('caret-down'));
@@ -69,7 +69,7 @@ class DropdownHelper extends Helper {
      * @return string Html code
      * @see menu()
      * @see http://getbootstrap.com/components/#dropdowns Bootstrap documentation
-     * @uses MeTools\View\Helper\MeHtmlHelper::button()
+     * @uses MeTools\View\Helper\HtmlHelper::button()
      * @uses __parseLink()
      */
     public function button($title, array $options = []) {
@@ -86,13 +86,13 @@ class DropdownHelper extends Helper {
      * 
      * Note that this method creates only a dropdown submenu, without the a link or a button to open the menu.
 	 * To create a full dropdown menu, you should use the `menu()` method.
-     * @param array $links Array of links for the dropdown (you should use the `MeHtmlHelper::link()` method for each link)
+     * @param array $links Array of links for the dropdown (you should use the `HtmlHelper::link()` method for each link)
      * @param array $options Options for the dropdown (`<ul>` element)
      * @param array $itemOptions Options for each item (`<li>` element)
      * @return string Html code
      * @see menu()
      * @see http://getbootstrap.com/components/#dropdowns Bootstrap documentation
-	 * @uses MeTools\View\Helper\MeHtmlHelper::ul()
+	 * @uses MeTools\View\Helper\HtmlHelper::ul()
 	 */
 	public function dropdown(array $links = [], array $options = [], array $itemOptions = []) {
 		$options = addValue('class', 'dropdown-menu', $options);
@@ -111,7 +111,7 @@ class DropdownHelper extends Helper {
      * @return string Html code
      * @see menu()
      * @see http://getbootstrap.com/components/#dropdowns Bootstrap documentation
-     * @uses MeTools\View\Helper\MeHtmlHelper::link()
+     * @uses MeTools\View\Helper\HtmlHelper::link()
      * @uses __parseLink()
 	 */
 	public function link($title, array $options = []) {
@@ -137,7 +137,7 @@ class DropdownHelper extends Helper {
      * </code>
      * @param string $title Link title
 	 * @param array $titleOptions Array of options and HTML attributes
-     * @param array $links Array of links for the dropdown (you should use the `MeHtmlHelper::link()` method for each link)
+     * @param array $links Array of links for the dropdown (you should use the `HtmlHelper::link()` method for each link)
      * @param array $dropdownOptions Options for the dropdown (`<ul>` element)
      * @param array $itemOptions Options for each item (`<li>` element)
      * @return string Html code

@@ -36,7 +36,7 @@ class LibraryHelper extends Helper {
 	 * Helpers
 	 * @var array
 	 */
-	public $helpers = ['Html' => ['className' => 'MeTools.MeHtml']];
+	public $helpers = ['Html' => ['className' => 'MeTools.Html']];
 	
     /**
      * It will contain the output code
@@ -50,8 +50,8 @@ class LibraryHelper extends Helper {
      * @param array $options Options for the datepicker
 	 * @return string jQuery code
      * @see http://eonasdan.github.io/bootstrap-datetimepicker Bootstrap 3 Datepicker v4 documentation
-	 * @uses MeTools\View\Helper\MeHtmlHelper::css()
-	 * @uses MeTools\View\Helper\MeHtmlHelper::js()
+	 * @uses MeTools\View\Helper\HtmlHelper::css()
+	 * @uses MeTools\View\Helper\HtmlHelper::js()
 	 */
 	protected function _datetimepicker($input, array $options = []) {
 		$this->Html->js([
@@ -90,7 +90,7 @@ class LibraryHelper extends Helper {
      * Before layout callback. beforeLayout is called before the layout is rendered.
 	 * @param \Cake\Event\Event $event An Event instance
      * @param string $layoutFile The layout about to be rendered
-	 * @uses MeTools\View\Helper\MeHtmlHelper::scriptBlock()
+	 * @uses MeTools\View\Helper\HtmlHelper::scriptBlock()
 	 * @uses output
      */
     public function beforeLayout(\Cake\Event\Event $event, $layoutFile) {
@@ -110,7 +110,7 @@ class LibraryHelper extends Helper {
 	/**
 	 * Create a script block for Google Analytics
 	 * @param string $id Analytics ID
-	 * @uses MeTools\View\Helper\MeHtmlHelper::scriptBlock()
+	 * @uses MeTools\View\Helper\HtmlHelper::scriptBlock()
 	 * @return mixed Html code or NULL if is localhost
 	 */
 	public function analytics($id) {
@@ -127,12 +127,12 @@ class LibraryHelper extends Helper {
 	 * 
 	 * CKEditor must be located into `APP/webroot/ckeditor` or `APP/webroot/js/ckeditor`.
      * 
-     * To create an input field for CKEditor, you should use the `ckeditor()` method provided by the `MeFormHelper`.
+     * To create an input field for CKEditor, you should use the `ckeditor()` method provided by the `FormHelper`.
      * @param bool $jquery FALSE if you don't want to use the jQuery adapter
      * @return bool
-     * @see MeTools\View\Helper\MeFormHelper::ckeditor()
+     * @see MeTools\View\Helper\FormHelper::ckeditor()
      * @see http://docs.cksource.com CKEditor documentation
-	 * @uses MeTools\View\Helper\MeHtmlHelper::js()
+	 * @uses MeTools\View\Helper\HtmlHelper::js()
 	 * @uses MeTools\Utility\Plugin::path()
      */
     public function ckeditor($jquery = TRUE) {
@@ -172,10 +172,10 @@ class LibraryHelper extends Helper {
     /**
      * Adds a datepicker to the `$input` field.
      * 
-     * To create an input field compatible with datepicker, you should use the `datepicker()` method provided by the `MeFormHelper`.
+     * To create an input field compatible with datepicker, you should use the `datepicker()` method provided by the `FormHelper`.
      * @param string $input Target field. Default is `.datepicker`
      * @param array $options Options for the datepicker
-     * @see MeTools\View\Helper\MeFormHelper::datepicker()
+     * @see MeTools\View\Helper\FormHelper::datepicker()
      * @see http://eonasdan.github.io/bootstrap-datetimepicker Bootstrap 3 Datepicker v4 documentation
 	 * @uses output
 	 * @uses _datetimepicker()
@@ -191,10 +191,10 @@ class LibraryHelper extends Helper {
 	 /**
      * Adds a datetimepicker to the `$input` field.
      * 
-     * To create an input field compatible with datetimepicker, you should use the `datetimepicker()` method provided by the `MeFormHelper`.
+     * To create an input field compatible with datetimepicker, you should use the `datetimepicker()` method provided by the `FormHelper`.
      * @param string $input Target field. Default is `.datetimepicker`
      * @param array $options Options for the datetimepicker
-     * @see MeTools\View\Helper\MeFormHelper::datetimepicker()
+     * @see MeTools\View\Helper\FormHelper::datetimepicker()
      * @see http://eonasdan.github.io/bootstrap-datetimepicker Bootstrap 3 Datepicker v4 documentation
 	 * @uses output
 	 * @uses _datetimepicker()
@@ -211,8 +211,8 @@ class LibraryHelper extends Helper {
 	 * FancyBox must be located into `APP/webroot/fancybox`.
      * @return bool
      * @see http://fancyapps.com/fancybox/#docs FancyBox documentation
-	 * @uses MeTools\View\Helper\MeHtmlHelper::css()
-	 * @uses MeTools\View\Helper\MeHtmlHelper::js()
+	 * @uses MeTools\View\Helper\HtmlHelper::css()
+	 * @uses MeTools\View\Helper\HtmlHelper::js()
 	 * @uses MeTools\Utility\Plugin::path()
 	 */
 	public function fancybox() {
@@ -252,7 +252,7 @@ class LibraryHelper extends Helper {
      * It reads the value of the `$sourceField` field and it sets its slug in the `$targetField`.
      * @param string $sourceField Source field
      * @param string $targetField Target field
-	 * @uses MeTools\View\Helper\MeHtmlHelper::js()
+	 * @uses MeTools\View\Helper\HtmlHelper::js()
 	 * @uses output
      */
     public function slugify($sourceField = 'form #title', $targetField = 'form #slug') {
@@ -264,10 +264,10 @@ class LibraryHelper extends Helper {
     /**
      * Adds a timepicker to the `$input` field.
      * 
-     * To create an input field compatible with datepicker, you should use the `timepicker()` method provided by the `MeFormHelper`.
+     * To create an input field compatible with datepicker, you should use the `timepicker()` method provided by the `FormHelper`.
      * @param string $input Target field. Default is `.timepicker`
      * @param array $options Options for the timepicker
-     * @see MeTools\View\Helper\MeFormHelper::timepicker()
+     * @see MeTools\View\Helper\FormHelper::timepicker()
      * @see https://github.com/Eonasdan/bootstrap-datetimepicker Bootstrap v3 datetimepicker widget documentation
 	 * @uses output
 	 * @uses _datetimepicker()

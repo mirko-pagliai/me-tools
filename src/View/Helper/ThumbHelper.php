@@ -33,7 +33,7 @@ class ThumbHelper extends Helper {
 	 * Helpers
 	 * @var array
 	 */
-	public $helpers = ['Html' => ['className' => 'MeTools.MeHtml'], 'Url'];
+	public $helpers = ['Html' => ['className' => 'MeTools.Html'], 'Url'];
 	
 	/**
 	 * Creates and returns a thumbnail of an image or a video.
@@ -45,7 +45,7 @@ class ThumbHelper extends Helper {
      * @param string $path Image path (absolute or relative to the webroot)
 	 * @param array $options Array of options and HTML attributes
 	 * @return string Html code
-	 * @uses MeTools\View\Helper\MeHtmlHelper::img()
+	 * @uses MeTools\View\Helper\HtmlHelper::img()
 	 * @uses url()
 	 */
 	public function image($path, array $options = []) {

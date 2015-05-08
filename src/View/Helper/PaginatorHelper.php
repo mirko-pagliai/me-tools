@@ -23,7 +23,7 @@
  */
 namespace MeTools\View\Helper;
 
-use Cake\View\Helper\PaginatorHelper;
+use Cake\View\Helper\PaginatorHelper as CakePaginatorHelper;
 use Cake\View\View;
 
 /**
@@ -33,15 +33,15 @@ use Cake\View\View;
  * 
  * You should use this helper as an alias, for example:
  * <code>
- * public $helpers = ['Form' => ['className' => 'MeTools.MePaginator']];
+ * public $helpers = ['Form' => ['className' => 'MeTools.Paginator']];
  * </code>
  */
-class MePaginatorHelper extends PaginatorHelper {
+class PaginatorHelper extends CakePaginatorHelper {
 	/**
 	 * Helpers
 	 * @var array
 	 */
-	public $helpers = ['Url', 'Number', 'Html' => ['className' => 'MeTools.MeHtml']];
+	public $helpers = ['Url', 'Number', 'Html' => ['className' => 'MeTools.Html']];
 	
 	/**
 	 * Generates a "next" link for a set of paged records
