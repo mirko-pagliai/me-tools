@@ -19,20 +19,105 @@
  * @copyright	Copyright (c) 2015, Mirko Pagliai for Nova Atlantis Ltd
  * @license		http://www.gnu.org/licenses/agpl.txt AGPL License
  * @link		http://git.novatlantis.it Nova Atlantis Ltd
- * @see			http://getbootstrap.com/components/#dropdowns Bootstrap documentation
+ * @see			https://www.google.com/recaptcha reCAPTCHA site
+ * @see			http://www.google.com/recaptcha/mailhide/apikey reCAPTCHA for mails
  */
 namespace MeTools\View\Helper;
 
+use Cake\Core\Configure;
 use Cake\View\Helper;
 use Cake\View\View;
+
+require_once \MeTools\Utility\Plugin::path('MeTools', 'vendor'.DS.'Recaptcha'.DS.'recaptchalib.php');
 
 /**
  * Recaptcha helper
  */
 class RecaptchaHelper extends Helper {
+	/**
+	 * Helpers
+	 * @var array
+	 */
+	public $helpers = ['MeTools.Html'];
+	
+	/**
+	 * Construct the widgets and binds the default context providers.
+	 * 
+	 * This method only ewrites the default configuration (`$_defaultConfig`).
+	 * @param Cake\View\View $view The View this helper is being attached to
+	 * @param array $config Configuration settings for the helper
+	 */
+	public function __construct(View $view, $config = []) {
+        parent::__construct($view, $config);
+		
+		//Loads the configuration file
+		Configure::load('recaptcha');
+		
+		//Gets form keys
+		$this->keys = Configure::read('Recaptcha.Form');
+	}
+
+	/**
+	 * Internal function to obfuscate an email address.
+	 * @param string $mail Mail address
+	 * @return string Mail address obfuscated
+	 * @see http://stackoverflow.com/a/20545505/1480263
+	 */
+	protected function _obfuscate($mail) {
+		$name = implode(array_slice($mail = explode("@", $mail), 0, count($mail) - 1), '@');
+		$lenght  = floor(strlen($name) / 2);
+
+		return substr($name, 0, $lenght).str_repeat('*', $lenght)."@".end($mail);
+	}
+	
     /**
-     * Default configuration
-     * @var array
+     * Alias for `mailLink()` method
+     * @see mailLink()
      */
-    protected $_defaultConfig = [];
+    public function mail() {
+        return call_user_func_array([get_class(), 'mailLink'], func_get_args());
+    }
+
+    /**
+     * Creates an HTML link for an hidden email. The link will be open in a popup
+     * @param string $title Link title
+     * @param string $mail Email to hide
+	 * @param array $options Array of options and HTML attributes
+     * @return string Html code
+	 * @uses MeTools\View\Helper\HtmlHelper::link()
+	 * @uses _obfuscate()
+     * @uses mailUrl()
+	 */
+    public function mailLink($title, $mail = NULL, array $options = []) {
+		$title = empty($mail) ? $this->_obfuscate($mail = $title) : $title;
+        $link = self::mailUrl($mail);
+
+		$options = addValue('onclick', sprintf("window.open('%s', '', 'toolbar=0,scrollbars=0,location=0,statusbar=0,menubar=0,resizable=0,width=500,height=300'); return false;", $link), $options);
+		
+        return $this->Html->link($title, $link, $options);
+    }
+
+	/**
+     * Gets the url for an hidden email. 
+     * 
+     * This method will only return a url. If you want to create a link, you should use the `mailLink()` method
+     * @param string $mail Email to hide
+     * @return string Url
+	 * @throws \Cake\Network\Exception\InternalErrorException
+     * @uses mail_keys
+	 */
+    public function mailUrl($mail) {
+		//Gets mail keys
+		$keys = Configure::read('Recaptcha.Mail');
+		
+		//Checks for mail keys
+        if(empty($keys['public']) || empty($keys['private']))
+            throw new \Cake\Network\Exception\InternalErrorException(__d('me_tools', 'Mail keys are not configured'));
+
+        //Checks if the private mail key is valid (hexadecimal digits)
+        if(!ctype_xdigit($keys['private']))
+            throw new \Cake\Network\Exception\InternalErrorException(__d('me_tools', 'The private mail key is not valid'));
+		
+        return recaptcha_mailhide_url($keys['public'], $keys['private'], $mail);
+    }
 }
