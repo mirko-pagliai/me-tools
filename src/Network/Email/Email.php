@@ -53,7 +53,7 @@ class Email extends CakeEmail {
 	 * View for render
 	 * @var string 
 	 */
-	protected $_viewRender = 'MeTools.Email';
+	protected $_viewRender = 'MeTools.View/Email';
 	
 	/**
 	 * Reset all the internal variables to be able to send out a new email.
@@ -66,7 +66,7 @@ class Email extends CakeEmail {
 		parent::reset();
 		
 		$this->_helpers = ['Html' => ['className' => 'MeTools.Html']];
-		$this->_viewRender = 'MeTools.Email';
+		$this->_viewRender = 'MeTools.View/Email';
 		
 		return $this;
 	}
