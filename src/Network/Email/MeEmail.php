@@ -70,4 +70,18 @@ class MeEmail extends Email {
 		
 		return $this;
 	}
+	
+	/**
+	 * Wrapper for `CakeEmail::viewVars()` method.
+	 * @param string|array $one A string or an array of data.
+	 * @param string|array $two Value in case $one is a string (which then works as the key). 
+	 *	Unused if $one is an associative array, otherwise serves as the values to $one's keys.
+	 * @return void
+	 */
+	public function set($one, $two = NULL) {
+		if(is_array($one))
+			return is_array($two) ? $this->viewVars(array_combine($one, $two)) : $this->viewVars($one);
+		else
+			return $this->viewVars([$one => $two]);
+	}
 }
