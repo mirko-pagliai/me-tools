@@ -176,6 +176,13 @@ form.form-inline .input:last-child, form.form-inline button:last-child {
 }
 
 /* -------------------------------- */
+/*				reCAPTCHA			*/
+/* -------------------------------- */
+.g-recaptcha {
+	margin-bottom: 15px;
+}
+
+/* -------------------------------- */
 /*				CKEditor			*/
 /* -------------------------------- */
 /* Content div */

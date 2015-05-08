@@ -31,7 +31,10 @@ use Cake\View\View;
 require_once \MeTools\Utility\Plugin::path('MeTools', 'vendor'.DS.'Recaptcha'.DS.'recaptchalib.php');
 
 /**
- * Recaptcha helper
+ * Provides several methods for reCAPTCHA.
+ *
+ * Before using this helper, you have to configure keys in `app/Config/recaptcha.php`.
+ * You can use as example the file `app/Plugin/MeTools/Config/recaptcha.default.php`.
  */
 class RecaptchaHelper extends Helper {
 	/**
@@ -52,9 +55,6 @@ class RecaptchaHelper extends Helper {
 		
 		//Loads the configuration file
 		Configure::load('recaptcha');
-		
-		//Gets form keys
-		$this->keys = Configure::read('Recaptcha.Form');
 	}
 
 	/**
@@ -68,6 +68,31 @@ class RecaptchaHelper extends Helper {
 		$lenght  = floor(strlen($name) / 2);
 
 		return substr($name, 0, $lenght).str_repeat('*', $lenght)."@".end($mail);
+	}
+	
+	/**
+	 * Displays the reCAPTCHA widget
+	 * @param array $options reCAPTCHA widget options
+	 * @param array $optionsScript Script option
+	 * @return string Html
+	 * @throws \Cake\Network\Exception\InternalErrorException
+	 * @see https://developers.google.com/recaptcha/docs/display#config reCAPTCHA widget options
+	 * @uses MeTools\View\Helper\HtmlHelper::div()
+	 * @uses MeTools\View\Helper\HtmlHelper::js()
+	 */
+	public function display(array $options = [], array $optionsScript = []) {
+		//Gets form keys
+		$keys = Configure::read('Recaptcha.Form');
+		
+		//Checks for form keys
+		if(empty($keys['public']) || empty($keys['private']))
+            throw new \Cake\Network\Exception\InternalErrorException(__d('me_tools', 'Form keys are not configured'));
+		
+		$optionsScript = addDefault('block', 'script_bottom', $optionsScript);
+		
+		$this->Html->js('https://www.google.com/recaptcha/api.js', am($optionsScript, ['async' => TRUE, 'defer' => TRUE]));
+		
+		return $this->Html->div('g-recaptcha', ' ', am($options, ['data-sitekey' => $keys['public']]));
 	}
 	
     /**
@@ -104,7 +129,6 @@ class RecaptchaHelper extends Helper {
      * @param string $mail Email to hide
      * @return string Url
 	 * @throws \Cake\Network\Exception\InternalErrorException
-     * @uses mail_keys
 	 */
     public function mailUrl($mail) {
 		//Gets mail keys
@@ -120,4 +144,12 @@ class RecaptchaHelper extends Helper {
 		
         return recaptcha_mailhide_url($keys['public'], $keys['private'], $mail);
     }
+	
+    /**
+     * Alias for `display()` method
+     * @see display()
+     */
+	public function recaptcha() {
+        return call_user_func_array(array(get_class(), 'display'), func_get_args());
+	}
 }
