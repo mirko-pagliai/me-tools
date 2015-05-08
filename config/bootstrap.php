@@ -171,6 +171,17 @@ if(!function_exists('is_localhost')) {
 	}
 }
 
+if(!function_exists('is_remote')) {
+	/**
+	 * Checks whether a url is invalid
+	 * @param string $url Url
+	 * @return bool
+	 */
+	function is_url($url) {
+		return (bool) filter_var($url, FILTER_VALIDATE_URL);
+	}
+}
+
 if(!function_exists('rtr')) {
 	/**
 	 * Returns the relative path (to the APP root) of an absolute path

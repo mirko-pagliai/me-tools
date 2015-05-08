@@ -207,7 +207,7 @@ class ThumbsController extends AppController {
         $file = urldecode(base64_decode($file));
 		
 		//If the file is remote
-		if(filter_var($file, FILTER_VALIDATE_URL)) {			
+		if(is_url($file, FILTER_VALIDATE_URL)) {			
 			//Downloads the file, if not already done
 			if(!is_readable($tmp = Thumbs::remote(md5($file).'.'.pathinfo($file, PATHINFO_EXTENSION)))) {
 				//Checks if the target directory is writable
