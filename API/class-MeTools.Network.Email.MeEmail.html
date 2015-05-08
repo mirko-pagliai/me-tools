@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 
-	<title>Class MeTools\View\Helper\LayoutHelper | MeTools API</title>
+	<title>Class MeTools\Network\Email\MeEmail | MeTools API</title>
 
 	<link rel="stylesheet" href="resources/style.css?e99947befd7bf673c6b43ff75e9e0f170c88a60e">
 
@@ -36,13 +36,13 @@
 
 						</li>
 							</ul></li>
-				<li class="main">
+				<li class="active main">
 					<a href="namespace-MeTools.Network.html">
 						Network<span></span>
 					</a>
 
 						<ul>
-				<li class="main">
+				<li class="active main">
 					<a href="namespace-MeTools.Network.Email.html">
 						Email					</a>
 
@@ -58,13 +58,13 @@
 						Utility					</a>
 
 						</li>
-				<li class="active main">
+				<li class="main">
 					<a href="namespace-MeTools.View.html">
 						View<span></span>
 					</a>
 
 						<ul>
-				<li class="active main">
+				<li class="main">
 					<a href="namespace-MeTools.View.Helper.html">
 						Helper					</a>
 
@@ -79,15 +79,7 @@
 		<div id="elements">
 			<h3>Classes</h3>
 			<ul>
-				<li><a href="class-MeTools.View.Helper.DropdownHelper.html">DropdownHelper</a></li>
-				<li class="active"><a href="class-MeTools.View.Helper.LayoutHelper.html">LayoutHelper</a></li>
-				<li><a href="class-MeTools.View.Helper.LibraryHelper.html">LibraryHelper</a></li>
-				<li><a href="class-MeTools.View.Helper.MarkdownHelper.html">MarkdownHelper</a></li>
-				<li><a href="class-MeTools.View.Helper.MeFormHelper.html">MeFormHelper</a></li>
-				<li><a href="class-MeTools.View.Helper.MeHtmlHelper.html">MeHtmlHelper</a></li>
-				<li><a href="class-MeTools.View.Helper.MePaginatorHelper.html">MePaginatorHelper</a></li>
-				<li><a href="class-MeTools.View.Helper.RecaptchaHelper.html">RecaptchaHelper</a></li>
-				<li><a href="class-MeTools.View.Helper.ThumbHelper.html">ThumbHelper</a></li>
+				<li class="active"><a href="class-MeTools.Network.Email.MeEmail.html">MeEmail</a></li>
 			</ul>
 
 
@@ -114,7 +106,7 @@
 				<a href="index.html" title="Overview"><span>Overview</span></a>
 			</li>
 			<li>
-				<a href="namespace-MeTools.View.Helper.html" title="Summary of MeTools\View\Helper"><span>Namespace</span></a>
+				<a href="namespace-MeTools.Network.Email.html" title="Summary of MeTools\Network\Email"><span>Namespace</span></a>
 			</li>
 			<li class="active">
 <span>Class</span>			</li>
@@ -131,24 +123,36 @@
 	</div>
 
 <div id="content" class="class">
-	<h1>Class LayoutHelper</h1>
+	<h1>Class MeEmail</h1>
 
 
 	<div class="description">
-	<p>Layout Helper.</p>
+	<p>Email class.</p>
 
-<p>This helper allows you to gerate the layouts.</p>
+<p>Note that the view variables (<code>$_viewVars</code>) are set by <code>MeTools\View\EmailView</code>.</p>
+
+<p>Rewrites <a href="http://api.cakephp.org/3.0/class-Cake.Network.Email.Email.html">Email</a>.</p>
+
+<p>Example:</p>
+
+<pre><span class="php-keyword1">use</span> MeTools\Network\Email\MeEmail <span class="php-keyword1">as</span> Email;
+
+<span class="php-var">$email</span> = <span class="php-keyword1">new</span> Email(<span class="php-quote">'default'</span>);
+<span class="php-var">$email</span>-&gt;from([<span class="php-quote">'me@example.com'</span> =&gt; <span class="php-quote">'My Site'</span>])
+    -&gt;to(<span class="php-quote">'you@example.com'</span>)
+    -&gt;subject(<span class="php-quote">'About'</span>)
+    -&gt;send(<span class="php-quote">'My message'</span>);</pre>
 	</div>
 
 	<dl class="tree">
 		<dd style="padding-left:0px">
-Cake\View\Helper
+Cake\Network\Email\Email
 			
 			
 		</dd>
 		<dd style="padding-left:30px">
 			<img src="resources/inherit.png" alt="Extended by">
-<b><span>MeTools\View\Helper\LayoutHelper</span></b>			
+<b><span>MeTools\Network\Email\MeEmail</span></b>			
 			
 			
 		</dd>
@@ -164,10 +168,10 @@ Cake\View\Helper
 	<div class="info">
 		
 		
-		<b>Namespace:</b> <a href="namespace-MeTools.html">MeTools</a>\<a href="namespace-MeTools.View.html">View</a>\<a href="namespace-MeTools.View.Helper.html">Helper</a><br>
+		<b>Namespace:</b> <a href="namespace-MeTools.html">MeTools</a>\<a href="namespace-MeTools.Network.html">Network</a>\<a href="namespace-MeTools.Network.Email.html">Email</a><br>
 		
 
-			<b>Located at</b> <a href="source-class-MeTools.View.Helper.LayoutHelper.html#28-55" title="Go to source code">Helper/LayoutHelper.php</a>
+			<b>Located at</b> <a href="source-class-MeTools.Network.Email.MeEmail.html#27-73" title="Go to source code">Email/MeEmail.php</a>
 		<br>
 	</div>
 
@@ -175,47 +179,40 @@ Cake\View\Helper
 
 	<table class="summary methods" id="methods">
 	<caption>Methods summary</caption>
-	<tr data-order="viewport" id="_viewport">
+	<tr data-order="reset" id="_reset">
 
 		<td class="attributes"><code>
 			 public 
 
-			string
+			<code><a href="class-MeTools.Network.Email.MeEmail.html">MeTools\Network\Email\MeEmail</a></code>
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
-		<a class="anchor" href="#_viewport">#</a>
-		<code><a href="source-class-MeTools.View.Helper.LayoutHelper.html#40-54" title="Go to source code">viewport</a>( <span>boolean <var>$zooming</var> = <span class="php-keyword1">FALSE</span></span> )</code>
+		<a class="anchor" href="#_reset">#</a>
+		<code><a href="source-class-MeTools.Network.Email.MeEmail.html#58-72" title="Go to source code">reset</a>( )</code>
 
 		<div class="description short">
-			<p>Adds the <code>viewport</code> meta tag as required by Bootstrap.</p>
+			<p>Reset all the internal variables to be able to send out a new email.</p>
 		</div>
 
 		<div class="description detailed hidden">
-			<p>Adds the <code>viewport</code> meta tag as required by Bootstrap.</p>
+			<p>Reset all the internal variables to be able to send out a new email.</p>
 
 
-				<h4>Parameters</h4>
-				<div class="list"><dl>
-					<dt><var>$zooming</var></dt>
-					<dd>Enabled or disabled zooming capabilities on mobile devices</dd>
-				</dl></div>
 
 				<h4>Returns</h4>
 				<div class="list">
-					string<br>Html code
+					<code><a href="class-MeTools.Network.Email.MeEmail.html">MeTools\Network\Email\MeEmail</a></code>
 				</div>
 
 
-				<h4>See</h4>
-				<div class="list">
-						http://getbootstrap.com/css/#overview-mobile Bootstrap documentation<br>
-				</div>
 				<h4>Uses</h4>
 				<div class="list">
-						<code><a href="class-MeTools.View.Helper.MeHtmlHelper.html#_meta">MeTools\View\Helper\MeHtmlHelper::meta()</a></code><br>
+						Cake\Network\Email\Email::reset()<br>
+						<br>
+						<br>
 				</div>
 
 
@@ -237,28 +234,61 @@ Cake\View\Helper
 
 	<table class="summary properties" id="properties">
 	<caption>Properties summary</caption>
-	<tr data-order="helpers" id="$helpers">
+	<tr data-order="_helpers" id="$_helpers">
 		<td class="attributes"><code>
-			public  
+			protected  
 			array
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-MeTools.View.Helper.LayoutHelper.html#34-38" title="Go to source code"><var>$helpers</var></a>
+				<a href="source-class-MeTools.Network.Email.MeEmail.html#46-50" title="Go to source code"><var>$_helpers</var></a>
 
 			<div class="description short">
-				<p>Helpers</p>
+				<p>Helpers to be used in the render</p>
 			</div>
 
 			<div class="description detailed hidden">
-				<p>Helpers</p>
+				<p>Helpers to be used in the render</p>
 
+					<h4>Used by</h4>
+					<div class="list">
+							<code><a href="class-MeTools.Network.Email.MeEmail.html#_reset">MeTools\Network\Email\MeEmail::reset()</a></code><br>
+					</div>
 			</div>
 		</td>
 		<td class="value">
 			<div>
-				<a href="#$helpers" class="anchor">#</a>
+				<a href="#$_helpers" class="anchor">#</a>
 				<code>[<span class="php-quote">'Html'</span> =&gt; [<span class="php-quote">'className'</span> =&gt; <span class="php-quote">'MeTools.MeHtml'</span>]]</code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="_viewRender" id="$_viewRender">
+		<td class="attributes"><code>
+			protected  
+			string
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-MeTools.Network.Email.MeEmail.html#52-56" title="Go to source code"><var>$_viewRender</var></a>
+
+			<div class="description short">
+				<p>View for render</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>View for render</p>
+
+					<h4>Used by</h4>
+					<div class="list">
+							<code><a href="class-MeTools.Network.Email.MeEmail.html#_reset">MeTools\Network\Email\MeEmail::reset()</a></code><br>
+					</div>
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$_viewRender" class="anchor">#</a>
+				<code><span class="php-quote">'MeTools.Email'</span></code>
 			</div>
 		</td>
 	</tr>

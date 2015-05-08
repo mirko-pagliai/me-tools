@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 
-	<title>Class MeTools\View\Helper\LayoutHelper | MeTools API</title>
+	<title>Class MeTools\View\EmailView | MeTools API</title>
 
 	<link rel="stylesheet" href="resources/style.css?e99947befd7bf673c6b43ff75e9e0f170c88a60e">
 
@@ -64,7 +64,7 @@
 					</a>
 
 						<ul>
-				<li class="active main">
+				<li class="main">
 					<a href="namespace-MeTools.View.Helper.html">
 						Helper					</a>
 
@@ -79,15 +79,7 @@
 		<div id="elements">
 			<h3>Classes</h3>
 			<ul>
-				<li><a href="class-MeTools.View.Helper.DropdownHelper.html">DropdownHelper</a></li>
-				<li class="active"><a href="class-MeTools.View.Helper.LayoutHelper.html">LayoutHelper</a></li>
-				<li><a href="class-MeTools.View.Helper.LibraryHelper.html">LibraryHelper</a></li>
-				<li><a href="class-MeTools.View.Helper.MarkdownHelper.html">MarkdownHelper</a></li>
-				<li><a href="class-MeTools.View.Helper.MeFormHelper.html">MeFormHelper</a></li>
-				<li><a href="class-MeTools.View.Helper.MeHtmlHelper.html">MeHtmlHelper</a></li>
-				<li><a href="class-MeTools.View.Helper.MePaginatorHelper.html">MePaginatorHelper</a></li>
-				<li><a href="class-MeTools.View.Helper.RecaptchaHelper.html">RecaptchaHelper</a></li>
-				<li><a href="class-MeTools.View.Helper.ThumbHelper.html">ThumbHelper</a></li>
+				<li class="active"><a href="class-MeTools.View.EmailView.html">EmailView</a></li>
 			</ul>
 
 
@@ -114,7 +106,7 @@
 				<a href="index.html" title="Overview"><span>Overview</span></a>
 			</li>
 			<li>
-				<a href="namespace-MeTools.View.Helper.html" title="Summary of MeTools\View\Helper"><span>Namespace</span></a>
+				<a href="namespace-MeTools.View.html" title="Summary of MeTools\View"><span>Namespace</span></a>
 			</li>
 			<li class="active">
 <span>Class</span>			</li>
@@ -131,24 +123,22 @@
 	</div>
 
 <div id="content" class="class">
-	<h1>Class LayoutHelper</h1>
+	<h1>Class EmailView</h1>
 
 
 	<div class="description">
-	<p>Layout Helper.</p>
-
-<p>This helper allows you to gerate the layouts.</p>
+	<p>Email view class</p>
 	</div>
 
 	<dl class="tree">
 		<dd style="padding-left:0px">
-Cake\View\Helper
+Cake\View\View
 			
 			
 		</dd>
 		<dd style="padding-left:30px">
 			<img src="resources/inherit.png" alt="Extended by">
-<b><span>MeTools\View\Helper\LayoutHelper</span></b>			
+<b><span>MeTools\View\EmailView</span></b>			
 			
 			
 		</dd>
@@ -164,10 +154,10 @@ Cake\View\Helper
 	<div class="info">
 		
 		
-		<b>Namespace:</b> <a href="namespace-MeTools.html">MeTools</a>\<a href="namespace-MeTools.View.html">View</a>\<a href="namespace-MeTools.View.Helper.html">Helper</a><br>
+		<b>Namespace:</b> <a href="namespace-MeTools.html">MeTools</a>\<a href="namespace-MeTools.View.html">View</a><br>
 		
 
-			<b>Located at</b> <a href="source-class-MeTools.View.Helper.LayoutHelper.html#28-55" title="Go to source code">Helper/LayoutHelper.php</a>
+			<b>Located at</b> <a href="source-class-MeTools.View.EmailView.html#28-48" title="Go to source code">EmailView.php</a>
 		<br>
 	</div>
 
@@ -175,47 +165,54 @@ Cake\View\Helper
 
 	<table class="summary methods" id="methods">
 	<caption>Methods summary</caption>
-	<tr data-order="viewport" id="_viewport">
+	<tr data-order="render" id="_render">
 
 		<td class="attributes"><code>
 			 public 
 
-			string
+			string|null
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
-		<a class="anchor" href="#_viewport">#</a>
-		<code><a href="source-class-MeTools.View.Helper.LayoutHelper.html#40-54" title="Go to source code">viewport</a>( <span>boolean <var>$zooming</var> = <span class="php-keyword1">FALSE</span></span> )</code>
+		<a class="anchor" href="#_render">#</a>
+		<code><a href="source-class-MeTools.View.EmailView.html#32-47" title="Go to source code">render</a>( <span>string|null <var>$view</var> = <span class="php-keyword1">NULL</span></span>, <span>string|null <var>$layout</var> = <span class="php-keyword1">NULL</span></span> )</code>
 
 		<div class="description short">
-			<p>Adds the <code>viewport</code> meta tag as required by Bootstrap.</p>
+			<p>Renders view for given view file and layout</p>
 		</div>
 
 		<div class="description detailed hidden">
-			<p>Adds the <code>viewport</code> meta tag as required by Bootstrap.</p>
+			<p>Renders view for given view file and layout</p>
 
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
-					<dt><var>$zooming</var></dt>
-					<dd>Enabled or disabled zooming capabilities on mobile devices</dd>
+					<dt><var>$view</var></dt>
+					<dd>Name of view file to use</dd>
+					<dt><var>$layout</var></dt>
+					<dd>Layout to use</dd>
 				</dl></div>
 
 				<h4>Returns</h4>
 				<div class="list">
-					string<br>Html code
+					string|null<br>Rendered content or NULL if content already rendered and returned earlier
 				</div>
 
+				<h4>Throws</h4>
+				<div class="list">
+					Cake\Core\Exception\Exception
+				</div>
 
 				<h4>See</h4>
 				<div class="list">
-						http://getbootstrap.com/css/#overview-mobile Bootstrap documentation<br>
+						http://api.cakephp.org/3.0/class-Cake.View.View.html#_render<br>
 				</div>
 				<h4>Uses</h4>
 				<div class="list">
-						<code><a href="class-MeTools.View.Helper.MeHtmlHelper.html#_meta">MeTools\View\Helper\MeHtmlHelper::meta()</a></code><br>
+						Cake\View\View::render()<br>
+						MeTools\Network\MeRequest::clientIp()<br>
 				</div>
 
 
@@ -235,34 +232,6 @@ Cake\View\Helper
 
 
 
-	<table class="summary properties" id="properties">
-	<caption>Properties summary</caption>
-	<tr data-order="helpers" id="$helpers">
-		<td class="attributes"><code>
-			public  
-			array
-		</code></td>
-
-		<td class="name">
-				<a href="source-class-MeTools.View.Helper.LayoutHelper.html#34-38" title="Go to source code"><var>$helpers</var></a>
-
-			<div class="description short">
-				<p>Helpers</p>
-			</div>
-
-			<div class="description detailed hidden">
-				<p>Helpers</p>
-
-			</div>
-		</td>
-		<td class="value">
-			<div>
-				<a href="#$helpers" class="anchor">#</a>
-				<code>[<span class="php-quote">'Html'</span> =&gt; [<span class="php-quote">'className'</span> =&gt; <span class="php-quote">'MeTools.MeHtml'</span>]]</code>
-			</div>
-		</td>
-	</tr>
-	</table>
 
 
 
