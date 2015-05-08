@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<meta name="robots" content="noindex">
 
-	<title>File Helper/MeFormHelper.php | MeTools API</title>
+	<title>File Helper/FormHelper.php | MeTools API</title>
 
 	<link rel="stylesheet" href="resources/style.css?e99947befd7bf673c6b43ff75e9e0f170c88a60e">
 
@@ -95,12 +95,12 @@
 				<li><a href="class-MeTools.Utility.Unix.html">MeTools\Utility\Unix</a></li>
 				<li><a href="class-MeTools.View.EmailView.html">MeTools\View\EmailView</a></li>
 				<li><a href="class-MeTools.View.Helper.DropdownHelper.html">MeTools\View\Helper\DropdownHelper</a></li>
+				<li><a href="class-MeTools.View.Helper.FormHelper.html">MeTools\View\Helper\FormHelper</a></li>
+				<li><a href="class-MeTools.View.Helper.HtmlHelper.html">MeTools\View\Helper\HtmlHelper</a></li>
 				<li><a href="class-MeTools.View.Helper.LayoutHelper.html">MeTools\View\Helper\LayoutHelper</a></li>
 				<li><a href="class-MeTools.View.Helper.LibraryHelper.html">MeTools\View\Helper\LibraryHelper</a></li>
 				<li><a href="class-MeTools.View.Helper.MarkdownHelper.html">MeTools\View\Helper\MarkdownHelper</a></li>
-				<li><a href="class-MeTools.View.Helper.MeFormHelper.html">MeTools\View\Helper\MeFormHelper</a></li>
-				<li><a href="class-MeTools.View.Helper.MeHtmlHelper.html">MeTools\View\Helper\MeHtmlHelper</a></li>
-				<li><a href="class-MeTools.View.Helper.MePaginatorHelper.html">MeTools\View\Helper\MePaginatorHelper</a></li>
+				<li><a href="class-MeTools.View.Helper.PaginatorHelper.html">MeTools\View\Helper\PaginatorHelper</a></li>
 				<li><a href="class-MeTools.View.Helper.RecaptchaHelper.html">MeTools\View\Helper\RecaptchaHelper</a></li>
 				<li><a href="class-MeTools.View.Helper.ThumbHelper.html">MeTools\View\Helper\ThumbHelper</a></li>
 			</ul>
@@ -169,7 +169,7 @@
 </span></span><span id="23" class="l"><a href="#23"> 23: </a><span class="php-comment"> */</span>
 </span><span id="24" class="l"><a href="#24"> 24: </a><span class="php-keyword1">namespace</span> MeTools\View\Helper;
 </span><span id="25" class="l"><a href="#25"> 25: </a>
-</span><span id="26" class="l"><a href="#26"> 26: </a><span class="php-keyword1">use</span> Cake\View\Helper\FormHelper;
+</span><span id="26" class="l"><a href="#26"> 26: </a><span class="php-keyword1">use</span> Cake\View\Helper\FormHelper <span class="php-keyword1">as</span> CakeFormHelper;
 </span><span id="27" class="l"><a href="#27"> 27: </a><span class="php-keyword1">use</span> Cake\View\View;
 </span><span id="28" class="l"><a href="#28"> 28: </a>
 </span><span id="29" class="l"><a href="#29"> 29: </a><span class="php-comment">/**
@@ -179,15 +179,15 @@
 </span></span><span id="33" class="l"><a href="#33"> 33: </a><span class="php-comment"> * 
 </span></span><span id="34" class="l"><a href="#34"> 34: </a><span class="php-comment"> * You should use this helper as an alias, for example:
 </span></span><span id="35" class="l"><a href="#35"> 35: </a><span class="php-comment"> * &lt;code&gt;
-</span></span><span id="36" class="l"><a href="#36"> 36: </a><span class="php-comment"> * public $helpers = ['Form' =&gt; ['className' =&gt; 'MeTools.MeForm']];
+</span></span><span id="36" class="l"><a href="#36"> 36: </a><span class="php-comment"> * public $helpers = ['Form' =&gt; ['className' =&gt; 'MeTools.Form']];
 </span></span><span id="37" class="l"><a href="#37"> 37: </a><span class="php-comment"> * &lt;/code&gt;
 </span></span><span id="38" class="l"><a href="#38"> 38: </a><span class="php-comment"> */</span>
-</span><span id="39" class="l"><a href="#39"> 39: </a><span class="php-keyword1">class</span> MeFormHelper <span class="php-keyword1">extends</span> FormHelper {
+</span><span id="39" class="l"><a href="#39"> 39: </a><span class="php-keyword1">class</span> FormHelper <span class="php-keyword1">extends</span> CakeFormHelper {
 </span><span id="40" class="l"><a href="#40"> 40: </a>    <span class="php-comment">/**
 </span></span><span id="41" class="l"><a href="#41"> 41: </a><span class="php-comment">     * Helpers
 </span></span><span id="42" class="l"><a href="#42"> 42: </a><span class="php-comment">     * @var array
 </span></span><span id="43" class="l"><a href="#43"> 43: </a><span class="php-comment">     */</span>
-</span><span id="44" class="l"><a href="#44"> 44: </a>    <span class="php-keyword1">public</span> <span class="php-var">$helpers</span> = [<span class="php-quote">'Html'</span> =&gt; [<span class="php-quote">'className'</span> =&gt; <span class="php-quote">'MeTools.MeHtml'</span>], <span class="php-quote">'Url'</span>];
+</span><span id="44" class="l"><a href="#44"> 44: </a>    <span class="php-keyword1">public</span> <span class="php-var">$helpers</span> = [<span class="php-quote">'Html'</span> =&gt; [<span class="php-quote">'className'</span> =&gt; <span class="php-quote">'MeTools.Html'</span>], <span class="php-quote">'Url'</span>];
 </span><span id="45" class="l"><a href="#45"> 45: </a>    
 </span><span id="46" class="l"><a href="#46"> 46: </a>    <span class="php-comment">/**
 </span></span><span id="47" class="l"><a href="#47"> 47: </a><span class="php-comment">     * Property to check if we're working with an inline form.
@@ -256,13 +256,13 @@
 </span></span><span id="110" class="l"><a href="#110">110: </a><span class="php-comment">     * Creates a button.
 </span></span><span id="111" class="l"><a href="#111">111: </a><span class="php-comment">     * 
 </span></span><span id="112" class="l"><a href="#112">112: </a><span class="php-comment">     * This method creates a button. To create a POST button, you should use the `postButton()` method.
-</span></span><span id="113" class="l"><a href="#113">113: </a><span class="php-comment">     * Instead, to create a link with the appearance of a button, you should use the `button()` method provided by `MeHtmlHelper`.
+</span></span><span id="113" class="l"><a href="#113">113: </a><span class="php-comment">     * Instead, to create a link with the appearance of a button, you should use the `button()` method provided by `HtmlHelper`.
 </span></span><span id="114" class="l"><a href="#114">114: </a><span class="php-comment">     * @param string $title The button label or an image
 </span></span><span id="115" class="l"><a href="#115">115: </a><span class="php-comment">     * @param array $options HTML attributes and options
 </span></span><span id="116" class="l"><a href="#116">116: </a><span class="php-comment">     * @return string Html code
-</span></span><span id="117" class="l"><a href="#117">117: </a><span class="php-comment">     * @see postButton(), MeHtmlHelper::button()
-</span></span><span id="118" class="l"><a href="#118">118: </a><span class="php-comment">     * @uses MeTools\View\Helper\MeHtmlHelper::_addButtonClass()
-</span></span><span id="119" class="l"><a href="#119">119: </a><span class="php-comment">     * @uses MeTools\View\Helper\MeHtmlHelper::_addIcon()
+</span></span><span id="117" class="l"><a href="#117">117: </a><span class="php-comment">     * @see postButton(), HtmlHelper::button()
+</span></span><span id="118" class="l"><a href="#118">118: </a><span class="php-comment">     * @uses MeTools\View\Helper\HtmlHelper::_addButtonClass()
+</span></span><span id="119" class="l"><a href="#119">119: </a><span class="php-comment">     * @uses MeTools\View\Helper\HtmlHelper::_addIcon()
 </span></span><span id="120" class="l"><a href="#120">120: </a><span class="php-comment">     */</span>
 </span><span id="121" class="l"><a href="#121">121: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> button(<span class="php-var">$title</span>, <span class="php-keyword1">array</span> <span class="php-var">$options</span> = []) {
 </span><span id="122" class="l"><a href="#122">122: </a>        <span class="php-var">$options</span> = addDefault(<span class="php-quote">'type'</span>, <span class="php-quote">'button'</span>, <span class="php-var">$options</span>);
@@ -401,7 +401,7 @@
 </span></span><span id="255" class="l"><a href="#255">255: </a><span class="php-comment">     * @param string $fieldName Field name, should be &quot;Modelname.fieldname&quot;
 </span></span><span id="256" class="l"><a href="#256">256: </a><span class="php-comment">     * @param array $options HTML attributes and options
 </span></span><span id="257" class="l"><a href="#257">257: </a><span class="php-comment">     * @return string Html code
-</span></span><span id="258" class="l"><a href="#258">258: </a><span class="php-comment">     * @uses MeTools\View\Helper\MeHtmlHelper::span()
+</span></span><span id="258" class="l"><a href="#258">258: </a><span class="php-comment">     * @uses MeTools\View\Helper\HtmlHelper::span()
 </span></span><span id="259" class="l"><a href="#259">259: </a><span class="php-comment">     */</span>
 </span><span id="260" class="l"><a href="#260">260: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> input(<span class="php-var">$fieldName</span>, <span class="php-keyword1">array</span> <span class="php-var">$options</span> = []) {
 </span><span id="261" class="l"><a href="#261">261: </a>        <span class="php-comment">//Gets the input type</span>
@@ -474,7 +474,7 @@
 </span></span><span id="328" class="l"><a href="#328">328: </a><span class="php-comment">     * @param string $text Text that will appear in the label field. If is left undefined the text will be inflected from the fieldName
 </span></span><span id="329" class="l"><a href="#329">329: </a><span class="php-comment">     * @param array|string $options HTML attributes, or a string to be used as a class name
 </span></span><span id="330" class="l"><a href="#330">330: </a><span class="php-comment">     * @return string Html code
-</span></span><span id="331" class="l"><a href="#331">331: </a><span class="php-comment">     * @uses MeTools\View\Helper\MeHtmlHelper::_addIcon()
+</span></span><span id="331" class="l"><a href="#331">331: </a><span class="php-comment">     * @uses MeTools\View\Helper\HtmlHelper::_addIcon()
 </span></span><span id="332" class="l"><a href="#332">332: </a><span class="php-comment">     */</span>
 </span><span id="333" class="l"><a href="#333">333: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> label(<span class="php-var">$fieldName</span>, <span class="php-var">$text</span> = <span class="php-keyword1">NULL</span>, <span class="php-keyword1">array</span> <span class="php-var">$options</span> = []) {
 </span><span id="334" class="l"><a href="#334">334: </a>        <span class="php-var">$options</span> = addDefault(<span class="php-quote">'escape'</span>, <span class="php-keyword1">FALSE</span>, <span class="php-var">$options</span>);
@@ -490,7 +490,7 @@
 </span></span><span id="344" class="l"><a href="#344">344: </a><span class="php-comment">     * @param string $text Legend text
 </span></span><span id="345" class="l"><a href="#345">345: </a><span class="php-comment">     * @param array $options HTML attributes and options
 </span></span><span id="346" class="l"><a href="#346">346: </a><span class="php-comment">     * @return string Html code
-</span></span><span id="347" class="l"><a href="#347">347: </a><span class="php-comment">     * @uses MeTools\View\Helper\MeHtmlHelper::tag()
+</span></span><span id="347" class="l"><a href="#347">347: </a><span class="php-comment">     * @uses MeTools\View\Helper\HtmlHelper::tag()
 </span></span><span id="348" class="l"><a href="#348">348: </a><span class="php-comment">     */</span>
 </span><span id="349" class="l"><a href="#349">349: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> legend(<span class="php-var">$text</span>, <span class="php-keyword1">array</span> <span class="php-var">$options</span> = []) {
 </span><span id="350" class="l"><a href="#350">350: </a>        <span class="php-keyword1">return</span> <span class="php-var">$this</span>-&gt;Html-&gt;tag(<span class="php-quote">'legend'</span>, <span class="php-var">$text</span>, <span class="php-var">$options</span>);
@@ -502,12 +502,12 @@
 </span></span><span id="356" class="l"><a href="#356">356: </a><span class="php-comment">     * This method creates a button in a form element. So don't use this method in an already opened form.
 </span></span><span id="357" class="l"><a href="#357">357: </a><span class="php-comment">     * 
 </span></span><span id="358" class="l"><a href="#358">358: </a><span class="php-comment">     * To create a normal button, you should use the `button()` method.
-</span></span><span id="359" class="l"><a href="#359">359: </a><span class="php-comment">     * To create a button with the appearance of a link, you should use the `button()` method provided by the `MeHtmlHelper`.
+</span></span><span id="359" class="l"><a href="#359">359: </a><span class="php-comment">     * To create a button with the appearance of a link, you should use the `button()` method provided by the `HtmlHelper`.
 </span></span><span id="360" class="l"><a href="#360">360: </a><span class="php-comment">     * @param string $title Button title
 </span></span><span id="361" class="l"><a href="#361">361: </a><span class="php-comment">     * @param string|array $url Cake-relative URL or array of URL parameters or external URL
 </span></span><span id="362" class="l"><a href="#362">362: </a><span class="php-comment">     * @param array $options Array of options and HTML attributes
 </span></span><span id="363" class="l"><a href="#363">363: </a><span class="php-comment">     * @return string Html code
-</span></span><span id="364" class="l"><a href="#364">364: </a><span class="php-comment">     * @uses MeTools\View\Helper\MeHtmlHelper::_addButtonClass()
+</span></span><span id="364" class="l"><a href="#364">364: </a><span class="php-comment">     * @uses MeTools\View\Helper\HtmlHelper::_addButtonClass()
 </span></span><span id="365" class="l"><a href="#365">365: </a><span class="php-comment">     * @uses postLink()
 </span></span><span id="366" class="l"><a href="#366">366: </a><span class="php-comment">     */</span>
 </span><span id="367" class="l"><a href="#367">367: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> postButton(<span class="php-var">$title</span>, <span class="php-var">$url</span>, <span class="php-keyword1">array</span> <span class="php-var">$options</span> = []) {
@@ -522,12 +522,12 @@
 </span></span><span id="376" class="l"><a href="#376">376: </a><span class="php-comment">     * 
 </span></span><span id="377" class="l"><a href="#377">377: </a><span class="php-comment">     * This method creates a link in a form element. So don't use this method in an already opened form.
 </span></span><span id="378" class="l"><a href="#378">378: </a><span class="php-comment">     *  
-</span></span><span id="379" class="l"><a href="#379">379: </a><span class="php-comment">     * To create a normal link, you should use the `link()` method of the `MeHtmlHelper`.
+</span></span><span id="379" class="l"><a href="#379">379: </a><span class="php-comment">     * To create a normal link, you should use the `link()` method of the `HtmlHelper`.
 </span></span><span id="380" class="l"><a href="#380">380: </a><span class="php-comment">     * @param string $title The content to be wrapped by &lt;a&gt; tags
 </span></span><span id="381" class="l"><a href="#381">381: </a><span class="php-comment">     * @param string|array $url Cake-relative URL or array of URL parameters or external URL
 </span></span><span id="382" class="l"><a href="#382">382: </a><span class="php-comment">     * @param array $options Array of options and HTML attributes
 </span></span><span id="383" class="l"><a href="#383">383: </a><span class="php-comment">     * @return string Html code
-</span></span><span id="384" class="l"><a href="#384">384: </a><span class="php-comment">     * @uses MeTools\View\Helper\MeHtmlHelper::_addIcon()
+</span></span><span id="384" class="l"><a href="#384">384: </a><span class="php-comment">     * @uses MeTools\View\Helper\HtmlHelper::_addIcon()
 </span></span><span id="385" class="l"><a href="#385">385: </a><span class="php-comment">     */</span>
 </span><span id="386" class="l"><a href="#386">386: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> postLink(<span class="php-var">$title</span>, <span class="php-var">$url</span> = <span class="php-keyword1">NULL</span>, <span class="php-keyword1">array</span> <span class="php-var">$options</span> = []) {
 </span><span id="387" class="l"><a href="#387">387: </a>        <span class="php-var">$title</span> = <span class="php-var">$this</span>-&gt;Html-&gt;_addIcon(<span class="php-var">$title</span>, <span class="php-var">$options</span>);
@@ -597,6 +597,6 @@
 </div>
 </div>
 <script src="resources/combined.js?cd021bc814832c24a7cec5319ea03335bfba1caf"></script>
-<script src="elementlist.js?f2fbc09c0f549bd2a5e5f06126fe9b97bcc1ec75"></script>
+<script src="elementlist.js?092eb0c5739a2293959e77d72d025d00b1cb3db0"></script>
 </body>
 </html>

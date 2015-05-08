@@ -95,12 +95,12 @@
 				<li><a href="class-MeTools.Utility.Unix.html">MeTools\Utility\Unix</a></li>
 				<li><a href="class-MeTools.View.EmailView.html">MeTools\View\EmailView</a></li>
 				<li><a href="class-MeTools.View.Helper.DropdownHelper.html">MeTools\View\Helper\DropdownHelper</a></li>
+				<li><a href="class-MeTools.View.Helper.FormHelper.html">MeTools\View\Helper\FormHelper</a></li>
+				<li><a href="class-MeTools.View.Helper.HtmlHelper.html">MeTools\View\Helper\HtmlHelper</a></li>
 				<li><a href="class-MeTools.View.Helper.LayoutHelper.html">MeTools\View\Helper\LayoutHelper</a></li>
 				<li><a href="class-MeTools.View.Helper.LibraryHelper.html">MeTools\View\Helper\LibraryHelper</a></li>
 				<li><a href="class-MeTools.View.Helper.MarkdownHelper.html">MeTools\View\Helper\MarkdownHelper</a></li>
-				<li><a href="class-MeTools.View.Helper.MeFormHelper.html">MeTools\View\Helper\MeFormHelper</a></li>
-				<li><a href="class-MeTools.View.Helper.MeHtmlHelper.html">MeTools\View\Helper\MeHtmlHelper</a></li>
-				<li><a href="class-MeTools.View.Helper.MePaginatorHelper.html">MeTools\View\Helper\MePaginatorHelper</a></li>
+				<li><a href="class-MeTools.View.Helper.PaginatorHelper.html">MeTools\View\Helper\PaginatorHelper</a></li>
 				<li><a href="class-MeTools.View.Helper.RecaptchaHelper.html">MeTools\View\Helper\RecaptchaHelper</a></li>
 				<li><a href="class-MeTools.View.Helper.ThumbHelper.html">MeTools\View\Helper\ThumbHelper</a></li>
 			</ul>
@@ -181,14 +181,14 @@
 </span></span><span id="35" class="l"><a href="#35">35: </a><span class="php-comment">     * Helpers
 </span></span><span id="36" class="l"><a href="#36">36: </a><span class="php-comment">     * @var array
 </span></span><span id="37" class="l"><a href="#37">37: </a><span class="php-comment">     */</span>
-</span><span id="38" class="l"><a href="#38">38: </a>    <span class="php-keyword1">public</span> <span class="php-var">$helpers</span> = [<span class="php-quote">'Html'</span> =&gt; [<span class="php-quote">'className'</span> =&gt; <span class="php-quote">'MeTools.MeHtml'</span>]];
+</span><span id="38" class="l"><a href="#38">38: </a>    <span class="php-keyword1">public</span> <span class="php-var">$helpers</span> = [<span class="php-quote">'Html'</span> =&gt; [<span class="php-quote">'className'</span> =&gt; <span class="php-quote">'MeTools.Html'</span>]];
 </span><span id="39" class="l"><a href="#39">39: </a>    
 </span><span id="40" class="l"><a href="#40">40: </a>    <span class="php-comment">/**
 </span></span><span id="41" class="l"><a href="#41">41: </a><span class="php-comment">     * Adds the `viewport` meta tag as required by Bootstrap.
 </span></span><span id="42" class="l"><a href="#42">42: </a><span class="php-comment">     * @param bool $zooming Enabled or disabled zooming capabilities on mobile devices
 </span></span><span id="43" class="l"><a href="#43">43: </a><span class="php-comment">     * @return string Html code
 </span></span><span id="44" class="l"><a href="#44">44: </a><span class="php-comment">     * @see http://getbootstrap.com/css/#overview-mobile Bootstrap documentation
-</span></span><span id="45" class="l"><a href="#45">45: </a><span class="php-comment">     * @uses MeTools\View\Helper\MeHtmlHelper::meta()
+</span></span><span id="45" class="l"><a href="#45">45: </a><span class="php-comment">     * @uses MeTools\View\Helper\HtmlHelper::meta()
 </span></span><span id="46" class="l"><a href="#46">46: </a><span class="php-comment">     */</span>
 </span><span id="47" class="l"><a href="#47">47: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> viewport(<span class="php-var">$zooming</span> = <span class="php-keyword1">FALSE</span>) {
 </span><span id="48" class="l"><a href="#48">48: </a>        <span class="php-var">$content</span> = <span class="php-quote">'width=device-width, initial-scale=1'</span>;
@@ -206,6 +206,6 @@
 </div>
 </div>
 <script src="resources/combined.js?cd021bc814832c24a7cec5319ea03335bfba1caf"></script>
-<script src="elementlist.js?f2fbc09c0f549bd2a5e5f06126fe9b97bcc1ec75"></script>
+<script src="elementlist.js?092eb0c5739a2293959e77d72d025d00b1cb3db0"></script>
 </body>
 </html>

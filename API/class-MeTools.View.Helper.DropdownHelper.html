@@ -80,12 +80,12 @@
 			<h3>Classes</h3>
 			<ul>
 				<li class="active"><a href="class-MeTools.View.Helper.DropdownHelper.html">DropdownHelper</a></li>
+				<li><a href="class-MeTools.View.Helper.FormHelper.html">FormHelper</a></li>
+				<li><a href="class-MeTools.View.Helper.HtmlHelper.html">HtmlHelper</a></li>
 				<li><a href="class-MeTools.View.Helper.LayoutHelper.html">LayoutHelper</a></li>
 				<li><a href="class-MeTools.View.Helper.LibraryHelper.html">LibraryHelper</a></li>
 				<li><a href="class-MeTools.View.Helper.MarkdownHelper.html">MarkdownHelper</a></li>
-				<li><a href="class-MeTools.View.Helper.MeFormHelper.html">MeFormHelper</a></li>
-				<li><a href="class-MeTools.View.Helper.MeHtmlHelper.html">MeHtmlHelper</a></li>
-				<li><a href="class-MeTools.View.Helper.MePaginatorHelper.html">MePaginatorHelper</a></li>
+				<li><a href="class-MeTools.View.Helper.PaginatorHelper.html">PaginatorHelper</a></li>
 				<li><a href="class-MeTools.View.Helper.RecaptchaHelper.html">RecaptchaHelper</a></li>
 				<li><a href="class-MeTools.View.Helper.ThumbHelper.html">ThumbHelper</a></li>
 			</ul>
@@ -222,7 +222,7 @@ Cake\View\Helper
 				</div>
 				<h4>Uses</h4>
 				<div class="list">
-						<code><a href="class-MeTools.View.Helper.MeHtmlHelper.html#_icon">MeTools\View\Helper\MeHtmlHelper::icon()</a></code><br>
+						<code><a href="class-MeTools.View.Helper.HtmlHelper.html#_icon">MeTools\View\Helper\HtmlHelper::icon()</a></code><br>
 				</div>
 				<h4>Used by</h4>
 				<div class="list">
@@ -279,7 +279,7 @@ Cake\View\Helper
 				</div>
 				<h4>Uses</h4>
 				<div class="list">
-						<code><a href="class-MeTools.View.Helper.MeHtmlHelper.html#_button">MeTools\View\Helper\MeHtmlHelper::button()</a></code><br>
+						<code><a href="class-MeTools.View.Helper.HtmlHelper.html#_button">MeTools\View\Helper\HtmlHelper::button()</a></code><br>
 						<code><a href="class-MeTools.View.Helper.DropdownHelper.html#___parseLink">MeTools\View\Helper\DropdownHelper::__parseLink()</a></code><br>
 				</div>
 
@@ -315,7 +315,7 @@ To create a full dropdown menu, you should use the <code>menu()</code> method.</
 				<h4>Parameters</h4>
 				<div class="list"><dl>
 					<dt><var>$links</var></dt>
-					<dd>Array of links for the dropdown (you should use the <code>MeHtmlHelper::link()</code> method for each link)</dd>
+					<dd>Array of links for the dropdown (you should use the <code>HtmlHelper::link()</code> method for each link)</dd>
 					<dt><var>$options</var></dt>
 					<dd>Options for the dropdown (<code>&lt;ul&gt;</code> element)</dd>
 					<dt><var>$itemOptions</var></dt>
@@ -335,7 +335,7 @@ To create a full dropdown menu, you should use the <code>menu()</code> method.</
 				</div>
 				<h4>Uses</h4>
 				<div class="list">
-						<code><a href="class-MeTools.View.Helper.MeHtmlHelper.html#_ul">MeTools\View\Helper\MeHtmlHelper::ul()</a></code><br>
+						<code><a href="class-MeTools.View.Helper.HtmlHelper.html#_ul">MeTools\View\Helper\HtmlHelper::ul()</a></code><br>
 				</div>
 				<h4>Used by</h4>
 				<div class="list">
@@ -391,7 +391,7 @@ To create a full dropdown menu, you should use the <code>menu()</code> method.</
 				</div>
 				<h4>Uses</h4>
 				<div class="list">
-						<code><a href="class-MeTools.View.Helper.MeHtmlHelper.html#_link">MeTools\View\Helper\MeHtmlHelper::link()</a></code><br>
+						<code><a href="class-MeTools.View.Helper.HtmlHelper.html#_link">MeTools\View\Helper\HtmlHelper::link()</a></code><br>
 						<code><a href="class-MeTools.View.Helper.DropdownHelper.html#___parseLink">MeTools\View\Helper\DropdownHelper::__parseLink()</a></code><br>
 				</div>
 				<h4>Used by</h4>
@@ -450,7 +450,7 @@ To create a full dropdown menu, you should use the <code>menu()</code> method.</
 					<dt><var>$titleOptions</var></dt>
 					<dd>Array of options and HTML attributes</dd>
 					<dt><var>$links</var></dt>
-					<dd>Array of links for the dropdown (you should use the <code>MeHtmlHelper::link()</code> method for each link)</dd>
+					<dd>Array of links for the dropdown (you should use the <code>HtmlHelper::link()</code> method for each link)</dd>
 					<dt><var>$dropdownOptions</var></dt>
 					<dd>Options for the dropdown (<code>&lt;ul&gt;</code> element)</dd>
 					<dt><var>$itemOptions</var></dt>
@@ -509,7 +509,7 @@ To create a full dropdown menu, you should use the <code>menu()</code> method.</
 		<td class="value">
 			<div>
 				<a href="#$helpers" class="anchor">#</a>
-				<code>[<span class="php-quote">'Html'</span> =&gt; [<span class="php-quote">'className'</span> =&gt; <span class="php-quote">'MeTools.MeHtml'</span>]]</code>
+				<code>[<span class="php-quote">'Html'</span> =&gt; [<span class="php-quote">'className'</span> =&gt; <span class="php-quote">'MeTools.Html'</span>]]</code>
 			</div>
 		</td>
 	</tr>

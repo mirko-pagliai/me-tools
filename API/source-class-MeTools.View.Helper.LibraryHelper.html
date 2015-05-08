@@ -95,12 +95,12 @@
 				<li><a href="class-MeTools.Utility.Unix.html">MeTools\Utility\Unix</a></li>
 				<li><a href="class-MeTools.View.EmailView.html">MeTools\View\EmailView</a></li>
 				<li><a href="class-MeTools.View.Helper.DropdownHelper.html">MeTools\View\Helper\DropdownHelper</a></li>
+				<li><a href="class-MeTools.View.Helper.FormHelper.html">MeTools\View\Helper\FormHelper</a></li>
+				<li><a href="class-MeTools.View.Helper.HtmlHelper.html">MeTools\View\Helper\HtmlHelper</a></li>
 				<li><a href="class-MeTools.View.Helper.LayoutHelper.html">MeTools\View\Helper\LayoutHelper</a></li>
 				<li><a href="class-MeTools.View.Helper.LibraryHelper.html">MeTools\View\Helper\LibraryHelper</a></li>
 				<li><a href="class-MeTools.View.Helper.MarkdownHelper.html">MeTools\View\Helper\MarkdownHelper</a></li>
-				<li><a href="class-MeTools.View.Helper.MeFormHelper.html">MeTools\View\Helper\MeFormHelper</a></li>
-				<li><a href="class-MeTools.View.Helper.MeHtmlHelper.html">MeTools\View\Helper\MeHtmlHelper</a></li>
-				<li><a href="class-MeTools.View.Helper.MePaginatorHelper.html">MeTools\View\Helper\MePaginatorHelper</a></li>
+				<li><a href="class-MeTools.View.Helper.PaginatorHelper.html">MeTools\View\Helper\PaginatorHelper</a></li>
 				<li><a href="class-MeTools.View.Helper.RecaptchaHelper.html">MeTools\View\Helper\RecaptchaHelper</a></li>
 				<li><a href="class-MeTools.View.Helper.ThumbHelper.html">MeTools\View\Helper\ThumbHelper</a></li>
 			</ul>
@@ -182,7 +182,7 @@
 </span></span><span id="36" class="l"><a href="#36"> 36: </a><span class="php-comment">     * Helpers
 </span></span><span id="37" class="l"><a href="#37"> 37: </a><span class="php-comment">     * @var array
 </span></span><span id="38" class="l"><a href="#38"> 38: </a><span class="php-comment">     */</span>
-</span><span id="39" class="l"><a href="#39"> 39: </a>    <span class="php-keyword1">public</span> <span class="php-var">$helpers</span> = [<span class="php-quote">'Html'</span> =&gt; [<span class="php-quote">'className'</span> =&gt; <span class="php-quote">'MeTools.MeHtml'</span>]];
+</span><span id="39" class="l"><a href="#39"> 39: </a>    <span class="php-keyword1">public</span> <span class="php-var">$helpers</span> = [<span class="php-quote">'Html'</span> =&gt; [<span class="php-quote">'className'</span> =&gt; <span class="php-quote">'MeTools.Html'</span>]];
 </span><span id="40" class="l"><a href="#40"> 40: </a>    
 </span><span id="41" class="l"><a href="#41"> 41: </a>    <span class="php-comment">/**
 </span></span><span id="42" class="l"><a href="#42"> 42: </a><span class="php-comment">     * It will contain the output code
@@ -196,8 +196,8 @@
 </span></span><span id="50" class="l"><a href="#50"> 50: </a><span class="php-comment">     * @param array $options Options for the datepicker
 </span></span><span id="51" class="l"><a href="#51"> 51: </a><span class="php-comment">     * @return string jQuery code
 </span></span><span id="52" class="l"><a href="#52"> 52: </a><span class="php-comment">     * @see http://eonasdan.github.io/bootstrap-datetimepicker Bootstrap 3 Datepicker v4 documentation
-</span></span><span id="53" class="l"><a href="#53"> 53: </a><span class="php-comment">     * @uses MeTools\View\Helper\MeHtmlHelper::css()
-</span></span><span id="54" class="l"><a href="#54"> 54: </a><span class="php-comment">     * @uses MeTools\View\Helper\MeHtmlHelper::js()
+</span></span><span id="53" class="l"><a href="#53"> 53: </a><span class="php-comment">     * @uses MeTools\View\Helper\HtmlHelper::css()
+</span></span><span id="54" class="l"><a href="#54"> 54: </a><span class="php-comment">     * @uses MeTools\View\Helper\HtmlHelper::js()
 </span></span><span id="55" class="l"><a href="#55"> 55: </a><span class="php-comment">     */</span>
 </span><span id="56" class="l"><a href="#56"> 56: </a>    <span class="php-keyword1">protected</span> <span class="php-keyword1">function</span> _datetimepicker(<span class="php-var">$input</span>, <span class="php-keyword1">array</span> <span class="php-var">$options</span> = []) {
 </span><span id="57" class="l"><a href="#57"> 57: </a>        <span class="php-var">$this</span>-&gt;Html-&gt;js([
@@ -236,7 +236,7 @@
 </span></span><span id="90" class="l"><a href="#90"> 90: </a><span class="php-comment">     * Before layout callback. beforeLayout is called before the layout is rendered.
 </span></span><span id="91" class="l"><a href="#91"> 91: </a><span class="php-comment">     * @param \Cake\Event\Event $event An Event instance
 </span></span><span id="92" class="l"><a href="#92"> 92: </a><span class="php-comment">     * @param string $layoutFile The layout about to be rendered
-</span></span><span id="93" class="l"><a href="#93"> 93: </a><span class="php-comment">     * @uses MeTools\View\Helper\MeHtmlHelper::scriptBlock()
+</span></span><span id="93" class="l"><a href="#93"> 93: </a><span class="php-comment">     * @uses MeTools\View\Helper\HtmlHelper::scriptBlock()
 </span></span><span id="94" class="l"><a href="#94"> 94: </a><span class="php-comment">     * @uses output
 </span></span><span id="95" class="l"><a href="#95"> 95: </a><span class="php-comment">     */</span>
 </span><span id="96" class="l"><a href="#96"> 96: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> beforeLayout(\Cake\Event\Event <span class="php-var">$event</span>, <span class="php-var">$layoutFile</span>) {
@@ -256,7 +256,7 @@
 </span><span id="110" class="l"><a href="#110">110: </a>    <span class="php-comment">/**
 </span></span><span id="111" class="l"><a href="#111">111: </a><span class="php-comment">     * Create a script block for Google Analytics
 </span></span><span id="112" class="l"><a href="#112">112: </a><span class="php-comment">     * @param string $id Analytics ID
-</span></span><span id="113" class="l"><a href="#113">113: </a><span class="php-comment">     * @uses MeTools\View\Helper\MeHtmlHelper::scriptBlock()
+</span></span><span id="113" class="l"><a href="#113">113: </a><span class="php-comment">     * @uses MeTools\View\Helper\HtmlHelper::scriptBlock()
 </span></span><span id="114" class="l"><a href="#114">114: </a><span class="php-comment">     * @return mixed Html code or NULL if is localhost
 </span></span><span id="115" class="l"><a href="#115">115: </a><span class="php-comment">     */</span>
 </span><span id="116" class="l"><a href="#116">116: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> analytics(<span class="php-var">$id</span>) {
@@ -273,12 +273,12 @@
 </span></span><span id="127" class="l"><a href="#127">127: </a><span class="php-comment">     * 
 </span></span><span id="128" class="l"><a href="#128">128: </a><span class="php-comment">     * CKEditor must be located into `APP/webroot/ckeditor` or `APP/webroot/js/ckeditor`.
 </span></span><span id="129" class="l"><a href="#129">129: </a><span class="php-comment">     * 
-</span></span><span id="130" class="l"><a href="#130">130: </a><span class="php-comment">     * To create an input field for CKEditor, you should use the `ckeditor()` method provided by the `MeFormHelper`.
+</span></span><span id="130" class="l"><a href="#130">130: </a><span class="php-comment">     * To create an input field for CKEditor, you should use the `ckeditor()` method provided by the `FormHelper`.
 </span></span><span id="131" class="l"><a href="#131">131: </a><span class="php-comment">     * @param bool $jquery FALSE if you don't want to use the jQuery adapter
 </span></span><span id="132" class="l"><a href="#132">132: </a><span class="php-comment">     * @return bool
-</span></span><span id="133" class="l"><a href="#133">133: </a><span class="php-comment">     * @see MeTools\View\Helper\MeFormHelper::ckeditor()
+</span></span><span id="133" class="l"><a href="#133">133: </a><span class="php-comment">     * @see MeTools\View\Helper\FormHelper::ckeditor()
 </span></span><span id="134" class="l"><a href="#134">134: </a><span class="php-comment">     * @see http://docs.cksource.com CKEditor documentation
-</span></span><span id="135" class="l"><a href="#135">135: </a><span class="php-comment">     * @uses MeTools\View\Helper\MeHtmlHelper::js()
+</span></span><span id="135" class="l"><a href="#135">135: </a><span class="php-comment">     * @uses MeTools\View\Helper\HtmlHelper::js()
 </span></span><span id="136" class="l"><a href="#136">136: </a><span class="php-comment">     * @uses MeTools\Utility\Plugin::path()
 </span></span><span id="137" class="l"><a href="#137">137: </a><span class="php-comment">     */</span>
 </span><span id="138" class="l"><a href="#138">138: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> ckeditor(<span class="php-var">$jquery</span> = <span class="php-keyword1">TRUE</span>) {
@@ -318,10 +318,10 @@
 </span><span id="172" class="l"><a href="#172">172: </a>    <span class="php-comment">/**
 </span></span><span id="173" class="l"><a href="#173">173: </a><span class="php-comment">     * Adds a datepicker to the `$input` field.
 </span></span><span id="174" class="l"><a href="#174">174: </a><span class="php-comment">     * 
-</span></span><span id="175" class="l"><a href="#175">175: </a><span class="php-comment">     * To create an input field compatible with datepicker, you should use the `datepicker()` method provided by the `MeFormHelper`.
+</span></span><span id="175" class="l"><a href="#175">175: </a><span class="php-comment">     * To create an input field compatible with datepicker, you should use the `datepicker()` method provided by the `FormHelper`.
 </span></span><span id="176" class="l"><a href="#176">176: </a><span class="php-comment">     * @param string $input Target field. Default is `.datepicker`
 </span></span><span id="177" class="l"><a href="#177">177: </a><span class="php-comment">     * @param array $options Options for the datepicker
-</span></span><span id="178" class="l"><a href="#178">178: </a><span class="php-comment">     * @see MeTools\View\Helper\MeFormHelper::datepicker()
+</span></span><span id="178" class="l"><a href="#178">178: </a><span class="php-comment">     * @see MeTools\View\Helper\FormHelper::datepicker()
 </span></span><span id="179" class="l"><a href="#179">179: </a><span class="php-comment">     * @see http://eonasdan.github.io/bootstrap-datetimepicker Bootstrap 3 Datepicker v4 documentation
 </span></span><span id="180" class="l"><a href="#180">180: </a><span class="php-comment">     * @uses output
 </span></span><span id="181" class="l"><a href="#181">181: </a><span class="php-comment">     * @uses _datetimepicker()
@@ -337,10 +337,10 @@
 </span><span id="191" class="l"><a href="#191">191: </a>     <span class="php-comment">/**
 </span></span><span id="192" class="l"><a href="#192">192: </a><span class="php-comment">     * Adds a datetimepicker to the `$input` field.
 </span></span><span id="193" class="l"><a href="#193">193: </a><span class="php-comment">     * 
-</span></span><span id="194" class="l"><a href="#194">194: </a><span class="php-comment">     * To create an input field compatible with datetimepicker, you should use the `datetimepicker()` method provided by the `MeFormHelper`.
+</span></span><span id="194" class="l"><a href="#194">194: </a><span class="php-comment">     * To create an input field compatible with datetimepicker, you should use the `datetimepicker()` method provided by the `FormHelper`.
 </span></span><span id="195" class="l"><a href="#195">195: </a><span class="php-comment">     * @param string $input Target field. Default is `.datetimepicker`
 </span></span><span id="196" class="l"><a href="#196">196: </a><span class="php-comment">     * @param array $options Options for the datetimepicker
-</span></span><span id="197" class="l"><a href="#197">197: </a><span class="php-comment">     * @see MeTools\View\Helper\MeFormHelper::datetimepicker()
+</span></span><span id="197" class="l"><a href="#197">197: </a><span class="php-comment">     * @see MeTools\View\Helper\FormHelper::datetimepicker()
 </span></span><span id="198" class="l"><a href="#198">198: </a><span class="php-comment">     * @see http://eonasdan.github.io/bootstrap-datetimepicker Bootstrap 3 Datepicker v4 documentation
 </span></span><span id="199" class="l"><a href="#199">199: </a><span class="php-comment">     * @uses output
 </span></span><span id="200" class="l"><a href="#200">200: </a><span class="php-comment">     * @uses _datetimepicker()
@@ -357,8 +357,8 @@
 </span></span><span id="211" class="l"><a href="#211">211: </a><span class="php-comment">     * FancyBox must be located into `APP/webroot/fancybox`.
 </span></span><span id="212" class="l"><a href="#212">212: </a><span class="php-comment">     * @return bool
 </span></span><span id="213" class="l"><a href="#213">213: </a><span class="php-comment">     * @see http://fancyapps.com/fancybox/#docs FancyBox documentation
-</span></span><span id="214" class="l"><a href="#214">214: </a><span class="php-comment">     * @uses MeTools\View\Helper\MeHtmlHelper::css()
-</span></span><span id="215" class="l"><a href="#215">215: </a><span class="php-comment">     * @uses MeTools\View\Helper\MeHtmlHelper::js()
+</span></span><span id="214" class="l"><a href="#214">214: </a><span class="php-comment">     * @uses MeTools\View\Helper\HtmlHelper::css()
+</span></span><span id="215" class="l"><a href="#215">215: </a><span class="php-comment">     * @uses MeTools\View\Helper\HtmlHelper::js()
 </span></span><span id="216" class="l"><a href="#216">216: </a><span class="php-comment">     * @uses MeTools\Utility\Plugin::path()
 </span></span><span id="217" class="l"><a href="#217">217: </a><span class="php-comment">     */</span>
 </span><span id="218" class="l"><a href="#218">218: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> fancybox() {
@@ -398,7 +398,7 @@
 </span></span><span id="252" class="l"><a href="#252">252: </a><span class="php-comment">     * It reads the value of the `$sourceField` field and it sets its slug in the `$targetField`.
 </span></span><span id="253" class="l"><a href="#253">253: </a><span class="php-comment">     * @param string $sourceField Source field
 </span></span><span id="254" class="l"><a href="#254">254: </a><span class="php-comment">     * @param string $targetField Target field
-</span></span><span id="255" class="l"><a href="#255">255: </a><span class="php-comment">     * @uses MeTools\View\Helper\MeHtmlHelper::js()
+</span></span><span id="255" class="l"><a href="#255">255: </a><span class="php-comment">     * @uses MeTools\View\Helper\HtmlHelper::js()
 </span></span><span id="256" class="l"><a href="#256">256: </a><span class="php-comment">     * @uses output
 </span></span><span id="257" class="l"><a href="#257">257: </a><span class="php-comment">     */</span>
 </span><span id="258" class="l"><a href="#258">258: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> slugify(<span class="php-var">$sourceField</span> = <span class="php-quote">'form #title'</span>, <span class="php-var">$targetField</span> = <span class="php-quote">'form #slug'</span>) {
@@ -410,10 +410,10 @@
 </span><span id="264" class="l"><a href="#264">264: </a>    <span class="php-comment">/**
 </span></span><span id="265" class="l"><a href="#265">265: </a><span class="php-comment">     * Adds a timepicker to the `$input` field.
 </span></span><span id="266" class="l"><a href="#266">266: </a><span class="php-comment">     * 
-</span></span><span id="267" class="l"><a href="#267">267: </a><span class="php-comment">     * To create an input field compatible with datepicker, you should use the `timepicker()` method provided by the `MeFormHelper`.
+</span></span><span id="267" class="l"><a href="#267">267: </a><span class="php-comment">     * To create an input field compatible with datepicker, you should use the `timepicker()` method provided by the `FormHelper`.
 </span></span><span id="268" class="l"><a href="#268">268: </a><span class="php-comment">     * @param string $input Target field. Default is `.timepicker`
 </span></span><span id="269" class="l"><a href="#269">269: </a><span class="php-comment">     * @param array $options Options for the timepicker
-</span></span><span id="270" class="l"><a href="#270">270: </a><span class="php-comment">     * @see MeTools\View\Helper\MeFormHelper::timepicker()
+</span></span><span id="270" class="l"><a href="#270">270: </a><span class="php-comment">     * @see MeTools\View\Helper\FormHelper::timepicker()
 </span></span><span id="271" class="l"><a href="#271">271: </a><span class="php-comment">     * @see https://github.com/Eonasdan/bootstrap-datetimepicker Bootstrap v3 datetimepicker widget documentation
 </span></span><span id="272" class="l"><a href="#272">272: </a><span class="php-comment">     * @uses output
 </span></span><span id="273" class="l"><a href="#273">273: </a><span class="php-comment">     * @uses _datetimepicker()
@@ -433,6 +433,6 @@
 </div>
 </div>
 <script src="resources/combined.js?cd021bc814832c24a7cec5319ea03335bfba1caf"></script>
-<script src="elementlist.js?f2fbc09c0f549bd2a5e5f06126fe9b97bcc1ec75"></script>
+<script src="elementlist.js?092eb0c5739a2293959e77d72d025d00b1cb3db0"></script>
 </body>
 </html>

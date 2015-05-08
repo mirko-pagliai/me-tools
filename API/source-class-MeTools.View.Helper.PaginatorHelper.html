@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<meta name="robots" content="noindex">
 
-	<title>File Helper/MePaginatorHelper.php | MeTools API</title>
+	<title>File Helper/PaginatorHelper.php | MeTools API</title>
 
 	<link rel="stylesheet" href="resources/style.css?e99947befd7bf673c6b43ff75e9e0f170c88a60e">
 
@@ -95,12 +95,12 @@
 				<li><a href="class-MeTools.Utility.Unix.html">MeTools\Utility\Unix</a></li>
 				<li><a href="class-MeTools.View.EmailView.html">MeTools\View\EmailView</a></li>
 				<li><a href="class-MeTools.View.Helper.DropdownHelper.html">MeTools\View\Helper\DropdownHelper</a></li>
+				<li><a href="class-MeTools.View.Helper.FormHelper.html">MeTools\View\Helper\FormHelper</a></li>
+				<li><a href="class-MeTools.View.Helper.HtmlHelper.html">MeTools\View\Helper\HtmlHelper</a></li>
 				<li><a href="class-MeTools.View.Helper.LayoutHelper.html">MeTools\View\Helper\LayoutHelper</a></li>
 				<li><a href="class-MeTools.View.Helper.LibraryHelper.html">MeTools\View\Helper\LibraryHelper</a></li>
 				<li><a href="class-MeTools.View.Helper.MarkdownHelper.html">MeTools\View\Helper\MarkdownHelper</a></li>
-				<li><a href="class-MeTools.View.Helper.MeFormHelper.html">MeTools\View\Helper\MeFormHelper</a></li>
-				<li><a href="class-MeTools.View.Helper.MeHtmlHelper.html">MeTools\View\Helper\MeHtmlHelper</a></li>
-				<li><a href="class-MeTools.View.Helper.MePaginatorHelper.html">MeTools\View\Helper\MePaginatorHelper</a></li>
+				<li><a href="class-MeTools.View.Helper.PaginatorHelper.html">MeTools\View\Helper\PaginatorHelper</a></li>
 				<li><a href="class-MeTools.View.Helper.RecaptchaHelper.html">MeTools\View\Helper\RecaptchaHelper</a></li>
 				<li><a href="class-MeTools.View.Helper.ThumbHelper.html">MeTools\View\Helper\ThumbHelper</a></li>
 			</ul>
@@ -169,7 +169,7 @@
 </span></span><span id="23" class="l"><a href="#23">23: </a><span class="php-comment"> */</span>
 </span><span id="24" class="l"><a href="#24">24: </a><span class="php-keyword1">namespace</span> MeTools\View\Helper;
 </span><span id="25" class="l"><a href="#25">25: </a>
-</span><span id="26" class="l"><a href="#26">26: </a><span class="php-keyword1">use</span> Cake\View\Helper\PaginatorHelper;
+</span><span id="26" class="l"><a href="#26">26: </a><span class="php-keyword1">use</span> Cake\View\Helper\PaginatorHelper <span class="php-keyword1">as</span> CakePaginatorHelper;
 </span><span id="27" class="l"><a href="#27">27: </a><span class="php-keyword1">use</span> Cake\View\View;
 </span><span id="28" class="l"><a href="#28">28: </a>
 </span><span id="29" class="l"><a href="#29">29: </a><span class="php-comment">/**
@@ -179,15 +179,15 @@
 </span></span><span id="33" class="l"><a href="#33">33: </a><span class="php-comment"> * 
 </span></span><span id="34" class="l"><a href="#34">34: </a><span class="php-comment"> * You should use this helper as an alias, for example:
 </span></span><span id="35" class="l"><a href="#35">35: </a><span class="php-comment"> * &lt;code&gt;
-</span></span><span id="36" class="l"><a href="#36">36: </a><span class="php-comment"> * public $helpers = ['Form' =&gt; ['className' =&gt; 'MeTools.MePaginator']];
+</span></span><span id="36" class="l"><a href="#36">36: </a><span class="php-comment"> * public $helpers = ['Form' =&gt; ['className' =&gt; 'MeTools.Paginator']];
 </span></span><span id="37" class="l"><a href="#37">37: </a><span class="php-comment"> * &lt;/code&gt;
 </span></span><span id="38" class="l"><a href="#38">38: </a><span class="php-comment"> */</span>
-</span><span id="39" class="l"><a href="#39">39: </a><span class="php-keyword1">class</span> MePaginatorHelper <span class="php-keyword1">extends</span> PaginatorHelper {
+</span><span id="39" class="l"><a href="#39">39: </a><span class="php-keyword1">class</span> PaginatorHelper <span class="php-keyword1">extends</span> CakePaginatorHelper {
 </span><span id="40" class="l"><a href="#40">40: </a>    <span class="php-comment">/**
 </span></span><span id="41" class="l"><a href="#41">41: </a><span class="php-comment">     * Helpers
 </span></span><span id="42" class="l"><a href="#42">42: </a><span class="php-comment">     * @var array
 </span></span><span id="43" class="l"><a href="#43">43: </a><span class="php-comment">     */</span>
-</span><span id="44" class="l"><a href="#44">44: </a>    <span class="php-keyword1">public</span> <span class="php-var">$helpers</span> = [<span class="php-quote">'Url'</span>, <span class="php-quote">'Number'</span>, <span class="php-quote">'Html'</span> =&gt; [<span class="php-quote">'className'</span> =&gt; <span class="php-quote">'MeTools.MeHtml'</span>]];
+</span><span id="44" class="l"><a href="#44">44: </a>    <span class="php-keyword1">public</span> <span class="php-var">$helpers</span> = [<span class="php-quote">'Url'</span>, <span class="php-quote">'Number'</span>, <span class="php-quote">'Html'</span> =&gt; [<span class="php-quote">'className'</span> =&gt; <span class="php-quote">'MeTools.Html'</span>]];
 </span><span id="45" class="l"><a href="#45">45: </a>    
 </span><span id="46" class="l"><a href="#46">46: </a>    <span class="php-comment">/**
 </span></span><span id="47" class="l"><a href="#47">47: </a><span class="php-comment">     * Generates a &quot;next&quot; link for a set of paged records
@@ -226,6 +226,6 @@
 </div>
 </div>
 <script src="resources/combined.js?cd021bc814832c24a7cec5319ea03335bfba1caf"></script>
-<script src="elementlist.js?f2fbc09c0f549bd2a5e5f06126fe9b97bcc1ec75"></script>
+<script src="elementlist.js?092eb0c5739a2293959e77d72d025d00b1cb3db0"></script>
 </body>
 </html>

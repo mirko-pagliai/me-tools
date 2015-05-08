@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<meta name="robots" content="noindex">
 
-	<title>File Helper/MeHtmlHelper.php | MeTools API</title>
+	<title>File Helper/HtmlHelper.php | MeTools API</title>
 
 	<link rel="stylesheet" href="resources/style.css?e99947befd7bf673c6b43ff75e9e0f170c88a60e">
 
@@ -95,12 +95,12 @@
 				<li><a href="class-MeTools.Utility.Unix.html">MeTools\Utility\Unix</a></li>
 				<li><a href="class-MeTools.View.EmailView.html">MeTools\View\EmailView</a></li>
 				<li><a href="class-MeTools.View.Helper.DropdownHelper.html">MeTools\View\Helper\DropdownHelper</a></li>
+				<li><a href="class-MeTools.View.Helper.FormHelper.html">MeTools\View\Helper\FormHelper</a></li>
+				<li><a href="class-MeTools.View.Helper.HtmlHelper.html">MeTools\View\Helper\HtmlHelper</a></li>
 				<li><a href="class-MeTools.View.Helper.LayoutHelper.html">MeTools\View\Helper\LayoutHelper</a></li>
 				<li><a href="class-MeTools.View.Helper.LibraryHelper.html">MeTools\View\Helper\LibraryHelper</a></li>
 				<li><a href="class-MeTools.View.Helper.MarkdownHelper.html">MeTools\View\Helper\MarkdownHelper</a></li>
-				<li><a href="class-MeTools.View.Helper.MeFormHelper.html">MeTools\View\Helper\MeFormHelper</a></li>
-				<li><a href="class-MeTools.View.Helper.MeHtmlHelper.html">MeTools\View\Helper\MeHtmlHelper</a></li>
-				<li><a href="class-MeTools.View.Helper.MePaginatorHelper.html">MeTools\View\Helper\MePaginatorHelper</a></li>
+				<li><a href="class-MeTools.View.Helper.PaginatorHelper.html">MeTools\View\Helper\PaginatorHelper</a></li>
 				<li><a href="class-MeTools.View.Helper.RecaptchaHelper.html">MeTools\View\Helper\RecaptchaHelper</a></li>
 				<li><a href="class-MeTools.View.Helper.ThumbHelper.html">MeTools\View\Helper\ThumbHelper</a></li>
 			</ul>
@@ -169,7 +169,7 @@
 </span></span><span id="23" class="l"><a href="#23"> 23: </a><span class="php-comment"> */</span>
 </span><span id="24" class="l"><a href="#24"> 24: </a><span class="php-keyword1">namespace</span> MeTools\View\Helper;
 </span><span id="25" class="l"><a href="#25"> 25: </a>
-</span><span id="26" class="l"><a href="#26"> 26: </a><span class="php-keyword1">use</span> Cake\View\Helper\HtmlHelper;
+</span><span id="26" class="l"><a href="#26"> 26: </a><span class="php-keyword1">use</span> Cake\View\Helper\HtmlHelper <span class="php-keyword1">as</span> CakeHtmlHelper;
 </span><span id="27" class="l"><a href="#27"> 27: </a><span class="php-keyword1">use</span> Cake\View\View;
 </span><span id="28" class="l"><a href="#28"> 28: </a>
 </span><span id="29" class="l"><a href="#29"> 29: </a><span class="php-comment">/**
@@ -179,10 +179,10 @@
 </span></span><span id="33" class="l"><a href="#33"> 33: </a><span class="php-comment"> * 
 </span></span><span id="34" class="l"><a href="#34"> 34: </a><span class="php-comment"> * You should use this helper as an alias, for example:
 </span></span><span id="35" class="l"><a href="#35"> 35: </a><span class="php-comment"> * &lt;code&gt;
-</span></span><span id="36" class="l"><a href="#36"> 36: </a><span class="php-comment"> * public $helpers = ['Html' =&gt; ['className' =&gt; 'MeTools.MeHtml']];
+</span></span><span id="36" class="l"><a href="#36"> 36: </a><span class="php-comment"> * public $helpers = ['Html' =&gt; ['className' =&gt; 'MeTools.Html']];
 </span></span><span id="37" class="l"><a href="#37"> 37: </a><span class="php-comment"> * &lt;/code&gt;
 </span></span><span id="38" class="l"><a href="#38"> 38: </a><span class="php-comment"> */</span>
-</span><span id="39" class="l"><a href="#39"> 39: </a><span class="php-keyword1">class</span> MeHtmlHelper <span class="php-keyword1">extends</span> HtmlHelper {
+</span><span id="39" class="l"><a href="#39"> 39: </a><span class="php-keyword1">class</span> HtmlHelper <span class="php-keyword1">extends</span> CakeHtmlHelper {
 </span><span id="40" class="l"><a href="#40"> 40: </a>    <span class="php-comment">/**
 </span></span><span id="41" class="l"><a href="#41"> 41: </a><span class="php-comment">     * Method that is called automatically when the method doesn't exist.
 </span></span><span id="42" class="l"><a href="#42"> 42: </a><span class="php-comment">     * 
@@ -265,8 +265,8 @@
 </span></span><span id="119" class="l"><a href="#119">119: </a><span class="php-comment">     * Creates a link with the appearance of a button.
 </span></span><span id="120" class="l"><a href="#120">120: </a><span class="php-comment">     * 
 </span></span><span id="121" class="l"><a href="#121">121: </a><span class="php-comment">     * This method creates a link with the appearance of a button.
-</span></span><span id="122" class="l"><a href="#122">122: </a><span class="php-comment">     * To create a POST button, you should use the `postButton()` method provided by `MeFormHelper`.
-</span></span><span id="123" class="l"><a href="#123">123: </a><span class="php-comment">     * Instead, to create a normal button, you should use the `button()` method provided by `MeFormHelper`.
+</span></span><span id="122" class="l"><a href="#122">122: </a><span class="php-comment">     * To create a POST button, you should use the `postButton()` method provided by `FormHelper`.
+</span></span><span id="123" class="l"><a href="#123">123: </a><span class="php-comment">     * Instead, to create a normal button, you should use the `button()` method provided by `FormHelper`.
 </span></span><span id="124" class="l"><a href="#124">124: </a><span class="php-comment">     * @param string $title Button title
 </span></span><span id="125" class="l"><a href="#125">125: </a><span class="php-comment">     * @param string|array $url Cake-relative URL or array of URL parameters or external URL
 </span></span><span id="126" class="l"><a href="#126">126: </a><span class="php-comment">     * @param array $options Array of options and HTML attributes
@@ -428,7 +428,7 @@
 </span></span><span id="282" class="l"><a href="#282">282: </a><span class="php-comment">     * Create a label, according to the Bootstrap component.
 </span></span><span id="283" class="l"><a href="#283">283: </a><span class="php-comment">     * 
 </span></span><span id="284" class="l"><a href="#284">284: </a><span class="php-comment">     * This method creates only a label element. Not to be confused with the `label()` method provided by 
-</span></span><span id="285" class="l"><a href="#285">285: </a><span class="php-comment">     * the `MeFormhelper`, which creates a label for a form input.
+</span></span><span id="285" class="l"><a href="#285">285: </a><span class="php-comment">     * the `Formhelper`, which creates a label for a form input.
 </span></span><span id="286" class="l"><a href="#286">286: </a><span class="php-comment">     * 
 </span></span><span id="287" class="l"><a href="#287">287: </a><span class="php-comment">     * Supported type are: `default`, `primary`, `success`, `info`, `warning` and `danger`.
 </span></span><span id="288" class="l"><a href="#288">288: </a><span class="php-comment">     * @param string $text Label text
@@ -685,6 +685,6 @@
 </div>
 </div>
 <script src="resources/combined.js?cd021bc814832c24a7cec5319ea03335bfba1caf"></script>
-<script src="elementlist.js?f2fbc09c0f549bd2a5e5f06126fe9b97bcc1ec75"></script>
+<script src="elementlist.js?092eb0c5739a2293959e77d72d025d00b1cb3db0"></script>
 </body>
 </html>
