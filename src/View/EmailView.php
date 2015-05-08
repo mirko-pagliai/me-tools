@@ -37,7 +37,7 @@ class EmailView extends View {
 	 * @see http://api.cakephp.org/3.0/class-Cake.View.View.html#_render
      * @throws Cake\Core\Exception\Exception
 	 * @uses Cake\View\View::render()
-	 * @uses MeTools\Network\MeRequest::clientIp()
+	 * @uses MeTools\Network\Request::clientIp()
 	 */
 	public function render($view = NULL, $layout = NULL) {
 		//Sets some view vars

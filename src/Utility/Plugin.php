@@ -22,18 +22,13 @@
  */
 namespace MeTools\Utility;
 
-use Cake\Core\Plugin;
+use Cake\Core\Plugin as CakePlugin;
 use Cake\Filesystem\Folder;
 
 /**
- * An utility to handle plugins.
- * 
- * You can use this utility by adding:
- * <code>
- * use MeTools\Utility\MePlugin as Plugin;
- * </code>
+ * An utility to handle plugins
  */
-class MePlugin {
+class Plugin extends CakePlugin {
     /**
      * Alias for `getAll()` method
      * @see getAll()
@@ -48,29 +43,7 @@ class MePlugin {
 	 * @uses Cake\Core\Plugin::loaded()
 	 */
 	public static function getAll() {
-		return Plugin::loaded();
-	}
-	
-	/**
-	 * Gets a path for a plugin or for all plugins.
-	 * 
-	 * If `$plugin` is not a string, returns all the plugins path.
-	 * @param string $plugin Plugin name (optional)
-	 * @param string $filename Filename from plugin (optional)
-	 * @return mixed Plugin path or all plugins path
-	 * @uses Cake\Core\Plugin::path()
-	 * @uses all()
-	 */
-	public static function getPath($plugin = NULL, $filename = NULL) {
-		if(is_string($plugin)) {
-			$path = Plugin::path($plugin);
-			
-			return is_string($filename) ? $path.$filename : $path;
-		}
-		
-		return array_map(function($v){
-			return self::path($v);
-		}, self::all());
+		return parent::loaded();
 	}
 	
 	/**
@@ -121,13 +94,27 @@ class MePlugin {
 		return $versions;
 	}
 	
-    /**
-     * Alias for `getPath()` method
-     * @see getPath()
-     */
-    public static function path() {
-        return call_user_func_array([get_class(), 'getPath'], func_get_args());
-    }
+	/**
+	 * Gets a path for a plugin or for all plugins.
+	 * 
+	 * If `$plugin` is not a string, returns all the plugins path.
+	 * @param string $plugin Plugin name (optional)
+	 * @param string $filename Filename from plugin (optional)
+	 * @return mixed Plugin path or all plugins path
+	 * @uses Cake\Core\Plugin::path()
+	 * @uses all()
+	 */
+	public static function path($plugin = NULL, $filename = NULL) {
+		if(is_string($plugin)) {
+			$path = parent::path($plugin);
+			
+			return is_string($filename) ? $path.$filename : $path;
+		}
+		
+		return array_map(function($v){
+			return self::path($v);
+		}, self::all());
+	}
 	
     /**
      * Alias for `getVersion()` method

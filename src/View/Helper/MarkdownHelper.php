@@ -25,9 +25,8 @@ namespace MeTools\View\Helper;
 
 use Cake\View\Helper;
 use Cake\View\View;
-use MeTools\Utility\MePlugin as Plugin;
 
-require_once Plugin::path('MeTools', 'vendor'.DS.'Markdown'.DS.'Markdown.inc.php');
+require_once \MeTools\Utility\Plugin::path('MeTools', 'vendor'.DS.'Markdown'.DS.'Markdown.inc.php');
 
 /**
  * Markdown helper.

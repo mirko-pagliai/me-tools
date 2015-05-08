@@ -23,7 +23,7 @@
  */
 namespace MeTools\Network;
 
-use Cake\Network\Request;
+use Cake\Network\Request as CakeRequest;
 
 /**
  * Implements methods for HTTP requests.
@@ -32,7 +32,7 @@ use Cake\Network\Request;
  * 
  * Rewrites {@link http://api.cakephp.org/3.0/class-Cake.Network.Http.Request.html Request}.
  */
-class MeRequest extends Request {
+class Request extends CakeRequest {
 	/**
 	 * Checks if the current request has a prefix
 	 * @return bool TRUE if the current request has a prefix, otherwise FALSE

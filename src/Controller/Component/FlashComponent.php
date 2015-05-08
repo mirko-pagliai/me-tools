@@ -23,9 +23,9 @@
  */
 namespace MeTools\Controller\Component;
 
-use Cake\Controller\Component\FlashComponent;
+use Cake\Controller\Component\FlashComponent as CakeFlashComponent;
 use Cake\Controller\ComponentRegistry;
-use MeTools\Utility\MePlugin as Plugin;
+use MeTools\Utility\Plugin;
 
 /**
  * Provides a way to persist client data between page requests. It acts as a wrapper for the 
@@ -35,10 +35,10 @@ use MeTools\Utility\MePlugin as Plugin;
  * 
  * You should use this component as an alias, for example:
  * <code>
- * $this->loadComponent('Flash', ['className' => 'MeTools.MeFlash']);
+ * $this->loadComponent('Flash', ['className' => 'MeTools.Flash']);
  * </code>
  */
-class MeFlashComponent extends FlashComponent {
+class FlashComponent extends CakeFlashComponent {
 	/**
 	 * Magic method for verbose flash methods based on element names.
 	 * @param string $name Element name to use

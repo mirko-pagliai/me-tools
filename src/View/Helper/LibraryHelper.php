@@ -26,7 +26,7 @@ namespace MeTools\View\Helper;
 use Cake\Core\Configure;
 use Cake\View\Helper;
 use Cake\View\View;
-use MeTools\Utility\MePlugin as Plugin;
+use MeTools\Utility\Plugin;
 
 /**
  * Library helper
@@ -213,7 +213,7 @@ class LibraryHelper extends Helper {
      * @see http://fancyapps.com/fancybox/#docs FancyBox documentation
 	 * @uses MeTools\View\Helper\MeHtmlHelper::css()
 	 * @uses MeTools\View\Helper\MeHtmlHelper::js()
-	 * @uses MeTools\Utility\MePlugin::path()
+	 * @uses MeTools\Utility\Plugin::path()
 	 */
 	public function fancybox() {
         //Checks for FancyBox into `APP/webroot/fancybox/`

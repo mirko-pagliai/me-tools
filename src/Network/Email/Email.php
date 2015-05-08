@@ -22,7 +22,7 @@
  */
 namespace MeTools\Network\Email;
 
-use Cake\Network\Email\Email;
+use Cake\Network\Email\Email as CakeEmail;
 
 /**
  * Email class.
@@ -33,7 +33,7 @@ use Cake\Network\Email\Email;
  * 
  * Example:
  * <code>
- * use MeTools\Network\Email\MeEmail as Email;
+ * use MeTools\Network\Email\Email;
  * 
  * $email = new Email('default');
  * $email->from(['me@example.com' => 'My Site'])
@@ -42,7 +42,7 @@ use Cake\Network\Email\Email;
  *		->send('My message');
  * </code> 
  */
-class MeEmail extends Email {
+class Email extends CakeEmail {
 	/**
 	 * Helpers to be used in the render
 	 * @var array
@@ -57,7 +57,7 @@ class MeEmail extends Email {
 	
 	/**
 	 * Reset all the internal variables to be able to send out a new email.
-	 * @return \MeTools\Network\Email\MeEmail
+	 * @return \MeTools\Network\Email\Email
 	 * @uses Cake\Network\Email\Email::reset()
 	 * @uses $_helpers
 	 * @uses $_viewRender
