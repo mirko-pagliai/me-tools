@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<meta name="robots" content="noindex">
 
-	<title>File MeRequest.php | MeTools API</title>
+	<title>File Request.php | MeTools API</title>
 
 	<link rel="stylesheet" href="resources/style.css?e99947befd7bf673c6b43ff75e9e0f170c88a60e">
 
@@ -81,15 +81,15 @@
 			<h3>Classes</h3>
 			<ul>
 				<li><a href="class-MeTools.Controller.AppController.html">MeTools\Controller\AppController</a></li>
-				<li><a href="class-MeTools.Controller.Component.MeFlashComponent.html">MeTools\Controller\Component\MeFlashComponent</a></li>
+				<li><a href="class-MeTools.Controller.Component.FlashComponent.html">MeTools\Controller\Component\FlashComponent</a></li>
 				<li><a href="class-MeTools.Controller.ThumbsController.html">MeTools\Controller\ThumbsController</a></li>
-				<li><a href="class-MeTools.Network.Email.MeEmail.html">MeTools\Network\Email\MeEmail</a></li>
-				<li><a href="class-MeTools.Network.MeRequest.html">MeTools\Network\MeRequest</a></li>
+				<li><a href="class-MeTools.Network.Email.Email.html">MeTools\Network\Email\Email</a></li>
+				<li><a href="class-MeTools.Network.Request.html">MeTools\Network\Request</a></li>
 				<li><a href="class-MeTools.Shell.AppShell.html">MeTools\Shell\AppShell</a></li>
 				<li><a href="class-MeTools.Shell.InstallShell.html">MeTools\Shell\InstallShell</a></li>
 				<li><a href="class-MeTools.Utility.Apache.html">MeTools\Utility\Apache</a></li>
-				<li><a href="class-MeTools.Utility.MePlugin.html">MeTools\Utility\MePlugin</a></li>
 				<li><a href="class-MeTools.Utility.Php.html">MeTools\Utility\Php</a></li>
+				<li><a href="class-MeTools.Utility.Plugin.html">MeTools\Utility\Plugin</a></li>
 				<li><a href="class-MeTools.Utility.System.html">MeTools\Utility\System</a></li>
 				<li><a href="class-MeTools.Utility.Thumbs.html">MeTools\Utility\Thumbs</a></li>
 				<li><a href="class-MeTools.Utility.Unix.html">MeTools\Utility\Unix</a></li>
@@ -169,7 +169,7 @@
 </span></span><span id="23" class="l"><a href="#23"> 23: </a><span class="php-comment"> */</span>
 </span><span id="24" class="l"><a href="#24"> 24: </a><span class="php-keyword1">namespace</span> MeTools\Network;
 </span><span id="25" class="l"><a href="#25"> 25: </a>
-</span><span id="26" class="l"><a href="#26"> 26: </a><span class="php-keyword1">use</span> Cake\Network\Request;
+</span><span id="26" class="l"><a href="#26"> 26: </a><span class="php-keyword1">use</span> Cake\Network\Request <span class="php-keyword1">as</span> CakeRequest;
 </span><span id="27" class="l"><a href="#27"> 27: </a>
 </span><span id="28" class="l"><a href="#28"> 28: </a><span class="php-comment">/**
 </span></span><span id="29" class="l"><a href="#29"> 29: </a><span class="php-comment"> * Implements methods for HTTP requests.
@@ -178,7 +178,7 @@
 </span></span><span id="32" class="l"><a href="#32"> 32: </a><span class="php-comment"> * 
 </span></span><span id="33" class="l"><a href="#33"> 33: </a><span class="php-comment"> * Rewrites {@link http://api.cakephp.org/3.0/class-Cake.Network.Http.Request.html Request}.
 </span></span><span id="34" class="l"><a href="#34"> 34: </a><span class="php-comment"> */</span>
-</span><span id="35" class="l"><a href="#35"> 35: </a><span class="php-keyword1">class</span> MeRequest <span class="php-keyword1">extends</span> Request {
+</span><span id="35" class="l"><a href="#35"> 35: </a><span class="php-keyword1">class</span> Request <span class="php-keyword1">extends</span> CakeRequest {
 </span><span id="36" class="l"><a href="#36"> 36: </a>    <span class="php-comment">/**
 </span></span><span id="37" class="l"><a href="#37"> 37: </a><span class="php-comment">     * Checks if the current request has a prefix
 </span></span><span id="38" class="l"><a href="#38"> 38: </a><span class="php-comment">     * @return bool TRUE if the current request has a prefix, otherwise FALSE
@@ -267,6 +267,6 @@
 </div>
 </div>
 <script src="resources/combined.js?cd021bc814832c24a7cec5319ea03335bfba1caf"></script>
-<script src="elementlist.js?e36ea9ea7bceeb9a59921c0bf96d47572f579222"></script>
+<script src="elementlist.js?f2fbc09c0f549bd2a5e5f06126fe9b97bcc1ec75"></script>
 </body>
 </html>
