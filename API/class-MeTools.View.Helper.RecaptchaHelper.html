@@ -135,7 +135,10 @@
 
 
 	<div class="description">
-	<p>Recaptcha helper</p>
+	<p>Provides several methods for reCAPTCHA.</p>
+
+<p>Before using this helper, you have to configure keys in <code>app/Config/recaptcha.php</code>.
+You can use as example the file <code>app/Plugin/MeTools/Config/recaptcha.default.php</code>.</p>
 	</div>
 
 	<dl class="tree">
@@ -165,12 +168,321 @@ Cake\View\Helper
 		<b>Namespace:</b> <a href="namespace-MeTools.html">MeTools</a>\<a href="namespace-MeTools.View.html">View</a>\<a href="namespace-MeTools.View.Helper.html">Helper</a><br>
 		
 
-			<b>Located at</b> <a href="source-class-MeTools.View.Helper.RecaptchaHelper.html#29-38" title="Go to source code">Helper/RecaptchaHelper.php</a>
+			<b>Located at</b> <a href="source-class-MeTools.View.Helper.RecaptchaHelper.html#33-155" title="Go to source code">Helper/RecaptchaHelper.php</a>
 		<br>
 	</div>
 
 
 
+	<table class="summary methods" id="methods">
+	<caption>Methods summary</caption>
+	<tr data-order="__construct" id="___construct">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#___construct">#</a>
+		<code><a href="source-class-MeTools.View.Helper.RecaptchaHelper.html#46-58" title="Go to source code">__construct</a>( <span>Cake\View\View <var>$view</var></span>, <span>array <var>$config</var> = []</span> )</code>
+
+		<div class="description short">
+			<p>Construct the widgets and binds the default context providers.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Construct the widgets and binds the default context providers.</p>
+
+<p>This method only ewrites the default configuration (<code>$_defaultConfig</code>).</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$view</var></dt>
+					<dd>The View this helper is being attached to</dd>
+					<dt><var>$config</var></dt>
+					<dd>Configuration settings for the helper</dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="_obfuscate" id="__obfuscate">
+
+		<td class="attributes"><code>
+			 protected 
+
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#__obfuscate">#</a>
+		<code><a href="source-class-MeTools.View.Helper.RecaptchaHelper.html#60-71" title="Go to source code">_obfuscate</a>( <span>string <var>$mail</var></span> )</code>
+
+		<div class="description short">
+			<p>Internal function to obfuscate an email address.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Internal function to obfuscate an email address.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$mail</var></dt>
+					<dd>Mail address</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					string<br>Mail address obfuscated
+				</div>
+
+
+				<h4>See</h4>
+				<div class="list">
+						http://stackoverflow.com/a/20545505/1480263<br>
+				</div>
+				<h4>Used by</h4>
+				<div class="list">
+						<code><a href="class-MeTools.View.Helper.RecaptchaHelper.html#_mailLink">MeTools\View\Helper\RecaptchaHelper::mailLink()</a></code><br>
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="display" id="_display">
+
+		<td class="attributes"><code>
+			 public 
+
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_display">#</a>
+		<code><a href="source-class-MeTools.View.Helper.RecaptchaHelper.html#73-96" title="Go to source code">display</a>( <span>array <var>$options</var> = []</span>, <span>array <var>$optionsScript</var> = []</span> )</code>
+
+		<div class="description short">
+			<p>Displays the reCAPTCHA widget</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Displays the reCAPTCHA widget</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$options</var></dt>
+					<dd>reCAPTCHA widget options</dd>
+					<dt><var>$optionsScript</var></dt>
+					<dd>Script option</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					string<br>Html
+				</div>
+
+				<h4>Throws</h4>
+				<div class="list">
+					Cake\Network\Exception\InternalErrorException
+				</div>
+
+				<h4>See</h4>
+				<div class="list">
+						https://developers.google.com/recaptcha/docs/display#config reCAPTCHA widget options<br>
+				</div>
+				<h4>Uses</h4>
+				<div class="list">
+						MeTools\View\Helper\HtmlHelper::div()<br>
+						<code><a href="class-MeTools.View.Helper.HtmlHelper.html#_js">MeTools\View\Helper\HtmlHelper::js()</a></code><br>
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="mail" id="_mail">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_mail">#</a>
+		<code><a href="source-class-MeTools.View.Helper.RecaptchaHelper.html#98-104" title="Go to source code">mail</a>( )</code>
+
+		<div class="description short">
+			<p>Alias for <code>mailLink()</code> method</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Alias for <code>mailLink()</code> method</p>
+
+
+
+
+
+				<h4>See</h4>
+				<div class="list">
+						<code><a href="class-MeTools.View.Helper.RecaptchaHelper.html#_mailLink">MeTools\View\Helper\RecaptchaHelper::mailLink()</a></code><br>
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="mailLink" id="_mailLink">
+
+		<td class="attributes"><code>
+			 public 
+
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_mailLink">#</a>
+		<code><a href="source-class-MeTools.View.Helper.RecaptchaHelper.html#106-123" title="Go to source code">mailLink</a>( <span>string <var>$title</var></span>, <span>string <var>$mail</var> = <span class="php-keyword1">NULL</span></span>, <span>array <var>$options</var> = []</span> )</code>
+
+		<div class="description short">
+			<p>Creates an HTML link for an hidden email. The link will be open in a popup</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Creates an HTML link for an hidden email. The link will be open in a popup</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$title</var></dt>
+					<dd>Link title</dd>
+					<dt><var>$mail</var></dt>
+					<dd>Email to hide</dd>
+					<dt><var>$options</var></dt>
+					<dd>Array of options and HTML attributes</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					string<br>Html code
+				</div>
+
+
+				<h4>Uses</h4>
+				<div class="list">
+						<code><a href="class-MeTools.View.Helper.HtmlHelper.html#_link">MeTools\View\Helper\HtmlHelper::link()</a></code><br>
+						<code><a href="class-MeTools.View.Helper.RecaptchaHelper.html#__obfuscate">MeTools\View\Helper\RecaptchaHelper::_obfuscate()</a></code><br>
+						<code><a href="class-MeTools.View.Helper.RecaptchaHelper.html#_mailUrl">MeTools\View\Helper\RecaptchaHelper::mailUrl()</a></code><br>
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="mailUrl" id="_mailUrl">
+
+		<td class="attributes"><code>
+			 public 
+
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_mailUrl">#</a>
+		<code><a href="source-class-MeTools.View.Helper.RecaptchaHelper.html#125-146" title="Go to source code">mailUrl</a>( <span>string <var>$mail</var></span> )</code>
+
+		<div class="description short">
+			<p>Gets the url for an hidden email.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Gets the url for an hidden email.</p>
+
+<p>This method will only return a url. If you want to create a link, you should use the <code>mailLink()</code> method</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$mail</var></dt>
+					<dd>Email to hide</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					string<br>Url
+				</div>
+
+				<h4>Throws</h4>
+				<div class="list">
+					Cake\Network\Exception\InternalErrorException
+				</div>
+
+				<h4>Used by</h4>
+				<div class="list">
+						<code><a href="class-MeTools.View.Helper.RecaptchaHelper.html#_mailLink">MeTools\View\Helper\RecaptchaHelper::mailLink()</a></code><br>
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="recaptcha" id="_recaptcha">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_recaptcha">#</a>
+		<code><a href="source-class-MeTools.View.Helper.RecaptchaHelper.html#148-154" title="Go to source code">recaptcha</a>( )</code>
+
+		<div class="description short">
+			<p>Alias for <code>display()</code> method</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Alias for <code>display()</code> method</p>
+
+
+
+
+
+				<h4>See</h4>
+				<div class="list">
+						<code><a href="class-MeTools.View.Helper.RecaptchaHelper.html#_display">MeTools\View\Helper\RecaptchaHelper::display()</a></code><br>
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	</table>
 
 
 
@@ -185,28 +497,28 @@ Cake\View\Helper
 
 	<table class="summary properties" id="properties">
 	<caption>Properties summary</caption>
-	<tr data-order="_defaultConfig" id="$_defaultConfig">
+	<tr data-order="helpers" id="$helpers">
 		<td class="attributes"><code>
-			protected  
+			public  
 			array
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-MeTools.View.Helper.RecaptchaHelper.html#33-37" title="Go to source code"><var>$_defaultConfig</var></a>
+				<a href="source-class-MeTools.View.Helper.RecaptchaHelper.html#40-44" title="Go to source code"><var>$helpers</var></a>
 
 			<div class="description short">
-				<p>Default configuration</p>
+				<p>Helpers</p>
 			</div>
 
 			<div class="description detailed hidden">
-				<p>Default configuration</p>
+				<p>Helpers</p>
 
 			</div>
 		</td>
 		<td class="value">
 			<div>
-				<a href="#$_defaultConfig" class="anchor">#</a>
-				<code>[]</code>
+				<a href="#$helpers" class="anchor">#</a>
+				<code>[<span class="php-quote">'MeTools.Html'</span>]</code>
 			</div>
 		</td>
 	</tr>
