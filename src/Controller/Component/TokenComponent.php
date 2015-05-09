@@ -89,4 +89,13 @@ class TokenComponent extends Component {
 			'user_id'	=> empty($options['user_id']) ? NULL : $options['user_id']
 		]))) ? $entity->token : FALSE;
 	}
+	
+	/**
+	 * Deletes a token
+	 * @param string $token Token
+	 * @return bool
+	 */
+	public function delete($token) {
+		$this->Tokens->deleteAll(compact('token'));
+	}
 }
