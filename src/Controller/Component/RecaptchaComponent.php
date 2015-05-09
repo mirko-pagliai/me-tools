@@ -46,7 +46,7 @@ class RecaptchaComponent extends Component {
 		$response = $controller->request->data('g-recaptcha-response');
 		
 		if(empty($response)) {
-			$this->error = __d('me_tools', 'You have not filled out the %s control', 'reCAPTCHA');	
+			$this->error = __d('me_tools', 'You have not filled out the {0} control', 'reCAPTCHA');	
 			return FALSE;
 		}
 		
@@ -66,7 +66,7 @@ class RecaptchaComponent extends Component {
 		], compact('response')));
 				
 		if(empty($results) || empty($results->json['success'])) {
-			$this->error = __d('me_tools', 'It was not possible to verify the %s control', 'reCAPTCHA');
+			$this->error = __d('me_tools', 'It was not possible to verify the {0} control', 'reCAPTCHA');
 			return FALSE;
 		}
 		
