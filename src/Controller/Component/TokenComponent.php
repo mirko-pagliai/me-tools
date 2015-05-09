@@ -47,6 +47,32 @@ class TokenComponent extends Component {
 	}
 	
 	/**
+	 * Internal method to find a token
+	 * @param string $token Token
+	 * @param array $options Options (`data`, `expiry`, `type` and `user_id`)
+	 * @return object Tokens entity
+	 */
+	protected function _find($token, array $options = []) {
+		return $this->Tokens->find('active')
+			->where(am([
+				'type'		=> empty($options['type']) ? NULL : $options['type'],
+				'user_id'	=> empty($options['user_id']) ? NULL : $options['user_id'],
+			], compact('token')))
+			->first();
+	}
+	
+	/**
+	 * Checks if a token exists.
+	 * @param string $token Token
+	 * @param array $options Options (`data`, `expiry`, `type` and `user_id`)
+	 * @return bool
+	 * @uses _find()
+	 */
+	public function check($token, array $options = []) {
+		return !empty($this->_find($token, $options));
+	}
+	
+	/**
 	 * Creates and saves a token.
 	 * 
 	 * Note that if the salt is empty, it will use the current timestamp.
@@ -60,7 +86,7 @@ class TokenComponent extends Component {
 			'expiry'	=> empty($options['expiry']) ? NULL : $options['expiry'],
 			'type'		=> empty($options['type']) ? NULL : $options['type'],
 			'token'		=> $salt,
-			'user_id'	=> empty($options['user_id']) ? NULL : $options['user_id'],
+			'user_id'	=> empty($options['user_id']) ? NULL : $options['user_id']
 		]))) ? $entity->token : FALSE;
 	}
 }
