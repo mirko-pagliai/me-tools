@@ -58,6 +58,7 @@ class TokensTable extends Table {
 	 * @param \Cake\ORM\Entity $entity Entity object
 	 * @param \ArrayObject $options Options
 	 * @return bool
+	 * @uses deleteExpired()
 	 */
 	public function beforeSave(\Cake\Event\Event $event, \Cake\ORM\Entity $entity, \ArrayObject $options) {
 		$this->deleteExpired($entity);
