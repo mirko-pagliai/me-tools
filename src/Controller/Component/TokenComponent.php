@@ -54,10 +54,10 @@ class TokenComponent extends Component {
 	 */
 	protected function _find($token, array $options = []) {
 		return $this->Tokens->find('active')
-			->where(am([
+			->where(am(af([
 				'type'		=> empty($options['type']) ? NULL : $options['type'],
 				'user_id'	=> empty($options['user_id']) ? NULL : $options['user_id'],
-			], compact('token')))
+			]), compact('token')))
 			->first();
 	}
 	
@@ -94,8 +94,9 @@ class TokenComponent extends Component {
 	 * Deletes a token
 	 * @param string $token Token
 	 * @return bool
+	 * @uses _find()
 	 */
 	public function delete($token) {
-		$this->Tokens->deleteAll(compact('token'));
+		return $this->Tokens->delete($this->_find($token));
 	}
 }
