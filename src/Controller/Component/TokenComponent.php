@@ -29,9 +29,16 @@ use Cake\Controller\Component;
  */
 class TokenComponent extends Component {
 	/**
+	 * `Token` table
+	 * @var object
+	 */
+	protected $Tokens;
+
+	/**
 	 * Constructor
 	 * @param \Cake\Controller\ComponentRegistry $registry A ComponentRegistry this component can use to lazy load its components
 	 * @param array $config Array of configuration settings
+	 * @uses $Tokens;
 	 */
 	public function __construct(\Cake\Controller\ComponentRegistry $registry, array $config = []) {
 		parent::__construct($registry, $config);
@@ -48,8 +55,12 @@ class TokenComponent extends Component {
 	 * @return mixed The token value on success, otherwise FALSE
 	 */
 	public function create($salt = NULL, array $options = []) {
-		$token = $this->Tokens->newEntity(am(['token' => $salt], $options));
-		
-		return $token = $this->Tokens->save($token) ? $token->token : FALSE;
+		return $this->Tokens->save($entity = $this->Tokens->newEntity(af([
+			'data'		=> empty($options['data']) ? NULL : $options['data'],
+			'expiry'	=> empty($options['expiry']) ? NULL : $options['expiry'],
+			'type'		=> empty($options['type']) ? NULL : $options['type'],
+			'token'		=> $salt,
+			'user_id'	=> empty($options['user_id']) ? NULL : $options['user_id'],
+		]))) ? $entity->token : FALSE;
 	}
 }
