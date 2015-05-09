@@ -70,6 +70,11 @@
 						Helper					</a>
 
 						</li>
+				<li class="main">
+					<a href="namespace-MeTools.View.View.html">
+						View					</a>
+
+						</li>
 							</ul></li></ul></li>
 			</ul>
 		</div>
@@ -83,6 +88,7 @@
 				<li><a href="class-MeTools.Controller.AppController.html">MeTools\Controller\AppController</a></li>
 				<li><a href="class-MeTools.Controller.Component.FlashComponent.html">MeTools\Controller\Component\FlashComponent</a></li>
 				<li><a href="class-MeTools.Controller.Component.RecaptchaComponent.html">MeTools\Controller\Component\RecaptchaComponent</a></li>
+				<li><a href="class-MeTools.Controller.Component.TokenComponent.html">MeTools\Controller\Component\TokenComponent</a></li>
 				<li><a href="class-MeTools.Controller.ThumbsController.html">MeTools\Controller\ThumbsController</a></li>
 				<li><a href="class-MeTools.Network.Email.Email.html">MeTools\Network\Email\Email</a></li>
 				<li><a href="class-MeTools.Network.Request.html">MeTools\Network\Request</a></li>
@@ -94,7 +100,6 @@
 				<li><a href="class-MeTools.Utility.System.html">MeTools\Utility\System</a></li>
 				<li><a href="class-MeTools.Utility.Thumbs.html">MeTools\Utility\Thumbs</a></li>
 				<li><a href="class-MeTools.Utility.Unix.html">MeTools\Utility\Unix</a></li>
-				<li><a href="class-MeTools.View.EmailView.html">MeTools\View\EmailView</a></li>
 				<li><a href="class-MeTools.View.Helper.DropdownHelper.html">MeTools\View\Helper\DropdownHelper</a></li>
 				<li><a href="class-MeTools.View.Helper.FormHelper.html">MeTools\View\Helper\FormHelper</a></li>
 				<li><a href="class-MeTools.View.Helper.HtmlHelper.html">MeTools\View\Helper\HtmlHelper</a></li>
@@ -104,6 +109,7 @@
 				<li><a href="class-MeTools.View.Helper.PaginatorHelper.html">MeTools\View\Helper\PaginatorHelper</a></li>
 				<li><a href="class-MeTools.View.Helper.RecaptchaHelper.html">MeTools\View\Helper\RecaptchaHelper</a></li>
 				<li><a href="class-MeTools.View.Helper.ThumbHelper.html">MeTools\View\Helper\ThumbHelper</a></li>
+				<li><a href="class-MeTools.View.View.EmailView.html">MeTools\View\View\EmailView</a></li>
 			</ul>
 
 
@@ -179,29 +185,24 @@
 </span></span><span id="32" class="l"><a href="#32">32: </a><span class="php-comment"> * `$_SESSION` as well as providing convenience methods for several `$_SESSION` related functions.
 </span></span><span id="33" class="l"><a href="#33">33: </a><span class="php-comment"> * 
 </span></span><span id="34" class="l"><a href="#34">34: </a><span class="php-comment"> * Rewrites {@link http://api.cakephp.org/3.0/class-Cake.Controller.Component.FlashComponent.html FlashComponent}.
-</span></span><span id="35" class="l"><a href="#35">35: </a><span class="php-comment"> * 
-</span></span><span id="36" class="l"><a href="#36">36: </a><span class="php-comment"> * You should use this component as an alias, for example:
-</span></span><span id="37" class="l"><a href="#37">37: </a><span class="php-comment"> * &lt;code&gt;
-</span></span><span id="38" class="l"><a href="#38">38: </a><span class="php-comment"> * $this-&gt;loadComponent('Flash', ['className' =&gt; 'MeTools.Flash']);
-</span></span><span id="39" class="l"><a href="#39">39: </a><span class="php-comment"> * &lt;/code&gt;
-</span></span><span id="40" class="l"><a href="#40">40: </a><span class="php-comment"> */</span>
-</span><span id="41" class="l"><a href="#41">41: </a><span class="php-keyword1">class</span> FlashComponent <span class="php-keyword1">extends</span> CakeFlashComponent {
-</span><span id="42" class="l"><a href="#42">42: </a>    <span class="php-comment">/**
-</span></span><span id="43" class="l"><a href="#43">43: </a><span class="php-comment">     * Magic method for verbose flash methods based on element names.
-</span></span><span id="44" class="l"><a href="#44">44: </a><span class="php-comment">     * @param string $name Element name to use
-</span></span><span id="45" class="l"><a href="#45">45: </a><span class="php-comment">     * @param array $args Parameters to pass
-</span></span><span id="46" class="l"><a href="#46">46: </a><span class="php-comment">     * @return void
-</span></span><span id="47" class="l"><a href="#47">47: </a><span class="php-comment">     * @uses MeTools\Utility\Plugin::path()
-</span></span><span id="48" class="l"><a href="#48">48: </a><span class="php-comment">     */</span>
-</span><span id="49" class="l"><a href="#49">49: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> __call(<span class="php-var">$name</span>, <span class="php-var">$args</span>) {
-</span><span id="50" class="l"><a href="#50">50: </a>        <span class="php-var">$name</span> = <span class="php-keyword2">strtolower</span>(<span class="php-var">$name</span>);
-</span><span id="51" class="l"><a href="#51">51: </a>        
-</span><span id="52" class="l"><a href="#52">52: </a>        <span class="php-keyword1">if</span>(<span class="php-keyword1">empty</span>(<span class="php-var">$args</span>[<span class="php-num">1</span>][<span class="php-quote">'plugin'</span>]) &amp;&amp; <span class="php-keyword2">is_readable</span>(Plugin::path(<span class="php-quote">'MeTools'</span>, <span class="php-quote">'src'</span>.DS.<span class="php-quote">'Template'</span>.DS.<span class="php-quote">'Element'</span>.DS.<span class="php-quote">'Flash'</span>.DS.<span class="php-var">$name</span>.<span class="php-quote">'.ctp'</span>)))
-</span><span id="53" class="l"><a href="#53">53: </a>            <span class="php-var">$args</span>[<span class="php-num">1</span>][<span class="php-quote">'plugin'</span>] = <span class="php-quote">'MeTools'</span>;
-</span><span id="54" class="l"><a href="#54">54: </a>        
-</span><span id="55" class="l"><a href="#55">55: </a>        <span class="php-keyword1">return</span> parent::__call(<span class="php-var">$name</span>, <span class="php-var">$args</span>);
-</span><span id="56" class="l"><a href="#56">56: </a>    }
-</span><span id="57" class="l"><a href="#57">57: </a>}</span></code></pre>
+</span></span><span id="35" class="l"><a href="#35">35: </a><span class="php-comment"> */</span>
+</span><span id="36" class="l"><a href="#36">36: </a><span class="php-keyword1">class</span> FlashComponent <span class="php-keyword1">extends</span> CakeFlashComponent {
+</span><span id="37" class="l"><a href="#37">37: </a>    <span class="php-comment">/**
+</span></span><span id="38" class="l"><a href="#38">38: </a><span class="php-comment">     * Magic method for verbose flash methods based on element names.
+</span></span><span id="39" class="l"><a href="#39">39: </a><span class="php-comment">     * @param string $name Element name to use
+</span></span><span id="40" class="l"><a href="#40">40: </a><span class="php-comment">     * @param array $args Parameters to pass
+</span></span><span id="41" class="l"><a href="#41">41: </a><span class="php-comment">     * @return void
+</span></span><span id="42" class="l"><a href="#42">42: </a><span class="php-comment">     * @uses MeTools\Utility\Plugin::path()
+</span></span><span id="43" class="l"><a href="#43">43: </a><span class="php-comment">     */</span>
+</span><span id="44" class="l"><a href="#44">44: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> __call(<span class="php-var">$name</span>, <span class="php-var">$args</span>) {
+</span><span id="45" class="l"><a href="#45">45: </a>        <span class="php-var">$name</span> = <span class="php-keyword2">strtolower</span>(<span class="php-var">$name</span>);
+</span><span id="46" class="l"><a href="#46">46: </a>        
+</span><span id="47" class="l"><a href="#47">47: </a>        <span class="php-keyword1">if</span>(<span class="php-keyword1">empty</span>(<span class="php-var">$args</span>[<span class="php-num">1</span>][<span class="php-quote">'plugin'</span>]) &amp;&amp; <span class="php-keyword2">is_readable</span>(Plugin::path(<span class="php-quote">'MeTools'</span>, <span class="php-quote">'src'</span>.DS.<span class="php-quote">'Template'</span>.DS.<span class="php-quote">'Element'</span>.DS.<span class="php-quote">'Flash'</span>.DS.<span class="php-var">$name</span>.<span class="php-quote">'.ctp'</span>)))
+</span><span id="48" class="l"><a href="#48">48: </a>            <span class="php-var">$args</span>[<span class="php-num">1</span>][<span class="php-quote">'plugin'</span>] = <span class="php-quote">'MeTools'</span>;
+</span><span id="49" class="l"><a href="#49">49: </a>        
+</span><span id="50" class="l"><a href="#50">50: </a>        <span class="php-keyword1">return</span> parent::__call(<span class="php-var">$name</span>, <span class="php-var">$args</span>);
+</span><span id="51" class="l"><a href="#51">51: </a>    }
+</span><span id="52" class="l"><a href="#52">52: </a>}</span></code></pre>
 
 	<div id="footer">
 		MeTools API API documentation generated by <a href="http://apigen.org">ApiGen</a>
@@ -209,6 +210,6 @@
 </div>
 </div>
 <script src="resources/combined.js?cd021bc814832c24a7cec5319ea03335bfba1caf"></script>
-<script src="elementlist.js?4dcd19fadf4723b8ffbf8a04b353f352ae796878"></script>
+<script src="elementlist.js?7f109237876d99607ed2552f44a88b264164dff8"></script>
 </body>
 </html>
