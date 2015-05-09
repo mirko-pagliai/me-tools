@@ -22,6 +22,7 @@
  */
 namespace MeTools\Model\Table;
 
+use Cake\I18n\Time;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
@@ -32,16 +33,6 @@ use MeTools\Model\Entity\Token;
  * Tokens model
  */
 class TokensTable extends Table {
-    /**
-     * Initialize method
-     * @param array $config The table configuration
-     */
-    public function initialize(array $config) {
-        $this->table('tokens');
-        $this->displayField('id');
-        $this->primaryKey('id');
-    }
-	
 	/**
 	 * Called before request data is converted into entities
 	 * @param \Cake\Event\Event $event Event object
@@ -56,12 +47,55 @@ class TokensTable extends Table {
 		
 		$data['token'] = substr(\Cake\Utility\Security::hash($data['token'], 'sha1', TRUE), 0, 25);
 		
-		if(empty($data['expiry'])) {
-			$time = new \Cake\I18n\Time('+12 hours');
-			$data['expiry'] = $time->i18nFormat(FORMAT_FOR_MYSQL);
-		}
+		if(empty($data['expiry']))
+			$data['expiry'] = (new Time('+12 hours'))->i18nFormat(FORMAT_FOR_MYSQL);
+	}
+	
+	/**
+	 * Called before each entity is saved.
+	 * Stopping this event will abort the save operation
+	 * @param \Cake\Event\Event $event Event object
+	 * @param \Cake\ORM\Entity $entity Entity object
+	 * @param \ArrayObject $options Options
+	 * @return bool
+	 */
+	public function beforeSave(\Cake\Event\Event $event, \Cake\ORM\Entity $entity, \ArrayObject $options) {
+		$this->deleteExpired($entity);
+		
+		return TRUE;
 	}
 
+	/**
+	 * Deletes all expired tokens, based on the expiry and (optional) the user ID and the token value
+	 * @param MeTools\Model\Entity\Token $entity Token entity or NULL
+	 * @uses Cake\I18n\Time::i18nFormat()
+	 */
+	public function deleteExpired(\Cake\ORM\Entity $entity = NULL) {
+		//Deletes all expired tokens
+		$conditions = ['expiry <=' => (new Time())->i18nFormat(FORMAT_FOR_MYSQL)];
+				
+		if(!empty($entity->token))
+			$or[] = ['token' => $entity->token];
+		
+		if(!empty($entity->user_id))
+			$or[] = ['user_id' => $entity->user_id];
+		
+		if(!empty($or))
+			$conditions = ['OR' => am($conditions, $or)];
+		
+		$this->deleteAll($conditions);
+	}
+
+	/**
+     * Initialize method
+     * @param array $config The table configuration
+     */
+    public function initialize(array $config) {
+        $this->table('tokens');
+        $this->displayField('id');
+        $this->primaryKey('id');
+    }
+	
     /**
      * Default validation rules
      * @param \Cake\Validation\Validator $validator Validator instance
