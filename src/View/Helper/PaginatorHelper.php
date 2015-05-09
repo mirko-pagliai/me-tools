@@ -30,11 +30,6 @@ use Cake\View\View;
  * Provides functionalities to the generation of pagers.
  * 
  * Rewrites {@link http://api.cakephp.org/3.0/class-Cake.View.Helper.PaginatorHelper.html PaginatorHelper}.
- * 
- * You should use this helper as an alias, for example:
- * <code>
- * public $helpers = ['Form' => ['className' => 'MeTools.Paginator']];
- * </code>
  */
 class PaginatorHelper extends CakePaginatorHelper {
 	/**

@@ -30,11 +30,6 @@ use Cake\View\View;
  * Provides functionalities for forms.
  * 
  * Rewrites {@link http://api.cakephp.org/3.0/class-Cake.View.Helper.FormHelper.html FormHelper}.
- * 
- * You should use this helper as an alias, for example:
- * <code>
- * public $helpers = ['Form' => ['className' => 'MeTools.Form']];
- * </code>
  */
 class FormHelper extends CakeFormHelper {
 	/**

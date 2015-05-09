@@ -32,11 +32,6 @@ use MeTools\Utility\Plugin;
  * `$_SESSION` as well as providing convenience methods for several `$_SESSION` related functions.
  * 
  * Rewrites {@link http://api.cakephp.org/3.0/class-Cake.Controller.Component.FlashComponent.html FlashComponent}.
- * 
- * You should use this component as an alias, for example:
- * <code>
- * $this->loadComponent('Flash', ['className' => 'MeTools.Flash']);
- * </code>
  */
 class FlashComponent extends CakeFlashComponent {
 	/**
