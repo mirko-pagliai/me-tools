@@ -85,6 +85,19 @@ class TokensTable extends Table {
 		
 		$this->deleteAll($conditions);
 	}
+	
+	/**
+	 * "Active" find method
+	 * @param Query $query Query object
+	 * @param array $options Options
+	 * @return Query Query object
+	 * @uses Cake\I18n\Time::i18nFormat()
+	 */
+	public function findActive(Query $query, array $options) {
+        $query->where([sprintf('%s.expiry >', $this->alias()) => (new Time())->i18nFormat(FORMAT_FOR_MYSQL)]);
+		
+        return $query;
+    }
 
 	/**
      * Initialize method
