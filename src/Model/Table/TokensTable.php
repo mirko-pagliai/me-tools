@@ -41,6 +41,26 @@ class TokensTable extends Table {
         $this->displayField('id');
         $this->primaryKey('id');
     }
+	
+	/**
+	 * Called before request data is converted into entities
+	 * @param \Cake\Event\Event $event Event object
+	 * @param \ArrayObject $data Data
+	 * @param \ArrayObject $options Options
+	 * @uses Cake\I18n\Time::i18nFormat()
+	 * @uses Cake\Utility\Security::hash()
+	 */
+	public function beforeMarshal(\Cake\Event\Event $event, \ArrayObject $data, \ArrayObject $options) {
+		if(empty($data['token']))
+			$data['token'] = time();
+		
+		$data['token'] = substr(\Cake\Utility\Security::hash($data['token'], 'sha1', TRUE), 0, 25);
+		
+		if(empty($data['expiry'])) {
+			$time = new \Cake\I18n\Time('+12 hours');
+			$data['expiry'] = $time->i18nFormat(FORMAT_FOR_MYSQL);
+		}
+	}
 
     /**
      * Default validation rules
@@ -62,7 +82,7 @@ class TokensTable extends Table {
 		
 		//Token
 		$validator->requirePresence('token', 'create')
-			->add('type', 'lengthBetween', ['rule' => ['lengthBetween', 25, 25]]);
+			->add('token', 'lengthBetween', ['rule' => ['lengthBetween', 25, 25]]);
 		
 		//Data
 		$validator->allowEmpty('data');
