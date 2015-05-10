@@ -35,7 +35,7 @@ use Cake\Network\Request as CakeRequest;
 class Request extends CakeRequest {
 	/**
 	 * Checks if the current request has a prefix
-	 * @return bool TRUE if the current request has a prefix, otherwise FALSE
+	 * @return bool
 	 */
 	public function hasPrefix() {
 		return !empty($this->param('prefix'));
@@ -61,7 +61,7 @@ class Request extends CakeRequest {
 	 * returns TRUE if the current action is `edit` or `delete` and if the current controller is `Pages`, otherwise FALSE.
 	 * @param string|array $action Action name
 	 * @param string|array $controller Controller name
-	 * @return bool TRUE if it's the current action, otherwise FALSE
+	 * @return bool
 	 * @uses isController()
 	 */
 	public function isAction($action, $controller = NULL) {
@@ -72,7 +72,7 @@ class Request extends CakeRequest {
 	
 	/**
 	 * Checks if the current request is an admin request.
-	 * @return bool TRUE if it's an admin request, otherwise FALSE
+	 * @return bool
 	 * @uses isPrefix()
 	 */
 	public function isAdmin() {
@@ -89,7 +89,7 @@ class Request extends CakeRequest {
 	 * </code>
 	 * returns TRUE if the current controller is `Pages`, otherwise FALSE.
 	 * @param string|array $controller Controller name
-	 * @return bool TRUE if it's the current controller, otherwise FALSE
+	 * @return bool
 	 */
 	public function isController($controller) {
 		return in_array($this->param('controller'), is_array($controller) ? $controller : [$controller]);
@@ -109,7 +109,7 @@ class Request extends CakeRequest {
 	
 	/**
 	 * Checks if the current request is a manager request.
-	 * @return bool TRUE if it's a manager request, otherwise FALSE
+	 * @return bool
 	 * @uses isPrefix()
 	 */
 	public function isManager() {
@@ -120,7 +120,7 @@ class Request extends CakeRequest {
 	 * Checks if the specified prefix is the current prefix.
 	 * The prefix name can be passed as string or array.
 	 * @param string|array $prefix Prefix name
-	 * @return bool TRUE if it's the current prefix, otherwise FALSE
+	 * @return bool
 	 */
 	public function isPrefix($prefix) {
 		return in_array($this->param('prefix'), is_array($prefix) ? $prefix : [$prefix]);
