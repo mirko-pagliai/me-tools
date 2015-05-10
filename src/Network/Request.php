@@ -96,6 +96,18 @@ class Request extends CakeRequest {
 	}
 	
 	/**
+	 * Checks if the specified url is the current url
+	 * @param string|array $url An array specifying any of the following: 'controller', 'action', 'plugin' additionally, 
+	 * you can provide routed elements or query string parameters. If string it can be name any valid url string
+	 * @return bool
+	 * @uses \Cake\Routing\Router::url()
+	 * @uses here
+	 */
+	public function isCurrent($url) {
+		return \Cake\Routing\Router::url($url) === $this->here;
+	}
+	
+	/**
 	 * Checks if the current request is a manager request.
 	 * @return bool TRUE if it's a manager request, otherwise FALSE
 	 * @uses isPrefix()
