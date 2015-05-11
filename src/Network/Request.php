@@ -104,7 +104,9 @@ class Request extends CakeRequest {
 	 * @uses here
 	 */
 	public function isCurrent($url) {
-		return \Cake\Routing\Router::url($url) === $this->here;
+		$current = \Cake\Routing\Router::url($url);
+		
+		return preg_match(sprintf('/^%s\/?$/', preg_quote($current, '/')), $this->here);
 	}
 	
 	/**
