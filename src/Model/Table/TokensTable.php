@@ -32,25 +32,7 @@ use MeTools\Model\Entity\Token;
 /**
  * Tokens model
  */
-class TokensTable extends Table {
-	/**
-	 * Called before request data is converted into entities
-	 * @param \Cake\Event\Event $event Event object
-	 * @param \ArrayObject $data Data
-	 * @param \ArrayObject $options Options
-	 * @uses Cake\I18n\Time::i18nFormat()
-	 * @uses Cake\Utility\Security::hash()
-	 */
-	public function beforeMarshal(\Cake\Event\Event $event, \ArrayObject $data, \ArrayObject $options) {
-		if(empty($data['token']))
-			$data['token'] = time();
-		
-		$data['token'] = substr(\Cake\Utility\Security::hash($data['token'], 'sha1', TRUE), 0, 25);
-		
-		if(empty($data['expiry']))
-			$data['expiry'] = (new Time('+12 hours'))->i18nFormat(FORMAT_FOR_MYSQL);
-	}
-	
+class TokensTable extends Table {	
 	/**
 	 * Called before each entity is saved.
 	 * Stopping this event will abort the save operation

@@ -80,14 +80,12 @@ class TokenComponent extends Component {
 	 * @param array $options Options (`data`, `expiry`, `type` and `user_id`)
 	 * @return mixed The token value on success, otherwise FALSE
 	 */
-	public function create($salt = NULL, array $options = []) {
-		return $this->Tokens->save($entity = $this->Tokens->newEntity(af([
-			'data'		=> empty($options['data']) ? NULL : $options['data'],
-			'expiry'	=> empty($options['expiry']) ? NULL : $options['expiry'],
-			'type'		=> empty($options['type']) ? NULL : $options['type'],
-			'token'		=> $salt,
-			'user_id'	=> empty($options['user_id']) ? NULL : $options['user_id']
-		]))) ? $entity->token : FALSE;
+	public function create($salt = NULL, array $options = []) {		
+		$entity = $this->Tokens->newEntity(af($options));
+		$entity->token = substr(\Cake\Utility\Security::hash(empty($salt) ? time() : $salt, 'sha1', TRUE), 0, 25);
+		$entity->expiry = (new \Cake\I18n\Time('+12 hours'))->i18nFormat(FORMAT_FOR_MYSQL);
+				
+		return $this->Tokens->save($entity) ? $entity->token : FALSE;
 	}
 	
 	/**
