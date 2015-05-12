@@ -1,0 +1,191 @@
+/*!
+ * This file is part of MeTools.
+ * @author		Mirko Pagliai <mirko.pagliai@gmail.com>
+ * @copyright	Copyright (c) 2015, Mirko Pagliai for Nova Atlantis Ltd
+ * @license		http://www.gnu.org/licenses/agpl.txt AGPL License
+ */
+
+/* -------------------------------- */
+/*				Wrappers			*/
+/* -------------------------------- */
+/* Form element */
+form {
+	margin-bottom: 20px;
+}
+
+/* Form, input wrapper */
+form .input {
+	position: relative;
+}
+
+/* Submit wrapper after fieldset */
+form fieldset + .submit {
+	margin: 0;
+}
+
+/* -------------------------------- */
+/*			Required fields			*/
+/* -------------------------------- */
+/* Labels for required inputs */
+form label.required:after,
+form div.required > label:after {
+	color: #e32;
+	content: '*';
+	display: inline;
+}
+
+/* -------------------------------- */
+/*				Textareas			*/
+/* -------------------------------- */
+/* Textareas */
+form textarea {
+	min-height: 28px;
+	resize: vertical;
+}
+
+/* -------------------------------- */
+/*			Checkbox inputs			*/
+/* -------------------------------- */
+/* It hides the checkbox, which will be replaced with an icon in the label */
+form input[type='checkbox'] {
+	display: none;
+}
+
+/* Checkbox labels */
+form input[type='checkbox'] + label {
+	cursor: pointer;
+	font-weight: bold;
+	padding: 0;
+}
+
+/* Checkbox labels, when checkbox is unchecked */
+form input[type='checkbox'] + label:before {
+	color: #999;
+	content: "\f096";
+	font-family: FontAwesome;
+	font-size: 18px;
+	font-weight: normal;
+	margin-right: 5px;
+    vertical-align: middle;
+}
+
+/* Checkbox labels, when checkbox is checked */
+form input[type='checkbox']:checked + label:before {
+	color: inherit;
+	content: "\f046";
+	margin-right: 2px;
+}
+
+/* -------------------------------- */
+/*			Help blocks (tips)		*/
+/* -------------------------------- */
+/* Help blocks */
+form .input .help-block {
+	font-family: sans-serif, Arial;
+    font-size: 11px;
+	margin: 3px 0 0;
+}
+
+/* Help blocks, first block */
+form .input .help-block:first-of-type {
+	margin-top: 4px;
+}
+
+/* Help blocks, links */
+form .input .help-block a {
+	color: inherit;
+    text-decoration: underline;
+}
+
+/* -------------------------------- */
+/*				Errors				*/
+/* -------------------------------- */
+/* Error messages */
+form .error-message {
+	background: #f2dede;
+    border-radius: 4px;
+    color: #b94a48;
+    font-size: 95%;
+    margin-top: 3px;
+    padding: 4px 8px 6px;
+}
+
+/* Error messages, list */
+form .error-message ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+/* -------------------------------- */
+/*			Float forms				*/
+/* -------------------------------- */
+/* Float form */
+form > .float-form {
+	background: #F7F5FA;
+	border-radius: 5px;
+	margin-bottom: 10px;
+	padding: 12px;
+}
+
+/* Small devices, medium devices and large devices */
+@media (min-width: 768px) {
+	/* Float form */
+	form > .float-form {
+		float: right;
+		margin: 0 0 20px 20px;
+		max-width: 26%;
+		min-width: 20%;
+	}
+
+	/* Float form on left */
+	form > .float-form.float-left {
+		float: left;
+		margin: 0 20px 20px 0;
+	}
+
+	/* Float form, last input wrapper */
+	form > .float-form .input:last-child {
+		margin-bottom: 0;
+	}
+
+	/* Float form, select input */
+	form > .float-form select {
+		width: 100% !important;
+	}
+}
+
+/* -------------------------------- */
+/*			Inline forms			*/
+/* -------------------------------- */
+/* Labels */
+form.form-inline label {
+	line-height: 34px;
+	margin: 0 10px 0 0;
+}
+
+/* Wrappers */
+form.form-inline .input, form.form-inline button {
+	margin-right: 4px;
+	vertical-align: top;
+}
+
+/* Wrappers, last wrapper */
+form.form-inline .input:last-child, form.form-inline button:last-child {
+	margin-right: 0;
+}
+
+/* -------------------------------- */
+/*				reCAPTCHA			*/
+/* -------------------------------- */
+.g-recaptcha {
+	margin-bottom: 15px;
+}
+
+/* -------------------------------- */
+/*				CKEditor			*/
+/* -------------------------------- */
+/* Content div */
+.cke_wysiwyg_div {
+	padding: 10px 12px !important;
+}

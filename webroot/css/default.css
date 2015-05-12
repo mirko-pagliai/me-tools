@@ -1,0 +1,229 @@
+/*!
+ * This file is part of MeTools.
+ * @author		Mirko Pagliai <mirko.pagliai@gmail.com>
+ * @copyright	Copyright (c) 2015, Mirko Pagliai for Nova Atlantis Ltd
+ * @license		http://www.gnu.org/licenses/agpl.txt AGPL License
+ */
+
+/* -------------------------------- */
+/*				General				*/
+/* -------------------------------- */
+/* Elements with tooltips */
+[data-toggle~="tooltip"] {
+	cursor: pointer;
+}
+
+/* Em (italic) text */
+.em, .em-text, .emText {
+	font-style: italic;
+}
+
+/* No wrap, text truncated with ellipses */
+.no-wrap, .noWrap,
+.text-truncate, .textTruncate, 
+.text-truncated, .textTruncated,
+.text-ellipsis, .textEllipsis {
+	overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* Small element and small class.
+This rewrites Bootstrap, which normally provides a size of 85% */
+small, .small, .small-text, .smallText, .text-small, .textSmall {
+	font-size: 90%;
+}
+
+/* Strong text */
+.strong, .strong-text, .strongText {
+	font-weight: bold;
+}
+
+/* -------------------------------- */
+/*				Display				*/
+/* -------------------------------- */
+/* Display as block */
+.block, .display-block, .displayBlock {
+	display: block;
+}
+
+/* Display none */
+.display-none, .displayNone, .no-display, .noDisplay {
+	display: none;
+}
+
+/* Display as inline */
+.inline, .display-inline, .displayInline {
+	display: inline;
+}
+
+/* Display as inline-block */
+.inline-block, .display-inline-block, .displayInlineBlock {
+	display: inline-block;
+}
+
+/* -------------------------------- */
+/*				Margins				*/
+/* -------------------------------- */
+/* No margin class */
+.margin0, .margin-0,
+.no-margin, .noMargin {
+	margin: 0 !important;
+}
+
+/* No margin top class */
+.margintop0, .margin-top-0, 
+.no-margin-top, .noMarginTop {
+	margin-top: 0;
+}
+
+/* Margin bottom 5px */
+.margin5px, .margin5, .margin-5px, .margin-5 {
+	margin-bottom: 5px;
+}
+
+/* Margin bottom 10px */
+.margin10px, .margin10, .margin-10px, .margin-10 {
+	margin-bottom: 10px;
+}
+
+/* Margin bottom 15px */
+.margin15px, .margin15, .margin-15px, .margin-15 {
+	margin-bottom: 15px;
+}
+
+/* Margin bottom 20px */
+.margin20px, .margin20, .margin-20px, .margin-20 {
+	margin-bottom: 20px;
+}
+
+/* Margin bottom 30px */
+.margin30px, .margin30, .margin-30px, .margin-30 {
+	margin-bottom: 30px;
+}
+
+/* Margin bottom 40px */
+.margin40px, .margin40, .margin-40px, .margin-40 {
+	margin-bottom: 40px;
+}
+
+/* -------------------------------- */
+/*				Paddings			*/
+/* -------------------------------- */
+/* No padding class */
+.padding0, .padding-0,
+.no-padding, .noPadding {
+	padding: 0 !important;
+}
+
+/* Padding 5px */
+.padding5px, .padding5, .padding-5px, .padding-5 {
+	padding: 5px;
+}
+
+/* Padding 10px */
+.padding10px, .padding10, .padding-10px, .padding-10 {
+	padding: 10px;
+}
+
+/* Padding 15px */
+.padding15px, .padding15, .padding-15px, .padding-15 {
+	padding: 15px;
+}
+
+/* Padding 20px */
+.padding20px, .padding20, .padding-20px, .padding-20 {
+	padding: 20px;
+}
+
+/* -------------------------------- */
+/*				HTML				*/
+/* -------------------------------- */
+/* Iframe*/
+iframe {
+	border: 0;
+	display: block;
+	max-width: 100%;
+}
+
+/* -------------------------------- */
+/*				Tables				*/
+/* -------------------------------- */
+/* Actions */
+.table td.actions {
+	width: 1px;
+	white-space: nowrap;
+}
+
+/* Actions, buttons */
+.table td.actions .btn {
+	min-width: 14px;
+    padding: 4px 8px;
+}
+
+/* Cells with the minimum width */
+.table th.min-width, .table th.minWidth, .table td.min-width, .table td.minWidth {
+	white-space: nowrap;
+    width: 1px;
+}
+
+/* -------------------------------- */
+/*		Ascending/descending sort	*/
+/* -------------------------------- */
+th a.asc:after, th a.desc:after {
+	font-family: FontAwesome;
+    font-weight: normal;
+	white-space: nowrap;
+}
+
+/* Ascending sort */
+th a.asc:after {
+    content: " \f160";
+}
+
+/* Descending sort */
+th a.desc:after {
+    content: " \f161";
+}
+
+/* -------------------------------- */
+/*				Alerts				*/
+/* -------------------------------- */
+/* Alert */
+.alert {
+    border-width: 0 0 3px;
+	padding: 10px 15px;
+}
+
+/* -------------------------------- */
+/*		Contextual backgrounds		*/
+/* -------------------------------- */
+/* Code blocks on contextual backgrounds */
+.bg-danger code, .bg-info code, .bg-primary code, .bg-success code, .bg-warning code {
+	background: inherit;
+    color: inherit;
+    line-height: 100%;
+}
+
+/* -------------------------------- */
+/*			Bootstrap rewrite		*/
+/* -------------------------------- */
+/* Buttons on buttons group. Fixed a Bootstrap bug */
+.btn-group .btn {
+    margin-left: -1px;
+}
+
+/* Disabled links on pagination */ 
+.pagination > .disabled > a, .pagination > .disabled > a:focus, .pagination > .disabled > a:hover, .pagination > .disabled > span, .pagination > .disabled > span:focus, .pagination > .disabled > span:hover {
+    cursor: default;
+}
+
+/* Table, middle vertical align */
+.table > tbody > tr > td, .table > tbody > tr > th, .table > tfoot > tr > td, .table > tfoot > tr > th, .table > thead > tr > td, .table > thead > tr > th {
+    vertical-align: middle;
+}
+
+/* Wells, last child */
+.well :last-child {
+	margin-bottom: 0;
+}
