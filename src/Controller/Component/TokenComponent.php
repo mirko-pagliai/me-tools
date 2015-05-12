@@ -79,6 +79,8 @@ class TokenComponent extends Component {
 	 * @param string $salt Salt to use to generate the token
 	 * @param array $options Options (`data`, `expiry`, `type` and `user_id`)
 	 * @return mixed The token value on success, otherwise FALSE
+	 * @uses Cake\I18n\Time::i18nFormat()
+	 * @uses Cake\Utility\Security::hash()
 	 */
 	public function create($salt = NULL, array $options = []) {		
 		$entity = $this->Tokens->newEntity(af($options));
