@@ -1,11 +1,11 @@
-# LANGUAGE translation of MeTools
-# Copyright 2015 Mirko Pagliai <mirko.pagliai@gmail.com>
+# LANGUAGE translation of CakePHP Application
+# Copyright YEAR NAME <EMAIL@ADDRESS>
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2015-05-18 19:55+0000\n"
+"POT-Creation-Date: 2015-05-18 19:57+0000\n"
 "PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
 "Last-Translator: NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
@@ -23,7 +23,7 @@ msgid "The thumbnail {0} has not been created"
 msgstr ""
 
 #: Controller/ThumbsController.php:159
-msgid "{0} is not avalaible"
+msgid "{0} is not available"
 msgstr ""
 
 #: Controller/ThumbsController.php:215
@@ -56,11 +56,11 @@ msgid "It was not possible to verify the {0} control"
 msgstr ""
 
 #: Shell/InstallShell.php:70
-msgid "{0} has been made writeable"
+msgid "{0} has been made writable"
 msgstr ""
 
 #: Shell/InstallShell.php:72
-msgid "{0} has not been made writeable"
+msgid "{0} has not been made writable"
 msgstr ""
 
 #: Shell/InstallShell.php:77
