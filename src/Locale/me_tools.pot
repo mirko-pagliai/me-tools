@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2015-05-18 19:47+0000\n"
+"POT-Creation-Date: 2015-05-18 19:55+0000\n"
 "PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
 "Last-Translator: NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
@@ -105,13 +105,5 @@ msgstr ""
 
 #: View/Helper/RecaptchaHelper.php:143
 msgid "The private mail key is not valid"
-msgstr ""
-
-#: View/Helper_old/MeHtmlHelper.php:108
-msgid "Tip"
-msgstr ""
-
-#: View/Helper_old/MePaginatorHelper.php:85
-msgid "%s - %s of %s"
 msgstr ""
 
