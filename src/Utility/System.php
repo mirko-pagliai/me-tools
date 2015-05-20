@@ -150,17 +150,13 @@ class System {
 	 * It searchs into `ROOT` and all loaded plugins.
 	 * @uses MeTools\Utility\Plugin::path()
 	 * @return array Changelog files
+	 * @uses Cake\I18n\I18n::locale()
+	 * @uses MeTools\Utility\Plugin::path()
 	 */
 	public static function getChangelogs() {
-		//Set paths
-		$paths = am([ROOT.DS], Plugin::path());
-		
-		//Gets changelog files
 		$files = af(array_map(function($path) {
-			//TO-DO: fix
 			//Gets the current locale
-			//$locale = Configure::read('Config.language');
-			$locale = 'it';
+			$locale = substr(\Cake\I18n\I18n::locale(), 0, 2);
 
 			if(!empty($locale) && is_readable($file = sprintf($path.'CHANGELOG_%s.md', $locale)))
 				return str_replace(ROOT.DS, NULL, $file);
@@ -168,7 +164,7 @@ class System {
 				return str_replace(ROOT.DS, NULL, $file);
 			else
 				return FALSE;	
-		}, $paths));
+		}, am([ROOT.DS], Plugin::path())));
 		
 		//Re-indexes, starting to 1, and returns
 		return array_combine(range(1, count($files)), array_values($files));

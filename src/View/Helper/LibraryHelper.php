@@ -50,6 +50,7 @@ class LibraryHelper extends Helper {
      * @param array $options Options for the datepicker
 	 * @return string jQuery code
      * @see http://eonasdan.github.io/bootstrap-datetimepicker Bootstrap 3 Datepicker v4 documentation
+	 * @uses Cake\I18n\I18n::locale()
 	 * @uses MeTools\View\Helper\HtmlHelper::css()
 	 * @uses MeTools\View\Helper\HtmlHelper::js()
 	 */
@@ -75,13 +76,10 @@ class LibraryHelper extends Helper {
 			'clear' => 'fa fa-trash'
 		], $options);
 		
-		//TO-DO: fix
-//		$locale = Configure::read('Config.language');
-//		
-//		if(empty($options['locale']) && !empty($locale))
-//			$options = addDefault('locale', $locale, $options);
-		//Shows the "Clear" button in the icon toolbar
-		$options = addDefault('locale', 'en-gb', $options);
+		
+		//Sets the current locale
+		$locale = substr(\Cake\I18n\I18n::locale(), 0, 2);
+		$options = addDefault('locale', empty($locale) ? 'en-gb' : $locale, $options);
 		
 		return sprintf('$("%s").datetimepicker(%s);', $input, json_encode($options));
 	}
