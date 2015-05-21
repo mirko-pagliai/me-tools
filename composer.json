@@ -1,5 +1,12 @@
 {
     "name": "mirko-pagliai/MeTools",
     "description": "MeTools plugin for CakePHP",
-    "type": "cakephp-plugin"
+    "homepage": "https://github.com/mirko-pagliai/MeTools",
+    "type": "cakephp-plugin",
+    "license": "AGPL",
+    "autoload": {
+		"psr-4": {
+			"MeTools\\": "src"
+		}
+	}
 }
