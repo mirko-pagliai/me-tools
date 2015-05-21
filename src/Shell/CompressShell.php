@@ -51,7 +51,7 @@ class CompressShell extends AppShell {
 				$this->error(__d('me_tools', '{0} doesn\'t exists or is not readable', $file));
 		
 		//Checks if the output directory is writable
-		if(!is_writable(dirname($output)) && !(new Folder)->create(dirname($output)))
+		if(!is_writable(dirname($output)))
 			$this->error(__d('me_tools', '{0} doesn\'t exists or is not writeable', dirname($output)));
 		
 		//If the output file already exists and the "force" option is empty, asks if the output file should be overwritten
