@@ -104,10 +104,15 @@ class CompressShell extends AppShell {
 			$v = preg_match(sprintf('/^%s/', preg_quote(ROOT.DS.'vendor', '/')), $v) ? FALSE : $v;
 		});
 		
-		foreach(af($plugins) as $plugin)
-			if(is_readable($file = $plugin.'config'.DS.'assets.php'))
-				$files[] = $file;
+		foreach(af($plugins) as $plugin) {			
+			if(!is_readable($dir = $plugin.'config'))
+				continue;
 			
+			foreach((new Folder($dir))->findRecursive('assets.php') as $file)
+				if(is_readable($file))
+					$files[] = $file;
+		}
+		
 		if(empty($files))
 			$this->error(__d('me_tools', 'no configuration files found'));
 		
