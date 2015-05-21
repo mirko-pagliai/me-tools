@@ -25,7 +25,7 @@ namespace MeTools\Controller\Component;
 
 use Cake\Controller\Component\FlashComponent as CakeFlashComponent;
 use Cake\Controller\ComponentRegistry;
-use MeTools\Utility\Plugin;
+use MeTools\Core\Plugin;
 
 /**
  * Provides a way to persist client data between page requests. It acts as a wrapper for the 
@@ -39,7 +39,7 @@ class FlashComponent extends CakeFlashComponent {
 	 * @param string $name Element name to use
 	 * @param array $args Parameters to pass
 	 * @return void
-	 * @uses MeTools\Utility\Plugin::path()
+	 * @uses MeTools\Core\Plugin::path()
 	 */
 	public function __call($name, $args) {
 		$name = strtolower($name);

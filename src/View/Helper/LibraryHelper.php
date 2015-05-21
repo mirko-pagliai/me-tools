@@ -26,7 +26,7 @@ namespace MeTools\View\Helper;
 use Cake\Core\Configure;
 use Cake\View\Helper;
 use Cake\View\View;
-use MeTools\Utility\Plugin;
+use MeTools\Core\Plugin;
 
 /**
  * Library helper
@@ -131,7 +131,7 @@ class LibraryHelper extends Helper {
      * @see MeTools\View\Helper\FormHelper::ckeditor()
      * @see http://docs.cksource.com CKEditor documentation
 	 * @uses MeTools\View\Helper\HtmlHelper::js()
-	 * @uses MeTools\Utility\Plugin::path()
+	 * @uses MeTools\Core\Plugin::path()
      */
     public function ckeditor($jquery = TRUE) {
         //Checks for CKEditor into `APP/webroot/ckeditor/`
@@ -211,7 +211,7 @@ class LibraryHelper extends Helper {
      * @see http://fancyapps.com/fancybox/#docs FancyBox documentation
 	 * @uses MeTools\View\Helper\HtmlHelper::css()
 	 * @uses MeTools\View\Helper\HtmlHelper::js()
-	 * @uses MeTools\Utility\Plugin::path()
+	 * @uses MeTools\Core\Plugin::path()
 	 */
 	public function fancybox() {
         //Checks for FancyBox into `APP/webroot/fancybox/`

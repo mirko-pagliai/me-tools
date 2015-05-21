@@ -89,7 +89,7 @@ class CompressShell extends AppShell {
 	/**
 	 * Searches all the configuration files and automatically compresses
 	 * @return bool
-	 * @uses MeTools\Utility\Plugin::path()
+	 * @uses MeTools\Core\Plugin::path()
 	 * @uses config()
 	 */
 	public function auto() {
@@ -97,7 +97,7 @@ class CompressShell extends AppShell {
 		if(is_readable($file = ROOT.DS.'config'.DS.'assets.php'))
 			$files[] = $file;
 		
-		$plugins = \MeTools\Utility\Plugin::path();
+		$plugins = \MeTools\Core\Plugin::path();
 		
 		//Removes vendor plugins
 		array_walk($plugins, function(&$v, $k) {

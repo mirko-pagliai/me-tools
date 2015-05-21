@@ -20,7 +20,7 @@
  * @license		http://www.gnu.org/licenses/agpl.txt AGPL License
  * @link		http://git.novatlantis.it Nova Atlantis Ltd
  */
-namespace MeTools\Utility;
+namespace MeTools\Core;
 
 use Cake\Core\Plugin as CakePlugin;
 use Cake\Filesystem\Folder;
