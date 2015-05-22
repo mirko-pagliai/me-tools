@@ -67,15 +67,9 @@ class InstallShell extends AppShell {
 			//Makes the directory as writable, if it's readable but not writable
 			if(is_readable($path) && !is_writable($path)) {
 				if($folder->chmod($path, 0777))
-<<<<<<< HEAD
-					$this->success(__d('me_tools', '{0} has been made writeable', $path));
-				else
-					$this->error(__d('me_tools', '{0} has not been made writeable', $path));
-=======
 					$this->success(__d('me_tools', '{0} has been made writable', $path));
 				else
 					$this->error(__d('me_tools', '{0} has not been made writable', $path));
->>>>>>> develop
 			}
 			//Creates the directory, if it doesn't exist or is not readable
 			elseif(!file_exists($path) || !is_readable($path)) {

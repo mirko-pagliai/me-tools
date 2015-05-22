@@ -79,17 +79,6 @@ class TokenComponent extends Component {
 	 * @param string $salt Salt to use to generate the token
 	 * @param array $options Options (`data`, `expiry`, `type` and `user_id`)
 	 * @return mixed The token value on success, otherwise FALSE
-<<<<<<< HEAD
-	 */
-	public function create($salt = NULL, array $options = []) {
-		return $this->Tokens->save($entity = $this->Tokens->newEntity(af([
-			'data'		=> empty($options['data']) ? NULL : $options['data'],
-			'expiry'	=> empty($options['expiry']) ? NULL : $options['expiry'],
-			'type'		=> empty($options['type']) ? NULL : $options['type'],
-			'token'		=> $salt,
-			'user_id'	=> empty($options['user_id']) ? NULL : $options['user_id']
-		]))) ? $entity->token : FALSE;
-=======
 	 * @uses Cake\I18n\Time::i18nFormat()
 	 * @uses Cake\Utility\Security::hash()
 	 */
@@ -99,7 +88,6 @@ class TokenComponent extends Component {
 		$entity->expiry = (new \Cake\I18n\Time('+12 hours'))->i18nFormat(FORMAT_FOR_MYSQL);
 				
 		return $this->Tokens->save($entity) ? $entity->token : FALSE;
->>>>>>> develop
 	}
 	
 	/**

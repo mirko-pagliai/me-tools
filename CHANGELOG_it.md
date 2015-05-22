@@ -1,20 +1,12 @@
 # 2.x ramo
 ## 2.0 ramo
-<<<<<<< HEAD
-### 2.0.0-alpha
-=======
 ### 2.0.0-beta
->>>>>>> develop
 * tutto il codice è stato interamente riscritto per CakePHP 3.x. Sono state applicate svariate ottimizzazioni;
 * per le azioni di caricamento/aggiunta di file, i messaggi di errore sono maggiormente esplicativi;
 * aggiunta la classe `MeEmail` per semplificare l'invio delle email;
 * aggiunta la classe `MeRequest` per gestire le richieste HTTP;
 * aggiunto `ThumbHelper` per la generazione delle miniature;
-<<<<<<< HEAD
-* aggiornato Moment.js alla versione 2.10.0.
-=======
 * aggiornato Moment.js alla versione 2.10.3.
->>>>>>> develop
 
 # 1.x ramo
 ## 1.2 ramo

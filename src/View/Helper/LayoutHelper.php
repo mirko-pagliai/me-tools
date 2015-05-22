@@ -22,10 +22,7 @@
  */
 namespace MeTools\View\Helper;
 
-<<<<<<< HEAD
-=======
 use Cake\Core\Configure;
->>>>>>> develop
 use Cake\View\Helper;
 use Cake\View\View;
 
@@ -40,8 +37,6 @@ class LayoutHelper extends Helper {
 	 * @var array
 	 */
 	public $helpers = ['Html' => ['className' => 'MeTools.Html']];
-<<<<<<< HEAD
-=======
 
 	/**
      * Adds a css file to the layout.
@@ -79,7 +74,6 @@ class LayoutHelper extends Helper {
     public function script($url, $urlForDebug, array $options = []) {
 		return $this->Html->script(Configure::read('debug') ? $urlForDebug : $url, $options);
 	}
->>>>>>> develop
 	
 	/**
 	 * Adds the `viewport` meta tag as required by Bootstrap.
