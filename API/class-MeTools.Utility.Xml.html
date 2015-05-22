@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 
-	<title>Class MeTools\Utility\Php | MeTools API</title>
+	<title>Class MeTools\Utility\Xml | MeTools API</title>
 
 	<link rel="stylesheet" href="resources/style.css?e99947befd7bf673c6b43ff75e9e0f170c88a60e">
 
@@ -85,18 +85,11 @@
 			<h3>Classes</h3>
 			<ul>
 				<li><a href="class-MeTools.Utility.Apache.html">Apache</a></li>
-				<li class="active"><a href="class-MeTools.Utility.Php.html">Php</a></li>
-<<<<<<< HEAD
-				<li><a href="class-MeTools.Utility.Plugin.html">Plugin</a></li>
+				<li><a href="class-MeTools.Utility.Php.html">Php</a></li>
 				<li><a href="class-MeTools.Utility.System.html">System</a></li>
 				<li><a href="class-MeTools.Utility.Thumbs.html">Thumbs</a></li>
 				<li><a href="class-MeTools.Utility.Unix.html">Unix</a></li>
-=======
-				<li><a href="class-MeTools.Utility.System.html">System</a></li>
-				<li><a href="class-MeTools.Utility.Thumbs.html">Thumbs</a></li>
-				<li><a href="class-MeTools.Utility.Unix.html">Unix</a></li>
-				<li><a href="class-MeTools.Utility.Xml.html">Xml</a></li>
->>>>>>> develop
+				<li class="active"><a href="class-MeTools.Utility.Xml.html">Xml</a></li>
 			</ul>
 
 
@@ -140,15 +133,15 @@
 	</div>
 
 <div id="content" class="class">
-	<h1>Class Php</h1>
+	<h1>Class Xml</h1>
 
 
 	<div class="description">
-	<p>An utility to handle PHP.</p>
+	<p>An utility to handle XML files and strings.</p>
 
 <p>You can use this utility by adding:</p>
 
-<pre><span class="php-keyword1">use</span> MeTools\Utility\Php;</pre>
+<pre><span class="php-keyword1">use</span> MeTools\Utility\XML;</pre>
 	</div>
 
 
@@ -165,7 +158,7 @@
 		<b>Namespace:</b> <a href="namespace-MeTools.html">MeTools</a>\<a href="namespace-MeTools.Utility.html">Utility</a><br>
 		
 
-			<b>Located at</b> <a href="source-class-MeTools.Utility.Php.html#25-82" title="Go to source code">Php.php</a>
+			<b>Located at</b> <a href="source-class-MeTools.Utility.Xml.html#27-91" title="Go to source code">Xml.php</a>
 		<br>
 	</div>
 
@@ -173,195 +166,144 @@
 
 	<table class="summary methods" id="methods">
 	<caption>Methods summary</caption>
-	<tr data-order="checkExtension" id="_checkExtension">
+	<tr data-order="fromArray" id="_fromArray">
 
 		<td class="attributes"><code>
-			 public static
+			 public 
 
-			mixed
+			SimpleXMLElement|DOMDocument
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
-		<a class="anchor" href="#_checkExtension">#</a>
-		<code><a href="source-class-MeTools.Utility.Php.html#34-44" title="Go to source code">checkExtension</a>( <span>string <var>$extension</var></span> )</code>
+		<a class="anchor" href="#_fromArray">#</a>
+		<code><a href="source-class-MeTools.Utility.Xml.html#36-53" title="Go to source code">fromArray</a>( <span>array|Cake\Collection\Collection <var>$input</var></span>, <span>array <var>$options</var> = []</span> )</code>
 
 		<div class="description short">
-			<p>Checks if an extension is enabled.</p>
+			<p>Transform an array into a SimpleXMLElement</p>
 		</div>
 
 		<div class="description detailed hidden">
-			<p>Checks if an extension is enabled.</p>
+			<p>Transform an array into a SimpleXMLElement</p>
+
+<p>If the input array doesn't have a root element, this will be added automatically.</p>
 
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
-					<dt><var>$extension</var></dt>
-					<dd>Extension to be checked</dd>
+					<dt><var>$input</var></dt>
+					<dd>Array with data or a collection instance</dd>
+					<dt><var>$options</var></dt>
+					<dd>The options to use or a string to use as format</dd>
 				</dl></div>
 
 				<h4>Returns</h4>
 				<div class="list">
-					mixed<br>TRUE if the extension is enabled, FALSE otherwise. NULL if cannot check
+					SimpleXMLElement|DOMDocument<br>SimpleXMLElement or DOMDocument
 				</div>
 
+				<h4>Throws</h4>
+				<div class="list">
+					Cake\Utility\Exception\XmlException
+				</div>
 
+				<h4>Uses</h4>
+				<div class="list">
+						Cake\Utility\Xml::fromArray()<br>
+				</div>
 
 
 		</div>
 		</div></td>
 	</tr>
-	<tr data-order="checkVersion" id="_checkVersion">
+	<tr data-order="fromFile" id="_fromFile">
 
 		<td class="attributes"><code>
-			 public static
+			 public 
 
-			boolean
+			array
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
-		<a class="anchor" href="#_checkVersion">#</a>
-		<code><a href="source-class-MeTools.Utility.Php.html#46-57" title="Go to source code">checkVersion</a>( <span>string <var>$required</var> = <span class="php-quote">'5.4.16'</span></span> )</code>
+		<a class="anchor" href="#_fromFile">#</a>
+		<code><a href="source-class-MeTools.Utility.Xml.html#55-73" title="Go to source code">fromFile</a>( <span>string <var>$file</var></span> )</code>
 
 		<div class="description short">
-			<p>Checks if the current version of PHP is equal to or greater than the required version.</p>
+			<p>Gets an XML file (passed as a url or path) and returns it as an array.
+If the path is relative, it will be relative to <code>APP</code>.</p>
 		</div>
 
 		<div class="description detailed hidden">
-			<p>Checks if the current version of PHP is equal to or greater than the required version.</p>
-
-<p>CakePHP 2.x requires at least the <code>5.2.8</code> version.
-CakePHP 3.x requires at least the <code>5.4.16</code> version.</p>
+			<p>Gets an XML file (passed as a url or path) and returns it as an array.
+If the path is relative, it will be relative to <code>APP</code>.</p>
 
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
-					<dt><var>$required</var></dt>
-					<dd>Required version of PHP</dd>
+					<dt><var>$file</var></dt>
+					<dd>XML url/path</dd>
 				</dl></div>
 
 				<h4>Returns</h4>
 				<div class="list">
-					boolean<br>TRUE if the current version is equal to or greater than the required version, FALSE otherwise
+					array<br>Array representation of the XML
 				</div>
 
 
 				<h4>Uses</h4>
 				<div class="list">
-						<code><a href="class-MeTools.Utility.Php.html#_version">MeTools\Utility\Php::version()</a></code><br>
+						<code><a href="class-MeTools.Utility.Xml.html#_toArray">MeTools\Utility\Xml::toArray()</a></code><br>
 				</div>
 
 
 		</div>
 		</div></td>
 	</tr>
-	<tr data-order="extension" id="_extension">
+	<tr data-order="toArray" id="_toArray">
 
 		<td class="attributes"><code>
-			 public static
+			 public 
 
-			
+			array
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
-		<a class="anchor" href="#_extension">#</a>
-		<code><a href="source-class-MeTools.Utility.Php.html#59-65" title="Go to source code">extension</a>( )</code>
+		<a class="anchor" href="#_toArray">#</a>
+		<code><a href="source-class-MeTools.Utility.Xml.html#75-90" title="Go to source code">toArray</a>( <span>SimpleXMLElement|DOMDocument|DOMNode <var>$xml</var></span> )</code>
 
 		<div class="description short">
-			<p>Alias for <code>checkExtension()</code> method.</p>
+			<p>Returns an XML structure as an array</p>
 		</div>
 
 		<div class="description detailed hidden">
-			<p>Alias for <code>checkExtension()</code> method.</p>
+			<p>Returns an XML structure as an array</p>
 
 
-
-
-
-				<h4>See</h4>
-				<div class="list">
-						<code><a href="class-MeTools.Utility.Php.html#_checkExtension">MeTools\Utility\Php::checkExtension()</a></code><br>
-				</div>
-				<h4>Used by</h4>
-				<div class="list">
-						<code><a href="class-MeTools.Controller.ThumbsController.html#__imageThumb">MeTools\Controller\ThumbsController::_imageThumb()</a></code><br>
-				</div>
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="getVersion" id="_getVersion">
-
-		<td class="attributes"><code>
-			 public static
-
-			string
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_getVersion">#</a>
-		<code><a href="source-class-MeTools.Utility.Php.html#67-73" title="Go to source code">getVersion</a>( )</code>
-
-		<div class="description short">
-			<p>Gets the current version.</p>
-		</div>
-
-		<div class="description detailed hidden">
-			<p>Gets the current version.</p>
-
-
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$xml</var></dt>
+					<dd>SimpleXMLElement, DOMDocument or DOMNode instance</dd>
+				</dl></div>
 
 				<h4>Returns</h4>
 				<div class="list">
-					string<br>Current version
+					array<br>Array representation of the XML structure
 				</div>
 
 
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="version" id="_version">
-
-		<td class="attributes"><code>
-			 public static
-
-			
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_version">#</a>
-		<code><a href="source-class-MeTools.Utility.Php.html#75-81" title="Go to source code">version</a>( )</code>
-
-		<div class="description short">
-			<p>Alias for <code>getVersion()</code> method.</p>
-		</div>
-
-		<div class="description detailed hidden">
-			<p>Alias for <code>getVersion()</code> method.</p>
-
-
-
-
-
-				<h4>See</h4>
+				<h4>Uses</h4>
 				<div class="list">
-						<code><a href="class-MeTools.Utility.Php.html#_getVersion">MeTools\Utility\Php::getVersion()</a></code><br>
+						Cake\Utility\Xml::build()<br>
+						Cake\Utility\Xml::toArray()<br>
 				</div>
 				<h4>Used by</h4>
 				<div class="list">
-						<code><a href="class-MeTools.Utility.Php.html#_checkVersion">MeTools\Utility\Php::checkVersion()</a></code><br>
+						<code><a href="class-MeTools.Utility.Xml.html#_fromFile">MeTools\Utility\Xml::fromFile()</a></code><br>
 				</div>
 
 

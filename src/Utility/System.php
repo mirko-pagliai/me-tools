@@ -25,7 +25,11 @@ namespace MeTools\Utility;
 use Cake\Cache\Cache;
 use Cake\Core\Configure;
 use Cake\Filesystem\Folder;
+<<<<<<< HEAD
 use MeTools\Utility\Plugin;
+=======
+use MeTools\Core\Plugin;
+>>>>>>> develop
 
 /**
  * An utility for checking the status of the system and perform maintenance tasks.
@@ -148,6 +152,7 @@ class System {
 	 * Gets all changelog files. 
 	 * 
 	 * It searchs into `ROOT` and all loaded plugins.
+<<<<<<< HEAD
 	 * @uses MeTools\Utility\Plugin::path()
 	 * @return array Changelog files
 	 */
@@ -161,6 +166,17 @@ class System {
 			//Gets the current locale
 			//$locale = Configure::read('Config.language');
 			$locale = 'it';
+=======
+	 * @uses MeTools\Core\Plugin::path()
+	 * @return array Changelog files
+	 * @uses Cake\I18n\I18n::locale()
+	 * @uses MeTools\Core\Plugin::path()
+	 */
+	public static function getChangelogs() {
+		$files = af(array_map(function($path) {
+			//Gets the current locale
+			$locale = substr(\Cake\I18n\I18n::locale(), 0, 2);
+>>>>>>> develop
 
 			if(!empty($locale) && is_readable($file = sprintf($path.'CHANGELOG_%s.md', $locale)))
 				return str_replace(ROOT.DS, NULL, $file);
@@ -168,7 +184,11 @@ class System {
 				return str_replace(ROOT.DS, NULL, $file);
 			else
 				return FALSE;	
+<<<<<<< HEAD
 		}, $paths));
+=======
+		}, am([ROOT.DS], Plugin::path())));
+>>>>>>> develop
 		
 		//Re-indexes, starting to 1, and returns
 		return array_combine(range(1, count($files)), array_values($files));

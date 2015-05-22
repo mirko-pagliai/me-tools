@@ -156,7 +156,11 @@ class ThumbsController extends AppController {
 	protected function _videoThumb() {
 		//Checks for ffmpegthumbnailer
 		if(!Unix::which('ffmpegthumbnailer'))
+<<<<<<< HEAD
             throw new InternalErrorException(__d('me_tools', '{0} is not avalaible', 'ffmpegthumbnailer'));
+=======
+            throw new InternalErrorException(__d('me_tools', '{0} is not available', 'ffmpegthumbnailer'));
+>>>>>>> develop
 		
 		//Creates the thumbnail
 		shell_exec(sprintf('ffmpegthumbnailer -s %s -q 10 -f -i \'%s\' -o \'%s\'', empty($this->sizes['side']) ? $this->sizes['width'] : $this->sizes['side'], $this->file>path, $this->thumb));

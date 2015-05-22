@@ -26,7 +26,11 @@ namespace MeTools\View\Helper;
 use Cake\Core\Configure;
 use Cake\View\Helper;
 use Cake\View\View;
+<<<<<<< HEAD
 use MeTools\Utility\Plugin;
+=======
+use MeTools\Core\Plugin;
+>>>>>>> develop
 
 /**
  * Library helper
@@ -50,6 +54,10 @@ class LibraryHelper extends Helper {
      * @param array $options Options for the datepicker
 	 * @return string jQuery code
      * @see http://eonasdan.github.io/bootstrap-datetimepicker Bootstrap 3 Datepicker v4 documentation
+<<<<<<< HEAD
+=======
+	 * @uses Cake\I18n\I18n::locale()
+>>>>>>> develop
 	 * @uses MeTools\View\Helper\HtmlHelper::css()
 	 * @uses MeTools\View\Helper\HtmlHelper::js()
 	 */
@@ -75,6 +83,7 @@ class LibraryHelper extends Helper {
 			'clear' => 'fa fa-trash'
 		], $options);
 		
+<<<<<<< HEAD
 		//TO-DO: fix
 //		$locale = Configure::read('Config.language');
 //		
@@ -82,6 +91,12 @@ class LibraryHelper extends Helper {
 //			$options = addDefault('locale', $locale, $options);
 		//Shows the "Clear" button in the icon toolbar
 		$options = addDefault('locale', 'en-gb', $options);
+=======
+		
+		//Sets the current locale
+		$locale = substr(\Cake\I18n\I18n::locale(), 0, 2);
+		$options = addDefault('locale', empty($locale) ? 'en-gb' : $locale, $options);
+>>>>>>> develop
 		
 		return sprintf('$("%s").datetimepicker(%s);', $input, json_encode($options));
 	}
@@ -133,7 +148,11 @@ class LibraryHelper extends Helper {
      * @see MeTools\View\Helper\FormHelper::ckeditor()
      * @see http://docs.cksource.com CKEditor documentation
 	 * @uses MeTools\View\Helper\HtmlHelper::js()
+<<<<<<< HEAD
 	 * @uses MeTools\Utility\Plugin::path()
+=======
+	 * @uses MeTools\Core\Plugin::path()
+>>>>>>> develop
      */
     public function ckeditor($jquery = TRUE) {
         //Checks for CKEditor into `APP/webroot/ckeditor/`
@@ -213,7 +232,11 @@ class LibraryHelper extends Helper {
      * @see http://fancyapps.com/fancybox/#docs FancyBox documentation
 	 * @uses MeTools\View\Helper\HtmlHelper::css()
 	 * @uses MeTools\View\Helper\HtmlHelper::js()
+<<<<<<< HEAD
 	 * @uses MeTools\Utility\Plugin::path()
+=======
+	 * @uses MeTools\Core\Plugin::path()
+>>>>>>> develop
 	 */
 	public function fancybox() {
         //Checks for FancyBox into `APP/webroot/fancybox/`

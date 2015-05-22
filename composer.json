@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
     "name": "your-name-here/MeTools",
     "description": "MeTools plugin for CakePHP",
     "type": "cakephp-plugin",
@@ -21,3 +22,16 @@
         }
     }
 }
+=======
+    "name": "mirko-pagliai/MeTools",
+    "description": "MeTools plugin for CakePHP",
+    "homepage": "https://github.com/mirko-pagliai/MeTools",
+    "type": "cakephp-plugin",
+    "license": "AGPL",
+    "autoload": {
+		"psr-4": {
+			"MeTools\\": "src"
+		}
+	}
+}
+>>>>>>> develop

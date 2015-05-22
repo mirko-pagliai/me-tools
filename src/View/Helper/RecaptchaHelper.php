@@ -28,7 +28,11 @@ use Cake\Core\Configure;
 use Cake\View\Helper;
 use Cake\View\View;
 
+<<<<<<< HEAD
 require_once \MeTools\Utility\Plugin::path('MeTools', 'vendor'.DS.'Recaptcha'.DS.'recaptchalib.php');
+=======
+require_once \MeTools\Core\Plugin::path('MeTools', 'vendor'.DS.'Recaptcha'.DS.'recaptchalib.php');
+>>>>>>> develop
 
 /**
  * Provides several methods for reCAPTCHA.

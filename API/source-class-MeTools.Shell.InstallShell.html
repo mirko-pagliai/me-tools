@@ -93,6 +93,7 @@
 				<li><a href="class-MeTools.Network.Email.Email.html">MeTools\Network\Email\Email</a></li>
 				<li><a href="class-MeTools.Network.Request.html">MeTools\Network\Request</a></li>
 				<li><a href="class-MeTools.Shell.AppShell.html">MeTools\Shell\AppShell</a></li>
+<<<<<<< HEAD
 				<li><a href="class-MeTools.Shell.InstallShell.html">MeTools\Shell\InstallShell</a></li>
 				<li><a href="class-MeTools.Utility.Apache.html">MeTools\Utility\Apache</a></li>
 				<li><a href="class-MeTools.Utility.Php.html">MeTools\Utility\Php</a></li>
@@ -100,6 +101,16 @@
 				<li><a href="class-MeTools.Utility.System.html">MeTools\Utility\System</a></li>
 				<li><a href="class-MeTools.Utility.Thumbs.html">MeTools\Utility\Thumbs</a></li>
 				<li><a href="class-MeTools.Utility.Unix.html">MeTools\Utility\Unix</a></li>
+=======
+				<li><a href="class-MeTools.Shell.CompressShell.html">MeTools\Shell\CompressShell</a></li>
+				<li><a href="class-MeTools.Shell.InstallShell.html">MeTools\Shell\InstallShell</a></li>
+				<li><a href="class-MeTools.Utility.Apache.html">MeTools\Utility\Apache</a></li>
+				<li><a href="class-MeTools.Utility.Php.html">MeTools\Utility\Php</a></li>
+				<li><a href="class-MeTools.Utility.System.html">MeTools\Utility\System</a></li>
+				<li><a href="class-MeTools.Utility.Thumbs.html">MeTools\Utility\Thumbs</a></li>
+				<li><a href="class-MeTools.Utility.Unix.html">MeTools\Utility\Unix</a></li>
+				<li><a href="class-MeTools.Utility.Xml.html">MeTools\Utility\Xml</a></li>
+>>>>>>> develop
 				<li><a href="class-MeTools.View.Helper.DropdownHelper.html">MeTools\View\Helper\DropdownHelper</a></li>
 				<li><a href="class-MeTools.View.Helper.FormHelper.html">MeTools\View\Helper\FormHelper</a></li>
 				<li><a href="class-MeTools.View.Helper.HtmlHelper.html">MeTools\View\Helper\HtmlHelper</a></li>
@@ -220,9 +231,15 @@
 </span><span id="67" class="l"><a href="#67"> 67: </a>            <span class="php-comment">//Makes the directory as writable, if it's readable but not writable</span>
 </span><span id="68" class="l"><a href="#68"> 68: </a>            <span class="php-keyword1">if</span>(<span class="php-keyword2">is_readable</span>(<span class="php-var">$path</span>) &amp;&amp; !<span class="php-keyword2">is_writable</span>(<span class="php-var">$path</span>)) {
 </span><span id="69" class="l"><a href="#69"> 69: </a>                <span class="php-keyword1">if</span>(<span class="php-var">$folder</span>-&gt;<span class="php-keyword2">chmod</span>(<span class="php-var">$path</span>, <span class="php-num">0777</span>))
+<<<<<<< HEAD
 </span><span id="70" class="l"><a href="#70"> 70: </a>                    <span class="php-var">$this</span>-&gt;success(__d(<span class="php-quote">'me_tools'</span>, <span class="php-quote">'{0} has been made writeable'</span>, <span class="php-var">$path</span>));
 </span><span id="71" class="l"><a href="#71"> 71: </a>                <span class="php-keyword1">else</span>
 </span><span id="72" class="l"><a href="#72"> 72: </a>                    <span class="php-var">$this</span>-&gt;error(__d(<span class="php-quote">'me_tools'</span>, <span class="php-quote">'{0} has not been made writeable'</span>, <span class="php-var">$path</span>));
+=======
+</span><span id="70" class="l"><a href="#70"> 70: </a>                    <span class="php-var">$this</span>-&gt;success(__d(<span class="php-quote">'me_tools'</span>, <span class="php-quote">'{0} has been made writable'</span>, <span class="php-var">$path</span>));
+</span><span id="71" class="l"><a href="#71"> 71: </a>                <span class="php-keyword1">else</span>
+</span><span id="72" class="l"><a href="#72"> 72: </a>                    <span class="php-var">$this</span>-&gt;error(__d(<span class="php-quote">'me_tools'</span>, <span class="php-quote">'{0} has not been made writable'</span>, <span class="php-var">$path</span>));
+>>>>>>> develop
 </span><span id="73" class="l"><a href="#73"> 73: </a>            }
 </span><span id="74" class="l"><a href="#74"> 74: </a>            <span class="php-comment">//Creates the directory, if it doesn't exist or is not readable</span>
 </span><span id="75" class="l"><a href="#75"> 75: </a>            <span class="php-keyword1">elseif</span>(!<span class="php-keyword2">file_exists</span>(<span class="php-var">$path</span>) || !<span class="php-keyword2">is_readable</span>(<span class="php-var">$path</span>)) {
@@ -260,6 +277,10 @@
 </div>
 </div>
 <script src="resources/combined.js?cd021bc814832c24a7cec5319ea03335bfba1caf"></script>
+<<<<<<< HEAD
 <script src="elementlist.js?7f109237876d99607ed2552f44a88b264164dff8"></script>
+=======
+<script src="elementlist.js?3527021361dc3af9051170e62af427a6492d40ec"></script>
+>>>>>>> develop
 </body>
 </html>

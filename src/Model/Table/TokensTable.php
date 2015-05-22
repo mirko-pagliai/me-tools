@@ -32,6 +32,7 @@ use MeTools\Model\Entity\Token;
 /**
  * Tokens model
  */
+<<<<<<< HEAD
 class TokensTable extends Table {
 	/**
 	 * Called before request data is converted into entities
@@ -51,6 +52,9 @@ class TokensTable extends Table {
 			$data['expiry'] = (new Time('+12 hours'))->i18nFormat(FORMAT_FOR_MYSQL);
 	}
 	
+=======
+class TokensTable extends Table {	
+>>>>>>> develop
 	/**
 	 * Called before each entity is saved.
 	 * Stopping this event will abort the save operation
