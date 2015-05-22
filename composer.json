@@ -4,6 +4,11 @@
     "homepage": "https://github.com/mirko-pagliai/MeTools",
     "type": "cakephp-plugin",
     "license": "AGPL",
+	"authors": [{
+            "name": "Mirko Pagliai",
+            "email": "mirko.pagliai@gmail.com"
+    }],
+	"version": "2.0.0-beta",
     "autoload": {
 		"psr-4": {
 			"MeTools\\": "src"
