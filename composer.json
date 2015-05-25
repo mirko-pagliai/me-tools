@@ -1,7 +1,7 @@
 {
-    "name": "mirko-pagliai/MeTools",
+    "name": "mirko-pagliai/me-tools",
     "description": "MeTools plugin for CakePHP",
-    "homepage": "https://github.com/mirko-pagliai/MeTools",
+    "homepage": "https://github.com/mirko-pagliai/me-tools",
     "type": "cakephp-plugin",
     "license": "AGPL",
 	"authors": [{
@@ -11,7 +11,7 @@
 	"version": "2.0.0-beta",
     "autoload": {
 		"psr-4": {
-			"MeTools\\": "src"
+			"me-tools\\": "src"
 		}
 	}
 }
