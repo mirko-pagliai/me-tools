@@ -9,6 +9,9 @@
             "email": "mirko.pagliai@gmail.com"
     }],
 	"version": "2.0.0-beta",
+	"require": {
+        "michelf/php-markdown": "1.*"
+    },
     "autoload": {
 		"psr-4": {
 			"MeTools\\": "src"
