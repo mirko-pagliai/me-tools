@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 
-	<title>Class MeTools\Controller\Component\FlashComponent | MeTools API</title>
+	<title>Class MeTools\Controller\Component\SecurityComponent | MeTools API</title>
 
 	<link rel="stylesheet" href="resources/style.css?e99947befd7bf673c6b43ff75e9e0f170c88a60e">
 
@@ -84,9 +84,9 @@
 		<div id="elements">
 			<h3>Classes</h3>
 			<ul>
-				<li class="active"><a href="class-MeTools.Controller.Component.FlashComponent.html">FlashComponent</a></li>
+				<li><a href="class-MeTools.Controller.Component.FlashComponent.html">FlashComponent</a></li>
 				<li><a href="class-MeTools.Controller.Component.RecaptchaComponent.html">RecaptchaComponent</a></li>
-				<li><a href="class-MeTools.Controller.Component.SecurityComponent.html">SecurityComponent</a></li>
+				<li class="active"><a href="class-MeTools.Controller.Component.SecurityComponent.html">SecurityComponent</a></li>
 				<li><a href="class-MeTools.Controller.Component.TokenComponent.html">TokenComponent</a></li>
 			</ul>
 
@@ -131,25 +131,24 @@
 	</div>
 
 <div id="content" class="class">
-	<h1>Class FlashComponent</h1>
+	<h1>Class SecurityComponent</h1>
 
 
 	<div class="description">
-	<p>Provides a way to persist client data between page requests. It acts as a wrapper for the
-<code>$_SESSION</code> as well as providing convenience methods for several <code>$_SESSION</code> related functions.</p>
+	<p>The Security Component creates an easy way to integrate tighter security in your application.</p>
 
-<p>Rewrites <a href="http://api.cakephp.org/3.0/class-Cake.Controller.Component.FlashComponent.html">FlashComponent</a>.</p>
+<p>Rewrites <a href="http://api.cakephp.org/3.0/class-Cake.Controller.Component.SecurityComponent.html">SecurityComponent</a>.</p>
 	</div>
 
 	<dl class="tree">
 		<dd style="padding-left:0px">
-Cake\Controller\Component\FlashComponent
+Cake\Controller\Component\SecurityComponent
 			
 			
 		</dd>
 		<dd style="padding-left:30px">
 			<img src="resources/inherit.png" alt="Extended by">
-<b><span>MeTools\Controller\Component\FlashComponent</span></b>			
+<b><span>MeTools\Controller\Component\SecurityComponent</span></b>			
 			
 			
 		</dd>
@@ -168,7 +167,7 @@ Cake\Controller\Component\FlashComponent
 		<b>Namespace:</b> <a href="namespace-MeTools.html">MeTools</a>\<a href="namespace-MeTools.Controller.html">Controller</a>\<a href="namespace-MeTools.Controller.Component.html">Component</a><br>
 		
 
-			<b>Located at</b> <a href="source-class-MeTools.Controller.Component.FlashComponent.html#30-52" title="Go to source code">Component/FlashComponent.php</a>
+			<b>Located at</b> <a href="source-class-MeTools.Controller.Component.SecurityComponent.html#28-60" title="Go to source code">Component/SecurityComponent.php</a>
 		<br>
 	</div>
 
@@ -176,42 +175,44 @@ Cake\Controller\Component\FlashComponent
 
 	<table class="summary methods" id="methods">
 	<caption>Methods summary</caption>
-	<tr data-order="__call" id="___call">
+	<tr data-order="isBanned" id="_isBanned">
 
 		<td class="attributes"><code>
 			 public 
 
-			
+			boolean
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
-		<a class="anchor" href="#___call">#</a>
-		<code><a href="source-class-MeTools.Controller.Component.FlashComponent.html#37-51" title="Go to source code">__call</a>( <span>string <var>$name</var></span>, <span>array <var>$args</var></span> )</code>
+		<a class="anchor" href="#_isBanned">#</a>
+		<code><a href="source-class-MeTools.Controller.Component.SecurityComponent.html#34-59" title="Go to source code">isBanned</a>( <span>array <var>$bannedIp</var> = []</span> )</code>
 
 		<div class="description short">
-			<p>Magic method for verbose flash methods based on element names.</p>
+			<p>Checks if the user's IP address is part of an array of banned IP addresses.
+Note that access to localhost will always be admitted.</p>
 		</div>
 
 		<div class="description detailed hidden">
-			<p>Magic method for verbose flash methods based on element names.</p>
+			<p>Checks if the user's IP address is part of an array of banned IP addresses.
+Note that access to localhost will always be admitted.</p>
+
+<p>The asterisk can be used as a wildcard.</p>
 
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
-					<dt><var>$name</var></dt>
-					<dd>Element name to use</dd>
-					<dt><var>$args</var></dt>
-					<dd>Parameters to pass</dd>
+					<dt><var>$bannedIp</var></dt>
+					<dd>List of banned IP addresses</dd>
 				</dl></div>
 
-
-
-				<h4>Uses</h4>
+				<h4>Returns</h4>
 				<div class="list">
-						MeTools\Core\Plugin::path()<br>
+					boolean
 				</div>
+
+
 
 
 		</div>
