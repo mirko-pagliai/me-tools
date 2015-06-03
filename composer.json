@@ -15,6 +15,9 @@
     "autoload": {
 		"psr-4": {
 			"MeTools\\": "src"
-		}
+		},
+		"files": [
+			"vendor/michelf/php-markdown/Michelf/Markdown.inc.php"
+		]
 	}
 }

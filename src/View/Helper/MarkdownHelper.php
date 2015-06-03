@@ -26,8 +26,6 @@ namespace MeTools\View\Helper;
 use Cake\View\Helper;
 use Cake\View\View;
 
-require_once \MeTools\Core\Plugin::path('MeTools', 'vendor'.DS.'Markdown'.DS.'Markdown.inc.php');
-
 /**
  * Markdown helper.
  * 
