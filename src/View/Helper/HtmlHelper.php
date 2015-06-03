@@ -146,7 +146,7 @@ class HtmlHelper extends CakeHtmlHelper {
 	public function css($path, array $options = []) {
 		$options = addDefault('block', TRUE, $options);
 		
-		parent::css($path, $options);
+		return parent::css($path, $options);
 	}
 
     /**
