@@ -41,11 +41,8 @@ class SecurityComponent extends CakeSecurityComponent {
 	 */
 	public function isBanned(array $bannedIp = []) {
         //Skips if it's localhost or if the control has already happened and was successful
-		 if(is_localhost() || $this->request->session()->check('allowed_ip'))
-            return TRUE;
-		
-		if(empty($bannedIp))
-			return FALSE;
+		 if(empty($bannedIp) || is_localhost() || $this->request->session()->check('allowed_ip'))
+            return FALSE;
 		
 		//For addresses that end with a zero, it replaces the zero with an asterisk
 		$bannedIp = preg_replace('/^((([0-9]{1,3}|\*)\.){3})(0)$/', '${1}*', $bannedIp);
