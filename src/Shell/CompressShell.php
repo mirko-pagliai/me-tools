@@ -93,18 +93,13 @@ class CompressShell extends AppShell {
 	 * @uses config()
 	 */
 	public function auto() {
-		//Searches the application configuration
-		if(is_readable($file = ROOT.DS.'config'.DS.'assets.php'))
-			$files[] = $file;
+		//Searches into the application configuration
+		foreach((new Folder(ROOT.DS.'config'))->findRecursive('assets.php') as $file)
+			if(is_readable($file))
+				$files[] = $file;
 		
-		$plugins = \MeTools\Core\Plugin::path();
-		
-		//Removes vendor plugins
-		array_walk($plugins, function(&$v, $k) {
-			$v = preg_match(sprintf('/^%s/', preg_quote(ROOT.DS.'vendor', '/')), $v) ? FALSE : $v;
-		});
-		
-		foreach(af($plugins) as $plugin) {			
+		//Searches into plugins
+		foreach(af(\MeTools\Core\Plugin::path()) as $plugin) {			
 			if(!is_readable($dir = $plugin.'config'))
 				continue;
 			
