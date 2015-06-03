@@ -37,7 +37,7 @@ class AppShell extends Shell {
 	 * @see http://api.cakephp.org/3.0/class-Cake.Console.Shell.html#_out
 	 * @uses Cake\Console\Shell::out()
 	 */
-	public function comment($message = NULL, $newlines = 1, $level = Shell::NORMAL) {
+	protected function comment($message = NULL, $newlines = 1, $level = Shell::NORMAL) {
 		return parent::out(sprintf('<comment>%s</comment>', $message), $newlines, $level);
 	}
 	
@@ -50,7 +50,7 @@ class AppShell extends Shell {
 	 * @see http://api.cakephp.org/3.0/class-Cake.Console.Shell.html#_out
 	 * @uses Cake\Console\Shell::out()
 	 */
-	public function info($message = NULL, $newlines = 1, $level = Shell::NORMAL) {
+	protected function info($message = NULL, $newlines = 1, $level = Shell::NORMAL) {
 		return parent::out(sprintf('<info>%s</info>', $message), $newlines, $level);
 	}
 	
@@ -63,7 +63,7 @@ class AppShell extends Shell {
 	 * @see http://api.cakephp.org/3.0/class-Cake.Console.Shell.html#_out
 	 * @uses Cake\Console\Shell::out()
 	 */
-	public function question($message = NULL, $newlines = 1, $level = Shell::NORMAL) {
+	protected function question($message = NULL, $newlines = 1, $level = Shell::NORMAL) {
 		return parent::out(sprintf('<question>%s</question>', $message), $newlines, $level);
 	}
 	
@@ -76,7 +76,7 @@ class AppShell extends Shell {
 	 * @see http://api.cakephp.org/3.0/class-Cake.Console.Shell.html#_out
 	 * @uses Cake\Console\Shell::out()
 	 */
-	public function success($message = NULL, $newlines = 1, $level = Shell::NORMAL) {
+	protected function success($message = NULL, $newlines = 1, $level = Shell::NORMAL) {
 		return parent::out(sprintf('<success>%s</success>', $message), $newlines, $level);
 	}
 	
@@ -89,7 +89,7 @@ class AppShell extends Shell {
 	 * @see http://api.cakephp.org/3.0/class-Cake.Console.Shell.html#_out
 	 * @uses Cake\Console\Shell::out()
 	 */
-	public function warning($message = NULL, $newlines = 1, $level = Shell::NORMAL) {
+	protected function warning($message = NULL, $newlines = 1, $level = Shell::NORMAL) {
 		return parent::out(sprintf('<warning>%s</warning>', $message), $newlines, $level);
 	}
 }
