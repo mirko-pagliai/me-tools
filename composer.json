@@ -16,5 +16,8 @@
 		"psr-4": {
 			"MeTools\\": "src"
 		}
-	}
+	},
+    "scripts": {
+        "post-install-cmd": "MeTools\\Console\\Installer::postInstall"
+    }
 }
