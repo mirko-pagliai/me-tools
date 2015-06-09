@@ -1,7 +1,7 @@
 {
-    "name": "mirko-pagliai/me_tools",
+    "name": "mirko-pagliai/me-tools",
     "description": "MeTools plugin for CakePHP",
-    "homepage": "https://github.com/mirko-pagliai/me_tools",
+    "homepage": "https://github.com/mirko-pagliai/me-tools",
     "type": "cakephp-plugin",
     "license": "AGPL",
 	"authors": [{
