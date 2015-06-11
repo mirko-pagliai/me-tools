@@ -20,6 +20,6 @@
 		}
 	},
     "scripts": {
-        "post-package-install": "MeTools\\Console\\Installer::postInstall"
+        "post-install-cmd": "MeTools\\Console\\Installer::postInstall"
     }
 }
