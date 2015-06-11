@@ -12,7 +12,7 @@
 	"require": {
 		"ext-imagick": "*",
 		"ext-mcrypt": "*",
-        "michelf/php-markdown": "1.*"
+		"michelf/php-markdown": "1.*"
     },
     "autoload": {
 		"psr-4": {
@@ -20,6 +20,6 @@
 		}
 	},
     "scripts": {
-        "post-package-install": "MeTools\\Console\\Installer::postInstall"
+        "post-install-cmd": "MeTools\\Console\\Installer::postInstall"
     }
 }
