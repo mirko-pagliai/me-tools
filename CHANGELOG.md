@@ -6,7 +6,7 @@
 * added the `MeEmail` class to simplify sending emails;
 * added the `MeRequest` class to handle HTTP requests;
 * added the `ThumbHelper` to generate thumbnails;
-* updated Bootstrap to 3.3.5 and Moment.js to 2.10.3.
+* updated jQuery to 2.1.4, Bootstrap to 3.3.5 and Moment.js to 2.10.3.
 
 # 1.x branch
 ## 1.2 branch

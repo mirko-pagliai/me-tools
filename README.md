@@ -11,7 +11,7 @@ MeTools will be maintained under the [Semantic Versioning guidelines](http://sem
 ## Libraries and script
 MeTools includes different libraries and scripts:
 
-- jQuery 2.1.3 ([site](http://jquery.com));
+- jQuery 2.1.4 ([site](http://jquery.com));
 - Bootstrap 3.3.5 ([site](http://getbootstrap.com)), without Glyphicons;
 - Font Awesome 4.3.0 ([site](http://fortawesome.github.com/Font-Awesome));
 - reCAPTCHA PHP library 1.11 ([site](https://developers.google.com/recaptcha));

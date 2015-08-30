@@ -6,7 +6,7 @@
 * aggiunta la classe `MeEmail` per semplificare l'invio delle email;
 * aggiunta la classe `MeRequest` per gestire le richieste HTTP;
 * aggiunto `ThumbHelper` per la generazione delle miniature;
-* aggiornato Bootstrap alla versione 3.3.5 e Moment.js alla versione 2.10.3.
+* aggiornato jQuery alla versione 2.1.4, Bootstrap alla versione 3.3.5 e Moment.js alla versione 2.10.3.
 
 # 1.x ramo
 ## 1.2 ramo

@@ -11,7 +11,7 @@ MeTools viene rilasciato seguendo le [linee guida del versionamento semantico](h
 ## Librerie e script
 MeTools include diverse librerie e script:
 
-- jQuery 2.1.3 ([sito](http://jquery.com));
+- jQuery 2.1.4 ([sito](http://jquery.com));
 - Bootstrap 3.3.5 ([sito](http://getbootstrap.com)), senza le Glyphicons;
 - Font Awesome 4.3.0 ([sito](http://fortawesome.github.com/Font-Awesome));
 - reCAPTCHA PHP library 1.11 ([sito](https://developers.google.com/recaptcha));
