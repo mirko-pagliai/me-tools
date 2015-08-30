@@ -6,7 +6,7 @@
 * aggiunta la classe `MeEmail` per semplificare l'invio delle email;
 * aggiunta la classe `MeRequest` per gestire le richieste HTTP;
 * aggiunto `ThumbHelper` per la generazione delle miniature;
-* aggiornato Bootstrap 3 Date/Time Picker alla versione 4.15.35, Font Awesome alla versione 4.4.0, jQuery alla versione 2.1.4, Bootstrap alla versione 3.3.5 e Moment.js alla versione 2.10.3.
+* aggiornato Moment.js alla versione 2.10.6, Bootstrap 3 Date/Time Picker alla versione 4.15.35, Font Awesome alla versione 4.4.0, jQuery alla versione 2.1.4, Bootstrap alla versione 3.3.5 e Moment.js alla versione 2.10.3.
 
 # 1.x ramo
 ## 1.2 ramo
