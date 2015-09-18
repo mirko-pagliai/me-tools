@@ -1,5 +1,8 @@
 # 2.x ramo
 ## 2.0 ramo
+### 2.0.1-beta
+* aggiornato Bootstrap 3 Date/Time Picker alla versione 4.17.37.
+
 ### 2.0.0-beta
 * tutto il codice è stato interamente riscritto per CakePHP 3.x. Sono state applicate svariate ottimizzazioni;
 * per le azioni di caricamento/aggiunta di file, i messaggi di errore sono maggiormente esplicativi;

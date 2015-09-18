@@ -15,5 +15,5 @@ MeTools include diverse librerie e script:
 - Bootstrap 3.3.5 ([sito](http://getbootstrap.com)), senza le Glyphicons;
 - Font Awesome 4.4.0 ([sito](http://fortawesome.github.com/Font-Awesome));
 - reCAPTCHA PHP library 1.11 ([sito](https://developers.google.com/recaptcha));
-- Bootstrap 3 Date/Time Picker 4.15.35 ([sito](https://github.com/Eonasdan/bootstrap-datetimepicker));
+- Bootstrap 3 Date/Time Picker 4.17.37 ([sito](https://github.com/Eonasdan/bootstrap-datetimepicker));
 - Moment.js 2.10.6 ([sito](http://momentjs.com/)), inclusi i "locales".
