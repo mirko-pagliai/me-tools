@@ -171,7 +171,7 @@ if(!function_exists('is_localhost')) {
 	}
 }
 
-if(!function_exists('is_remote')) {
+if(!function_exists('is_url')) {
 	/**
 	 * Checks whether a url is invalid
 	 * @param string $url Url
