@@ -61,13 +61,16 @@ class Xml {
 	 */
 	public function fromFile($file) {
 		//If the path is an url, sets the context
-		if(filter_var($file, FILTER_VALIDATE_URL))
+		if(is_remote($file))
 			$context = stream_context_create(['http' => ['method' => 'GET', 'timeout' => 5]]);
 		//Else, if the path is a relative path, then the path will be relative to the APP
 		elseif(!realpath($file))
 			$path = APP.$file;
 		
-		$content = @file_get_contents($file, FALSE, empty($context) ? NULL : $context);
+		$content = file_get_contents($file, FALSE, empty($context) ? NULL : $context);
+		
+		if(is_json($content))
+			return json_decode($content, TRUE);
 		
 		return empty($content) ? FALSE : self::toArray($content);
 	}
