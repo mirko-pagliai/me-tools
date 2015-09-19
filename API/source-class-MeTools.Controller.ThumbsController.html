@@ -393,7 +393,7 @@
 </span><span id="238" class="l"><a href="#238">238: </a>        <span class="php-comment">//If the file is an image</span>
 </span><span id="239" class="l"><a href="#239">239: </a>        <span class="php-keyword1">if</span>(<span class="php-keyword2">preg_match</span>(<span class="php-quote">'/image\/\S+/'</span>, <span class="php-var">$mime</span> = <span class="php-var">$this</span>-&gt;<span class="php-keyword2">file</span>-&gt;mime())) {
 </span><span id="240" class="l"><a href="#240">240: </a>            <span class="php-comment">//If no maximum size is specified, it's not necessary to create a thumbnail</span>
-</span><span id="241" class="l"><a href="#241">241: </a>            <span class="php-keyword1">if</span>(<span class="php-keyword1">empty</span>(<span class="php-keyword2">array_filter</span>(<span class="php-var">$this</span>-&gt;sizes))) {
+</span><span id="241" class="l"><a href="#241">241: </a>            <span class="php-keyword1">if</span>(!<span class="php-keyword2">array_filter</span>(<span class="php-var">$this</span>-&gt;sizes)) {
 </span><span id="242" class="l"><a href="#242">242: </a>                <span class="php-comment">//Renders the original image</span>
 </span><span id="243" class="l"><a href="#243">243: </a>                <span class="php-keyword2">header</span>(<span class="php-keyword2">sprintf</span>(<span class="php-quote">'Content-type: %s'</span>, <span class="php-var">$mime</span>));
 </span><span id="244" class="l"><a href="#244">244: </a>                <span class="php-keyword2">readfile</span>(<span class="php-var">$this</span>-&gt;<span class="php-keyword2">file</span>-&gt;path);
