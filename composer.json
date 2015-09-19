@@ -10,9 +10,11 @@
     }],
 	"require": {
         "cakephp/cakephp": "~3.0",
+        "components/jquery": "dev-master",
 		"ext-imagick": "*",
 		"ext-mcrypt": "*",
-		"michelf/php-markdown": "1.*"
+		"michelf/php-markdown": "1.*",
+        "moment/moment": "dev-master"
     },
     "autoload": {
 		"psr-4": {
@@ -20,6 +22,10 @@
 		}
 	},
     "scripts": {
-        "post-package-install": "MeTools\\Console\\Installer::postInstall"
+        "post-package-install": "MeTools\\Console\\Installer::postInstall",
+        "post-autoload-dump": [
+			"ln -s vendor/components/jquery/jquery.min.js webroot/js/",
+			"ln -s vendor/moment/moment/min/moment-with-locales.min.js webroot/js/"
+		]
     }
 }
