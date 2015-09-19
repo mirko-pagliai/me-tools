@@ -178,7 +178,7 @@ if(!function_exists('is_url')) {
 	 * @return bool
 	 */
 	function is_url($url) {
-		return (bool) filter_var($url, FILTER_VALIDATE_URL);
+		return (bool) preg_match("/\b(?:(?:https?|ftp):\/\/|www\.)[-a-z0-9+&@#\/%?=~_|!:,.;]*[-a-z0-9+&@#\/%=~_|]/i", $url);
 	}
 }
 
