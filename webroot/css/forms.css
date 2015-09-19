@@ -48,7 +48,7 @@ form textarea {
 /* -------------------------------- */
 /* It hides the checkbox, which will be replaced with an icon in the label */
 form input[type='checkbox'] {
-	display: none;
+	display: none !important;
 }
 
 /* Checkbox labels */
