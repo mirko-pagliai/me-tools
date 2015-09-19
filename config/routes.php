@@ -26,7 +26,7 @@ Router::defaultRouteClass('InflectedRoute');
 
 Router::scope('/', ['plugin' => 'MeCms'], function ($routes) {
 	//Thumbs
-	Router::connect('/thumb/*', ['controller' => 'Thumbs', 'action' => 'thumb', 'plugin' => 'MeTools']);
+	$routes->connect('/thumb/*', ['controller' => 'Thumbs', 'action' => 'thumb', 'plugin' => 'MeTools']);
 	
     $routes->fallbacks();
 });
