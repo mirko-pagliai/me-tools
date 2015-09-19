@@ -182,6 +182,15 @@ if(!function_exists('is_url')) {
 	}
 }
 
+if(!function_exists('is_remote')) {
+    /**
+     * Alias for `folder_is_writable()` function
+     */
+	function is_remote() {
+		return call_user_func_array('is_url', func_get_args());
+	}
+}
+
 if(!function_exists('rtr')) {
 	/**
 	 * Returns the relative path (to the APP root) of an absolute path
