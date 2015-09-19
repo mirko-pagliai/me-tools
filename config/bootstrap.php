@@ -161,6 +161,18 @@ if(!function_exists('fv')) {
 	}
 }
 
+if(!function_exists('is_json')) {
+	/**
+	 * Checks if a string is JSON
+	 * @param string $string
+	 * @return bool
+	 */
+	function is_json($string) {
+		@json_decode($string);
+		return json_last_error() === JSON_ERROR_NONE;
+	}
+}
+
 if(!function_exists('is_localhost')) {
 	/**
 	 * Checks if is localhost
