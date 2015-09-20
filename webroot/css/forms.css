@@ -164,6 +164,29 @@ form.form-inline label {
 	margin: 0 10px 0 0;
 }
 
+/* Checkboxes wrapper */
+form.form-inline .checkbox {
+	background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, .075) inset;
+}
+
+/* Checkboxes wrapper, label */
+form.form-inline .checkbox label {
+	color: #555;
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 31px;
+    margin: 0 8px;
+}
+
+/* Checkboxes wrapper, label, icon */
+form.form-inline .checkbox label::before {
+	color: #888;
+	font-size: 17px;
+}
+
 /* Wrappers */
 form.form-inline .input, form.form-inline button {
 	margin-right: 4px;
