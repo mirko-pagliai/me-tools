@@ -183,6 +183,15 @@ if(!function_exists('is_localhost')) {
 	}
 }
 
+if(!function_exists('is_remote')) {
+    /**
+     * Alias for `folder_is_writable()` function
+     */
+	function is_remote() {
+		return call_user_func_array('is_url', func_get_args());
+	}
+}
+
 if(!function_exists('is_url')) {
 	/**
 	 * Checks whether a url is invalid
@@ -191,15 +200,6 @@ if(!function_exists('is_url')) {
 	 */
 	function is_url($url) {
 		return (bool) preg_match("/\b(?:(?:https?|ftp):\/\/|www\.)[-a-z0-9+&@#\/%?=~_|!:,.;]*[-a-z0-9+&@#\/%=~_|]/i", $url);
-	}
-}
-
-if(!function_exists('is_remote')) {
-    /**
-     * Alias for `folder_is_writable()` function
-     */
-	function is_remote() {
-		return call_user_func_array('is_url', func_get_args());
 	}
 }
 
