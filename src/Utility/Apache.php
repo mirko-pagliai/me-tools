@@ -65,7 +65,12 @@ class Apache {
 		if(!function_exists('apache_get_version'))
 			return NULL;
 		
-		return apache_get_version();
+		$version = apache_get_version();
+		
+		if(preg_match('/Apache\/([0-9]+\.[0-9]+\.[0-9]+)/i', $version, $matches))
+			return $matches[1];
+		
+		return $version;
 	}
 	
     /**
