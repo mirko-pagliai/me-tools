@@ -39,11 +39,20 @@ class Plugin extends CakePlugin {
 	
 	/**
 	 * Gets all loaded plugins.
+	 * @param string|array $except Plugins to exclude
 	 * @return array Plugins
 	 * @uses Cake\Core\Plugin::loaded()
 	 */
-	public static function getAll() {
-		return parent::loaded();
+	public static function getAll($except = NULL) {
+		$plugins = parent::loaded();
+		
+		//Removes exceptions
+		if(is_array($plugins) && (is_string($except) || is_array($except))) {
+			$except = is_array($except) ? $except : [$except];
+			$plugins = array_diff($plugins, $except);
+		}
+		
+		return $plugins;
 	}
 	
 	/**
@@ -72,22 +81,10 @@ class Plugin extends CakePlugin {
 	 * @uses version()
 	 */
 	public static function getVersions($except = NULL) {
-		//Gets plugins
-		$plugins = self::all();
-		
-		//Removes exceptions
-		if(is_string($except) || is_array($except)) {
-			$except = is_array($except) ? $except : [$except];
-			$plugins = array_diff($plugins, $except);
-		}
-		
-		if(empty($plugins))
-			return FALSE;
-		
 		$versions = [];
 		
 		//For each plugin, sets the name and the version number
-		foreach($plugins as $plugin)
+		foreach(self::all($except) as $plugin)
 			if(self::version($plugin))
 				$versions[] = ['name' => $plugin, 'version' => self::version($plugin)];
 		
