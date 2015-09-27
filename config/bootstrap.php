@@ -161,6 +161,30 @@ if(!function_exists('fv')) {
 	}
 }
 
+if(!function_exists('get_client_ip')) {
+	/**
+	 * Gets the client IP
+	 * @return string Client IP
+	 * @see http://stackoverflow.com/a/15699240/1480263
+	 */
+	function get_client_ip() {
+		if($_SERVER['HTTP_CLIENT_IP'])
+			return $_SERVER['HTTP_CLIENT_IP'];
+		elseif($_SERVER['HTTP_X_FORWARDED_FOR'])
+			return $_SERVER['HTTP_X_FORWARDED_FOR'];
+		elseif($_SERVER['HTTP_X_FORWARDED'])
+			return $_SERVER['HTTP_X_FORWARDED'];
+		elseif($_SERVER['HTTP_FORWARDED_FOR'])
+			return $_SERVER['HTTP_FORWARDED_FOR'];
+		elseif($_SERVER['HTTP_FORWARDED'])
+			return $_SERVER['HTTP_FORWARDED'];
+		elseif($_SERVER['REMOTE_ADDR'])
+			return $_SERVER['REMOTE_ADDR'];
+		else
+			return 'UNKNOWN';
+	}
+}
+
 if(!function_exists('is_json')) {
 	/**
 	 * Checks if a string is JSON
