@@ -1,6 +1,7 @@
 # 2.x ramo
 ## 2.0 ramo
-### 2.0.1-beta
+### 2.0.1-RC1
+* sistemati molti piccoli bug;
 * aggiornato Bootstrap 3 Date/Time Picker alla versione 4.17.37.
 
 ### 2.0.0-beta

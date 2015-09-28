@@ -1,6 +1,7 @@
 # 2.x branch
 ## 2.0 branch
-### 2.0.1-beta
+### 2.0.1-RC1
+* fixed many little bugs;
 * updated Bootstrap 3 Date/Time Picker to 4.17.37.
 
 ### 2.0.0-beta
