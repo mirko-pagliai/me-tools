@@ -24,9 +24,9 @@ use Cake\Routing\Router;
 
 Router::defaultRouteClass('InflectedRoute');
 
-Router::scope('/', ['plugin' => 'MeCms'], function ($routes) {
+Router::scope('/', ['plugin' => 'MeTools'], function ($routes) {
 	//Thumbs
-	Router::connect('/thumb/*', ['controller' => 'Thumbs', 'action' => 'thumb', 'plugin' => 'MeTools']);
+	$routes->connect('/thumb/*', ['controller' => 'Thumbs', 'action' => 'thumb', 'plugin' => 'MeTools']);
 	
     $routes->fallbacks();
 });

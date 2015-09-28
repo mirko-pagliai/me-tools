@@ -238,7 +238,7 @@ class ThumbsController extends AppController {
 		//If the file is an image
 		if(preg_match('/image\/\S+/', $mime = $this->file->mime())) {
 			//If no maximum size is specified, it's not necessary to create a thumbnail
-			if(empty(array_filter($this->sizes))) {
+			if(!array_filter($this->sizes)) {
 				//Renders the original image
 				header(sprintf('Content-type: %s', $mime));
 				readfile($this->file->path);

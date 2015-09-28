@@ -38,7 +38,7 @@ class Request extends CakeRequest {
 	 * @return bool
 	 */
 	public function hasPrefix() {
-		return !empty($this->param('prefix'));
+		return $this->param('prefix');
 	}
 	
 	/**

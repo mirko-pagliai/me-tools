@@ -69,7 +69,7 @@ class TokenComponent extends Component {
 	 * @uses _find()
 	 */
 	public function check($token, array $options = []) {
-		return !empty($this->_find($token, $options));
+		return $this->_find($token, $options);
 	}
 	
 	/**

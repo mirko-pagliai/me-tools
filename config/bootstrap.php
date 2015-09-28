@@ -161,6 +161,42 @@ if(!function_exists('fv')) {
 	}
 }
 
+if(!function_exists('get_client_ip')) {
+	/**
+	 * Gets the client IP
+	 * @return string Client IP
+	 * @see http://stackoverflow.com/a/15699240/1480263
+	 */
+	function get_client_ip() {
+		if(!empty($_SERVER['HTTP_CLIENT_IP']))
+			return $_SERVER['HTTP_CLIENT_IP'];
+		elseif(!empty($_SERVER['HTTP_X_FORWARDED_FOR']))
+			return $_SERVER['HTTP_X_FORWARDED_FOR'];
+		elseif(!empty($_SERVER['HTTP_X_FORWARDED']))
+			return $_SERVER['HTTP_X_FORWARDED'];
+		elseif(!empty($_SERVER['HTTP_FORWARDED_FOR']))
+			return $_SERVER['HTTP_FORWARDED_FOR'];
+		elseif(!empty($_SERVER['HTTP_FORWARDED']))
+			return $_SERVER['HTTP_FORWARDED'];
+		elseif(!empty($_SERVER['REMOTE_ADDR']))
+			return $_SERVER['REMOTE_ADDR'];
+		else
+			return 'UNKNOWN';
+	}
+}
+
+if(!function_exists('is_json')) {
+	/**
+	 * Checks if a string is JSON
+	 * @param string $string
+	 * @return bool
+	 */
+	function is_json($string) {
+		@json_decode($string);
+		return json_last_error() === JSON_ERROR_NONE;
+	}
+}
+
 if(!function_exists('is_localhost')) {
 	/**
 	 * Checks if is localhost
@@ -172,13 +208,22 @@ if(!function_exists('is_localhost')) {
 }
 
 if(!function_exists('is_remote')) {
+    /**
+     * Alias for `folder_is_writable()` function
+     */
+	function is_remote() {
+		return call_user_func_array('is_url', func_get_args());
+	}
+}
+
+if(!function_exists('is_url')) {
 	/**
 	 * Checks whether a url is invalid
 	 * @param string $url Url
 	 * @return bool
 	 */
 	function is_url($url) {
-		return (bool) filter_var($url, FILTER_VALIDATE_URL);
+		return (bool) preg_match("/\b(?:(?:https?|ftp):\/\/|www\.)[-a-z0-9+&@#\/%?=~_|!:,.;]*[-a-z0-9+&@#\/%=~_|]/i", $url);
 	}
 }
 
