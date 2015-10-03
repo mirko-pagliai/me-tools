@@ -288,6 +288,27 @@ class FormHelper extends CakeFormHelper {
 			'nestingLabel' => '{{hidden}}<label{{attrs}}>{{input}}{{text}}</label>'
 		]);
 		
+		//Sets tips ("help text")
+		//See http://getbootstrap.com/css/#forms-help-text
+		if(!empty($options['tip']))
+			$options['tip'] = implode(PHP_EOL, array_map(function($v) {
+				return $this->Html->span(trim($v), ['class' => 'help-block']);
+			}, is_array($options['tip']) ? $options['tip'] : [$options['tip']]));
+		
+		//Sets "button addon"
+		//See http://getbootstrap.com/components/#input-groups-buttons
+		if(!empty($options['button'])) {
+			//Fixes templates
+			$this->templates([
+				'formGroup' => preg_replace('/\{\{input\}\}/', '<div>{{input}}{{button}}</div>', $this->templates('formGroup')),
+				'inputContainer' => preg_replace('/form\-group/', 'form-group input-group', $this->templates('inputContainer')),
+				'inputContainerError' => preg_replace('/form\-group/', 'form-group input-group', $this->templates('inputContainerError')),
+			]);
+			
+			$options['templateVars']['button'] = $this->Html->span($options['button'], ['class' => 'input-group-btn']);
+			unset($options['button']);
+		}
+		
 		//If is an inline form
 		if($this->inline) {
 			//By default, disables tips and error messages
@@ -306,12 +327,6 @@ class FormHelper extends CakeFormHelper {
 				$options['label'] = addValue('class', 'sr-only', $options['label']);
 			}
 		}
-		
-		//Sets tips
-		if(!empty($options['tip']))
-			$options['tip'] = implode(PHP_EOL, array_map(function($v) {
-				return $this->Html->span(trim($v), ['class' => 'help-block']);
-			}, is_array($options['tip']) ? $options['tip'] : [$options['tip']]));
 		
         return parent::input($fieldName, $options);
 	}
