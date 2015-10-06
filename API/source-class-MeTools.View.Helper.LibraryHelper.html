@@ -384,39 +384,53 @@
 </span><span id="244" class="l"><a href="#244">244: </a>    }
 </span><span id="245" class="l"><a href="#245">245: </a>    
 </span><span id="246" class="l"><a href="#246">246: </a>    <span class="php-comment">/**
-</span></span><span id="247" class="l"><a href="#247">247: </a><span class="php-comment">     * Through `slugify.js`, it provides the slug of a field. 
+</span></span><span id="247" class="l"><a href="#247">247: </a><span class="php-comment">     * Create a script block for Shareaholic.
 </span></span><span id="248" class="l"><a href="#248">248: </a><span class="php-comment">     * 
-</span></span><span id="249" class="l"><a href="#249">249: </a><span class="php-comment">     * It reads the value of the `$sourceField` field and it sets its slug in the `$targetField`.
-</span></span><span id="250" class="l"><a href="#250">250: </a><span class="php-comment">     * @param string $sourceField Source field
-</span></span><span id="251" class="l"><a href="#251">251: </a><span class="php-comment">     * @param string $targetField Target field
-</span></span><span id="252" class="l"><a href="#252">252: </a><span class="php-comment">     * @uses MeTools\View\Helper\HtmlHelper::js()
-</span></span><span id="253" class="l"><a href="#253">253: </a><span class="php-comment">     * @uses output
-</span></span><span id="254" class="l"><a href="#254">254: </a><span class="php-comment">     */</span>
-</span><span id="255" class="l"><a href="#255">255: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> slugify(<span class="php-var">$sourceField</span> = <span class="php-quote">'form #title'</span>, <span class="php-var">$targetField</span> = <span class="php-quote">'form #slug'</span>) {
-</span><span id="256" class="l"><a href="#256">256: </a>        <span class="php-var">$this</span>-&gt;Html-&gt;js(<span class="php-quote">'MeTools.slugify.min'</span>, [<span class="php-quote">'block'</span> =&gt; <span class="php-quote">'script_bottom'</span>]);
-</span><span id="257" class="l"><a href="#257">257: </a>        
-</span><span id="258" class="l"><a href="#258">258: </a>        <span class="php-var">$this</span>-&gt;output[] = <span class="php-keyword2">sprintf</span>(<span class="php-quote">'$().slugify(&quot;%s&quot;, &quot;%s&quot;);'</span>, <span class="php-var">$sourceField</span>, <span class="php-var">$targetField</span>);
-</span><span id="259" class="l"><a href="#259">259: </a>    }
-</span><span id="260" class="l"><a href="#260">260: </a>    
-</span><span id="261" class="l"><a href="#261">261: </a>    <span class="php-comment">/**
-</span></span><span id="262" class="l"><a href="#262">262: </a><span class="php-comment">     * Adds a timepicker to the `$input` field.
-</span></span><span id="263" class="l"><a href="#263">263: </a><span class="php-comment">     * 
-</span></span><span id="264" class="l"><a href="#264">264: </a><span class="php-comment">     * To create an input field compatible with datepicker, you should use the `timepicker()` method provided by the `FormHelper`.
-</span></span><span id="265" class="l"><a href="#265">265: </a><span class="php-comment">     * @param string $input Target field. Default is `.timepicker`
-</span></span><span id="266" class="l"><a href="#266">266: </a><span class="php-comment">     * @param array $options Options for the timepicker
-</span></span><span id="267" class="l"><a href="#267">267: </a><span class="php-comment">     * @see MeTools\View\Helper\FormHelper::timepicker()
-</span></span><span id="268" class="l"><a href="#268">268: </a><span class="php-comment">     * @see https://github.com/Eonasdan/bootstrap-datetimepicker Bootstrap v3 datetimepicker widget documentation
-</span></span><span id="269" class="l"><a href="#269">269: </a><span class="php-comment">     * @uses output
-</span></span><span id="270" class="l"><a href="#270">270: </a><span class="php-comment">     * @uses _datetimepicker()
-</span></span><span id="271" class="l"><a href="#271">271: </a><span class="php-comment">     */</span>
-</span><span id="272" class="l"><a href="#272">272: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> timepicker(<span class="php-var">$input</span> = <span class="php-keyword1">NULL</span>, <span class="php-keyword1">array</span> <span class="php-var">$options</span> = []) {
-</span><span id="273" class="l"><a href="#273">273: </a>        <span class="php-var">$input</span> = <span class="php-keyword1">empty</span>(<span class="php-var">$input</span>) ? <span class="php-quote">'.timepicker'</span> : <span class="php-var">$input</span>;
-</span><span id="274" class="l"><a href="#274">274: </a>        
-</span><span id="275" class="l"><a href="#275">275: </a>        <span class="php-var">$options</span> = addDefault(<span class="php-quote">'pickTime'</span>, <span class="php-keyword1">FALSE</span>, <span class="php-var">$options</span>);
-</span><span id="276" class="l"><a href="#276">276: </a>        
-</span><span id="277" class="l"><a href="#277">277: </a>        <span class="php-var">$this</span>-&gt;output[] = self::_datetimepicker(<span class="php-var">$input</span>, <span class="php-var">$options</span>);
-</span><span id="278" class="l"><a href="#278">278: </a>    }
-</span><span id="279" class="l"><a href="#279">279: </a>}</span></code></pre>
+</span></span><span id="249" class="l"><a href="#249">249: </a><span class="php-comment">     * Note that this code only adds the Shareaholic &quot;setup code&quot;.
+</span></span><span id="250" class="l"><a href="#250">250: </a><span class="php-comment">     * To render the &quot;share buttons&quot;, you have to use the `HtmlHelper`.
+</span></span><span id="251" class="l"><a href="#251">251: </a><span class="php-comment">     * @param string $site_id Shareaholic site ID
+</span></span><span id="252" class="l"><a href="#252">252: </a><span class="php-comment">     * @return mixed Html code
+</span></span><span id="253" class="l"><a href="#253">253: </a><span class="php-comment">     * @see MeTools\View\Helper\HtmlHelper::shareaholic()
+</span></span><span id="254" class="l"><a href="#254">254: </a><span class="php-comment">     * @uses MeTools\View\Helper\HtmlHelper::scriptBlock()
+</span></span><span id="255" class="l"><a href="#255">255: </a><span class="php-comment">     */</span>
+</span><span id="256" class="l"><a href="#256">256: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> shareaholic(<span class="php-var">$site_id</span>) {
+</span><span id="257" class="l"><a href="#257">257: </a>        <span class="php-keyword1">return</span> <span class="php-var">$this</span>-&gt;Html-&gt;scriptBlock(<span class="php-keyword2">sprintf</span>(<span class="php-quote">'!function(){var e=document.createElement(&quot;script&quot;);e.setAttribute(&quot;data-cfasync&quot;,&quot;false&quot;),e.src=&quot;//dsms0mj1bbhn4.cloudfront.net/assets/pub/shareaholic.js&quot;,e.type=&quot;text/javascript&quot;,e.async=&quot;true&quot;,e.onload=e.onreadystatechange=function(){var e=this.readyState;if(!e||&quot;complete&quot;==e||&quot;loaded&quot;==e){var t=&quot;%s&quot;;try{Shareaholic.init(t)}catch(a){}}};var t=document.getElementsByTagName(&quot;script&quot;)[0];t.parentNode.insertBefore(e,t)}();'</span>, <span class="php-var">$id</span>));
+</span><span id="258" class="l"><a href="#258">258: </a>    }
+</span><span id="259" class="l"><a href="#259">259: </a>
+</span><span id="260" class="l"><a href="#260">260: </a>    <span class="php-comment">/**
+</span></span><span id="261" class="l"><a href="#261">261: </a><span class="php-comment">     * Through `slugify.js`, it provides the slug of a field. 
+</span></span><span id="262" class="l"><a href="#262">262: </a><span class="php-comment">     * 
+</span></span><span id="263" class="l"><a href="#263">263: </a><span class="php-comment">     * It reads the value of the `$sourceField` field and it sets its slug in the `$targetField`.
+</span></span><span id="264" class="l"><a href="#264">264: </a><span class="php-comment">     * @param string $sourceField Source field
+</span></span><span id="265" class="l"><a href="#265">265: </a><span class="php-comment">     * @param string $targetField Target field
+</span></span><span id="266" class="l"><a href="#266">266: </a><span class="php-comment">     * @uses MeTools\View\Helper\HtmlHelper::js()
+</span></span><span id="267" class="l"><a href="#267">267: </a><span class="php-comment">     * @uses output
+</span></span><span id="268" class="l"><a href="#268">268: </a><span class="php-comment">     */</span>
+</span><span id="269" class="l"><a href="#269">269: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> slugify(<span class="php-var">$sourceField</span> = <span class="php-quote">'form #title'</span>, <span class="php-var">$targetField</span> = <span class="php-quote">'form #slug'</span>) {
+</span><span id="270" class="l"><a href="#270">270: </a>        <span class="php-var">$this</span>-&gt;Html-&gt;js(<span class="php-quote">'MeTools.slugify.min'</span>, [<span class="php-quote">'block'</span> =&gt; <span class="php-quote">'script_bottom'</span>]);
+</span><span id="271" class="l"><a href="#271">271: </a>        
+</span><span id="272" class="l"><a href="#272">272: </a>        <span class="php-var">$this</span>-&gt;output[] = <span class="php-keyword2">sprintf</span>(<span class="php-quote">'$().slugify(&quot;%s&quot;, &quot;%s&quot;);'</span>, <span class="php-var">$sourceField</span>, <span class="php-var">$targetField</span>);
+</span><span id="273" class="l"><a href="#273">273: </a>    }
+</span><span id="274" class="l"><a href="#274">274: </a>    
+</span><span id="275" class="l"><a href="#275">275: </a>    <span class="php-comment">/**
+</span></span><span id="276" class="l"><a href="#276">276: </a><span class="php-comment">     * Adds a timepicker to the `$input` field.
+</span></span><span id="277" class="l"><a href="#277">277: </a><span class="php-comment">     * 
+</span></span><span id="278" class="l"><a href="#278">278: </a><span class="php-comment">     * To create an input field compatible with datepicker, you should use the `timepicker()` method provided by the `FormHelper`.
+</span></span><span id="279" class="l"><a href="#279">279: </a><span class="php-comment">     * @param string $input Target field. Default is `.timepicker`
+</span></span><span id="280" class="l"><a href="#280">280: </a><span class="php-comment">     * @param array $options Options for the timepicker
+</span></span><span id="281" class="l"><a href="#281">281: </a><span class="php-comment">     * @see MeTools\View\Helper\FormHelper::timepicker()
+</span></span><span id="282" class="l"><a href="#282">282: </a><span class="php-comment">     * @see https://github.com/Eonasdan/bootstrap-datetimepicker Bootstrap v3 datetimepicker widget documentation
+</span></span><span id="283" class="l"><a href="#283">283: </a><span class="php-comment">     * @uses output
+</span></span><span id="284" class="l"><a href="#284">284: </a><span class="php-comment">     * @uses _datetimepicker()
+</span></span><span id="285" class="l"><a href="#285">285: </a><span class="php-comment">     */</span>
+</span><span id="286" class="l"><a href="#286">286: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> timepicker(<span class="php-var">$input</span> = <span class="php-keyword1">NULL</span>, <span class="php-keyword1">array</span> <span class="php-var">$options</span> = []) {
+</span><span id="287" class="l"><a href="#287">287: </a>        <span class="php-var">$input</span> = <span class="php-keyword1">empty</span>(<span class="php-var">$input</span>) ? <span class="php-quote">'.timepicker'</span> : <span class="php-var">$input</span>;
+</span><span id="288" class="l"><a href="#288">288: </a>        
+</span><span id="289" class="l"><a href="#289">289: </a>        <span class="php-var">$options</span> = addDefault(<span class="php-quote">'pickTime'</span>, <span class="php-keyword1">FALSE</span>, <span class="php-var">$options</span>);
+</span><span id="290" class="l"><a href="#290">290: </a>        
+</span><span id="291" class="l"><a href="#291">291: </a>        <span class="php-var">$this</span>-&gt;output[] = self::_datetimepicker(<span class="php-var">$input</span>, <span class="php-var">$options</span>);
+</span><span id="292" class="l"><a href="#292">292: </a>    }
+</span><span id="293" class="l"><a href="#293">293: </a>}</span></code></pre>
 
 	<div id="footer">
 		MeTools API API documentation generated by <a href="http://apigen.org">ApiGen</a>
