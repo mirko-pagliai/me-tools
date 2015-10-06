@@ -1,6 +1,7 @@
 # 2.x branch
 ## 2.0 branch
 ### 2.0.1-RC2
+* added support for Shareaholic;
 * fixed little bugs.
 
 ### 2.0.1-RC1
