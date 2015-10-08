@@ -81,17 +81,12 @@ class Thumbs {
 		if(!self::check())
 			return FALSE;
 		
-        $dir = new Folder(TMP.'thumbs');
 		$success = TRUE;
 		
-		//For each file
-        foreach($dir->findRecursive() as $file) {
-            $file = new File($file);
-			
-			//Deletes the file
-            if(!$file->delete() && $success)
+		//Deletes each file
+        foreach((new Folder(TMP.'thumbs'))->findRecursive() as $file)
+            if(!(new File($file))->delete() && $success)
                 $success = FALSE;
-        }
 		
         return $success;
     }
@@ -137,8 +132,7 @@ class Thumbs {
 		if(!self::check())
 			return FALSE;
 		
-        $thumbs = new Folder(TMP.'thumbs');
-        return $thumbs->dirsize();
+        return (new Folder(TMP.'thumbs'))->dirsize();
     }
 	
 	/**

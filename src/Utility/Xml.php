@@ -86,7 +86,7 @@ class Xml {
 		$xml = BaseXml::toArray(BaseXml::build($xml));
 		
 		if(!is_array($xml))
-			return FALSE;
+			return;
 
 		//If the array has a root element, it returns the array without the root element
 		return count($xml) > 1 ? $xml : fv($xml);

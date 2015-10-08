@@ -37,7 +37,7 @@ class Unix {
 	 */
 	public static function is_root() {
 		if(!function_exists('posix_getuid'))
-			return NULL;
+			return;
 		
 		//`posix_getuid()` returns 0 if is the root user
 		return !posix_getuid();

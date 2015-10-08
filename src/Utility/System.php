@@ -152,8 +152,7 @@ class System {
      * @return int Cache size
      */
     public static function getCacheSize() {
-        $cache = new Folder(CACHE);
-        return $cache->dirsize();
+        return (new Folder(CACHE))->dirsize();
     }
 
     /**
@@ -192,15 +191,14 @@ class System {
 	
 	/**
 	 * Gets all logs files.
-	 * @return array Log files
+	 * @return array|Null Log files
 	 */
 	public static function getLogs() {
 		//Gets log files
-		$dir = new Folder(LOGS);
-		$files = $dir->find('[^\.]+\.log(\.[^\-]+)?', TRUE);
+		$files = (new Folder(LOGS))->find('[^\.]+\.log(\.[^\-]+)?', TRUE);
 		
 		if(empty($files))
-			return [];
+			return;
 		
 		//Re-indexes, starting to 1, and returns
 		return array_combine(range(1, count($files)), array_values($files));

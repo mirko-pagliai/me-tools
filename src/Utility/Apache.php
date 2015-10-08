@@ -41,7 +41,7 @@ class Apache {
 		$modules = self::modules();
 		
 		if(is_null($modules) || empty($modules))
-			return NULL;
+			return;
 		
         return in_array($module, $modules);
     }
@@ -52,7 +52,7 @@ class Apache {
      */
     public static function getModules() {
 		if(!function_exists('apache_get_modules'))
-			return NULL;
+			return;
 		
         return apache_get_modules();
     }
@@ -63,14 +63,11 @@ class Apache {
 	 */
 	public static function getVersion() {
 		if(!function_exists('apache_get_version'))
-			return NULL;
+			return;
 		
-		$version = apache_get_version();
+		preg_match('/Apache\/([0-9]+\.[0-9]+\.[0-9]+)/i', $version = apache_get_version(), $matches);
 		
-		if(preg_match('/Apache\/([0-9]+\.[0-9]+\.[0-9]+)/i', $version, $matches))
-			return $matches[1];
-		
-		return $version;
+		return empty($matches[1]) ? $version : $matches[1];
 	}
 	
     /**
