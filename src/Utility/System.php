@@ -24,6 +24,7 @@ namespace MeTools\Utility;
 
 use Cake\Cache\Cache;
 use Cake\Core\Configure;
+use Cake\Filesystem\File;
 use Cake\Filesystem\Folder;
 use MeTools\Core\Plugin;
 
@@ -127,6 +128,25 @@ class System {
 		return $success;
     }
 	
+	/**
+     * Clears the logs
+     * @return boolean TRUE if the cache is writable and were successfully cleared, FALSE otherwise
+	 * @uses checkLogs()
+	 */
+	public static function clearLogs() {
+		if(!self::checkLogs())
+			return FALSE;
+		
+		$success = TRUE;
+		
+		//Deletes each file
+        foreach((new Folder(LOGS))->findRecursive() as $file)
+            if(!(new File($file))->delete() && $success)
+                $success = FALSE;
+		
+        return $success;
+	}
+	
     /**
      * Gets the cache size.
      * @return int Cache size
@@ -186,6 +206,14 @@ class System {
 		return array_combine(range(1, count($files)), array_values($files));
 	}
 	
+	/**
+	 * Gets the logs size.
+	 * @return int Logs size
+	 */
+	public static function getLogsSize() {
+        return (new Folder(LOGS))->dirsize();
+	}
+	
     /**
      * Alias for `getLogs()` method.
      * @see getLogs()
@@ -193,4 +221,13 @@ class System {
     public static function logs() {
         return call_user_func_array([get_class(), 'getLogs'], func_get_args());
     }
+	
+	
+    /**
+     * Alias for `getLogsSize()` method.
+     * @see getLogsSize()
+     */
+	public static function logsSize() {
+        return call_user_func_array([get_class(), 'getLogsSize'], func_get_args());
+	}
 }

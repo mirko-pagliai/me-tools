@@ -2,6 +2,7 @@
 ## 2.0 ramo
 ### 2.0.1-RC2
 * aggiunto il supporto per Shareaholic;
+* migliorata la gestione dei file di log;
 * sistemati piccoli bug.
 
 ### 2.0.1-RC1
