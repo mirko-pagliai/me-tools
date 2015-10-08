@@ -178,7 +178,7 @@
 </span></span><span id="38" class="l"><a href="#38">38: </a><span class="php-comment">     */</span>
 </span><span id="39" class="l"><a href="#39">39: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">static</span> <span class="php-keyword1">function</span> checkExtension(<span class="php-var">$extension</span>) {
 </span><span id="40" class="l"><a href="#40">40: </a>        <span class="php-keyword1">if</span>(!<span class="php-keyword2">function_exists</span>(<span class="php-quote">'extension_loaded'</span>))
-</span><span id="41" class="l"><a href="#41">41: </a>            <span class="php-keyword1">return</span> <span class="php-keyword1">NULL</span>;
+</span><span id="41" class="l"><a href="#41">41: </a>            <span class="php-keyword1">return</span>;
 </span><span id="42" class="l"><a href="#42">42: </a>        
 </span><span id="43" class="l"><a href="#43">43: </a>        <span class="php-keyword1">return</span> <span class="php-keyword2">extension_loaded</span>(<span class="php-var">$extension</span>);
 </span><span id="44" class="l"><a href="#44">44: </a>    }
