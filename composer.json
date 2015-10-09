@@ -25,8 +25,10 @@
 	},
     "scripts": {
         "post-package-install": [
-			"MeTools\\Console\\Installer::postInstall",
-			"php -r \"system('ln -s '.getcwd().'/vendor/components/jquery '.getcwd().'/webroot/vendor/jquery');\""            
-        ]
+			"MeTools\\Console\\Installer::postInstall"        
+        ],
+		"post-autoload-dump": [
+			"php -r \"system('ln -s '.getcwd().'/vendor/components/jquery '.getcwd().'/webroot/vendor/jquery');\""
+		]
     }
 }
