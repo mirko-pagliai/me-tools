@@ -20,7 +20,7 @@
     },
 	"extra": {
 		"installer-paths": {
-			"app/Plugin/jquery": ["components/jquery"]
+			"webroot/vendor/jquery": ["components/jquery"]
 		}
 	},
     "autoload": {
