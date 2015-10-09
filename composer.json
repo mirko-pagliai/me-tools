@@ -15,8 +15,7 @@
 		"ext-mcrypt": "*",
 		"michelf/php-markdown": "1.*",
         "cakephp/debug_kit": "3.2.*",
-        "cakephp/bake": "1.1.*",
-		"components/jquery": "2.*"
+        "cakephp/bake": "1.1.*"
     },
     "autoload": {
 		"psr-4": {
@@ -26,9 +25,6 @@
     "scripts": {
         "post-package-install": [
 			"MeTools\\Console\\Installer::postInstall"        
-        ],
-		"post-autoload-dump": [
-			"php -r \"system('ln -s '.getcwd().'/vendor/components/jquery '.getcwd().'/webroot/vendor/jquery');\""
-		]
+        ]
     }
 }
