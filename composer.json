@@ -18,17 +18,16 @@
         "cakephp/bake": "1.1.*",
 		"components/jquery": "2.*"
     },
-	"extra": {
-		"installer-paths": {
-			"webroot/vendor/jquery": ["components/jquery"]
-		}
-	},
     "autoload": {
 		"psr-4": {
 			"MeTools\\": "src"
 		}
 	},
     "scripts": {
-        "post-package-install": "MeTools\\Console\\Installer::postInstall"
+        "post-package-install": "MeTools\\Console\\Installer::postInstall",
+		
+        "post-install-cmd": [
+            "php -r \"system('ln -s '.getcwd().'/vendor//components/jquery '.getcwd().'/webroot/vendor/jquery');\""
+        ]
     }
 }
