@@ -15,8 +15,14 @@
 		"ext-mcrypt": "*",
 		"michelf/php-markdown": "1.*",
         "cakephp/debug_kit": "3.2.*",
-        "cakephp/bake": "1.1.*"
+        "cakephp/bake": "1.1.*",
+		"components/jquery": "2.*"
     },
+	"extra": {
+		"installer-paths": {
+			"app/Plugin/jquery": ["components/jquery"]
+		}
+	},
     "autoload": {
 		"psr-4": {
 			"MeTools\\": "src"
