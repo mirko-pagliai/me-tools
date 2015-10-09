@@ -24,10 +24,9 @@
 		}
 	},
     "scripts": {
-        "post-package-install": "MeTools\\Console\\Installer::postInstall",
-		
-        "post-install-cmd": [
-            "php -r \"system('ln -s '.getcwd().'/vendor//components/jquery '.getcwd().'/webroot/vendor/jquery');\""
+        "post-package-install": [
+			"MeTools\\Console\\Installer::postInstall",
+			"php -r \"system('ln -s '.getcwd().'/vendor/components/jquery '.getcwd().'/webroot/vendor/jquery');\""            
         ]
     }
 }
