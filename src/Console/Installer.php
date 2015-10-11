@@ -54,19 +54,23 @@ class Installer extends AppInstaller {
 		//Get the vendor directory (`vendor/`)
 		$vendorDir = $event->getComposer()->getConfig()->get('vendor-dir');
 		
+		//Returns, if the vendor asset doesn't exist
+		if(!file_exists($from = $vendorDir.DS.$from))
+			return;
+		
 		//Sets the target directory (`webroot/vendor/`)
 		$webrootDir = ROOT.DS.'webroot'.DS.'vendor';
-		
-		//Creates the target directory
-		if(!file_exists($webrootDir) && mkdir($webrootDir))
-			$io->write(sprintf('Created `%s` directory', str_replace(ROOT, NULL, $webrootDir)));
 		
 		//Returns, if the link already exists
 		if(file_exists($to = $webrootDir.DS.$to))
 			return;
 		
+		//Creates the target directory
+		if(!file_exists($webrootDir) && mkdir($webrootDir))
+			$io->write(sprintf('Created `%s` directory', str_replace(ROOT, NULL, $webrootDir)));
+		
 		//Creates the symbolic link
-		if(symlink($from = $vendorDir.DS.$from, $to))
+		if(symlink($from, $to))
 			$io->write(sprintf('Created symbolic link from `%s` to `%s`', str_replace(ROOT, NULL, $from), str_replace(ROOT, NULL, $to)));
 		else
 			$io->write(sprintf('Failed to create a symbolic link from `%s` to `%s`', str_replace(ROOT, NULL, $from), str_replace(ROOT, NULL, $to)));
