@@ -126,7 +126,12 @@ class Installer extends AppInstaller {
 	 * @uses MeTools\Utility\Thumbs::video()
 	 */
     public static function createWritableDirectories($dir, $io) {
-        $paths = [dirname(Thumbs::photo()), Thumbs::photo(), Thumbs::remote(), Thumbs::video()];
+        $paths = [
+			dirname(Thumbs::photo()),
+			Thumbs::photo(),
+			Thumbs::remote(),
+			Thumbs::video()
+		];
 
         foreach($paths as $path)
             if(!file_exists($path) && mkdir($path))
