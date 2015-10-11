@@ -67,6 +67,57 @@ class Installer extends AppInstaller {
     }
 	
 	/**
+	 * Occurs after the autoloader has been dumped, either during install/update, or via the dump-autoload command.
+     * @param \Composer\Script\Event $event The composer event object
+	 * @uses createSymbolicLinkToVendor()
+	 * @see https://getcomposer.org/doc/articles/scripts.md
+	 */
+	public static function postAutoloadDump(Event $event) {
+		//Creates symbolic links to vendor assets
+		foreach([
+				'components/jquery' => 'jquery',
+				'fortawesome/font-awesome' => 'font-awesome',
+				'twbs/bootstrap/dist' => 'bootstrap'
+			] as $from => $to)
+				self::createSymbolicLinkToVendor($from, $to, $event);
+	}
+
+	/**
+	 * Creates a symbolic link to vendor asset.
+	 * 
+	 * For example:
+	 * <pre>createSymbolicLinkToVendor('components/jquery', 'jquery');</pre>
+	 * will create a symbolic link from `vendor/components/jquery` to `webroot/vendor/jquery`.
+	 * @param string $from Name, relative to `vendor/`
+	 * @param string $to Name, relative to `webroot/vendor/`
+     * @param \Composer\Script\Event $event The composer event object
+	 */
+	public static function createSymbolicLinkToVendor($from, $to, $event) {
+		$io = $event->getIO();
+		 
+		//Get the vendor directory (`vendor/`)
+		$vendorDir = $event->getComposer()->getConfig()->get('vendor-dir');
+		
+		//Sets the target directory (`webroot/vendor/`)
+		$webrootDir = ROOT.DS.'webroot'.DS.'vendor';
+		
+		//Creates the target directory
+		if(!file_exists($webrootDir) && mkdir($webrootDir))
+			$io->write(sprintf('Created `%s` directory', str_replace(ROOT, NULL, $webrootDir)));
+		
+		//Returns, if the link already exists
+		if(file_exists($to = $webrootDir.DS.$to))
+			return;
+		
+		//Creates the symbolic link
+		if(symlink($from = $vendorDir.DS.$from, $to))
+			$io->write(sprintf('Created symbolic link from `%s` to `%s`', str_replace(ROOT, NULL, $from), str_replace(ROOT, NULL, $to)));
+		else
+			$io->write(sprintf('Failed to create a symbolic link from `%s` to `%s`', str_replace(ROOT, NULL, $from), str_replace(ROOT, NULL, $to)));
+	}
+	
+	
+	/**
 	 * Creates some directories
      * @param string $dir The application's root directory
      * @param \Composer\IO\IOInterface $io IO interface to write to console
