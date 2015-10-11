@@ -38,50 +38,6 @@ require 'config/paths.php';
  * composer. Customize this class to suit your needs.
  */
 class Installer extends AppInstaller {
-    /**
-     * Does some routine installation tasks so people don't have to
-     * @param \Composer\Script\Event $event The composer event object
-	 * @uses App\Console\Installer::setFolderPermissions()
-	 * @uses createWritableDirectories()
-	 */
-    public static function postInstall(Event $event) {
-        $io = $event->getIO();
-
-        static::createWritableDirectories(ROOT, $io);
-
-        //Asks if the permissions should be changed
-        if($io->isInteractive()) {
-            $validator = function($arg) {
-                if(in_array($arg, ['Y', 'y', 'N', 'n']))
-                    return $arg;
-				
-                throw new Exception('This is not a valid answer. Please choose Y or n.');
-            };
-            $setFolderPermissions = $io->askAndValidate('<info>Set Folder Permissions ? (Default to Y)</info> [<comment>Y,n</comment>]? ', $validator, 10, 'Y');
-
-            if(in_array($setFolderPermissions, ['Y', 'y']))
-                parent::setFolderPermissions(ROOT, $io);
-        }
-		else
-            parent::setFolderPermissions(ROOT, $io);
-    }
-	
-	/**
-	 * Occurs after the autoloader has been dumped, either during install/update, or via the dump-autoload command.
-     * @param \Composer\Script\Event $event The composer event object
-	 * @uses createSymbolicLinkToVendor()
-	 * @see https://getcomposer.org/doc/articles/scripts.md
-	 */
-	public static function postAutoloadDump(Event $event) {
-		//Creates symbolic links to vendor assets
-		foreach([
-				'components/jquery' => 'jquery',
-				'fortawesome/font-awesome' => 'font-awesome',
-				'twbs/bootstrap/dist' => 'bootstrap'
-			] as $from => $to)
-				self::createSymbolicLinkToVendor($from, $to, $event);
-	}
-
 	/**
 	 * Creates a symbolic link to vendor asset.
 	 * 
@@ -116,25 +72,76 @@ class Installer extends AppInstaller {
 			$io->write(sprintf('Failed to create a symbolic link from `%s` to `%s`', str_replace(ROOT, NULL, $from), str_replace(ROOT, NULL, $to)));
 	}
 	
-	
 	/**
-	 * Creates some directories
+	 * Creates some (writable) directories
      * @param string $dir The application's root directory
      * @param \Composer\IO\IOInterface $io IO interface to write to console
+	 * @uses App\Console\Installer::createWritableDirectories()
 	 * @uses MeTools\Utility\Thumbs::photo()
 	 * @uses MeTools\Utility\Thumbs::remote()
 	 * @uses MeTools\Utility\Thumbs::video()
 	 */
     public static function createWritableDirectories($dir, $io) {
-        $paths = [
+        foreach([
 			dirname(Thumbs::photo()),
 			Thumbs::photo(),
 			Thumbs::remote(),
 			Thumbs::video()
-		];
-
-        foreach($paths as $path)
-            if(!file_exists($path) && mkdir($path))
-                $io->write(sprintf('Created `%s` directory', str_replace(ROOT, NULL, $path)));
+		] as $path)
+			if(!file_exists($path) && mkdir($path))
+				$io->write(sprintf('Created `%s` directory', str_replace(ROOT, NULL, $path)));
+				
+		//Creates `logs` and `tmp` directories
+		parent::createWritableDirectories($dir, $io);
     }
+	
+	/**
+	 * Occurs after the autoloader has been dumped, either during install/update, or via the dump-autoload command.
+     * @param \Composer\Script\Event $event The composer event object
+	 * @uses createSymbolicLinkToVendor()
+	 * @uses createWritableDirectories()
+	 * @uses App\Console\Installer::setFolderPermissions()
+	 * @see https://getcomposer.org/doc/articles/scripts.md
+	 */
+	public static function postAutoloadDump(Event $event) {
+        $io = $event->getIO();
+		
+		//Creates some (writable) directories
+        static::createWritableDirectories(ROOT, $io);
+		
+		$linksToAssets = [
+			'components/jquery' => 'jquery',
+			'fortawesome/font-awesome' => 'font-awesome',
+			'twbs/bootstrap/dist' => 'bootstrap'
+		];
+		
+		//If the shell is interactive
+        if($io->isInteractive()) {
+            $validator = function($arg) {
+                if(in_array($arg, ['Y', 'y', 'N', 'n']))
+                    return $arg;
+				
+                throw new Exception('This is not a valid answer. Please choose Y or n.');
+            };
+			
+			//Asks if the permissions should be changed
+            $setFolderPermissions = $io->askAndValidate('<info>Set folder permissions? (Default to Y)</info> [<comment>Y, n</comment>]? ', $validator, 10, 'Y');
+
+            if(in_array($setFolderPermissions, ['Y', 'y']))
+                parent::setFolderPermissions(ROOT, $io);
+			
+			//Asks if the symbolic links to vendors should be created
+			$createSymbolicLinkToVendor = $io->askAndValidate('<info>Create symbolic links to vendors? (Default to Y)</info> [<comment>Y, n</comment>]? ', $validator, 10, 'Y');
+			
+            if(in_array($createSymbolicLinkToVendor, ['Y', 'y']))
+				foreach($linksToAssets as $from => $to)
+					self::createSymbolicLinkToVendor($from, $to, $event);
+        }
+		else {
+            parent::setFolderPermissions(ROOT, $io);
+
+			foreach($linksToAssets as $from => $to)
+				self::createSymbolicLinkToVendor($from, $to, $event);
+		}
+	}
 }
