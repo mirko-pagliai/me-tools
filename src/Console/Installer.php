@@ -50,9 +50,6 @@ class Installer extends AppInstaller {
 	 */
 	public static function createSymbolicLinkToVendor($from, $to, $event) {
 		$io = $event->getIO();
-		 
-		//Gets the vendor directory (`vendor/`)
-		$vendorDir = $event->getComposer()->getConfig()->get('vendor-dir');
 				
 		//Sets the target directory (`webroot/vendor/`)
 		$webrootDir = ROOT.DS.'webroot'.DS.'vendor';
@@ -65,8 +62,10 @@ class Installer extends AppInstaller {
 		if(file_exists($to = $webrootDir.DS.$to))
 			unlink($to);
 		
+		$from = $event->getComposer()->getConfig()->get('vendor-dir').DS.$from;
+				
 		//Creates the symbolic link
-		if(symlink($from, $to))
+		if(@symlink($from, $to))
 			$io->write(sprintf('Created symbolic link to `%s`', str_replace(ROOT, NULL, $to)));
 		else
 			$io->write(sprintf('Failed to create a symbolic link to `%s`', str_replace(ROOT, NULL, $to)));
