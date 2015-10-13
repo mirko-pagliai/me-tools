@@ -43,7 +43,7 @@ class Xml {
 	 * @throws \Cake\Utility\Exception\XmlException
 	 * @uses Cake\Utility\Xml::fromArray()
 	 */
-	public function fromArray($input, array $options = []) {		
+	public static function fromArray($input, array $options = []) {		
 		//Adds the root element, if it doesn't exist
 		if(count($input) > 1 || empty($input['root']))
 			$input = ['root' => $input];
@@ -59,7 +59,7 @@ class Xml {
 	 * @return array Array representation of the XML
 	 * @uses toArray()
 	 */
-	public function fromFile($file) {
+	public static function fromFile($file) {
 		//If the path is an url, sets the context
 		if(is_remote($file))
 			$context = stream_context_create(['http' => ['method' => 'GET', 'timeout' => 5]]);
@@ -82,7 +82,7 @@ class Xml {
 	 * @uses Cake\Utility\Xml::build()
 	 * @uses Cake\Utility\Xml::toArray()
 	 */
-	public function toArray($xml) {
+	public static function toArray($xml) {
 		$xml = BaseXml::toArray(BaseXml::build($xml));
 		
 		if(!is_array($xml))
