@@ -56,11 +56,11 @@ class LibraryHelper extends Helper {
 	 */
 	protected function _datetimepicker($input, array $options = []) {
 		$this->Html->js([
-			'MeTools.moment-with-locales.min',
-			'MeTools.bootstrap-datetimepicker.min'
+			'/vendor/moment/moment-with-locales.min',
+			'/vendor/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min'
 		], ['block' => 'script_bottom']);
 		
-        $this->Html->css('MeTools.bootstrap-datetimepicker.min', ['block' => 'css_bottom']);
+        $this->Html->css('/vendor/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min', ['block' => 'css_bottom']);
 		
 		//Shows the "Clear" button in the icon toolbar
 		$options = addDefault('showClear', TRUE, $options);
