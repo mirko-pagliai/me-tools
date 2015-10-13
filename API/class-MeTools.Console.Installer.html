@@ -156,7 +156,7 @@ App\Console\Installer
 		<b>Namespace:</b> <a href="namespace-MeTools.html">MeTools</a>\<a href="namespace-MeTools.Console.html">Console</a><br>
 		
 
-			<b>Located at</b> <a href="source-class-MeTools.Console.Installer.html#36-150" title="Go to source code">Installer.php</a>
+			<b>Located at</b> <a href="source-class-MeTools.Console.Installer.html#36-156" title="Go to source code">Installer.php</a>
 		<br>
 	</div>
 
@@ -176,7 +176,7 @@ App\Console\Installer
 
 		<td class="name"><div>
 		<a class="anchor" href="#_createSymbolicLinkToVendor">#</a>
-		<code><a href="source-class-MeTools.Console.Installer.html#41-73" title="Go to source code">createSymbolicLinkToVendor</a>( <span>string <var>$from</var></span>, <span>string <var>$to</var></span>, <span>Composer\Script\Event <var>$event</var></span> )</code>
+		<code><a href="source-class-MeTools.Console.Installer.html#55-86" title="Go to source code">createSymbolicLinkToVendor</a>( <span>string <var>$from</var></span>, <span>string <var>$to</var></span>, <span>Composer\Script\Event <var>$event</var></span> )</code>
 
 		<div class="description short">
 			<p>Creates a symbolic link to vendor asset.</p>
@@ -225,7 +225,7 @@ App\Console\Installer
 
 		<td class="name"><div>
 		<a class="anchor" href="#_createWritableDirectories">#</a>
-		<code><a href="source-class-MeTools.Console.Installer.html#75-96" title="Go to source code">createWritableDirectories</a>( <span>string <var>$dir</var></span>, <span>Composer\IO\IOInterface <var>$io</var></span> )</code>
+		<code><a href="source-class-MeTools.Console.Installer.html#88-109" title="Go to source code">createWritableDirectories</a>( <span>string <var>$dir</var></span>, <span>Composer\IO\IOInterface <var>$io</var></span> )</code>
 
 		<div class="description short">
 			<p>Creates some (writable) directories</p>
@@ -273,7 +273,7 @@ App\Console\Installer
 
 		<td class="name"><div>
 		<a class="anchor" href="#_postAutoloadDump">#</a>
-		<code><a href="source-class-MeTools.Console.Installer.html#98-149" title="Go to source code">postAutoloadDump</a>( <span>Composer\Script\Event <var>$event</var></span> )</code>
+		<code><a href="source-class-MeTools.Console.Installer.html#111-155" title="Go to source code">postAutoloadDump</a>( <span>Composer\Script\Event <var>$event</var></span> )</code>
 
 		<div class="description short">
 			<p>Occurs after the autoloader has been dumped, either during install/update, or via the dump-autoload command.</p>
@@ -297,6 +297,7 @@ App\Console\Installer
 				</div>
 				<h4>Uses</h4>
 				<div class="list">
+						<code><a href="class-MeTools.Console.Installer.html#$linksToAssets">MeTools\Console\Installer::<var>$linksToAssets</var></a></code><br>
 						<code><a href="class-MeTools.Console.Installer.html#_createSymbolicLinkToVendor">MeTools\Console\Installer::createSymbolicLinkToVendor()</a></code><br>
 						<code><a href="class-MeTools.Console.Installer.html#_createWritableDirectories">MeTools\Console\Installer::createWritableDirectories()</a></code><br>
 						App\Console\Installer::setFolderPermissions()<br>
@@ -323,6 +324,50 @@ App\Console\Installer
 
 
 
+	<table class="summary properties" id="properties">
+	<caption>Properties summary</caption>
+	<tr data-order="linksToAssets" id="$linksToAssets">
+		<td class="attributes"><code>
+			protected static 
+			array
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-MeTools.Console.Installer.html#41-53" title="Go to source code"><var>$linksToAssets</var></a>
+
+			<div class="description short">
+				<p>Assets for which create symbolic links.
+The key must be relative to <code>vendor/</code>, the value must be relative to <code>webroot/vendor/</code></p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Assets for which create symbolic links.
+The key must be relative to <code>vendor/</code>, the value must be relative to <code>webroot/vendor/</code></p>
+
+					<h4>See</h4>
+					<div class="list">
+							<code><a href="class-MeTools.Console.Installer.html#_createSymbolicLinkToVendor">MeTools\Console\Installer::createSymbolicLinkToVendor()</a></code><br>
+					</div>
+					<h4>Used by</h4>
+					<div class="list">
+							<code><a href="class-MeTools.Console.Installer.html#_postAutoloadDump">MeTools\Console\Installer::postAutoloadDump()</a></code><br>
+					</div>
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$linksToAssets" class="anchor">#</a>
+				<code>[
+    <span class="php-quote">'components/bootstrap-datetimepicker/build'</span> =&gt; <span class="php-quote">'bootstrap-datetimepicker'</span>,
+    <span class="php-quote">'components/jquery'</span>                         =&gt; <span class="php-quote">'jquery'</span>,
+    <span class="php-quote">'components/moment/min'</span>                     =&gt; <span class="php-quote">'moment'</span>,
+    <span class="php-quote">'fortawesome/font-awesome'</span>                  =&gt; <span class="php-quote">'font-awesome'</span>,
+    <span class="php-quote">'twbs/bootstrap/dist'</span>                       =&gt; <span class="php-quote">'bootstrap'</span>
+]</code>
+			</div>
+		</td>
+	</tr>
+	</table>
 
 
 
