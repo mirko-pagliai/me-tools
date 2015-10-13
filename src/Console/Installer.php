@@ -39,6 +39,20 @@ require 'config/paths.php';
  */
 class Installer extends AppInstaller {
 	/**
+	 * Assets for which create symbolic links.
+	 * The key must be relative to `vendor/`, the value must be relative to `webroot/vendor/`
+	 * @see createSymbolicLinkToVendor()
+	 * @var array
+	 */
+	protected static $linksToAssets = [
+		'components/bootstrap-datetimepicker/build'	=> 'bootstrap-datetimepicker',
+		'components/jquery'							=> 'jquery',
+		'components/moment/min'						=> 'moment',
+		'fortawesome/font-awesome'					=> 'font-awesome',
+		'twbs/bootstrap/dist'						=> 'bootstrap'
+	];
+
+	/**
 	 * Creates a symbolic link to vendor asset.
 	 * 
 	 * For example:
@@ -97,6 +111,7 @@ class Installer extends AppInstaller {
 	/**
 	 * Occurs after the autoloader has been dumped, either during install/update, or via the dump-autoload command.
      * @param \Composer\Script\Event $event The composer event object
+	 * @uses linksToAssets
 	 * @uses createSymbolicLinkToVendor()
 	 * @uses createWritableDirectories()
 	 * @uses App\Console\Installer::setFolderPermissions()
@@ -108,14 +123,6 @@ class Installer extends AppInstaller {
 		
 		//Creates some (writable) directories
         static::createWritableDirectories(ROOT, $io);
-		
-		$linksToAssets = [
-			'components/bootstrap-datetimepicker/build'	=> 'bootstrap-datetimepicker',
-			'components/jquery'							=> 'jquery',
-			'components/moment/min'						=> 'moment',
-			'fortawesome/font-awesome'					=> 'font-awesome',
-			'twbs/bootstrap/dist'						=> 'bootstrap'
-		];
 		
 		//If the shell is interactive
         if($io->isInteractive()) {
@@ -136,13 +143,13 @@ class Installer extends AppInstaller {
 			$createSymbolicLinkToVendor = $io->askAndValidate('<info>Create symbolic links to vendors? (Default to Y)</info> [<comment>Y, n</comment>]? ', $validator, 10, 'Y');
 			
             if(in_array($createSymbolicLinkToVendor, ['Y', 'y']))
-				foreach($linksToAssets as $from => $to)
+				foreach(self::$linksToAssets as $from => $to)
 					self::createSymbolicLinkToVendor($from, $to, $event);
         }
 		else {
             parent::setFolderPermissions(ROOT, $io);
 
-			foreach($linksToAssets as $from => $to)
+			foreach(self::$linksToAssets as $from => $to)
 				self::createSymbolicLinkToVendor($from, $to, $event);
 		}
 	}
