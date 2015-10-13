@@ -161,24 +161,24 @@ class Installer extends AppInstaller {
      * @param \Composer\IO\IOInterface $io IO interface to write to console
      */
     public static function setFolderPermissions($dir, $io) {
-        // Change the permissions on a path and output the results.
+        //Change the permissions on a path and output the results
         $changePerms = function ($path, $perms, $io) {
-            // Get current permissions in decimal format so we can bitmask it.
+            //Get current permissions in decimal format so we can bitmask it
             $currentPerms = octdec(substr(sprintf('%o', fileperms($path)), -4));
             if(($currentPerms & $perms) == $perms)
                 return;
 			
             $res = chmod($path, $currentPerms | $perms);
             if($res)
-                $io->write('Permissions set on ' . $path);
+                $io->write('Permissions set on '.$path);
             else
-                $io->write('Failed to set permissions on ' . $path);
+                $io->write('Failed to set permissions on '.$path);
         };
 
         $walker = function ($dir, $perms, $io) use (&$walker, $changePerms) {
             $files = array_diff(scandir($dir), ['.', '..']);
             foreach ($files as $file) {
-                $path = $dir . '/' . $file;
+                $path = $dir.'/'.$file;
 
                 if (!is_dir($path))
                     continue;
