@@ -17,10 +17,7 @@
 		"fortawesome/font-awesome": "4.*",
 		"twbs/bootstrap": "3.*",
 		"eonasdan/bootstrap-datetimepicker": "4.*"
-    },
-	"config": {
-        "component-dir": "vendor/components"
-    },
+    }
     "autoload": {
 		"psr-4": {
 			"MeTools\\": "src"
