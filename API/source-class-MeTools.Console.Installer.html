@@ -197,9 +197,9 @@
 </span><span id="51" class="l"><a href="#51"> 51: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">static</span> <span class="php-keyword1">function</span> createSymbolicLinkToVendor(<span class="php-var">$from</span>, <span class="php-var">$to</span>, <span class="php-var">$event</span>) {
 </span><span id="52" class="l"><a href="#52"> 52: </a>        <span class="php-var">$io</span> = <span class="php-var">$event</span>-&gt;getIO();
 </span><span id="53" class="l"><a href="#53"> 53: </a>         
-</span><span id="54" class="l"><a href="#54"> 54: </a>        <span class="php-comment">//Get the vendor directory (`vendor/`)</span>
+</span><span id="54" class="l"><a href="#54"> 54: </a>        <span class="php-comment">//Gets the vendor directory (`vendor/`)</span>
 </span><span id="55" class="l"><a href="#55"> 55: </a>        <span class="php-var">$vendorDir</span> = <span class="php-var">$event</span>-&gt;getComposer()-&gt;getConfig()-&gt;get(<span class="php-quote">'vendor-dir'</span>);
-</span><span id="56" class="l"><a href="#56"> 56: </a>        
+</span><span id="56" class="l"><a href="#56"> 56: </a>                
 </span><span id="57" class="l"><a href="#57"> 57: </a>        <span class="php-comment">//Sets the target directory (`webroot/vendor/`)</span>
 </span><span id="58" class="l"><a href="#58"> 58: </a>        <span class="php-var">$webrootDir</span> = ROOT.DS.<span class="php-quote">'webroot'</span>.DS.<span class="php-quote">'vendor'</span>;
 </span><span id="59" class="l"><a href="#59"> 59: </a>        
@@ -207,15 +207,15 @@
 </span><span id="61" class="l"><a href="#61"> 61: </a>        <span class="php-keyword1">if</span>(!<span class="php-keyword2">file_exists</span>(<span class="php-var">$webrootDir</span>) &amp;&amp; <span class="php-keyword2">mkdir</span>(<span class="php-var">$webrootDir</span>))
 </span><span id="62" class="l"><a href="#62"> 62: </a>            <span class="php-var">$io</span>-&gt;write(<span class="php-keyword2">sprintf</span>(<span class="php-quote">'Created `%s` directory'</span>, <span class="php-keyword2">str_replace</span>(ROOT, <span class="php-keyword1">NULL</span>, <span class="php-var">$webrootDir</span>)));
 </span><span id="63" class="l"><a href="#63"> 63: </a>        
-</span><span id="64" class="l"><a href="#64"> 64: </a>        <span class="php-comment">//Returns, if the link already exists</span>
+</span><span id="64" class="l"><a href="#64"> 64: </a>        <span class="php-comment">//Deletes the link, if this already exists</span>
 </span><span id="65" class="l"><a href="#65"> 65: </a>        <span class="php-keyword1">if</span>(<span class="php-keyword2">file_exists</span>(<span class="php-var">$to</span> = <span class="php-var">$webrootDir</span>.DS.<span class="php-var">$to</span>))
-</span><span id="66" class="l"><a href="#66"> 66: </a>            <span class="php-keyword1">return</span>;
+</span><span id="66" class="l"><a href="#66"> 66: </a>            <span class="php-keyword2">unlink</span>(<span class="php-var">$to</span>);
 </span><span id="67" class="l"><a href="#67"> 67: </a>        
 </span><span id="68" class="l"><a href="#68"> 68: </a>        <span class="php-comment">//Creates the symbolic link</span>
-</span><span id="69" class="l"><a href="#69"> 69: </a>        <span class="php-keyword1">if</span>(<span class="php-keyword2">symlink</span>(<span class="php-var">$from</span> = <span class="php-var">$vendorDir</span>.DS.<span class="php-var">$from</span>, <span class="php-var">$to</span>))
-</span><span id="70" class="l"><a href="#70"> 70: </a>            <span class="php-var">$io</span>-&gt;write(<span class="php-keyword2">sprintf</span>(<span class="php-quote">'Created symbolic link from `%s` to `%s`'</span>, <span class="php-keyword2">str_replace</span>(ROOT, <span class="php-keyword1">NULL</span>, <span class="php-var">$from</span>), <span class="php-keyword2">str_replace</span>(ROOT, <span class="php-keyword1">NULL</span>, <span class="php-var">$to</span>)));
+</span><span id="69" class="l"><a href="#69"> 69: </a>        <span class="php-keyword1">if</span>(<span class="php-keyword2">symlink</span>(<span class="php-var">$from</span>, <span class="php-var">$to</span>))
+</span><span id="70" class="l"><a href="#70"> 70: </a>            <span class="php-var">$io</span>-&gt;write(<span class="php-keyword2">sprintf</span>(<span class="php-quote">'Created symbolic link to `%s`'</span>, <span class="php-keyword2">str_replace</span>(ROOT, <span class="php-keyword1">NULL</span>, <span class="php-var">$to</span>)));
 </span><span id="71" class="l"><a href="#71"> 71: </a>        <span class="php-keyword1">else</span>
-</span><span id="72" class="l"><a href="#72"> 72: </a>            <span class="php-var">$io</span>-&gt;write(<span class="php-keyword2">sprintf</span>(<span class="php-quote">'Failed to create a symbolic link from `%s` to `%s`'</span>, <span class="php-keyword2">str_replace</span>(ROOT, <span class="php-keyword1">NULL</span>, <span class="php-var">$from</span>), <span class="php-keyword2">str_replace</span>(ROOT, <span class="php-keyword1">NULL</span>, <span class="php-var">$to</span>)));
+</span><span id="72" class="l"><a href="#72"> 72: </a>            <span class="php-var">$io</span>-&gt;write(<span class="php-keyword2">sprintf</span>(<span class="php-quote">'Failed to create a symbolic link to `%s`'</span>, <span class="php-keyword2">str_replace</span>(ROOT, <span class="php-keyword1">NULL</span>, <span class="php-var">$to</span>)));
 </span><span id="73" class="l"><a href="#73"> 73: </a>    }
 </span><span id="74" class="l"><a href="#74"> 74: </a>    
 </span><span id="75" class="l"><a href="#75"> 75: </a>    <span class="php-comment">/**
@@ -248,49 +248,52 @@
 </span></span><span id="102" class="l"><a href="#102">102: </a><span class="php-comment">     * @uses createWritableDirectories()
 </span></span><span id="103" class="l"><a href="#103">103: </a><span class="php-comment">     * @uses App\Console\Installer::setFolderPermissions()
 </span></span><span id="104" class="l"><a href="#104">104: </a><span class="php-comment">     * @see https://getcomposer.org/doc/articles/scripts.md
-</span></span><span id="105" class="l"><a href="#105">105: </a><span class="php-comment">     */</span>
-</span><span id="106" class="l"><a href="#106">106: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">static</span> <span class="php-keyword1">function</span> postAutoloadDump(Event <span class="php-var">$event</span>) {
-</span><span id="107" class="l"><a href="#107">107: </a>        <span class="php-var">$io</span> = <span class="php-var">$event</span>-&gt;getIO();
-</span><span id="108" class="l"><a href="#108">108: </a>        
-</span><span id="109" class="l"><a href="#109">109: </a>        <span class="php-comment">//Creates some (writable) directories</span>
-</span><span id="110" class="l"><a href="#110">110: </a>        <span class="php-keyword1">static</span>::createWritableDirectories(ROOT, <span class="php-var">$io</span>);
-</span><span id="111" class="l"><a href="#111">111: </a>        
-</span><span id="112" class="l"><a href="#112">112: </a>        <span class="php-var">$linksToAssets</span> = [
-</span><span id="113" class="l"><a href="#113">113: </a>            <span class="php-quote">'components/jquery'</span> =&gt; <span class="php-quote">'jquery'</span>,
-</span><span id="114" class="l"><a href="#114">114: </a>            <span class="php-quote">'fortawesome/font-awesome'</span> =&gt; <span class="php-quote">'font-awesome'</span>,
-</span><span id="115" class="l"><a href="#115">115: </a>            <span class="php-quote">'twbs/bootstrap/dist'</span> =&gt; <span class="php-quote">'bootstrap'</span>
-</span><span id="116" class="l"><a href="#116">116: </a>        ];
-</span><span id="117" class="l"><a href="#117">117: </a>        
-</span><span id="118" class="l"><a href="#118">118: </a>        <span class="php-comment">//If the shell is interactive</span>
-</span><span id="119" class="l"><a href="#119">119: </a>        <span class="php-keyword1">if</span>(<span class="php-var">$io</span>-&gt;isInteractive()) {
-</span><span id="120" class="l"><a href="#120">120: </a>            <span class="php-var">$validator</span> = <span class="php-keyword1">function</span>(<span class="php-var">$arg</span>) {
-</span><span id="121" class="l"><a href="#121">121: </a>                <span class="php-keyword1">if</span>(<span class="php-keyword2">in_array</span>(<span class="php-var">$arg</span>, [<span class="php-quote">'Y'</span>, <span class="php-quote">'y'</span>, <span class="php-quote">'N'</span>, <span class="php-quote">'n'</span>]))
-</span><span id="122" class="l"><a href="#122">122: </a>                    <span class="php-keyword1">return</span> <span class="php-var">$arg</span>;
-</span><span id="123" class="l"><a href="#123">123: </a>                
-</span><span id="124" class="l"><a href="#124">124: </a>                <span class="php-keyword1">throw</span> <span class="php-keyword1">new</span> Exception(<span class="php-quote">'This is not a valid answer. Please choose Y or n.'</span>);
-</span><span id="125" class="l"><a href="#125">125: </a>            };
-</span><span id="126" class="l"><a href="#126">126: </a>            
-</span><span id="127" class="l"><a href="#127">127: </a>            <span class="php-comment">//Asks if the permissions should be changed</span>
-</span><span id="128" class="l"><a href="#128">128: </a>            <span class="php-var">$setFolderPermissions</span> = <span class="php-var">$io</span>-&gt;askAndValidate(<span class="php-quote">'&lt;info&gt;Set folder permissions? (Default to Y)&lt;/info&gt; [&lt;comment&gt;Y, n&lt;/comment&gt;]? '</span>, <span class="php-var">$validator</span>, <span class="php-num">10</span>, <span class="php-quote">'Y'</span>);
-</span><span id="129" class="l"><a href="#129">129: </a>
-</span><span id="130" class="l"><a href="#130">130: </a>            <span class="php-keyword1">if</span>(<span class="php-keyword2">in_array</span>(<span class="php-var">$setFolderPermissions</span>, [<span class="php-quote">'Y'</span>, <span class="php-quote">'y'</span>]))
-</span><span id="131" class="l"><a href="#131">131: </a>                parent::setFolderPermissions(ROOT, <span class="php-var">$io</span>);
-</span><span id="132" class="l"><a href="#132">132: </a>            
-</span><span id="133" class="l"><a href="#133">133: </a>            <span class="php-comment">//Asks if the symbolic links to vendors should be created</span>
-</span><span id="134" class="l"><a href="#134">134: </a>            <span class="php-var">$createSymbolicLinkToVendor</span> = <span class="php-var">$io</span>-&gt;askAndValidate(<span class="php-quote">'&lt;info&gt;Create symbolic links to vendors? (Default to Y)&lt;/info&gt; [&lt;comment&gt;Y, n&lt;/comment&gt;]? '</span>, <span class="php-var">$validator</span>, <span class="php-num">10</span>, <span class="php-quote">'Y'</span>);
+</span></span><span id="105" class="l"><a href="#105">105: </a><span class="php-comment">     * @todo Needs to check for root/sudo
+</span></span><span id="106" class="l"><a href="#106">106: </a><span class="php-comment">     */</span>
+</span><span id="107" class="l"><a href="#107">107: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">static</span> <span class="php-keyword1">function</span> postAutoloadDump(Event <span class="php-var">$event</span>) {
+</span><span id="108" class="l"><a href="#108">108: </a>        <span class="php-var">$io</span> = <span class="php-var">$event</span>-&gt;getIO();
+</span><span id="109" class="l"><a href="#109">109: </a>        
+</span><span id="110" class="l"><a href="#110">110: </a>        <span class="php-comment">//Creates some (writable) directories</span>
+</span><span id="111" class="l"><a href="#111">111: </a>        <span class="php-keyword1">static</span>::createWritableDirectories(ROOT, <span class="php-var">$io</span>);
+</span><span id="112" class="l"><a href="#112">112: </a>        
+</span><span id="113" class="l"><a href="#113">113: </a>        <span class="php-var">$linksToAssets</span> = [
+</span><span id="114" class="l"><a href="#114">114: </a>            <span class="php-quote">'components/bootstrap-datetimepicker/build'</span> =&gt; <span class="php-quote">'bootstrap-datetimepicker'</span>,
+</span><span id="115" class="l"><a href="#115">115: </a>            <span class="php-quote">'components/jquery'</span>                         =&gt; <span class="php-quote">'jquery'</span>,
+</span><span id="116" class="l"><a href="#116">116: </a>            <span class="php-quote">'components/moment/min'</span>                     =&gt; <span class="php-quote">'moment'</span>,
+</span><span id="117" class="l"><a href="#117">117: </a>            <span class="php-quote">'fortawesome/font-awesome'</span>                  =&gt; <span class="php-quote">'font-awesome'</span>,
+</span><span id="118" class="l"><a href="#118">118: </a>            <span class="php-quote">'twbs/bootstrap/dist'</span>                       =&gt; <span class="php-quote">'bootstrap'</span>,
+</span><span id="119" class="l"><a href="#119">119: </a>        ];
+</span><span id="120" class="l"><a href="#120">120: </a>        
+</span><span id="121" class="l"><a href="#121">121: </a>        <span class="php-comment">//If the shell is interactive</span>
+</span><span id="122" class="l"><a href="#122">122: </a>        <span class="php-keyword1">if</span>(<span class="php-var">$io</span>-&gt;isInteractive()) {
+</span><span id="123" class="l"><a href="#123">123: </a>            <span class="php-var">$validator</span> = <span class="php-keyword1">function</span>(<span class="php-var">$arg</span>) {
+</span><span id="124" class="l"><a href="#124">124: </a>                <span class="php-keyword1">if</span>(<span class="php-keyword2">in_array</span>(<span class="php-var">$arg</span>, [<span class="php-quote">'Y'</span>, <span class="php-quote">'y'</span>, <span class="php-quote">'N'</span>, <span class="php-quote">'n'</span>]))
+</span><span id="125" class="l"><a href="#125">125: </a>                    <span class="php-keyword1">return</span> <span class="php-var">$arg</span>;
+</span><span id="126" class="l"><a href="#126">126: </a>                
+</span><span id="127" class="l"><a href="#127">127: </a>                <span class="php-keyword1">throw</span> <span class="php-keyword1">new</span> Exception(<span class="php-quote">'This is not a valid answer. Please choose Y or n.'</span>);
+</span><span id="128" class="l"><a href="#128">128: </a>            };
+</span><span id="129" class="l"><a href="#129">129: </a>            
+</span><span id="130" class="l"><a href="#130">130: </a>            <span class="php-comment">//Asks if the permissions should be changed</span>
+</span><span id="131" class="l"><a href="#131">131: </a>            <span class="php-var">$setFolderPermissions</span> = <span class="php-var">$io</span>-&gt;askAndValidate(<span class="php-quote">'&lt;info&gt;Set folder permissions? (Default to Y)&lt;/info&gt; [&lt;comment&gt;Y, n&lt;/comment&gt;]? '</span>, <span class="php-var">$validator</span>, <span class="php-num">10</span>, <span class="php-quote">'Y'</span>);
+</span><span id="132" class="l"><a href="#132">132: </a>
+</span><span id="133" class="l"><a href="#133">133: </a>            <span class="php-keyword1">if</span>(<span class="php-keyword2">in_array</span>(<span class="php-var">$setFolderPermissions</span>, [<span class="php-quote">'Y'</span>, <span class="php-quote">'y'</span>]))
+</span><span id="134" class="l"><a href="#134">134: </a>                parent::setFolderPermissions(ROOT, <span class="php-var">$io</span>);
 </span><span id="135" class="l"><a href="#135">135: </a>            
-</span><span id="136" class="l"><a href="#136">136: </a>            <span class="php-keyword1">if</span>(<span class="php-keyword2">in_array</span>(<span class="php-var">$createSymbolicLinkToVendor</span>, [<span class="php-quote">'Y'</span>, <span class="php-quote">'y'</span>]))
-</span><span id="137" class="l"><a href="#137">137: </a>                <span class="php-keyword1">foreach</span>(<span class="php-var">$linksToAssets</span> <span class="php-keyword1">as</span> <span class="php-var">$from</span> =&gt; <span class="php-var">$to</span>)
-</span><span id="138" class="l"><a href="#138">138: </a>                    self::createSymbolicLinkToVendor(<span class="php-var">$from</span>, <span class="php-var">$to</span>, <span class="php-var">$event</span>);
-</span><span id="139" class="l"><a href="#139">139: </a>        }
-</span><span id="140" class="l"><a href="#140">140: </a>        <span class="php-keyword1">else</span> {
-</span><span id="141" class="l"><a href="#141">141: </a>            parent::setFolderPermissions(ROOT, <span class="php-var">$io</span>);
-</span><span id="142" class="l"><a href="#142">142: </a>
-</span><span id="143" class="l"><a href="#143">143: </a>            <span class="php-keyword1">foreach</span>(<span class="php-var">$linksToAssets</span> <span class="php-keyword1">as</span> <span class="php-var">$from</span> =&gt; <span class="php-var">$to</span>)
-</span><span id="144" class="l"><a href="#144">144: </a>                self::createSymbolicLinkToVendor(<span class="php-var">$from</span>, <span class="php-var">$to</span>, <span class="php-var">$event</span>);
-</span><span id="145" class="l"><a href="#145">145: </a>        }
-</span><span id="146" class="l"><a href="#146">146: </a>    }
-</span><span id="147" class="l"><a href="#147">147: </a>}</span></code></pre>
+</span><span id="136" class="l"><a href="#136">136: </a>            <span class="php-comment">//Asks if the symbolic links to vendors should be created</span>
+</span><span id="137" class="l"><a href="#137">137: </a>            <span class="php-var">$createSymbolicLinkToVendor</span> = <span class="php-var">$io</span>-&gt;askAndValidate(<span class="php-quote">'&lt;info&gt;Create symbolic links to vendors? (Default to Y)&lt;/info&gt; [&lt;comment&gt;Y, n&lt;/comment&gt;]? '</span>, <span class="php-var">$validator</span>, <span class="php-num">10</span>, <span class="php-quote">'Y'</span>);
+</span><span id="138" class="l"><a href="#138">138: </a>            
+</span><span id="139" class="l"><a href="#139">139: </a>            <span class="php-keyword1">if</span>(<span class="php-keyword2">in_array</span>(<span class="php-var">$createSymbolicLinkToVendor</span>, [<span class="php-quote">'Y'</span>, <span class="php-quote">'y'</span>]))
+</span><span id="140" class="l"><a href="#140">140: </a>                <span class="php-keyword1">foreach</span>(<span class="php-var">$linksToAssets</span> <span class="php-keyword1">as</span> <span class="php-var">$from</span> =&gt; <span class="php-var">$to</span>)
+</span><span id="141" class="l"><a href="#141">141: </a>                    self::createSymbolicLinkToVendor(<span class="php-var">$from</span>, <span class="php-var">$to</span>, <span class="php-var">$event</span>);
+</span><span id="142" class="l"><a href="#142">142: </a>        }
+</span><span id="143" class="l"><a href="#143">143: </a>        <span class="php-keyword1">else</span> {
+</span><span id="144" class="l"><a href="#144">144: </a>            parent::setFolderPermissions(ROOT, <span class="php-var">$io</span>);
+</span><span id="145" class="l"><a href="#145">145: </a>
+</span><span id="146" class="l"><a href="#146">146: </a>            <span class="php-keyword1">foreach</span>(<span class="php-var">$linksToAssets</span> <span class="php-keyword1">as</span> <span class="php-var">$from</span> =&gt; <span class="php-var">$to</span>)
+</span><span id="147" class="l"><a href="#147">147: </a>                self::createSymbolicLinkToVendor(<span class="php-var">$from</span>, <span class="php-var">$to</span>, <span class="php-var">$event</span>);
+</span><span id="148" class="l"><a href="#148">148: </a>        }
+</span><span id="149" class="l"><a href="#149">149: </a>    }
+</span><span id="150" class="l"><a href="#150">150: </a>}</span></code></pre>
 
 	<div id="footer">
 		MeTools API API documentation generated by <a href="http://apigen.org">ApiGen</a>

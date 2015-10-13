@@ -202,11 +202,11 @@
 </span></span><span id="56" class="l"><a href="#56"> 56: </a><span class="php-comment">     */</span>
 </span><span id="57" class="l"><a href="#57"> 57: </a>    <span class="php-keyword1">protected</span> <span class="php-keyword1">function</span> _datetimepicker(<span class="php-var">$input</span>, <span class="php-keyword1">array</span> <span class="php-var">$options</span> = []) {
 </span><span id="58" class="l"><a href="#58"> 58: </a>        <span class="php-var">$this</span>-&gt;Html-&gt;js([
-</span><span id="59" class="l"><a href="#59"> 59: </a>            <span class="php-quote">'MeTools.moment-with-locales.min'</span>,
-</span><span id="60" class="l"><a href="#60"> 60: </a>            <span class="php-quote">'MeTools.bootstrap-datetimepicker.min'</span>
+</span><span id="59" class="l"><a href="#59"> 59: </a>            <span class="php-quote">'/vendor/moment/moment-with-locales.min'</span>,
+</span><span id="60" class="l"><a href="#60"> 60: </a>            <span class="php-quote">'/vendor/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min'</span>
 </span><span id="61" class="l"><a href="#61"> 61: </a>        ], [<span class="php-quote">'block'</span> =&gt; <span class="php-quote">'script_bottom'</span>]);
 </span><span id="62" class="l"><a href="#62"> 62: </a>        
-</span><span id="63" class="l"><a href="#63"> 63: </a>        <span class="php-var">$this</span>-&gt;Html-&gt;css(<span class="php-quote">'MeTools.bootstrap-datetimepicker.min'</span>, [<span class="php-quote">'block'</span> =&gt; <span class="php-quote">'css_bottom'</span>]);
+</span><span id="63" class="l"><a href="#63"> 63: </a>        <span class="php-var">$this</span>-&gt;Html-&gt;css(<span class="php-quote">'/vendor/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min'</span>, [<span class="php-quote">'block'</span> =&gt; <span class="php-quote">'css_bottom'</span>]);
 </span><span id="64" class="l"><a href="#64"> 64: </a>        
 </span><span id="65" class="l"><a href="#65"> 65: </a>        <span class="php-comment">//Shows the &quot;Clear&quot; button in the icon toolbar</span>
 </span><span id="66" class="l"><a href="#66"> 66: </a>        <span class="php-var">$options</span> = addDefault(<span class="php-quote">'showClear'</span>, <span class="php-keyword1">TRUE</span>, <span class="php-var">$options</span>);
