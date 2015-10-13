@@ -51,29 +51,25 @@ class Installer extends AppInstaller {
 	public static function createSymbolicLinkToVendor($from, $to, $event) {
 		$io = $event->getIO();
 		 
-		//Get the vendor directory (`vendor/`)
+		//Gets the vendor directory (`vendor/`)
 		$vendorDir = $event->getComposer()->getConfig()->get('vendor-dir');
-		
-		//Returns, if the vendor asset doesn't exist
-		if(!file_exists($from = $vendorDir.DS.$from))
-			return;
-		
+				
 		//Sets the target directory (`webroot/vendor/`)
 		$webrootDir = ROOT.DS.'webroot'.DS.'vendor';
-		
-		//Returns, if the link already exists
-		if(file_exists($to = $webrootDir.DS.$to))
-			return;
 		
 		//Creates the target directory
 		if(!file_exists($webrootDir) && mkdir($webrootDir))
 			$io->write(sprintf('Created `%s` directory', str_replace(ROOT, NULL, $webrootDir)));
 		
+		//Deletes the link, if this already exists
+		if(file_exists($to = $webrootDir.DS.$to))
+			unlink($to);
+		
 		//Creates the symbolic link
 		if(symlink($from, $to))
-			$io->write(sprintf('Created symbolic link from `%s` to `%s`', str_replace(ROOT, NULL, $from), str_replace(ROOT, NULL, $to)));
+			$io->write(sprintf('Created symbolic link to `%s`', str_replace(ROOT, NULL, $to)));
 		else
-			$io->write(sprintf('Failed to create a symbolic link from `%s` to `%s`', str_replace(ROOT, NULL, $from), str_replace(ROOT, NULL, $to)));
+			$io->write(sprintf('Failed to create a symbolic link to `%s`', str_replace(ROOT, NULL, $to)));
 	}
 	
 	/**
@@ -106,6 +102,7 @@ class Installer extends AppInstaller {
 	 * @uses createWritableDirectories()
 	 * @uses App\Console\Installer::setFolderPermissions()
 	 * @see https://getcomposer.org/doc/articles/scripts.md
+	 * @todo Needs to check for root/sudo
 	 */
 	public static function postAutoloadDump(Event $event) {
         $io = $event->getIO();
@@ -114,9 +111,11 @@ class Installer extends AppInstaller {
         static::createWritableDirectories(ROOT, $io);
 		
 		$linksToAssets = [
-			'components/jquery' => 'jquery',
-			'fortawesome/font-awesome' => 'font-awesome',
-			'twbs/bootstrap/dist' => 'bootstrap'
+			'components/bootstrap-datetimepicker/build'	=> 'bootstrap-datetimepicker',
+			'components/jquery'							=> 'jquery',
+			'components/moment/min'						=> 'moment',
+			'fortawesome/font-awesome'					=> 'font-awesome',
+			'twbs/bootstrap/dist'						=> 'bootstrap',
 		];
 		
 		//If the shell is interactive
