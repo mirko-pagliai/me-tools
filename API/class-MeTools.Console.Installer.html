@@ -156,7 +156,7 @@ App\Console\Installer
 		<b>Namespace:</b> <a href="namespace-MeTools.html">MeTools</a>\<a href="namespace-MeTools.Console.html">Console</a><br>
 		
 
-			<b>Located at</b> <a href="source-class-MeTools.Console.Installer.html#36-156" title="Go to source code">Installer.php</a>
+			<b>Located at</b> <a href="source-class-MeTools.Console.Installer.html#36-197" title="Go to source code">Installer.php</a>
 		<br>
 	</div>
 
@@ -225,7 +225,7 @@ App\Console\Installer
 
 		<td class="name"><div>
 		<a class="anchor" href="#_createWritableDirectories">#</a>
-		<code><a href="source-class-MeTools.Console.Installer.html#88-109" title="Go to source code">createWritableDirectories</a>( <span>string <var>$dir</var></span>, <span>Composer\IO\IOInterface <var>$io</var></span> )</code>
+		<code><a href="source-class-MeTools.Console.Installer.html#88-110" title="Go to source code">createWritableDirectories</a>( <span>string <var>$dir</var></span>, <span>Composer\IO\IOInterface <var>$io</var></span> )</code>
 
 		<div class="description short">
 			<p>Creates some (writable) directories</p>
@@ -273,7 +273,7 @@ App\Console\Installer
 
 		<td class="name"><div>
 		<a class="anchor" href="#_postAutoloadDump">#</a>
-		<code><a href="source-class-MeTools.Console.Installer.html#111-155" title="Go to source code">postAutoloadDump</a>( <span>Composer\Script\Event <var>$event</var></span> )</code>
+		<code><a href="source-class-MeTools.Console.Installer.html#112-156" title="Go to source code">postAutoloadDump</a>( <span>Composer\Script\Event <var>$event</var></span> )</code>
 
 		<div class="description short">
 			<p>Occurs after the autoloader has been dumped, either during install/update, or via the dump-autoload command.</p>
@@ -300,11 +300,52 @@ App\Console\Installer
 						<code><a href="class-MeTools.Console.Installer.html#$linksToAssets">MeTools\Console\Installer::<var>$linksToAssets</var></a></code><br>
 						<code><a href="class-MeTools.Console.Installer.html#_createSymbolicLinkToVendor">MeTools\Console\Installer::createSymbolicLinkToVendor()</a></code><br>
 						<code><a href="class-MeTools.Console.Installer.html#_createWritableDirectories">MeTools\Console\Installer::createWritableDirectories()</a></code><br>
-						App\Console\Installer::setFolderPermissions()<br>
+						<code><a href="class-MeTools.Console.Installer.html#_setFolderPermissions">MeTools\Console\Installer::setFolderPermissions()</a></code><br>
 				</div>
 				<h4>Todo</h4>
 				<div class="list">
 						Needs to check for root/sudo<br>
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setFolderPermissions" id="_setFolderPermissions">
+
+		<td class="attributes"><code>
+			 public static
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setFolderPermissions">#</a>
+		<code><a href="source-class-MeTools.Console.Installer.html#158-196" title="Go to source code">setFolderPermissions</a>( <span>string <var>$dir</var></span>, <span>Composer\IO\IOInterface <var>$io</var></span> )</code>
+
+		<div class="description short">
+			<p>Set globally writable permissions on some directories</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Set globally writable permissions on some directories</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$dir</var></dt>
+					<dd>The application's root directory</dd>
+					<dt><var>$io</var></dt>
+					<dd>IO interface to write to console</dd>
+				</dl></div>
+
+
+
+				<h4>Used by</h4>
+				<div class="list">
+						<code><a href="class-MeTools.Console.Installer.html#_postAutoloadDump">MeTools\Console\Installer::postAutoloadDump()</a></code><br>
 				</div>
 
 
