@@ -114,7 +114,7 @@ class Installer extends AppInstaller {
 			'components/jquery'							=> 'jquery',
 			'components/moment/min'						=> 'moment',
 			'fortawesome/font-awesome'					=> 'font-awesome',
-			'twbs/bootstrap/dist'						=> 'bootstrap',
+			'twbs/bootstrap/dist'						=> 'bootstrap'
 		];
 		
 		//If the shell is interactive
