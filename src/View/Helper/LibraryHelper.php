@@ -56,11 +56,11 @@ class LibraryHelper extends Helper {
 	 */
 	protected function _datetimepicker($input, array $options = []) {
 		$this->Html->js([
-			'MeTools.moment-with-locales.min',
-			'MeTools.bootstrap-datetimepicker.min'
+			'/vendor/moment/moment-with-locales.min',
+			'/vendor/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min'
 		], ['block' => 'script_bottom']);
 		
-        $this->Html->css('MeTools.bootstrap-datetimepicker.min', ['block' => 'css_bottom']);
+        $this->Html->css('/vendor/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min', ['block' => 'css_bottom']);
 		
 		//Shows the "Clear" button in the icon toolbar
 		$options = addDefault('showClear', TRUE, $options);
@@ -208,25 +208,22 @@ class LibraryHelper extends Helper {
 	 * FancyBox must be located into `APP/webroot/fancybox`.
      * @return bool
      * @see http://fancyapps.com/fancybox/#docs FancyBox documentation
+	 * @todo Should be moved to MeCms
 	 * @uses MeTools\View\Helper\HtmlHelper::css()
 	 * @uses MeTools\View\Helper\HtmlHelper::js()
 	 * @uses MeTools\Core\Plugin::path()
 	 */
-	public function fancybox() {
-        //Checks for FancyBox into `APP/webroot/fancybox/`
-        if(!is_readable(WWW_ROOT.'fancybox'.DS.'jquery.fancybox.pack.js'))
-			return FALSE;
-		
+	public function fancybox() {		
 		$this->Html->css([
-			'/fancybox/jquery.fancybox',
-			'/fancybox/helpers/jquery.fancybox-buttons',
-			'/fancybox/helpers/jquery.fancybox-thumbs'
+			'/vendor/fancybox/jquery.fancybox',
+			'/vendor/fancybox/helpers/jquery.fancybox-buttons',
+			'/vendor/fancybox/helpers/jquery.fancybox-thumbs'
 		], ['block' => 'css_bottom']);
 		
 		$this->Html->js([
-			'/fancybox/jquery.fancybox.pack',
-			'/fancybox/helpers/jquery.fancybox-buttons',
-			'/fancybox/helpers/jquery.fancybox-thumbs'
+			'/vendor/fancybox/jquery.fancybox.pack',
+			'/vendor/fancybox/helpers/jquery.fancybox-buttons',
+			'/vendor/fancybox/helpers/jquery.fancybox-thumbs'
 		], ['block' => 'script_bottom']);
 		
 		//Checks for the init script into `APP/webroot/js/`

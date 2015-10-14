@@ -39,6 +39,20 @@ require 'config/paths.php';
  */
 class Installer extends AppInstaller {
 	/**
+	 * Assets for which create symbolic links.
+	 * The key must be relative to `vendor/`, the value must be relative to `webroot/vendor/`
+	 * @see createSymbolicLinkToVendor()
+	 * @var array
+	 */
+	protected static $linksToAssets = [
+		'components/bootstrap-datetimepicker/build'	=> 'bootstrap-datetimepicker',
+		'components/jquery'							=> 'jquery',
+		'components/moment/min'						=> 'moment',
+		'fortawesome/font-awesome'					=> 'font-awesome',
+		'twbs/bootstrap/dist'						=> 'bootstrap'
+	];
+
+	/**
 	 * Creates a symbolic link to vendor asset.
 	 * 
 	 * For example:
@@ -50,30 +64,23 @@ class Installer extends AppInstaller {
 	 */
 	public static function createSymbolicLinkToVendor($from, $to, $event) {
 		$io = $event->getIO();
-		 
-		//Get the vendor directory (`vendor/`)
-		$vendorDir = $event->getComposer()->getConfig()->get('vendor-dir');
 		
-		//Returns, if the vendor asset doesn't exist
-		if(!file_exists($from = $vendorDir.DS.$from))
-			return;
-		
-		//Sets the target directory (`webroot/vendor/`)
-		$webrootDir = ROOT.DS.'webroot'.DS.'vendor';
-		
-		//Returns, if the link already exists
-		if(file_exists($to = $webrootDir.DS.$to))
-			return;
-		
-		//Creates the target directory
-		if(!file_exists($webrootDir) && mkdir($webrootDir))
+		//Creates the target directory (`webroot/vendor/`)
+		if(!file_exists($webrootDir = ROOT.DS.'webroot'.DS.'vendor') && mkdir($webrootDir))
 			$io->write(sprintf('Created `%s` directory', str_replace(ROOT, NULL, $webrootDir)));
+		
+		//Deletes the link, if it already exists
+		if(file_exists($to = $webrootDir.DS.$to))
+			unlink($to);
+		
+		$from = $event->getComposer()->getConfig()->get('vendor-dir').DS.$from;
 				
 		//Creates the symbolic link
-		if(symlink($from, $to))
-			$io->write(sprintf('Created symbolic link from `%s` to `%s`', str_replace(ROOT, NULL, $from), str_replace(ROOT, NULL, $to)));
+		if(@symlink($from, $to))
+			$io->write(sprintf('Created symbolic link to `%s`', str_replace(ROOT, NULL, $to)));
+
 		else
-			$io->write(sprintf('Failed to create a symbolic link from `%s` to `%s`', str_replace(ROOT, NULL, $from), str_replace(ROOT, NULL, $to)));
+			$io->write(sprintf('Failed to create a symbolic link to `%s`', str_replace(ROOT, NULL, $to)));
 	}
 	
 	/**
@@ -87,6 +94,7 @@ class Installer extends AppInstaller {
 	 */
     public static function createWritableDirectories($dir, $io) {
         foreach([
+			WWW_ROOT.'files',
 			dirname(Thumbs::photo()),
 			Thumbs::photo(),
 			Thumbs::remote(),
@@ -102,22 +110,18 @@ class Installer extends AppInstaller {
 	/**
 	 * Occurs after the autoloader has been dumped, either during install/update, or via the dump-autoload command.
      * @param \Composer\Script\Event $event The composer event object
+	 * @uses linksToAssets
 	 * @uses createSymbolicLinkToVendor()
 	 * @uses createWritableDirectories()
-	 * @uses App\Console\Installer::setFolderPermissions()
+	 * @uses setFolderPermissions()
 	 * @see https://getcomposer.org/doc/articles/scripts.md
+	 * @todo Needs to check for root/sudo
 	 */
 	public static function postAutoloadDump(Event $event) {
         $io = $event->getIO();
 		
 		//Creates some (writable) directories
         static::createWritableDirectories(ROOT, $io);
-		
-		$linksToAssets = [
-			'components/jquery' => 'jquery',
-			'fortawesome/font-awesome' => 'font-awesome',
-			'twbs/bootstrap/dist' => 'bootstrap'
-		];
 		
 		//If the shell is interactive
         if($io->isInteractive()) {
@@ -132,20 +136,60 @@ class Installer extends AppInstaller {
             $setFolderPermissions = $io->askAndValidate('<info>Set folder permissions? (Default to Y)</info> [<comment>Y, n</comment>]? ', $validator, 10, 'Y');
 
             if(in_array($setFolderPermissions, ['Y', 'y']))
-                parent::setFolderPermissions(ROOT, $io);
+                self::setFolderPermissions(ROOT, $io);
 			
 			//Asks if the symbolic links to vendors should be created
 			$createSymbolicLinkToVendor = $io->askAndValidate('<info>Create symbolic links to vendors? (Default to Y)</info> [<comment>Y, n</comment>]? ', $validator, 10, 'Y');
 			
             if(in_array($createSymbolicLinkToVendor, ['Y', 'y']))
-				foreach($linksToAssets as $from => $to)
+				foreach(self::$linksToAssets as $from => $to)
 					self::createSymbolicLinkToVendor($from, $to, $event);
         }
 		else {
-            parent::setFolderPermissions(ROOT, $io);
+            self::setFolderPermissions(ROOT, $io);
 
-			foreach($linksToAssets as $from => $to)
+			foreach(self::$linksToAssets as $from => $to)
 				self::createSymbolicLinkToVendor($from, $to, $event);
 		}
 	}
+
+    /**
+     * Set globally writable permissions on some directories
+     * @param string $dir The application's root directory
+     * @param \Composer\IO\IOInterface $io IO interface to write to console
+     */
+    public static function setFolderPermissions($dir, $io) {
+        //Change the permissions on a path and output the results
+        $changePerms = function ($path, $perms, $io) {
+            //Get current permissions in decimal format so we can bitmask it
+            $currentPerms = octdec(substr(sprintf('%o', fileperms($path)), -4));
+            if(($currentPerms & $perms) == $perms)
+                return;
+			
+            $res = chmod($path, $currentPerms | $perms);
+            if($res)
+                $io->write('Permissions set on '.$path);
+            else
+                $io->write('Failed to set permissions on '.$path);
+        };
+
+        $walker = function ($dir, $perms, $io) use (&$walker, $changePerms) {
+            $files = array_diff(scandir($dir), ['.', '..']);
+            foreach ($files as $file) {
+                $path = $dir.'/'.$file;
+
+                if (!is_dir($path))
+                    continue;
+
+                $changePerms($path, $perms, $io);
+                $walker($path, $perms, $io);
+            }
+        };
+
+        $worldWritable = bindec('0000000111');
+        $walker($dir.'/tmp', $worldWritable, $io);
+        $changePerms($dir.'/tmp', $worldWritable, $io);
+        $changePerms($dir.'/logs', $worldWritable, $io);
+        $changePerms($dir.'/webroot/files', $worldWritable, $io);
+    }
 }
