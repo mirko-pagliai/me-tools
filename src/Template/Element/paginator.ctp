@@ -22,31 +22,35 @@
  */
 ?>
 
-<?php if($this->Paginator->hasPage(NULL, 2)): ?>
-	<div class="text-center">
-		<div class="hidden-xs">
-			<ul class="pagination">
-				<?php
-					echo $this->Paginator->prev(NULL, ['icon' => 'caret-left']);
-					echo $this->Paginator->numbers();
-					echo $this->Paginator->next(NULL, ['icon' => 'caret-right']);
-				?>
-			</ul>
-		</div>
-		<div class="visible-xs">
-			<ul class="pagination">
-				<?php
-					if($this->Paginator->hasPrev() && $this->Paginator->hasNext()) {
-						echo $this->Paginator->prev(NULL, ['icon' => 'caret-left']);
-						echo $this->Html->li($this->Html->span(__d('me_tools', 'Page {0}', $this->Paginator->current())));
-						echo $this->Paginator->next(NULL, ['icon' => 'caret-right']);
-					}
-					elseif(!$this->Paginator->hasPrev())
-						echo $this->Paginator->next(__d('me_tools', 'Next'), ['icon' => 'caret-right', 'icon-align' => 'right']);
-					else
-						echo $this->Paginator->prev(__d('me_tools', 'Previous'), ['icon' => 'caret-left']);
-				?>
-			</ul>
-		</div>
+<?php
+	//Returns, if there's only one page
+	if(!$this->Paginator->hasPage(NULL, 2))
+		return;
+?>
+
+<div class="text-center">
+	<div class="hidden-xs">
+		<ul class="pagination">
+			<?php
+				echo $this->Paginator->prev(NULL, ['icon' => 'caret-left']);
+				echo $this->Paginator->numbers();
+				echo $this->Paginator->next(NULL, ['icon' => 'caret-right']);
+			?>
+		</ul>
 	</div>
-<?php endif; ?>
+	<div class="visible-xs">
+		<ul class="pagination">
+			<?php
+				if($this->Paginator->hasPrev() && $this->Paginator->hasNext()) {
+					echo $this->Paginator->prev(NULL, ['icon' => 'caret-left']);
+					echo $this->Html->li($this->Html->span(__d('me_tools', 'Page {0}', $this->Paginator->current())));
+					echo $this->Paginator->next(NULL, ['icon' => 'caret-right']);
+				}
+				elseif(!$this->Paginator->hasPrev())
+					echo $this->Paginator->next(__d('me_tools', 'Next'), ['icon' => 'caret-right', 'icon-align' => 'right']);
+				else
+					echo $this->Paginator->prev(__d('me_tools', 'Previous'), ['icon' => 'caret-left']);
+			?>
+		</ul>
+	</div>
+</div>

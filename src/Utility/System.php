@@ -24,6 +24,7 @@ namespace MeTools\Utility;
 
 use Cake\Cache\Cache;
 use Cake\Core\Configure;
+use Cake\Filesystem\File;
 use Cake\Filesystem\Folder;
 use MeTools\Core\Plugin;
 
@@ -127,13 +128,31 @@ class System {
 		return $success;
     }
 	
+	/**
+     * Clears the logs
+     * @return boolean TRUE if the cache is writable and were successfully cleared, FALSE otherwise
+	 * @uses checkLogs()
+	 */
+	public static function clearLogs() {
+		if(!self::checkLogs())
+			return FALSE;
+		
+		$success = TRUE;
+		
+		//Deletes each file
+        foreach((new Folder(LOGS))->findRecursive() as $file)
+            if(!(new File($file))->delete() && $success)
+                $success = FALSE;
+		
+        return $success;
+	}
+	
     /**
      * Gets the cache size.
      * @return int Cache size
      */
     public static function getCacheSize() {
-        $cache = new Folder(CACHE);
-        return $cache->dirsize();
+        return (new Folder(CACHE))->dirsize();
     }
 
     /**
@@ -172,18 +191,25 @@ class System {
 	
 	/**
 	 * Gets all logs files.
-	 * @return array Log files
+	 * @return array|Null Log files
 	 */
 	public static function getLogs() {
 		//Gets log files
-		$dir = new Folder(LOGS);
-		$files = $dir->find('[^\.]+\.log(\.[^\-]+)?', TRUE);
+		$files = (new Folder(LOGS))->find('[^\.]+\.log(\.[^\-]+)?', TRUE);
 		
 		if(empty($files))
-			return [];
+			return;
 		
 		//Re-indexes, starting to 1, and returns
 		return array_combine(range(1, count($files)), array_values($files));
+	}
+	
+	/**
+	 * Gets the logs size.
+	 * @return int Logs size
+	 */
+	public static function getLogsSize() {
+        return (new Folder(LOGS))->dirsize();
 	}
 	
     /**
@@ -193,4 +219,13 @@ class System {
     public static function logs() {
         return call_user_func_array([get_class(), 'getLogs'], func_get_args());
     }
+	
+	
+    /**
+     * Alias for `getLogsSize()` method.
+     * @see getLogsSize()
+     */
+	public static function logsSize() {
+        return call_user_func_array([get_class(), 'getLogsSize'], func_get_args());
+	}
 }

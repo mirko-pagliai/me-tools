@@ -487,6 +487,20 @@ class HtmlHelper extends CakeHtmlHelper {
         return parent::scriptStart($options);
     }
 
+	/**
+	 * Returns the Shareaholic "share buttons".
+	 * 
+	 * Note that this code only renders the Shareaholic "share button".
+	 * To add the "setup code", you have to use the `LayoutHelper`.
+	 * @param string $app_id Shareaholic app ID
+     * @return string Html code
+	 * @see MeTools\View\Helper\LayoutHelper::shareaholic()
+	 * @uses div()
+	 */
+	public function shareaholic($app_id) {
+		return $this->div('shareaholic-canvas', ' ', ['data-app' => 'share_buttons', 'data-app-id' => $app_id]);
+	}
+	
     /**
      * Returns a formatted block tag.
      * @param string $name Tag name

@@ -1,4 +1,11 @@
 # 2.x ramo
+## 2.1 ramo
+### 2.1.0-RC2
+* aggiunto il supporto per Shareaholic;
+* jQuery, Bootstrap, Bootstrap Date/Time Picker, Moment.js e Font Awesome sono installati tramite Composer;
+* migliorata la gestione dei file di log;
+* sistemati piccoli bug.
+
 ## 2.0 ramo
 ### 2.0.1-RC1
 * sistemati molti piccoli bug;

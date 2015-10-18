@@ -38,7 +38,7 @@ class Php {
      */
     public static function checkExtension($extension) {
 		if(!function_exists('extension_loaded'))
-			return NULL;
+			return;
 		
         return extension_loaded($extension);
     }
