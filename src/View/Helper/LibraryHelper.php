@@ -46,11 +46,12 @@ class LibraryHelper extends Helper {
 	
 	/**
 	 * Internal function to generate datepicker and timepicker.
+	 * 
+	 * Bootstrap Datepicker and Moment.js should be installed via Composer.
      * @param string $input Target field
      * @param array $options Options for the datepicker
 	 * @return string jQuery code
      * @see http://eonasdan.github.io/bootstrap-datetimepicker Bootstrap 3 Datepicker v4 documentation
-	 * @uses Cake\I18n\I18n::locale()
 	 * @uses MeTools\View\Helper\HtmlHelper::css()
 	 * @uses MeTools\View\Helper\HtmlHelper::js()
 	 */
@@ -126,7 +127,6 @@ class LibraryHelper extends Helper {
      * 
      * To create an input field for CKEditor, you should use the `ckeditor()` method provided by the `FormHelper`.
      * @param bool $jquery FALSE if you don't want to use the jQuery adapter
-     * @return bool
      * @see MeTools\View\Helper\FormHelper::ckeditor()
      * @see http://docs.cksource.com CKEditor documentation
 	 * @uses MeTools\View\Helper\HtmlHelper::js()
@@ -144,7 +144,7 @@ class LibraryHelper extends Helper {
             $url = '/js/ckeditor';
         }
 		else
-			return FALSE;
+			return;
 
 		$scripts = [$url.'/ckeditor'];
 
@@ -162,17 +162,17 @@ class LibraryHelper extends Helper {
 		elseif(is_readable(Plugin::path('MeTools', 'webroot'.DS.'js'.DS.'ckeditor_init.js')))
 			$scripts[] = '/MeTools/js/ckeditor_init';
 		else
-			return FALSE;
+			return;
 		
 		$this->Html->js($scripts, ['block' => 'script_bottom']);
-		
-		return TRUE;
     }
 
     /**
      * Adds a datepicker to the `$input` field.
      * 
      * To create an input field compatible with datepicker, you should use the `datepicker()` method provided by the `FormHelper`.
+	 * 
+	 * Bootstrap Datepicker and Moment.js should be installed via Composer.
      * @param string $input Target field. Default is `.datepicker`
      * @param array $options Options for the datepicker
      * @see MeTools\View\Helper\FormHelper::datepicker()
@@ -192,6 +192,8 @@ class LibraryHelper extends Helper {
      * Adds a datetimepicker to the `$input` field.
      * 
      * To create an input field compatible with datetimepicker, you should use the `datetimepicker()` method provided by the `FormHelper`.
+	 * 
+	 * Bootstrap Datepicker and Moment.js should be installed via Composer.
      * @param string $input Target field. Default is `.datetimepicker`
      * @param array $options Options for the datetimepicker
      * @see MeTools\View\Helper\FormHelper::datetimepicker()
@@ -208,10 +210,8 @@ class LibraryHelper extends Helper {
 	/**
      * Loads all FancyBox scripts.
 	 * 
-	 * FancyBox must be located into `APP/webroot/fancybox`.
-     * @return bool
+	 * FancyBox must be installed via Composer.
      * @see http://fancyapps.com/fancybox/#docs FancyBox documentation
-	 * @todo Should be moved to MeCms
 	 * @uses MeTools\View\Helper\HtmlHelper::css()
 	 * @uses MeTools\View\Helper\HtmlHelper::js()
 	 * @uses MeTools\Core\Plugin::path()
@@ -236,11 +236,9 @@ class LibraryHelper extends Helper {
 		elseif(is_readable(Plugin::path('MeTools', 'webroot'.DS.'fancybox'.DS.'fancybox_init.js')))
 			$script = 'MeTools./fancybox/fancybox_init';
 		else
-			return FALSE;
+			return;
 		
 		$this->Html->js($script, ['block' => 'script_bottom']);
-		
-		return TRUE;
 	}
 	
 	/**
@@ -276,6 +274,8 @@ class LibraryHelper extends Helper {
      * Adds a timepicker to the `$input` field.
      * 
      * To create an input field compatible with datepicker, you should use the `timepicker()` method provided by the `FormHelper`.
+	 * 
+	 * Bootstrap Datepicker and Moment.js should be installed via Composer.
      * @param string $input Target field. Default is `.timepicker`
      * @param array $options Options for the timepicker
      * @see MeTools\View\Helper\FormHelper::timepicker()
