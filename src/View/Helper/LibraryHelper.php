@@ -63,6 +63,9 @@ class LibraryHelper extends Helper {
 		
         $this->Html->css('/vendor/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min', ['block' => 'css_bottom']);
 		
+		//Shows the "Today" button in the icon toolbar
+		$options = addDefault('showTodayButton', TRUE, $options);
+		
 		//Shows the "Clear" button in the icon toolbar
 		$options = addDefault('showClear', TRUE, $options);
 		
