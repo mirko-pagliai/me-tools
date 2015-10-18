@@ -152,15 +152,18 @@ class LibraryHelper extends Helper {
 		if($jquery && is_readable($path.DS.'adapters'.DS.'jquery.js'))
 			$scripts[] = $url.'/adapters/jquery';
 
-		//Checks for the init script into `APP/webroot/js/`
+		//Checks for `APP/webroot/js/ckeditor_init.js`
 		if(is_readable(WWW_ROOT.'js'.DS.'ckeditor_init.js'))
 			$scripts[] = 'ckeditor_init';
-		//Else, checks for the init script into `APP/Plugin/MeTools/webroot/ckeditor/`
-		elseif(is_readable(Plugin::path('MeTools', 'webroot'.DS.'ckeditor'.DS.'ckeditor_init.js')))
-			$scripts[] = '/MeTools/ckeditor/ckeditor_init';
+		//Checks for `APP/webroot/js/ckeditor_init.php`
+		elseif(is_readable(WWW_ROOT.'js'.DS.'ckeditor_init.php'))
+			$scripts[] = 'ckeditor_init.php?';
+		//Else, checks for `APP/plugin/MeTools/webroot/js/ckeditor_init.js`
+		elseif(is_readable(Plugin::path('MeTools', 'webroot'.DS.'js'.DS.'ckeditor_init.js')))
+			$scripts[] = '/MeTools/js/ckeditor_init';
 		else
 			return FALSE;
-
+		
 		$this->Html->js($scripts, ['block' => 'script_bottom']);
 		
 		return TRUE;
@@ -229,7 +232,7 @@ class LibraryHelper extends Helper {
 		//Checks for the init script into `APP/webroot/js/`
 		if(is_readable(WWW_ROOT.'js'.DS.'fancybox_init.js'))
 			$script = 'fancybox_init';
-		//Else, checks for the init script into `APP/Plugin/MeTools/webroot/fancybox/`
+		//Else, checks for the init script into `APP/plugin/MeTools/webroot/fancybox/`
 		elseif(is_readable(Plugin::path('MeTools', 'webroot'.DS.'fancybox'.DS.'fancybox_init.js')))
 			$script = 'MeTools./fancybox/fancybox_init';
 		else
