@@ -247,9 +247,10 @@ class ThumbsController extends AppController {
 				exit;
 			}
 			
-			//Sets the thumb path
+			//Sets the initial thumb path
 			$this->thumb = Thumbs::photo(md5($this->file->path));
 			
+			//Updates the thumb path with the maximum sizes
 			if($this->sizes['side'])
 				$this->thumb = sprintf('%s_s_%s', $this->thumb, $this->sizes['side']);
 			else {
@@ -259,7 +260,7 @@ class ThumbsController extends AppController {
 					$this->thumb = sprintf('%s_h_%s', $this->thumb, $this->sizes['height']);
 			}
 			
-			//Sets the thumbnail path
+			//Updates the thumb path with the file extensions
 			$this->thumb = sprintf('%s.%s', $this->thumb, $this->file->ext());
 		}
 		//Else, if the file is a video
@@ -267,22 +268,23 @@ class ThumbsController extends AppController {
 			if(!$this->sizes['side'] && !$this->sizes['width'])
 				$this->sizes['side'] = 270;
 			
-			//Sets the thumb path
+			//Sets the initial thumb path
 			$this->thumb = Thumbs::video(md5($this->file->path));
 			
+			//Updates the thumb path with the maximum sizes
 			if($this->sizes['side'])
 				$this->thumb = sprintf('%s_s_%s', $this->thumb, $this->sizes['side']);
 			elseif($this->sizes['width'])
 				$this->thumb = sprintf('%s_w_%s', $this->thumb, $this->sizes['width']);
 		
-			//Sets the thumbnail path
+			//Updates the thumb path with the file extensions
 			$this->thumb = sprintf('%s.jpg', $this->thumb);
 		}
-		//Else, if the mime type is not known
+		//Else, if the mime type is unknown
 		else
 			throw new InternalErrorException(__d('me_tools', 'The mime type {0} is not supported', $mime));
 		
-		//If the thumbnail does not yet exist
+		//If the thumbnail doesn't yet exist
 		if(!is_readable($this->thumb)) {
 			//Checks if the target directory is writable
 			if(!is_writable(dirname($this->thumb)))
