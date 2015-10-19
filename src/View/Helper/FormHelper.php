@@ -19,7 +19,7 @@
  * @copyright	Copyright (c) 2015, Mirko Pagliai for Nova Atlantis Ltd
  * @license		http://www.gnu.org/licenses/agpl.txt AGPL License
  * @link		http://git.novatlantis.it Nova Atlantis Ltd
- * @see			http://api.cakephp.org/3.0/class-Cake.View.Helper.FormHelper.html FormHelper
+ * @see			http://api.cakephp.org/3.1/class-Cake.View.Helper.FormHelper.html FormHelper
  */
 namespace MeTools\View\Helper;
 
@@ -29,7 +29,7 @@ use Cake\View\View;
 /**
  * Provides functionalities for forms.
  * 
- * Rewrites {@link http://api.cakephp.org/3.0/class-Cake.View.Helper.FormHelper.html FormHelper}.
+ * Rewrites {@link http://api.cakephp.org/3.1/class-Cake.View.Helper.FormHelper.html FormHelper}.
  */
 class FormHelper extends CakeFormHelper {
 	/**
@@ -72,7 +72,7 @@ class FormHelper extends CakeFormHelper {
 	 * @param string $fieldName the field name
 	 * @param array $options The options for the input element
 	 * @return string The generated input element
-	 * @see http://api.cakephp.org/3.0/class-Cake.View.Helper.FormHelper.html#__getInput
+	 * @see http://api.cakephp.org/3.1/class-Cake.View.Helper.FormHelper.html#__getInput
 	 */
 	protected function _getInput($fieldName, $options) {
 		unset($options['tip']);
@@ -85,7 +85,7 @@ class FormHelper extends CakeFormHelper {
 	 * This method is used only to provide the "tip" functionality.
 	 * @param array $options The options for input container template
 	 * @return string The generated input container template
-	 * @see http://api.cakephp.org/3.0/class-Cake.View.Helper.FormHelper.html#__inputContainerTemplate
+	 * @see http://api.cakephp.org/3.1/class-Cake.View.Helper.FormHelper.html#__inputContainerTemplate
 	 */
 	protected function _inputContainerTemplate($options) {
          $inputContainerTemplate = $options['options']['type'] . 'Container' . $options['errorSuffix'];

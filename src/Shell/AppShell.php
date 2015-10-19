@@ -34,7 +34,7 @@ class AppShell extends Shell {
 	 * @param int $newlines Number of newlines to append
 	 * @param int $level The message's output level, see above
 	 * @return int|bool Returns the number of bytes returned from writing to stdout
-	 * @see http://api.cakephp.org/3.0/class-Cake.Console.Shell.html#_out
+	 * @see http://api.cakephp.org/3.1/class-Cake.Console.Shell.html#_out
 	 * @uses Cake\Console\Shell::out()
 	 */
 	protected function comment($message = NULL, $newlines = 1, $level = Shell::NORMAL) {
@@ -47,7 +47,7 @@ class AppShell extends Shell {
 	 * @param int $newlines Number of newlines to append
 	 * @param int $level The message's output level, see above
 	 * @return int|bool Returns the number of bytes returned from writing to stdout
-	 * @see http://api.cakephp.org/3.0/class-Cake.Console.Shell.html#_out
+	 * @see http://api.cakephp.org/3.1/class-Cake.Console.Shell.html#_out
 	 * @uses Cake\Console\Shell::out()
 	 */
 	protected function info($message = NULL, $newlines = 1, $level = Shell::NORMAL) {
@@ -60,7 +60,7 @@ class AppShell extends Shell {
 	 * @param int $newlines Number of newlines to append
 	 * @param int $level The message's output level, see above
 	 * @return int|bool Returns the number of bytes returned from writing to stdout
-	 * @see http://api.cakephp.org/3.0/class-Cake.Console.Shell.html#_out
+	 * @see http://api.cakephp.org/3.1/class-Cake.Console.Shell.html#_out
 	 * @uses Cake\Console\Shell::out()
 	 */
 	protected function question($message = NULL, $newlines = 1, $level = Shell::NORMAL) {
@@ -73,7 +73,7 @@ class AppShell extends Shell {
 	 * @param int $newlines Number of newlines to append
 	 * @param int $level The message's output level, see above
 	 * @return int|bool Returns the number of bytes returned from writing to stdout
-	 * @see http://api.cakephp.org/3.0/class-Cake.Console.Shell.html#_out
+	 * @see http://api.cakephp.org/3.1/class-Cake.Console.Shell.html#_out
 	 * @uses Cake\Console\Shell::out()
 	 */
 	protected function success($message = NULL, $newlines = 1, $level = Shell::NORMAL) {
@@ -86,7 +86,7 @@ class AppShell extends Shell {
 	 * @param int $newlines Number of newlines to append
 	 * @param int $level The message's output level, see above
 	 * @return int|bool Returns the number of bytes returned from writing to stdout
-	 * @see http://api.cakephp.org/3.0/class-Cake.Console.Shell.html#_out
+	 * @see http://api.cakephp.org/3.1/class-Cake.Console.Shell.html#_out
 	 * @uses Cake\Console\Shell::out()
 	 */
 	protected function warning($message = NULL, $newlines = 1, $level = Shell::NORMAL) {
