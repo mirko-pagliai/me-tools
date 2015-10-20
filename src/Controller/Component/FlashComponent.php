@@ -24,7 +24,6 @@
 namespace MeTools\Controller\Component;
 
 use Cake\Controller\Component\FlashComponent as CakeFlashComponent;
-use Cake\Controller\ComponentRegistry;
 use MeTools\Core\Plugin;
 
 /**
@@ -38,13 +37,10 @@ class FlashComponent extends CakeFlashComponent {
 	 * Magic method for verbose flash methods based on element names.
 	 * @param string $name Element name to use
 	 * @param array $args Parameters to pass
-	 * @return void
 	 * @uses MeTools\Core\Plugin::path()
 	 */
 	public function __call($name, $args) {
-		$name = strtolower($name);
-		
-		if(empty($args[1]['plugin']) && is_readable(Plugin::path('MeTools', 'src'.DS.'Template'.DS.'Element'.DS.'Flash'.DS.$name.'.ctp')))
+		if(!isset($args[1]['plugin']) && is_readable(Plugin::path('MeTools', 'src'.DS.'Template'.DS.'Element'.DS.'Flash'.DS.\Cake\Utility\Inflector::underscore($name).'.ctp')))
 			$args[1]['plugin'] = 'MeTools';
 		
 		return parent::__call($name, $args);
