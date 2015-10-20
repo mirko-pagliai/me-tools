@@ -22,7 +22,6 @@
  */
 namespace MeTools\Console;
 
-use App\Console\Installer as AppInstaller;
 use Composer\Script\Event;
 use MeTools\Utility\Thumbs;
 use Exception;
@@ -37,91 +36,122 @@ require 'config/paths.php';
  * Provides installation hooks for when this application is installed via
  * composer. Customize this class to suit your needs.
  */
-class Installer extends AppInstaller {
+class Installer {
 	/**
 	 * Assets for which create symbolic links.
-	 * The key must be relative to `vendor/`, the value must be relative to `webroot/vendor/`
-	 * @see createSymbolicLinkToVendor()
+	 * The key must be relative to `vendor/` and the value must be relative to `webroot/vendor/`
 	 * @var array
 	 */
-	protected static $linksToAssets = [
-		'components/bootstrap-datetimepicker/build'	=> 'bootstrap-datetimepicker',
-		'components/jquery'							=> 'jquery',
-		'components/moment/min'						=> 'moment',
-		'fortawesome/font-awesome'					=> 'font-awesome',
-		'twbs/bootstrap/dist'						=> 'bootstrap'
-	];
+	protected static $links = [];
+	
+	/**
+	 * Paths to be created and made writable
+	 * @var array 
+	 */
+	protected static $paths = [];
 
 	/**
-	 * Creates a symbolic link to vendor asset.
-	 * 
-	 * For example:
-	 * <pre>createSymbolicLinkToVendor('components/jquery', 'jquery');</pre>
-	 * will create a symbolic link from `vendor/components/jquery` to `webroot/vendor/jquery`.
-	 * @param string $from Name, relative to `vendor/`
-	 * @param string $to Name, relative to `webroot/vendor/`
-     * @param \Composer\Script\Event $event The composer event object
+	 * Creates symbolic links to vendor assets
+     * @param \Composer\IO\IOInterface $io IO interface to write to console
+	 * @uses $links
 	 */
-	public static function createSymbolicLinkToVendor($from, $to, $event) {
-		$io = $event->getIO();
-		
+	public static function createSymbolicLinks($io) {
 		//Creates the target directory (`webroot/vendor/`)
-		if(!file_exists($webrootDir = ROOT.DS.'webroot'.DS.'vendor') && mkdir($webrootDir))
-			$io->write(sprintf('Created `%s` directory', str_replace(ROOT, NULL, $webrootDir)));
-		
-		//Deletes the link, if it already exists
-		if(file_exists($to = $webrootDir.DS.$to))
-			unlink($to);
-		
-		$from = $event->getComposer()->getConfig()->get('vendor-dir').DS.$from;
+		if(!file_exists($destinationDir = WWW_ROOT.'vendor') && mkdir($destinationDir))
+			$io->write(sprintf('Created `%s` directory', str_replace(ROOT.DS, NULL, $destinationDir)));
 				
-		//Creates the symbolic link
-		if(@symlink($from, $to))
-			$io->write(sprintf('Created symbolic link to `%s`', str_replace(ROOT, NULL, $to)));
-
-		else
-			$io->write(sprintf('Failed to create a symbolic link to `%s`', str_replace(ROOT, NULL, $to)));
+		foreach(self::$links as $origin => $destination) {
+			$origin = ROOT.DS.'vendor'.DS.$origin;
+			$destination = $destinationDir.DS.$destination;
+			
+			//Returns, if the link already exists
+			if(file_exists($destination))
+				continue;
+			
+			//Creates the symbolic link
+			if(@symlink($origin, $destination))
+				$io->write(sprintf('Created symbolic link to `%s`', str_replace(ROOT.DS, NULL, $destination)));
+			else
+				$io->write(sprintf('<error>Failed to create a symbolic link to `%s`</error>', str_replace(ROOT.DS, NULL, $destination)));
+		}
 	}
 	
 	/**
-	 * Creates some (writable) directories
-     * @param string $dir The application's root directory
+	 * Creates some directories
      * @param \Composer\IO\IOInterface $io IO interface to write to console
-	 * @uses App\Console\Installer::createWritableDirectories()
+	 * @uses $paths
+	 */
+    public static function createDirectories($io) {
+		foreach(self::$paths as $path)
+			if(!file_exists($path)) {
+				if(mkdir($path, 0777, TRUE))
+					$io->write(sprintf('Created `%s` directory', str_replace(ROOT.DS, NULL, $path)));
+				else
+					$io->write(sprintf('<error>Failed to create directory `%s`</error>', str_replace(ROOT.DS, NULL, $path)));	
+			}
+    }
+	
+	/**
+	 * Sets permissions on directories
+     * @param \Composer\IO\IOInterface $io IO interface to write to console
+	 * @uses $paths
+	 */
+	public static function setPermissions($io) {
+		foreach(self::$paths as $path)
+			if(!(new \Cake\Filesystem\Folder())->chmod($path, 0777))
+                $io->write(sprintf('<error>Failed to set permissions on `%s`</error>', str_replace(ROOT.DS, NULL, $path)));	
+	}
+	
+	/**
+	 * Occurs after the autoloader has been dumped, either during install/update, or via the dump-autoload command.
+     * @param \Composer\Script\Event $event The composer event object
 	 * @uses MeTools\Utility\Thumbs::photo()
 	 * @uses MeTools\Utility\Thumbs::remote()
 	 * @uses MeTools\Utility\Thumbs::video()
+	 * @uses MeTools\Utility\Unix::is_root()
+	 * @uses createDirectories()
+	 * @uses createSymbolicLinks()
+	 * @uses setPermissions()
+	 * @uses $links
+	 * @uses $paths
+	 * @see https://getcomposer.org/doc/articles/scripts.md
 	 */
-    public static function createWritableDirectories($dir, $io) {
-        foreach([
+	public static function postAutoloadDump(Event $event) {
+		//Assets for which create symbolic links
+		self::$links = array_merge(self::$links, [
+			'components/bootstrap-datetimepicker/build'	=> 'bootstrap-datetimepicker',
+			'components/jquery'							=> 'jquery',
+			'components/moment/min'						=> 'moment',
+			'fortawesome/font-awesome'					=> 'font-awesome',
+			'twbs/bootstrap/dist'						=> 'bootstrap'
+		]);
+		
+		//Paths to be created and made writable
+		self::$paths = array_merge(self::$paths, [
+			LOGS,
+			TMP.'cache',
+			TMP.'cache'.DS.'models',
+			TMP.'cache'.DS.'persistent',
+			TMP.'cache'.DS.'views',
+			TMP.'sessions',
+			TMP.'tests',
 			WWW_ROOT.'files',
 			dirname(Thumbs::photo()),
 			Thumbs::photo(),
 			Thumbs::remote(),
 			Thumbs::video()
-		] as $path)
-			if(!file_exists($path) && mkdir($path))
-				$io->write(sprintf('Created `%s` directory', str_replace(ROOT, NULL, $path)));
-				
-		//Creates `logs` and `tmp` directories
-		parent::createWritableDirectories($dir, $io);
-    }
-	
-	/**
-	 * Occurs after the autoloader has been dumped, either during install/update, or via the dump-autoload command.
-     * @param \Composer\Script\Event $event The composer event object
-	 * @uses linksToAssets
-	 * @uses createSymbolicLinkToVendor()
-	 * @uses createWritableDirectories()
-	 * @uses setFolderPermissions()
-	 * @see https://getcomposer.org/doc/articles/scripts.md
-	 * @todo Needs to check for root/sudo
-	 */
-	public static function postAutoloadDump(Event $event) {
+		]);
+		
         $io = $event->getIO();
 		
-		//Creates some (writable) directories
-        static::createWritableDirectories(ROOT, $io);
+		//Checks if the current user is the root user
+		if(!\MeTools\Utility\Unix::is_root()) {
+			$io->write('<error>You have to run this command as root user or using sudo</error>');
+			exit;
+		}
+				
+		//Creates some directories
+        self::createDirectories($io);
 		
 		//If the shell is interactive
         if($io->isInteractive()) {
@@ -133,63 +163,20 @@ class Installer extends AppInstaller {
             };
 			
 			//Asks if the permissions should be changed
-            $setFolderPermissions = $io->askAndValidate('<info>Set folder permissions? (Default to Y)</info> [<comment>Y, n</comment>]? ', $validator, 10, 'Y');
+            $ask = $io->askAndValidate('<info>Set folder permissions? (Default to Y)</info> [<comment>Y, n</comment>]? ', $validator, 10, 'Y');
 
-            if(in_array($setFolderPermissions, ['Y', 'y']))
-                self::setFolderPermissions(ROOT, $io);
+            if(in_array($ask, ['Y', 'y']))
+                self::setPermissions($io);
 			
 			//Asks if the symbolic links to vendors should be created
-			$createSymbolicLinkToVendor = $io->askAndValidate('<info>Create symbolic links to vendors? (Default to Y)</info> [<comment>Y, n</comment>]? ', $validator, 10, 'Y');
+			$ask = $io->askAndValidate('<info>Create symbolic links to vendors? (Default to Y)</info> [<comment>Y, n</comment>]? ', $validator, 10, 'Y');
 			
-            if(in_array($createSymbolicLinkToVendor, ['Y', 'y']))
-				foreach(self::$linksToAssets as $from => $to)
-					self::createSymbolicLinkToVendor($from, $to, $event);
+            if(in_array($ask, ['Y', 'y']))
+				self::createSymbolicLinks($io);
         }
 		else {
-            self::setFolderPermissions(ROOT, $io);
-
-			foreach(self::$linksToAssets as $from => $to)
-				self::createSymbolicLinkToVendor($from, $to, $event);
+            self::setPermissions($io);
+			self::createSymbolicLinks($io);
 		}
 	}
-
-    /**
-     * Set globally writable permissions on some directories
-     * @param string $dir The application's root directory
-     * @param \Composer\IO\IOInterface $io IO interface to write to console
-     */
-    public static function setFolderPermissions($dir, $io) {
-        //Change the permissions on a path and output the results
-        $changePerms = function ($path, $perms, $io) {
-            //Get current permissions in decimal format so we can bitmask it
-            $currentPerms = octdec(substr(sprintf('%o', fileperms($path)), -4));
-            if(($currentPerms & $perms) == $perms)
-                return;
-			
-            $res = chmod($path, $currentPerms | $perms);
-            if($res)
-                $io->write('Permissions set on '.$path);
-            else
-                $io->write('Failed to set permissions on '.$path);
-        };
-
-        $walker = function ($dir, $perms, $io) use (&$walker, $changePerms) {
-            $files = array_diff(scandir($dir), ['.', '..']);
-            foreach ($files as $file) {
-                $path = $dir.'/'.$file;
-
-                if (!is_dir($path))
-                    continue;
-
-                $changePerms($path, $perms, $io);
-                $walker($path, $perms, $io);
-            }
-        };
-
-        $worldWritable = bindec('0000000111');
-        $walker($dir.'/tmp', $worldWritable, $io);
-        $changePerms($dir.'/tmp', $worldWritable, $io);
-        $changePerms($dir.'/logs', $worldWritable, $io);
-        $changePerms($dir.'/webroot/files', $worldWritable, $io);
-    }
 }

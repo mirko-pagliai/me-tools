@@ -1,5 +1,8 @@
 # 2.x branch
 ## 2.1 branch
+### 2.1.1-RC3
+* improved the installer console.
+
 ### 2.1.0-RC2
 * added support for Shareaholic;
 * jQuery, Bootstrap, Bootstrap Date/Time Picker, Moment.js and Font Awesome are installed via Composer;
