@@ -129,19 +129,6 @@
 composer. Customize this class to suit your needs.</p>
 	</div>
 
-	<dl class="tree">
-		<dd style="padding-left:0px">
-App\Console\Installer
-			
-			
-		</dd>
-		<dd style="padding-left:30px">
-			<img src="resources/inherit.png" alt="Extended by">
-<b><span>MeTools\Console\Installer</span></b>			
-			
-			
-		</dd>
-	</dl>
 
 
 
@@ -156,7 +143,7 @@ App\Console\Installer
 		<b>Namespace:</b> <a href="namespace-MeTools.html">MeTools</a>\<a href="namespace-MeTools.Console.html">Console</a><br>
 		
 
-			<b>Located at</b> <a href="source-class-MeTools.Console.Installer.html#36-195" title="Go to source code">Installer.php</a>
+			<b>Located at</b> <a href="source-class-MeTools.Console.Installer.html#35-182" title="Go to source code">Installer.php</a>
 		<br>
 	</div>
 
@@ -164,7 +151,7 @@ App\Console\Installer
 
 	<table class="summary methods" id="methods">
 	<caption>Methods summary</caption>
-	<tr data-order="createSymbolicLinkToVendor" id="_createSymbolicLinkToVendor">
+	<tr data-order="createSymbolicLinks" id="_createSymbolicLinks">
 
 		<td class="attributes"><code>
 			 public static
@@ -175,35 +162,29 @@ App\Console\Installer
 		</td>
 
 		<td class="name"><div>
-		<a class="anchor" href="#_createSymbolicLinkToVendor">#</a>
-		<code><a href="source-class-MeTools.Console.Installer.html#55-84" title="Go to source code">createSymbolicLinkToVendor</a>( <span>string <var>$from</var></span>, <span>string <var>$to</var></span>, <span>Composer\Script\Event <var>$event</var></span> )</code>
+		<a class="anchor" href="#_createSymbolicLinks">#</a>
+		<code><a href="source-class-MeTools.Console.Installer.html#53-77" title="Go to source code">createSymbolicLinks</a>( <span>Composer\IO\IOInterface <var>$io</var></span> )</code>
 
 		<div class="description short">
-			<p>Creates a symbolic link to vendor asset.</p>
+			<p>Creates symbolic links to vendor assets</p>
 		</div>
 
 		<div class="description detailed hidden">
-			<p>Creates a symbolic link to vendor asset.</p>
-
-<p>For example:</p>
-
-<pre>createSymbolicLinkToVendor(<span class="php-quote">'components/jquery'</span>, <span class="php-quote">'jquery'</span>);</pre>
-
-<p>will create a symbolic link from <code>vendor/components/jquery</code> to <code>webroot/vendor/jquery</code>.</p>
+			<p>Creates symbolic links to vendor assets</p>
 
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
-					<dt><var>$from</var></dt>
-					<dd>Name, relative to <code>vendor/</code></dd>
-					<dt><var>$to</var></dt>
-					<dd>Name, relative to <code>webroot/vendor/</code></dd>
-					<dt><var>$event</var></dt>
-					<dd>The composer event object</dd>
+					<dt><var>$io</var></dt>
+					<dd>IO interface to write to console</dd>
 				</dl></div>
 
 
 
+				<h4>Uses</h4>
+				<div class="list">
+						<br>
+				</div>
 				<h4>Used by</h4>
 				<div class="list">
 						<code><a href="class-MeTools.Console.Installer.html#_postAutoloadDump">MeTools\Console\Installer::postAutoloadDump()</a></code><br>
@@ -213,7 +194,7 @@ App\Console\Installer
 		</div>
 		</div></td>
 	</tr>
-	<tr data-order="createWritableDirectories" id="_createWritableDirectories">
+	<tr data-order="createDirectories" id="_createDirectories">
 
 		<td class="attributes"><code>
 			 public static
@@ -224,21 +205,19 @@ App\Console\Installer
 		</td>
 
 		<td class="name"><div>
-		<a class="anchor" href="#_createWritableDirectories">#</a>
-		<code><a href="source-class-MeTools.Console.Installer.html#86-108" title="Go to source code">createWritableDirectories</a>( <span>string <var>$dir</var></span>, <span>Composer\IO\IOInterface <var>$io</var></span> )</code>
+		<a class="anchor" href="#_createDirectories">#</a>
+		<code><a href="source-class-MeTools.Console.Installer.html#79-92" title="Go to source code">createDirectories</a>( <span>Composer\IO\IOInterface <var>$io</var></span> )</code>
 
 		<div class="description short">
-			<p>Creates some (writable) directories</p>
+			<p>Creates some directories</p>
 		</div>
 
 		<div class="description detailed hidden">
-			<p>Creates some (writable) directories</p>
+			<p>Creates some directories</p>
 
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
-					<dt><var>$dir</var></dt>
-					<dd>The application's root directory</dd>
 					<dt><var>$io</var></dt>
 					<dd>IO interface to write to console</dd>
 				</dl></div>
@@ -247,10 +226,50 @@ App\Console\Installer
 
 				<h4>Uses</h4>
 				<div class="list">
-						App\Console\Installer::createWritableDirectories()<br>
-						<code><a href="class-MeTools.Utility.Thumbs.html#_photo">MeTools\Utility\Thumbs::photo()</a></code><br>
-						<code><a href="class-MeTools.Utility.Thumbs.html#_remote">MeTools\Utility\Thumbs::remote()</a></code><br>
-						<code><a href="class-MeTools.Utility.Thumbs.html#_video">MeTools\Utility\Thumbs::video()</a></code><br>
+						<br>
+				</div>
+				<h4>Used by</h4>
+				<div class="list">
+						<code><a href="class-MeTools.Console.Installer.html#_postAutoloadDump">MeTools\Console\Installer::postAutoloadDump()</a></code><br>
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setPermissions" id="_setPermissions">
+
+		<td class="attributes"><code>
+			 public static
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setPermissions">#</a>
+		<code><a href="source-class-MeTools.Console.Installer.html#94-103" title="Go to source code">setPermissions</a>( <span>Composer\IO\IOInterface <var>$io</var></span> )</code>
+
+		<div class="description short">
+			<p>Sets permissions on directories</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Sets permissions on directories</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$io</var></dt>
+					<dd>IO interface to write to console</dd>
+				</dl></div>
+
+
+
+				<h4>Uses</h4>
+				<div class="list">
+						<br>
 				</div>
 				<h4>Used by</h4>
 				<div class="list">
@@ -273,7 +292,7 @@ App\Console\Installer
 
 		<td class="name"><div>
 		<a class="anchor" href="#_postAutoloadDump">#</a>
-		<code><a href="source-class-MeTools.Console.Installer.html#110-154" title="Go to source code">postAutoloadDump</a>( <span>Composer\Script\Event <var>$event</var></span> )</code>
+		<code><a href="source-class-MeTools.Console.Installer.html#105-181" title="Go to source code">postAutoloadDump</a>( <span>Composer\Script\Event <var>$event</var></span> )</code>
 
 		<div class="description short">
 			<p>Occurs after the autoloader has been dumped, either during install/update, or via the dump-autoload command.</p>
@@ -297,55 +316,15 @@ App\Console\Installer
 				</div>
 				<h4>Uses</h4>
 				<div class="list">
-						<code><a href="class-MeTools.Console.Installer.html#$linksToAssets">MeTools\Console\Installer::<var>$linksToAssets</var></a></code><br>
-						<code><a href="class-MeTools.Console.Installer.html#_createSymbolicLinkToVendor">MeTools\Console\Installer::createSymbolicLinkToVendor()</a></code><br>
-						<code><a href="class-MeTools.Console.Installer.html#_createWritableDirectories">MeTools\Console\Installer::createWritableDirectories()</a></code><br>
-						<code><a href="class-MeTools.Console.Installer.html#_setFolderPermissions">MeTools\Console\Installer::setFolderPermissions()</a></code><br>
-				</div>
-				<h4>Todo</h4>
-				<div class="list">
-						Needs to check for root/sudo<br>
-				</div>
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="setFolderPermissions" id="_setFolderPermissions">
-
-		<td class="attributes"><code>
-			 public static
-
-			
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_setFolderPermissions">#</a>
-		<code><a href="source-class-MeTools.Console.Installer.html#156-194" title="Go to source code">setFolderPermissions</a>( <span>string <var>$dir</var></span>, <span>Composer\IO\IOInterface <var>$io</var></span> )</code>
-
-		<div class="description short">
-			<p>Set globally writable permissions on some directories</p>
-		</div>
-
-		<div class="description detailed hidden">
-			<p>Set globally writable permissions on some directories</p>
-
-
-				<h4>Parameters</h4>
-				<div class="list"><dl>
-					<dt><var>$dir</var></dt>
-					<dd>The application's root directory</dd>
-					<dt><var>$io</var></dt>
-					<dd>IO interface to write to console</dd>
-				</dl></div>
-
-
-
-				<h4>Used by</h4>
-				<div class="list">
-						<code><a href="class-MeTools.Console.Installer.html#_postAutoloadDump">MeTools\Console\Installer::postAutoloadDump()</a></code><br>
+						<code><a href="class-MeTools.Utility.Thumbs.html#_photo">MeTools\Utility\Thumbs::photo()</a></code><br>
+						<code><a href="class-MeTools.Utility.Thumbs.html#_remote">MeTools\Utility\Thumbs::remote()</a></code><br>
+						<code><a href="class-MeTools.Utility.Thumbs.html#_video">MeTools\Utility\Thumbs::video()</a></code><br>
+						<code><a href="class-MeTools.Utility.Unix.html#_is_root">MeTools\Utility\Unix::is_root()</a></code><br>
+						<code><a href="class-MeTools.Console.Installer.html#_createDirectories">MeTools\Console\Installer::createDirectories()</a></code><br>
+						<code><a href="class-MeTools.Console.Installer.html#_createSymbolicLinks">MeTools\Console\Installer::createSymbolicLinks()</a></code><br>
+						<code><a href="class-MeTools.Console.Installer.html#_setPermissions">MeTools\Console\Installer::setPermissions()</a></code><br>
+						<br>
+						<br>
 				</div>
 
 
@@ -367,44 +346,66 @@ App\Console\Installer
 
 	<table class="summary properties" id="properties">
 	<caption>Properties summary</caption>
-	<tr data-order="linksToAssets" id="$linksToAssets">
+	<tr data-order="links" id="$links">
 		<td class="attributes"><code>
 			protected static 
 			array
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-MeTools.Console.Installer.html#41-53" title="Go to source code"><var>$linksToAssets</var></a>
+				<a href="source-class-MeTools.Console.Installer.html#40-45" title="Go to source code"><var>$links</var></a>
 
 			<div class="description short">
 				<p>Assets for which create symbolic links.
-The key must be relative to <code>vendor/</code>, the value must be relative to <code>webroot/vendor/</code></p>
+The key must be relative to <code>vendor/</code> and the value must be relative to <code>webroot/vendor/</code></p>
 			</div>
 
 			<div class="description detailed hidden">
 				<p>Assets for which create symbolic links.
-The key must be relative to <code>vendor/</code>, the value must be relative to <code>webroot/vendor/</code></p>
+The key must be relative to <code>vendor/</code> and the value must be relative to <code>webroot/vendor/</code></p>
 
-					<h4>See</h4>
-					<div class="list">
-							<code><a href="class-MeTools.Console.Installer.html#_createSymbolicLinkToVendor">MeTools\Console\Installer::createSymbolicLinkToVendor()</a></code><br>
-					</div>
 					<h4>Used by</h4>
 					<div class="list">
+							<code><a href="class-MeTools.Console.Installer.html#_createSymbolicLinks">MeTools\Console\Installer::createSymbolicLinks()</a></code><br>
 							<code><a href="class-MeTools.Console.Installer.html#_postAutoloadDump">MeTools\Console\Installer::postAutoloadDump()</a></code><br>
 					</div>
 			</div>
 		</td>
 		<td class="value">
 			<div>
-				<a href="#$linksToAssets" class="anchor">#</a>
-				<code>[
-    <span class="php-quote">'components/bootstrap-datetimepicker/build'</span> =&gt; <span class="php-quote">'bootstrap-datetimepicker'</span>,
-    <span class="php-quote">'components/jquery'</span>                         =&gt; <span class="php-quote">'jquery'</span>,
-    <span class="php-quote">'components/moment/min'</span>                     =&gt; <span class="php-quote">'moment'</span>,
-    <span class="php-quote">'fortawesome/font-awesome'</span>                  =&gt; <span class="php-quote">'font-awesome'</span>,
-    <span class="php-quote">'twbs/bootstrap/dist'</span>                       =&gt; <span class="php-quote">'bootstrap'</span>
-]</code>
+				<a href="#$links" class="anchor">#</a>
+				<code>[]</code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="paths" id="$paths">
+		<td class="attributes"><code>
+			protected static 
+			array
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-MeTools.Console.Installer.html#47-51" title="Go to source code"><var>$paths</var></a>
+
+			<div class="description short">
+				<p>Paths to be created and made writable</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Paths to be created and made writable</p>
+
+					<h4>Used by</h4>
+					<div class="list">
+							<code><a href="class-MeTools.Console.Installer.html#_createDirectories">MeTools\Console\Installer::createDirectories()</a></code><br>
+							<code><a href="class-MeTools.Console.Installer.html#_setPermissions">MeTools\Console\Installer::setPermissions()</a></code><br>
+							<code><a href="class-MeTools.Console.Installer.html#_postAutoloadDump">MeTools\Console\Installer::postAutoloadDump()</a></code><br>
+					</div>
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$paths" class="anchor">#</a>
+				<code>[]</code>
 			</div>
 		</td>
 	</tr>
