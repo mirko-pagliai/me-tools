@@ -1,7 +1,7 @@
 # 2.x branch
 ## 2.1 branch
 ### 2.1.1-RC3
-* improved the installer console.
+* added the installer console.
 
 ### 2.1.0-RC2
 * added support for Shareaholic;
