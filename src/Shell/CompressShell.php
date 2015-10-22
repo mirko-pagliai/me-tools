@@ -78,7 +78,7 @@ class CompressShell extends AppShell {
 			->addOption('force', [
 				'boolean'	=> TRUE,
 				'default'	=> FALSE,
-				'help'		=> __d('me_tools', 'Force overwriting existing files without prompting'),
+				'help'		=> __d('me_tools', 'Executes tasks without prompting'),
 				'short'		=> 'f'
 			])
 			->description(__d('me_tools', 'Combines and compresses css and js files'));
