@@ -246,21 +246,19 @@ class InstallShell extends BaseShell {
 		$parser = parent::getOptionParser();
 		
 		$parser->addSubcommands([
-				'all'					=> ['help' => __d('me_tools', 'it executes all available tasks')],
-				'createDirectories'		=> ['help' => __d('me_tools', 'it creates directories')],
-				'createRobots'			=> ['help' => __d('me_tools', 'it creates the `{0}` file', 'robots.txt')],
-				'createSymbolicLinks'	=> ['help' => __d('me_tools', 'it creates symbolic links for vendor assets')],
-				'fixComposerJson'		=> ['help' => __d('me_tools', 'it fixes `{0}`', 'composer.json')],
-				'installPackages'		=> ['help' => __d('me_tools', 'it install the suggested packages')],
-				'setPermissions'		=> ['help' => __d('me_tools', 'it sets permissions on directories')]
-			])
-			->addOption('force', [
-				'boolean'	=> TRUE,
-				'default'	=> FALSE,
-				'help'		=> __d('me_tools', 'Executes tasks without prompting'),
-				'short'		=> 'f'
-			])
-			->description(__d('me_tools', 'Executes some tasks to make the system ready to work'));
+			'all'					=> ['help' => __d('me_tools', 'it executes all available tasks')],
+			'createDirectories'		=> ['help' => __d('me_tools', 'it creates directories')],
+			'createRobots'			=> ['help' => __d('me_tools', 'it creates the `{0}` file', 'robots.txt')],
+			'createSymbolicLinks'	=> ['help' => __d('me_tools', 'it creates symbolic links for vendor assets')],
+			'fixComposerJson'		=> ['help' => __d('me_tools', 'it fixes `{0}`', 'composer.json')],
+			'installPackages'		=> ['help' => __d('me_tools', 'it install the suggested packages')],
+			'setPermissions'		=> ['help' => __d('me_tools', 'it sets permissions on directories')]
+		])->addOption('force', [
+			'boolean'	=> TRUE,
+			'default'	=> FALSE,
+			'help'		=> __d('me_tools', 'Executes tasks without prompting'),
+			'short'		=> 'f'
+		])->description(__d('me_tools', 'Executes some tasks to make the system ready to work'));
 				
 		return $parser;
 	}
