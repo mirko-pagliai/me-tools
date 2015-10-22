@@ -48,15 +48,15 @@ class CompressShell extends AppShell {
 		//Checks that each input files exists and is readable
 		foreach($input as $file)
 			if(!is_readable($file))
-				$this->error(__d('me_tools', '{0} doesn\'t exists or is not readable', $file));
+				$this->error(__d('me_tools', '`{0}` doesn\'t exists or is not readable', $file));
 		
 		//Checks if the output directory is writable
 		if(!is_writable(dirname($output)))
-			return $this->error(__d('me_tools', '{0} doesn\'t exists or is not writeable', dirname($output)));
+			return $this->error(__d('me_tools', '`{0}` doesn\'t exists or is not writeable', dirname($output)));
 		
 		//If the output file already exists and the "force" option is empty, asks if the output file should be overwritten
 		if(file_exists($output) && empty($this->params['force']))
-			if($this->in(__d('me_tools', 'The file {0} already exists. Do you want to overwrite it?', $output), ['y', 'n'], 'y') === 'n')
+			if($this->in(__d('me_tools', 'The file `{0}` already exists. Do you want to overwrite it?', $output), ['y', 'n'], 'y') === 'n')
 				return [FALSE, FALSE];
 		
 		return [$input, $output];
@@ -134,20 +134,20 @@ class CompressShell extends AppShell {
 		
 		foreach($args as $file) {
 			if(!is_readable($file))
-				$this->error(__d('me_tools', '{0} doesn\'t exists or is not readable', $file));
+				$this->error(__d('me_tools', '`{0}` doesn\'t exists or is not readable', $file));
 			
 			Configure::config('default', new \Cake\Core\Configure\Engine\PhpConfig(dirname($file).DS));
 			Configure::load(pathinfo($file, PATHINFO_FILENAME), 'default');
 			
 			foreach(Configure::consume('Assets') as $asset) {
 				if(empty($asset['input']) || (!is_string($asset['input']) && !is_array($asset['input'])))
-					$this->error(__d('me_tools', 'the "%s" option is not present or is invalid', 'input'));
+					$this->error(__d('me_tools', 'the "{0}" option is not present or is invalid', 'input'));
 				
 				if(empty($asset['output']) || !is_string($asset['output']))
-					$this->error(__d('me_tools', 'the "%s" option is not present or is invalid', 'output'));
+					$this->error(__d('me_tools', 'the "{0}" option is not present or is invalid', 'output'));
 				
 				if(empty($asset['type']) || !in_array($asset['type'], ['css', 'js']))
-					$this->error(__d('me_tools', 'the "%s" option is not present or is invalid', 'type'));
+					$this->error(__d('me_tools', 'the "{0}" option is not present or is invalid', 'type'));
 				
 				//Adds the extension to the input files
 				array_walk($asset['input'], function(&$v, $k, $type) {
@@ -201,9 +201,9 @@ class CompressShell extends AppShell {
 		exec(sprintf('%s -o %s %s', $bin, $output, implode(' ', $input)));
 		
 		if($created)
-			$this->success(__d('me_tools', 'The file {0} has been created', $output));
+			$this->success(__d('me_tools', 'The file `{0}` has been created', $output));
 		else
-			$this->success(__d('me_tools', 'The file {0} has been updated', $output));
+			$this->success(__d('me_tools', 'The file `{0}` has been updated', $output));
 	}
 
 	/**
@@ -240,8 +240,8 @@ class CompressShell extends AppShell {
 		exec(sprintf('%s --mangle --comments "%s" -o %s %s', $bin, $comments, $output, implode(' ', $input)));
 		
 		if($created)
-			$this->success(__d('me_tools', 'The file {0} has been created', $output));
+			$this->success(__d('me_tools', 'The file `{0}` has been created', $output));
 		else
-			$this->success(__d('me_tools', 'The file {0} has been updated', $output));
+			$this->success(__d('me_tools', 'The file `{0}` has been updated', $output));
 	}
 }
