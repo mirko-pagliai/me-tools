@@ -179,11 +179,12 @@ class InstallShell extends BaseShell {
 			return;
 		
 		if($this->createFile($file, 'User-agent: *
-				Disallow: /admin/
-				Disallow: /ckeditor/
-				Disallow: /css/
-				Disallow: /js/
-				Disallow: /vendor/'))
+			Disallow: /admin/
+			Disallow: /ckeditor/
+			Disallow: /css/
+			Disallow: /js/
+			Disallow: /vendor/'
+		))
 			$this->success(__d('me_tools', 'The file `{0}` has been created', $file));
 		else
 			$this->error(__d('me_tools', 'The file `{0}` has not been created', $file));
