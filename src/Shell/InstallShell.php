@@ -114,6 +114,7 @@ class InstallShell extends BaseShell {
 	/**
 	 * Executes all available tasks
 	 * @uses createDirectories()
+	 * @uses createRobots()
 	 * @uses createSymbolicLinks()
 	 * @uses fixComposerJson()
 	 * @uses installPackages()
@@ -124,6 +125,7 @@ class InstallShell extends BaseShell {
 			$this->createDirectories();
 			$this->setPermissions();
 			$this->createSymbolicLinks();
+			$this->createRobots();
 			$this->fixComposerJson();
 			$this->installPackages();
 			
@@ -141,6 +143,10 @@ class InstallShell extends BaseShell {
 		$ask = $this->in(__d('me_tools', 'Create symbolic links for vendor assets?'), ['Y', 'n'], 'Y');
 		if(in_array($ask, ['Y', 'y']))
 			$this->createSymbolicLinks();
+		
+		$ask = $this->in(__d('me_tools', 'Create `{0}`?', 'robots.txt'), ['Y', 'n'], 'Y');
+		if(in_array($ask, ['Y', 'y']))
+			$this->createRobots();
 		
 		$ask = $this->in(__d('me_tools', 'Fix `{0}`?', 'composer.json'), ['Y', 'n'], 'Y');
 		if(in_array($ask, ['Y', 'y']))
@@ -163,6 +169,24 @@ class InstallShell extends BaseShell {
 				else
 					$this->error(__d('me_tools', 'Failed to create directory `{0}`', rtr($path)));	
 			}
+	}
+	
+	/**
+	 * Creates the `robots.txt` file
+	 */
+	public function createRobots() {
+		if(file_exists($file = WWW_ROOT.'robots.txt'))
+			return;
+		
+		if($this->createFile($file, 'User-agent: *
+				Disallow: /admin/
+				Disallow: /ckeditor/
+				Disallow: /css/
+				Disallow: /js/
+				Disallow: /vendor/'))
+			$this->success(__d('me_tools', 'The file `{0}` has been created', $file));
+		else
+			$this->error(__d('me_tools', 'The file `{0}` has not been created', $file));
 	}
 	
 	/**
@@ -224,6 +248,7 @@ class InstallShell extends BaseShell {
 		$parser->addSubcommands([
 				'all'					=> ['help' => __d('me_tools', 'it executes all available tasks')],
 				'createDirectories'		=> ['help' => __d('me_tools', 'it creates directories')],
+				'createRobots'			=> ['help' => __d('me_tools', 'it creates the `{0}` file', 'robots.txt')],
 				'createSymbolicLinks'	=> ['help' => __d('me_tools', 'it creates symbolic links for vendor assets')],
 				'fixComposerJson'		=> ['help' => __d('me_tools', 'it fixes `{0}`', 'composer.json')],
 				'installPackages'		=> ['help' => __d('me_tools', 'it install the suggested packages')],
