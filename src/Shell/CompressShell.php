@@ -39,7 +39,7 @@ class CompressShell extends AppShell {
 	protected function _parseArgs($args) {
 		//Checks if there are at least 2 arguments
 		if(!is_array($args) || count($args) < 2)
-			$this->error(__d('me_tools', 'you have to indicate at least two arguments, an input file and an output file'));
+			return $this->error(__d('me_tools', 'you have to indicate at least two arguments, an input file and an output file'));
 		
 		//Gets the output file and the input files. The last argument is the output file, the other arguments are the input files
 		$output = array_pop($args);
@@ -52,7 +52,7 @@ class CompressShell extends AppShell {
 		
 		//Checks if the output directory is writable
 		if(!is_writable(dirname($output)))
-			$this->error(__d('me_tools', '{0} doesn\'t exists or is not writeable', dirname($output)));
+			return $this->error(__d('me_tools', '{0} doesn\'t exists or is not writeable', dirname($output)));
 		
 		//If the output file already exists and the "force" option is empty, asks if the output file should be overwritten
 		if(file_exists($output) && empty($this->params['force']))
@@ -109,7 +109,7 @@ class CompressShell extends AppShell {
 		}
 		
 		if(empty($files))
-			$this->error(__d('me_tools', 'no configuration files found'));
+			return $this->error(__d('me_tools', 'no configuration files found'));
 		
 		return $this->config($files);
 	}
@@ -123,7 +123,6 @@ class CompressShell extends AppShell {
 	 * Arguments can be passed from the shell. Otherwise, you can call it as a method, passing 
 	 * the configuration files as the first argument
 	 * @param array $args Configuration files
-	 * @return boolean
 	 * @uses css()
 	 * @uses js()
 	 */
@@ -131,7 +130,7 @@ class CompressShell extends AppShell {
 		$args = empty($args) ? $this->args : (is_array($args) ? $args : [$args]);
 		
 		if(!count($args))
-			$this->error(__d('me_tools', 'you have to indicate at least one config file'));
+			return $this->error(__d('me_tools', 'you have to indicate at least one config file'));
 		
 		foreach($args as $file) {
 			if(!is_readable($file))
@@ -169,8 +168,6 @@ class CompressShell extends AppShell {
 				}
 			}
 		}
-		
-		return TRUE;
 	}
 	
 	/**
@@ -181,16 +178,13 @@ class CompressShell extends AppShell {
 	 * 
 	 * Arguments can be passed from the shell. Otherwise, you can call it as a method, passing 
 	 * the input files as the first argument and the output file as the second argument
-	 * @return bool
 	 * @uses MeTools\Utility\Unix::which()
 	 * @uses _parseArgs()
 	 */
-	public function css() {
-		$bin = Unix::which('cleancss');
-		
+	public function css() {		
 		//Checks for Clean-css
-		if(!$bin)
-			$this->error(__d('me_tools', 'I can\'t find {0}', 'Clean-css'));
+		if(!($bin = Unix::which('cleancss')))
+			return $this->error(__d('me_tools', 'I can\'t find {0}', 'Clean-css'));
 		
 		if(func_num_args())
 			$args = am(is_array(func_get_arg(0)) ? func_get_arg(0) : [func_get_arg(0)], is_array(func_get_arg(1)) ? func_get_arg(1) : [func_get_arg(1)]);
@@ -199,7 +193,7 @@ class CompressShell extends AppShell {
 		list($input, $output) = $this->_parseArgs(empty($args) ? $this->args : $args);
 		
 		if(!$input || !$output)
-			return FALSE;
+			return;
 		
 		$created = (bool) !file_exists($output);
 		
@@ -210,8 +204,6 @@ class CompressShell extends AppShell {
 			$this->success(__d('me_tools', 'The file {0} has been created', $output));
 		else
 			$this->success(__d('me_tools', 'The file {0} has been updated', $output));
-		
-		return TRUE;
 	}
 
 	/**
@@ -227,10 +219,8 @@ class CompressShell extends AppShell {
 	 * @uses _parseArgs()
 	 */
 	public function js() {
-		$bin = Unix::which('uglifyjs');
-		
-		if(!$bin)
-			$this->error(__d('me_tools', 'I can\'t find {0}', 'UglifyJS'));
+		if(!($bin = Unix::which('uglifyjs')))
+			return $this->error(__d('me_tools', 'I can\'t find {0}', 'UglifyJS'));
 		
 		if(func_num_args())
 			$args = am(is_array(func_get_arg(0)) ? func_get_arg(0) : [func_get_arg(0)], is_array(func_get_arg(1)) ? func_get_arg(1) : [func_get_arg(1)]);
@@ -239,7 +229,7 @@ class CompressShell extends AppShell {
 		list($input, $output) = $this->_parseArgs(empty($args) ? $this->args : $args);
 		
 		if(!$input || !$output)
-			return FALSE;
+			return;
 		
 		$created = (bool) !file_exists($output);
 		
@@ -253,7 +243,5 @@ class CompressShell extends AppShell {
 			$this->success(__d('me_tools', 'The file {0} has been created', $output));
 		else
 			$this->success(__d('me_tools', 'The file {0} has been updated', $output));
-		
-		return TRUE;
 	}
 }
