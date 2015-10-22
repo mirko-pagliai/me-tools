@@ -24,13 +24,13 @@ namespace MeTools\Shell;
 
 use Cake\Core\Configure;
 use Cake\Filesystem\Folder;
-use MeTools\Shell\AppShell;
+use MeTools\Shell\Base\BaseShell;
 use MeTools\Utility\Unix;
 
 /**
  * Combines and compresses css and js files
  */
-class CompressShell extends AppShell {
+class CompressShell extends BaseShell {
 	/**
 	 * Parses arguments, checks values and returns input and output files
 	 * @param array $args Arguments

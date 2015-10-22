@@ -20,14 +20,14 @@
  * @license		http://www.gnu.org/licenses/agpl.txt AGPL License
  * @link		http://git.novatlantis.it Nova Atlantis Ltd
  */
-namespace MeTools\Shell;
+namespace MeTools\Shell\Base;
 
 use Cake\Console\Shell;
 
 /**
  * Application level shell
  */
-class AppShell extends Shell {
+class BaseShell extends Shell {
 	/**
 	 * Output a comment message
 	 * @param string|array|null $message A string or an array of strings to output
