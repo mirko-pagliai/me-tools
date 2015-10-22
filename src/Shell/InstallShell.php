@@ -54,12 +54,13 @@ class InstallShell extends BaseShell {
 	protected $paths = [];
 	
 	/**
-	 * Construct.
+	 * Construct
 	 * @uses MeTools\Utility\Thumbs::photo()
 	 * @uses MeTools\Utility\Thumbs::remote()
 	 * @uses MeTools\Utility\Thumbs::video()
 	 * @uses MeTools\Utility\Unix::is_root()
 	 * @uses $links
+	 * @uses $packages
 	 * @uses $paths
 	 */
 	public function __construct() {
