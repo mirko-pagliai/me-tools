@@ -73,7 +73,7 @@ class CompressShell extends AppShell {
 				'auto'		=> ['help' => __d('me_tools', 'it searches all the configuration files and automatically combines and compresses')],
 				'config'	=> ['help' => __d('me_tools', 'it combines and compresses files using a configuration file')],
 				'css'		=> ['help' => __d('me_tools', 'it combines and compresses css files')],
-				'js'		=> ['help' => __d('me_tools', 'it combines and compresses js files')],
+				'js'		=> ['help' => __d('me_tools', 'it combines and compresses js files')]
 			])
 			->addOption('force', [
 				'boolean'	=> TRUE,
