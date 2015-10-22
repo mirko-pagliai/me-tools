@@ -229,6 +229,9 @@ class InstallShell extends BaseShell {
 		
 		$contents = json_decode(file_get_contents($file), TRUE);
 		
+		if(!empty($contents['config']['component-dir']) && $contents['config']['component-dir'] === 'vendor/components')
+			return;
+		
 		$contents['config']['component-dir'] = 'vendor/components';
 		
 		$contents = (new File($file))->prepare(json_encode($contents, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
