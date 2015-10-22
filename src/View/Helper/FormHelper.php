@@ -299,11 +299,7 @@ class FormHelper extends CakeFormHelper {
 		//See http://getbootstrap.com/components/#input-groups-buttons
 		if(!empty($options['button'])) {
 			//Fixes templates
-			$this->templates([
-				'formGroup' => preg_replace('/\{\{input\}\}/', '<div>{{input}}{{button}}</div>', $this->templates('formGroup')),
-				'inputContainer' => preg_replace('/form\-group/', 'form-group input-group', $this->templates('inputContainer')),
-				'inputContainerError' => preg_replace('/form\-group/', 'form-group input-group', $this->templates('inputContainerError')),
-			]);
+			$this->templates(['formGroup' => preg_replace('/\{\{input\}\}/', '<div class="input-group">{{input}}{{button}}</div>', $this->templates('formGroup'))]);
 			
 			$options['templateVars']['button'] = $this->Html->span($options['button'], ['class' => 'input-group-btn']);
 			unset($options['button']);
