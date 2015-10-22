@@ -245,7 +245,7 @@ class InstallShell extends BaseShell {
 	public function getOptionParser() {
 		$parser = parent::getOptionParser();
 		
-		$parser->addSubcommands([
+		return $parser->addSubcommands([
 			'all'					=> ['help' => __d('me_tools', 'it executes all available tasks')],
 			'createDirectories'		=> ['help' => __d('me_tools', 'it creates directories')],
 			'createRobots'			=> ['help' => __d('me_tools', 'it creates the `{0}` file', 'robots.txt')],
@@ -259,8 +259,6 @@ class InstallShell extends BaseShell {
 			'help'		=> __d('me_tools', 'Executes tasks without prompting'),
 			'short'		=> 'f'
 		])->description(__d('me_tools', 'Executes some tasks to make the system ready to work'));
-				
-		return $parser;
 	}
 	
 	/**
