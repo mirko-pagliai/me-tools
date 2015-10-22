@@ -124,10 +124,10 @@ class InstallShell extends BaseShell {
 		if(!empty($this->params['force'])) {
 			$this->createDirectories();
 			$this->setPermissions();
-			$this->createSymbolicLinks();
 			$this->createRobots();
 			$this->fixComposerJson();
 			$this->installPackages();
+			$this->createSymbolicLinks();
 			
 			return;
 		}
@@ -140,10 +140,6 @@ class InstallShell extends BaseShell {
 		if(in_array($ask, ['Y', 'y']))
 			$this->setPermissions();
 		
-		$ask = $this->in(__d('me_tools', 'Create symbolic links for vendor assets?'), ['Y', 'n'], 'Y');
-		if(in_array($ask, ['Y', 'y']))
-			$this->createSymbolicLinks();
-		
 		$ask = $this->in(__d('me_tools', 'Create `{0}`?', 'robots.txt'), ['Y', 'n'], 'Y');
 		if(in_array($ask, ['Y', 'y']))
 			$this->createRobots();
@@ -155,6 +151,10 @@ class InstallShell extends BaseShell {
 		$ask = $this->in(__d('me_tools', 'Install the suggested packages?'), ['y', 'N'], 'N');
 		if(in_array($ask, ['Y', 'y']))
 			$this->installPackages();
+		
+		$ask = $this->in(__d('me_tools', 'Create symbolic links for vendor assets?'), ['Y', 'n'], 'Y');
+		if(in_array($ask, ['Y', 'y']))
+			$this->createSymbolicLinks();
     }
 
 	/**
