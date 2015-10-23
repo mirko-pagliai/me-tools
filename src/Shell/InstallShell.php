@@ -72,7 +72,6 @@ class InstallShell extends BaseShell {
 		
 		//Assets for which create symbolic links
 		$this->links = [
-			'ckeditor/ckeditor'							=> 'ckeditor',
 			'components/bootstrap-datetimepicker/build'	=> 'bootstrap-datetimepicker',
 			'components/jquery'							=> 'jquery',
 			'components/moment/min'						=> 'moment',
@@ -83,8 +82,7 @@ class InstallShell extends BaseShell {
 		
 		//Suggested packages to install by Composer
 		$this->packages = [
-			'ckeditor/ckeditor',
-			'components/bootstrap-datetimepicker',
+			'eonasdan/bootstrap-datetimepicker',
 			'newerton/fancy-box'
 		];
 		
