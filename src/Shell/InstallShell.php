@@ -25,7 +25,6 @@ namespace MeTools\Shell;
 use Cake\Filesystem\File;
 use MeTools\Shell\Base\BaseShell;
 use MeTools\Utility\Thumbs;
-use MeTools\Utility\Unix;
 
 /**
  * Executes some tasks to make the system ready to work
@@ -58,17 +57,12 @@ class InstallShell extends BaseShell {
 	 * @uses MeTools\Utility\Thumbs::photo()
 	 * @uses MeTools\Utility\Thumbs::remote()
 	 * @uses MeTools\Utility\Thumbs::video()
-	 * @uses MeTools\Utility\Unix::is_root()
 	 * @uses $links
 	 * @uses $packages
 	 * @uses $paths
 	 */
 	public function __construct() {
 		parent::__construct();
-
-		//Checks if the current user is the root user		
-		if(!Unix::is_root())
-			return $this->error(__d('me_tools', 'You have to run this command as root user or using sudo'));
 		
 		//Assets for which create symbolic links
 		$this->links = [
@@ -270,7 +264,7 @@ class InstallShell extends BaseShell {
 	 */
 	public function installPackages() {
 		//Checks for Composer
-		if(!($bin = Unix::which('composer')))
+		if(!($bin = \MeTools\Utility\Unix::which('composer')))
 			return $this->error(__d('me_tools', 'I can\'t find {0}', 'Composer'));
 		
 		if(empty($this->params['force'])) {
