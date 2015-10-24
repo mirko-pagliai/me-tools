@@ -157,10 +157,12 @@ class InstallShell extends BaseShell {
 		foreach($this->paths as $path)
 			if(!file_exists($path)) {
 				if(mkdir($path, 0777, TRUE))
-					$this->success(__d('me_tools', 'Created `{0}` directory', rtr($path)));
+					$this->verbose(__d('me_tools', 'Created `{0}` directory', rtr($path)));
 				else
 					$this->err(__d('me_tools', 'Failed to create directory `{0}`', rtr($path)));	
 			}
+			else
+				$this->verbose(__d('me_tools', 'The directory `{0}` already exists', rtr($path)));
 	}
 	
 	/**
@@ -168,7 +170,7 @@ class InstallShell extends BaseShell {
 	 */
 	public function createRobots() {
 		if(file_exists($file = WWW_ROOT.'robots.txt'))
-			return;
+			return $this->verbose(__d('me_tools', 'The file `{0}` already exists', rtr($file)));
 		
 		if($this->createFile($file, 'User-agent: *
 			Disallow: /admin/
@@ -177,9 +179,9 @@ class InstallShell extends BaseShell {
 			Disallow: /js/
 			Disallow: /vendor/'
 		))
-			$this->success(__d('me_tools', 'The file `{0}` has been created', $file));
+			$this->verbose(__d('me_tools', 'The file `{0}` has been created', rtr($file)));
 		else
-			$this->err(__d('me_tools', 'The file `{0}` has not been created', $file));
+			$this->err(__d('me_tools', 'The file `{0}` has not been created', rtr($file)));
 	}
 	
 	/**
@@ -204,12 +206,12 @@ class InstallShell extends BaseShell {
 
 				//Creates the symbolic link
 				if(@symlink($origin, $destination))
-					$this->success(__d('me_tools', 'Created symbolic link to `{0}`', rtr($destination)));
+					$this->verbose(__d('me_tools', 'Created symbolic link to `{0}`', rtr($destination)));
 				else
 					$this->err(__d('me_tools', 'Failed to create a symbolic link to `{0}`', rtr($destination)));
 			}
 		else
-			$this->err(__d('me_tools', '`{0}` doesn\'t exists or is not readable', $destinationDir));
+			$this->err(__d('me_tools', '`{0}` doesn\'t exists or is not readable', rtr($destinationDir)));
 	}
 	
 	/**
@@ -222,16 +224,15 @@ class InstallShell extends BaseShell {
 		//Gets and decodes the file
 		$contents = json_decode(file_get_contents($file), TRUE);
 		
+		//Checks if the file has been fixed
 		if(!empty($contents['config']['component-dir']) && $contents['config']['component-dir'] === 'vendor/components')
-			return;
-		
-		$contents['config']['component-dir'] = 'vendor/components';
-		
-		//Encodes the content
-		$contents = (new File($file))->prepare(json_encode($contents, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
+			return $this->verbose(__d('me_tools', 'The file `{0}` doesn\'t need to be fixed', rtr($file)));
+				
+		//Fixeds and encodes the content
+		$contents = (new File($file))->prepare(json_encode(am($contents, ['config' => ['component-dir' => 'vendor/components']]), JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
 		
 		if((new File($file))->write($contents))
-			$this->success(__d('me_tools', 'The file `{0}` has been fixed', rtr($file)));
+			$this->verbose(__d('me_tools', 'The file `{0}` has been fixed', rtr($file)));
 		else
 			$this->err(__d('me_tools', 'The file `{0}` has not been fixed', rtr($file)));
 	}
@@ -280,6 +281,9 @@ class InstallShell extends BaseShell {
 				if(in_array($ask, ['Y', 'y']))
 					$packagesToInstall[] = $package;
 			}
+		
+			if(empty($packagesToInstall))
+				return $this->verbose(__d('me_tools', 'No package has been selected for installation'));
 		}
 		else
 			$packagesToInstall = $this->packages;
@@ -291,7 +295,7 @@ class InstallShell extends BaseShell {
 		$packagesToInstall = array_diff($packagesToInstall, $installed);
 		
 		if(empty($packagesToInstall))
-			return;
+			return $this->verbose(__d('me_tools', 'All packages are already installed'));
 			
 		//Executes the command
 		exec(sprintf('%s require %s', $bin, implode(' ', $packagesToInstall)));
@@ -302,8 +306,11 @@ class InstallShell extends BaseShell {
 	 * @uses $paths
 	 */
 	public function setPermissions() {
-		foreach($this->paths as $path)
-			if(!(new \Cake\Filesystem\Folder())->chmod($path, 0777))
-                $this->err(__d('me_tools', 'Failed to set permissions on `{0}`', rtr($path)));	
+		foreach($this->paths as $path) {
+			if((new \Cake\Filesystem\Folder())->chmod($path, 0777))
+				$this->verbose(__d('me_tools', 'Set permissions on `{0}`', rtr($path)));
+			else
+                $this->err(__d('me_tools', 'Failed to set permissions on `{0}`', rtr($path)));
+		}
 	}
 }
