@@ -118,7 +118,7 @@ class InstallShell extends BaseShell {
 			$this->setPermissions();
 			$this->createRobots();
 			$this->fixComposerJson();
-			$this->installPackages();
+			$this->installPackages(TRUE);
 			$this->createSymbolicLinks();
 			
 			return;
@@ -140,9 +140,9 @@ class InstallShell extends BaseShell {
 		if(in_array($ask, ['Y', 'y']))
 			$this->fixComposerJson();	
 		
-		$ask = $this->in(__d('me_tools', 'Install the suggested packages?'), ['y', 'N'], 'N');
-		if(in_array($ask, ['Y', 'y']))
-			$this->installPackages();
+		$ask = $this->in(__d('me_tools', 'Install the suggested packages?'), ['y', 'N', 'all'], 'N');
+		if(in_array($ask, ['Y', 'y', 'all']))
+			$this->installPackages($ask === 'all' ? TRUE : FALSE);
 		
 		$ask = $this->in(__d('me_tools', 'Create symbolic links for vendor assets?'), ['Y', 'n'], 'Y');
 		if(in_array($ask, ['Y', 'y']))
@@ -261,26 +261,37 @@ class InstallShell extends BaseShell {
 	
 	/**
 	 * Install the suggested packages
+	 * @param bool $all TRUE to install all packages
 	 * @uses MeTools\Utility\Unix::which()
 	 * @uses $packages
 	 */
-	public function installPackages() {
+	public function installPackages($all = FALSE) {
 		//Checks for Composer
 		if(!($bin = \MeTools\Utility\Unix::which('composer')))
 			return $this->err(__d('me_tools', 'I can\'t find {0}', 'Composer'));
 		
-		if(!$this->param('force')) {
+		//Empty array. This will contain the packages to install
+		$packagesToInstall = [];
+		
+		//Asks whick packages to install, if it was not asked to install all of them or if you are not using the "force" parameter
+		if(!$all && !$this->param('force')) {
 			foreach($this->packages as $package) {
 				$ask = $this->in(__d('me_tools', 'Do you want to install `{0}`?', $package), ['Y', 'n'], 'Y');
 				if(in_array($ask, ['Y', 'y']))
 					$packagesToInstall[] = $package;
 			}
-
-			if(empty($packagesToInstall))
-				return;
 		}
 		else
 			$packagesToInstall = $this->packages;
+		
+		//Gets the list of installed packages
+		exec(sprintf('%s show --installed', $bin), $installed);
+		$installed = array_map(function($line) { return array_values(preg_split('/[\s]+/', $line))[0]; }, $installed);
+		
+		$packagesToInstall = array_diff($packagesToInstall, $installed);
+		
+		if(empty($packagesToInstall))
+			return;
 			
 		//Executes the command
 		exec(sprintf('%s require %s', $bin, implode(' ', $packagesToInstall)));
