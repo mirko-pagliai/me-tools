@@ -159,7 +159,7 @@ class InstallShell extends BaseShell {
 				if(mkdir($path, 0777, TRUE))
 					$this->success(__d('me_tools', 'Created `{0}` directory', rtr($path)));
 				else
-					$this->error(__d('me_tools', 'Failed to create directory `{0}`', rtr($path)));	
+					$this->err(__d('me_tools', 'Failed to create directory `{0}`', rtr($path)));	
 			}
 	}
 	
@@ -179,7 +179,7 @@ class InstallShell extends BaseShell {
 		))
 			$this->success(__d('me_tools', 'The file `{0}` has been created', $file));
 		else
-			$this->error(__d('me_tools', 'The file `{0}` has not been created', $file));
+			$this->err(__d('me_tools', 'The file `{0}` has not been created', $file));
 	}
 	
 	/**
@@ -188,28 +188,28 @@ class InstallShell extends BaseShell {
 	 */
 	public function createSymbolicLinks() {
 		//Checks if the target directory (`webroot/vendor/`) is writeable
-		if(!is_writable($destinationDir = WWW_ROOT.'vendor'))
-			return $this->error(__d('me_tools', '`{0}` doesn\'t exists or is not readable', $destinationDir));
-				
-		foreach($this->links as $origin => $destination) {
-			$origin = ROOT.DS.'vendor'.DS.$origin;
-			
-			//Continues, if the vendor doesn't exist
-			if(!file_exists($origin))
-				continue;
-			
-			$destination = $destinationDir.DS.$destination;
-			
-			//Continues, if the link already exists
-			if(file_exists($destination))
-				continue;
-			
-			//Creates the symbolic link
-			if(@symlink($origin, $destination))
-				$this->success(__d('me_tools', 'Created symbolic link to `{0}`', rtr($destination)));
-			else
-				$this->error(__d('me_tools', 'Failed to create a symbolic link to `{0}`', rtr($destination)));
-		}
+		if(is_writable($destinationDir = WWW_ROOT.'vendor'))
+			foreach($this->links as $origin => $destination) {
+				$origin = ROOT.DS.'vendor'.DS.$origin;
+
+				//Continues, if the vendor doesn't exist
+				if(!file_exists($origin))
+					continue;
+
+				$destination = $destinationDir.DS.$destination;
+
+				//Continues, if the link already exists
+				if(file_exists($destination))
+					continue;
+
+				//Creates the symbolic link
+				if(@symlink($origin, $destination))
+					$this->success(__d('me_tools', 'Created symbolic link to `{0}`', rtr($destination)));
+				else
+					$this->err(__d('me_tools', 'Failed to create a symbolic link to `{0}`', rtr($destination)));
+			}
+		else
+			$this->err(__d('me_tools', '`{0}` doesn\'t exists or is not readable', $destinationDir));
 	}
 	
 	/**
@@ -217,8 +217,9 @@ class InstallShell extends BaseShell {
 	 */
 	public function fixComposerJson() {
 		if(!is_writeable($file = ROOT.DS.'composer.json'))
-			return $this->error(__d('me_tools', '`{0}` doesn\'t exists or is not writeable', rtr($file)));
+			return $this->err(__d('me_tools', '`{0}` doesn\'t exists or is not writeable', rtr($file)));
 		
+		//Gets and decodes the file
 		$contents = json_decode(file_get_contents($file), TRUE);
 		
 		if(!empty($contents['config']['component-dir']) && $contents['config']['component-dir'] === 'vendor/components')
@@ -226,12 +227,13 @@ class InstallShell extends BaseShell {
 		
 		$contents['config']['component-dir'] = 'vendor/components';
 		
+		//Encodes the content
 		$contents = (new File($file))->prepare(json_encode($contents, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
 		
 		if((new File($file))->write($contents))
 			$this->success(__d('me_tools', 'The file `{0}` has been fixed', rtr($file)));
 		else
-			$this->error(__d('me_tools', 'The file `{0}` has not been fixed', rtr($file)));
+			$this->err(__d('me_tools', 'The file `{0}` has not been fixed', rtr($file)));
 	}
 	
 	/**
@@ -265,7 +267,7 @@ class InstallShell extends BaseShell {
 	public function installPackages() {
 		//Checks for Composer
 		if(!($bin = \MeTools\Utility\Unix::which('composer')))
-			return $this->error(__d('me_tools', 'I can\'t find {0}', 'Composer'));
+			return $this->err(__d('me_tools', 'I can\'t find {0}', 'Composer'));
 		
 		if(empty($this->params['force'])) {
 			foreach($this->packages as $package) {
@@ -291,6 +293,6 @@ class InstallShell extends BaseShell {
 	public function setPermissions() {
 		foreach($this->paths as $path)
 			if(!(new \Cake\Filesystem\Folder())->chmod($path, 0777))
-                $this->error(__d('me_tools', 'Failed to set permissions on `{0}`', rtr($path)));	
+                $this->err(__d('me_tools', 'Failed to set permissions on `{0}`', rtr($path)));	
 	}
 }
