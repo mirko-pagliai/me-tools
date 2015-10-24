@@ -113,7 +113,7 @@ class InstallShell extends BaseShell {
 	 * @uses setPermissions()
 	 */
 	public function all() {
-		if(!empty($this->params['force'])) {
+		if($this->param('force')) {
 			$this->createDirectories();
 			$this->setPermissions();
 			$this->createRobots();
@@ -269,7 +269,7 @@ class InstallShell extends BaseShell {
 		if(!($bin = \MeTools\Utility\Unix::which('composer')))
 			return $this->err(__d('me_tools', 'I can\'t find {0}', 'Composer'));
 		
-		if(empty($this->params['force'])) {
+		if(!$this->param('force')) {
 			foreach($this->packages as $package) {
 				$ask = $this->in(__d('me_tools', 'Do you want to install `{0}`?', $package), ['Y', 'n'], 'Y');
 				if(in_array($ask, ['Y', 'y']))
