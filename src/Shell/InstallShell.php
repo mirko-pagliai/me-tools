@@ -25,6 +25,7 @@ namespace MeTools\Shell;
 use Cake\Filesystem\File;
 use MeTools\Shell\Base\BaseShell;
 use MeTools\Utility\Thumbs;
+use useMeTools\Utility\Unix;
 
 /**
  * Executes some tasks to make the system ready to work
@@ -151,18 +152,35 @@ class InstallShell extends BaseShell {
 
 	/**
 	 * Creates directories
+	 * @param bool $force
+	 * @uses MeTools\Utility\Unix::which()
 	 * @uses $paths
 	 */
-	public function createDirectories() {
-		foreach($this->paths as $path)
+	public function createDirectories($force) {
+		$error = FALSE;
+		
+		foreach($this->paths as $path) {
 			if(!file_exists($path)) {
 				if(mkdir($path, 0777, TRUE))
 					$this->verbose(__d('me_tools', 'Created `{0}` directory', rtr($path)));
-				else
-					$this->err(__d('me_tools', 'Failed to create directory `{0}`', rtr($path)));	
+				else {
+					$this->err(__d('me_tools', 'Failed to create directory `{0}`', rtr($path)));
+					$error = TRUE;
+				}
 			}
 			else
 				$this->verbose(__d('me_tools', 'The directory `{0}` already exists', rtr($path)));
+		}
+		
+		//In case of error, asks for sudo
+		if($error && Unix::which('sudo')) {
+			if($this->param('force') || $force)
+				return exec(sprintf('sudo mkdir -p %s', implode(' ', $this->paths)));
+			
+			$ask = $this->in(__d('me_tools', 'It was not possible to create some directories. Try again using {0}?', 'sudo'), ['Y', 'n'], 'Y');
+			if(in_array($ask, ['Y', 'y']))
+				exec(sprintf('sudo mkdir -p %s', implode(' ', $this->paths)));
+		}
 	}
 	
 	/**
@@ -262,20 +280,20 @@ class InstallShell extends BaseShell {
 	
 	/**
 	 * Install the suggested packages
-	 * @param bool $all TRUE to install all packages
+	 * @param bool $force
 	 * @uses MeTools\Utility\Unix::which()
 	 * @uses $packages
 	 */
-	public function installPackages($all = FALSE) {
+	public function installPackages($force = FALSE) {
 		//Checks for Composer
-		if(!($bin = \MeTools\Utility\Unix::which('composer')))
+		if(!($bin = Unix::which('composer')))
 			return $this->err(__d('me_tools', 'I can\'t find {0}', 'Composer'));
 		
 		//Empty array. This will contain the packages to install
 		$packagesToInstall = [];
 		
 		//Asks whick packages to install, if it was not asked to install all of them or if you are not using the "force" parameter
-		if(!$all && !$this->param('force')) {
+		if(!$force && !$this->param('force')) {
 			foreach($this->packages as $package) {
 				$ask = $this->in(__d('me_tools', 'Do you want to install `{0}`?', $package), ['Y', 'n'], 'Y');
 				if(in_array($ask, ['Y', 'y']))
@@ -303,14 +321,30 @@ class InstallShell extends BaseShell {
 	
 	/**
 	 * Sets permissions on directories
+	 * @param bool $force
+	 * @uses MeTools\Utility\Unix::which()
 	 * @uses $paths
 	 */
-	public function setPermissions() {
+	public function setPermissions($force = FALSE) {
+		$error = FALSE;
+		
 		foreach($this->paths as $path) {
 			if((new \Cake\Filesystem\Folder())->chmod($path, 0777))
 				$this->verbose(__d('me_tools', 'Set permissions on `{0}`', rtr($path)));
-			else
+			else {
                 $this->err(__d('me_tools', 'Failed to set permissions on `{0}`', rtr($path)));
+				$error = TRUE;
+			}
+		}
+		
+		//In case of error, asks for sudo
+		if($error && Unix::which('sudo')) {
+			if($this->param('force') || $force)
+				return exec(sprintf('sudo chmod -R 777 %s', implode(' ', $this->paths)));
+			
+			$ask = $this->in(__d('me_tools', 'It was not possible to set permissions on some directories. Try again using {0}?', 'sudo'), ['Y', 'n'], 'Y');
+			if(in_array($ask, ['Y', 'y']))
+				exec(sprintf('sudo chmod -R 777 %s', implode(' ', $this->paths)));
 		}
 	}
 }
