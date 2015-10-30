@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2015-05-18 19:57+0000\n"
+"POT-Creation-Date: 2015-10-30 17:10+0000\n"
 "PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
 "Last-Translator: NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
@@ -34,11 +34,11 @@ msgstr ""
 msgid "The file {0} doesn't exist or is not readable"
 msgstr ""
 
-#: Controller/ThumbsController.php:283
+#: Controller/ThumbsController.php:285
 msgid "The mime type {0} is not supported"
 msgstr ""
 
-#: Controller/ThumbsController.php:289
+#: Controller/ThumbsController.php:291
 msgid "The target directory {0} is not writable"
 msgstr ""
 
@@ -55,47 +55,203 @@ msgstr ""
 msgid "It was not possible to verify the {0} control"
 msgstr ""
 
-#: Shell/InstallShell.php:70
-msgid "{0} has been made writable"
+#: Shell/CompressShell.php:42
+msgid "You have to indicate at least two arguments, an input file and an output file"
 msgstr ""
 
-#: Shell/InstallShell.php:72
-msgid "{0} has not been made writable"
+#: Shell/CompressShell.php:51;133
+msgid "The file `{0}` doesn't exist or is not readable"
 msgstr ""
 
-#: Shell/InstallShell.php:77
-msgid "{0} was created"
+#: Shell/CompressShell.php:55
+#: Shell/InstallShell.php:232;240
+msgid "The file `{0}` doesn't exist or is not writeable"
 msgstr ""
 
-#: Shell/InstallShell.php:79
-msgid "{0} was not created"
+#: Shell/CompressShell.php:59
+msgid "The file `{0}` already exists. Do you want to overwrite it?"
 msgstr ""
 
-#: Shell/InstallShell.php:83
-msgid "Cannot create or modify the directory {0}"
+#: Shell/CompressShell.php:73
+msgid "it searches all the configuration files and automatically combines and compresses"
 msgstr ""
 
-#: Shell/InstallShell.php:96
-msgid "it performs all operations"
+#: Shell/CompressShell.php:74
+msgid "it combines and compresses files using a configuration file"
 msgstr ""
 
-#: Shell/InstallShell.php:97
-msgid "it install folders"
+#: Shell/CompressShell.php:75;76
+msgid "it combines and compresses `{0}` files"
 msgstr ""
 
-#: Shell/InstallShell.php:98
-msgid "Performs various operations to install the application"
+#: Shell/CompressShell.php:80
+#: Shell/InstallShell.php:276
+msgid "Executes tasks without prompting"
 msgstr ""
 
-#: Template/Element/paginator.ctp:41
+#: Shell/CompressShell.php:82
+msgid "Combines and compresses `{0}` and `{1}` files"
+msgstr ""
+
+#: Shell/CompressShell.php:108
+msgid "No configuration files found"
+msgstr ""
+
+#: Shell/CompressShell.php:129
+msgid "You have to indicate at least one config file"
+msgstr ""
+
+#: Shell/CompressShell.php:140;143;146
+msgid "The `{0}` option is not present or is invalid"
+msgstr ""
+
+#: Shell/CompressShell.php:183;219
+#: Shell/InstallShell.php:290
+msgid "I can't find `{0}`"
+msgstr ""
+
+#: Shell/CompressShell.php:200;239
+#: Shell/InstallShell.php:200
+msgid "The file `{0}` has been created"
+msgstr ""
+
+#: Shell/CompressShell.php:202;241
+msgid "The file `{0}` has been updated"
+msgstr ""
+
+#: Shell/InstallShell.php:128
+msgid "Create default directories?"
+msgstr ""
+
+#: Shell/InstallShell.php:132
+msgid "Set directories permissions?"
+msgstr ""
+
+#: Shell/InstallShell.php:136
+msgid "Create `{0}`?"
+msgstr ""
+
+#: Shell/InstallShell.php:140
+msgid "Fix `{0}`?"
+msgstr ""
+
+#: Shell/InstallShell.php:144
+msgid "Install the suggested packages?"
+msgstr ""
+
+#: Shell/InstallShell.php:148
+msgid "Create symbolic links for vendor assets?"
+msgstr ""
+
+#: Shell/InstallShell.php:165
+msgid "Created `{0}` directory"
+msgstr ""
+
+#: Shell/InstallShell.php:167
+msgid "Failed to create directory `{0}`"
+msgstr ""
+
+#: Shell/InstallShell.php:172
+msgid "The directory `{0}` already exists"
+msgstr ""
+
+#: Shell/InstallShell.php:180
+msgid "It was not possible to create some directories. Try again using `{0}`?"
+msgstr ""
+
+#: Shell/InstallShell.php:191
+msgid "The file `{0}` already exists"
+msgstr ""
+
+#: Shell/InstallShell.php:202
+msgid "The file `{0}` has not been created"
+msgstr ""
+
+#: Shell/InstallShell.php:227
+msgid "Created symbolic link to `{0}`"
+msgstr ""
+
+#: Shell/InstallShell.php:229
+msgid "Failed to create a symbolic link to `{0}`"
+msgstr ""
+
+#: Shell/InstallShell.php:247
+msgid "The file `{0}` doesn't need to be fixed"
+msgstr ""
+
+#: Shell/InstallShell.php:253
+msgid "The file `{0}` has been fixed"
+msgstr ""
+
+#: Shell/InstallShell.php:255
+msgid "The file `{0}` has not been fixed"
+msgstr ""
+
+#: Shell/InstallShell.php:266
+msgid "it executes all available tasks"
+msgstr ""
+
+#: Shell/InstallShell.php:267
+msgid "it creates default directories"
+msgstr ""
+
+#: Shell/InstallShell.php:268
+msgid "it creates the `{0}` file"
+msgstr ""
+
+#: Shell/InstallShell.php:269
+msgid "it creates symbolic links for vendor assets"
+msgstr ""
+
+#: Shell/InstallShell.php:270
+msgid "it fixes `{0}`"
+msgstr ""
+
+#: Shell/InstallShell.php:271
+msgid "it install the suggested packages"
+msgstr ""
+
+#: Shell/InstallShell.php:272
+msgid "it sets permissions on directories"
+msgstr ""
+
+#: Shell/InstallShell.php:278
+msgid "Executes some tasks to make the system ready to work"
+msgstr ""
+
+#: Shell/InstallShell.php:298
+msgid "Do you want to install `{0}`?"
+msgstr ""
+
+#: Shell/InstallShell.php:304
+msgid "No package has been selected for installation"
+msgstr ""
+
+#: Shell/InstallShell.php:316
+msgid "All packages are already installed"
+msgstr ""
+
+#: Shell/InstallShell.php:333
+msgid "Setted permissions on `{0}`"
+msgstr ""
+
+#: Shell/InstallShell.php:335
+msgid "Failed to set permissions on `{0}`"
+msgstr ""
+
+#: Shell/InstallShell.php:345
+msgid "It was not possible to set permissions on some directories. Try again using `{0}`?"
+msgstr ""
+
+#: Template/Element/paginator.ctp:46
 msgid "Page {0}"
 msgstr ""
 
-#: Template/Element/paginator.ctp:45
+#: Template/Element/paginator.ctp:50
 msgid "Next"
 msgstr ""
 
-#: Template/Element/paginator.ctp:47
+#: Template/Element/paginator.ctp:52
 msgid "Previous"
 msgstr ""
 
