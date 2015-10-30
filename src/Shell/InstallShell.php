@@ -229,7 +229,7 @@ class InstallShell extends BaseShell {
 					$this->err(__d('me_tools', 'Failed to create a symbolic link to `{0}`', rtr($destination)));
 			}
 		else
-			$this->err(__d('me_tools', 'The file {0} doesn\'t exist or is not writeable', rtr($destinationDir)));
+			$this->err(__d('me_tools', 'The file `{0}` doesn\'t exist or is not writeable', rtr($destinationDir)));
 	}
 	
 	/**
@@ -237,7 +237,7 @@ class InstallShell extends BaseShell {
 	 */
 	public function fixComposerJson() {
 		if(!is_writeable($file = ROOT.DS.'composer.json'))
-			return $this->err(__d('me_tools', 'The file {0} doesn\'t exist or is not writeable', rtr($file)));
+			return $this->err(__d('me_tools', 'The file `{0}` doesn\'t exist or is not writeable', rtr($file)));
 		
 		//Gets and decodes the file
 		$contents = json_decode(file_get_contents($file), TRUE);

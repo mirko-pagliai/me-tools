@@ -48,11 +48,11 @@ class CompressShell extends BaseShell {
 		//Checks that each input files exists and is readable
 		foreach($input as $file)
 			if(!is_readable($file))
-				$this->error(__d('me_tools', 'The file {0} doesn\'t exist or is not readable', $file));
+				$this->error(__d('me_tools', 'The file `{0}` doesn\'t exist or is not readable', $file));
 		
 		//Checks if the output directory is writable
 		if(!is_writable(dirname($output)))
-			return $this->error(__d('me_tools', 'The file {0} doesn\'t exist or is not writeable', dirname($output)));
+			return $this->error(__d('me_tools', 'The file `{0}` doesn\'t exist or is not writeable', dirname($output)));
 		
 		//If the output file already exists and the "force" option is empty, asks if the output file should be overwritten
 		if(file_exists($output) && empty($this->params['force']))
@@ -79,7 +79,7 @@ class CompressShell extends BaseShell {
 			'default'	=> FALSE,
 			'help'		=> __d('me_tools', 'Executes tasks without prompting'),
 			'short'		=> 'f'
-		])->description(__d('me_tools', 'Combines and compresses `{0}` and `{0}` files', 'css', 'js'));
+		])->description(__d('me_tools', 'Combines and compresses `{0}` and `{1}` files', 'css', 'js'));
 	}
 	
 	/**
@@ -130,7 +130,7 @@ class CompressShell extends BaseShell {
 		
 		foreach($args as $file) {
 			if(!is_readable($file))
-				$this->error(__d('me_tools', '`{0}` doesn\'t exists or is not readable', $file));
+				$this->error(__d('me_tools', 'The file `{0}` doesn\'t exists or is not readable', $file));
 			
 			Configure::config('default', new \Cake\Core\Configure\Engine\PhpConfig(dirname($file).DS));
 			Configure::load(pathinfo($file, PATHINFO_FILENAME), 'default');
