@@ -39,7 +39,7 @@ class CompressShell extends BaseShell {
 	protected function _parseArgs($args) {
 		//Checks if there are at least 2 arguments
 		if(!is_array($args) || count($args) < 2)
-			return $this->error(__d('me_tools', 'you have to indicate at least two arguments, an input file and an output file'));
+			return $this->error(__d('me_tools', 'You have to indicate at least two arguments, an input file and an output file'));
 		
 		//Gets the output file and the input files. The last argument is the output file, the other arguments are the input files
 		$output = array_pop($args);
@@ -48,11 +48,11 @@ class CompressShell extends BaseShell {
 		//Checks that each input files exists and is readable
 		foreach($input as $file)
 			if(!is_readable($file))
-				$this->error(__d('me_tools', '`{0}` doesn\'t exists or is not readable', $file));
+				$this->error(__d('me_tools', 'The file {0} doesn\'t exist or is not readable', $file));
 		
 		//Checks if the output directory is writable
 		if(!is_writable(dirname($output)))
-			return $this->error(__d('me_tools', '`{0}` doesn\'t exists or is not writeable', dirname($output)));
+			return $this->error(__d('me_tools', 'The file {0} doesn\'t exist or is not writeable', dirname($output)));
 		
 		//If the output file already exists and the "force" option is empty, asks if the output file should be overwritten
 		if(file_exists($output) && empty($this->params['force']))
@@ -72,14 +72,14 @@ class CompressShell extends BaseShell {
 		return $parser->addSubcommands([
 			'auto'		=> ['help' => __d('me_tools', 'it searches all the configuration files and automatically combines and compresses')],
 			'config'	=> ['help' => __d('me_tools', 'it combines and compresses files using a configuration file')],
-			'css'		=> ['help' => __d('me_tools', 'it combines and compresses css files')],
-			'js'		=> ['help' => __d('me_tools', 'it combines and compresses js files')]
+			'css'		=> ['help' => __d('me_tools', 'it combines and compresses `{0}` files', 'css')],
+			'js'		=> ['help' => __d('me_tools', 'it combines and compresses `{0}` files', 'js')]
 		])->addOption('force', [
 			'boolean'	=> TRUE,
 			'default'	=> FALSE,
 			'help'		=> __d('me_tools', 'Executes tasks without prompting'),
 			'short'		=> 'f'
-		])->description(__d('me_tools', 'Combines and compresses css and js files'));
+		])->description(__d('me_tools', 'Combines and compresses `{0}` and `{0}` files', 'css', 'js'));
 	}
 	
 	/**
@@ -105,7 +105,7 @@ class CompressShell extends BaseShell {
 		}
 		
 		if(empty($files))
-			return $this->error(__d('me_tools', 'no configuration files found'));
+			return $this->error(__d('me_tools', 'No configuration files found'));
 		
 		return $this->config($files);
 	}
@@ -126,7 +126,7 @@ class CompressShell extends BaseShell {
 		$args = empty($args) ? $this->args : (is_array($args) ? $args : [$args]);
 		
 		if(!count($args))
-			return $this->error(__d('me_tools', 'you have to indicate at least one config file'));
+			return $this->error(__d('me_tools', 'You have to indicate at least one config file'));
 		
 		foreach($args as $file) {
 			if(!is_readable($file))
@@ -137,13 +137,13 @@ class CompressShell extends BaseShell {
 			
 			foreach(Configure::consume('Assets') as $asset) {
 				if(empty($asset['input']) || (!is_string($asset['input']) && !is_array($asset['input'])))
-					$this->error(__d('me_tools', 'the "{0}" option is not present or is invalid', 'input'));
+					$this->error(__d('me_tools', 'The `{0}` option is not present or is invalid', 'input'));
 				
 				if(empty($asset['output']) || !is_string($asset['output']))
-					$this->error(__d('me_tools', 'the "{0}" option is not present or is invalid', 'output'));
+					$this->error(__d('me_tools', 'The `{0}` option is not present or is invalid', 'output'));
 				
 				if(empty($asset['type']) || !in_array($asset['type'], ['css', 'js']))
-					$this->error(__d('me_tools', 'the "{0}" option is not present or is invalid', 'type'));
+					$this->error(__d('me_tools', 'The `{0}` option is not present or is invalid', 'type'));
 				
 				//Adds the extension to the input files
 				array_walk($asset['input'], function(&$v, $k, $type) {
@@ -180,7 +180,7 @@ class CompressShell extends BaseShell {
 	public function css() {		
 		//Checks for Clean-css
 		if(!($bin = Unix::which('cleancss')))
-			return $this->error(__d('me_tools', 'I can\'t find {0}', 'Clean-css'));
+			return $this->error(__d('me_tools', 'I can\'t find `{0}`', 'Clean-css'));
 		
 		if(func_num_args())
 			$args = am(is_array(func_get_arg(0)) ? func_get_arg(0) : [func_get_arg(0)], is_array(func_get_arg(1)) ? func_get_arg(1) : [func_get_arg(1)]);
@@ -216,7 +216,7 @@ class CompressShell extends BaseShell {
 	 */
 	public function js() {
 		if(!($bin = Unix::which('uglifyjs')))
-			return $this->error(__d('me_tools', 'I can\'t find {0}', 'UglifyJS'));
+			return $this->error(__d('me_tools', 'I can\'t find `{0}`', 'UglifyJS'));
 		
 		if(func_num_args())
 			$args = am(is_array(func_get_arg(0)) ? func_get_arg(0) : [func_get_arg(0)], is_array(func_get_arg(1)) ? func_get_arg(1) : [func_get_arg(1)]);

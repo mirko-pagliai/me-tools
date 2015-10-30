@@ -129,7 +129,7 @@ class InstallShell extends BaseShell {
 		if(in_array($ask, ['Y', 'y']))
 			$this->createDirectories();
 		
-		$ask = $this->in(__d('me_tools', 'Set folder permissions?'), ['Y', 'n'], 'Y');
+		$ask = $this->in(__d('me_tools', 'Set directories permissions?'), ['Y', 'n'], 'Y');
 		if(in_array($ask, ['Y', 'y']))
 			$this->setPermissions();
 		
@@ -177,7 +177,7 @@ class InstallShell extends BaseShell {
 			if($this->param('force') || $force)
 				return exec(sprintf('sudo mkdir -p %s', implode(' ', $this->paths)));
 			
-			$ask = $this->in(__d('me_tools', 'It was not possible to create some directories. Try again using {0}?', 'sudo'), ['Y', 'n'], 'Y');
+			$ask = $this->in(__d('me_tools', 'It was not possible to create some directories. Try again using `{0}`?', 'sudo'), ['Y', 'n'], 'Y');
 			if(in_array($ask, ['Y', 'y']))
 				exec(sprintf('sudo mkdir -p %s', implode(' ', $this->paths)));
 		}
@@ -229,7 +229,7 @@ class InstallShell extends BaseShell {
 					$this->err(__d('me_tools', 'Failed to create a symbolic link to `{0}`', rtr($destination)));
 			}
 		else
-			$this->err(__d('me_tools', '`{0}` doesn\'t exists or is not readable', rtr($destinationDir)));
+			$this->err(__d('me_tools', 'The file {0} doesn\'t exist or is not writeable', rtr($destinationDir)));
 	}
 	
 	/**
@@ -237,7 +237,7 @@ class InstallShell extends BaseShell {
 	 */
 	public function fixComposerJson() {
 		if(!is_writeable($file = ROOT.DS.'composer.json'))
-			return $this->err(__d('me_tools', '`{0}` doesn\'t exists or is not writeable', rtr($file)));
+			return $this->err(__d('me_tools', 'The file {0} doesn\'t exist or is not writeable', rtr($file)));
 		
 		//Gets and decodes the file
 		$contents = json_decode(file_get_contents($file), TRUE);
@@ -264,7 +264,7 @@ class InstallShell extends BaseShell {
 		
 		return $parser->addSubcommands([
 			'all'					=> ['help' => __d('me_tools', 'it executes all available tasks')],
-			'createDirectories'		=> ['help' => __d('me_tools', 'it creates directories')],
+			'createDirectories'		=> ['help' => __d('me_tools', 'it creates default directories')],
 			'createRobots'			=> ['help' => __d('me_tools', 'it creates the `{0}` file', 'robots.txt')],
 			'createSymbolicLinks'	=> ['help' => __d('me_tools', 'it creates symbolic links for vendor assets')],
 			'fixComposerJson'		=> ['help' => __d('me_tools', 'it fixes `{0}`', 'composer.json')],
@@ -287,7 +287,7 @@ class InstallShell extends BaseShell {
 	public function installPackages($force = FALSE) {
 		//Checks for Composer
 		if(!($bin = Unix::which('composer')))
-			return $this->err(__d('me_tools', 'I can\'t find {0}', 'Composer'));
+			return $this->err(__d('me_tools', 'I can\'t find `{0}`', 'composer'));
 		
 		//Empty array. This will contain the packages to install
 		$packagesToInstall = [];
@@ -330,7 +330,7 @@ class InstallShell extends BaseShell {
 		
 		foreach($this->paths as $path) {
 			if((new \Cake\Filesystem\Folder())->chmod($path, 0777))
-				$this->verbose(__d('me_tools', 'Set permissions on `{0}`', rtr($path)));
+				$this->verbose(__d('me_tools', 'Setted permissions on `{0}`', rtr($path)));
 			else {
                 $this->err(__d('me_tools', 'Failed to set permissions on `{0}`', rtr($path)));
 				$error = TRUE;
@@ -342,7 +342,7 @@ class InstallShell extends BaseShell {
 			if($this->param('force') || $force)
 				return exec(sprintf('sudo chmod -R 777 %s', implode(' ', $this->paths)));
 			
-			$ask = $this->in(__d('me_tools', 'It was not possible to set permissions on some directories. Try again using {0}?', 'sudo'), ['Y', 'n'], 'Y');
+			$ask = $this->in(__d('me_tools', 'It was not possible to set permissions on some directories. Try again using `{0}`?', 'sudo'), ['Y', 'n'], 'Y');
 			if(in_array($ask, ['Y', 'y']))
 				exec(sprintf('sudo chmod -R 777 %s', implode(' ', $this->paths)));
 		}
