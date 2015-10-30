@@ -36,3 +36,6 @@ CONTRIBUTING.md export-ignore
 .gitignore export-ignore
 API/ export-ignore
 apigen.neon
+
+# Ignore for diff
+API/* diff=nodiff
