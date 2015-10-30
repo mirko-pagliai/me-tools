@@ -126,46 +126,35 @@ class LibraryHelper extends Helper {
      * 
      * To know how to install and configure CKEditor, please refer to the `README.md` file.
 	 * 
-	 * CKEditor must be located into `APP/webroot/ckeditor` or `APP/webroot/js/ckeditor`.
+	 * CKEditor must be located into `APP/webroot/ckeditor`.
      * 
      * To create an input field for CKEditor, you should use the `ckeditor()` method provided by the `FormHelper`.
      * @param bool $jquery FALSE if you don't want to use the jQuery adapter
      * @see MeTools\View\Helper\FormHelper::ckeditor()
      * @see http://docs.cksource.com CKEditor documentation
 	 * @uses MeTools\View\Helper\HtmlHelper::js()
-	 * @uses MeTools\Core\Plugin::path()
      */
     public function ckeditor($jquery = TRUE) {
-        //Checks for CKEditor into `APP/webroot/ckeditor/`
-        if(is_readable(WWW_ROOT.'ckeditor'.DS.'ckeditor.js')) {
-            $path = WWW_ROOT.'ckeditor';
-			$url = '/ckeditor';
-		}
-        //Else, checks for CKEditor into `APP/webroot/js/ckeditor/`
-        elseif(is_readable(WWW_ROOT.'js'.DS.'ckeditor'.DS.'ckeditor.js')) {
-            $path = WWW_ROOT.'js'.DS.'ckeditor';
-            $url = '/js/ckeditor';
-        }
-		else
-			return;
+		$path = WWW_ROOT.DS.'ckeditor'.DS;
+		
+		if(!is_readable($path.'ckeditor.js'))
+			return; 
 
-		$scripts = [$url.'/ckeditor'];
+		$scripts = ['/ckeditor/ckeditor'];
 
 		//Checks for the jQuery adapter
 		if($jquery && is_readable($path.DS.'adapters'.DS.'jquery.js'))
-			$scripts[] = $url.'/adapters/jquery';
+			$scripts[] = '/ckeditor/adapters/jquery';
 
-		//Checks for `APP/webroot/js/ckeditor_init.js`
-		if(is_readable(WWW_ROOT.'js'.DS.'ckeditor_init.js'))
-			$scripts[] = 'ckeditor_init';
 		//Checks for `APP/webroot/js/ckeditor_init.php`
-		elseif(is_readable(WWW_ROOT.'js'.DS.'ckeditor_init.php'))
+		if(is_readable(WWW_ROOT.'js'.DS.'ckeditor_init.php'))
 			$scripts[] = 'ckeditor_init.php?';
-		//Else, checks for `APP/plugin/MeTools/webroot/js/ckeditor_init.js`
-		elseif(is_readable(Plugin::path('MeTools', 'webroot'.DS.'js'.DS.'ckeditor_init.js')))
-			$scripts[] = '/MeTools/js/ckeditor_init';
+		//Checks for `APP/webroot/js/ckeditor_init.js`
+		elseif(is_readable(WWW_ROOT.'js'.DS.'ckeditor_init.js'))
+			$scripts[] = 'ckeditor_init';
+		//Else, uses `APP/plugin/MeTools/webroot/js/ckeditor_init.js`
 		else
-			return;
+			$scripts[] = 'MeTools.ckeditor_init.php?';
 		
 		$this->Html->js($scripts, ['block' => 'script_bottom']);
     }

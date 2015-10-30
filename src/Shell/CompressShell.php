@@ -24,13 +24,13 @@ namespace MeTools\Shell;
 
 use Cake\Core\Configure;
 use Cake\Filesystem\Folder;
-use MeTools\Shell\AppShell;
+use MeTools\Shell\Base\BaseShell;
 use MeTools\Utility\Unix;
 
 /**
  * Combines and compresses css and js files
  */
-class CompressShell extends AppShell {
+class CompressShell extends BaseShell {
 	/**
 	 * Parses arguments, checks values and returns input and output files
 	 * @param array $args Arguments
@@ -39,7 +39,7 @@ class CompressShell extends AppShell {
 	protected function _parseArgs($args) {
 		//Checks if there are at least 2 arguments
 		if(!is_array($args) || count($args) < 2)
-			$this->error(__d('me_tools', 'you have to indicate at least two arguments, an input file and an output file'));
+			return $this->error(__d('me_tools', 'You have to indicate at least two arguments, an input file and an output file'));
 		
 		//Gets the output file and the input files. The last argument is the output file, the other arguments are the input files
 		$output = array_pop($args);
@@ -48,15 +48,15 @@ class CompressShell extends AppShell {
 		//Checks that each input files exists and is readable
 		foreach($input as $file)
 			if(!is_readable($file))
-				$this->error(__d('me_tools', '{0} doesn\'t exists or is not readable', $file));
+				$this->error(__d('me_tools', 'The file `{0}` doesn\'t exist or is not readable', $file));
 		
 		//Checks if the output directory is writable
 		if(!is_writable(dirname($output)))
-			$this->error(__d('me_tools', '{0} doesn\'t exists or is not writeable', dirname($output)));
+			return $this->error(__d('me_tools', 'The file `{0}` doesn\'t exist or is not writeable', dirname($output)));
 		
 		//If the output file already exists and the "force" option is empty, asks if the output file should be overwritten
 		if(file_exists($output) && empty($this->params['force']))
-			if($this->in(__d('me_tools', 'The file {0} already exists. Do you want to overwrite it?', $output), ['y', 'n'], 'y') === 'n')
+			if($this->in(__d('me_tools', 'The file `{0}` already exists. Do you want to overwrite it?', $output), ['y', 'n'], 'y') === 'n')
 				return [FALSE, FALSE];
 		
 		return [$input, $output];
@@ -69,21 +69,17 @@ class CompressShell extends AppShell {
 	public function getOptionParser() {
 		$parser = parent::getOptionParser();
 		
-		$parser->addSubcommands([
-				'auto'		=> ['help' => __d('me_tools', 'it searches all the configuration files and automatically combines and compresses')],
-				'config'	=> ['help' => __d('me_tools', 'it combines and compresses files using a configuration file')],
-				'css'		=> ['help' => __d('me_tools', 'it combines and compresses css files')],
-				'js'		=> ['help' => __d('me_tools', 'it combines and compresses js files')],
-			])
-			->addOption('force', [
-				'boolean'	=> TRUE,
-				'default'	=> FALSE,
-				'help'		=> __d('me_tools', 'Force overwriting existing files without prompting'),
-				'short'		=> 'f'
-			])
-			->description(__d('me_tools', 'Combines and compresses css and js files'));
-				
-		return $parser;
+		return $parser->addSubcommands([
+			'auto'		=> ['help' => __d('me_tools', 'it searches all the configuration files and automatically combines and compresses')],
+			'config'	=> ['help' => __d('me_tools', 'it combines and compresses files using a configuration file')],
+			'css'		=> ['help' => __d('me_tools', 'it combines and compresses `{0}` files', 'css')],
+			'js'		=> ['help' => __d('me_tools', 'it combines and compresses `{0}` files', 'js')]
+		])->addOption('force', [
+			'boolean'	=> TRUE,
+			'default'	=> FALSE,
+			'help'		=> __d('me_tools', 'Executes tasks without prompting'),
+			'short'		=> 'f'
+		])->description(__d('me_tools', 'Combines and compresses `{0}` and `{1}` files', 'css', 'js'));
 	}
 	
 	/**
@@ -109,7 +105,7 @@ class CompressShell extends AppShell {
 		}
 		
 		if(empty($files))
-			$this->error(__d('me_tools', 'no configuration files found'));
+			return $this->error(__d('me_tools', 'No configuration files found'));
 		
 		return $this->config($files);
 	}
@@ -123,7 +119,6 @@ class CompressShell extends AppShell {
 	 * Arguments can be passed from the shell. Otherwise, you can call it as a method, passing 
 	 * the configuration files as the first argument
 	 * @param array $args Configuration files
-	 * @return boolean
 	 * @uses css()
 	 * @uses js()
 	 */
@@ -131,24 +126,24 @@ class CompressShell extends AppShell {
 		$args = empty($args) ? $this->args : (is_array($args) ? $args : [$args]);
 		
 		if(!count($args))
-			$this->error(__d('me_tools', 'you have to indicate at least one config file'));
+			return $this->error(__d('me_tools', 'You have to indicate at least one config file'));
 		
 		foreach($args as $file) {
 			if(!is_readable($file))
-				$this->error(__d('me_tools', '{0} doesn\'t exists or is not readable', $file));
+				$this->error(__d('me_tools', 'The file `{0}` doesn\'t exist or is not readable', $file));
 			
 			Configure::config('default', new \Cake\Core\Configure\Engine\PhpConfig(dirname($file).DS));
 			Configure::load(pathinfo($file, PATHINFO_FILENAME), 'default');
 			
 			foreach(Configure::consume('Assets') as $asset) {
 				if(empty($asset['input']) || (!is_string($asset['input']) && !is_array($asset['input'])))
-					$this->error(__d('me_tools', 'the "%s" option is not present or is invalid', 'input'));
+					$this->error(__d('me_tools', 'The `{0}` option is not present or is invalid', 'input'));
 				
 				if(empty($asset['output']) || !is_string($asset['output']))
-					$this->error(__d('me_tools', 'the "%s" option is not present or is invalid', 'output'));
+					$this->error(__d('me_tools', 'The `{0}` option is not present or is invalid', 'output'));
 				
 				if(empty($asset['type']) || !in_array($asset['type'], ['css', 'js']))
-					$this->error(__d('me_tools', 'the "%s" option is not present or is invalid', 'type'));
+					$this->error(__d('me_tools', 'The `{0}` option is not present or is invalid', 'type'));
 				
 				//Adds the extension to the input files
 				array_walk($asset['input'], function(&$v, $k, $type) {
@@ -169,8 +164,6 @@ class CompressShell extends AppShell {
 				}
 			}
 		}
-		
-		return TRUE;
 	}
 	
 	/**
@@ -181,16 +174,13 @@ class CompressShell extends AppShell {
 	 * 
 	 * Arguments can be passed from the shell. Otherwise, you can call it as a method, passing 
 	 * the input files as the first argument and the output file as the second argument
-	 * @return bool
 	 * @uses MeTools\Utility\Unix::which()
 	 * @uses _parseArgs()
 	 */
-	public function css() {
-		$bin = Unix::which('cleancss');
-		
+	public function css() {		
 		//Checks for Clean-css
-		if(!$bin)
-			$this->error(__d('me_tools', 'I can\'t find {0}', 'Clean-css'));
+		if(!($bin = Unix::which('cleancss')))
+			return $this->error(__d('me_tools', 'I can\'t find `{0}`', 'Clean-css'));
 		
 		if(func_num_args())
 			$args = am(is_array(func_get_arg(0)) ? func_get_arg(0) : [func_get_arg(0)], is_array(func_get_arg(1)) ? func_get_arg(1) : [func_get_arg(1)]);
@@ -199,7 +189,7 @@ class CompressShell extends AppShell {
 		list($input, $output) = $this->_parseArgs(empty($args) ? $this->args : $args);
 		
 		if(!$input || !$output)
-			return FALSE;
+			return;
 		
 		$created = (bool) !file_exists($output);
 		
@@ -207,11 +197,9 @@ class CompressShell extends AppShell {
 		exec(sprintf('%s -o %s %s', $bin, $output, implode(' ', $input)));
 		
 		if($created)
-			$this->success(__d('me_tools', 'The file {0} has been created', $output));
+			$this->success(__d('me_tools', 'The file `{0}` has been created', $output));
 		else
-			$this->success(__d('me_tools', 'The file {0} has been updated', $output));
-		
-		return TRUE;
+			$this->success(__d('me_tools', 'The file `{0}` has been updated', $output));
 	}
 
 	/**
@@ -227,10 +215,8 @@ class CompressShell extends AppShell {
 	 * @uses _parseArgs()
 	 */
 	public function js() {
-		$bin = Unix::which('uglifyjs');
-		
-		if(!$bin)
-			$this->error(__d('me_tools', 'I can\'t find {0}', 'UglifyJS'));
+		if(!($bin = Unix::which('uglifyjs')))
+			return $this->error(__d('me_tools', 'I can\'t find `{0}`', 'UglifyJS'));
 		
 		if(func_num_args())
 			$args = am(is_array(func_get_arg(0)) ? func_get_arg(0) : [func_get_arg(0)], is_array(func_get_arg(1)) ? func_get_arg(1) : [func_get_arg(1)]);
@@ -239,7 +225,7 @@ class CompressShell extends AppShell {
 		list($input, $output) = $this->_parseArgs(empty($args) ? $this->args : $args);
 		
 		if(!$input || !$output)
-			return FALSE;
+			return;
 		
 		$created = (bool) !file_exists($output);
 		
@@ -250,10 +236,8 @@ class CompressShell extends AppShell {
 		exec(sprintf('%s --mangle --comments "%s" -o %s %s', $bin, $comments, $output, implode(' ', $input)));
 		
 		if($created)
-			$this->success(__d('me_tools', 'The file {0} has been created', $output));
+			$this->success(__d('me_tools', 'The file `{0}` has been created', $output));
 		else
-			$this->success(__d('me_tools', 'The file {0} has been updated', $output));
-		
-		return TRUE;
+			$this->success(__d('me_tools', 'The file `{0}` has been updated', $output));
 	}
 }

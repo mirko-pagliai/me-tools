@@ -5,8 +5,8 @@
     "type": "cakephp-plugin",
     "license": "AGPL",
 	"authors": [{
-            "name": "Mirko Pagliai",
-            "email": "mirko.pagliai@gmail.com"
+		"name": "Mirko Pagliai",
+		"email": "mirko.pagliai@gmail.com"
     }],
 	"require": {
         "php": ">=5.4.16",
@@ -14,9 +14,7 @@
 		"ext-mcrypt": "*",
 		"michelf/php-markdown": "1.*",
         "components/jquery": "2.1.*",
-		"fortawesome/font-awesome": "4.*",
-		"twbs/bootstrap": "3.*",
-		"eonasdan/bootstrap-datetimepicker": "4.*"
+		"fortawesome/font-awesome": "4.*"
     },
     "autoload": {
 		"psr-4": {

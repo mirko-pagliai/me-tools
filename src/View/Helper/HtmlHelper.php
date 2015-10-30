@@ -19,7 +19,7 @@
  * @copyright	Copyright (c) 2015, Mirko Pagliai for Nova Atlantis Ltd
  * @license		http://www.gnu.org/licenses/agpl.txt AGPL License
  * @link		http://git.novatlantis.it Nova Atlantis Ltd
- * @see			http://api.cakephp.org/3.0/class-Cake.View.Helper.HtmlHelper.html HtmlHelper
+ * @see			http://api.cakephp.org/3.1/class-Cake.View.Helper.HtmlHelper.html HtmlHelper
  */
 namespace MeTools\View\Helper;
 
@@ -29,7 +29,7 @@ use Cake\View\View;
 /**
  * Provides functionalities for HTML code.
  * 
- * Rewrites the {@link http://api.cakephp.org/3.0/class-Cake.View.Helper.HtmlHelper.html HtmlHelper}.
+ * Rewrites the {@link http://api.cakephp.org/3.1/class-Cake.View.Helper.HtmlHelper.html HtmlHelper}.
  * 
  * You should use this helper as an alias, for example:
  * <code>
