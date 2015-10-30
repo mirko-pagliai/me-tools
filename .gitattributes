@@ -38,4 +38,4 @@ API/ export-ignore
 apigen.neon
 
 # Ignore for diff
-API/* diff=nodiff
+API/* -diff
