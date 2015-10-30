@@ -25,7 +25,7 @@ namespace MeTools\Shell;
 use Cake\Filesystem\File;
 use MeTools\Shell\Base\BaseShell;
 use MeTools\Utility\Thumbs;
-use useMeTools\Utility\Unix;
+use MeTools\Utility\Unix;
 
 /**
  * Executes some tasks to make the system ready to work
@@ -115,8 +115,8 @@ class InstallShell extends BaseShell {
 	 */
 	public function all() {
 		if($this->param('force')) {
-			$this->createDirectories();
-			$this->setPermissions();
+			$this->createDirectories(TRUE);
+			$this->setPermissions(TRUE);
 			$this->createRobots();
 			$this->fixComposerJson();
 			$this->installPackages(TRUE);
@@ -156,7 +156,7 @@ class InstallShell extends BaseShell {
 	 * @uses MeTools\Utility\Unix::which()
 	 * @uses $paths
 	 */
-	public function createDirectories($force) {
+	public function createDirectories($force = FALSE) {
 		$error = FALSE;
 		
 		foreach($this->paths as $path) {
