@@ -130,7 +130,7 @@ class CompressShell extends BaseShell {
 		
 		foreach($args as $file) {
 			if(!is_readable($file))
-				$this->error(__d('me_tools', 'The file `{0}` doesn\'t exists or is not readable', $file));
+				$this->error(__d('me_tools', 'The file `{0}` doesn\'t exist or is not readable', $file));
 			
 			Configure::config('default', new \Cake\Core\Configure\Engine\PhpConfig(dirname($file).DS));
 			Configure::load(pathinfo($file, PATHINFO_FILENAME), 'default');
