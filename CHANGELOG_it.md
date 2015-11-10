@@ -1,5 +1,8 @@
 # 2.x ramo
 ## 2.1 ramo
+### 2.1.2
+* risolto un bug riguardante i form su Firefox.
+
 ### 2.1.1-RC3
 * aggiunta la console d'installazione.
 
