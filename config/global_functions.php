@@ -127,10 +127,8 @@ if(!function_exists('folder_is_writable')) {
 	function folder_is_writable($dir) {
 		if(!is_readable($dir) || !is_writable($dir))
 			return FALSE;
-		
-		$folder = new \Cake\Filesystem\Folder();
 
-        foreach($folder->tree($dir, FALSE, 'dir') as $subdir)
+        foreach((new \Cake\Filesystem\Folder())->tree($dir, FALSE, 'dir') as $subdir)
             if(!is_readable($subdir) || !is_writable($subdir))
                 return FALSE;
 

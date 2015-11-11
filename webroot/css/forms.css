@@ -18,9 +18,12 @@ form .input {
 	position: relative;
 }
 
-/* Submit wrapper after fieldset */
-form fieldset + .submit {
-	margin: 0;
+/* Form, fielset (only for Firefox) )*/
+/* See @http://stackoverflow.com/a/17863685/1480263 */
+@-moz-document url-prefix() {
+    fieldset {
+        display: table-cell;
+    }
 }
 
 /* -------------------------------- */
@@ -133,9 +136,8 @@ form > .float-form {
 	/* Float form */
 	form > .float-form {
 		float: right;
-		margin: 0 0 20px 20px;
-		max-width: 26%;
-		min-width: 20%;
+		margin-bottom: 20px;
+		width: 22%;
 	}
 
 	/* Float form on left */
@@ -152,6 +154,11 @@ form > .float-form {
 	/* Float form, select input */
 	form > .float-form select {
 		width: 100% !important;
+	}
+	
+	form > .float-form + fieldset {
+		padding-right: 20px;
+		width: 78%;
 	}
 }
 

@@ -1,5 +1,8 @@
 # 2.x branch
 ## 2.1 branch
+### 2.1.2
+* fixed a bug with forms on Firefox.
+
 ### 2.1.1-RC3
 * added the installer console.
 
