@@ -24,7 +24,6 @@
 namespace MeTools\View\Helper;
 
 use Cake\View\Helper\HtmlHelper as CakeHtmlHelper;
-use Cake\View\View;
 
 /**
  * Provides functionalities for HTML code.
