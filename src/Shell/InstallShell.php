@@ -90,6 +90,7 @@ class InstallShell extends BaseShell {
 			TMP.'cache'.DS.'views',
 			TMP.'sessions',
 			TMP.'tests',
+			WWW_ROOT.'assets',
 			WWW_ROOT.'files',
 			WWW_ROOT.'vendor',
 			dirname(Thumbs::photo()),
