@@ -282,7 +282,7 @@ class InstallShell extends BaseShell {
 					$this->err(__d('me_tools', 'Failed to create a symbolic link to `{0}`', rtr($destination)));
 			}
 		else
-			$this->err(__d('me_tools', 'The file `{0}` doesn\'t exist or is not writeable', rtr($destinationDir)));
+			$this->err(__d('me_tools', 'The directory {0} is not writable', rtr($destinationDir)));
 	}
 	
 	/**
