@@ -288,7 +288,7 @@ class ThumbsController extends AppController {
 		if(!is_readable($this->thumb)) {
 			//Checks if the target directory is writable
 			if(!is_writable(dirname($this->thumb)))
-				throw new InternalErrorException(__d('me_tools', 'The target directory {0} is not writable', dirname($this->thumb)));
+				throw new InternalErrorException(__d('me_tools', 'The directory {0} is not writable', dirname($this->thumb)));
 			
 			//Creates the thumbnail
 			if(preg_match('/image\/\S+/', $mime))
