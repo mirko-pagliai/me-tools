@@ -33,6 +33,13 @@ use MeTools\Utility\Unix;
 class InstallShell extends BaseShell {
 	/**
 	 * Assets for which create symbolic links.
+	 * @see __construct()
+	 * @var array
+	 */
+	protected $fonts = [];
+	
+	/**
+	 * Assets for which create symbolic links.
 	 * The key must be relative to `vendor/` and the value must be relative to `webroot/vendor/`
 	 * @see __construct()
 	 * @var array
@@ -58,12 +65,19 @@ class InstallShell extends BaseShell {
 	 * @uses MeTools\Utility\Thumbs::photo()
 	 * @uses MeTools\Utility\Thumbs::remote()
 	 * @uses MeTools\Utility\Thumbs::video()
+	 * @uses $fonts
 	 * @uses $links
 	 * @uses $packages
 	 * @uses $paths
 	 */
 	public function __construct() {
 		parent::__construct();
+		
+		//Assets for which create symbolic links.
+		$this->fonts = [
+			'vendor/fortawesome/font-awesome/fonts/fontawesome-webfont.ttf',
+			'vendor/fortawesome/font-awesome/fonts/fontawesome-webfont.woff',
+		];
 		
 		//Assets for which create symbolic links
 		$this->links = [
@@ -92,6 +106,7 @@ class InstallShell extends BaseShell {
 			TMP.'tests',
 			WWW_ROOT.'assets',
 			WWW_ROOT.'files',
+			WWW_ROOT.'fonts',
 			WWW_ROOT.'vendor',
 			dirname(Thumbs::photo()),
 			Thumbs::photo(),
@@ -107,6 +122,7 @@ class InstallShell extends BaseShell {
 	
 	/**
 	 * Executes all available tasks
+	 * @uses copyFonts()
 	 * @uses createDirectories()
 	 * @uses createRobots()
 	 * @uses createSymbolicLinks()
@@ -122,6 +138,7 @@ class InstallShell extends BaseShell {
 			$this->fixComposerJson();
 			$this->installPackages(TRUE);
 			$this->createSymbolicLinks();
+			$this->copyFonts();
 			
 			return;
 		}
@@ -149,7 +166,42 @@ class InstallShell extends BaseShell {
 		$ask = $this->in(__d('me_tools', 'Create symbolic links for vendor assets?'), ['Y', 'n'], 'Y');
 		if(in_array($ask, ['Y', 'y']))
 			$this->createSymbolicLinks();
+		
+		$ask = $this->in(__d('me_tools', 'Create symbolic links for fonts?'), ['Y', 'n'], 'Y');
+		if(in_array($ask, ['Y', 'y']))
+			$this->copyFonts();
     }
+	
+	/**
+	 * Creates symbolic links for fonts
+	 * @uses $fonts
+	 */
+	public function copyFonts() {
+		//Checks if the target directory (`webroot/fonts/`) is writeable
+		if(is_writable($destinationDir = WWW_ROOT.'fonts')) {
+			foreach($this->fonts as $font) {
+				$origin = ROOT.DS.$font;
+
+				//Continues, if the origin file doesn't exist
+				if(!file_exists($origin))
+					continue;
+				
+				$destination = $destinationDir.DS.basename($origin);
+				
+				//Continues, if the link already exists
+				if(file_exists($destination))
+					continue;
+
+				//Creates the symbolic link
+				if(@symlink($origin, $destination))
+					$this->verbose(__d('me_tools', 'Created symbolic link to `{0}`', rtr($destination)));
+				else
+					$this->err(__d('me_tools', 'Failed to create a symbolic link to `{0}`', rtr($destination)));
+			}
+		}
+		else
+			$this->err(__d('me_tools', 'The directory {0} is not writable', rtr($destinationDir)));
+	}
 
 	/**
 	 * Creates directories
@@ -213,7 +265,7 @@ class InstallShell extends BaseShell {
 			foreach($this->links as $origin => $destination) {
 				$origin = ROOT.DS.'vendor'.DS.$origin;
 
-				//Continues, if the vendor doesn't exist
+				//Continues, if the origin file doesn't exist
 				if(!file_exists($origin))
 					continue;
 
@@ -265,6 +317,7 @@ class InstallShell extends BaseShell {
 		
 		return $parser->addSubcommands([
 			'all'					=> ['help' => __d('me_tools', 'it executes all available tasks')],
+			'copyFonts'				=> ['help' => __d('me_tools', 'it creates symbolic links for fonts')],
 			'createDirectories'		=> ['help' => __d('me_tools', 'it creates default directories')],
 			'createRobots'			=> ['help' => __d('me_tools', 'it creates the `{0}` file', 'robots.txt')],
 			'createSymbolicLinks'	=> ['help' => __d('me_tools', 'it creates symbolic links for vendor assets')],
