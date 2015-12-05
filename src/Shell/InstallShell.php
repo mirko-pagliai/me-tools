@@ -33,6 +33,7 @@ use MeTools\Utility\Unix;
 class InstallShell extends BaseShell {
 	/**
 	 * Assets for which create symbolic links.
+	 * Full path for each font
 	 * @see __construct()
 	 * @var array
 	 */
@@ -73,10 +74,10 @@ class InstallShell extends BaseShell {
 	public function __construct() {
 		parent::__construct();
 		
-		//Assets for which create symbolic links.
+		//Assets for which create symbolic links (full paths)
 		$this->fonts = [
-			'vendor/fortawesome/font-awesome/fonts/fontawesome-webfont.ttf',
-			'vendor/fortawesome/font-awesome/fonts/fontawesome-webfont.woff',
+			ROOT.DS.'vendor/fortawesome/font-awesome/fonts/fontawesome-webfont.ttf',
+			ROOT.DS.'vendor/fortawesome/font-awesome/fonts/fontawesome-webfont.woff',
 		];
 		
 		//Assets for which create symbolic links
@@ -179,9 +180,7 @@ class InstallShell extends BaseShell {
 	public function copyFonts() {
 		//Checks if the target directory (`webroot/fonts/`) is writeable
 		if(is_writable($destinationDir = WWW_ROOT.'fonts')) {
-			foreach($this->fonts as $font) {
-				$origin = ROOT.DS.$font;
-
+			foreach($this->fonts as $origin) {
 				//Continues, if the origin file doesn't exist
 				if(!file_exists($origin))
 					continue;
