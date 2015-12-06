@@ -80,7 +80,9 @@ class AssetHelper extends Helper {
 	 * @uses $plugins
 	 */
 	protected function _parsePaths($paths, $extension) {
-		foreach(is_array($paths) ? $paths : [$paths] as $k => $path) {
+		$paths = is_array($paths) ? $paths : [$paths];
+		
+		foreach($paths as $k => $path) {
 			$plugin = pluginSplit($path);
 			
 			if(in_array($plugin[0], $this->plugins))
