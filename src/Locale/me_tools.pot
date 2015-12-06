@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2015-10-30 17:10+0000\n"
+"POT-Creation-Date: 2015-12-06 10:58+0000\n"
 "PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
 "Last-Translator: NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
@@ -26,7 +26,9 @@ msgstr ""
 msgid "{0} is not available"
 msgstr ""
 
-#: Controller/ThumbsController.php:215
+#: Controller/ThumbsController.php:215;291
+#: Shell/InstallShell.php:202;284
+#: View/Helper/AssetHelper.php:68
 msgid "The directory {0} is not writable"
 msgstr ""
 
@@ -36,10 +38,6 @@ msgstr ""
 
 #: Controller/ThumbsController.php:285
 msgid "The mime type {0} is not supported"
-msgstr ""
-
-#: Controller/ThumbsController.php:291
-msgid "The target directory {0} is not writable"
 msgstr ""
 
 #: Controller/Component/RecaptchaComponent.php:49
@@ -55,191 +53,152 @@ msgstr ""
 msgid "It was not possible to verify the {0} control"
 msgstr ""
 
-#: Shell/CompressShell.php:42
-msgid "You have to indicate at least two arguments, an input file and an output file"
-msgstr ""
-
-#: Shell/CompressShell.php:51;133
-msgid "The file `{0}` doesn't exist or is not readable"
-msgstr ""
-
-#: Shell/CompressShell.php:55
-#: Shell/InstallShell.php:232;240
-msgid "The file `{0}` doesn't exist or is not writeable"
-msgstr ""
-
-#: Shell/CompressShell.php:59
-msgid "The file `{0}` already exists. Do you want to overwrite it?"
-msgstr ""
-
-#: Shell/CompressShell.php:73
-msgid "it searches all the configuration files and automatically combines and compresses"
-msgstr ""
-
-#: Shell/CompressShell.php:74
-msgid "it combines and compresses files using a configuration file"
-msgstr ""
-
-#: Shell/CompressShell.php:75;76
-msgid "it combines and compresses `{0}` files"
-msgstr ""
-
-#: Shell/CompressShell.php:80
-#: Shell/InstallShell.php:276
-msgid "Executes tasks without prompting"
-msgstr ""
-
-#: Shell/CompressShell.php:82
-msgid "Combines and compresses `{0}` and `{1}` files"
-msgstr ""
-
-#: Shell/CompressShell.php:108
-msgid "No configuration files found"
-msgstr ""
-
-#: Shell/CompressShell.php:129
-msgid "You have to indicate at least one config file"
-msgstr ""
-
-#: Shell/CompressShell.php:140;143;146
-msgid "The `{0}` option is not present or is invalid"
-msgstr ""
-
-#: Shell/CompressShell.php:183;219
-#: Shell/InstallShell.php:290
-msgid "I can't find `{0}`"
-msgstr ""
-
-#: Shell/CompressShell.php:200;239
-#: Shell/InstallShell.php:200
-msgid "The file `{0}` has been created"
-msgstr ""
-
-#: Shell/CompressShell.php:202;241
-msgid "The file `{0}` has been updated"
-msgstr ""
-
-#: Shell/InstallShell.php:128
+#: Shell/InstallShell.php:147
 msgid "Create default directories?"
 msgstr ""
 
-#: Shell/InstallShell.php:132
+#: Shell/InstallShell.php:151
 msgid "Set directories permissions?"
 msgstr ""
 
-#: Shell/InstallShell.php:136
+#: Shell/InstallShell.php:155
 msgid "Create `{0}`?"
 msgstr ""
 
-#: Shell/InstallShell.php:140
+#: Shell/InstallShell.php:159
 msgid "Fix `{0}`?"
 msgstr ""
 
-#: Shell/InstallShell.php:144
+#: Shell/InstallShell.php:163
 msgid "Install the suggested packages?"
 msgstr ""
 
-#: Shell/InstallShell.php:148
+#: Shell/InstallShell.php:167
 msgid "Create symbolic links for vendor assets?"
 msgstr ""
 
-#: Shell/InstallShell.php:165
-msgid "Created `{0}` directory"
+#: Shell/InstallShell.php:171
+msgid "Create symbolic links for fonts?"
 msgstr ""
 
-#: Shell/InstallShell.php:167
-msgid "Failed to create directory `{0}`"
-msgstr ""
-
-#: Shell/InstallShell.php:172
-msgid "The directory `{0}` already exists"
-msgstr ""
-
-#: Shell/InstallShell.php:180
-msgid "It was not possible to create some directories. Try again using `{0}`?"
-msgstr ""
-
-#: Shell/InstallShell.php:191
-msgid "The file `{0}` already exists"
-msgstr ""
-
-#: Shell/InstallShell.php:202
-msgid "The file `{0}` has not been created"
-msgstr ""
-
-#: Shell/InstallShell.php:227
+#: Shell/InstallShell.php:196;279
 msgid "Created symbolic link to `{0}`"
 msgstr ""
 
-#: Shell/InstallShell.php:229
+#: Shell/InstallShell.php:198;281
 msgid "Failed to create a symbolic link to `{0}`"
 msgstr ""
 
-#: Shell/InstallShell.php:247
+#: Shell/InstallShell.php:217
+msgid "Created `{0}` directory"
+msgstr ""
+
+#: Shell/InstallShell.php:219
+msgid "Failed to create directory `{0}`"
+msgstr ""
+
+#: Shell/InstallShell.php:224
+msgid "The directory `{0}` already exists"
+msgstr ""
+
+#: Shell/InstallShell.php:232
+msgid "It was not possible to create some directories. Try again using `{0}`?"
+msgstr ""
+
+#: Shell/InstallShell.php:243
+msgid "The file `{0}` already exists"
+msgstr ""
+
+#: Shell/InstallShell.php:252
+msgid "The file `{0}` has been created"
+msgstr ""
+
+#: Shell/InstallShell.php:254
+msgid "The file `{0}` has not been created"
+msgstr ""
+
+#: Shell/InstallShell.php:292
+msgid "The file `{0}` doesn't exist or is not writeable"
+msgstr ""
+
+#: Shell/InstallShell.php:299
 msgid "The file `{0}` doesn't need to be fixed"
 msgstr ""
 
-#: Shell/InstallShell.php:253
+#: Shell/InstallShell.php:305
 msgid "The file `{0}` has been fixed"
 msgstr ""
 
-#: Shell/InstallShell.php:255
+#: Shell/InstallShell.php:307
 msgid "The file `{0}` has not been fixed"
 msgstr ""
 
-#: Shell/InstallShell.php:266
+#: Shell/InstallShell.php:318
 msgid "it executes all available tasks"
 msgstr ""
 
-#: Shell/InstallShell.php:267
+#: Shell/InstallShell.php:319
+msgid "it creates symbolic links for fonts"
+msgstr ""
+
+#: Shell/InstallShell.php:320
 msgid "it creates default directories"
 msgstr ""
 
-#: Shell/InstallShell.php:268
+#: Shell/InstallShell.php:321
 msgid "it creates the `{0}` file"
 msgstr ""
 
-#: Shell/InstallShell.php:269
+#: Shell/InstallShell.php:322
 msgid "it creates symbolic links for vendor assets"
 msgstr ""
 
-#: Shell/InstallShell.php:270
+#: Shell/InstallShell.php:323
 msgid "it fixes `{0}`"
 msgstr ""
 
-#: Shell/InstallShell.php:271
+#: Shell/InstallShell.php:324
 msgid "it install the suggested packages"
 msgstr ""
 
-#: Shell/InstallShell.php:272
+#: Shell/InstallShell.php:325
 msgid "it sets permissions on directories"
 msgstr ""
 
-#: Shell/InstallShell.php:278
+#: Shell/InstallShell.php:329
+msgid "Executes tasks without prompting"
+msgstr ""
+
+#: Shell/InstallShell.php:331
 msgid "Executes some tasks to make the system ready to work"
 msgstr ""
 
-#: Shell/InstallShell.php:298
+#: Shell/InstallShell.php:343
+#: View/Helper/AssetHelper.php:131;180
+msgid "I can't find `{0}`"
+msgstr ""
+
+#: Shell/InstallShell.php:351
 msgid "Do you want to install `{0}`?"
 msgstr ""
 
-#: Shell/InstallShell.php:304
+#: Shell/InstallShell.php:357
 msgid "No package has been selected for installation"
 msgstr ""
 
-#: Shell/InstallShell.php:316
+#: Shell/InstallShell.php:369
 msgid "All packages are already installed"
 msgstr ""
 
-#: Shell/InstallShell.php:333
+#: Shell/InstallShell.php:386
 msgid "Setted permissions on `{0}`"
 msgstr ""
 
-#: Shell/InstallShell.php:335
+#: Shell/InstallShell.php:388
 msgid "Failed to set permissions on `{0}`"
 msgstr ""
 
-#: Shell/InstallShell.php:345
+#: Shell/InstallShell.php:398
 msgid "It was not possible to set permissions on some directories. Try again using `{0}`?"
 msgstr ""
 
@@ -253,6 +212,10 @@ msgstr ""
 
 #: Template/Element/paginator.ctp:52
 msgid "Previous"
+msgstr ""
+
+#: View/Helper/AssetHelper.php:138;187
+msgid "Impossible to create the file {0}"
 msgstr ""
 
 #: View/Helper/RecaptchaHelper.php:139

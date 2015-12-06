@@ -3,8 +3,8 @@
 #
 msgid ""
 msgstr ""
-"POT-Creation-Date: 2015-10-30 17:10+0000\n"
-"PO-Revision-Date: 2015-10-30 18:11+0100\n"
+"POT-Creation-Date: 2015-12-06 10:58+0000\n"
+"PO-Revision-Date: 2015-12-06 11:59+0100\n"
 "Last-Translator: Mirko Pagliai <mirko.pagliai.it>\n"
 "Language-Team: Italian <>\n"
 "MIME-Version: 1.0\n"
@@ -25,7 +25,9 @@ msgstr "La miniatura {0} non è stata creata"
 msgid "{0} is not available"
 msgstr "{0} non è disponibile"
 
-#: Controller/ThumbsController.php:215
+#: Controller/ThumbsController.php:215;291
+#: Shell/InstallShell.php:202;284
+#: View/Helper/AssetHelper.php:68
 msgid "The directory {0} is not writable"
 msgstr "La directory di destinazione {0} non è scrivibile"
 
@@ -36,10 +38,6 @@ msgstr "Il file {0} non esiste oppure non è leggibile"
 #: Controller/ThumbsController.php:285
 msgid "The mime type {0} is not supported"
 msgstr "Il mime type {0} non è supportato"
-
-#: Controller/ThumbsController.php:291
-msgid "The target directory {0} is not writable"
-msgstr "La directory di destinazione {0} non è scrivibile"
 
 #: Controller/Component/RecaptchaComponent.php:49
 msgid "You have not filled out the {0} control"
@@ -54,198 +52,153 @@ msgstr "Le chiavi dei form non sono configurate"
 msgid "It was not possible to verify the {0} control"
 msgstr "Non è stato possibile verificare il controllo {0}"
 
-#: Shell/CompressShell.php:42
-msgid ""
-"You have to indicate at least two arguments, an input file and an output file"
-msgstr ""
-"Devi indicare almeno due argomenti, un file di input e un file di output"
-
-#: Shell/CompressShell.php:51;133
-msgid "The file `{0}` doesn't exist or is not readable"
-msgstr "Il file `{0}` non esiste oppure non è leggibile"
-
-#: Shell/CompressShell.php:55
-#: Shell/InstallShell.php:232;240
-msgid "The file `{0}` doesn't exist or is not writeable"
-msgstr "Il file `{0}` non esiste oppure non è scrivibile"
-
-#: Shell/CompressShell.php:59
-msgid "The file `{0}` already exists. Do you want to overwrite it?"
-msgstr "Il file `{0}` già esiste. Vuoi sovrascriverlo?"
-
-#: Shell/CompressShell.php:73
-msgid ""
-"it searches all the configuration files and automatically combines and "
-"compresses"
-msgstr ""
-"cerca tutti i file di configurazione e automaticamente li combina e li "
-"comprime"
-
-#: Shell/CompressShell.php:74
-msgid "it combines and compresses files using a configuration file"
-msgstr "combina e comprime file utilizzando un file di configurazione"
-
-#: Shell/CompressShell.php:75;76
-msgid "it combines and compresses `{0}` files"
-msgstr "Combina e comprime file `{0}`"
-
-#: Shell/CompressShell.php:80
-#: Shell/InstallShell.php:276
-msgid "Executes tasks without prompting"
-msgstr "Esegue le operazioni senza interazioni"
-
-#: Shell/CompressShell.php:82
-msgid "Combines and compresses `{0}` and `{1}` files"
-msgstr "Combina e comprime file `{0}` e `{1}`"
-
-#: Shell/CompressShell.php:108
-msgid "No configuration files found"
-msgstr "Nessun file di configurazione trovato"
-
-#: Shell/CompressShell.php:129
-msgid "You have to indicate at least one config file"
-msgstr "Devi indicare almeno un file di configurazione"
-
-#: Shell/CompressShell.php:140;143;146
-msgid "The `{0}` option is not present or is invalid"
-msgstr "L'opzione `{0}` non è presente o non è valida"
-
-#: Shell/CompressShell.php:183;219
-#: Shell/InstallShell.php:290
-msgid "I can't find `{0}`"
-msgstr "Non riesco a trovare {`0}`"
-
-#: Shell/CompressShell.php:200;239
-#: Shell/InstallShell.php:200
-msgid "The file `{0}` has been created"
-msgstr "Il file `{0}` è stato creato"
-
-#: Shell/CompressShell.php:202;241
-msgid "The file `{0}` has been updated"
-msgstr "Il file `{0}` è stato aggiornato"
-
-#: Shell/InstallShell.php:128
+#: Shell/InstallShell.php:147
 msgid "Create default directories?"
 msgstr "Creare le directory di default?"
 
-#: Shell/InstallShell.php:132
+#: Shell/InstallShell.php:151
 msgid "Set directories permissions?"
 msgstr "Impostare i permessi delle directory?"
 
-#: Shell/InstallShell.php:136
+#: Shell/InstallShell.php:155
 msgid "Create `{0}`?"
 msgstr "Creare `{0}`?"
 
-#: Shell/InstallShell.php:140
+#: Shell/InstallShell.php:159
 msgid "Fix `{0}`?"
 msgstr "Sistemare `{0}`?"
 
-#: Shell/InstallShell.php:144
+#: Shell/InstallShell.php:163
 msgid "Install the suggested packages?"
 msgstr "Installare i pacchetti suggeriti?"
 
-#: Shell/InstallShell.php:148
+#: Shell/InstallShell.php:167
 msgid "Create symbolic links for vendor assets?"
 msgstr "Creare link simbolici agli asset vendor?"
 
-#: Shell/InstallShell.php:165
+#: Shell/InstallShell.php:171
+msgid "Create symbolic links for fonts?"
+msgstr "Creare link simbolici per i font?"
+
+#: Shell/InstallShell.php:196;279
+msgid "Created symbolic link to `{0}`"
+msgstr "Creato link simbolico `{0}`"
+
+#: Shell/InstallShell.php:198;281
+msgid "Failed to create a symbolic link to `{0}`"
+msgstr "Impossibile creare il link simbolico `{0}`"
+
+#: Shell/InstallShell.php:217
 msgid "Created `{0}` directory"
 msgstr "Creata directory `{0}`"
 
-#: Shell/InstallShell.php:167
+#: Shell/InstallShell.php:219
 msgid "Failed to create directory `{0}`"
 msgstr "Impossibile creare la directory `{0}`"
 
-#: Shell/InstallShell.php:172
+#: Shell/InstallShell.php:224
 msgid "The directory `{0}` already exists"
 msgstr "La directory `{0}` esiste già"
 
-#: Shell/InstallShell.php:180
+#: Shell/InstallShell.php:232
 msgid "It was not possible to create some directories. Try again using `{0}`?"
 msgstr ""
 "Non è stato possibile creare alcune directory. Riprovare utilizzando `{`0}`?"
 
-#: Shell/InstallShell.php:191
+#: Shell/InstallShell.php:243
 msgid "The file `{0}` already exists"
 msgstr "Il file `{0}` già esiste"
 
-#: Shell/InstallShell.php:202
+#: Shell/InstallShell.php:252
+msgid "The file `{0}` has been created"
+msgstr "Il file `{0}` è stato creato"
+
+#: Shell/InstallShell.php:254
 msgid "The file `{0}` has not been created"
 msgstr "Il file `{0}` non è stato creato"
 
-#: Shell/InstallShell.php:227
-msgid "Created symbolic link to `{0}`"
-msgstr "Creato link simbolico `{0}`"
+#: Shell/InstallShell.php:292
+msgid "The file `{0}` doesn't exist or is not writeable"
+msgstr "Il file `{0}` non esiste oppure non è scrivibile"
 
-#: Shell/InstallShell.php:229
-msgid "Failed to create a symbolic link to `{0}`"
-msgstr "Impossibile creare il link simbolico `{0}`"
-
-#: Shell/InstallShell.php:247
+#: Shell/InstallShell.php:299
 msgid "The file `{0}` doesn't need to be fixed"
 msgstr "Il file `{0}` non ha bisogno di essere sistemato"
 
-#: Shell/InstallShell.php:253
+#: Shell/InstallShell.php:305
 msgid "The file `{0}` has been fixed"
 msgstr "Il file `{0}` è stato sistemato"
 
-#: Shell/InstallShell.php:255
+#: Shell/InstallShell.php:307
 msgid "The file `{0}` has not been fixed"
 msgstr "Il file `{0}` non è stato sistemato"
 
-#: Shell/InstallShell.php:266
+#: Shell/InstallShell.php:318
 msgid "it executes all available tasks"
 msgstr "esegue tutte le operazioni disponibili"
 
-#: Shell/InstallShell.php:267
+#: Shell/InstallShell.php:319
+msgid "it creates symbolic links for fonts"
+msgstr "crea i link simbolici per i font"
+
+#: Shell/InstallShell.php:320
 msgid "it creates default directories"
 msgstr "crea le directory di default"
 
-#: Shell/InstallShell.php:268
+#: Shell/InstallShell.php:321
 msgid "it creates the `{0}` file"
 msgstr "crea il file `{0}`"
 
-#: Shell/InstallShell.php:269
+#: Shell/InstallShell.php:322
 msgid "it creates symbolic links for vendor assets"
 msgstr "crea i link simbolici agli asset vendor"
 
-#: Shell/InstallShell.php:270
+#: Shell/InstallShell.php:323
 msgid "it fixes `{0}`"
 msgstr "sistema `{0}`"
 
-#: Shell/InstallShell.php:271
+#: Shell/InstallShell.php:324
 msgid "it install the suggested packages"
 msgstr "installa i pacchetti suggeriti"
 
-#: Shell/InstallShell.php:272
+#: Shell/InstallShell.php:325
 msgid "it sets permissions on directories"
 msgstr "imposta i permessi delle directory"
 
-#: Shell/InstallShell.php:278
+#: Shell/InstallShell.php:329
+msgid "Executes tasks without prompting"
+msgstr "Esegue le operazioni senza interazioni"
+
+#: Shell/InstallShell.php:331
 msgid "Executes some tasks to make the system ready to work"
 msgstr "Esegue alcune operazioni per rendere il sistema pronto all'uso"
 
-#: Shell/InstallShell.php:298
+#: Shell/InstallShell.php:343
+#: View/Helper/AssetHelper.php:131;180
+msgid "I can't find `{0}`"
+msgstr "Non riesco a trovare {`0}`"
+
+#: Shell/InstallShell.php:351
 msgid "Do you want to install `{0}`?"
 msgstr "Vuoi installare `{0}`?"
 
-#: Shell/InstallShell.php:304
+#: Shell/InstallShell.php:357
 msgid "No package has been selected for installation"
 msgstr "Nessun pacchetto è stato selezionato per l'installazione"
 
-#: Shell/InstallShell.php:316
+#: Shell/InstallShell.php:369
 msgid "All packages are already installed"
 msgstr "Tutti i pacchetti sono già installati"
 
-#: Shell/InstallShell.php:333
+#: Shell/InstallShell.php:386
 msgid "Setted permissions on `{0}`"
 msgstr "Impostati i permessi per `{0}`"
 
-#: Shell/InstallShell.php:335
+#: Shell/InstallShell.php:388
 msgid "Failed to set permissions on `{0}`"
 msgstr "Impossibile impostare i permessi per `{0}`"
 
-#: Shell/InstallShell.php:345
+#: Shell/InstallShell.php:398
 msgid ""
 "It was not possible to set permissions on some directories. Try again using "
 "`{0}`?"
@@ -264,6 +217,10 @@ msgstr "Successivo"
 #: Template/Element/paginator.ctp:52
 msgid "Previous"
 msgstr "Precedente"
+
+#: View/Helper/AssetHelper.php:138;187
+msgid "Impossible to create the file {0}"
+msgstr "Impossibile creare il file {0}"
 
 #: View/Helper/RecaptchaHelper.php:139
 msgid "Mail keys are not configured"
