@@ -544,4 +544,24 @@ class HtmlHelper extends CakeHtmlHelper {
     public function video($path, array $options = []) {
         return self::media($path, am($options, ['tag' => 'video']));
     }
+	
+	/**
+	 * Adds the `viewport` meta tag. By default, it uses options as required by Bootstrap
+	 * @param array $options Attributes for the generated tag. If the type attribute is html,
+	 *		rss, atom, or icon, the mime-type is returned
+     * @see http://getbootstrap.com/css/#overview-mobile Bootstrap documentation
+     * @uses meta()
+	 */
+	public function viewport(array $options = []) {
+		$default = [
+			'initial-scale'	=> '1',
+			'maximum-scale'	=> '1',
+			'user-scalable'	=> 'no',
+			'width'			=> 'device-width'
+		];
+		
+		$content = http_build_query(am($default, $options), NULL, ', ');
+		
+		return self::meta(am(['name' => 'viewport'], compact('content')));
+	}
 }
