@@ -64,8 +64,8 @@ class AssetHelper extends Helper {
         parent::__construct($view, $config);
 		
 		//Checks if the target directory is writeable
-		if(!is_writeable(WWW_ROOT.'assets'))
-			throw new InternalErrorException(__d('me_tools', 'The directory {0} is not writable', WWW_ROOT.'assets'));
+		if(!is_writeable($target = WWW_ROOT.'assets'))
+			throw new InternalErrorException(__d('me_tools', 'The directory {0} is not writable', rtr($target)));
 		
 		//Gets all plugins
 		$this->plugins = Plugin::getAll();
