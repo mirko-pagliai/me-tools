@@ -113,7 +113,6 @@
 				<li><a href="class-MeTools.Model.Table.TokensTable.html">MeTools\Model\Table\TokensTable</a></li>
 				<li><a href="class-MeTools.Network.Request.html">MeTools\Network\Request</a></li>
 				<li><a href="class-MeTools.Shell.Base.BaseShell.html">MeTools\Shell\Base\BaseShell</a></li>
-				<li><a href="class-MeTools.Shell.CompressShell.html">MeTools\Shell\CompressShell</a></li>
 				<li><a href="class-MeTools.Shell.InstallShell.html">MeTools\Shell\InstallShell</a></li>
 				<li><a href="class-MeTools.Utility.Apache.html">MeTools\Utility\Apache</a></li>
 				<li><a href="class-MeTools.Utility.Php.html">MeTools\Utility\Php</a></li>
@@ -121,10 +120,10 @@
 				<li><a href="class-MeTools.Utility.Thumbs.html">MeTools\Utility\Thumbs</a></li>
 				<li><a href="class-MeTools.Utility.Unix.html">MeTools\Utility\Unix</a></li>
 				<li><a href="class-MeTools.Utility.Xml.html">MeTools\Utility\Xml</a></li>
+				<li><a href="class-MeTools.View.Helper.AssetHelper.html">MeTools\View\Helper\AssetHelper</a></li>
 				<li><a href="class-MeTools.View.Helper.DropdownHelper.html">MeTools\View\Helper\DropdownHelper</a></li>
 				<li><a href="class-MeTools.View.Helper.FormHelper.html">MeTools\View\Helper\FormHelper</a></li>
 				<li><a href="class-MeTools.View.Helper.HtmlHelper.html">MeTools\View\Helper\HtmlHelper</a></li>
-				<li><a href="class-MeTools.View.Helper.LayoutHelper.html">MeTools\View\Helper\LayoutHelper</a></li>
 				<li><a href="class-MeTools.View.Helper.LibraryHelper.html">MeTools\View\Helper\LibraryHelper</a></li>
 				<li><a href="class-MeTools.View.Helper.MarkdownHelper.html">MeTools\View\Helper\MarkdownHelper</a></li>
 				<li><a href="class-MeTools.View.Helper.PaginatorHelper.html">MeTools\View\Helper\PaginatorHelper</a></li>
@@ -461,7 +460,7 @@
 </span><span id="288" class="l"><a href="#288">288: </a>        <span class="php-keyword1">if</span>(!<span class="php-keyword2">is_readable</span>(<span class="php-var">$this</span>-&gt;thumb)) {
 </span><span id="289" class="l"><a href="#289">289: </a>            <span class="php-comment">//Checks if the target directory is writable</span>
 </span><span id="290" class="l"><a href="#290">290: </a>            <span class="php-keyword1">if</span>(!<span class="php-keyword2">is_writable</span>(<span class="php-keyword2">dirname</span>(<span class="php-var">$this</span>-&gt;thumb)))
-</span><span id="291" class="l"><a href="#291">291: </a>                <span class="php-keyword1">throw</span> <span class="php-keyword1">new</span> InternalErrorException(__d(<span class="php-quote">'me_tools'</span>, <span class="php-quote">'The target directory {0} is not writable'</span>, <span class="php-keyword2">dirname</span>(<span class="php-var">$this</span>-&gt;thumb)));
+</span><span id="291" class="l"><a href="#291">291: </a>                <span class="php-keyword1">throw</span> <span class="php-keyword1">new</span> InternalErrorException(__d(<span class="php-quote">'me_tools'</span>, <span class="php-quote">'The directory {0} is not writable'</span>, <span class="php-keyword2">dirname</span>(<span class="php-var">$this</span>-&gt;thumb)));
 </span><span id="292" class="l"><a href="#292">292: </a>            
 </span><span id="293" class="l"><a href="#293">293: </a>            <span class="php-comment">//Creates the thumbnail</span>
 </span><span id="294" class="l"><a href="#294">294: </a>            <span class="php-keyword1">if</span>(<span class="php-keyword2">preg_match</span>(<span class="php-quote">'/image\/\S+/'</span>, <span class="php-var">$mime</span>))
@@ -485,6 +484,6 @@
 </div>
 </div>
 <script src="resources/combined.js?cd021bc814832c24a7cec5319ea03335bfba1caf"></script>
-<script src="elementlist.js?5a0158915ddaa5516c785f16036e878cb3811c9b"></script>
+<script src="elementlist.js?fa861e4e5fa06d15930e2016f4e2f0d7c3b1ad3b"></script>
 </body>
 </html>

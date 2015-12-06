@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 
-	<title>Class MeTools\View\Helper\RecaptchaHelper | MeTools API</title>
+	<title>Class MeTools\View\Helper\AssetHelper | MeTools API</title>
 
 	<link rel="stylesheet" href="resources/style.css?e99947befd7bf673c6b43ff75e9e0f170c88a60e">
 
@@ -101,14 +101,14 @@
 		<div id="elements">
 			<h3>Classes</h3>
 			<ul>
-				<li><a href="class-MeTools.View.Helper.AssetHelper.html">AssetHelper</a></li>
+				<li class="active"><a href="class-MeTools.View.Helper.AssetHelper.html">AssetHelper</a></li>
 				<li><a href="class-MeTools.View.Helper.DropdownHelper.html">DropdownHelper</a></li>
 				<li><a href="class-MeTools.View.Helper.FormHelper.html">FormHelper</a></li>
 				<li><a href="class-MeTools.View.Helper.HtmlHelper.html">HtmlHelper</a></li>
 				<li><a href="class-MeTools.View.Helper.LibraryHelper.html">LibraryHelper</a></li>
 				<li><a href="class-MeTools.View.Helper.MarkdownHelper.html">MarkdownHelper</a></li>
 				<li><a href="class-MeTools.View.Helper.PaginatorHelper.html">PaginatorHelper</a></li>
-				<li class="active"><a href="class-MeTools.View.Helper.RecaptchaHelper.html">RecaptchaHelper</a></li>
+				<li><a href="class-MeTools.View.Helper.RecaptchaHelper.html">RecaptchaHelper</a></li>
 				<li><a href="class-MeTools.View.Helper.ThumbHelper.html">ThumbHelper</a></li>
 			</ul>
 
@@ -153,14 +153,15 @@
 	</div>
 
 <div id="content" class="class">
-	<h1>Class RecaptchaHelper</h1>
+	<h1>Class AssetHelper</h1>
 
 
 	<div class="description">
-	<p>Provides several methods for reCAPTCHA.</p>
+	<p>Asset Helper.</p>
 
-<p>Before using this helper, you have to configure keys in <code>app/Config/recaptcha.php</code>.
-You can use as example the file <code>app/Plugin/MeTools/Config/recaptcha.default.php</code>.</p>
+<p>This helper allows you to gerate assets.</p>
+
+<p>Before using the helper, you have install <code>clean-css</code> and <code>UglifyJS</code>.</p>
 	</div>
 
 	<dl class="tree">
@@ -171,7 +172,7 @@ Cake\View\Helper
 		</dd>
 		<dd style="padding-left:30px">
 			<img src="resources/inherit.png" alt="Extended by">
-<b><span>MeTools\View\Helper\RecaptchaHelper</span></b>			
+<b><span>MeTools\View\Helper\AssetHelper</span></b>			
 			
 			
 		</dd>
@@ -190,7 +191,7 @@ Cake\View\Helper
 		<b>Namespace:</b> <a href="namespace-MeTools.html">MeTools</a>\<a href="namespace-MeTools.View.html">View</a>\<a href="namespace-MeTools.View.Helper.html">Helper</a><br>
 		
 
-			<b>Located at</b> <a href="source-class-MeTools.View.Helper.RecaptchaHelper.html#33-155" title="Go to source code">Helper/RecaptchaHelper.php</a>
+			<b>Located at</b> <a href="source-class-MeTools.View.Helper.AssetHelper.html#34-195" title="Go to source code">Helper/AssetHelper.php</a>
 		<br>
 	</div>
 
@@ -210,16 +211,14 @@ Cake\View\Helper
 
 		<td class="name"><div>
 		<a class="anchor" href="#___construct">#</a>
-		<code><a href="source-class-MeTools.View.Helper.RecaptchaHelper.html#46-58" title="Go to source code">__construct</a>( <span>Cake\View\View <var>$view</var></span>, <span>array <var>$config</var> = []</span> )</code>
+		<code><a href="source-class-MeTools.View.Helper.AssetHelper.html#55-72" title="Go to source code">__construct</a>( <span>Cake\View\View <var>$view</var></span>, <span>array <var>$config</var> = []</span> )</code>
 
 		<div class="description short">
-			<p>Construct the widgets and binds the default context providers.</p>
+			<p>Construct</p>
 		</div>
 
 		<div class="description detailed hidden">
-			<p>Construct the widgets and binds the default context providers.</p>
-
-<p>This method only ewrites the default configuration (<code>$_defaultConfig</code>).</p>
+			<p>Construct</p>
 
 
 				<h4>Parameters</h4>
@@ -231,148 +230,73 @@ Cake\View\Helper
 				</dl></div>
 
 
-
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="_obfuscate" id="__obfuscate">
-
-		<td class="attributes"><code>
-			 protected 
-
-			string
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#__obfuscate">#</a>
-		<code><a href="source-class-MeTools.View.Helper.RecaptchaHelper.html#60-71" title="Go to source code">_obfuscate</a>( <span>string <var>$mail</var></span> )</code>
-
-		<div class="description short">
-			<p>Internal function to obfuscate an email address.</p>
-		</div>
-
-		<div class="description detailed hidden">
-			<p>Internal function to obfuscate an email address.</p>
-
-
-				<h4>Parameters</h4>
-				<div class="list"><dl>
-					<dt><var>$mail</var></dt>
-					<dd>Mail address</dd>
-				</dl></div>
-
-				<h4>Returns</h4>
-				<div class="list">
-					string<br>Mail address obfuscated
-				</div>
-
-
-				<h4>See</h4>
-				<div class="list">
-						http://stackoverflow.com/a/20545505/1480263<br>
-				</div>
-				<h4>Used by</h4>
-				<div class="list">
-						<code><a href="class-MeTools.View.Helper.RecaptchaHelper.html#_mailLink">MeTools\View\Helper\RecaptchaHelper::mailLink()</a></code><br>
-				</div>
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="display" id="_display">
-
-		<td class="attributes"><code>
-			 public 
-
-			string
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_display">#</a>
-		<code><a href="source-class-MeTools.View.Helper.RecaptchaHelper.html#73-96" title="Go to source code">display</a>( <span>array <var>$options</var> = []</span>, <span>array <var>$optionsScript</var> = []</span> )</code>
-
-		<div class="description short">
-			<p>Displays the reCAPTCHA widget</p>
-		</div>
-
-		<div class="description detailed hidden">
-			<p>Displays the reCAPTCHA widget</p>
-
-
-				<h4>Parameters</h4>
-				<div class="list"><dl>
-					<dt><var>$options</var></dt>
-					<dd>reCAPTCHA widget options</dd>
-					<dt><var>$optionsScript</var></dt>
-					<dd>Script option</dd>
-				</dl></div>
-
-				<h4>Returns</h4>
-				<div class="list">
-					string<br>Html
-				</div>
-
 				<h4>Throws</h4>
 				<div class="list">
 					Cake\Network\Exception\InternalErrorException
 				</div>
 
-				<h4>See</h4>
-				<div class="list">
-						https://developers.google.com/recaptcha/docs/display#config reCAPTCHA widget options<br>
-				</div>
 				<h4>Uses</h4>
 				<div class="list">
-						MeTools\View\Helper\HtmlHelper::div()<br>
-						<code><a href="class-MeTools.View.Helper.HtmlHelper.html#_js">MeTools\View\Helper\HtmlHelper::js()</a></code><br>
+						<code><a href="class-MeTools.Core.Plugin.html#_getAll">MeTools\Core\Plugin::getAll()</a></code><br>
+						<br>
 				</div>
 
 
 		</div>
 		</div></td>
 	</tr>
-	<tr data-order="mail" id="_mail">
+	<tr data-order="_parsePaths" id="__parsePaths">
 
 		<td class="attributes"><code>
-			 public 
+			 protected 
 
-			
+			array
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
-		<a class="anchor" href="#_mail">#</a>
-		<code><a href="source-class-MeTools.View.Helper.RecaptchaHelper.html#98-104" title="Go to source code">mail</a>( )</code>
+		<a class="anchor" href="#__parsePaths">#</a>
+		<code><a href="source-class-MeTools.View.Helper.AssetHelper.html#74-103" title="Go to source code">_parsePaths</a>( <span>string|array <var>$paths</var></span>, <span>string <var>$extension</var></span> )</code>
 
 		<div class="description short">
-			<p>Alias for <code>mailLink()</code> method</p>
+			<p>Parses paths and for each path returns an array with the full path and the last modification time</p>
 		</div>
 
 		<div class="description detailed hidden">
-			<p>Alias for <code>mailLink()</code> method</p>
+			<p>Parses paths and for each path returns an array with the full path and the last modification time</p>
 
 
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$paths</var></dt>
+					<dd>String or array of css/js files</dd>
+					<dt><var>$extension</var></dt>
+					<dd>Extension (<code>css</code> or <code>js</code>)</dd>
+				</dl></div>
 
-
-
-				<h4>See</h4>
+				<h4>Returns</h4>
 				<div class="list">
-						<code><a href="class-MeTools.View.Helper.RecaptchaHelper.html#_mailLink">MeTools\View\Helper\RecaptchaHelper::mailLink()</a></code><br>
+					array
+				</div>
+
+
+				<h4>Uses</h4>
+				<div class="list">
+						<code><a href="class-MeTools.Core.Plugin.html#_path">MeTools\Core\Plugin::path()</a></code><br>
+						<br>
+				</div>
+				<h4>Used by</h4>
+				<div class="list">
+						<code><a href="class-MeTools.View.Helper.AssetHelper.html#_css">MeTools\View\Helper\AssetHelper::css()</a></code><br>
+						<code><a href="class-MeTools.View.Helper.AssetHelper.html#_script">MeTools\View\Helper\AssetHelper::script()</a></code><br>
 				</div>
 
 
 		</div>
 		</div></td>
 	</tr>
-	<tr data-order="mailLink" id="_mailLink">
+	<tr data-order="css" id="_css">
 
 		<td class="attributes"><code>
 			 public 
@@ -383,77 +307,28 @@ Cake\View\Helper
 		</td>
 
 		<td class="name"><div>
-		<a class="anchor" href="#_mailLink">#</a>
-		<code><a href="source-class-MeTools.View.Helper.RecaptchaHelper.html#106-123" title="Go to source code">mailLink</a>( <span>string <var>$title</var></span>, <span>string <var>$mail</var> = <span class="php-keyword1">NULL</span></span>, <span>array <var>$options</var> = []</span> )</code>
+		<a class="anchor" href="#_css">#</a>
+		<code><a href="source-class-MeTools.View.Helper.AssetHelper.html#105-145" title="Go to source code">css</a>( <span>string|array <var>$path</var></span>, <span>array <var>$options</var> = []</span> )</code>
 
 		<div class="description short">
-			<p>Creates an HTML link for an hidden email. The link will be open in a popup</p>
+			<p>Compresses and adds a css file to the layout.</p>
 		</div>
 
 		<div class="description detailed hidden">
-			<p>Creates an HTML link for an hidden email. The link will be open in a popup</p>
+			<p>Compresses and adds a css file to the layout.</p>
 
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
-					<dt><var>$title</var></dt>
-					<dd>Link title</dd>
-					<dt><var>$mail</var></dt>
-					<dd>Email to hide</dd>
+					<dt><var>$path</var></dt>
+					<dd>String or array of css files</dd>
 					<dt><var>$options</var></dt>
 					<dd>Array of options and HTML attributes</dd>
 				</dl></div>
 
 				<h4>Returns</h4>
 				<div class="list">
-					string<br>Html code
-				</div>
-
-
-				<h4>Uses</h4>
-				<div class="list">
-						<code><a href="class-MeTools.View.Helper.HtmlHelper.html#_link">MeTools\View\Helper\HtmlHelper::link()</a></code><br>
-						<code><a href="class-MeTools.View.Helper.RecaptchaHelper.html#__obfuscate">MeTools\View\Helper\RecaptchaHelper::_obfuscate()</a></code><br>
-						<code><a href="class-MeTools.View.Helper.RecaptchaHelper.html#_mailUrl">MeTools\View\Helper\RecaptchaHelper::mailUrl()</a></code><br>
-				</div>
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="mailUrl" id="_mailUrl">
-
-		<td class="attributes"><code>
-			 public 
-
-			string
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_mailUrl">#</a>
-		<code><a href="source-class-MeTools.View.Helper.RecaptchaHelper.html#125-146" title="Go to source code">mailUrl</a>( <span>string <var>$mail</var></span> )</code>
-
-		<div class="description short">
-			<p>Gets the url for an hidden email.</p>
-		</div>
-
-		<div class="description detailed hidden">
-			<p>Gets the url for an hidden email.</p>
-
-<p>This method will only return a url. If you want to create a link, you should use the <code>mailLink()</code> method</p>
-
-
-				<h4>Parameters</h4>
-				<div class="list"><dl>
-					<dt><var>$mail</var></dt>
-					<dd>Email to hide</dd>
-				</dl></div>
-
-				<h4>Returns</h4>
-				<div class="list">
-					string<br>Url
+					string<br>Html, <code>&lt;link&gt;</code> or <code>&lt;style&gt;</code> tag
 				</div>
 
 				<h4>Throws</h4>
@@ -461,16 +336,22 @@ Cake\View\Helper
 					Cake\Network\Exception\InternalErrorException
 				</div>
 
-				<h4>Used by</h4>
+				<h4>See</h4>
 				<div class="list">
-						<code><a href="class-MeTools.View.Helper.RecaptchaHelper.html#_mailLink">MeTools\View\Helper\RecaptchaHelper::mailLink()</a></code><br>
+						https://github.com/jakubpawlowicz/clean-css clean-css<br>
+				</div>
+				<h4>Uses</h4>
+				<div class="list">
+						MeTools\View\Helper\HtmlHelper:css()<br>
+						<code><a href="class-MeTools.Utility.Unix.html#_which">MeTools\Utility\Unix::which()</a></code><br>
+						<code><a href="class-MeTools.View.Helper.AssetHelper.html#__parsePaths">MeTools\View\Helper\AssetHelper::_parsePaths()</a></code><br>
 				</div>
 
 
 		</div>
 		</div></td>
 	</tr>
-	<tr data-order="recaptcha" id="_recaptcha">
+	<tr data-order="js" id="_js">
 
 		<td class="attributes"><code>
 			 public 
@@ -481,15 +362,15 @@ Cake\View\Helper
 		</td>
 
 		<td class="name"><div>
-		<a class="anchor" href="#_recaptcha">#</a>
-		<code><a href="source-class-MeTools.View.Helper.RecaptchaHelper.html#148-154" title="Go to source code">recaptcha</a>( )</code>
+		<a class="anchor" href="#_js">#</a>
+		<code><a href="source-class-MeTools.View.Helper.AssetHelper.html#147-153" title="Go to source code">js</a>( )</code>
 
 		<div class="description short">
-			<p>Alias for <code>display()</code> method</p>
+			<p>Alias for <code>script()</code> method</p>
 		</div>
 
 		<div class="description detailed hidden">
-			<p>Alias for <code>display()</code> method</p>
+			<p>Alias for <code>script()</code> method</p>
 
 
 
@@ -497,7 +378,62 @@ Cake\View\Helper
 
 				<h4>See</h4>
 				<div class="list">
-						<code><a href="class-MeTools.View.Helper.RecaptchaHelper.html#_display">MeTools\View\Helper\RecaptchaHelper::display()</a></code><br>
+						<code><a href="class-MeTools.View.Helper.AssetHelper.html#_script">MeTools\View\Helper\AssetHelper::script()</a></code><br>
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="script" id="_script">
+
+		<td class="attributes"><code>
+			 public 
+
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_script">#</a>
+		<code><a href="source-class-MeTools.View.Helper.AssetHelper.html#155-194" title="Go to source code">script</a>( <span>string|array <var>$url</var></span>, <span>array <var>$options</var> = []</span> )</code>
+
+		<div class="description short">
+			<p>Compresses and adds js files to the layout</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Compresses and adds js files to the layout</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$url</var></dt>
+					<dd>$path String or array of js files</dd>
+					<dt><var>$options</var></dt>
+					<dd>Array of options and HTML attributes</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					mixed<br>String of <code>&lt;script /&gt;</code> tags or NULL if <code>$inline</code> is FALSE or if <code>$once</code> is TRUE
+				</div>
+
+				<h4>Throws</h4>
+				<div class="list">
+					Cake\Network\Exception\InternalErrorException
+				</div>
+
+				<h4>See</h4>
+				<div class="list">
+						https://github.com/mishoo/UglifyJS2 UglifyJS<br>
+				</div>
+				<h4>Uses</h4>
+				<div class="list">
+						MeTools\View\Helper\HtmlHelper:script()<br>
+						<code><a href="class-MeTools.Utility.Unix.html#_which">MeTools\Utility\Unix::which()</a></code><br>
+						<code><a href="class-MeTools.View.Helper.AssetHelper.html#__parsePaths">MeTools\View\Helper\AssetHelper::_parsePaths()</a></code><br>
 				</div>
 
 
@@ -526,7 +462,7 @@ Cake\View\Helper
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-MeTools.View.Helper.RecaptchaHelper.html#40-44" title="Go to source code"><var>$helpers</var></a>
+				<a href="source-class-MeTools.View.Helper.AssetHelper.html#42-46" title="Go to source code"><var>$helpers</var></a>
 
 			<div class="description short">
 				<p>Helpers</p>
@@ -540,7 +476,41 @@ Cake\View\Helper
 		<td class="value">
 			<div>
 				<a href="#$helpers" class="anchor">#</a>
-				<code>[<span class="php-quote">'MeTools.Html'</span>]</code>
+				<code>[<span class="php-quote">'Html'</span> =&gt; [<span class="php-quote">'className'</span> =&gt; <span class="php-quote">'MeTools.Html'</span>]]</code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="plugins" id="$plugins">
+		<td class="attributes"><code>
+			protected  
+			array
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-MeTools.View.Helper.AssetHelper.html#48-53" title="Go to source code"><var>$plugins</var></a>
+
+			<div class="description short">
+				<p>Loaded plugins</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Loaded plugins</p>
+
+					<h4>See</h4>
+					<div class="list">
+							<code><a href="class-MeTools.View.Helper.AssetHelper.html#___construct">MeTools\View\Helper\AssetHelper::__construct()</a></code><br>
+					</div>
+					<h4>Used by</h4>
+					<div class="list">
+							<code><a href="class-MeTools.View.Helper.AssetHelper.html#___construct">MeTools\View\Helper\AssetHelper::__construct()</a></code><br>
+							<code><a href="class-MeTools.View.Helper.AssetHelper.html#__parsePaths">MeTools\View\Helper\AssetHelper::_parsePaths()</a></code><br>
+					</div>
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$plugins" class="anchor">#</a>
+				<code></code>
 			</div>
 		</td>
 	</tr>
