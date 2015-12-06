@@ -135,7 +135,7 @@ class AssetHelper extends Helper {
 			
 			//Creates the file
 			if(!file_put_contents($asset, $content))
-				throw new InternalErrorException(__d('me_tools', 'Impossible to create the file {0}', $asset));
+				throw new InternalErrorException(__d('me_tools', 'Impossible to create the file {0}', rtr($asset)));
 			
 			//Compresses
 			exec(sprintf('%s -o %s --s0 %s', $bin, $asset, $asset));
@@ -184,7 +184,7 @@ class AssetHelper extends Helper {
 			
 			//Creates the file
 			if(!file_put_contents($asset, $content))
-				throw new InternalErrorException(__d('me_tools', 'Impossible to create the file {0}', $asset));
+				throw new InternalErrorException(__d('me_tools', 'Impossible to create the file {0}', rtr($asset)));
 		
 			//Compresses
 			exec(sprintf('%s %s --compress --mangle -o %s', $bin, $asset, $asset));
