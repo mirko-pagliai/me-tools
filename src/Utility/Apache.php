@@ -37,7 +37,7 @@ class Apache {
      * @return mixed TRUE if the module is enabled, FALSE otherwise. NULL if cannot check
      * @uses modules()
      */
-    public static function checkModule($module) {
+    public static function module($module) {
 		$modules = self::modules();
 		
 		if(is_null($modules) || empty($modules))
@@ -50,7 +50,7 @@ class Apache {
      * Gets modules.
      * @return mixed Modules list. NULL if cannot check
      */
-    public static function getModules() {
+    public static function modules() {
 		if(!function_exists('apache_get_modules'))
 			return;
 		
@@ -61,7 +61,7 @@ class Apache {
 	 * Gets the version.
 	 * @return mixed Version. NULL if cannot check
 	 */
-	public static function getVersion() {
+	public static function version() {
 		if(!function_exists('apache_get_version'))
 			return;
 		
@@ -69,28 +69,4 @@ class Apache {
 		
 		return empty($matches[1]) ? $version : $matches[1];
 	}
-	
-    /**
-     * Alias for `checkModule()` method.
-     * @see checkModule()
-     */
-    public static function module() {
-        return call_user_func_array([get_class(), 'checkModule'], func_get_args());
-    }
-	
-    /**
-     * Alias for `getModules()` method.
-     * @see getModules()
-     */
-    public static function modules() {
-        return call_user_func_array([get_class(), 'getModules'], func_get_args());
-    }
-	
-    /**
-     * Alias for `getVersion()` method.
-     * @see getVersion()
-     */
-    public static function version() {
-        return call_user_func_array([get_class(), 'getVersion'], func_get_args());
-    }
 }

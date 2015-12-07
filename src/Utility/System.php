@@ -52,22 +52,40 @@ class System {
     public static function cacheStatus() {
         return call_user_func_array([get_class(), 'checkCacheStatus'], func_get_args());
     }
-	
+
     /**
-     * Alias for `getCakeVersion()` method.
-     * @see getCakeVersion()
+     * Gets the CakePHP version.
+     * @return string CakePHP version
      */
     public static function cakeVersion() {
-        return call_user_func_array([get_class(), 'getCakeVersion'], func_get_args());
+        return Configure::version();
     }
 	
-    /**
-     * Alias for `getChangelogs()` method.
-     * @see getChangelogs()
-     */
-    public static function changelogs() {
-        return call_user_func_array([get_class(), 'getChangelogs'], func_get_args());
-    }
+	/**
+	 * Gets all changelog files. 
+	 * 
+	 * It searchs into `ROOT` and all loaded plugins.
+	 * @uses MeTools\Core\Plugin::path()
+	 * @return array Changelog files
+	 * @uses Cake\I18n\I18n::locale()
+	 * @uses MeTools\Core\Plugin::path()
+	 */
+	public static function changelogs() {
+		$files = af(array_map(function($path) {
+			//Gets the current locale
+			$locale = substr(\Cake\I18n\I18n::locale(), 0, 2);
+
+			if(!empty($locale) && is_readable($file = sprintf($path.'CHANGELOG_%s.md', $locale)))
+				return str_replace(ROOT.DS, NULL, $file);
+			elseif(is_readable($file = $path.'CHANGELOG.md'))
+				return str_replace(ROOT.DS, NULL, $file);
+			else
+				return FALSE;
+		}, am([ROOT.DS], Plugin::path())));
+		
+		//Re-indexes, starting to 1, and returns
+		return array_combine(range(1, count($files)), array_values($files));
+	}
 	
     /**
      * Checks if the cache is readable and writable
@@ -154,40 +172,6 @@ class System {
     public static function getCacheSize() {
         return (new Folder(CACHE))->dirsize();
     }
-
-    /**
-     * Gets the CakePHP version.
-     * @return string CakePHP version
-     */
-    public static function getCakeVersion() {
-        return Configure::version();
-    }
-	
-	/**
-	 * Gets all changelog files. 
-	 * 
-	 * It searchs into `ROOT` and all loaded plugins.
-	 * @uses MeTools\Core\Plugin::path()
-	 * @return array Changelog files
-	 * @uses Cake\I18n\I18n::locale()
-	 * @uses MeTools\Core\Plugin::path()
-	 */
-	public static function getChangelogs() {
-		$files = af(array_map(function($path) {
-			//Gets the current locale
-			$locale = substr(\Cake\I18n\I18n::locale(), 0, 2);
-
-			if(!empty($locale) && is_readable($file = sprintf($path.'CHANGELOG_%s.md', $locale)))
-				return str_replace(ROOT.DS, NULL, $file);
-			elseif(is_readable($file = $path.'CHANGELOG.md'))
-				return str_replace(ROOT.DS, NULL, $file);
-			else
-				return FALSE;
-		}, am([ROOT.DS], Plugin::path())));
-		
-		//Re-indexes, starting to 1, and returns
-		return array_combine(range(1, count($files)), array_values($files));
-	}
 	
 	/**
 	 * Gets all logs files.
@@ -196,12 +180,9 @@ class System {
 	public static function getLogs() {
 		//Gets log files
 		$files = (new Folder(LOGS))->find('[^\.]+\.log(\.[^\-]+)?', TRUE);
-		
-		if(empty($files))
-			return;
-		
+				
 		//Re-indexes, starting to 1, and returns
-		return array_combine(range(1, count($files)), array_values($files));
+		return empty($files) ? NULL : array_combine(range(1, count($files)), array_values($files));
 	}
 	
 	/**

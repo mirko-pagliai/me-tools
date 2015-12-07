@@ -57,7 +57,7 @@ class AssetHelper extends Helper {
 	 * @param \Cake\View\View $view The View this helper is being attached to
 	 * @param array $config Configuration settings for the helper
 	 * @throws InternalErrorException
-	 * @uses MeTools\Core\Plugin::getAll()
+	 * @uses MeTools\Core\Plugin::all()
 	 * @uses $plugins
 	 */
     public function __construct(\Cake\View\View $view, $config = []) {
@@ -68,7 +68,7 @@ class AssetHelper extends Helper {
 			throw new InternalErrorException(__d('me_tools', 'The directory {0} is not writable', rtr($target)));
 		
 		//Gets all plugins
-		$this->plugins = Plugin::getAll();
+		$this->plugins = Plugin::all();
 	}
 	
 	/**

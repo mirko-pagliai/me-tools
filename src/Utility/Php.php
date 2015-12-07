@@ -36,7 +36,7 @@ class Php {
      * @param string $extension Extension to be checked
      * @return mixed TRUE if the extension is enabled, FALSE otherwise. NULL if cannot check
      */
-    public static function checkExtension($extension) {
+    public static function extension($extension) {
 		if(!function_exists('extension_loaded'))
 			return;
 		
@@ -52,31 +52,15 @@ class Php {
      * @return boolean TRUE if the current version is equal to or greater than the required version, FALSE otherwise
      * @uses version()
      */
-    public static function checkVersion($required = '5.4.16') {
+    public static function check($required = '5.4.16') {
         return version_compare(self::version(), $required, '>=');
-    }
-	
-    /**
-     * Alias for `checkExtension()` method.
-     * @see checkExtension()
-     */
-    public static function extension() {
-        return call_user_func_array([get_class(), 'checkExtension'], func_get_args());
     }
 
     /**
      * Gets the current version.
      * @return string Current version
      */
-    public static function getVersion() {
-        return PHP_VERSION;
-    }
-	
-    /**
-     * Alias for `getVersion()` method.
-     * @see getVersion()
-     */
     public static function version() {
-        return call_user_func_array([get_class(), 'getVersion'], func_get_args());
+        return PHP_VERSION;
     }
 }
