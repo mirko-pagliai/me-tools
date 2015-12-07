@@ -29,7 +29,7 @@ use Cake\Utility\Xml as BaseXml;
  * 
  * You can use this utility by adding:
  * <code>
- * use MeTools\Utility\XML;
+ * use MeTools\Utility\Xml;
  * </code>
  */
 class Xml {
