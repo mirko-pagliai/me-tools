@@ -55,7 +55,7 @@ class FileLog extends CakeFileLog {
 	
 	/**
      * Clears all log files
-     * @return boolean TRUE if the cache is writable and were successfully cleared, FALSE otherwise
+     * @return boolean
 	 * @uses check()
 	 */
 	public static function clear() {
