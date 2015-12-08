@@ -3,8 +3,8 @@
 #
 msgid ""
 msgstr ""
-"POT-Creation-Date: 2015-12-06 10:58+0000\n"
-"PO-Revision-Date: 2015-12-06 11:59+0100\n"
+"POT-Creation-Date: 2015-12-08 10:57+0000\n"
+"PO-Revision-Date: 2015-12-08 11:58+0100\n"
 "Last-Translator: Mirko Pagliai <mirko.pagliai.it>\n"
 "Language-Team: Italian <>\n"
 "MIME-Version: 1.0\n"
@@ -26,7 +26,7 @@ msgid "{0} is not available"
 msgstr "{0} non è disponibile"
 
 #: Controller/ThumbsController.php:215;291
-#: Shell/InstallShell.php:202;284
+#: Shell/InstallShell.php:204;286
 #: View/Helper/AssetHelper.php:68
 msgid "The directory {0} is not writable"
 msgstr "La directory di destinazione {0} non è scrivibile"
@@ -52,153 +52,153 @@ msgstr "Le chiavi dei form non sono configurate"
 msgid "It was not possible to verify the {0} control"
 msgstr "Non è stato possibile verificare il controllo {0}"
 
-#: Shell/InstallShell.php:147
+#: Shell/InstallShell.php:149
 msgid "Create default directories?"
 msgstr "Creare le directory di default?"
 
-#: Shell/InstallShell.php:151
+#: Shell/InstallShell.php:153
 msgid "Set directories permissions?"
 msgstr "Impostare i permessi delle directory?"
 
-#: Shell/InstallShell.php:155
+#: Shell/InstallShell.php:157
 msgid "Create `{0}`?"
 msgstr "Creare `{0}`?"
 
-#: Shell/InstallShell.php:159
+#: Shell/InstallShell.php:161
 msgid "Fix `{0}`?"
 msgstr "Sistemare `{0}`?"
 
-#: Shell/InstallShell.php:163
+#: Shell/InstallShell.php:165
 msgid "Install the suggested packages?"
 msgstr "Installare i pacchetti suggeriti?"
 
-#: Shell/InstallShell.php:167
+#: Shell/InstallShell.php:169
 msgid "Create symbolic links for vendor assets?"
 msgstr "Creare link simbolici agli asset vendor?"
 
-#: Shell/InstallShell.php:171
+#: Shell/InstallShell.php:173
 msgid "Create symbolic links for fonts?"
 msgstr "Creare link simbolici per i font?"
 
-#: Shell/InstallShell.php:196;279
+#: Shell/InstallShell.php:198;281
 msgid "Created symbolic link to `{0}`"
 msgstr "Creato link simbolico `{0}`"
 
-#: Shell/InstallShell.php:198;281
+#: Shell/InstallShell.php:200;283
 msgid "Failed to create a symbolic link to `{0}`"
 msgstr "Impossibile creare il link simbolico `{0}`"
 
-#: Shell/InstallShell.php:217
+#: Shell/InstallShell.php:219
 msgid "Created `{0}` directory"
 msgstr "Creata directory `{0}`"
 
-#: Shell/InstallShell.php:219
+#: Shell/InstallShell.php:221
 msgid "Failed to create directory `{0}`"
 msgstr "Impossibile creare la directory `{0}`"
 
-#: Shell/InstallShell.php:224
+#: Shell/InstallShell.php:226
 msgid "The directory `{0}` already exists"
 msgstr "La directory `{0}` esiste già"
 
-#: Shell/InstallShell.php:232
+#: Shell/InstallShell.php:234
 msgid "It was not possible to create some directories. Try again using `{0}`?"
 msgstr ""
 "Non è stato possibile creare alcune directory. Riprovare utilizzando `{`0}`?"
 
-#: Shell/InstallShell.php:243
+#: Shell/InstallShell.php:245
 msgid "The file `{0}` already exists"
 msgstr "Il file `{0}` già esiste"
 
-#: Shell/InstallShell.php:252
+#: Shell/InstallShell.php:254
 msgid "The file `{0}` has been created"
 msgstr "Il file `{0}` è stato creato"
 
-#: Shell/InstallShell.php:254
+#: Shell/InstallShell.php:256
 msgid "The file `{0}` has not been created"
 msgstr "Il file `{0}` non è stato creato"
 
-#: Shell/InstallShell.php:292
+#: Shell/InstallShell.php:294
 msgid "The file `{0}` doesn't exist or is not writeable"
 msgstr "Il file `{0}` non esiste oppure non è scrivibile"
 
-#: Shell/InstallShell.php:299
+#: Shell/InstallShell.php:301
 msgid "The file `{0}` doesn't need to be fixed"
 msgstr "Il file `{0}` non ha bisogno di essere sistemato"
 
-#: Shell/InstallShell.php:305
+#: Shell/InstallShell.php:307
 msgid "The file `{0}` has been fixed"
 msgstr "Il file `{0}` è stato sistemato"
 
-#: Shell/InstallShell.php:307
+#: Shell/InstallShell.php:309
 msgid "The file `{0}` has not been fixed"
 msgstr "Il file `{0}` non è stato sistemato"
 
-#: Shell/InstallShell.php:318
+#: Shell/InstallShell.php:320
 msgid "it executes all available tasks"
 msgstr "esegue tutte le operazioni disponibili"
 
-#: Shell/InstallShell.php:319
+#: Shell/InstallShell.php:321
 msgid "it creates symbolic links for fonts"
 msgstr "crea i link simbolici per i font"
 
-#: Shell/InstallShell.php:320
+#: Shell/InstallShell.php:322
 msgid "it creates default directories"
 msgstr "crea le directory di default"
 
-#: Shell/InstallShell.php:321
+#: Shell/InstallShell.php:323
 msgid "it creates the `{0}` file"
 msgstr "crea il file `{0}`"
 
-#: Shell/InstallShell.php:322
+#: Shell/InstallShell.php:324
 msgid "it creates symbolic links for vendor assets"
 msgstr "crea i link simbolici agli asset vendor"
 
-#: Shell/InstallShell.php:323
+#: Shell/InstallShell.php:325
 msgid "it fixes `{0}`"
 msgstr "sistema `{0}`"
 
-#: Shell/InstallShell.php:324
+#: Shell/InstallShell.php:326
 msgid "it install the suggested packages"
 msgstr "installa i pacchetti suggeriti"
 
-#: Shell/InstallShell.php:325
+#: Shell/InstallShell.php:327
 msgid "it sets permissions on directories"
 msgstr "imposta i permessi delle directory"
 
-#: Shell/InstallShell.php:329
+#: Shell/InstallShell.php:331
 msgid "Executes tasks without prompting"
 msgstr "Esegue le operazioni senza interazioni"
 
-#: Shell/InstallShell.php:331
+#: Shell/InstallShell.php:333
 msgid "Executes some tasks to make the system ready to work"
 msgstr "Esegue alcune operazioni per rendere il sistema pronto all'uso"
 
-#: Shell/InstallShell.php:343
-#: View/Helper/AssetHelper.php:131;180
+#: Shell/InstallShell.php:345
+#: View/Helper/AssetHelper.php:133;182
 msgid "I can't find `{0}`"
 msgstr "Non riesco a trovare {`0}`"
 
-#: Shell/InstallShell.php:351
+#: Shell/InstallShell.php:353
 msgid "Do you want to install `{0}`?"
 msgstr "Vuoi installare `{0}`?"
 
-#: Shell/InstallShell.php:357
+#: Shell/InstallShell.php:359
 msgid "No package has been selected for installation"
 msgstr "Nessun pacchetto è stato selezionato per l'installazione"
 
-#: Shell/InstallShell.php:369
+#: Shell/InstallShell.php:371
 msgid "All packages are already installed"
 msgstr "Tutti i pacchetti sono già installati"
 
-#: Shell/InstallShell.php:386
+#: Shell/InstallShell.php:388
 msgid "Setted permissions on `{0}`"
 msgstr "Impostati i permessi per `{0}`"
 
-#: Shell/InstallShell.php:388
+#: Shell/InstallShell.php:390
 msgid "Failed to set permissions on `{0}`"
 msgstr "Impossibile impostare i permessi per `{0}`"
 
-#: Shell/InstallShell.php:398
+#: Shell/InstallShell.php:400
 msgid ""
 "It was not possible to set permissions on some directories. Try again using "
 "`{0}`?"
@@ -218,7 +218,7 @@ msgstr "Successivo"
 msgid "Previous"
 msgstr "Precedente"
 
-#: View/Helper/AssetHelper.php:138;187
+#: View/Helper/AssetHelper.php:140;189
 msgid "Impossible to create the file {0}"
 msgstr "Impossibile creare il file {0}"
 
