@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 
-	<title>Class MeTools\Controller\Component\RecaptchaComponent | MeTools API</title>
+	<title>Class MeTools\Utility\Asset | MeTools API</title>
 
 	<link rel="stylesheet" href="resources/style.css?e99947befd7bf673c6b43ff75e9e0f170c88a60e">
 
@@ -24,13 +24,13 @@
 					</a>
 
 						<ul>
-				<li class="active main">
+				<li class="main">
 					<a href="namespace-MeTools.Controller.html">
 						Controller<span></span>
 					</a>
 
 						<ul>
-				<li class="active main">
+				<li class="main">
 					<a href="namespace-MeTools.Controller.Component.html">
 						Component					</a>
 
@@ -87,7 +87,7 @@
 
 						</li>
 							</ul></li>
-				<li class="main">
+				<li class="active main">
 					<a href="namespace-MeTools.Utility.html">
 						Utility					</a>
 
@@ -113,10 +113,13 @@
 		<div id="elements">
 			<h3>Classes</h3>
 			<ul>
-				<li><a href="class-MeTools.Controller.Component.FlashComponent.html">FlashComponent</a></li>
-				<li class="active"><a href="class-MeTools.Controller.Component.RecaptchaComponent.html">RecaptchaComponent</a></li>
-				<li><a href="class-MeTools.Controller.Component.SecurityComponent.html">SecurityComponent</a></li>
-				<li><a href="class-MeTools.Controller.Component.TokenComponent.html">TokenComponent</a></li>
+				<li><a href="class-MeTools.Utility.Apache.html">Apache</a></li>
+				<li class="active"><a href="class-MeTools.Utility.Asset.html">Asset</a></li>
+				<li><a href="class-MeTools.Utility.Php.html">Php</a></li>
+				<li><a href="class-MeTools.Utility.System.html">System</a></li>
+				<li><a href="class-MeTools.Utility.Thumbs.html">Thumbs</a></li>
+				<li><a href="class-MeTools.Utility.Unix.html">Unix</a></li>
+				<li><a href="class-MeTools.Utility.Xml.html">Xml</a></li>
 			</ul>
 
 
@@ -143,7 +146,7 @@
 				<a href="index.html" title="Overview"><span>Overview</span></a>
 			</li>
 			<li>
-				<a href="namespace-MeTools.Controller.Component.html" title="Summary of MeTools\Controller\Component"><span>Namespace</span></a>
+				<a href="namespace-MeTools.Utility.html" title="Summary of MeTools\Utility"><span>Namespace</span></a>
 			</li>
 			<li class="active">
 <span>Class</span>			</li>
@@ -160,23 +163,17 @@
 	</div>
 
 <div id="content" class="class">
-	<h1>Class RecaptchaComponent</h1>
+	<h1>Class Asset</h1>
 
 
+	<div class="description">
+	<p>An utility to handle assets.</p>
 
-	<dl class="tree">
-		<dd style="padding-left:0px">
-Cake\Controller\Component
-			
-			
-		</dd>
-		<dd style="padding-left:30px">
-			<img src="resources/inherit.png" alt="Extended by">
-<b><span>MeTools\Controller\Component\RecaptchaComponent</span></b>			
-			
-			
-		</dd>
-	</dl>
+<p>You can use this utility by adding:</p>
+
+<pre><span class="php-keyword1">use</span> MeTools\Utility\Asset;</pre>
+	</div>
+
 
 
 
@@ -188,10 +185,10 @@ Cake\Controller\Component
 	<div class="info">
 		
 		
-		<b>Namespace:</b> <a href="namespace-MeTools.html">MeTools</a>\<a href="namespace-MeTools.Controller.html">Controller</a>\<a href="namespace-MeTools.Controller.Component.html">Component</a><br>
+		<b>Namespace:</b> <a href="namespace-MeTools.html">MeTools</a>\<a href="namespace-MeTools.Utility.html">Utility</a><br>
 		
 
-			<b>Located at</b> <a href="source-class-MeTools.Controller.Component.RecaptchaComponent.html#29-84" title="Go to source code">Component/RecaptchaComponent.php</a>
+			<b>Located at</b> <a href="source-class-MeTools.Utility.Asset.html#28-82" title="Go to source code">Asset.php</a>
 		<br>
 	</div>
 
@@ -202,7 +199,7 @@ Cake\Controller\Component
 	<tr data-order="check" id="_check">
 
 		<td class="attributes"><code>
-			 public 
+			 public static
 
 			boolean
 			
@@ -211,14 +208,14 @@ Cake\Controller\Component
 
 		<td class="name"><div>
 		<a class="anchor" href="#_check">#</a>
-		<code><a href="source-class-MeTools.Controller.Component.RecaptchaComponent.html#36-74" title="Go to source code">check</a>( )</code>
+		<code><a href="source-class-MeTools.Utility.Asset.html#37-44" title="Go to source code">check</a>( )</code>
 
 		<div class="description short">
-			<p>Checks for reCAPTCHA</p>
+			<p>Checks if the folder is writable</p>
 		</div>
 
 		<div class="description detailed hidden">
-			<p>Checks for reCAPTCHA</p>
+			<p>Checks if the folder is writable</p>
 
 
 
@@ -227,29 +224,63 @@ Cake\Controller\Component
 					boolean
 				</div>
 
-				<h4>Throws</h4>
-				<div class="list">
-					Cake\Network\Exception\InternalErrorException
-				</div>
 
-				<h4>See</h4>
-				<div class="list">
-						https://developers.google.com/recaptcha/docs/verify<br>
-				</div>
 				<h4>Uses</h4>
 				<div class="list">
-						Cake\Network\Http\Client::post()<br>
-						MeTools\Network\Request::clientIp()<br>
+						<code><a href="class-MeTools.Utility.Asset.html#_folder">MeTools\Utility\Asset::folder()</a></code><br>
+				</div>
+				<h4>Used by</h4>
+				<div class="list">
+						<code><a href="class-MeTools.Utility.Asset.html#_clear">MeTools\Utility\Asset::clear()</a></code><br>
 				</div>
 
 
 		</div>
 		</div></td>
 	</tr>
-	<tr data-order="getError" id="_getError">
+	<tr data-order="clear" id="_clear">
 
 		<td class="attributes"><code>
-			 public 
+			 public static
+
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_clear">#</a>
+		<code><a href="source-class-MeTools.Utility.Asset.html#46-64" title="Go to source code">clear</a>( )</code>
+
+		<div class="description short">
+			<p>Clears all asset files</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Clears all asset files</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					boolean
+				</div>
+
+
+				<h4>Uses</h4>
+				<div class="list">
+						<code><a href="class-MeTools.Utility.Asset.html#_check">MeTools\Utility\Asset::check()</a></code><br>
+						<code><a href="class-MeTools.Utility.Asset.html#_folder">MeTools\Utility\Asset::folder()</a></code><br>
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="folder" id="_folder">
+
+		<td class="attributes"><code>
+			 public static
 
 			string
 			
@@ -257,27 +288,67 @@ Cake\Controller\Component
 		</td>
 
 		<td class="name"><div>
-		<a class="anchor" href="#_getError">#</a>
-		<code><a href="source-class-MeTools.Controller.Component.RecaptchaComponent.html#76-83" title="Go to source code">getError</a>( )</code>
+		<a class="anchor" href="#_folder">#</a>
+		<code><a href="source-class-MeTools.Utility.Asset.html#66-72" title="Go to source code">folder</a>( )</code>
 
 		<div class="description short">
-			<p>Gets the last error</p>
+			<p>Gets the main folder path</p>
 		</div>
 
 		<div class="description detailed hidden">
-			<p>Gets the last error</p>
+			<p>Gets the main folder path</p>
 
 
 
 				<h4>Returns</h4>
 				<div class="list">
-					string<br>Error
+					string<br>Folder path
+				</div>
+
+
+				<h4>Used by</h4>
+				<div class="list">
+						<code><a href="class-MeTools.Utility.Asset.html#_check">MeTools\Utility\Asset::check()</a></code><br>
+						<code><a href="class-MeTools.Utility.Asset.html#_clear">MeTools\Utility\Asset::clear()</a></code><br>
+						<code><a href="class-MeTools.Utility.Asset.html#_size">MeTools\Utility\Asset::size()</a></code><br>
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="size" id="_size">
+
+		<td class="attributes"><code>
+			 public static
+
+			integer
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_size">#</a>
+		<code><a href="source-class-MeTools.Utility.Asset.html#74-81" title="Go to source code">size</a>( )</code>
+
+		<div class="description short">
+			<p>Gets the folder size</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Gets the folder size</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					integer
 				</div>
 
 
 				<h4>Uses</h4>
 				<div class="list">
-						<code><a href="class-MeTools.Controller.Component.RecaptchaComponent.html#$error">MeTools\Controller\Component\RecaptchaComponent::<var>$error</var></a></code><br>
+						<code><a href="class-MeTools.Utility.Asset.html#_folder">MeTools\Utility\Asset::folder()</a></code><br>
 				</div>
 
 
@@ -297,38 +368,6 @@ Cake\Controller\Component
 
 
 
-	<table class="summary properties" id="properties">
-	<caption>Properties summary</caption>
-	<tr data-order="error" id="$error">
-		<td class="attributes"><code>
-			protected  
-			string
-		</code></td>
-
-		<td class="name">
-				<a href="source-class-MeTools.Controller.Component.RecaptchaComponent.html#30-34" title="Go to source code"><var>$error</var></a>
-
-			<div class="description short">
-				<p>Error</p>
-			</div>
-
-			<div class="description detailed hidden">
-				<p>Error</p>
-
-					<h4>Used by</h4>
-					<div class="list">
-							<code><a href="class-MeTools.Controller.Component.RecaptchaComponent.html#_getError">MeTools\Controller\Component\RecaptchaComponent::getError()</a></code><br>
-					</div>
-			</div>
-		</td>
-		<td class="value">
-			<div>
-				<a href="#$error" class="anchor">#</a>
-				<code></code>
-			</div>
-		</td>
-	</tr>
-	</table>
 
 
 

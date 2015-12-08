@@ -42,6 +42,18 @@
 
 						</li>
 				<li class="main">
+					<a href="namespace-MeTools.Log.html">
+						Log<span></span>
+					</a>
+
+						<ul>
+				<li class="main">
+					<a href="namespace-MeTools.Log.Engine.html">
+						Engine					</a>
+
+						</li>
+							</ul></li>
+				<li class="main">
 					<a href="namespace-MeTools.Model.html">
 						Model<span></span>
 					</a>
@@ -149,7 +161,9 @@
 
 
 	<div class="description">
-	<p>An utility to handle plugins</p>
+	<p>An utility to handle plugins.</p>
+
+<p>Rewrites <a href="http://api.cakephp.org/3.1/class-Cake.Core.Plugin.html">Plugin</a>.</p>
 	</div>
 
 	<dl class="tree">
@@ -179,7 +193,7 @@ Cake\Core\Plugin
 		<b>Namespace:</b> <a href="namespace-MeTools.html">MeTools</a>\<a href="namespace-MeTools.Core.html">Core</a><br>
 		
 
-			<b>Located at</b> <a href="source-class-MeTools.Core.Plugin.html#28-131" title="Go to source code">Plugin.php</a>
+			<b>Located at</b> <a href="source-class-MeTools.Core.Plugin.html#29-109" title="Go to source code">Plugin.php</a>
 		<br>
 	</div>
 
@@ -192,53 +206,14 @@ Cake\Core\Plugin
 		<td class="attributes"><code>
 			 public static
 
-			
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_all">#</a>
-		<code><a href="source-class-MeTools.Core.Plugin.html#32-38" title="Go to source code">all</a>( )</code>
-
-		<div class="description short">
-			<p>Alias for <code>getAll()</code> method</p>
-		</div>
-
-		<div class="description detailed hidden">
-			<p>Alias for <code>getAll()</code> method</p>
-
-
-
-
-
-				<h4>See</h4>
-				<div class="list">
-						<code><a href="class-MeTools.Core.Plugin.html#_getAll">MeTools\Core\Plugin::getAll()</a></code><br>
-				</div>
-				<h4>Used by</h4>
-				<div class="list">
-						<code><a href="class-MeTools.Core.Plugin.html#_getVersions">MeTools\Core\Plugin::getVersions()</a></code><br>
-						<code><a href="class-MeTools.Core.Plugin.html#_path">MeTools\Core\Plugin::path()</a></code><br>
-				</div>
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="getAll" id="_getAll">
-
-		<td class="attributes"><code>
-			 public static
-
 			array
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
-		<a class="anchor" href="#_getAll">#</a>
-		<code><a href="source-class-MeTools.Core.Plugin.html#40-56" title="Go to source code">getAll</a>( <span>string|array <var>$except</var> = <span class="php-keyword1">NULL</span></span> )</code>
+		<a class="anchor" href="#_all">#</a>
+		<code><a href="source-class-MeTools.Core.Plugin.html#35-51" title="Go to source code">all</a>( <span>string|array <var>$except</var> = <span class="php-keyword1">NULL</span></span> )</code>
 
 		<div class="description short">
 			<p>Gets all loaded plugins.</p>
@@ -266,94 +241,9 @@ Cake\Core\Plugin
 				</div>
 				<h4>Used by</h4>
 				<div class="list">
-						<code><a href="class-MeTools.View.Helper.AssetHelper.html#___construct">MeTools\View\Helper\AssetHelper::__construct()</a></code><br>
-				</div>
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="getVersion" id="_getVersion">
-
-		<td class="attributes"><code>
-			 public static
-
-			mixed
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_getVersion">#</a>
-		<code><a href="source-class-MeTools.Core.Plugin.html#58-74" title="Go to source code">getVersion</a>( <span>string <var>$plugin</var></span> )</code>
-
-		<div class="description short">
-			<p>Gets the version number for a plugin.</p>
-		</div>
-
-		<div class="description detailed hidden">
-			<p>Gets the version number for a plugin.</p>
-
-
-				<h4>Parameters</h4>
-				<div class="list"><dl>
-					<dt><var>$plugin</var></dt>
-					<dd>Plugin name</dd>
-				</dl></div>
-
-				<h4>Returns</h4>
-				<div class="list">
-					mixed<br>Version number or FALSE
-				</div>
-
-
-				<h4>Uses</h4>
-				<div class="list">
 						<code><a href="class-MeTools.Core.Plugin.html#_path">MeTools\Core\Plugin::path()</a></code><br>
-				</div>
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="getVersions" id="_getVersions">
-
-		<td class="attributes"><code>
-			 public static
-
-			mixed
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_getVersions">#</a>
-		<code><a href="source-class-MeTools.Core.Plugin.html#76-92" title="Go to source code">getVersions</a>( <span>string|array <var>$except</var> = <span class="php-keyword1">NULL</span></span> )</code>
-
-		<div class="description short">
-			<p>Gets the version number for each plugin.</p>
-		</div>
-
-		<div class="description detailed hidden">
-			<p>Gets the version number for each plugin.</p>
-
-
-				<h4>Parameters</h4>
-				<div class="list"><dl>
-					<dt><var>$except</var></dt>
-					<dd>Plugins to exclude</dd>
-				</dl></div>
-
-				<h4>Returns</h4>
-				<div class="list">
-					mixed<br>array with the version number for each plugin
-				</div>
-
-
-				<h4>Uses</h4>
-				<div class="list">
-						<code><a href="class-MeTools.Core.Plugin.html#_all">MeTools\Core\Plugin::all()</a></code><br>
-						<code><a href="class-MeTools.Core.Plugin.html#_version">MeTools\Core\Plugin::version()</a></code><br>
+						<code><a href="class-MeTools.Core.Plugin.html#_versions">MeTools\Core\Plugin::versions()</a></code><br>
+						<code><a href="class-MeTools.View.Helper.AssetHelper.html#___construct">MeTools\View\Helper\AssetHelper::__construct()</a></code><br>
 				</div>
 
 
@@ -372,7 +262,7 @@ Cake\Core\Plugin
 
 		<td class="name"><div>
 		<a class="anchor" href="#_path">#</a>
-		<code><a href="source-class-MeTools.Core.Plugin.html#94-114" title="Go to source code">path</a>( <span>string <var>$plugin</var> = <span class="php-keyword1">NULL</span></span>, <span>string <var>$filename</var> = <span class="php-keyword1">NULL</span></span> )</code>
+		<code><a href="source-class-MeTools.Core.Plugin.html#53-73" title="Go to source code">path</a>( <span>string <var>$plugin</var> = <span class="php-keyword1">NULL</span></span>, <span>string <var>$filename</var> = <span class="php-keyword1">NULL</span></span> )</code>
 
 		<div class="description short">
 			<p>Gets a path for a plugin or for all plugins.</p>
@@ -406,9 +296,9 @@ Cake\Core\Plugin
 				<h4>Used by</h4>
 				<div class="list">
 						<code><a href="class-MeTools.Controller.Component.FlashComponent.html#___call">MeTools\Controller\Component\FlashComponent::__call()</a></code><br>
-						<code><a href="class-MeTools.Core.Plugin.html#_getVersion">MeTools\Core\Plugin::getVersion()</a></code><br>
-						<code><a href="class-MeTools.Utility.System.html#_getChangelogs">MeTools\Utility\System::getChangelogs()</a></code><br>
-						<code><a href="class-MeTools.Utility.System.html#_getChangelogs">MeTools\Utility\System::getChangelogs()</a></code><br>
+						<code><a href="class-MeTools.Core.Plugin.html#_version">MeTools\Core\Plugin::version()</a></code><br>
+						<code><a href="class-MeTools.Utility.System.html#_changelogs">MeTools\Utility\System::changelogs()</a></code><br>
+						<code><a href="class-MeTools.Utility.System.html#_changelogs">MeTools\Utility\System::changelogs()</a></code><br>
 						<code><a href="class-MeTools.View.Helper.AssetHelper.html#__parsePaths">MeTools\View\Helper\AssetHelper::_parsePaths()</a></code><br>
 						<code><a href="class-MeTools.View.Helper.LibraryHelper.html#_fancybox">MeTools\View\Helper\LibraryHelper::fancybox()</a></code><br>
 				</div>
@@ -422,33 +312,42 @@ Cake\Core\Plugin
 		<td class="attributes"><code>
 			 public static
 
-			
+			mixed
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_version">#</a>
-		<code><a href="source-class-MeTools.Core.Plugin.html#116-122" title="Go to source code">version</a>( )</code>
+		<code><a href="source-class-MeTools.Core.Plugin.html#75-90" title="Go to source code">version</a>( <span>string <var>$plugin</var></span> )</code>
 
 		<div class="description short">
-			<p>Alias for <code>getVersion()</code> method</p>
+			<p>Gets the version number for a plugin.</p>
 		</div>
 
 		<div class="description detailed hidden">
-			<p>Alias for <code>getVersion()</code> method</p>
+			<p>Gets the version number for a plugin.</p>
 
 
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$plugin</var></dt>
+					<dd>Plugin name</dd>
+				</dl></div>
 
-
-
-				<h4>See</h4>
+				<h4>Returns</h4>
 				<div class="list">
-						<code><a href="class-MeTools.Core.Plugin.html#_getVersion">MeTools\Core\Plugin::getVersion()</a></code><br>
+					mixed<br>Version number or FALSE
+				</div>
+
+
+				<h4>Uses</h4>
+				<div class="list">
+						<code><a href="class-MeTools.Core.Plugin.html#_path">MeTools\Core\Plugin::path()</a></code><br>
 				</div>
 				<h4>Used by</h4>
 				<div class="list">
-						<code><a href="class-MeTools.Core.Plugin.html#_getVersions">MeTools\Core\Plugin::getVersions()</a></code><br>
+						<code><a href="class-MeTools.Core.Plugin.html#_versions">MeTools\Core\Plugin::versions()</a></code><br>
 				</div>
 
 
@@ -460,29 +359,39 @@ Cake\Core\Plugin
 		<td class="attributes"><code>
 			 public static
 
-			
+			mixed
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_versions">#</a>
-		<code><a href="source-class-MeTools.Core.Plugin.html#124-130" title="Go to source code">versions</a>( )</code>
+		<code><a href="source-class-MeTools.Core.Plugin.html#92-108" title="Go to source code">versions</a>( <span>string|array <var>$except</var> = <span class="php-keyword1">NULL</span></span> )</code>
 
 		<div class="description short">
-			<p>Alias for <code>getVersions()</code> method</p>
+			<p>Gets the version number for each plugin.</p>
 		</div>
 
 		<div class="description detailed hidden">
-			<p>Alias for <code>getVersions()</code> method</p>
+			<p>Gets the version number for each plugin.</p>
 
 
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$except</var></dt>
+					<dd>Plugins to exclude</dd>
+				</dl></div>
 
-
-
-				<h4>See</h4>
+				<h4>Returns</h4>
 				<div class="list">
-						<code><a href="class-MeTools.Core.Plugin.html#_getVersions">MeTools\Core\Plugin::getVersions()</a></code><br>
+					mixed<br>array with the version number for each plugin
+				</div>
+
+
+				<h4>Uses</h4>
+				<div class="list">
+						<code><a href="class-MeTools.Core.Plugin.html#_all">MeTools\Core\Plugin::all()</a></code><br>
+						<code><a href="class-MeTools.Core.Plugin.html#_version">MeTools\Core\Plugin::version()</a></code><br>
 				</div>
 
 
