@@ -77,6 +77,6 @@ class Asset {
 	 * @uses folder()
      */
     public static function size() {
-        return (new Folder(self::folder()))->dirsize();
+        return dirsize(self::folder());
     }
 }

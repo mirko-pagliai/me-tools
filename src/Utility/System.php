@@ -142,6 +142,6 @@ class System {
      * @return int Cache size
      */
     public static function getCacheSize() {
-        return (new Folder(CACHE))->dirsize();
+        return dirsize(CACHE);
     }
 }

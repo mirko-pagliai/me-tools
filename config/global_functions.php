@@ -104,6 +104,18 @@ if(!function_exists('am')) {
 	}
 }
 
+if(!function_exists('dirsize')) {
+	/**
+	 * Returns the size in bytes of a directory and its contents
+	 * @param string $path Full path
+	 * @return int Size in bytes
+	 * @uses Cake\Filesystem\Folder::dirsize()
+	 */
+	function dirsize($path) {
+		return (new \Cake\Filesystem\Folder($path))->dirsize();
+	}
+}
+
 if(!function_exists('fk')) {
 	/**
 	 * Returns the first key of an array

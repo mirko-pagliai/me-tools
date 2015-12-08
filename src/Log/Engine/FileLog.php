@@ -77,6 +77,6 @@ class FileLog extends CakeFileLog {
 	 * @return int Logs size
 	 */
 	public static function size() {
-        return (new Folder(LOGS))->dirsize();
+        return dirsize(LOGS);
 	}
 }

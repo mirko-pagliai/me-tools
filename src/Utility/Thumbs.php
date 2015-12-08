@@ -125,14 +125,11 @@ class Thumbs {
 
     /**
      * Gets the thumbnails size
-     * @return mixed Thumbnails size
+     * @return int Thumbnails size
 	 * @uses check()
      */
     public static function getSize() {
-		if(!self::check())
-			return FALSE;
-		
-        return (new Folder(TMP.'thumbs'))->dirsize();
+        return dirsize(TMP.'thumbs');
     }
 	
 	/**
