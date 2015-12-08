@@ -139,7 +139,7 @@ class Thumbs {
 	 * @param string $file Filename, optional
 	 * @return string Videos path
 	 */
-    public static function getVideoPath() {
+    public static function getVideoPath($file = NULL) {
 		$path =  TMP.'thumbs'.DS.'videos'.DS;
 		
 		if(!empty($file))
