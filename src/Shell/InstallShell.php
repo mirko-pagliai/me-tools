@@ -76,8 +76,10 @@ class InstallShell extends BaseShell {
 		
 		//Assets for which create symbolic links (full paths)
 		$this->fonts = [
+			ROOT.DS.'vendor/fortawesome/font-awesome/fonts/fontawesome-webfont.eot',
 			ROOT.DS.'vendor/fortawesome/font-awesome/fonts/fontawesome-webfont.ttf',
 			ROOT.DS.'vendor/fortawesome/font-awesome/fonts/fontawesome-webfont.woff',
+			ROOT.DS.'vendor/fortawesome/font-awesome/fonts/fontawesome-webfont.woff2'
 		];
 		
 		//Assets for which create symbolic links
