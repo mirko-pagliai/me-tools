@@ -35,19 +35,19 @@ use Cake\Filesystem\Folder;
  */
 class Thumbs {
     /**
-     * Checks if all thumbnail directories are readable and writable.
-     * @return boolean TRUE if all thumbnail directories are readable and writable, FALSE otherwise
+     * Checks if all thumbnail directories are readable and writable
+     * @return boolean
 	 * @uses checkPhotos()
 	 * @uses checkRemotes()
 	 * @uses checkVideos()
      */
-    public static function check() {
+    public static function checkAll() {
 		return self::checkPhotos() && self::checkRemotes() && self::checkVideos();
     }
 	
 	/**
      * Checks if the photos directory is readable and writable
-     * @return boolean TRUE if the photos directory is readable and writable, FALSE otherwise
+     * @return boolean
 	 * @uses photo()
 	 */
     public static function checkPhotos() {
@@ -56,7 +56,7 @@ class Thumbs {
 	
 	/**
      * Checks if the remotes directory is readable and writable
-     * @return boolean TRUE if the remotes directory is readable and writable, FALSE otherwise
+     * @return boolean
 	 * @uses remote()
 	 */
     public static function checkRemotes() {
@@ -65,7 +65,7 @@ class Thumbs {
 	
 	/**
      * Checks if the videos directory is readable and writable
-     * @return boolean TRUE if the videos directory is readable and writable, FALSE otherwise
+     * @return boolean
 	 * @uses video()
 	 */
     public static function checkVideos() {
@@ -74,11 +74,11 @@ class Thumbs {
 	
     /**
      * Clears the thumbnails
-     * @return boolean TRUE if the thumbnails are writable and were successfully cleared, FALSE otherwise
-	 * @uses check()
+     * @return boolean
+	 * @uses checkAll()
      */
     public static function clear() {
-		if(!self::check())
+		if(!self::checkAll())
 			return FALSE;
 		
 		$success = TRUE;
@@ -94,89 +94,47 @@ class Thumbs {
 	/**
 	 * Gets a photo path.
 	 * 
-	 * If a filename is not specified, it returns the main directory path.
-	 * @param string $file Filename, optional
-	 * @return string Photos path
+	 * If a filename is not specified, it returns the main directory path
+	 * @param string $file Filename (optional)
+	 * @return string
 	 */
-    public static function getPhotoPath($file = NULL) {
+    public static function photo($file = NULL) {
 		$path =  TMP.'thumbs'.DS.'photos'.DS;
 		
-		if(!empty($file))
-			$path .= $file;
-		
-		return $path;
+		return empty($file) ? $path : $path.$file;
 	}
 	
 	/**
 	 * Gets the path for a remote file.
 	 * 
-	 * If a filename is not specified, it returns the main directory path.
-	 * @param string $file Filename, optional
-	 * @return string Remotes path
+	 * If a filename is not specified, it returns the main directory path
+	 * @param string $file Filename (optional)
+	 * @return string
 	 */
-    public static function getRemotePath($file = NULL) {
+    public static function remote($file = NULL) {
 		$path =  TMP.'thumbs'.DS.'remotes'.DS;
 		
-		if(!empty($file))
-			$path .= $file;
-		
-		return $path;
+		return empty($file) ? $path : $path.$file;
 	}
 
     /**
      * Gets the thumbnails size
      * @return int Thumbnails size
-	 * @uses check()
      */
-    public static function getSize() {
+    public static function size() {
         return dirsize(TMP.'thumbs');
     }
 	
 	/**
 	 * Gets a video path.
 	 * 
-	 * If a filename is not specified, it returns the main directory path.
-	 * @param string $file Filename, optional
-	 * @return string Videos path
+	 * If a filename is not specified, it returns the main directory path
+	 * @param string $file Filename (optional)
+	 * @return string
 	 */
-    public static function getVideoPath($file = NULL) {
+    public static function video($file = NULL) {
 		$path =  TMP.'thumbs'.DS.'videos'.DS;
 		
-		if(!empty($file))
-			$path .= $file;
-		
-		return $path;
+		return empty($file) ? $path : $path.$file;
 	}
-	
-    /**
-     * Alias for `getPhotoPath()` method.
-     * @see getPhotoPath()
-     */
-    public static function photo() {
-        return call_user_func_array([get_class(), 'getPhotoPath'], func_get_args());
-    }
-	
-    /**
-     * Alias for `getRemotePath()` method.
-     * @see getRemotePath()
-     */
-    public static function remote() {
-        return call_user_func_array([get_class(), 'getRemotePath'], func_get_args());
-    }
-	
-    /**
-     * Alias for `getSize()` method.
-     * @see getVideoPath()
-     */
-    public static function size() {
-        return call_user_func_array([get_class(), 'getSize'], func_get_args());
-    }
-	
-    /**
-     * Alias for `getVideoPath()` method.
-     * @see getVideoPath()
-     */
-    public static function video() {
-        return call_user_func_array([get_class(), 'getVideoPath'], func_get_args());
-    }
 }
