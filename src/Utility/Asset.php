@@ -24,6 +24,9 @@ namespace MeTools\Utility;
 
 use Cake\Filesystem\File;
 use Cake\Filesystem\Folder;
+use Cake\Network\Exception\InternalErrorException;
+use MeTools\Core\Plugin;
+use MeTools\Utility\Unix;
 
 /**
  * An utility to handle assets.
@@ -34,6 +37,40 @@ use Cake\Filesystem\Folder;
  * </code>
  */
 class Asset {
+	/**
+	 * Parses paths and for each path returns an array with the full path and the last modification time
+     * @param string|array $path String or array of css/js files
+	 * @param string $extension Extension (`css` or `js`)
+	 * @return array
+	 * @uses MeTools\Core\Plugin::all()
+	 * @uses MeTools\Core\Plugin::path()
+	 */
+	protected static function _parsePath($path, $extension) {
+		$paths = is_array($path) ? $path : [$path];
+		$plugins = Plugin::all();
+		
+		foreach($paths as $k => $path) {
+			$plugin = pluginSplit($path);
+			
+			if(in_array($plugin[0], $plugins))
+				$path = $plugin[1];
+			
+			if(substr($path, 0, 1) == '/')
+				$path = substr($path, 1);
+			else
+				$path = $extension.DS.$path;
+			
+			if(in_array($plugin[0], $plugins))
+				$path = Plugin::path($plugin[0], 'webroot'.DS.$path);
+			else
+				$path = WWW_ROOT.$path;
+						
+			$paths[$k] = [$path = sprintf('%s.%s', $path, $extension), filemtime($path)];
+		}
+		
+		return $paths;
+	}
+	
 	/**
 	 * Checks if the folder is writable
 	 * @return boolean
@@ -69,6 +106,46 @@ class Asset {
 	 */
 	public static function folder() {
 		return WWW_ROOT.'assets'.DS;
+	}
+
+	/**
+	 * Gets the asset for a path. The asset will be created, if doesn't exist
+     * @param string|array $path String or array of css/js files
+	 * @param string $extension Extension (`css` or `js`)
+	 * @return string
+	 * @see https://github.com/jakubpawlowicz/clean-css clean-css
+	 * @see https://github.com/mishoo/UglifyJS2 UglifyJS
+	 * @throws InternalErrorException
+	 * @uses _parsePaths()
+	 */
+	public static function get($path, $extension) {		
+		//For each path, gets the full path and the modification time
+		$path = self::_parsePath($path, $extension);
+		
+		//Sets asset full path (`$asset`) and www path (`$www`)
+		$asset = WWW_ROOT.'assets'.DS.sprintf('%s.%s', md5(serialize($path)), $extension);
+		$www = sprintf('/assets/%s.%s', md5(serialize($path)), $extension);
+		
+		if(!is_readable($asset)) {
+			//Checks if the target directory is writeable
+			if(!is_writeable($target = WWW_ROOT.'assets'))
+				throw new InternalErrorException(__d('me_tools', 'The directory {0} is not writable', rtr($target)));
+		
+			//Reads the content of all paths
+			$content = implode(PHP_EOL, array_map(function($path) { return file_get_contents($path[0]); }, $path));
+			
+			//Creates the file
+			if(!file_put_contents($asset, $content))
+				throw new InternalErrorException(__d('me_tools', 'Impossible to create the file {0}', rtr($asset)));
+			
+			//Compresses
+			if($extension == 'css' && $bin = Unix::which('cleancss'))
+				exec(sprintf('%s -o %s --s0 %s', $bin, $asset, $asset));
+			elseif($extension == 'js' && $bin = Unix::which('uglifyjs'))
+				exec(sprintf('%s %s --compress --mangle -o %s', $bin, $asset, $asset));	
+		}
+		
+		return $www;
 	}
 	
     /**
