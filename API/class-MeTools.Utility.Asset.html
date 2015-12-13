@@ -188,7 +188,7 @@
 		<b>Namespace:</b> <a href="namespace-MeTools.html">MeTools</a>\<a href="namespace-MeTools.Utility.html">Utility</a><br>
 		
 
-			<b>Located at</b> <a href="source-class-MeTools.Utility.Asset.html#28-82" title="Go to source code">Asset.php</a>
+			<b>Located at</b> <a href="source-class-MeTools.Utility.Asset.html#31-159" title="Go to source code">Asset.php</a>
 		<br>
 	</div>
 
@@ -196,6 +196,52 @@
 
 	<table class="summary methods" id="methods">
 	<caption>Methods summary</caption>
+	<tr data-order="_parsePath" id="__parsePath">
+
+		<td class="attributes"><code>
+			 protected static
+
+			array
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#__parsePath">#</a>
+		<code><a href="source-class-MeTools.Utility.Asset.html#40-72" title="Go to source code">_parsePath</a>( <span>string|array <var>$path</var></span>, <span>string <var>$extension</var></span> )</code>
+
+		<div class="description short">
+			<p>Parses paths and for each path returns an array with the full path and the last modification time</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Parses paths and for each path returns an array with the full path and the last modification time</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$path</var></dt>
+					<dd>String or array of css/js files</dd>
+					<dt><var>$extension</var></dt>
+					<dd>Extension (<code>css</code> or <code>js</code>)</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					array
+				</div>
+
+
+				<h4>Uses</h4>
+				<div class="list">
+						<code><a href="class-MeTools.Core.Plugin.html#_all">MeTools\Core\Plugin::all()</a></code><br>
+						<code><a href="class-MeTools.Core.Plugin.html#_path">MeTools\Core\Plugin::path()</a></code><br>
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
 	<tr data-order="check" id="_check">
 
 		<td class="attributes"><code>
@@ -208,7 +254,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_check">#</a>
-		<code><a href="source-class-MeTools.Utility.Asset.html#37-44" title="Go to source code">check</a>( )</code>
+		<code><a href="source-class-MeTools.Utility.Asset.html#74-81" title="Go to source code">check</a>( )</code>
 
 		<div class="description short">
 			<p>Checks if the folder is writable</p>
@@ -250,7 +296,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_clear">#</a>
-		<code><a href="source-class-MeTools.Utility.Asset.html#46-64" title="Go to source code">clear</a>( )</code>
+		<code><a href="source-class-MeTools.Utility.Asset.html#83-101" title="Go to source code">clear</a>( )</code>
 
 		<div class="description short">
 			<p>Clears all asset files</p>
@@ -289,7 +335,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_folder">#</a>
-		<code><a href="source-class-MeTools.Utility.Asset.html#66-72" title="Go to source code">folder</a>( )</code>
+		<code><a href="source-class-MeTools.Utility.Asset.html#103-109" title="Go to source code">folder</a>( )</code>
 
 		<div class="description short">
 			<p>Gets the main folder path</p>
@@ -317,6 +363,65 @@
 		</div>
 		</div></td>
 	</tr>
+	<tr data-order="get" id="_get">
+
+		<td class="attributes"><code>
+			 public static
+
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_get">#</a>
+		<code><a href="source-class-MeTools.Utility.Asset.html#111-149" title="Go to source code">get</a>( <span>string|array <var>$path</var></span>, <span>string <var>$extension</var></span> )</code>
+
+		<div class="description short">
+			<p>Gets the asset for a path. The asset will be created, if doesn't exist</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Gets the asset for a path. The asset will be created, if doesn't exist</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$path</var></dt>
+					<dd>String or array of css/js files</dd>
+					<dt><var>$extension</var></dt>
+					<dd>Extension (<code>css</code> or <code>js</code>)</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					string
+				</div>
+
+				<h4>Throws</h4>
+				<div class="list">
+					Cake\Network\Exception\InternalErrorException
+				</div>
+
+				<h4>See</h4>
+				<div class="list">
+						https://github.com/jakubpawlowicz/clean-css clean-css<br>
+						https://github.com/mishoo/UglifyJS2 UglifyJS<br>
+				</div>
+				<h4>Uses</h4>
+				<div class="list">
+						_parsePaths()<br>
+				</div>
+				<h4>Used by</h4>
+				<div class="list">
+						<code><a href="class-MeTools.View.Helper.AssetHelper.html#_css">MeTools\View\Helper\AssetHelper::css()</a></code><br>
+						<code><a href="class-MeTools.View.Helper.AssetHelper.html#_script">MeTools\View\Helper\AssetHelper::script()</a></code><br>
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
 	<tr data-order="size" id="_size">
 
 		<td class="attributes"><code>
@@ -329,7 +434,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_size">#</a>
-		<code><a href="source-class-MeTools.Utility.Asset.html#74-81" title="Go to source code">size</a>( )</code>
+		<code><a href="source-class-MeTools.Utility.Asset.html#151-158" title="Go to source code">size</a>( )</code>
 
 		<div class="description short">
 			<p>Gets the folder size</p>
