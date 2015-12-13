@@ -215,7 +215,7 @@ class ThumbsController extends AppController {
 					throw new InternalErrorException(__d('me_tools', 'The directory {0} is not writable', dirname($tmp)));
 					
 				//Downloads the file
-				file_put_contents($tmp, file_get_contents($file));
+				file_put_contents($tmp, fopen($file, 'r'));
 			}
 			//The file is now the temporary file
 			$file = $tmp;
