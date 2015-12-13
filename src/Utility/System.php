@@ -24,7 +24,6 @@ namespace MeTools\Utility;
 
 use Cake\Cache\Cache;
 use Cake\Core\Configure;
-use Cake\Filesystem\File;
 use Cake\Filesystem\Folder;
 use MeTools\Core\Plugin;
 
@@ -52,22 +51,40 @@ class System {
     public static function cacheStatus() {
         return call_user_func_array([get_class(), 'checkCacheStatus'], func_get_args());
     }
-	
+
     /**
-     * Alias for `getCakeVersion()` method.
-     * @see getCakeVersion()
+     * Gets the CakePHP version.
+     * @return string CakePHP version
      */
     public static function cakeVersion() {
-        return call_user_func_array([get_class(), 'getCakeVersion'], func_get_args());
+        return Configure::version();
     }
 	
-    /**
-     * Alias for `getChangelogs()` method.
-     * @see getChangelogs()
-     */
-    public static function changelogs() {
-        return call_user_func_array([get_class(), 'getChangelogs'], func_get_args());
-    }
+	/**
+	 * Gets all changelog files. 
+	 * 
+	 * It searchs into `ROOT` and all loaded plugins.
+	 * @uses MeTools\Core\Plugin::path()
+	 * @return array Changelog files
+	 * @uses Cake\I18n\I18n::locale()
+	 * @uses MeTools\Core\Plugin::path()
+	 */
+	public static function changelogs() {
+		$files = af(array_map(function($path) {
+			//Gets the current locale
+			$locale = substr(\Cake\I18n\I18n::locale(), 0, 2);
+
+			if(!empty($locale) && is_readable($file = sprintf($path.'CHANGELOG_%s.md', $locale)))
+				return str_replace(ROOT.DS, NULL, $file);
+			elseif(is_readable($file = $path.'CHANGELOG.md'))
+				return str_replace(ROOT.DS, NULL, $file);
+			else
+				return FALSE;
+		}, am([ROOT.DS], Plugin::path())));
+		
+		//Re-indexes, starting to 1, and returns
+		return array_combine(range(1, count($files)), array_values($files));
+	}
 	
     /**
      * Checks if the cache is readable and writable
@@ -84,14 +101,6 @@ class System {
     public static function checkCacheStatus() {
 		return Cache::enabled();
     }
-	
-    /**
-     * Checks if the logs directory is readable and writable
-     * @return boolean
-     */
-	public static function checkLogs() {
-		return folder_is_writable(LOGS);
-	}
 	
     /**
      * Checks if the temporary directory is readable and writable.
@@ -128,104 +137,11 @@ class System {
 		return $success;
     }
 	
-	/**
-     * Clears the logs
-     * @return boolean TRUE if the cache is writable and were successfully cleared, FALSE otherwise
-	 * @uses checkLogs()
-	 */
-	public static function clearLogs() {
-		if(!self::checkLogs())
-			return FALSE;
-		
-		$success = TRUE;
-		
-		//Deletes each file
-        foreach((new Folder(LOGS))->findRecursive() as $file)
-            if(!(new File($file))->delete() && $success)
-                $success = FALSE;
-		
-        return $success;
-	}
-	
     /**
      * Gets the cache size.
      * @return int Cache size
      */
     public static function getCacheSize() {
-        return (new Folder(CACHE))->dirsize();
+        return dirsize(CACHE);
     }
-
-    /**
-     * Gets the CakePHP version.
-     * @return string CakePHP version
-     */
-    public static function getCakeVersion() {
-        return Configure::version();
-    }
-	
-	/**
-	 * Gets all changelog files. 
-	 * 
-	 * It searchs into `ROOT` and all loaded plugins.
-	 * @uses MeTools\Core\Plugin::path()
-	 * @return array Changelog files
-	 * @uses Cake\I18n\I18n::locale()
-	 * @uses MeTools\Core\Plugin::path()
-	 */
-	public static function getChangelogs() {
-		$files = af(array_map(function($path) {
-			//Gets the current locale
-			$locale = substr(\Cake\I18n\I18n::locale(), 0, 2);
-
-			if(!empty($locale) && is_readable($file = sprintf($path.'CHANGELOG_%s.md', $locale)))
-				return str_replace(ROOT.DS, NULL, $file);
-			elseif(is_readable($file = $path.'CHANGELOG.md'))
-				return str_replace(ROOT.DS, NULL, $file);
-			else
-				return FALSE;
-		}, am([ROOT.DS], Plugin::path())));
-		
-		//Re-indexes, starting to 1, and returns
-		return array_combine(range(1, count($files)), array_values($files));
-	}
-	
-	/**
-	 * Gets all logs files.
-	 * @return array|Null Log files
-	 */
-	public static function getLogs() {
-		//Gets log files
-		$files = (new Folder(LOGS))->find('[^\.]+\.log(\.[^\-]+)?', TRUE);
-		
-		if(empty($files))
-			return;
-		
-		//Re-indexes, starting to 1, and returns
-		return array_combine(range(1, count($files)), array_values($files));
-	}
-	
-	/**
-	 * Gets the logs size.
-	 * @return int Logs size
-	 */
-	public static function getLogsSize() {
-        return (new Folder(LOGS))->dirsize();
-	}
-	
-    /**
-     * Alias for `getLogs()` method.
-     * @see getLogs()
-     */
-    public static function logs() {
-        return call_user_func_array([get_class(), 'getLogs'], func_get_args());
-    }
-	
-	
-    /**
-     * Alias for `getLogsSize()` method.
-     * @see getLogsSize()
-     */
-	public static function logsSize() {
-        return call_user_func_array([get_class(), 'getLogsSize'], func_get_args());
-	}
 }

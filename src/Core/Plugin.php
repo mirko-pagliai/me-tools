@@ -19,6 +19,7 @@
  * @copyright	Copyright (c) 2015, Mirko Pagliai for Nova Atlantis Ltd
  * @license		http://www.gnu.org/licenses/agpl.txt AGPL License
  * @link		http://git.novatlantis.it Nova Atlantis Ltd
+ * @see			http://api.cakephp.org/3.1/class-Cake.Core.Plugin.html Plugin
  */
 namespace MeTools\Core;
 
@@ -26,24 +27,18 @@ use Cake\Core\Plugin as CakePlugin;
 use Cake\Filesystem\Folder;
 
 /**
- * An utility to handle plugins
+ * An utility to handle plugins.
+ * 
+ * Rewrites {@link http://api.cakephp.org/3.1/class-Cake.Core.Plugin.html Plugin}.
  */
 class Plugin extends CakePlugin {
-    /**
-     * Alias for `getAll()` method
-     * @see getAll()
-     */
-    public static function all() {
-        return call_user_func_array([get_class(), 'getAll'], func_get_args());
-    }
-	
 	/**
 	 * Gets all loaded plugins.
 	 * @param string|array $except Plugins to exclude
 	 * @return array Plugins
 	 * @uses Cake\Core\Plugin::loaded()
 	 */
-	public static function getAll($except = NULL) {
+	public static function all($except = NULL) {
 		$plugins = parent::loaded();
 		
 		//Removes exceptions
@@ -53,42 +48,6 @@ class Plugin extends CakePlugin {
 		}
 		
 		return $plugins;
-	}
-	
-	/**
-	 * Gets the version number for a plugin.
-	 * @param string $plugin Plugin name
-	 * @return mixed Version number or FALSE
-	 * @uses path()
-	 */
-	public static function getVersion($plugin) {
-		$path = self::path($plugin);
-		
-		if(empty($path))
-			return FALSE;
-		
-		$folder = new Folder($path);
-		$files = $folder->find('version(\.txt)?');
-		
-		return empty($files[0]) ? FALSE : trim(file_get_contents($path.$files[0]));
-	}
-	
-	/**
-	 * Gets the version number for each plugin.
-	 * @param string|array $except Plugins to exclude
-	 * @return mixed array with the version number for each plugin
-	 * @uses all()
-	 * @uses version()
-	 */
-	public static function getVersions($except = NULL) {
-		$versions = [];
-		
-		//For each plugin, sets the name and the version number
-		foreach(self::all($except) as $plugin)
-			if(self::version($plugin))
-				$versions[] = ['name' => $plugin, 'version' => self::version($plugin)];
-		
-		return $versions;
 	}
 	
 	/**
@@ -113,19 +72,38 @@ class Plugin extends CakePlugin {
 		}, self::all());
 	}
 	
-    /**
-     * Alias for `getVersion()` method
-     * @see getVersion()
-     */
-    public static function version() {
-        return call_user_func_array([get_class(), 'getVersion'], func_get_args());
-    }
+	/**
+	 * Gets the version number for a plugin.
+	 * @param string $plugin Plugin name
+	 * @return mixed Version number or FALSE
+	 * @uses path()
+	 */
+	public static function version($plugin) {
+		$path = self::path($plugin);
+		
+		if(empty($path))
+			return;
+		
+		$files = (new Folder($path))->find('version(\.txt)?');
+		
+		return empty($files[0]) ? FALSE : trim(file_get_contents($path.$files[0]));
+	}
 	
-    /**
-     * Alias for `getVersions()` method
-     * @see getVersions()
-     */
-    public static function versions() {
-        return call_user_func_array([get_class(), 'getVersions'], func_get_args());
-    }
+	/**
+	 * Gets the version number for each plugin.
+	 * @param string|array $except Plugins to exclude
+	 * @return mixed array with the version number for each plugin
+	 * @uses all()
+	 * @uses version()
+	 */
+	public static function versions($except = NULL) {
+		$versions = [];
+		
+		//For each plugin, sets the name and the version number
+		foreach(self::all($except) as $plugin)
+			if(self::version($plugin))
+				$versions[] = ['name' => $plugin, 'version' => self::version($plugin)];
+		
+		return $versions;
+	}
 }

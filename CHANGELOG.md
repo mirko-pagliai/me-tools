@@ -1,4 +1,9 @@
 # 2.x branch
+## 2.2 branch
+### 2.2.0
+* added the Asset helper. Removed the Layout helper and the Compress shell. Now assets are automatically generated when required;
+* fixed little bugs.
+
 ## 2.1 branch
 ### 2.1.2
 * fixed a bug with forms on Firefox.

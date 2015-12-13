@@ -43,6 +43,18 @@
 
 						</li>
 				<li class="main">
+					<a href="namespace-MeTools.Log.html">
+						Log<span></span>
+					</a>
+
+						<ul>
+				<li class="main">
+					<a href="namespace-MeTools.Log.Engine.html">
+						Engine					</a>
+
+						</li>
+							</ul></li>
+				<li class="main">
 					<a href="namespace-MeTools.Model.html">
 						Model<span></span>
 					</a>
@@ -109,22 +121,23 @@
 				<li><a href="class-MeTools.Controller.Component.TokenComponent.html">MeTools\Controller\Component\TokenComponent</a></li>
 				<li><a href="class-MeTools.Controller.ThumbsController.html">MeTools\Controller\ThumbsController</a></li>
 				<li><a href="class-MeTools.Core.Plugin.html">MeTools\Core\Plugin</a></li>
+				<li><a href="class-MeTools.Log.Engine.FileLog.html">MeTools\Log\Engine\FileLog</a></li>
 				<li><a href="class-MeTools.Model.Entity.Token.html">MeTools\Model\Entity\Token</a></li>
 				<li><a href="class-MeTools.Model.Table.TokensTable.html">MeTools\Model\Table\TokensTable</a></li>
 				<li><a href="class-MeTools.Network.Request.html">MeTools\Network\Request</a></li>
 				<li><a href="class-MeTools.Shell.Base.BaseShell.html">MeTools\Shell\Base\BaseShell</a></li>
-				<li><a href="class-MeTools.Shell.CompressShell.html">MeTools\Shell\CompressShell</a></li>
 				<li><a href="class-MeTools.Shell.InstallShell.html">MeTools\Shell\InstallShell</a></li>
 				<li><a href="class-MeTools.Utility.Apache.html">MeTools\Utility\Apache</a></li>
+				<li><a href="class-MeTools.Utility.Asset.html">MeTools\Utility\Asset</a></li>
 				<li><a href="class-MeTools.Utility.Php.html">MeTools\Utility\Php</a></li>
 				<li><a href="class-MeTools.Utility.System.html">MeTools\Utility\System</a></li>
 				<li><a href="class-MeTools.Utility.Thumbs.html">MeTools\Utility\Thumbs</a></li>
 				<li><a href="class-MeTools.Utility.Unix.html">MeTools\Utility\Unix</a></li>
 				<li><a href="class-MeTools.Utility.Xml.html">MeTools\Utility\Xml</a></li>
+				<li><a href="class-MeTools.View.Helper.AssetHelper.html">MeTools\View\Helper\AssetHelper</a></li>
 				<li><a href="class-MeTools.View.Helper.DropdownHelper.html">MeTools\View\Helper\DropdownHelper</a></li>
 				<li><a href="class-MeTools.View.Helper.FormHelper.html">MeTools\View\Helper\FormHelper</a></li>
 				<li><a href="class-MeTools.View.Helper.HtmlHelper.html">MeTools\View\Helper\HtmlHelper</a></li>
-				<li><a href="class-MeTools.View.Helper.LayoutHelper.html">MeTools\View\Helper\LayoutHelper</a></li>
 				<li><a href="class-MeTools.View.Helper.LibraryHelper.html">MeTools\View\Helper\LibraryHelper</a></li>
 				<li><a href="class-MeTools.View.Helper.MarkdownHelper.html">MeTools\View\Helper\MarkdownHelper</a></li>
 				<li><a href="class-MeTools.View.Helper.PaginatorHelper.html">MeTools\View\Helper\PaginatorHelper</a></li>
@@ -209,7 +222,7 @@
 </span></span><span id="36" class="l"><a href="#36">36: </a><span class="php-comment">     * @param string $extension Extension to be checked
 </span></span><span id="37" class="l"><a href="#37">37: </a><span class="php-comment">     * @return mixed TRUE if the extension is enabled, FALSE otherwise. NULL if cannot check
 </span></span><span id="38" class="l"><a href="#38">38: </a><span class="php-comment">     */</span>
-</span><span id="39" class="l"><a href="#39">39: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">static</span> <span class="php-keyword1">function</span> checkExtension(<span class="php-var">$extension</span>) {
+</span><span id="39" class="l"><a href="#39">39: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">static</span> <span class="php-keyword1">function</span> extension(<span class="php-var">$extension</span>) {
 </span><span id="40" class="l"><a href="#40">40: </a>        <span class="php-keyword1">if</span>(!<span class="php-keyword2">function_exists</span>(<span class="php-quote">'extension_loaded'</span>))
 </span><span id="41" class="l"><a href="#41">41: </a>            <span class="php-keyword1">return</span>;
 </span><span id="42" class="l"><a href="#42">42: </a>        
@@ -225,34 +238,18 @@
 </span></span><span id="52" class="l"><a href="#52">52: </a><span class="php-comment">     * @return boolean TRUE if the current version is equal to or greater than the required version, FALSE otherwise
 </span></span><span id="53" class="l"><a href="#53">53: </a><span class="php-comment">     * @uses version()
 </span></span><span id="54" class="l"><a href="#54">54: </a><span class="php-comment">     */</span>
-</span><span id="55" class="l"><a href="#55">55: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">static</span> <span class="php-keyword1">function</span> checkVersion(<span class="php-var">$required</span> = <span class="php-quote">'5.4.16'</span>) {
+</span><span id="55" class="l"><a href="#55">55: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">static</span> <span class="php-keyword1">function</span> check(<span class="php-var">$required</span> = <span class="php-quote">'5.4.16'</span>) {
 </span><span id="56" class="l"><a href="#56">56: </a>        <span class="php-keyword1">return</span> <span class="php-keyword2">version_compare</span>(self::version(), <span class="php-var">$required</span>, <span class="php-quote">'&gt;='</span>);
 </span><span id="57" class="l"><a href="#57">57: </a>    }
-</span><span id="58" class="l"><a href="#58">58: </a>    
+</span><span id="58" class="l"><a href="#58">58: </a>
 </span><span id="59" class="l"><a href="#59">59: </a>    <span class="php-comment">/**
-</span></span><span id="60" class="l"><a href="#60">60: </a><span class="php-comment">     * Alias for `checkExtension()` method.
-</span></span><span id="61" class="l"><a href="#61">61: </a><span class="php-comment">     * @see checkExtension()
+</span></span><span id="60" class="l"><a href="#60">60: </a><span class="php-comment">     * Gets the current version.
+</span></span><span id="61" class="l"><a href="#61">61: </a><span class="php-comment">     * @return string Current version
 </span></span><span id="62" class="l"><a href="#62">62: </a><span class="php-comment">     */</span>
-</span><span id="63" class="l"><a href="#63">63: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">static</span> <span class="php-keyword1">function</span> extension() {
-</span><span id="64" class="l"><a href="#64">64: </a>        <span class="php-keyword1">return</span> <span class="php-keyword2">call_user_func_array</span>([<span class="php-keyword2">get_class</span>(), <span class="php-quote">'checkExtension'</span>], <span class="php-keyword2">func_get_args</span>());
+</span><span id="63" class="l"><a href="#63">63: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">static</span> <span class="php-keyword1">function</span> version() {
+</span><span id="64" class="l"><a href="#64">64: </a>        <span class="php-keyword1">return</span> PHP_VERSION;
 </span><span id="65" class="l"><a href="#65">65: </a>    }
-</span><span id="66" class="l"><a href="#66">66: </a>
-</span><span id="67" class="l"><a href="#67">67: </a>    <span class="php-comment">/**
-</span></span><span id="68" class="l"><a href="#68">68: </a><span class="php-comment">     * Gets the current version.
-</span></span><span id="69" class="l"><a href="#69">69: </a><span class="php-comment">     * @return string Current version
-</span></span><span id="70" class="l"><a href="#70">70: </a><span class="php-comment">     */</span>
-</span><span id="71" class="l"><a href="#71">71: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">static</span> <span class="php-keyword1">function</span> getVersion() {
-</span><span id="72" class="l"><a href="#72">72: </a>        <span class="php-keyword1">return</span> PHP_VERSION;
-</span><span id="73" class="l"><a href="#73">73: </a>    }
-</span><span id="74" class="l"><a href="#74">74: </a>    
-</span><span id="75" class="l"><a href="#75">75: </a>    <span class="php-comment">/**
-</span></span><span id="76" class="l"><a href="#76">76: </a><span class="php-comment">     * Alias for `getVersion()` method.
-</span></span><span id="77" class="l"><a href="#77">77: </a><span class="php-comment">     * @see getVersion()
-</span></span><span id="78" class="l"><a href="#78">78: </a><span class="php-comment">     */</span>
-</span><span id="79" class="l"><a href="#79">79: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">static</span> <span class="php-keyword1">function</span> version() {
-</span><span id="80" class="l"><a href="#80">80: </a>        <span class="php-keyword1">return</span> <span class="php-keyword2">call_user_func_array</span>([<span class="php-keyword2">get_class</span>(), <span class="php-quote">'getVersion'</span>], <span class="php-keyword2">func_get_args</span>());
-</span><span id="81" class="l"><a href="#81">81: </a>    }
-</span><span id="82" class="l"><a href="#82">82: </a>}</span></code></pre>
+</span><span id="66" class="l"><a href="#66">66: </a>}</span></code></pre>
 
 	<div id="footer">
 		MeTools API API documentation generated by <a href="http://apigen.org">ApiGen</a>
@@ -260,6 +257,6 @@
 </div>
 </div>
 <script src="resources/combined.js?cd021bc814832c24a7cec5319ea03335bfba1caf"></script>
-<script src="elementlist.js?5a0158915ddaa5516c785f16036e878cb3811c9b"></script>
+<script src="elementlist.js?81d661cef64721c1c2e4c9494f670260b45cc587"></script>
 </body>
 </html>

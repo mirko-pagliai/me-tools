@@ -23,7 +23,6 @@
 namespace MeTools\View\Helper;
 
 use Cake\View\Helper;
-use Cake\View\View;
 
 /**
  * Thumb helper

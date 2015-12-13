@@ -24,7 +24,6 @@
 namespace MeTools\View\Helper;
 
 use Cake\View\Helper;
-use Cake\View\View;
 
 require_once ROOT.DS.'vendor'.DS.'michelf'.DS.'php-markdown'.DS.'Michelf'.DS.'Markdown.inc.php';
 

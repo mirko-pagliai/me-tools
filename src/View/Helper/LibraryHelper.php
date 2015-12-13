@@ -25,7 +25,6 @@ namespace MeTools\View\Helper;
 
 use Cake\Core\Configure;
 use Cake\View\Helper;
-use Cake\View\View;
 use MeTools\Core\Plugin;
 
 /**

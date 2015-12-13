@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 
-	<title>Class MeTools\View\Helper\LayoutHelper | MeTools API</title>
+	<title>Class MeTools\View\Helper\AssetHelper | MeTools API</title>
 
 	<link rel="stylesheet" href="resources/style.css?e99947befd7bf673c6b43ff75e9e0f170c88a60e">
 
@@ -41,6 +41,18 @@
 						Core					</a>
 
 						</li>
+				<li class="main">
+					<a href="namespace-MeTools.Log.html">
+						Log<span></span>
+					</a>
+
+						<ul>
+				<li class="main">
+					<a href="namespace-MeTools.Log.Engine.html">
+						Engine					</a>
+
+						</li>
+							</ul></li>
 				<li class="main">
 					<a href="namespace-MeTools.Model.html">
 						Model<span></span>
@@ -101,10 +113,10 @@
 		<div id="elements">
 			<h3>Classes</h3>
 			<ul>
+				<li class="active"><a href="class-MeTools.View.Helper.AssetHelper.html">AssetHelper</a></li>
 				<li><a href="class-MeTools.View.Helper.DropdownHelper.html">DropdownHelper</a></li>
 				<li><a href="class-MeTools.View.Helper.FormHelper.html">FormHelper</a></li>
 				<li><a href="class-MeTools.View.Helper.HtmlHelper.html">HtmlHelper</a></li>
-				<li class="active"><a href="class-MeTools.View.Helper.LayoutHelper.html">LayoutHelper</a></li>
 				<li><a href="class-MeTools.View.Helper.LibraryHelper.html">LibraryHelper</a></li>
 				<li><a href="class-MeTools.View.Helper.MarkdownHelper.html">MarkdownHelper</a></li>
 				<li><a href="class-MeTools.View.Helper.PaginatorHelper.html">PaginatorHelper</a></li>
@@ -153,13 +165,15 @@
 	</div>
 
 <div id="content" class="class">
-	<h1>Class LayoutHelper</h1>
+	<h1>Class AssetHelper</h1>
 
 
 	<div class="description">
-	<p>Layout Helper.</p>
+	<p>Asset Helper.</p>
 
-<p>This helper allows you to gerate the layouts.</p>
+<p>This helper allows you to gerate assets.</p>
+
+<p>Before using the helper, you have install <code>clean-css</code> and <code>UglifyJS</code>.</p>
 	</div>
 
 	<dl class="tree">
@@ -170,7 +184,7 @@ Cake\View\Helper
 		</dd>
 		<dd style="padding-left:30px">
 			<img src="resources/inherit.png" alt="Extended by">
-<b><span>MeTools\View\Helper\LayoutHelper</span></b>			
+<b><span>MeTools\View\Helper\AssetHelper</span></b>			
 			
 			
 		</dd>
@@ -189,7 +203,7 @@ Cake\View\Helper
 		<b>Namespace:</b> <a href="namespace-MeTools.html">MeTools</a>\<a href="namespace-MeTools.View.html">View</a>\<a href="namespace-MeTools.View.Helper.html">Helper</a><br>
 		
 
-			<b>Located at</b> <a href="source-class-MeTools.View.Helper.LayoutHelper.html#29-93" title="Go to source code">Helper/LayoutHelper.php</a>
+			<b>Located at</b> <a href="source-class-MeTools.View.Helper.AssetHelper.html#33-86" title="Go to source code">Helper/AssetHelper.php</a>
 		<br>
 	</div>
 
@@ -209,24 +223,20 @@ Cake\View\Helper
 
 		<td class="name"><div>
 		<a class="anchor" href="#_css">#</a>
-		<code><a href="source-class-MeTools.View.Helper.LayoutHelper.html#41-53" title="Go to source code">css</a>( <span>mixed <var>$path</var></span>, <span>type <var>$pathForDebug</var></span>, <span>array <var>$options</var> = []</span> )</code>
+		<code><a href="source-class-MeTools.View.Helper.AssetHelper.html#47-61" title="Go to source code">css</a>( <span>string|array <var>$path</var></span>, <span>array <var>$options</var> = []</span> )</code>
 
 		<div class="description short">
-			<p>Adds a css file to the layout.</p>
+			<p>Compresses and adds a css file to the layout</p>
 		</div>
 
 		<div class="description detailed hidden">
-			<p>Adds a css file to the layout.</p>
-
-<p>It uses the first argument if debugging is disabled, otherwise the second argument if debugging is enabled.</p>
+			<p>Compresses and adds a css file to the layout</p>
 
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
 					<dt><var>$path</var></dt>
-					<dd>Css filename or an array of css filenames, to be used if debugging is disabled</dd>
-					<dt><var>$pathForDebug</var></dt>
-					<dd>Css filename or an array of css filenames, to be used if debugging is enabled</dd>
+					<dd>String or array of css files</dd>
 					<dt><var>$options</var></dt>
 					<dd>Array of options and HTML attributes</dd>
 				</dl></div>
@@ -237,9 +247,14 @@ Cake\View\Helper
 				</div>
 
 
+				<h4>See</h4>
+				<div class="list">
+						https://github.com/jakubpawlowicz/clean-css clean-css<br>
+				</div>
 				<h4>Uses</h4>
 				<div class="list">
-						Cake\Core\Configure::read()<br>
+						MeTools\View\Helper\HtmlHelper:css()<br>
+						<code><a href="class-MeTools.Utility.Asset.html#_get">MeTools\Utility\Asset::get()</a></code><br>
 				</div>
 
 
@@ -258,7 +273,7 @@ Cake\View\Helper
 
 		<td class="name"><div>
 		<a class="anchor" href="#_js">#</a>
-		<code><a href="source-class-MeTools.View.Helper.LayoutHelper.html#55-61" title="Go to source code">js</a>( )</code>
+		<code><a href="source-class-MeTools.View.Helper.AssetHelper.html#63-69" title="Go to source code">js</a>( )</code>
 
 		<div class="description short">
 			<p>Alias for <code>script()</code> method</p>
@@ -273,7 +288,7 @@ Cake\View\Helper
 
 				<h4>See</h4>
 				<div class="list">
-						<code><a href="class-MeTools.View.Helper.LayoutHelper.html#_script">MeTools\View\Helper\LayoutHelper::script()</a></code><br>
+						<code><a href="class-MeTools.View.Helper.AssetHelper.html#_script">MeTools\View\Helper\AssetHelper::script()</a></code><br>
 				</div>
 
 
@@ -292,85 +307,38 @@ Cake\View\Helper
 
 		<td class="name"><div>
 		<a class="anchor" href="#_script">#</a>
-		<code><a href="source-class-MeTools.View.Helper.LayoutHelper.html#63-76" title="Go to source code">script</a>( <span>mixed <var>$url</var></span>, <span>type <var>$urlForDebug</var></span>, <span>array <var>$options</var> = []</span> )</code>
+		<code><a href="source-class-MeTools.View.Helper.AssetHelper.html#71-85" title="Go to source code">script</a>( <span>string|array <var>$url</var></span>, <span>array <var>$options</var> = []</span> )</code>
 
 		<div class="description short">
-			<p>Adds a js file to the layout.</p>
+			<p>Compresses and adds js files to the layout</p>
 		</div>
 
 		<div class="description detailed hidden">
-			<p>Adds a js file to the layout.</p>
-
-<p>It uses the first argument if debugging is disabled, otherwise the second argument if debugging is enabled.</p>
+			<p>Compresses and adds js files to the layout</p>
 
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
 					<dt><var>$url</var></dt>
-					<dd>Javascript files as string or array, to be used if debugging is disabled</dd>
-					<dt><var>$urlForDebug</var></dt>
-					<dd>Javascript files as string or array, to be used if debugging is enabled</dd>
+					<dd>$path String or array of js files</dd>
 					<dt><var>$options</var></dt>
 					<dd>Array of options and HTML attributes</dd>
 				</dl></div>
 
 				<h4>Returns</h4>
 				<div class="list">
-					mixed<br><p>String of <code>&lt;script /&gt;</code> tags or NULL if <code>$inline</code> is FALSE or if <code>$once</code> is TRUE
-and the file has been included before</p>
-				</div>
-
-
-				<h4>Uses</h4>
-				<div class="list">
-						Cake\Core\Configure::read()<br>
-				</div>
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="viewport" id="_viewport">
-
-		<td class="attributes"><code>
-			 public 
-
-			string
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_viewport">#</a>
-		<code><a href="source-class-MeTools.View.Helper.LayoutHelper.html#78-92" title="Go to source code">viewport</a>( <span>boolean <var>$zooming</var> = <span class="php-keyword1">FALSE</span></span> )</code>
-
-		<div class="description short">
-			<p>Adds the <code>viewport</code> meta tag as required by Bootstrap.</p>
-		</div>
-
-		<div class="description detailed hidden">
-			<p>Adds the <code>viewport</code> meta tag as required by Bootstrap.</p>
-
-
-				<h4>Parameters</h4>
-				<div class="list"><dl>
-					<dt><var>$zooming</var></dt>
-					<dd>Enabled or disabled zooming capabilities on mobile devices</dd>
-				</dl></div>
-
-				<h4>Returns</h4>
-				<div class="list">
-					string<br>Html code
+					mixed<br>String of <code>&lt;script /&gt;</code> tags or NULL if <code>$inline</code> is FALSE or if <code>$once</code> is TRUE
 				</div>
 
 
 				<h4>See</h4>
 				<div class="list">
-						http://getbootstrap.com/css/#overview-mobile Bootstrap documentation<br>
+						https://github.com/mishoo/UglifyJS2 UglifyJS<br>
 				</div>
 				<h4>Uses</h4>
 				<div class="list">
-						<code><a href="class-MeTools.View.Helper.HtmlHelper.html#_meta">MeTools\View\Helper\HtmlHelper::meta()</a></code><br>
+						MeTools\View\Helper\HtmlHelper:script()<br>
+						<code><a href="class-MeTools.Utility.Asset.html#_get">MeTools\Utility\Asset::get()</a></code><br>
 				</div>
 
 
@@ -399,7 +367,7 @@ and the file has been included before</p>
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-MeTools.View.Helper.LayoutHelper.html#35-39" title="Go to source code"><var>$helpers</var></a>
+				<a href="source-class-MeTools.View.Helper.AssetHelper.html#41-45" title="Go to source code"><var>$helpers</var></a>
 
 			<div class="description short">
 				<p>Helpers</p>

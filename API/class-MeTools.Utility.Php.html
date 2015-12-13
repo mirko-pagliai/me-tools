@@ -42,6 +42,18 @@
 
 						</li>
 				<li class="main">
+					<a href="namespace-MeTools.Log.html">
+						Log<span></span>
+					</a>
+
+						<ul>
+				<li class="main">
+					<a href="namespace-MeTools.Log.Engine.html">
+						Engine					</a>
+
+						</li>
+							</ul></li>
+				<li class="main">
 					<a href="namespace-MeTools.Model.html">
 						Model<span></span>
 					</a>
@@ -102,6 +114,7 @@
 			<h3>Classes</h3>
 			<ul>
 				<li><a href="class-MeTools.Utility.Apache.html">Apache</a></li>
+				<li><a href="class-MeTools.Utility.Asset.html">Asset</a></li>
 				<li class="active"><a href="class-MeTools.Utility.Php.html">Php</a></li>
 				<li><a href="class-MeTools.Utility.System.html">System</a></li>
 				<li><a href="class-MeTools.Utility.Thumbs.html">Thumbs</a></li>
@@ -175,7 +188,7 @@
 		<b>Namespace:</b> <a href="namespace-MeTools.html">MeTools</a>\<a href="namespace-MeTools.Utility.html">Utility</a><br>
 		
 
-			<b>Located at</b> <a href="source-class-MeTools.Utility.Php.html#25-82" title="Go to source code">Php.php</a>
+			<b>Located at</b> <a href="source-class-MeTools.Utility.Php.html#25-66" title="Go to source code">Php.php</a>
 		<br>
 	</div>
 
@@ -183,7 +196,7 @@
 
 	<table class="summary methods" id="methods">
 	<caption>Methods summary</caption>
-	<tr data-order="checkExtension" id="_checkExtension">
+	<tr data-order="extension" id="_extension">
 
 		<td class="attributes"><code>
 			 public static
@@ -194,8 +207,8 @@
 		</td>
 
 		<td class="name"><div>
-		<a class="anchor" href="#_checkExtension">#</a>
-		<code><a href="source-class-MeTools.Utility.Php.html#34-44" title="Go to source code">checkExtension</a>( <span>string <var>$extension</var></span> )</code>
+		<a class="anchor" href="#_extension">#</a>
+		<code><a href="source-class-MeTools.Utility.Php.html#34-44" title="Go to source code">extension</a>( <span>string <var>$extension</var></span> )</code>
 
 		<div class="description short">
 			<p>Checks if an extension is enabled.</p>
@@ -217,12 +230,16 @@
 				</div>
 
 
+				<h4>Used by</h4>
+				<div class="list">
+						<code><a href="class-MeTools.Controller.ThumbsController.html#__imageThumb">MeTools\Controller\ThumbsController::_imageThumb()</a></code><br>
+				</div>
 
 
 		</div>
 		</div></td>
 	</tr>
-	<tr data-order="checkVersion" id="_checkVersion">
+	<tr data-order="check" id="_check">
 
 		<td class="attributes"><code>
 			 public static
@@ -233,8 +250,8 @@
 		</td>
 
 		<td class="name"><div>
-		<a class="anchor" href="#_checkVersion">#</a>
-		<code><a href="source-class-MeTools.Utility.Php.html#46-57" title="Go to source code">checkVersion</a>( <span>string <var>$required</var> = <span class="php-quote">'5.4.16'</span></span> )</code>
+		<a class="anchor" href="#_check">#</a>
+		<code><a href="source-class-MeTools.Utility.Php.html#46-57" title="Go to source code">check</a>( <span>string <var>$required</var> = <span class="php-quote">'5.4.16'</span></span> )</code>
 
 		<div class="description short">
 			<p>Checks if the current version of PHP is equal to or greater than the required version.</p>
@@ -268,45 +285,7 @@ CakePHP 3.x requires at least the <code>5.4.16</code> version.</p>
 		</div>
 		</div></td>
 	</tr>
-	<tr data-order="extension" id="_extension">
-
-		<td class="attributes"><code>
-			 public static
-
-			
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_extension">#</a>
-		<code><a href="source-class-MeTools.Utility.Php.html#59-65" title="Go to source code">extension</a>( )</code>
-
-		<div class="description short">
-			<p>Alias for <code>checkExtension()</code> method.</p>
-		</div>
-
-		<div class="description detailed hidden">
-			<p>Alias for <code>checkExtension()</code> method.</p>
-
-
-
-
-
-				<h4>See</h4>
-				<div class="list">
-						<code><a href="class-MeTools.Utility.Php.html#_checkExtension">MeTools\Utility\Php::checkExtension()</a></code><br>
-				</div>
-				<h4>Used by</h4>
-				<div class="list">
-						<code><a href="class-MeTools.Controller.ThumbsController.html#__imageThumb">MeTools\Controller\ThumbsController::_imageThumb()</a></code><br>
-				</div>
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="getVersion" id="_getVersion">
+	<tr data-order="version" id="_version">
 
 		<td class="attributes"><code>
 			 public static
@@ -317,8 +296,8 @@ CakePHP 3.x requires at least the <code>5.4.16</code> version.</p>
 		</td>
 
 		<td class="name"><div>
-		<a class="anchor" href="#_getVersion">#</a>
-		<code><a href="source-class-MeTools.Utility.Php.html#67-73" title="Go to source code">getVersion</a>( )</code>
+		<a class="anchor" href="#_version">#</a>
+		<code><a href="source-class-MeTools.Utility.Php.html#59-65" title="Go to source code">version</a>( )</code>
 
 		<div class="description short">
 			<p>Gets the current version.</p>
@@ -335,43 +314,9 @@ CakePHP 3.x requires at least the <code>5.4.16</code> version.</p>
 				</div>
 
 
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="version" id="_version">
-
-		<td class="attributes"><code>
-			 public static
-
-			
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_version">#</a>
-		<code><a href="source-class-MeTools.Utility.Php.html#75-81" title="Go to source code">version</a>( )</code>
-
-		<div class="description short">
-			<p>Alias for <code>getVersion()</code> method.</p>
-		</div>
-
-		<div class="description detailed hidden">
-			<p>Alias for <code>getVersion()</code> method.</p>
-
-
-
-
-
-				<h4>See</h4>
-				<div class="list">
-						<code><a href="class-MeTools.Utility.Php.html#_getVersion">MeTools\Utility\Php::getVersion()</a></code><br>
-				</div>
 				<h4>Used by</h4>
 				<div class="list">
-						<code><a href="class-MeTools.Utility.Php.html#_checkVersion">MeTools\Utility\Php::checkVersion()</a></code><br>
+						<code><a href="class-MeTools.Utility.Php.html#_check">MeTools\Utility\Php::check()</a></code><br>
 				</div>
 
 

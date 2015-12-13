@@ -20,6 +20,25 @@
  * @license		http://www.gnu.org/licenses/agpl.txt AGPL License
  * @link		http://git.novatlantis.it Nova Atlantis Ltd
  */
+
+$propertyHintMap = null;
+if (!empty($propertySchema)) {
+    $propertyHintMap = $this->DocBlock->buildEntityPropertyHintTypeMap($propertySchema);
+}
+
+$accessible = [];
+if (!isset($fields) || $fields !== false) {
+    if (!empty($fields)) {
+        foreach ($fields as $field) {
+            $accessible[$field] = 'true';
+        }
+    } elseif (!empty($primaryKey)) {
+        $accessible['*'] = 'true';
+        foreach ($primaryKey as $field) {
+            $accessible[$field] = 'false';
+        }
+    }
+}
 %>
 <?php
 namespace <%= $namespace %>\Model\Entity;
@@ -28,16 +47,25 @@ use Cake\ORM\Entity;
 
 /**
  * <%= $name %> entity
+<% if ($propertyHintMap): %>
+<% foreach ($propertyHintMap as $property => $type): %>
+<% if ($type): %>
+ * @property <%= $type %> $<%= $property %>
+<% else: %>
+ * @property $<%= $property %>
+<% endif; %>
+<% endforeach; %>
+<% endif; %>
  */
 class <%= $name %> extends Entity {
-<% if (!empty($fields)): %>
+<% if (!empty($accessible)): %>
     /**
      * Fields that can be mass assigned using newEntity() or patchEntity()
      * @var array
      */
     protected $_accessible = [
-<% foreach ($fields as $field): %>
-        '<%= $field %>' => TRUE,
+<% foreach ($accessible as $field => $value): %>
+        '<%= $field %>' => <%= strtoupper($value) %>,
 <% endforeach; %>
     ];
 <% endif %>
@@ -49,7 +77,7 @@ class <%= $name %> extends Entity {
      */
     protected $_hidden = [<%= $this->Bake->stringifyList($hidden) %>];
 <% endif %>
-<% if (empty($fields) && empty($hidden)): %>
+<% if (empty($accessible) && empty($hidden)): %>
 
 <% endif %>
 }

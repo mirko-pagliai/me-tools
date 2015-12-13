@@ -24,7 +24,6 @@
 namespace MeTools\View\Helper;
 
 use Cake\View\Helper\HtmlHelper as CakeHtmlHelper;
-use Cake\View\View;
 
 /**
  * Provides functionalities for HTML code.
@@ -170,6 +169,17 @@ class HtmlHelper extends CakeHtmlHelper {
     public function cssStart() {
         $this->_View->start('css');
     }
+	
+	/**
+	 * Returns a formatted DIV tag
+	 * @param string $class CSS class name of the div element
+	 * @param string $text String content that will appear inside the div element
+	 * @param array $options Array of options and HTML attributes
+     * @return string Html code
+	 */
+	public function div($class = NULL, $text = NULL, array $options = []) {
+		return parent::div($class, is_null($text) ? '' : $text, $options);
+	}
 	
 	/**
 	 * Creates an heading. 
@@ -545,4 +555,24 @@ class HtmlHelper extends CakeHtmlHelper {
     public function video($path, array $options = []) {
         return self::media($path, am($options, ['tag' => 'video']));
     }
+	
+	/**
+	 * Adds the `viewport` meta tag. By default, it uses options as required by Bootstrap
+	 * @param array $options Attributes for the generated tag. If the type attribute is html,
+	 *		rss, atom, or icon, the mime-type is returned
+     * @see http://getbootstrap.com/css/#overview-mobile Bootstrap documentation
+     * @uses meta()
+	 */
+	public function viewport(array $options = []) {
+		$default = [
+			'initial-scale'	=> '1',
+			'maximum-scale'	=> '1',
+			'user-scalable'	=> 'no',
+			'width'			=> 'device-width'
+		];
+		
+		$content = http_build_query(am($default, $options), NULL, ', ');
+		
+		return self::meta(am(['name' => 'viewport'], compact('content')));
+	}
 }

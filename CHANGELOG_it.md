@@ -1,4 +1,9 @@
 # 2.x ramo
+## 2.2 ramo
+### 2.2.0
+* aggiunto l'helper Asset. Rimossi l'helper Layout e la shell Compress. Ora gli asset vengono generati automaticamente quando richiesti;
+* sistemati piccoli bug.
+
 ## 2.1 ramo
 ### 2.1.2
 * risolto un bug riguardante i form su Firefox.
