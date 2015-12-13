@@ -133,9 +133,9 @@ class Asset {
 		
 			//Reads the content of all paths
 			$content = implode(PHP_EOL, array_map(function($path) { return file_get_contents($path[0]); }, $path));
-			
-			//Creates the file
-			if(!file_put_contents($asset, $content))
+						
+			//Writes the file
+			if(!(new \Cake\Filesystem\File($asset, TRUE, 0777))->append($content, TRUE))
 				throw new InternalErrorException(__d('me_tools', 'Impossible to create the file {0}', rtr($asset)));
 			
 			//Compresses
