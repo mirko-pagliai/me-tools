@@ -133,16 +133,20 @@ class Asset {
 		
 			//Reads the content of all paths
 			$content = implode(PHP_EOL, array_map(function($path) { return file_get_contents($path[0]); }, $path));
-			
-			//Creates the file
-			if(!file_put_contents($asset, $content))
+						
+			//Writes the file
+			if(!(new \Cake\Filesystem\File($asset, TRUE, 0777))->append($content, TRUE))
 				throw new InternalErrorException(__d('me_tools', 'Impossible to create the file {0}', rtr($asset)));
 			
-			//Compresses
+			//Compresses CSS
 			if($extension == 'css' && $bin = Unix::which('cleancss'))
 				exec(sprintf('%s -o %s --s0 %s', $bin, $asset, $asset));
+			//Compresses JS
 			elseif($extension == 'js' && $bin = Unix::which('uglifyjs'))
-				exec(sprintf('%s %s --compress --mangle -o %s', $bin, $asset, $asset));	
+				exec(sprintf('%s %s --compress --mangle -o %s', $bin, $asset, $asset));
+			//Else, if the file type is unknown
+			else
+				throw new InternalErrorException(__d('me_tools', 'The file type {0} is unknown', $mime));
 		}
 		
 		return $www;

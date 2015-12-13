@@ -280,9 +280,9 @@ class ThumbsController extends AppController {
 			//Updates the thumb path with the file extensions
 			$this->thumb = sprintf('%s.jpg', $this->thumb);
 		}
-		//Else, if the mime type is unknown
+		//Else, if the file type is unknown
 		else
-			throw new InternalErrorException(__d('me_tools', 'The mime type {0} is not supported', $mime));
+			throw new InternalErrorException(__d('me_tools', 'The file type {0} is unknown', $mime));
 		
 		//If the thumbnail doesn't yet exist
 		if(!is_readable($this->thumb)) {
