@@ -57,7 +57,7 @@ class AssetHelper extends Helper {
 		//Checks if the debug is enabled
 		$path = Configure::read('debug') ? $path : Asset::get($path, 'css');
 		
-		return $this->Html->css(Asset::get($path, 'css'), $options);
+		return $this->Html->css($path, $options);
 	}
 	
     /**
