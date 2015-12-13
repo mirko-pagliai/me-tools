@@ -61,8 +61,12 @@ class Xml {
 	 */
 	public static function fromFile($file) {
 		//If the path is an url, sets the context
-		if(is_remote($file))
+		if(is_remote($file)) {
 			$context = stream_context_create(['http' => ['method' => 'GET', 'timeout' => 5]]);
+			
+			if(empty($content))
+				return FALSE;
+		}
 		//Else, if the path is a relative path, then the path will be relative to the APP
 		elseif(!realpath($file))
 			$path = APP.$file;
