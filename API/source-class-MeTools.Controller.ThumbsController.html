@@ -466,9 +466,9 @@
 </span><span id="280" class="l"><a href="#280">280: </a>            <span class="php-comment">//Updates the thumb path with the file extensions</span>
 </span><span id="281" class="l"><a href="#281">281: </a>            <span class="php-var">$this</span>-&gt;thumb = <span class="php-keyword2">sprintf</span>(<span class="php-quote">'%s.jpg'</span>, <span class="php-var">$this</span>-&gt;thumb);
 </span><span id="282" class="l"><a href="#282">282: </a>        }
-</span><span id="283" class="l"><a href="#283">283: </a>        <span class="php-comment">//Else, if the mime type is unknown</span>
+</span><span id="283" class="l"><a href="#283">283: </a>        <span class="php-comment">//Else, if the file type is unknown</span>
 </span><span id="284" class="l"><a href="#284">284: </a>        <span class="php-keyword1">else</span>
-</span><span id="285" class="l"><a href="#285">285: </a>            <span class="php-keyword1">throw</span> <span class="php-keyword1">new</span> InternalErrorException(__d(<span class="php-quote">'me_tools'</span>, <span class="php-quote">'The mime type {0} is not supported'</span>, <span class="php-var">$mime</span>));
+</span><span id="285" class="l"><a href="#285">285: </a>            <span class="php-keyword1">throw</span> <span class="php-keyword1">new</span> InternalErrorException(__d(<span class="php-quote">'me_tools'</span>, <span class="php-quote">'The file type {0} is unknown'</span>, <span class="php-var">$mime</span>));
 </span><span id="286" class="l"><a href="#286">286: </a>        
 </span><span id="287" class="l"><a href="#287">287: </a>        <span class="php-comment">//If the thumbnail doesn't yet exist</span>
 </span><span id="288" class="l"><a href="#288">288: </a>        <span class="php-keyword1">if</span>(!<span class="php-keyword2">is_readable</span>(<span class="php-var">$this</span>-&gt;thumb)) {
