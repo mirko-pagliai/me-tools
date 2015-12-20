@@ -117,11 +117,6 @@ class InstallShell extends BaseShell {
 			Thumbs::video()
 		];
 	}
-
-	/**
-	 * Rewrites the header for the shell
-	 */
-	protected function _welcome() { }
 	
 	/**
 	 * Executes all available tasks

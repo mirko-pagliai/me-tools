@@ -29,6 +29,11 @@ use Cake\Console\Shell;
  */
 class BaseShell extends Shell {
 	/**
+	 * Rewrites the header for the shell
+	 */
+	protected function _welcome() { }
+	
+	/**
 	 * Output a comment message
 	 * @param string|array|null $message A string or an array of strings to output
 	 * @param int $newlines Number of newlines to append
