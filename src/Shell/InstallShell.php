@@ -95,7 +95,7 @@ class InstallShell extends BaseShell {
 		//Suggested packages to install by Composer
 		$this->packages = [
 			'eonasdan/bootstrap-datetimepicker',
-			'newerton/fancy-box'
+			'newerton/fancy-box:dev-master'
 		];
 		
 		//Paths to be created and made writable
