@@ -239,15 +239,14 @@ class InstallShell extends BaseShell {
 		if(file_exists($file = WWW_ROOT.'robots.txt'))
 			return $this->verbose(__d('me_tools', 'The file `{0}` already exists', rtr($file)));
 		
-		if($this->createFile($file, 'User-agent: *
+		//Checks if the file has been created
+		if(!$this->createFile($file, 'User-agent: *
 			Disallow: /admin/
 			Disallow: /ckeditor/
 			Disallow: /css/
 			Disallow: /js/
 			Disallow: /vendor/'
 		))
-			$this->verbose(__d('me_tools', 'The file `{0}` has been created', rtr($file)));
-		else
 			$this->err(__d('me_tools', 'The file `{0}` has not been created', rtr($file)));
 	}
 	
