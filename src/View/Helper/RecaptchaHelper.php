@@ -42,20 +42,6 @@ class RecaptchaHelper extends Helper {
 	 * @var array
 	 */
 	public $helpers = ['MeTools.Html'];
-	
-	/**
-	 * Construct the widgets and binds the default context providers.
-	 * 
-	 * This method only ewrites the default configuration (`$_defaultConfig`).
-	 * @param Cake\View\View $view The View this helper is being attached to
-	 * @param array $config Configuration settings for the helper
-	 */
-	public function __construct(View $view, $config = []) {
-        parent::__construct($view, $config);
-		
-		//Loads the configuration file
-		Configure::load('recaptcha');
-	}
 
 	/**
 	 * Internal function to obfuscate an email address.
@@ -82,6 +68,7 @@ class RecaptchaHelper extends Helper {
 	 */
 	public function display(array $options = [], array $optionsScript = []) {
 		//Gets form keys
+		Configure::load('recaptcha');
 		$keys = Configure::read('Recaptcha.Form');
 		
 		//Checks for form keys
@@ -132,6 +119,7 @@ class RecaptchaHelper extends Helper {
 	 */
     public function mailUrl($mail) {
 		//Gets mail keys
+		Configure::load('recaptcha');
 		$keys = Configure::read('Recaptcha.Mail');
 		
 		//Checks for mail keys
