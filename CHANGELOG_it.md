@@ -1,5 +1,8 @@
 # 2.x ramo
 ## 2.2 ramo
+### 2.2.2
+* la shell Install ora può copiare i file di configurazione.
+
 ### 2.2.1
 * sistemato un grave bug.
 

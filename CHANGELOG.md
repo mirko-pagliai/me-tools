@@ -1,5 +1,8 @@
 # 2.x branch
 ## 2.2 branch
+### 2.2.2
+* the Install shield now copies configuration files.
+
 ### 2.2.1
 * fixed a serious bug.
 
