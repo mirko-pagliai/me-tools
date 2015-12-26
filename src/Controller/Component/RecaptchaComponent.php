@@ -41,15 +41,7 @@ class RecaptchaComponent extends Component {
 	 * @uses Cake\Network\Http\Client::post()
 	 * @uses MeTools\Network\Request::clientIp()
 	 */
-	public function check() {
-		$controller = $this->_registry->getController();
-		$response = $controller->request->data('g-recaptcha-response');
-		
-		if(empty($response)) {
-			$this->error = __d('me_tools', 'You have not filled out the {0} control', 'reCAPTCHA');	
-			return FALSE;
-		}
-		
+	public function check() {		
 		//Loads the configuration file
 		Configure::load('recaptcha');
 		
@@ -59,6 +51,14 @@ class RecaptchaComponent extends Component {
 		//Checks for form keys
 		if(empty($keys['public']) || empty($keys['private']))
             throw new \Cake\Network\Exception\InternalErrorException(__d('me_tools', 'Form keys are not configured'));
+		
+		$controller = $this->_registry->getController();
+		$response = $controller->request->data('g-recaptcha-response');
+		
+		if(empty($response)) {
+			$this->error = __d('me_tools', 'You have not filled out the {0} control', 'reCAPTCHA');	
+			return FALSE;
+		}
 		 		
 		$results = (new \Cake\Network\Http\Client)->post('https://www.google.com/recaptcha/api/siteverify', am([
 			'remoteip'	=> $controller->request->clientIp(),
