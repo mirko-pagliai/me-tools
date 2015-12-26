@@ -79,7 +79,7 @@ class ThumbsController extends AppController {
 	protected function _imageThumb() {
 		//Checks for Imagick extension
         if(!Php::extension('imagick'))
-            throw new InternalErrorException(__d('me_tools', 'The {0} library is missing', 'Imagick'));
+            throw new InternalErrorException(__d('me_tools', '{0} is not available', 'Imagick'));
 				
 		//Creates the Imagick object
 		$imagick = new \Imagick($this->file->path);
@@ -212,7 +212,7 @@ class ThumbsController extends AppController {
 			if(!is_readable($tmp = Thumbs::remote(md5($file).'.'.pathinfo($file, PATHINFO_EXTENSION)))) {
 				//Checks if the target directory is writable
 				if(!is_writable(dirname($tmp)))
-					throw new InternalErrorException(__d('me_tools', 'The directory {0} is not writable', dirname($tmp)));
+					throw new InternalErrorException(__d('me_tools', 'File or directory `{0}` not writeable', dirname($tmp)));
 					
 				//Downloads the file
 				file_put_contents($tmp, fopen($file, 'r'));
@@ -226,7 +226,7 @@ class ThumbsController extends AppController {
 
 		//Checks if the file is readable
 		if(!is_readable($file))
-			throw new InternalErrorException(__d('me_tools', 'The file {0} doesn\'t exist or is not readable', $file));
+			throw new InternalErrorException(__d('me_tools', 'File or directory `{0}` not readable', $file));
 		
 		//Creates the File object
 		$this->file = new File($file);
@@ -288,7 +288,7 @@ class ThumbsController extends AppController {
 		if(!is_readable($this->thumb)) {
 			//Checks if the target directory is writable
 			if(!is_writable(dirname($this->thumb)))
-				throw new InternalErrorException(__d('me_tools', 'The directory {0} is not writable', dirname($this->thumb)));
+				throw new InternalErrorException(__d('me_tools', 'File or directory `{0}` not writeable', dirname($this->thumb)));
 			
 			//Creates the thumbnail
 			if(preg_match('/image\/\S+/', $mime))

@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2015-12-08 10:57+0000\n"
+"POT-Creation-Date: 2015-12-26 15:24+0000\n"
 "PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
 "Last-Translator: NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
@@ -14,191 +14,189 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: Controller/ThumbsController.php:82
-msgid "The {0} library is missing"
+#: Controller/ThumbsController.php:82;159
+#: Shell/InstallShell.php:383
+msgid "{0} is not available"
 msgstr ""
 
 #: Controller/ThumbsController.php:145;166
 msgid "The thumbnail {0} has not been created"
 msgstr ""
 
-#: Controller/ThumbsController.php:159
-msgid "{0} is not available"
-msgstr ""
-
 #: Controller/ThumbsController.php:215;291
-#: Shell/InstallShell.php:204;286
-#: View/Helper/AssetHelper.php:68
-msgid "The directory {0} is not writable"
+#: Shell/InstallShell.php:242;323;331
+#: Utility/Asset.php:132
+msgid "File or directory `{0}` not writeable"
 msgstr ""
 
 #: Controller/ThumbsController.php:229
-msgid "The file {0} doesn't exist or is not readable"
+msgid "File or directory `{0}` not readable"
 msgstr ""
 
 #: Controller/ThumbsController.php:285
-msgid "The mime type {0} is not supported"
+#: Utility/Asset.php:149
+msgid "The file type {0} is unknown"
 msgstr ""
 
-#: Controller/Component/RecaptchaComponent.php:49
-msgid "You have not filled out the {0} control"
-msgstr ""
-
-#: Controller/Component/RecaptchaComponent.php:61
-#: View/Helper/RecaptchaHelper.php:89
+#: Controller/Component/RecaptchaComponent.php:53
+#: View/Helper/RecaptchaHelper.php:76
 msgid "Form keys are not configured"
+msgstr ""
+
+#: Controller/Component/RecaptchaComponent.php:59
+msgid "You have not filled out the {0} control"
 msgstr ""
 
 #: Controller/Component/RecaptchaComponent.php:69
 msgid "It was not possible to verify the {0} control"
 msgstr ""
 
-#: Shell/InstallShell.php:149
+#: Shell/InstallShell.php:159
 msgid "Create default directories?"
 msgstr ""
 
-#: Shell/InstallShell.php:153
+#: Shell/InstallShell.php:163
 msgid "Set directories permissions?"
 msgstr ""
 
-#: Shell/InstallShell.php:157
+#: Shell/InstallShell.php:167
+msgid "Copy configuration files?"
+msgstr ""
+
+#: Shell/InstallShell.php:171
 msgid "Create `{0}`?"
 msgstr ""
 
-#: Shell/InstallShell.php:161
+#: Shell/InstallShell.php:175
 msgid "Fix `{0}`?"
 msgstr ""
 
-#: Shell/InstallShell.php:165
+#: Shell/InstallShell.php:179
 msgid "Install the suggested packages?"
 msgstr ""
 
-#: Shell/InstallShell.php:169
+#: Shell/InstallShell.php:183
 msgid "Create symbolic links for vendor assets?"
 msgstr ""
 
-#: Shell/InstallShell.php:173
+#: Shell/InstallShell.php:187
 msgid "Create symbolic links for fonts?"
 msgstr ""
 
-#: Shell/InstallShell.php:198;281
+#: Shell/InstallShell.php:205;264;283
+msgid "File or directory `{0}` already exists"
+msgstr ""
+
+#: Shell/InstallShell.php:210
+msgid "The file `{0}` has been copied"
+msgstr ""
+
+#: Shell/InstallShell.php:212
+msgid "The file `{0}` has not been copied"
+msgstr ""
+
+#: Shell/InstallShell.php:236;318
 msgid "Created symbolic link to `{0}`"
 msgstr ""
 
-#: Shell/InstallShell.php:200;283
+#: Shell/InstallShell.php:238;320
 msgid "Failed to create a symbolic link to `{0}`"
 msgstr ""
 
-#: Shell/InstallShell.php:219
+#: Shell/InstallShell.php:257
 msgid "Created `{0}` directory"
 msgstr ""
 
-#: Shell/InstallShell.php:221
-msgid "Failed to create directory `{0}`"
+#: Shell/InstallShell.php:259
+#: Utility/Asset.php:139
+msgid "Failed to create file or directory `{0}`"
 msgstr ""
 
-#: Shell/InstallShell.php:226
-msgid "The directory `{0}` already exists"
-msgstr ""
-
-#: Shell/InstallShell.php:234
+#: Shell/InstallShell.php:272
 msgid "It was not possible to create some directories. Try again using `{0}`?"
 msgstr ""
 
-#: Shell/InstallShell.php:245
-msgid "The file `{0}` already exists"
-msgstr ""
-
-#: Shell/InstallShell.php:254
-msgid "The file `{0}` has been created"
-msgstr ""
-
-#: Shell/InstallShell.php:256
+#: Shell/InstallShell.php:293
 msgid "The file `{0}` has not been created"
 msgstr ""
 
-#: Shell/InstallShell.php:294
-msgid "The file `{0}` doesn't exist or is not writeable"
-msgstr ""
-
-#: Shell/InstallShell.php:301
+#: Shell/InstallShell.php:338
 msgid "The file `{0}` doesn't need to be fixed"
 msgstr ""
 
-#: Shell/InstallShell.php:307
+#: Shell/InstallShell.php:344
 msgid "The file `{0}` has been fixed"
 msgstr ""
 
-#: Shell/InstallShell.php:309
+#: Shell/InstallShell.php:346
 msgid "The file `{0}` has not been fixed"
 msgstr ""
 
-#: Shell/InstallShell.php:320
-msgid "it executes all available tasks"
+#: Shell/InstallShell.php:357
+msgid "Executes all available tasks"
 msgstr ""
 
-#: Shell/InstallShell.php:321
-msgid "it creates symbolic links for fonts"
-msgstr ""
-
-#: Shell/InstallShell.php:322
-msgid "it creates default directories"
-msgstr ""
-
-#: Shell/InstallShell.php:323
-msgid "it creates the `{0}` file"
-msgstr ""
-
-#: Shell/InstallShell.php:324
-msgid "it creates symbolic links for vendor assets"
-msgstr ""
-
-#: Shell/InstallShell.php:325
-msgid "it fixes `{0}`"
-msgstr ""
-
-#: Shell/InstallShell.php:326
-msgid "it install the suggested packages"
-msgstr ""
-
-#: Shell/InstallShell.php:327
-msgid "it sets permissions on directories"
-msgstr ""
-
-#: Shell/InstallShell.php:331
-msgid "Executes tasks without prompting"
-msgstr ""
-
-#: Shell/InstallShell.php:333
-msgid "Executes some tasks to make the system ready to work"
-msgstr ""
-
-#: Shell/InstallShell.php:345
-#: View/Helper/AssetHelper.php:133;182
-msgid "I can't find `{0}`"
-msgstr ""
-
-#: Shell/InstallShell.php:353
-msgid "Do you want to install `{0}`?"
+#: Shell/InstallShell.php:358
+msgid "Copies the configuration files"
 msgstr ""
 
 #: Shell/InstallShell.php:359
-msgid "No package has been selected for installation"
+msgid "Creates symbolic links for fonts"
+msgstr ""
+
+#: Shell/InstallShell.php:360
+msgid "Creates default directories"
+msgstr ""
+
+#: Shell/InstallShell.php:361
+msgid "Creates the `{0}` file"
+msgstr ""
+
+#: Shell/InstallShell.php:362
+msgid "Creates symbolic links for vendor assets"
+msgstr ""
+
+#: Shell/InstallShell.php:363
+msgid "Fixes `{0}`"
+msgstr ""
+
+#: Shell/InstallShell.php:364
+msgid "Installs the suggested packages"
+msgstr ""
+
+#: Shell/InstallShell.php:365
+msgid "Sets directories permissions"
+msgstr ""
+
+#: Shell/InstallShell.php:369
+msgid "Executes tasks without prompting"
 msgstr ""
 
 #: Shell/InstallShell.php:371
+msgid "Executes some tasks to make the system ready to work"
+msgstr ""
+
+#: Shell/InstallShell.php:391
+msgid "Do you want to install `{0}`?"
+msgstr ""
+
+#: Shell/InstallShell.php:397
+msgid "No package has been selected for installation"
+msgstr ""
+
+#: Shell/InstallShell.php:409
 msgid "All packages are already installed"
 msgstr ""
 
-#: Shell/InstallShell.php:388
+#: Shell/InstallShell.php:426
 msgid "Setted permissions on `{0}`"
 msgstr ""
 
-#: Shell/InstallShell.php:390
+#: Shell/InstallShell.php:428
 msgid "Failed to set permissions on `{0}`"
 msgstr ""
 
-#: Shell/InstallShell.php:400
+#: Shell/InstallShell.php:438
 msgid "It was not possible to set permissions on some directories. Try again using `{0}`?"
 msgstr ""
 
@@ -214,15 +212,11 @@ msgstr ""
 msgid "Previous"
 msgstr ""
 
-#: View/Helper/AssetHelper.php:140;189
-msgid "Impossible to create the file {0}"
-msgstr ""
-
-#: View/Helper/RecaptchaHelper.php:139
+#: View/Helper/RecaptchaHelper.php:127
 msgid "Mail keys are not configured"
 msgstr ""
 
-#: View/Helper/RecaptchaHelper.php:143
+#: View/Helper/RecaptchaHelper.php:131
 msgid "The private mail key is not valid"
 msgstr ""
 

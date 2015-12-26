@@ -129,14 +129,14 @@ class Asset {
 		if(!is_readable($asset)) {
 			//Checks if the target directory is writeable
 			if(!is_writeable($target = WWW_ROOT.'assets'))
-				throw new InternalErrorException(__d('me_tools', 'The directory {0} is not writable', rtr($target)));
+				throw new InternalErrorException(__d('me_tools', 'File or directory `{0}` not writeable', rtr($target)));
 		
 			//Reads the content of all paths
 			$content = implode(PHP_EOL, array_map(function($path) { return file_get_contents($path[0]); }, $path));
 						
 			//Writes the file
 			if(!(new \Cake\Filesystem\File($asset, TRUE, 0777))->append($content, TRUE))
-				throw new InternalErrorException(__d('me_tools', 'Impossible to create the file {0}', rtr($asset)));
+				throw new InternalErrorException(__d('me_tools', 'Failed to create file or directory `{0}`', rtr($asset)));
 			
 			//Compresses CSS
 			if($extension == 'css' && $bin = Unix::which('cleancss'))
