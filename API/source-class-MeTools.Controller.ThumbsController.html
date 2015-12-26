@@ -265,7 +265,7 @@
 </span><span id="79" class="l"><a href="#79"> 79: </a>    <span class="php-keyword1">protected</span> <span class="php-keyword1">function</span> _imageThumb() {
 </span><span id="80" class="l"><a href="#80"> 80: </a>        <span class="php-comment">//Checks for Imagick extension</span>
 </span><span id="81" class="l"><a href="#81"> 81: </a>        <span class="php-keyword1">if</span>(!Php::extension(<span class="php-quote">'imagick'</span>))
-</span><span id="82" class="l"><a href="#82"> 82: </a>            <span class="php-keyword1">throw</span> <span class="php-keyword1">new</span> InternalErrorException(__d(<span class="php-quote">'me_tools'</span>, <span class="php-quote">'The {0} library is missing'</span>, <span class="php-quote">'Imagick'</span>));
+</span><span id="82" class="l"><a href="#82"> 82: </a>            <span class="php-keyword1">throw</span> <span class="php-keyword1">new</span> InternalErrorException(__d(<span class="php-quote">'me_tools'</span>, <span class="php-quote">'{0} is not available'</span>, <span class="php-quote">'Imagick'</span>));
 </span><span id="83" class="l"><a href="#83"> 83: </a>                
 </span><span id="84" class="l"><a href="#84"> 84: </a>        <span class="php-comment">//Creates the Imagick object</span>
 </span><span id="85" class="l"><a href="#85"> 85: </a>        <span class="php-var">$imagick</span> = <span class="php-keyword1">new</span> \Imagick(<span class="php-var">$this</span>-&gt;<span class="php-keyword2">file</span>-&gt;path);
@@ -398,7 +398,7 @@
 </span><span id="212" class="l"><a href="#212">212: </a>            <span class="php-keyword1">if</span>(!<span class="php-keyword2">is_readable</span>(<span class="php-var">$tmp</span> = Thumbs::remote(<span class="php-keyword2">md5</span>(<span class="php-var">$file</span>).<span class="php-quote">'.'</span>.<span class="php-keyword2">pathinfo</span>(<span class="php-var">$file</span>, PATHINFO_EXTENSION)))) {
 </span><span id="213" class="l"><a href="#213">213: </a>                <span class="php-comment">//Checks if the target directory is writable</span>
 </span><span id="214" class="l"><a href="#214">214: </a>                <span class="php-keyword1">if</span>(!<span class="php-keyword2">is_writable</span>(<span class="php-keyword2">dirname</span>(<span class="php-var">$tmp</span>)))
-</span><span id="215" class="l"><a href="#215">215: </a>                    <span class="php-keyword1">throw</span> <span class="php-keyword1">new</span> InternalErrorException(__d(<span class="php-quote">'me_tools'</span>, <span class="php-quote">'The directory {0} is not writable'</span>, <span class="php-keyword2">dirname</span>(<span class="php-var">$tmp</span>)));
+</span><span id="215" class="l"><a href="#215">215: </a>                    <span class="php-keyword1">throw</span> <span class="php-keyword1">new</span> InternalErrorException(__d(<span class="php-quote">'me_tools'</span>, <span class="php-quote">'File or directory `{0}` not writeable'</span>, <span class="php-keyword2">dirname</span>(<span class="php-var">$tmp</span>)));
 </span><span id="216" class="l"><a href="#216">216: </a>                    
 </span><span id="217" class="l"><a href="#217">217: </a>                <span class="php-comment">//Downloads the file</span>
 </span><span id="218" class="l"><a href="#218">218: </a>                <span class="php-keyword2">file_put_contents</span>(<span class="php-var">$tmp</span>, <span class="php-keyword2">fopen</span>(<span class="php-var">$file</span>, <span class="php-quote">'r'</span>));
@@ -412,7 +412,7 @@
 </span><span id="226" class="l"><a href="#226">226: </a>
 </span><span id="227" class="l"><a href="#227">227: </a>        <span class="php-comment">//Checks if the file is readable</span>
 </span><span id="228" class="l"><a href="#228">228: </a>        <span class="php-keyword1">if</span>(!<span class="php-keyword2">is_readable</span>(<span class="php-var">$file</span>))
-</span><span id="229" class="l"><a href="#229">229: </a>            <span class="php-keyword1">throw</span> <span class="php-keyword1">new</span> InternalErrorException(__d(<span class="php-quote">'me_tools'</span>, <span class="php-quote">'The file {0} doesn\'t exist or is not readable'</span>, <span class="php-var">$file</span>));
+</span><span id="229" class="l"><a href="#229">229: </a>            <span class="php-keyword1">throw</span> <span class="php-keyword1">new</span> InternalErrorException(__d(<span class="php-quote">'me_tools'</span>, <span class="php-quote">'File or directory `{0}` not readable'</span>, <span class="php-var">$file</span>));
 </span><span id="230" class="l"><a href="#230">230: </a>        
 </span><span id="231" class="l"><a href="#231">231: </a>        <span class="php-comment">//Creates the File object</span>
 </span><span id="232" class="l"><a href="#232">232: </a>        <span class="php-var">$this</span>-&gt;<span class="php-keyword2">file</span> = <span class="php-keyword1">new</span> <span class="php-keyword2">File</span>(<span class="php-var">$file</span>);
@@ -474,7 +474,7 @@
 </span><span id="288" class="l"><a href="#288">288: </a>        <span class="php-keyword1">if</span>(!<span class="php-keyword2">is_readable</span>(<span class="php-var">$this</span>-&gt;thumb)) {
 </span><span id="289" class="l"><a href="#289">289: </a>            <span class="php-comment">//Checks if the target directory is writable</span>
 </span><span id="290" class="l"><a href="#290">290: </a>            <span class="php-keyword1">if</span>(!<span class="php-keyword2">is_writable</span>(<span class="php-keyword2">dirname</span>(<span class="php-var">$this</span>-&gt;thumb)))
-</span><span id="291" class="l"><a href="#291">291: </a>                <span class="php-keyword1">throw</span> <span class="php-keyword1">new</span> InternalErrorException(__d(<span class="php-quote">'me_tools'</span>, <span class="php-quote">'The directory {0} is not writable'</span>, <span class="php-keyword2">dirname</span>(<span class="php-var">$this</span>-&gt;thumb)));
+</span><span id="291" class="l"><a href="#291">291: </a>                <span class="php-keyword1">throw</span> <span class="php-keyword1">new</span> InternalErrorException(__d(<span class="php-quote">'me_tools'</span>, <span class="php-quote">'File or directory `{0}` not writeable'</span>, <span class="php-keyword2">dirname</span>(<span class="php-var">$this</span>-&gt;thumb)));
 </span><span id="292" class="l"><a href="#292">292: </a>            
 </span><span id="293" class="l"><a href="#293">293: </a>            <span class="php-comment">//Creates the thumbnail</span>
 </span><span id="294" class="l"><a href="#294">294: </a>            <span class="php-keyword1">if</span>(<span class="php-keyword2">preg_match</span>(<span class="php-quote">'/image\/\S+/'</span>, <span class="php-var">$mime</span>))

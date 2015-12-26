@@ -32,6 +32,13 @@ use MeTools\Utility\Unix;
  */
 class InstallShell extends BaseShell {
 	/**
+	 * Configuration files to be copied
+	 * @see __construct()
+	 * @var array
+	 */
+	protected $configs = [];
+	
+	/**
 	 * Assets for which create symbolic links.
 	 * Full path for each font
 	 * @see __construct()
@@ -66,6 +73,7 @@ class InstallShell extends BaseShell {
 	 * @uses MeTools\Utility\Thumbs::photo()
 	 * @uses MeTools\Utility\Thumbs::remote()
 	 * @uses MeTools\Utility\Thumbs::video()
+	 * @uses $config
 	 * @uses $fonts
 	 * @uses $links
 	 * @uses $packages
@@ -73,6 +81,11 @@ class InstallShell extends BaseShell {
 	 */
 	public function __construct() {
 		parent::__construct();
+		
+		//Configuration files to be copied
+		$this->config = [
+			'MeTools.recaptcha'
+		];
 		
 		//Assets for which create symbolic links (full paths)
 		$this->fonts = [
@@ -120,6 +133,7 @@ class InstallShell extends BaseShell {
 	
 	/**
 	 * Executes all available tasks
+	 * @uses copyConfig()
 	 * @uses copyFonts()
 	 * @uses createDirectories()
 	 * @uses createRobots()
@@ -132,6 +146,7 @@ class InstallShell extends BaseShell {
 		if($this->param('force')) {
 			$this->createDirectories(TRUE);
 			$this->setPermissions(TRUE);
+			$this->copyConfig();
 			$this->createRobots();
 			$this->fixComposerJson();
 			$this->installPackages(TRUE);
@@ -148,6 +163,10 @@ class InstallShell extends BaseShell {
 		$ask = $this->in(__d('me_tools', 'Set directories permissions?'), ['Y', 'n'], 'Y');
 		if(in_array($ask, ['Y', 'y']))
 			$this->setPermissions();
+		
+		$ask = $this->in(__d('me_tools', 'Copy configuration files?'), ['Y', 'n'], 'Y');
+		if(in_array($ask, ['Y', 'y']))
+			$this->copyConfig();
 		
 		$ask = $this->in(__d('me_tools', 'Create `{0}`?', 'robots.txt'), ['Y', 'n'], 'Y');
 		if(in_array($ask, ['Y', 'y']))
@@ -169,6 +188,30 @@ class InstallShell extends BaseShell {
 		if(in_array($ask, ['Y', 'y']))
 			$this->copyFonts();
     }
+	
+	/**
+	 * Copies the configuration files
+	 * @uses $config
+	 * @uses MeTools\Core\Plugin::path()
+	 */
+	public function copyConfig() {
+		foreach($this->config as $file) {
+			list($plugin, $file) = pluginSplit($file);
+			
+			$file = sprintf('%s.php', $file);
+			
+			//Checks if the file already exists
+			if(is_readable($target = ROOT.DS.'config'.DS.$file)) {
+				$this->verbose(__d('me_tools', 'File or directory `{0}` already exists', rtr($target)));
+				continue;
+			}
+			
+			if(@copy(\MeTools\Core\Plugin::path($plugin, 'config'.DS.$file), $target))
+				$this->verbose(__d('me_tools', 'The file `{0}` has been copied', rtr($target)));
+			else
+				$this->err(__d('me_tools', 'The file `{0}` has not been copied', rtr($target)));
+		}
+	}
 	
 	/**
 	 * Creates symbolic links for fonts
@@ -196,7 +239,7 @@ class InstallShell extends BaseShell {
 			}
 		}
 		else
-			$this->err(__d('me_tools', 'The directory {0} is not writable', rtr($destinationDir)));
+			$this->err(__d('me_tools', 'File or directory `{0}` not writeable', rtr($destinationDir)));
 	}
 
 	/**
@@ -213,12 +256,12 @@ class InstallShell extends BaseShell {
 				if(mkdir($path, 0777, TRUE))
 					$this->verbose(__d('me_tools', 'Created `{0}` directory', rtr($path)));
 				else {
-					$this->err(__d('me_tools', 'Failed to create directory `{0}`', rtr($path)));
+					$this->err(__d('me_tools', 'Failed to create file or directory `{0}`', rtr($path)));
 					$error = TRUE;
 				}
 			}
 			else
-				$this->verbose(__d('me_tools', 'The directory `{0}` already exists', rtr($path)));
+				$this->verbose(__d('me_tools', 'File or directory `{0}` already exists', rtr($path)));
 		}
 		
 		//In case of error, asks for sudo
@@ -237,7 +280,7 @@ class InstallShell extends BaseShell {
 	 */
 	public function createRobots() {
 		if(file_exists($file = WWW_ROOT.'robots.txt'))
-			return $this->verbose(__d('me_tools', 'The file `{0}` already exists', rtr($file)));
+			return $this->verbose(__d('me_tools', 'File or directory `{0}` already exists', rtr($file)));
 		
 		//Checks if the file has been created
 		if(!$this->createFile($file, 'User-agent: *
@@ -277,7 +320,7 @@ class InstallShell extends BaseShell {
 					$this->err(__d('me_tools', 'Failed to create a symbolic link to `{0}`', rtr($destination)));
 			}
 		else
-			$this->err(__d('me_tools', 'The directory {0} is not writable', rtr($destinationDir)));
+			$this->err(__d('me_tools', 'File or directory `{0}` not writeable', rtr($destinationDir)));
 	}
 	
 	/**
@@ -285,7 +328,7 @@ class InstallShell extends BaseShell {
 	 */
 	public function fixComposerJson() {
 		if(!is_writeable($file = ROOT.DS.'composer.json'))
-			return $this->err(__d('me_tools', 'The file `{0}` doesn\'t exist or is not writeable', rtr($file)));
+			return $this->err(__d('me_tools', 'File or directory `{0}` not writeable', rtr($file)));
 		
 		//Gets and decodes the file
 		$contents = json_decode(file_get_contents($file), TRUE);
@@ -311,14 +354,15 @@ class InstallShell extends BaseShell {
 		$parser = parent::getOptionParser();
 		
 		return $parser->addSubcommands([
-			'all'					=> ['help' => __d('me_tools', 'it executes all available tasks')],
-			'copyFonts'				=> ['help' => __d('me_tools', 'it creates symbolic links for fonts')],
-			'createDirectories'		=> ['help' => __d('me_tools', 'it creates default directories')],
-			'createRobots'			=> ['help' => __d('me_tools', 'it creates the `{0}` file', 'robots.txt')],
-			'createSymbolicLinks'	=> ['help' => __d('me_tools', 'it creates symbolic links for vendor assets')],
-			'fixComposerJson'		=> ['help' => __d('me_tools', 'it fixes `{0}`', 'composer.json')],
-			'installPackages'		=> ['help' => __d('me_tools', 'it install the suggested packages')],
-			'setPermissions'		=> ['help' => __d('me_tools', 'it sets permissions on directories')]
+			'all'					=> ['help' => __d('me_tools', 'Executes all available tasks')],
+			'copyConfig'			=> ['help' => __d('me_tools', 'Copies the configuration files')],
+			'copyFonts'				=> ['help' => __d('me_tools', 'Creates symbolic links for fonts')],
+			'createDirectories'		=> ['help' => __d('me_tools', 'Creates default directories')],
+			'createRobots'			=> ['help' => __d('me_tools', 'Creates the `{0}` file', 'robots.txt')],
+			'createSymbolicLinks'	=> ['help' => __d('me_tools', 'Creates symbolic links for vendor assets')],
+			'fixComposerJson'		=> ['help' => __d('me_tools', 'Fixes `{0}`', 'composer.json')],
+			'installPackages'		=> ['help' => __d('me_tools', 'Installs the suggested packages')],
+			'setPermissions'		=> ['help' => __d('me_tools', 'Sets directories permissions')]
 		])->addOption('force', [
 			'boolean'	=> TRUE,
 			'default'	=> FALSE,
@@ -336,7 +380,7 @@ class InstallShell extends BaseShell {
 	public function installPackages($force = FALSE) {
 		//Checks for Composer
 		if(!($bin = Unix::which('composer')))
-			return $this->err(__d('me_tools', 'I can\'t find `{0}`', 'composer'));
+			return $this->err(__d('me_tools', '{0} is not available', 'composer'));
 		
 		//Empty array. This will contain the packages to install
 		$packagesToInstall = [];

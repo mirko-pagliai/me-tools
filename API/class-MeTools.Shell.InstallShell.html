@@ -198,7 +198,7 @@ Cake\Console\Shell
 		<b>Namespace:</b> <a href="namespace-MeTools.html">MeTools</a>\<a href="namespace-MeTools.Shell.html">Shell</a><br>
 		
 
-			<b>Located at</b> <a href="source-class-MeTools.Shell.InstallShell.html#30-399" title="Go to source code">InstallShell.php</a>
+			<b>Located at</b> <a href="source-class-MeTools.Shell.InstallShell.html#30-443" title="Go to source code">InstallShell.php</a>
 		<br>
 	</div>
 
@@ -218,7 +218,7 @@ Cake\Console\Shell
 
 		<td class="name"><div>
 		<a class="anchor" href="#___construct">#</a>
-		<code><a href="source-class-MeTools.Shell.InstallShell.html#64-119" title="Go to source code">__construct</a>( )</code>
+		<code><a href="source-class-MeTools.Shell.InstallShell.html#71-132" title="Go to source code">__construct</a>( )</code>
 
 		<div class="description short">
 			<p>Construct</p>
@@ -236,6 +236,7 @@ Cake\Console\Shell
 						<code><a href="class-MeTools.Utility.Thumbs.html#_photo">MeTools\Utility\Thumbs::photo()</a></code><br>
 						<code><a href="class-MeTools.Utility.Thumbs.html#_remote">MeTools\Utility\Thumbs::remote()</a></code><br>
 						<code><a href="class-MeTools.Utility.Thumbs.html#_video">MeTools\Utility\Thumbs::video()</a></code><br>
+						$config<br>
 						<br>
 						<br>
 						<br>
@@ -258,7 +259,7 @@ Cake\Console\Shell
 
 		<td class="name"><div>
 		<a class="anchor" href="#_all">#</a>
-		<code><a href="source-class-MeTools.Shell.InstallShell.html#121-171" title="Go to source code">all</a>( )</code>
+		<code><a href="source-class-MeTools.Shell.InstallShell.html#134-190" title="Go to source code">all</a>( )</code>
 
 		<div class="description short">
 			<p>Executes all available tasks</p>
@@ -273,6 +274,7 @@ Cake\Console\Shell
 
 				<h4>Uses</h4>
 				<div class="list">
+						<code><a href="class-MeTools.Shell.InstallShell.html#_copyConfig">MeTools\Shell\InstallShell::copyConfig()</a></code><br>
 						<code><a href="class-MeTools.Shell.InstallShell.html#_copyFonts">MeTools\Shell\InstallShell::copyFonts()</a></code><br>
 						<code><a href="class-MeTools.Shell.InstallShell.html#_createDirectories">MeTools\Shell\InstallShell::createDirectories()</a></code><br>
 						<code><a href="class-MeTools.Shell.InstallShell.html#_createRobots">MeTools\Shell\InstallShell::createRobots()</a></code><br>
@@ -280,6 +282,45 @@ Cake\Console\Shell
 						<code><a href="class-MeTools.Shell.InstallShell.html#_fixComposerJson">MeTools\Shell\InstallShell::fixComposerJson()</a></code><br>
 						<code><a href="class-MeTools.Shell.InstallShell.html#_installPackages">MeTools\Shell\InstallShell::installPackages()</a></code><br>
 						<code><a href="class-MeTools.Shell.InstallShell.html#_setPermissions">MeTools\Shell\InstallShell::setPermissions()</a></code><br>
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="copyConfig" id="_copyConfig">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_copyConfig">#</a>
+		<code><a href="source-class-MeTools.Shell.InstallShell.html#192-214" title="Go to source code">copyConfig</a>( )</code>
+
+		<div class="description short">
+			<p>Copies the configuration files</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Copies the configuration files</p>
+
+
+
+
+
+				<h4>Uses</h4>
+				<div class="list">
+						$config<br>
+						<code><a href="class-MeTools.Core.Plugin.html#_path">MeTools\Core\Plugin::path()</a></code><br>
+				</div>
+				<h4>Used by</h4>
+				<div class="list">
+						<code><a href="class-MeTools.Shell.InstallShell.html#_all">MeTools\Shell\InstallShell::all()</a></code><br>
 				</div>
 
 
@@ -298,7 +339,7 @@ Cake\Console\Shell
 
 		<td class="name"><div>
 		<a class="anchor" href="#_copyFonts">#</a>
-		<code><a href="source-class-MeTools.Shell.InstallShell.html#173-200" title="Go to source code">copyFonts</a>( )</code>
+		<code><a href="source-class-MeTools.Shell.InstallShell.html#216-243" title="Go to source code">copyFonts</a>( )</code>
 
 		<div class="description short">
 			<p>Creates symbolic links for fonts</p>
@@ -336,7 +377,7 @@ Cake\Console\Shell
 
 		<td class="name"><div>
 		<a class="anchor" href="#_createDirectories">#</a>
-		<code><a href="source-class-MeTools.Shell.InstallShell.html#202-233" title="Go to source code">createDirectories</a>( <span>boolean <var>$force</var> = <span class="php-keyword1">FALSE</span></span> )</code>
+		<code><a href="source-class-MeTools.Shell.InstallShell.html#245-276" title="Go to source code">createDirectories</a>( <span>boolean <var>$force</var> = <span class="php-keyword1">FALSE</span></span> )</code>
 
 		<div class="description short">
 			<p>Creates directories</p>
@@ -380,7 +421,7 @@ Cake\Console\Shell
 
 		<td class="name"><div>
 		<a class="anchor" href="#_createRobots">#</a>
-		<code><a href="source-class-MeTools.Shell.InstallShell.html#235-251" title="Go to source code">createRobots</a>( )</code>
+		<code><a href="source-class-MeTools.Shell.InstallShell.html#278-294" title="Go to source code">createRobots</a>( )</code>
 
 		<div class="description short">
 			<p>Creates the <code>robots.txt</code> file</p>
@@ -414,7 +455,7 @@ Cake\Console\Shell
 
 		<td class="name"><div>
 		<a class="anchor" href="#_createSymbolicLinks">#</a>
-		<code><a href="source-class-MeTools.Shell.InstallShell.html#253-281" title="Go to source code">createSymbolicLinks</a>( )</code>
+		<code><a href="source-class-MeTools.Shell.InstallShell.html#296-324" title="Go to source code">createSymbolicLinks</a>( )</code>
 
 		<div class="description short">
 			<p>Creates symbolic links for vendor assets</p>
@@ -452,7 +493,7 @@ Cake\Console\Shell
 
 		<td class="name"><div>
 		<a class="anchor" href="#_fixComposerJson">#</a>
-		<code><a href="source-class-MeTools.Shell.InstallShell.html#283-304" title="Go to source code">fixComposerJson</a>( )</code>
+		<code><a href="source-class-MeTools.Shell.InstallShell.html#326-347" title="Go to source code">fixComposerJson</a>( )</code>
 
 		<div class="description short">
 			<p>Fixes <code>composer.json</code></p>
@@ -486,7 +527,7 @@ Cake\Console\Shell
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getOptionParser">#</a>
-		<code><a href="source-class-MeTools.Shell.InstallShell.html#306-328" title="Go to source code">getOptionParser</a>( )</code>
+		<code><a href="source-class-MeTools.Shell.InstallShell.html#349-372" title="Go to source code">getOptionParser</a>( )</code>
 
 		<div class="description short">
 			<p>Gets the option parser instance and configures it.</p>
@@ -520,7 +561,7 @@ Cake\Console\Shell
 
 		<td class="name"><div>
 		<a class="anchor" href="#_installPackages">#</a>
-		<code><a href="source-class-MeTools.Shell.InstallShell.html#330-369" title="Go to source code">installPackages</a>( <span>boolean <var>$force</var> = <span class="php-keyword1">FALSE</span></span> )</code>
+		<code><a href="source-class-MeTools.Shell.InstallShell.html#374-413" title="Go to source code">installPackages</a>( <span>boolean <var>$force</var> = <span class="php-keyword1">FALSE</span></span> )</code>
 
 		<div class="description short">
 			<p>Install the suggested packages</p>
@@ -564,7 +605,7 @@ Cake\Console\Shell
 
 		<td class="name"><div>
 		<a class="anchor" href="#_setPermissions">#</a>
-		<code><a href="source-class-MeTools.Shell.InstallShell.html#371-398" title="Go to source code">setPermissions</a>( <span>boolean <var>$force</var> = <span class="php-keyword1">FALSE</span></span> )</code>
+		<code><a href="source-class-MeTools.Shell.InstallShell.html#415-442" title="Go to source code">setPermissions</a>( <span>boolean <var>$force</var> = <span class="php-keyword1">FALSE</span></span> )</code>
 
 		<div class="description short">
 			<p>Sets permissions on directories</p>
@@ -624,6 +665,35 @@ Cake\Console\Shell
 
 	<table class="summary properties" id="properties">
 	<caption>Properties summary</caption>
+	<tr data-order="configs" id="$configs">
+		<td class="attributes"><code>
+			protected  
+			array
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-MeTools.Shell.InstallShell.html#34-39" title="Go to source code"><var>$configs</var></a>
+
+			<div class="description short">
+				<p>Configuration files to be copied</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Configuration files to be copied</p>
+
+					<h4>See</h4>
+					<div class="list">
+							<code><a href="class-MeTools.Shell.InstallShell.html#___construct">MeTools\Shell\InstallShell::__construct()</a></code><br>
+					</div>
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$configs" class="anchor">#</a>
+				<code>[]</code>
+			</div>
+		</td>
+	</tr>
 	<tr data-order="fonts" id="$fonts">
 		<td class="attributes"><code>
 			protected  
@@ -631,7 +701,7 @@ Cake\Console\Shell
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-MeTools.Shell.InstallShell.html#34-40" title="Go to source code"><var>$fonts</var></a>
+				<a href="source-class-MeTools.Shell.InstallShell.html#41-47" title="Go to source code"><var>$fonts</var></a>
 
 			<div class="description short">
 				<p>Assets for which create symbolic links.
@@ -667,7 +737,7 @@ Full path for each font</p>
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-MeTools.Shell.InstallShell.html#42-48" title="Go to source code"><var>$links</var></a>
+				<a href="source-class-MeTools.Shell.InstallShell.html#49-55" title="Go to source code"><var>$links</var></a>
 
 			<div class="description short">
 				<p>Assets for which create symbolic links.
@@ -703,7 +773,7 @@ The key must be relative to <code>vendor/</code> and the value must be relative 
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-MeTools.Shell.InstallShell.html#50-55" title="Go to source code"><var>$packages</var></a>
+				<a href="source-class-MeTools.Shell.InstallShell.html#57-62" title="Go to source code"><var>$packages</var></a>
 
 			<div class="description short">
 				<p>Suggested packages to install by Composer</p>
@@ -737,7 +807,7 @@ The key must be relative to <code>vendor/</code> and the value must be relative 
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-MeTools.Shell.InstallShell.html#57-62" title="Go to source code"><var>$paths</var></a>
+				<a href="source-class-MeTools.Shell.InstallShell.html#64-69" title="Go to source code"><var>$paths</var></a>
 
 			<div class="description short">
 				<p>Paths to be created and made writable</p>
