@@ -1,10 +1,8 @@
 # 2.x branch
 ## 2.2 branch
-### 2.2.3
-* fixed a lot of strings and translations.
-
 ### 2.2.2
-* the Install shield now copies configuration files.
+* the Install shield now copies configuration files;
+* fixed a lot of strings and translations.
 
 ### 2.2.1
 * fixed a serious bug.
