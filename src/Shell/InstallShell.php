@@ -23,14 +23,14 @@
 namespace MeTools\Shell;
 
 use Cake\Filesystem\File;
-use MeTools\Shell\Base\BaseShell;
+use MeTools\Console\Shell;
 use MeTools\Utility\Thumbs;
 use MeTools\Utility\Unix;
 
 /**
  * Executes some tasks to make the system ready to work
  */
-class InstallShell extends BaseShell {
+class InstallShell extends Shell {
 	/**
 	 * Configuration files to be copied
 	 * @see __construct()
