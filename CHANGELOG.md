@@ -1,5 +1,8 @@
 # 2.x branch
 ## 2.2 branch
+### 2.2.3
+* improved the code for shells.
+
 ### 2.2.2
 * the Install shield now copies configuration files;
 * fixed a lot of strings and translations.

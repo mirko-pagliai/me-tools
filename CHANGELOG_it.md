@@ -1,5 +1,8 @@
 # 2.x ramo
 ## 2.2 ramo
+### 2.2.3
+* migliorato il codice delle shell.
+
 ### 2.2.2
 * la shell Install ora può copiare i file di configurazione;
 * sistemate parecchie stringhe e traduzioni.
