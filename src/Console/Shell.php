@@ -37,6 +37,29 @@ class Shell extends CakeShell {
 	protected function _welcome() { }
 	
 	/**
+	 * Creates a file at given path
+	 * @param string $path Where to put the file
+	 * @param string $contents Content to put in the file
+	 * @return bool
+	 * @uses Cake\Console\Shell::createFile()
+	 */
+	public function createFile($path, $contents) {
+		//Checks if the file already exist
+		if(file_exists($path)) {
+			$this->verbose(__d('me_tools', 'File or directory `{0}` already exists', rtr($path)));
+			return FALSE;
+		}
+		
+		//Checks if the file has been created
+		if(!parent::createFile($path, $contents)) {
+			$this->err(__d('me_tools', 'The file `{0}` has not been created', rtr($path)));
+			return FALSE;
+		}
+		
+		return TRUE;
+	}
+	
+	/**
 	 * Output a comment message
 	 * @param string|array|null $message A string or an array of strings to output
 	 * @param int $newlines Number of newlines to append

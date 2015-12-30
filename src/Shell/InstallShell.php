@@ -277,20 +277,16 @@ class InstallShell extends Shell {
 	
 	/**
 	 * Creates the `robots.txt` file
+	 * @uses MeTools\Console\Shell::createFile()
 	 */
 	public function createRobots() {
-		if(file_exists($file = WWW_ROOT.'robots.txt'))
-			return $this->verbose(__d('me_tools', 'File or directory `{0}` already exists', rtr($file)));
-		
-		//Checks if the file has been created
-		if(!$this->createFile($file, 'User-agent: *
+		$this->createFile(WWW_ROOT.'robots.txt', 'User-agent: *
 			Disallow: /admin/
 			Disallow: /ckeditor/
 			Disallow: /css/
 			Disallow: /js/
 			Disallow: /vendor/'
-		))
-			$this->err(__d('me_tools', 'The file `{0}` has not been created', rtr($file)));
+		);
 	}
 	
 	/**
