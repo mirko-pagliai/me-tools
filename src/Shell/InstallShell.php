@@ -295,28 +295,32 @@ class InstallShell extends Shell {
 	 */
 	public function createSymbolicLinks() {
 		//Checks if the target directory (`webroot/vendor/`) is writeable
-		if(is_writable($destinationDir = WWW_ROOT.'vendor'))
-			foreach($this->links as $origin => $destination) {
-				$origin = ROOT.DS.'vendor'.DS.$origin;
-
-				//Continues, if the origin file doesn't exist
-				if(!file_exists($origin))
-					continue;
-
-				$destination = $destinationDir.DS.$destination;
-
-				//Continues, if the link already exists
-				if(file_exists($destination))
-					continue;
-
-				//Creates the symbolic link
-				if(@symlink($origin, $destination))
-					$this->verbose(__d('me_tools', 'Created symbolic link to `{0}`', rtr($destination)));
-				else
-					$this->err(__d('me_tools', 'Failed to create a symbolic link to `{0}`', rtr($destination)));
-			}
-		else
+		if(!is_writable($destinationDir = WWW_ROOT.'vendor'))
 			$this->err(__d('me_tools', 'File or directory `{0}` not writeable', rtr($destinationDir)));
+		
+		foreach($this->links as $origin => $destination) {
+			$origin = ROOT.DS.'vendor'.DS.$origin;
+
+			//Continues, if the origin file is not readable
+			if(!is_readable($origin)) {
+				$this->verbose(__d('me_tools', 'File or directory `{0}` not readable', rtr($origin)));
+				continue;
+			}
+
+			$destination = $destinationDir.DS.$destination;
+
+			//Continues, if the link already exists
+			if(file_exists($destination)) {
+				$this->verbose(__d('me_tools', 'Symbolic link `{0}` already exists', rtr($destination)));
+				continue;
+			}
+
+			//Creates the symbolic link
+			if(@symlink($origin, $destination))
+				$this->verbose(__d('me_tools', 'Created symbolic link to `{0}`', rtr($destination)));
+			else
+				$this->err(__d('me_tools', 'Failed to create a symbolic link to `{0}`', rtr($destination)));
+		}
 	}
 	
 	/**
