@@ -35,7 +35,7 @@ class LibraryHelper extends Helper {
 	 * Helpers
 	 * @var array
 	 */
-	public $helpers = ['Html' => ['className' => 'MeTools.Html']];
+	public $helpers = ['MeTools.Asset', 'Html' => ['className' => 'MeTools.Html']];
 	
     /**
      * It will contain the output code
@@ -203,18 +203,18 @@ class LibraryHelper extends Helper {
 	 * 
 	 * FancyBox must be installed via Composer.
      * @see http://fancyapps.com/fancybox/#docs FancyBox documentation
-	 * @uses MeTools\View\Helper\HtmlHelper::css()
-	 * @uses MeTools\View\Helper\HtmlHelper::js()
+	 * @uses MeTools\View\Helper\AssetHelper::css()
+	 * @uses MeTools\View\Helper\AssetHelper::js()
 	 * @uses MeTools\Core\Plugin::path()
 	 */
 	public function fancybox() {		
-		$this->Html->css([
+		$this->Asset->css([
 			'/vendor/fancybox/jquery.fancybox',
 			'/vendor/fancybox/helpers/jquery.fancybox-buttons',
 			'/vendor/fancybox/helpers/jquery.fancybox-thumbs'
 		], ['block' => 'css_bottom']);
 		
-		$this->Html->js([
+		$this->Asset->js([
 			'/vendor/fancybox/jquery.fancybox.pack',
 			'/vendor/fancybox/helpers/jquery.fancybox-buttons',
 			'/vendor/fancybox/helpers/jquery.fancybox-thumbs'
@@ -229,7 +229,7 @@ class LibraryHelper extends Helper {
 		else
 			return;
 		
-		$this->Html->js($script, ['block' => 'script_bottom']);
+		$this->Asset->js($script, ['block' => 'script_bottom']);
 	}
 	
 	/**
