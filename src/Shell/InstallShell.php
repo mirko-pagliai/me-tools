@@ -101,8 +101,7 @@ class InstallShell extends Shell {
 			'components/jquery'							=> 'jquery',
 			'components/moment/min'						=> 'moment',
 			'fortawesome/font-awesome'					=> 'font-awesome',
-			'newerton/fancy-box/source'					=> 'fancybox',
-			'twbs/bootstrap/dist'						=> 'bootstrap'
+			'newerton/fancy-box/source'					=> 'fancybox'
 		];
 		
 		//Suggested packages to install by Composer
