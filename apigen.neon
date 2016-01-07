@@ -1,8 +1,8 @@
 accessLevels: [public, protected, private]
 destination: API
 download: false
-exclude: {*_old, *.old, *.old.*} 
-source: {src/Console, src/Controller, src/Core, src/Log, src/Model, src/Network, src/Shell, src/Utility, src/View}
+exclude: {*_old, *.old, *.old.*, src/Template/Bake} 
+source: {src}
 main: MeTools
 php: false
 title: MeTools API
