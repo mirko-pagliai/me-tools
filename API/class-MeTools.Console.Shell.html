@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 
-	<title>Class MeTools\Shell\Base\BaseShell | MeTools API</title>
+	<title>Class MeTools\Console\Shell | MeTools API</title>
 
 	<link rel="stylesheet" href="resources/style.css?e99947befd7bf673c6b43ff75e9e0f170c88a60e">
 
@@ -24,6 +24,11 @@
 					</a>
 
 						<ul>
+				<li class="active main">
+					<a href="namespace-MeTools.Console.html">
+						Console					</a>
+
+						</li>
 				<li class="main">
 					<a href="namespace-MeTools.Controller.html">
 						Controller<span></span>
@@ -75,18 +80,11 @@
 						Network					</a>
 
 						</li>
-				<li class="active main">
+				<li class="main">
 					<a href="namespace-MeTools.Shell.html">
-						Shell<span></span>
-					</a>
-
-						<ul>
-				<li class="active main">
-					<a href="namespace-MeTools.Shell.Base.html">
-						Base					</a>
+						Shell					</a>
 
 						</li>
-							</ul></li>
 				<li class="main">
 					<a href="namespace-MeTools.Utility.html">
 						Utility					</a>
@@ -113,7 +111,7 @@
 		<div id="elements">
 			<h3>Classes</h3>
 			<ul>
-				<li class="active"><a href="class-MeTools.Shell.Base.BaseShell.html">BaseShell</a></li>
+				<li class="active"><a href="class-MeTools.Console.Shell.html">Shell</a></li>
 			</ul>
 
 
@@ -140,7 +138,7 @@
 				<a href="index.html" title="Overview"><span>Overview</span></a>
 			</li>
 			<li>
-				<a href="namespace-MeTools.Shell.Base.html" title="Summary of MeTools\Shell\Base"><span>Namespace</span></a>
+				<a href="namespace-MeTools.Console.html" title="Summary of MeTools\Console"><span>Namespace</span></a>
 			</li>
 			<li class="active">
 <span>Class</span>			</li>
@@ -157,11 +155,13 @@
 	</div>
 
 <div id="content" class="class">
-	<h1>Class BaseShell</h1>
+	<h1>Class Shell</h1>
 
 
 	<div class="description">
-	<p>Application level shell</p>
+	<p>Base class for command-line utilities for automating programmer chores.</p>
+
+<p>Rewrites <a href="http://api.cakephp.org/3.1/class-Cake.Console.Shell.html">Shell</a>.</p>
 	</div>
 
 	<dl class="tree">
@@ -172,7 +172,7 @@ Cake\Console\Shell
 		</dd>
 		<dd style="padding-left:30px">
 			<img src="resources/inherit.png" alt="Extended by">
-<b><span>MeTools\Shell\Base\BaseShell</span></b>			
+<b><span>MeTools\Console\Shell</span></b>			
 			
 			
 		</dd>
@@ -192,10 +192,10 @@ Cake\Console\Shell
 	<div class="info">
 		
 		
-		<b>Namespace:</b> <a href="namespace-MeTools.html">MeTools</a>\<a href="namespace-MeTools.Shell.html">Shell</a>\<a href="namespace-MeTools.Shell.Base.html">Base</a><br>
+		<b>Namespace:</b> <a href="namespace-MeTools.html">MeTools</a>\<a href="namespace-MeTools.Console.html">Console</a><br>
 		
 
-			<b>Located at</b> <a href="source-class-MeTools.Shell.Base.BaseShell.html#27-100" title="Go to source code">Base/BaseShell.php</a>
+			<b>Located at</b> <a href="source-class-MeTools.Console.Shell.html#28-161" title="Go to source code">Console/Shell.php</a>
 		<br>
 	</div>
 
@@ -215,7 +215,7 @@ Cake\Console\Shell
 
 		<td class="name"><div>
 		<a class="anchor" href="#__welcome">#</a>
-		<code><a href="source-class-MeTools.Shell.Base.BaseShell.html#31-34" title="Go to source code">_welcome</a>( )</code>
+		<code><a href="source-class-MeTools.Console.Shell.html#34-37" title="Go to source code">_welcome</a>( )</code>
 
 		<div class="description short">
 			<p>Rewrites the header for the shell</p>
@@ -226,6 +226,96 @@ Cake\Console\Shell
 
 
 
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="createFile" id="_createFile">
+
+		<td class="attributes"><code>
+			 public 
+
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_createFile">#</a>
+		<code><a href="source-class-MeTools.Console.Shell.html#39-60" title="Go to source code">createFile</a>( <span>string <var>$path</var></span>, <span>string <var>$contents</var></span> )</code>
+
+		<div class="description short">
+			<p>Creates a file at given path</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Creates a file at given path</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$path</var></dt>
+					<dd>Where to put the file</dd>
+					<dt><var>$contents</var></dt>
+					<dd>Content to put in the file</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					boolean
+				</div>
+
+
+				<h4>Uses</h4>
+				<div class="list">
+						Cake\Console\Shell::createFile()<br>
+				</div>
+				<h4>Used by</h4>
+				<div class="list">
+						<code><a href="class-MeTools.Shell.InstallShell.html#_createRobots">MeTools\Shell\InstallShell::createRobots()</a></code><br>
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="createLink" id="_createLink">
+
+		<td class="attributes"><code>
+			 public 
+
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_createLink">#</a>
+		<code><a href="source-class-MeTools.Console.Shell.html#62-95" title="Go to source code">createLink</a>( <span>string <var>$origin</var></span>, <span>string <var>$target</var></span> )</code>
+
+		<div class="description short">
+			<p>Creates a symbolic link</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Creates a symbolic link</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$origin</var></dt>
+					<dd>Origin file or directory</dd>
+					<dt><var>$target</var></dt>
+					<dd>Target link</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					boolean
+				</div>
 
 
 
@@ -245,7 +335,7 @@ Cake\Console\Shell
 
 		<td class="name"><div>
 		<a class="anchor" href="#_comment">#</a>
-		<code><a href="source-class-MeTools.Shell.Base.BaseShell.html#36-47" title="Go to source code">comment</a>( <span>string|array|null <var>$message</var> = <span class="php-keyword1">NULL</span></span>, <span>integer <var>$newlines</var> = <span class="php-num">1</span></span>, <span>integer <var>$level</var> = MeTools\Shell\Base\Shell::NORMAL</span> )</code>
+		<code><a href="source-class-MeTools.Console.Shell.html#97-108" title="Go to source code">comment</a>( <span>string|array|null <var>$message</var> = <span class="php-keyword1">NULL</span></span>, <span>integer <var>$newlines</var> = <span class="php-num">1</span></span>, <span>integer <var>$level</var> = Shell::NORMAL</span> )</code>
 
 		<div class="description short">
 			<p>Output a comment message</p>
@@ -296,7 +386,7 @@ Cake\Console\Shell
 
 		<td class="name"><div>
 		<a class="anchor" href="#_info">#</a>
-		<code><a href="source-class-MeTools.Shell.Base.BaseShell.html#49-60" title="Go to source code">info</a>( <span>string|array|null <var>$message</var> = <span class="php-keyword1">NULL</span></span>, <span>integer <var>$newlines</var> = <span class="php-num">1</span></span>, <span>integer <var>$level</var> = MeTools\Shell\Base\Shell::NORMAL</span> )</code>
+		<code><a href="source-class-MeTools.Console.Shell.html#110-121" title="Go to source code">info</a>( <span>string|array|null <var>$message</var> = <span class="php-keyword1">NULL</span></span>, <span>integer <var>$newlines</var> = <span class="php-num">1</span></span>, <span>integer <var>$level</var> = Shell::NORMAL</span> )</code>
 
 		<div class="description short">
 			<p>Output an info message</p>
@@ -347,7 +437,7 @@ Cake\Console\Shell
 
 		<td class="name"><div>
 		<a class="anchor" href="#_question">#</a>
-		<code><a href="source-class-MeTools.Shell.Base.BaseShell.html#62-73" title="Go to source code">question</a>( <span>string|array|null <var>$message</var> = <span class="php-keyword1">NULL</span></span>, <span>integer <var>$newlines</var> = <span class="php-num">1</span></span>, <span>integer <var>$level</var> = MeTools\Shell\Base\Shell::NORMAL</span> )</code>
+		<code><a href="source-class-MeTools.Console.Shell.html#123-134" title="Go to source code">question</a>( <span>string|array|null <var>$message</var> = <span class="php-keyword1">NULL</span></span>, <span>integer <var>$newlines</var> = <span class="php-num">1</span></span>, <span>integer <var>$level</var> = Shell::NORMAL</span> )</code>
 
 		<div class="description short">
 			<p>Output a question message</p>
@@ -398,7 +488,7 @@ Cake\Console\Shell
 
 		<td class="name"><div>
 		<a class="anchor" href="#_success">#</a>
-		<code><a href="source-class-MeTools.Shell.Base.BaseShell.html#75-86" title="Go to source code">success</a>( <span>string|array|null <var>$message</var> = <span class="php-keyword1">NULL</span></span>, <span>integer <var>$newlines</var> = <span class="php-num">1</span></span>, <span>integer <var>$level</var> = MeTools\Shell\Base\Shell::NORMAL</span> )</code>
+		<code><a href="source-class-MeTools.Console.Shell.html#136-147" title="Go to source code">success</a>( <span>string|array|null <var>$message</var> = <span class="php-keyword1">NULL</span></span>, <span>integer <var>$newlines</var> = <span class="php-num">1</span></span>, <span>integer <var>$level</var> = Shell::NORMAL</span> )</code>
 
 		<div class="description short">
 			<p>Output a success message</p>
@@ -449,7 +539,7 @@ Cake\Console\Shell
 
 		<td class="name"><div>
 		<a class="anchor" href="#_warning">#</a>
-		<code><a href="source-class-MeTools.Shell.Base.BaseShell.html#88-99" title="Go to source code">warning</a>( <span>string|array|null <var>$message</var> = <span class="php-keyword1">NULL</span></span>, <span>integer <var>$newlines</var> = <span class="php-num">1</span></span>, <span>integer <var>$level</var> = MeTools\Shell\Base\Shell::NORMAL</span> )</code>
+		<code><a href="source-class-MeTools.Console.Shell.html#149-160" title="Go to source code">warning</a>( <span>string|array|null <var>$message</var> = <span class="php-keyword1">NULL</span></span>, <span>integer <var>$newlines</var> = <span class="php-num">1</span></span>, <span>integer <var>$level</var> = Shell::NORMAL</span> )</code>
 
 		<div class="description short">
 			<p>Output a warning message</p>
