@@ -292,34 +292,16 @@ class InstallShell extends Shell {
 	/**
 	 * Creates symbolic links for vendor assets
 	 * @uses $links
+	 * @uses createLink()
 	 */
 	public function createSymbolicLinks() {
-		//Checks if the target directory (`webroot/vendor/`) is writeable
-		if(!is_writable($destinationDir = WWW_ROOT.'vendor'))
-			$this->err(__d('me_tools', 'File or directory `{0}` not writeable', rtr($destinationDir)));
-		
-		foreach($this->links as $origin => $destination) {
+		foreach($this->links as $origin => $target) {
+			//Sets full path to origin and target
 			$origin = ROOT.DS.'vendor'.DS.$origin;
-
-			//Continues, if the origin file is not readable
-			if(!is_readable($origin)) {
-				$this->verbose(__d('me_tools', 'File or directory `{0}` not readable', rtr($origin)));
-				continue;
-			}
-
-			$destination = $destinationDir.DS.$destination;
-
-			//Continues, if the link already exists
-			if(file_exists($destination)) {
-				$this->verbose(__d('me_tools', 'Symbolic link `{0}` already exists', rtr($destination)));
-				continue;
-			}
-
-			//Creates the symbolic link
-			if(@symlink($origin, $destination))
-				$this->verbose(__d('me_tools', 'Created symbolic link to `{0}`', rtr($destination)));
-			else
-				$this->err(__d('me_tools', 'Failed to create a symbolic link to `{0}`', rtr($destination)));
+			$target = WWW_ROOT.'assets'.DS.$target;
+			
+			//Creates the link
+			$this->createLink($origin, $target);
 		}
 	}
 	
