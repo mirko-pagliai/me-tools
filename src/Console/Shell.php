@@ -43,7 +43,7 @@ class Shell extends CakeShell {
 	 * @return bool
 	 * @uses Cake\Console\Shell::createFile()
 	 */
-	public function createFile($path, $contents) {
+	protected function createFile($path, $contents) {
 		//Checks if the file already exist
 		if(file_exists($path)) {
 			$this->verbose(__d('me_tools', 'File or directory `{0}` already exists', rtr($path)));
