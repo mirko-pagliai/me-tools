@@ -60,6 +60,41 @@ class Shell extends CakeShell {
 	}
 	
 	/**
+	 * Creates a symbolic link
+	 * @param string $origin Origin file or directory
+	 * @param string $target Target link
+	 * @return bool
+	 */
+	public function createLink($origin, $target) {
+		//Checks if the origin file/directory is readable
+		if(!is_readable($origin)) {
+			$this->verbose(__d('me_tools', 'File or directory `{0}` not readable', rtr($origin)));
+			return FALSE;
+		}
+		
+		//Checks if the target directory is writeable
+		if(!is_writable(dirname($target))) {
+			$this->err(__d('me_tools', 'File or directory `{0}` not writeable', rtr(dirname($target))));
+			return FALSE;
+		}
+		
+		//Checks if the link already exists
+		if(file_exists($target)) {
+			$this->verbose(__d('me_tools', 'Symbolic link `{0}` already exists', rtr($target)));
+			return FALSE;
+		}		
+
+		//Creates the symbolic link
+		if(!@symlink($origin, $target)) {
+			$this->err(__d('me_tools', 'Failed to create a symbolic link to `{0}`', rtr($target)));
+			return FALSE;
+		}
+		
+		$this->verbose(__d('me_tools', 'Created symbolic link to `{0}`', rtr($target)));
+		return TRUE;
+	}
+	
+	/**
 	 * Output a comment message
 	 * @param string|array|null $message A string or an array of strings to output
 	 * @param int $newlines Number of newlines to append
