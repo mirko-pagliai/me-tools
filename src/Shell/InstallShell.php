@@ -297,7 +297,7 @@ class InstallShell extends Shell {
 		foreach($this->links as $origin => $target) {
 			//Sets full path to origin and target
 			$origin = ROOT.DS.'vendor'.DS.$origin;
-			$target = WWW_ROOT.'assets'.DS.$target;
+			$target = WWW_ROOT.'vendor'.DS.$target;
 			
 			//Creates the link
 			$this->createLink($origin, $target);
