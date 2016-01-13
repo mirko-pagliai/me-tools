@@ -481,7 +481,7 @@
 </span><span id="297" class="l"><a href="#297">297: </a>        <span class="php-keyword1">foreach</span>(<span class="php-var">$this</span>-&gt;links <span class="php-keyword1">as</span> <span class="php-var">$origin</span> =&gt; <span class="php-var">$target</span>) {
 </span><span id="298" class="l"><a href="#298">298: </a>            <span class="php-comment">//Sets full path to origin and target</span>
 </span><span id="299" class="l"><a href="#299">299: </a>            <span class="php-var">$origin</span> = ROOT.DS.<span class="php-quote">'vendor'</span>.DS.<span class="php-var">$origin</span>;
-</span><span id="300" class="l"><a href="#300">300: </a>            <span class="php-var">$target</span> = WWW_ROOT.<span class="php-quote">'assets'</span>.DS.<span class="php-var">$target</span>;
+</span><span id="300" class="l"><a href="#300">300: </a>            <span class="php-var">$target</span> = WWW_ROOT.<span class="php-quote">'vendor'</span>.DS.<span class="php-var">$target</span>;
 </span><span id="301" class="l"><a href="#301">301: </a>            
 </span><span id="302" class="l"><a href="#302">302: </a>            <span class="php-comment">//Creates the link</span>
 </span><span id="303" class="l"><a href="#303">303: </a>            <span class="php-var">$this</span>-&gt;createLink(<span class="php-var">$origin</span>, <span class="php-var">$target</span>);
