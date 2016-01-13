@@ -16,7 +16,7 @@
  * along with MeTools.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @author		Mirko Pagliai <mirko.pagliai@gmail.com>
- * @copyright	Copyright (c) 2015, Mirko Pagliai for Nova Atlantis Ltd
+ * @copyright	Copyright (c) 2016, Mirko Pagliai for Nova Atlantis Ltd
  * @license		http://www.gnu.org/licenses/agpl.txt AGPL License
  * @link		http://git.novatlantis.it Nova Atlantis Ltd
  */
@@ -66,24 +66,16 @@ class System {
 	 * It searchs into `ROOT` and all loaded plugins.
 	 * @uses MeTools\Core\Plugin::path()
 	 * @return array Changelog files
-	 * @uses Cake\I18n\I18n::locale()
 	 * @uses MeTools\Core\Plugin::path()
 	 */
 	public static function changelogs() {
-		$files = af(array_map(function($path) {
-			//Gets the current locale
-			$locale = substr(\Cake\I18n\I18n::locale(), 0, 2);
-
-			if(!empty($locale) && is_readable($file = sprintf($path.'CHANGELOG_%s.md', $locale)))
-				return str_replace(ROOT.DS, NULL, $file);
-			elseif(is_readable($file = $path.'CHANGELOG.md'))
-				return str_replace(ROOT.DS, NULL, $file);
-			else
-				return FALSE;
-		}, am([ROOT.DS], Plugin::path())));
+		$files = [];
 		
-		//Re-indexes, starting to 1, and returns
-		return array_combine(range(1, count($files)), array_values($files));
+		foreach(am([ROOT.DS], Plugin::path()) as $path)
+			foreach((new Folder($path))->find('CHANGELOG(\..+)?') as $file)
+				$files[] = str_replace(ROOT.DS, NULL, $path.$file);
+		
+		return $files;
 	}
 	
     /**

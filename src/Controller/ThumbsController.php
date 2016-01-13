@@ -16,7 +16,7 @@
  * along with MeTools.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @author		Mirko Pagliai <mirko.pagliai@gmail.com>
- * @copyright	Copyright (c) 2015, Mirko Pagliai for Nova Atlantis Ltd
+ * @copyright	Copyright (c) 2016, Mirko Pagliai for Nova Atlantis Ltd
  * @license		http://www.gnu.org/licenses/agpl.txt AGPL License
  * @link		http://git.novatlantis.it Nova Atlantis Ltd
  */
@@ -156,7 +156,7 @@ class ThumbsController extends AppController {
 	protected function _videoThumb() {
 		//Checks for ffmpegthumbnailer
 		if(!Unix::which('ffmpegthumbnailer'))
-            throw new InternalErrorException(__d('me_tools', '{0} is not available', 'ffmpegthumbnailer'));
+            throw new InternalErrorException(__d('me_tools', '{0} is not available', 'FFmpegthumbnailer'));
 		
 		//Creates the thumbnail
 		shell_exec(sprintf('ffmpegthumbnailer -s %s -q 10 -f -i \'%s\' -o \'%s\'', empty($this->sizes['side']) ? $this->sizes['width'] : $this->sizes['side'], $this->file>path, $this->thumb));

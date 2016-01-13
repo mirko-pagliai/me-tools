@@ -16,21 +16,21 @@
  * along with MeTools.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @author		Mirko Pagliai <mirko.pagliai@gmail.com>
- * @copyright	Copyright (c) 2015, Mirko Pagliai for Nova Atlantis Ltd
+ * @copyright	Copyright (c) 2016, Mirko Pagliai for Nova Atlantis Ltd
  * @license		http://www.gnu.org/licenses/agpl.txt AGPL License
  * @link		http://git.novatlantis.it Nova Atlantis Ltd
  */
 namespace MeTools\Shell;
 
 use Cake\Filesystem\File;
-use MeTools\Shell\Base\BaseShell;
+use MeTools\Console\Shell;
 use MeTools\Utility\Thumbs;
 use MeTools\Utility\Unix;
 
 /**
  * Executes some tasks to make the system ready to work
  */
-class InstallShell extends BaseShell {
+class InstallShell extends Shell {
 	/**
 	 * Configuration files to be copied
 	 * @see __construct()
@@ -101,8 +101,7 @@ class InstallShell extends BaseShell {
 			'components/jquery'							=> 'jquery',
 			'components/moment/min'						=> 'moment',
 			'fortawesome/font-awesome'					=> 'font-awesome',
-			'newerton/fancy-box/source'					=> 'fancybox',
-			'twbs/bootstrap/dist'						=> 'bootstrap'
+			'newerton/fancy-box/source'					=> 'fancybox'
 		];
 		
 		//Suggested packages to install by Composer
@@ -277,50 +276,32 @@ class InstallShell extends BaseShell {
 	
 	/**
 	 * Creates the `robots.txt` file
+	 * @uses MeTools\Console\Shell::createFile()
 	 */
 	public function createRobots() {
-		if(file_exists($file = WWW_ROOT.'robots.txt'))
-			return $this->verbose(__d('me_tools', 'File or directory `{0}` already exists', rtr($file)));
-		
-		//Checks if the file has been created
-		if(!$this->createFile($file, 'User-agent: *
+		$this->createFile(WWW_ROOT.'robots.txt', 'User-agent: *
 			Disallow: /admin/
 			Disallow: /ckeditor/
 			Disallow: /css/
 			Disallow: /js/
 			Disallow: /vendor/'
-		))
-			$this->err(__d('me_tools', 'The file `{0}` has not been created', rtr($file)));
+		);
 	}
 	
 	/**
 	 * Creates symbolic links for vendor assets
 	 * @uses $links
+	 * @uses createLink()
 	 */
 	public function createSymbolicLinks() {
-		//Checks if the target directory (`webroot/vendor/`) is writeable
-		if(is_writable($destinationDir = WWW_ROOT.'vendor'))
-			foreach($this->links as $origin => $destination) {
-				$origin = ROOT.DS.'vendor'.DS.$origin;
-
-				//Continues, if the origin file doesn't exist
-				if(!file_exists($origin))
-					continue;
-
-				$destination = $destinationDir.DS.$destination;
-
-				//Continues, if the link already exists
-				if(file_exists($destination))
-					continue;
-
-				//Creates the symbolic link
-				if(@symlink($origin, $destination))
-					$this->verbose(__d('me_tools', 'Created symbolic link to `{0}`', rtr($destination)));
-				else
-					$this->err(__d('me_tools', 'Failed to create a symbolic link to `{0}`', rtr($destination)));
-			}
-		else
-			$this->err(__d('me_tools', 'File or directory `{0}` not writeable', rtr($destinationDir)));
+		foreach($this->links as $origin => $target) {
+			//Sets full path to origin and target
+			$origin = ROOT.DS.'vendor'.DS.$origin;
+			$target = WWW_ROOT.'vendor'.DS.$target;
+			
+			//Creates the link
+			$this->createLink($origin, $target);
+		}
 	}
 	
 	/**
