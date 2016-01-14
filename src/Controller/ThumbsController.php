@@ -215,11 +215,11 @@ class ThumbsController extends AppController {
 					throw new InternalErrorException(__d('me_tools', 'File or directory `{0}` not writeable', dirname($tmp)));
 					
 				//Checks if the file is readable
-				if(!is_readable($file))
+				if(!$fopen = fopen($file, 'r'))
 					throw new InternalErrorException(__d('me_tools', 'File or directory `{0}` not readable', $file));
 				
 				//Downloads the file
-				file_put_contents($tmp, fopen($file, 'r'));
+				file_put_contents($tmp, $fopen);
 			}
 			
 			//The file is now the temporary file
@@ -240,10 +240,7 @@ class ThumbsController extends AppController {
 		//Sets the maximum sizes		
 		foreach(['side', 'width', 'height'] as $v)
 			$this->sizes[$v] = (int) $this->request->query($v);
-		
-		debug($file);
-		debug($this->file->mime()); exit;
-		
+				
 		//If the file is an image
 		if(preg_match('/image\/\S+/', $mime = $this->file->mime())) {
 			//If no maximum size is specified, it's not necessary to create a thumbnail
