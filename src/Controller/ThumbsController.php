@@ -214,19 +214,25 @@ class ThumbsController extends AppController {
 				if(!is_writable(dirname($tmp)))
 					throw new InternalErrorException(__d('me_tools', 'File or directory `{0}` not writeable', dirname($tmp)));
 					
+				//Checks if the file is readable
+				if(!is_readable($file))
+					throw new InternalErrorException(__d('me_tools', 'File or directory `{0}` not readable', $file));
+				
 				//Downloads the file
 				file_put_contents($tmp, fopen($file, 'r'));
 			}
+			
 			//The file is now the temporary file
 			$file = $tmp;
 		}
 		//Else, if the file is local and its path is relative, then the path will be relative to the webroot
-		elseif(!Folder::isAbsolute($file))
+		elseif(!Folder::isAbsolute($file)) {
 			$file = WWW_ROOT.$file;
-
-		//Checks if the file is readable
-		if(!is_readable($file))
-			throw new InternalErrorException(__d('me_tools', 'File or directory `{0}` not readable', $file));
+			
+			//Checks if the file is readable
+			if(!is_readable($file))
+				throw new InternalErrorException(__d('me_tools', 'File or directory `{0}` not readable', $file));
+		}
 		
 		//Creates the File object
 		$this->file = new File($file);
@@ -234,6 +240,9 @@ class ThumbsController extends AppController {
 		//Sets the maximum sizes		
 		foreach(['side', 'width', 'height'] as $v)
 			$this->sizes[$v] = (int) $this->request->query($v);
+		
+		debug($file);
+		debug($this->file->mime()); exit;
 		
 		//If the file is an image
 		if(preg_match('/image\/\S+/', $mime = $this->file->mime())) {

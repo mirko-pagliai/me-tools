@@ -1,5 +1,8 @@
 # 2.x branch
 ## 2.2 branch
+### 2.2.4
+* fixed bug with thumbs on remote files.
+
 ### 2.2.3
 * improved the code for shells.
 
