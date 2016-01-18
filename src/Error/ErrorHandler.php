@@ -32,7 +32,8 @@ use Cake\Routing\Router;
  * Error Handler provides basic error and exception handling for your application. It captures and
  * handles all unhandled exceptions and errors. Displays helpful framework errors when debug > 1.
  * 
- * Rewrite {@link http://api.cakephp.org/3.1/source-class-Cake.Error.ErrorHandler.html ErrorHandler}.
+ * Rewrites {@link http://api.cakephp.org/3.1/source-class-Cake.Error.ErrorHandler.html ErrorHandler}.
+ * This allows to track the "request URL" also for errors and not only for exceptions.
  */
 class ErrorHandler extends CakeErrorHandler {
 	/**
