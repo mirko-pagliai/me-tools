@@ -1,6 +1,7 @@
 # 2.x branch
 ## 2.2 branch
 ### 2.2.4
+* added the ErrorHandler class. This allows to track the "request URL" also for errors and not only for exceptions;
 * fixed bug with thumbs on remote files.
 
 ### 2.2.3
