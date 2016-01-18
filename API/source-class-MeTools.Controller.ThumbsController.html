@@ -48,6 +48,11 @@
 
 						</li>
 				<li class="main">
+					<a href="namespace-MeTools.Error.html">
+						Error					</a>
+
+						</li>
+				<li class="main">
 					<a href="namespace-MeTools.Log.html">
 						Log<span></span>
 					</a>
@@ -120,6 +125,7 @@
 				<li><a href="class-MeTools.Controller.Component.TokenComponent.html">MeTools\Controller\Component\TokenComponent</a></li>
 				<li><a href="class-MeTools.Controller.ThumbsController.html">MeTools\Controller\ThumbsController</a></li>
 				<li><a href="class-MeTools.Core.Plugin.html">MeTools\Core\Plugin</a></li>
+				<li><a href="class-MeTools.Error.ErrorHandler.html">MeTools\Error\ErrorHandler</a></li>
 				<li><a href="class-MeTools.Log.Engine.FileLog.html">MeTools\Log\Engine\FileLog</a></li>
 				<li><a href="class-MeTools.Model.Entity.Token.html">MeTools\Model\Entity\Token</a></li>
 				<li><a href="class-MeTools.Model.Table.TokensTable.html">MeTools\Model\Table\TokensTable</a></li>
@@ -398,97 +404,103 @@
 </span><span id="214" class="l"><a href="#214">214: </a>                <span class="php-keyword1">if</span>(!<span class="php-keyword2">is_writable</span>(<span class="php-keyword2">dirname</span>(<span class="php-var">$tmp</span>)))
 </span><span id="215" class="l"><a href="#215">215: </a>                    <span class="php-keyword1">throw</span> <span class="php-keyword1">new</span> InternalErrorException(__d(<span class="php-quote">'me_tools'</span>, <span class="php-quote">'File or directory `{0}` not writeable'</span>, <span class="php-keyword2">dirname</span>(<span class="php-var">$tmp</span>)));
 </span><span id="216" class="l"><a href="#216">216: </a>                    
-</span><span id="217" class="l"><a href="#217">217: </a>                <span class="php-comment">//Downloads the file</span>
-</span><span id="218" class="l"><a href="#218">218: </a>                <span class="php-keyword2">file_put_contents</span>(<span class="php-var">$tmp</span>, <span class="php-keyword2">fopen</span>(<span class="php-var">$file</span>, <span class="php-quote">'r'</span>));
-</span><span id="219" class="l"><a href="#219">219: </a>            }
-</span><span id="220" class="l"><a href="#220">220: </a>            <span class="php-comment">//The file is now the temporary file</span>
-</span><span id="221" class="l"><a href="#221">221: </a>            <span class="php-var">$file</span> = <span class="php-var">$tmp</span>;
-</span><span id="222" class="l"><a href="#222">222: </a>        }
-</span><span id="223" class="l"><a href="#223">223: </a>        <span class="php-comment">//Else, if the file is local and its path is relative, then the path will be relative to the webroot</span>
-</span><span id="224" class="l"><a href="#224">224: </a>        <span class="php-keyword1">elseif</span>(!Folder::isAbsolute(<span class="php-var">$file</span>))
-</span><span id="225" class="l"><a href="#225">225: </a>            <span class="php-var">$file</span> = WWW_ROOT.<span class="php-var">$file</span>;
-</span><span id="226" class="l"><a href="#226">226: </a>
-</span><span id="227" class="l"><a href="#227">227: </a>        <span class="php-comment">//Checks if the file is readable</span>
-</span><span id="228" class="l"><a href="#228">228: </a>        <span class="php-keyword1">if</span>(!<span class="php-keyword2">is_readable</span>(<span class="php-var">$file</span>))
-</span><span id="229" class="l"><a href="#229">229: </a>            <span class="php-keyword1">throw</span> <span class="php-keyword1">new</span> InternalErrorException(__d(<span class="php-quote">'me_tools'</span>, <span class="php-quote">'File or directory `{0}` not readable'</span>, <span class="php-var">$file</span>));
-</span><span id="230" class="l"><a href="#230">230: </a>        
-</span><span id="231" class="l"><a href="#231">231: </a>        <span class="php-comment">//Creates the File object</span>
-</span><span id="232" class="l"><a href="#232">232: </a>        <span class="php-var">$this</span>-&gt;<span class="php-keyword2">file</span> = <span class="php-keyword1">new</span> <span class="php-keyword2">File</span>(<span class="php-var">$file</span>);
-</span><span id="233" class="l"><a href="#233">233: </a>        
-</span><span id="234" class="l"><a href="#234">234: </a>        <span class="php-comment">//Sets the maximum sizes        </span>
-</span><span id="235" class="l"><a href="#235">235: </a>        <span class="php-keyword1">foreach</span>([<span class="php-quote">'side'</span>, <span class="php-quote">'width'</span>, <span class="php-quote">'height'</span>] <span class="php-keyword1">as</span> <span class="php-var">$v</span>)
-</span><span id="236" class="l"><a href="#236">236: </a>            <span class="php-var">$this</span>-&gt;sizes[<span class="php-var">$v</span>] = (int) <span class="php-var">$this</span>-&gt;request-&gt;query(<span class="php-var">$v</span>);
-</span><span id="237" class="l"><a href="#237">237: </a>        
-</span><span id="238" class="l"><a href="#238">238: </a>        <span class="php-comment">//If the file is an image</span>
-</span><span id="239" class="l"><a href="#239">239: </a>        <span class="php-keyword1">if</span>(<span class="php-keyword2">preg_match</span>(<span class="php-quote">'/image\/\S+/'</span>, <span class="php-var">$mime</span> = <span class="php-var">$this</span>-&gt;<span class="php-keyword2">file</span>-&gt;mime())) {
-</span><span id="240" class="l"><a href="#240">240: </a>            <span class="php-comment">//If no maximum size is specified, it's not necessary to create a thumbnail</span>
-</span><span id="241" class="l"><a href="#241">241: </a>            <span class="php-keyword1">if</span>(!<span class="php-keyword2">array_filter</span>(<span class="php-var">$this</span>-&gt;sizes)) {
-</span><span id="242" class="l"><a href="#242">242: </a>                <span class="php-comment">//Renders the original image</span>
-</span><span id="243" class="l"><a href="#243">243: </a>                <span class="php-keyword2">header</span>(<span class="php-keyword2">sprintf</span>(<span class="php-quote">'Content-type: %s'</span>, <span class="php-var">$mime</span>));
-</span><span id="244" class="l"><a href="#244">244: </a>                <span class="php-keyword2">readfile</span>(<span class="php-var">$this</span>-&gt;<span class="php-keyword2">file</span>-&gt;path);
-</span><span id="245" class="l"><a href="#245">245: </a>
-</span><span id="246" class="l"><a href="#246">246: </a>                <span class="php-var">$this</span>-&gt;autoRender = <span class="php-keyword1">FALSE</span>;
-</span><span id="247" class="l"><a href="#247">247: </a>                <span class="php-keyword1">exit</span>;
-</span><span id="248" class="l"><a href="#248">248: </a>            }
-</span><span id="249" class="l"><a href="#249">249: </a>            
-</span><span id="250" class="l"><a href="#250">250: </a>            <span class="php-comment">//Sets the initial thumb path</span>
-</span><span id="251" class="l"><a href="#251">251: </a>            <span class="php-var">$this</span>-&gt;thumb = Thumbs::photo(<span class="php-keyword2">md5</span>(<span class="php-var">$this</span>-&gt;<span class="php-keyword2">file</span>-&gt;path));
-</span><span id="252" class="l"><a href="#252">252: </a>            
-</span><span id="253" class="l"><a href="#253">253: </a>            <span class="php-comment">//Updates the thumb path with the maximum sizes</span>
-</span><span id="254" class="l"><a href="#254">254: </a>            <span class="php-keyword1">if</span>(<span class="php-var">$this</span>-&gt;sizes[<span class="php-quote">'side'</span>])
-</span><span id="255" class="l"><a href="#255">255: </a>                <span class="php-var">$this</span>-&gt;thumb = <span class="php-keyword2">sprintf</span>(<span class="php-quote">'%s_s_%s'</span>, <span class="php-var">$this</span>-&gt;thumb, <span class="php-var">$this</span>-&gt;sizes[<span class="php-quote">'side'</span>]);
-</span><span id="256" class="l"><a href="#256">256: </a>            <span class="php-keyword1">else</span> {
-</span><span id="257" class="l"><a href="#257">257: </a>                <span class="php-keyword1">if</span>(<span class="php-var">$this</span>-&gt;sizes[<span class="php-quote">'width'</span>])
-</span><span id="258" class="l"><a href="#258">258: </a>                    <span class="php-var">$this</span>-&gt;thumb = <span class="php-keyword2">sprintf</span>(<span class="php-quote">'%s_w_%s'</span>, <span class="php-var">$this</span>-&gt;thumb, <span class="php-var">$this</span>-&gt;sizes[<span class="php-quote">'width'</span>]);
-</span><span id="259" class="l"><a href="#259">259: </a>                <span class="php-keyword1">if</span>(<span class="php-var">$this</span>-&gt;sizes[<span class="php-quote">'height'</span>])
-</span><span id="260" class="l"><a href="#260">260: </a>                    <span class="php-var">$this</span>-&gt;thumb = <span class="php-keyword2">sprintf</span>(<span class="php-quote">'%s_h_%s'</span>, <span class="php-var">$this</span>-&gt;thumb, <span class="php-var">$this</span>-&gt;sizes[<span class="php-quote">'height'</span>]);
-</span><span id="261" class="l"><a href="#261">261: </a>            }
-</span><span id="262" class="l"><a href="#262">262: </a>            
-</span><span id="263" class="l"><a href="#263">263: </a>            <span class="php-comment">//Updates the thumb path with the file extensions</span>
-</span><span id="264" class="l"><a href="#264">264: </a>            <span class="php-var">$this</span>-&gt;thumb = <span class="php-keyword2">sprintf</span>(<span class="php-quote">'%s.%s'</span>, <span class="php-var">$this</span>-&gt;thumb, <span class="php-var">$this</span>-&gt;<span class="php-keyword2">file</span>-&gt;ext());
-</span><span id="265" class="l"><a href="#265">265: </a>        }
-</span><span id="266" class="l"><a href="#266">266: </a>        <span class="php-comment">//Else, if the file is a video</span>
-</span><span id="267" class="l"><a href="#267">267: </a>        <span class="php-keyword1">elseif</span>(<span class="php-keyword2">preg_match</span>(<span class="php-quote">'/video\/\S+/'</span>, <span class="php-var">$mime</span>) || <span class="php-var">$mime</span> == <span class="php-quote">'application/ogg'</span>) {
-</span><span id="268" class="l"><a href="#268">268: </a>            <span class="php-keyword1">if</span>(!<span class="php-var">$this</span>-&gt;sizes[<span class="php-quote">'side'</span>] &amp;&amp; !<span class="php-var">$this</span>-&gt;sizes[<span class="php-quote">'width'</span>])
-</span><span id="269" class="l"><a href="#269">269: </a>                <span class="php-var">$this</span>-&gt;sizes[<span class="php-quote">'side'</span>] = <span class="php-num">270</span>;
-</span><span id="270" class="l"><a href="#270">270: </a>            
-</span><span id="271" class="l"><a href="#271">271: </a>            <span class="php-comment">//Sets the initial thumb path</span>
-</span><span id="272" class="l"><a href="#272">272: </a>            <span class="php-var">$this</span>-&gt;thumb = Thumbs::video(<span class="php-keyword2">md5</span>(<span class="php-var">$this</span>-&gt;<span class="php-keyword2">file</span>-&gt;path));
-</span><span id="273" class="l"><a href="#273">273: </a>            
-</span><span id="274" class="l"><a href="#274">274: </a>            <span class="php-comment">//Updates the thumb path with the maximum sizes</span>
-</span><span id="275" class="l"><a href="#275">275: </a>            <span class="php-keyword1">if</span>(<span class="php-var">$this</span>-&gt;sizes[<span class="php-quote">'side'</span>])
-</span><span id="276" class="l"><a href="#276">276: </a>                <span class="php-var">$this</span>-&gt;thumb = <span class="php-keyword2">sprintf</span>(<span class="php-quote">'%s_s_%s'</span>, <span class="php-var">$this</span>-&gt;thumb, <span class="php-var">$this</span>-&gt;sizes[<span class="php-quote">'side'</span>]);
-</span><span id="277" class="l"><a href="#277">277: </a>            <span class="php-keyword1">elseif</span>(<span class="php-var">$this</span>-&gt;sizes[<span class="php-quote">'width'</span>])
-</span><span id="278" class="l"><a href="#278">278: </a>                <span class="php-var">$this</span>-&gt;thumb = <span class="php-keyword2">sprintf</span>(<span class="php-quote">'%s_w_%s'</span>, <span class="php-var">$this</span>-&gt;thumb, <span class="php-var">$this</span>-&gt;sizes[<span class="php-quote">'width'</span>]);
-</span><span id="279" class="l"><a href="#279">279: </a>        
-</span><span id="280" class="l"><a href="#280">280: </a>            <span class="php-comment">//Updates the thumb path with the file extensions</span>
-</span><span id="281" class="l"><a href="#281">281: </a>            <span class="php-var">$this</span>-&gt;thumb = <span class="php-keyword2">sprintf</span>(<span class="php-quote">'%s.jpg'</span>, <span class="php-var">$this</span>-&gt;thumb);
-</span><span id="282" class="l"><a href="#282">282: </a>        }
-</span><span id="283" class="l"><a href="#283">283: </a>        <span class="php-comment">//Else, if the file type is unknown</span>
-</span><span id="284" class="l"><a href="#284">284: </a>        <span class="php-keyword1">else</span>
-</span><span id="285" class="l"><a href="#285">285: </a>            <span class="php-keyword1">throw</span> <span class="php-keyword1">new</span> InternalErrorException(__d(<span class="php-quote">'me_tools'</span>, <span class="php-quote">'The file type {0} is unknown'</span>, <span class="php-var">$mime</span>));
-</span><span id="286" class="l"><a href="#286">286: </a>        
-</span><span id="287" class="l"><a href="#287">287: </a>        <span class="php-comment">//If the thumbnail doesn't yet exist</span>
-</span><span id="288" class="l"><a href="#288">288: </a>        <span class="php-keyword1">if</span>(!<span class="php-keyword2">is_readable</span>(<span class="php-var">$this</span>-&gt;thumb)) {
-</span><span id="289" class="l"><a href="#289">289: </a>            <span class="php-comment">//Checks if the target directory is writable</span>
-</span><span id="290" class="l"><a href="#290">290: </a>            <span class="php-keyword1">if</span>(!<span class="php-keyword2">is_writable</span>(<span class="php-keyword2">dirname</span>(<span class="php-var">$this</span>-&gt;thumb)))
-</span><span id="291" class="l"><a href="#291">291: </a>                <span class="php-keyword1">throw</span> <span class="php-keyword1">new</span> InternalErrorException(__d(<span class="php-quote">'me_tools'</span>, <span class="php-quote">'File or directory `{0}` not writeable'</span>, <span class="php-keyword2">dirname</span>(<span class="php-var">$this</span>-&gt;thumb)));
-</span><span id="292" class="l"><a href="#292">292: </a>            
-</span><span id="293" class="l"><a href="#293">293: </a>            <span class="php-comment">//Creates the thumbnail</span>
-</span><span id="294" class="l"><a href="#294">294: </a>            <span class="php-keyword1">if</span>(<span class="php-keyword2">preg_match</span>(<span class="php-quote">'/image\/\S+/'</span>, <span class="php-var">$mime</span>))
-</span><span id="295" class="l"><a href="#295">295: </a>                <span class="php-var">$this</span>-&gt;_imageThumb();
-</span><span id="296" class="l"><a href="#296">296: </a>            <span class="php-keyword1">else</span>
-</span><span id="297" class="l"><a href="#297">297: </a>                <span class="php-var">$this</span>-&gt;_videoThumb();
-</span><span id="298" class="l"><a href="#298">298: </a>        }
-</span><span id="299" class="l"><a href="#299">299: </a>        
-</span><span id="300" class="l"><a href="#300">300: </a>        <span class="php-comment">//Renders the thumbnail</span>
-</span><span id="301" class="l"><a href="#301">301: </a>        <span class="php-keyword2">header</span>(<span class="php-quote">'Content-type: image/jpeg'</span>);
-</span><span id="302" class="l"><a href="#302">302: </a>        <span class="php-keyword2">readfile</span>(<span class="php-var">$this</span>-&gt;thumb);
-</span><span id="303" class="l"><a href="#303">303: </a>        
-</span><span id="304" class="l"><a href="#304">304: </a>        <span class="php-var">$this</span>-&gt;autoRender = <span class="php-keyword1">FALSE</span>;
-</span><span id="305" class="l"><a href="#305">305: </a>        <span class="php-keyword1">exit</span>;
-</span><span id="306" class="l"><a href="#306">306: </a>    }
-</span><span id="307" class="l"><a href="#307">307: </a>}</span></code></pre>
+</span><span id="217" class="l"><a href="#217">217: </a>                <span class="php-comment">//Checks if the file is readable</span>
+</span><span id="218" class="l"><a href="#218">218: </a>                <span class="php-keyword1">if</span>(!<span class="php-var">$fopen</span> = <span class="php-keyword2">fopen</span>(<span class="php-var">$file</span>, <span class="php-quote">'r'</span>))
+</span><span id="219" class="l"><a href="#219">219: </a>                    <span class="php-keyword1">throw</span> <span class="php-keyword1">new</span> InternalErrorException(__d(<span class="php-quote">'me_tools'</span>, <span class="php-quote">'File or directory `{0}` not readable'</span>, <span class="php-var">$file</span>));
+</span><span id="220" class="l"><a href="#220">220: </a>                
+</span><span id="221" class="l"><a href="#221">221: </a>                <span class="php-comment">//Downloads the file</span>
+</span><span id="222" class="l"><a href="#222">222: </a>                <span class="php-keyword2">file_put_contents</span>(<span class="php-var">$tmp</span>, <span class="php-var">$fopen</span>);
+</span><span id="223" class="l"><a href="#223">223: </a>            }
+</span><span id="224" class="l"><a href="#224">224: </a>            
+</span><span id="225" class="l"><a href="#225">225: </a>            <span class="php-comment">//The file is now the temporary file</span>
+</span><span id="226" class="l"><a href="#226">226: </a>            <span class="php-var">$file</span> = <span class="php-var">$tmp</span>;
+</span><span id="227" class="l"><a href="#227">227: </a>        }
+</span><span id="228" class="l"><a href="#228">228: </a>        <span class="php-comment">//Else, if the file is local and its path is relative, then the path will be relative to the webroot</span>
+</span><span id="229" class="l"><a href="#229">229: </a>        <span class="php-keyword1">elseif</span>(!Folder::isAbsolute(<span class="php-var">$file</span>)) {
+</span><span id="230" class="l"><a href="#230">230: </a>            <span class="php-var">$file</span> = WWW_ROOT.<span class="php-var">$file</span>;
+</span><span id="231" class="l"><a href="#231">231: </a>            
+</span><span id="232" class="l"><a href="#232">232: </a>            <span class="php-comment">//Checks if the file is readable</span>
+</span><span id="233" class="l"><a href="#233">233: </a>            <span class="php-keyword1">if</span>(!<span class="php-keyword2">is_readable</span>(<span class="php-var">$file</span>))
+</span><span id="234" class="l"><a href="#234">234: </a>                <span class="php-keyword1">throw</span> <span class="php-keyword1">new</span> InternalErrorException(__d(<span class="php-quote">'me_tools'</span>, <span class="php-quote">'File or directory `{0}` not readable'</span>, <span class="php-var">$file</span>));
+</span><span id="235" class="l"><a href="#235">235: </a>        }
+</span><span id="236" class="l"><a href="#236">236: </a>        
+</span><span id="237" class="l"><a href="#237">237: </a>        <span class="php-comment">//Creates the File object</span>
+</span><span id="238" class="l"><a href="#238">238: </a>        <span class="php-var">$this</span>-&gt;<span class="php-keyword2">file</span> = <span class="php-keyword1">new</span> <span class="php-keyword2">File</span>(<span class="php-var">$file</span>);
+</span><span id="239" class="l"><a href="#239">239: </a>        
+</span><span id="240" class="l"><a href="#240">240: </a>        <span class="php-comment">//Sets the maximum sizes        </span>
+</span><span id="241" class="l"><a href="#241">241: </a>        <span class="php-keyword1">foreach</span>([<span class="php-quote">'side'</span>, <span class="php-quote">'width'</span>, <span class="php-quote">'height'</span>] <span class="php-keyword1">as</span> <span class="php-var">$v</span>)
+</span><span id="242" class="l"><a href="#242">242: </a>            <span class="php-var">$this</span>-&gt;sizes[<span class="php-var">$v</span>] = (int) <span class="php-var">$this</span>-&gt;request-&gt;query(<span class="php-var">$v</span>);
+</span><span id="243" class="l"><a href="#243">243: </a>                
+</span><span id="244" class="l"><a href="#244">244: </a>        <span class="php-comment">//If the file is an image</span>
+</span><span id="245" class="l"><a href="#245">245: </a>        <span class="php-keyword1">if</span>(<span class="php-keyword2">preg_match</span>(<span class="php-quote">'/image\/\S+/'</span>, <span class="php-var">$mime</span> = <span class="php-var">$this</span>-&gt;<span class="php-keyword2">file</span>-&gt;mime())) {
+</span><span id="246" class="l"><a href="#246">246: </a>            <span class="php-comment">//If no maximum size is specified, it's not necessary to create a thumbnail</span>
+</span><span id="247" class="l"><a href="#247">247: </a>            <span class="php-keyword1">if</span>(!<span class="php-keyword2">array_filter</span>(<span class="php-var">$this</span>-&gt;sizes)) {
+</span><span id="248" class="l"><a href="#248">248: </a>                <span class="php-comment">//Renders the original image</span>
+</span><span id="249" class="l"><a href="#249">249: </a>                <span class="php-keyword2">header</span>(<span class="php-keyword2">sprintf</span>(<span class="php-quote">'Content-type: %s'</span>, <span class="php-var">$mime</span>));
+</span><span id="250" class="l"><a href="#250">250: </a>                <span class="php-keyword2">readfile</span>(<span class="php-var">$this</span>-&gt;<span class="php-keyword2">file</span>-&gt;path);
+</span><span id="251" class="l"><a href="#251">251: </a>
+</span><span id="252" class="l"><a href="#252">252: </a>                <span class="php-var">$this</span>-&gt;autoRender = <span class="php-keyword1">FALSE</span>;
+</span><span id="253" class="l"><a href="#253">253: </a>                <span class="php-keyword1">exit</span>;
+</span><span id="254" class="l"><a href="#254">254: </a>            }
+</span><span id="255" class="l"><a href="#255">255: </a>            
+</span><span id="256" class="l"><a href="#256">256: </a>            <span class="php-comment">//Sets the initial thumb path</span>
+</span><span id="257" class="l"><a href="#257">257: </a>            <span class="php-var">$this</span>-&gt;thumb = Thumbs::photo(<span class="php-keyword2">md5</span>(<span class="php-var">$this</span>-&gt;<span class="php-keyword2">file</span>-&gt;path));
+</span><span id="258" class="l"><a href="#258">258: </a>            
+</span><span id="259" class="l"><a href="#259">259: </a>            <span class="php-comment">//Updates the thumb path with the maximum sizes</span>
+</span><span id="260" class="l"><a href="#260">260: </a>            <span class="php-keyword1">if</span>(<span class="php-var">$this</span>-&gt;sizes[<span class="php-quote">'side'</span>])
+</span><span id="261" class="l"><a href="#261">261: </a>                <span class="php-var">$this</span>-&gt;thumb = <span class="php-keyword2">sprintf</span>(<span class="php-quote">'%s_s_%s'</span>, <span class="php-var">$this</span>-&gt;thumb, <span class="php-var">$this</span>-&gt;sizes[<span class="php-quote">'side'</span>]);
+</span><span id="262" class="l"><a href="#262">262: </a>            <span class="php-keyword1">else</span> {
+</span><span id="263" class="l"><a href="#263">263: </a>                <span class="php-keyword1">if</span>(<span class="php-var">$this</span>-&gt;sizes[<span class="php-quote">'width'</span>])
+</span><span id="264" class="l"><a href="#264">264: </a>                    <span class="php-var">$this</span>-&gt;thumb = <span class="php-keyword2">sprintf</span>(<span class="php-quote">'%s_w_%s'</span>, <span class="php-var">$this</span>-&gt;thumb, <span class="php-var">$this</span>-&gt;sizes[<span class="php-quote">'width'</span>]);
+</span><span id="265" class="l"><a href="#265">265: </a>                <span class="php-keyword1">if</span>(<span class="php-var">$this</span>-&gt;sizes[<span class="php-quote">'height'</span>])
+</span><span id="266" class="l"><a href="#266">266: </a>                    <span class="php-var">$this</span>-&gt;thumb = <span class="php-keyword2">sprintf</span>(<span class="php-quote">'%s_h_%s'</span>, <span class="php-var">$this</span>-&gt;thumb, <span class="php-var">$this</span>-&gt;sizes[<span class="php-quote">'height'</span>]);
+</span><span id="267" class="l"><a href="#267">267: </a>            }
+</span><span id="268" class="l"><a href="#268">268: </a>            
+</span><span id="269" class="l"><a href="#269">269: </a>            <span class="php-comment">//Updates the thumb path with the file extensions</span>
+</span><span id="270" class="l"><a href="#270">270: </a>            <span class="php-var">$this</span>-&gt;thumb = <span class="php-keyword2">sprintf</span>(<span class="php-quote">'%s.%s'</span>, <span class="php-var">$this</span>-&gt;thumb, <span class="php-var">$this</span>-&gt;<span class="php-keyword2">file</span>-&gt;ext());
+</span><span id="271" class="l"><a href="#271">271: </a>        }
+</span><span id="272" class="l"><a href="#272">272: </a>        <span class="php-comment">//Else, if the file is a video</span>
+</span><span id="273" class="l"><a href="#273">273: </a>        <span class="php-keyword1">elseif</span>(<span class="php-keyword2">preg_match</span>(<span class="php-quote">'/video\/\S+/'</span>, <span class="php-var">$mime</span>) || <span class="php-var">$mime</span> == <span class="php-quote">'application/ogg'</span>) {
+</span><span id="274" class="l"><a href="#274">274: </a>            <span class="php-keyword1">if</span>(!<span class="php-var">$this</span>-&gt;sizes[<span class="php-quote">'side'</span>] &amp;&amp; !<span class="php-var">$this</span>-&gt;sizes[<span class="php-quote">'width'</span>])
+</span><span id="275" class="l"><a href="#275">275: </a>                <span class="php-var">$this</span>-&gt;sizes[<span class="php-quote">'side'</span>] = <span class="php-num">270</span>;
+</span><span id="276" class="l"><a href="#276">276: </a>            
+</span><span id="277" class="l"><a href="#277">277: </a>            <span class="php-comment">//Sets the initial thumb path</span>
+</span><span id="278" class="l"><a href="#278">278: </a>            <span class="php-var">$this</span>-&gt;thumb = Thumbs::video(<span class="php-keyword2">md5</span>(<span class="php-var">$this</span>-&gt;<span class="php-keyword2">file</span>-&gt;path));
+</span><span id="279" class="l"><a href="#279">279: </a>            
+</span><span id="280" class="l"><a href="#280">280: </a>            <span class="php-comment">//Updates the thumb path with the maximum sizes</span>
+</span><span id="281" class="l"><a href="#281">281: </a>            <span class="php-keyword1">if</span>(<span class="php-var">$this</span>-&gt;sizes[<span class="php-quote">'side'</span>])
+</span><span id="282" class="l"><a href="#282">282: </a>                <span class="php-var">$this</span>-&gt;thumb = <span class="php-keyword2">sprintf</span>(<span class="php-quote">'%s_s_%s'</span>, <span class="php-var">$this</span>-&gt;thumb, <span class="php-var">$this</span>-&gt;sizes[<span class="php-quote">'side'</span>]);
+</span><span id="283" class="l"><a href="#283">283: </a>            <span class="php-keyword1">elseif</span>(<span class="php-var">$this</span>-&gt;sizes[<span class="php-quote">'width'</span>])
+</span><span id="284" class="l"><a href="#284">284: </a>                <span class="php-var">$this</span>-&gt;thumb = <span class="php-keyword2">sprintf</span>(<span class="php-quote">'%s_w_%s'</span>, <span class="php-var">$this</span>-&gt;thumb, <span class="php-var">$this</span>-&gt;sizes[<span class="php-quote">'width'</span>]);
+</span><span id="285" class="l"><a href="#285">285: </a>        
+</span><span id="286" class="l"><a href="#286">286: </a>            <span class="php-comment">//Updates the thumb path with the file extensions</span>
+</span><span id="287" class="l"><a href="#287">287: </a>            <span class="php-var">$this</span>-&gt;thumb = <span class="php-keyword2">sprintf</span>(<span class="php-quote">'%s.jpg'</span>, <span class="php-var">$this</span>-&gt;thumb);
+</span><span id="288" class="l"><a href="#288">288: </a>        }
+</span><span id="289" class="l"><a href="#289">289: </a>        <span class="php-comment">//Else, if the file type is unknown</span>
+</span><span id="290" class="l"><a href="#290">290: </a>        <span class="php-keyword1">else</span>
+</span><span id="291" class="l"><a href="#291">291: </a>            <span class="php-keyword1">throw</span> <span class="php-keyword1">new</span> InternalErrorException(__d(<span class="php-quote">'me_tools'</span>, <span class="php-quote">'The file type {0} is unknown'</span>, <span class="php-var">$mime</span>));
+</span><span id="292" class="l"><a href="#292">292: </a>        
+</span><span id="293" class="l"><a href="#293">293: </a>        <span class="php-comment">//If the thumbnail doesn't yet exist</span>
+</span><span id="294" class="l"><a href="#294">294: </a>        <span class="php-keyword1">if</span>(!<span class="php-keyword2">is_readable</span>(<span class="php-var">$this</span>-&gt;thumb)) {
+</span><span id="295" class="l"><a href="#295">295: </a>            <span class="php-comment">//Checks if the target directory is writable</span>
+</span><span id="296" class="l"><a href="#296">296: </a>            <span class="php-keyword1">if</span>(!<span class="php-keyword2">is_writable</span>(<span class="php-keyword2">dirname</span>(<span class="php-var">$this</span>-&gt;thumb)))
+</span><span id="297" class="l"><a href="#297">297: </a>                <span class="php-keyword1">throw</span> <span class="php-keyword1">new</span> InternalErrorException(__d(<span class="php-quote">'me_tools'</span>, <span class="php-quote">'File or directory `{0}` not writeable'</span>, <span class="php-keyword2">dirname</span>(<span class="php-var">$this</span>-&gt;thumb)));
+</span><span id="298" class="l"><a href="#298">298: </a>            
+</span><span id="299" class="l"><a href="#299">299: </a>            <span class="php-comment">//Creates the thumbnail</span>
+</span><span id="300" class="l"><a href="#300">300: </a>            <span class="php-keyword1">if</span>(<span class="php-keyword2">preg_match</span>(<span class="php-quote">'/image\/\S+/'</span>, <span class="php-var">$mime</span>))
+</span><span id="301" class="l"><a href="#301">301: </a>                <span class="php-var">$this</span>-&gt;_imageThumb();
+</span><span id="302" class="l"><a href="#302">302: </a>            <span class="php-keyword1">else</span>
+</span><span id="303" class="l"><a href="#303">303: </a>                <span class="php-var">$this</span>-&gt;_videoThumb();
+</span><span id="304" class="l"><a href="#304">304: </a>        }
+</span><span id="305" class="l"><a href="#305">305: </a>        
+</span><span id="306" class="l"><a href="#306">306: </a>        <span class="php-comment">//Renders the thumbnail</span>
+</span><span id="307" class="l"><a href="#307">307: </a>        <span class="php-keyword2">header</span>(<span class="php-quote">'Content-type: image/jpeg'</span>);
+</span><span id="308" class="l"><a href="#308">308: </a>        <span class="php-keyword2">readfile</span>(<span class="php-var">$this</span>-&gt;thumb);
+</span><span id="309" class="l"><a href="#309">309: </a>        
+</span><span id="310" class="l"><a href="#310">310: </a>        <span class="php-var">$this</span>-&gt;autoRender = <span class="php-keyword1">FALSE</span>;
+</span><span id="311" class="l"><a href="#311">311: </a>        <span class="php-keyword1">exit</span>;
+</span><span id="312" class="l"><a href="#312">312: </a>    }
+</span><span id="313" class="l"><a href="#313">313: </a>}</span></code></pre>
 
 	<div id="footer">
 		MeTools API API documentation generated by <a href="http://apigen.org">ApiGen</a>
@@ -496,6 +508,6 @@
 </div>
 </div>
 <script src="resources/combined.js?cd021bc814832c24a7cec5319ea03335bfba1caf"></script>
-<script src="elementlist.js?dffcc103ef518fab0cd507ee5a1e75ca6c7b901e"></script>
+<script src="elementlist.js?363b17c719ea943585c9a08759d385fbd969532d"></script>
 </body>
 </html>

@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 
-	<title>Class MeTools\Controller\Component\FlashComponent | MeTools API</title>
+	<title>Class MeTools\Error\ErrorHandler | MeTools API</title>
 
 	<link rel="stylesheet" href="resources/style.css?e99947befd7bf673c6b43ff75e9e0f170c88a60e">
 
@@ -29,13 +29,13 @@
 						Console					</a>
 
 						</li>
-				<li class="active main">
+				<li class="main">
 					<a href="namespace-MeTools.Controller.html">
 						Controller<span></span>
 					</a>
 
 						<ul>
-				<li class="active main">
+				<li class="main">
 					<a href="namespace-MeTools.Controller.Component.html">
 						Component					</a>
 
@@ -46,7 +46,7 @@
 						Core					</a>
 
 						</li>
-				<li class="main">
+				<li class="active main">
 					<a href="namespace-MeTools.Error.html">
 						Error					</a>
 
@@ -116,10 +116,7 @@
 		<div id="elements">
 			<h3>Classes</h3>
 			<ul>
-				<li class="active"><a href="class-MeTools.Controller.Component.FlashComponent.html">FlashComponent</a></li>
-				<li><a href="class-MeTools.Controller.Component.RecaptchaComponent.html">RecaptchaComponent</a></li>
-				<li><a href="class-MeTools.Controller.Component.SecurityComponent.html">SecurityComponent</a></li>
-				<li><a href="class-MeTools.Controller.Component.TokenComponent.html">TokenComponent</a></li>
+				<li class="active"><a href="class-MeTools.Error.ErrorHandler.html">ErrorHandler</a></li>
 			</ul>
 
 
@@ -146,7 +143,7 @@
 				<a href="index.html" title="Overview"><span>Overview</span></a>
 			</li>
 			<li>
-				<a href="namespace-MeTools.Controller.Component.html" title="Summary of MeTools\Controller\Component"><span>Namespace</span></a>
+				<a href="namespace-MeTools.Error.html" title="Summary of MeTools\Error"><span>Namespace</span></a>
 			</li>
 			<li class="active">
 <span>Class</span>			</li>
@@ -163,25 +160,26 @@
 	</div>
 
 <div id="content" class="class">
-	<h1>Class FlashComponent</h1>
+	<h1>Class ErrorHandler</h1>
 
 
 	<div class="description">
-	<p>Provides a way to persist client data between page requests. It acts as a wrapper for the
-<code>$_SESSION</code> as well as providing convenience methods for several <code>$_SESSION</code> related functions.</p>
+	<p>Error Handler provides basic error and exception handling for your application. It captures and
+handles all unhandled exceptions and errors. Displays helpful framework errors when debug > 1.</p>
 
-<p>Rewrites <a href="http://api.cakephp.org/3.1/class-Cake.Controller.Component.FlashComponent.html">FlashComponent</a>.</p>
+<p>Rewrites <a href="http://api.cakephp.org/3.1/source-class-Cake.Error.ErrorHandler.html">ErrorHandler</a>.
+This allows to track the "request URL" also for errors and not only for exceptions.</p>
 	</div>
 
 	<dl class="tree">
 		<dd style="padding-left:0px">
-Cake\Controller\Component\FlashComponent
+Cake\Error\ErrorHandler
 			
 			
 		</dd>
 		<dd style="padding-left:30px">
 			<img src="resources/inherit.png" alt="Extended by">
-<b><span>MeTools\Controller\Component\FlashComponent</span></b>			
+<b><span>MeTools\Error\ErrorHandler</span></b>			
 			
 			
 		</dd>
@@ -197,10 +195,10 @@ Cake\Controller\Component\FlashComponent
 	<div class="info">
 		
 		
-		<b>Namespace:</b> <a href="namespace-MeTools.html">MeTools</a>\<a href="namespace-MeTools.Controller.html">Controller</a>\<a href="namespace-MeTools.Controller.Component.html">Component</a><br>
+		<b>Namespace:</b> <a href="namespace-MeTools.html">MeTools</a>\<a href="namespace-MeTools.Error.html">Error</a><br>
 		
 
-			<b>Located at</b> <a href="source-class-MeTools.Controller.Component.FlashComponent.html#29-48" title="Go to source code">Controller/Component/FlashComponent.php</a>
+			<b>Located at</b> <a href="source-class-MeTools.Error.ErrorHandler.html#31-74" title="Go to source code">Error/ErrorHandler.php</a>
 		<br>
 	</div>
 
@@ -208,42 +206,42 @@ Cake\Controller\Component\FlashComponent
 
 	<table class="summary methods" id="methods">
 	<caption>Methods summary</caption>
-	<tr data-order="__call" id="___call">
+	<tr data-order="_logError" id="__logError">
 
 		<td class="attributes"><code>
-			 public 
+			 protected 
 
-			
+			boolean
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
-		<a class="anchor" href="#___call">#</a>
-		<code><a href="source-class-MeTools.Controller.Component.FlashComponent.html#36-47" title="Go to source code">__call</a>( <span>string <var>$name</var></span>, <span>array <var>$args</var></span> )</code>
+		<a class="anchor" href="#__logError">#</a>
+		<code><a href="source-class-MeTools.Error.ErrorHandler.html#39-73" title="Go to source code">_logError</a>( <span>string <var>$level</var></span>, <span>array <var>$data</var></span> )</code>
 
 		<div class="description short">
-			<p>Magic method for verbose flash methods based on element names.</p>
+			<p>Log an error</p>
 		</div>
 
 		<div class="description detailed hidden">
-			<p>Magic method for verbose flash methods based on element names.</p>
+			<p>Log an error</p>
 
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
-					<dt><var>$name</var></dt>
-					<dd>Element name to use</dd>
-					<dt><var>$args</var></dt>
-					<dd>Parameters to pass</dd>
+					<dt><var>$level</var></dt>
+					<dd>The level name of the log.</dd>
+					<dt><var>$data</var></dt>
+					<dd>Array of error data.</dd>
 				</dl></div>
 
-
-
-				<h4>Uses</h4>
+				<h4>Returns</h4>
 				<div class="list">
-						<code><a href="class-MeTools.Core.Plugin.html#_path">MeTools\Core\Plugin::path()</a></code><br>
+					boolean
 				</div>
+
+
 
 
 		</div>

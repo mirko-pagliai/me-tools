@@ -108,6 +108,13 @@ small, .small, .small-text, .smallText, .text-small, .textSmall {
 }
 
 /* -------------------------------- */
+/*				Overflow			*/
+/* -------------------------------- */
+.overflow, .overflow-hidden {
+	overflow: hidden;
+}
+
+/* -------------------------------- */
 /*				Paddings			*/
 /* -------------------------------- */
 /* No padding class */
