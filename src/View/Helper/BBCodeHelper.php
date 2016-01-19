@@ -68,9 +68,10 @@ class BBCodeHelper extends Helper {
 	 * Removes all BBCode
 	 * @param string $text
 	 * @return string
+	 * @uses parser()
 	 */
 	public function remove($text) {
-		return preg_replace('|[[\/\!]*?[^\[\]]*?]|si', '', $text);
+		return trim(strip_tags(self::parser($text)));
 	}
 
 	/**
