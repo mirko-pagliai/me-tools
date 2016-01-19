@@ -63,6 +63,15 @@ class BBCodeHelper extends Helper {
 	public function read_more($text) {
 		return preg_replace('/(<p>)?\[read\-?more\s?\/\](<\/p>)?/', '<!-- read-more -->', $text);
 	}
+	
+	/**
+	 * Removes all BBCode
+	 * @param string $text
+	 * @return string
+	 */
+	public function remove($text) {
+		return preg_replace('|[[\/\!]*?[^\[\]]*?]|si', '', $text);
+	}
 
 	/**
 	 * Parses Youtube code. Example:
