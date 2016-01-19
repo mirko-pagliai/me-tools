@@ -2,7 +2,8 @@
 ## 2.2 branch
 ### 2.2.5
 * support for some BBCode;
-* support for Youtube videos.
+* support for Youtube videos;
+* fixed bug for Shareaholic.
 
 ### 2.2.4
 * added the ErrorHandler class. This allows to track the "request URL" also for errors and not only for exceptions;

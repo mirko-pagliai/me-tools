@@ -240,10 +240,10 @@ class LibraryHelper extends Helper {
 	 * @param string $site_id Shareaholic site ID
 	 * @return mixed Html code
 	 * @see MeTools\View\Helper\HtmlHelper::shareaholic()
-	 * @uses MeTools\View\Helper\HtmlHelper::scriptBlock()
+	 * @uses MeTools\View\Helper\HtmlHelper::js()
 	 */
 	public function shareaholic($site_id) {
-		return $this->Html->scriptBlock(sprintf('!function(){var e=document.createElement("script");e.setAttribute("data-cfasync","false"),e.src="//dsms0mj1bbhn4.cloudfront.net/assets/pub/shareaholic.js",e.type="text/javascript",e.async="true",e.onload=e.onreadystatechange=function(){var e=this.readyState;if(!e||"complete"==e||"loaded"==e){var t="%s";try{Shareaholic.init(t)}catch(a){}}};var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t)}();', $site_id), ['block' => 'script_bottom']);
+		return $this->Html->js('//dsms0mj1bbhn4.cloudfront.net/assets/pub/shareaholic.js', ['async' => 'async', 'block' => 'script_bottom', 'data-cfasync' => 'false', 'data-shr-siteid' => $site_id]);
 	}
 
 	/**
