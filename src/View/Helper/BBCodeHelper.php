@@ -42,12 +42,26 @@ class BBCodeHelper extends Helper {
 	 * Executes all parsers
 	 * @param string $text
 	 * @return string
+	 * @uses read_more()
 	 * @uses youtube()
 	 */
 	public function parser($text) {
+		$text = self::read_more($text);
 		$text = self::youtube($text);
 		
 		return $text;
+	}
+	
+	/**
+	 * Parses "read mode" code. Example:
+     * <code>
+     * [read-more /]
+     * </code>
+	 * @param string $text
+	 * @return string
+	 */
+	public function read_more($text) {
+		return preg_replace('/(<p>)?\[read\-?more\s?\/\](<\/p>)?/', '<!-- read-more -->', $text);
 	}
 
 	/**
