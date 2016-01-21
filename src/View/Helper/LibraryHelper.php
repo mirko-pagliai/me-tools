@@ -256,7 +256,7 @@ class LibraryHelper extends Helper {
 	 * @uses output
      */
     public function slugify($sourceField = 'form #title', $targetField = 'form #slug') {
-        $this->Asset->js('MeTools.slugify.min', ['block' => 'script_bottom']);
+        $this->Asset->js('MeTools.slugify', ['block' => 'script_bottom']);
 		
         $this->output[] = sprintf('$().slugify("%s", "%s");', $sourceField, $targetField);
     }
