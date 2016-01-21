@@ -131,7 +131,7 @@ class LibraryHelper extends Helper {
      * @param bool $jquery FALSE if you don't want to use the jQuery adapter
      * @see MeTools\View\Helper\FormHelper::ckeditor()
      * @see http://docs.cksource.com CKEditor documentation
-	 * @uses MeTools\View\Helper\HtmlHelper::js()
+	 * @uses MeTools\View\Helper\AssetHelper::js()
      */
     public function ckeditor($jquery = TRUE) {
 		$path = WWW_ROOT.DS.'ckeditor'.DS;
@@ -155,7 +155,7 @@ class LibraryHelper extends Helper {
 		else
 			$scripts[] = 'MeTools.ckeditor_init.php?';
 		
-		$this->Html->js($scripts, ['block' => 'script_bottom']);
+		$this->Asset->js($scripts, ['block' => 'script_bottom']);
     }
 
     /**
@@ -252,11 +252,11 @@ class LibraryHelper extends Helper {
      * It reads the value of the `$sourceField` field and it sets its slug in the `$targetField`.
      * @param string $sourceField Source field
      * @param string $targetField Target field
-	 * @uses MeTools\View\Helper\HtmlHelper::js()
+	 * @uses MeTools\View\Helper\AssetHelper::js()
 	 * @uses output
      */
     public function slugify($sourceField = 'form #title', $targetField = 'form #slug') {
-        $this->Html->js('MeTools.slugify.min', ['block' => 'script_bottom']);
+        $this->Asset->js('MeTools.slugify.min', ['block' => 'script_bottom']);
 		
         $this->output[] = sprintf('$().slugify("%s", "%s");', $sourceField, $targetField);
     }
