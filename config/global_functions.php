@@ -244,6 +244,6 @@ if(!function_exists('rtr')) {
 	 * @return string Relativa path
 	 */
 	function rtr($path) {
-		return str_replace(ROOT.DS, NULL, $path);
+		return preg_replace(sprintf('/^%s/', preg_quote(ROOT.DS, DS)), NULL, $path);
 	}
 }
