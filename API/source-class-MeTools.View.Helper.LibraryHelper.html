@@ -139,6 +139,7 @@
 				<li><a href="class-MeTools.Utility.Unix.html">MeTools\Utility\Unix</a></li>
 				<li><a href="class-MeTools.Utility.Xml.html">MeTools\Utility\Xml</a></li>
 				<li><a href="class-MeTools.View.Helper.AssetHelper.html">MeTools\View\Helper\AssetHelper</a></li>
+				<li><a href="class-MeTools.View.Helper.BBCodeHelper.html">MeTools\View\Helper\BBCodeHelper</a></li>
 				<li><a href="class-MeTools.View.Helper.DropdownHelper.html">MeTools\View\Helper\DropdownHelper</a></li>
 				<li><a href="class-MeTools.View.Helper.FormHelper.html">MeTools\View\Helper\FormHelper</a></li>
 				<li><a href="class-MeTools.View.Helper.HtmlHelper.html">MeTools\View\Helper\HtmlHelper</a></li>
@@ -321,7 +322,7 @@
 </span></span><span id="131" class="l"><a href="#131">131: </a><span class="php-comment">     * @param bool $jquery FALSE if you don't want to use the jQuery adapter
 </span></span><span id="132" class="l"><a href="#132">132: </a><span class="php-comment">     * @see MeTools\View\Helper\FormHelper::ckeditor()
 </span></span><span id="133" class="l"><a href="#133">133: </a><span class="php-comment">     * @see http://docs.cksource.com CKEditor documentation
-</span></span><span id="134" class="l"><a href="#134">134: </a><span class="php-comment">     * @uses MeTools\View\Helper\HtmlHelper::js()
+</span></span><span id="134" class="l"><a href="#134">134: </a><span class="php-comment">     * @uses MeTools\View\Helper\AssetHelper::js()
 </span></span><span id="135" class="l"><a href="#135">135: </a><span class="php-comment">     */</span>
 </span><span id="136" class="l"><a href="#136">136: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> ckeditor(<span class="php-var">$jquery</span> = <span class="php-keyword1">TRUE</span>) {
 </span><span id="137" class="l"><a href="#137">137: </a>        <span class="php-var">$path</span> = WWW_ROOT.DS.<span class="php-quote">'ckeditor'</span>.DS;
@@ -345,7 +346,7 @@
 </span><span id="155" class="l"><a href="#155">155: </a>        <span class="php-keyword1">else</span>
 </span><span id="156" class="l"><a href="#156">156: </a>            <span class="php-var">$scripts</span>[] = <span class="php-quote">'MeTools.ckeditor_init.php?'</span>;
 </span><span id="157" class="l"><a href="#157">157: </a>        
-</span><span id="158" class="l"><a href="#158">158: </a>        <span class="php-var">$this</span>-&gt;Html-&gt;js(<span class="php-var">$scripts</span>, [<span class="php-quote">'block'</span> =&gt; <span class="php-quote">'script_bottom'</span>]);
+</span><span id="158" class="l"><a href="#158">158: </a>        <span class="php-var">$this</span>-&gt;Asset-&gt;js(<span class="php-var">$scripts</span>, [<span class="php-quote">'block'</span> =&gt; <span class="php-quote">'script_bottom'</span>]);
 </span><span id="159" class="l"><a href="#159">159: </a>    }
 </span><span id="160" class="l"><a href="#160">160: </a>
 </span><span id="161" class="l"><a href="#161">161: </a>    <span class="php-comment">/**
@@ -430,10 +431,10 @@
 </span></span><span id="240" class="l"><a href="#240">240: </a><span class="php-comment">     * @param string $site_id Shareaholic site ID
 </span></span><span id="241" class="l"><a href="#241">241: </a><span class="php-comment">     * @return mixed Html code
 </span></span><span id="242" class="l"><a href="#242">242: </a><span class="php-comment">     * @see MeTools\View\Helper\HtmlHelper::shareaholic()
-</span></span><span id="243" class="l"><a href="#243">243: </a><span class="php-comment">     * @uses MeTools\View\Helper\HtmlHelper::scriptBlock()
+</span></span><span id="243" class="l"><a href="#243">243: </a><span class="php-comment">     * @uses MeTools\View\Helper\HtmlHelper::js()
 </span></span><span id="244" class="l"><a href="#244">244: </a><span class="php-comment">     */</span>
 </span><span id="245" class="l"><a href="#245">245: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> shareaholic(<span class="php-var">$site_id</span>) {
-</span><span id="246" class="l"><a href="#246">246: </a>        <span class="php-keyword1">return</span> <span class="php-var">$this</span>-&gt;Html-&gt;scriptBlock(<span class="php-keyword2">sprintf</span>(<span class="php-quote">'!function(){var e=document.createElement(&quot;script&quot;);e.setAttribute(&quot;data-cfasync&quot;,&quot;false&quot;),e.src=&quot;//dsms0mj1bbhn4.cloudfront.net/assets/pub/shareaholic.js&quot;,e.type=&quot;text/javascript&quot;,e.async=&quot;true&quot;,e.onload=e.onreadystatechange=function(){var e=this.readyState;if(!e||&quot;complete&quot;==e||&quot;loaded&quot;==e){var t=&quot;%s&quot;;try{Shareaholic.init(t)}catch(a){}}};var t=document.getElementsByTagName(&quot;script&quot;)[0];t.parentNode.insertBefore(e,t)}();'</span>, <span class="php-var">$site_id</span>), [<span class="php-quote">'block'</span> =&gt; <span class="php-quote">'script_bottom'</span>]);
+</span><span id="246" class="l"><a href="#246">246: </a>        <span class="php-keyword1">return</span> <span class="php-var">$this</span>-&gt;Html-&gt;js(<span class="php-quote">'//dsms0mj1bbhn4.cloudfront.net/assets/pub/shareaholic.js'</span>, [<span class="php-quote">'async'</span> =&gt; <span class="php-quote">'async'</span>, <span class="php-quote">'block'</span> =&gt; <span class="php-quote">'script_bottom'</span>, <span class="php-quote">'data-cfasync'</span> =&gt; <span class="php-quote">'false'</span>, <span class="php-quote">'data-shr-siteid'</span> =&gt; <span class="php-var">$site_id</span>]);
 </span><span id="247" class="l"><a href="#247">247: </a>    }
 </span><span id="248" class="l"><a href="#248">248: </a>
 </span><span id="249" class="l"><a href="#249">249: </a>    <span class="php-comment">/**
@@ -442,11 +443,11 @@
 </span></span><span id="252" class="l"><a href="#252">252: </a><span class="php-comment">     * It reads the value of the `$sourceField` field and it sets its slug in the `$targetField`.
 </span></span><span id="253" class="l"><a href="#253">253: </a><span class="php-comment">     * @param string $sourceField Source field
 </span></span><span id="254" class="l"><a href="#254">254: </a><span class="php-comment">     * @param string $targetField Target field
-</span></span><span id="255" class="l"><a href="#255">255: </a><span class="php-comment">     * @uses MeTools\View\Helper\HtmlHelper::js()
+</span></span><span id="255" class="l"><a href="#255">255: </a><span class="php-comment">     * @uses MeTools\View\Helper\AssetHelper::js()
 </span></span><span id="256" class="l"><a href="#256">256: </a><span class="php-comment">     * @uses output
 </span></span><span id="257" class="l"><a href="#257">257: </a><span class="php-comment">     */</span>
 </span><span id="258" class="l"><a href="#258">258: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> slugify(<span class="php-var">$sourceField</span> = <span class="php-quote">'form #title'</span>, <span class="php-var">$targetField</span> = <span class="php-quote">'form #slug'</span>) {
-</span><span id="259" class="l"><a href="#259">259: </a>        <span class="php-var">$this</span>-&gt;Html-&gt;js(<span class="php-quote">'MeTools.slugify.min'</span>, [<span class="php-quote">'block'</span> =&gt; <span class="php-quote">'script_bottom'</span>]);
+</span><span id="259" class="l"><a href="#259">259: </a>        <span class="php-var">$this</span>-&gt;Asset-&gt;js(<span class="php-quote">'MeTools.slugify'</span>, [<span class="php-quote">'block'</span> =&gt; <span class="php-quote">'script_bottom'</span>]);
 </span><span id="260" class="l"><a href="#260">260: </a>        
 </span><span id="261" class="l"><a href="#261">261: </a>        <span class="php-var">$this</span>-&gt;output[] = <span class="php-keyword2">sprintf</span>(<span class="php-quote">'$().slugify(&quot;%s&quot;, &quot;%s&quot;);'</span>, <span class="php-var">$sourceField</span>, <span class="php-var">$targetField</span>);
 </span><span id="262" class="l"><a href="#262">262: </a>    }
@@ -479,6 +480,6 @@
 </div>
 </div>
 <script src="resources/combined.js?cd021bc814832c24a7cec5319ea03335bfba1caf"></script>
-<script src="elementlist.js?363b17c719ea943585c9a08759d385fbd969532d"></script>
+<script src="elementlist.js?401549aff6758c01e502595f9bbd997b117a1858"></script>
 </body>
 </html>

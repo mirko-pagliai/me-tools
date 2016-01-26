@@ -575,4 +575,19 @@ class HtmlHelper extends CakeHtmlHelper {
 		
 		return self::meta(am(['name' => 'viewport'], compact('content')));
 	}
+	
+	/**
+	 * Adds a YouTube video
+	 * @param string $id YouTube video ID
+	 * @param array $options Array of options and HTML attributes
+     * @return string Html code
+	 * @uses iframe()
+	 */
+	public function youtube($id, array $options = []) {
+		$options = addDefault('allowfullscreen', 'allowfullscreen', $options);
+		$options = addDefault('height', 480, $options);
+		$options = addDefault('width', 640, $options);
+		
+		return self::iframe(sprintf('https://www.youtube.com/embed/%s', $id), $options);
+	}
 }

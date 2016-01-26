@@ -131,7 +131,7 @@ class LibraryHelper extends Helper {
      * @param bool $jquery FALSE if you don't want to use the jQuery adapter
      * @see MeTools\View\Helper\FormHelper::ckeditor()
      * @see http://docs.cksource.com CKEditor documentation
-	 * @uses MeTools\View\Helper\HtmlHelper::js()
+	 * @uses MeTools\View\Helper\AssetHelper::js()
      */
     public function ckeditor($jquery = TRUE) {
 		$path = WWW_ROOT.DS.'ckeditor'.DS;
@@ -155,7 +155,7 @@ class LibraryHelper extends Helper {
 		else
 			$scripts[] = 'MeTools.ckeditor_init.php?';
 		
-		$this->Html->js($scripts, ['block' => 'script_bottom']);
+		$this->Asset->js($scripts, ['block' => 'script_bottom']);
     }
 
     /**
@@ -240,10 +240,10 @@ class LibraryHelper extends Helper {
 	 * @param string $site_id Shareaholic site ID
 	 * @return mixed Html code
 	 * @see MeTools\View\Helper\HtmlHelper::shareaholic()
-	 * @uses MeTools\View\Helper\HtmlHelper::scriptBlock()
+	 * @uses MeTools\View\Helper\HtmlHelper::js()
 	 */
 	public function shareaholic($site_id) {
-		return $this->Html->scriptBlock(sprintf('!function(){var e=document.createElement("script");e.setAttribute("data-cfasync","false"),e.src="//dsms0mj1bbhn4.cloudfront.net/assets/pub/shareaholic.js",e.type="text/javascript",e.async="true",e.onload=e.onreadystatechange=function(){var e=this.readyState;if(!e||"complete"==e||"loaded"==e){var t="%s";try{Shareaholic.init(t)}catch(a){}}};var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t)}();', $site_id), ['block' => 'script_bottom']);
+		return $this->Html->js('//dsms0mj1bbhn4.cloudfront.net/assets/pub/shareaholic.js', ['async' => 'async', 'block' => 'script_bottom', 'data-cfasync' => 'false', 'data-shr-siteid' => $site_id]);
 	}
 
 	/**
@@ -252,11 +252,11 @@ class LibraryHelper extends Helper {
      * It reads the value of the `$sourceField` field and it sets its slug in the `$targetField`.
      * @param string $sourceField Source field
      * @param string $targetField Target field
-	 * @uses MeTools\View\Helper\HtmlHelper::js()
+	 * @uses MeTools\View\Helper\AssetHelper::js()
 	 * @uses output
      */
     public function slugify($sourceField = 'form #title', $targetField = 'form #slug') {
-        $this->Html->js('MeTools.slugify.min', ['block' => 'script_bottom']);
+        $this->Asset->js('MeTools.slugify', ['block' => 'script_bottom']);
 		
         $this->output[] = sprintf('$().slugify("%s", "%s");', $sourceField, $targetField);
     }

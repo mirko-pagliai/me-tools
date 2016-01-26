@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 
-	<title>Class MeTools\View\Helper\PaginatorHelper | MeTools API</title>
+	<title>Class MeTools\View\Helper\BBCodeHelper | MeTools API</title>
 
 	<link rel="stylesheet" href="resources/style.css?e99947befd7bf673c6b43ff75e9e0f170c88a60e">
 
@@ -117,13 +117,13 @@
 			<h3>Classes</h3>
 			<ul>
 				<li><a href="class-MeTools.View.Helper.AssetHelper.html">AssetHelper</a></li>
-				<li><a href="class-MeTools.View.Helper.BBCodeHelper.html">BBCodeHelper</a></li>
+				<li class="active"><a href="class-MeTools.View.Helper.BBCodeHelper.html">BBCodeHelper</a></li>
 				<li><a href="class-MeTools.View.Helper.DropdownHelper.html">DropdownHelper</a></li>
 				<li><a href="class-MeTools.View.Helper.FormHelper.html">FormHelper</a></li>
 				<li><a href="class-MeTools.View.Helper.HtmlHelper.html">HtmlHelper</a></li>
 				<li><a href="class-MeTools.View.Helper.LibraryHelper.html">LibraryHelper</a></li>
 				<li><a href="class-MeTools.View.Helper.MarkdownHelper.html">MarkdownHelper</a></li>
-				<li class="active"><a href="class-MeTools.View.Helper.PaginatorHelper.html">PaginatorHelper</a></li>
+				<li><a href="class-MeTools.View.Helper.PaginatorHelper.html">PaginatorHelper</a></li>
 				<li><a href="class-MeTools.View.Helper.RecaptchaHelper.html">RecaptchaHelper</a></li>
 				<li><a href="class-MeTools.View.Helper.ThumbHelper.html">ThumbHelper</a></li>
 			</ul>
@@ -169,24 +169,26 @@
 	</div>
 
 <div id="content" class="class">
-	<h1>Class PaginatorHelper</h1>
+	<h1>Class BBCodeHelper</h1>
 
 
 	<div class="description">
-	<p>Provides functionalities to the generation of pagers.</p>
+	<p>BBCode Helper.</p>
 
-<p>Rewrites <a href="http://api.cakephp.org/3.1/class-Cake.View.Helper.PaginatorHelper.html">PaginatorHelper</a>.</p>
+<p>This helper allows you to handle some BBCode.</p>
+
+<p>The <code>parser()</code> method executes all parsers.</p>
 	</div>
 
 	<dl class="tree">
 		<dd style="padding-left:0px">
-Cake\View\Helper\PaginatorHelper
+Cake\View\Helper
 			
 			
 		</dd>
 		<dd style="padding-left:30px">
 			<img src="resources/inherit.png" alt="Extended by">
-<b><span>MeTools\View\Helper\PaginatorHelper</span></b>			
+<b><span>MeTools\View\Helper\BBCodeHelper</span></b>			
 			
 			
 		</dd>
@@ -205,7 +207,7 @@ Cake\View\Helper\PaginatorHelper
 		<b>Namespace:</b> <a href="namespace-MeTools.html">MeTools</a>\<a href="namespace-MeTools.View.html">View</a>\<a href="namespace-MeTools.View.Helper.html">Helper</a><br>
 		
 
-			<b>Located at</b> <a href="source-class-MeTools.View.Helper.PaginatorHelper.html#28-69" title="Go to source code">View/Helper/PaginatorHelper.php</a>
+			<b>Located at</b> <a href="source-class-MeTools.View.Helper.BBCodeHelper.html#27-92" title="Go to source code">View/Helper/BBCodeHelper.php</a>
 		<br>
 	</div>
 
@@ -213,7 +215,7 @@ Cake\View\Helper\PaginatorHelper
 
 	<table class="summary methods" id="methods">
 	<caption>Methods summary</caption>
-	<tr data-order="next" id="_next">
+	<tr data-order="parser" id="_parser">
 
 		<td class="attributes"><code>
 			 public 
@@ -224,37 +226,44 @@ Cake\View\Helper\PaginatorHelper
 		</td>
 
 		<td class="name"><div>
-		<a class="anchor" href="#_next">#</a>
-		<code><a href="source-class-MeTools.View.Helper.PaginatorHelper.html#40-53" title="Go to source code">next</a>( <span>string <var>$title</var> = <span class="php-quote">'Next &gt;&gt;'</span></span>, <span>array <var>$options</var> = []</span> )</code>
+		<a class="anchor" href="#_parser">#</a>
+		<code><a href="source-class-MeTools.View.Helper.BBCodeHelper.html#41-53" title="Go to source code">parser</a>( <span>string <var>$text</var></span> )</code>
 
 		<div class="description short">
-			<p>Generates a "next" link for a set of paged records</p>
+			<p>Executes all parsers</p>
 		</div>
 
 		<div class="description detailed hidden">
-			<p>Generates a "next" link for a set of paged records</p>
+			<p>Executes all parsers</p>
 
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
-					<dt><var>$title</var></dt>
-					<dd>Title for the link</dd>
-					<dt><var>$options</var></dt>
-					<dd>Options for pagination link</dd>
+					<dt><var>$text</var></dt>
+					<dd></dd>
 				</dl></div>
 
 				<h4>Returns</h4>
 				<div class="list">
-					string<br>A "next" link or a disabled link
+					string
 				</div>
 
 
+				<h4>Uses</h4>
+				<div class="list">
+						<code><a href="class-MeTools.View.Helper.BBCodeHelper.html#_read_more">MeTools\View\Helper\BBCodeHelper::read_more()</a></code><br>
+						<code><a href="class-MeTools.View.Helper.BBCodeHelper.html#_youtube">MeTools\View\Helper\BBCodeHelper::youtube()</a></code><br>
+				</div>
+				<h4>Used by</h4>
+				<div class="list">
+						<code><a href="class-MeTools.View.Helper.BBCodeHelper.html#_remove">MeTools\View\Helper\BBCodeHelper::remove()</a></code><br>
+				</div>
 
 
 		</div>
 		</div></td>
 	</tr>
-	<tr data-order="prev" id="_prev">
+	<tr data-order="read_more" id="_read_more">
 
 		<td class="attributes"><code>
 			 public 
@@ -265,31 +274,132 @@ Cake\View\Helper\PaginatorHelper
 		</td>
 
 		<td class="name"><div>
-		<a class="anchor" href="#_prev">#</a>
-		<code><a href="source-class-MeTools.View.Helper.PaginatorHelper.html#55-68" title="Go to source code">prev</a>( <span>string <var>$title</var> = <span class="php-quote">'&lt;&lt; Previous'</span></span>, <span>array <var>$options</var> = []</span> )</code>
+		<a class="anchor" href="#_read_more">#</a>
+		<code><a href="source-class-MeTools.View.Helper.BBCodeHelper.html#55-65" title="Go to source code">read_more</a>( <span>string <var>$text</var></span> )</code>
 
 		<div class="description short">
-			<p>Generates a "previous" link for a set of paged records</p>
+			<p>Parses "read mode" code. Example:</p>
+
+<pre>[read-more /]</pre>
 		</div>
 
 		<div class="description detailed hidden">
-			<p>Generates a "previous" link for a set of paged records</p>
+			<p>Parses "read mode" code. Example:</p>
+
+<pre>[read-more /]</pre>
 
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
-					<dt><var>$title</var></dt>
-					<dd>Title for the link</dd>
-					<dt><var>$options</var></dt>
-					<dd>Options for pagination link</dd>
+					<dt><var>$text</var></dt>
+					<dd></dd>
 				</dl></div>
 
 				<h4>Returns</h4>
 				<div class="list">
-					string<br>A "previous" link or a disabled link
+					string
 				</div>
 
 
+				<h4>Used by</h4>
+				<div class="list">
+						<code><a href="class-MeTools.View.Helper.BBCodeHelper.html#_parser">MeTools\View\Helper\BBCodeHelper::parser()</a></code><br>
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="remove" id="_remove">
+
+		<td class="attributes"><code>
+			 public 
+
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_remove">#</a>
+		<code><a href="source-class-MeTools.View.Helper.BBCodeHelper.html#67-75" title="Go to source code">remove</a>( <span>string <var>$text</var></span> )</code>
+
+		<div class="description short">
+			<p>Removes all BBCode</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Removes all BBCode</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$text</var></dt>
+					<dd></dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					string
+				</div>
+
+
+				<h4>Uses</h4>
+				<div class="list">
+						<code><a href="class-MeTools.View.Helper.BBCodeHelper.html#_parser">MeTools\View\Helper\BBCodeHelper::parser()</a></code><br>
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="youtube" id="_youtube">
+
+		<td class="attributes"><code>
+			 public 
+
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_youtube">#</a>
+		<code><a href="source-class-MeTools.View.Helper.BBCodeHelper.html#77-91" title="Go to source code">youtube</a>( <span>string <var>$text</var></span> )</code>
+
+		<div class="description short">
+			<p>Parses Youtube code. Example:</p>
+
+<pre>[youtube]bL_CJKq9rIw[/youtube]</pre>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Parses Youtube code. Example:</p>
+
+<pre>[youtube]bL_CJKq9rIw[/youtube]</pre>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$text</var></dt>
+					<dd></dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					string
+				</div>
+
+
+				<h4>Uses</h4>
+				<div class="list">
+						MeCms\Utility\Youtube::getId()<br>
+						<code><a href="class-MeTools.View.Helper.HtmlHelper.html#_youtube">MeTools\View\Helper\HtmlHelper::youtube()</a></code><br>
+				</div>
+				<h4>Used by</h4>
+				<div class="list">
+						<code><a href="class-MeTools.View.Helper.BBCodeHelper.html#_parser">MeTools\View\Helper\BBCodeHelper::parser()</a></code><br>
+				</div>
 
 
 		</div>
@@ -317,7 +427,7 @@ Cake\View\Helper\PaginatorHelper
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-MeTools.View.Helper.PaginatorHelper.html#34-38" title="Go to source code"><var>$helpers</var></a>
+				<a href="source-class-MeTools.View.Helper.BBCodeHelper.html#35-39" title="Go to source code"><var>$helpers</var></a>
 
 			<div class="description short">
 				<p>Helpers</p>
@@ -331,7 +441,7 @@ Cake\View\Helper\PaginatorHelper
 		<td class="value">
 			<div>
 				<a href="#$helpers" class="anchor">#</a>
-				<code>[<span class="php-quote">'Url'</span>, <span class="php-quote">'Number'</span>, <span class="php-quote">'Html'</span> =&gt; [<span class="php-quote">'className'</span> =&gt; <span class="php-quote">'MeTools.Html'</span>]]</code>
+				<code>[<span class="php-quote">'Html'</span> =&gt; [<span class="php-quote">'className'</span> =&gt; <span class="php-quote">'MeTools.Html'</span>]]</code>
 			</div>
 		</td>
 	</tr>
