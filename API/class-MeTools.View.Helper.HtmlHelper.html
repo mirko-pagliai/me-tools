@@ -117,6 +117,7 @@
 			<h3>Classes</h3>
 			<ul>
 				<li><a href="class-MeTools.View.Helper.AssetHelper.html">AssetHelper</a></li>
+				<li><a href="class-MeTools.View.Helper.BBCodeHelper.html">BBCodeHelper</a></li>
 				<li><a href="class-MeTools.View.Helper.DropdownHelper.html">DropdownHelper</a></li>
 				<li><a href="class-MeTools.View.Helper.FormHelper.html">FormHelper</a></li>
 				<li class="active"><a href="class-MeTools.View.Helper.HtmlHelper.html">HtmlHelper</a></li>
@@ -208,7 +209,7 @@ Cake\View\Helper\HtmlHelper
 		<b>Namespace:</b> <a href="namespace-MeTools.html">MeTools</a>\<a href="namespace-MeTools.View.html">View</a>\<a href="namespace-MeTools.View.Helper.html">Helper</a><br>
 		
 
-			<b>Located at</b> <a href="source-class-MeTools.View.Helper.HtmlHelper.html#28-578" title="Go to source code">View/Helper/HtmlHelper.php</a>
+			<b>Located at</b> <a href="source-class-MeTools.View.Helper.HtmlHelper.html#28-593" title="Go to source code">View/Helper/HtmlHelper.php</a>
 		<br>
 	</div>
 
@@ -951,6 +952,10 @@ In this case you have to use the <code>small</code> option.</p>
 				<div class="list">
 						<code><a href="class-MeTools.View.Helper.HtmlHelper.html#_tag">MeTools\View\Helper\HtmlHelper::tag()</a></code><br>
 				</div>
+				<h4>Used by</h4>
+				<div class="list">
+						<code><a href="class-MeTools.View.Helper.HtmlHelper.html#_youtube">MeTools\View\Helper\HtmlHelper::youtube()</a></code><br>
+				</div>
 
 
 		</div>
@@ -1067,8 +1072,7 @@ In this case you have to use the <code>small</code> option.</p>
 				<h4>Used by</h4>
 				<div class="list">
 						<code><a href="class-MeTools.View.Helper.LibraryHelper.html#__datetimepicker">MeTools\View\Helper\LibraryHelper::_datetimepicker()</a></code><br>
-						<code><a href="class-MeTools.View.Helper.LibraryHelper.html#_ckeditor">MeTools\View\Helper\LibraryHelper::ckeditor()</a></code><br>
-						<code><a href="class-MeTools.View.Helper.LibraryHelper.html#_slugify">MeTools\View\Helper\LibraryHelper::slugify()</a></code><br>
+						<code><a href="class-MeTools.View.Helper.LibraryHelper.html#_shareaholic">MeTools\View\Helper\LibraryHelper::shareaholic()</a></code><br>
 						<code><a href="class-MeTools.View.Helper.RecaptchaHelper.html#_display">MeTools\View\Helper\RecaptchaHelper::display()</a></code><br>
 				</div>
 
@@ -1638,7 +1642,6 @@ and the file has been included before</p>
 				<div class="list">
 						<code><a href="class-MeTools.View.Helper.LibraryHelper.html#_beforeLayout">MeTools\View\Helper\LibraryHelper::beforeLayout()</a></code><br>
 						<code><a href="class-MeTools.View.Helper.LibraryHelper.html#_analytics">MeTools\View\Helper\LibraryHelper::analytics()</a></code><br>
-						<code><a href="class-MeTools.View.Helper.LibraryHelper.html#_shareaholic">MeTools\View\Helper\LibraryHelper::shareaholic()</a></code><br>
 				</div>
 
 
@@ -1936,6 +1939,55 @@ where each item itself can be a path string or an array containing <code>src</co
 				<h4>Uses</h4>
 				<div class="list">
 						<code><a href="class-MeTools.View.Helper.HtmlHelper.html#_meta">MeTools\View\Helper\HtmlHelper::meta()</a></code><br>
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="youtube" id="_youtube">
+
+		<td class="attributes"><code>
+			 public 
+
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_youtube">#</a>
+		<code><a href="source-class-MeTools.View.Helper.HtmlHelper.html#579-592" title="Go to source code">youtube</a>( <span>string <var>$id</var></span>, <span>array <var>$options</var> = []</span> )</code>
+
+		<div class="description short">
+			<p>Adds a YouTube video</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Adds a YouTube video</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$id</var></dt>
+					<dd>YouTube video ID</dd>
+					<dt><var>$options</var></dt>
+					<dd>Array of options and HTML attributes</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					string<br>Html code
+				</div>
+
+
+				<h4>Uses</h4>
+				<div class="list">
+						<code><a href="class-MeTools.View.Helper.HtmlHelper.html#_iframe">MeTools\View\Helper\HtmlHelper::iframe()</a></code><br>
+				</div>
+				<h4>Used by</h4>
+				<div class="list">
+						<code><a href="class-MeTools.View.Helper.BBCodeHelper.html#_youtube">MeTools\View\Helper\BBCodeHelper::youtube()</a></code><br>
 				</div>
 
 
