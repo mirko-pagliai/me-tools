@@ -1,5 +1,8 @@
 # 2.x branch
 ## 2.2 branch
+### 2.2.6
+* fixed serious bug for CKEditor.
+
 ### 2.2.5
 * support for some BBCode;
 * support for Youtube videos;
