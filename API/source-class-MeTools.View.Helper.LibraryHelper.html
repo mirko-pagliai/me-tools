@@ -322,7 +322,7 @@
 </span></span><span id="131" class="l"><a href="#131">131: </a><span class="php-comment">     * @param bool $jquery FALSE if you don't want to use the jQuery adapter
 </span></span><span id="132" class="l"><a href="#132">132: </a><span class="php-comment">     * @see MeTools\View\Helper\FormHelper::ckeditor()
 </span></span><span id="133" class="l"><a href="#133">133: </a><span class="php-comment">     * @see http://docs.cksource.com CKEditor documentation
-</span></span><span id="134" class="l"><a href="#134">134: </a><span class="php-comment">     * @uses MeTools\View\Helper\AssetHelper::js()
+</span></span><span id="134" class="l"><a href="#134">134: </a><span class="php-comment">     * @uses MeTools\View\Helper\Html::js()
 </span></span><span id="135" class="l"><a href="#135">135: </a><span class="php-comment">     */</span>
 </span><span id="136" class="l"><a href="#136">136: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> ckeditor(<span class="php-var">$jquery</span> = <span class="php-keyword1">TRUE</span>) {
 </span><span id="137" class="l"><a href="#137">137: </a>        <span class="php-var">$path</span> = WWW_ROOT.DS.<span class="php-quote">'ckeditor'</span>.DS;
@@ -346,7 +346,7 @@
 </span><span id="155" class="l"><a href="#155">155: </a>        <span class="php-keyword1">else</span>
 </span><span id="156" class="l"><a href="#156">156: </a>            <span class="php-var">$scripts</span>[] = <span class="php-quote">'MeTools.ckeditor_init.php?'</span>;
 </span><span id="157" class="l"><a href="#157">157: </a>        
-</span><span id="158" class="l"><a href="#158">158: </a>        <span class="php-var">$this</span>-&gt;Asset-&gt;js(<span class="php-var">$scripts</span>, [<span class="php-quote">'block'</span> =&gt; <span class="php-quote">'script_bottom'</span>]);
+</span><span id="158" class="l"><a href="#158">158: </a>        <span class="php-var">$this</span>-&gt;Html-&gt;js(<span class="php-var">$scripts</span>, [<span class="php-quote">'block'</span> =&gt; <span class="php-quote">'script_bottom'</span>]);
 </span><span id="159" class="l"><a href="#159">159: </a>    }
 </span><span id="160" class="l"><a href="#160">160: </a>
 </span><span id="161" class="l"><a href="#161">161: </a>    <span class="php-comment">/**
