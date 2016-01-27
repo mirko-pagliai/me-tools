@@ -131,7 +131,7 @@ class LibraryHelper extends Helper {
      * @param bool $jquery FALSE if you don't want to use the jQuery adapter
      * @see MeTools\View\Helper\FormHelper::ckeditor()
      * @see http://docs.cksource.com CKEditor documentation
-	 * @uses MeTools\View\Helper\AssetHelper::js()
+	 * @uses MeTools\View\Helper\Html::js()
      */
     public function ckeditor($jquery = TRUE) {
 		$path = WWW_ROOT.DS.'ckeditor'.DS;
@@ -155,7 +155,7 @@ class LibraryHelper extends Helper {
 		else
 			$scripts[] = 'MeTools.ckeditor_init.php?';
 		
-		$this->Asset->js($scripts, ['block' => 'script_bottom']);
+		$this->Html->js($scripts, ['block' => 'script_bottom']);
     }
 
     /**
