@@ -65,16 +65,9 @@ small, .small, .small-text, .smallText, .text-small, .textSmall {
 /* -------------------------------- */
 /*				Margins				*/
 /* -------------------------------- */
-/* No margin class */
-.margin0, .margin-0,
-.no-margin, .noMargin {
+/* No margins */
+.margin-0, .no-margin {
 	margin: 0 !important;
-}
-
-/* No margin top class */
-.margintop0, .margin-top-0, 
-.no-margin-top, .noMarginTop {
-	margin-top: 0;
 }
 
 /* Margin bottom 5px */
@@ -105,6 +98,41 @@ small, .small, .small-text, .smallText, .text-small, .textSmall {
 /* Margin bottom 40px */
 .margin40px, .margin40, .margin-40px, .margin-40 {
 	margin-bottom: 40px;
+}
+
+/* No margin top */
+.margin-top-0, .no-margin-top {
+	margin-top: 0;
+}
+
+/* Margin top 5px */
+.margin-top-5, .margin-top-5px {
+	margin-top: 5px;
+}
+
+/* Margin top 10px */
+.margin-top-10, .margin-top-10px {
+	margin-top: 10px;
+}
+
+/* Margin top 15px */
+.margin-top-15, .margin-top-15px {
+	margin-top: 15px;
+}
+
+/* Margin top 20px */
+.margin-top-20, .margin-top-20px {
+	margin-top: 20px;
+}
+
+/* Margin top 30px */
+.margin-top-30, .margin-top-30px {
+	margin-top: 30px;
+}
+
+/* Margin top 40px */
+.margin-top-40, .margin-top-40px {
+	margin-top: 40px;
 }
 
 /* -------------------------------- */
