@@ -184,19 +184,24 @@ iframe {
 /* -------------------------------- */
 /*				Tables				*/
 /* -------------------------------- */
-/* Actions */
+/* Tables, last paragraph */
+.table p:last-child {
+	margin-bottom: 0;
+}
+
+/* Tables, actions */
 .table td.actions {
 	width: 1px;
 	white-space: nowrap;
 }
 
-/* Actions, buttons */
+/* Tables, actions, buttons */
 .table td.actions .btn {
 	min-width: 14px;
     padding: 4px 8px;
 }
 
-/* Cells with the minimum width */
+/* Tables, cells with the minimum width */
 .table th.min-width, .table th.minWidth, .table td.min-width, .table td.minWidth {
 	white-space: nowrap;
     width: 1px;
