@@ -26,6 +26,7 @@ namespace MeTools\Log\Engine;
 use Cake\Filesystem\File;
 use Cake\Filesystem\Folder;
 use Cake\Log\Engine\FileLog as CakeFileLog;
+use Cake\Network\Exception\InternalErrorException;
 
 /**
  * File Storage stream for Logging. Writes logs to different files based on the level of log it is.
@@ -39,10 +40,11 @@ class FileLog extends CakeFileLog {
 	 */
 	public static function all() {
 		//Gets log files
-		$files = (new Folder(LOGS))->find('[^\.]+\.log(\.[^\-]+)?', TRUE);
-				
-		//Re-indexes, starting to 1, and returns
-		return empty($files) ? NULL : array_combine(range(1, count($files)), array_values($files));
+		//For each file, the array key will be the filename without extension
+		foreach((new Folder(LOGS))->find('[^\.]+\.log(\.[^\-]+)?', TRUE) as $k => $file)
+			$files[pathinfo($file, PATHINFO_FILENAME)] = $file;
+		
+		return $files;
 	}
 	
     /**
@@ -70,6 +72,19 @@ class FileLog extends CakeFileLog {
                 $success = FALSE;
 		
         return $success;
+	}
+	
+	/**
+	 * Gets a log file
+	 * @param string $log Log name
+	 * @return string Log content
+	 * @throws InternalErrorException
+	 */
+	public static function get($log) {
+		if(!is_readable($file = LOGS.$log))
+			throw new InternalErrorException(__d('me_tools', 'File or directory `{0}` not readable', $file));
+		
+		return @file_get_contents($file);
 	}
 	
 	/**
