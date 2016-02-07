@@ -1,4 +1,8 @@
 # 2.x branch
+## 2.3 branch
+### 2.3.0
+* rewritten the FileLog class. Added a log parser.
+
 ## 2.2 branch
 ### 2.2.6
 * fixed serious bug for CKEditor.
