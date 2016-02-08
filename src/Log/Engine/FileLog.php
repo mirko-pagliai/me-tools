@@ -95,7 +95,14 @@ class FileLog extends CakeFileLog {
 	 */
 	public static function parse($log) {
 		return array_map(function($log) {
-			preg_match('/^([\d\-]+\s[\d:]+)\s(Error|Error: Fatal Error|Notice: Notice|Warning: Warning)(\s\(\d+\))?:\s([^\n]+)\n(Exception Attributes:\s((.(?!Request|Referer|Stack|Trace))+)\n)?(Request URL:\s([^\n]+)\n)?(Referer URL:\s([^\n]+)\n)?(Stack Trace:\n(.+))?(Trace:\n(.+))?$/si', $log, $matches);
+			preg_match('/^'.
+				'([\d\-]+\s[\d:]+)\s(Error|Error: Fatal Error|Notice: Notice|Warning: Warning)(\s\(\d+\))?:\s([^\n]+)\n'.
+				'(Exception Attributes:\s((.(?!Request|Referer|Stack|Trace))+)\n)?'.
+				'(Request URL:\s([^\n]+)\n)?'.
+				'(Referer URL:\s([^\n]+)\n)?'.
+				'(Stack Trace:\n(.+))?'.
+				'(Trace:\n(.+))?'.
+			'$/si', $log, $matches);
 			
 			switch($matches[2]) {
 				case 'Error':
@@ -116,7 +123,7 @@ class FileLog extends CakeFileLog {
 			}
 			
 			return (object) af([
-				'datetime'		=> $matches[1],
+				'datetime'		=> \Cake\I18n\FrozenTime::parse($matches[1]),
 				'type'			=> $type,
 				'error'			=> $matches[4],
 				'attributes'	=> empty($matches[6]) ? NULL : $matches[6],
