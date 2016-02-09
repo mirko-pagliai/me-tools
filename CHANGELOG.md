@@ -1,7 +1,8 @@
 # 2.x branch
 ## 2.3 branch
 ### 2.3.0
-* rewritten the FileLog class. Added a log parser.
+* rewritten the FileLog class. Added a log parser;
+* `iframe()` and `youtube` methods from `HtmlHelper` now support `$ratio` to create responsive embed.
 
 ## 2.2 branch
 ### 2.2.6
