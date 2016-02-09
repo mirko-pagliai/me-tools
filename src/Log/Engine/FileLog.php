@@ -26,6 +26,7 @@ namespace MeTools\Log\Engine;
 use Cake\Filesystem\File;
 use Cake\Filesystem\Folder;
 use Cake\Log\Engine\FileLog as CakeFileLog;
+use Cake\Network\Exception\InternalErrorException;
 
 /**
  * File Storage stream for Logging. Writes logs to different files based on the level of log it is.
@@ -39,10 +40,11 @@ class FileLog extends CakeFileLog {
 	 */
 	public static function all() {
 		//Gets log files
-		$files = (new Folder(LOGS))->find('[^\.]+\.log(\.[^\-]+)?', TRUE);
-				
-		//Re-indexes, starting to 1, and returns
-		return empty($files) ? NULL : array_combine(range(1, count($files)), array_values($files));
+		//For each file, the array key will be the filename without extension
+		foreach((new Folder(LOGS))->find('[^\.]+\.log(\.[^\-]+)?', TRUE) as $k => $file)
+			$files[pathinfo($file, PATHINFO_FILENAME)] = $file;
+		
+		return $files;
 	}
 	
     /**
@@ -70,6 +72,67 @@ class FileLog extends CakeFileLog {
                 $success = FALSE;
 		
         return $success;
+	}
+	
+	/**
+	 * Gets a log file
+	 * @param string $log Log name
+	 * @return string Log content
+	 * @throws InternalErrorException
+	 */
+	public static function get($log) {
+		if(!is_readable($file = LOGS.$log))
+			throw new InternalErrorException(__d('me_tools', 'File or directory `{0}` not readable', $file));
+		
+		return @file_get_contents($file);
+	}
+	
+	/**
+	 * Parses a log file
+	 * @param string $log Log name
+	 * @return array
+	 * @uses get()
+	 */
+	public static function parse($log) {
+		return array_map(function($log) {
+			preg_match('/^'.
+				'([\d\-]+\s[\d:]+)\s(Error|Error: Fatal Error|Notice: Notice|Warning: Warning)(\s\(\d+\))?:\s([^\n]+)\n'.
+				'(Exception Attributes:\s((.(?!Request|Referer|Stack|Trace))+)\n)?'.
+				'(Request URL:\s([^\n]+)\n)?'.
+				'(Referer URL:\s([^\n]+)\n)?'.
+				'(Stack Trace:\n(.+))?'.
+				'(Trace:\n(.+))?'.
+			'$/si', $log, $matches);
+			
+			switch($matches[2]) {
+				case 'Error':
+					$type = 'error';
+					break;
+				case 'Error: Fatal Error':
+					$type = 'fatal';
+					break;
+				case 'Notice: Notice':
+					$type = 'notice';
+					break;
+				case 'Warning: Warning':
+					$type = 'warning';
+					break;
+				default:
+					$type = 'unknown';
+					break;
+			}
+			
+			return (object) af([
+				'datetime'		=> \Cake\I18n\FrozenTime::parse($matches[1]),
+				'type'			=> $type,
+				'error'			=> $matches[4],
+				'attributes'	=> empty($matches[6]) ? NULL : $matches[6],
+				'url'			=> empty($matches[9]) ? NULL : $matches[9],
+				'referer'		=> empty($matches[11]) ? NULL : $matches[11],
+				'stack_trace'	=> empty($matches[13]) ? NULL : $matches[13],
+				'trace'			=> empty($matches[15]) ? NULL : $matches[15]
+			]);
+		}, af(preg_split('/[\r\n]{2,}/', self::get($log))));
 	}
 	
 	/**

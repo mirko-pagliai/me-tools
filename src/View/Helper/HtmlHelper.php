@@ -249,13 +249,23 @@ class HtmlHelper extends CakeHtmlHelper {
 	
 	/**
 	 * Create an `iframe` element.
+	 * 
+	 * You can use `$ratio` to create a responsive embed.
 	 * @param string $url Url for the iframe
 	 * @param array $options Array of options and HTML attributes
+	 * @param string $ratio Ratio (`16by9` or `4by3`)
      * @return string Html code
+	 * @see http://getbootstrap.com/components/#responsive-embed Responsive embed
 	 * @uses tag()
+	 * @uses div()
 	 */
-	public function iframe($url, array $options = []) {
+	public function iframe($url, array $options = [], $ratio = FALSE) {
 		$options['src'] = $url;
+		
+		if($ratio === '16by9' || $ratio === '4by3') {
+			$options = addValue('class', 'embed-responsive-item', $options);
+			return self::div(sprintf('embed-responsive embed-responsive-%s', $ratio), self::tag('iframe', ' ', $options));
+		}
 		
 		return self::tag('iframe', ' ', $options);
 	}
@@ -577,17 +587,20 @@ class HtmlHelper extends CakeHtmlHelper {
 	}
 	
 	/**
-	 * Adds a YouTube video
+	 * Adds a YouTube video.
+	 * 
+	 * You can use `$ratio` to create a responsive embed.
 	 * @param string $id YouTube video ID
 	 * @param array $options Array of options and HTML attributes
+	 * @param string $ratio Ratio (`16by9` or `4by3`)
      * @return string Html code
 	 * @uses iframe()
 	 */
-	public function youtube($id, array $options = []) {
+	public function youtube($id, array $options = [], $ratio = '16by9') {
 		$options = addDefault('allowfullscreen', 'allowfullscreen', $options);
 		$options = addDefault('height', 480, $options);
 		$options = addDefault('width', 640, $options);
 		
-		return self::iframe(sprintf('https://www.youtube.com/embed/%s', $id), $options);
+		return self::iframe(sprintf('https://www.youtube.com/embed/%s', $id), $options, $ratio);
 	}
 }
