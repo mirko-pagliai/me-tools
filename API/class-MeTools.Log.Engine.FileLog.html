@@ -196,7 +196,7 @@ Cake\Log\Engine\FileLog
 		<b>Namespace:</b> <a href="namespace-MeTools.html">MeTools</a>\<a href="namespace-MeTools.Log.html">Log</a>\<a href="namespace-MeTools.Log.Engine.html">Engine</a><br>
 		
 
-			<b>Located at</b> <a href="source-class-MeTools.Log.Engine.FileLog.html#30-82" title="Go to source code">Log/Engine/FileLog.php</a>
+			<b>Located at</b> <a href="source-class-MeTools.Log.Engine.FileLog.html#31-145" title="Go to source code">Log/Engine/FileLog.php</a>
 		<br>
 	</div>
 
@@ -216,7 +216,7 @@ Cake\Log\Engine\FileLog
 
 		<td class="name"><div>
 		<a class="anchor" href="#_all">#</a>
-		<code><a href="source-class-MeTools.Log.Engine.FileLog.html#36-46" title="Go to source code">all</a>( )</code>
+		<code><a href="source-class-MeTools.Log.Engine.FileLog.html#37-48" title="Go to source code">all</a>( )</code>
 
 		<div class="description short">
 			<p>Gets all log files</p>
@@ -250,7 +250,7 @@ Cake\Log\Engine\FileLog
 
 		<td class="name"><div>
 		<a class="anchor" href="#_check">#</a>
-		<code><a href="source-class-MeTools.Log.Engine.FileLog.html#48-54" title="Go to source code">check</a>( )</code>
+		<code><a href="source-class-MeTools.Log.Engine.FileLog.html#50-56" title="Go to source code">check</a>( )</code>
 
 		<div class="description short">
 			<p>Checks if the logs directory is readable and writable</p>
@@ -288,7 +288,7 @@ Cake\Log\Engine\FileLog
 
 		<td class="name"><div>
 		<a class="anchor" href="#_clear">#</a>
-		<code><a href="source-class-MeTools.Log.Engine.FileLog.html#56-73" title="Go to source code">clear</a>( )</code>
+		<code><a href="source-class-MeTools.Log.Engine.FileLog.html#58-75" title="Go to source code">clear</a>( )</code>
 
 		<div class="description short">
 			<p>Clears all log files</p>
@@ -314,6 +314,96 @@ Cake\Log\Engine\FileLog
 		</div>
 		</div></td>
 	</tr>
+	<tr data-order="get" id="_get">
+
+		<td class="attributes"><code>
+			 public static
+
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_get">#</a>
+		<code><a href="source-class-MeTools.Log.Engine.FileLog.html#77-88" title="Go to source code">get</a>( <span>string <var>$log</var></span> )</code>
+
+		<div class="description short">
+			<p>Gets a log file</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Gets a log file</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$log</var></dt>
+					<dd>Log name</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					string<br>Log content
+				</div>
+
+				<h4>Throws</h4>
+				<div class="list">
+					Cake\Network\Exception\InternalErrorException
+				</div>
+
+				<h4>Used by</h4>
+				<div class="list">
+						<code><a href="class-MeTools.Log.Engine.FileLog.html#_parse">MeTools\Log\Engine\FileLog::parse()</a></code><br>
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="parse" id="_parse">
+
+		<td class="attributes"><code>
+			 public static
+
+			array
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_parse">#</a>
+		<code><a href="source-class-MeTools.Log.Engine.FileLog.html#90-136" title="Go to source code">parse</a>( <span>string <var>$log</var></span> )</code>
+
+		<div class="description short">
+			<p>Parses a log file</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Parses a log file</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$log</var></dt>
+					<dd>Log name</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					array
+				</div>
+
+
+				<h4>Uses</h4>
+				<div class="list">
+						<code><a href="class-MeTools.Log.Engine.FileLog.html#_get">MeTools\Log\Engine\FileLog::get()</a></code><br>
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
 	<tr data-order="size" id="_size">
 
 		<td class="attributes"><code>
@@ -326,7 +416,7 @@ Cake\Log\Engine\FileLog
 
 		<td class="name"><div>
 		<a class="anchor" href="#_size">#</a>
-		<code><a href="source-class-MeTools.Log.Engine.FileLog.html#75-81" title="Go to source code">size</a>( )</code>
+		<code><a href="source-class-MeTools.Log.Engine.FileLog.html#138-144" title="Go to source code">size</a>( )</code>
 
 		<div class="description short">
 			<p>Gets the logs size</p>
