@@ -1,5 +1,8 @@
 # 2.x branch
 ## 2.2 branch
+### 2.2.8
+* updated to CakePHP 3.2.
+
 ### 2.2.7
 * rewritten the FileLog class. Added a log parser;
 * `iframe()` and `youtube` methods from `HtmlHelper` now support `$ratio` to create responsive embed.
