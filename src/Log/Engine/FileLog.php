@@ -123,8 +123,7 @@ class FileLog extends CakeFileLog {
 			}
 			
 			return (object) af([
-				//TO-DO: change with FrozenTime with CakePHP 3.2.x
-				'datetime'		=> \Cake\I18n\Time::parse($matches[1]),
+				'datetime'		=> \Cake\I18n\FrozenTime::parse($matches[1]),
 				'type'			=> $type,
 				'error'			=> $matches[4],
 				'attributes'	=> empty($matches[6]) ? NULL : $matches[6],
