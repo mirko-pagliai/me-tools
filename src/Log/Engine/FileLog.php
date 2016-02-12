@@ -40,8 +40,10 @@ class FileLog extends CakeFileLog {
 	 */
 	public static function all() {
 		//Gets log files
+		$files = (new Folder(LOGS))->find('[^\.]+\.log(\.[^\-]+)?', TRUE);
+		
 		//For each file, the array key will be the filename without extension
-		foreach((new Folder(LOGS))->find('[^\.]+\.log(\.[^\-]+)?', TRUE) as $k => $file)
+		foreach($files as $k => $file)
 			$files[pathinfo($file, PATHINFO_FILENAME)] = $file;
 		
 		return $files;
