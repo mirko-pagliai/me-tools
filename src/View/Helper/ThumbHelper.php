@@ -83,6 +83,9 @@ class ThumbHelper extends Helper {
 	public function url($path, array $options = []) {
 		$sizes = [];
 		
+		//If path is an url, removes the query string
+		$path = is_url($path) ? explode('?', $path, 2)[0] : $path;
+		
 		foreach(['side', 'width', 'height'] as $v)
 			$sizes[$v] = !empty($options[$v]) && is_numeric($options[$v]) ? $options[$v] : NULL;
 		
