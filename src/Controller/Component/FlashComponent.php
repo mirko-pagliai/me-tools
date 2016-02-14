@@ -19,7 +19,7 @@
  * @copyright	Copyright (c) 2016, Mirko Pagliai for Nova Atlantis Ltd
  * @license		http://www.gnu.org/licenses/agpl.txt AGPL License
  * @link		http://git.novatlantis.it Nova Atlantis Ltd
- * @see			http://api.cakephp.org/3.1/class-Cake.Controller.Component.FlashComponent.html FlashComponent
+ * @see			http://api.cakephp.org/3.2/class-Cake.Controller.Component.FlashComponent.html FlashComponent
  */
 namespace MeTools\Controller\Component;
 
@@ -30,7 +30,7 @@ use MeTools\Core\Plugin;
  * Provides a way to persist client data between page requests. It acts as a wrapper for the 
  * `$_SESSION` as well as providing convenience methods for several `$_SESSION` related functions.
  * 
- * Rewrites {@link http://api.cakephp.org/3.1/class-Cake.Controller.Component.FlashComponent.html FlashComponent}.
+ * Rewrites {@link http://api.cakephp.org/3.2/class-Cake.Controller.Component.FlashComponent.html FlashComponent}.
  */
 class FlashComponent extends CakeFlashComponent {
 	/**

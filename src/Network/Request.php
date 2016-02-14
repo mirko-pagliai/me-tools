@@ -19,7 +19,7 @@
  * @copyright	Copyright (c) 2016, Mirko Pagliai for Nova Atlantis Ltd
  * @license		http://www.gnu.org/licenses/agpl.txt AGPL License
  * @link		http://git.novatlantis.it Nova Atlantis Ltd
- * @see			http://api.cakephp.org/3.1/class-Cake.Network.Http.Request.html
+ * @see			http://api.cakephp.org/3.2/class-Cake.Network.Http.Request.html
  */
 namespace MeTools\Network;
 
@@ -30,7 +30,7 @@ use Cake\Network\Request as CakeRequest;
  * 
  * Used by Cake\Network\Http\Client to contain request information for making requests.
  * 
- * Rewrites {@link http://api.cakephp.org/3.1/class-Cake.Network.Http.Request.html Request}.
+ * Rewrites {@link http://api.cakephp.org/3.2/class-Cake.Network.Http.Request.html Request}.
  */
 class Request extends CakeRequest {
 	/**

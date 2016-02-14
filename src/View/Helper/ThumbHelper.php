@@ -81,15 +81,20 @@ class ThumbHelper extends Helper {
 	 * @uses Cake\View\Helper\UrlHelper::build()
 	 */
 	public function url($path, array $options = []) {
-		$sizes = [];
+		//If path is an url, removes the query string
+		$path = is_url($path) ? explode('?', $path, 2)[0] : $path;
 		
 		foreach(['side', 'width', 'height'] as $v)
 			$sizes[$v] = !empty($options[$v]) && is_numeric($options[$v]) ? $options[$v] : NULL;
 		
-		$ext = strtolower(pathinfo($path, PATHINFO_EXTENSION));
-		$path = base64_encode($path);
-		$url = ['controller' => 'Thumbs', 'action' => 'thumb', 'plugin' => 'MeTools', 'prefix' => FALSE, 'ext' => $ext];
-		
-		return $this->Url->build(am($url, ['?' => $sizes], [$path]), TRUE);
+		return $this->Url->build([
+			'controller' => 'Thumbs',
+			'action' => 'thumb',
+			'plugin' => 'MeTools',
+			'prefix' => FALSE,
+			'ext' => strtolower(pathinfo($path, PATHINFO_EXTENSION)),
+			'?' => empty($sizes) ? [] : $sizes,
+			base64_encode($path)
+		], TRUE);
 	}
 }

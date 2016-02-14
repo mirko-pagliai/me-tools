@@ -215,7 +215,7 @@ class ThumbsController extends AppController {
 					throw new InternalErrorException(__d('me_tools', 'File or directory `{0}` not writeable', dirname($tmp)));
 					
 				//Checks if the file is readable
-				if(!$fopen = fopen($file, 'r'))
+				if(!$fopen = @fopen($file, 'r'))
 					throw new InternalErrorException(__d('me_tools', 'File or directory `{0}` not readable', $file));
 				
 				//Downloads the file

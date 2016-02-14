@@ -19,7 +19,7 @@
  * @copyright	Copyright (c) 2016, Mirko Pagliai for Nova Atlantis Ltd
  * @license		http://www.gnu.org/licenses/agpl.txt AGPL License
  * @link		http://git.novatlantis.it Nova Atlantis Ltd
- * @see			http://api.cakephp.org/3.1/class-Cake.Controller.Component.SecurityComponent.html SecurityComponent
+ * @see			http://api.cakephp.org/3.2/class-Cake.Controller.Component.SecurityComponent.html SecurityComponent
  */
 namespace MeTools\Controller\Component;
 
@@ -28,7 +28,7 @@ use Cake\Controller\Component\SecurityComponent as CakeSecurityComponent;
 /**
  * The Security Component creates an easy way to integrate tighter security in your application.
  * 
- * Rewrites {@link http://api.cakephp.org/3.1/class-Cake.Controller.Component.SecurityComponent.html SecurityComponent}.
+ * Rewrites {@link http://api.cakephp.org/3.2/class-Cake.Controller.Component.SecurityComponent.html SecurityComponent}.
  */
 class SecurityComponent extends CakeSecurityComponent {
 	/**
