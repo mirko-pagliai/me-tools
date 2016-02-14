@@ -406,7 +406,7 @@
 </span><span id="215" class="l"><a href="#215">215: </a>                    <span class="php-keyword1">throw</span> <span class="php-keyword1">new</span> InternalErrorException(__d(<span class="php-quote">'me_tools'</span>, <span class="php-quote">'File or directory `{0}` not writeable'</span>, <span class="php-keyword2">dirname</span>(<span class="php-var">$tmp</span>)));
 </span><span id="216" class="l"><a href="#216">216: </a>                    
 </span><span id="217" class="l"><a href="#217">217: </a>                <span class="php-comment">//Checks if the file is readable</span>
-</span><span id="218" class="l"><a href="#218">218: </a>                <span class="php-keyword1">if</span>(!<span class="php-var">$fopen</span> = <span class="php-keyword2">fopen</span>(<span class="php-var">$file</span>, <span class="php-quote">'r'</span>))
+</span><span id="218" class="l"><a href="#218">218: </a>                <span class="php-keyword1">if</span>(!<span class="php-var">$fopen</span> = @<span class="php-keyword2">fopen</span>(<span class="php-var">$file</span>, <span class="php-quote">'r'</span>))
 </span><span id="219" class="l"><a href="#219">219: </a>                    <span class="php-keyword1">throw</span> <span class="php-keyword1">new</span> InternalErrorException(__d(<span class="php-quote">'me_tools'</span>, <span class="php-quote">'File or directory `{0}` not readable'</span>, <span class="php-var">$file</span>));
 </span><span id="220" class="l"><a href="#220">220: </a>                
 </span><span id="221" class="l"><a href="#221">221: </a>                <span class="php-comment">//Downloads the file</span>
