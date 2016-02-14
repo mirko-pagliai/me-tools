@@ -19,7 +19,7 @@
  * @copyright	Copyright (c) 2016, Mirko Pagliai for Nova Atlantis Ltd
  * @license		http://www.gnu.org/licenses/agpl.txt AGPL License
  * @link		http://git.novatlantis.it Nova Atlantis Ltd
- * @see			http://api.cakephp.org/3.1/source-class-Cake.Error.ErrorHandler.html ErrorHandler
+ * @see			http://api.cakephp.org/3.2/source-class-Cake.Error.ErrorHandler.html ErrorHandler
  */
 namespace MeTools\Error;
 
@@ -32,7 +32,7 @@ use Cake\Routing\Router;
  * Error Handler provides basic error and exception handling for your application. It captures and
  * handles all unhandled exceptions and errors. Displays helpful framework errors when debug > 1.
  * 
- * Rewrites {@link http://api.cakephp.org/3.1/source-class-Cake.Error.ErrorHandler.html ErrorHandler}.
+ * Rewrites {@link http://api.cakephp.org/3.2/source-class-Cake.Error.ErrorHandler.html ErrorHandler}.
  * This allows to track the "request URL" also for errors and not only for exceptions.
  */
 class ErrorHandler extends CakeErrorHandler {

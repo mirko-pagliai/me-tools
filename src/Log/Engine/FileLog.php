@@ -19,7 +19,7 @@
  * @copyright	Copyright (c) 2016, Mirko Pagliai for Nova Atlantis Ltd
  * @license		http://www.gnu.org/licenses/agpl.txt AGPL License
  * @link		http://git.novatlantis.it Nova Atlantis Ltd
- * @see			http://api.cakephp.org/3.1/class-Cake.Log.Engine.FileLog.html FileLog
+ * @see			http://api.cakephp.org/3.2/class-Cake.Log.Engine.FileLog.html FileLog
  */
 namespace MeTools\Log\Engine;
 
@@ -31,7 +31,7 @@ use Cake\Network\Exception\InternalErrorException;
 /**
  * File Storage stream for Logging. Writes logs to different files based on the level of log it is.
  * 
- * Rewrites {@link http://api.cakephp.org/3.1/class-Cake.Log.Engine.FileLog.html FileLog}.
+ * Rewrites {@link http://api.cakephp.org/3.2/class-Cake.Log.Engine.FileLog.html FileLog}.
  */
 class FileLog extends CakeFileLog {
 	/**
