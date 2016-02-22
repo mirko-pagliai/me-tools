@@ -200,7 +200,7 @@ Cake\Console\Shell
 		<b>Namespace:</b> <a href="namespace-MeTools.html">MeTools</a>\<a href="namespace-MeTools.Console.html">Console</a><br>
 		
 
-			<b>Located at</b> <a href="source-class-MeTools.Console.Shell.html#28-161" title="Go to source code">Console/Shell.php</a>
+			<b>Located at</b> <a href="source-class-MeTools.Console.Shell.html#28-135" title="Go to source code">Console/Shell.php</a>
 		<br>
 	</div>
 
@@ -331,7 +331,7 @@ Cake\Console\Shell
 	<tr data-order="comment" id="_comment">
 
 		<td class="attributes"><code>
-			 protected 
+			 public 
 
 			integer|boolean
 			
@@ -343,62 +343,11 @@ Cake\Console\Shell
 		<code><a href="source-class-MeTools.Console.Shell.html#97-108" title="Go to source code">comment</a>( <span>string|array|null <var>$message</var> = <span class="php-keyword1">NULL</span></span>, <span>integer <var>$newlines</var> = <span class="php-num">1</span></span>, <span>integer <var>$level</var> = Shell::NORMAL</span> )</code>
 
 		<div class="description short">
-			<p>Output a comment message</p>
+			<p>Convenience method for out() that wraps message between <comment /> tag</p>
 		</div>
 
 		<div class="description detailed hidden">
-			<p>Output a comment message</p>
-
-
-				<h4>Parameters</h4>
-				<div class="list"><dl>
-					<dt><var>$message</var></dt>
-					<dd>A string or an array of strings to output</dd>
-					<dt><var>$newlines</var></dt>
-					<dd>Number of newlines to append</dd>
-					<dt><var>$level</var></dt>
-					<dd>The message's output level, see above</dd>
-				</dl></div>
-
-				<h4>Returns</h4>
-				<div class="list">
-					integer|boolean<br>Returns the number of bytes returned from writing to stdout
-				</div>
-
-
-				<h4>See</h4>
-				<div class="list">
-						http://api.cakephp.org/3.2/class-Cake.Console.Shell.html#_out<br>
-				</div>
-				<h4>Uses</h4>
-				<div class="list">
-						Cake\Console\Shell::out()<br>
-				</div>
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="info" id="_info">
-
-		<td class="attributes"><code>
-			 protected 
-
-			integer|boolean
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_info">#</a>
-		<code><a href="source-class-MeTools.Console.Shell.html#110-121" title="Go to source code">info</a>( <span>string|array|null <var>$message</var> = <span class="php-keyword1">NULL</span></span>, <span>integer <var>$newlines</var> = <span class="php-num">1</span></span>, <span>integer <var>$level</var> = Shell::NORMAL</span> )</code>
-
-		<div class="description short">
-			<p>Output an info message</p>
-		</div>
-
-		<div class="description detailed hidden">
-			<p>Output an info message</p>
+			<p>Convenience method for out() that wraps message between <comment /> tag</p>
 
 
 				<h4>Parameters</h4>
@@ -433,7 +382,7 @@ Cake\Console\Shell
 	<tr data-order="question" id="_question">
 
 		<td class="attributes"><code>
-			 protected 
+			 public 
 
 			integer|boolean
 			
@@ -442,65 +391,14 @@ Cake\Console\Shell
 
 		<td class="name"><div>
 		<a class="anchor" href="#_question">#</a>
-		<code><a href="source-class-MeTools.Console.Shell.html#123-134" title="Go to source code">question</a>( <span>string|array|null <var>$message</var> = <span class="php-keyword1">NULL</span></span>, <span>integer <var>$newlines</var> = <span class="php-num">1</span></span>, <span>integer <var>$level</var> = Shell::NORMAL</span> )</code>
+		<code><a href="source-class-MeTools.Console.Shell.html#110-121" title="Go to source code">question</a>( <span>string|array|null <var>$message</var> = <span class="php-keyword1">NULL</span></span>, <span>integer <var>$newlines</var> = <span class="php-num">1</span></span>, <span>integer <var>$level</var> = Shell::NORMAL</span> )</code>
 
 		<div class="description short">
-			<p>Output a question message</p>
+			<p>Convenience method for out() that wraps message between <question /> tag</p>
 		</div>
 
 		<div class="description detailed hidden">
-			<p>Output a question message</p>
-
-
-				<h4>Parameters</h4>
-				<div class="list"><dl>
-					<dt><var>$message</var></dt>
-					<dd>A string or an array of strings to output</dd>
-					<dt><var>$newlines</var></dt>
-					<dd>Number of newlines to append</dd>
-					<dt><var>$level</var></dt>
-					<dd>The message's output level, see above</dd>
-				</dl></div>
-
-				<h4>Returns</h4>
-				<div class="list">
-					integer|boolean<br>Returns the number of bytes returned from writing to stdout
-				</div>
-
-
-				<h4>See</h4>
-				<div class="list">
-						http://api.cakephp.org/3.2/class-Cake.Console.Shell.html#_out<br>
-				</div>
-				<h4>Uses</h4>
-				<div class="list">
-						Cake\Console\Shell::out()<br>
-				</div>
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="success" id="_success">
-
-		<td class="attributes"><code>
-			 protected 
-
-			integer|boolean
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_success">#</a>
-		<code><a href="source-class-MeTools.Console.Shell.html#136-147" title="Go to source code">success</a>( <span>string|array|null <var>$message</var> = <span class="php-keyword1">NULL</span></span>, <span>integer <var>$newlines</var> = <span class="php-num">1</span></span>, <span>integer <var>$level</var> = Shell::NORMAL</span> )</code>
-
-		<div class="description short">
-			<p>Output a success message</p>
-		</div>
-
-		<div class="description detailed hidden">
-			<p>Output a success message</p>
+			<p>Convenience method for out() that wraps message between <question /> tag</p>
 
 
 				<h4>Parameters</h4>
@@ -535,7 +433,7 @@ Cake\Console\Shell
 	<tr data-order="warning" id="_warning">
 
 		<td class="attributes"><code>
-			 protected 
+			 public 
 
 			integer|boolean
 			
@@ -544,14 +442,14 @@ Cake\Console\Shell
 
 		<td class="name"><div>
 		<a class="anchor" href="#_warning">#</a>
-		<code><a href="source-class-MeTools.Console.Shell.html#149-160" title="Go to source code">warning</a>( <span>string|array|null <var>$message</var> = <span class="php-keyword1">NULL</span></span>, <span>integer <var>$newlines</var> = <span class="php-num">1</span></span>, <span>integer <var>$level</var> = Shell::NORMAL</span> )</code>
+		<code><a href="source-class-MeTools.Console.Shell.html#123-134" title="Go to source code">warning</a>( <span>string|array|null <var>$message</var> = <span class="php-keyword1">NULL</span></span>, <span>integer <var>$newlines</var> = <span class="php-num">1</span></span>, <span>integer <var>$level</var>,…</span> )</code>
 
 		<div class="description short">
-			<p>Output a warning message</p>
+			<p>Convenience method for err() that wraps message between <warning /> tag</p>
 		</div>
 
 		<div class="description detailed hidden">
-			<p>Output a warning message</p>
+			<p>Convenience method for err() that wraps message between <warning /> tag</p>
 
 
 				<h4>Parameters</h4>
@@ -560,7 +458,7 @@ Cake\Console\Shell
 					<dd>A string or an array of strings to output</dd>
 					<dt><var>$newlines</var></dt>
 					<dd>Number of newlines to append</dd>
-					<dt><var>$level</var></dt>
+					<dt><var>$level</var>,…</dt>
 					<dd>The message's output level, see above</dd>
 				</dl></div>
 

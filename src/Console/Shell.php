@@ -95,7 +95,7 @@ class Shell extends CakeShell {
 	}
 	
 	/**
-	 * Output a comment message
+	 * Convenience method for out() that wraps message between <comment /> tag
 	 * @param string|array|null $message A string or an array of strings to output
 	 * @param int $newlines Number of newlines to append
 	 * @param int $level The message's output level, see above
@@ -103,12 +103,12 @@ class Shell extends CakeShell {
 	 * @see http://api.cakephp.org/3.2/class-Cake.Console.Shell.html#_out
 	 * @uses Cake\Console\Shell::out()
 	 */
-	protected function comment($message = NULL, $newlines = 1, $level = Shell::NORMAL) {
+	public function comment($message = NULL, $newlines = 1, $level = Shell::NORMAL) {
 		return parent::out(sprintf('<comment>%s</comment>', $message), $newlines, $level);
 	}
 	
 	/**
-	 * Output an info message
+	 * Convenience method for out() that wraps message between <question /> tag
 	 * @param string|array|null $message A string or an array of strings to output
 	 * @param int $newlines Number of newlines to append
 	 * @param int $level The message's output level, see above
@@ -116,25 +116,12 @@ class Shell extends CakeShell {
 	 * @see http://api.cakephp.org/3.2/class-Cake.Console.Shell.html#_out
 	 * @uses Cake\Console\Shell::out()
 	 */
-	protected function info($message = NULL, $newlines = 1, $level = Shell::NORMAL) {
-		return parent::out(sprintf('<info>%s</info>', $message), $newlines, $level);
-	}
-	
-	/**
-	 * Output a question message
-	 * @param string|array|null $message A string or an array of strings to output
-	 * @param int $newlines Number of newlines to append
-	 * @param int $level The message's output level, see above
-	 * @return int|bool Returns the number of bytes returned from writing to stdout
-	 * @see http://api.cakephp.org/3.2/class-Cake.Console.Shell.html#_out
-	 * @uses Cake\Console\Shell::out()
-	 */
-	protected function question($message = NULL, $newlines = 1, $level = Shell::NORMAL) {
+	public function question($message = NULL, $newlines = 1, $level = Shell::NORMAL) {
 		return parent::out(sprintf('<question>%s</question>', $message), $newlines, $level);
 	}
 	
 	/**
-	 * Output a success message
+	 * Convenience method for err() that wraps message between <warning /> tag
 	 * @param string|array|null $message A string or an array of strings to output
 	 * @param int $newlines Number of newlines to append
 	 * @param int $level The message's output level, see above
@@ -142,20 +129,7 @@ class Shell extends CakeShell {
 	 * @see http://api.cakephp.org/3.2/class-Cake.Console.Shell.html#_out
 	 * @uses Cake\Console\Shell::out()
 	 */
-	protected function success($message = NULL, $newlines = 1, $level = Shell::NORMAL) {
-		return parent::out(sprintf('<success>%s</success>', $message), $newlines, $level);
-	}
-	
-	/**
-	 * Output a warning message
-	 * @param string|array|null $message A string or an array of strings to output
-	 * @param int $newlines Number of newlines to append
-	 * @param int $level The message's output level, see above
-	 * @return int|bool Returns the number of bytes returned from writing to stdout
-	 * @see http://api.cakephp.org/3.2/class-Cake.Console.Shell.html#_out
-	 * @uses Cake\Console\Shell::out()
-	 */
-	protected function warning($message = NULL, $newlines = 1, $level = Shell::NORMAL) {
-		return parent::out(sprintf('<warning>%s</warning>', $message), $newlines, $level);
+	public function warning($message = NULL, $newlines = 1) {
+		return parent::warn($message, $newlines);
 	}
 }
