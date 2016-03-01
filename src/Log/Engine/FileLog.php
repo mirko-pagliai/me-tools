@@ -100,20 +100,20 @@ class FileLog extends CakeFileLog {
 	public static function parse($log) {
 		return array_map(function($log) {
 			preg_match('/^'.
-				'([\d\-]+\s[\d:]+)\s(Error|Error: Fatal Error|Notice: Notice|Warning: Warning)(\s\(\d+\))?:\s([^\n]+)\n'.
+				'([\d\-]+\s[\d:]+)\s(Error: Fatal Error|Error|Notice: Notice|Warning: Warning)(\s\(\d+\))?:\s([^\n]+)\n'.
 				'(Exception Attributes:\s((.(?!Request|Referer|Stack|Trace))+)\n)?'.
 				'(Request URL:\s([^\n]+)\n)?'.
 				'(Referer URL:\s([^\n]+)\n)?'.
 				'(Stack Trace:\n(.+))?'.
-				'(Trace:\n(.+))?'.
-			'$/si', $log, $matches);
+				'(Trace:\n(.+))?(.+)?'.
+			'/si', $log, $matches);
 			
 			switch($matches[2]) {
-				case 'Error':
-					$type = 'error';
-					break;
 				case 'Error: Fatal Error':
 					$type = 'fatal';
+					break;
+				case 'Error':
+					$type = 'error';
 					break;
 				case 'Notice: Notice':
 					$type = 'notice';
@@ -133,7 +133,7 @@ class FileLog extends CakeFileLog {
 				'attributes'	=> empty($matches[6]) ? NULL : $matches[6],
 				'url'			=> empty($matches[9]) ? NULL : $matches[9],
 				'referer'		=> empty($matches[11]) ? NULL : $matches[11],
-				'stack_trace'	=> empty($matches[13]) ? NULL : $matches[13],
+				'stack_trace'	=> empty($matches[13]) ? (empty($matches[16]) ? NULL : $matches[16]) : $matches[13],
 				'trace'			=> empty($matches[15]) ? NULL : $matches[15]
 			]);
 		}, af(preg_split('/[\r\n]{2,}/', self::get($log))));
