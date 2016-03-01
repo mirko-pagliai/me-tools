@@ -37,22 +37,6 @@ use MeTools\Core\Plugin;
  */
 class System {
     /**
-     * Alias for `getCacheSize()` method.
-     * @see getCacheSize()
-     */
-    public static function cacheSize() {
-        return call_user_func_array([get_class(), 'getCacheSize'], func_get_args());
-    }
-	
-    /**
-     * Alias for `checkCacheStatus()` method.
-     * @see checkCacheStatus()
-     */
-    public static function cacheStatus() {
-        return call_user_func_array([get_class(), 'checkCacheStatus'], func_get_args());
-    }
-
-    /**
      * Gets the CakePHP version.
      * @return string CakePHP version
      */
@@ -127,13 +111,5 @@ class System {
 			}
 		
 		return $success;
-    }
-	
-    /**
-     * Gets the cache size.
-     * @return int Cache size
-     */
-    public static function getCacheSize() {
-        return dirsize(CACHE);
     }
 }

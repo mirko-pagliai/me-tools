@@ -1,4 +1,9 @@
 # 2.x branch
+## 2.3 branch
+### 2.3.0
+* removed the code for thumbnails. In its place, use the `Thumbs` plugin;
+* fixed bug on log parser.
+
 ## 2.2 branch
 ### 2.2.9
 * fixed bug on some console methods for CakePHP 3.2.
