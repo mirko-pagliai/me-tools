@@ -24,7 +24,6 @@ namespace MeTools\Shell;
 
 use Cake\Filesystem\File;
 use MeTools\Console\Shell;
-use MeTools\Utility\Thumbs;
 use MeTools\Utility\Unix;
 
 /**
@@ -70,9 +69,6 @@ class InstallShell extends Shell {
 	
 	/**
 	 * Construct
-	 * @uses MeTools\Utility\Thumbs::photo()
-	 * @uses MeTools\Utility\Thumbs::remote()
-	 * @uses MeTools\Utility\Thumbs::video()
 	 * @uses $config
 	 * @uses $fonts
 	 * @uses $links
@@ -123,10 +119,6 @@ class InstallShell extends Shell {
 			WWW_ROOT.'files',
 			WWW_ROOT.'fonts',
 			WWW_ROOT.'vendor',
-			dirname(Thumbs::photo()),
-			Thumbs::photo(),
-			Thumbs::remote(),
-			Thumbs::video()
 		];
 	}
 	
