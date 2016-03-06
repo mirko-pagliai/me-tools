@@ -23,8 +23,6 @@
  */
 namespace MeTools\Log\Engine;
 
-use Cake\Filesystem\File;
-use Cake\Filesystem\Folder;
 use Cake\Log\Engine\FileLog as CakeFileLog;
 use Cake\Network\Exception\InternalErrorException;
 
@@ -40,7 +38,7 @@ class FileLog extends CakeFileLog {
 	 */
 	public static function all() {
 		//Gets log files
-		$files = (new Folder(LOGS))->find('[^\.]+\.log(\.[^\-]+)?', TRUE);
+		$files = (new \Cake\Filesystem\Folder(LOGS))->find('[^\.]+\.log(\.[^\-]+)?', TRUE);
 		
 		//For each file, the array key will be the filename without extension
 		foreach($files as $k => $file) {
@@ -51,33 +49,6 @@ class FileLog extends CakeFileLog {
 		return $files;
 	}
 	
-    /**
-     * Checks if the logs directory is readable and writable
-     * @return boolean
-     */
-	public static function check() {
-		return folder_is_writable(LOGS);
-	}
-	
-	/**
-     * Clears all log files
-     * @return boolean
-	 * @uses check()
-	 */
-	public static function clear() {
-		if(!self::check())
-			return FALSE;
-		
-		$success = TRUE;
-		
-		//Deletes each file
-        foreach((new Folder(LOGS))->findRecursive() as $file)
-            if(!(new File($file))->delete() && $success)
-                $success = FALSE;
-		
-        return $success;
-	}
-	
 	/**
 	 * Gets a log file
 	 * @param string $log Log name
@@ -85,8 +56,10 @@ class FileLog extends CakeFileLog {
 	 * @throws InternalErrorException
 	 */
 	public static function get($log) {
-		if(!is_readable($file = LOGS.$log))
-			throw new InternalErrorException(__d('me_tools', 'File or directory `{0}` not readable', $file));
+		$file = LOGS.$log;
+		
+		if(!is_readable($file))
+			throw new InternalErrorException(__d('me_tools', 'File or directory `{0}` not readable', rtr($file)));
 		
 		return @file_get_contents($file);
 	}
@@ -137,13 +110,5 @@ class FileLog extends CakeFileLog {
 				'trace'			=> empty($matches[15]) ? NULL : $matches[15]
 			]);
 		}, af(preg_split('/[\r\n]{2,}/', self::get($log))));
-	}
-	
-	/**
-	 * Gets the logs size
-	 * @return int Logs size
-	 */
-	public static function size() {
-        return dirsize(LOGS);
 	}
 }

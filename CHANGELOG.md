@@ -1,4 +1,9 @@
 # 2.x branch
+## 2.4 branch
+### 2.4.0
+* removed the code for assets. In its place, use the `Assets` plugin;
+* removed the `Unix` utility. Added the `which` global function.
+
 ## 2.3 branch
 ### 2.3.0
 * removed the code for thumbnails. In its place, use the `Thumbs` plugin;

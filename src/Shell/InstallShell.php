@@ -24,7 +24,6 @@ namespace MeTools\Shell;
 
 use Cake\Filesystem\File;
 use MeTools\Console\Shell;
-use MeTools\Utility\Unix;
 
 /**
  * Executes some tasks to make the system ready to work
@@ -115,7 +114,6 @@ class InstallShell extends Shell {
 			TMP.'cache'.DS.'views',
 			TMP.'sessions',
 			TMP.'tests',
-			WWW_ROOT.'assets',
 			WWW_ROOT.'files',
 			WWW_ROOT.'fonts',
 			WWW_ROOT.'vendor',
@@ -128,7 +126,7 @@ class InstallShell extends Shell {
 	 * @uses copyFonts()
 	 * @uses createDirectories()
 	 * @uses createRobots()
-	 * @uses createSymbolicLinks()
+	 * @uses createVendorsLinks()
 	 * @uses fixComposerJson()
 	 * @uses installPackages()
 	 * @uses setPermissions()
@@ -141,7 +139,7 @@ class InstallShell extends Shell {
 			$this->createRobots();
 			$this->fixComposerJson();
 			$this->installPackages(TRUE);
-			$this->createSymbolicLinks();
+			$this->createVendorsLinks();
 			$this->copyFonts();
 			
 			return;
@@ -173,7 +171,7 @@ class InstallShell extends Shell {
 		
 		$ask = $this->in(__d('me_tools', 'Create symbolic links for vendor assets?'), ['Y', 'n'], 'Y');
 		if(in_array($ask, ['Y', 'y']))
-			$this->createSymbolicLinks();
+			$this->createVendorsLinks();
 		
 		$ask = $this->in(__d('me_tools', 'Create symbolic links for fonts?'), ['Y', 'n'], 'Y');
 		if(in_array($ask, ['Y', 'y']))
@@ -236,7 +234,6 @@ class InstallShell extends Shell {
 	/**
 	 * Creates directories
 	 * @param bool $force
-	 * @uses MeTools\Utility\Unix::which()
 	 * @uses $paths
 	 */
 	public function createDirectories($force = FALSE) {
@@ -256,7 +253,7 @@ class InstallShell extends Shell {
 		}
 		
 		//In case of error, asks for sudo
-		if($error && Unix::which('sudo')) {
+		if($error && which('sudo')) {
 			if($this->param('force') || $force)
 				return exec(sprintf('sudo mkdir -p %s', implode(' ', $this->paths)));
 			
@@ -285,7 +282,7 @@ class InstallShell extends Shell {
 	 * @uses $links
 	 * @uses createLink()
 	 */
-	public function createSymbolicLinks() {
+	public function createVendorsLinks() {
 		foreach($this->links as $origin => $target) {
 			//Sets full path to origin and target
 			$origin = ROOT.DS.'vendor'.DS.$origin;
@@ -332,7 +329,7 @@ class InstallShell extends Shell {
 			'copyFonts'				=> ['help' => __d('me_tools', 'Creates symbolic links for fonts')],
 			'createDirectories'		=> ['help' => __d('me_tools', 'Creates default directories')],
 			'createRobots'			=> ['help' => __d('me_tools', 'Creates the `{0}` file', 'robots.txt')],
-			'createSymbolicLinks'	=> ['help' => __d('me_tools', 'Creates symbolic links for vendor assets')],
+			'createVendorsLinks'	=> ['help' => __d('me_tools', 'Creates symbolic links for vendor assets')],
 			'fixComposerJson'		=> ['help' => __d('me_tools', 'Fixes `{0}`', 'composer.json')],
 			'installPackages'		=> ['help' => __d('me_tools', 'Installs the suggested packages')],
 			'setPermissions'		=> ['help' => __d('me_tools', 'Sets directories permissions')]
@@ -347,12 +344,11 @@ class InstallShell extends Shell {
 	/**
 	 * Install the suggested packages
 	 * @param bool $force
-	 * @uses MeTools\Utility\Unix::which()
 	 * @uses $packages
 	 */
 	public function installPackages($force = FALSE) {
 		//Checks for Composer
-		if(!($bin = Unix::which('composer')))
+		if(!($bin = which('composer')))
 			return $this->err(__d('me_tools', '{0} is not available', 'composer'));
 		
 		//Empty array. This will contain the packages to install
@@ -388,7 +384,6 @@ class InstallShell extends Shell {
 	/**
 	 * Sets permissions on directories
 	 * @param bool $force
-	 * @uses MeTools\Utility\Unix::which()
 	 * @uses $paths
 	 */
 	public function setPermissions($force = FALSE) {
@@ -404,7 +399,7 @@ class InstallShell extends Shell {
 		}
 		
 		//In case of error, asks for sudo
-		if($error && Unix::which('sudo')) {
+		if($error && which('sudo')) {
 			if($this->param('force') || $force)
 				return exec(sprintf('sudo chmod -R 777 %s', implode(' ', $this->paths)));
 			

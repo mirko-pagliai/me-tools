@@ -23,9 +23,6 @@
 namespace MeTools\Utility;
 
 use Cake\Cache\Cache;
-use Cake\Core\Configure;
-use Cake\Filesystem\Folder;
-use MeTools\Core\Plugin;
 
 /**
  * An utility for checking the status of the system and perform maintenance tasks.
@@ -35,15 +32,7 @@ use MeTools\Core\Plugin;
  * use MeTools\Utility\System;
  * </code>
  */
-class System {
-    /**
-     * Gets the CakePHP version.
-     * @return string CakePHP version
-     */
-    public static function cakeVersion() {
-        return Configure::version();
-    }
-	
+class System {	
 	/**
 	 * Gets all changelog files. 
 	 * 
@@ -53,37 +42,21 @@ class System {
 	 * @uses MeTools\Core\Plugin::path()
 	 */
 	public static function changelogs() {
-		$files = [];
-		
-		foreach(am([ROOT.DS], Plugin::path()) as $path)
-			foreach((new Folder($path))->find('CHANGELOG(\..+)?') as $file)
-				$files[] = str_replace(ROOT.DS, NULL, $path.$file);
+		foreach(am([ROOT.DS], \MeTools\Core\Plugin::path()) as $path) {
+			//For each changelog file in the current path
+			foreach((new \Cake\Filesystem\Folder($path))->find('CHANGELOG(\..+)?') as $file)
+				$files[] = rtr($path.$file);
+		}
 		
 		return $files;
 	}
-	
-    /**
-     * Checks if the cache is readable and writable
-     * @return boolean
-     */
-    public static function checkCache() {
-		return folder_is_writable(CACHE);
-    }
 
     /**
      * Checks if the cache is enabled
      * @return boolean
      */
-    public static function checkCacheStatus() {
+    public static function checkCache() {
 		return Cache::enabled();
-    }
-	
-    /**
-     * Checks if the temporary directory is readable and writable.
-     * @return boolean
-     */
-    public static function checkTmp() {
-		return folder_is_writable(TMP);
     }
 	
 	/**
