@@ -24,7 +24,6 @@ namespace MeTools\Shell;
 
 use Cake\Filesystem\File;
 use MeTools\Console\Shell;
-use MeTools\Utility\Unix;
 
 /**
  * Executes some tasks to make the system ready to work
@@ -235,7 +234,6 @@ class InstallShell extends Shell {
 	/**
 	 * Creates directories
 	 * @param bool $force
-	 * @uses MeTools\Utility\Unix::which()
 	 * @uses $paths
 	 */
 	public function createDirectories($force = FALSE) {
@@ -255,7 +253,7 @@ class InstallShell extends Shell {
 		}
 		
 		//In case of error, asks for sudo
-		if($error && Unix::which('sudo')) {
+		if($error && which('sudo')) {
 			if($this->param('force') || $force)
 				return exec(sprintf('sudo mkdir -p %s', implode(' ', $this->paths)));
 			
@@ -346,12 +344,11 @@ class InstallShell extends Shell {
 	/**
 	 * Install the suggested packages
 	 * @param bool $force
-	 * @uses MeTools\Utility\Unix::which()
 	 * @uses $packages
 	 */
 	public function installPackages($force = FALSE) {
 		//Checks for Composer
-		if(!($bin = Unix::which('composer')))
+		if(!($bin = which('composer')))
 			return $this->err(__d('me_tools', '{0} is not available', 'composer'));
 		
 		//Empty array. This will contain the packages to install
@@ -387,7 +384,6 @@ class InstallShell extends Shell {
 	/**
 	 * Sets permissions on directories
 	 * @param bool $force
-	 * @uses MeTools\Utility\Unix::which()
 	 * @uses $paths
 	 */
 	public function setPermissions($force = FALSE) {
@@ -403,7 +399,7 @@ class InstallShell extends Shell {
 		}
 		
 		//In case of error, asks for sudo
-		if($error && Unix::which('sudo')) {
+		if($error && which('sudo')) {
 			if($this->param('force') || $force)
 				return exec(sprintf('sudo chmod -R 777 %s', implode(' ', $this->paths)));
 			

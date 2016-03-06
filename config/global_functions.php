@@ -247,3 +247,16 @@ if(!function_exists('rtr')) {
 		return preg_replace(sprintf('/^%s/', preg_quote(ROOT.DS, DS)), NULL, $path);
 	}
 }
+
+if(!function_exists('which')) {
+	/**
+	 * Executes the `which` command.
+	 * 
+	 * It shows the full path of (shell) commands.
+	 * @param string $command Command
+	 * @return string Full path of command
+	 */
+	function which($command) {
+		return exec(sprintf('which %s', $command));
+	}
+}
