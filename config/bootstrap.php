@@ -104,6 +104,31 @@ if(!function_exists('am')) {
 	}
 }
 
+if(!function_exists('clear_dir')) {
+	/**
+	 * Cleans a directory
+	 * @param string $directory Directory path
+	 * @return boolean
+	 */
+	function clear_dir($directory) {
+		if(!folder_is_writable($directory))
+			return FALSE;
+		
+		$success = TRUE;
+		
+		//Gets files
+		$files = (new \Cake\Filesystem\Folder($directory))->read(FALSE, ['empty'])[1];
+		
+		//Deletes each file
+		foreach($files as $file) {
+			if(!(new \Cake\Filesystem\File($directory.DS.$file))->delete())
+				$success = FALSE;
+		}
+		
+		return $success;
+	}
+}
+
 if(!function_exists('dirsize')) {
 	/**
 	 * Returns the size in bytes of a directory and its contents
