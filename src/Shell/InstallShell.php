@@ -127,7 +127,7 @@ class InstallShell extends Shell {
 	 * @uses copyFonts()
 	 * @uses createDirectories()
 	 * @uses createRobots()
-	 * @uses createSymbolicLinks()
+	 * @uses createVendorsLinks()
 	 * @uses fixComposerJson()
 	 * @uses installPackages()
 	 * @uses setPermissions()
@@ -140,7 +140,7 @@ class InstallShell extends Shell {
 			$this->createRobots();
 			$this->fixComposerJson();
 			$this->installPackages(TRUE);
-			$this->createSymbolicLinks();
+			$this->createVendorsLinks();
 			$this->copyFonts();
 			
 			return;
@@ -172,7 +172,7 @@ class InstallShell extends Shell {
 		
 		$ask = $this->in(__d('me_tools', 'Create symbolic links for vendor assets?'), ['Y', 'n'], 'Y');
 		if(in_array($ask, ['Y', 'y']))
-			$this->createSymbolicLinks();
+			$this->createVendorsLinks();
 		
 		$ask = $this->in(__d('me_tools', 'Create symbolic links for fonts?'), ['Y', 'n'], 'Y');
 		if(in_array($ask, ['Y', 'y']))
@@ -284,7 +284,7 @@ class InstallShell extends Shell {
 	 * @uses $links
 	 * @uses createLink()
 	 */
-	public function createSymbolicLinks() {
+	public function createVendorsLinks() {
 		foreach($this->links as $origin => $target) {
 			//Sets full path to origin and target
 			$origin = ROOT.DS.'vendor'.DS.$origin;
@@ -331,7 +331,7 @@ class InstallShell extends Shell {
 			'copyFonts'				=> ['help' => __d('me_tools', 'Creates symbolic links for fonts')],
 			'createDirectories'		=> ['help' => __d('me_tools', 'Creates default directories')],
 			'createRobots'			=> ['help' => __d('me_tools', 'Creates the `{0}` file', 'robots.txt')],
-			'createSymbolicLinks'	=> ['help' => __d('me_tools', 'Creates symbolic links for vendor assets')],
+			'createVendorsLinks'	=> ['help' => __d('me_tools', 'Creates symbolic links for vendor assets')],
 			'fixComposerJson'		=> ['help' => __d('me_tools', 'Fixes `{0}`', 'composer.json')],
 			'installPackages'		=> ['help' => __d('me_tools', 'Installs the suggested packages')],
 			'setPermissions'		=> ['help' => __d('me_tools', 'Sets directories permissions')]
