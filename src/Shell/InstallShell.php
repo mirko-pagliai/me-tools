@@ -115,7 +115,6 @@ class InstallShell extends Shell {
 			TMP.'cache'.DS.'views',
 			TMP.'sessions',
 			TMP.'tests',
-			WWW_ROOT.'assets',
 			WWW_ROOT.'files',
 			WWW_ROOT.'fonts',
 			WWW_ROOT.'vendor',
