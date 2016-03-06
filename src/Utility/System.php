@@ -23,7 +23,6 @@
 namespace MeTools\Utility;
 
 use Cake\Cache\Cache;
-use Cake\Filesystem\Folder;
 
 /**
  * An utility for checking the status of the system and perform maintenance tasks.
@@ -43,11 +42,11 @@ class System {
 	 * @uses MeTools\Core\Plugin::path()
 	 */
 	public static function changelogs() {
-		$files = [];
-		
-		foreach(am([ROOT.DS], \MeTools\Core\Plugin::path()) as $path)
-			foreach((new Folder($path))->find('CHANGELOG(\..+)?') as $file)
-				$files[] = str_replace(ROOT.DS, NULL, $path.$file);
+		foreach(am([ROOT.DS], \MeTools\Core\Plugin::path()) as $path) {
+			//For each changelog file in the current path
+			foreach((new \Cake\Filesystem\Folder($path))->find('CHANGELOG(\..+)?') as $file)
+				$files[] = rtr($path.$file);
+		}
 		
 		return $files;
 	}
