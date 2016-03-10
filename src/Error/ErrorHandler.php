@@ -23,6 +23,7 @@
  */
 namespace MeTools\Error;
 
+use Cake\Core\Configure;
 use Cake\Error\Debugger;
 use Cake\Error\ErrorHandler as CakeErrorHandler;
 use Cake\Log\Log;
@@ -33,42 +34,95 @@ use Cake\Routing\Router;
  * handles all unhandled exceptions and errors. Displays helpful framework errors when debug > 1.
  * 
  * Rewrites {@link http://api.cakephp.org/3.2/source-class-Cake.Error.ErrorHandler.html ErrorHandler}.
- * This allows to track the "request URL" also for errors and not only for exceptions.
+ * This allows to add request URL, referer URL and client IP address  for error and exception logs.
  */
 class ErrorHandler extends CakeErrorHandler {
 	/**
-	 * Log an error
+	 * Generates a formatted error message
+	 * @param \Exception $exception Exception instance
+	 * @return string Formatted message
+	 */
+	protected function _getMessage(\Exception $exception) {
+        $exception = $exception instanceof PHP7ErrorException ?
+            $exception->getError() :
+            $exception;
+        $config = $this->_options;
+        $message = sprintf(
+            "[%s] %s",
+            get_class($exception),
+            $exception->getMessage()
+        );
+        $debug = Configure::read('debug');
+
+        if ($debug && method_exists($exception, 'getAttributes')) {
+            $attributes = $exception->getAttributes();
+            if ($attributes) {
+                $message .= "\nException Attributes: " . var_export($exception->getAttributes(), true);
+            }
+        }
+		
+		//Adds request URL, referer URL and client Ip
+        $request = Router::getRequest();
+        if ($request) {
+            $message .= "\nRequest URL: " . $request->here();
+
+            $referer = $request->env('HTTP_REFERER');
+            if ($referer) {
+                $message .= "\nReferer URL: " . $referer;
+            }
+			
+			$clientIp = $request->clientIp();
+			if ($clientIp && $clientIp !== '::1') {
+				$message .= "\nClient IP: " . $clientIp;
+			}
+        }
+
+        if (!empty($config['trace'])) {
+            $message .= "\nStack Trace:\n" . $exception->getTraceAsString() . "\n\n";
+        }
+        return $message;
+    }
+	
+	/**
+	 * Log an error.
 	 * @param string $level The level name of the log.
 	 * @param array $data Array of error data.
 	 * @return bool
 	 */
 	protected function _logError($level, $data) {
 		$message = sprintf(
-			'%s (%s): %s in [%s, line %s]',
-			$data['error'],
-			$data['code'],
-			$data['description'],
-			$data['file'],
-			$data['line']
+            '%s (%s): %s in [%s, line %s]',
+            $data['error'],
+            $data['code'],
+            $data['description'],
+            $data['file'],
+            $data['line']
         );
-		
-		//Adds the request URL
-		 if((PHP_SAPI !== 'cli' && PHP_SAPI !== 'phpdbg')) {
+		if (!empty($this->_options['trace'])) {
+            $trace = Debugger::trace([
+                'start' => 1,
+                'format' => 'log'
+            ]);
+			
+			//Adds request URL, referer URL and client Ip
 			$request = Router::getRequest();
-			if($request)
-				$message .= "\nRequest URL: ".$request->here();
-		}
+			if ($request) {
+				$message .= "\nRequest URL: " . $request->here();
 
-		if(!empty($this->_options['trace'])) {
-			$trace = Debugger::trace([
-				'start' => 1,
-				'format' => 'log'
-			]);
-			$message .= "\nTrace:\n".$trace."\n";
-		}
-		
-		$message .= "\n\n";
-		
-		return Log::write($level, $message);
+				$referer = $request->env('HTTP_REFERER');
+				if ($referer) {
+					$message .= "\nReferer URL: " . $referer;
+				}
+			
+				$clientIp = $request->clientIp();
+				if	($clientIp && $clientIp !== '::1') {
+					$message .= "\nClient IP: " . $clientIp;
+				}
+			}
+			
+            $message .= "\nTrace:\n" . $trace . "\n";
+        }
+        $message .= "\n\n";
+        return Log::write($level, $message);
 	}
 }
