@@ -33,14 +33,6 @@ use Cake\Cache\Cache;
  * </code>
  */
 class System {
-    /**
-     * Checks if the cache is enabled
-     * @return boolean
-     */
-    public static function checkCache() {
-		return Cache::enabled();
-    }
-	
 	/**
      * Clears the cache
      * @return boolean TRUE if the cache is writable and were successfully cleared, FALSE otherwise
