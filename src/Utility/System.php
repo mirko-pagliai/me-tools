@@ -32,25 +32,7 @@ use Cake\Cache\Cache;
  * use MeTools\Utility\System;
  * </code>
  */
-class System {	
-	/**
-	 * Gets all changelog files. 
-	 * 
-	 * It searchs into `ROOT` and all loaded plugins.
-	 * @uses MeTools\Core\Plugin::path()
-	 * @return array Changelog files
-	 * @uses MeTools\Core\Plugin::path()
-	 */
-	public static function changelogs() {
-		foreach(am([ROOT.DS], \MeTools\Core\Plugin::path()) as $path) {
-			//For each changelog file in the current path
-			foreach((new \Cake\Filesystem\Folder($path))->find('CHANGELOG(\..+)?') as $file)
-				$files[] = rtr($path.$file);
-		}
-		
-		return $files;
-	}
-
+class System {
     /**
      * Checks if the cache is enabled
      * @return boolean
