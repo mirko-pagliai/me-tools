@@ -1,8 +1,10 @@
 # 2.x branch
-## 2.4 branch
-### 2.4.1
-* log reports request URL, referer URL and client ip, both for exceptions and errors.
+## 2.5 banch
+### 2.5.0
+* log reports request URL, referer URL and client ip, both for exceptions and errors;
+* removed useless classes.
 
+## 2.4 branch
 ### 2.4.0
 * removed the code for assets. In its place, use the `Assets` plugin;
 * removed the `Unix` utility. Added the `which` global function.
