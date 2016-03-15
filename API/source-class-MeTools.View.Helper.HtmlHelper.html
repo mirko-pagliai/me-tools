@@ -706,80 +706,85 @@
 </span></span><span id="530" class="l"><a href="#530">530: </a><span class="php-comment">     * @uses _addIcon()
 </span></span><span id="531" class="l"><a href="#531">531: </a><span class="php-comment">     */</span>
 </span><span id="532" class="l"><a href="#532">532: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> tag(<span class="php-var">$name</span>, <span class="php-var">$text</span> = <span class="php-keyword1">NULL</span>, <span class="php-keyword1">array</span> <span class="php-var">$options</span> = []) {
-</span><span id="533" class="l"><a href="#533">533: </a>        <span class="php-var">$text</span> = self::_addIcon(<span class="php-var">$text</span>, <span class="php-var">$options</span>);
-</span><span id="534" class="l"><a href="#534">534: </a>        
-</span><span id="535" class="l"><a href="#535">535: </a>        <span class="php-keyword1">if</span>(!<span class="php-keyword1">empty</span>(<span class="php-var">$options</span>[<span class="php-quote">'tooltip'</span>])) {
-</span><span id="536" class="l"><a href="#536">536: </a>            <span class="php-var">$options</span> = addValue(<span class="php-quote">'data-toggle'</span>, <span class="php-quote">'tooltip'</span>, <span class="php-var">$options</span>);
-</span><span id="537" class="l"><a href="#537">537: </a>            <span class="php-var">$options</span> = addDefault(<span class="php-quote">'title'</span>, <span class="php-var">$options</span>[<span class="php-quote">'tooltip'</span>], <span class="php-var">$options</span>);
-</span><span id="538" class="l"><a href="#538">538: </a>        }
+</span><span id="533" class="l"><a href="#533">533: </a>        <span class="php-keyword1">if</span>(<span class="php-var">$name</span> === <span class="php-quote">'button'</span>) {
+</span><span id="534" class="l"><a href="#534">534: </a>            <span class="php-var">$options</span> = addValue(<span class="php-quote">'role'</span>, <span class="php-quote">'button'</span>, <span class="php-var">$options</span>);
+</span><span id="535" class="l"><a href="#535">535: </a>            <span class="php-var">$options</span> = self::_addButtonClass(<span class="php-var">$options</span>);
+</span><span id="536" class="l"><a href="#536">536: </a>        }
+</span><span id="537" class="l"><a href="#537">537: </a>        
+</span><span id="538" class="l"><a href="#538">538: </a>        <span class="php-var">$text</span> = self::_addIcon(<span class="php-var">$text</span>, <span class="php-var">$options</span>);
 </span><span id="539" class="l"><a href="#539">539: </a>        
-</span><span id="540" class="l"><a href="#540">540: </a>        <span class="php-keyword1">unset</span>(<span class="php-var">$options</span>[<span class="php-quote">'icon'</span>], <span class="php-var">$options</span>[<span class="php-quote">'icon-align'</span>], <span class="php-var">$options</span>[<span class="php-quote">'tooltip'</span>]);
-</span><span id="541" class="l"><a href="#541">541: </a>
-</span><span id="542" class="l"><a href="#542">542: </a>        <span class="php-keyword1">return</span> parent::tag(<span class="php-var">$name</span>, <span class="php-var">$text</span>, <span class="php-var">$options</span>);
-</span><span id="543" class="l"><a href="#543">543: </a>    }
-</span><span id="544" class="l"><a href="#544">544: </a>
-</span><span id="545" class="l"><a href="#545">545: </a>    <span class="php-comment">/**
-</span></span><span id="546" class="l"><a href="#546">546: </a><span class="php-comment">     * Returns an unordered list (`&lt;ul&gt;` tag).
-</span></span><span id="547" class="l"><a href="#547">547: </a><span class="php-comment">     * @param array $list Elements list
-</span></span><span id="548" class="l"><a href="#548">548: </a><span class="php-comment">     * @param array $options HTML attributes of the list tag
-</span></span><span id="549" class="l"><a href="#549">549: </a><span class="php-comment">     * @param array $itemOptions HTML attributes of the list items
-</span></span><span id="550" class="l"><a href="#550">550: </a><span class="php-comment">     * @return string Html code
-</span></span><span id="551" class="l"><a href="#551">551: </a><span class="php-comment">     * @uses nestedList()
-</span></span><span id="552" class="l"><a href="#552">552: </a><span class="php-comment">     */</span>
-</span><span id="553" class="l"><a href="#553">553: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> ul(<span class="php-keyword1">array</span> <span class="php-var">$list</span>, <span class="php-keyword1">array</span> <span class="php-var">$options</span> = [], <span class="php-keyword1">array</span> <span class="php-var">$itemOptions</span> = []) {
-</span><span id="554" class="l"><a href="#554">554: </a>        <span class="php-keyword1">return</span> self::nestedList(<span class="php-var">$list</span>, am(<span class="php-var">$options</span>, [<span class="php-quote">'tag'</span> =&gt; <span class="php-quote">'ul'</span>]), <span class="php-var">$itemOptions</span>);
-</span><span id="555" class="l"><a href="#555">555: </a>    }
-</span><span id="556" class="l"><a href="#556">556: </a>
-</span><span id="557" class="l"><a href="#557">557: </a>    <span class="php-comment">/**
-</span></span><span id="558" class="l"><a href="#558">558: </a><span class="php-comment">     * Returns a `&lt;video&gt;` element
-</span></span><span id="559" class="l"><a href="#559">559: </a><span class="php-comment">     * @param string|array $path File path, relative to the `webroot/files/` directory or an array
-</span></span><span id="560" class="l"><a href="#560">560: </a><span class="php-comment">     * where each item itself can be a path string or an array containing `src` and `type` keys.
-</span></span><span id="561" class="l"><a href="#561">561: </a><span class="php-comment">     * @param array $options Array of options and HTML attributes
-</span></span><span id="562" class="l"><a href="#562">562: </a><span class="php-comment">     * @return string Html code
-</span></span><span id="563" class="l"><a href="#563">563: </a><span class="php-comment">     * @uses media()
-</span></span><span id="564" class="l"><a href="#564">564: </a><span class="php-comment">     */</span>
-</span><span id="565" class="l"><a href="#565">565: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> video(<span class="php-var">$path</span>, <span class="php-keyword1">array</span> <span class="php-var">$options</span> = []) {
-</span><span id="566" class="l"><a href="#566">566: </a>        <span class="php-keyword1">return</span> self::media(<span class="php-var">$path</span>, am(<span class="php-var">$options</span>, [<span class="php-quote">'tag'</span> =&gt; <span class="php-quote">'video'</span>]));
-</span><span id="567" class="l"><a href="#567">567: </a>    }
-</span><span id="568" class="l"><a href="#568">568: </a>    
-</span><span id="569" class="l"><a href="#569">569: </a>    <span class="php-comment">/**
-</span></span><span id="570" class="l"><a href="#570">570: </a><span class="php-comment">     * Adds the `viewport` meta tag. By default, it uses options as required by Bootstrap
-</span></span><span id="571" class="l"><a href="#571">571: </a><span class="php-comment">     * @param array $options Attributes for the generated tag. If the type attribute is html,
-</span></span><span id="572" class="l"><a href="#572">572: </a><span class="php-comment">     *      rss, atom, or icon, the mime-type is returned
-</span></span><span id="573" class="l"><a href="#573">573: </a><span class="php-comment">     * @see http://getbootstrap.com/css/#overview-mobile Bootstrap documentation
-</span></span><span id="574" class="l"><a href="#574">574: </a><span class="php-comment">     * @uses meta()
-</span></span><span id="575" class="l"><a href="#575">575: </a><span class="php-comment">     */</span>
-</span><span id="576" class="l"><a href="#576">576: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> viewport(<span class="php-keyword1">array</span> <span class="php-var">$options</span> = []) {
-</span><span id="577" class="l"><a href="#577">577: </a>        <span class="php-var">$default</span> = [
-</span><span id="578" class="l"><a href="#578">578: </a>            <span class="php-quote">'initial-scale'</span> =&gt; <span class="php-quote">'1'</span>,
-</span><span id="579" class="l"><a href="#579">579: </a>            <span class="php-quote">'maximum-scale'</span> =&gt; <span class="php-quote">'1'</span>,
-</span><span id="580" class="l"><a href="#580">580: </a>            <span class="php-quote">'user-scalable'</span> =&gt; <span class="php-quote">'no'</span>,
-</span><span id="581" class="l"><a href="#581">581: </a>            <span class="php-quote">'width'</span>         =&gt; <span class="php-quote">'device-width'</span>
-</span><span id="582" class="l"><a href="#582">582: </a>        ];
-</span><span id="583" class="l"><a href="#583">583: </a>        
-</span><span id="584" class="l"><a href="#584">584: </a>        <span class="php-var">$content</span> = <span class="php-keyword2">http_build_query</span>(am(<span class="php-var">$default</span>, <span class="php-var">$options</span>), <span class="php-keyword1">NULL</span>, <span class="php-quote">', '</span>);
-</span><span id="585" class="l"><a href="#585">585: </a>        
-</span><span id="586" class="l"><a href="#586">586: </a>        <span class="php-keyword1">return</span> self::meta(am([<span class="php-quote">'name'</span> =&gt; <span class="php-quote">'viewport'</span>], <span class="php-keyword2">compact</span>(<span class="php-quote">'content'</span>)));
-</span><span id="587" class="l"><a href="#587">587: </a>    }
-</span><span id="588" class="l"><a href="#588">588: </a>    
-</span><span id="589" class="l"><a href="#589">589: </a>    <span class="php-comment">/**
-</span></span><span id="590" class="l"><a href="#590">590: </a><span class="php-comment">     * Adds a YouTube video.
-</span></span><span id="591" class="l"><a href="#591">591: </a><span class="php-comment">     * 
-</span></span><span id="592" class="l"><a href="#592">592: </a><span class="php-comment">     * You can use `$ratio` to create a responsive embed.
-</span></span><span id="593" class="l"><a href="#593">593: </a><span class="php-comment">     * @param string $id YouTube video ID
-</span></span><span id="594" class="l"><a href="#594">594: </a><span class="php-comment">     * @param array $options Array of options and HTML attributes
-</span></span><span id="595" class="l"><a href="#595">595: </a><span class="php-comment">     * @param string $ratio Ratio (`16by9` or `4by3`)
-</span></span><span id="596" class="l"><a href="#596">596: </a><span class="php-comment">     * @return string Html code
-</span></span><span id="597" class="l"><a href="#597">597: </a><span class="php-comment">     * @uses iframe()
-</span></span><span id="598" class="l"><a href="#598">598: </a><span class="php-comment">     */</span>
-</span><span id="599" class="l"><a href="#599">599: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> youtube(<span class="php-var">$id</span>, <span class="php-keyword1">array</span> <span class="php-var">$options</span> = [], <span class="php-var">$ratio</span> = <span class="php-quote">'16by9'</span>) {
-</span><span id="600" class="l"><a href="#600">600: </a>        <span class="php-var">$options</span> = addDefault(<span class="php-quote">'allowfullscreen'</span>, <span class="php-quote">'allowfullscreen'</span>, <span class="php-var">$options</span>);
-</span><span id="601" class="l"><a href="#601">601: </a>        <span class="php-var">$options</span> = addDefault(<span class="php-quote">'height'</span>, <span class="php-num">480</span>, <span class="php-var">$options</span>);
-</span><span id="602" class="l"><a href="#602">602: </a>        <span class="php-var">$options</span> = addDefault(<span class="php-quote">'width'</span>, <span class="php-num">640</span>, <span class="php-var">$options</span>);
-</span><span id="603" class="l"><a href="#603">603: </a>        
-</span><span id="604" class="l"><a href="#604">604: </a>        <span class="php-keyword1">return</span> self::iframe(<span class="php-keyword2">sprintf</span>(<span class="php-quote">'https://www.youtube.com/embed/%s'</span>, <span class="php-var">$id</span>), <span class="php-var">$options</span>, <span class="php-var">$ratio</span>);
-</span><span id="605" class="l"><a href="#605">605: </a>    }
-</span><span id="606" class="l"><a href="#606">606: </a>}</span></code></pre>
+</span><span id="540" class="l"><a href="#540">540: </a>        <span class="php-keyword1">if</span>(!<span class="php-keyword1">empty</span>(<span class="php-var">$options</span>[<span class="php-quote">'tooltip'</span>])) {
+</span><span id="541" class="l"><a href="#541">541: </a>            <span class="php-var">$options</span> = addValue(<span class="php-quote">'data-toggle'</span>, <span class="php-quote">'tooltip'</span>, <span class="php-var">$options</span>);
+</span><span id="542" class="l"><a href="#542">542: </a>            <span class="php-var">$options</span> = addDefault(<span class="php-quote">'title'</span>, <span class="php-var">$options</span>[<span class="php-quote">'tooltip'</span>], <span class="php-var">$options</span>);
+</span><span id="543" class="l"><a href="#543">543: </a>        }
+</span><span id="544" class="l"><a href="#544">544: </a>        
+</span><span id="545" class="l"><a href="#545">545: </a>        <span class="php-keyword1">unset</span>(<span class="php-var">$options</span>[<span class="php-quote">'icon'</span>], <span class="php-var">$options</span>[<span class="php-quote">'icon-align'</span>], <span class="php-var">$options</span>[<span class="php-quote">'tooltip'</span>]);
+</span><span id="546" class="l"><a href="#546">546: </a>
+</span><span id="547" class="l"><a href="#547">547: </a>        <span class="php-keyword1">return</span> parent::tag(<span class="php-var">$name</span>, <span class="php-var">$text</span>, <span class="php-var">$options</span>);
+</span><span id="548" class="l"><a href="#548">548: </a>    }
+</span><span id="549" class="l"><a href="#549">549: </a>
+</span><span id="550" class="l"><a href="#550">550: </a>    <span class="php-comment">/**
+</span></span><span id="551" class="l"><a href="#551">551: </a><span class="php-comment">     * Returns an unordered list (`&lt;ul&gt;` tag).
+</span></span><span id="552" class="l"><a href="#552">552: </a><span class="php-comment">     * @param array $list Elements list
+</span></span><span id="553" class="l"><a href="#553">553: </a><span class="php-comment">     * @param array $options HTML attributes of the list tag
+</span></span><span id="554" class="l"><a href="#554">554: </a><span class="php-comment">     * @param array $itemOptions HTML attributes of the list items
+</span></span><span id="555" class="l"><a href="#555">555: </a><span class="php-comment">     * @return string Html code
+</span></span><span id="556" class="l"><a href="#556">556: </a><span class="php-comment">     * @uses nestedList()
+</span></span><span id="557" class="l"><a href="#557">557: </a><span class="php-comment">     */</span>
+</span><span id="558" class="l"><a href="#558">558: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> ul(<span class="php-keyword1">array</span> <span class="php-var">$list</span>, <span class="php-keyword1">array</span> <span class="php-var">$options</span> = [], <span class="php-keyword1">array</span> <span class="php-var">$itemOptions</span> = []) {
+</span><span id="559" class="l"><a href="#559">559: </a>        <span class="php-keyword1">return</span> self::nestedList(<span class="php-var">$list</span>, am(<span class="php-var">$options</span>, [<span class="php-quote">'tag'</span> =&gt; <span class="php-quote">'ul'</span>]), <span class="php-var">$itemOptions</span>);
+</span><span id="560" class="l"><a href="#560">560: </a>    }
+</span><span id="561" class="l"><a href="#561">561: </a>
+</span><span id="562" class="l"><a href="#562">562: </a>    <span class="php-comment">/**
+</span></span><span id="563" class="l"><a href="#563">563: </a><span class="php-comment">     * Returns a `&lt;video&gt;` element
+</span></span><span id="564" class="l"><a href="#564">564: </a><span class="php-comment">     * @param string|array $path File path, relative to the `webroot/files/` directory or an array
+</span></span><span id="565" class="l"><a href="#565">565: </a><span class="php-comment">     * where each item itself can be a path string or an array containing `src` and `type` keys.
+</span></span><span id="566" class="l"><a href="#566">566: </a><span class="php-comment">     * @param array $options Array of options and HTML attributes
+</span></span><span id="567" class="l"><a href="#567">567: </a><span class="php-comment">     * @return string Html code
+</span></span><span id="568" class="l"><a href="#568">568: </a><span class="php-comment">     * @uses media()
+</span></span><span id="569" class="l"><a href="#569">569: </a><span class="php-comment">     */</span>
+</span><span id="570" class="l"><a href="#570">570: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> video(<span class="php-var">$path</span>, <span class="php-keyword1">array</span> <span class="php-var">$options</span> = []) {
+</span><span id="571" class="l"><a href="#571">571: </a>        <span class="php-keyword1">return</span> self::media(<span class="php-var">$path</span>, am(<span class="php-var">$options</span>, [<span class="php-quote">'tag'</span> =&gt; <span class="php-quote">'video'</span>]));
+</span><span id="572" class="l"><a href="#572">572: </a>    }
+</span><span id="573" class="l"><a href="#573">573: </a>    
+</span><span id="574" class="l"><a href="#574">574: </a>    <span class="php-comment">/**
+</span></span><span id="575" class="l"><a href="#575">575: </a><span class="php-comment">     * Adds the `viewport` meta tag. By default, it uses options as required by Bootstrap
+</span></span><span id="576" class="l"><a href="#576">576: </a><span class="php-comment">     * @param array $options Attributes for the generated tag. If the type attribute is html,
+</span></span><span id="577" class="l"><a href="#577">577: </a><span class="php-comment">     *      rss, atom, or icon, the mime-type is returned
+</span></span><span id="578" class="l"><a href="#578">578: </a><span class="php-comment">     * @see http://getbootstrap.com/css/#overview-mobile Bootstrap documentation
+</span></span><span id="579" class="l"><a href="#579">579: </a><span class="php-comment">     * @uses meta()
+</span></span><span id="580" class="l"><a href="#580">580: </a><span class="php-comment">     */</span>
+</span><span id="581" class="l"><a href="#581">581: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> viewport(<span class="php-keyword1">array</span> <span class="php-var">$options</span> = []) {
+</span><span id="582" class="l"><a href="#582">582: </a>        <span class="php-var">$default</span> = [
+</span><span id="583" class="l"><a href="#583">583: </a>            <span class="php-quote">'initial-scale'</span> =&gt; <span class="php-quote">'1'</span>,
+</span><span id="584" class="l"><a href="#584">584: </a>            <span class="php-quote">'maximum-scale'</span> =&gt; <span class="php-quote">'1'</span>,
+</span><span id="585" class="l"><a href="#585">585: </a>            <span class="php-quote">'user-scalable'</span> =&gt; <span class="php-quote">'no'</span>,
+</span><span id="586" class="l"><a href="#586">586: </a>            <span class="php-quote">'width'</span>         =&gt; <span class="php-quote">'device-width'</span>
+</span><span id="587" class="l"><a href="#587">587: </a>        ];
+</span><span id="588" class="l"><a href="#588">588: </a>        
+</span><span id="589" class="l"><a href="#589">589: </a>        <span class="php-var">$content</span> = <span class="php-keyword2">http_build_query</span>(am(<span class="php-var">$default</span>, <span class="php-var">$options</span>), <span class="php-keyword1">NULL</span>, <span class="php-quote">', '</span>);
+</span><span id="590" class="l"><a href="#590">590: </a>        
+</span><span id="591" class="l"><a href="#591">591: </a>        <span class="php-keyword1">return</span> self::meta(am([<span class="php-quote">'name'</span> =&gt; <span class="php-quote">'viewport'</span>], <span class="php-keyword2">compact</span>(<span class="php-quote">'content'</span>)));
+</span><span id="592" class="l"><a href="#592">592: </a>    }
+</span><span id="593" class="l"><a href="#593">593: </a>    
+</span><span id="594" class="l"><a href="#594">594: </a>    <span class="php-comment">/**
+</span></span><span id="595" class="l"><a href="#595">595: </a><span class="php-comment">     * Adds a YouTube video.
+</span></span><span id="596" class="l"><a href="#596">596: </a><span class="php-comment">     * 
+</span></span><span id="597" class="l"><a href="#597">597: </a><span class="php-comment">     * You can use `$ratio` to create a responsive embed.
+</span></span><span id="598" class="l"><a href="#598">598: </a><span class="php-comment">     * @param string $id YouTube video ID
+</span></span><span id="599" class="l"><a href="#599">599: </a><span class="php-comment">     * @param array $options Array of options and HTML attributes
+</span></span><span id="600" class="l"><a href="#600">600: </a><span class="php-comment">     * @param string $ratio Ratio (`16by9` or `4by3`)
+</span></span><span id="601" class="l"><a href="#601">601: </a><span class="php-comment">     * @return string Html code
+</span></span><span id="602" class="l"><a href="#602">602: </a><span class="php-comment">     * @uses iframe()
+</span></span><span id="603" class="l"><a href="#603">603: </a><span class="php-comment">     */</span>
+</span><span id="604" class="l"><a href="#604">604: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> youtube(<span class="php-var">$id</span>, <span class="php-keyword1">array</span> <span class="php-var">$options</span> = [], <span class="php-var">$ratio</span> = <span class="php-quote">'16by9'</span>) {
+</span><span id="605" class="l"><a href="#605">605: </a>        <span class="php-var">$options</span> = addDefault(<span class="php-quote">'allowfullscreen'</span>, <span class="php-quote">'allowfullscreen'</span>, <span class="php-var">$options</span>);
+</span><span id="606" class="l"><a href="#606">606: </a>        <span class="php-var">$options</span> = addDefault(<span class="php-quote">'height'</span>, <span class="php-num">480</span>, <span class="php-var">$options</span>);
+</span><span id="607" class="l"><a href="#607">607: </a>        <span class="php-var">$options</span> = addDefault(<span class="php-quote">'width'</span>, <span class="php-num">640</span>, <span class="php-var">$options</span>);
+</span><span id="608" class="l"><a href="#608">608: </a>        
+</span><span id="609" class="l"><a href="#609">609: </a>        <span class="php-keyword1">return</span> self::iframe(<span class="php-keyword2">sprintf</span>(<span class="php-quote">'https://www.youtube.com/embed/%s'</span>, <span class="php-var">$id</span>), <span class="php-var">$options</span>, <span class="php-var">$ratio</span>);
+</span><span id="610" class="l"><a href="#610">610: </a>    }
+</span><span id="611" class="l"><a href="#611">611: </a>}</span></code></pre>
 
 	<div id="footer">
 		MeTools API API documentation generated by <a href="http://apigen.org">ApiGen</a>

@@ -1,5 +1,8 @@
 # 2.x branch
 ## 2.5 banch
+### 2.5.1
+* fixed little bugs.
+
 ### 2.5.0
 * log reports request URL, referer URL and client ip, both for exceptions and errors;
 * removed useless classes.
