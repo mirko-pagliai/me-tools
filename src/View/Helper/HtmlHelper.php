@@ -530,6 +530,11 @@ class HtmlHelper extends CakeHtmlHelper {
 	 * @uses _addIcon()
      */
     public function tag($name, $text = NULL, array $options = []) {
+		if($name === 'button') {
+			$options = addValue('role', 'button', $options);
+			$options = self::_addButtonClass($options);
+		}
+		
 		$text = self::_addIcon($text, $options);
 		
 		if(!empty($options['tooltip'])) {
