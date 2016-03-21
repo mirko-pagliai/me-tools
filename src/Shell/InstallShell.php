@@ -380,6 +380,14 @@ class InstallShell extends Shell {
 		//Executes the command
 		exec(sprintf('%s require %s', $bin, implode(' ', $packagesToInstall)));
 	}
+    
+    /**
+     * Main command. Alias for `main()`
+     * @uses main()
+     */
+    public function main() {
+        return $this->all();
+    }
 	
 	/**
 	 * Sets permissions on directories
