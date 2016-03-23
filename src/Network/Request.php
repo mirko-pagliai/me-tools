@@ -34,14 +34,6 @@ use Cake\Network\Request as CakeRequest;
  */
 class Request extends CakeRequest {
 	/**
-	 * Checks if the current request has a prefix
-	 * @return bool
-	 */
-	public function hasPrefix() {
-		return $this->param('prefix');
-	}
-	
-	/**
 	 * Checks if the specified action is the current action.
 	 * The action name can be passed as string or array.
 	 * 
@@ -68,15 +60,6 @@ class Request extends CakeRequest {
 		$action = in_array($this->param('action'), is_array($action) ? $action : [$action]);
 		
 		return empty($controller) ? $action : $action && $this->isController($controller);
-	}
-	
-	/**
-	 * Checks if the current request is an admin request.
-	 * @return bool
-	 * @uses isPrefix()
-	 */
-	public function isAdmin() {
-		return $this->isPrefix('admin');
 	}
 	
 	/**
@@ -107,15 +90,6 @@ class Request extends CakeRequest {
 		$current = \Cake\Routing\Router::url($url);
 		
 		return preg_match(sprintf('/^%s\/?$/', preg_quote($current, '/')), $this->here);
-	}
-	
-	/**
-	 * Checks if the current request is a manager request.
-	 * @return bool
-	 * @uses isPrefix()
-	 */
-	public function isManager() {
-		return $this->isPrefix('manager');
 	}
 	
 	/**
