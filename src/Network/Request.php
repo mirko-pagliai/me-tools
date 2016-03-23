@@ -80,11 +80,11 @@ class Request extends CakeRequest {
 	
 	/**
 	 * Checks if the specified url is the current url
-	 * @param string|array $url An array specifying any of the following: 'controller', 'action', 'plugin' additionally, 
+	 * @param string|array $current An array specifying any of the following: 'controller', 'action', 'plugin' additionally, 
 	 * you can provide routed elements or query string parameters. If string it can be name any valid url string
 	 * @return bool
 	 */
-	public function isCurrent($url) {		
+	public function isCurrent($current) {		
 		return preg_match(sprintf('/^%s\/?$/', preg_quote(\Cake\Routing\Router::url($current), '/')), $this->here);
 	}
 	
