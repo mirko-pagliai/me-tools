@@ -35,22 +35,13 @@ class Cache extends CakeCache {
 	 * Deletes all cache keys, from all configurations and all groups
 	 * @return boolean
 	 */
-	public function clearAll() {
-		$success = TRUE;
-		
-		//Cleans all cached values for all cache configurations
-		foreach(Cache::configured() as $config) {
-			if(!Cache::clear(FALSE, $config))
-				$success = FALSE;
-		}
-		
-		//Clean all keys from the cache belonging to all group configurations
-		foreach(Cache::groupConfigs() as $groups) 
-			foreach($groups as $group) {
-				if(!Cache::clearGroup($group))
-					$success = FALSE;
-			}
-		
-		return $success;
+	public static function clearAll($check = false) {
+        $success = true;
+        
+        foreach(self::configured() as $config)
+            if(!self::clear($check, $config))
+                $success = false;
+        
+        return $success;
 	}
 }
