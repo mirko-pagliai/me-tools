@@ -85,7 +85,7 @@ class Request extends CakeRequest {
 	 * you can provide routed elements or query string parameters. If string it can be name any valid url string
 	 * @return bool
 	 */
-	public function isCurrent($url) {
+	public function isHere($url) {
         return Router::url($url) === $this->here;
 	}
 	
