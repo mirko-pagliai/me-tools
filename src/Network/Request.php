@@ -24,6 +24,7 @@
 namespace MeTools\Network;
 
 use Cake\Network\Request as CakeRequest;
+use Cake\Routing\Router;
 
 /**
  * Implements methods for HTTP requests.
@@ -80,12 +81,12 @@ class Request extends CakeRequest {
 	
 	/**
 	 * Checks if the specified url is the current url
-	 * @param string|array $current An array specifying any of the following: 'controller', 'action', 'plugin' additionally, 
+	 * @param string|array|null $url An array specifying any of the following: 'controller', 'action', 'plugin' additionally, 
 	 * you can provide routed elements or query string parameters. If string it can be name any valid url string
 	 * @return bool
 	 */
-	public function isCurrent($current) {		
-		return preg_match(sprintf('/^%s\/?$/', preg_quote(\Cake\Routing\Router::url($current), '/')), $this->here);
+	public function isCurrent($url) {
+        return Router::url($url) === $this->here;
 	}
 	
 	/**
