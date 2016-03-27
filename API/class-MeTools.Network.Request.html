@@ -191,7 +191,7 @@ Cake\Network\Request
 		<b>Namespace:</b> <a href="namespace-MeTools.html">MeTools</a>\<a href="namespace-MeTools.Network.html">Network</a><br>
 		
 
-			<b>Located at</b> <a href="source-class-MeTools.Network.Request.html#28-130" title="Go to source code">Network/Request.php</a>
+			<b>Located at</b> <a href="source-class-MeTools.Network.Request.html#29-101" title="Go to source code">Network/Request.php</a>
 		<br>
 	</div>
 
@@ -199,40 +199,6 @@ Cake\Network\Request
 
 	<table class="summary methods" id="methods">
 	<caption>Methods summary</caption>
-	<tr data-order="hasPrefix" id="_hasPrefix">
-
-		<td class="attributes"><code>
-			 public 
-
-			boolean
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_hasPrefix">#</a>
-		<code><a href="source-class-MeTools.Network.Request.html#36-42" title="Go to source code">hasPrefix</a>( )</code>
-
-		<div class="description short">
-			<p>Checks if the current request has a prefix</p>
-		</div>
-
-		<div class="description detailed hidden">
-			<p>Checks if the current request has a prefix</p>
-
-
-
-				<h4>Returns</h4>
-				<div class="list">
-					boolean
-				</div>
-
-
-
-
-		</div>
-		</div></td>
-	</tr>
 	<tr data-order="isAction" id="_isAction">
 
 		<td class="attributes"><code>
@@ -245,7 +211,7 @@ Cake\Network\Request
 
 		<td class="name"><div>
 		<a class="anchor" href="#_isAction">#</a>
-		<code><a href="source-class-MeTools.Network.Request.html#44-71" title="Go to source code">isAction</a>( <span>string|array <var>$action</var></span>, <span>string|array <var>$controller</var> = <span class="php-keyword1">NULL</span></span> )</code>
+		<code><a href="source-class-MeTools.Network.Request.html#37-64" title="Go to source code">isAction</a>( <span>string|array <var>$action</var></span>, <span>string|array <var>$controller</var> = <span class="php-keyword1">NULL</span></span> )</code>
 
 		<div class="description short">
 			<p>Checks if the specified action is the current action.
@@ -295,44 +261,6 @@ The controller name can be passed as string or array.</p>
 		</div>
 		</div></td>
 	</tr>
-	<tr data-order="isAdmin" id="_isAdmin">
-
-		<td class="attributes"><code>
-			 public 
-
-			boolean
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_isAdmin">#</a>
-		<code><a href="source-class-MeTools.Network.Request.html#73-80" title="Go to source code">isAdmin</a>( )</code>
-
-		<div class="description short">
-			<p>Checks if the current request is an admin request.</p>
-		</div>
-
-		<div class="description detailed hidden">
-			<p>Checks if the current request is an admin request.</p>
-
-
-
-				<h4>Returns</h4>
-				<div class="list">
-					boolean
-				</div>
-
-
-				<h4>Uses</h4>
-				<div class="list">
-						<code><a href="class-MeTools.Network.Request.html#_isPrefix">MeTools\Network\Request::isPrefix()</a></code><br>
-				</div>
-
-
-		</div>
-		</div></td>
-	</tr>
 	<tr data-order="isController" id="_isController">
 
 		<td class="attributes"><code>
@@ -345,7 +273,7 @@ The controller name can be passed as string or array.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_isController">#</a>
-		<code><a href="source-class-MeTools.Network.Request.html#82-96" title="Go to source code">isController</a>( <span>string|array <var>$controller</var></span> )</code>
+		<code><a href="source-class-MeTools.Network.Request.html#66-80" title="Go to source code">isController</a>( <span>string|array <var>$controller</var></span> )</code>
 
 		<div class="description short">
 			<p>Checks if the specified controller is the current controller.
@@ -384,7 +312,7 @@ The controller name can be passed as string or array.</p>
 		</div>
 		</div></td>
 	</tr>
-	<tr data-order="isCurrent" id="_isCurrent">
+	<tr data-order="isHere" id="_isHere">
 
 		<td class="attributes"><code>
 			 public 
@@ -395,8 +323,8 @@ The controller name can be passed as string or array.</p>
 		</td>
 
 		<td class="name"><div>
-		<a class="anchor" href="#_isCurrent">#</a>
-		<code><a href="source-class-MeTools.Network.Request.html#98-110" title="Go to source code">isCurrent</a>( <span>string|array <var>$url</var></span> )</code>
+		<a class="anchor" href="#_isHere">#</a>
+		<code><a href="source-class-MeTools.Network.Request.html#82-90" title="Go to source code">isHere</a>( <span>string|array|null <var>$url</var></span> )</code>
 
 		<div class="description short">
 			<p>Checks if the specified url is the current url</p>
@@ -419,49 +347,6 @@ you can provide routed elements or query string parameters. If string it can be 
 				</div>
 
 
-				<h4>Uses</h4>
-				<div class="list">
-						\Cake\Routing\Router::url()<br>
-						here<br>
-				</div>
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="isManager" id="_isManager">
-
-		<td class="attributes"><code>
-			 public 
-
-			boolean
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_isManager">#</a>
-		<code><a href="source-class-MeTools.Network.Request.html#112-119" title="Go to source code">isManager</a>( )</code>
-
-		<div class="description short">
-			<p>Checks if the current request is a manager request.</p>
-		</div>
-
-		<div class="description detailed hidden">
-			<p>Checks if the current request is a manager request.</p>
-
-
-
-				<h4>Returns</h4>
-				<div class="list">
-					boolean
-				</div>
-
-
-				<h4>Uses</h4>
-				<div class="list">
-						<code><a href="class-MeTools.Network.Request.html#_isPrefix">MeTools\Network\Request::isPrefix()</a></code><br>
-				</div>
 
 
 		</div>
@@ -479,7 +364,7 @@ you can provide routed elements or query string parameters. If string it can be 
 
 		<td class="name"><div>
 		<a class="anchor" href="#_isPrefix">#</a>
-		<code><a href="source-class-MeTools.Network.Request.html#121-129" title="Go to source code">isPrefix</a>( <span>string|array <var>$prefix</var></span> )</code>
+		<code><a href="source-class-MeTools.Network.Request.html#92-100" title="Go to source code">isPrefix</a>( <span>string|array <var>$prefix</var></span> )</code>
 
 		<div class="description short">
 			<p>Checks if the specified prefix is the current prefix.
@@ -503,11 +388,6 @@ The prefix name can be passed as string or array.</p>
 				</div>
 
 
-				<h4>Used by</h4>
-				<div class="list">
-						<code><a href="class-MeTools.Network.Request.html#_isAdmin">MeTools\Network\Request::isAdmin()</a></code><br>
-						<code><a href="class-MeTools.Network.Request.html#_isManager">MeTools\Network\Request::isManager()</a></code><br>
-				</div>
 
 
 		</div>

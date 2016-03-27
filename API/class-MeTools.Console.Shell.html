@@ -193,7 +193,7 @@ Cake\Console\Shell
 		<b>Namespace:</b> <a href="namespace-MeTools.html">MeTools</a>\<a href="namespace-MeTools.Console.html">Console</a><br>
 		
 
-			<b>Located at</b> <a href="source-class-MeTools.Console.Shell.html#28-135" title="Go to source code">Console/Shell.php</a>
+			<b>Located at</b> <a href="source-class-MeTools.Console.Shell.html#28-147" title="Go to source code">Console/Shell.php</a>
 		<br>
 	</div>
 
@@ -201,6 +201,41 @@ Cake\Console\Shell
 
 	<table class="summary methods" id="methods">
 	<caption>Methods summary</caption>
+	<tr data-order="__construct" id="___construct">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#___construct">#</a>
+		<code><a href="source-class-MeTools.Console.Shell.html#34-43" title="Go to source code">__construct</a>( <span>Cake\Console\ConsoleIo <var>$io</var> = <span class="php-keyword1">NULL</span></span> )</code>
+
+		<div class="description short">
+			<p>Constructs this Shell instance</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Constructs this Shell instance</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$io</var></dt>
+					<dd>An io instance.</dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
 	<tr data-order="_welcome" id="__welcome">
 
 		<td class="attributes"><code>
@@ -213,7 +248,7 @@ Cake\Console\Shell
 
 		<td class="name"><div>
 		<a class="anchor" href="#__welcome">#</a>
-		<code><a href="source-class-MeTools.Console.Shell.html#34-37" title="Go to source code">_welcome</a>( )</code>
+		<code><a href="source-class-MeTools.Console.Shell.html#45-48" title="Go to source code">_welcome</a>( )</code>
 
 		<div class="description short">
 			<p>Rewrites the header for the shell</p>
@@ -221,6 +256,36 @@ Cake\Console\Shell
 
 		<div class="description detailed hidden">
 			<p>Rewrites the header for the shell</p>
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="bold" id="_bold">
+
+		<td class="attributes"><code>
+			 protected 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_bold">#</a>
+		<code><a href="source-class-MeTools.Console.Shell.html#50-55" title="Go to source code">bold</a>( <span> <var>$message</var></span> )</code>
+
+		<div class="description short">
+			<p>Convenience method that wraps message between <bold /> tag</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Convenience method that wraps message between <bold /> tag</p>
 
 
 
@@ -243,7 +308,7 @@ Cake\Console\Shell
 
 		<td class="name"><div>
 		<a class="anchor" href="#_createFile">#</a>
-		<code><a href="source-class-MeTools.Console.Shell.html#39-60" title="Go to source code">createFile</a>( <span>string <var>$path</var></span>, <span>string <var>$contents</var></span> )</code>
+		<code><a href="source-class-MeTools.Console.Shell.html#57-78" title="Go to source code">createFile</a>( <span>string <var>$path</var></span>, <span>string <var>$contents</var></span> )</code>
 
 		<div class="description short">
 			<p>Creates a file at given path</p>
@@ -292,7 +357,7 @@ Cake\Console\Shell
 
 		<td class="name"><div>
 		<a class="anchor" href="#_createLink">#</a>
-		<code><a href="source-class-MeTools.Console.Shell.html#62-95" title="Go to source code">createLink</a>( <span>string <var>$origin</var></span>, <span>string <var>$target</var></span> )</code>
+		<code><a href="source-class-MeTools.Console.Shell.html#80-113" title="Go to source code">createLink</a>( <span>string <var>$origin</var></span>, <span>string <var>$target</var></span> )</code>
 
 		<div class="description short">
 			<p>Creates a symbolic link</p>
@@ -333,7 +398,7 @@ Cake\Console\Shell
 
 		<td class="name"><div>
 		<a class="anchor" href="#_comment">#</a>
-		<code><a href="source-class-MeTools.Console.Shell.html#97-108" title="Go to source code">comment</a>( <span>string|array|null <var>$message</var> = <span class="php-keyword1">NULL</span></span>, <span>integer <var>$newlines</var> = <span class="php-num">1</span></span>, <span>integer <var>$level</var> = Shell::NORMAL</span> )</code>
+		<code><a href="source-class-MeTools.Console.Shell.html#115-124" title="Go to source code">comment</a>( <span>string|array|null <var>$message</var> = <span class="php-keyword1">NULL</span></span>, <span>integer <var>$newlines</var> = <span class="php-num">1</span></span>, <span>integer <var>$level</var> = Shell::NORMAL</span> )</code>
 
 		<div class="description short">
 			<p>Convenience method for out() that wraps message between <comment /> tag</p>
@@ -359,14 +424,6 @@ Cake\Console\Shell
 				</div>
 
 
-				<h4>See</h4>
-				<div class="list">
-						http://api.cakephp.org/3.2/class-Cake.Console.Shell.html#_out<br>
-				</div>
-				<h4>Uses</h4>
-				<div class="list">
-						Cake\Console\Shell::out()<br>
-				</div>
 
 
 		</div>
@@ -384,7 +441,7 @@ Cake\Console\Shell
 
 		<td class="name"><div>
 		<a class="anchor" href="#_question">#</a>
-		<code><a href="source-class-MeTools.Console.Shell.html#110-121" title="Go to source code">question</a>( <span>string|array|null <var>$message</var> = <span class="php-keyword1">NULL</span></span>, <span>integer <var>$newlines</var> = <span class="php-num">1</span></span>, <span>integer <var>$level</var> = Shell::NORMAL</span> )</code>
+		<code><a href="source-class-MeTools.Console.Shell.html#126-135" title="Go to source code">question</a>( <span>string|array|null <var>$message</var> = <span class="php-keyword1">NULL</span></span>, <span>integer <var>$newlines</var> = <span class="php-num">1</span></span>, <span>integer <var>$level</var> = Shell::NORMAL</span> )</code>
 
 		<div class="description short">
 			<p>Convenience method for out() that wraps message between <question /> tag</p>
@@ -410,14 +467,6 @@ Cake\Console\Shell
 				</div>
 
 
-				<h4>See</h4>
-				<div class="list">
-						http://api.cakephp.org/3.2/class-Cake.Console.Shell.html#_out<br>
-				</div>
-				<h4>Uses</h4>
-				<div class="list">
-						Cake\Console\Shell::out()<br>
-				</div>
 
 
 		</div>
@@ -435,7 +484,7 @@ Cake\Console\Shell
 
 		<td class="name"><div>
 		<a class="anchor" href="#_warning">#</a>
-		<code><a href="source-class-MeTools.Console.Shell.html#123-134" title="Go to source code">warning</a>( <span>string|array|null <var>$message</var> = <span class="php-keyword1">NULL</span></span>, <span>integer <var>$newlines</var> = <span class="php-num">1</span></span>, <span>integer <var>$level</var>,…</span> )</code>
+		<code><a href="source-class-MeTools.Console.Shell.html#137-146" title="Go to source code">warning</a>( <span>string|array|null <var>$message</var> = <span class="php-keyword1">NULL</span></span>, <span>integer <var>$newlines</var> = <span class="php-num">1</span></span>, <span>integer <var>$level</var>,…</span> )</code>
 
 		<div class="description short">
 			<p>Convenience method for err() that wraps message between <warning /> tag</p>
@@ -461,14 +510,6 @@ Cake\Console\Shell
 				</div>
 
 
-				<h4>See</h4>
-				<div class="list">
-						http://api.cakephp.org/3.2/class-Cake.Console.Shell.html#_out<br>
-				</div>
-				<h4>Uses</h4>
-				<div class="list">
-						Cake\Console\Shell::out()<br>
-				</div>
 
 
 		</div>
