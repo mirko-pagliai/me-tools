@@ -23,6 +23,7 @@
 namespace MeTools\Shell;
 
 use Cake\Filesystem\File;
+use Cake\Filesystem\Folder;
 use MeTools\Console\Shell;
 
 /**
@@ -108,6 +109,7 @@ class InstallShell extends Shell {
 		//Paths to be created and made writable
 		$this->paths = [
 			LOGS,
+            TMP,
 			TMP.'cache',
 			TMP.'cache'.DS.'models',
 			TMP.'cache'.DS.'persistent',
@@ -348,7 +350,8 @@ class InstallShell extends Shell {
 	 */
 	public function installPackages($force = FALSE) {
 		//Checks for Composer
-		if(!($bin = which('composer')))
+        $bin = which('composer');
+		if(!$bin)
 			return $this->err(__d('me_tools', '{0} is not available', 'composer'));
 		
 		//Empty array. This will contain the packages to install
@@ -380,6 +383,14 @@ class InstallShell extends Shell {
 		//Executes the command
 		exec(sprintf('%s require %s', $bin, implode(' ', $packagesToInstall)));
 	}
+    
+    /**
+     * Main command. Alias for `main()`
+     * @uses main()
+     */
+    public function main() {
+        return $this->all();
+    }
 	
 	/**
 	 * Sets permissions on directories
@@ -390,7 +401,7 @@ class InstallShell extends Shell {
 		$error = FALSE;
 		
 		foreach($this->paths as $path) {
-			if((new \Cake\Filesystem\Folder())->chmod($path, 0777))
+			if((new Folder())->chmod($path, 0777))
 				$this->verbose(__d('me_tools', 'Setted permissions on `{0}`', rtr($path)));
 			else {
                 $this->err(__d('me_tools', 'Failed to set permissions on `{0}`', rtr($path)));
@@ -400,12 +411,15 @@ class InstallShell extends Shell {
 		
 		//In case of error, asks for sudo
 		if($error && which('sudo')) {
+            $command = sprintf('sudo chmod -R 777 %s', implode(' ', $this->paths));
+            
 			if($this->param('force') || $force)
-				return exec(sprintf('sudo chmod -R 777 %s', implode(' ', $this->paths)));
+				return exec($command);
 			
 			$ask = $this->in(__d('me_tools', 'It was not possible to set permissions on some directories. Try again using `{0}`?', 'sudo'), ['Y', 'n'], 'Y');
-			if(in_array($ask, ['Y', 'y']))
-				exec(sprintf('sudo chmod -R 777 %s', implode(' ', $this->paths)));
+			
+            if(in_array($ask, ['Y', 'y']))
+				exec($command);
 		}
 	}
 }

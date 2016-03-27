@@ -24,6 +24,7 @@
 namespace MeTools\Network;
 
 use Cake\Network\Request as CakeRequest;
+use Cake\Routing\Router;
 
 /**
  * Implements methods for HTTP requests.
@@ -33,14 +34,6 @@ use Cake\Network\Request as CakeRequest;
  * Rewrites {@link http://api.cakephp.org/3.2/class-Cake.Network.Http.Request.html Request}.
  */
 class Request extends CakeRequest {
-	/**
-	 * Checks if the current request has a prefix
-	 * @return bool
-	 */
-	public function hasPrefix() {
-		return $this->param('prefix');
-	}
-	
 	/**
 	 * Checks if the specified action is the current action.
 	 * The action name can be passed as string or array.
@@ -71,15 +64,6 @@ class Request extends CakeRequest {
 	}
 	
 	/**
-	 * Checks if the current request is an admin request.
-	 * @return bool
-	 * @uses isPrefix()
-	 */
-	public function isAdmin() {
-		return $this->isPrefix('admin');
-	}
-	
-	/**
 	 * Checks if the specified controller is the current controller.
 	 * The controller name can be passed as string or array.
 	 * 
@@ -97,25 +81,12 @@ class Request extends CakeRequest {
 	
 	/**
 	 * Checks if the specified url is the current url
-	 * @param string|array $url An array specifying any of the following: 'controller', 'action', 'plugin' additionally, 
+	 * @param string|array|null $url An array specifying any of the following: 'controller', 'action', 'plugin' additionally, 
 	 * you can provide routed elements or query string parameters. If string it can be name any valid url string
 	 * @return bool
-	 * @uses \Cake\Routing\Router::url()
-	 * @uses here
 	 */
-	public function isCurrent($url) {
-		$current = \Cake\Routing\Router::url($url);
-		
-		return preg_match(sprintf('/^%s\/?$/', preg_quote($current, '/')), $this->here);
-	}
-	
-	/**
-	 * Checks if the current request is a manager request.
-	 * @return bool
-	 * @uses isPrefix()
-	 */
-	public function isManager() {
-		return $this->isPrefix('manager');
+	public function isHere($url) {
+        return Router::url($url) === $this->here;
 	}
 	
 	/**
