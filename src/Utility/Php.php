@@ -38,7 +38,7 @@ class Php {
      */
     public static function extension($extension) {
 		if(!function_exists('extension_loaded'))
-			return;
+			return FALSE;
 		
         return extension_loaded($extension);
     }
@@ -50,17 +50,8 @@ class Php {
 	 * CakePHP 3.x requires at least the `5.4.16` version.
      * @param string $required Required version of PHP
      * @return boolean TRUE if the current version is equal to or greater than the required version, FALSE otherwise
-     * @uses version()
      */
     public static function check($required = '5.4.16') {
-        return version_compare(self::version(), $required, '>=');
-    }
-
-    /**
-     * Gets the current version.
-     * @return string Current version
-     */
-    public static function version() {
-        return PHP_VERSION;
+        return version_compare(PHP_VERSION, $required, '>=');
     }
 }
