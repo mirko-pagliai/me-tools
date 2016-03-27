@@ -31,6 +31,17 @@ use Cake\Console\Shell as CakeShell;
  * Rewrites {@link http://api.cakephp.org/3.2/class-Cake.Console.Shell.html Shell}.
  */
 class Shell extends CakeShell {
+    /**
+     * Constructs this Shell instance
+     * @param \Cake\Console\ConsoleIo|null $io An io instance.
+     */
+    public function __construct(\Cake\Console\ConsoleIo $io = NULL) {
+        parent::__construct($io);
+        
+        //Adds bold style
+        $this->_io->styles('bold', ['bold' => TRUE]);
+    }
+    
 	/**
 	 * Rewrites the header for the shell
 	 */
@@ -93,6 +104,17 @@ class Shell extends CakeShell {
 		$this->verbose(__d('me_tools', 'Created symbolic link to `{0}`', rtr($target)));
 		return TRUE;
 	}
+    
+    /**
+	 * Convenience method for out() that wraps message between <bold /> tag
+	 * @param string|array|null $message A string or an array of strings to output
+	 * @param int $newlines Number of newlines to append
+	 * @param int $level The message's output level, see above
+	 * @return int|bool Returns the number of bytes returned from writing to stdout
+     */
+    public function bold($message = NULL, $newlines = 1, $level = Shell::NORMAL) {
+		return parent::out(sprintf('<bold>%s</bold>', $message), $newlines, $level);
+	}
 	
 	/**
 	 * Convenience method for out() that wraps message between <comment /> tag
@@ -100,8 +122,6 @@ class Shell extends CakeShell {
 	 * @param int $newlines Number of newlines to append
 	 * @param int $level The message's output level, see above
 	 * @return int|bool Returns the number of bytes returned from writing to stdout
-	 * @see http://api.cakephp.org/3.2/class-Cake.Console.Shell.html#_out
-	 * @uses Cake\Console\Shell::out()
 	 */
 	public function comment($message = NULL, $newlines = 1, $level = Shell::NORMAL) {
 		return parent::out(sprintf('<comment>%s</comment>', $message), $newlines, $level);
@@ -113,8 +133,6 @@ class Shell extends CakeShell {
 	 * @param int $newlines Number of newlines to append
 	 * @param int $level The message's output level, see above
 	 * @return int|bool Returns the number of bytes returned from writing to stdout
-	 * @see http://api.cakephp.org/3.2/class-Cake.Console.Shell.html#_out
-	 * @uses Cake\Console\Shell::out()
 	 */
 	public function question($message = NULL, $newlines = 1, $level = Shell::NORMAL) {
 		return parent::out(sprintf('<question>%s</question>', $message), $newlines, $level);
@@ -126,8 +144,6 @@ class Shell extends CakeShell {
 	 * @param int $newlines Number of newlines to append
 	 * @param int $level The message's output level, see above
 	 * @return int|bool Returns the number of bytes returned from writing to stdout
-	 * @see http://api.cakephp.org/3.2/class-Cake.Console.Shell.html#_out
-	 * @uses Cake\Console\Shell::out()
 	 */
 	public function warning($message = NULL, $newlines = 1) {
 		return parent::warn($message, $newlines);
