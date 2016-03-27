@@ -1,6 +1,7 @@
 # 2.x branch
 ## 2.5 banch
 ### 2.5.1
+* fixed shell output style.
 * fixed little bugs.
 
 ### 2.5.0
