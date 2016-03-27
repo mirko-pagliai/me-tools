@@ -35,26 +35,12 @@ class Apache {
      * Checks if a module is enabled.
      * @param string $module Name of the module to be checked
      * @return mixed TRUE if the module is enabled, FALSE otherwise. NULL if cannot check
-     * @uses modules()
      */
     public static function module($module) {
-		$modules = self::modules();
-		
-		if(is_null($modules) || empty($modules))
-			return;
-		
-        return in_array($module, $modules);
-    }
-	
-    /**
-     * Gets modules.
-     * @return mixed Modules list. NULL if cannot check
-     */
-    public static function modules() {
 		if(!function_exists('apache_get_modules'))
-			return;
+			return FALSE;
 		
-        return apache_get_modules();
+        return in_array($module, apache_get_modules());
     }
 	
 	/**
@@ -63,9 +49,11 @@ class Apache {
 	 */
 	public static function version() {
 		if(!function_exists('apache_get_version'))
-			return;
+			return FALSE;
 		
-		preg_match('/Apache\/([0-9]+\.[0-9]+\.[0-9]+)/i', $version = apache_get_version(), $matches);
+        $version = apache_get_version();
+        
+		preg_match('/Apache\/([0-9]+\.[0-9]+\.[0-9]+)/i', $version, $matches);
 		
 		return empty($matches[1]) ? $version : $matches[1];
 	}

@@ -25,6 +25,7 @@ namespace MeTools\Shell;
 use Cake\Filesystem\File;
 use Cake\Filesystem\Folder;
 use MeTools\Console\Shell;
+use MeTools\Core\Plugin;
 
 /**
  * Executes some tasks to make the system ready to work
@@ -159,11 +160,11 @@ class InstallShell extends Shell {
 		if(in_array($ask, ['Y', 'y']))
 			$this->copyConfig();
 		
-		$ask = $this->in(__d('me_tools', 'Create `{0}`?', 'robots.txt'), ['Y', 'n'], 'Y');
+		$ask = $this->in(__d('me_tools', 'Create {0}?', 'robots.txt'), ['Y', 'n'], 'Y');
 		if(in_array($ask, ['Y', 'y']))
 			$this->createRobots();
 		
-		$ask = $this->in(__d('me_tools', 'Fix `{0}`?', 'composer.json'), ['Y', 'n'], 'Y');
+		$ask = $this->in(__d('me_tools', 'Fix {0}?','composer.json'), ['Y', 'n'], 'Y');
 		if(in_array($ask, ['Y', 'y']))
 			$this->fixComposerJson();	
 		
@@ -190,17 +191,18 @@ class InstallShell extends Shell {
 			list($plugin, $file) = pluginSplit($file);
 			
 			$file = sprintf('%s.php', $file);
+            $target = ROOT.DS.'config'.DS.$file;
 			
 			//Checks if the file already exists
-			if(is_readable($target = ROOT.DS.'config'.DS.$file)) {
-				$this->verbose(__d('me_tools', 'File or directory `{0}` already exists', rtr($target)));
+			if(is_readable($target)) {
+				$this->verbose(__d('me_tools', 'File or directory {0} already exists', $this->bold(rtr($target))));
 				continue;
 			}
 			
-			if(@copy(\MeTools\Core\Plugin::path($plugin, 'config'.DS.$file), $target))
-				$this->verbose(__d('me_tools', 'The file `{0}` has been copied', rtr($target)));
+			if(copy(Plugin::path($plugin, 'config'.DS.$file), $target))
+				$this->verbose(__d('me_tools', 'The file {0} has been copied', $this->bold(rtr($target))));
 			else
-				$this->err(__d('me_tools', 'The file `{0}` has not been copied', rtr($target)));
+				$this->err(__d('me_tools', 'The file {0} has not been copied', $this->bold(rtr($target))));
 		}
 	}
 	
@@ -209,8 +211,10 @@ class InstallShell extends Shell {
 	 * @uses $fonts
 	 */
 	public function copyFonts() {
+        $destinationDir = WWW_ROOT.'fonts';
+        
 		//Checks if the target directory (`webroot/fonts/`) is writeable
-		if(is_writable($destinationDir = WWW_ROOT.'fonts')) {
+		if(is_writable($destinationDir)) {
 			foreach($this->fonts as $origin) {
 				//Continues, if the origin file doesn't exist
 				if(!file_exists($origin))
@@ -223,14 +227,14 @@ class InstallShell extends Shell {
 					continue;
 
 				//Creates the symbolic link
-				if(@symlink($origin, $destination))
-					$this->verbose(__d('me_tools', 'Created symbolic link to `{0}`', rtr($destination)));
+				if(symlink($origin, $destination))
+					$this->verbose(__d('me_tools', 'Created symbolic link to {0}', $this->bold(rtr($destination))));
 				else
-					$this->err(__d('me_tools', 'Failed to create a symbolic link to `{0}`', rtr($destination)));
+					$this->err(__d('me_tools', 'Failed to create a symbolic link to {0}', $this->bold(rtr($destination))));
 			}
 		}
 		else
-			$this->err(__d('me_tools', 'File or directory `{0}` not writeable', rtr($destinationDir)));
+			$this->err(__d('me_tools', 'File or directory {0} not writeable', $this->bold(rtr($destinationDir))));
 	}
 
 	/**
@@ -244,14 +248,14 @@ class InstallShell extends Shell {
 		foreach($this->paths as $path) {
 			if(!file_exists($path)) {
 				if(mkdir($path, 0777, TRUE))
-					$this->verbose(__d('me_tools', 'Created `{0}` directory', rtr($path)));
+					$this->verbose(__d('me_tools', 'Created {0} directory', $this->bold(rtr($path))));
 				else {
-					$this->err(__d('me_tools', 'Failed to create file or directory `{0}`', rtr($path)));
+					$this->err(__d('me_tools', 'Failed to create file or directory {0}', $this->bold(rtr($path))));
 					$error = TRUE;
 				}
 			}
 			else
-				$this->verbose(__d('me_tools', 'File or directory `{0}` already exists', rtr($path)));
+				$this->verbose(__d('me_tools', 'File or directory {0} already exists', $this->bold(rtr($path))));
 		}
 		
 		//In case of error, asks for sudo
@@ -259,7 +263,7 @@ class InstallShell extends Shell {
 			if($this->param('force') || $force)
 				return exec(sprintf('sudo mkdir -p %s', implode(' ', $this->paths)));
 			
-			$ask = $this->in(__d('me_tools', 'It was not possible to create some directories. Try again using `{0}`?', 'sudo'), ['Y', 'n'], 'Y');
+			$ask = $this->in(__d('me_tools', 'It was not possible to create some directories. Try again using {0}?', $this->bold('sudo')), ['Y', 'n'], 'Y');
 			if(in_array($ask, ['Y', 'y']))
 				exec(sprintf('sudo mkdir -p %s', implode(' ', $this->paths)));
 		}
@@ -285,37 +289,33 @@ class InstallShell extends Shell {
 	 * @uses createLink()
 	 */
 	public function createVendorsLinks() {
-		foreach($this->links as $origin => $target) {
-			//Sets full path to origin and target
-			$origin = ROOT.DS.'vendor'.DS.$origin;
-			$target = WWW_ROOT.'vendor'.DS.$target;
-			
-			//Creates the link
-			$this->createLink($origin, $target);
-		}
+		foreach($this->links as $origin => $target)
+			$this->createLink(ROOT.DS.'vendor'.DS.$origin, WWW_ROOT.'vendor'.DS.$target);
 	}
 	
 	/**
 	 * Fixes `composer.json`
 	 */
 	public function fixComposerJson() {
-		if(!is_writeable($file = ROOT.DS.'composer.json'))
-			return $this->err(__d('me_tools', 'File or directory `{0}` not writeable', rtr($file)));
+        $file = ROOT.DS.'composer.json';
+        
+		if(!is_writeable($file))
+			return $this->err(__d('me_tools', 'File or directory {0} not writeable', $this->bold(rtr($file))));
 		
 		//Gets and decodes the file
 		$contents = json_decode(file_get_contents($file), TRUE);
 		
 		//Checks if the file has been fixed
 		if(!empty($contents['config']['component-dir']) && $contents['config']['component-dir'] === 'vendor/components')
-			return $this->verbose(__d('me_tools', 'The file `{0}` doesn\'t need to be fixed', rtr($file)));
+			return $this->verbose(__d('me_tools', 'The file {0} doesn\'t need to be fixed', $this->bold(rtr($file))));
 				
 		//Fixeds and encodes the content
 		$contents = (new File($file))->prepare(json_encode(am($contents, ['config' => ['component-dir' => 'vendor/components']]), JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
 		
 		if((new File($file))->write($contents))
-			$this->verbose(__d('me_tools', 'The file `{0}` has been fixed', rtr($file)));
+			$this->verbose(__d('me_tools', 'The file {0} has been fixed', $this->bold(rtr($file))));
 		else
-			$this->err(__d('me_tools', 'The file `{0}` has not been fixed', rtr($file)));
+			$this->err(__d('me_tools', 'The file {0} has not been fixed', $this->bold(rtr($file))));
 	}
 	
 	/**
@@ -330,9 +330,9 @@ class InstallShell extends Shell {
 			'copyConfig'			=> ['help' => __d('me_tools', 'Copies the configuration files')],
 			'copyFonts'				=> ['help' => __d('me_tools', 'Creates symbolic links for fonts')],
 			'createDirectories'		=> ['help' => __d('me_tools', 'Creates default directories')],
-			'createRobots'			=> ['help' => __d('me_tools', 'Creates the `{0}` file', 'robots.txt')],
+			'createRobots'			=> ['help' => __d('me_tools', 'Creates the {0} file', 'robots.txt')],
 			'createVendorsLinks'	=> ['help' => __d('me_tools', 'Creates symbolic links for vendor assets')],
-			'fixComposerJson'		=> ['help' => __d('me_tools', 'Fixes `{0}`', 'composer.json')],
+			'fixComposerJson'		=> ['help' => __d('me_tools', 'Fixes {0}', 'composer.json')],
 			'installPackages'		=> ['help' => __d('me_tools', 'Installs the suggested packages')],
 			'setPermissions'		=> ['help' => __d('me_tools', 'Sets directories permissions')]
 		])->addOption('force', [
@@ -351,6 +351,7 @@ class InstallShell extends Shell {
 	public function installPackages($force = FALSE) {
 		//Checks for Composer
         $bin = which('composer');
+        
 		if(!$bin)
 			return $this->err(__d('me_tools', '{0} is not available', 'composer'));
 		
@@ -360,7 +361,7 @@ class InstallShell extends Shell {
 		//Asks whick packages to install, if it was not asked to install all of them or if you are not using the "force" parameter
 		if(!$force && !$this->param('force')) {
 			foreach($this->packages as $package) {
-				$ask = $this->in(__d('me_tools', 'Do you want to install `{0}`?', $package), ['Y', 'n'], 'Y');
+				$ask = $this->in(__d('me_tools', 'Do you want to install {0}?', $this->bold($package)), ['Y', 'n'], 'Y');
 				if(in_array($ask, ['Y', 'y']))
 					$packagesToInstall[] = $package;
 			}
@@ -401,10 +402,10 @@ class InstallShell extends Shell {
 		$error = FALSE;
 		
 		foreach($this->paths as $path) {
-			if((new Folder())->chmod($path, 0777))
-				$this->verbose(__d('me_tools', 'Setted permissions on `{0}`', rtr($path)));
+			if((new Folder())->chmod($path, 0777, TRUE))
+				$this->verbose(__d('me_tools', 'Setted permissions on {0}', $this->bold(rtr($path))));
 			else {
-                $this->err(__d('me_tools', 'Failed to set permissions on `{0}`', rtr($path)));
+                $this->err(__d('me_tools', 'Failed to set permissions on {0}', $this->bold(rtr($path))));
 				$error = TRUE;
 			}
 		}
@@ -416,7 +417,7 @@ class InstallShell extends Shell {
 			if($this->param('force') || $force)
 				return exec($command);
 			
-			$ask = $this->in(__d('me_tools', 'It was not possible to set permissions on some directories. Try again using `{0}`?', 'sudo'), ['Y', 'n'], 'Y');
+			$ask = $this->in(__d('me_tools', 'It was not possible to set permissions on some directories. Try again using {0}?', 'sudo'), ['Y', 'n'], 'Y');
 			
             if(in_array($ask, ['Y', 'y']))
 				exec($command);

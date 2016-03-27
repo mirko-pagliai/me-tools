@@ -31,10 +31,28 @@ use Cake\Console\Shell as CakeShell;
  * Rewrites {@link http://api.cakephp.org/3.2/class-Cake.Console.Shell.html Shell}.
  */
 class Shell extends CakeShell {
+    /**
+     * Constructs this Shell instance
+     * @param \Cake\Console\ConsoleIo|null $io An io instance.
+     */
+    public function __construct(\Cake\Console\ConsoleIo $io = NULL) {
+        parent::__construct($io);
+        
+        //Adds bold style
+        $this->_io->styles('bold', ['bold' => TRUE]);
+    }
+    
 	/**
 	 * Rewrites the header for the shell
 	 */
 	protected function _welcome() { }
+    
+    /**
+	 * Convenience method that wraps message between <bold /> tag
+     */
+    protected function bold($message) {
+		return sprintf('<bold>%s</bold>', $message);
+	}
 	
 	/**
 	 * Creates a file at given path
@@ -46,13 +64,13 @@ class Shell extends CakeShell {
 	public function createFile($path, $contents) {
 		//Checks if the file already exist
 		if(file_exists($path)) {
-			$this->verbose(__d('me_tools', 'File or directory `{0}` already exists', rtr($path)));
+			$this->verbose(__d('me_tools', 'File or directory {0} already exists', $this->bold(rtr($path))));
 			return FALSE;
 		}
 		
 		//Checks if the file has been created
 		if(!parent::createFile($path, $contents)) {
-			$this->err(__d('me_tools', 'The file `{0}` has not been created', rtr($path)));
+			$this->err(__d('me_tools', 'The file {0} has not been created', $this->bold(rtr($path))));
 			return FALSE;
 		}
 		
@@ -68,29 +86,29 @@ class Shell extends CakeShell {
 	public function createLink($origin, $target) {
 		//Checks if the origin file/directory is readable
 		if(!is_readable($origin)) {
-			$this->verbose(__d('me_tools', 'File or directory `{0}` not readable', rtr($origin)));
-			return FALSE;
-		}
-		
-		//Checks if the target directory is writeable
-		if(!is_writable(dirname($target))) {
-			$this->err(__d('me_tools', 'File or directory `{0}` not writeable', rtr(dirname($target))));
+			$this->err(__d('me_tools', 'File or directory {0} not readable', $this->bold(rtr($origin))));
 			return FALSE;
 		}
 		
 		//Checks if the link already exists
 		if(file_exists($target)) {
-			$this->verbose(__d('me_tools', 'Symbolic link `{0}` already exists', rtr($target)));
-			return FALSE;
-		}		
-
-		//Creates the symbolic link
-		if(!@symlink($origin, $target)) {
-			$this->err(__d('me_tools', 'Failed to create a symbolic link to `{0}`', rtr($target)));
+			$this->verbose(__d('me_tools', 'Symbolic link {0} already exists', $this->bold(rtr($target))));
 			return FALSE;
 		}
 		
-		$this->verbose(__d('me_tools', 'Created symbolic link to `{0}`', rtr($target)));
+		//Checks if the target directory is writeable
+		if(!is_writable(dirname($target))) {
+			$this->err(__d('me_tools', 'File or directory {0} not writeable', $this->bold(rtr(dirname($target)))));
+			return FALSE;
+		}
+        
+		//Creates the symbolic link
+		if(!symlink($origin, $target)) {
+			$this->err(__d('me_tools', 'Failed to create a symbolic link to {0}', $this->bold(rtr($target))));
+			return FALSE;
+		}
+		
+		$this->verbose(__d('me_tools', 'Created symbolic link to {0}', $this->bold(rtr($target))));
 		return TRUE;
 	}
 	
@@ -100,8 +118,6 @@ class Shell extends CakeShell {
 	 * @param int $newlines Number of newlines to append
 	 * @param int $level The message's output level, see above
 	 * @return int|bool Returns the number of bytes returned from writing to stdout
-	 * @see http://api.cakephp.org/3.2/class-Cake.Console.Shell.html#_out
-	 * @uses Cake\Console\Shell::out()
 	 */
 	public function comment($message = NULL, $newlines = 1, $level = Shell::NORMAL) {
 		return parent::out(sprintf('<comment>%s</comment>', $message), $newlines, $level);
@@ -113,8 +129,6 @@ class Shell extends CakeShell {
 	 * @param int $newlines Number of newlines to append
 	 * @param int $level The message's output level, see above
 	 * @return int|bool Returns the number of bytes returned from writing to stdout
-	 * @see http://api.cakephp.org/3.2/class-Cake.Console.Shell.html#_out
-	 * @uses Cake\Console\Shell::out()
 	 */
 	public function question($message = NULL, $newlines = 1, $level = Shell::NORMAL) {
 		return parent::out(sprintf('<question>%s</question>', $message), $newlines, $level);
@@ -126,8 +140,6 @@ class Shell extends CakeShell {
 	 * @param int $newlines Number of newlines to append
 	 * @param int $level The message's output level, see above
 	 * @return int|bool Returns the number of bytes returned from writing to stdout
-	 * @see http://api.cakephp.org/3.2/class-Cake.Console.Shell.html#_out
-	 * @uses Cake\Console\Shell::out()
 	 */
 	public function warning($message = NULL, $newlines = 1) {
 		return parent::warn($message, $newlines);

@@ -13,6 +13,11 @@
 	cursor: pointer;
 }
 
+/* Fancybox's links */
+a.fancybox {
+	cursor: zoom-in;
+}
+
 /* Em (italic) text */
 .em, .em-text, .emText {
 	font-style: italic;
