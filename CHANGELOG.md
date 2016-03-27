@@ -1,7 +1,10 @@
 # 2.x branch
 ## 2.5 banch
-### 2.5.1
+### 2.5.2
 * fixed shell output style;
+* removed useless methods.
+
+### 2.5.1
 * fixed little bugs.
 
 ### 2.5.0
