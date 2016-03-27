@@ -1,10 +1,11 @@
-# LANGUAGE translation of MeTools
-# Copyright 2016 Mirko Pagliai <mirko.pagliai@gmail.com>
+# LANGUAGE translation of CakePHP Application
+# Copyright YEAR NAME <EMAIL@ADDRESS>
 #
 #, fuzzy
 msgid ""
 msgstr ""
-"POT-Creation-Date: 2016-03-06 11:48+0000\n"
+"Project-Id-Version: PROJECT VERSION\n"
+"POT-Creation-Date: 2016-03-27 19:28+0200\n"
 "PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
 "Last-Translator: NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
@@ -13,205 +14,204 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: /home/mirko/Server/MeTools_Plugin/src/Console/Shell.php:49
-#: /home/mirko/Server/MeTools_Plugin/src/Shell/InstallShell.php:194;252
-msgid "File or directory `{0}` already exists"
+#: /home/mirko/Libs/Plugins/MeTools/src/Console/Shell.php:67
+#: /home/mirko/Libs/Plugins/MeTools/src/Shell/InstallShell.php:198;258
+msgid "File or directory {0} already exists"
 msgstr ""
 
-#: /home/mirko/Server/MeTools_Plugin/src/Console/Shell.php:55
-msgid "The file `{0}` has not been created"
+#: /home/mirko/Libs/Plugins/MeTools/src/Console/Shell.php:73
+msgid "The file {0} has not been created"
 msgstr ""
 
-#: /home/mirko/Server/MeTools_Plugin/src/Console/Shell.php:71
-#: /home/mirko/Server/MeTools_Plugin/src/Log/Engine/FileLog.php:89
-msgid "File or directory `{0}` not readable"
+#: /home/mirko/Libs/Plugins/MeTools/src/Console/Shell.php:89
+msgid "File or directory {0} not readable"
 msgstr ""
 
-#: /home/mirko/Server/MeTools_Plugin/src/Console/Shell.php:77
-#: /home/mirko/Server/MeTools_Plugin/src/Shell/InstallShell.php:231;301
-msgid "File or directory `{0}` not writeable"
+#: /home/mirko/Libs/Plugins/MeTools/src/Console/Shell.php:95
+msgid "Symbolic link {0} already exists"
 msgstr ""
 
-#: /home/mirko/Server/MeTools_Plugin/src/Console/Shell.php:83
-msgid "Symbolic link `{0}` already exists"
+#: /home/mirko/Libs/Plugins/MeTools/src/Console/Shell.php:101
+#: /home/mirko/Libs/Plugins/MeTools/src/Shell/InstallShell.php:237;303
+msgid "File or directory {0} not writeable"
 msgstr ""
 
-#: /home/mirko/Server/MeTools_Plugin/src/Console/Shell.php:89
-#: /home/mirko/Server/MeTools_Plugin/src/Shell/InstallShell.php:227
-msgid "Failed to create a symbolic link to `{0}`"
+#: /home/mirko/Libs/Plugins/MeTools/src/Console/Shell.php:107
+#: /home/mirko/Libs/Plugins/MeTools/src/Shell/InstallShell.php:233
+msgid "Failed to create a symbolic link to {0}"
 msgstr ""
 
-#: /home/mirko/Server/MeTools_Plugin/src/Console/Shell.php:93
-#: /home/mirko/Server/MeTools_Plugin/src/Shell/InstallShell.php:225
-msgid "Created symbolic link to `{0}`"
+#: /home/mirko/Libs/Plugins/MeTools/src/Console/Shell.php:111
+#: /home/mirko/Libs/Plugins/MeTools/src/Shell/InstallShell.php:231
+msgid "Created symbolic link to {0}"
 msgstr ""
 
-#: /home/mirko/Server/MeTools_Plugin/src/Controller/Component/RecaptchaComponent.php:53
-#: /home/mirko/Server/MeTools_Plugin/src/View/Helper/RecaptchaHelper.php:76
+#: /home/mirko/Libs/Plugins/MeTools/src/Controller/Component/RecaptchaComponent.php:53
+#: /home/mirko/Libs/Plugins/MeTools/src/View/Helper/RecaptchaHelper.php:76
 msgid "Form keys are not configured"
 msgstr ""
 
-#: /home/mirko/Server/MeTools_Plugin/src/Controller/Component/RecaptchaComponent.php:59
+#: /home/mirko/Libs/Plugins/MeTools/src/Controller/Component/RecaptchaComponent.php:59
 msgid "You have not filled out the {0} control"
 msgstr ""
 
-#: /home/mirko/Server/MeTools_Plugin/src/Controller/Component/RecaptchaComponent.php:69
+#: /home/mirko/Libs/Plugins/MeTools/src/Controller/Component/RecaptchaComponent.php:69
 msgid "It was not possible to verify the {0} control"
 msgstr ""
 
-#: /home/mirko/Server/MeTools_Plugin/src/Shell/InstallShell.php:148
+#: /home/mirko/Libs/Plugins/MeTools/src/Shell/InstallShell.php:151
 msgid "Create default directories?"
 msgstr ""
 
-#: /home/mirko/Server/MeTools_Plugin/src/Shell/InstallShell.php:152
+#: /home/mirko/Libs/Plugins/MeTools/src/Shell/InstallShell.php:155
 msgid "Set directories permissions?"
 msgstr ""
 
-#: /home/mirko/Server/MeTools_Plugin/src/Shell/InstallShell.php:156
+#: /home/mirko/Libs/Plugins/MeTools/src/Shell/InstallShell.php:159
 msgid "Copy configuration files?"
 msgstr ""
 
-#: /home/mirko/Server/MeTools_Plugin/src/Shell/InstallShell.php:160
-msgid "Create `{0}`?"
+#: /home/mirko/Libs/Plugins/MeTools/src/Shell/InstallShell.php:163
+msgid "Create {0}?"
 msgstr ""
 
-#: /home/mirko/Server/MeTools_Plugin/src/Shell/InstallShell.php:164
-msgid "Fix `{0}`?"
+#: /home/mirko/Libs/Plugins/MeTools/src/Shell/InstallShell.php:167
+msgid "Fix {0}?"
 msgstr ""
 
-#: /home/mirko/Server/MeTools_Plugin/src/Shell/InstallShell.php:168
+#: /home/mirko/Libs/Plugins/MeTools/src/Shell/InstallShell.php:171
 msgid "Install the suggested packages?"
 msgstr ""
 
-#: /home/mirko/Server/MeTools_Plugin/src/Shell/InstallShell.php:172
+#: /home/mirko/Libs/Plugins/MeTools/src/Shell/InstallShell.php:175
 msgid "Create symbolic links for vendor assets?"
 msgstr ""
 
-#: /home/mirko/Server/MeTools_Plugin/src/Shell/InstallShell.php:176
+#: /home/mirko/Libs/Plugins/MeTools/src/Shell/InstallShell.php:179
 msgid "Create symbolic links for fonts?"
 msgstr ""
 
-#: /home/mirko/Server/MeTools_Plugin/src/Shell/InstallShell.php:199
-msgid "The file `{0}` has been copied"
+#: /home/mirko/Libs/Plugins/MeTools/src/Shell/InstallShell.php:203
+msgid "The file {0} has been copied"
 msgstr ""
 
-#: /home/mirko/Server/MeTools_Plugin/src/Shell/InstallShell.php:201
-msgid "The file `{0}` has not been copied"
+#: /home/mirko/Libs/Plugins/MeTools/src/Shell/InstallShell.php:205
+msgid "The file {0} has not been copied"
 msgstr ""
 
-#: /home/mirko/Server/MeTools_Plugin/src/Shell/InstallShell.php:245
-msgid "Created `{0}` directory"
+#: /home/mirko/Libs/Plugins/MeTools/src/Shell/InstallShell.php:251
+msgid "Created {0} directory"
 msgstr ""
 
-#: /home/mirko/Server/MeTools_Plugin/src/Shell/InstallShell.php:247
-msgid "Failed to create file or directory `{0}`"
+#: /home/mirko/Libs/Plugins/MeTools/src/Shell/InstallShell.php:253
+msgid "Failed to create file or directory {0}"
 msgstr ""
 
-#: /home/mirko/Server/MeTools_Plugin/src/Shell/InstallShell.php:260
-msgid "It was not possible to create some directories. Try again using `{0}`?"
+#: /home/mirko/Libs/Plugins/MeTools/src/Shell/InstallShell.php:266
+msgid "It was not possible to create some directories. Try again using {0}?"
 msgstr ""
 
-#: /home/mirko/Server/MeTools_Plugin/src/Shell/InstallShell.php:308
-msgid "The file `{0}` doesn't need to be fixed"
+#: /home/mirko/Libs/Plugins/MeTools/src/Shell/InstallShell.php:310
+msgid "The file {0} doesn't need to be fixed"
 msgstr ""
 
-#: /home/mirko/Server/MeTools_Plugin/src/Shell/InstallShell.php:314
-msgid "The file `{0}` has been fixed"
+#: /home/mirko/Libs/Plugins/MeTools/src/Shell/InstallShell.php:316
+msgid "The file {0} has been fixed"
 msgstr ""
 
-#: /home/mirko/Server/MeTools_Plugin/src/Shell/InstallShell.php:316
-msgid "The file `{0}` has not been fixed"
+#: /home/mirko/Libs/Plugins/MeTools/src/Shell/InstallShell.php:318
+msgid "The file {0} has not been fixed"
 msgstr ""
 
-#: /home/mirko/Server/MeTools_Plugin/src/Shell/InstallShell.php:327
+#: /home/mirko/Libs/Plugins/MeTools/src/Shell/InstallShell.php:329
 msgid "Executes all available tasks"
 msgstr ""
 
-#: /home/mirko/Server/MeTools_Plugin/src/Shell/InstallShell.php:328
+#: /home/mirko/Libs/Plugins/MeTools/src/Shell/InstallShell.php:330
 msgid "Copies the configuration files"
 msgstr ""
 
-#: /home/mirko/Server/MeTools_Plugin/src/Shell/InstallShell.php:329
+#: /home/mirko/Libs/Plugins/MeTools/src/Shell/InstallShell.php:331
 msgid "Creates symbolic links for fonts"
 msgstr ""
 
-#: /home/mirko/Server/MeTools_Plugin/src/Shell/InstallShell.php:330
+#: /home/mirko/Libs/Plugins/MeTools/src/Shell/InstallShell.php:332
 msgid "Creates default directories"
 msgstr ""
 
-#: /home/mirko/Server/MeTools_Plugin/src/Shell/InstallShell.php:331
-msgid "Creates the `{0}` file"
+#: /home/mirko/Libs/Plugins/MeTools/src/Shell/InstallShell.php:333
+msgid "Creates the {0} file"
 msgstr ""
 
-#: /home/mirko/Server/MeTools_Plugin/src/Shell/InstallShell.php:332
+#: /home/mirko/Libs/Plugins/MeTools/src/Shell/InstallShell.php:334
 msgid "Creates symbolic links for vendor assets"
 msgstr ""
 
-#: /home/mirko/Server/MeTools_Plugin/src/Shell/InstallShell.php:333
-msgid "Fixes `{0}`"
+#: /home/mirko/Libs/Plugins/MeTools/src/Shell/InstallShell.php:335
+msgid "Fixes {0}"
 msgstr ""
 
-#: /home/mirko/Server/MeTools_Plugin/src/Shell/InstallShell.php:334
+#: /home/mirko/Libs/Plugins/MeTools/src/Shell/InstallShell.php:336
 msgid "Installs the suggested packages"
 msgstr ""
 
-#: /home/mirko/Server/MeTools_Plugin/src/Shell/InstallShell.php:335
+#: /home/mirko/Libs/Plugins/MeTools/src/Shell/InstallShell.php:337
 msgid "Sets directories permissions"
 msgstr ""
 
-#: /home/mirko/Server/MeTools_Plugin/src/Shell/InstallShell.php:339
+#: /home/mirko/Libs/Plugins/MeTools/src/Shell/InstallShell.php:341
 msgid "Executes tasks without prompting"
 msgstr ""
 
-#: /home/mirko/Server/MeTools_Plugin/src/Shell/InstallShell.php:341
+#: /home/mirko/Libs/Plugins/MeTools/src/Shell/InstallShell.php:343
 msgid "Executes some tasks to make the system ready to work"
 msgstr ""
 
-#: /home/mirko/Server/MeTools_Plugin/src/Shell/InstallShell.php:352
+#: /home/mirko/Libs/Plugins/MeTools/src/Shell/InstallShell.php:356
 msgid "{0} is not available"
 msgstr ""
 
-#: /home/mirko/Server/MeTools_Plugin/src/Shell/InstallShell.php:360
-msgid "Do you want to install `{0}`?"
+#: /home/mirko/Libs/Plugins/MeTools/src/Shell/InstallShell.php:364
+msgid "Do you want to install {0}?"
 msgstr ""
 
-#: /home/mirko/Server/MeTools_Plugin/src/Shell/InstallShell.php:366
+#: /home/mirko/Libs/Plugins/MeTools/src/Shell/InstallShell.php:370
 msgid "No package has been selected for installation"
 msgstr ""
 
-#: /home/mirko/Server/MeTools_Plugin/src/Shell/InstallShell.php:378
+#: /home/mirko/Libs/Plugins/MeTools/src/Shell/InstallShell.php:382
 msgid "All packages are already installed"
 msgstr ""
 
-#: /home/mirko/Server/MeTools_Plugin/src/Shell/InstallShell.php:394
-msgid "Setted permissions on `{0}`"
+#: /home/mirko/Libs/Plugins/MeTools/src/Shell/InstallShell.php:406
+msgid "Setted permissions on {0}"
 msgstr ""
 
-#: /home/mirko/Server/MeTools_Plugin/src/Shell/InstallShell.php:396
-msgid "Failed to set permissions on `{0}`"
+#: /home/mirko/Libs/Plugins/MeTools/src/Shell/InstallShell.php:408
+msgid "Failed to set permissions on {0}"
 msgstr ""
 
-#: /home/mirko/Server/MeTools_Plugin/src/Shell/InstallShell.php:406
-msgid "It was not possible to set permissions on some directories. Try again using `{0}`?"
+#: /home/mirko/Libs/Plugins/MeTools/src/Shell/InstallShell.php:420
+msgid "It was not possible to set permissions on some directories. Try again using {0}?"
 msgstr ""
 
-#: /home/mirko/Server/MeTools_Plugin/src/Template/Element/paginator.ctp:46
+#: /home/mirko/Libs/Plugins/MeTools/src/Template/Element/paginator.ctp:46
 msgid "Page {0}"
 msgstr ""
 
-#: /home/mirko/Server/MeTools_Plugin/src/Template/Element/paginator.ctp:50
+#: /home/mirko/Libs/Plugins/MeTools/src/Template/Element/paginator.ctp:50
 msgid "Next"
 msgstr ""
 
-#: /home/mirko/Server/MeTools_Plugin/src/Template/Element/paginator.ctp:52
+#: /home/mirko/Libs/Plugins/MeTools/src/Template/Element/paginator.ctp:52
 msgid "Previous"
 msgstr ""
 
-#: /home/mirko/Server/MeTools_Plugin/src/View/Helper/RecaptchaHelper.php:127
+#: /home/mirko/Libs/Plugins/MeTools/src/View/Helper/RecaptchaHelper.php:127
 msgid "Mail keys are not configured"
 msgstr ""
 
-#: /home/mirko/Server/MeTools_Plugin/src/View/Helper/RecaptchaHelper.php:131
+#: /home/mirko/Libs/Plugins/MeTools/src/View/Helper/RecaptchaHelper.php:131
 msgid "The private mail key is not valid"
 msgstr ""
 
