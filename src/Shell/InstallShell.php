@@ -402,7 +402,7 @@ class InstallShell extends Shell {
 		$error = FALSE;
 		
 		foreach($this->paths as $path) {
-			if((new Folder())->chmod($path, 0777))
+			if((new Folder())->chmod($path, 0777, TRUE))
 				$this->verbose(__d('me_tools', 'Setted permissions on {0}', $this->bold(rtr($path))));
 			else {
                 $this->err(__d('me_tools', 'Failed to set permissions on {0}', $this->bold(rtr($path))));
