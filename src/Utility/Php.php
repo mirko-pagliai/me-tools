@@ -42,16 +42,4 @@ class Php {
 		
         return extension_loaded($extension);
     }
-	
-    /**
-     * Checks if the current version of PHP is equal to or greater than the required version.
-	 * 
-	 * CakePHP 2.x requires at least the `5.2.8` version.
-	 * CakePHP 3.x requires at least the `5.4.16` version.
-     * @param string $required Required version of PHP
-     * @return boolean TRUE if the current version is equal to or greater than the required version, FALSE otherwise
-     */
-    public static function check($required = '5.4.16') {
-        return version_compare(PHP_VERSION, $required, '>=');
-    }
 }
