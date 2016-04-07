@@ -25,12 +25,7 @@ namespace MeTools\Utility;
 use Cake\Utility\Xml as BaseXml;
 
 /**
- * An utility to handle XML files and strings.
- * 
- * You can use this utility by adding:
- * <code>
- * use MeTools\Utility\Xml;
- * </code>
+ * An utility to handle XML files and strings
  */
 class Xml {
 	/**
