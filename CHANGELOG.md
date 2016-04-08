@@ -1,5 +1,9 @@
 # 2.x branch
-## 2.5 banch
+## 2.6 branch
+### 2.6.0
+* removed `SecurityComponent` class.
+
+## 2.5 branch
 ### 2.5.2
 * fixed shell output style;
 * removed useless methods.
