@@ -1,6 +1,7 @@
 # 2.x branch
 ## 2.6 branch
 ### 2.6.0
+* removed `Xml` class;
 * removed `SecurityComponent` class.
 
 ## 2.5 branch
