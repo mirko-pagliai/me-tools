@@ -24,33 +24,54 @@
 namespace MeTools\Core;
 
 use Cake\Core\Plugin as CakePlugin;
-use Cake\Filesystem\Folder;
 
 /**
  * An utility to handle plugins.
  * 
  * Rewrites {@link http://api.cakephp.org/3.2/class-Cake.Core.Plugin.html Plugin}.
  */
-class Plugin extends CakePlugin {
-	/**
-	 * Gets all loaded plugins.
-	 * @param string|array $except Plugins to exclude
-	 * @return array Plugins
+class Plugin extends CakePlugin {    
+    /**
+     * Gets all loaded plugins.
+     * 
+     * Available options are:
+     *  - `core`, if `FALSE` exclude the core plugins;
+     *  - `exclude`, a plugin as string or an array of plugins to be excluded;
+     *  - `order`, if `TRUE` the plugins will be sorted.
+     * @param array $options Options
+     * @return array Plugins
 	 * @uses Cake\Core\Plugin::loaded()
-	 */
-	public static function all($except = NULL) {
+     */
+    public static function all(array $options = []) {
 		$plugins = parent::loaded();
-		
-		//Removes exceptions
-		if(is_array($plugins) && (is_string($except) || is_array($except))) {
-			$except = is_array($except) ? $except : [$except];
-			$plugins = array_diff($plugins, $except);
-		}
-		
-		return $plugins;
-	}
-	
-	/**
+        
+        $options = am([
+            'core' => FALSE,
+            'except' => [],
+            'order' => TRUE
+        ], $options);
+        
+        if(!$options['core']) {
+            $plugins = array_diff($plugins, ['DebugKit', 'Migrations']);
+        }
+        
+        if(!empty($options['exclude'])) {
+            $plugins = array_diff($plugins, (array) $options['exclude']);
+        }
+        
+        if($options['order']) {
+            $key = array_search('MeTools', $plugins);
+            
+            if($key) {
+                unset($plugins[$key]);
+                array_unshift($plugins, 'MeTools');
+            }
+        }
+        
+        return $plugins;
+    }
+
+    /**
 	 * Gets a path for a plugin or for all plugins.
 	 * 
 	 * If `$plugin` is not a string, returns all the plugins path.
@@ -84,7 +105,7 @@ class Plugin extends CakePlugin {
 		if(empty($path))
 			return;
 		
-		$files = (new Folder($path))->find('version(\.txt)?');
+		$files = (new \Cake\Filesystem\Folder($path))->find('version(\.txt)?');
 		
 		return empty($files[0]) ? FALSE : trim(file_get_contents($path.$files[0]));
 	}
