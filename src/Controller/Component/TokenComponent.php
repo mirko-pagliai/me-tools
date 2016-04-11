@@ -23,6 +23,9 @@
 namespace MeTools\Controller\Component;
 
 use Cake\Controller\Component;
+use Cake\I18n\Time;
+use Cake\ORM\TableRegistry;
+use Cake\Utility\Security;
 
 /**
  * A component to handle tokens
@@ -43,7 +46,7 @@ class TokenComponent extends Component {
 	public function __construct(\Cake\Controller\ComponentRegistry $registry, array $config = []) {
 		parent::__construct($registry, $config);
 		
-		$this->Tokens = \Cake\ORM\TableRegistry::get('MeTools.Tokens');
+		$this->Tokens = TableRegistry::get('MeTools.Tokens');
 	}
 	
 	/**
@@ -84,8 +87,8 @@ class TokenComponent extends Component {
 	 */
 	public function create($salt = NULL, array $options = []) {		
 		$entity = $this->Tokens->newEntity(af($options));
-		$entity->token = substr(\Cake\Utility\Security::hash(empty($salt) ? time() : $salt, 'sha1', TRUE), 0, 25);
-		$entity->expiry = (new \Cake\I18n\Time('+12 hours'))->i18nFormat(FORMAT_FOR_MYSQL);
+		$entity->token = substr(Security::hash(empty($salt) ? time() : $salt, 'sha1', TRUE), 0, 25);
+		$entity->expiry = (new Time('+12 hours'))->i18nFormat(FORMAT_FOR_MYSQL);
 				
 		return $this->Tokens->save($entity) ? $entity->token : FALSE;
 	}

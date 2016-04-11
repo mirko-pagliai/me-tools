@@ -23,6 +23,7 @@
  */
 namespace MeTools\Controller\Component;
 
+use Cake\Utility\Inflector;
 use Cake\Controller\Component\FlashComponent as CakeFlashComponent;
 use MeTools\Core\Plugin;
 
@@ -40,8 +41,13 @@ class FlashComponent extends CakeFlashComponent {
 	 * @uses MeTools\Core\Plugin::path()
 	 */
 	public function __call($name, $args) {
-		if(!isset($args[1]['plugin']) && is_readable(Plugin::path('MeTools', 'src'.DS.'Template'.DS.'Element'.DS.'Flash'.DS.\Cake\Utility\Inflector::underscore($name).'.ctp')))
-			$args[1]['plugin'] = 'MeTools';
+        if(!isset($args[1]['plugin'])) {
+            $file = Plugin::path('MeTools', 'src'.DS.'Template'.DS.'Element'.DS.'Flash'.DS.Inflector::underscore($name).'.ctp', TRUE);
+            
+            if($file) {
+                $args[1]['plugin'] = 'MeTools';
+            }
+        }
 		
 		return parent::__call($name, $args);
 	}

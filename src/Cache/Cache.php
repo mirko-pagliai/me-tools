@@ -33,15 +33,14 @@ use Cake\Cache\Cache as CakeCache;
 class Cache extends CakeCache {
 	/**
 	 * Deletes all cache keys, from all configurations and all groups
-	 * @return boolean
+     * @return array Status code. For each configuration, it reports the status of the operation
 	 */
 	public static function clearAll($check = false) {
-        $success = true;
+        $status = [];
         
         foreach(self::configured() as $config)
-            if(!self::clear($check, $config))
-                $success = false;
+            $status[$config] = self::clear($check, $config);
         
-        return $success;
+        return $status;
 	}
 }

@@ -23,12 +23,7 @@
 namespace MeTools\Utility;
 
 /**
- * An utility to handle Apache.
- * 
- * You can use this utility by adding:
- * <code>
- * use MeTools\Utility\Apache;
- * </code>
+ * An utility to handle Apache
  */
 class Apache {	
 	/**

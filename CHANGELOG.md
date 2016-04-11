@@ -1,5 +1,12 @@
 # 2.x branch
-## 2.5 banch
+## 2.6 branch
+### 2.6.0
+* improved the `Plugin` class;
+* removed bake templates;
+* removed the `Xml` class;
+* removed the `SecurityComponent` class.
+
+## 2.5 branch
 ### 2.5.2
 * fixed shell output style;
 * removed useless methods.

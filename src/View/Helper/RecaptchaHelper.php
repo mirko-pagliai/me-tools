@@ -26,9 +26,9 @@ namespace MeTools\View\Helper;
 
 use Cake\Core\Configure;
 use Cake\View\Helper;
-use Cake\View\View;
+use MeTools\Core\Plugin;
 
-require_once \MeTools\Core\Plugin::path('MeTools', 'vendor'.DS.'Recaptcha'.DS.'recaptchalib.php');
+require_once Plugin::path('MeTools', 'vendor'.DS.'Recaptcha'.DS.'recaptchalib.php');
 
 /**
  * Provides several methods for reCAPTCHA.
