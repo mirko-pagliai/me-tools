@@ -70,61 +70,46 @@ class Plugin extends CakePlugin {
         
         return $plugins;
     }
-
+    
     /**
-	 * Gets a path for a plugin or for all plugins.
-	 * 
-	 * If `$plugin` is not a string, returns all the plugins path.
-	 * @param string $plugin Plugin name (optional)
-	 * @param string $filename Filename from plugin (optional)
-	 * @return mixed Plugin path or all plugins path
-	 * @uses Cake\Core\Plugin::path()
-	 * @uses all()
-	 */
-	public static function path($plugin = NULL, $filename = NULL) {
-		if(is_string($plugin)) {
-			$path = parent::path($plugin);
-			
-			return is_string($filename) ? $path.$filename : $path;
-		}
-		
-		return array_map(function($v){
-			return self::path($v);
-		}, self::all());
-	}
-	
-	/**
-	 * Gets the version number for a plugin.
-	 * @param string $plugin Plugin name
-	 * @return mixed Version number or FALSE
-	 * @uses path()
-	 */
-	public static function version($plugin) {
-		$path = self::path($plugin);
-		
-		if(empty($path))
-			return;
-		
-		$files = (new \Cake\Filesystem\Folder($path))->find('version(\.txt)?');
-		
-		return empty($files[0]) ? FALSE : trim(file_get_contents($path.$files[0]));
-	}
-	
-	/**
-	 * Gets the version number for each plugin.
-	 * @param string|array $except Plugins to exclude
-	 * @return mixed array with the version number for each plugin
-	 * @uses all()
-	 * @uses version()
-	 */
-	public static function versions($except = NULL) {
-		$versions = [];
-		
-		//For each plugin, sets the name and the version number
-		foreach(self::all($except) as $plugin)
-			if(self::version($plugin))
-				$versions[] = ['name' => $plugin, 'version' => self::version($plugin)];
-		
-		return $versions;
-	}
+     * Gets a path for a plugin.  
+     * It can also be used to get the path of plugin files.
+     * @param string $plugin Plugin name
+     * @param string|array $file Files
+     * @param bool $check Checks if the files exist
+     * @return string|array|bool String or `FALSE` if you asked the path of a 
+     *  plugin or of a single plugin file. Otherwise, an array if you asked the 
+     *  path of several plugin files
+     */
+    public static function path($plugin, $file = NULL, $check = FALSE) {
+        $plugin = parent::path($plugin);
+        
+        if(empty($file)) {
+            return $plugin;
+        }
+        
+        if(is_array($file)) {
+            $path = [];
+            
+            foreach($file as $fileName) {
+                $filePath = $plugin.$fileName;
+                
+                if($check && !is_readable($filePath)) {
+                    continue;
+                }
+                
+                $path[] = $filePath;
+            }
+            
+            return $path;
+        }
+        
+        $path = $plugin.$file;
+
+        if($check && !is_readable($path)) {
+            return FALSE;
+        }
+
+        return $path;
+    }
 }
