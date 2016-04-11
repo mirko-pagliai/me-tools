@@ -2,6 +2,7 @@
 ## 2.6 branch
 ### 2.6.0
 * improved the `Plugin` class;
+* removed bake templates;
 * removed the `Xml` class;
 * removed the `SecurityComponent` class.
 
