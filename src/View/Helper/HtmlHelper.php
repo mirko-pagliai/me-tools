@@ -81,26 +81,6 @@ class HtmlHelper extends CakeHtmlHelper {
 	}
 	
     /**
-     * Alias for `_addIcon()` method
-     * @see _addIcon()
-     */
-    public function _addIcons() {
-        return call_user_func_array([get_class(), '_addIcon'], func_get_args());
-    }
-
-    /**
-     * Returns an `<audio>` element.
-     * @param string|array $path File path, relative to the `webroot/files/` directory or an array
-	 * where each item itself can be a path string or an array containing `src` and `type` keys.
-     * @param array $options Array of HTML attributes
-     * @return string Html code
-     * @uses media()
-     */
-    public function audio($path, array $options = []) {
-        return self::media($path, am($options, ['tag' => 'audio']));
-    }
-	
-    /**
      * Creates a badge, according to Bootstrap.
      * @param string $text Badge text
 	 * @param array $options Array of options and HTML attributes
@@ -238,14 +218,6 @@ class HtmlHelper extends CakeHtmlHelper {
 		
 		return self::tag('i', ' ', $options);
 	}
-
-    /**
-     * Alias for `icon()` method
-     * @see icon()
-     */
-    public function icons() {
-        return call_user_func_array([get_class(), 'icon'], func_get_args());
-    }
 	
 	/**
 	 * Create an `iframe` element.
@@ -445,24 +417,6 @@ class HtmlHelper extends CakeHtmlHelper {
 
         return parent::para($class, $text, $options);
     }
-	
-	/**
-	 * Returns a `<pre>` tag.
-	 * 
-	 * To use with SyntaxHighlighter, you can use the `brush` option.
-     * @param string $text Pre text
-	 * @param array $options Array of options and HTML attributes
-     * @return string Html code
-	 * @uses tag()
-	 */
-	public function pre($text, array $options = []) {
-		if(!empty($options['brush'])) {
-			$options = addValue('class', sprintf('brush: %s', $options['brush']), $options);
-			unset($options['brush']);
-		}
-		
-		return self::tag('pre', $text, $options);
-	}
 
     /**
      * Adds a js file to the layout.
@@ -557,18 +511,6 @@ class HtmlHelper extends CakeHtmlHelper {
      */
     public function ul(array $list, array $options = [], array $itemOptions = []) {
         return self::nestedList($list, am($options, ['tag' => 'ul']), $itemOptions);
-    }
-
-    /**
-     * Returns a `<video>` element
-     * @param string|array $path File path, relative to the `webroot/files/` directory or an array
-	 * where each item itself can be a path string or an array containing `src` and `type` keys.
-	 * @param array $options Array of options and HTML attributes
-     * @return string Html code
-     * @uses media()
-     */
-    public function video($path, array $options = []) {
-        return self::media($path, am($options, ['tag' => 'video']));
     }
 	
 	/**

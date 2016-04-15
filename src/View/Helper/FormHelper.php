@@ -346,17 +346,6 @@ class FormHelper extends CakeFormHelper {
 	}
 	
 	/**
-	 * Creates a `<legend>` tag.
-     * @param string $text Legend text
-     * @param array $options HTML attributes and options
-     * @return string Html code
-	 * @uses MeTools\View\Helper\HtmlHelper::tag()
-	 */
-	public function legend($text, array $options = []) {
-		return $this->Html->tag('legend', $text, $options);
-	}
-	
-	/**
      * Creates a button with a surrounding form that submits via POST.
      * 
      * This method creates a button in a form element. So don't use this method in an already opened form.
