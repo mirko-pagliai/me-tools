@@ -256,8 +256,10 @@ class FormHelper extends CakeFormHelper {
 		//Gets the input type
 		$type = empty($options['type']) ? self::_inputType($fieldName, $options) : $options['type'];
 		
-		$options = addValue('class', 'form-control', $options);
-		
+        if($type !== 'file') {
+            $options = addValue('class', 'form-control', $options);
+        }
+        
 		//If the field name contains the word "password", then the field type is "password"
 		if(preg_match('/password/', $fieldName))
 			$options = addDefault('type', 'password', $options);
