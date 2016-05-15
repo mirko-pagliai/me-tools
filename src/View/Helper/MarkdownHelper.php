@@ -33,14 +33,6 @@ require_once ROOT.DS.'vendor'.DS.'michelf'.DS.'php-markdown'.DS.'Michelf'.DS.'Ma
  * Converts from Markdown syntax to HTML.
  */
 class MarkdownHelper extends Helper {
-    /**
-     * Alias for `toHtml()` method.
-     * @see toHtml()
-     */
-    public function fromMarkdown() {
-        return call_user_func_array([get_class(), 'toHtml'], func_get_args());
-    }
-
 	/**
      * Converts a string from the Markdown syntax to HTML.
      * @param string $string Markdown syntax

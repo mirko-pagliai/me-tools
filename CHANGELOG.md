@@ -1,5 +1,9 @@
 # 2.x branch
 ## 2.6 branch
+### 2.6.1
+* fixed bug for form inputs;
+* removed some useless methods.
+
 ### 2.6.0
 * improved the `Plugin` class;
 * removed bake templates;

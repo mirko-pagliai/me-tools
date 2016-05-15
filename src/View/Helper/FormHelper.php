@@ -256,8 +256,10 @@ class FormHelper extends CakeFormHelper {
 		//Gets the input type
 		$type = empty($options['type']) ? self::_inputType($fieldName, $options) : $options['type'];
 		
-		$options = addValue('class', 'form-control', $options);
-		
+        if($type !== 'file') {
+            $options = addValue('class', 'form-control', $options);
+        }
+        
 		//If the field name contains the word "password", then the field type is "password"
 		if(preg_match('/password/', $fieldName))
 			$options = addDefault('type', 'password', $options);
@@ -343,17 +345,6 @@ class FormHelper extends CakeFormHelper {
         unset($options['icon'], $options['icon-align']);
 		
 		return parent::label($fieldName, $text, $options);
-	}
-	
-	/**
-	 * Creates a `<legend>` tag.
-     * @param string $text Legend text
-     * @param array $options HTML attributes and options
-     * @return string Html code
-	 * @uses MeTools\View\Helper\HtmlHelper::tag()
-	 */
-	public function legend($text, array $options = []) {
-		return $this->Html->tag('legend', $text, $options);
 	}
 	
 	/**
