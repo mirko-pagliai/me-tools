@@ -1,6 +1,7 @@
 # 2.x branch
 ## 2.6 branch
 ### 2.6.2
+* fixed serious bug for fancybox; 
 * removed the `Cache` class.
 
 ### 2.6.1
