@@ -50,16 +50,16 @@ class LibraryHelper extends Helper {
      * @param array $options Options for the datepicker
 	 * @return string jQuery code
      * @see http://eonasdan.github.io/bootstrap-datetimepicker Bootstrap 3 Datepicker v4 documentation
-	 * @uses MeTools\View\Helper\HtmlHelper::css()
-	 * @uses MeTools\View\Helper\HtmlHelper::js()
+	 * @uses MeTools\View\Helper\AssetHelper::css()
+	 * @uses MeTools\View\Helper\AssetHelper::js()
 	 */
 	protected function _datetimepicker($input, array $options = []) {
-		$this->Html->js([
+		$this->Asset->js([
 			'/vendor/moment/moment-with-locales.min',
 			'/vendor/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min',
 		], ['block' => 'script_bottom']);
 		
-        $this->Html->css('/vendor/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min', ['block' => 'css_bottom']);
+        $this->Asset->css('/vendor/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min', ['block' => 'css_bottom']);
 		
 		//Shows the "Today" button in the icon toolbar
 		$options = addDefault('showTodayButton', TRUE, $options);

@@ -1,7 +1,8 @@
 # 2.x branch
 ## 2.6 branch
 ### 2.6.2
-* fixed serious bug for fancybox; 
+* fixed serious bug for fancybox;
+* datepicker uses the `AssetHelper`;
 * removed the `Cache` class.
 
 ### 2.6.1
