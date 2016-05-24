@@ -13,7 +13,7 @@
         "cakephp/cakephp": "~3.2",
 		"ext-mcrypt": "*",
 		"michelf/php-markdown": "1.*",
-        "components/jquery": "2.2.*",
+        "components/jquery": "^2.2",
 		"fortawesome/font-awesome": "4.*"
     },
     "autoload": {
