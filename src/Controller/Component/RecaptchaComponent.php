@@ -26,6 +26,9 @@ namespace MeTools\Controller\Component;
 use Cake\Controller\Component;
 use Cake\Core\Configure;
 
+/**
+ * A component to use reCAPTCHA
+ */
 class RecaptchaComponent extends Component {
 	/**
 	 * Error
