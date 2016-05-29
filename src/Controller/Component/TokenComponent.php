@@ -88,7 +88,7 @@ class TokenComponent extends Component {
 	public function create($salt = NULL, array $options = []) {		
 		$entity = $this->Tokens->newEntity(af($options));
 		$entity->token = substr(Security::hash(empty($salt) ? time() : $salt, 'sha1', TRUE), 0, 25);
-		$entity->expiry = (new Time('+12 hours'))->i18nFormat(FORMAT_FOR_MYSQL);
+		$entity->expiry = (new Time('+12 hours'));
 				
 		return $this->Tokens->save($entity) ? $entity->token : FALSE;
 	}
