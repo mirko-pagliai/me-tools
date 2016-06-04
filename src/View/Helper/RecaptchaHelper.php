@@ -25,6 +25,7 @@
 namespace MeTools\View\Helper;
 
 use Cake\Core\Configure;
+use Cake\Network\Exception\InternalErrorException;
 use Cake\View\Helper;
 use MeTools\Core\Plugin;
 
@@ -61,7 +62,7 @@ class RecaptchaHelper extends Helper {
 	 * @param array $options reCAPTCHA widget options
 	 * @param array $optionsScript Script option
 	 * @return string Html
-	 * @throws \Cake\Network\Exception\InternalErrorException
+	 * @throws InternalErrorException
 	 * @see https://developers.google.com/recaptcha/docs/display#config reCAPTCHA widget options
 	 * @uses MeTools\View\Helper\HtmlHelper::div()
 	 * @uses MeTools\View\Helper\HtmlHelper::js()
@@ -72,9 +73,10 @@ class RecaptchaHelper extends Helper {
 		$keys = Configure::read('Recaptcha.Form');
 		
 		//Checks for form keys
-		if(empty($keys['public']) || empty($keys['private']))
-            throw new \Cake\Network\Exception\InternalErrorException(__d('me_tools', 'Form keys are not configured'));
-		
+		if(empty($keys['public']) || empty($keys['private'])) {
+            throw new InternalErrorException(__d('me_tools', 'Form keys are not configured'));
+        }
+        
 		$optionsScript = addDefault('block', 'script_bottom', $optionsScript);
 		
 		$this->Html->js('https://www.google.com/recaptcha/api.js', am($optionsScript, ['async' => TRUE, 'defer' => TRUE]));
@@ -115,7 +117,7 @@ class RecaptchaHelper extends Helper {
      * This method will only return a url. If you want to create a link, you should use the `mailLink()` method
      * @param string $mail Email to hide
      * @return string Url
-	 * @throws \Cake\Network\Exception\InternalErrorException
+	 * @throws InternalErrorException
 	 */
     public function mailUrl($mail) {
 		//Gets mail keys
@@ -123,13 +125,15 @@ class RecaptchaHelper extends Helper {
 		$keys = Configure::read('Recaptcha.Mail');
 		
 		//Checks for mail keys
-        if(empty($keys['public']) || empty($keys['private']))
-            throw new \Cake\Network\Exception\InternalErrorException(__d('me_tools', 'Mail keys are not configured'));
-
+        if(empty($keys['public']) || empty($keys['private'])) {
+            throw new InternalErrorException(__d('me_tools', 'Mail keys are not configured'));
+        }
+        
         //Checks if the private mail key is valid (hexadecimal digits)
-        if(!ctype_xdigit($keys['private']))
-            throw new \Cake\Network\Exception\InternalErrorException(__d('me_tools', 'The private mail key is not valid'));
-		
+        if(!ctype_xdigit($keys['private'])) {
+            throw new InternalErrorException(__d('me_tools', 'The private mail key is not valid'));
+        }
+        
         return recaptcha_mailhide_url($keys['public'], $keys['private'], $mail);
     }
 	
@@ -138,6 +142,6 @@ class RecaptchaHelper extends Helper {
      * @see display()
      */
 	public function recaptcha() {
-        return call_user_func_array(array(get_class(), 'display'), func_get_args());
+        return call_user_func_array([get_class(), 'display'], func_get_args());
 	}
 }
