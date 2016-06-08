@@ -94,11 +94,11 @@ class InstallShell extends Shell {
 		
 		//Assets for which create symbolic links
 		$this->links = [
-			'components/bootstrap-datetimepicker/build'	=> 'bootstrap-datetimepicker',
-			'components/jquery'							=> 'jquery',
-			'components/moment/min'						=> 'moment',
-			'fortawesome/font-awesome'					=> 'font-awesome',
-			'newerton/fancy-box/source'					=> 'fancybox',
+			'components/bootstrap-datetimepicker/build' => 'bootstrap-datetimepicker',
+			'components/jquery' => 'jquery',
+			'components/moment/min' => 'moment',
+			'fortawesome/font-awesome' => 'font-awesome',
+			'newerton/fancy-box/source' => 'fancybox',
 		];
 		
 		//Suggested packages to install by Composer
@@ -350,20 +350,20 @@ class InstallShell extends Shell {
 		$parser = parent::getOptionParser();
 		
 		return $parser->addSubcommands([
-			'all'					=> ['help' => __d('me_tools', 'Executes all available tasks')],
-			'copyConfig'			=> ['help' => __d('me_tools', 'Copies the configuration files')],
-			'copyFonts'				=> ['help' => __d('me_tools', 'Creates symbolic links for fonts')],
-			'createDirectories'		=> ['help' => __d('me_tools', 'Creates default directories')],
-			'createRobots'			=> ['help' => __d('me_tools', 'Creates the {0} file', 'robots.txt')],
-			'createVendorsLinks'	=> ['help' => __d('me_tools', 'Creates symbolic links for vendor assets')],
-			'fixComposerJson'		=> ['help' => __d('me_tools', 'Fixes {0}', 'composer.json')],
-			'installPackages'		=> ['help' => __d('me_tools', 'Installs the suggested packages')],
-			'setPermissions'		=> ['help' => __d('me_tools', 'Sets directories permissions')],
+			'all' => ['help' => __d('me_tools', 'Executes all available tasks')],
+			'copyConfig' => ['help' => __d('me_tools', 'Copies the configuration files')],
+			'copyFonts' => ['help' => __d('me_tools', 'Creates symbolic links for fonts')],
+			'createDirectories' => ['help' => __d('me_tools', 'Creates default directories')],
+			'createRobots' => ['help' => __d('me_tools', 'Creates the {0} file', 'robots.txt')],
+			'createVendorsLinks' => ['help' => __d('me_tools', 'Creates symbolic links for vendor assets')],
+			'fixComposerJson' => ['help' => __d('me_tools', 'Fixes {0}', 'composer.json')],
+			'installPackages' => ['help' => __d('me_tools', 'Installs the suggested packages')],
+			'setPermissions' => ['help' => __d('me_tools', 'Sets directories permissions')],
 		])->addOption('force', [
-			'boolean'	=> TRUE,
-			'default'	=> FALSE,
-			'help'		=> __d('me_tools', 'Executes tasks without prompting'),
-			'short'		=> 'f',
+			'boolean' => TRUE,
+			'default' => FALSE,
+			'help' => __d('me_tools', 'Executes tasks without prompting'),
+			'short' => 'f',
 		])->description(__d('me_tools', 'Executes some tasks to make the system ready to work'));
 	}
 	
