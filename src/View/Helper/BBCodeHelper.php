@@ -23,7 +23,7 @@
 namespace MeTools\View\Helper;
 
 use Cake\View\Helper;
-use MeCms\Utility\Youtube;
+use MeTools\Utility\Youtube;
 
 /**
  * BBCode Helper.
