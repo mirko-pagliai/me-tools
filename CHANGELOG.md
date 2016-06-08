@@ -1,5 +1,8 @@
 # 2.x branch
 ## 2.6 branch
+### 2.6.4
+* fixed bug for `Plugin` class.
+
 ### 2.6.3
 * added `Uploader` component.
 
