@@ -87,10 +87,10 @@ class InstallShell extends Shell {
 		
 		//Assets for which create symbolic links (full paths)
 		$this->fonts = [
-			ROOT.DS.'vendor/fortawesome/font-awesome/fonts/fontawesome-webfont.eot',
-			ROOT.DS.'vendor/fortawesome/font-awesome/fonts/fontawesome-webfont.ttf',
-			ROOT.DS.'vendor/fortawesome/font-awesome/fonts/fontawesome-webfont.woff',
-			ROOT.DS.'vendor/fortawesome/font-awesome/fonts/fontawesome-webfont.woff2',
+			'fortawesome/font-awesome/fonts/fontawesome-webfont.eot',
+			'fortawesome/font-awesome/fonts/fontawesome-webfont.ttf',
+			'fortawesome/font-awesome/fonts/fontawesome-webfont.woff',
+			'fortawesome/font-awesome/fonts/fontawesome-webfont.woff2',
 		];
 		
 		//Assets for which create symbolic links
@@ -227,6 +227,8 @@ class InstallShell extends Shell {
 		//Checks if the target directory (`webroot/fonts/`) is writeable
 		if(is_writable($destinationDir)) {
 			foreach($this->fonts as $origin) {
+                $origin = ROOT.DS.'vendor'.DS.$origin;
+                
 				//Continues, if the origin file doesn't exist
 				if(!file_exists($origin)) {
 					continue;
@@ -236,7 +238,8 @@ class InstallShell extends Shell {
 				
 				//Continues, if the link already exists
 				if(file_exists($destination)) {
-					continue;
+                    $this->verbose(__d('me_tools', 'File or directory {0} already exists', $this->bold(rtr($destination))));
+                    continue;
                 }
 
 				//Creates the symbolic link
