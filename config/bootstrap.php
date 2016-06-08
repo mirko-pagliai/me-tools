@@ -261,6 +261,17 @@ if(!function_exists('is_localhost')) {
 	}
 }
 
+if(!function_exists('is_positive')) {
+    /**
+     * Checks if a string is a positive number
+     * @param string $string
+     * @return bool
+     */
+    function is_positive($string) {
+        return is_numeric($string) && $string > 0 && $string == round($string);
+    }
+}
+
 if(!function_exists('is_remote')) {
     /**
      * Alias for `is_url()` function
