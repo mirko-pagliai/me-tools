@@ -23,9 +23,10 @@
  */
 namespace MeTools\View\Helper;
 
-use Cake\View\Helper;
-
 require_once ROOT.DS.'vendor'.DS.'michelf'.DS.'php-markdown'.DS.'Michelf'.DS.'Markdown.inc.php';
+
+use Cake\View\Helper;
+use Michelf\Markdown;
 
 /**
  * Markdown helper.
@@ -47,7 +48,7 @@ class MarkdownHelper extends Helper {
 			return PHP_EOL.preg_replace('/(\t*.*\s+)/m', '	$1', $match[2]);
 		}, $string);
 
-		$html = \Michelf\Markdown::defaultTransform($string);
+		$html = Markdown::defaultTransform($string);
 
 		if($clean) {
 			//Removes the "TOC"

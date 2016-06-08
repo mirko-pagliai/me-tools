@@ -255,7 +255,12 @@ class LibraryHelper extends Helper {
 	 * @uses MeTools\View\Helper\HtmlHelper::js()
 	 */
 	public function shareaholic($site_id) {
-		return $this->Html->js('//dsms0mj1bbhn4.cloudfront.net/assets/pub/shareaholic.js', ['async' => 'async', 'block' => 'script_bottom', 'data-cfasync' => 'false', 'data-shr-siteid' => $site_id]);
+		return $this->Html->js('//dsms0mj1bbhn4.cloudfront.net/assets/pub/shareaholic.js', [
+            'async' => 'async',
+            'block' => 'script_bottom',
+            'data-cfasync' => 'false',
+            'data-shr-siteid' => $site_id,
+        ]);
 	}
 
 	/**

@@ -114,7 +114,8 @@ class RecaptchaHelper extends Helper {
 	/**
      * Gets the url for an hidden email. 
      * 
-     * This method will only return a url. If you want to create a link, you should use the `mailLink()` method
+     * This method will only return a url. If you want to create a link, you 
+     *  should use the `mailLink()` method
      * @param string $mail Email to hide
      * @return string Url
 	 * @throws InternalErrorException

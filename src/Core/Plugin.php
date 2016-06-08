@@ -78,8 +78,8 @@ class Plugin extends CakePlugin {
      * @param string|array $file Files
      * @param bool $check Checks if the files exist
      * @return string|array|bool String or `FALSE` if you asked the path of a 
-     *  plugin or of a single plugin file. Otherwise, an array if you asked the 
-     *  path of several plugin files
+     *  plugin or of a single plugin file. Otherwise, an array if you asked 
+     *  the path of several plugin files
      */
     public static function path($plugin, $file = NULL, $check = FALSE) {
         $plugin = parent::path($plugin);

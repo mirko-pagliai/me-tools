@@ -29,7 +29,8 @@ use Cake\Routing\Router;
 /**
  * Implements methods for HTTP requests.
  * 
- * Used by Cake\Network\Http\Client to contain request information for making requests.
+ * Used by Cake\Network\Http\Client to contain request information for making 
+ *  requests.
  * 
  * Rewrites {@link http://api.cakephp.org/3.2/class-Cake.Network.Http.Request.html Request}.
  */
@@ -38,7 +39,8 @@ class Request extends CakeRequest {
 	 * Checks if the specified action is the current action.
 	 * The action name can be passed as string or array.
 	 * 
-	 * Optionally, you can also check if the specified controller is the current controller.
+	 * Optionally, you can also check if the specified controller is the 
+     *  current controller.
 	 * The controller name can be passed as string or array.
 	 * 
 	 * Example:
@@ -51,14 +53,15 @@ class Request extends CakeRequest {
 	 * <code>
 	 * $this->request->isAction(['edit', 'delete'], 'Pages');
 	 * </code>
-	 * returns TRUE if the current action is `edit` or `delete` and if the current controller is `Pages`, otherwise FALSE.
+	 * returns TRUE if the current action is `edit` or `delete` and if the 
+     *  current controller is `Pages`, otherwise FALSE.
 	 * @param string|array $action Action name
 	 * @param string|array $controller Controller name
 	 * @return bool
 	 * @uses isController()
 	 */
 	public function isAction($action, $controller = NULL) {
-		$action = in_array($this->param('action'), is_array($action) ? $action : [$action]);
+		$action = in_array($this->param('action'), (array) $action);
 		
 		return empty($controller) ? $action : $action && $this->isController($controller);
 	}
@@ -76,13 +79,15 @@ class Request extends CakeRequest {
 	 * @return bool
 	 */
 	public function isController($controller) {
-		return in_array($this->param('controller'), is_array($controller) ? $controller : [$controller]);
+		return in_array($this->param('controller'), (array) $controller);
 	}
 	
 	/**
 	 * Checks if the specified url is the current url
-	 * @param string|array|null $url An array specifying any of the following: 'controller', 'action', 'plugin' additionally, 
-	 * you can provide routed elements or query string parameters. If string it can be name any valid url string
+	 * @param string|array|null $url An array specifying any of the following: 
+     *  'controller', 'action', 'plugin' additionally, 
+	 * you can provide routed elements or query string parameters. If string 
+     *  it can be name any valid url string
 	 * @return bool
 	 */
 	public function isHere($url) {
@@ -96,6 +101,6 @@ class Request extends CakeRequest {
 	 * @return bool
 	 */
 	public function isPrefix($prefix) {
-		return in_array($this->param('prefix'), is_array($prefix) ? $prefix : [$prefix]);
+		return in_array($this->param('prefix'), (array) $prefix);
 	}
 }

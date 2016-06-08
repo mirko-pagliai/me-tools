@@ -48,7 +48,8 @@ class InstallShell extends Shell {
 	
 	/**
 	 * Assets for which create symbolic links.
-	 * The key must be relative to `vendor/` and the value must be relative to `webroot/vendor/`
+	 * The key must be relative to `vendor/` and the value must be relative 
+     *  to `webroot/vendor/`
 	 * @see __construct()
 	 * @var array
 	 */

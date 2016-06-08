@@ -29,7 +29,8 @@ class Apache {
 	/**
      * Checks if a module is enabled.
      * @param string $module Name of the module to be checked
-     * @return mixed TRUE if the module is enabled, FALSE otherwise. NULL if cannot check
+     * @return mixed TRUE if the module is enabled, FALSE otherwise. NULL if 
+     *  cannot check
      */
     public static function module($module) {
 		if(!function_exists('apache_get_modules'))

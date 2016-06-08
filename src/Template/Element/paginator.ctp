@@ -24,8 +24,9 @@
 
 <?php
 	//Returns, if there's only one page
-	if(!$this->Paginator->hasPage(NULL, 2))
+	if(!$this->Paginator->hasPage(NULL, 2)) {
 		return;
+    }
 ?>
 
 <div class="text-center">
@@ -46,10 +47,12 @@
 					echo $this->Html->li($this->Html->span(__d('me_tools', 'Page {0}', $this->Paginator->current())));
 					echo $this->Paginator->next(NULL, ['icon' => 'caret-right']);
 				}
-				elseif(!$this->Paginator->hasPrev())
+				elseif(!$this->Paginator->hasPrev()) {
 					echo $this->Paginator->next(__d('me_tools', 'Next'), ['icon' => 'caret-right', 'icon-align' => 'right']);
-				else
+                }
+				else {
 					echo $this->Paginator->prev(__d('me_tools', 'Previous'), ['icon' => 'caret-left']);
+                }
 			?>
 		</ul>
 	</div>

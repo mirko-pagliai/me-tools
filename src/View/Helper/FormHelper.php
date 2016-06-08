@@ -62,7 +62,7 @@ class FormHelper extends CakeFormHelper {
 			'select' => '<select name="{{name}}"{{attrs}}>{{content}}</select>',
 			'selectMultiple' => '<select name="{{name}}[]" multiple="multiple"{{attrs}}>{{content}}</select>',
 			'textarea' => '<textarea name="{{name}}"{{attrs}}>{{value}}</textarea>',
-			'submitContainer' => '<div class="submit form-group">{{content}}</div>'
+			'submitContainer' => '<div class="submit form-group">{{content}}</div>',
 		]);
     }
 	
@@ -97,15 +97,17 @@ class FormHelper extends CakeFormHelper {
              'error' => $options['error'],
              'required' => $options['options']['required'] ? ' required' : '',
 			 'tip' => empty($options['options']['tip']) ? NULL : $options['options']['tip'],
-             'type' => $options['options']['type']
+             'type' => $options['options']['type'],
          ]);
      }
 	
 	/**
      * Creates a button.
      * 
-     * This method creates a button. To create a POST button, you should use the `postButton()` method.
-     * Instead, to create a link with the appearance of a button, you should use the `button()` method provided by `HtmlHelper`.
+     * This method creates a button. To create a POST button, you should use 
+     *  the `postButton()` method.
+     * Instead, to create a link with the appearance of a button, you should 
+     *  use the `button()` method provided by `HtmlHelper`.
      * @param string $title The button label or an image
      * @param array $options HTML attributes and options
      * @return string Html code
@@ -116,11 +118,13 @@ class FormHelper extends CakeFormHelper {
 	public function button($title, array $options = []) {
 		$options = addDefault('type', 'button', $options);
 		
-		if($options['type'] !== 'submit')
+		if($options['type'] !== 'submit') {
 			$options = $this->Html->_addButtonClass($options);
-		else
+        }
+		else {
 			$options = $this->Html->_addButtonClass($options, 'success');
-		
+        }
+        
 		$title = $this->Html->_addIcon($title, $options);
         unset($options['icon'], $options['icon-align']);
 		
@@ -134,13 +138,14 @@ class FormHelper extends CakeFormHelper {
 	 * @return string Html code
 	 */
 	public function checkbox($fieldName, array $options = []) {		
-		if($options['hiddenField'] !== FALSE)
+		if($options['hiddenField'] !== FALSE) {
 			$options['hiddenField'] = TRUE;
+        }
 		
 		//Checkboxes inputs outside of the label
 		$this->templates([
 			'nestingLabel' => '{{input}}<label{{attrs}}>{{text}}</label>',
-			'formGroup' => '{{input}}{{label}}'
+			'formGroup' => '{{input}}{{label}}',
 		]);
 		
 		return parent::checkbox($fieldName, $options);
@@ -164,25 +169,29 @@ class FormHelper extends CakeFormHelper {
 	
     /**
      * Returns a `<form>` element.
-     * @param mixed $model The model name for which the form is being defined. If `FALSE` no model is used
+     * @param mixed $model The model name for which the form is being defined. 
+     *  If `FALSE` no model is used
      * @param array $options HTML attributes and options
      * @return string An formatted opening `<form>` tag
 	 * @uses createInline()
      */
     public function create($model = NULL, array $options = []) {		
-        if(!empty($options['inline']))
+        if(!empty($options['inline'])) {
             return self::createInline($model, $options);
-
+        }
+        
         return parent::create($model, $options);
     }
 	
     /**
      * Returns an inline form element.
      * 
-     * You can also create an inline form using the `create()` method with the `inline` option.
+     * You can also create an inline form using the `create()` method with 
+     *  the `inline` option.
      * 
      * Note that by default `createInline` doesn't display errors.
-     * @param mixed $model The model name for which the form is being defined. If `FALSE` no model is used
+     * @param mixed $model The model name for which the form is being defined. 
+     *  If `FALSE` no model is used
      * @param array $options HTML attributes and options
      * @return string An formatted opening `<form>` tag
      * @uses create()
@@ -232,10 +241,12 @@ class FormHelper extends CakeFormHelper {
 	}
 	
 	/**
-	 * Closes an HTML form, cleans up values set by `FormHelper::create()`, and writes 
+	 * Closes an HTML form, cleans up values set by `FormHelper::create()`, 
+     *  and writes 
 	 * hidden input fields where appropriate.
-	 * @param array $secureAttributes Secure attibutes which will be passed as HTML 
-	 * attributes into the hidden input elements generated for the Security Component.
+	 * @param array $secureAttributes Secure attibutes which will be passed 
+     *  as HTML attributes into the hidden input elements generated for the 
+     *  Security Component.
 	 * @return string Html code
 	 * @uses inline
 	 */
@@ -260,20 +271,26 @@ class FormHelper extends CakeFormHelper {
             $options = addValue('class', 'form-control', $options);
         }
         
-		//If the field name contains the word "password", then the field type is "password"
-		if(preg_match('/password/', $fieldName))
+		//If the field name contains the word "password", then the field type 
+        //  is "password"
+		if(preg_match('/password/', $fieldName)) {
 			$options = addDefault('type', 'password', $options);
-		
+        }
+        
 		//Changes the "autocomplete" value from "FALSE" to "off"
-		if(isset($options['autocomplete']) && !$options['autocomplete'])
+		if(isset($options['autocomplete']) && !$options['autocomplete']) {
 			$options['autocomplete'] = 'off';
+        }
 		
 		//If it's a select
 		if($type === 'select') {
-			//By default, the `empty` option will be automatically added (with `FALSE` value)
-			//This option will be used by the `select()` method to see if the option has been added by the user or not
-			if(!isset($options['empty']))
+			//By default, the `empty` option will be automatically added 
+            //  (with `FALSE` value). This option will be used by the 
+            //  `select()` method to see if the option has been added by the 
+            //  user or not
+			if(!isset($options['empty'])) {
 				$options = addDefault('remove_empty', TRUE, $options);
+            }
 		}
 		//Else, if it's a textarea
 		elseif($type === 'textarea') {
@@ -287,16 +304,17 @@ class FormHelper extends CakeFormHelper {
 			'formGroup' => '{{label}}{{input}}',
 			'inputContainer' => '<div class="input form-group {{type}}{{required}}">{{content}}{{tip}}</div>',
 			'inputContainerError' => '<div class="input form-group {{type}}{{required}} has-error">{{content}}{{tip}}{{error}}</div>',
-			'nestingLabel' => '{{hidden}}<label{{attrs}}>{{input}}{{text}}</label>'
+			'nestingLabel' => '{{hidden}}<label{{attrs}}>{{input}}{{text}}</label>',
 		]);
 		
 		//Sets tips ("help text")
 		//See http://getbootstrap.com/css/#forms-help-text
-		if(!empty($options['tip']))
+		if(!empty($options['tip'])) {
 			$options['tip'] = implode(PHP_EOL, array_map(function($v) {
 				return $this->Html->span(trim($v), ['class' => 'help-block']);
 			}, is_array($options['tip']) ? $options['tip'] : [$options['tip']]));
-		
+        }
+        
 		//Sets "button addon"
 		//See http://getbootstrap.com/components/#input-groups-buttons
 		if(!empty($options['button'])) {
@@ -312,16 +330,18 @@ class FormHelper extends CakeFormHelper {
 			//By default, disables tips and error messages
 			$this->templates([
 				'inputContainer' => '<div class="input form-group {{type}}{{required}}">{{content}}</div>',
-				'inputContainerError' => '<div class="input form-group {{type}}{{required}} has-error">{{content}}</div>'
+				'inputContainerError' => '<div class="input form-group {{type}}{{required}} has-error">{{content}}</div>',
 			]);
 			
 			//If it is not a checkbox
 			if($type !== "checkbox") {
-				if(empty($options['label']))
+				if(empty($options['label'])) {
 					$options['label'] = [];
-				elseif(is_string($options['label']))
+                }
+				elseif(is_string($options['label'])) {
 					$options['label'] = ['text' => $options['label']];
-
+                }
+                
 				$options['label'] = addValue('class', 'sr-only', $options['label']);
 			}
 		}
@@ -333,8 +353,10 @@ class FormHelper extends CakeFormHelper {
      * Returns a formatted `<label>` element. 
 	 * Will automatically generate a `for` attribute if one is not provided.
      * @param string $fieldName Field name, should be "Modelname.fieldname"
-     * @param string $text Text that will appear in the label field. If is left undefined the text will be inflected from the fieldName
-     * @param array|string $options HTML attributes, or a string to be used as a class name
+     * @param string $text Text that will appear in the label field. If is 
+     *  left undefined the text will be inflected from the fieldName
+     * @param array|string $options HTML attributes, or a string to be used 
+     *  as a class name
 	 * @return string Html code
 	 * @uses MeTools\View\Helper\HtmlHelper::_addIcon()
 	 */
@@ -350,12 +372,15 @@ class FormHelper extends CakeFormHelper {
 	/**
      * Creates a button with a surrounding form that submits via POST.
      * 
-     * This method creates a button in a form element. So don't use this method in an already opened form.
+     * This method creates a button in a form element. So don't use this 
+     *  method in an already opened form.
      * 
      * To create a normal button, you should use the `button()` method.
-     * To create a button with the appearance of a link, you should use the `button()` method provided by the `HtmlHelper`.
+     * To create a button with the appearance of a link, you should use the 
+     *  `button()` method provided by the `HtmlHelper`.
      * @param string $title Button title
-	 * @param string|array $url Cake-relative URL or array of URL parameters or external URL
+	 * @param string|array $url Cake-relative URL or array of URL parameters 
+     *  or external URL
 	 * @param array $options Array of options and HTML attributes
 	 * @return string Html code
 	 * @uses MeTools\View\Helper\HtmlHelper::_addButtonClass()
@@ -371,11 +396,14 @@ class FormHelper extends CakeFormHelper {
 	/**
      * Creates a link with a surrounding form that submits via POST.
      * 
-     * This method creates a link in a form element. So don't use this method in an already opened form.
+     * This method creates a link in a form element. So don't use this method 
+     *  in an already opened form.
      *  
-     * To create a normal link, you should use the `link()` method of the `HtmlHelper`.
+     * To create a normal link, you should use the `link()` method of the 
+     *  `HtmlHelper`.
 	 * @param string $title The content to be wrapped by <a> tags
-	 * @param string|array $url Cake-relative URL or array of URL parameters or external URL
+	 * @param string|array $url Cake-relative URL or array of URL parameters 
+     *  or external URL
 	 * @param array $options Array of options and HTML attributes
 	 * @return string Html code
 	 * @uses MeTools\View\Helper\HtmlHelper::_addIcon()
@@ -396,26 +424,30 @@ class FormHelper extends CakeFormHelper {
 	/**
 	 * Returns a formatted SELECT element
 	 * @param string $fieldName Name attribute of the SELECT
-	 * @param array|\Traversable $options Array of the OPTION elements (as 'value'=>'Text' pairs) to be 
-	 * used in the SELECT element
+	 * @param array|\Traversable $options Array of the OPTION elements 
+     *  (as 'value'=>'Text' pairs) to be used in the SELECT element
 	 * @param array $attributes The HTML attributes of the select element
 	 * @return string Formatted SELECT element
 	 */
 	public function select($fieldName, $options = [], array $attributes = []) {
-		//If there's the `remove_empty` option, it means that the `empty` option has been added automatically 
-		//by default and not by the user. Then, it removes the `empty` and `remove_empty` options
-		if(!empty($attributes['remove_empty']))
+		//If there's the `remove_empty` option, it means that the `empty` 
+        //  option has been added automatically  by default and not by the 
+        //  user. Then, it removes the `empty` and `remove_empty` options
+		if(!empty($attributes['remove_empty'])) {
 			unset($attributes['empty'], $attributes['remove_empty']);
-		
-		if(!isset($attributes['empty']) && empty($attributes['default']) && empty($attributes['value']))
+        }
+        
+		if(!isset($attributes['empty']) && empty($attributes['default']) && empty($attributes['value'])) {
 			$attributes = addDefault('empty', TRUE, $attributes);
+        }
 		
 		return parent::select($fieldName, $options, $attributes);
 	}
 	
 	/**
      * Creates a submit button.
-     * @param string $caption The label appearing on the submit button or an image
+     * @param string $caption The label appearing on the submit button or an 
+     *  image
      * @param array $options HTML attributes and options
      * @return string Html code
 	 * @uses button()

@@ -23,6 +23,7 @@
 namespace MeTools\View\Helper;
 
 use Cake\View\Helper;
+use MeCms\Utility\Youtube;
 
 /**
  * BBCode Helper.
@@ -86,7 +87,7 @@ class BBCodeHelper extends Helper {
 	 */
 	public function youtube($text) {
 		return preg_replace_callback('/\[youtube](.+?)\[\/youtube]/', function($matches) {
-			return $this->Html->youtube(is_url($matches[1]) ? \MeCms\Utility\Youtube::getId($matches[1]) : $matches[1]);
+			return $this->Html->youtube(is_url($matches[1]) ? Youtube::getId($matches[1]) : $matches[1]);
         }, $text);
 	}
 }
