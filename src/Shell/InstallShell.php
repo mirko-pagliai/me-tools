@@ -386,7 +386,7 @@ class InstallShell extends Shell {
 		//Asks whick packages to install, if it was not asked to install all of them or if you are not using the "force" parameter
 		if(!$force && !$this->param('force')) {
 			foreach($this->packages as $package) {
-				$ask = $this->in(__d('me_tools', 'Do you want to install {0}?', $this->bold($package)), ['Y', 'n'], 'Y');
+				$ask = $this->in(__d('me_tools', 'Do you want to install {0}?', $package), ['Y', 'n'], 'Y');
 				if(in_array($ask, ['Y', 'y'])) {
 					$packagesToInstall[] = $package;
                 }
@@ -401,9 +401,8 @@ class InstallShell extends Shell {
         }
 		
 		//Gets the list of installed packages
-		exec(sprintf('%s show --installed', $bin), $installed);
-		$installed = array_map(function($line) { return array_values(preg_split('/[\s]+/', $line))[0]; }, $installed);
-		
+        exec(sprintf('%s show --latest --name-only', $bin), $installed);
+        
 		$packagesToInstall = array_diff($packagesToInstall, $installed);
 		
 		if(empty($packagesToInstall)) {
