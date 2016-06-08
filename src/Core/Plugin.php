@@ -47,7 +47,7 @@ class Plugin extends CakePlugin {
         
         $options = am([
             'core' => FALSE,
-            'except' => [],
+            'exclude' => [],
             'order' => TRUE
         ], $options);
         
