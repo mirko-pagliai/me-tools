@@ -52,7 +52,7 @@ class Plugin extends CakePlugin {
         ], $options);
         
         if(!$options['core']) {
-            $plugins = array_diff($plugins, ['DebugKit', 'Migrations']);
+            $plugins = array_diff($plugins, ['DebugKit', 'Migrations', 'Bake']);
         }
         
         if(!empty($options['exclude'])) {
