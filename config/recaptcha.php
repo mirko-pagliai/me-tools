@@ -16,7 +16,7 @@ return ['Recaptcha' => [
 		//Form public key
 		'public' => 'your-public-key-here',
 		//Form private key
-		'private' => 'your-private-key-here'
+		'private' => 'your-private-key-here',
 	],
 	/**
 	 * Mail keys.
@@ -26,6 +26,6 @@ return ['Recaptcha' => [
 		//Mail public key
 		'public' => 'your-public-key-here',
 		//Mail private key
-		'private' => 'your-private-key-here'
-	]
+		'private' => 'your-private-key-here',
+	],
 ]];
