@@ -138,7 +138,7 @@ msgstr "Il file {0} non è stato sistemato"
 
 #: /home/mirko/Libs/Plugins/MeTools/src/Shell/InstallShell.php:353
 msgid "Executes all available tasks"
-msgstr "esegue tutte le operazioni disponibili"
+msgstr "Esegue tutte le operazioni disponibili"
 
 #: /home/mirko/Libs/Plugins/MeTools/src/Shell/InstallShell.php:354
 msgid "Copies the configuration files"

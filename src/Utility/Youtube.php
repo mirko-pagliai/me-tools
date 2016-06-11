@@ -23,34 +23,48 @@
 namespace MeTools\Utility;
 
 /**
- * An utility to handle Apache
+ * An utility to get information about YouTube videos
  */
-class Apache {	
+class Youtube {
 	/**
-     * Checks if a module is enabled.
-     * @param string $module Name of the module to be checked
-     * @return mixed TRUE if the module is enabled, FALSE otherwise. NULL if 
-     *  cannot check
-     */
-    public static function module($module) {
-		if(!function_exists('apache_get_modules'))
-			return FALSE;
+	 * Parses a YouTube url and returns the YouTube ID
+	 * @param string $url Video url
+	 * @return mixed Youtube ID or FALSE
+	 */
+	public static function getId($url) {
+		if(preg_match('/youtube\.com/', $url)) {
+			$url = parse_url($url);
+			
+			if(empty($url['query'])) {
+				return FALSE;
+            }
+			
+			parse_str($url['query'], $url);
+				
+			return empty($url['v']) ? FALSE : $url['v'];
+		}
+		elseif(preg_match('/youtu.be\/(.+)$/', $url, $matches)) {
+			return empty($matches[1]) ? FALSE : $matches[1];
+        }
 		
-        return in_array($module, apache_get_modules());
-    }
+        return FALSE;
+	}
 	
 	/**
-	 * Gets the version.
-	 * @return mixed Version. NULL if cannot check
+	 * Gets the preview for a video
+	 * @param string $id YouTube ID
+	 * @return string Url
 	 */
-	public static function version() {
-		if(!function_exists('apache_get_version'))
-			return FALSE;
-		
-        $version = apache_get_version();
-        
-		preg_match('/Apache\/([0-9]+\.[0-9]+\.[0-9]+)/i', $version, $matches);
-		
-		return empty($matches[1]) ? $version : $matches[1];
+	public static function getPreview($id) {
+		return sprintf('http://img.youtube.com/vi/%s/0.jpg', $id);
+	}
+	
+	/**
+	 * Gets the url for a video
+	 * @param string $id YouTube ID
+	 * @return string Url
+	 */
+	public static function getUrl($id) {
+		return sprintf('http://youtu.be/%s', $id);
 	}
 }

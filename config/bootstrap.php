@@ -21,6 +21,9 @@
  * @link		http://git.novatlantis.it Nova Atlantis Ltd
  */
 
+use Cake\Filesystem\File;
+use Cake\Filesystem\Folder;
+
 if(!function_exists('addDefault')) {
     /**
      * Alias for `addOptionDefault()` function
@@ -55,11 +58,12 @@ if(!function_exists('addOptionValue')) {
 	 */
 	function addOptionValue($name, $values, $options) {
 		//If values are an array or multiple arrays, turns them into a string
-		if(is_array($values))
+		if(is_array($values)) {
 			$values = implode(' ', array_map(function($v) {
 				return is_array($v) ? implode(' ', $v) : $v;
 			}, $values));
-								
+        }
+        
 		//Merges passed values with current values
 		$values = empty($options[$name]) ? explode(' ', $values) : am(explode(' ', $options[$name]), explode(' ', $values));
 		
@@ -93,13 +97,15 @@ if(!function_exists('af')) {
 if(!function_exists('am')) {
 	/**
 	* Merge a group of arrays.
-	* Accepts variable arguments. Each argument will be converted into an array and then merged.
+	* Accepts variable arguments. Each argument will be converted into an 
+     *  array and then merged.
 	* @return array All array parameters merged into one
 	*/
 	function am() {
-		foreach(func_get_args() as $arg)
-			$array = array_merge(empty($array) ? [] : $array, is_array($arg) ? $arg : [$arg]);
-		
+		foreach(func_get_args() as $arg) {
+			$array = array_merge(empty($array) ? [] : $array, (array) $arg);
+        }
+        
 		return $array;
 	}
 }
@@ -111,18 +117,20 @@ if(!function_exists('clear_dir')) {
 	 * @return boolean
 	 */
 	function clear_dir($directory) {
-		if(!folder_is_writable($directory))
+		if(!folder_is_writable($directory)) {
 			return FALSE;
+        }
 		
 		$success = TRUE;
 		
 		//Gets files
-		$files = (new \Cake\Filesystem\Folder($directory))->read(FALSE, ['empty'])[1];
+		$files = (new Folder($directory))->read(FALSE, ['empty'])[1];
 		
 		//Deletes each file
 		foreach($files as $file) {
-			if(!(new \Cake\Filesystem\File($directory.DS.$file))->delete())
+			if(!(new File($directory.DS.$file))->delete()) {
 				$success = FALSE;
+            }
 		}
 		
 		return $success;
@@ -134,10 +142,9 @@ if(!function_exists('dirsize')) {
 	 * Returns the size in bytes of a directory and its contents
 	 * @param string $path Full path
 	 * @return int Size in bytes
-	 * @uses Cake\Filesystem\Folder::dirsize()
 	 */
 	function dirsize($path) {
-		return (new \Cake\Filesystem\Folder($path))->dirsize();
+		return (new Folder($path))->dirsize();
 	}
 }
 
@@ -148,8 +155,9 @@ if(!function_exists('fk')) {
 	 * @return string First key
 	 */
 	function fk($array) {
-		if(empty($array) || !is_array($array))
+		if(empty($array) || !is_array($array)) {
 			return NULL;
+        }
 		
 		return current(array_keys($array));
 	}
@@ -162,12 +170,15 @@ if(!function_exists('folder_is_writable')) {
 	 * @return boolean
 	 */
 	function folder_is_writable($dir) {
-		if(!is_readable($dir) || !is_writable($dir))
+		if(!is_readable($dir) || !is_writable($dir)) {
 			return FALSE;
+        }
 
-        foreach((new \Cake\Filesystem\Folder())->tree($dir, FALSE, 'dir') as $subdir)
-            if(!is_readable($subdir) || !is_writable($subdir))
+        foreach((new Folder())->tree($dir, FALSE, 'dir') as $subdir) {
+            if(!is_readable($subdir) || !is_writable($subdir)) {
                 return FALSE;
+            }
+        }
 
         return TRUE;
 	}
@@ -189,8 +200,9 @@ if(!function_exists('fv')) {
 	 * @return mixed First value
 	 */
 	function fv($array) {
-		if(empty($array) || !is_array($array))
+		if(empty($array) || !is_array($array)) {
 			return NULL;
+        }
 		
 		return array_values($array)[0];
 	}
@@ -203,20 +215,27 @@ if(!function_exists('get_client_ip')) {
 	 * @see http://stackoverflow.com/a/15699240/1480263
 	 */
 	function get_client_ip() {
-		if(!empty($_SERVER['HTTP_CLIENT_IP']))
+		if(!empty($_SERVER['HTTP_CLIENT_IP'])) {
 			return $_SERVER['HTTP_CLIENT_IP'];
-		elseif(!empty($_SERVER['HTTP_X_FORWARDED_FOR']))
+        }
+		elseif(!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
 			return $_SERVER['HTTP_X_FORWARDED_FOR'];
-		elseif(!empty($_SERVER['HTTP_X_FORWARDED']))
+        }
+		elseif(!empty($_SERVER['HTTP_X_FORWARDED'])) {
 			return $_SERVER['HTTP_X_FORWARDED'];
-		elseif(!empty($_SERVER['HTTP_FORWARDED_FOR']))
+        }
+		elseif(!empty($_SERVER['HTTP_FORWARDED_FOR'])) {
 			return $_SERVER['HTTP_FORWARDED_FOR'];
-		elseif(!empty($_SERVER['HTTP_FORWARDED']))
+        }
+		elseif(!empty($_SERVER['HTTP_FORWARDED'])) {
 			return $_SERVER['HTTP_FORWARDED'];
-		elseif(!empty($_SERVER['REMOTE_ADDR']))
+        }
+		elseif(!empty($_SERVER['REMOTE_ADDR'])) {
 			return $_SERVER['REMOTE_ADDR'];
-		else
+        }
+		else {
 			return 'UNKNOWN';
+        }
 	}
 }
 
@@ -242,9 +261,20 @@ if(!function_exists('is_localhost')) {
 	}
 }
 
+if(!function_exists('is_positive')) {
+    /**
+     * Checks if a string is a positive number
+     * @param string $string
+     * @return bool
+     */
+    function is_positive($string) {
+        return is_numeric($string) && $string > 0 && $string == round($string);
+    }
+}
+
 if(!function_exists('is_remote')) {
     /**
-     * Alias for `folder_is_writable()` function
+     * Alias for `is_url()` function
      */
 	function is_remote() {
 		return call_user_func_array('is_url', func_get_args());

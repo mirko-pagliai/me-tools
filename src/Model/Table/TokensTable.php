@@ -55,17 +55,20 @@ class TokensTable extends Table {
 	 */
 	public function deleteExpired(\Cake\ORM\Entity $entity = NULL) {
 		//Deletes all expired tokens
-		$conditions = ['expiry <=' => (new Time())->i18nFormat(FORMAT_FOR_MYSQL)];
+		$conditions = ['expiry <=' => (new Time())];
 				
-		if(!empty($entity->token))
+		if(!empty($entity->token)) {
 			$or[] = ['token' => $entity->token];
-		
-		if(!empty($entity->user_id))
+        }
+        
+		if(!empty($entity->user_id)) {
 			$or[] = ['user_id' => $entity->user_id];
-		
-		if(!empty($or))
+        }
+        
+		if(!empty($or)) {
 			$conditions = ['OR' => am($conditions, $or)];
-		
+        }
+        
 		$this->deleteAll($conditions);
 	}
 	
@@ -77,7 +80,7 @@ class TokensTable extends Table {
 	 * @uses Cake\I18n\Time::i18nFormat()
 	 */
 	public function findActive(Query $query, array $options) {
-        $query->where([sprintf('%s.expiry >', $this->alias()) => (new Time())->i18nFormat(FORMAT_FOR_MYSQL)]);
+        $query->where([sprintf('%s.expiry >', $this->alias()) => (new Time())]);
 		
         return $query;
     }

@@ -48,7 +48,8 @@ class InstallShell extends Shell {
 	
 	/**
 	 * Assets for which create symbolic links.
-	 * The key must be relative to `vendor/` and the value must be relative to `webroot/vendor/`
+	 * The key must be relative to `vendor/` and the value must be relative 
+     *  to `webroot/vendor/`
 	 * @see __construct()
 	 * @var array
 	 */
@@ -86,19 +87,19 @@ class InstallShell extends Shell {
 		
 		//Assets for which create symbolic links (full paths)
 		$this->fonts = [
-			ROOT.DS.'vendor/fortawesome/font-awesome/fonts/fontawesome-webfont.eot',
-			ROOT.DS.'vendor/fortawesome/font-awesome/fonts/fontawesome-webfont.ttf',
-			ROOT.DS.'vendor/fortawesome/font-awesome/fonts/fontawesome-webfont.woff',
-			ROOT.DS.'vendor/fortawesome/font-awesome/fonts/fontawesome-webfont.woff2',
+			'fortawesome/font-awesome/fonts/fontawesome-webfont.eot',
+			'fortawesome/font-awesome/fonts/fontawesome-webfont.ttf',
+			'fortawesome/font-awesome/fonts/fontawesome-webfont.woff',
+			'fortawesome/font-awesome/fonts/fontawesome-webfont.woff2',
 		];
 		
 		//Assets for which create symbolic links
 		$this->links = [
-			'components/bootstrap-datetimepicker/build'	=> 'bootstrap-datetimepicker',
-			'components/jquery'							=> 'jquery',
-			'components/moment/min'						=> 'moment',
-			'fortawesome/font-awesome'					=> 'font-awesome',
-			'newerton/fancy-box/source'					=> 'fancybox',
+			'components/bootstrap-datetimepicker/build' => 'bootstrap-datetimepicker',
+			'components/jquery' => 'jquery',
+			'components/moment/min' => 'moment',
+			'fortawesome/font-awesome' => 'font-awesome',
+			'newerton/fancy-box/source' => 'fancybox',
 		];
 		
 		//Suggested packages to install by Composer
@@ -226,6 +227,8 @@ class InstallShell extends Shell {
 		//Checks if the target directory (`webroot/fonts/`) is writeable
 		if(is_writable($destinationDir)) {
 			foreach($this->fonts as $origin) {
+                $origin = ROOT.DS.'vendor'.DS.$origin;
+                
 				//Continues, if the origin file doesn't exist
 				if(!file_exists($origin)) {
 					continue;
@@ -235,7 +238,8 @@ class InstallShell extends Shell {
 				
 				//Continues, if the link already exists
 				if(file_exists($destination)) {
-					continue;
+                    $this->verbose(__d('me_tools', 'File or directory {0} already exists', $this->bold(rtr($destination))));
+                    continue;
                 }
 
 				//Creates the symbolic link
@@ -350,20 +354,20 @@ class InstallShell extends Shell {
 		$parser = parent::getOptionParser();
 		
 		return $parser->addSubcommands([
-			'all'					=> ['help' => __d('me_tools', 'Executes all available tasks')],
-			'copyConfig'			=> ['help' => __d('me_tools', 'Copies the configuration files')],
-			'copyFonts'				=> ['help' => __d('me_tools', 'Creates symbolic links for fonts')],
-			'createDirectories'		=> ['help' => __d('me_tools', 'Creates default directories')],
-			'createRobots'			=> ['help' => __d('me_tools', 'Creates the {0} file', 'robots.txt')],
-			'createVendorsLinks'	=> ['help' => __d('me_tools', 'Creates symbolic links for vendor assets')],
-			'fixComposerJson'		=> ['help' => __d('me_tools', 'Fixes {0}', 'composer.json')],
-			'installPackages'		=> ['help' => __d('me_tools', 'Installs the suggested packages')],
-			'setPermissions'		=> ['help' => __d('me_tools', 'Sets directories permissions')],
+			'all' => ['help' => __d('me_tools', 'Executes all available tasks')],
+			'copyConfig' => ['help' => __d('me_tools', 'Copies the configuration files')],
+			'copyFonts' => ['help' => __d('me_tools', 'Creates symbolic links for fonts')],
+			'createDirectories' => ['help' => __d('me_tools', 'Creates default directories')],
+			'createRobots' => ['help' => __d('me_tools', 'Creates the {0} file', 'robots.txt')],
+			'createVendorsLinks' => ['help' => __d('me_tools', 'Creates symbolic links for vendor assets')],
+			'fixComposerJson' => ['help' => __d('me_tools', 'Fixes {0}', 'composer.json')],
+			'installPackages' => ['help' => __d('me_tools', 'Installs the suggested packages')],
+			'setPermissions' => ['help' => __d('me_tools', 'Sets directories permissions')],
 		])->addOption('force', [
-			'boolean'	=> TRUE,
-			'default'	=> FALSE,
-			'help'		=> __d('me_tools', 'Executes tasks without prompting'),
-			'short'		=> 'f',
+			'boolean' => TRUE,
+			'default' => FALSE,
+			'help' => __d('me_tools', 'Executes tasks without prompting'),
+			'short' => 'f',
 		])->description(__d('me_tools', 'Executes some tasks to make the system ready to work'));
 	}
 	
@@ -386,7 +390,7 @@ class InstallShell extends Shell {
 		//Asks whick packages to install, if it was not asked to install all of them or if you are not using the "force" parameter
 		if(!$force && !$this->param('force')) {
 			foreach($this->packages as $package) {
-				$ask = $this->in(__d('me_tools', 'Do you want to install {0}?', $this->bold($package)), ['Y', 'n'], 'Y');
+				$ask = $this->in(__d('me_tools', 'Do you want to install {0}?', $package), ['Y', 'n'], 'Y');
 				if(in_array($ask, ['Y', 'y'])) {
 					$packagesToInstall[] = $package;
                 }
@@ -401,9 +405,8 @@ class InstallShell extends Shell {
         }
 		
 		//Gets the list of installed packages
-		exec(sprintf('%s show --installed', $bin), $installed);
-		$installed = array_map(function($line) { return array_values(preg_split('/[\s]+/', $line))[0]; }, $installed);
-		
+        exec(sprintf('%s show --latest --name-only', $bin), $installed);
+        
 		$packagesToInstall = array_diff($packagesToInstall, $installed);
 		
 		if(empty($packagesToInstall)) {

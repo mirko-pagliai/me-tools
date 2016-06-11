@@ -1,5 +1,10 @@
 # 2.x branch
 ## 2.6 branch
+### 2.6.4
+* added `Youtube` utility class;
+* fixed some code for Composer updates;
+* fixed bug for `Plugin` class.
+
 ### 2.6.3
 * added `Uploader` component.
 
@@ -27,7 +32,8 @@
 * fixed little bugs.
 
 ### 2.5.0
-* log reports request URL, referer URL and client ip, both for exceptions and errors;
+* log reports request URL, referer URL and client ip, both for exceptions and 
+	errors;
 * removed useless classes.
 
 ## 2.4 branch
@@ -50,7 +56,8 @@
 
 ### 2.2.7
 * rewritten the FileLog class. Added a log parser;
-* `iframe()` and `youtube` methods from `HtmlHelper` now support `$ratio` to create responsive embed.
+* `iframe()` and `youtube` methods from `HtmlHelper` now support `$ratio` to 
+	create responsive embed.
 
 ### 2.2.6
 * fixed serious bug for CKEditor.
@@ -61,7 +68,8 @@
 * fixed bug for Shareaholic.
 
 ### 2.2.4
-* added the ErrorHandler class. This allows to track the "request URL" also for errors and not only for exceptions;
+* added the ErrorHandler class. This allows to track the "request URL" also 
+	for errors and not only for exceptions;
 * fixed bug with thumbs on remote files.
 
 ### 2.2.3
@@ -75,7 +83,8 @@
 * fixed a serious bug.
 
 ### 2.2.0
-* added the Asset helper. Removed the Layout helper and the Compress shell. Now assets are automatically generated when required;
+* added the Asset helper. Removed the Layout helper and the Compress shell. 
+	Now assets are automatically generated when required;
 * fixed little bugs.
 
 ## 2.1 branch
@@ -87,7 +96,8 @@
 
 ### 2.1.0-RC2
 * added support for Shareaholic;
-* jQuery, Bootstrap, Bootstrap Date/Time Picker, Moment.js and Font Awesome are installed via Composer;
+* jQuery, Bootstrap, Bootstrap Date/Time Picker, Moment.js and Font Awesome 
+	are installed via Composer;
 * improved the logs management;
 * fixed little bugs.
 
@@ -97,12 +107,16 @@
 * updated Bootstrap 3 Date/Time Picker to 4.17.37.
 
 ### 2.0.0-beta
-* all the code has been completely rewritten for CakePHP 3.x. Several optimizations have been applied;
-* for the actions of loading/adding files, error messages are more intelligible;
+* all the code has been completely rewritten for CakePHP 3.x. Several 
+	optimizations have been applied;
+* for the actions of loading/adding files, error messages are more 
+	intelligible;
 * added the `MeEmail` class to simplify sending emails;
 * added the `MeRequest` class to handle HTTP requests;
 * added the `ThumbHelper` to generate thumbnails;
-* updated Moment.js to 2.10.6, Bootstrap 3 Date/Time Picker to 4.15.35, Font Awesome to 4.4.0, jQuery to 2.1.4, Bootstrap to 3.3.5 and Moment.js to 2.10.3.
+* updated Moment.js to 2.10.6, Bootstrap 3 Date/Time Picker to 4.15.35, Font 
+	Awesome to 4.4.0, jQuery to 2.1.4, Bootstrap to 3.3.5 and Moment.js to 
+	2.10.3.
 
 # 1.x branch
 ## 1.2 branch
@@ -122,5 +136,6 @@
 * updated Font Awesome to 4.3.0 version;
 * support for FancyBox;
 * fixed a bug in errors views;
-* added some methods to `Plugin` utility. The `System` utility has been divided into several utilities;
+* added some methods to `Plugin` utility. The `System` utility has been 
+	divided into several utilities;
 * added the changelog file.

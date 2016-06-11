@@ -39,15 +39,17 @@ class HtmlHelper extends CakeHtmlHelper {
 	/**
 	 * Method that is called automatically when the method doesn't exist.
 	 * 
-	 * If you pass no more than two parameters, it tries to generate a html tag with the name of the method.
+	 * If you pass no more than two parameters, it tries to generate a html 
+     *  tag with the name of the method.
 	 * @param string $method Method to invoke
 	 * @param array $params Array of params for the method
 	 * @uses tag()
 	 */
 	public function __call($method, $params) {
-		if(count($params) <= 2)
+		if(count($params) <= 2) {
 			return self::tag($method, empty($params[0]) ? NULL : $params[0], empty($params[1]) ? [] : $params[1]);
-		
+        }
+        
 		parent::__call($method, $params);
 	}
 	
@@ -59,9 +61,11 @@ class HtmlHelper extends CakeHtmlHelper {
 	 * @see http://getbootstrap.com/css/#buttons-options
 	 */
     public function _addButtonClass($options, $class = 'default') {
-        //If "class" doesn't contain a button style, adds the "btn-default" classes
-        if(empty($options['class']) || !preg_match('/btn-(default|primary|success|info|warning|danger)/', $options['class']))
+        //If "class" doesn't contain a button style, adds the "btn-default" 
+        //  classes
+        if(empty($options['class']) || !preg_match('/btn-(default|primary|success|info|warning|danger)/', $options['class'])) {
 			return addValue('class', ['btn', sprintf('btn-%s', $class)], $options);
+        }
         
 		return addValue('class', 'btn', $options);
     }
@@ -74,9 +78,10 @@ class HtmlHelper extends CakeHtmlHelper {
 	 * @uses icon()
 	 */
 	public function _addIcon($text, $options) {
-		if(!empty($options['icon-align']) && $options['icon-align'] === 'right')
+		if(!empty($options['icon-align']) && $options['icon-align'] === 'right') {
 			return empty($options['icon']) ? $text : sprintf('%s %s', $text, self::icon($options['icon']));
-		
+        }
+        
 		return empty($options['icon']) ? $text : sprintf('%s %s', self::icon($options['icon']), $text);
 	}
 	
@@ -98,10 +103,13 @@ class HtmlHelper extends CakeHtmlHelper {
      * Creates a link with the appearance of a button.
      * 
      * This method creates a link with the appearance of a button.
-     * To create a POST button, you should use the `postButton()` method provided by `FormHelper`.
-     * Instead, to create a normal button, you should use the `button()` method provided by `FormHelper`.
+     * To create a POST button, you should use the `postButton()` method 
+     *  provided by `FormHelper`.
+     * Instead, to create a normal button, you should use the `button()` 
+     *  method provided by `FormHelper`.
      * @param string $title Button title
-	 * @param string|array $url Cake-relative URL or array of URL parameters or external URL
+	 * @param string|array $url Cake-relative URL or array of URL parameters 
+     *  or external URL
 	 * @param array $options Array of options and HTML attributes
 	 * @return string Html code
 	 * @uses _addButtonClass()
@@ -153,7 +161,8 @@ class HtmlHelper extends CakeHtmlHelper {
 	/**
 	 * Returns a formatted DIV tag
 	 * @param string $class CSS class name of the div element
-	 * @param string $text String content that will appear inside the div element
+	 * @param string $text String content that will appear inside the div 
+     *  element
 	 * @param array $options Array of options and HTML attributes
      * @return string Html code
 	 */
@@ -164,10 +173,12 @@ class HtmlHelper extends CakeHtmlHelper {
 	/**
 	 * Creates an heading. 
 	 * 
-	 * This method is useful if you want to create an heading with a secondary text, according to Bootstrap.
+	 * This method is useful if you want to create an heading with a secondary 
+     *  text, according to Bootstrap.
 	 * In this case you have to use the `small` option.
 	 * 
-	 * By default, this method creates an `<h2>` tag. To create a different tag, you have to use the `type` option.
+	 * By default, this method creates an `<h2>` tag. To create a different 
+     *  tag, you have to use the `type` option.
      * @param string $text heading content
 	 * @param array $options Array of options and HTML attributes
      * @return string Html code
@@ -178,9 +189,10 @@ class HtmlHelper extends CakeHtmlHelper {
 	public function heading($text, array $options = []) {
 		$type = empty($options['type']) || !preg_match('/^h[1-6]$/', $options['type']) ? 'h2' : $options['type'];
 				
-		if(!empty($options['small']) && is_string($options['small']))
+		if(!empty($options['small']) && is_string($options['small'])) {
 			$text = sprintf('%s %s', $text, self::small($options['small']));
-		
+        }
+        
 		unset($options['type'], $options['small']);
 		
 		return self::tag($type, $text, $options);
@@ -244,7 +256,8 @@ class HtmlHelper extends CakeHtmlHelper {
 	
 	/**
 	 * Creates a formatted `img` element.
-	 * @param string $path Path to the image file, relative to the `app/webroot/img/` directory
+	 * @param string $path Path to the image file, relative to the 
+     *  `app/webroot/img/` directory
 	 * @param array $options Array of options and HTML attributes
      * @return string Html code
 	 */
@@ -273,10 +286,12 @@ class HtmlHelper extends CakeHtmlHelper {
     /**
      * Create a label, according to the Bootstrap component.
      * 
-     * This method creates only a label element. Not to be confused with the `label()` method provided by 
-	 * the `Formhelper`, which creates a label for a form input.
+     * This method creates only a label element. Not to be confused with the 
+     *  `label()` method provided by the `Formhelper`, which creates a label 
+     *  for a form input.
      * 
-     * Supported type are: `default`, `primary`, `success`, `info`, `warning` and `danger`.
+     * Supported type are: `default`, `primary`, `success`, `info`, `warning` 
+     *  and `danger`.
      * @param string $text Label text
      * @param array $options HTML attributes of the list tag
      * @param string $type Label type
@@ -298,9 +313,10 @@ class HtmlHelper extends CakeHtmlHelper {
 	 * @uses tag()
      */
 	public function li($elements, array $options = []) {
-		if(!is_array($elements))
+		if(!is_array($elements)) {
 			return self::tag('li', $elements, $options);
-				
+        }
+        
 		array_walk($elements, function(&$v, $k, $options){
 			$v = self::tag('li', $v, $options);
 		}, $options);
@@ -311,7 +327,8 @@ class HtmlHelper extends CakeHtmlHelper {
 	/**
 	 * Creates an HTML link
 	 * @param string $title The content to be wrapped by <a> tags
-	 * @param string|array $url Cake-relative URL or array of URL parameters or external URL
+	 * @param string|array $url Cake-relative URL or array of URL parameters 
+     *  or external URL
 	 * @param array $options Array of options and HTML attributes
 	 * @return string Html code
 	 * @uses _addIcon()
@@ -339,8 +356,9 @@ class HtmlHelper extends CakeHtmlHelper {
 
     /**
      * Returns an `<audio>` or `<video>` element.
-     * @param string|array $path File path, relative to the `webroot/files/` directory or an array
-	 * where each item itself can be a path string or an array containing `src` and `type` keys.
+     * @param string|array $path File path, relative to the `webroot/files/` 
+     *  directory or an array where each item itself can be a path string or 
+     *  an array containing `src` and `type` keys.
 	 * @param array $options Array of options and HTML attributes
      * @return string Html code
      */
@@ -353,9 +371,10 @@ class HtmlHelper extends CakeHtmlHelper {
 	/**
 	 * Creates a link to an external resource and handles basic meta tags.
 	 * @param string|array $type The title of the external resource
-	 * @param string|array|null $content The address of the external resource or string for content attribute
-	 * @param array $options Other attributes for the generated tag. If the type attribute is html,
-	 *		rss, atom, or icon, the mime-type is returned
+	 * @param string|array|null $content The address of the external resource 
+     *  or string for content attribute
+	 * @param array $options Other attributes for the generated tag. If the 
+     * type attribute is html, rss, atom, or icon, the mime-type is returned
 	 * @return string A completed `<link />` element
 	 */
 	public function meta($type, $content = NULL, array $options = []) {
@@ -374,9 +393,10 @@ class HtmlHelper extends CakeHtmlHelper {
 	 * @uses _addIcon()
 	 */
 	public function nestedList(array $list, array $options = [], array $itemOptions = []) {
-		if(!empty($itemOptions['icon']))
+		if(!empty($itemOptions['icon'])) {
 			$options['icon'] = $itemOptions['icon'];
-		
+        }
+        
 		if(!empty($options['icon'])) {
 			$options = addValue('class', 'fa-ul', $options);
 			$options = addValue('icon', 'li', $options);
@@ -424,7 +444,8 @@ class HtmlHelper extends CakeHtmlHelper {
      * If it's used in the layout, you should set the `inline` option to `TRUE`.
      * @param mixed $url Javascript files as string or array
 	 * @param array $options Array of options and HTML attributes
-     * @return mixed String of `<script />` tags or NULL if `$inline` is FALSE or if `$once` is TRUE
+     * @return mixed String of `<script />` tags or NULL if `$inline` is FALSE 
+     *  or if `$once` is TRUE
 	 * and the file has been included before
      */
 	public function script($url, array $options = []) {
@@ -450,7 +471,8 @@ class HtmlHelper extends CakeHtmlHelper {
      * 
      * To end capturing output, you can use the `scriptEnd()` method.
      * 
-     * To capture output with a single method, you can also use the `scriptBlock()` method.
+     * To capture output with a single method, you can also use the 
+     *  `scriptBlock()` method.
      * @param array $options Options for the code block
      * @return mixed A script tag or NULL
      * @see scriptBlock()
@@ -472,7 +494,10 @@ class HtmlHelper extends CakeHtmlHelper {
 	 * @uses div()
 	 */
 	public function shareaholic($app_id) {
-		return $this->div('shareaholic-canvas', ' ', ['data-app' => 'share_buttons', 'data-app-id' => $app_id]);
+		return $this->div('shareaholic-canvas', ' ', [
+            'data-app' => 'share_buttons',
+            'data-app-id' => $app_id,
+        ]);
 	}
 	
     /**
@@ -514,18 +539,19 @@ class HtmlHelper extends CakeHtmlHelper {
     }
 	
 	/**
-	 * Adds the `viewport` meta tag. By default, it uses options as required by Bootstrap
-	 * @param array $options Attributes for the generated tag. If the type attribute is html,
-	 *		rss, atom, or icon, the mime-type is returned
+	 * Adds the `viewport` meta tag. By default, it uses options as required 
+     *  by Bootstrap
+	 * @param array $options Attributes for the generated tag. If the type 
+     *  attribute is html, rss, atom, or icon, the mime-type is returned
      * @see http://getbootstrap.com/css/#overview-mobile Bootstrap documentation
      * @uses meta()
 	 */
 	public function viewport(array $options = []) {
 		$default = [
-			'initial-scale'	=> '1',
-			'maximum-scale'	=> '1',
-			'user-scalable'	=> 'no',
-			'width'			=> 'device-width'
+			'initial-scale' => '1',
+			'maximum-scale' => '1',
+			'user-scalable' => 'no',
+			'width' => 'device-width',
 		];
 		
 		$content = http_build_query(am($default, $options), NULL, ', ');

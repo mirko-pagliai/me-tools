@@ -47,12 +47,12 @@ class Plugin extends CakePlugin {
         
         $options = am([
             'core' => FALSE,
-            'except' => [],
+            'exclude' => [],
             'order' => TRUE
         ], $options);
         
         if(!$options['core']) {
-            $plugins = array_diff($plugins, ['DebugKit', 'Migrations']);
+            $plugins = array_diff($plugins, ['DebugKit', 'Migrations', 'Bake']);
         }
         
         if(!empty($options['exclude'])) {
@@ -78,8 +78,8 @@ class Plugin extends CakePlugin {
      * @param string|array $file Files
      * @param bool $check Checks if the files exist
      * @return string|array|bool String or `FALSE` if you asked the path of a 
-     *  plugin or of a single plugin file. Otherwise, an array if you asked the 
-     *  path of several plugin files
+     *  plugin or of a single plugin file. Otherwise, an array if you asked 
+     *  the path of several plugin files
      */
     public static function path($plugin, $file = NULL, $check = FALSE) {
         $plugin = parent::path($plugin);

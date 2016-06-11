@@ -28,9 +28,11 @@ use Cake\View\Helper;
 /**
  * Provides functionalities for creating dropdown menus, according to Bootstrap.
  * 
- * The `menu()` method creates a full dropdown menu, with a link to open the menu and the menu itself.
+ * The `menu()` method creates a full dropdown menu, with a link to open the 
+ *  menu and the menu itself.
  * 
- * Otherwise you can use the `button()` or the `link()`method, which generate a link or a button to open the menu, 
+ * Otherwise you can use the `button()` or the `link()`method, which generate 
+ *  a link or a button to open the menu, 
  * followed by the `dropdown()` method, which generates only the menu.
  */
 class DropdownHelper extends Helper {
@@ -41,7 +43,8 @@ class DropdownHelper extends Helper {
 	public $helpers = ['Html' => ['className' => 'MeTools.Html']];
 	
     /**
-     * Parses and handles title and options used to create a link or a button to open a dropdown.
+     * Parses and handles title and options used to create a link or a button 
+     *  to open a dropdown.
      * 
      * You should not use this method directly, but `button()` or `link()`.
      * @param string $title Link/button title
@@ -62,7 +65,8 @@ class DropdownHelper extends Helper {
     /**
      * Creates a button to open a dropdown menu, according to Bootstrap.
      * 
-     * Note that this method creates only a link. To create a full dropdown menu, you should use the `menu()` method.
+     * Note that this method creates only a link. To create a full dropdown 
+     *  menu, you should use the `menu()` method.
      * @param string $title Button title
 	 * @param array $options Array of options and HTML attributes
      * @return string Html code
@@ -83,9 +87,11 @@ class DropdownHelper extends Helper {
 	/**
 	 * Creates a dropdown menu.
      * 
-     * Note that this method creates only a dropdown submenu, without the a link or a button to open the menu.
+     * Note that this method creates only a dropdown submenu, without the a 
+     *  link or a button to open the menu.
 	 * To create a full dropdown menu, you should use the `menu()` method.
-     * @param array $links Array of links for the dropdown (you should use the `HtmlHelper::link()` method for each link)
+     * @param array $links Array of links for the dropdown (you should use 
+     *  the `HtmlHelper::link()` method for each link)
      * @param array $options Options for the dropdown (`<ul>` element)
      * @param array $itemOptions Options for each item (`<li>` element)
      * @return string Html code
@@ -104,7 +110,8 @@ class DropdownHelper extends Helper {
 	/**
      * Creates a link to open a dropdown menu, according to Bootstrap.
      * 
-     * Note that this method creates only a link. To create a full dropdown menu, you should use the `menu()` method.
+     * Note that this method creates only a link. To create a full dropdown 
+     *  menu, you should use the `menu()` method.
      * @param string $title Link title
 	 * @param array $options Array of options and HTML attributes
      * @return string Html code
@@ -136,7 +143,8 @@ class DropdownHelper extends Helper {
      * </code>
      * @param string $title Link title
 	 * @param array $titleOptions Array of options and HTML attributes
-     * @param array $links Array of links for the dropdown (you should use the `HtmlHelper::link()` method for each link)
+     * @param array $links Array of links for the dropdown (you should use 
+     *  the `HtmlHelper::link()` method for each link)
      * @param array $dropdownOptions Options for the dropdown (`<ul>` element)
      * @param array $itemOptions Options for each item (`<li>` element)
      * @return string Html code
