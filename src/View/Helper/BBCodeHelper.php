@@ -82,7 +82,7 @@ class BBCodeHelper extends Helper {
      * </code>
 	 * @param string $text
 	 * @return string
-	 * @uses MeCms\Utility\Youtube::getId()
+	 * @uses MeTools\Utility\Youtube::getId()
 	 * @uses MeTools\View\Helper\HtmlHelper::youtube()
 	 */
 	public function youtube($text) {
