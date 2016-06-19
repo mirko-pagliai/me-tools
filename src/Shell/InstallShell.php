@@ -105,6 +105,7 @@ class InstallShell extends Shell {
 		//Suggested packages to install by Composer
 		$this->packages = [
 			'eonasdan/bootstrap-datetimepicker',
+            'fortawesome/font-awesome',
 			'newerton/fancy-box:dev-master',
 		];
 		
