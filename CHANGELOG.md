@@ -1,5 +1,8 @@
 # 2.x branch
 ## 2.6 branch
+### 2.6.5
+* fixed Composer's packages.
+
 ### 2.6.4
 * added `Youtube` utility class;
 * fixed some code for Composer updates;
