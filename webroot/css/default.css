@@ -23,6 +23,11 @@ a.fancybox {
 	font-style: italic;
 }
 
+/* Relative position */
+.relative {
+	position: relative;
+}
+
 /* No wrap, text truncated with ellipses */
 .no-wrap, .noWrap,
 .text-truncate, .textTruncate, 

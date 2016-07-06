@@ -1,5 +1,8 @@
 # 2.x branch
 ## 2.6 branch
+### 2.6.6
+* added `Breadcrumb` helper.
+
 ### 2.6.5
 * fixed Composer's packages.
 
