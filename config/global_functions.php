@@ -59,8 +59,8 @@ if(!function_exists('addOptionValue')) {
 	function addOptionValue($name, $values, $options) {
 		//If values are an array or multiple arrays, turns them into a string
 		if(is_array($values)) {
-			$values = implode(' ', array_map(function($v) {
-				return is_array($v) ? implode(' ', $v) : $v;
+			$values = implode(' ', array_map(function($value) {
+				return is_array($value) ? implode(' ', $value) : $value;
 			}, $values));
         }
         
