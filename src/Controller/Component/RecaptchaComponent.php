@@ -25,6 +25,8 @@ namespace MeTools\Controller\Component;
 
 use Cake\Controller\Component;
 use Cake\Core\Configure;
+use Cake\Network\Exception\InternalErrorException;
+use Cake\Network\Http\Client;
 
 /**
  * A component to use reCAPTCHA
@@ -41,20 +43,17 @@ class RecaptchaComponent extends Component {
 	 * @return boolean
 	 * @see https://developers.google.com/recaptcha/docs/verify
 	 * @throws \Cake\Network\Exception\InternalErrorException
-	 * @uses Cake\Network\Http\Client::post()
-	 * @uses MeTools\Network\Request::clientIp()
 	 */
 	public function check() {		
-		//Loads the configuration file
+		//Loads the configuration file and gets the form keys
 		Configure::load('recaptcha');
-		
-		//Gets the form keys
 		$keys = Configure::read('Recaptcha.Form');
 		
 		//Checks for form keys
-		if(empty($keys['public']) || empty($keys['private']))
-            throw new \Cake\Network\Exception\InternalErrorException(__d('me_tools', 'Form keys are not configured'));
-		
+		if(empty($keys['public']) || empty($keys['private'])) {
+            throw new InternalErrorException(__d('me_tools', 'Form keys are not configured'));
+        }
+        
 		$controller = $this->_registry->getController();
 		$response = $controller->request->data('g-recaptcha-response');
 		
@@ -63,9 +62,9 @@ class RecaptchaComponent extends Component {
 			return FALSE;
 		}
 		 		
-		$results = (new \Cake\Network\Http\Client)->post('https://www.google.com/recaptcha/api/siteverify', am([
-			'remoteip'	=> $controller->request->clientIp(),
-			'secret'	=> $keys['private']
+		$results = (new Client())->post('https://www.google.com/recaptcha/api/siteverify', am([
+			'remoteip' => $controller->request->clientIp(),
+			'secret' => $keys['private'],
 		], compact('response')));
 				
 		if(empty($results) || empty($results->json['success'])) {

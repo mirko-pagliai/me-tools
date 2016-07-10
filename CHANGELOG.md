@@ -1,5 +1,8 @@
 # 2.x branch
 ## 2.6 branch
+### 2.6.7
+* fixed bug for mail links of reCAPTCHA.
+
 ### 2.6.6
 * added `Breadcrumb` helper.
 

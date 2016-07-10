@@ -79,7 +79,10 @@ class RecaptchaHelper extends Helper {
         
 		$optionsScript = addDefault('block', 'script_bottom', $optionsScript);
 		
-		$this->Html->js('https://www.google.com/recaptcha/api.js', am($optionsScript, ['async' => TRUE, 'defer' => TRUE]));
+		$this->Html->js('https://www.google.com/recaptcha/api.js', am($optionsScript, [
+            'async' => TRUE,
+            'defer' => TRUE,
+        ]));
 		
 		return $this->Html->div('g-recaptcha', ' ', am($options, ['data-sitekey' => $keys['public']]));
 	}
@@ -105,9 +108,10 @@ class RecaptchaHelper extends Helper {
     public function mailLink($title, $mail = NULL, array $options = []) {
 		$title = empty($mail) ? $this->_obfuscate($mail = $title) : $title;
         $link = self::mailUrl($mail);
-
-		$options = addValue('onclick', sprintf("window.open('%s', '', 'toolbar=0,scrollbars=0,location=0,statusbar=0,menubar=0,resizable=0,width=500,height=300'); return false;", $link), $options);
-		
+        
+        $options = addValue('target', '_blank', $options);
+        $options = addValue('class', 'recaptcha-mail', $options);
+        
         return $this->Html->link($title, $link, $options);
     }
 
