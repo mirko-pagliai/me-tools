@@ -24,80 +24,6 @@
 use Cake\Filesystem\File;
 use Cake\Filesystem\Folder;
 
-if(!function_exists('optionDefaults')) {
-	/**
-	 * Adds a default values to html options.
-     * 
-     * Example:
-     * <code>
-     * $options = optionDefaults([
-     *  'class' => 'this-is-my-class',
-     *  'data-balue => 'example-value',
-     * ], $options);
-     * </code>
-     * 
-     * To provide backward compatibility, this function can accept three 
-     * arguments (value name, value, options).
-     * @param array $values Options values
-	 * @param array $options Options
-	 * @return array Options
-     */
-	function optionDefaults($values, $options) {
-        if(func_num_args() === 3) {
-            $values = [func_get_arg(0) => func_get_arg(1)];
-            $options = func_get_arg(2);
-        }
-
-        foreach($values as $key => $value) {
-            if(empty($options[$key])) {
-                $options[$key] = $value;
-            }
-        }
-
-        return $options;
-	}
-}
-
-if(!function_exists('optionValues')) {
-	/**
-	 * Adds values to html options.
-     * 
-     * Example:
-     * <code>
-     * $options = optionValues([
-     *  'class' => 'this-is-my-class',
-     *  'data-balue => 'example-value',
-     * ], $options);
-     * </code>
-     * 
-     * To provide backward compatibility, this function can accept three 
-     * arguments (value name, value, options).
-     * @param array $values Options values
-	 * @param array $options Options
-	 * @return array Options
-	 */
-	function optionValues($values, $options) {
-        if(func_num_args() === 3) {
-            $values = [func_get_arg(0) => func_get_arg(1)];
-            $options = func_get_arg(2);
-        }
-
-        foreach($values as $key => $value) {
-            if(empty($options[$key])) {
-                $options[$key] = $value;
-            }
-            else {
-                //Turns into array, adds value and turns again into string
-                $options[$key] = preg_split('/\s/', $options[$key]);
-                $options[$key] = am($options[$key], [trim($value)]);
-                $options[$key] = implode(' ', array_unique($options[$key]));
-            }
-        }
-
-        return $options;
-	}
-}
-
 if(!function_exists('af')) {
 	/**
 	 * Cleans an array, removing empty values (`array_filter()`)
@@ -304,6 +230,80 @@ if(!function_exists('is_url')) {
 	 */
 	function is_url($url) {
 		return (bool) preg_match("/\b(?:(?:https?|ftp):\/\/|www\.)[-a-z0-9+&@#\/%?=~_|!:,.;]*[-a-z0-9+&@#\/%=~_|]/i", $url);
+	}
+}
+
+if(!function_exists('optionDefaults')) {
+	/**
+	 * Adds a default values to html options.
+     * 
+     * Example:
+     * <code>
+     * $options = optionDefaults([
+     *  'class' => 'this-is-my-class',
+     *  'data-balue => 'example-value',
+     * ], $options);
+     * </code>
+     * 
+     * To provide backward compatibility, this function can accept three 
+     * arguments (value name, value, options).
+     * @param array $values Options values
+	 * @param array $options Options
+	 * @return array Options
+     */
+	function optionDefaults($values, $options) {
+        if(func_num_args() === 3) {
+            $values = [func_get_arg(0) => func_get_arg(1)];
+            $options = func_get_arg(2);
+        }
+
+        foreach($values as $key => $value) {
+            if(empty($options[$key])) {
+                $options[$key] = $value;
+            }
+        }
+
+        return $options;
+	}
+}
+
+if(!function_exists('optionValues')) {
+	/**
+	 * Adds values to html options.
+     * 
+     * Example:
+     * <code>
+     * $options = optionValues([
+     *  'class' => 'this-is-my-class',
+     *  'data-balue => 'example-value',
+     * ], $options);
+     * </code>
+     * 
+     * To provide backward compatibility, this function can accept three 
+     * arguments (value name, value, options).
+     * @param array $values Options values
+	 * @param array $options Options
+	 * @return array Options
+	 */
+	function optionValues($values, $options) {
+        if(func_num_args() === 3) {
+            $values = [func_get_arg(0) => func_get_arg(1)];
+            $options = func_get_arg(2);
+        }
+
+        foreach($values as $key => $value) {
+            if(empty($options[$key])) {
+                $options[$key] = $value;
+            }
+            else {
+                //Turns into array, adds value and turns again into string
+                $options[$key] = preg_split('/\s/', $options[$key]);
+                $options[$key] = am($options[$key], [trim($value)]);
+                $options[$key] = implode(' ', array_unique($options[$key]));
+            }
+        }
+
+        return $options;
 	}
 }
 
