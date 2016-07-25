@@ -58,7 +58,7 @@ if(!function_exists('clear_dir')) {
 	 * @return boolean
 	 */
 	function clear_dir($directory) {
-		if(!folder_is_writable($directory)) {
+		if(!folder_is_writeable($directory)) {
 			return FALSE;
         }
 		
@@ -93,33 +93,24 @@ if(!function_exists('fk')) {
 	}
 }
 
-if(!function_exists('folder_is_writable')) {
+if(!function_exists('folder_is_writeable')) {
 	/**
 	 * Checks if a directory and its subdirectories are readable and writable
 	 * @param string $dir Directory path
 	 * @return boolean
 	 */
-	function folder_is_writable($dir) {
-		if(!is_readable($dir) || !is_writable($dir)) {
+	function folder_is_writeable($dir) {
+		if(!is_readable($dir) || !is_writeable($dir)) {
 			return FALSE;
         }
 
         foreach((new Folder())->tree($dir, FALSE, 'dir') as $subdir) {
-            if(!is_readable($subdir) || !is_writable($subdir)) {
+            if(!is_readable($subdir) || !is_writeable($subdir)) {
                 return FALSE;
             }
         }
 
         return TRUE;
-	}
-}
-
-if(!function_exists('folder_is_writeable')) {
-    /**
-     * Alias for `folder_is_writable()` function
-     */
-	function folder_is_writeable() {
-		return call_user_func_array('folder_is_writable', func_get_args());
 	}
 }
 
