@@ -116,7 +116,7 @@ class FormHelper extends CakeFormHelper {
 	 * @uses MeTools\View\Helper\HtmlHelper::_addIcon()
 	 */
 	public function button($title, array $options = []) {
-		$options = optionDefaults('type', 'button', $options);
+		$options = optionDefaults(['type' => 'button'], $options);
 		
 		if($options['type'] !== 'submit') {
 			$options = $this->Html->_addButtonClass($options);
@@ -162,7 +162,7 @@ class FormHelper extends CakeFormHelper {
      * @uses input()
      */
     public function ckeditor($fieldName, array $options = []) {
-		$options = optionValues('class', 'ckeditor', $options);
+		$options = optionValues(['class' => 'ckeditor'], $options);
 
         return self::input($fieldName, am($options, ['type' => 'textarea']));
     }
@@ -201,7 +201,7 @@ class FormHelper extends CakeFormHelper {
         $this->inline = TRUE;
         unset($options['inline']);
 
-		$options = optionValues('class', 'form-inline', $options);
+		$options = optionValues(['class' => 'form-inline'], $options);
 
         return self::create($model, $options);
     }
@@ -217,8 +217,8 @@ class FormHelper extends CakeFormHelper {
      * @uses input()
      */
     public function datepicker($fieldName, array $options = []) {
-		$options = optionValues('class', 'datepicker', $options);
-		$options = optionDefaults('data-date-format', 'YYYY-MM-DD', $options);
+		$options = optionValues(['class' => 'datepicker'], $options);
+		$options = optionDefaults(['data-date-format' => 'YYYY-MM-DD'], $options);
 		
         return self::input($fieldName, am($options, ['type' => 'text']));
     }
@@ -234,7 +234,7 @@ class FormHelper extends CakeFormHelper {
      * @uses input()
      */
     public function datetimepicker($fieldName, array $options = []) {
-		$options = optionValues('class', 'datetimepicker', $options);
+		$options = optionValues(['class' => 'datetimepicker'], $options);
 		$options = optionDefaults('data-date-format', 'YYYY-MM-DD HH:mm', $options);
 		
         return self::input($fieldName, am($options, ['type' => 'text']));
@@ -268,13 +268,13 @@ class FormHelper extends CakeFormHelper {
 		$type = empty($options['type']) ? self::_inputType($fieldName, $options) : $options['type'];
 		
         if($type !== 'file') {
-            $options = optionValues('class', 'form-control', $options);
+            $options = optionValues(['class' => 'form-control'], $options);
         }
         
 		//If the field name contains the word "password", then the field type 
         //  is "password"
 		if(preg_match('/password/', $fieldName)) {
-			$options = optionDefaults('type', 'password', $options);
+			$options = optionDefaults(['type' => 'password'], $options);
         }
         
 		//Changes the "autocomplete" value from "FALSE" to "off"
@@ -289,13 +289,15 @@ class FormHelper extends CakeFormHelper {
             //  `select()` method to see if the option has been added by the 
             //  user or not
 			if(!isset($options['empty'])) {
-				$options = optionDefaults('remove_empty', TRUE, $options);
+				$options = optionDefaults(['remove_empty' => TRUE], $options);
             }
 		}
 		//Else, if it's a textarea
 		elseif($type === 'textarea') {
-			$options = optionDefaults('cols', NULL, $options);
-			$options = optionDefaults('rows', NULL, $options);
+			$options = optionDefaults([
+                'cols' => NULL,
+                'rows' => NULL,
+            ], $options);
         }
 		
 		//Sets the default templates
@@ -342,7 +344,7 @@ class FormHelper extends CakeFormHelper {
 					$options['label'] = ['text' => $options['label']];
                 }
                 
-				$options['label'] = optionValues('class', 'sr-only', $options['label']);
+				$options['label'] = optionValues(['class' => 'sr-only'], $options['label']);
 			}
 		}
 		
@@ -361,7 +363,7 @@ class FormHelper extends CakeFormHelper {
 	 * @uses MeTools\View\Helper\HtmlHelper::_addIcon()
 	 */
 	public function label($fieldName, $text = NULL, array $options = []) {
-		$options = optionDefaults('escape', FALSE, $options);
+		$options = optionDefaults(['escape' => FALSE], $options);
 
 		$text = $this->Html->_addIcon($text, $options);
         unset($options['icon'], $options['icon-align']);
@@ -387,7 +389,7 @@ class FormHelper extends CakeFormHelper {
 	 * @uses postLink()
 	 */
 	public function postButton($title, $url, array $options = []) {
-		$options = optionValues('role', 'button', $options);
+		$options = optionValues(['role' => 'button'], $options);
 		$options = $this->Html->_addButtonClass($options);
 
         return self::postLink($title, $url, $options);		
@@ -412,11 +414,13 @@ class FormHelper extends CakeFormHelper {
 		$title = $this->Html->_addIcon($title, $options);
 		unset($options['icon'], $options['icon-align']);
 				
-		$options = optionDefaults('title', $title, $options);
+		$options = optionDefaults(['title' => $title], $options);
 		$options['title'] = trim(h(strip_tags($options['title'])));
 
-		$options = optionDefaults('escape', FALSE, $options);
-		$options = optionDefaults('escapeTitle', FALSE, $options);
+		$options = optionDefaults([
+            'escape' => FALSE,
+            'escapeTitle' => FALSE,
+        ], $options);
 
         return parent::postLink($title, $url, $options);
 	}
@@ -438,7 +442,7 @@ class FormHelper extends CakeFormHelper {
         }
         
 		if(!isset($attributes['empty']) && empty($attributes['default']) && empty($attributes['value'])) {
-			$attributes = optionDefaults('empty', TRUE, $attributes);
+			$attributes = optionDefaults(['empty' => TRUE], $attributes);
         }
 		
 		return parent::select($fieldName, $options, $attributes);
@@ -467,8 +471,8 @@ class FormHelper extends CakeFormHelper {
      * @uses input()
      */
     public function timepicker($fieldName, array $options = []) {
-		$options = optionValues('class', 'timepicker', $options);
-		$options = optionDefaults('data-date-format', 'HH:mm', $options);
+		$options = optionValues(['class' => 'timepicker'], $options);
+		$options = optionDefaults(['data-date-format' => 'HH:mm'], $options);
 		
         return self::input($fieldName, am($options, ['type' => 'text']));
     }

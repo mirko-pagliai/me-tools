@@ -56,8 +56,10 @@ class DropdownHelper extends Helper {
     protected function __parseLink($title, array $options = []) {
 		$title = sprintf('%s %s', $title, $this->Html->icon('caret-down'));
 		
-		$options = optionValues('class', 'dropdown-toggle', $options);
-		$options = optionValues('data-toggle', 'dropdown', $options);
+		$options = optionValues([
+            'class' => 'dropdown-toggle',
+            'data-toggle' => 'dropdown',
+        ], $options);
 
         return [$title, $options];
     }
@@ -100,9 +102,11 @@ class DropdownHelper extends Helper {
 	 * @uses MeTools\View\Helper\HtmlHelper::ul()
 	 */
 	public function dropdown(array $links = [], array $options = [], array $itemOptions = []) {
-		$options = optionValues('class', 'dropdown-menu', $options);
-		$options = optionValues('role', 'menu', $options);
-		$itemOptions = optionValues('role', 'presentation', $itemOptions);
+		$options = optionValues([
+            'class' => 'dropdown-menu',
+            'role' => 'menu',
+        ] , $options);
+		$itemOptions = optionValues(['role' => 'presentation'], $itemOptions);
 				
         return $this->Html->ul($links, $options, $itemOptions);
 	}
