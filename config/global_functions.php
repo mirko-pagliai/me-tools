@@ -78,17 +78,6 @@ if(!function_exists('clear_dir')) {
 	}
 }
 
-if(!function_exists('dirsize')) {
-	/**
-	 * Returns the size in bytes of a directory and its contents
-	 * @param string $path Full path
-	 * @return int Size in bytes
-	 */
-	function dirsize($path) {
-		return (new Folder($path))->dirsize();
-	}
-}
-
 if(!function_exists('fk')) {
 	/**
 	 * Returns the first key of an array
