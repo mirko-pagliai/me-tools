@@ -26,12 +26,12 @@ use Cake\Filesystem\Folder;
 
 if(!function_exists('af')) {
 	/**
-	 * Cleans an array, removing empty values (`array_filter()`)
+	 * Cleans an array, removing values equal to `FALSE` (`array_filter()`)
 	 * @param array $array Array
 	 * @return array Array
 	 */
 	function af($array) {
-		return is_array($array) ? array_filter($array) : $array;
+		return array_filter($array);
 	}
 }
 
