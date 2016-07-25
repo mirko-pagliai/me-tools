@@ -174,7 +174,7 @@ if(!function_exists('is_json')) {
 
 if(!function_exists('is_localhost')) {
 	/**
-	 * Checks if is localhost
+	 * Checks if the host is the localhost
 	 * @return bool
 	 */
     function is_localhost() {		
