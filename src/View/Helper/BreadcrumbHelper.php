@@ -81,9 +81,9 @@ class BreadcrumbHelper extends Helper {
             $this->Html->addCrumb($element['name'], $element['link'], $element['options']);
         }
         
-		$options = addDefault('class', 'breadcrumb', $options);
-		$options = addDefault('firstClass', FALSE, $options);
-		$options = addDefault('lastClass', 'active', $options);
+		$options = optionDefaults('class', 'breadcrumb', $options);
+		$options = optionDefaults('firstClass', FALSE, $options);
+		$options = optionDefaults('lastClass', 'active', $options);
         
         if(empty($startText)) {
             $startText = 'Homepage';

@@ -1,4 +1,9 @@
 # 2.x branch
+## 2.7 branch
+### 2.7.0
+* `addDefault()` renamed as `optionDefaults()` and `addOptionValue()` renamed 
+	as `optionValues()`. These functions now accept values as array.
+
 ## 2.6 branch
 ### 2.6.7
 * fixed bug for mail links of reCAPTCHA.

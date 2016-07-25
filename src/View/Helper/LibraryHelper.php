@@ -62,12 +62,12 @@ class LibraryHelper extends Helper {
         $this->Asset->css('/vendor/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min', ['block' => 'css_bottom']);
 		
 		//Shows the "Today" button in the icon toolbar
-		$options = addDefault('showTodayButton', TRUE, $options);
+		$options = optionDefaults('showTodayButton', TRUE, $options);
 		
 		//Shows the "Clear" button in the icon toolbar
-		$options = addDefault('showClear', TRUE, $options);
+		$options = optionDefaults('showClear', TRUE, $options);
 		
-		$options = addDefault('icons', [
+		$options = optionDefaults('icons', [
 			'time' => 'fa fa-clock-o',
 			'date' => 'fa fa-calendar',
 			'up' => 'fa fa-arrow-up',
@@ -80,7 +80,7 @@ class LibraryHelper extends Helper {
 		
 		//Sets the current locale
 		$locale = substr(\Cake\I18n\I18n::locale(), 0, 2);
-		$options = addDefault('locale', empty($locale) ? 'en-gb' : $locale, $options);
+		$options = optionDefaults('locale', empty($locale) ? 'en-gb' : $locale, $options);
 		
 		return sprintf('$("%s").datetimepicker(%s);', $input, json_encode($options));
 	}
@@ -183,7 +183,7 @@ class LibraryHelper extends Helper {
 	public function datepicker($input = NULL, array $options = []) {
 		$input = empty($input) ? '.datepicker' : $input;
 		
-		$options = addDefault('format', 'YYYY/MM/DD', $options);
+		$options = optionDefaults('format', 'YYYY/MM/DD', $options);
 		
         $this->output[] = self::_datetimepicker($input, $options);
 	}
@@ -296,7 +296,7 @@ class LibraryHelper extends Helper {
 	public function timepicker($input = NULL, array $options = []) {
 		$input = empty($input) ? '.timepicker' : $input;
 		
-		$options = addDefault('pickTime', FALSE, $options);
+		$options = optionDefaults('pickTime', FALSE, $options);
 		
 		$this->output[] = self::_datetimepicker($input, $options);
 	}

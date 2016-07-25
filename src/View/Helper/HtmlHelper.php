@@ -64,10 +64,10 @@ class HtmlHelper extends CakeHtmlHelper {
         //If "class" doesn't contain a button style, adds the "btn-default" 
         //  classes
         if(empty($options['class']) || !preg_match('/btn-(default|primary|success|info|warning|danger)/', $options['class'])) {
-			return addValue('class', ['btn', sprintf('btn-%s', $class)], $options);
+			return optionValues('class', ['btn', sprintf('btn-%s', $class)], $options);
         }
         
-		return addValue('class', 'btn', $options);
+		return optionValues('class', 'btn', $options);
     }
 	
 	/**
@@ -94,7 +94,7 @@ class HtmlHelper extends CakeHtmlHelper {
 	 * @uses tag()
      */
     public function badge($text, array $options = []) {
-		$options = addValue('class', 'badge', $options);
+		$options = optionValues('class', 'badge', $options);
 
         return self::tag('span', $text, $options);
     }
@@ -116,7 +116,7 @@ class HtmlHelper extends CakeHtmlHelper {
 	 * @uses link()
 	 */
 	public function button($title, $url = NULL, array $options = []) {
-		$options = addValue('role', 'button', $options);
+		$options = optionValues('role', 'button', $options);
 		$options = self::_addButtonClass($options);
 		
 		return self::link($title, $url, $options);
@@ -131,7 +131,7 @@ class HtmlHelper extends CakeHtmlHelper {
      * @return string Html, `<link>` or `<style>` tag
 	 */
 	public function css($path, array $options = []) {
-		$options = addDefault('block', TRUE, $options);
+		$options = optionDefaults('block', TRUE, $options);
 		
 		return parent::css($path, $options);
 	}
@@ -226,7 +226,7 @@ class HtmlHelper extends CakeHtmlHelper {
 		$icon = preg_replace('/(?<![^ ])(?=[^ ])(?!fa-)/', 'fa-', $icon);
 		
 		//Adds the "fa" class
-		$options = addValue('class', ['fa', $icon], $options);
+		$options = optionValues('class', ['fa', $icon], $options);
 		
 		return self::tag('i', ' ', $options);
 	}
@@ -247,7 +247,7 @@ class HtmlHelper extends CakeHtmlHelper {
 		$options['src'] = $url;
 		
 		if($ratio === '16by9' || $ratio === '4by3') {
-			$options = addValue('class', 'embed-responsive-item', $options);
+			$options = optionValues('class', 'embed-responsive-item', $options);
 			return self::div(sprintf('embed-responsive embed-responsive-%s', $ratio), self::tag('iframe', ' ', $options));
 		}
 		
@@ -262,7 +262,7 @@ class HtmlHelper extends CakeHtmlHelper {
      * @return string Html code
 	 */
 	public function image($path, array $options = []) {
-		$options = addValue('class', 'img-responsive', $options);
+		$options = optionValues('class', 'img-responsive', $options);
 		
 		return parent::image($path, $options);
 	}
@@ -300,7 +300,7 @@ class HtmlHelper extends CakeHtmlHelper {
 	 * @uses tag()
      */
     public function label($text, array $options = [], $type = 'default') {
-		$options = addValue('class', ['label', sprintf('label-%s', $type)], $options);
+		$options = optionValues('class', ['label', sprintf('label-%s', $type)], $options);
 
         return self::tag('span', $text, $options);
     }
@@ -337,11 +337,11 @@ class HtmlHelper extends CakeHtmlHelper {
 		$title = self::_addIcon($title, $options);
 		unset($options['icon'], $options['icon-align']);
 		
-		$options = addDefault('title', $title, $options);
+		$options = optionDefaults('title', $title, $options);
 		$options['title'] = trim(h(strip_tags($options['title'])));
 
-		$options = addDefault('escape', FALSE, $options);
-		$options = addDefault('escapeTitle', FALSE, $options);
+		$options = optionDefaults('escape', FALSE, $options);
+		$options = optionDefaults('escapeTitle', FALSE, $options);
 		
 		return parent::link($title, $url, $options);
 	}
@@ -363,7 +363,7 @@ class HtmlHelper extends CakeHtmlHelper {
      * @return string Html code
      */
     public function media($path, array $options = []) {
-		$options = addDefault('controls', !empty($options['controls']) || !isset($options['controls']), $options);
+		$options = optionDefaults('controls', !empty($options['controls']) || !isset($options['controls']), $options);
 
         return parent::media($path, $options);
     }
@@ -378,7 +378,7 @@ class HtmlHelper extends CakeHtmlHelper {
 	 * @return string A completed `<link />` element
 	 */
 	public function meta($type, $content = NULL, array $options = []) {
-		$options = addDefault('block', TRUE, $options);
+		$options = optionDefaults('block', TRUE, $options);
 		
         return parent::meta($type, $content, $options);
 	}
@@ -398,8 +398,8 @@ class HtmlHelper extends CakeHtmlHelper {
         }
         
 		if(!empty($options['icon'])) {
-			$options = addValue('class', 'fa-ul', $options);
-			$options = addValue('icon', 'li', $options);
+			$options = optionValues('class', 'fa-ul', $options);
+			$options = optionValues('icon', 'li', $options);
 			
 			array_walk($list, function(&$v, $k, $options) {
 				$v = self::_addIcon($v, $options);
@@ -449,7 +449,7 @@ class HtmlHelper extends CakeHtmlHelper {
 	 * and the file has been included before
      */
 	public function script($url, array $options = []) {
-		$options = addDefault('block', TRUE, $options);
+		$options = optionDefaults('block', TRUE, $options);
 
         return parent::script($url, $options);
 	}
@@ -461,7 +461,7 @@ class HtmlHelper extends CakeHtmlHelper {
      * @return mixed A script tag or NULL
      */
     public function scriptBlock($code, array $options = []) {
-		$options = addDefault('block', TRUE, $options);
+		$options = optionDefaults('block', TRUE, $options);
 
         return parent::scriptBlock($code, $options);
     }
@@ -478,7 +478,7 @@ class HtmlHelper extends CakeHtmlHelper {
      * @see scriptBlock()
      */
     public function scriptStart(array $options = []) {
-		$options = addDefault('block', 'script_bottom', $options);
+		$options = optionDefaults('block', 'script_bottom', $options);
 
         return parent::scriptStart($options);
     }
@@ -510,15 +510,15 @@ class HtmlHelper extends CakeHtmlHelper {
      */
     public function tag($name, $text = NULL, array $options = []) {
 		if($name === 'button') {
-			$options = addValue('role', 'button', $options);
+			$options = optionValues('role', 'button', $options);
 			$options = self::_addButtonClass($options);
 		}
 		
 		$text = self::_addIcon($text, $options);
 		
 		if(!empty($options['tooltip'])) {
-			$options = addValue('data-toggle', 'tooltip', $options);
-			$options = addDefault('title', $options['tooltip'], $options);
+			$options = optionValues('data-toggle', 'tooltip', $options);
+			$options = optionDefaults('title', $options['tooltip'], $options);
 		}
 		
         unset($options['icon'], $options['icon-align'], $options['tooltip']);
@@ -570,9 +570,9 @@ class HtmlHelper extends CakeHtmlHelper {
 	 * @uses iframe()
 	 */
 	public function youtube($id, array $options = [], $ratio = '16by9') {
-		$options = addDefault('allowfullscreen', 'allowfullscreen', $options);
-		$options = addDefault('height', 480, $options);
-		$options = addDefault('width', 640, $options);
+		$options = optionDefaults('allowfullscreen', 'allowfullscreen', $options);
+		$options = optionDefaults('height', 480, $options);
+		$options = optionDefaults('width', 640, $options);
 		
 		return self::iframe(sprintf('https://www.youtube.com/embed/%s', $id), $options, $ratio);
 	}

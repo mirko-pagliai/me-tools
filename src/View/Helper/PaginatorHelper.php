@@ -47,7 +47,7 @@ class PaginatorHelper extends CakePaginatorHelper {
 		$title = $this->Html->_addIcon($title, $options);
 		unset($options['icon'], $options['icon-align']);
 		
-		$options = addDefault('escape', FALSE, $options);
+		$options = optionDefaults('escape', FALSE, $options);
 		
 		return parent::next($title, $options);
 	}
@@ -62,7 +62,7 @@ class PaginatorHelper extends CakePaginatorHelper {
 		$title = $this->Html->_addIcon($title, $options);
 		unset($options['icon'], $options['icon-align']);
 		
-		$options = addDefault('escape', FALSE, $options);
+		$options = optionDefaults('escape', FALSE, $options);
 		
 		return parent::prev($title, $options);
 	}

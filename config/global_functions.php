@@ -24,62 +24,77 @@
 use Cake\Filesystem\File;
 use Cake\Filesystem\Folder;
 
-if(!function_exists('addDefault')) {
-    /**
-     * Alias for `addOptionDefault()` function
+if(!function_exists('optionDefaults')) {
+	/**
+	 * Adds a default values to html options.
+     * 
+     * Example:
+     * <code>
+     * $options = optionDefaults([
+     *  'class' => 'this-is-my-class',
+     *  'data-balue => 'example-value',
+     * ], $options);
+     * </code>
+     * 
+     * To provide backward compatibility, this function can accept three 
+     * arguments (value name, value, options).
+     * @param array $values Options values
+	 * @param array $options Options
+	 * @return array Options
      */
-	function addDefault() {
-		return call_user_func_array('addOptionDefault', func_get_args());
-	}
-}
-
-if(!function_exists('addOptionDefault')) {
-	/**
-	 * Adds a default value to an option
-	 * @param string $name Option name
-	 * @param string $value Option value
-	 * @param array $options Options
-	 * @return array Options
-	 */
-	function addOptionDefault($name, $value, $options) {
-		$options[$name] = empty($options[$name]) ? $value : $options[$name];
-		
-		return $options;
-	}
-}
-
-if(!function_exists('addOptionValue')) {
-	/**
-	 * Adds the value to an option
-	 * @param string $name Option name
-	 * @param string $values Option values
-	 * @param array $options Options
-	 * @return array Options
-	 */
-	function addOptionValue($name, $values, $options) {
-		//If values are an array or multiple arrays, turns them into a string
-		if(is_array($values)) {
-			$values = implode(' ', array_map(function($value) {
-				return is_array($value) ? implode(' ', $value) : $value;
-			}, $values));
+	function optionDefaults($values, $options) {
+        if(func_num_args() === 3) {
+            $values = [func_get_arg(0) => func_get_arg(1)];
+            $options = func_get_arg(2);
         }
-        
-		//Merges passed values with current values
-		$values = empty($options[$name]) ? explode(' ', $values) : am(explode(' ', $options[$name]), explode(' ', $values));
-		
-		//Removes empty values and duplicates, then turns into a string
-		$options[$name] = implode(' ', array_unique(array_filter($values)));
-		
-		return $options;
+
+        foreach($values as $key => $value) {
+            if(empty($options[$key])) {
+                $options[$key] = $value;
+            }
+        }
+
+        return $options;
 	}
 }
 
-if(!function_exists('addValue')) {
-    /**
-     * Alias for `addOptionValue()` function
-     */
-	function addValue() {
-		return call_user_func_array('addOptionValue', func_get_args());
+if(!function_exists('optionValues')) {
+	/**
+	 * Adds values to html options.
+     * 
+     * Example:
+     * <code>
+     * $options = optionValues([
+     *  'class' => 'this-is-my-class',
+     *  'data-balue => 'example-value',
+     * ], $options);
+     * </code>
+     * 
+     * To provide backward compatibility, this function can accept three 
+     * arguments (value name, value, options).
+     * @param array $values Options values
+	 * @param array $options Options
+	 * @return array Options
+	 */
+	function optionValues($values, $options) {
+        if(func_num_args() === 3) {
+            $values = [func_get_arg(0) => func_get_arg(1)];
+            $options = func_get_arg(2);
+        }
+
+        foreach($values as $key => $value) {
+            if(empty($options[$key])) {
+                $options[$key] = $value;
+            }
+            else {
+                //Turns into array, adds value and turns again into string
+                $options[$key] = preg_split('/\s/', $options[$key]);
+                $options[$key] = am($options[$key], [trim($value)]);
+                $options[$key] = implode(' ', array_unique($options[$key]));
+            }
+        }
+
+        return $options;
 	}
 }
 
