@@ -77,7 +77,7 @@ class RecaptchaHelper extends Helper {
             throw new InternalErrorException(__d('me_tools', 'Form keys are not configured'));
         }
         
-		$optionsScript = addDefault('block', 'script_bottom', $optionsScript);
+		$optionsScript = optionDefaults(['block' => 'script_bottom'], $optionsScript);
 		
 		$this->Html->js('https://www.google.com/recaptcha/api.js', am($optionsScript, [
             'async' => TRUE,
@@ -109,8 +109,10 @@ class RecaptchaHelper extends Helper {
 		$title = empty($mail) ? $this->_obfuscate($mail = $title) : $title;
         $link = self::mailUrl($mail);
         
-        $options = addValue('target', '_blank', $options);
-        $options = addValue('class', 'recaptcha-mail', $options);
+        $options = optionValues([
+            'target' => '_blank',
+            'class' => 'recaptcha-mail',
+        ], $options);
         
         return $this->Html->link($title, $link, $options);
     }

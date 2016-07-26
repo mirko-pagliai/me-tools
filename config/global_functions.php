@@ -24,73 +24,14 @@
 use Cake\Filesystem\File;
 use Cake\Filesystem\Folder;
 
-if(!function_exists('addDefault')) {
-    /**
-     * Alias for `addOptionDefault()` function
-     */
-	function addDefault() {
-		return call_user_func_array('addOptionDefault', func_get_args());
-	}
-}
-
-if(!function_exists('addOptionDefault')) {
-	/**
-	 * Adds a default value to an option
-	 * @param string $name Option name
-	 * @param string $value Option value
-	 * @param array $options Options
-	 * @return array Options
-	 */
-	function addOptionDefault($name, $value, $options) {
-		$options[$name] = empty($options[$name]) ? $value : $options[$name];
-		
-		return $options;
-	}
-}
-
-if(!function_exists('addOptionValue')) {
-	/**
-	 * Adds the value to an option
-	 * @param string $name Option name
-	 * @param string $values Option values
-	 * @param array $options Options
-	 * @return array Options
-	 */
-	function addOptionValue($name, $values, $options) {
-		//If values are an array or multiple arrays, turns them into a string
-		if(is_array($values)) {
-			$values = implode(' ', array_map(function($value) {
-				return is_array($value) ? implode(' ', $value) : $value;
-			}, $values));
-        }
-        
-		//Merges passed values with current values
-		$values = empty($options[$name]) ? explode(' ', $values) : am(explode(' ', $options[$name]), explode(' ', $values));
-		
-		//Removes empty values and duplicates, then turns into a string
-		$options[$name] = implode(' ', array_unique(array_filter($values)));
-		
-		return $options;
-	}
-}
-
-if(!function_exists('addValue')) {
-    /**
-     * Alias for `addOptionValue()` function
-     */
-	function addValue() {
-		return call_user_func_array('addOptionValue', func_get_args());
-	}
-}
-
 if(!function_exists('af')) {
 	/**
-	 * Cleans an array, removing empty values (`array_filter()`)
+	 * Cleans an array, removing values equal to `FALSE` (`array_filter()`)
 	 * @param array $array Array
 	 * @return array Array
 	 */
 	function af($array) {
-		return is_array($array) ? array_filter($array) : $array;
+		return array_filter($array);
 	}
 }
 
@@ -117,7 +58,7 @@ if(!function_exists('clear_dir')) {
 	 * @return boolean
 	 */
 	function clear_dir($directory) {
-		if(!folder_is_writable($directory)) {
+		if(!folder_is_writeable($directory)) {
 			return FALSE;
         }
 		
@@ -137,17 +78,6 @@ if(!function_exists('clear_dir')) {
 	}
 }
 
-if(!function_exists('dirsize')) {
-	/**
-	 * Returns the size in bytes of a directory and its contents
-	 * @param string $path Full path
-	 * @return int Size in bytes
-	 */
-	function dirsize($path) {
-		return (new Folder($path))->dirsize();
-	}
-}
-
 if(!function_exists('fk')) {
 	/**
 	 * Returns the first key of an array
@@ -163,33 +93,24 @@ if(!function_exists('fk')) {
 	}
 }
 
-if(!function_exists('folder_is_writable')) {
+if(!function_exists('folder_is_writeable')) {
 	/**
 	 * Checks if a directory and its subdirectories are readable and writable
 	 * @param string $dir Directory path
 	 * @return boolean
 	 */
-	function folder_is_writable($dir) {
-		if(!is_readable($dir) || !is_writable($dir)) {
+	function folder_is_writeable($dir) {
+		if(!is_readable($dir) || !is_writeable($dir)) {
 			return FALSE;
         }
 
         foreach((new Folder())->tree($dir, FALSE, 'dir') as $subdir) {
-            if(!is_readable($subdir) || !is_writable($subdir)) {
+            if(!is_readable($subdir) || !is_writeable($subdir)) {
                 return FALSE;
             }
         }
 
         return TRUE;
-	}
-}
-
-if(!function_exists('folder_is_writeable')) {
-    /**
-     * Alias for `folder_is_writable()` function
-     */
-	function folder_is_writeable() {
-		return call_user_func_array('folder_is_writable', func_get_args());
 	}
 }
 
@@ -253,7 +174,7 @@ if(!function_exists('is_json')) {
 
 if(!function_exists('is_localhost')) {
 	/**
-	 * Checks if is localhost
+	 * Checks if the host is the localhost
 	 * @return bool
 	 */
     function is_localhost() {		
@@ -289,6 +210,80 @@ if(!function_exists('is_url')) {
 	 */
 	function is_url($url) {
 		return (bool) preg_match("/\b(?:(?:https?|ftp):\/\/|www\.)[-a-z0-9+&@#\/%?=~_|!:,.;]*[-a-z0-9+&@#\/%=~_|]/i", $url);
+	}
+}
+
+if(!function_exists('optionDefaults')) {
+	/**
+	 * Adds a default values to html options.
+     * 
+     * Example:
+     * <code>
+     * $options = optionDefaults([
+     *  'class' => 'this-is-my-class',
+     *  'data-balue => 'example-value',
+     * ], $options);
+     * </code>
+     * 
+     * To provide backward compatibility, this function can accept three 
+     * arguments (value name, value, options).
+     * @param array $values Options values
+	 * @param array $options Options
+	 * @return array Options
+     */
+	function optionDefaults($values, $options) {
+        if(func_num_args() === 3) {
+            $values = [func_get_arg(0) => func_get_arg(1)];
+            $options = func_get_arg(2);
+        }
+
+        foreach($values as $key => $value) {
+            if(empty($options[$key])) {
+                $options[$key] = $value;
+            }
+        }
+
+        return $options;
+	}
+}
+
+if(!function_exists('optionValues')) {
+	/**
+	 * Adds values to html options.
+     * 
+     * Example:
+     * <code>
+     * $options = optionValues([
+     *  'class' => 'this-is-my-class',
+     *  'data-balue => 'example-value',
+     * ], $options);
+     * </code>
+     * 
+     * To provide backward compatibility, this function can accept three 
+     * arguments (value name, value, options).
+     * @param array $values Options values
+	 * @param array $options Options
+	 * @return array Options
+	 */
+	function optionValues($values, $options) {
+        if(func_num_args() === 3) {
+            $values = [func_get_arg(0) => func_get_arg(1)];
+            $options = func_get_arg(2);
+        }
+
+        foreach($values as $key => $value) {
+            if(empty($options[$key])) {
+                $options[$key] = $value;
+            }
+            else {
+                //Turns into array, adds value and turns again into string
+                $options[$key] = preg_split('/\s/', $options[$key]);
+                $options[$key] = am($options[$key], [trim($value)]);
+                $options[$key] = implode(' ', array_unique($options[$key]));
+            }
+        }
+
+        return $options;
 	}
 }
 
