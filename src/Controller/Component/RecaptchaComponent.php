@@ -26,7 +26,7 @@ namespace MeTools\Controller\Component;
 use Cake\Controller\Component;
 use Cake\Core\Configure;
 use Cake\Network\Exception\InternalErrorException;
-use Cake\Network\Http\Client;
+use Cake\Http\Client;
 
 /**
  * A component to use reCAPTCHA

@@ -29,7 +29,7 @@ use Cake\Routing\Router;
 /**
  * Implements methods for HTTP requests.
  * 
- * Used by Cake\Network\Http\Client to contain request information for making 
+ * Used by Cake\Http\Client to contain request information for making 
  *  requests.
  * 
  * Rewrites {@link http://api.cakephp.org/3.2/class-Cake.Network.Http.Request.html Request}.
