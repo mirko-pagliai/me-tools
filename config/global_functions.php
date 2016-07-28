@@ -154,9 +154,8 @@ if(!function_exists('get_client_ip')) {
 		elseif(!empty($_SERVER['REMOTE_ADDR'])) {
 			return $_SERVER['REMOTE_ADDR'];
         }
-		else {
-			return 'UNKNOWN';
-        }
+		
+        return FALSE;
 	}
 }
 
@@ -178,7 +177,7 @@ if(!function_exists('is_localhost')) {
 	 * @return bool
 	 */
     function is_localhost() {		
-		return empty($_SERVER['REMOTE_ADDR']) ? FALSE : in_array($_SERVER['REMOTE_ADDR'], ['127.0.0.1', '::1']);
+		return in_array(get_client_ip(), ['127.0.0.1', '::1']);
 	}
 }
 
