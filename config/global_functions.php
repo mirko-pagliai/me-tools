@@ -278,7 +278,7 @@ if(!function_exists('optionValues')) {
             else {
                 //Turns into array, adds value and turns again into string
                 $options[$key] = preg_split('/\s/', $options[$key]);
-                $options[$key] = am($options[$key], [trim($value)]);
+                $options[$key] = am($options[$key], (array) $value);
                 $options[$key] = implode(' ', array_unique($options[$key]));
             }
         }
