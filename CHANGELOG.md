@@ -1,5 +1,8 @@
 # 2.x branch
 ## 2.7 branch
+### 2.7.1
+* updated jQuery to 3.1 branch.
+
 ### 2.7.0
 * `addDefault()` renamed as `optionDefaults()` and `addOptionValue()` renamed 
 	as `optionValues()`. These functions now accept values as array.
