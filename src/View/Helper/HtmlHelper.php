@@ -342,16 +342,14 @@ class HtmlHelper extends CakeHtmlHelper {
 	 * @uses _addIcon()
 	 */
 	public function link($title, $url = NULL, array $options = []) {
-		$title = self::_addIcon($title, $options);
-		unset($options['icon'], $options['icon-align']);
-        
-		$options = optionDefaults(['title' => $title], $options);
-		$options['title'] = trim(h(strip_tags($options['title'])));
-
 		$options = optionDefaults([
             'escape' => FALSE,
             'escapeTitle' => FALSE,
+            'title' => trim(h(strip_tags($title))),
         ], $options);
+        
+		$title = self::_addIcon($title, $options);
+		unset($options['icon'], $options['icon-align']);
 		
 		return parent::link($title, $url, $options);
 	}
