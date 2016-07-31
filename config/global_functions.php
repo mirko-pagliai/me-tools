@@ -136,23 +136,23 @@ if(!function_exists('get_client_ip')) {
 	 * @see http://stackoverflow.com/a/15699240/1480263
 	 */
 	function get_client_ip() {
-		if(!empty($_SERVER['HTTP_CLIENT_IP'])) {
-			$ip = $_SERVER['HTTP_CLIENT_IP'];
+		if(filter_input(INPUT_SERVER, 'HTTP_CLIENT_IP')) {
+            $ip = filter_input(INPUT_SERVER, 'HTTP_CLIENT_IP');
         }
-		elseif(!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
-			$ip =  $_SERVER['HTTP_X_FORWARDED_FOR'];
+		elseif(filter_input(INPUT_SERVER, 'HTTP_X_FORWARDED_FOR')) {
+			$ip = filter_input(INPUT_SERVER, 'HTTP_X_FORWARDED_FOR');
         }
-		elseif(!empty($_SERVER['HTTP_X_FORWARDED'])) {
-			$ip =  $_SERVER['HTTP_X_FORWARDED'];
+		elseif(filter_input(INPUT_SERVER, 'HTTP_X_FORWARDED')) {
+			$ip = filter_input(INPUT_SERVER, 'HTTP_X_FORWARDED');
         }
-		elseif(!empty($_SERVER['HTTP_FORWARDED_FOR'])) {
-			$ip =  $_SERVER['HTTP_FORWARDED_FOR'];
+		elseif(filter_input(INPUT_SERVER, 'HTTP_FORWARDED_FOR')) {
+			$ip = filter_input(INPUT_SERVER, 'HTTP_FORWARDED_FOR');
         }
-		elseif(!empty($_SERVER['HTTP_FORWARDED'])) {
-			$ip =  $_SERVER['HTTP_FORWARDED'];
+		elseif(filter_input(INPUT_SERVER, 'HTTP_FORWARDED')) {
+			$ip = filter_input(INPUT_SERVER, 'HTTP_FORWARDED');
         }
-		elseif(!empty($_SERVER['REMOTE_ADDR'])) {
-			$ip =  $_SERVER['REMOTE_ADDR'];
+		elseif(filter_input(INPUT_SERVER, 'REMOTE_ADDR')) {
+			$ip = filter_input(INPUT_SERVER, 'REMOTE_ADDR');
         }
 		
         if(empty($ip)) {
