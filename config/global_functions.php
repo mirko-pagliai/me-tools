@@ -132,31 +132,38 @@ if(!function_exists('fv')) {
 if(!function_exists('get_client_ip')) {
 	/**
 	 * Gets the client IP
-	 * @return string Client IP
+	 * @return string|bool Client IP or `FALSE`
 	 * @see http://stackoverflow.com/a/15699240/1480263
 	 */
 	function get_client_ip() {
-		if(!empty($_SERVER['HTTP_CLIENT_IP'])) {
-			return $_SERVER['HTTP_CLIENT_IP'];
+		if(filter_input(INPUT_SERVER, 'HTTP_CLIENT_IP')) {
+            $ip = filter_input(INPUT_SERVER, 'HTTP_CLIENT_IP');
         }
-		elseif(!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
-			return $_SERVER['HTTP_X_FORWARDED_FOR'];
+		elseif(filter_input(INPUT_SERVER, 'HTTP_X_FORWARDED_FOR')) {
+			$ip = filter_input(INPUT_SERVER, 'HTTP_X_FORWARDED_FOR');
         }
-		elseif(!empty($_SERVER['HTTP_X_FORWARDED'])) {
-			return $_SERVER['HTTP_X_FORWARDED'];
+		elseif(filter_input(INPUT_SERVER, 'HTTP_X_FORWARDED')) {
+			$ip = filter_input(INPUT_SERVER, 'HTTP_X_FORWARDED');
         }
-		elseif(!empty($_SERVER['HTTP_FORWARDED_FOR'])) {
-			return $_SERVER['HTTP_FORWARDED_FOR'];
+		elseif(filter_input(INPUT_SERVER, 'HTTP_FORWARDED_FOR')) {
+			$ip = filter_input(INPUT_SERVER, 'HTTP_FORWARDED_FOR');
         }
-		elseif(!empty($_SERVER['HTTP_FORWARDED'])) {
-			return $_SERVER['HTTP_FORWARDED'];
+		elseif(filter_input(INPUT_SERVER, 'HTTP_FORWARDED')) {
+			$ip = filter_input(INPUT_SERVER, 'HTTP_FORWARDED');
         }
-		elseif(!empty($_SERVER['REMOTE_ADDR'])) {
-			return $_SERVER['REMOTE_ADDR'];
+		elseif(filter_input(INPUT_SERVER, 'REMOTE_ADDR')) {
+			$ip = filter_input(INPUT_SERVER, 'REMOTE_ADDR');
         }
-		else {
-			return 'UNKNOWN';
+		
+        if(empty($ip)) {
+            return FALSE;
         }
+        
+        if($ip === '::1') {
+            return '127.0.0.1';
+        }
+        
+        return $ip;
 	}
 }
 
@@ -178,7 +185,7 @@ if(!function_exists('is_localhost')) {
 	 * @return bool
 	 */
     function is_localhost() {		
-		return empty($_SERVER['REMOTE_ADDR']) ? FALSE : in_array($_SERVER['REMOTE_ADDR'], ['127.0.0.1', '::1']);
+		return get_client_ip() === '127.0.0.1';
 	}
 }
 
@@ -278,7 +285,7 @@ if(!function_exists('optionValues')) {
             else {
                 //Turns into array, adds value and turns again into string
                 $options[$key] = preg_split('/\s/', $options[$key]);
-                $options[$key] = am($options[$key], [trim($value)]);
+                $options[$key] = am($options[$key], (array) $value);
                 $options[$key] = implode(' ', array_unique($options[$key]));
             }
         }

@@ -80,11 +80,15 @@ class HtmlHelper extends CakeHtmlHelper {
 	 * @uses icon()
 	 */
 	public function _addIcon($text, $options) {
-		if(!empty($options['icon-align']) && $options['icon-align'] === 'right') {
-			return empty($options['icon']) ? $text : sprintf('%s %s', $text, self::icon($options['icon']));
+        if(empty($options['icon'])) {
+            return $text;
         }
         
-		return empty($options['icon']) ? $text : sprintf('%s %s', self::icon($options['icon']), $text);
+		if(!empty($options['icon-align']) && $options['icon-align'] === 'right') {
+			return sprintf('%s %s', $text, self::icon($options['icon']));
+        }
+        
+		return sprintf('%s %s', self::icon($options['icon']), $text);
 	}
 	
     /**
@@ -338,16 +342,14 @@ class HtmlHelper extends CakeHtmlHelper {
 	 * @uses _addIcon()
 	 */
 	public function link($title, $url = NULL, array $options = []) {
-		$title = self::_addIcon($title, $options);
-		unset($options['icon'], $options['icon-align']);
-        
-		$options = optionDefaults(['title' => $title], $options);
-		$options['title'] = trim(h(strip_tags($options['title'])));
-
 		$options = optionDefaults([
             'escape' => FALSE,
             'escapeTitle' => FALSE,
+            'title' => trim(h(strip_tags($title))),
         ], $options);
+        
+		$title = self::_addIcon($title, $options);
+		unset($options['icon'], $options['icon-align']);
 		
 		return parent::link($title, $url, $options);
 	}
