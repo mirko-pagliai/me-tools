@@ -132,30 +132,38 @@ if(!function_exists('fv')) {
 if(!function_exists('get_client_ip')) {
 	/**
 	 * Gets the client IP
-	 * @return string Client IP
+	 * @return string|bool Client IP or `FALSE`
 	 * @see http://stackoverflow.com/a/15699240/1480263
 	 */
 	function get_client_ip() {
 		if(!empty($_SERVER['HTTP_CLIENT_IP'])) {
-			return $_SERVER['HTTP_CLIENT_IP'];
+			$ip = $_SERVER['HTTP_CLIENT_IP'];
         }
 		elseif(!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
-			return $_SERVER['HTTP_X_FORWARDED_FOR'];
+			$ip =  $_SERVER['HTTP_X_FORWARDED_FOR'];
         }
 		elseif(!empty($_SERVER['HTTP_X_FORWARDED'])) {
-			return $_SERVER['HTTP_X_FORWARDED'];
+			$ip =  $_SERVER['HTTP_X_FORWARDED'];
         }
 		elseif(!empty($_SERVER['HTTP_FORWARDED_FOR'])) {
-			return $_SERVER['HTTP_FORWARDED_FOR'];
+			$ip =  $_SERVER['HTTP_FORWARDED_FOR'];
         }
 		elseif(!empty($_SERVER['HTTP_FORWARDED'])) {
-			return $_SERVER['HTTP_FORWARDED'];
+			$ip =  $_SERVER['HTTP_FORWARDED'];
         }
 		elseif(!empty($_SERVER['REMOTE_ADDR'])) {
-			return $_SERVER['REMOTE_ADDR'];
+			$ip =  $_SERVER['REMOTE_ADDR'];
         }
 		
-        return FALSE;
+        if(empty($ip)) {
+            return FALSE;
+        }
+        
+        if($ip === '::1') {
+            return '127.0.0.1';
+        }
+        
+        return $ip;
 	}
 }
 
@@ -177,7 +185,7 @@ if(!function_exists('is_localhost')) {
 	 * @return bool
 	 */
     function is_localhost() {		
-		return in_array(get_client_ip(), ['127.0.0.1', '::1']);
+		return get_client_ip() === '127.0.0.1';
 	}
 }
 
