@@ -162,7 +162,7 @@ class FormHelper extends CakeFormHelper {
      * @uses input()
      */
     public function ckeditor($fieldName, array $options = []) {
-		$options = optionValues(['class' => 'ckeditor'], $options);
+		$options = optionValues(['class' => 'editor'], $options);
 
         return self::input($fieldName, am($options, ['type' => 'textarea']));
     }

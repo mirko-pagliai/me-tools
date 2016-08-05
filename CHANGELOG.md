@@ -1,5 +1,8 @@
 # 2.x branch
 ## 2.7 branch
+### 2.7.2
+* fixed bug for CkEditor.
+
 ### 2.7.1
 * updated jQuery to 3.1 branch.
 
