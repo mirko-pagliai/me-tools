@@ -137,7 +137,7 @@ class LibraryHelper extends Helper {
 	 * @uses MeTools\View\Helper\Html::js()
      */
     public function ckeditor($jquery = TRUE) {
-		$path = WWW_ROOT.DS.'ckeditor'.DS;
+		$path = WWW_ROOT.'ckeditor'.DS;
 		
 		if(!is_readable($path.'ckeditor.js')) {
 			return; 
