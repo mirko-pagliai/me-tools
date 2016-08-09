@@ -10,7 +10,7 @@
     }],
 	"require": {
 		"php": ">=5.5.9",
-        "cakephp/cakephp": "~3.2",
+        "cakephp/cakephp": "~3.3",
 		"ext-mcrypt": "*",
 		"michelf/php-markdown": "1.*",
         "components/jquery": "^3.1",
