@@ -19,7 +19,7 @@
  * @copyright	Copyright (c) 2016, Mirko Pagliai for Nova Atlantis Ltd
  * @license		http://www.gnu.org/licenses/agpl.txt AGPL License
  * @link		http://git.novatlantis.it Nova Atlantis Ltd
- * @see			http://api.cakephp.org/3.2/class-Cake.Console.Shell.html Shell
+ * @see			http://api.cakephp.org/3.3/class-Cake.Console.Shell.html Shell
  */
 namespace MeTools\Console;
 
@@ -28,7 +28,7 @@ use Cake\Console\Shell as CakeShell;
 /**
  * Base class for command-line utilities for automating programmer chores.
  * 
- * Rewrites {@link http://api.cakephp.org/3.2/class-Cake.Console.Shell.html Shell}.
+ * Rewrites {@link http://api.cakephp.org/3.3/class-Cake.Console.Shell.html Shell}.
  */
 class Shell extends CakeShell {
     /**

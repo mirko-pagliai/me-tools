@@ -19,7 +19,7 @@
  * @copyright	Copyright (c) 2016, Mirko Pagliai for Nova Atlantis Ltd
  * @license		http://www.gnu.org/licenses/agpl.txt AGPL License
  * @link		http://git.novatlantis.it Nova Atlantis Ltd
- * @see			http://api.cakephp.org/3.2/class-Cake.View.Helper.PaginatorHelper.html PaginatorHelper
+ * @see			http://api.cakephp.org/3.3/class-Cake.View.Helper.PaginatorHelper.html PaginatorHelper
  */
 namespace MeTools\View\Helper;
 
@@ -28,7 +28,7 @@ use Cake\View\Helper\PaginatorHelper as CakePaginatorHelper;
 /**
  * Provides functionalities to the generation of pagers.
  * 
- * Rewrites {@link http://api.cakephp.org/3.2/class-Cake.View.Helper.PaginatorHelper.html PaginatorHelper}.
+ * Rewrites {@link http://api.cakephp.org/3.3/class-Cake.View.Helper.PaginatorHelper.html PaginatorHelper}.
  */
 class PaginatorHelper extends CakePaginatorHelper {
 	/**
