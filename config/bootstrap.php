@@ -59,7 +59,7 @@ Request::addDetector('action', function($request, $action, $controller = NULL) {
     }
 
     //Checks action and controller
-    return $action && $request->is('controller', $controller);
+    return $action && in_array($request->param('controller'), (array) $controller);
 });
 
 /**
