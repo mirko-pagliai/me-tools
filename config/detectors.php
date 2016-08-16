@@ -57,7 +57,7 @@ Request::addDetector('action', function($request, $action, $controller = NULL) {
     }
 
     //Checks action and controller
-    return $action && in_array($request->param('controller'), (array) $controller);
+    return $action && $request->is('controller', $controller);
 });
 
 /**
