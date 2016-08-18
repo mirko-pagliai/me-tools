@@ -15,10 +15,10 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with MeTools.  If not, see <http://www.gnu.org/licenses/>.
  *
- * @author		Mirko Pagliai <mirko.pagliai@gmail.com>
- * @copyright	Copyright (c) 2016, Mirko Pagliai for Nova Atlantis Ltd
- * @license		http://www.gnu.org/licenses/agpl.txt AGPL License
- * @link		http://git.novatlantis.it Nova Atlantis Ltd
+ * @author      Mirko Pagliai <mirko.pagliai@gmail.com>
+ * @copyright   Copyright (c) 2016, Mirko Pagliai for Nova Atlantis Ltd
+ * @license     http://www.gnu.org/licenses/agpl.txt AGPL License
+ * @link        http://git.novatlantis.it Nova Atlantis Ltd
  */
 namespace MeTools\Shell;
 
@@ -30,433 +30,467 @@ use MeTools\Core\Plugin;
 /**
  * Executes some tasks to make the system ready to work
  */
-class InstallShell extends Shell {
-	/**
-	 * Configuration files to be copied
-	 * @see __construct()
-	 * @var array
-	 */
-	protected $configs = [];
-	
-	/**
-	 * Assets for which create symbolic links.
-	 * Full path for each font
-	 * @see __construct()
-	 * @var array
-	 */
-	protected $fonts = [];
-	
-	/**
-	 * Assets for which create symbolic links.
-	 * The key must be relative to `vendor/` and the value must be relative 
-     *  to `webroot/vendor/`
-	 * @see __construct()
-	 * @var array
-	 */
-	protected $links = [];
-	
-	/**
-	 * Suggested packages to install by Composer
-	 * @see __construct()
-	 * @var array 
-	 */
-	protected $packages = [];
+class InstallShell extends Shell
+{
+    /**
+     * Configuration files to be copied
+     * @see __construct()
+     * @var array
+     */
+    protected $configs = [];
 
-	/**
-	 * Paths to be created and made writable
-	 * @see __construct()
-	 * @var array 
-	 */
-	protected $paths = [];
-	
-	/**
-	 * Construct
-	 * @uses $config
-	 * @uses $fonts
-	 * @uses $links
-	 * @uses $packages
-	 * @uses $paths
-	 */
-	public function __construct() {
-		parent::__construct();
-		
-		//Configuration files to be copied
-		$this->config = [
-			'MeTools.recaptcha',
-		];
-		
-		//Assets for which create symbolic links (full paths)
-		$this->fonts = [
-			'fortawesome/font-awesome/fonts/fontawesome-webfont.eot',
-			'fortawesome/font-awesome/fonts/fontawesome-webfont.ttf',
-			'fortawesome/font-awesome/fonts/fontawesome-webfont.woff',
-			'fortawesome/font-awesome/fonts/fontawesome-webfont.woff2',
-		];
-		
-		//Assets for which create symbolic links
-		$this->links = [
-			'components/bootstrap-datetimepicker/build' => 'bootstrap-datetimepicker',
-			'components/jquery' => 'jquery',
-			'components/moment/min' => 'moment',
-			'fortawesome/font-awesome' => 'font-awesome',
-			'newerton/fancy-box/source' => 'fancybox',
-		];
-		
-		//Suggested packages to install by Composer
-		$this->packages = [
+    /**
+     * Assets for which create symbolic links.
+     * Full path for each font
+     * @see __construct()
+     * @var array
+     */
+    protected $fonts = [];
+
+    /**
+     * Assets for which create symbolic links.
+     * The key must be relative to `vendor/` and the value must be relative
+     *  to `webroot/vendor/`
+     * @see __construct()
+     * @var array
+     */
+    protected $links = [];
+
+    /**
+     * Suggested packages to install by Composer
+     * @see __construct()
+     * @var array
+     */
+    protected $packages = [];
+
+    /**
+     * Paths to be created and made writable
+     * @see __construct()
+     * @var array
+     */
+    protected $paths = [];
+
+    /**
+     * Construct
+     * @uses $config
+     * @uses $fonts
+     * @uses $links
+     * @uses $packages
+     * @uses $paths
+     */
+    public function __construct()
+    {
+        parent::__construct();
+
+        //Configuration files to be copied
+        $this->config = [
+            'MeTools.recaptcha',
+        ];
+
+        //Assets for which create symbolic links (full paths)
+        $this->fonts = [
+            'fortawesome/font-awesome/fonts/fontawesome-webfont.eot',
+            'fortawesome/font-awesome/fonts/fontawesome-webfont.ttf',
+            'fortawesome/font-awesome/fonts/fontawesome-webfont.woff',
+            'fortawesome/font-awesome/fonts/fontawesome-webfont.woff2',
+        ];
+
+        //Assets for which create symbolic links
+        $this->links = [
+            'components/bootstrap-datetimepicker/build' => 'bootstrap-datetimepicker',
+            'components/jquery' => 'jquery',
+            'components/moment/min' => 'moment',
+            'fortawesome/font-awesome' => 'font-awesome',
+            'newerton/fancy-box/source' => 'fancybox',
+        ];
+
+        //Suggested packages to install by Composer
+        $this->packages = [
             'components/jquery:^3.1',
-			'eonasdan/bootstrap-datetimepicker',
+            'eonasdan/bootstrap-datetimepicker',
             'fortawesome/font-awesome',
-			'newerton/fancy-box:dev-master',
-		];
-		
-		//Paths to be created and made writable
-		$this->paths = [
-			LOGS,
+            'newerton/fancy-box:dev-master',
+        ];
+
+        //Paths to be created and made writable
+        $this->paths = [
+            LOGS,
             TMP,
-			TMP.'cache',
-			TMP.'cache'.DS.'models',
-			TMP.'cache'.DS.'persistent',
-			TMP.'cache'.DS.'views',
-			TMP.'sessions',
-			TMP.'tests',
-			WWW_ROOT.'files',
-			WWW_ROOT.'fonts',
-			WWW_ROOT.'vendor',
-		];
-	}
-	
-	/**
-	 * Executes all available tasks
-	 * @uses copyConfig()
-	 * @uses copyFonts()
-	 * @uses createDirectories()
-	 * @uses createRobots()
-	 * @uses createVendorsLinks()
-	 * @uses fixComposerJson()
-	 * @uses installPackages()
-	 * @uses setPermissions()
-	 */
-	public function all() {
-		if($this->param('force')) {
-			$this->createDirectories(TRUE);
-			$this->setPermissions(TRUE);
-			$this->copyConfig();
-			$this->createRobots();
-			$this->fixComposerJson();
-			$this->installPackages(TRUE);
-			$this->createVendorsLinks();
-			$this->copyFonts();
-			
-			return;
-		}
-		
-		$ask = $this->in(__d('me_tools', 'Create default directories?'), ['y', 'N'], 'N');
-		if(in_array($ask, ['Y', 'y'])) {
-			$this->createDirectories();
+            TMP . 'cache',
+            TMP . 'cache' . DS . 'models',
+            TMP . 'cache' . DS . 'persistent',
+            TMP . 'cache' . DS . 'views',
+            TMP . 'sessions',
+            TMP . 'tests',
+            WWW_ROOT . 'files',
+            WWW_ROOT . 'fonts',
+            WWW_ROOT . 'vendor',
+        ];
+    }
+
+    /**
+     * Executes all available tasks
+     * @return void
+     * @uses copyConfig()
+     * @uses copyFonts()
+     * @uses createDirectories()
+     * @uses createRobots()
+     * @uses createVendorsLinks()
+     * @uses fixComposerJson()
+     * @uses installPackages()
+     * @uses setPermissions()
+     */
+    public function all()
+    {
+        if ($this->param('force')) {
+            $this->createDirectories(true);
+            $this->setPermissions(true);
+            $this->copyConfig();
+            $this->createRobots();
+            $this->fixComposerJson();
+            $this->installPackages(true);
+            $this->createVendorsLinks();
+            $this->copyFonts();
+
+            return;
         }
-        
-		$ask = $this->in(__d('me_tools', 'Set directories permissions?'), ['Y', 'n'], 'Y');
-		if(in_array($ask, ['Y', 'y'])) {
-			$this->setPermissions();
+
+        $ask = $this->in(__d('me_tools', 'Create default directories?'), ['y', 'N'], 'N');
+        if (in_array($ask, ['Y', 'y'])) {
+            $this->createDirectories();
         }
-		
-		$ask = $this->in(__d('me_tools', 'Copy configuration files?'), ['Y', 'n'], 'Y');
-		if(in_array($ask, ['Y', 'y'])) {
-			$this->copyConfig();
+
+        $ask = $this->in(__d('me_tools', 'Set directories permissions?'), ['Y', 'n'], 'Y');
+        if (in_array($ask, ['Y', 'y'])) {
+            $this->setPermissions();
         }
-        
-		$ask = $this->in(__d('me_tools', 'Create {0}?', 'robots.txt'), ['Y', 'n'], 'Y');
-		if(in_array($ask, ['Y', 'y'])) {
-			$this->createRobots();
+
+        $ask = $this->in(__d('me_tools', 'Copy configuration files?'), ['Y', 'n'], 'Y');
+        if (in_array($ask, ['Y', 'y'])) {
+            $this->copyConfig();
         }
-        
-		$ask = $this->in(__d('me_tools', 'Fix {0}?','composer.json'), ['Y', 'n'], 'Y');
-		if(in_array($ask, ['Y', 'y'])) {
-			$this->fixComposerJson();
+
+        $ask = $this->in(__d('me_tools', 'Create {0}?', 'robots.txt'), ['Y', 'n'], 'Y');
+        if (in_array($ask, ['Y', 'y'])) {
+            $this->createRobots();
         }
-		
-		$ask = $this->in(__d('me_tools', 'Install the suggested packages?'), ['y', 'N', 'all'], 'N');
-		if(in_array($ask, ['Y', 'y', 'all'])) {
-			$this->installPackages($ask === 'all' ? TRUE : FALSE);
+
+        $ask = $this->in(__d('me_tools', 'Fix {0}?', 'composer.json'), ['Y', 'n'], 'Y');
+        if (in_array($ask, ['Y', 'y'])) {
+            $this->fixComposerJson();
         }
-		
-		$ask = $this->in(__d('me_tools', 'Create symbolic links for vendor assets?'), ['Y', 'n'], 'Y');
-		if(in_array($ask, ['Y', 'y'])) {
-			$this->createVendorsLinks();
+
+        $ask = $this->in(__d('me_tools', 'Install the suggested packages?'), ['y', 'N', 'all'], 'N');
+        if (in_array($ask, ['Y', 'y', 'all'])) {
+            $this->installPackages($ask === 'all');
         }
-		
-		$ask = $this->in(__d('me_tools', 'Create symbolic links for fonts?'), ['Y', 'n'], 'Y');
-		if(in_array($ask, ['Y', 'y'])) {
-			$this->copyFonts();
+
+        $ask = $this->in(__d('me_tools', 'Create symbolic links for vendor assets?'), ['Y', 'n'], 'Y');
+        if (in_array($ask, ['Y', 'y'])) {
+            $this->createVendorsLinks();
+        }
+
+        $ask = $this->in(__d('me_tools', 'Create symbolic links for fonts?'), ['Y', 'n'], 'Y');
+        if (in_array($ask, ['Y', 'y'])) {
+            $this->copyFonts();
         }
     }
-	
-	/**
-	 * Copies the configuration files
-	 * @uses $config
-	 * @uses MeTools\Core\Plugin::path()
-	 */
-	public function copyConfig() {
-		foreach($this->config as $file) {
-			list($plugin, $file) = pluginSplit($file);
-			
-			$file = sprintf('%s.php', $file);
-            $target = ROOT.DS.'config'.DS.$file;
-			
-			//Checks if the file already exists
-			if(is_readable($target)) {
-				$this->verbose(__d('me_tools', 'File or directory {0} already exists', $this->bold(rtr($target))));
-				continue;
-			}
-			
-			if(copy(Plugin::path($plugin, 'config'.DS.$file), $target)) {
-				$this->verbose(__d('me_tools', 'The file {0} has been copied', $this->bold(rtr($target))));
+
+    /**
+     * Copies the configuration files
+     * @return void
+     * @uses $config
+     * @uses MeTools\Core\Plugin::path()
+     */
+    public function copyConfig()
+    {
+        foreach ($this->config as $file) {
+            list($plugin, $file) = pluginSplit($file);
+
+            $file = sprintf('%s.php', $file);
+            $target = ROOT . DS . 'config' . DS . $file;
+
+            //Checks if the file already exists
+            if (is_readable($target)) {
+                $this->verbose(__d('me_tools', 'File or directory {0} already exists', $this->bold(rtr($target))));
+                continue;
             }
-			else {
-				$this->err(__d('me_tools', 'The file {0} has not been copied', $this->bold(rtr($target))));
+
+            if (copy(Plugin::path($plugin, 'config' . DS . $file), $target)) {
+                $this->verbose(__d('me_tools', 'The file {0} has been copied', $this->bold(rtr($target))));
+            } else {
+                $this->err(__d('me_tools', 'The file {0} has not been copied', $this->bold(rtr($target))));
             }
-		}
-	}
-	
-	/**
-	 * Creates symbolic links for fonts
-	 * @uses $fonts
-	 */
-	public function copyFonts() {
-        $destinationDir = WWW_ROOT.'fonts';
-        
-		//Checks if the target directory (`webroot/fonts/`) is writeable
-		if(is_writable($destinationDir)) {
-			foreach($this->fonts as $origin) {
-                $origin = ROOT.DS.'vendor'.DS.$origin;
-                
-				//Continues, if the origin file doesn't exist
-				if(!file_exists($origin)) {
-					continue;
+        }
+    }
+
+    /**
+     * Creates symbolic links for fonts
+     * @return void
+     * @uses $fonts
+     */
+    public function copyFonts()
+    {
+        $destinationDir = WWW_ROOT . 'fonts';
+
+        //Checks if the target directory (`webroot/fonts/`) is writeable
+        if (is_writable($destinationDir)) {
+            foreach ($this->fonts as $origin) {
+                $origin = ROOT . DS . 'vendor' . DS . $origin;
+
+                //Continues, if the origin file doesn't exist
+                if (!file_exists($origin)) {
+                    continue;
                 }
-				
-				$destination = $destinationDir.DS.basename($origin);
-				
-				//Continues, if the link already exists
-				if(file_exists($destination)) {
+
+                $destination = $destinationDir . DS . basename($origin);
+
+                //Continues, if the link already exists
+                if (file_exists($destination)) {
                     $this->verbose(__d('me_tools', 'File or directory {0} already exists', $this->bold(rtr($destination))));
                     continue;
                 }
 
-				//Creates the symbolic link
-				if(symlink($origin, $destination)) {
-					$this->verbose(__d('me_tools', 'Created symbolic link to {0}', $this->bold(rtr($destination))));
+                //Creates the symbolic link
+                if (symlink($origin, $destination)) {
+                    $this->verbose(__d('me_tools', 'Created symbolic link to {0}', $this->bold(rtr($destination))));
+                } else {
+                    $this->err(__d('me_tools', 'Failed to create a symbolic link to {0}', $this->bold(rtr($destination))));
                 }
-				else {
-					$this->err(__d('me_tools', 'Failed to create a symbolic link to {0}', $this->bold(rtr($destination))));
-                }
-			}
-		}
-		else {
-			$this->err(__d('me_tools', 'File or directory {0} not writeable', $this->bold(rtr($destinationDir))));
+            }
+        } else {
+            $this->err(__d('me_tools', 'File or directory {0} not writeable', $this->bold(rtr($destinationDir))));
         }
-	}
+    }
 
-	/**
-	 * Creates directories
-	 * @param bool $force
-	 * @uses $paths
-	 */
-	public function createDirectories($force = FALSE) {
-		$error = FALSE;
-		
-		foreach($this->paths as $path) {
-			if(!file_exists($path)) {
-				if(mkdir($path, 0777, TRUE)) {
-					$this->verbose(__d('me_tools', 'Created {0} directory', $this->bold(rtr($path))));
+    /**
+     * Creates directories
+     * @param bool $force Forces creation
+     * @return void
+     * @uses $paths
+     */
+    public function createDirectories($force = false)
+    {
+        $error = false;
+
+        foreach ($this->paths as $path) {
+            if (!file_exists($path)) {
+                if (mkdir($path, 0777, true)) {
+                    $this->verbose(__d('me_tools', 'Created {0} directory', $this->bold(rtr($path))));
+                } else {
+                    $this->err(__d('me_tools', 'Failed to create file or directory {0}', $this->bold(rtr($path))));
+                    $error = true;
                 }
-				else {
-					$this->err(__d('me_tools', 'Failed to create file or directory {0}', $this->bold(rtr($path))));
-					$error = TRUE;
-				}
-			}
-			else {
-				$this->verbose(__d('me_tools', 'File or directory {0} already exists', $this->bold(rtr($path))));
+            } else {
+                $this->verbose(__d('me_tools', 'File or directory {0} already exists', $this->bold(rtr($path))));
             }
-		}
-		
-		//In case of error, asks for sudo
-		if($error && which('sudo')) {
-			if($this->param('force') || $force) {
-				return exec(sprintf('sudo mkdir -p %s', implode(' ', $this->paths)));
+        }
+
+        //In case of error, asks for sudo
+        if ($error && which('sudo')) {
+            if ($this->param('force') || $force) {
+                exec(sprintf('sudo mkdir -p %s', implode(' ', $this->paths)));
+                
+                return;
             }
+
+            $ask = $this->in(__d('me_tools', 'It was not possible to create some directories. Try again using {0}?', $this->bold('sudo')), ['Y', 'n'], 'Y');
+            if (in_array($ask, ['Y', 'y'])) {
+                exec(sprintf('sudo mkdir -p %s', implode(' ', $this->paths)));
+            }
+        }
+    }
+
+    /**
+     * Creates the `robots.txt` file
+     * @return void
+     * @uses MeTools\Console\Shell::createFile()
+     */
+    public function createRobots()
+    {
+        $this->createFile(
+            WWW_ROOT . 'robots.txt',
+            'User-agent: *
+            Disallow: /admin/
+            Disallow: /ckeditor/
+            Disallow: /css/
+            Disallow: /js/
+            Disallow: /vendor/'
+        );
+    }
+
+    /**
+     * Creates symbolic links for vendor assets
+     * @return void
+     * @uses $links
+     * @uses createLink()
+     */
+    public function createVendorsLinks()
+    {
+        foreach ($this->links as $origin => $target) {
+            $this->createLink(
+                ROOT . DS . 'vendor' . DS . $origin,
+                WWW_ROOT . 'vendor' . DS . $target
+            );
+        }
+    }
+
+    /**
+     * Fixes `composer.json`
+     * @return void
+     */
+    public function fixComposerJson()
+    {
+        $file = ROOT . DS . 'composer.json';
+
+        if (!is_writeable($file)) {
+            $this->err(__d('me_tools', 'File or directory {0} not writeable', $this->bold(rtr($file))));
             
-			$ask = $this->in(__d('me_tools', 'It was not possible to create some directories. Try again using {0}?', $this->bold('sudo')), ['Y', 'n'], 'Y');
-			if(in_array($ask, ['Y', 'y'])) {
-				exec(sprintf('sudo mkdir -p %s', implode(' ', $this->paths)));
-            }
-		}
-	}
-	
-	/**
-	 * Creates the `robots.txt` file
-	 * @uses MeTools\Console\Shell::createFile()
-	 */
-	public function createRobots() {
-		$this->createFile(WWW_ROOT.'robots.txt', 'User-agent: *
-			Disallow: /admin/
-			Disallow: /ckeditor/
-			Disallow: /css/
-			Disallow: /js/
-			Disallow: /vendor/'
-		);
-	}
-	
-	/**
-	 * Creates symbolic links for vendor assets
-	 * @uses $links
-	 * @uses createLink()
-	 */
-	public function createVendorsLinks() {
-		foreach($this->links as $origin => $target) {
-			$this->createLink(ROOT.DS.'vendor'.DS.$origin, WWW_ROOT.'vendor'.DS.$target);
+            return;
         }
-	}
-	
-	/**
-	 * Fixes `composer.json`
-	 */
-	public function fixComposerJson() {
-        $file = ROOT.DS.'composer.json';
-        
-		if(!is_writeable($file)) {
-			return $this->err(__d('me_tools', 'File or directory {0} not writeable', $this->bold(rtr($file))));
+
+        //Gets and decodes the file
+        $contents = json_decode(file_get_contents($file), true);
+
+        //Checks if the file has been fixed
+        if (!empty($contents['config']['component-dir']) && $contents['config']['component-dir'] === 'vendor/components') {
+            $this->verbose(__d('me_tools', 'The file {0} doesn\'t need to be fixed', $this->bold(rtr($file))));
+            
+            return;
         }
-        
-		//Gets and decodes the file
-		$contents = json_decode(file_get_contents($file), TRUE);
-		
-		//Checks if the file has been fixed
-		if(!empty($contents['config']['component-dir']) && $contents['config']['component-dir'] === 'vendor/components') {
-			return $this->verbose(__d('me_tools', 'The file {0} doesn\'t need to be fixed', $this->bold(rtr($file))));
+
+        //Fixeds and encodes the content
+        $contents = (new File($file))->prepare(json_encode(am($contents, ['config' => ['component-dir' => 'vendor/components']]), JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
+
+        if ((new File($file))->write($contents)) {
+            $this->verbose(__d('me_tools', 'The file {0} has been fixed', $this->bold(rtr($file))));
+        } else {
+            $this->err(__d('me_tools', 'The file {0} has not been fixed', $this->bold(rtr($file))));
         }
-        
-		//Fixeds and encodes the content
-		$contents = (new File($file))->prepare(json_encode(am($contents, ['config' => ['component-dir' => 'vendor/components']]), JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
-		
-		if((new File($file))->write($contents)) {
-			$this->verbose(__d('me_tools', 'The file {0} has been fixed', $this->bold(rtr($file))));
-        }
-		else {
-			$this->err(__d('me_tools', 'The file {0} has not been fixed', $this->bold(rtr($file))));
-        }
-	}
-	
-	/**
-	 * Gets the option parser instance and configures it.
-	 * @return ConsoleOptionParser
-	 */
-	public function getOptionParser() {
-		$parser = parent::getOptionParser();
-		
-		return $parser->addSubcommands([
-			'all' => ['help' => __d('me_tools', 'Executes all available tasks')],
-			'copyConfig' => ['help' => __d('me_tools', 'Copies the configuration files')],
-			'copyFonts' => ['help' => __d('me_tools', 'Creates symbolic links for fonts')],
-			'createDirectories' => ['help' => __d('me_tools', 'Creates default directories')],
-			'createRobots' => ['help' => __d('me_tools', 'Creates the {0} file', 'robots.txt')],
-			'createVendorsLinks' => ['help' => __d('me_tools', 'Creates symbolic links for vendor assets')],
-			'fixComposerJson' => ['help' => __d('me_tools', 'Fixes {0}', 'composer.json')],
-			'installPackages' => ['help' => __d('me_tools', 'Installs the suggested packages')],
-			'setPermissions' => ['help' => __d('me_tools', 'Sets directories permissions')],
-		])->addOption('force', [
-			'boolean' => TRUE,
-			'default' => FALSE,
-			'help' => __d('me_tools', 'Executes tasks without prompting'),
-			'short' => 'f',
-		])->description(__d('me_tools', 'Executes some tasks to make the system ready to work'));
-	}
-	
-	/**
-	 * Install the suggested packages
-	 * @param bool $force
-	 * @uses $packages
-	 */
-	public function installPackages($force = FALSE) {
-		//Checks for Composer
+    }
+
+    /**
+     * Gets the option parser instance and configures it.
+     * @return ConsoleOptionParser
+     */
+    public function getOptionParser()
+    {
+        $parser = parent::getOptionParser();
+
+        return $parser->addSubcommands([
+            'all' => ['help' => __d('me_tools', 'Executes all available tasks')],
+            'copyConfig' => ['help' => __d('me_tools', 'Copies the configuration files')],
+            'copyFonts' => ['help' => __d('me_tools', 'Creates symbolic links for fonts')],
+            'createDirectories' => ['help' => __d('me_tools', 'Creates default directories')],
+            'createRobots' => ['help' => __d('me_tools', 'Creates the {0} file', 'robots.txt')],
+            'createVendorsLinks' => ['help' => __d('me_tools', 'Creates symbolic links for vendor assets')],
+            'fixComposerJson' => ['help' => __d('me_tools', 'Fixes {0}', 'composer.json')],
+            'installPackages' => ['help' => __d('me_tools', 'Installs the suggested packages')],
+            'setPermissions' => ['help' => __d('me_tools', 'Sets directories permissions')],
+        ])->addOption('force', [
+            'boolean' => true,
+            'default' => false,
+            'help' => __d('me_tools', 'Executes tasks without prompting'),
+            'short' => 'f',
+        ])->description(__d('me_tools', 'Executes some tasks to make the system ready to work'));
+    }
+
+    /**
+     * Install the suggested packages
+     * @param bool $force Forces installing
+     * @return void
+     * @uses $packages
+     */
+    public function installPackages($force = false)
+    {
+        //Checks for Composer
         $bin = which('composer');
-        
-		if(!$bin) {
-			return $this->err(__d('me_tools', '{0} is not available', 'composer'));
+
+        if (!$bin) {
+            $this->err(__d('me_tools', '{0} is not available', 'composer'));
+            
+            return;
         }
-        
-		//Empty array. This will contain the packages to install
-		$packagesToInstall = [];
-		
-		//Asks whick packages to install, if it was not asked to install all of them or if you are not using the "force" parameter
-		if(!$force && !$this->param('force')) {
-			foreach($this->packages as $package) {
-				$ask = $this->in(__d('me_tools', 'Do you want to install {0}?', $package), ['Y', 'n'], 'Y');
-				if(in_array($ask, ['Y', 'y'])) {
-					$packagesToInstall[] = $package;
+
+        //Empty array. This will contain the packages to install
+        $packagesToInstall = [];
+
+        //Asks whick packages to install, if it was not asked to install all of them or if you are not using the "force" parameter
+        if (!$force && !$this->param('force')) {
+            foreach ($this->packages as $package) {
+                $ask = $this->in(__d('me_tools', 'Do you want to install {0}?', $package), ['Y', 'n'], 'Y');
+                if (in_array($ask, ['Y', 'y'])) {
+                    $packagesToInstall[] = $package;
                 }
-			}
-		
-			if(empty($packagesToInstall)) {
-				return $this->verbose(__d('me_tools', 'No package has been selected for installation'));
             }
-		}
-		else {
-			$packagesToInstall = $this->packages;
+
+            if (empty($packagesToInstall)) {
+                $this->verbose(__d('me_tools', 'No package has been selected for installation'));
+                
+                return;
+            }
+        } else {
+            $packagesToInstall = $this->packages;
         }
-		
-		//Gets the list of installed packages
+
+        //Gets the list of installed packages
         exec(sprintf('%s show --latest --name-only', $bin), $installed);
-        
-		$packagesToInstall = array_diff($packagesToInstall, $installed);
-		
-		if(empty($packagesToInstall)) {
-			return $this->verbose(__d('me_tools', 'All packages are already installed'));
+
+        $packagesToInstall = array_diff($packagesToInstall, $installed);
+
+        if (empty($packagesToInstall)) {
+            $this->verbose(__d('me_tools', 'All packages are already installed'));
+            
+            return;
         }
-			
-		//Executes the command
-		exec(sprintf('%s require %s', $bin, implode(' ', $packagesToInstall)));
-	}
-    
+
+        //Executes the command
+        exec(sprintf('%s require %s', $bin, implode(' ', $packagesToInstall)));
+    }
+
     /**
      * Main command. Alias for `main()`
+     * @return void
      * @uses main()
      */
-    public function main() {
-        return $this->all();
+    public function main()
+    {
+        $this->all();
     }
-	
-	/**
-	 * Sets permissions on directories
-	 * @param bool $force
-	 * @uses $paths
-	 */
-	public function setPermissions($force = FALSE) {
-		$error = FALSE;
-		
-		foreach($this->paths as $path) {
-			if((new Folder())->chmod($path, 0777, TRUE)) {
-				$this->verbose(__d('me_tools', 'Setted permissions on {0}', $this->bold(rtr($path))));
-            }
-			else {
+
+    /**
+     * Sets permissions on directories
+     * @param bool $force Forces settings
+     * @return void
+     * @uses $paths
+     */
+    public function setPermissions($force = false)
+    {
+        $error = false;
+
+        foreach ($this->paths as $path) {
+            if ((new Folder())->chmod($path, 0777, true)) {
+                $this->verbose(__d('me_tools', 'Setted permissions on {0}', $this->bold(rtr($path))));
+            } else {
                 $this->err(__d('me_tools', 'Failed to set permissions on {0}', $this->bold(rtr($path))));
-				$error = TRUE;
-			}
-		}
-		
-		//In case of error, asks for sudo
-		if($error && which('sudo')) {
+                $error = true;
+            }
+        }
+
+        //In case of error, asks for sudo
+        if ($error && which('sudo')) {
             $command = sprintf('sudo chmod -R 777 %s', implode(' ', $this->paths));
-            
-			if($this->param('force') || $force) {
-				return exec($command);
+
+            if ($this->param('force') || $force) {
+                exec($command);
+                
+                return;
             }
-            
-			$ask = $this->in(__d('me_tools', 'It was not possible to set permissions on some directories. Try again using {0}?', 'sudo'), ['Y', 'n'], 'Y');
-            if(in_array($ask, ['Y', 'y'])) {
-				exec($command);
+
+            $ask = $this->in(__d('me_tools', 'It was not possible to set permissions on some directories. Try again using {0}?', 'sudo'), ['Y', 'n'], 'Y');
+            if (in_array($ask, ['Y', 'y'])) {
+                exec($command);
             }
-		}
-	}
+        }
+    }
 }

@@ -3,6 +3,9 @@
 ### 2.8.0
 * `MeTools\Network\Request` has been removed. All old methods are now 
 	request detectors (see `config/detectors.php`);
+* method `MeTools\View\Helper::_addButtonClass()` is now global function 
+    `buttonClass()`;
+* fixed code for CakePHP Code Sniffer;
 * updated for CakePHP 3.3.
 
 ## 2.7 branch

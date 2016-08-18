@@ -15,72 +15,77 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with MeTools.  If not, see <http://www.gnu.org/licenses/>.
  *
- * @author		Mirko Pagliai <mirko.pagliai@gmail.com>
- * @copyright	Copyright (c) 2016, Mirko Pagliai for Nova Atlantis Ltd
- * @license		http://www.gnu.org/licenses/agpl.txt AGPL License
- * @link		http://git.novatlantis.it Nova Atlantis Ltd
- * @see			https://www.google.com/recaptcha reCAPTCHA site
+ * @author      Mirko Pagliai <mirko.pagliai@gmail.com>
+ * @copyright   Copyright (c) 2016, Mirko Pagliai for Nova Atlantis Ltd
+ * @license     http://www.gnu.org/licenses/agpl.txt AGPL License
+ * @link        http://git.novatlantis.it Nova Atlantis Ltd
+ * @see         https://www.google.com/recaptcha reCAPTCHA site
  */
 namespace MeTools\Controller\Component;
 
 use Cake\Controller\Component;
 use Cake\Core\Configure;
-use Cake\Network\Exception\InternalErrorException;
 use Cake\Http\Client;
+use Cake\Network\Exception\InternalErrorException;
 
 /**
  * A component to use reCAPTCHA
  */
-class RecaptchaComponent extends Component {
-	/**
-	 * Error
-	 * @var string
-	 */
-	protected $error;
-	
-	/**
-	 * Checks for reCAPTCHA
-	 * @return boolean
-	 * @see https://developers.google.com/recaptcha/docs/verify
-	 * @throws \Cake\Network\Exception\InternalErrorException
-	 */
-	public function check() {		
-		//Loads the configuration file and gets the form keys
-		Configure::load('recaptcha');
-		$keys = Configure::read('Recaptcha.Form');
-		
-		//Checks for form keys
-		if(empty($keys['public']) || empty($keys['private'])) {
+class RecaptchaComponent extends Component
+{
+    /**
+     * Error
+     * @var string
+     */
+    protected $error;
+
+    /**
+     * Checks for reCAPTCHA
+     * @return bool
+     * @see https://developers.google.com/recaptcha/docs/verify
+     * @throws \Cake\Network\Exception\InternalErrorException
+     */
+    public function check()
+    {
+        //Loads the configuration file and gets the form keys
+        Configure::load('recaptcha');
+        $keys = Configure::read('Recaptcha.Form');
+
+        //Checks for form keys
+        if (empty($keys['public']) || empty($keys['private'])) {
             throw new InternalErrorException(__d('me_tools', 'Form keys are not configured'));
         }
-        
-		$controller = $this->_registry->getController();
-		$response = $controller->request->data('g-recaptcha-response');
-		
-		if(empty($response)) {
-			$this->error = __d('me_tools', 'You have not filled out the {0} control', 'reCAPTCHA');	
-			return FALSE;
-		}
-		 		
-		$results = (new Client())->post('https://www.google.com/recaptcha/api/siteverify', am([
-			'remoteip' => $controller->request->clientIp(),
-			'secret' => $keys['private'],
-		], compact('response')));
-				
-		if(empty($results) || empty($results->json['success'])) {
-			$this->error = __d('me_tools', 'It was not possible to verify the {0} control', 'reCAPTCHA');
-			return FALSE;
-		}
-		
-		return TRUE;
-	}
-	
-	/**
-	 * Gets the last error
-	 * @return string Error
-	 * @uses error
-	 */
-	public function getError() {
-		return $this->error;
-	}
+
+        $controller = $this->_registry->getController();
+        $response = $controller->request->data('g-recaptcha-response');
+
+        if (empty($response)) {
+            $this->error = __d('me_tools', 'You have not filled out the {0} control', 'reCAPTCHA');
+            
+            return false;
+        }
+
+        $results = (new Client())->post('https://www.google.com/recaptcha/api/siteverify', am([
+            'remoteip' => $controller->request->clientIp(),
+            'secret' => $keys['private'],
+        ], compact('response')));
+
+        if (empty($results) || empty($results->json['success'])) {
+            $this->error = __d('me_tools', 'It was not possible to verify the {0} control', 'reCAPTCHA');
+            
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Gets the last error
+     * @return string Error
+     * @uses error
+     */
+    public function getError()
+    {
+        return $this->error;
+    }
 }

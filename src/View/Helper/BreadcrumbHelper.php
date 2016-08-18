@@ -15,10 +15,10 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with MeTools.  If not, see <http://www.gnu.org/licenses/>.
  *
- * @author		Mirko Pagliai <mirko.pagliai@gmail.com>
- * @copyright	Copyright (c) 2016, Mirko Pagliai for Nova Atlantis Ltd
- * @license		http://www.gnu.org/licenses/agpl.txt AGPL License
- * @link		http://git.novatlantis.it Nova Atlantis Ltd
+ * @author      Mirko Pagliai <mirko.pagliai@gmail.com>
+ * @copyright   Copyright (c) 2016, Mirko Pagliai for Nova Atlantis Ltd
+ * @license     http://www.gnu.org/licenses/agpl.txt AGPL License
+ * @link        http://git.novatlantis.it Nova Atlantis Ltd
  * @see         http://getbootstrap.com/components/#breadcrumbs Bootstrap documentation
  */
 namespace MeTools\View\Helper;
@@ -28,13 +28,14 @@ use Cake\View\Helper;
 /**
  * Creates breadcrumbs, according to the Bootstrap component.
  */
-class BreadcrumbHelper extends Helper {
-	/**
-	 * Helpers
-	 * @var array
-	 */
-	public $helpers = ['MeTools.Html'];
-    
+class BreadcrumbHelper extends Helper
+{
+    /**
+     * Helpers
+     * @var array
+     */
+    public $helpers = ['MeTools.Html'];
+
     /**
      * Internal property to add elements
      * @var array
@@ -46,51 +47,54 @@ class BreadcrumbHelper extends Helper {
      * @param string $name Text for link
      * @param string|array|null $link URL for link (if empty it won't be a link)
      * @param string|array $options Link attributes e.g. ['id' => 'selected']
+     * @return void
      * @uses $elements
      */
-    public function add($name, $link = NULL, array $options = []) {
+    public function add($name, $link = null, array $options = [])
+    {
         $this->elements[] = compact('name', 'link', 'options');
     }
-    
+
     /**
      * Returns breadcrumbs
      * @param array $options HTML attributes
-     * @param string|array|bool $startText This will be the first crumb, if 
-     * `FALSE` it defaults to first crumb in array. Can also be an array, 
+     * @param string|array|bool $startText This will be the first crumb, if
+     * `FALSE` it defaults to first crumb in array. Can also be an array,
      * see `HtmlHelper::getCrumbs` for details
-     * @return string Html code
+     * @return string|void Html code
      * @uses $elements
      */
-    public function get(array $options = [], $startText = FALSE) {
+    public function get(array $options = [], $startText = false)
+    {
         //Returns, if there are no elements.
         //This prevent it from being displayed only on the home link
-        if(empty($this->elements)) {
+        if (empty($this->elements)) {
             return;
         }
-        
+
         //Fetch last array key
         $keys = array_keys($this->elements);
         $last = array_pop($keys);
-        
-        foreach($this->elements as $k => $element) {
+
+        foreach ($this->elements as $k => $element) {
             //If it's the last element, no link
-            if($k == $last) {
-                $element['link'] = NULL;
+            if ($k == $last) {
+                $element['link'] = false;
             }
-            
+
             $this->Html->addCrumb($element['name'], $element['link'], $element['options']);
         }
-        
+
         $options = optionDefaults([
             'class' => 'breadcrumb',
-            'firstClass' => FALSE,
+            'firstClass' => false,
             'lastClass' => 'active',
         ], $options);
-        
-        if(empty($startText)) {
+
+        if (empty($startText)) {
             $startText = 'Homepage';
         }
-        
+
         return $this->Html->getCrumbList($options, $startText);
     }
 }
