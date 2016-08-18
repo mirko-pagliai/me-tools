@@ -118,7 +118,7 @@ class HtmlHelper extends CakeHtmlHelper
     /**
      * Adds a css file to the layout.
      *
-     * If it's used in the layout, you should set the `inline` option to `TRUE`.
+     * If it's used in the layout, you should set the `inline` option to `true`.
      * @param mixed $path Css filename or an array of css filenames
      * @param array $options Array of options and HTML attributes
      * @return string Html, `<link>` or `<style>` tag
@@ -286,8 +286,8 @@ class HtmlHelper extends CakeHtmlHelper
 
     /**
      * Alias for `script()` method
-     * @return mixed String of `<script />` tags or NULL if `$inline` is FALSE
-     *  or if `$once` is TRUE and the file has been included before
+     * @return mixed String of `<script />` tags or null if `$inline` is false
+     *  or if `$once` is true and the file has been included before
      * @see script()
      */
     public function js()
@@ -466,11 +466,11 @@ class HtmlHelper extends CakeHtmlHelper
     /**
      * Adds a js file to the layout.
      *
-     * If it's used in the layout, you should set the `inline` option to `TRUE`.
+     * If it's used in the layout, you should set the `inline` option to `true`.
      * @param mixed $url Javascript files as string or array
      * @param array $options Array of options and HTML attributes
-     * @return mixed String of `<script />` tags or NULL if `$inline` is FALSE
-     *  or if `$once` is TRUE and the file has been included before
+     * @return mixed String of `<script />` tags or null if `$inline` is false
+     *  or if `$once` is true and the file has been included before
      */
     public function script($url, array $options = [])
     {
@@ -483,7 +483,7 @@ class HtmlHelper extends CakeHtmlHelper
      * Returns a Javascript code block.
      * @param string $code Javascript code
      * @param array $options Array of options and HTML attributes
-     * @return mixed A script tag or NULL
+     * @return mixed A script tag or null
      */
     public function scriptBlock($code, array $options = [])
     {
@@ -500,7 +500,7 @@ class HtmlHelper extends CakeHtmlHelper
      * To capture output with a single method, you can also use the
      *  `scriptBlock()` method.
      * @param array $options Options for the code block
-     * @return mixed A script tag or NULL
+     * @return mixed A script tag or null
      * @see scriptBlock()
      */
     public function scriptStart(array $options = [])
@@ -531,7 +531,7 @@ class HtmlHelper extends CakeHtmlHelper
     /**
      * Returns a formatted block tag.
      * @param string $name Tag name
-     * @param string $text Tag content. If NULL, only a start tag will be
+     * @param string $text Tag content. If null, only a start tag will be
      *  printed
      * @param array $options Array of options and HTML attributes
      * @return string Html code

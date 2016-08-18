@@ -34,7 +34,7 @@ class UploaderComponent extends Component
     /**
      * Error.
      * It can be set by various methods.
-     * @var mixed String or `FALSE`
+     * @var mixed String or `false`
      */
     protected $error = false;
 
@@ -98,7 +98,7 @@ class UploaderComponent extends Component
 
     /**
      * Returns the first error
-     * @return mixed String or `FALSE`
+     * @return mixed String or `false`
      * @uses $error
      */
     public function error()
@@ -133,7 +133,7 @@ class UploaderComponent extends Component
      * If you specify only a directory as target, it will keep the original
      *  filename of the file.
      * @param string $target Target
-     * @return mixed Target path or `FALSE` on failure
+     * @return mixed Target path or `false` on failure
      * @uses _setError()
      * @uses _setTarget()
      * @uses error()

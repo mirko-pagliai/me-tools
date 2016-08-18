@@ -39,14 +39,14 @@ use Cake\Routing\Router;
  * <code>
  * $this->request->is('action', 'delete');
  * </code>
- * returns `TRUE` if the current action is `delete`, otherwise `FALSE`.
+ * returns `true` if the current action is `delete`, otherwise `false`.
  *
  * Example:
  * <code>
  * $this->request->is('action', ['edit', 'delete'], 'Pages');
  * </code>
- * returns `TRUE` if the current action is `edit` or `delete` and if the
- * current controller is `Pages`, otherwise `FALSE`.
+ * returns `true` if the current action is `edit` or `delete` and if the
+ * current controller is `Pages`, otherwise `false`.
  */
 Request::addDetector('action', function ($request, $action, $controller = null) {
     $action = in_array($request->param('action'), (array)$action);
@@ -70,7 +70,7 @@ Request::addDetector('action', function ($request, $action, $controller = null) 
  * <code>
  * $this->request->is('controller', 'Pages');
  * </code>
- * returns `TRUE` if the current controller is `Pages`, otherwise `FALSE`.
+ * returns `true` if the current controller is `Pages`, otherwise `false`.
  */
 Request::addDetector('controller', function ($request, $controller) {
     return in_array($request->param('controller'), (array)$controller);

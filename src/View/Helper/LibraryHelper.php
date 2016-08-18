@@ -117,7 +117,7 @@ class LibraryHelper extends Helper
      * Create a script block for Google Analytics
      * @param string $id Analytics ID
      * @uses MeTools\View\Helper\HtmlHelper::scriptBlock()
-     * @return mixed|null Html code or NULL if is localhost
+     * @return mixed|null Html code or null if is localhost
      */
     public function analytics($id)
     {
@@ -138,7 +138,7 @@ class LibraryHelper extends Helper
      *
      * To create an input field for CKEditor, you should use the `ckeditor()`
      *  method provided by the `FormHelper`.
-     * @param bool $jquery FALSE if you don't want to use the jQuery adapter
+     * @param bool $jquery false if you don't want to use the jQuery adapter
      * @return void
      * @see MeTools\View\Helper\FormHelper::ckeditor()
      * @see http://docs.cksource.com CKEditor documentation

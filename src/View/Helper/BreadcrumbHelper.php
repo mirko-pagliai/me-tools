@@ -59,7 +59,7 @@ class BreadcrumbHelper extends Helper
      * Returns breadcrumbs
      * @param array $options HTML attributes
      * @param string|array|bool $startText This will be the first crumb, if
-     * `FALSE` it defaults to first crumb in array. Can also be an array,
+     * `false` it defaults to first crumb in array. Can also be an array,
      * see `HtmlHelper::getCrumbs` for details
      * @return string|void Html code
      * @uses $elements

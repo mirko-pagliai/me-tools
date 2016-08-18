@@ -52,7 +52,7 @@ class TokensTable extends Table
 
     /**
      * Deletes all expired tokens, based on the expiry and (optional) the user ID and the token value
-     * @param MeTools\Model\Entity\Token $entity Token entity or NULL
+     * @param MeTools\Model\Entity\Token $entity Token entity or null
      * @return void
      * @uses Cake\I18n\Time::i18nFormat()
      */

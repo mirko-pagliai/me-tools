@@ -26,7 +26,7 @@ use Cake\Filesystem\Folder;
 
 if (!function_exists('af')) {
     /**
-     * Cleans an array, removing values equal to `FALSE` (`array_filter()`)
+     * Cleans an array, removing values equal to `false` (`array_filter()`)
      * @param array $array Array
      * @return array Array
      */
@@ -162,7 +162,7 @@ if (!function_exists('fv')) {
 if (!function_exists('getClientIp')) {
     /**
      * Gets the client IP
-     * @return string|bool Client IP or `FALSE`
+     * @return string|bool Client IP or `false`
      * @see http://stackoverflow.com/a/15699240/1480263
      */
     function getClientIp()

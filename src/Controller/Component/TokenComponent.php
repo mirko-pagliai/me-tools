@@ -86,7 +86,7 @@ class TokenComponent extends Component
      * Note that if the salt is empty, it will use the current timestamp.
      * @param string $salt Salt to use to generate the token
      * @param array $options Options (`data`, `expiry`, `type` and `user_id`)
-     * @return mixed The token value on success, otherwise `FALSE`
+     * @return mixed The token value on success, otherwise `false`
      * @uses Cake\I18n\Time::i18nFormat()
      * @uses Cake\Utility\Security::hash()
      */

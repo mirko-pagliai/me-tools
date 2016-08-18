@@ -36,9 +36,9 @@ class Plugin extends CakePlugin
      * Gets all loaded plugins.
      *
      * Available options are:
-     *  - `core`, if `FALSE` exclude the core plugins;
+     *  - `core`, if `false` exclude the core plugins;
      *  - `exclude`, a plugin as string or an array of plugins to be excluded;
-     *  - `order`, if `TRUE` the plugins will be sorted.
+     *  - `order`, if `true` the plugins will be sorted.
      * @param array $options Options
      * @return array Plugins
      * @uses Cake\Core\Plugin::loaded()
@@ -79,7 +79,7 @@ class Plugin extends CakePlugin
      * @param string $plugin Plugin name
      * @param string|array $file Files
      * @param bool $check Checks if the files exist
-     * @return string|array|bool String or `FALSE` if you asked the path of a
+     * @return string|array|bool String or `false` if you asked the path of a
      *  plugin or of a single plugin file. Otherwise, an array if you asked
      *  the path of several plugin files
      */

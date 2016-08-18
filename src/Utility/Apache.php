@@ -30,7 +30,7 @@ class Apache
     /**
      * Checks if a module is enabled.
      * @param string $module Name of the module to be checked
-     * @return mixed TRUE if the module is enabled, FALSE otherwise. NULL if
+     * @return mixed true if the module is enabled, false otherwise. null if
      *  cannot check
      */
     public static function module($module)
@@ -44,7 +44,7 @@ class Apache
 
     /**
      * Gets the version.
-     * @return mixed Version. NULL if cannot check
+     * @return mixed Version. null if cannot check
      */
     public static function version()
     {

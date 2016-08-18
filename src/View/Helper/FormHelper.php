@@ -180,7 +180,7 @@ class FormHelper extends CakeFormHelper
     /**
      * Returns a `<form>` element.
      * @param mixed $model The model name for which the form is being defined.
-     *  If `FALSE` no model is used
+     *  If `false` no model is used
      * @param array $options HTML attributes and options
      * @return string An formatted opening `<form>` tag
      * @uses createInline()
@@ -202,7 +202,7 @@ class FormHelper extends CakeFormHelper
      *
      * Note that by default `createInline` doesn't display errors.
      * @param mixed $model The model name for which the form is being defined.
-     *  If `FALSE` no model is used
+     *  If `false` no model is used
      * @param array $options HTML attributes and options
      * @return string An formatted opening `<form>` tag
      * @uses create()
@@ -292,7 +292,7 @@ class FormHelper extends CakeFormHelper
             $options = optionDefaults(['type' => 'password'], $options);
         }
 
-        //Changes the "autocomplete" value from "FALSE" to "off"
+        //Changes the "autocomplete" value from "false" to "off"
         if (isset($options['autocomplete']) && !$options['autocomplete']) {
             $options['autocomplete'] = 'off';
         }
@@ -300,7 +300,7 @@ class FormHelper extends CakeFormHelper
         //If it's a select
         if ($type === 'select') {
             //By default, the `empty` option will be automatically added
-            //  (with `FALSE` value). This option will be used by the
+            //  (with `false` value). This option will be used by the
             //  `select()` method to see if the option has been added by the
             //  user or not
             if (!isset($options['empty'])) {

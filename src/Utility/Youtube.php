@@ -30,7 +30,7 @@ class Youtube
     /**
      * Parses a YouTube url and returns the YouTube ID
      * @param string $url Video url
-     * @return mixed Youtube ID or FALSE
+     * @return mixed Youtube ID or false
      */
     public static function getId($url)
     {
