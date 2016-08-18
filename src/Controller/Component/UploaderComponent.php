@@ -33,7 +33,7 @@ class UploaderComponent extends Component
 {
     /**
      * Error.
-     * It can be set by various methoDS .
+     * It can be set by various methods.
      * @var mixed String or `FALSE`
      */
     protected $error = false;
