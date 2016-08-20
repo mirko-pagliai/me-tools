@@ -39,7 +39,7 @@ class FormHelper extends CakeFormHelper
      */
     public $helpers = [
         'Html' => ['className' => 'MeTools.Html'],
-        'Url'
+        'Url',
     ];
 
     /**
@@ -279,8 +279,12 @@ class FormHelper extends CakeFormHelper
      */
     public function input($fieldName, array $options = [])
     {
-        //Gets the input type
-        $type = empty($options['type']) ? self::_inputType($fieldName, $options) : $options['type'];
+        //Sets the input type
+        if (empty($options['type'])) {
+            $type = self::_inputType($fieldName, $options);
+        } else {
+            $type = $options['type'];
+        }
 
         if ($type !== 'file') {
             $options = optionValues(['class' => 'form-control'], $options);
@@ -335,7 +339,13 @@ class FormHelper extends CakeFormHelper
         //See http://getbootstrap.com/components/#input-groups-buttons
         if (!empty($options['button'])) {
             //Fixes templates
-            $this->templates(['formGroup' => preg_replace('/\{\{input\}\}/', '<div class="input-group">{{input}}{{button}}</div>', $this->templates('formGroup'))]);
+            $this->templates([
+                'formGroup' => preg_replace(
+                    '/\{\{input\}\}/',
+                    '<div class="input-group">{{input}}{{button}}</div>',
+                    $this->templates('formGroup')
+                )
+            ]);
 
             $options['templateVars']['button'] = $this->Html->span($options['button'], ['class' => 'input-group-btn']);
             unset($options['button']);
@@ -457,7 +467,10 @@ class FormHelper extends CakeFormHelper
             unset($attributes['empty'], $attributes['remove_empty']);
         }
 
-        if (!isset($attributes['empty']) && empty($attributes['default']) && empty($attributes['value'])) {
+        if (!isset($attributes['empty']) &&
+            empty($attributes['default']) &&
+            empty($attributes['value'])
+        ) {
             $attributes = optionDefaults(['empty' => true], $attributes);
         }
 

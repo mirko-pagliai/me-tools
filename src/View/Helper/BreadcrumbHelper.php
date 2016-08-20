@@ -82,7 +82,11 @@ class BreadcrumbHelper extends Helper
                 $element['link'] = false;
             }
 
-            $this->Html->addCrumb($element['name'], $element['link'], $element['options']);
+            $this->Html->addCrumb(
+                $element['name'],
+                $element['link'],
+                $element['options']
+            );
         }
 
         $options = optionDefaults([

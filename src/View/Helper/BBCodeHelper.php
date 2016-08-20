@@ -92,7 +92,11 @@ class BBCodeHelper extends Helper
     public function youtube($text)
     {
         return preg_replace_callback('/\[youtube](.+?)\[\/youtube]/', function ($matches) {
-            return $this->Html->youtube(isUrl($matches[1]) ? Youtube::getId($matches[1]) : $matches[1]);
+            if ($this->Html->youtube(isUrl($matches[1]))) {
+                return Youtube::getId($matches[1]);
+            } else {
+                return $matches[1];
+            }
         }, $text);
     }
 }

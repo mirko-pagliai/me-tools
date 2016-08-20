@@ -45,9 +45,13 @@ class MarkdownHelper extends Helper
     public function toHtml($string, $clean = false)
     {
         //Converts some code blocks as used by some sites, such as Bitbucket
-        $string = preg_replace_callback('/```\s+(#!\S+\s+)?(((?!```)\t*.*\s+)+)\s*```/m', function ($match) {
-            return PHP_EOL . preg_replace('/(\t*.*\s+)/m', '	$1', $match[2]);
-        }, $string);
+        $string = preg_replace_callback(
+            '/```\s+(#!\S+\s+)?(((?!```)\t*.*\s+)+)\s*```/m',
+            function ($match) {
+                return PHP_EOL . preg_replace('/(\t*.*\s+)/m', '	$1', $match[2]);
+            },
+            $string
+        );
 
         $html = Markdown::defaultTransform($string);
 

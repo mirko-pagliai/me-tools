@@ -63,7 +63,10 @@ class LibraryHelper extends Helper
             '/vendor/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min',
         ], ['block' => 'script_bottom']);
 
-        $this->Asset->css('/vendor/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min', ['block' => 'css_bottom']);
+        $this->Asset->css(
+            '/vendor/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min',
+            ['block' => 'css_bottom']
+        );
 
         $options = optionDefaults([
             'showTodayButton' => true,
@@ -106,7 +109,10 @@ class LibraryHelper extends Helper
                 return "\t" . $v;
             }, $this->output));
 
-            $this->Html->scriptBlock(sprintf('$(function() {%s});', PHP_EOL . $this->output . PHP_EOL), ['block' => 'script_bottom']);
+            $this->Html->scriptBlock(
+                sprintf('$(function() {%s});', PHP_EOL . $this->output . PHP_EOL),
+                ['block' => 'script_bottom']
+            );
 
             //Resets the output
             $this->output = [];
@@ -125,7 +131,10 @@ class LibraryHelper extends Helper
             return;
         }
 
-        return $this->Html->scriptBlock(sprintf('!function(e,a,t,n,c,o,s){e.GoogleAnalyticsObject=c,e[c]=e[c]||function(){(e[c].q=e[c].q||[]).push(arguments)},e[c].l=1*new Date,o=a.createElement(t),s=a.getElementsByTagName(t)[0],o.async=1,o.src=n,s.parentNode.insertBefore(o,s)}(window,document,"script","//www.google-analytics.com/analytics.js","ga"),ga("create","%s","auto"),ga("send","pageview");', $id), ['block' => 'script_bottom']);
+        return $this->Html->scriptBlock(
+            sprintf('!function(e,a,t,n,c,o,s){e.GoogleAnalyticsObject=c,e[c]=e[c]||function(){(e[c].q=e[c].q||[]).push(arguments)},e[c].l=1*new Date,o=a.createElement(t),s=a.getElementsByTagName(t)[0],o.async=1,o.src=n,s.parentNode.insertBefore(o,s)}(window,document,"script","//www.google-analytics.com/analytics.js","ga"),ga("create","%s","auto"),ga("send","pageview");', $id),
+            ['block' => 'script_bottom']
+        );
     }
 
     /**
@@ -267,12 +276,15 @@ class LibraryHelper extends Helper
      */
     public function shareaholic($siteId)
     {
-        return $this->Html->js('//dsms0mj1bbhn4.cloudfront.net/assets/pub/shareaholic.js', [
-            'async' => 'async',
-            'block' => 'script_bottom',
-            'data-cfasync' => 'false',
-            'data-shr-siteid' => $siteId,
-        ]);
+        return $this->Html->js(
+            '//dsms0mj1bbhn4.cloudfront.net/assets/pub/shareaholic.js',
+            [
+                'async' => 'async',
+                'block' => 'script_bottom',
+                'data-cfasync' => 'false',
+                'data-shr-siteid' => $siteId,
+            ]
+        );
     }
 
     /**
@@ -290,7 +302,11 @@ class LibraryHelper extends Helper
     {
         $this->Asset->js('MeTools.slugify', ['block' => 'script_bottom']);
 
-        $this->output[] = sprintf('$().slugify("%s", "%s");', $sourceField, $targetField);
+        $this->output[] = sprintf(
+            '$().slugify("%s", "%s");',
+            $sourceField,
+            $targetField
+        );
     }
 
     /**

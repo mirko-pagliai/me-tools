@@ -187,7 +187,11 @@ class HtmlHelper extends CakeHtmlHelper
      */
     public function heading($text, array $options = [])
     {
-        $type = empty($options['type']) || !preg_match('/^h[1-6]$/', $options['type']) ? 'h2' : $options['type'];
+        if (empty($options['type']) || !preg_match('/^h[1-6]$/', $options['type'])) {
+            $type = 'h2';
+        } else {
+            $type = $options['type'];
+        }
 
         if (!empty($options['small']) && is_string($options['small'])) {
             $text = sprintf('%s %s', $text, self::small($options['small']));
@@ -254,7 +258,10 @@ class HtmlHelper extends CakeHtmlHelper
         if ($ratio === '16by9' || $ratio === '4by3') {
             $options = optionValues(['class' => 'embed-responsive-item'], $options);
             
-            return self::div(sprintf('embed-responsive embed-responsive-%s', $ratio), self::tag('iframe', ' ', $options));
+            return self::div(
+                sprintf('embed-responsive embed-responsive-%s', $ratio),
+                self::tag('iframe', ' ', $options)
+            );
         }
 
         return self::tag('iframe', ' ', $options);
@@ -610,6 +617,10 @@ class HtmlHelper extends CakeHtmlHelper
             'width' => 640,
         ], $options);
 
-        return self::iframe(sprintf('https://www.youtube.com/embed/%s', $id), $options, $ratio);
+        return self::iframe(
+            sprintf('https://www.youtube.com/embed/%s', $id),
+            $options,
+            $ratio
+        );
     }
 }

@@ -82,10 +82,13 @@ class RecaptchaHelper extends Helper
 
         $optionsScript = optionDefaults(['block' => 'script_bottom'], $optionsScript);
 
-        $this->Html->js('https://www.google.com/recaptcha/api.js', am($optionsScript, [
-            'async' => true,
-            'defer' => true,
-        ]));
+        $this->Html->js(
+            'https://www.google.com/recaptcha/api.js',
+            am($optionsScript, [
+                'async' => true,
+                'defer' => true,
+            ])
+        );
 
         return $this->Html->div(
             'g-recaptcha',

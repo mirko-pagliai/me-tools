@@ -26,14 +26,15 @@ namespace MeTools\View\Helper;
 use Cake\View\Helper;
 
 /**
- * Provides functionalities for creating dropdown menus, according to Bootstrap.
+ * Provides functionalities for creating dropdown menus, according to
+ *  Bootstrap.
  *
  * The `menu()` method creates a full dropdown menu, with a link to open the
  *  menu and the menu itself.
  *
  * Otherwise you can use the `button()` or the `link()`method, which generate
- *  a link or a button to open the menu,
- * followed by the `dropdown()` method, which generates only the menu.
+ *  a link or a button to open the menu, followed by the `dropdown()` method,
+ *  which generates only the menu.
  */
 class DropdownHelper extends Helper
 {
@@ -104,8 +105,11 @@ class DropdownHelper extends Helper
      * @see http://getbootstrap.com/components/#dropdowns Bootstrap documentation
      * @uses MeTools\View\Helper\HtmlHelper::ul()
      */
-    public function dropdown(array $links = [], array $options = [], array $itemOptions = [])
-    {
+    public function dropdown(
+        array $links = [],
+        array $options = [],
+        array $itemOptions = []
+    ) {
         $options = optionValues([
             'class' => 'dropdown-menu',
             'role' => 'menu',
@@ -160,8 +164,13 @@ class DropdownHelper extends Helper
      * @uses dropdown()
      * @uses link()
      */
-    public function menu($title, array $titleOptions = [], array $links = [], array $dropdownOptions = [], array $itemOptions = [])
-    {
+    public function menu(
+        $title,
+        array $titleOptions = [],
+        array $links = [],
+        array $dropdownOptions = [],
+        array $itemOptions = []
+    ) {
         return implode(PHP_EOL, [
             $this->link($title, $titleOptions),
             $this->dropdown($links, $dropdownOptions, $itemOptions)
