@@ -107,7 +107,7 @@ class InstallShell extends Shell
         //Suggested packages to install by Composer
         $this->packages = [
             'components/jquery:^3.1',
-            'eonasdan/bootstrap-datetimepicker',
+            'eonasdan/bootstrap-datetimepicker:4.*',
             'fortawesome/font-awesome',
             'newerton/fancy-box:dev-master',
         ];
