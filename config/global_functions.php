@@ -103,19 +103,35 @@ if (!function_exists('clearDir')) {
     }
 }
 
-if (!function_exists('fk')) {
+if (!function_exists('first_key')) {
     /**
      * Returns the first key of an array
      * @param array $array Array
      * @return string First key
      */
-    function fk($array)
+    function first_key($array)
     {
         if (empty($array) || !is_array($array)) {
             return null;
         }
 
-        return current(array_keys($array));
+        return first_value(array_keys($array));
+    }
+}
+
+if (!function_exists('first_value')) {
+    /**
+     * Returns the first value of an array
+     * @param array $array Array
+     * @return mixed First value
+     */
+    function first_value($array)
+    {
+        if (empty($array) || !is_array($array)) {
+            return null;
+        }
+
+        return array_values($array)[0];
     }
 }
 
@@ -140,22 +156,6 @@ if (!function_exists('folderIsWriteable')) {
         }
 
         return true;
-    }
-}
-
-if (!function_exists('fv')) {
-    /**
-     * Returns the first value of an array
-     * @param array $array Array
-     * @return mixed First value
-     */
-    function fv($array)
-    {
-        if (empty($array) || !is_array($array)) {
-            return null;
-        }
-
-        return array_values($array)[0];
     }
 }
 

@@ -5,6 +5,7 @@
 	request detectors (see `config/detectors.php`);
 * method `MeTools\View\Helper::_addButtonClass()` is now global function 
     `buttonClass()`;
+* `fv()` is now `first_value()` and `fk()` is now `first_key()`;
 * fixed code for CakePHP Code Sniffer;
 * updated for CakePHP 3.3.
 
