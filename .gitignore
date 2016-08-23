@@ -2,4 +2,5 @@
 *_old
 *.old.*
 composer.lock
-vendor/
+vendor/*
+!vendor/Recaptcha
