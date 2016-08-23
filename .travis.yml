@@ -18,7 +18,6 @@ matrix:
 before_script:
   - if [[ $PHPCS = 1 ]]; then composer require cakephp/cakephp-codesniffer:~2.1; fi
   - if [[ $PHPCS != 1 ]]; then composer install; fi
-  - if [[ $PHPCS != 1 ]]; then composer run-script post-install-cmd --no-interaction; fi
 
 script:
   - if [[ $PHPCS != 1 ]]; then phpunit; fi
