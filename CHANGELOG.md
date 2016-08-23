@@ -1,4 +1,14 @@
 # 2.x branch
+## 2.8 branch
+### 2.8.0
+* `MeTools\Network\Request` has been removed. All old methods are now 
+	request detectors (see `config/detectors.php`);
+* method `MeTools\View\Helper::_addButtonClass()` is now global function 
+    `buttonClass()`;
+* `fv()` is now `firstValue()` and `fk()` is now `firstKey()`;
+* fixed code for CakePHP Code Sniffer;
+* updated for CakePHP 3.3.
+
 ## 2.7 branch
 ### 2.7.2
 * fixed bug for CkEditor.

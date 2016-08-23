@@ -1,7 +1,5 @@
 <?php
 /**
- * Notice flash message.
- * 
  * This file is part of MeTools.
  *
  * MeTools is free software: you can redistribute it and/or modify
@@ -17,10 +15,10 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with MeTools.  If not, see <http://www.gnu.org/licenses/>.
  *
- * @author		Mirko Pagliai <mirko.pagliai@gmail.com>
- * @copyright	Copyright (c) 2016, Mirko Pagliai for Nova Atlantis Ltd
- * @license		http://www.gnu.org/licenses/agpl.txt AGPL License
- * @link		http://git.novatlantis.it Nova Atlantis Ltd
+ * @author      Mirko Pagliai <mirko.pagliai@gmail.com>
+ * @copyright   Copyright (c) 2016, Mirko Pagliai for Nova Atlantis Ltd
+ * @license     http://www.gnu.org/licenses/agpl.txt AGPL License
+ * @link        http://git.novatlantis.it Nova Atlantis Ltd
  */
 ?>
 

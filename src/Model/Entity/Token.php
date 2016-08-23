@@ -15,10 +15,10 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with MeTools.  If not, see <http://www.gnu.org/licenses/>.
  *
- * @author		Mirko Pagliai <mirko.pagliai@gmail.com>
- * @copyright	Copyright (c) 2016, Mirko Pagliai for Nova Atlantis Ltd
- * @license		http://www.gnu.org/licenses/agpl.txt AGPL License
- * @link		http://git.novatlantis.it Nova Atlantis Ltd
+ * @author      Mirko Pagliai <mirko.pagliai@gmail.com>
+ * @copyright   Copyright (c) 2016, Mirko Pagliai for Nova Atlantis Ltd
+ * @license     http://www.gnu.org/licenses/agpl.txt AGPL License
+ * @link        http://git.novatlantis.it Nova Atlantis Ltd
  */
 namespace MeTools\Model\Entity;
 
@@ -27,17 +27,18 @@ use Cake\ORM\Entity;
 /**
  * Token entity
  */
-class Token extends Entity {
+class Token extends Entity
+{
     /**
      * Fields that can be mass assigned using newEntity() or patchEntity()
      * @var array
      */
     protected $_accessible = [
-        'user_id' => TRUE,
-        'type' => TRUE,
-        'token' => TRUE,
-        'data' => TRUE,
-        'expiry' => TRUE,
-        'user' => TRUE,
+        'user_id' => true,
+        'type' => true,
+        'token' => true,
+        'data' => true,
+        'expiry' => true,
+        'user' => true,
     ];
 }
