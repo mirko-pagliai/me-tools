@@ -22,8 +22,6 @@
  */
 namespace MeTools\View\Helper;
 
-require_once ROOT . DS . 'vendor' . DS . 'michelf' . DS . 'php-markdown' . DS . 'Michelf' . DS . 'Markdown.inc.php';
-
 use Cake\View\Helper;
 use Michelf\Markdown;
 

@@ -27,9 +27,6 @@ namespace MeTools\View\Helper;
 use Cake\Core\Configure;
 use Cake\Network\Exception\InternalErrorException;
 use Cake\View\Helper;
-use MeTools\Core\Plugin;
-
-require_once Plugin::path('MeTools', 'vendor' . DS . 'Recaptcha' . DS . 'recaptchalib.php');
 
 /**
  * Provides several methods for reCAPTCHA.
