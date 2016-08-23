@@ -24,13 +24,14 @@
 namespace MeTools\Controller\Component;
 
 use Cake\Controller\Component\FlashComponent as CakeFlashComponent;
-use Cake\Utility\Inflector;
-use MeTools\Core\Plugin;
 
 /**
- * Provides a way to persist client data between page requests. It acts as a
- *  wrapper for the `$_SESSION` as well as providing convenience methods for
- * several `$_SESSION` related functions.
+ * Provides a way to set one-time notification messages to be displayed after
+ * processing a form or acknowledging data.
+ *
+ * This class allows the `alert()`, `error()`, `notice()` and `success()`
+ * methods are automatically handled by the plugin and rendered dynamically
+ * using the `src/Template/Element/Flash/alert.ctp` template.
  *
  * Rewrites {@link http://api.cakephp.org/3.3/class-Cake.Controller.Component.FlashComponent.html FlashComponent}.
  */
@@ -41,16 +42,27 @@ class FlashComponent extends CakeFlashComponent
      * @param string $name Element name to use
      * @param array $args Parameters to pass
      * @return void
-     * @uses MeTools\Core\Plugin::path()
      */
     public function __call($name, $args)
     {
-        if (!isset($args[1]['plugin'])) {
-            $file = Plugin::path('MeTools', 'src' . DS . 'Template' . DS . 'Element' . DS . 'Flash' . DS . Inflector::underscore($name) . '.ctp', true);
-
-            if ($file) {
-                $args[1]['plugin'] = 'MeTools';
+        if (!isset($args[1]['plugin']) &&
+            in_array($name, ['alert', 'error', 'notice', 'success'])
+        ) {
+            if (!isset($args[1]['params']['class'])) {
+                if ($name === 'alert') {
+                    $args[1]['params']['class'] = 'alert-warning';
+                } elseif ($name === 'error') {
+                    $args[1]['params']['class'] = 'alert-danger';
+                } elseif ($name === 'notice') {
+                    $args[1]['params']['class'] = 'alert-info';
+                } else {
+                    $args[1]['params']['class'] = sprintf('alert-%s', $name);
+                }
             }
+            
+            $name = 'alert';
+
+            $args[1]['plugin'] = 'MeTools';
         }
 
         parent::__call($name, $args);

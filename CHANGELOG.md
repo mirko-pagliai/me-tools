@@ -1,5 +1,10 @@
 # 2.x branch
 ## 2.8 branch
+### 2.8.1
+* improved `MeTools\Controller\Component\FlashComponent`. It renders all
+    `alert()`, `error()`, `notice()` and `success()` class using the 
+    `src/Template/Element/Flash/alert.ctp` template.
+
 ### 2.8.0
 * `MeTools\Network\Request` has been removed. All old methods are now 
 	request detectors (see `config/detectors.php`);

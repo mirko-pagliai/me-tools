@@ -22,7 +22,7 @@
  */
 ?>
 
-<div class="alert alert-warning">
+<div class="alert <?= $params['class'] ?>">
     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
     <?= $message ?>
 </div>
