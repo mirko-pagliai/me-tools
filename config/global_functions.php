@@ -103,29 +103,29 @@ if (!function_exists('clearDir')) {
     }
 }
 
-if (!function_exists('first_key')) {
+if (!function_exists('firstKey')) {
     /**
      * Returns the first key of an array
      * @param array $array Array
      * @return string First key
      */
-    function first_key($array)
+    function firstKey($array)
     {
         if (empty($array) || !is_array($array)) {
             return null;
         }
 
-        return first_value(array_keys($array));
+        return firstValue(array_keys($array));
     }
 }
 
-if (!function_exists('first_value')) {
+if (!function_exists('firstValue')) {
     /**
      * Returns the first value of an array
      * @param array $array Array
      * @return mixed First value
      */
-    function first_value($array)
+    function firstValue($array)
     {
         if (empty($array) || !is_array($array)) {
             return null;
