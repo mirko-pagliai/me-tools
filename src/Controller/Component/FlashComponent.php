@@ -31,7 +31,7 @@ use Cake\Controller\Component\FlashComponent as CakeFlashComponent;
  *
  * This class allows the `alert()`, `error()`, `notice()` and `success()`
  * methods are automatically handled by the plugin and rendered dynamically
- * using the `src/Template/Element/Flash/alert.ctp` template.
+ * using the `src/Template/Element/Flash/flash.ctp` template.
  *
  * Rewrites {@link http://api.cakephp.org/3.3/class-Cake.Controller.Component.FlashComponent.html FlashComponent}.
  */
@@ -60,7 +60,7 @@ class FlashComponent extends CakeFlashComponent
                 }
             }
             
-            $name = 'alert';
+            $name = 'flash';
 
             $args[1]['plugin'] = 'MeTools';
         }
