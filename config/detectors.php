@@ -37,13 +37,13 @@ use Cake\Routing\Router;
  *
  * Example:
  * <code>
- * $this->request->is('action', 'delete');
+ * $this->request->isAction('delete');
  * </code>
  * returns `true` if the current action is `delete`, otherwise `false`.
  *
  * Example:
  * <code>
- * $this->request->is('action', ['edit', 'delete'], 'Pages');
+ * $this->request->isAction(['edit', 'delete'], 'Pages');
  * </code>
  * returns `true` if the current action is `edit` or `delete` and if the
  * current controller is `Pages`, otherwise `false`.
@@ -68,7 +68,7 @@ Request::addDetector('action', function ($request, $action, $controller = null) 
  *
  * Example:
  * <code>
- * $this->request->is('controller', 'Pages');
+ * $this->request->isController('Pages');
  * </code>
  * returns `true` if the current controller is `Pages`, otherwise `false`.
  */
@@ -83,7 +83,7 @@ Request::addDetector('controller', function ($request, $controller) {
  *
  * Example:
  * <code>
- * $this->request->is('url', ['_name' => 'posts']);
+ * $this->request->isUrl(['_name' => 'posts']);
  * </code>
  */
 Request::addDetector('url', function ($request, $url) {
@@ -98,7 +98,7 @@ Request::addDetector('url', function ($request, $url) {
  *
  * Example:
  * <code>
- * $this->request->is('prefix', ['admin', 'manager']);
+ * $this->request->isPrefix(['admin', 'manager']);
  * </code>
  */
 Request::addDetector('prefix', function ($request, $prefix) {
