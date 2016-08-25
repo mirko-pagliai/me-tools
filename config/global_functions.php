@@ -301,7 +301,12 @@ if (!function_exists('optionValues')) {
      */
     function optionValues($values, $options)
     {
-        if (func_num_args() === 3) {
+        ///Backward compatibility with three arguments
+        if (func_num_args() === 3 &&
+            is_string(func_get_arg(0)) &&
+            is_string(func_get_arg(1)) &&
+            is_array(func_get_arg(2))
+        ) {
             $values = [func_get_arg(0) => func_get_arg(1)];
             $options = func_get_arg(2);
         }
