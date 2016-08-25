@@ -60,7 +60,7 @@ if (!function_exists('buttonClass')) {
      * @return array
      * @see http://getbootstrap.com/css/#buttons-options
      */
-    function buttonClass($options, $class = 'default')
+    function buttonClass(array $options = [], $class = 'default')
     {
         //If "class" doesn't contain a button style, adds the "btn-default"
         //  classes
