@@ -77,20 +77,6 @@ Request::addDetector('controller', function ($request, $controller) {
 });
 
 /**
- * Adds `is('url')` detector.
- *
- * It checks if the specified url is the current url.
- *
- * Example:
- * <code>
- * $this->request->isUrl(['_name' => 'posts']);
- * </code>
- */
-Request::addDetector('url', function ($request, $url) {
-    return rtrim(Router::url($url), '/') === rtrim($request->here, '/');
-});
-
-/**
  * Adds `is('prefix')` detector.
  *
  * It checks if the specified prefix is the current prefix.
@@ -103,4 +89,18 @@ Request::addDetector('url', function ($request, $url) {
  */
 Request::addDetector('prefix', function ($request, $prefix) {
     return in_array($request->param('prefix'), (array)$prefix);
+});
+
+/**
+ * Adds `is('url')` detector.
+ *
+ * It checks if the specified url is the current url.
+ *
+ * Example:
+ * <code>
+ * $this->request->isUrl(['_name' => 'posts']);
+ * </code>
+ */
+Request::addDetector('url', function ($request, $url) {
+    return rtrim(Router::url($url), '/') === rtrim($request->here, '/');
 });
