@@ -25,6 +25,10 @@ use Cake\Datasource\ConnectionManager;
 
 require dirname(__DIR__) . '/vendor/autoload.php';
 
+if (!defined('DS')) {
+    define('DS', DIRECTORY_SEPARATOR);
+}
+
 // Path constants to a few helpful things.
 define('ROOT', dirname(__DIR__) . DS);
 define('CAKE_CORE_INCLUDE_PATH', ROOT . 'vendor' . DS . 'cakephp' . DS . 'cakephp');
