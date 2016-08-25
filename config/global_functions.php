@@ -192,7 +192,7 @@ if (!function_exists('isJson')) {
      */
     function isJson($string)
     {
-        if(!is_string($string)) {
+        if (!is_string($string)) {
             return false;
         }
         

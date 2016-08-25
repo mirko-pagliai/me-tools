@@ -197,7 +197,7 @@ class GlobalFunctionsTest extends TestCase
         //Test for `clearDir()`
         $this->assertTrue(clearDir($path));
         
-        //Now checks that the files no longer exist 
+        //Now checks that the files no longer exist
         foreach ($files as $file) {
             $this->assertTrue(!file_exists($file));
         }
