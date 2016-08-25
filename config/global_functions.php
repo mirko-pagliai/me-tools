@@ -309,7 +309,7 @@ if (!function_exists('optionValues')) {
 
         foreach ($values as $key => $value) {
             if (empty($options[$key])) {
-                $options[$key] = $value;
+                $options[$key] = implode(' ', (array)$value);
             } else {
                 //Turns into array, adds value and turns again into string
                 $options[$key] = preg_split('/\s/', $options[$key]);
