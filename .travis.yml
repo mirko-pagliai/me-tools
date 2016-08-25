@@ -19,6 +19,7 @@ install:
 
 script:
   - if [[ $PHPCS = 1 ]]; then vendor/bin/phpcs -p --extensions=php,ctp,js,css --standard=vendor/cakephp/cakephp-codesniffer/CakePHP --ignore=*.min.css,*.min.js ./config ./src ./tests  ./webroot; fi
+  - if [[ $PHPCS != 1 ]; then phpunit; fi
 
 notifications:
   email: true
