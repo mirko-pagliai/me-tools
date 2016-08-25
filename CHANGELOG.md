@@ -4,7 +4,9 @@
 * improved `MeTools\Controller\Component\FlashComponent`. It renders all
     `alert()`, `error()`, `notice()` and `success()` class using the 
     `src/Template/Element/Flash/flash.ctp` template;
-* fixed several bug for `clearDir()` global function.
+* fixed several bug for `clearDir()` global function;
+* the plugin has been prepared tests and tests for global functions have been
+    added;
 
 ### 2.8.0
 * `MeTools\Network\Request` has been removed. All old methods are now 

@@ -82,6 +82,54 @@ class GlobalFunctionsTest extends TestCase
     }
     
     /**
+     * Test for `buttonClass()` global function
+     * @return void
+     * @test
+     */
+    public function testButtonClass()
+    {
+        $result = buttonClass();
+        $expected = ['class' => 'btn btn-default'];
+        $this->assertEquals($expected, $result);
+        
+        $result = buttonClass(['class' => 'my-class']);
+        $expected = ['class' => 'my-class btn btn-default'];
+        $this->assertEquals($expected, $result);
+        
+        $result = buttonClass(['class' => 'btn']);
+        $expected = ['class' => 'btn btn-default'];
+        $this->assertEquals($expected, $result);
+        
+        $result = buttonClass(['class' => 'btn-primary']);
+        $expected = ['class' => 'btn-primary btn'];
+        $this->assertEquals($expected, $result);
+        
+        $result = buttonClass(['class' => 'btn btn-primary']);
+        $expected = ['class' => 'btn btn-primary'];
+        $this->assertEquals($expected, $result);
+        
+        $result = buttonClass(['class' => 'my-class btn']);
+        $expected = ['class' => 'my-class btn btn-default'];
+        $this->assertEquals($expected, $result);
+        
+        $result = buttonClass(['class' => 'my-class btn'], 'primary');
+        $expected = ['class' => 'my-class btn btn-primary'];
+        $this->assertEquals($expected, $result);
+        
+        $result = buttonClass(['class' => 'my-class btn-primary']);
+        $expected = ['class' => 'my-class btn-primary btn'];
+        $this->assertEquals($expected, $result);
+        
+        $result = buttonClass(['class' => 'my-class btn btn-primary']);
+        $expected = ['class' => 'my-class btn btn-primary'];
+        $this->assertEquals($expected, $result);
+        
+        $result = buttonClass([], 'primary');
+        $expected = ['class' => 'btn btn-primary'];
+        $this->assertEquals($expected, $result);
+    }
+    
+    /**
      * Test for `firstKey()` global function
      * @return void
      * @test
@@ -112,6 +160,15 @@ class GlobalFunctionsTest extends TestCase
         $this->assertEquals($expected, $result);
     }
     
+    /**
+     * Tests for `folderIsWriteable()` and `clearDir()` global functions.
+     *
+     * It creates some directories, so it tests if they are writeable.
+     * Then creates some files, cleans directories, so it tests if all files
+     *  have been deleted.
+     * @return void
+     * @test
+     */
     public function testFolders()
     {
         $path = TMP . 'tests';
@@ -146,8 +203,8 @@ class GlobalFunctionsTest extends TestCase
         }
         
         //Delete folders
-//        rmdir($path . DS . 'folder' . DS . 'subfolder');
-//        rmdir($path . DS . 'folder');
+        rmdir($path . DS . 'folder' . DS . 'subfolder');
+        rmdir($path . DS . 'folder');
     }
     
     /**
@@ -251,6 +308,14 @@ class GlobalFunctionsTest extends TestCase
         
         $result = optionValues(['value1' => 'gamma'], $options);
         $expected = ['value1' => 'alfa beta gamma'];
+        $this->assertEquals($expected, $result);
+        
+        $result = optionValues(['value1' => 'delta gamma'], $options);
+        $expected = ['value1' => 'alfa beta delta gamma'];
+        $this->assertEquals($expected, $result);
+        
+        $result = optionValues(['value1' => ['delta', 'gamma']], $options);
+        $expected = ['value1' => 'alfa beta delta gamma'];
         $this->assertEquals($expected, $result);
         
         $result = optionValues([
