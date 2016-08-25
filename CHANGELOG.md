@@ -5,6 +5,7 @@
     `alert()`, `error()`, `notice()` and `success()` class using the 
     `src/Template/Element/Flash/flash.ctp` template;
 * fixed several bug for `clearDir()` global function;
+* fixed little bugs for global functions;
 * the plugin has been prepared tests and tests for global functions have been
     added;
 
