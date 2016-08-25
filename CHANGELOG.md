@@ -6,8 +6,8 @@
     `src/Template/Element/Flash/flash.ctp` template;
 * fixed several bug for `clearDir()` global function;
 * fixed little bugs for global functions;
-* the plugin has been prepared tests and tests for global functions have been
-    added;
+* the plugin has been prepared tests and tests for global functions and
+    detectors have been added.
 
 ### 2.8.0
 * `MeTools\Network\Request` has been removed. All old methods are now 

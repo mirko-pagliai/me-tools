@@ -44,8 +44,8 @@ define('CONFIG', APP . 'config' . DS);
 define('CACHE', TMP);
 define('LOGS', TMP);
 
-require ROOT . 'config' . DS . 'bootstrap.php';
 require CORE_PATH . 'config' . DS . 'bootstrap.php';
+require ROOT . 'config' . DS . 'bootstrap.php';
 
 Configure::write('debug', true);
 
