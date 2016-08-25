@@ -22,6 +22,6 @@
         }
     },
     "require-dev": {
-        "cakephp/cakephp-codesniffer": "*"
+        "cakephp/cakephp-codesniffer": "2.*"
     }
 }
