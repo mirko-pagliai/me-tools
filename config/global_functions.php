@@ -126,10 +126,6 @@ if (!function_exists('firstValue')) {
      */
     function firstValue($array)
     {
-        if (empty($array) || !is_array($array)) {
-            return null;
-        }
-
         return array_values($array)[0];
     }
 }
