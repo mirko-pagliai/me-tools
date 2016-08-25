@@ -22,6 +22,8 @@
  */
 namespace MeTools\Test\TestCase;
 
+use Cake\Filesystem\File;
+use Cake\Filesystem\Folder;
 use Cake\TestSuite\TestCase;
 
 /**
@@ -110,6 +112,62 @@ class GlobalFunctionsTest extends TestCase
         $this->assertEquals($expected, $result);
     }
     
+    public function testFolders()
+    {
+        $path = TMP . 'tests';
+        
+        //Creates some folder
+        $folder = new Folder($path);
+        $result = $folder->create($path . DS . 'folder' . DS . 'subfolder');
+        $this->assertTrue($result);
+        
+        //Test for `folderIsWriteable()`
+        $this->assertTrue(folderIsWriteable($path));
+        
+        
+        $files = [
+            $path . DS . 'first.tmp',
+            $path . DS . 'folder' . DS . 'second.tmp',
+            $path . DS . 'folder' . DS . 'subfolder' . DS . 'third.tmp',
+        ];
+        
+        //Creates some files
+        foreach ($files as $file) {
+            new File($file, true, 0777);
+            $this->assertTrue(is_readable($file) && is_writable($file));
+        }
+        
+        //Test for `clearDir()`
+        $this->assertTrue(clearDir($path));
+        
+        //Now checks that the files no longer exist 
+        foreach ($files as $file) {
+            $this->assertTrue(!file_exists($file));
+        }
+        
+        //Delete folders
+//        rmdir($path . DS . 'folder' . DS . 'subfolder');
+//        rmdir($path . DS . 'folder');
+    }
+    
+    /**
+     * Test for `isJson()` global function
+     * @return void
+     * @test
+     */
+    public function testIsJson()
+    {
+        $testArray = ['alfa' => 'first', 'beta' => 'second'];
+        $testJson = '{"a":1,"b":2,"c":3,"d":4,"e":5}';
+        $testObject = (object)$testArray;
+        $testString = 'this is a string';
+        
+        $this->assertFalse(isJson($testArray));
+        $this->assertTrue(isJson($testJson));
+        $this->assertFalse(isJson($testObject));
+        $this->assertFalse(isJson($testString));
+    }
+    
     /**
      * Test for `isPositive()` global function
      * @return void
@@ -121,6 +179,94 @@ class GlobalFunctionsTest extends TestCase
         $this->assertFalse(isPositive(0));
         $this->assertFalse(isPositive(-1));
         $this->assertFalse(isPositive(1.1));
+    }
+    
+    /**
+     * Test for `isUrl()` global function
+     * @return void
+     * @test
+     */
+    public function testIsUrl()
+    {
+        $this->assertTrue(isUrl('https://www.example.com'));
+        $this->assertTrue(isUrl('http://www.example.com'));
+        $this->assertTrue(isUrl('http://example.com'));
+        $this->assertTrue(isUrl('http://example.com/noexistingfile'));
+        $this->assertTrue(isUrl('http://example.com/noexistingfile.html'));
+        $this->assertTrue(isUrl('http://example.com/subdir/noexistingfile'));
+        
+        //Files and dirs
+        $this->assertFalse(isUrl('folder'));
+        $this->assertFalse(isUrl(DS . 'folder'));
+        $this->assertFalse(isUrl(DS . 'folder' . DS));
+        $this->assertFalse(isUrl(DS . 'folder' . DS . 'file.txt'));
+    }
+    
+    /**
+     * Test for `optionDefaults()` global function
+     * @return void
+     * @test
+     */
+    public function testOptionDefault()
+    {
+        $options = ['value1' => 'val-1'];
+        
+        $result = optionDefaults(['class' => 'my-class'], $options);
+        $expected = [
+            'value1' => 'val-1',
+            'class' => 'my-class',
+        ];
+        $this->assertEquals($expected, $result);
+        
+        //This doesn't change the value
+        $result = optionDefaults(['value1' => 'new-val-1'], $options);
+        $expected = ['value1' => 'val-1'];
+        $this->assertEquals($expected, $result);
+        
+        //Backward compatibility with three arguments
+        $result = optionDefaults('class', 'my-class', $options);
+        $expected = [
+            'value1' => 'val-1',
+            'class' => 'my-class',
+        ];
+        $this->assertEquals($expected, $result);
+    }
+    
+    /**
+     * Test for `optionValues()` global function
+     * @return void
+     * @test
+     */
+    public function testOptionValue()
+    {
+        $options = ['value1' => 'alfa beta'];
+        
+        $result = optionValues(['class' => 'my-class'], $options);
+        $expected = ['value1' => 'alfa beta', 'class' => 'my-class'];
+        $this->assertEquals($expected, $result);
+        
+        $result = optionValues(['value1' => 'beta'], $options);
+        $expected = ['value1' => 'alfa beta'];
+        $this->assertEquals($expected, $result);
+        
+        $result = optionValues(['value1' => 'gamma'], $options);
+        $expected = ['value1' => 'alfa beta gamma'];
+        $this->assertEquals($expected, $result);
+        
+        $result = optionValues([
+            'class' => 'my-class',
+            'value1' => 'gamma'
+        ], $options);
+        $expected = [
+            'class' => 'my-class',
+            'value1' => 'alfa beta gamma',
+        ];
+        $this->assertEquals($expected, $result);
+
+        //Backward compatibility with three arguments
+        $result = optionValues('value1', 'gamma', $options);
+        $expected = ['value1' => 'alfa beta gamma'];
+        $this->assertEquals($expected, $result);
     }
     
     /**

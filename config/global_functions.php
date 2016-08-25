@@ -76,24 +76,20 @@ if (!function_exists('buttonClass')) {
 
 if (!function_exists('clearDir')) {
     /**
-     * Cleans a directory
+     * Cleans a directory, deleting all the files, even in sub-directories
      * @param string $directory Directory path
      * @return bool
      */
     function clearDir($directory)
     {
-        if (!folderIsWriteable($directory)) {
-            return false;
-        }
-
         $success = true;
 
         //Gets files
-        $files = (new Folder($directory))->read(false, ['empty'])[1];
+        $files = (new Folder($directory))->tree(false, ['empty'])[1];
 
         //Deletes each file
         foreach ($files as $file) {
-            if (!(new File($directory . DS . $file))->delete()) {
+            if (!(new File($file))->delete()) {
                 $success = false;
             }
         }
