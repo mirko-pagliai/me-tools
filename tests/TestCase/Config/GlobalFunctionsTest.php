@@ -324,6 +324,10 @@ class GlobalFunctionsTest extends TestCase
         $expected = ['value1' => 'alfa beta', 'class' => 'my-class'];
         $this->assertEquals($expected, $result);
         
+        $result = optionValues(['class' => ['my-class']], $options);
+        $expected = ['value1' => 'alfa beta', 'class' => 'my-class'];
+        $this->assertEquals($expected, $result);
+        
         $result = optionValues(['value1' => 'beta'], $options);
         $expected = ['value1' => 'alfa beta'];
         $this->assertEquals($expected, $result);
@@ -348,6 +352,13 @@ class GlobalFunctionsTest extends TestCase
             'class' => 'my-class',
             'value1' => 'alfa beta gamma',
         ];
+        $this->assertEquals($expected, $result);
+        
+        $result = optionValues([
+            'class' => 'my-class',
+            'value1' => ['delta', 'gamma']
+        ], $options);
+        $expected = ['class' => 'my-class', 'value1' => 'alfa beta delta gamma'];
         $this->assertEquals($expected, $result);
 
         //Backward compatibility with three arguments

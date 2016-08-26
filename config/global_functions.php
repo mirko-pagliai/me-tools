@@ -252,7 +252,7 @@ if (!function_exists('optionDefaults')) {
      * To provide backward compatibility, this function can accept three
      * arguments (value name, value, options).
      * @param array $values Options values
-     * @param array $options Options
+     * @param array $options Existing options
      * @return array
      */
     function optionDefaults($values, $options)
@@ -269,7 +269,11 @@ if (!function_exists('optionDefaults')) {
 
         foreach ($values as $key => $value) {
             if (empty($options[$key])) {
-                $options[$key] = implode(' ', (array)$value);
+                if (!is_array($value)) {
+                    $value = preg_split('/\s/', $value);
+                }
+                
+                $options[$key] = implode(' ', $value);
             }
         }
 
@@ -292,7 +296,7 @@ if (!function_exists('optionValues')) {
      * To provide backward compatibility, this function can accept three
      * arguments (value name, value, options).
      * @param array $values Options values
-     * @param array $options Options
+     * @param array $options Existing options
      * @return array
      */
     function optionValues($values, $options)
@@ -308,14 +312,23 @@ if (!function_exists('optionValues')) {
         }
 
         foreach ($values as $key => $value) {
-            if (empty($options[$key])) {
-                $options[$key] = implode(' ', (array)$value);
-            } else {
-                //Turns into array, adds value and turns again into string
-                $options[$key] = preg_split('/\s/', $options[$key]);
-                $options[$key] = am($options[$key], (array)$value);
-                $options[$key] = implode(' ', array_unique($options[$key]));
+            //Turns new value into array
+            if (!is_array($value)) {
+                $value = preg_split('/\s/', $value);
             }
+            
+            if (!empty($options[$key])) {
+                //Merges new value with the existing value
+                $options[$key] = array_unique(am(
+                    preg_split('/\s/', $options[$key]), //Existing value as array
+                    $value
+                ));
+            } else {
+                $options[$key] = $value;
+            }
+            
+            //Turns final value into string
+            $options[$key] = implode(' ', $options[$key]);
         }
 
         return $options;
