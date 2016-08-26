@@ -255,8 +255,8 @@ if (!function_exists('optionDefaults')) {
      * @param array $options Existing options
      * @return array
      */
-    function optionDefaults($values, $options)
-    {
+    function optionDefaults($values, array $options = [])
+    {        
         ///Backward compatibility with three arguments
         if (func_num_args() === 3 &&
             is_string(func_get_arg(0)) &&
@@ -299,7 +299,7 @@ if (!function_exists('optionValues')) {
      * @param array $options Existing options
      * @return array
      */
-    function optionValues($values, $options)
+    function optionValues($values, array $options = [])
     {
         ///Backward compatibility with three arguments
         if (func_num_args() === 3 &&
