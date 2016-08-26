@@ -253,7 +253,7 @@ if (!function_exists('optionDefaults')) {
      * arguments (value name, value, options).
      * @param array $values Options values
      * @param array $options Options
-     * @return array Options
+     * @return array
      */
     function optionDefaults($values, $options)
     {
@@ -269,7 +269,7 @@ if (!function_exists('optionDefaults')) {
 
         foreach ($values as $key => $value) {
             if (empty($options[$key])) {
-                $options[$key] = $value;
+                $options[$key] = implode(' ', (array)$value);
             }
         }
 
@@ -293,7 +293,7 @@ if (!function_exists('optionValues')) {
      * arguments (value name, value, options).
      * @param array $values Options values
      * @param array $options Options
-     * @return array Options
+     * @return array
      */
     function optionValues($values, $options)
     {
