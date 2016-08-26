@@ -23,7 +23,6 @@
 namespace MeTools\Test\TestCase;
 
 use Cake\Network\Request;
-use Cake\Routing\Router;
 use Cake\TestSuite\TestCase;
 
 /**
