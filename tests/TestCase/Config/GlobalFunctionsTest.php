@@ -317,6 +317,27 @@ class GlobalFunctionsTest extends TestCase
         ];
         $this->assertEquals($expected, $result);
         
+        $result = optionDefaults(['class' => ['first-class', 'second-class', 'first-class']], $options);
+        $expected = [
+            'value1' => 'val-1',
+            'class' => 'first-class second-class',
+        ];
+        $this->assertEquals($expected, $result);
+        
+        $result = optionDefaults(['class' => ['first-class', ['second-class']]], $options);
+        $expected = [
+            'value1' => 'val-1',
+            'class' => 'first-class second-class',
+        ];
+        $this->assertEquals($expected, $result);
+        
+        $result = optionDefaults(['class' => ['first-class', ['second-class', ['third-class']]]], $options);
+        $expected = [
+            'value1' => 'val-1',
+            'class' => 'first-class second-class third-class',
+        ];
+        $this->assertEquals($expected, $result);
+        
         //This doesn't change the value
         $result = optionDefaults(['value1' => 'new-val-1'], $options);
         $expected = ['value1' => 'val-1'];
@@ -368,8 +389,20 @@ class GlobalFunctionsTest extends TestCase
         $expected = ['value1' => 'alfa beta delta gamma'];
         $this->assertEquals($expected, $result);
         
+        $result = optionValues(['value1' => 'delta gamma delta'], $options);
+        $expected = ['value1' => 'alfa beta delta gamma'];
+        $this->assertEquals($expected, $result);
+        
         $result = optionValues(['value1' => ['delta', 'gamma']], $options);
         $expected = ['value1' => 'alfa beta delta gamma'];
+        $this->assertEquals($expected, $result);
+        
+        $result = optionValues(['value1' => ['delta', ['gamma']]], $options);
+        $expected = ['value1' => 'alfa beta delta gamma'];
+        $this->assertEquals($expected, $result);
+        
+        $result = optionValues(['value1' => ['delta', ['gamma', ['ypsilon']]]], $options);
+        $expected = ['value1' => 'alfa beta delta gamma ypsilon'];
         $this->assertEquals($expected, $result);
         
         $result = optionValues([

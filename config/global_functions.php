@@ -269,11 +269,12 @@ if (!function_exists('optionDefaults')) {
 
         foreach ($values as $key => $value) {
             if (empty($options[$key])) {
-                if (!is_array($value)) {
-                    $value = preg_split('/\s/', $value);
+                if (is_array($value)) {
+                    $value = implodeRecursive(' ', $value);
+                    $value = implode(' ', array_unique(explode(' ', $value)));
                 }
                 
-                $options[$key] = implode(' ', $value);
+                $options[$key] = $value;
             }
         }
 
@@ -312,23 +313,21 @@ if (!function_exists('optionValues')) {
         }
 
         foreach ($values as $key => $value) {
-            //Turns new value into array
-            if (!is_array($value)) {
-                $value = preg_split('/\s/', $value);
+            //Turns new value into string
+            if (is_array($value)) {
+                $value = implodeRecursive(' ', $value);
             }
+            
+            //Turns new value into array
+            $value = explode(' ', $value);
             
             if (!empty($options[$key])) {
-                //Merges new value with the existing value
-                $options[$key] = array_unique(am(
-                    preg_split('/\s/', $options[$key]), //Existing value as array
-                    $value
-                ));
-            } else {
-                $options[$key] = $value;
+                //Merges existing value as array with new value
+                $value = am(explode(' ', $options[$key]), $value);
             }
             
-            //Turns final value into string
-            $options[$key] = implode(' ', $options[$key]);
+            //Turns final value as string
+            $options[$key] = implode(' ', array_unique($value));
         }
 
         return $options;
