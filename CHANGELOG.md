@@ -1,6 +1,7 @@
 # 2.x branch
 ## 2.8 branch
 ### 2.8.1
+* added `implodeRecursive()` global function;
 * improved `MeTools\Controller\Component\FlashComponent`. It renders all
     `alert()`, `error()`, `notice()` and `success()` class using the 
     `src/Template/Element/Flash/flash.ctp` template;

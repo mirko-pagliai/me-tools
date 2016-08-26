@@ -208,6 +208,34 @@ class GlobalFunctionsTest extends TestCase
     }
     
     /**
+     * Test for `implodeRecursive()` global function
+     * @return void
+     * @test
+     */
+    public function testImplodeRecursive()
+    {
+        $result = implodeRecursive(' ', ['value']);
+        $expected = 'value';
+        $this->assertEquals($expected, $result);
+        
+        $result = implodeRecursive(' ', ['value1', 'value2']);
+        $expected = 'value1 value2';
+        $this->assertEquals($expected, $result);
+        
+        $result = implodeRecursive(' ', ['value1', 'value2', ['value3']]);
+        $expected = 'value1 value2 value3';
+        $this->assertEquals($expected, $result);
+        
+        $result = implodeRecursive(' ', ['value1', 'value2', ['value3', ['value4']]]);
+        $expected = 'value1 value2 value3 value4';
+        $this->assertEquals($expected, $result);
+        
+        $result = implodeRecursive(' ', am(['value1', 'value2'], ['value3', ['value4']], ['value5']));
+        $expected = 'value1 value2 value3 value4 value5';
+        $this->assertEquals($expected, $result);
+    }
+    
+    /**
      * Test for `isJson()` global function
      * @return void
      * @test

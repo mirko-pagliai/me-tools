@@ -255,7 +255,7 @@ if (!function_exists('optionDefaults')) {
      * @param array $options Existing options
      * @return array
      */
-    function optionDefaults($values, array $options = [])
+    function optionDefaults($values, $options = [])
     {        
         ///Backward compatibility with three arguments
         if (func_num_args() === 3 &&
@@ -299,7 +299,7 @@ if (!function_exists('optionValues')) {
      * @param array $options Existing options
      * @return array
      */
-    function optionValues($values, array $options = [])
+    function optionValues($values, $options = [])
     {
         ///Backward compatibility with three arguments
         if (func_num_args() === 3 &&
@@ -344,6 +344,25 @@ if (!function_exists('rtr')) {
     function rtr($path)
     {
         return preg_replace(sprintf('/^%s/', preg_quote(ROOT . DS, DS)), null, $path);
+    }
+}
+
+if (!function_exists('implodeRecursive')) {
+    /**
+     * `implode()` recursive
+     * @param string $glue Glue
+     * @param array $pieces The array of strings to implode
+     * @return string
+     */
+    function implodeRecursive($glue, $pieces)
+    {
+        return implode($glue, array_map(function ($pieces) use ($glue) {
+            if (is_string($pieces)) {
+                return $pieces;
+            }
+            
+            return implodeRecursive($glue, $pieces);
+        }, $pieces));
     }
 }
 
