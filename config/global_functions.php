@@ -268,7 +268,7 @@ if (!function_exists('optionDefaults')) {
         }
 
         foreach ($values as $key => $value) {
-            if (empty($options[$key])) {
+            if (!isset($options[$key])) {
                 if (is_array($value)) {
                     $value = implodeRecursive(' ', $value);
                     $value = implode(' ', array_unique(explode(' ', $value)));
