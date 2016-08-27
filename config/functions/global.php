@@ -52,28 +52,6 @@ if (!function_exists('am')) {
     }
 }
 
-if (!function_exists('buttonClass')) {
-    /**
-     * Add button class
-     * @param array $options Options
-     * @param string $class Class (eg. `default`, `primary`, `success`, etc)
-     * @return array
-     * @see http://getbootstrap.com/css/#buttons-options
-     */
-    function buttonClass(array $options = [], $class = 'default')
-    {
-        //If "class" doesn't contain a button style, adds the "btn-default"
-        //  classes
-        if (empty($options['class']) || !preg_match('/btn-(default|primary|success|info|warning|danger)/', $options['class'])) {
-            return optionValues([
-                'class' => ['btn', sprintf('btn-%s', $class)],
-            ], $options);
-        }
-
-        return optionValues(['class' => 'btn'], $options);
-    }
-}
-
 if (!function_exists('clearDir')) {
     /**
      * Cleans a directory, deleting all the files, even in sub-directories
@@ -234,103 +212,6 @@ if (!function_exists('isUrl')) {
     function isUrl($url)
     {
         return (bool)preg_match("/\b(?:(?:https?|ftp):\/\/|www\.)[-a-z0-9+&@#\/%?=~_|!:,.;]*[-a-z0-9+&@#\/%=~_|]/i", $url);
-    }
-}
-
-if (!function_exists('optionDefaults')) {
-    /**
-     * Adds a default values to html options.
-     *
-     * Example:
-     * <code>
-     * $options = optionDefaults([
-     *  'class' => 'this-is-my-class',
-     *  'data-value => 'example-value',
-     * ], $options);
-     * </code>
-     *
-     * To provide backward compatibility, this function can accept three
-     * arguments (value name, value, options).
-     * @param array $values Options values
-     * @param array $options Existing options
-     * @return array
-     */
-    function optionDefaults($values, $options = [])
-    {
-        ///Backward compatibility with three arguments
-        if (func_num_args() === 3 &&
-            is_string(func_get_arg(0)) &&
-            is_string(func_get_arg(1)) &&
-            is_array(func_get_arg(2))
-        ) {
-            $values = [func_get_arg(0) => func_get_arg(1)];
-            $options = func_get_arg(2);
-        }
-
-        foreach ($values as $key => $value) {
-            if (!isset($options[$key])) {
-                if (is_array($value)) {
-                    $value = implodeRecursive(' ', $value);
-                    $value = implode(' ', array_unique(explode(' ', $value)));
-                }
-                
-                $options[$key] = $value;
-            }
-        }
-
-        return $options;
-    }
-}
-
-if (!function_exists('optionValues')) {
-    /**
-     * Adds values to html options.
-     *
-     * Example:
-     * <code>
-     * $options = optionValues([
-     *  'class' => 'this-is-my-class',
-     *  'data-balue => 'example-value',
-     * ], $options);
-     * </code>
-     *
-     * To provide backward compatibility, this function can accept three
-     * arguments (value name, value, options).
-     * @param array $values Options values
-     * @param array $options Existing options
-     * @return array
-     */
-    function optionValues($values, $options = [])
-    {
-        ///Backward compatibility with three arguments
-        if (func_num_args() === 3 &&
-            is_string(func_get_arg(0)) &&
-            is_string(func_get_arg(1)) &&
-            is_array(func_get_arg(2))
-        ) {
-            $values = [func_get_arg(0) => func_get_arg(1)];
-            $options = func_get_arg(2);
-        }
-
-        foreach ($values as $key => $value) {
-            //Turns new value into string
-            if (is_array($value)) {
-                $value = implodeRecursive(' ', $value);
-            }
-            
-            //Turns new value into array
-            $value = explode(' ', $value);
-            
-            if (!empty($options[$key])) {
-                //Merges existing value as array with new value
-                $value = am(explode(' ', $options[$key]), $value);
-            }
-            
-            //Turns final value as string
-            $options[$key] = implode(' ', array_unique($value));
-        }
-
-        return $options;
     }
 }
 

@@ -21,5 +21,6 @@
  * @link        http://git.novatlantis.it Nova Atlantis Ltd
  */
 
-require_once 'global_functions.php';
+require_once 'functions/global.php';
+require_once 'functions/html.php';
 require_once 'detectors.php';

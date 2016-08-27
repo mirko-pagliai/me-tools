@@ -6,6 +6,8 @@
 * improved `FlashComponent`. It renders all `alert()`, `error()`, `notice()`
     and `success()` class using the `src/Template/Element/Flash/flash.ctp`
     template;
+* global functions splitted into `config/functions/global.php` and
+    `config/functions/html.php`;
 * fixed several bug for `clearDir()`;
 * fixed bug for `optionDefaults()` and `optionsValues()`;
 * fixed many small bugs for `BaseHtmlHelper` and `HtmlHelper`;
