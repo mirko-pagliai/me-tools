@@ -1,15 +1,16 @@
 # 2.x branch
 ## 2.8 branch
 ### 2.8.1
+* the `HtmlHelper` has been divided into `HtmlHelper` and `BaseHtmlHelper`;
 * added `implodeRecursive()` global function;
-* improved `MeTools\Controller\Component\FlashComponent`. It renders all
-    `alert()`, `error()`, `notice()` and `success()` class using the 
-    `src/Template/Element/Flash/flash.ctp` template;
-* fixed several bug for `clearDir()` global function;
-* fixed bug for `optionDefaults()` and `optionsValues()` global functions;
-* fixed little bugs for global functions;
-* the plugin has been prepared tests and tests for global functions and
-    detectors have been added.
+* improved `FlashComponent`. It renders all `alert()`, `error()`, `notice()`
+    and `success()` class using the `src/Template/Element/Flash/flash.ctp`
+    template;
+* fixed several bug for `clearDir()`;
+* fixed bug for `optionDefaults()` and `optionsValues()`;
+* fixed many small bugs for `BaseHtmlHelper` and `HtmlHelper`;
+* fixed small bugs for global functions;
+* added tests for global functions, detectors and `BaseHtmlHelper`.
 
 ### 2.8.0
 * `MeTools\Network\Request` has been removed. All old methods are now 
