@@ -86,6 +86,23 @@ class BaseHtmlHelper extends CakeHtmlHelper
         
         return [$text, $options];
     }
+    
+    /**
+     * Adds tooltip options
+     * @param array $options Array of HTML attributes
+     * @return array
+     */
+    public function addTooltip($options)
+    {
+        if (!empty($options['tooltip'])) {
+            $options = optionValues(['data-toggle' => 'tooltip'], $options);
+            $options['title'] = $options['tooltip'];
+        }
+        
+        unset($options['tooltip']);
+        
+        return $options;
+    }
 
     /**
      * Creates a button (`<button>` tag).
@@ -208,6 +225,8 @@ class BaseHtmlHelper extends CakeHtmlHelper
             'alt' => pathinfo($path, PATHINFO_BASENAME),
         ], $options);
         $options = optionValues(['class' => 'img-responsive'], $options);
+        
+        $options = self::addTooltip($options);
 
         return parent::image($path, $options);
     }
@@ -264,6 +283,7 @@ class BaseHtmlHelper extends CakeHtmlHelper
      * @param array $options Array of options and HTML attributes
      * @return string
      * @uses addIcon()
+     * @uses addTooltip()
      */
     public function link($title, $url = null, array $options = [])
     {
@@ -275,6 +295,8 @@ class BaseHtmlHelper extends CakeHtmlHelper
         $options['title'] = h(strip_tags($options['title']));
 
         list($title, $options) = self::addIcon($title, $options);
+        
+        $options = self::addTooltip($options);
 
         return parent::link($title, $url, $options);
     }
@@ -353,6 +375,8 @@ class BaseHtmlHelper extends CakeHtmlHelper
     {
         list($text, $options) = self::addIcon($text, $options);
 
+        $options = self::addTooltip($options);
+        
         return parent::para($class, is_null($text) ? '' : $text, $options);
     }
 
@@ -411,10 +435,13 @@ class BaseHtmlHelper extends CakeHtmlHelper
      * @param array $options Array of options and HTML attributes
      * @return string
      * @uses addIcon()
+     * @uses addTooltip()
      */
     public function tag($name, $text = null, array $options = [])
     {
         list($text, $options) = self::addIcon($text, $options);
+        
+        $options = self::addTooltip($options);
 
         return parent::tag($name, is_null($text) ? '' : $text, $options);
     }

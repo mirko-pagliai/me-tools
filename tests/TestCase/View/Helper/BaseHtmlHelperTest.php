@@ -81,7 +81,7 @@ class BaseHtmlHelperTest extends TestCase
         );
         $this->assertEquals($expected, $result);
     }
-        
+    
     /**
      * Test for `addIcon()` method
      * @return void
@@ -119,6 +119,36 @@ class BaseHtmlHelperTest extends TestCase
         $result = $this->Html->addIcon(null, ['icon' => 'home']);
         $expected = ['i' => ['class' => 'fa fa-home'], ' ', '/i'];
         $this->assertHtml($expected, array_values($result)[0]);
+    }
+    
+    /**
+     * Test for `addTooltip()` method
+     * @return void
+     * @test
+     */
+    public function testAddTooltip()
+    {
+        $expected = ['data-toggle' => 'tooltip', 'title' => 'my tooltip'];
+        
+        $result = $this->Html->addTooltip(['tooltip' => 'my tooltip']);
+        $this->assertEquals($expected, $result);
+        
+        // `tooltip` rewrites `title`
+        $result = $this->Html->addTooltip([
+            'title' => 'my title',
+            'tooltip' => 'my tooltip',
+        ]);
+        $this->assertEquals($expected, $result);
+        
+        $result = $this->Html->addTooltip([
+            'data-toggle' => 'some-data-here',
+            'tooltip' => 'my tooltip',
+        ]);
+        $expected = [
+            'data-toggle' => 'some-data-here tooltip',
+            'title' => 'my tooltip',
+        ];
+        $this->assertEquals($expected, $result);
     }
     
     /**
@@ -173,6 +203,37 @@ class BaseHtmlHelperTest extends TestCase
              ],
             'my-text',
             '/button',
+        ];
+        $this->assertHtml($expected, $result);
+        
+        $result = $this->Html->button('my text', null, ['tooltip' => 'my tooltip']);
+        $expected = [
+            'button' => [
+                'role' => 'button',
+                'class' => 'btn btn-default',
+                'data-toggle' => 'tooltip',
+                'title' => 'my tooltip',
+            ],
+            'my text',
+            '/button'
+        ];
+        $this->assertHtml($expected, $result);
+        
+        // `tooltip` value rewrites `title` value
+        $result = $this->Html->button(
+            'my text',
+            null,
+            ['title' => 'my custom title', 'tooltip' => 'my tooltip']
+        );
+        $expected = [
+            'button' => [
+                'role' => 'button',
+                'class' => 'btn btn-default',
+                'data-toggle' => 'tooltip',
+                'title' => 'my tooltip',
+            ],
+            'my text',
+            '/button'
         ];
         $this->assertHtml($expected, $result);
         
@@ -320,6 +381,39 @@ class BaseHtmlHelperTest extends TestCase
         ];
         $this->assertHtml($expected, $result);
         
+        $result = $this->Html->button('my text', '#', ['tooltip' => 'my tooltip']);
+        $expected = [
+            'a' => [
+                'href' => '#',
+                'role' => 'button',
+                'class' => 'btn btn-default',
+                'data-toggle' => 'tooltip',
+                'title' => 'my tooltip',
+            ],
+            'my text',
+            '/a'
+        ];
+        $this->assertHtml($expected, $result);
+        
+        // `tooltip` value rewrites `title` value
+        $result = $this->Html->button(
+            'my text',
+            '#',
+            ['title' => 'my custom title', 'tooltip' => 'my tooltip']
+        );
+        $expected = [
+            'a' => [
+                'href' => '#',
+                'role' => 'button',
+                'class' => 'btn btn-default',
+                'data-toggle' => 'tooltip',
+                'title' => 'my tooltip',
+            ],
+            'my text',
+            '/a'
+        ];
+        $this->assertHtml($expected, $result);
+        
         $result = $this->Html->button('my-text', '#', ['icon' => 'home']);
         $expected = [
             'a' => [
@@ -396,6 +490,14 @@ class BaseHtmlHelperTest extends TestCase
         
         $result = $this->Html->div(null, ' ');
         $expected = ['div' => true, ' ', '/div'];
+        $this->assertHtml($expected, $result);
+        
+        $result = $this->Html->div(null, 'my text', ['tooltip' => 'my tooltip']);
+        $expected = [
+            'div' => ['data-toggle' => 'tooltip', 'title' => 'my tooltip'],
+            'my text',
+            '/div',
+        ];
         $this->assertHtml($expected, $result);
         
         $result = $this->Html->div('my-class', 'my-text', ['id' => 'my-id', 'icon' => 'home']);
@@ -529,6 +631,16 @@ class BaseHtmlHelperTest extends TestCase
         ]];
         $this->assertHtml($expected, $result);
         
+        $result = $this->Html->image('image.gif', ['tooltip' => 'my tooltip']);
+        $expected = ['img' => [
+            'src' => '/img/image.gif',
+            'alt' => 'image.gif',
+            'class' => 'img-responsive',
+            'data-toggle' => 'tooltip',
+            'title' => 'my tooltip',
+        ]];
+        $this->assertHtml($expected, $result);
+        
         $result = $this->Html->image('http://fullurl/image.gif');
         $expected = ['img' => [
             'src' => 'http://fullurl/image.gif',
@@ -641,6 +753,35 @@ class BaseHtmlHelperTest extends TestCase
             ' ',
             '/i',
             '/a',
+        ];
+        $this->assertHtml($expected, $result);
+        
+        $result = $this->Html->link('my text', '#', ['tooltip' => 'my tooltip']);
+        $expected = [
+            'a' => [
+                'href' => '#',
+                'data-toggle' => 'tooltip',
+                'title' => 'my tooltip',
+            ],
+            'my text',
+            '/a'
+        ];
+        $this->assertHtml($expected, $result);
+        
+        // `tooltip` value rewrites `title` value
+        $result = $this->Html->link(
+            'my text',
+            '#',
+            ['title' => 'my custom title', 'tooltip' => 'my tooltip']
+        );
+        $expected = [
+            'a' => [
+                'href' => '#',
+                'data-toggle' => 'tooltip',
+                'title' => 'my tooltip',
+            ],
+            'my text',
+            '/a'
         ];
         $this->assertHtml($expected, $result);
         
@@ -834,14 +975,22 @@ class BaseHtmlHelperTest extends TestCase
         $expected = ['p' => true, ' ', '/p'];
         $this->assertHtml($expected, $result);
         
-        $result = $this->Html->para('my-class', 'my-text', ['id' => 'my-id', 'icon' => 'home']);
+        $result = $this->Html->para(null, 'my text', ['tooltip' => 'my tooltip']);
+        $expected = [
+            'p' => ['data-toggle' => 'tooltip', 'title' => 'my tooltip'],
+            'my text',
+            '/p'
+        ];
+        $this->assertHtml($expected, $result);
+        
+        $result = $this->Html->para('my-class', 'my text', ['id' => 'my-id', 'icon' => 'home']);
         $expected = [
             'p' => ['class' => 'my-class', 'id' => 'my-id'],
             'i' => ['class' => 'fa fa-home'],
             ' ',
             '/i',
             ' ',
-            'my-text',
+            'my text',
             '/p'
         ];
         $this->assertHtml($expected, $result);
@@ -959,6 +1108,27 @@ class BaseHtmlHelperTest extends TestCase
         $result = $this->Html->tag('h3', 'my h3 text', ['class' => 'myclass']);
         $expected = [
             'h3' => ['class' => 'myclass'],
+            'my h3 text',
+            '/h3'
+        ];
+        $this->assertHtml($expected, $result);
+        
+        $result = $this->Html->tag('h3', 'my h3 text', ['tooltip' => 'my tooltip']);
+        $expected = [
+            'h3' => ['data-toggle' => 'tooltip', 'title' => 'my tooltip'],
+            'my h3 text',
+            '/h3'
+        ];
+        $this->assertHtml($expected, $result);
+        
+        // `tooltip` value rewrites `title` value
+        $result = $this->Html->tag(
+            'h3',
+            'my h3 text',
+            ['title' => 'my custom title', 'tooltip' => 'my tooltip']
+        );
+        $expected = [
+            'h3' => ['data-toggle' => 'tooltip', 'title' => 'my tooltip'],
             'my h3 text',
             '/h3'
         ];

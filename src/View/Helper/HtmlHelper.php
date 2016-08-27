@@ -180,24 +180,6 @@ class HtmlHelper extends BaseHtmlHelper
     }
 
     /**
-     * Returns a formatted block tag
-     * @param string $name Tag name
-     * @param string $text Tag content. If `null`, only a start tag will be
-     *  printed
-     * @param array $options Array of options and HTML attributes
-     * @return string
-     */
-    public function tag($name, $text = null, array $options = [])
-    {
-        if (!empty($options['tooltip'])) {
-            $options = optionValues(['data-toggle' => 'tooltip'], $options);
-            $options = optionDefaults(['title' => $options['tooltip']], $options);
-        }
-
-        return parent::tag($name, $text, $options);
-    }
-
-    /**
      * Adds the `viewport` meta tag. By default, it uses options as required
      *  by Bootstrap
      * @param array $options Attributes for the generated tag. If the type

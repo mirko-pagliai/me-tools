@@ -8,6 +8,8 @@
     template;
 * global functions splitted into `config/functions/global.php` and
     `config/functions/html.php`;
+* added support for tooltips for some methods and added
+    `BaseHtmlHelper::addTooltip()` method;
 * fixed several bug for `clearDir()`;
 * fixed bug for `optionDefaults()` and `optionsValues()`;
 * fixed many small bugs for `BaseHtmlHelper` and `HtmlHelper`;
