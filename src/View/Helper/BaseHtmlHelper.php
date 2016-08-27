@@ -38,12 +38,12 @@ use Cake\View\Helper\HtmlHelper as CakeHtmlHelper;
 class BaseHtmlHelper extends CakeHtmlHelper
 {
     /**
-     * Method that is called automatically when the method doesn't exist.
+     * This is called automatically when a method doesn't exist.
      *
      * If you pass no more than two parameters, it tries to generate a html
      *  tag with the name of the method.
      * @param string $method Method to invoke
-     * @param array $params Array of params for the method
+     * @param array $params Params for the method
      * @return string|void
      * @uses tag()
      */
@@ -61,7 +61,7 @@ class BaseHtmlHelper extends CakeHtmlHelper
     }
 
     /**
-     * Adds icon or icons to text
+     * Adds icons to text
      * @param string $text Text
      * @param array $options Array of HTML attributes
      * @return string Text with icon or icons
@@ -94,7 +94,6 @@ class BaseHtmlHelper extends CakeHtmlHelper
      *  parameters or external URL
      * @param array $options Array of options and HTML attributes
      * @return string
-     * @uses _addButtonClass()
      * @uses link()
      * @uses tag()
      */
@@ -135,7 +134,7 @@ class BaseHtmlHelper extends CakeHtmlHelper
      * @param string $text String content that will appear inside the div
      *  element
      * @param array $options Array of options and HTML attributes
-     * @return string Html code
+     * @return string
      */
     public function div($class = null, $text = null, array $options = [])
     {
@@ -145,7 +144,7 @@ class BaseHtmlHelper extends CakeHtmlHelper
     /**
      * Creates an horizontal rule (`<hr>` tag)
      * @param array $options Array of options and HTML attributes
-     * @return string Html code
+     * @return string
      * @uses tag()
      */
     public function hr(array $options = [])
@@ -154,15 +153,15 @@ class BaseHtmlHelper extends CakeHtmlHelper
     }
 
     /**
-     * Returns icon or icons. Examples:
+     * Returns icons. Examples:
      * <code>
      * echo $this->Html->icon('home');
      * </code>
      * <code>
      * echo $this->Html->icon(['hand-o-right', '2x']);
      * </code>
-     * @param string|array $icon Icon or icons
-     * @return string Html code
+     * @param string|array $icon Icons
+     * @return string
      * @see http://fortawesome.github.io/Font-Awesome Font Awesome icons
      * @uses tag()
      */
@@ -182,10 +181,10 @@ class BaseHtmlHelper extends CakeHtmlHelper
     }
 
     /**
-     * Create an `iframe` element
+     * Create an `<iframe>` element
      * @param string $url Url for the iframe
      * @param array $options Array of options and HTML attributes
-     * @return string Html code
+     * @return string
      * @uses tag()
      */
     public function iframe($url, array $options = [])
@@ -194,11 +193,11 @@ class BaseHtmlHelper extends CakeHtmlHelper
     }
 
     /**
-     * Creates a formatted `img` element
+     * Creates a formatted `<img>` element
      * @param string $path Path to the image file, relative to the
      *  `APP/webroot/img/` directory
      * @param array $options Array of options and HTML attributes
-     * @return string Html code
+     * @return string
      */
     public function image($path, array $options = [])
     {
@@ -212,7 +211,7 @@ class BaseHtmlHelper extends CakeHtmlHelper
 
     /**
      * Alias for `image()` method
-     * @return string Html code
+     * @return string
      * @see image()
      */
     public function img()
@@ -260,7 +259,7 @@ class BaseHtmlHelper extends CakeHtmlHelper
      * @param string|array $url Cake-relative URL or array of URL parameters
      *  or external URL
      * @param array $options Array of options and HTML attributes
-     * @return string Html code
+     * @return string
      * @uses addIcon()
      */
     public function link($title, $url = null, array $options = [])
@@ -332,7 +331,7 @@ class BaseHtmlHelper extends CakeHtmlHelper
      * @param array $list Elements list
      * @param array $options HTML attributes of the list tag
      * @param array $itemOptions HTML attributes of the list items
-     * @return string Html code
+     * @return string
      * @uses nestedList()
      */
     public function ol(array $list, array $options = [], array $itemOptions = [])
@@ -345,7 +344,7 @@ class BaseHtmlHelper extends CakeHtmlHelper
      * @param string $class Class name
      * @param string $text Paragraph text
      * @param array $options Array of options and HTML attributes
-     * @return string Html code
+     * @return string
      * @uses addIcon()
      */
     public function para($class = null, $text = null, array $options = [])
@@ -362,7 +361,7 @@ class BaseHtmlHelper extends CakeHtmlHelper
      * If it's used in the layout, you should set the `inline` option to `true`.
      * @param mixed $url Javascript files as string or array
      * @param array $options Array of options and HTML attributes
-     * @return mixed String of `<script />` tags or null if `$inline` is false
+     * @return mixed String of `<script />` tags or `null` if `$inline` is false
      *  or if `$once` is true and the file has been included before
      */
     public function script($url, array $options = [])
@@ -376,7 +375,7 @@ class BaseHtmlHelper extends CakeHtmlHelper
      * Returns a Javascript code block
      * @param string $code Javascript code
      * @param array $options Array of options and HTML attributes
-     * @return mixed A script tag or null
+     * @return mixed A script tag or `null`
      */
     public function scriptBlock($code, array $options = [])
     {
@@ -393,7 +392,7 @@ class BaseHtmlHelper extends CakeHtmlHelper
      * To capture output with a single method, you can also use the
      *  `scriptBlock()` method.
      * @param array $options Options for the code block
-     * @return mixed A script tag or null
+     * @return mixed A script tag or `null`
      * @see scriptBlock()
      */
     public function scriptStart(array $options = [])
@@ -404,12 +403,12 @@ class BaseHtmlHelper extends CakeHtmlHelper
     }
 
     /**
-     * Returns a formatted block tag.
+     * Returns a formatted block tag
      * @param string $name Tag name
-     * @param string $text Tag content. If null, only a start tag will be
+     * @param string $text Tag content. If `null`, only a start tag will be
      *  printed
      * @param array $options Array of options and HTML attributes
-     * @return string Html code
+     * @return string
      * @uses addIcon()
      */
     public function tag($name, $text = null, array $options = [])
@@ -425,7 +424,7 @@ class BaseHtmlHelper extends CakeHtmlHelper
      * @param array $list Elements list
      * @param array $options HTML attributes of the list tag
      * @param array $itemOptions HTML attributes of the list items
-     * @return string Html code
+     * @return string
      * @uses nestedList()
      */
     public function ul(array $list, array $options = [], array $itemOptions = [])

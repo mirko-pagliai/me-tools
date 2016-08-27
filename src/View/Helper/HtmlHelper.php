@@ -39,10 +39,10 @@ use MeTools\View\Helper\BaseHtmlHelper;
 class HtmlHelper extends BaseHtmlHelper
 {
     /**
-     * Creates a badge, according to Bootstrap.
+     * Creates a badge, according to Bootstrap
      * @param string $text Badge text
      * @param array $options Array of options and HTML attributes
-     * @return string Html code
+     * @return string
      * @see http://getbootstrap.com/components/#badges Bootstrap documentation
      * @uses tag()
      */
@@ -88,9 +88,9 @@ class HtmlHelper extends BaseHtmlHelper
      *
      * By default, this method creates an `<h2>` tag. To create a different
      *  tag, you have to use the `type` option.
-     * @param string $text heading content
+     * @param string $text Heading content
      * @param array $options Array of options and HTML attributes
-     * @return string Html code
+     * @return string
      * @see http://getbootstrap.com/css/#type-headings Bootstrap documentation
      * @uses small()
      * @uses tag()
@@ -113,13 +113,13 @@ class HtmlHelper extends BaseHtmlHelper
     }
 
     /**
-     * Create an `iframe` element.
+     * Create an `<iframe>` element.
      *
      * You can use `$ratio` to create a responsive embed.
      * @param string $url Url for the iframe
      * @param array $options Array of options and HTML attributes
      * @param string $ratio Ratio (`16by9` or `4by3`)
-     * @return string Html code
+     * @return string
      * @see http://getbootstrap.com/components/#responsive-embed Responsive embed
      * @uses tag()
      * @uses div()
@@ -152,7 +152,7 @@ class HtmlHelper extends BaseHtmlHelper
      * @param string $text Label text
      * @param array $options HTML attributes of the list tag
      * @param string $type Label type
-     * @return string Html code
+     * @return string
      * @see http://getbootstrap.com/components/#labels Bootstrap documentation
      * @uses tag()
      */
@@ -169,26 +169,25 @@ class HtmlHelper extends BaseHtmlHelper
      * Note that this code only renders the Shareaholic "share button".
      * To add the "setup code", you have to use the `LayoutHelper`.
      * @param string $appId Shareaholic app ID
-     * @return string Html code
+     * @return string
      * @see MeTools\View\Helper\LayoutHelper::shareaholic()
      * @uses div()
      */
     public function shareaholic($appId)
     {
-        return $this->div('shareaholic-canvas', ' ', [
+        return self::div('shareaholic-canvas', ' ', [
             'data-app' => 'share_buttons',
             'data-app-id' => $appId,
         ]);
     }
 
     /**
-     * Returns a formatted block tag.
+     * Returns a formatted block tag
      * @param string $name Tag name
-     * @param string $text Tag content. If null, only a start tag will be
+     * @param string $text Tag content. If `null`, only a start tag will be
      *  printed
      * @param array $options Array of options and HTML attributes
-     * @return string Html code
-     * @uses addIcon()
+     * @return string
      */
     public function tag($name, $text = null, array $options = [])
     {
@@ -205,7 +204,7 @@ class HtmlHelper extends BaseHtmlHelper
      *  by Bootstrap
      * @param array $options Attributes for the generated tag. If the type
      *  attribute is html, rss, atom, or icon, the mime-type is returned
-     * @return string Html code
+     * @return string
      * @see http://getbootstrap.com/css/#overview-mobile Bootstrap documentation
      * @uses meta()
      */
@@ -230,7 +229,7 @@ class HtmlHelper extends BaseHtmlHelper
      * @param string $id YouTube video ID
      * @param array $options Array of options and HTML attributes
      * @param string $ratio Ratio (`16by9` or `4by3`)
-     * @return string Html code
+     * @return string
      * @uses iframe()
      */
     public function youtube($id, array $options = [], $ratio = '16by9')
