@@ -99,7 +99,7 @@ class BaseHtmlHelperTest extends TestCase
             ' ',
             $text,
         ];
-        $this->assertHtml($expected, $result);
+        $this->assertHtml($expected, array_values($result)[0]);
         
         $result = $this->Html->addIcon($text, ['icon' => 'home', 'icon-align' => 'right']);
         $expected = [
@@ -109,16 +109,16 @@ class BaseHtmlHelperTest extends TestCase
             ' ',
             '/i',
         ];
-        $this->assertHtml($expected, $result);
+        $this->assertHtml($expected, array_values($result)[0]);
         
         //This will be only `$text`
         $result = $this->Html->addIcon($text, []);
-        $this->assertEquals($text, $result);
+        $this->assertEquals($text, array_values($result)[0]);
         
         //This will be only icon
         $result = $this->Html->addIcon(null, ['icon' => 'home']);
         $expected = ['i' => ['class' => 'fa fa-home'], ' ', '/i'];
-        $this->assertHtml($expected, $result);
+        $this->assertHtml($expected, array_values($result)[0]);
     }
     
     /**

@@ -133,8 +133,7 @@ class FormHelper extends CakeFormHelper
             $options = buttonClass($options, 'success');
         }
 
-        $title = $this->Html->addIcon($title, $options);
-        unset($options['icon'], $options['icon-align']);
+        list($title, $options) = $this->Html->addIcon($title, $options);
 
         return parent::button($title, $options);
     }
@@ -389,8 +388,7 @@ class FormHelper extends CakeFormHelper
     {
         $options = optionDefaults(['escape' => false], $options);
 
-        $text = $this->Html->addIcon($text, $options);
-        unset($options['icon'], $options['icon-align']);
+        list($text, $options) = $this->Html->addIcon($text, $options);
 
         return parent::label($fieldName, $text, $options);
     }
@@ -436,8 +434,7 @@ class FormHelper extends CakeFormHelper
      */
     public function postLink($title, $url = null, array $options = [])
     {
-        $title = $this->Html->addIcon($title, $options);
-        unset($options['icon'], $options['icon-align']);
+        list($title, $options) = $this->Html->addIcon($title, $options);
 
         $options = optionDefaults(['title' => $title], $options);
         $options['title'] = trim(h(strip_tags($options['title'])));

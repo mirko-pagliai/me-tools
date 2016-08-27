@@ -64,7 +64,8 @@ class BaseHtmlHelper extends CakeHtmlHelper
      * Adds icons to text
      * @param string $text Text
      * @param array $options Array of HTML attributes
-     * @return string Text with icon or icons
+     * @return array Text with icons as first value, options without icons
+     *  (`icon` and `icon-align` options) as second value
      * @uses icon()
      */
     public function addIcon($text, $options)
@@ -81,7 +82,9 @@ class BaseHtmlHelper extends CakeHtmlHelper
             }
         }
         
-        return $text;
+        unset($options['icon'], $options['icon-align']);
+        
+        return [$text, $options];
     }
 
     /**
@@ -271,8 +274,7 @@ class BaseHtmlHelper extends CakeHtmlHelper
         
         $options['title'] = h(strip_tags($options['title']));
 
-        $title = self::addIcon($title, $options);
-        unset($options['icon'], $options['icon-align']);
+        list($title, $options) = self::addIcon($title, $options);
 
         return parent::link($title, $url, $options);
     }
@@ -312,7 +314,7 @@ class BaseHtmlHelper extends CakeHtmlHelper
             $itemOptions = optionValues(['icon' => 'li'], $itemOptions);
             
             $list = array_map(function ($element) use ($itemOptions) {
-                return self::addIcon($element, $itemOptions);
+                return firstValue(self::addIcon($element, $itemOptions));
             }, $list);
         }
         
@@ -349,8 +351,7 @@ class BaseHtmlHelper extends CakeHtmlHelper
      */
     public function para($class = null, $text = null, array $options = [])
     {
-        $text = self::addIcon($text, $options);
-        unset($options['icon'], $options['icon-align']);
+        list($text, $options) = self::addIcon($text, $options);
 
         return parent::para($class, is_null($text) ? '' : $text, $options);
     }
@@ -413,8 +414,7 @@ class BaseHtmlHelper extends CakeHtmlHelper
      */
     public function tag($name, $text = null, array $options = [])
     {
-        $text = self::addIcon($text, $options);
-        unset($options['icon'], $options['icon-align']);
+        list($text, $options) = self::addIcon($text, $options);
 
         return parent::tag($name, is_null($text) ? '' : $text, $options);
     }
