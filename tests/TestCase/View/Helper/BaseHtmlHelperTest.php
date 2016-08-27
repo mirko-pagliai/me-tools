@@ -611,7 +611,7 @@ class BaseHtmlHelperTest extends TestCase
      * @test
      */
     public function testLink()
-    {        
+    {
         $result = $this->Html->link('my-text', 'http://link', ['title' => 'my-custom-title']);
         $expected = [
             'a' => ['href' => 'http://link', 'title' => 'my-custom-title'],
@@ -926,7 +926,7 @@ class BaseHtmlHelperTest extends TestCase
         echo 'this is some javascript';
 
         $result = $this->Html->scriptEnd();
-        $this->assertNull($result);      
+        $this->assertNull($result);
         
         $result = $this->Html->scriptStart(['block' => false, 'safe' => false]);
         $this->assertNull($result);

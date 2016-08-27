@@ -256,7 +256,7 @@ if (!function_exists('optionDefaults')) {
      * @return array
      */
     function optionDefaults($values, $options = [])
-    {        
+    {
         ///Backward compatibility with three arguments
         if (func_num_args() === 3 &&
             is_string(func_get_arg(0)) &&

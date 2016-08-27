@@ -243,7 +243,7 @@ class BaseHtmlHelper extends CakeHtmlHelper
      */
     public function li($element, array $options = [])
     {
-        if(is_array($element)) {
+        if (is_array($element)) {
             $element = array_map(function ($element) use ($options) {
                 return self::tag('li', $element, $options);
             }, $element);
