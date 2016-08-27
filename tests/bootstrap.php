@@ -48,6 +48,23 @@ require CORE_PATH . 'config' . DS . 'bootstrap.php';
 require ROOT . 'config' . DS . 'bootstrap.php';
 
 Configure::write('debug', true);
+Configure::write('App', [
+    'namespace' => 'App',
+    'encoding' => 'UTF-8',
+    'base' => false,
+    'baseUrl' => false,
+    'dir' => APP_DIR,
+    'webroot' => 'webroot',
+    'wwwRoot' => WWW_ROOT,
+    'fullBaseUrl' => 'http://localhost',
+    'imageBaseUrl' => 'img/',
+    'jsBaseUrl' => 'js/',
+    'cssBaseUrl' => 'css/',
+    'paths' => [
+        'templates' => [APP . 'Template' . DS],
+        'locales' => [APP . 'Locale' . DS],
+    ]
+]);
 
 // Ensure default test connection is defined
 if (!getenv('db_dsn')) {
