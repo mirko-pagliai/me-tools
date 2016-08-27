@@ -69,19 +69,19 @@ class BaseHtmlHelper extends CakeHtmlHelper
      */
     public function addIcon($text, $options)
     {
-        if (empty($options['icon'])) {
-            return $text;
+        if (!empty($options['icon'])) {
+            if (empty($text)) {
+                $text = self::icon($options['icon']);
+            } elseif (!empty($options['icon-align']) &&
+                $options['icon-align'] === 'right'
+            ) {
+                $text = sprintf('%s %s', $text, self::icon($options['icon']));
+            } else {
+                $text = sprintf('%s %s', self::icon($options['icon']), $text);
+            }
         }
         
-        if (empty($text)) {
-            return self::icon($options['icon']);
-        }
-
-        if (!empty($options['icon-align']) && $options['icon-align'] === 'right') {
-            return sprintf('%s %s', $text, self::icon($options['icon']));
-        }
-
-        return sprintf('%s %s', self::icon($options['icon']), $text);
+        return $text;
     }
 
     /**
