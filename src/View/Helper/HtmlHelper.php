@@ -115,29 +115,27 @@ class HtmlHelper extends BaseHtmlHelper
     /**
      * Create an `<iframe>` element.
      *
-     * You can use `$ratio` to create a responsive embed.
+     * You can use the `$ratio` option (valid values: `16by9` or `4by3`) to
+     *  create a responsive embed.
      * @param string $url Url for the iframe
      * @param array $options Array of options and HTML attributes
-     * @param string $ratio Ratio (`16by9` or `4by3`)
      * @return string
      * @see http://getbootstrap.com/components/#responsive-embed Responsive embed
      * @uses tag()
      * @uses div()
      */
-    public function iframe($url, array $options = [], $ratio = false)
+    public function iframe($url, array $options = [])
     {
-        $options['src'] = $url;
-
-        if ($ratio === '16by9' || $ratio === '4by3') {
+        if ($options['ratio'] === '16by9' || $options['ratio'] === '4by3') {
             $options = optionValues(['class' => 'embed-responsive-item'], $options);
-            
+                        
             return self::div(
-                sprintf('embed-responsive embed-responsive-%s', $ratio),
-                self::tag('iframe', ' ', $options)
+                sprintf('embed-responsive embed-responsive-%s', $options['ratio']),
+                self::tag('iframe', $url, $options)
             );
         }
 
-        return self::tag('iframe', ' ', $options);
+        return self::tag('iframe', $url, $options);
     }
 
     /**
@@ -225,25 +223,24 @@ class HtmlHelper extends BaseHtmlHelper
     /**
      * Adds a YouTube video.
      *
-     * You can use `$ratio` to create a responsive embed.
+     * You can use the `$ratio` option (valid values: `16by9` or `4by3`) to
+     *  create a responsive embed.
      * @param string $id YouTube video ID
      * @param array $options Array of options and HTML attributes
-     * @param string $ratio Ratio (`16by9` or `4by3`)
      * @return string
      * @uses iframe()
      */
-    public function youtube($id, array $options = [], $ratio = '16by9')
+    public function youtube($id, array $options = [])
     {
+        $url = sprintf('https://www.youtube.com/embed/%s', $id);
+        
         $options = optionDefaults([
             'allowfullscreen' => 'allowfullscreen',
             'height' => 480,
+            'ratio' => '16by9',
             'width' => 640,
         ], $options);
 
-        return self::iframe(
-            sprintf('https://www.youtube.com/embed/%s', $id),
-            $options,
-            $ratio
-        );
+        return self::iframe($url, $options);
     }
 }
