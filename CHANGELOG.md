@@ -1,7 +1,7 @@
 # 2.x branch
 ## 2.8 branch
 ### 2.8.1
-* the `HtmlHelper` has been divided into `HtmlHelper` and `BaseHtmlHelper`;
+* the `HtmlHelper` has been divided into `HtmlHelper` and `ExtraHtmlHelper`;
 * added `HtmlHelper::cssBlock()` method. Methods `HtmlHelper::cssStart()` and
     `HtmlHelper::cssEnd()` have been completely rewritten and they no longer
     need you add the `<style>` tag;
@@ -12,13 +12,13 @@
 * global functions splitted into `config/functions/global.php` and
     `config/functions/html.php`;
 * added support for tooltips for some methods and added
-    `BaseHtmlHelper::addTooltip()` method;
+    `HtmlHelper::addTooltip()` method;
 * fixed several bug for `clearDir()`;
 * fixed bug for `optionDefaults()` and `optionsValues()`;
 * fixed many bugs for `BBCodeHelper`;
-* fixed many small bugs for `BaseHtmlHelper` and `HtmlHelper`;
+* fixed many small bugs for `HtmlHelper` and `ExtraHtmlHelper`;
 * fixed small bugs for global functions;
-* added tests for global functions, detectors, `BaseHtmlHelper`, `HtmlHelper`
+* added tests for global functions, detectors, `HtmlHelper`, `ExtraHtmlHelper`
     and `BBCodeHelper`.
 
 ### 2.8.0
