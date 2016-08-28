@@ -27,14 +27,6 @@ use Cake\View\View;
 use MeTools\View\Helper\BBCodeHelper;
 use MeTools\View\Helper\HtmlHelper;
 
-$fullExample = <<<EOF
-    <p>Some text</p>
-    [readmore /]
-    <span>Some text</span>
-    [youtube]bL_CJKq9rIw[/youtube]
-    <div>Some text</div>
-EOF;
-
 /**
  * BBCodeHelperTest class
  */
@@ -61,9 +53,15 @@ class BBCodeHelperTest extends TestCase
      */
     public function testParser()
     {
-        global $fullExample;
+        ob_start();
+        echo '<p>Some text</p>' . PHP_EOL;
+        echo '[readmore /]' . PHP_EOL;
+        echo '<span>Some text</span>' . PHP_EOL;
+        echo '[youtube]bL_CJKq9rIw[/youtube]' . PHP_EOL;
+        echo '<div>Some text</div>' . PHP_EOL;
+        $buffer = ob_get_clean();
         
-        $result = $this->BBCode->parser($fullExample);
+        $result = $this->BBCode->parser($buffer);
         $expected = [
             'p' => true,
             'Some text',
