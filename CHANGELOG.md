@@ -1,6 +1,6 @@
 # 2.x branch
-## 2.8 branch
-### 2.8.1
+## 2.9 branch
+### 2.9.0
 * the `HtmlHelper` has been divided into `HtmlHelper` and `ExtraHtmlHelper`;
 * added `HtmlHelper::cssBlock()` method. Methods `HtmlHelper::cssStart()` and
     `HtmlHelper::cssEnd()` have been completely rewritten and they no longer
@@ -21,6 +21,7 @@
 * added tests for global functions, detectors, `HtmlHelper`, `ExtraHtmlHelper`
     and `BBCodeHelper`.
 
+## 2.8 branch
 ### 2.8.0
 * `MeTools\Network\Request` has been removed. All old methods are now 
 	request detectors (see `config/detectors.php`);
