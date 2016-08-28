@@ -94,9 +94,9 @@ class BBCodeHelper extends Helper
         return preg_replace_callback('/\[youtube](.+?)\[\/youtube]/', function ($matches) {
             if ($this->Html->youtube(isUrl($matches[1]))) {
                 return Youtube::getId($matches[1]);
-            } else {
-                return $matches[1];
             }
+            
+            return $matches[1];
         }, $text);
     }
 }
