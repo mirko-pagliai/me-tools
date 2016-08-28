@@ -33,9 +33,9 @@ use Michelf\Markdown;
 class MarkdownHelper extends Helper
 {
     /**
-     * Converts a string from the Markdown syntax to HTML.
+     * Converts a string from the Markdown syntax to HTML
      * @param string $string Markdown syntax
-     * @param bool $clean true if you want the output to be clean
+     * @param bool $clean `true` if you want the output to be clean
      * @return string Html code
      * @see http://michelf.ca/projects/php-markdown PHP Markdown
      * @uses Michelf\Markdown::defaultTransform()
