@@ -49,8 +49,17 @@ class BBCodeHelper extends Helper
      */
     public function parser($text)
     {
-        $text = self::readMore($text);
-        $text = self::youtube($text);
+        //Gets all current class methods, except for `parser()` and `remove()`
+        $methods = array_diff(
+            get_class_methods(get_class()),
+            get_class_methods(get_parent_class()),
+            ['parser', 'remove']
+        );
+        
+        //Calls dynamically each method
+        foreach ($methods as $method) {
+            $text = self::{$method}($text);
+        }
 
         return $text;
     }
@@ -65,7 +74,11 @@ class BBCodeHelper extends Helper
      */
     public function readMore($text)
     {
-        return preg_replace('/(<p>)?\[read\-?more\s?\/\](<\/p>)?/', '<!-- read-more -->', $text);
+        return preg_replace(
+            '/(<p(>|.*?[^?]>))?\[read\-?more\s*\/?\s*\](<\/p>)?/',
+            '<!-- read-more -->',
+            $text
+        );
     }
 
     /**
@@ -80,9 +93,17 @@ class BBCodeHelper extends Helper
     }
 
     /**
-     * Parses Youtube code. Example:
+     * Parses Youtube code.
+     *
+     * You can use video ID or video url.
+     *
+     * Examples:
      * <code>
      * [youtube]bL_CJKq9rIw[/youtube]
+     * </code>
+     *
+     * <code>
+     * [youtube]http://youtube.com/watch?v=bL_CJKq9rIw[/youtube]
      * </code>
      * @param string $text Text
      * @return string
@@ -91,12 +112,14 @@ class BBCodeHelper extends Helper
      */
     public function youtube($text)
     {
-        return preg_replace_callback('/\[youtube](.+?)\[\/youtube]/', function ($matches) {
-            if ($this->Html->youtube(isUrl($matches[1]))) {
-                return Youtube::getId($matches[1]);
-            }
-            
-            return $matches[1];
-        }, $text);
+        return preg_replace_callback(
+            '/\[youtube](.+?)\[\/youtube]/',
+            function ($matches) {
+                return $this->Html->youtube(
+                    isUrl($matches[1]) ? Youtube::getId($matches[1]) : $matches[1]
+                );
+            },
+            $text
+        );
     }
 }

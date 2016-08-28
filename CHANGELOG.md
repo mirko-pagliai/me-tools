@@ -15,6 +15,7 @@
     `BaseHtmlHelper::addTooltip()` method;
 * fixed several bug for `clearDir()`;
 * fixed bug for `optionDefaults()` and `optionsValues()`;
+* fixed many bugs for `BBCodeHelper`;
 * fixed many small bugs for `BaseHtmlHelper` and `HtmlHelper`;
 * fixed small bugs for global functions;
 * added tests for global functions, detectors, `BaseHtmlHelper` and `HtmlHelper`.
