@@ -38,10 +38,10 @@ use Cake\View\Helper\HtmlHelper as CakeHtmlHelper;
 class BaseHtmlHelper extends CakeHtmlHelper
 {
     /**
-     * This is called automatically when a method doesn't exist.
+     * Missing method handler.
      *
      * If you pass no more than two parameters, it tries to generate a html
-     *  tag with the name of the method.
+     *  tag with the name of the method and works as alias of `tag()`.
      * @param string $method Method to invoke
      * @param array $params Params for the method
      * @return string|void
