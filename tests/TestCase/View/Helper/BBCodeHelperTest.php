@@ -25,7 +25,7 @@ namespace MeTools\Test\TestCase\View\Helper;
 use Cake\TestSuite\TestCase;
 use Cake\View\View;
 use MeTools\View\Helper\BBCodeHelper;
-use MeTools\View\Helper\ExtraHtmlHelper;
+use MeTools\View\Helper\HtmlHelper;
 
 /**
  * BBCodeHelperTest class
@@ -43,7 +43,7 @@ class BBCodeHelperTest extends TestCase
         parent::setUp();
         $View = new View();
         $this->BBCode = new BBCodeHelper($View);
-        $this->Html = new ExtraHtmlHelper($View);
+        $this->Html = new HtmlHelper($View);
     }
     
     /**

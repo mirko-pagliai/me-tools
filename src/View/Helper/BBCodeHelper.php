@@ -38,7 +38,7 @@ class BBCodeHelper extends Helper
      * Helpers
      * @var array
      */
-    public $helpers = ['Html' => ['className' => 'MeTools.ExtraHtml']];
+    public $helpers = ['Html' => ['className' => 'MeTools.Html']];
 
     /**
      * Executes all parsers
