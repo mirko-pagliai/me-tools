@@ -35,35 +35,21 @@ class MarkdownHelper extends Helper
     /**
      * Converts a string from the Markdown syntax to HTML
      * @param string $string Markdown syntax
-     * @param bool $clean `true` if you want the output to be clean
      * @return string Html code
      * @see http://michelf.ca/projects/php-markdown PHP Markdown
      * @uses Michelf\Markdown::defaultTransform()
      */
-    public function toHtml($string, $clean = false)
+    public function toHtml($string)
     {
         //Converts some code blocks as used by some sites, such as Bitbucket
         $string = preg_replace_callback(
             '/```\s+(#!\S+\s+)?(((?!```)\t*.*\s+)+)\s*```/m',
             function ($match) {
-                return PHP_EOL . preg_replace('/(\t*.*\s+)/m', '	$1', $match[2]);
+                return PHP_EOL . preg_replace('/(\t*.*\s+)/m', '    $1', $match[2]);
             },
             $string
         );
 
-        $html = Markdown::defaultTransform($string);
-
-        if ($clean) {
-            //Removes the "TOC"
-            $html = preg_replace('/(<p>)?\[TOC\](<\/p>)?(\\n)*/', '', $html);
-
-            //Changes headers
-            $html = preg_replace('/<h[4-6]>(.*)<\/h[4-6]>/', '<h6>$1</h6>', $html);
-            $html = preg_replace('/<h3>(.*)<\/h3>/', '<h5>$1</h5>', $html);
-            $html = preg_replace('/<h2>(.*)<\/h2>/', '<h4>$1</h4>', $html);
-            $html = preg_replace('/<h1>(.*)<\/h1>/', '<h3>$1</h3>', $html);
-        }
-
-        return $html;
+        return Markdown::defaultTransform($string);
     }
 }
