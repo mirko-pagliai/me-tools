@@ -27,7 +27,7 @@ use Cake\View\View;
 use MeTools\View\Helper\BaseHtmlHelper;
 
 /**
- * HtmlHelperTest class
+ * BaseHtmlHelperTest class
  */
 class BaseHtmlHelperTest extends TestCase
 {
