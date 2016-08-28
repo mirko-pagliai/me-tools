@@ -460,6 +460,63 @@ class BaseHtmlHelperTest extends TestCase
     }
     
     /**
+     * Test for `cssBlock()` method
+     * @return void
+     * @test
+     */
+    public function testCssBlock()
+    {
+        $css = 'body { color: red; }';
+        
+        //By default, `block` is `true`
+        $result = $this->Html->cssBlock($css);
+        $this->assertNull($result);
+        
+        $result = $this->Html->cssBlock($css, ['block' => true]);
+        $this->assertNull($result);
+        
+        $result = $this->Html->cssBlock($css, ['block' => false]);
+        $expected = ['style' => true, $css, '/style'];
+        $this->assertHtml($expected, $result);
+    }
+    
+    /**
+     * Test for `cssStart()` and `cssEnd()` methods
+     * @return void
+     * @test
+     */
+    public function testCssStartAndCssEnd()
+    {
+        $css = 'body { color: red; }';
+        
+        //By default, `block` is `true`
+        $result = $this->Html->cssStart();
+        $this->assertNull($result);
+        
+        echo $css;
+
+        $result = $this->Html->cssEnd();
+        $this->assertNull($result);
+        
+        $result = $this->Html->cssStart(['block' => true]);
+        $this->assertNull($result);
+        
+        echo $css;
+
+        $result = $this->Html->cssEnd();
+        $this->assertNull($result);
+        
+        $result = $this->Html->cssStart(['block' => false]);
+        $this->assertNull($result);
+        
+        echo $css;
+
+        $result = $this->Html->cssEnd();
+        $expected = ['<style', $css, '/style'];
+        $this->assertHtml($expected, $result);
+    }
+    
+    /**
      * Test for `div()` method
      * @return void
      * @test
@@ -1054,11 +1111,11 @@ class BaseHtmlHelperTest extends TestCase
     }
     
     /**
-     * Test for `scriptStart()` method
+     * Test for `scriptStart()` and `scriptEnd()` methods
      * @return void
      * @test
      */
-    public function testScriptStart()
+    public function testScriptStartAndScriptEnd()
     {
         //By default, `block` is `true`
         $result = $this->Html->scriptStart(['safe' => false]);

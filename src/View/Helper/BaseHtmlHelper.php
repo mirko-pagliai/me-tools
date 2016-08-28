@@ -147,6 +147,64 @@ class BaseHtmlHelper extends CakeHtmlHelper
 
         return parent::css($path, $options);
     }
+    
+    /**
+     * Wrap `$css` in a style tag
+     * @param string $css The css code to wrap
+     * @param array $options The options to use. Options not listed above will
+     *  be treated as HTML attributes
+     * @return string|null String or `null`, depending on the value of
+     *  $options['block']`
+     */
+    public function cssBlock($css, array $options = [])
+    {
+        $options = optionDefaults(['block' => true], $options);
+
+        $out = $this->formatTemplate('style', [
+            'attrs' => $this->templater()->formatAttributes($options, ['block']),
+            'content' => $css,
+        ]);
+
+        if (empty($options['block'])) {
+            return $out;
+        }
+        
+        if ($options['block'] === true) {
+            $options['block'] = 'css';
+        }
+        
+        $this->_View->append($options['block'], $out);
+    }
+
+    /**
+     * Begin a css block that captures output until `cssEnd()` is called. This
+     *  capturing block will capture all output between the methods and create
+     *  a cssBlock from it
+     * @param array $options Options for the code block.
+     * @return void
+     */
+    public function cssStart(array $options = [])
+    {
+        $options += ['block' => null];
+        $this->_cssBlockOptions = $options;
+        ob_start();
+    }
+
+    /**
+     * End a buffered section of css capturing.
+     * Generates a style tag inline or appends to specified view block
+     *  depending on the settings used when the cssBlock was started.
+     * @return string|null Depending on the settings of `cssStart()`, either a
+     *  style tag or null
+     */
+    public function cssEnd()
+    {
+        $buffer = ob_get_clean();
+        $options = $this->_cssBlockOptions;
+        $this->_cssBlockOptions = [];
+
+        return $this->cssBlock($buffer, $options);
+    }
 
     /**
      * Returns a formatted DIV tag

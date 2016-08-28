@@ -2,6 +2,9 @@
 ## 2.8 branch
 ### 2.8.1
 * the `HtmlHelper` has been divided into `HtmlHelper` and `BaseHtmlHelper`;
+* added `HtmlHelper::cssBlock()` method. Methods `HtmlHelper::cssStart()` and
+    `HtmlHelper::cssEnd()` have been completely rewritten and they no longer
+    need you add the `<style>` tag;
 * added `implodeRecursive()` global function;
 * improved `FlashComponent`. It renders all `alert()`, `error()`, `notice()`
     and `success()` class using the `src/Template/Element/Flash/flash.ctp`

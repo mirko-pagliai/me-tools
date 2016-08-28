@@ -54,32 +54,6 @@ class HtmlHelper extends BaseHtmlHelper
     }
 
     /**
-     * Ends capturing output for a CSS block.
-     *
-     * To start capturing output, see the `cssStart()` method.
-     * @return void
-     * @see cssStart()
-     * @uses Cake\View\ViewBlock::end()
-     */
-    public function cssEnd()
-    {
-        $this->_View->end();
-    }
-
-    /**
-     * Starts capturing output for a CSS block.
-     *
-     * To end capturing output, see the `cssEnd()` method.
-     * @return void
-     * @see cssEnd()
-     * @uses Cake\View\ViewBlock::start()
-     */
-    public function cssStart()
-    {
-        $this->_View->start('css');
-    }
-
-    /**
      * Creates an heading.
      *
      * This method is useful if you want to create an heading with a secondary
