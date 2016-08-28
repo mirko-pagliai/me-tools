@@ -51,33 +51,33 @@ class BaseHtmlHelperTest extends TestCase
      */
     public function testMagicCall()
     {
+        $text = 'my h3 text';
+        $class = 'my-class';
+        
         //The `h3()` method should not exist, otherwise the `__call()` method
         //  will not be called
         $this->assertFalse(method_exists($this->Html, 'h3'));
         
-        $result = $this->Html->h3('my h3 text', ['class' => 'myclass']);
-        $expected = $this->Html->tag('h3', 'my h3 text', ['class' => 'myclass']);
+        $result = $this->Html->h3($text, ['class' => $class]);
+        $expected = $this->Html->tag('h3', $text, ['class' => $class]);
+        $this->assertEquals($expected, $result);
+        
+        $result = $this->Html->h3($text, ['class' => $class, 'icon' => 'home']);
+        $expected = $this->Html->tag(
+            'h3',
+            $text,
+            ['class' => $class, 'icon' => 'home']
+        );
         $this->assertEquals($expected, $result);
         
         $result = $this->Html->h3(
-            'my h3 text',
-            ['class' => 'myclass', 'icon' => 'home']
+            $text,
+            ['class' => $class, 'icon' => 'home', 'icon-align' => 'right']
         );
         $expected = $this->Html->tag(
             'h3',
-            'my h3 text',
-            ['class' => 'myclass', 'icon' => 'home']
-        );
-        $this->assertEquals($expected, $result);
-        
-        $result = $this->Html->h3(
-            'my h3 text',
-            ['class' => 'myclass', 'icon' => 'home', 'icon-align' => 'right']
-        );
-        $expected = $this->Html->tag(
-            'h3',
-            'my h3 text',
-            ['class' => 'myclass', 'icon' => 'home', 'icon-align' => 'right']
+            $text,
+            ['class' => $class, 'icon' => 'home', 'icon-align' => 'right']
         );
         $this->assertEquals($expected, $result);
     }
@@ -89,7 +89,7 @@ class BaseHtmlHelperTest extends TestCase
      */
     public function testAddIcon()
     {
-        $text = 'This is my text';
+        $text = 'My text';
         
         $result = $this->Html->addIcon($text, ['icon' => 'home']);
         $expected = [
@@ -128,25 +128,27 @@ class BaseHtmlHelperTest extends TestCase
      */
     public function testAddTooltip()
     {
-        $expected = ['data-toggle' => 'tooltip', 'title' => 'my tooltip'];
+        $tooltip = 'My tooltip';
         
-        $result = $this->Html->addTooltip(['tooltip' => 'my tooltip']);
+        $expected = ['data-toggle' => 'tooltip', 'title' => $tooltip];
+        
+        $result = $this->Html->addTooltip(['tooltip' => $tooltip]);
         $this->assertEquals($expected, $result);
         
         // `tooltip` rewrites `title`
         $result = $this->Html->addTooltip([
             'title' => 'my title',
-            'tooltip' => 'my tooltip',
+            'tooltip' => $tooltip,
         ]);
         $this->assertEquals($expected, $result);
         
         $result = $this->Html->addTooltip([
             'data-toggle' => 'some-data-here',
-            'tooltip' => 'my tooltip',
+            'tooltip' => $tooltip,
         ]);
         $expected = [
             'data-toggle' => 'some-data-here tooltip',
-            'title' => 'my tooltip',
+            'title' => $tooltip,
         ];
         $this->assertEquals($expected, $result);
     }
@@ -158,55 +160,57 @@ class BaseHtmlHelperTest extends TestCase
      */
     public function testButton()
     {
-        $result = $this->Html->button('my-text');
+        $text = 'My text';
+        
+        $result = $this->Html->button($text);
         $expected = [
             'button' => [
                 'role' => 'button',
                 'class' => 'btn btn-default',
-                'title' => 'my-text',
+                'title' => $text,
             ],
-            'my-text',
+            $text,
             '/button',
         ];
         $this->assertHtml($expected, $result);
         
-        $result = $this->Html->button('my-text', null, ['title' => 'my-custom-title']);
+        $result = $this->Html->button($text, null, ['title' => 'my-custom-title']);
         $expected = [
             'button' => [
                 'role' => 'button',
                 'class' => 'btn btn-default',
                 'title' => 'my-custom-title',
             ],
-            'my-text',
+            $text,
             '/button',
         ];
         $this->assertHtml($expected, $result);
         
-        $result = $this->Html->button('my-text', null, ['class' => 'my-class']);
+        $result = $this->Html->button($text, null, ['class' => 'my-class']);
         $expected = [
             'button' => [
                 'role' => 'button',
                 'class' => 'my-class btn btn-default',
-                'title' => 'my-text',
+                'title' => $text,
              ],
-            'my-text',
+            $text,
             '/button',
         ];
         $this->assertHtml($expected, $result);
         
-        $result = $this->Html->button('my-text', null, ['class' => 'btn-primary']);
+        $result = $this->Html->button($text, null, ['class' => 'btn-primary']);
         $expected = [
             'button' => [
                 'role' => 'button',
                 'class' => 'btn-primary btn',
-                'title' => 'my-text',
-             ],
-            'my-text',
+                'title' => $text,
+            ],
+            $text,
             '/button',
         ];
         $this->assertHtml($expected, $result);
         
-        $result = $this->Html->button('my text', null, ['tooltip' => 'my tooltip']);
+        $result = $this->Html->button($text, null, ['tooltip' => 'my tooltip']);
         $expected = [
             'button' => [
                 'role' => 'button',
@@ -214,14 +218,14 @@ class BaseHtmlHelperTest extends TestCase
                 'data-toggle' => 'tooltip',
                 'title' => 'my tooltip',
             ],
-            'my text',
+            $text,
             '/button'
         ];
         $this->assertHtml($expected, $result);
         
         // `tooltip` value rewrites `title` value
         $result = $this->Html->button(
-            'my text',
+            $text,
             null,
             ['title' => 'my custom title', 'tooltip' => 'my tooltip']
         );
@@ -232,23 +236,23 @@ class BaseHtmlHelperTest extends TestCase
                 'data-toggle' => 'tooltip',
                 'title' => 'my tooltip',
             ],
-            'my text',
+            $text,
             '/button'
         ];
         $this->assertHtml($expected, $result);
         
-        $result = $this->Html->button('my-text', null, ['icon' => 'home']);
+        $result = $this->Html->button($text, null, ['icon' => 'home']);
         $expected = [
             'button' => [
                 'role' => 'button',
                 'class' => 'btn btn-default',
-                'title' => 'my-text',
+                'title' => $text,
              ],
             'i' => ['class' => 'fa fa-home'],
             ' ',
             '/i',
             ' ',
-            'my-text',
+            $text,
             '/button',
         ];
         $this->assertHtml($expected, $result);
@@ -280,27 +284,27 @@ class BaseHtmlHelperTest extends TestCase
         $this->assertHtml($expected, $result);
         
         //Single quote on custom title
-        $result = $this->Html->button('my-text', null, ['title' => 'single quote \'']);
+        $result = $this->Html->button($text, null, ['title' => 'single quote \'']);
         $expected = [
             'button' => [
                 'role' => 'button',
                 'class' => 'btn btn-default',
                 'title' => h('single quote \''),
             ],
-            'my-text',
+            $text,
             '/button',
         ];
         $this->assertHtml($expected, $result);
         
         //Double quote on custom title
-        $result = $this->Html->button('my-text', null, ['title' => 'double quote "']);
+        $result = $this->Html->button($text, null, ['title' => 'double quote "']);
         $expected = [
             'button' => [
                 'title' => h('double quote "'),
                 'role' => 'button',
                 'class' => 'btn btn-default',
             ],
-            'my-text',
+            $text,
             '/button',
         ];
         $this->assertHtml($expected, $result);
@@ -322,14 +326,18 @@ class BaseHtmlHelperTest extends TestCase
         $this->assertHtml($expected, $result);
         
         //Code on custom title
-        $result = $this->Html->button('my-text', null, ['title' => '<u>Code</u> and text']);
+        $result = $this->Html->button(
+            $text,
+            null,
+            ['title' => '<u>Code</u> and text']
+        );
         $expected = [
             'button' => [
                 'role' => 'button',
                 'class' => 'btn btn-default',
                 'title' => 'Code and text'
             ],
-            'my-text',
+            $text,
             '/button',
         ];
         $this->assertHtml($expected, $result);
@@ -342,46 +350,48 @@ class BaseHtmlHelperTest extends TestCase
      */
     public function testButtonAsLink()
     {
-        $result = $this->Html->button('my-text', '#');
+        $text = 'My text';
+        
+        $result = $this->Html->button($text, '#');
         $expected = [
             'a' => [
                 'href' => '#',
                 'role' => 'button',
                 'class' => 'btn btn-default',
-                'title' => 'my-text',
+                'title' => $text,
             ],
-            'my-text',
+            $text,
             '/a',
         ];
         $this->assertHtml($expected, $result);
         
-        $result = $this->Html->button('my-text', '#', ['class' => 'my-class']);
+        $result = $this->Html->button($text, '#', ['class' => 'my-class']);
         $expected = [
             'a' => [
                 'href' => '#',
                 'role' => 'button',
                 'class' => 'my-class btn btn-default',
-                'title' => 'my-text',
+                'title' => $text,
             ],
-            'my-text',
+            $text,
             '/a',
         ];
         $this->assertHtml($expected, $result);
         
-        $result = $this->Html->button('my-text', '#', ['class' => 'btn-primary']);
+        $result = $this->Html->button($text, '#', ['class' => 'btn-primary']);
         $expected = [
             'a' => [
                 'href' => '#',
                 'role' => 'button',
                 'class' => 'btn-primary btn',
-                'title' => 'my-text',
+                'title' => $text,
             ],
-            'my-text',
+            $text,
             '/a',
         ];
         $this->assertHtml($expected, $result);
         
-        $result = $this->Html->button('my text', '#', ['tooltip' => 'my tooltip']);
+        $result = $this->Html->button($text, '#', ['tooltip' => 'my tooltip']);
         $expected = [
             'a' => [
                 'href' => '#',
@@ -390,14 +400,14 @@ class BaseHtmlHelperTest extends TestCase
                 'data-toggle' => 'tooltip',
                 'title' => 'my tooltip',
             ],
-            'my text',
+            $text,
             '/a'
         ];
         $this->assertHtml($expected, $result);
         
         // `tooltip` value rewrites `title` value
         $result = $this->Html->button(
-            'my text',
+            $text,
             '#',
             ['title' => 'my custom title', 'tooltip' => 'my tooltip']
         );
@@ -409,24 +419,24 @@ class BaseHtmlHelperTest extends TestCase
                 'data-toggle' => 'tooltip',
                 'title' => 'my tooltip',
             ],
-            'my text',
+            $text,
             '/a'
         ];
         $this->assertHtml($expected, $result);
         
-        $result = $this->Html->button('my-text', '#', ['icon' => 'home']);
+        $result = $this->Html->button($text, '#', ['icon' => 'home']);
         $expected = [
             'a' => [
                 'href' => '#',
                 'role' => 'button',
                 'class' => 'btn btn-default',
-                'title' => 'my-text',
+                'title' => $text,
             ],
             'i' => ['class' => 'fa fa-home'],
             ' ',
             '/i',
             ' ',
-            'my-text',
+            $text,
             '/a',
         ];
         $this->assertHtml($expected, $result);
@@ -557,14 +567,14 @@ class BaseHtmlHelperTest extends TestCase
         ];
         $this->assertHtml($expected, $result);
         
-        $result = $this->Html->div('my-class', 'my-text', ['id' => 'my-id', 'icon' => 'home']);
+        $result = $this->Html->div('my-class', 'My text', ['id' => 'my-id', 'icon' => 'home']);
         $expected = [
             'div' => ['class' => 'my-class', 'id' => 'my-id'],
             'i' => ['class' => 'fa fa-home'],
             ' ',
             '/i',
             ' ',
-            'my-text',
+            'My text',
             '/div'
         ];
         $this->assertHtml($expected, $result);
@@ -634,17 +644,19 @@ class BaseHtmlHelperTest extends TestCase
      */
     public function testIframe()
     {
-        $result = $this->Html->iframe('http://frame');
-        $expected = ['iframe' => ['src' => 'http://frame']];
+        $url = 'http://frame';
+        
+        $result = $this->Html->iframe($url);
+        $expected = ['iframe' => ['src' => $url]];
         $this->assertHtml($expected, $result);
         
-        $result = $this->Html->iframe('http://frame', ['class' => 'my-class']);
-        $expected = ['iframe' => ['class' => 'my-class', 'src' => 'http://frame']];
+        $result = $this->Html->iframe($url, ['class' => 'my-class']);
+        $expected = ['iframe' => ['class' => 'my-class', 'src' => $url]];
         $this->assertHtml($expected, $result);
         
         //The `src` option doesn't overwrite
-        $result = $this->Html->iframe('http://frame', ['src' => 'http://anotherframe']);
-        $expected = ['iframe' => ['src' => 'http://frame']];
+        $result = $this->Html->iframe($url, ['src' => 'http://anotherframe']);
+        $expected = ['iframe' => ['src' => $url]];
         $this->assertHtml($expected, $result);
     }
     
@@ -655,32 +667,34 @@ class BaseHtmlHelperTest extends TestCase
      */
     public function testImage()
     {
-        $result = $this->Html->image('image.gif');
+        $image = 'image.gif';
+        
+        $result = $this->Html->image($image);
         $expected = ['img' => [
             'src' => '/img/image.gif',
-            'alt' => 'image.gif',
+            'alt' => $image,
             'class' => 'img-responsive',
         ]];
         $this->assertHtml($expected, $result);
         
-        $result = $this->Html->image('image.gif', ['class' => 'my-class']);
+        $result = $this->Html->image($image, ['class' => 'my-class']);
         $expected = ['img' => [
             'src' => '/img/image.gif',
-            'alt' => 'image.gif',
+            'alt' => $image,
             'class' => 'my-class img-responsive',
         ]];
         $this->assertHtml($expected, $result);
         
         //Tests `img()` alias
-        $result = $this->Html->img('image.gif', ['class' => 'my-class']);
+        $result = $this->Html->img($image, ['class' => 'my-class']);
         $expected = ['img' => [
             'src' => '/img/image.gif',
-            'alt' => 'image.gif',
+            'alt' => $image,
             'class' => 'my-class img-responsive',
         ]];
         $this->assertHtml($expected, $result);
         
-        $result = $this->Html->image('image.gif', ['alt' => 'my-alt']);
+        $result = $this->Html->image($image, ['alt' => 'my-alt']);
         $expected = ['img' => [
             'src' => '/img/image.gif',
             'alt' => 'my-alt',
@@ -688,10 +702,10 @@ class BaseHtmlHelperTest extends TestCase
         ]];
         $this->assertHtml($expected, $result);
         
-        $result = $this->Html->image('image.gif', ['tooltip' => 'my tooltip']);
+        $result = $this->Html->image($image, ['tooltip' => 'my tooltip']);
         $expected = ['img' => [
             'src' => '/img/image.gif',
-            'alt' => 'image.gif',
+            'alt' => $image,
             'class' => 'img-responsive',
             'data-toggle' => 'tooltip',
             'title' => 'my tooltip',
@@ -701,7 +715,7 @@ class BaseHtmlHelperTest extends TestCase
         $result = $this->Html->image('http://fullurl/image.gif');
         $expected = ['img' => [
             'src' => 'http://fullurl/image.gif',
-            'alt' => 'image.gif',
+            'alt' => $image,
             'class' => 'img-responsive',
         ]];
         $this->assertHtml($expected, $result);
@@ -714,18 +728,18 @@ class BaseHtmlHelperTest extends TestCase
      */
     public function testLi()
     {
-        $result = $this->Html->li('my-text');
-        $expected = ['li' => true, 'my-text', '/li'];
+        $result = $this->Html->li('My text');
+        $expected = ['li' => true, 'My text', '/li'];
         $this->assertHtml($expected, $result);
         
-        $result = $this->Html->li('my-text', ['icon' => 'home']);
+        $result = $this->Html->li('My text', ['icon' => 'home']);
         $expected = [
             'li' => true,
             'i' => ['class' => 'fa fa-home'],
             ' ',
             '/i',
             ' ',
-            'my-text',
+            'My text',
             '/li'
         ];
         $this->assertHtml($expected, $result);
@@ -781,30 +795,38 @@ class BaseHtmlHelperTest extends TestCase
      */
     public function testLink()
     {
-        $result = $this->Html->link('my-text', 'http://link', ['title' => 'my-custom-title']);
+        $result = $this->Html->link(
+            'My text',
+            'http://link',
+            ['title' => 'my-custom-title']
+        );
         $expected = [
             'a' => ['href' => 'http://link', 'title' => 'my-custom-title'],
-            'my-text',
+            'My text',
             '/a',
         ];
         $this->assertHtml($expected, $result);
         
-        $result = $this->Html->link('my-text', 'http://link', ['icon' => 'home']);
+        $result = $this->Html->link('My text', 'http://link', ['icon' => 'home']);
         $expected = [
-            'a' => ['href' => 'http://link', 'title' => 'my-text'],
+            'a' => ['href' => 'http://link', 'title' => 'My text'],
             'i' => ['class' => 'fa fa-home'],
             ' ',
             '/i',
             ' ',
-            'my-text',
+            'My text',
             '/a',
         ];
         $this->assertHtml($expected, $result);
         
-        $result = $this->Html->link('my-text', '#', ['icon' => 'home', 'icon-align' => 'right']);
+        $result = $this->Html->link(
+            'My text',
+            '#',
+            ['icon' => 'home', 'icon-align' => 'right']
+        );
         $expected = [
-            'a' => ['href' => '#', 'title' => 'my-text'],
-            'my-text',
+            'a' => ['href' => '#', 'title' => 'My text'],
+            'My text',
             ' ',
             'i' => ['class' => 'fa fa-home'],
             ' ',
@@ -861,19 +883,19 @@ class BaseHtmlHelperTest extends TestCase
         $this->assertHtml($expected, $result);
         
         //Single quote on custom title
-        $result = $this->Html->link('my-text', '#', ['title' => 'single quote \'']);
+        $result = $this->Html->link('My text', '#', ['title' => 'single quote \'']);
         $expected = [
             'a' => ['href' => '#', 'title' => h('single quote \'')],
-            'my-text',
+            'My text',
             '/a',
         ];
         $this->assertHtml($expected, $result);
         
         //Double quote on custom title
-        $result = $this->Html->link('my-text', '#', ['title' => 'double quote "']);
+        $result = $this->Html->link('My text', '#', ['title' => 'double quote "']);
         $expected = [
             'a' => ['href' => '#', 'title' => h('double quote "')],
-            'my-text',
+            'My text',
             '/a',
         ];
         $this->assertHtml($expected, $result);
@@ -891,10 +913,10 @@ class BaseHtmlHelperTest extends TestCase
         $this->assertHtml($expected, $result);
         
         //Code on custom title
-        $result = $this->Html->link('my-text', '#', ['title' => '<u>Code</u> and text']);
+        $result = $this->Html->link('My text', '#', ['title' => '<u>Code</u> and text']);
         $expected = [
             'a' => ['href' => '#', 'title' => 'Code and text'],
-            'my-text',
+            'My text',
             '/a',
         ];
         $this->assertHtml($expected, $result);
@@ -991,11 +1013,17 @@ class BaseHtmlHelperTest extends TestCase
         $this->assertEquals($expected, $result);
         
         $result = $this->Html->ul(['first', 'second'], ['class' => 'my-class']);
-        $expected = $this->Html->nestedList(['first', 'second'], ['class' => 'my-class', 'tag' => 'ul']);
+        $expected = $this->Html->nestedList(
+            ['first', 'second'],
+            ['class' => 'my-class', 'tag' => 'ul']
+        );
         $this->assertEquals($expected, $result);
         
         $result = $this->Html->ol(['first', 'second'], ['class' => 'my-class']);
-        $expected = $this->Html->nestedList(['first', 'second'], ['class' => 'my-class', 'tag' => 'ol']);
+        $expected = $this->Html->nestedList(
+            ['first', 'second'],
+            ['class' => 'my-class', 'tag' => 'ol']
+        );
         $this->assertEquals($expected, $result);
     }
     
@@ -1094,17 +1122,25 @@ class BaseHtmlHelperTest extends TestCase
      */
     public function testScriptBlock()
     {
+        $code = 'window.foo = 2;';
+        
         //By default, `block` is `true`
-        $result = $this->Html->scriptBlock('window.foo = 2;', ['safe' => false]);
+        $result = $this->Html->scriptBlock($code, ['safe' => false]);
         $this->assertNull($result);
         
-        $result = $this->Html->scriptBlock('window.foo = 2;', ['block' => true, 'safe' => false]);
+        $result = $this->Html->scriptBlock(
+            $code,
+            ['block' => true, 'safe' => false]
+        );
         $this->assertNull($result);
         
-        $result = $this->Html->scriptBlock('window.foo = 2;', ['block' => false, 'safe' => false]);
+        $result = $this->Html->scriptBlock(
+            $code,
+            ['block' => false, 'safe' => false]
+        );
         $expected = [
             '<script',
-            'window.foo = 2;',
+            $code,
             '/script',
         ];
         $this->assertHtml($expected, $result);
@@ -1151,6 +1187,9 @@ class BaseHtmlHelperTest extends TestCase
      */
     public function testTag()
     {
+        $text = 'My text';
+        $class = 'my-class';
+        
         $expected = ['h3' => true, '/h3'];
         
         $result = $this->Html->tag('h3');
@@ -1162,18 +1201,18 @@ class BaseHtmlHelperTest extends TestCase
         $result = $this->Html->tag('h3', '');
         $this->assertHtml($expected, $result);
         
-        $result = $this->Html->tag('h3', 'my h3 text', ['class' => 'myclass']);
+        $result = $this->Html->tag('h3', $text, ['class' => '$class']);
         $expected = [
-            'h3' => ['class' => 'myclass'],
-            'my h3 text',
+            'h3' => ['class' => '$class'],
+            $text,
             '/h3'
         ];
         $this->assertHtml($expected, $result);
         
-        $result = $this->Html->tag('h3', 'my h3 text', ['tooltip' => 'my tooltip']);
+        $result = $this->Html->tag('h3', $text, ['tooltip' => 'my tooltip']);
         $expected = [
             'h3' => ['data-toggle' => 'tooltip', 'title' => 'my tooltip'],
-            'my h3 text',
+            $text,
             '/h3'
         ];
         $this->assertHtml($expected, $result);
@@ -1181,40 +1220,40 @@ class BaseHtmlHelperTest extends TestCase
         // `tooltip` value rewrites `title` value
         $result = $this->Html->tag(
             'h3',
-            'my h3 text',
+            $text,
             ['title' => 'my custom title', 'tooltip' => 'my tooltip']
         );
         $expected = [
             'h3' => ['data-toggle' => 'tooltip', 'title' => 'my tooltip'],
-            'my h3 text',
+            $text,
             '/h3'
         ];
         $this->assertHtml($expected, $result);
         
         $result = $this->Html->tag(
             'h3',
-            'my h3 text',
-            ['class' => 'myclass', 'icon' => 'home']
+            $text,
+            ['class' => '$class', 'icon' => 'home']
         );
         $expected = [
-            'h3' => ['class' => 'myclass'],
+            'h3' => ['class' => '$class'],
             'i' => ['class' => 'fa fa-home'],
             ' ',
             '/i',
             ' ',
-            'my h3 text',
+            $text,
             '/h3'
         ];
         $this->assertHtml($expected, $result);
         
         $result = $this->Html->tag(
             'h3',
-            'my h3 text',
-            ['class' => 'myclass', 'icon' => 'home', 'icon-align' => 'right']
+            $text,
+            ['class' => '$class', 'icon' => 'home', 'icon-align' => 'right']
         );
         $expected = [
-            'h3' => ['class' => 'myclass'],
-            'my h3 text',
+            'h3' => ['class' => '$class'],
+            $text,
             ' ',
             'i' => ['class' => 'fa fa-home'],
             ' ',

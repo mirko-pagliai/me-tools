@@ -95,35 +95,45 @@ class HtmlFunctionsTest extends TestCase
         ];
         $this->assertEquals($expected, $result);
         
-        $result = optionDefaults(['class' => 'first-class second-class'], $options);
+        $result = optionDefaults([
+            'class' => 'first-class second-class',
+        ], $options);
         $expected = [
             'value1' => 'val-1',
             'class' => 'first-class second-class',
         ];
         $this->assertEquals($expected, $result);
         
-        $result = optionDefaults(['class' => ['first-class', 'second-class']], $options);
+        $result = optionDefaults([
+            'class' => ['first-class', 'second-class'],
+        ], $options);
         $expected = [
             'value1' => 'val-1',
             'class' => 'first-class second-class',
         ];
         $this->assertEquals($expected, $result);
         
-        $result = optionDefaults(['class' => ['first-class', 'second-class', 'first-class']], $options);
+        $result = optionDefaults([
+            'class' => ['first-class', 'second-class', 'first-class'],
+        ], $options);
         $expected = [
             'value1' => 'val-1',
             'class' => 'first-class second-class',
         ];
         $this->assertEquals($expected, $result);
         
-        $result = optionDefaults(['class' => ['first-class', ['second-class']]], $options);
+        $result = optionDefaults([
+            'class' => ['first-class', ['second-class']],
+        ], $options);
         $expected = [
             'value1' => 'val-1',
             'class' => 'first-class second-class',
         ];
         $this->assertEquals($expected, $result);
         
-        $result = optionDefaults(['class' => ['first-class', ['second-class', ['third-class']]]], $options);
+        $result = optionDefaults([
+            'class' => ['first-class', ['second-class', ['third-class']]],
+        ], $options);
         $expected = [
             'value1' => 'val-1',
             'class' => 'first-class second-class third-class',
@@ -144,7 +154,11 @@ class HtmlFunctionsTest extends TestCase
         $this->assertEquals($expected, $result);
         
         //Backward compatibility with three arguments
-        $result = optionDefaults('class', 'first-class second-class', $options);
+        $result = optionDefaults(
+            'class',
+            'first-class second-class',
+            $options
+        );
         $expected = [
             'value1' => 'val-1',
             'class' => 'first-class second-class',
@@ -193,7 +207,9 @@ class HtmlFunctionsTest extends TestCase
         $expected = ['value1' => 'alfa beta delta gamma'];
         $this->assertEquals($expected, $result);
         
-        $result = optionValues(['value1' => ['delta', ['gamma', ['ypsilon']]]], $options);
+        $result = optionValues([
+            'value1' => ['delta', ['gamma', ['ypsilon']]],
+        ], $options);
         $expected = ['value1' => 'alfa beta delta gamma ypsilon'];
         $this->assertEquals($expected, $result);
         
@@ -211,7 +227,9 @@ class HtmlFunctionsTest extends TestCase
             'class' => 'my-class',
             'value1' => ['delta', 'gamma']
         ], $options);
-        $expected = ['class' => 'my-class', 'value1' => 'alfa beta delta gamma'];
+        $expected = [
+            'class' => 'my-class', 'value1' => 'alfa beta delta gamma',
+        ];
         $this->assertEquals($expected, $result);
 
         //Backward compatibility with three arguments

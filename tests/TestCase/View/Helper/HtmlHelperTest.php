@@ -51,18 +51,20 @@ class HtmlHelperTest extends TestCase
      */
     public function testBadge()
     {
-        $result = $this->Html->badge('my text');
+        $text = 'My text';
+        
+        $result = $this->Html->badge($text);
         $expected = [
             'span' => ['class' => 'badge'],
-            'my text',
+            $text,
             '/span',
         ];
         $this->assertHtml($expected, $result);
         
-        $result = $this->Html->badge('my text', ['class' => 'my-class']);
+        $result = $this->Html->badge($text, ['class' => 'my-class']);
         $expected = [
             'span' => ['class' => 'my-class badge'],
-            'my text',
+            $text,
             '/span',
         ];
         $this->assertHtml($expected, $result);
@@ -75,7 +77,8 @@ class HtmlHelperTest extends TestCase
      */
     public function testHeading()
     {
-        $text = 'my header';
+        $text = 'My header';
+        $smallText = 'My small text';
         
         $expected = ['h2' => true, $text, '/h2'];
         
@@ -83,41 +86,41 @@ class HtmlHelperTest extends TestCase
         $this->assertHtml($expected, $result);
         
         //It still creates a h2 tag
-        $result = $this->Html->heading('my header', ['type' => 'strong']);
+        $result = $this->Html->heading($text, ['type' => 'strong']);
         $this->assertHtml($expected, $result);
         
-        $result = $this->Html->heading('my header', ['type' => 'h4']);
+        $result = $this->Html->heading($text, ['type' => 'h4']);
         $expected = ['h4' => true, $text, '/h4'];
         $this->assertHtml($expected, $result);
         
-        $result = $this->Html->heading('my header', [], 'my small text');
+        $result = $this->Html->heading($text, [], $smallText);
         $expected = [
             'h2' => true,
             $text,
             ' ',
             'small' => true,
-            'my small text',
+            $smallText,
             '/small',
             '/h2',
         ];
         $this->assertHtml($expected, $result);
         
-        $result = $this->Html->heading('my header', ['type' => 'h4'], 'my small text');
+        $result = $this->Html->heading($text, ['type' => 'h4'], $smallText);
         $expected = [
             'h4' => true,
             $text,
             ' ',
             'small' => true,
-            'my small text',
+            $smallText,
             '/small',
             '/h4',
         ];
         $this->assertHtml($expected, $result);
         
         $result = $this->Html->heading(
-            'my header',
+            $text,
             ['class' => 'header-class'],
-            'my small text',
+            $smallText,
             ['class' => 'small-class']
         );
         $expected = [
@@ -125,7 +128,7 @@ class HtmlHelperTest extends TestCase
             $text,
             ' ',
             'small' => ['class' => 'small-class'],
-            'my small text',
+            $smallText,
             '/small',
             '/h2',
         ];
@@ -187,37 +190,39 @@ class HtmlHelperTest extends TestCase
      */
     public function testLabel()
     {
-        $result = $this->Html->label('my text');
+        $text = 'My text';
+        
+        $result = $this->Html->label($text);
         $expected = [
             'span' => ['class' => 'label label-default'],
-            'my text',
+            $text,
             '/span',
         ];
         $this->assertHtml($expected, $result);
         
-        $result = $this->Html->label('my text', ['class' => 'my-class']);
+        $result = $this->Html->label($text, ['class' => 'my-class']);
         $expected = [
             'span' => ['class' => 'my-class label label-default'],
-            'my text',
+            $text,
             '/span',
         ];
         $this->assertHtml($expected, $result);
         
-        $result = $this->Html->label('my text', ['type' => 'success']);
+        $result = $this->Html->label($text, ['type' => 'success']);
         $expected = [
             'span' => ['class' => 'label label-success'],
-            'my text',
+            $text,
             '/span',
         ];
         $this->assertHtml($expected, $result);
         
         $result = $this->Html->label(
-            'my text',
+            $text,
             ['class' => 'my-class', 'type' => 'success']
         );
         $expected = [
             'span' => ['class' => 'my-class label label-success'],
-            'my text',
+            $text,
             '/span',
         ];
         $this->assertHtml($expected, $result);
