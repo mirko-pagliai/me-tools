@@ -17,7 +17,7 @@
 * fixed bug for `optionDefaults()` and `optionsValues()`;
 * fixed many small bugs for `BaseHtmlHelper` and `HtmlHelper`;
 * fixed small bugs for global functions;
-* added tests for global functions, detectors and `BaseHtmlHelper`.
+* added tests for global functions, detectors, `BaseHtmlHelper` and `HtmlHelper`.
 
 ### 2.8.0
 * `MeTools\Network\Request` has been removed. All old methods are now 

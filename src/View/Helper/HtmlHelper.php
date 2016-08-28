@@ -52,24 +52,25 @@ class HtmlHelper extends BaseHtmlHelper
 
         return self::tag('span', $text, $options);
     }
-
+    
     /**
-     * Creates an heading.
+     * Creates an heading, according to Bootstrap.
      *
      * This method is useful if you want to create an heading with a secondary
-     *  text, according to Bootstrap.
-     * In this case you have to use the `small` option.
+     *  text. In this case you have to use the `small` option.
      *
      * By default, this method creates an `<h2>` tag. To create a different
      *  tag, you have to use the `type` option.
-     * @param string $text Heading content
+     * @param string $text Heading text
      * @param array $options Array of options and HTML attributes
+     * @param string $small Small text
+     * @param array $smallOptions Array of options and HTML attributes
      * @return string
      * @see http://getbootstrap.com/css/#type-headings Bootstrap documentation
      * @uses small()
      * @uses tag()
      */
-    public function heading($text, array $options = [])
+    public function heading($text, array $options = [], $small = null, array $smallOptions = [])
     {
         if (empty($options['type']) || !preg_match('/^h[1-6]$/', $options['type'])) {
             $type = 'h2';
@@ -77,11 +78,11 @@ class HtmlHelper extends BaseHtmlHelper
             $type = $options['type'];
         }
 
-        if (!empty($options['small']) && is_string($options['small'])) {
-            $text = sprintf('%s %s', $text, self::small($options['small']));
+        if (!empty($small)) {
+            $text = sprintf('%s %s', $text, self::small($small, $smallOptions));
         }
 
-        unset($options['type'], $options['small']);
+        unset($options['type']);
 
         return self::tag($type, $text, $options);
     }
@@ -100,37 +101,49 @@ class HtmlHelper extends BaseHtmlHelper
      */
     public function iframe($url, array $options = [])
     {
-        if ($options['ratio'] === '16by9' || $options['ratio'] === '4by3') {
-            $options = optionValues(['class' => 'embed-responsive-item'], $options);
-                        
-            return self::div(
-                sprintf('embed-responsive embed-responsive-%s', $options['ratio']),
-                self::tag('iframe', $url, $options)
-            );
+        if (!empty($options['ratio'])) {
+            $ratio = $options['ratio'];
+            unset($options['ratio']);
+            
+            $divClass = sprintf('embed-responsive embed-responsive-%s', $ratio);
+            
+            if (in_array($ratio, ['16by9', '4by3'])) {
+                $options = optionValues([
+                    'class' => 'embed-responsive-item'
+                ], $options);
+
+                return self::div($divClass, parent::iframe($url, $options));
+            }
         }
 
-        return self::tag('iframe', $url, $options);
+        return parent::iframe($url, $options);
     }
 
     /**
      * Create a label, according to the Bootstrap component.
      *
      * This method creates only a label element. Not to be confused with the
-     *  `label()` method provided by the `Formhelper`, which creates a label
+     *  `label()` method provided by `Formhelper`, which creates a label
      *  for a form input.
      *
-     * Supported type are: `default`, `primary`, `success`, `info`, `warning`
-     *  and `danger`.
+     * You can set the type of label using the `type` option.
+     * The values supported by Bootstrap are: `default`, `primary`, `success`,
+     *  `info`, `warning` and `danger`.
      * @param string $text Label text
      * @param array $options HTML attributes of the list tag
-     * @param string $type Label type
      * @return string
      * @see http://getbootstrap.com/components/#labels Bootstrap documentation
      * @uses tag()
      */
-    public function label($text, array $options = [], $type = 'default')
+    public function label($text, array $options = [])
     {
-        $options = optionValues('class', ['label', sprintf('label-%s', $type)], $options);
+        $options = optionDefaults(['type' => 'default'], $options);
+        
+        $options = optionValues([
+            'class' => sprintf('label label-%s', $options['type']),
+        ], $options);
+        
+        unset($options['type']);
 
         return self::tag('span', $text, $options);
     }
@@ -147,7 +160,7 @@ class HtmlHelper extends BaseHtmlHelper
      */
     public function shareaholic($appId)
     {
-        return self::div('shareaholic-canvas', ' ', [
+        return self::div('shareaholic-canvas', null, [
             'data-app' => 'share_buttons',
             'data-app-id' => $appId,
         ]);
@@ -164,16 +177,18 @@ class HtmlHelper extends BaseHtmlHelper
      */
     public function viewport(array $options = [])
     {
-        $default = [
+        $content = http_build_query([
             'initial-scale' => '1',
             'maximum-scale' => '1',
             'user-scalable' => 'no',
             'width' => 'device-width',
-        ];
+        ], null, ', ');
 
-        $content = http_build_query(am($default, $options), null, ', ');
-
-        return self::meta(am(['name' => 'viewport'], compact('content')));
+        return self::meta(
+            am(['name' => 'viewport'], compact('content')),
+            null,
+            $options
+        );
     }
 
     /**
