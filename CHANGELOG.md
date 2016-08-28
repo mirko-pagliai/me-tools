@@ -18,7 +18,8 @@
 * fixed many bugs for `BBCodeHelper`;
 * fixed many small bugs for `BaseHtmlHelper` and `HtmlHelper`;
 * fixed small bugs for global functions;
-* added tests for global functions, detectors, `BaseHtmlHelper` and `HtmlHelper`.
+* added tests for global functions, detectors, `BaseHtmlHelper`, `HtmlHelper`
+    and `BBCodeHelper`.
 
 ### 2.8.0
 * `MeTools\Network\Request` has been removed. All old methods are now 
