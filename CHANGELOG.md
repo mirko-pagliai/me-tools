@@ -1,23 +1,25 @@
 # 2.x branch
 ## 2.9 branch
 ### 2.9.0
-* added `HtmlHelper::cssBlock()` method. Methods `HtmlHelper::cssStart()` and 
-    `HtmlHelper::cssEnd()` have been completely rewritten and they no longer
-    need you add the `<style>` tag;
+* added `HtmlHelper::cssBlock()` method;
+* `HtmlHelper::cssStart()` and `HtmlHelper::cssEnd()` methods have been
+    completely rewritten and they no longer need you add the `<style>` tag;
 * added `implodeRecursive()` global function;
-* improved `FlashComponent`. It renders all `alert()`, `error()`, `notice()`
-    and `success()` class using the `src/Template/Element/Flash/flash.ctp`
-    template;
+* `FlashComponent` renders all `alert()`, `error()`, `notice()` and `success()`
+    class using the `src/Template/Element/Flash/flash.ctp` template;
 * global functions splitted into `config/functions/global.php` and
     `config/functions/html.php`;
-* added support for tooltips for some methods and added
-    `HtmlHelper::addTooltip()` method;
+* added `HtmlHelper::addTooltip()` method;
+* added support for tooltips for some methods;
 * fixed several bug for `clearDir()`;
 * fixed bug for `optionDefaults()` and `optionsValues()`;
 * fixed many bugs for `BBCodeHelper`;
 * fixed many small bugs for `HtmlHelper`;
 * fixed small bugs for global functions;
-* added tests for global functions, detectors, `HtmlHelper` and `BBCodeHelper`.
+* added tests for global functions;
+* added tests for request detectors;
+* added tests for `BBCodeHelper`;
+* added tests for `HtmlHelper`.
 
 ## 2.8 branch
 ### 2.8.0
