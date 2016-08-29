@@ -24,7 +24,8 @@
 * added tests for `BBCodeHelper` class;
 * added tests for `BreadcrumbHelper` class;
 * added tests for `HtmlHelper` class;
-* added tests for `Plugin` class.
+* added tests for `Plugin` class;
+* added tests for `Youtube` class.
 
 ## 2.8 branch
 ### 2.8.0
