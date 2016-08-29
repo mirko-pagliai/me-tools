@@ -30,7 +30,7 @@ class Youtube
     /**
      * Parses a YouTube url and returns the YouTube ID
      * @param string $url Video url
-     * @return mixed Youtube ID or false
+     * @return mixed Youtube ID or `false`
      */
     public static function getId($url)
     {
@@ -53,18 +53,23 @@ class Youtube
 
     /**
      * Gets the preview for a video
-     * @param string $id YouTube ID
-     * @return string Url
+     * @param string $id YouTube ID or url
+     * @return string
+     * @uses getId()
      */
     public static function getPreview($id)
     {
+        if (isUrl($id)) {
+            $id = self::getId($id);
+        }
+        
         return sprintf('http://img.youtube.com/vi/%s/0.jpg', $id);
     }
 
     /**
      * Gets the url for a video
      * @param string $id YouTube ID
-     * @return string Url
+     * @return string
      */
     public static function getUrl($id)
     {
