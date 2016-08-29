@@ -21,6 +21,11 @@
             "MeTools\\": "src"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "MeTools\\Test\\": "tests"
+        }
+    },
     "require-dev": {
         "cakephp/cakephp-codesniffer": "2.*"
     }
