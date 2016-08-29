@@ -15,38 +15,56 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with MeTools.  If not, see <http://www.gnu.org/licenses/>.
  *
- * @author		Mirko Pagliai <mirko.pagliai@gmail.com>
- * @copyright	Copyright (c) 2015, Mirko Pagliai for Nova Atlantis Ltd
- * @license		http://www.gnu.org/licenses/agpl.txt AGPL License
- * @link		http://git.novatlantis.it Nova Atlantis Ltd
- * @see			http://api.cakephp.org/3.0/class-Cake.Controller.Component.FlashComponent.html FlashComponent
+ * @author      Mirko Pagliai <mirko.pagliai@gmail.com>
+ * @copyright   Copyright (c) 2016, Mirko Pagliai for Nova Atlantis Ltd
+ * @license     http://www.gnu.org/licenses/agpl.txt AGPL License
+ * @link        http://git.novatlantis.it Nova Atlantis Ltd
+ * @see         http://api.cakephp.org/3.3/class-Cake.Controller.Component.FlashComponent.html FlashComponent
  */
 namespace MeTools\Controller\Component;
 
 use Cake\Controller\Component\FlashComponent as CakeFlashComponent;
-use Cake\Controller\ComponentRegistry;
-use MeTools\Core\Plugin;
 
 /**
- * Provides a way to persist client data between page requests. It acts as a wrapper for the 
- * `$_SESSION` as well as providing convenience methods for several `$_SESSION` related functions.
- * 
- * Rewrites {@link http://api.cakephp.org/3.0/class-Cake.Controller.Component.FlashComponent.html FlashComponent}.
+ * Provides a way to set one-time notification messages to be displayed after
+ * processing a form or acknowledging data.
+ *
+ * This class allows the `alert()`, `error()`, `notice()` and `success()`
+ * methods are automatically handled by the plugin and rendered dynamically
+ * using the `src/Template/Element/Flash/flash.ctp` template.
+ *
+ * Rewrites {@link http://api.cakephp.org/3.3/class-Cake.Controller.Component.FlashComponent.html FlashComponent}.
  */
-class FlashComponent extends CakeFlashComponent {
-	/**
-	 * Magic method for verbose flash methods based on element names.
-	 * @param string $name Element name to use
-	 * @param array $args Parameters to pass
-	 * @return void
-	 * @uses MeTools\Core\Plugin::path()
-	 */
-	public function __call($name, $args) {
-		$name = strtolower($name);
-		
-		if(empty($args[1]['plugin']) && is_readable(Plugin::path('MeTools', 'src'.DS.'Template'.DS.'Element'.DS.'Flash'.DS.$name.'.ctp')))
-			$args[1]['plugin'] = 'MeTools';
-		
-		return parent::__call($name, $args);
-	}
+class FlashComponent extends CakeFlashComponent
+{
+    /**
+     * Magic method for verbose flash methods based on element names.
+     * @param string $name Element name to use
+     * @param array $args Parameters to pass
+     * @return void
+     */
+    public function __call($name, $args)
+    {
+        if (!isset($args[1]['plugin']) &&
+            in_array($name, ['alert', 'error', 'notice', 'success'])
+        ) {
+            if (!isset($args[1]['params']['class'])) {
+                if ($name === 'alert') {
+                    $args[1]['params']['class'] = 'alert-warning';
+                } elseif ($name === 'error') {
+                    $args[1]['params']['class'] = 'alert-danger';
+                } elseif ($name === 'notice') {
+                    $args[1]['params']['class'] = 'alert-info';
+                } else {
+                    $args[1]['params']['class'] = sprintf('alert-%s', $name);
+                }
+            }
+            
+            $name = 'flash';
+
+            $args[1]['plugin'] = 'MeTools';
+        }
+
+        parent::__call($name, $args);
+    }
 }

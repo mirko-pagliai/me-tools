@@ -1,29 +1,39 @@
 /*!
  * This file is part of MeTools.
- * @author		Mirko Pagliai <mirko.pagliai@gmail.com>
- * @copyright	Copyright (c) 2015, Mirko Pagliai for Nova Atlantis Ltd
- * @license		http://www.gnu.org/licenses/agpl.txt AGPL License
+ * @author      Mirko Pagliai <mirko.pagliai@gmail.com>
+ * @copyright   Copyright (c) 2016, Mirko Pagliai for Nova Atlantis Ltd
+ * @license     http://www.gnu.org/licenses/agpl.txt AGPL License
  */
 
 /* -------------------------------- */
-/*				General				*/
+/*              General             */
 /* -------------------------------- */
 /* Elements with tooltips */
 [data-toggle~="tooltip"] {
-	cursor: pointer;
+    cursor: pointer;
+}
+
+/* Fancybox's links */
+a.fancybox {
+    cursor: zoom-in;
 }
 
 /* Em (italic) text */
 .em, .em-text, .emText {
-	font-style: italic;
+    font-style: italic;
+}
+
+/* Relative position */
+.relative {
+    position: relative;
 }
 
 /* No wrap, text truncated with ellipses */
 .no-wrap, .noWrap,
-.text-truncate, .textTruncate, 
+.text-truncate, .textTruncate,
 .text-truncated, .textTruncated,
 .text-ellipsis, .textEllipsis {
-	overflow: hidden;
+    overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
 }
@@ -31,149 +41,196 @@
 /* Small element and small class.
 This rewrites Bootstrap, which normally provides a size of 85% */
 small, .small, .small-text, .smallText, .text-small, .textSmall {
-	font-size: 90%;
+    font-size: 90%;
 }
 
 /* Strong text */
 .strong, .strong-text, .strongText {
-	font-weight: bold;
+    font-weight: bold;
 }
 
 /* -------------------------------- */
-/*				Display				*/
+/*              Display             */
 /* -------------------------------- */
 /* Display as block */
 .block, .display-block, .displayBlock {
-	display: block;
+    display: block;
 }
 
 /* Display none */
 .display-none, .displayNone, .no-display, .noDisplay {
-	display: none;
+    display: none;
 }
 
 /* Display as inline */
 .inline, .display-inline, .displayInline {
-	display: inline;
+    display: inline;
 }
 
 /* Display as inline-block */
 .inline-block, .display-inline-block, .displayInlineBlock {
-	display: inline-block;
+    display: inline-block;
 }
 
 /* -------------------------------- */
-/*				Margins				*/
+/*              Margins             */
 /* -------------------------------- */
-/* No margin class */
-.margin0, .margin-0,
-.no-margin, .noMargin {
-	margin: 0 !important;
-}
-
-/* No margin top class */
-.margintop0, .margin-top-0, 
-.no-margin-top, .noMarginTop {
-	margin-top: 0;
+/* No margins */
+.margin-0, .no-margin {
+    margin: 0 !important;
 }
 
 /* Margin bottom 5px */
 .margin5px, .margin5, .margin-5px, .margin-5 {
-	margin-bottom: 5px;
+    margin-bottom: 5px;
 }
 
 /* Margin bottom 10px */
 .margin10px, .margin10, .margin-10px, .margin-10 {
-	margin-bottom: 10px;
+    margin-bottom: 10px;
 }
 
 /* Margin bottom 15px */
 .margin15px, .margin15, .margin-15px, .margin-15 {
-	margin-bottom: 15px;
+    margin-bottom: 15px;
 }
 
 /* Margin bottom 20px */
 .margin20px, .margin20, .margin-20px, .margin-20 {
-	margin-bottom: 20px;
+    margin-bottom: 20px;
 }
 
 /* Margin bottom 30px */
 .margin30px, .margin30, .margin-30px, .margin-30 {
-	margin-bottom: 30px;
+    margin-bottom: 30px;
 }
 
 /* Margin bottom 40px */
 .margin40px, .margin40, .margin-40px, .margin-40 {
-	margin-bottom: 40px;
+    margin-bottom: 40px;
+}
+
+/* No margin top */
+.margin-top-0, .no-margin-top {
+    margin-top: 0;
+}
+
+/* Margin top 5px */
+.margin-top-5, .margin-top-5px {
+    margin-top: 5px;
+}
+
+/* Margin top 10px */
+.margin-top-10, .margin-top-10px {
+    margin-top: 10px;
+}
+
+/* Margin top 15px */
+.margin-top-15, .margin-top-15px {
+    margin-top: 15px;
+}
+
+/* Margin top 20px */
+.margin-top-20, .margin-top-20px {
+    margin-top: 20px;
+}
+
+/* Margin top 30px */
+.margin-top-30, .margin-top-30px {
+    margin-top: 30px;
+}
+
+/* Margin top 40px */
+.margin-top-40, .margin-top-40px {
+    margin-top: 40px;
 }
 
 /* -------------------------------- */
-/*				Paddings			*/
+/*              Overflow            */
+/* -------------------------------- */
+.overflow, .overflow-hidden {
+    overflow: hidden;
+}
+
+/* -------------------------------- */
+/*              Paddings            */
 /* -------------------------------- */
 /* No padding class */
 .padding0, .padding-0,
 .no-padding, .noPadding {
-	padding: 0 !important;
+    padding: 0 !important;
 }
 
 /* Padding 5px */
 .padding5px, .padding5, .padding-5px, .padding-5 {
-	padding: 5px;
+    padding: 5px;
 }
 
 /* Padding 10px */
 .padding10px, .padding10, .padding-10px, .padding-10 {
-	padding: 10px;
+    padding: 10px;
 }
 
 /* Padding 15px */
 .padding15px, .padding15, .padding-15px, .padding-15 {
-	padding: 15px;
+    padding: 15px;
 }
 
 /* Padding 20px */
 .padding20px, .padding20, .padding-20px, .padding-20 {
-	padding: 20px;
+    padding: 20px;
 }
 
 /* -------------------------------- */
-/*				HTML				*/
+/*              HTML                */
 /* -------------------------------- */
 /* Iframe*/
 iframe {
-	border: 0;
-	display: block;
-	max-width: 100%;
+    border: 0;
+    display: block;
+    max-width: 100%;
 }
 
 /* -------------------------------- */
-/*				Tables				*/
+/*              Tables              */
 /* -------------------------------- */
-/* Actions */
+/* Tables, last paragraph */
+.table p:last-child {
+    margin-bottom: 0;
+}
+
+/* Tables, actions */
 .table td.actions {
-	width: 1px;
-	white-space: nowrap;
+    width: 1px;
+    white-space: nowrap;
 }
 
-/* Actions, buttons */
+/* Tables, actions, buttons */
 .table td.actions .btn {
-	min-width: 14px;
+    min-width: 14px;
     padding: 4px 8px;
 }
 
-/* Cells with the minimum width */
+/* Tables, cells with the minimum width */
 .table th.min-width, .table th.minWidth, .table td.min-width, .table td.minWidth {
-	white-space: nowrap;
+    white-space: nowrap;
     width: 1px;
 }
 
 /* -------------------------------- */
-/*		Ascending/descending sort	*/
+/*      Element as table            */
+/* -------------------------------- */
+.as-table > *:nth-of-type(2n+0) {
+  background-color: #f5f5f5;
+}
+
+/* -------------------------------- */
+/*      Ascending/descending sort   */
 /* -------------------------------- */
 th a.asc:after, th a.desc:after {
-	font-family: FontAwesome;
+    font-family: FontAwesome;
     font-weight: normal;
-	white-space: nowrap;
+    white-space: nowrap;
 }
 
 /* Ascending sort */
@@ -187,33 +244,33 @@ th a.desc:after {
 }
 
 /* -------------------------------- */
-/*				Alerts				*/
+/*              Alerts              */
 /* -------------------------------- */
 /* Alert */
 .alert {
     border-width: 0 0 3px;
-	padding: 10px 15px;
+    padding: 10px 15px;
 }
 
 /* -------------------------------- */
-/*		Contextual backgrounds		*/
+/*      Contextual backgrounds      */
 /* -------------------------------- */
 /* Code blocks on contextual backgrounds */
 .bg-danger code, .bg-info code, .bg-primary code, .bg-success code, .bg-warning code {
-	background: inherit;
+    background: inherit;
     color: inherit;
     line-height: 100%;
 }
 
 /* -------------------------------- */
-/*			Bootstrap rewrite		*/
+/*          Bootstrap rewrite       */
 /* -------------------------------- */
 /* Buttons on buttons group. Fixed a Bootstrap bug */
 .btn-group .btn {
     margin-left: -1px;
 }
 
-/* Disabled links on pagination */ 
+/* Disabled links on pagination */
 .pagination > .disabled > a, .pagination > .disabled > a:focus, .pagination > .disabled > a:hover, .pagination > .disabled > span, .pagination > .disabled > span:focus, .pagination > .disabled > span:hover {
     cursor: default;
 }
@@ -225,5 +282,5 @@ th a.desc:after {
 
 /* Wells, last child */
 .well :last-child {
-	margin-bottom: 0;
+    margin-bottom: 0;
 }

@@ -15,80 +15,47 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with MeTools.  If not, see <http://www.gnu.org/licenses/>.
  *
- * @author		Mirko Pagliai <mirko.pagliai@gmail.com>
- * @copyright	Copyright (c) 2015, Mirko Pagliai for Nova Atlantis Ltd
- * @license		http://www.gnu.org/licenses/agpl.txt AGPL License
- * @link		http://git.novatlantis.it Nova Atlantis Ltd
+ * @author      Mirko Pagliai <mirko.pagliai@gmail.com>
+ * @copyright   Copyright (c) 2016, Mirko Pagliai for Nova Atlantis Ltd
+ * @license     http://www.gnu.org/licenses/agpl.txt AGPL License
+ * @link        http://git.novatlantis.it Nova Atlantis Ltd
  */
 namespace MeTools\Utility;
 
 /**
- * An utility to handle Apache.
- * 
- * You can use this utility by adding:
- * <code>
- * use MeTools\Utility\Apache;
- * </code>
+ * An utility to handle Apache
  */
-class Apache {	
-	/**
+class Apache
+{
+    /**
      * Checks if a module is enabled.
      * @param string $module Name of the module to be checked
-     * @return mixed TRUE if the module is enabled, FALSE otherwise. NULL if cannot check
-     * @uses modules()
+     * @return mixed true if the module is enabled, false otherwise. null if
+     *  cannot check
      */
-    public static function checkModule($module) {
-		$modules = self::modules();
-		
-		if(is_null($modules) || empty($modules))
-			return NULL;
-		
-        return in_array($module, $modules);
+    public static function module($module)
+    {
+        if (!function_exists('apache_get_modules')) {
+            return false;
+        }
+
+        return in_array($module, apache_get_modules());
     }
-	
+
     /**
-     * Gets modules.
-     * @return mixed Modules list. NULL if cannot check
+     * Gets the version.
+     * @return mixed Version. null if cannot check
      */
-    public static function getModules() {
-		if(!function_exists('apache_get_modules'))
-			return NULL;
-		
-        return apache_get_modules();
-    }
-	
-	/**
-	 * Gets the version.
-	 * @return mixed Version. NULL if cannot check
-	 */
-	public static function getVersion() {
-		if(!function_exists('apache_get_version'))
-			return NULL;
-		
-		return apache_get_version();
-	}
-	
-    /**
-     * Alias for `checkModule()` method.
-     * @see checkModule()
-     */
-    public static function module() {
-        return call_user_func_array([get_class(), 'checkModule'], func_get_args());
-    }
-	
-    /**
-     * Alias for `getModules()` method.
-     * @see getModules()
-     */
-    public static function modules() {
-        return call_user_func_array([get_class(), 'getModules'], func_get_args());
-    }
-	
-    /**
-     * Alias for `getVersion()` method.
-     * @see getVersion()
-     */
-    public static function version() {
-        return call_user_func_array([get_class(), 'getVersion'], func_get_args());
+    public static function version()
+    {
+        if (!function_exists('apache_get_version')) {
+            return false;
+        }
+
+        $version = apache_get_version();
+
+        preg_match('/Apache\/([0-9]+\.[0-9]+\.[0-9]+)/i', $version, $matches);
+
+        return empty($matches[1]) ? $version : $matches[1];
     }
 }

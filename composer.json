@@ -1,17 +1,32 @@
 {
-    "name": "mirko-pagliai/me_tools",
+    "name": "mirko-pagliai/me-tools",
     "description": "MeTools plugin for CakePHP",
-    "homepage": "https://github.com/mirko-pagliai/me_tools",
+    "homepage": "https://github.com/mirko-pagliai/me-tools",
     "type": "cakephp-plugin",
     "license": "AGPL",
-	"authors": [{
-            "name": "Mirko Pagliai",
-            "email": "mirko.pagliai@gmail.com"
+    "authors": [{
+        "name": "Mirko Pagliai",
+        "email": "mirko.pagliai@gmail.com"
     }],
-	"version": "2.0.0-beta",
+    "require": {
+        "php": ">=5.5.9",
+        "cakephp/cakephp": "3.3.*",
+        "ext-mcrypt": "*",
+        "michelf/php-markdown": "1.*",
+        "components/jquery": "^3.1",
+        "fortawesome/font-awesome": "4.*"
+    },
     "autoload": {
-		"psr-4": {
-			"MeTools\\": "src"
-		}
-	}
+        "psr-4": {
+            "MeTools\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "MeTools\\Test\\": "tests"
+        }
+    },
+    "require-dev": {
+        "cakephp/cakephp-codesniffer": "2.*"
+    }
 }

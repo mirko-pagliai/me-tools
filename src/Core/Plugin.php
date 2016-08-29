@@ -15,120 +15,104 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with MeTools.  If not, see <http://www.gnu.org/licenses/>.
  *
- * @author		Mirko Pagliai <mirko.pagliai@gmail.com>
- * @copyright	Copyright (c) 2015, Mirko Pagliai for Nova Atlantis Ltd
- * @license		http://www.gnu.org/licenses/agpl.txt AGPL License
- * @link		http://git.novatlantis.it Nova Atlantis Ltd
+ * @author      Mirko Pagliai <mirko.pagliai@gmail.com>
+ * @copyright   Copyright (c) 2016, Mirko Pagliai for Nova Atlantis Ltd
+ * @license     http://www.gnu.org/licenses/agpl.txt AGPL License
+ * @link        http://git.novatlantis.it Nova Atlantis Ltd
+ * @see         http://api.cakephp.org/3.3/class-Cake.Core.Plugin.html Plugin
  */
 namespace MeTools\Core;
 
 use Cake\Core\Plugin as CakePlugin;
-use Cake\Filesystem\Folder;
 
 /**
- * An utility to handle plugins
+ * An utility to handle plugins.
+ *
+ * Rewrites {@link http://api.cakephp.org/3.3/class-Cake.Core.Plugin.html Plugin}.
  */
-class Plugin extends CakePlugin {
+class Plugin extends CakePlugin
+{
     /**
-     * Alias for `getAll()` method
-     * @see getAll()
+     * Gets all loaded plugins.
+     *
+     * Available options are:
+     *  - `core`, if `false` exclude the core plugins;
+     *  - `exclude`, a plugin as string or an array of plugins to be excluded;
+     *  - `order`, if `true` the plugins will be sorted.
+     * @param array $options Options
+     * @return array Plugins
+     * @uses Cake\Core\Plugin::loaded()
      */
-    public static function all() {
-        return call_user_func_array([get_class(), 'getAll'], func_get_args());
+    public static function all(array $options = [])
+    {
+        $plugins = parent::loaded();
+        
+        $options = optionDefaults([
+            'core' => false,
+            'exclude' => [],
+            'order' => true,
+        ], $options);
+
+        if (!$options['core']) {
+            $plugins = array_diff($plugins, ['DebugKit', 'Migrations', 'Bake']);
+        }
+
+        if (!empty($options['exclude'])) {
+            $plugins = array_diff($plugins, (array)$options['exclude']);
+        }
+
+        if ($options['order']) {
+            $key = array_search('MeTools', $plugins);
+
+            if ($key) {
+                unset($plugins[$key]);
+                array_unshift($plugins, 'MeTools');
+            }
+        }
+
+        return $plugins;
     }
-	
-	/**
-	 * Gets all loaded plugins.
-	 * @return array Plugins
-	 * @uses Cake\Core\Plugin::loaded()
-	 */
-	public static function getAll() {
-		return parent::loaded();
-	}
-	
-	/**
-	 * Gets the version number for a plugin.
-	 * @param string $plugin Plugin name
-	 * @return mixed Version number or FALSE
-	 * @uses path()
-	 */
-	public static function getVersion($plugin) {
-		$path = self::path($plugin);
-		
-		if(empty($path))
-			return FALSE;
-		
-		$folder = new Folder($path);
-		$files = $folder->find('version(\.txt)?');
-		
-		return empty($files[0]) ? FALSE : trim(file_get_contents($path.$files[0]));
-	}
-	
-	/**
-	 * Gets the version number for each plugin.
-	 * @param string|array $except Plugins to exclude
-	 * @return mixed array with the version number for each plugin
-	 * @uses all()
-	 * @uses version()
-	 */
-	public static function getVersions($except = NULL) {
-		//Gets plugins
-		$plugins = self::all();
-		
-		//Removes exceptions
-		if(is_string($except) || is_array($except)) {
-			$except = is_array($except) ? $except : [$except];
-			$plugins = array_diff($plugins, $except);
-		}
-		
-		if(empty($plugins))
-			return FALSE;
-		
-		$versions = [];
-		
-		//For each plugin, sets the name and the version number
-		foreach($plugins as $plugin)
-			if(self::version($plugin))
-				$versions[] = ['name' => $plugin, 'version' => self::version($plugin)];
-		
-		return $versions;
-	}
-	
-	/**
-	 * Gets a path for a plugin or for all plugins.
-	 * 
-	 * If `$plugin` is not a string, returns all the plugins path.
-	 * @param string $plugin Plugin name (optional)
-	 * @param string $filename Filename from plugin (optional)
-	 * @return mixed Plugin path or all plugins path
-	 * @uses Cake\Core\Plugin::path()
-	 * @uses all()
-	 */
-	public static function path($plugin = NULL, $filename = NULL) {
-		if(is_string($plugin)) {
-			$path = parent::path($plugin);
-			
-			return is_string($filename) ? $path.$filename : $path;
-		}
-		
-		return array_map(function($v){
-			return self::path($v);
-		}, self::all());
-	}
-	
+
     /**
-     * Alias for `getVersion()` method
-     * @see getVersion()
+     * Gets a path for a plugin.
+     * It can also be used to get the path of plugin files.
+     * @param string $plugin Plugin name
+     * @param string|array $file Files
+     * @param bool $check Checks if the files exist
+     * @return string|array|bool String or `false` if you asked the path of a
+     *  plugin or of a single plugin file. Otherwise, an array if you asked
+     *  the path of several plugin files
      */
-    public static function version() {
-        return call_user_func_array([get_class(), 'getVersion'], func_get_args());
-    }
-	
-    /**
-     * Alias for `getVersions()` method
-     * @see getVersions()
-     */
-    public static function versions() {
-        return call_user_func_array([get_class(), 'getVersions'], func_get_args());
+    public static function path($plugin, $file = null, $check = false)
+    {
+        $plugin = parent::path($plugin);
+
+        if (empty($file)) {
+            return $plugin;
+        }
+
+        if (is_array($file)) {
+            $path = [];
+
+            foreach ($file as $fileName) {
+                $filePath = $plugin . $fileName;
+
+                if ($check && !is_readable($filePath)) {
+                    continue;
+                }
+
+                $path[] = $filePath;
+            }
+
+            return $path;
+        }
+
+        $path = $plugin . $file;
+
+        if ($check && !is_readable($path)) {
+            return false;
+        }
+
+        return $path;
     }
 }

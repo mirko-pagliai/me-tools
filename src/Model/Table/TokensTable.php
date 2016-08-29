@@ -15,10 +15,10 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with MeTools.  If not, see <http://www.gnu.org/licenses/>.
  *
- * @author		Mirko Pagliai <mirko.pagliai@gmail.com>
- * @copyright	Copyright (c) 2015, Mirko Pagliai for Nova Atlantis Ltd
- * @license		http://www.gnu.org/licenses/agpl.txt AGPL License
- * @link		http://git.novatlantis.it Nova Atlantis Ltd
+ * @author      Mirko Pagliai <mirko.pagliai@gmail.com>
+ * @copyright   Copyright (c) 2016, Mirko Pagliai for Nova Atlantis Ltd
+ * @license     http://www.gnu.org/licenses/agpl.txt AGPL License
+ * @link        http://git.novatlantis.it Nova Atlantis Ltd
  */
 namespace MeTools\Model\Table;
 
@@ -32,93 +32,106 @@ use MeTools\Model\Entity\Token;
 /**
  * Tokens model
  */
-class TokensTable extends Table {
-	/**
-	 * Called before each entity is saved.
-	 * Stopping this event will abort the save operation
-	 * @param \Cake\Event\Event $event Event object
-	 * @param \Cake\ORM\Entity $entity Entity object
-	 * @param \ArrayObject $options Options
-	 * @return bool
-	 * @uses deleteExpired()
-	 */
-	public function beforeSave(\Cake\Event\Event $event, \Cake\ORM\Entity $entity, \ArrayObject $options) {
-		$this->deleteExpired($entity);
-		
-		return TRUE;
-	}
+class TokensTable extends Table
+{
+    /**
+     * Called before each entity is saved.
+     * Stopping this event will abort the save operation
+     * @param \Cake\Event\Event $event Event object
+     * @param \Cake\ORM\Entity $entity Entity object
+     * @param \ArrayObject $options Options
+     * @return bool
+     * @uses deleteExpired()
+     */
+    public function beforeSave(\Cake\Event\Event $event, \Cake\ORM\Entity $entity, \ArrayObject $options)
+    {
+        $this->deleteExpired($entity);
 
-	/**
-	 * Deletes all expired tokens, based on the expiry and (optional) the user ID and the token value
-	 * @param MeTools\Model\Entity\Token $entity Token entity or NULL
-	 * @uses Cake\I18n\Time::i18nFormat()
-	 */
-	public function deleteExpired(\Cake\ORM\Entity $entity = NULL) {
-		//Deletes all expired tokens
-		$conditions = ['expiry <=' => (new Time())->i18nFormat(FORMAT_FOR_MYSQL)];
-				
-		if(!empty($entity->token))
-			$or[] = ['token' => $entity->token];
-		
-		if(!empty($entity->user_id))
-			$or[] = ['user_id' => $entity->user_id];
-		
-		if(!empty($or))
-			$conditions = ['OR' => am($conditions, $or)];
-		
-		$this->deleteAll($conditions);
-	}
-	
-	/**
-	 * "Active" find method
-	 * @param Query $query Query object
-	 * @param array $options Options
-	 * @return Query Query object
-	 * @uses Cake\I18n\Time::i18nFormat()
-	 */
-	public function findActive(Query $query, array $options) {
-        $query->where([sprintf('%s.expiry >', $this->alias()) => (new Time())->i18nFormat(FORMAT_FOR_MYSQL)]);
-		
+        return true;
+    }
+
+    /**
+     * Deletes all expired tokens, based on the expiry and (optional) the user ID and the token value
+     * @param MeTools\Model\Entity\Token $entity Token entity or null
+     * @return void
+     * @uses Cake\I18n\Time::i18nFormat()
+     */
+    public function deleteExpired(\Cake\ORM\Entity $entity = null)
+    {
+        //Deletes all expired tokens
+        $conditions = ['expiry <=' => (new Time())];
+
+        if (!empty($entity->token)) {
+            $or[] = ['token' => $entity->token];
+        }
+
+        if (!empty($entity->user_id)) {
+            $or[] = ['user_id' => $entity->user_id];
+        }
+
+        if (!empty($or)) {
+            $conditions = ['OR' => am($conditions, $or)];
+        }
+
+        $this->deleteAll($conditions);
+    }
+
+    /**
+     * "Active" find method
+     * @param Query $query Query object
+     * @param array $options Options
+     * @return Query Query object
+     * @uses Cake\I18n\Time::i18nFormat()
+     */
+    public function findActive(Query $query, array $options)
+    {
+        $query->where([
+            sprintf('%s.expiry >', $this->alias()) => (new Time()),
+        ]);
+
         return $query;
     }
 
-	/**
+    /**
      * Initialize method
      * @param array $config The table configuration
+     * @return void
      */
-    public function initialize(array $config) {
+    public function initialize(array $config)
+    {
         $this->table('tokens');
         $this->displayField('id');
         $this->primaryKey('id');
     }
-	
+
     /**
      * Default validation rules
      * @param \Cake\Validation\Validator $validator Validator instance
      * @return \Cake\Validation\Validator
      */
-    public function validationDefault(Validator $validator) {
-		//ID
-		$validator->add('id', 'valid', ['rule' => 'naturalNumber'])
-			->allowEmpty('id', 'create');
-		
-		//User id
-		$validator->add('user_id', 'valid', ['rule' => 'naturalNumber'])
-			->allowEmpty('user_id');
-		
-		//Type
-		$validator->add('type', 'lengthBetween', ['rule' => ['lengthBetween', 3, 100]])
-			->allowEmpty('type');
-		
-		//Token
-		$validator->requirePresence('token', 'create')
-			->add('token', 'lengthBetween', ['rule' => ['lengthBetween', 25, 25]]);
-		
-		//Data
-		$validator->allowEmpty('data');
-			
-		//Expiry
-		$validator->add('expiry', 'datetime', ['rule' => 'datetime'])
+    public function validationDefault(Validator $validator)
+    {
+        //ID
+        $validator->add('id', 'valid', ['rule' => 'naturalNumber'])
+            ->allowEmpty('id', 'create');
+
+        //User id
+        $validator->add('user_id', 'valid', ['rule' => 'naturalNumber'])
+            ->allowEmpty('user_id');
+
+        //Type
+        $validator->add('type', 'lengthBetween', ['rule' => ['lengthBetween', 3, 100]])
+            ->allowEmpty('type');
+
+        //Token
+        $validator->requirePresence('token', 'create')
+            ->add('token', 'lengthBetween', ['rule' => ['lengthBetween', 25, 25]]);
+
+        //Data
+        $validator->allowEmpty('data');
+
+        //Expiry
+        $validator->add('expiry', 'datetime', ['rule' => 'datetime'])
             ->allowEmpty('expiry');
 
         return $validator;

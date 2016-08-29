@@ -1,108 +1,111 @@
 /*!
  * This file is part of MeTools.
- * @author		Mirko Pagliai <mirko.pagliai@gmail.com>
- * @copyright	Copyright (c) 2015, Mirko Pagliai for Nova Atlantis Ltd
- * @license		http://www.gnu.org/licenses/agpl.txt AGPL License
+ * @author      Mirko Pagliai <mirko.pagliai@gmail.com>
+ * @copyright   Copyright (c) 2016, Mirko Pagliai for Nova Atlantis Ltd
+ * @license     http://www.gnu.org/licenses/agpl.txt AGPL License
  */
 
 /* -------------------------------- */
-/*				Wrappers			*/
+/*              Wrappers            */
 /* -------------------------------- */
 /* Form element */
 form {
-	margin-bottom: 20px;
+    margin-bottom: 20px;
 }
 
 /* Form, input wrapper */
 form .input {
-	position: relative;
+    position: relative;
 }
 
-/* Submit wrapper after fieldset */
-form fieldset + .submit {
-	margin: 0;
+/* Form, fielset (only for Firefox) )*/
+/* See @http://stackoverflow.com/a/17863685/1480263 */
+@-moz-document url-prefix() {
+    fieldset {
+        display: table-cell;
+    }
 }
 
 /* -------------------------------- */
-/*			Required fields			*/
+/*          Required fields         */
 /* -------------------------------- */
 /* Labels for required inputs */
 form label.required:after,
 form div.required > label:after {
-	color: #e32;
-	content: '*';
-	display: inline;
+    color: #e32;
+    content: '*';
+    display: inline;
 }
 
 /* -------------------------------- */
-/*				Textareas			*/
+/*          Textareas               */
 /* -------------------------------- */
 /* Textareas */
 form textarea {
-	min-height: 28px;
-	resize: vertical;
+    min-height: 28px;
+    resize: vertical;
 }
 
 /* -------------------------------- */
-/*			Checkbox inputs			*/
+/*          Checkbox inputs         */
 /* -------------------------------- */
 /* It hides the checkbox, which will be replaced with an icon in the label */
 form input[type='checkbox'] {
-	display: none;
+    display: none !important;
 }
 
 /* Checkbox labels */
 form input[type='checkbox'] + label {
-	cursor: pointer;
-	font-weight: bold;
-	padding: 0;
+    cursor: pointer;
+    font-weight: bold;
+    padding: 0;
 }
 
 /* Checkbox labels, when checkbox is unchecked */
 form input[type='checkbox'] + label:before {
-	color: #999;
-	content: "\f096";
-	font-family: FontAwesome;
-	font-size: 18px;
-	font-weight: normal;
-	margin-right: 5px;
+    color: #999;
+    content: "\f096";
+    font-family: FontAwesome;
+    font-size: 18px;
+    font-weight: normal;
+    margin-right: 5px;
     vertical-align: middle;
 }
 
 /* Checkbox labels, when checkbox is checked */
 form input[type='checkbox']:checked + label:before {
-	color: inherit;
-	content: "\f046";
-	margin-right: 2px;
+    color: inherit;
+    content: "\f046";
+    margin-right: 2px;
 }
 
 /* -------------------------------- */
-/*			Help blocks (tips)		*/
+/*          Help blocks (tips)      */
 /* -------------------------------- */
 /* Help blocks */
 form .input .help-block {
-	font-family: sans-serif, Arial;
+    font-family: sans-serif, Arial;
     font-size: 11px;
-	margin: 3px 0 0;
+    margin: 3px 0 0;
 }
 
 /* Help blocks, first block */
 form .input .help-block:first-of-type {
-	margin-top: 4px;
+    margin-top: 4px;
 }
 
 /* Help blocks, links */
 form .input .help-block a {
-	color: inherit;
+    color: inherit;
     text-decoration: underline;
 }
 
 /* -------------------------------- */
-/*				Errors				*/
+/*              Errors              */
 /* -------------------------------- */
 /* Error messages */
 form .error-message {
-	background: #f2dede;
+    background: #f2dede;
     border-radius: 4px;
     color: #b94a48;
     font-size: 95%;
@@ -118,74 +121,78 @@ form .error-message ul {
 }
 
 /* -------------------------------- */
-/*			Float forms				*/
+/*          Float forms             */
 /* -------------------------------- */
 /* Float form */
 form > .float-form {
-	background: #F7F5FA;
-	border-radius: 5px;
-	margin-bottom: 10px;
-	padding: 12px;
+    background: #F7F5FA;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    padding: 12px;
 }
 
 /* Small devices, medium devices and large devices */
 @media (min-width: 768px) {
-	/* Float form */
-	form > .float-form {
-		float: right;
-		margin: 0 0 20px 20px;
-		max-width: 26%;
-		min-width: 20%;
-	}
+    /* Float form */
+    form > .float-form {
+        float: right;
+        margin-bottom: 20px;
+        width: 22%;
+    }
 
-	/* Float form on left */
-	form > .float-form.float-left {
-		float: left;
-		margin: 0 20px 20px 0;
-	}
+    /* Float form on left */
+    form > .float-form.float-left {
+        float: left;
+        margin: 0 20px 20px 0;
+    }
 
-	/* Float form, last input wrapper */
-	form > .float-form .input:last-child {
-		margin-bottom: 0;
-	}
+    /* Float form, last input wrapper */
+    form > .float-form .input:last-child {
+        margin-bottom: 0;
+    }
 
-	/* Float form, select input */
-	form > .float-form select {
-		width: 100% !important;
-	}
+    /* Float form, select input */
+    form > .float-form select {
+        width: 100% !important;
+    }
+
+    form > .float-form + fieldset {
+        padding-right: 20px;
+        width: 78%;
+    }
 }
 
 /* -------------------------------- */
-/*			Inline forms			*/
+/*          Inline forms            */
 /* -------------------------------- */
 /* Labels */
 form.form-inline label {
-	line-height: 34px;
-	margin: 0 10px 0 0;
+    line-height: 34px;
+    margin: 0 10px 0 0;
 }
 
 /* Wrappers */
 form.form-inline .input, form.form-inline button {
-	margin-right: 4px;
-	vertical-align: top;
+    margin-right: 4px;
+    vertical-align: top;
 }
 
 /* Wrappers, last wrapper */
 form.form-inline .input:last-child, form.form-inline button:last-child {
-	margin-right: 0;
+    margin-right: 0;
 }
 
 /* -------------------------------- */
-/*				reCAPTCHA			*/
+/*          reCAPTCHA               */
 /* -------------------------------- */
 .g-recaptcha {
-	margin-bottom: 15px;
+    margin-bottom: 15px;
 }
 
 /* -------------------------------- */
-/*				CKEditor			*/
+/*          CKEditor                */
 /* -------------------------------- */
 /* Content div */
 .cke_wysiwyg_div {
-	padding: 10px 12px !important;
+    padding: 10px 12px !important;
 }

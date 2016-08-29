@@ -1,4 +1,6 @@
 .directory
 *_old
 *.old.*
-tests/
+composer.lock
+vendor/*
+!vendor/Recaptcha
