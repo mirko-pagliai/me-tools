@@ -16,6 +16,7 @@
 * fixed bug for `optionDefaults()` and `optionsValues()`;
 * fixed many bugs for `BBCodeHelper`;
 * fixed many small bugs for `HtmlHelper`;
+* fixed bug for `BreadcrumbHelper::get()` method. Added `onlyStartText` option;
 * fixed small bugs for global functions;
 * added tests for global functions;
 * added tests for request detectors;

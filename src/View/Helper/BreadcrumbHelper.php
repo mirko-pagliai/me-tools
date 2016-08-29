@@ -50,22 +50,31 @@ class BreadcrumbHelper extends HtmlHelper
     }
 
     /**
-     * Returns breadcrumbs
+     * Returns breadcrumbs.
+     *
+     * By default, it doesn't return items if no item has been added. In other
+     *  words, it doesn't returns only the "home" item (`$startText`).
+     * If you want that the method returns the "home" item (`$startText`),
+     *  even if other item have been added, you have to set the `onlyStartText`
+     *  option as `true`.
      * @param array $options HTML attributes
      * @param string|array|bool $startText This will be the first crumb, if
-     * `false` it defaults to first crumb in array. Can also be an array,
-     * see `HtmlHelper::getCrumbs` for details
+     * `false` it defaults to first crumb in array. Can also be an array
      * @return string|void Html code
      * @uses $_crumbs
      * @uses $elements
      */
-    public function get(array $options = [], $startText = false)
+    public function get(array $options = [], $startText = 'Homepage')
     {
         //Returns, if there are no elements.
         //This prevent it from being displayed only on the home link
-        if (empty($this->elements)) {
+        if (empty($this->elements) &&
+            (!isset($options['onlyStartText']) || $options['onlyStartText'] !== true)
+        ) {
             return;
         }
+        
+        unset($options['onlyStartText']);
 
         //Fetch last array key
         $keys = array_keys($this->elements);
@@ -91,10 +100,6 @@ class BreadcrumbHelper extends HtmlHelper
             'firstClass' => false,
             'lastClass' => 'active',
         ], $options);
-
-        if (empty($startText)) {
-            $startText = 'Homepage';
-        }
 
         return self::getCrumbList($options, $startText);
     }
