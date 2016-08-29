@@ -11,6 +11,7 @@
     `config/functions/html.php`;
 * added `HtmlHelper::addTooltip()` method;
 * added support for tooltips for some methods;
+* added `BreadcrumbHelper::reset()` method;
 * fixed several bug for `clearDir()`;
 * fixed bug for `optionDefaults()` and `optionsValues()`;
 * fixed many bugs for `BBCodeHelper`;

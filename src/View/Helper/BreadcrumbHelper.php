@@ -56,6 +56,7 @@ class BreadcrumbHelper extends HtmlHelper
      * `false` it defaults to first crumb in array. Can also be an array,
      * see `HtmlHelper::getCrumbs` for details
      * @return string|void Html code
+     * @uses $_crumbs
      * @uses $elements
      */
     public function get(array $options = [], $startText = false)
@@ -96,5 +97,16 @@ class BreadcrumbHelper extends HtmlHelper
         }
 
         return self::getCrumbList($options, $startText);
+    }
+    
+    /**
+     * Resets the crumb list
+     * @return void
+     * @uses $_crumbs
+     * @uses $elements
+     */
+    public function reset()
+    {
+        $this->elements = $this->_crumbs = [];
     }
 }
