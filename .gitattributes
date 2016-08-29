@@ -32,8 +32,8 @@
 # Remove files for archives generated using `git archive`
 .gitattributes export-ignore
 .gitignore export-ignore
-.travis.yml
-apigen.neon
-phpunit.xml.dist
+.travis.yml export-ignore
+apigen.neon export-ignore
+phpunit.xml.dist export-ignore
 API/ export-ignore
 tests/ export-ignore
