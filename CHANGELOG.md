@@ -20,9 +20,10 @@
 * fixed small bugs for global functions;
 * added tests for global functions;
 * added tests for request detectors;
-* added tests for `BBCodeHelper`;
-* added tests for `BreadcrumbHelper`;
-* added tests for `HtmlHelper`.
+* added tests for `BBCodeHelper` class;
+* added tests for `BreadcrumbHelper` class;
+* added tests for `HtmlHelper` class;
+* added tests for `Plugin` class.
 
 ## 2.8 branch
 ### 2.8.0
