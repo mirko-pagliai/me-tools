@@ -178,11 +178,17 @@ class GlobalFunctionsTest extends TestCase
         $expected = 'value1 value2 value3';
         $this->assertEquals($expected, $result);
         
-        $result = implodeRecursive(' ', ['value1', 'value2', ['value3', ['value4']]]);
+        $result = implodeRecursive(
+            ' ',
+            ['value1', 'value2', ['value3', ['value4']]]
+        );
         $expected = 'value1 value2 value3 value4';
         $this->assertEquals($expected, $result);
         
-        $result = implodeRecursive(' ', am(['value1', 'value2'], ['value3', ['value4']], ['value5']));
+        $result = implodeRecursive(
+            ' ',
+            am(['value1', 'value2'], ['value3', ['value4']], ['value5'])
+        );
         $expected = 'value1 value2 value3 value4 value5';
         $this->assertEquals($expected, $result);
     }

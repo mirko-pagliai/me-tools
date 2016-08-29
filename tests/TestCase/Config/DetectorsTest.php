@@ -32,6 +32,11 @@ use Cake\TestSuite\TestCase;
  */
 class DetectorsTest extends TestCase
 {
+    /**
+     * Tests detectors
+     * @return void
+     * @test
+     */
     public function testDetectors()
     {
         //Creates request

@@ -41,9 +41,20 @@ class BBCodeHelperTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $View = new View();
-        $this->BBCode = new BBCodeHelper($View);
-        $this->Html = new HtmlHelper($View);
+        
+        $this->View = new View();
+        $this->BBCode = new BBCodeHelper($this->View);
+        $this->Html = new HtmlHelper($this->View);
+    }
+    
+    /**
+     * Teardown any static object changes and restore them
+     * @return void
+     */
+    public function tearDown()
+    {
+        parent::tearDown();
+        unset($this->BBCode, $this->Html, $this->View);
     }
     
     /**
