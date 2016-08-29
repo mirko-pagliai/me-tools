@@ -34,13 +34,13 @@ class BreadcrumbHelper extends Helper
      * Helpers
      * @var array
      */
-    public $helpers = ['MeTools.Html'];
+    public $helpers = ['Html' => ['className' => 'MeTools.Html']];
 
     /**
      * Internal property to add elements
      * @var array
      */
-    protected $elements;
+    protected $elements = [];
 
     /**
      * Adds a link to the breadcrumbs array
@@ -75,11 +75,11 @@ class BreadcrumbHelper extends Helper
         //Fetch last array key
         $keys = array_keys($this->elements);
         $last = array_pop($keys);
-
-        foreach ($this->elements as $k => $element) {
+        
+        foreach ($this->elements as $key => $element) {
             //If it's the last element, no link
-            if ($k == $last) {
-                $element['link'] = false;
+            if ($key === $last) {
+                $element['link'] = null;
             }
 
             $this->Html->addCrumb(
