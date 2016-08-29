@@ -20,6 +20,7 @@
  * @license     http://www.gnu.org/licenses/agpl.txt AGPL License
  * @link        http://git.novatlantis.it Nova Atlantis Ltd
  */
+use Cake\Cache\Cache;
 use Cake\Core\Configure;
 use Cake\Datasource\ConnectionManager;
 
@@ -66,6 +67,24 @@ Configure::write('App', [
     ]
 ]);
 
+Cache::config([
+    '_cake_core_' => [
+        'engine' => 'File',
+        'prefix' => 'cake_core_',
+        'serialize' => true
+    ],
+    '_cake_model_' => [
+        'engine' => 'File',
+        'prefix' => 'cake_model_',
+        'serialize' => true
+    ],
+    'default' => [
+        'engine' => 'File',
+        'prefix' => 'default_',
+        'serialize' => true
+    ],
+]);  
+    
 // Ensure default test connection is defined
 if (!getenv('db_dsn')) {
     putenv('db_dsn=sqlite://127.0.0.1/' . TMP . 'debug_kit_test.sqlite');
