@@ -23,19 +23,13 @@
  */
 namespace MeTools\View\Helper;
 
-use Cake\View\Helper;
+use MeTools\View\Helper\HtmlHelper;
 
 /**
  * Creates breadcrumbs, according to the Bootstrap component.
  */
-class BreadcrumbHelper extends Helper
+class BreadcrumbHelper extends HtmlHelper
 {
-    /**
-     * Helpers
-     * @var array
-     */
-    public $helpers = ['Html' => ['className' => 'MeTools.Html']];
-
     /**
      * Internal property to add elements
      * @var array
@@ -76,13 +70,15 @@ class BreadcrumbHelper extends Helper
         $keys = array_keys($this->elements);
         $last = array_pop($keys);
         
+        $this->_crumbs = [];
+        
         foreach ($this->elements as $key => $element) {
             //If it's the last element, no link
             if ($key === $last) {
                 $element['link'] = null;
             }
 
-            $this->Html->addCrumb(
+            self::addCrumb(
                 $element['name'],
                 $element['link'],
                 $element['options']
@@ -99,6 +95,6 @@ class BreadcrumbHelper extends Helper
             $startText = 'Homepage';
         }
 
-        return $this->Html->getCrumbList($options, $startText);
+        return self::getCrumbList($options, $startText);
     }
 }
