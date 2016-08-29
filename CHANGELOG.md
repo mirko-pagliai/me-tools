@@ -21,6 +21,7 @@
 * added tests for global functions;
 * added tests for request detectors;
 * added tests for `BBCodeHelper`;
+* added tests for `BreadcrumbHelper`;
 * added tests for `HtmlHelper`.
 
 ## 2.8 branch
