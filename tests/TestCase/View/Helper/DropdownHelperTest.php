@@ -118,5 +118,21 @@ class DropdownHelperTest extends TestCase
             return $this->Dropdown->end();
         });
         $this->assertHtml($expected, $result);
+        
+        $result = $this->Dropdown->start(
+            $text,
+            ['class' => 'my-start-class', 'icon' => 'home']
+        );
+        $this->assertNull($result);
+        
+        echo $this->Html->link('First link', '/first');
+        echo $this->Html->link('Second link', '/second');
+        
+        $result = $this->Dropdown->end(
+            ['class' => 'ul-class'],
+            ['class' => 'li-class']
+        );
+        debug($result);
+//        $this->assertHtml($expected, $result);
     }
 }
