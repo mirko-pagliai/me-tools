@@ -133,6 +133,22 @@ class DropdownHelperTest extends TestCase
             ['class' => 'li-class']
         );
         debug($result);
-//        $this->assertHtml($expected, $result);
+        
+        $expected = [
+            ['a' => [
+                'href' => '#',
+                'class' => 'my-start-class dropdown-toggle',
+                'aria-expanded' => 'false',
+                'aria-haspopup' => 'true',
+                'data-toggle' => 'dropdown',
+                'title' => $text,
+            ]],
+            ['i' => ['class' => 'fa fa-home']],
+            ' ',
+            '/i',
+            ' ',
+            $text,
+        ];
+        $this->assertHtml($expected, $result);
     }
 }
