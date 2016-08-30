@@ -97,7 +97,7 @@ class InstallShell extends Shell
 
         //Assets for which create symbolic links
         $this->links = [
-            'components/bootstrap-datetimepicker/build' => 'bootstrap-datetimepicker',
+            'eonasdan/bootstrap-datetimepicker/build' => 'bootstrap-datetimepicker',
             'components/jquery' => 'jquery',
             'components/moment/min' => 'moment',
             'fortawesome/font-awesome' => 'font-awesome',
