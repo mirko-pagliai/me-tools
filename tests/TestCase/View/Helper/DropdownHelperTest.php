@@ -119,6 +119,7 @@ class DropdownHelperTest extends TestCase
         });
         $this->assertHtml($expected, $result);
         
+        //Start link with custom class
         $result = $this->Dropdown->start(
             $text,
             ['class' => 'my-start-class', 'icon' => 'home']
@@ -128,11 +129,11 @@ class DropdownHelperTest extends TestCase
         echo $this->Html->link('First link', '/first');
         echo $this->Html->link('Second link', '/second');
         
+        //Ul and list elements with custom classes
         $result = $this->Dropdown->end(
             ['class' => 'ul-class'],
             ['class' => 'li-class']
         );
-        debug($result);
         
         $expected = [
             ['a' => [
@@ -148,6 +149,23 @@ class DropdownHelperTest extends TestCase
             '/i',
             ' ',
             $text,
+            ' ',
+            ['i' => ['class' => 'fa fa-caret-down']],
+            ' ',
+            '/i',
+            '/a',
+            'ul' => ['class' => 'ul-class dropdown-menu'],
+            ['li' => ['class' => 'li-class']],
+            ['a' => ['href' => '/first', 'title' => 'First link']],
+            'First link',
+            '/a',
+            '/li',
+            ['li' => ['class' => 'li-class']],
+            ['a' => ['href' => '/second', 'title' => 'Second link']],
+            'Second link',
+            '/a',
+            '/li',
+            '/ul',
         ];
         $this->assertHtml($expected, $result);
     }
