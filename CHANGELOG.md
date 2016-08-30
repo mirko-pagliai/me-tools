@@ -1,7 +1,8 @@
 # 2.x branch
 ## 2.9 branch
 ### 2.9.1
-* fixed bug for icons of Bootstrap Datepicker.
+* fixed bug for icons of Bootstrap Datepicker;
+* downgrade jQuery to 2.2.4.
  
 ### 2.9.0
 * added `HtmlHelper::cssBlock()` method;

@@ -92,7 +92,11 @@ class LibraryHelper extends Helper
             'locale' => empty($locale) ? 'en-gb' : $locale,
         ], $options);
 
-        return sprintf('$("%s").datetimepicker(%s);', $input, json_encode($options));
+        return sprintf(
+            '$("%s").datetimepicker(%s);',
+            $input,
+            json_encode($options, JSON_PRETTY_PRINT)
+        );
     }
 
     /**
