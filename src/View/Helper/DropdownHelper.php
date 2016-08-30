@@ -26,15 +26,35 @@ namespace MeTools\View\Helper;
 use Cake\View\Helper;
 
 /**
- * Provides functionalities for creating dropdown menus, according to
- *  Bootstrap.
+ * Provides functionalities for creating dropdown menus, according to Bootstrap.
  *
- * The `menu()` method creates a full dropdown menu, with a link to open the
- *  menu and the menu itself.
+ * Example:
+ * <code>
+ * $this->Dropdown->start('My dropdown');
  *
- * Otherwise you can use the `button()` or the `link()`method, which generate
- *  a link or a button to open the menu, followed by the `dropdown()` method,
- *  which generates only the menu.
+ * echo $this->Html->link('First link', '/first');
+ * echo $this->Html->link('Second link', '/second');
+ *
+ * echo $this->Dropdown->end();
+ * </code>
+ *
+ * You can also use it as a callback.
+ * For example, this creates a dropdown menu as an element of a navbar:
+ * <code>
+ * $this->Html->ul([
+ *      $this->Html->link('Home', '/'),
+ *      //This is the dropdown menu
+ *      call_user_func(function() {
+ *          $this->Dropdown->start('My dropdown');
+ *
+ *          echo $this->Html->link('First link', '/first');
+ *          echo $this->Html->link('Second link', '/second');
+ *
+ *          echo $this->Dropdown->end();
+ *      }),
+ *      $this->Html->link('Other main link', '#')
+ * ], ['class' => 'nav navbar-nav']);
+ * </code>
  */
 class DropdownHelper extends Helper
 {
@@ -45,135 +65,67 @@ class DropdownHelper extends Helper
     public $helpers = ['Html' => ['className' => 'MeTools.Html']];
 
     /**
-     * Parses and handles title and options used to create a link or a button
-     *  to open a dropdown.
-     *
-     * You should not use this method directly, but `button()` or `link()`.
-     * @param string $title Link/button title
-     * @param array $options HTML attributes and options
-     * @return array Array with title and options
-     * @see button(), link()
-     * @uses MeTools\View\Helper\HtmlHelper::icon()
+     * Start link. This link allows the opening of the dropdown menu
+     * @var string
      */
-    protected function __parseLink($title, array $options = [])
+    protected $_start;
+
+    /**
+     * Starts a dropdown. It captures links for the dropdown menu output until
+     *  `DropdownHelper::end()` is called.
+     *
+     * Arguments and options regarding the link that allows the opening of the
+     *  dropdown menu.
+     * @param string $title The content to be wrapped by <a> tags
+     * @param array $options Array of options and HTML attributes
+     * @return void
+     * @uses $_start
+     */
+    public function start($title, array $options = [])
     {
         $title = sprintf('%s %s', $title, $this->Html->icon('caret-down'));
 
         $options = optionValues([
+            'aria-expanded' => 'false',
+            'aria-haspopup' => 'true',
             'class' => 'dropdown-toggle',
             'data-toggle' => 'dropdown',
         ], $options);
-
-        return [$title, $options];
+        
+        $this->_start = $this->Html->link($title, '#', $options);
+        
+        ob_start();
     }
-
+    
     /**
-     * Creates a button to open a dropdown menu, according to Bootstrap.
+     * End a buffered section of dropdown menu capturing.
      *
-     * Note that this method creates only a link. To create a full dropdown
-     *  menu, you should use the `menu()` method.
-     * @param string $title Button title
-     * @param array $options Array of options and HTML attributes
-     * @return string Html code
-     * @see menu()
-     * @see http://getbootstrap.com/components/#dropdowns Bootstrap documentation
-     * @uses MeTools\View\Helper\HtmlHelper::button()
-     * @uses __parseLink()
+     * Arguments and options regarding the list of the dropdown menu.
+     * @param array $options HTML attributes of the list tag
+     * @param array $itemOptions HTML attributes of the list items
+     * @return string|void
      */
-    public function button($title, array $options = [])
+    public function end(array $options = [], array $itemOptions = [])
     {
-        //Backward compatibility, if they were passed 3 arguments
-        $options = func_num_args() === 3 ? func_get_arg(2) : $options;
-
-        list($title, $options) = self::__parseLink($title, $options);
-
-        return $this->Html->button($title, '#', $options);
-    }
-
-    /**
-     * Creates a dropdown menu.
-     *
-     * Note that this method creates only a dropdown submenu, without the a
-     *  link or a button to open the menu.
-     * To create a full dropdown menu, you should use the `menu()` method.
-     * @param array $links Array of links for the dropdown (you should use
-     *  the `HtmlHelper::link()` method for each link)
-     * @param array $options Options for the dropdown (`<ul>` element)
-     * @param array $itemOptions Options for each item (`<li>` element)
-     * @return string Html code
-     * @see menu()
-     * @see http://getbootstrap.com/components/#dropdowns Bootstrap documentation
-     * @uses MeTools\View\Helper\HtmlHelper::ul()
-     */
-    public function dropdown(
-        array $links = [],
-        array $options = [],
-        array $itemOptions = []
-    ) {
-        $options = optionValues([
-            'class' => 'dropdown-menu',
-            'role' => 'menu',
-        ], $options);
-        $itemOptions = optionValues(['role' => 'presentation'], $itemOptions);
-
-        return $this->Html->ul($links, $options, $itemOptions);
-    }
-
-    /**
-     * Creates a link to open a dropdown menu, according to Bootstrap.
-     *
-     * Note that this method creates only a link. To create a full dropdown
-     *  menu, you should use the `menu()` method.
-     * @param string $title Link title
-     * @param array $options Array of options and HTML attributes
-     * @return string Html code
-     * @see menu()
-     * @see http://getbootstrap.com/components/#dropdowns Bootstrap documentation
-     * @uses MeTools\View\Helper\HtmlHelper::link()
-     * @uses __parseLink()
-     */
-    public function link($title, array $options = [])
-    {
-        //Backward compatibility, if they were passed 3 arguments
-        $options = func_num_args() === 3 ? func_get_arg(2) : $options;
-
-        list($title, $options) = self::__parseLink($title, $options);
-
-        return $this->Html->link($title, '#', $options);
-    }
-
-    /**
-     * Creates a full menu, according to Bootstrap. For example:
-     * <code>
-     * <div class="dropdown">
-     *  <?php
-     *      echo $this->Dropdown->menu('Open the dropdown', ['icon' => 'fa-bell'], [
-     *          $this->Html->link('Github', 'http://github.com', ['icon' => 'fa-github']),
-     *          $this->Html->link('Stack Overflow', 'http://stackoverflow.com', ['icon' => 'fa-stack-overflow'])
-     *      ]);
-     *  ?>
-     * </div>
-     * </code>
-     * @param string $title Link title
-     * @param array $titleOptions Array of options and HTML attributes
-     * @param array $links Array of links for the dropdown (you should use
-     *  the `HtmlHelper::link()` method for each link)
-     * @param array $dropdownOptions Options for the dropdown (`<ul>` element)
-     * @param array $itemOptions Options for each item (`<li>` element)
-     * @return string Html code
-     * @uses dropdown()
-     * @uses link()
-     */
-    public function menu(
-        $title,
-        array $titleOptions = [],
-        array $links = [],
-        array $dropdownOptions = [],
-        array $itemOptions = []
-    ) {
-        return implode(PHP_EOL, [
-            $this->link($title, $titleOptions),
-            $this->dropdown($links, $dropdownOptions, $itemOptions)
-        ]);
+        $buffer = ob_get_contents();
+        
+        if (empty($buffer)) {
+            return;
+        }
+        
+        ob_end_clean();
+         
+        //Split all links
+        preg_match_all('/(<a[^>]*>.*?<\/a[^>]*>)/', $buffer, $matches);
+        
+        if (empty($matches[0])) {
+            return;
+        }
+        
+        $options = optionValues(['class' => 'dropdown-menu'], $options);
+        
+        return $this->_start .
+            PHP_EOL .
+            $this->Html->ul($matches[0], $options, $itemOptions);
     }
 }

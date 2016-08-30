@@ -1,4 +1,9 @@
 # 2.x branch
+## 2.10 branch
+### 2.10.0
+* `DropdownHelper` class has been completely rewritten and now provides
+    `start()` and `end()` methods.
+
 ## 2.9 branch
 ### 2.9.0
 * added `HtmlHelper::cssBlock()` method;
