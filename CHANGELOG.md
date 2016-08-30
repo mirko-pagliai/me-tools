@@ -6,6 +6,9 @@
 * added tests for `DropdownHelper` class.
 
 ## 2.9 branch
+### 2.9.1
+* fixed bug for icons of Bootstrap Datepicker.
+ 
 ### 2.9.0
 * added `HtmlHelper::cssBlock()` method;
 * `HtmlHelper::cssStart()` and `HtmlHelper::cssEnd()` methods have been
