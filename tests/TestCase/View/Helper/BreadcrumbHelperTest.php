@@ -88,7 +88,7 @@ class BreadcrumbHelperTest extends TestCase
         $result = $this->Breadcrumb->get(['onlyStartText' => true]);
         $expected = [
             'ul' => ['class' => 'breadcrumb'],
-            ['li' => ['class' => 'active']],
+            'li' => ['class' => 'active'],
             'a' => [
                 'href' => '/',
                 'title' => 'Homepage',
@@ -144,7 +144,7 @@ class BreadcrumbHelperTest extends TestCase
         $result = $this->Breadcrumb->get([], false);
         $expected = [
             'ul' => ['class' => 'breadcrumb'],
-            ['li' => ['class' => 'active']],
+            'li' => ['class' => 'active'],
             'First level',
             '/li',
             '/ul',

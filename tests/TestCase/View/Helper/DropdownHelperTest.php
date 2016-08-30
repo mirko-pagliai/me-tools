@@ -105,7 +105,6 @@ class DropdownHelperTest extends TestCase
         echo $this->Html->link('Second link', '/second');
         
         $result = $this->Dropdown->end();
-        debug($result);
         $this->assertHtml($expected, $result);
         
         //With callback

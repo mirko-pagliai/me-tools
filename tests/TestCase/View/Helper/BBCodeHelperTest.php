@@ -91,7 +91,7 @@ class BBCodeHelperTest extends TestCase
             ],
             '/iframe',
             '/div',
-            'div' => true,
+            ['div' => true],
             'Some text',
             '/div',
         ];
