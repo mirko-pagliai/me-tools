@@ -71,7 +71,10 @@ class LibraryHelper extends Helper
         $options = optionDefaults([
             'showTodayButton' => true,
             'showClear' => true,
-            'icons' => [
+        ], $options);
+        
+        if (empty($options['icons'])) {
+            $options['icons'] = [
                 'time' => 'fa fa-clock-o',
                 'date' => 'fa fa-calendar',
                 'up' => 'fa fa-arrow-up',
@@ -80,8 +83,8 @@ class LibraryHelper extends Helper
                 'next' => 'fa fa-arrow-right',
                 'today' => 'fa fa-dot-circle-o',
                 'clear' => 'fa fa-trash',
-            ],
-        ], $options);
+            ];
+        }
 
         //Sets the current locale
         $locale = substr(\Cake\I18n\I18n::locale(), 0, 2);
