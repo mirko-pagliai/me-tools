@@ -453,7 +453,7 @@ class HtmlHelper extends CakeHtmlHelper
             'title' => $title,
         ], $options);
         
-        $options['title'] = h(strip_tags($options['title']));
+        $options['title'] = trim(h(strip_tags($options['title'])));
 
         list($title, $options) = self::addIcon($title, $options);
         
