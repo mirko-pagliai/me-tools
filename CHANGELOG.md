@@ -2,7 +2,8 @@
 ## 2.10 branch
 ### 2.10.0
 * `DropdownHelper` class has been completely rewritten and now provides
-    `start()` and `end()` methods.
+    `start()` and `end()` methods;
+* added tests for `DropdownHelper` class.
 
 ## 2.9 branch
 ### 2.9.0
