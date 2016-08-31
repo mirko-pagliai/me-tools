@@ -22,6 +22,7 @@
  */
 use Cake\Cache\Cache;
 use Cake\Core\Configure;
+use Cake\Core\Plugin;
 use Cake\Datasource\ConnectionManager;
 
 require dirname(__DIR__) . '/vendor/autoload.php';
@@ -45,8 +46,17 @@ define('CONFIG', APP . 'config' . DS);
 define('CACHE', TMP);
 define('LOGS', TMP);
 
+//@codingStandardsIgnoreStart
+@mkdir(LOGS);
+@mkdir(SESSIONS);
+@mkdir(CACHE);
+@mkdir(CACHE . 'views');
+@mkdir(CACHE . 'models');
+@mkdir(BACKUPS);
+@mkdir(THUMBS);
+//@codingStandardsIgnoreEnd
+
 require CORE_PATH . 'config' . DS . 'bootstrap.php';
-require ROOT . 'config' . DS . 'bootstrap.php';
 
 Configure::write('debug', true);
 Configure::write('App', [
@@ -96,3 +106,5 @@ $config = [
 
 // Use the test connection for 'debug_kit' as well.
 ConnectionManager::config('test', $config);
+
+Plugin::load('MeTools', ['bootstrap' => true, 'path' => ROOT]);

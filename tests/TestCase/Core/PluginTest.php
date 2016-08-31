@@ -29,17 +29,7 @@ use MeTools\Core\Plugin;
  * PluginTest class.
  */
 class PluginTest extends TestCase
-{
-    /**
-     * Teardown any static object changes and restore them
-     * @return void
-     */
-    public function tearDown()
-    {
-        parent::tearDown();
-        Plugin::unload();
-    }
-    
+{    
     /**
      * Tests for `all()` method
      * @return void
@@ -48,7 +38,8 @@ class PluginTest extends TestCase
     public function testAll()
     {
         $result = Plugin::all();
-        $this->assertEmpty($result);
+        $expected = ['MeTools'];
+        $this->assertEquals($expected, $result);
         
         $result = Plugin::load(
             'TestPlugin',
@@ -57,15 +48,13 @@ class PluginTest extends TestCase
         $this->assertNull($result);
         
         $result = Plugin::all();
-        $expected = ['TestPlugin'];
+        $expected = ['MeTools', 'TestPlugin'];
         $this->assertEquals($expected, $result);
         
         $result = Plugin::all(['exclude' => 'TestPlugin']);
-        $this->assertEmpty($result);
-        
-        $result = Plugin::load('MeTools', ['path' => ROOT]);
-        $this->assertNull($result);
-        
+        $expected = ['MeTools'];
+        $this->assertEquals($expected, $result);
+                
         $result = Plugin::load(
             'AnotherTestPlugin',
             ['path' => 'tests/test_app/Plugin/AnotherTestPlugin/src']
@@ -87,10 +76,7 @@ class PluginTest extends TestCase
      * @test
      */
     public function testPath()
-    {
-        $result = Plugin::load('MeTools', ['path' => ROOT]);
-        $this->assertNull($result);
-        
+    {        
         $result = Plugin::path('MeTools');
         $this->assertEquals(ROOT, $result);
         
