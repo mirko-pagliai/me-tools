@@ -29,7 +29,7 @@ use MeTools\Core\Plugin;
  * PluginTest class.
  */
 class PluginTest extends TestCase
-{    
+{
     /**
      * Tests for `all()` method
      * @return void
@@ -76,7 +76,7 @@ class PluginTest extends TestCase
      * @test
      */
     public function testPath()
-    {        
+    {
         $result = Plugin::path('MeTools');
         $this->assertEquals(ROOT, $result);
         
