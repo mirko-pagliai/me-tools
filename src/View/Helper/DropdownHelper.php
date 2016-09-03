@@ -38,6 +38,14 @@ use Cake\View\Helper;
  * echo $this->Dropdown->end();
  * </code>
  *
+ * Or using the `menu()` method:
+ * <code>
+ * echo $this->Dropdown->menu('My dropdown', [
+ *      $this->Html->link('First link', '/first'),
+ *      $this->Html->link('Second link', '/second'),
+ * ]);
+ * </code>
+ *
  * You can also use it as a callback.
  * For example, this creates a dropdown menu as an element of a navbar:
  * <code>
@@ -71,28 +79,57 @@ class DropdownHelper extends Helper
     protected $_start;
 
     /**
+     * Wrap method about `start()` and `end()` methods, which are called
+     *  consecutively
+     * @param string $title Title for the opening link
+     * @param array $menu Content for the dropdown menu, for example an array
+     *  of links
+     * @param array $titleOptions HTML attributes and options for the opening
+     *  link
+     * @param array $listOptions HTML attributes and options for the list
+     * @param array $itemOptions HTML attributes and options for each list item
+     * @return string|void
+     */
+    public function menu(
+        $title,
+        array $menu,
+        array $titleOptions = [],
+        array $listOptions = [],
+        array $itemOptions = []
+    ) {
+        $this->start($title, $titleOptions);
+        
+        array_walk($menu, function ($menu) {
+            echo $menu;
+        });
+        
+        return $this->end($listOptions, $itemOptions);
+    }
+    
+    /**
      * Starts a dropdown. It captures links for the dropdown menu output until
      *  `DropdownHelper::end()` is called.
      *
      * Arguments and options regarding the link that allows the opening of the
      *  dropdown menu.
-     * @param string $title The content to be wrapped by <a> tags
-     * @param array $options Array of options and HTML attributes
+     * @param string $title Title for the opening link
+     * @param array $titleOptions HTML attributes and options for the opening
+     *  link
      * @return void
      * @uses $_start
      */
-    public function start($title, array $options = [])
+    public function start($title, array $titleOptions = [])
     {
         $title = sprintf('%s %s', $title, $this->Html->icon('caret-down'));
 
-        $options = optionValues([
+        $titleOptions = optionValues([
             'aria-expanded' => 'false',
             'aria-haspopup' => 'true',
             'class' => 'dropdown-toggle',
             'data-toggle' => 'dropdown',
-        ], $options);
+        ], $titleOptions);
         
-        $this->_start = $this->Html->link($title, '#', $options);
+        $this->_start = $this->Html->link($title, '#', $titleOptions);
         
         ob_start();
     }
@@ -101,11 +138,12 @@ class DropdownHelper extends Helper
      * End a buffered section of dropdown menu capturing.
      *
      * Arguments and options regarding the list of the dropdown menu.
-     * @param array $options HTML attributes of the list tag
-     * @param array $itemOptions HTML attributes of the list items
+     * @param array $listOptions HTML attributes and options for the list
+     * @param array $itemOptions HTML attributes and options for each list item
      * @return string|void
+     * @uses $_start
      */
-    public function end(array $options = [], array $itemOptions = [])
+    public function end(array $listOptions = [], array $itemOptions = [])
     {
         $buffer = ob_get_contents();
         
@@ -122,10 +160,10 @@ class DropdownHelper extends Helper
             return;
         }
         
-        $options = optionValues(['class' => 'dropdown-menu'], $options);
+        $listOptions = optionValues(['class' => 'dropdown-menu'], $listOptions);
         
         return $this->_start .
             PHP_EOL .
-            $this->Html->ul($matches[0], $options, $itemOptions);
+            $this->Html->ul($matches[0], $listOptions, $itemOptions);
     }
 }

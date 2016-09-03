@@ -58,11 +58,11 @@ class DropdownHelperTest extends TestCase
     }
     
     /**
-     * Tests for `start()` and `end()` methods
+     * Tests for `menu()`, `start()` and `end()` methods
      * @return void
      * @test
      */
-    public function testStartAndEnd()
+    public function testMenuAndStartAndEnd()
     {
         $text = 'My dropdown';
         
@@ -107,6 +107,13 @@ class DropdownHelperTest extends TestCase
         $result = $this->Dropdown->end();
         $this->assertHtml($expected, $result);
         
+        //With `menu()` method
+        $result = $this->Dropdown->menu($text, [
+            $this->Html->link('First link', '/first'),
+            $this->Html->link('Second link', '/second'),
+        ]);
+        $this->assertHtml($expected, $result);
+        
         //With callback
         $result = call_user_func(function () use ($text) {
             $result = $this->Dropdown->start($text);
@@ -118,22 +125,6 @@ class DropdownHelperTest extends TestCase
             return $this->Dropdown->end();
         });
         $this->assertHtml($expected, $result);
-        
-        //Start link with custom class
-        $result = $this->Dropdown->start(
-            $text,
-            ['class' => 'my-start-class', 'icon' => 'home']
-        );
-        $this->assertNull($result);
-        
-        echo $this->Html->link('First link', '/first');
-        echo $this->Html->link('Second link', '/second');
-        
-        //Ul and list elements with custom classes
-        $result = $this->Dropdown->end(
-            ['class' => 'ul-class'],
-            ['class' => 'li-class']
-        );
         
         $expected = [
             ['a' => [
@@ -167,6 +158,35 @@ class DropdownHelperTest extends TestCase
             '/li',
             '/ul',
         ];
+        
+        //Start link with custom class
+        $result = $this->Dropdown->start(
+            $text,
+            ['class' => 'my-start-class', 'icon' => 'home']
+        );
+        $this->assertNull($result);
+        
+        echo $this->Html->link('First link', '/first');
+        echo $this->Html->link('Second link', '/second');
+        
+        //Ul and list elements with custom classes
+        $result = $this->Dropdown->end(
+            ['class' => 'ul-class'],
+            ['class' => 'li-class']
+        );
+        $this->assertHtml($expected, $result);
+        
+        //With `menu()` method
+        $result = $this->Dropdown->menu(
+            $text,
+            [
+                $this->Html->link('First link', '/first'),
+                $this->Html->link('Second link', '/second')
+            ],
+            ['class' => 'my-start-class', 'icon' => 'home'],
+            ['class' => 'ul-class'],
+            ['class' => 'li-class']
+        );
         $this->assertHtml($expected, $result);
     }
 }
