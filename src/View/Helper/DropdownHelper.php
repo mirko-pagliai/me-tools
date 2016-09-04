@@ -98,14 +98,14 @@ class DropdownHelper extends Helper
         array $itemOptions = []
     ) {
         $this->start($title, $titleOptions);
-        
+
         array_walk($menu, function ($menu) {
             echo $menu;
         });
-        
+
         return $this->end($listOptions, $itemOptions);
     }
-    
+
     /**
      * Starts a dropdown. It captures links for the dropdown menu output until
      *  `DropdownHelper::end()` is called.
@@ -128,12 +128,12 @@ class DropdownHelper extends Helper
             'class' => 'dropdown-toggle',
             'data-toggle' => 'dropdown',
         ], $titleOptions);
-        
+
         $this->_start = $this->Html->link($title, '#', $titleOptions);
-        
+
         ob_start();
     }
-    
+
     /**
      * End a buffered section of dropdown menu capturing.
      *
@@ -146,22 +146,22 @@ class DropdownHelper extends Helper
     public function end(array $listOptions = [], array $itemOptions = [])
     {
         $buffer = ob_get_contents();
-        
+
         if (empty($buffer)) {
             return;
         }
-        
+
         ob_end_clean();
-         
+
         //Split all links
         preg_match_all('/(<a[^>]*>.*?<\/a[^>]*>)/', $buffer, $matches);
-        
+
         if (empty($matches[0])) {
             return;
         }
-        
+
         $listOptions = optionValues(['class' => 'dropdown-menu'], $listOptions);
-        
+
         return $this->_start .
             PHP_EOL .
             $this->Html->ul($matches[0], $listOptions, $itemOptions);

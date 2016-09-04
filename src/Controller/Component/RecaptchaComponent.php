@@ -53,26 +53,40 @@ class RecaptchaComponent extends Component
 
         //Checks for form keys
         if (empty($keys['public']) || empty($keys['private'])) {
-            throw new InternalErrorException(__d('me_tools', 'Form keys are not configured'));
+            throw new InternalErrorException(__d(
+                'me_tools',
+                'Form keys are not configured'
+            ));
         }
 
         $controller = $this->_registry->getController();
         $response = $controller->request->data('g-recaptcha-response');
 
         if (empty($response)) {
-            $this->error = __d('me_tools', 'You have not filled out the {0} control', 'reCAPTCHA');
-            
+            $this->error = __d(
+                'me_tools',
+                'You have not filled out the {0} control',
+                'reCAPTCHA'
+            );
+
             return false;
         }
 
-        $results = (new Client())->post('https://www.google.com/recaptcha/api/siteverify', am([
-            'remoteip' => $controller->request->clientIp(),
-            'secret' => $keys['private'],
-        ], compact('response')));
+        $results = (new Client())->post(
+            'https://www.google.com/recaptcha/api/siteverify',
+            am([
+                'remoteip' => $controller->request->clientIp(),
+                'secret' => $keys['private'],
+            ], compact('response'))
+        );
 
         if (empty($results) || empty($results->json['success'])) {
-            $this->error = __d('me_tools', 'It was not possible to verify the {0} control', 'reCAPTCHA');
-            
+            $this->error = __d(
+                'me_tools',
+                'It was not possible to verify the {0} control',
+                'reCAPTCHA'
+            );
+
             return false;
         }
 

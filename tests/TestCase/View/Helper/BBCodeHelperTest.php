@@ -41,12 +41,12 @@ class BBCodeHelperTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        
+
         $this->View = new View();
         $this->BBCode = new BBCodeHelper($this->View);
         $this->Html = new HtmlHelper($this->View);
     }
-    
+
     /**
      * Teardown any static object changes and restore them
      * @return void
@@ -56,7 +56,7 @@ class BBCodeHelperTest extends TestCase
         parent::tearDown();
         unset($this->BBCode, $this->Html, $this->View);
     }
-    
+
     /**
      * Tests for `parser()` method
      * @return void
@@ -71,7 +71,7 @@ class BBCodeHelperTest extends TestCase
         echo '[youtube]bL_CJKq9rIw[/youtube]' . PHP_EOL;
         echo '<div>Some text</div>' . PHP_EOL;
         $buffer = ob_get_clean();
-        
+
         $result = $this->BBCode->parser($buffer);
         $expected = [
             'p' => true,
@@ -97,7 +97,7 @@ class BBCodeHelperTest extends TestCase
         ];
         $this->assertHtml($expected, $result);
     }
-    
+
     /**
      * Tests for `readMore()` method
      * @return void
@@ -106,32 +106,32 @@ class BBCodeHelperTest extends TestCase
     public function testReadMore()
     {
         $expected = '<!-- read-more -->';
-        
+
         $result = $this->BBCode->readmore('[readmore]');
         $this->assertEquals($expected, $result);
-        
+
         $result = $this->BBCode->readmore('[readmore/]');
         $this->assertEquals($expected, $result);
-        
+
         $result = $this->BBCode->readmore('[readmore /]');
         $this->assertEquals($expected, $result);
-        
+
         $result = $this->BBCode->readmore('[read-more /]');
         $this->assertEquals($expected, $result);
-        
+
         $result = $this->BBCode->readmore('[readmore    /]');
         $this->assertEquals($expected, $result);
-        
+
         $result = $this->BBCode->readmore('[readmore / ]');
         $this->assertEquals($expected, $result);
-        
+
         $result = $this->BBCode->readmore('<p>[readmore /]</p>');
         $this->assertEquals($expected, $result);
-        
+
         $result = $this->BBCode->readmore('<p class="my-class">[readmore /]</p>');
         $this->assertEquals($expected, $result);
     }
-    
+
     /**
      * Tests for `youtube()` method
      * @return void
@@ -140,16 +140,16 @@ class BBCodeHelperTest extends TestCase
     public function testYoutube()
     {
         $expected = $this->Html->youtube('bL_CJKq9rIw');
-        
+
         $result = $this->BBCode->youtube('[youtube]bL_CJKq9rIw[/youtube]');
         $this->assertEquals($expected, $result);
-        
+
         $result = $this->BBCode->youtube('[youtube]http://youtube.com/watch?v=bL_CJKq9rIw[/youtube]');
         $this->assertEquals($expected, $result);
-        
+
         $result = $this->BBCode->youtube('[youtube]https://www.youtube.com/watch?v=bL_CJKq9rIw[/youtube]');
         $this->assertEquals($expected, $result);
-        
+
         $result = $this->BBCode->youtube('[youtube]https://youtu.be/bL_CJKq9rIw[/youtube]');
         $this->assertEquals($expected, $result);
     }

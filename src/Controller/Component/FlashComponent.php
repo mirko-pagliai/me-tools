@@ -59,7 +59,7 @@ class FlashComponent extends CakeFlashComponent
                     $args[1]['params']['class'] = sprintf('alert-%s', $name);
                 }
             }
-            
+
             $name = 'flash';
 
             $args[1]['plugin'] = 'MeTools';

@@ -73,15 +73,15 @@ class BreadcrumbHelper extends HtmlHelper
         ) {
             return;
         }
-        
+
         unset($options['onlyStartText']);
 
         //Fetch last array key
         $keys = array_keys($this->elements);
         $last = array_pop($keys);
-        
+
         $this->_crumbs = [];
-        
+
         foreach ($this->elements as $key => $element) {
             //If it's the last element, no link
             if ($key === $last) {
@@ -103,7 +103,7 @@ class BreadcrumbHelper extends HtmlHelper
 
         return self::getCrumbList($options, $startText);
     }
-    
+
     /**
      * Resets the crumb list
      * @return void

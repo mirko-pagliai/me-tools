@@ -173,7 +173,7 @@ if (!function_exists('isJson')) {
         if (!is_string($string)) {
             return false;
         }
-        
+
         json_decode($string);
 
         return json_last_error() === JSON_ERROR_NONE;
@@ -240,7 +240,7 @@ if (!function_exists('implodeRecursive')) {
             if (is_string($pieces)) {
                 return $pieces;
             }
-            
+
             return implodeRecursive($glue, $pieces);
         }, $pieces));
     }

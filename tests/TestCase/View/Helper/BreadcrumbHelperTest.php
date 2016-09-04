@@ -40,11 +40,11 @@ class BreadcrumbHelperTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        
+
         $this->View = new View();
         $this->Breadcrumb = new BreadcrumbHelper($this->View);
     }
-    
+
     /**
      * Teardown any static object changes and restore them
      * @return void
@@ -54,7 +54,7 @@ class BreadcrumbHelperTest extends TestCase
         parent::tearDown();
         unset($this->Breadcrumb, $this->View);
     }
-    
+
     /**
      * Tests for `add()` method
      * @return void
@@ -64,13 +64,13 @@ class BreadcrumbHelperTest extends TestCase
     {
         $result = $this->Breadcrumb->get();
         $this->assertNull($result);
-        
+
         $result = $this->Breadcrumb->add('First level', '/first');
         $this->assertNull($result);
-        
+
         $result = $this->Breadcrumb->add('Second level', '/second');
         $this->assertNull($result);
-        
+
         $result = $this->Breadcrumb->get();
         $this->assertNotNull($result);
     }
@@ -83,7 +83,7 @@ class BreadcrumbHelperTest extends TestCase
     {
         $result = $this->Breadcrumb->get();
         $this->assertNull($result);
-        
+
         //It only returns the "home" item (`$startText`)
         $result = $this->Breadcrumb->get(['onlyStartText' => true]);
         $expected = [
@@ -99,10 +99,10 @@ class BreadcrumbHelperTest extends TestCase
             '/ul',
         ];
         $this->assertHtml($expected, $result);
-        
+
         $result = $this->Breadcrumb->add('First level', '/first');
         $this->assertNull($result);
-        
+
         $result = $this->Breadcrumb->get();
         $expected = [
             'ul' => ['class' => 'breadcrumb'],
@@ -120,7 +120,7 @@ class BreadcrumbHelperTest extends TestCase
             '/ul',
         ];
         $this->assertHtml($expected, $result);
-        
+
         //Custom `$startText`
         $result = $this->Breadcrumb->get([], 'My homepage');
         $expected = [
@@ -139,7 +139,7 @@ class BreadcrumbHelperTest extends TestCase
             '/ul',
         ];
         $this->assertHtml($expected, $result);
-        
+
         //Empty `$startText`
         $result = $this->Breadcrumb->get([], false);
         $expected = [
@@ -150,10 +150,10 @@ class BreadcrumbHelperTest extends TestCase
             '/ul',
         ];
         $this->assertHtml($expected, $result);
-        
+
         $result = $this->Breadcrumb->add('Second level', '/second');
         $this->assertNull($result);
-        
+
         $result = $this->Breadcrumb->get();
         $expected = [
             'ul' => ['class' => 'breadcrumb'],
@@ -179,7 +179,7 @@ class BreadcrumbHelperTest extends TestCase
             '/ul',
         ];
         $this->assertHtml($expected, $result);
-        
+
         $result = $this->Breadcrumb->get([
             'class' => 'my-class',
             'firstClass' => 'first',
@@ -210,7 +210,7 @@ class BreadcrumbHelperTest extends TestCase
         ];
         $this->assertHtml($expected, $result);
     }
-    
+
     /**
      * Tests for `reset()` method
      * @return void
@@ -220,19 +220,19 @@ class BreadcrumbHelperTest extends TestCase
     {
         $result = $this->Breadcrumb->get();
         $this->assertNull($result);
-        
+
         $result = $this->Breadcrumb->add('First level', '/first');
         $this->assertNull($result);
-        
+
         $result = $this->Breadcrumb->add('Second level', '/second');
         $this->assertNull($result);
-        
+
         $result = $this->Breadcrumb->get();
         $this->assertNotNull($result);
-        
+
         $result = $this->Breadcrumb->reset();
         $this->assertNull($result);
-        
+
         $result = $this->Breadcrumb->get();
         $this->assertNull($result);
     }

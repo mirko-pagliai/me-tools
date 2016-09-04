@@ -249,7 +249,7 @@ class InstallShell extends Shell
                     'File or directory {0} already exists',
                     $this->bold(rtr($target))
                 ));
-                
+
                 continue;
             }
 
@@ -297,7 +297,7 @@ class InstallShell extends Shell
                         'File or directory {0} already exists',
                         $this->bold(rtr($destination))
                     ));
-                    
+
                     continue;
                 }
 
@@ -349,7 +349,7 @@ class InstallShell extends Shell
                         'Failed to create file or directory {0}',
                         $this->bold(rtr($path))
                     ));
-                    
+
                     $error = true;
                 }
             } else {
@@ -365,7 +365,7 @@ class InstallShell extends Shell
         if ($error && which('sudo')) {
             if ($this->param('force') || $force) {
                 exec(sprintf('sudo mkdir -p %s', implode(' ', $this->paths)));
-                
+
                 return;
             }
 
@@ -428,7 +428,7 @@ class InstallShell extends Shell
                 'File or directory {0} not writeable',
                 $this->bold(rtr($file))
             ));
-            
+
             return;
         }
 
@@ -444,7 +444,7 @@ class InstallShell extends Shell
                 'The file {0} doesn\'t need to be fixed',
                 $this->bold(rtr($file))
             ));
-            
+
             return;
         }
 
@@ -534,7 +534,7 @@ class InstallShell extends Shell
 
         if (!$bin) {
             $this->err(__d('me_tools', '{0} is not available', 'composer'));
-            
+
             return;
         }
 
@@ -550,7 +550,7 @@ class InstallShell extends Shell
                     ['Y', 'n'],
                     'Y'
                 );
-                
+
                 if (in_array($ask, ['Y', 'y'])) {
                     $packagesToInstall[] = $package;
                 }
@@ -561,7 +561,7 @@ class InstallShell extends Shell
                     'me_tools',
                     'No package has been selected for installation'
                 ));
-                
+
                 return;
             }
         } else {
@@ -578,7 +578,7 @@ class InstallShell extends Shell
                 'me_tools',
                 'All packages are already installed'
             ));
-            
+
             return;
         }
 
@@ -619,7 +619,7 @@ class InstallShell extends Shell
                     'Failed to set permissions on {0}',
                     $this->bold(rtr($path))
                 ));
-                
+
                 $error = true;
             }
         }
@@ -630,7 +630,7 @@ class InstallShell extends Shell
 
             if ($this->param('force') || $force) {
                 exec($command);
-                
+
                 return;
             }
 

@@ -78,7 +78,7 @@ class Shell extends CakeShell
                 'File or directory {0} already exists',
                 $this->bold(rtr($path))
             ));
-            
+
             return false;
         }
 
@@ -89,7 +89,7 @@ class Shell extends CakeShell
                 'The file {0} has not been created',
                 $this->bold(rtr($path))
             ));
-            
+
             return false;
         }
 
@@ -111,7 +111,7 @@ class Shell extends CakeShell
                 'File or directory {0} not readable',
                 $this->bold(rtr($origin))
             ));
-            
+
             return false;
         }
 
@@ -122,7 +122,7 @@ class Shell extends CakeShell
                 'Symbolic link {0} already exists',
                 $this->bold(rtr($target))
             ));
-            
+
             return false;
         }
 
@@ -133,7 +133,7 @@ class Shell extends CakeShell
                 'File or directory {0} not writeable',
                 $this->bold(rtr(dirname($target)))
             ));
-            
+
             return false;
         }
 
@@ -144,7 +144,7 @@ class Shell extends CakeShell
                 'Failed to create a symbolic link to {0}',
                 $this->bold(rtr($target))
             ));
-            
+
             return false;
         }
 
@@ -153,7 +153,7 @@ class Shell extends CakeShell
             'Created symbolic link to {0}',
             $this->bold(rtr($target))
         ));
-        
+
         return true;
     }
 

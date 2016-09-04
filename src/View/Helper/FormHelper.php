@@ -96,11 +96,11 @@ class FormHelper extends CakeFormHelper
     protected function _inputContainerTemplate($options)
     {
         $inputContainerTemplate = $options['options']['type'] . 'Container' . $options['errorSuffix'];
-        
+
         if (!$this->templater()->get($inputContainerTemplate)) {
             $inputContainerTemplate = 'inputContainer' . $options['errorSuffix'];
         }
-        
+
         return $this->templater()->format($inputContainerTemplate, [
             'content' => $options['content'],
             'error' => $options['error'],

@@ -46,7 +46,7 @@ class Plugin extends CakePlugin
     public static function all(array $options = [])
     {
         $plugins = parent::loaded();
-        
+
         $options = optionDefaults([
             'core' => false,
             'exclude' => [],

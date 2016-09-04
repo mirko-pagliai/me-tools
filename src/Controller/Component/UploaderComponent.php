@@ -154,7 +154,7 @@ class UploaderComponent extends Component
 
         if (!move_uploaded_file($this->file->tmp_name, $target)) {
             $this->_setError(__d('me_tools', 'The file was not successfully moved to the target directory'));
-            
+
             return false;
         }
 
@@ -205,7 +205,7 @@ class UploaderComponent extends Component
             }
 
             $this->_setError($message);
-            
+
             return $this;
         }
 
