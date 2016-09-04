@@ -50,10 +50,16 @@ class RecaptchaHelper extends Helper
      */
     protected function _obfuscate($mail)
     {
-        $name = implode(array_slice($mail = explode("@", $mail), 0, count($mail) - 1), '@');
+        $name = implode(
+            array_slice($mail = explode("@", $mail), 0, count($mail) - 1),
+            '@'
+        );
         $lenght = floor(strlen($name) / 2);
 
-        return substr($name, 0, $lenght) . str_repeat('*', $lenght) . "@" . end($mail);
+        return substr($name, 0, $lenght) .
+            str_repeat('*', $lenght) .
+            "@" .
+            end($mail);
     }
 
     /**
@@ -74,10 +80,14 @@ class RecaptchaHelper extends Helper
 
         //Checks for form keys
         if (empty($keys['public']) || empty($keys['private'])) {
-            throw new InternalErrorException(__d('me_tools', 'Form keys are not configured'));
+            throw new InternalErrorException(
+                __d('me_tools', 'Form keys are not configured')
+            );
         }
 
-        $optionsScript = optionDefaults(['block' => 'script_bottom'], $optionsScript);
+        $optionsScript = optionDefaults([
+            'block' => 'script_bottom',
+        ], $optionsScript);
 
         $this->Html->js(
             'https://www.google.com/recaptcha/api.js',
@@ -105,7 +115,7 @@ class RecaptchaHelper extends Helper
     }
 
     /**
-     * Creates an HTML link for an hidden email. The link will be open in a popup
+     * Creates a link for an hidden email. The link will be open in a popup
      * @param string $title Link title
      * @param string $mail Email to hide
      * @param array $options Array of options and HTML attributes
@@ -116,15 +126,16 @@ class RecaptchaHelper extends Helper
      */
     public function mailLink($title, $mail = null, array $options = [])
     {
-        $title = empty($mail) ? $this->_obfuscate($mail = $title) : $title;
-        $link = self::mailUrl($mail);
-
         $options = optionValues([
             'target' => '_blank',
             'class' => 'recaptcha-mail',
         ], $options);
 
-        return $this->Html->link($title, $link, $options);
+        return $this->Html->link(
+            empty($mail) ? $this->_obfuscate($mail = $title) : $title,
+            self::mailUrl($mail),
+            $options
+        );
     }
 
     /**
@@ -144,12 +155,16 @@ class RecaptchaHelper extends Helper
 
         //Checks for mail keys
         if (empty($keys['public']) || empty($keys['private'])) {
-            throw new InternalErrorException(__d('me_tools', 'Mail keys are not configured'));
+            throw new InternalErrorException(
+                __d('me_tools', 'Mail keys are not configured')
+            );
         }
 
         //Checks if the private mail key is valid (hexadecimal digits)
         if (!ctype_xdigit($keys['private'])) {
-            throw new InternalErrorException(__d('me_tools', 'The private mail key is not valid'));
+            throw new InternalErrorException(
+                __d('me_tools', 'The private mail key is not valid')
+            );
         }
 
         return recaptcha_mailhide_url($keys['public'], $keys['private'], $mail);
