@@ -1000,38 +1000,40 @@ class HtmlHelperTest extends TestCase
      */
     public function testLink()
     {
+        $title = 'My title';
+        
         $result = $this->Html->link(
-            'My text',
+            $title,
             'http://link',
             ['title' => 'my-custom-title']
         );
         $expected = [
             'a' => ['href' => 'http://link', 'title' => 'my-custom-title'],
-            'My text',
+            $title,
             '/a',
         ];
         $this->assertHtml($expected, $result);
 
-        $result = $this->Html->link('My text', 'http://link', ['icon' => 'home']);
+        $result = $this->Html->link($title, 'http://link', ['icon' => 'home']);
         $expected = [
-            'a' => ['href' => 'http://link', 'title' => 'My text'],
+            'a' => ['href' => 'http://link', 'title' => $title],
             'i' => ['class' => 'fa fa-home'],
             ' ',
             '/i',
             ' ',
-            'My text',
+            $title,
             '/a',
         ];
         $this->assertHtml($expected, $result);
 
         $result = $this->Html->link(
-            'My text',
+            $title,
             '#',
             ['icon' => 'home', 'icon-align' => 'right']
         );
         $expected = [
-            'a' => ['href' => '#', 'title' => 'My text'],
-            'My text',
+            'a' => ['href' => '#', 'title' => $title],
+            $title,
             ' ',
             'i' => ['class' => 'fa fa-home'],
             ' ',
@@ -1040,21 +1042,21 @@ class HtmlHelperTest extends TestCase
         ];
         $this->assertHtml($expected, $result);
 
-        $result = $this->Html->link('my text', '#', ['tooltip' => 'my tooltip']);
+        $result = $this->Html->link($title, '#', ['tooltip' => 'my tooltip']);
         $expected = [
             'a' => [
                 'href' => '#',
                 'data-toggle' => 'tooltip',
                 'title' => 'my tooltip',
             ],
-            'my text',
+            $title,
             '/a'
         ];
         $this->assertHtml($expected, $result);
 
         // `tooltip` value rewrites `title` value
         $result = $this->Html->link(
-            'my text',
+            $title,
             '#',
             ['title' => 'my custom title', 'tooltip' => 'my tooltip']
         );
@@ -1064,7 +1066,7 @@ class HtmlHelperTest extends TestCase
                 'data-toggle' => 'tooltip',
                 'title' => 'my tooltip',
             ],
-            'my text',
+            $title,
             '/a'
         ];
         $this->assertHtml($expected, $result);
@@ -1089,26 +1091,26 @@ class HtmlHelperTest extends TestCase
 
         //Single quote on custom title
         $result = $this->Html->link(
-            'My text',
+            $title,
             '#',
             ['title' => 'single quote \'']
         );
         $expected = [
             'a' => ['href' => '#', 'title' => h('single quote \'')],
-            'My text',
+            $title,
             '/a',
         ];
         $this->assertHtml($expected, $result);
 
         //Double quote on custom title
         $result = $this->Html->link(
-            'My text',
+            $title,
             '#',
             ['title' => 'double quote "']
         );
         $expected = [
             'a' => ['href' => '#', 'title' => h('double quote "')],
-            'My text',
+            $title,
             '/a',
         ];
         $this->assertHtml($expected, $result);
@@ -1127,13 +1129,13 @@ class HtmlHelperTest extends TestCase
 
         //Code on custom title
         $result = $this->Html->link(
-            'My text',
+            $title,
             '#',
             ['title' => '<u>Code</u> and text']
         );
         $expected = [
             'a' => ['href' => '#', 'title' => 'Code and text'],
-            'My text',
+            $title,
             '/a',
         ];
         $this->assertHtml($expected, $result);
