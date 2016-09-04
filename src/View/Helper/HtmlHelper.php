@@ -439,8 +439,8 @@ class HtmlHelper extends CakeHtmlHelper
     /**
      * Creates an HTML link
      * @param string $title The content to be wrapped by <a> tags
-     * @param string|array $url Cake-relative URL or array of URL parameters
-     *  or external URL
+     * @param string|array|null $url Cake-relative URL or array of URL
+     *  parameters or external URL
      * @param array $options Array of options and HTML attributes
      * @return string
      * @uses addIcon()
