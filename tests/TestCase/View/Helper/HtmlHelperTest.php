@@ -295,27 +295,27 @@ class HtmlHelperTest extends TestCase
         $this->assertHtml($expected, $result);
 
         //Single quote on text
-        $result = $this->Html->button('single quote \'', null);
+        $result = $this->Html->button('Single quote \'', null);
         $expected = [
             'button' => [
                 'role' => 'button',
                 'class' => 'btn btn-default',
-                'title' => h('single quote \''),
+                'title' => 'Single quote &#039;',
             ],
-            'single quote \'',
+            'Single quote \'',
             '/button',
         ];
         $this->assertHtml($expected, $result);
 
         //Double quote on text
-        $result = $this->Html->button('double quote "', null);
+        $result = $this->Html->button('Double quote "', null);
         $expected = [
             'button' => [
                 'role' => 'button',
                 'class' => 'btn btn-default',
-                'title' => h('double quote "'),
+                'title' => 'Double quote &quot;',
              ],
-            'double quote "',
+            'Double quote "',
             '/button',
         ];
         $this->assertHtml($expected, $result);
@@ -324,13 +324,13 @@ class HtmlHelperTest extends TestCase
         $result = $this->Html->button(
             $text,
             null,
-            ['title' => 'single quote \'']
+            ['title' => 'Single quote \'']
         );
         $expected = [
             'button' => [
                 'role' => 'button',
                 'class' => 'btn btn-default',
-                'title' => h('single quote \''),
+                'title' => 'Single quote &#039;',
             ],
             $text,
             '/button',
@@ -341,11 +341,11 @@ class HtmlHelperTest extends TestCase
         $result = $this->Html->button(
             $text,
             null,
-            ['title' => 'double quote "']
+            ['title' => 'Double quote "']
         );
         $expected = [
             'button' => [
-                'title' => h('double quote "'),
+                'title' => 'Double quote &quot;',
                 'role' => 'button',
                 'class' => 'btn btn-default',
             ],
@@ -1072,19 +1072,19 @@ class HtmlHelperTest extends TestCase
         $this->assertHtml($expected, $result);
 
         //Single quote on text
-        $result = $this->Html->link('single quote \'', '#');
+        $result = $this->Html->link('Single quote \'', '#');
         $expected = [
-            'a' => ['href' => '#', 'title' => h('single quote \'')],
-            'single quote \'',
+            'a' => ['href' => '#', 'title' => 'Single quote &#039;'],
+            'Single quote \'',
             '/a',
         ];
         $this->assertHtml($expected, $result);
 
         //Double quote on text
-        $result = $this->Html->link('double quote "', '#');
+        $result = $this->Html->link('Double quote "', '#');
         $expected = [
-            'a' => ['href' => '#', 'title' => h('double quote "')],
-            'double quote "',
+            'a' => ['href' => '#', 'title' => 'Double quote &quot;'],
+            'Double quote "',
             '/a',
         ];
         $this->assertHtml($expected, $result);
@@ -1093,10 +1093,10 @@ class HtmlHelperTest extends TestCase
         $result = $this->Html->link(
             $title,
             '#',
-            ['title' => 'single quote \'']
+            ['title' => 'Single quote \'']
         );
         $expected = [
-            'a' => ['href' => '#', 'title' => h('single quote \'')],
+            'a' => ['href' => '#', 'title' => 'Single quote &#039;'],
             $title,
             '/a',
         ];
@@ -1106,10 +1106,10 @@ class HtmlHelperTest extends TestCase
         $result = $this->Html->link(
             $title,
             '#',
-            ['title' => 'double quote "']
+            ['title' => 'Double quote "']
         );
         $expected = [
-            'a' => ['href' => '#', 'title' => h('double quote "')],
+            'a' => ['href' => '#', 'title' => 'Double quote &quot;'],
             $title,
             '/a',
         ];
