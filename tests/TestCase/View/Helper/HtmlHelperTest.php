@@ -1001,7 +1001,7 @@ class HtmlHelperTest extends TestCase
     public function testLink()
     {
         $title = 'My title';
-        
+
         $result = $this->Html->link(
             $title,
             'http://link',
