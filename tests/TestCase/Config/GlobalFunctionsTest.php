@@ -44,23 +44,23 @@ class GlobalFunctionsTest extends TestCase
         $testCallback = function ($value) {
             return $value !== 'third';
         };
-        
+
         //Removes empty values
         $result = af($testArray);
         $expected = array_filter($testArray);
         $this->assertEquals($expected, $result);
-        
+
         //Removes empty values and re-order keys
         $result = array_values(af($testArray));
         $expected = array_values(array_filter($testArray));
         $this->assertEquals($expected, $result);
-        
+
         //Using callback
         $result = af($testArray, $testCallback);
         $expected = array_filter($testArray, $testCallback);
         $this->assertEquals($expected, $result);
     }
-    
+
     /**
      * Test for `am()` global function, alias for `array_merge()`
      * @return void
@@ -71,16 +71,16 @@ class GlobalFunctionsTest extends TestCase
         $firstTestArray = ['alfa', 'beta', 'gamma'];
         $secondTestArray = ['first', 'second', 'third'];
         $testString = 'this is a string';
-        
+
         $result = am($firstTestArray, $secondTestArray);
         $expected = array_merge($firstTestArray, $secondTestArray);
         $this->assertEquals($expected, $result);
-        
+
         $result = am($firstTestArray, $secondTestArray, $testString);
         $expected = array_merge($firstTestArray, $secondTestArray, (array)$testString);
         $this->assertEquals($expected, $result);
     }
-    
+
     /**
      * Test for `firstKey()` global function
      * @return void
@@ -89,12 +89,12 @@ class GlobalFunctionsTest extends TestCase
     public function testFirstKey()
     {
         $testArray = ['alfa' => 'first', 'beta' => 'second'];
-        
+
         $result = firstKey($testArray);
         $expected = 'alfa';
         $this->assertEquals($expected, $result);
     }
-    
+
     /**
      * Test for `firstValue()` global function
      * @return void
@@ -103,15 +103,15 @@ class GlobalFunctionsTest extends TestCase
     public function testFirstValue()
     {
         $testArray = ['alfa' => 'first', 'beta' => 'second'];
-        
+
         $result = firstValue($testArray);
         $expected = 'first';
         $this->assertEquals($expected, $result);
-        
+
         $expected = array_values($testArray)[0];
         $this->assertEquals($expected, $result);
     }
-    
+
     /**
      * Tests for `folderIsWriteable()` and `clearDir()` global functions.
      *
@@ -124,41 +124,40 @@ class GlobalFunctionsTest extends TestCase
     public function testFolders()
     {
         $path = TMP . 'tests';
-        
+
         //Creates some folder
         $folder = new Folder($path);
         $result = $folder->create($path . DS . 'folder' . DS . 'subfolder');
         $this->assertTrue($result);
-        
+
         //Test for `folderIsWriteable()`
         $this->assertTrue(folderIsWriteable($path));
-        
-        
+
         $files = [
             $path . DS . 'first.tmp',
             $path . DS . 'folder' . DS . 'second.tmp',
             $path . DS . 'folder' . DS . 'subfolder' . DS . 'third.tmp',
         ];
-        
+
         //Creates some files
         foreach ($files as $file) {
             new File($file, true, 0777);
             $this->assertTrue(is_readable($file) && is_writable($file));
         }
-        
+
         //Test for `clearDir()`
         $this->assertTrue(clearDir($path));
-        
+
         //Now checks that the files no longer exist
         foreach ($files as $file) {
             $this->assertTrue(!file_exists($file));
         }
-        
+
         //Delete folders
         rmdir($path . DS . 'folder' . DS . 'subfolder');
         rmdir($path . DS . 'folder');
     }
-    
+
     /**
      * Test for `implodeRecursive()` global function
      * @return void
@@ -169,22 +168,22 @@ class GlobalFunctionsTest extends TestCase
         $result = implodeRecursive(' ', ['value']);
         $expected = 'value';
         $this->assertEquals($expected, $result);
-        
+
         $result = implodeRecursive(' ', ['value1', 'value2']);
         $expected = 'value1 value2';
         $this->assertEquals($expected, $result);
-        
+
         $result = implodeRecursive(' ', ['value1', 'value2', ['value3']]);
         $expected = 'value1 value2 value3';
         $this->assertEquals($expected, $result);
-        
+
         $result = implodeRecursive(
             ' ',
             ['value1', 'value2', ['value3', ['value4']]]
         );
         $expected = 'value1 value2 value3 value4';
         $this->assertEquals($expected, $result);
-        
+
         $result = implodeRecursive(
             ' ',
             am(['value1', 'value2'], ['value3', ['value4']], ['value5'])
@@ -192,7 +191,7 @@ class GlobalFunctionsTest extends TestCase
         $expected = 'value1 value2 value3 value4 value5';
         $this->assertEquals($expected, $result);
     }
-    
+
     /**
      * Test for `isJson()` global function
      * @return void
@@ -204,13 +203,13 @@ class GlobalFunctionsTest extends TestCase
         $testJson = '{"a":1,"b":2,"c":3,"d":4,"e":5}';
         $testObject = (object)$testArray;
         $testString = 'this is a string';
-        
+
         $this->assertFalse(isJson($testArray));
         $this->assertTrue(isJson($testJson));
         $this->assertFalse(isJson($testObject));
         $this->assertFalse(isJson($testString));
     }
-    
+
     /**
      * Test for `isPositive()` global function
      * @return void
@@ -223,7 +222,7 @@ class GlobalFunctionsTest extends TestCase
         $this->assertFalse(isPositive(-1));
         $this->assertFalse(isPositive(1.1));
     }
-    
+
     /**
      * Test for `isUrl()` global function
      * @return void
@@ -237,14 +236,14 @@ class GlobalFunctionsTest extends TestCase
         $this->assertTrue(isUrl('http://example.com/noexistingfile'));
         $this->assertTrue(isUrl('http://example.com/noexistingfile.html'));
         $this->assertTrue(isUrl('http://example.com/subdir/noexistingfile'));
-        
+
         //Files and dirs
         $this->assertFalse(isUrl('folder'));
         $this->assertFalse(isUrl(DS . 'folder'));
         $this->assertFalse(isUrl(DS . 'folder' . DS));
         $this->assertFalse(isUrl(DS . 'folder' . DS . 'file.txt'));
     }
-    
+
     /**
      * Test for `rtr()` global function
      * @return void
@@ -255,10 +254,10 @@ class GlobalFunctionsTest extends TestCase
         $result = rtr(ROOT . DS . 'my' . DS . 'folder');
         $expected = 'my' . DS . 'folder';
         $this->assertEquals($expected, $result);
-        
+
         $result = rtr('my' . DS . 'folder');
         $expected = 'my' . DS . 'folder';
-        
+
         $this->assertEquals($expected, $result);
         $result = rtr(DS . 'my' . DS . 'folder');
         $expected = DS . 'my' . DS . 'folder';

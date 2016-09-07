@@ -62,7 +62,7 @@ class Youtube
         if (isUrl($id)) {
             $id = self::getId($id);
         }
-        
+
         return sprintf('http://img.youtube.com/vi/%s/0.jpg', $id);
     }
 

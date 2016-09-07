@@ -31,16 +31,6 @@ use MeTools\Core\Plugin;
 class PluginTest extends TestCase
 {
     /**
-     * Teardown any static object changes and restore them
-     * @return void
-     */
-    public function tearDown()
-    {
-        parent::tearDown();
-        Plugin::unload();
-    }
-    
-    /**
      * Tests for `all()` method
      * @return void
      * @test
@@ -48,39 +38,38 @@ class PluginTest extends TestCase
     public function testAll()
     {
         $result = Plugin::all();
-        $this->assertEmpty($result);
-        
+        $expected = ['MeTools'];
+        $this->assertEquals($expected, $result);
+
         $result = Plugin::load(
             'TestPlugin',
             ['path' => 'tests/test_app/Plugin/TestPlugin/src']
         );
         $this->assertNull($result);
-        
+
         $result = Plugin::all();
-        $expected = ['TestPlugin'];
+        $expected = ['MeTools', 'TestPlugin'];
         $this->assertEquals($expected, $result);
-        
+
         $result = Plugin::all(['exclude' => 'TestPlugin']);
-        $this->assertEmpty($result);
-        
-        $result = Plugin::load('MeTools', ['path' => ROOT]);
-        $this->assertNull($result);
-        
+        $expected = ['MeTools'];
+        $this->assertEquals($expected, $result);
+
         $result = Plugin::load(
             'AnotherTestPlugin',
             ['path' => 'tests/test_app/Plugin/AnotherTestPlugin/src']
         );
         $this->assertNull($result);
-        
+
         $result = Plugin::all();
         $expected = ['MeTools', 'AnotherTestPlugin', 'TestPlugin'];
         $this->assertEquals($expected, $result);
-        
+
         $result = Plugin::all(['order' => false]);
         $expected = ['AnotherTestPlugin', 'MeTools', 'TestPlugin'];
         $this->assertEquals($expected, $result);
     }
-    
+
     /**
      * Tests for `path()` method
      * @return void
@@ -88,24 +77,21 @@ class PluginTest extends TestCase
      */
     public function testPath()
     {
-        $result = Plugin::load('MeTools', ['path' => ROOT]);
-        $this->assertNull($result);
-        
         $result = Plugin::path('MeTools');
         $this->assertEquals(ROOT, $result);
-        
+
         $expected = ROOT . 'config' . DS . 'bootstrap.php';
-        
+
         $result = Plugin::path('MeTools', 'config' . DS . 'bootstrap.php');
         $this->assertEquals($expected, $result);
-        
+
         $result = Plugin::path('MeTools', 'config' . DS . 'bootstrap.php', true);
         $this->assertEquals($expected, $result);
-        
+
         //No existing file
         $result = Plugin::path('MeTools', 'config' . DS . 'no_existing.php', true);
         $this->assertFalse($result);
-        
+
         $result = Plugin::path('MeTools', [
             'config' . DS . 'bootstrap.php',
             'config' . DS . 'no_existing.php',
@@ -115,7 +101,7 @@ class PluginTest extends TestCase
             ROOT . 'config' . DS . 'no_existing.php',
         ];
         $this->assertEquals($expected, $result);
-        
+
         //Only the first file exists
         $result = Plugin::path('MeTools', [
             'config' . DS . 'bootstrap.php',
@@ -123,7 +109,7 @@ class PluginTest extends TestCase
         ], true);
         $expected = [ROOT . 'config' . DS . 'bootstrap.php'];
         $this->assertEquals($expected, $result);
-        
+
         //No one exists
         $result = Plugin::path('MeTools', [
             'config' . DS . 'no_existing.php',

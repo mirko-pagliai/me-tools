@@ -72,7 +72,7 @@ class LibraryHelper extends Helper
             'showTodayButton' => true,
             'showClear' => true,
         ], $options);
-        
+
         if (empty($options['icons'])) {
             $options['icons'] = [
                 'time' => 'fa fa-clock-o',

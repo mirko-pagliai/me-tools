@@ -21,11 +21,11 @@
                 //Removes accents, swap Ã± for n, etc
                 var from = "àáäâèéëêìíïîıòóöôùúüûñç·/_,:;";
                 var to = "aaaaeeeeiiiiioooouuuunc------";
-                
+
                 for (var i = 0, l = from.length; i < l; i++) {
                     str = str.replace(new RegExp(from.charAt(i), 'g'), to.charAt(i));
                 }
-                
+
                 return str.replace(/[^a-z0-9 -]/g, '') //Removes invalid chars
                 .replace(/^\s+|\s+$/g, '') //Trim
                 .replace(/\s+/g, '-') //Collapses whitespace and replace by -

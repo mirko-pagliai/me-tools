@@ -1,4 +1,13 @@
 # 2.x branch
+## 2.10 branch
+### 2.10.0
+* `HtmlHelper` class has been improved. The `tip` option has been replaced
+    with `help`. Checkboxes are displayed according to the browser;
+* `DropdownHelper` class has been completely rewritten and now provides
+    `menu()`, `start()` and `end()` methods;
+* added tests for `DropdownHelper` class;
+* added tests for `HtmlHelper` class.
+
 ## 2.9 branch
 ### 2.9.1
 * fixed bug for icons of Bootstrap Datepicker;

@@ -53,7 +53,7 @@ $(function () {
     if ($('[data-toggle~="tooltip"]').length) {
         $('[data-toggle~="tooltip"]').tooltip();
     }
-    
+
     /**
      * Closes a flash message when clicking the close button
      */

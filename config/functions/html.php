@@ -79,7 +79,7 @@ if (!function_exists('optionDefaults')) {
                     $value = implodeRecursive(' ', $value);
                     $value = implode(' ', array_unique(explode(' ', $value)));
                 }
-                
+
                 $options[$key] = $value;
             }
         }
@@ -123,15 +123,15 @@ if (!function_exists('optionValues')) {
             if (is_array($value)) {
                 $value = implodeRecursive(' ', $value);
             }
-            
+
             //Turns new value into array
             $value = explode(' ', $value);
-            
+
             if (!empty($options[$key])) {
                 //Merges existing value as array with new value
                 $value = am(explode(' ', $options[$key]), $value);
             }
-            
+
             //Turns final value as string
             $options[$key] = implode(' ', array_unique($value));
         }

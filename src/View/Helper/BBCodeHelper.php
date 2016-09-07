@@ -55,7 +55,7 @@ class BBCodeHelper extends Helper
             get_class_methods(get_parent_class()),
             ['parser', 'remove']
         );
-        
+
         //Calls dynamically each method
         foreach ($methods as $method) {
             $text = self::{$method}($text);
