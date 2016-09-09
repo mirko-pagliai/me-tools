@@ -1,5 +1,8 @@
 # 2.x branch
 ## 2.10 branch
+### 2.10.1
+* fixed bug for tooltips with quotes or code.
+
 ### 2.10.0
 * `HtmlHelper` class has been improved. The `tip` option has been replaced
     with `help`. Checkboxes are displayed according to the browser;

@@ -1042,35 +1042,6 @@ class HtmlHelperTest extends TestCase
         ];
         $this->assertHtml($expected, $result);
 
-        $result = $this->Html->link($title, '#', ['tooltip' => 'my tooltip']);
-        $expected = [
-            'a' => [
-                'href' => '#',
-                'data-toggle' => 'tooltip',
-                'title' => 'my tooltip',
-            ],
-            $title,
-            '/a'
-        ];
-        $this->assertHtml($expected, $result);
-
-        // `tooltip` value rewrites `title` value
-        $result = $this->Html->link(
-            $title,
-            '#',
-            ['title' => 'my custom title', 'tooltip' => 'my tooltip']
-        );
-        $expected = [
-            'a' => [
-                'href' => '#',
-                'data-toggle' => 'tooltip',
-                'title' => 'my tooltip',
-            ],
-            $title,
-            '/a'
-        ];
-        $this->assertHtml($expected, $result);
-
         //Single quote on text
         $result = $this->Html->link('Single quote \'', '#');
         $expected = [
@@ -1137,6 +1108,71 @@ class HtmlHelperTest extends TestCase
             'a' => ['href' => '#', 'title' => 'Code and text'],
             $title,
             '/a',
+        ];
+        $this->assertHtml($expected, $result);
+
+        $result = $this->Html->link($title, '#', ['tooltip' => 'my tooltip']);
+        $expected = [
+            'a' => [
+                'href' => '#',
+                'data-toggle' => 'tooltip',
+                'title' => 'my tooltip',
+            ],
+            $title,
+            '/a'
+        ];
+        $this->assertHtml($expected, $result);
+
+        // `tooltip` value rewrites `title` value
+        $result = $this->Html->link(
+            $title,
+            '#',
+            ['title' => 'my custom title', 'tooltip' => 'my tooltip']
+        );
+        $expected = [
+            'a' => [
+                'href' => '#',
+                'data-toggle' => 'tooltip',
+                'title' => 'my tooltip',
+            ],
+            $title,
+            '/a'
+        ];
+        $this->assertHtml($expected, $result);
+
+        $result = $this->Html->link($title, '#', ['tooltip' => 'Single quote \'']);
+        $expected = [
+            'a' => [
+                'href' => '#',
+                'title' => 'Single quote &#039;',
+                'data-toggle' => 'tooltip',
+            ],
+            $title,
+            '/a'
+        ];
+        $this->assertHtml($expected, $result);
+
+        $result = $this->Html->link($title, '#', ['tooltip' => 'Double quote "']);
+        $expected = [
+            'a' => [
+                'href' => '#',
+                'title' => 'Double quote &quot;',
+                'data-toggle' => 'tooltip',
+            ],
+            $title,
+            '/a'
+        ];
+        $this->assertHtml($expected, $result);
+
+        $result = $this->Html->link($title, '#', ['tooltip' => '<u>Code</u> and text']);
+        $expected = [
+            'a' => [
+                'href' => '#',
+                'title' => 'Code and text',
+                'data-toggle' => 'tooltip',
+            ],
+            $title,
+            '/a'
         ];
         $this->assertHtml($expected, $result);
     }
