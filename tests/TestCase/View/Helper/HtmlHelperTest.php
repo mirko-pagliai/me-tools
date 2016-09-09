@@ -162,6 +162,17 @@ class HtmlHelperTest extends TestCase
             'title' => $tooltip,
         ];
         $this->assertEquals($expected, $result);
+
+        $result = $this->Html->addTooltip([
+            'tooltip' => $tooltip,
+            'tooltip-align' => 'bottom',
+        ]);
+        $expected = [
+            'data-toggle' => 'tooltip',
+            'title' => $tooltip,
+            'data-placement' => 'bottom',
+        ];
+        $this->assertEquals($expected, $result);
     }
 
     /**
@@ -1134,6 +1145,23 @@ class HtmlHelperTest extends TestCase
                 'href' => '#',
                 'data-toggle' => 'tooltip',
                 'title' => 'my tooltip',
+            ],
+            $title,
+            '/a'
+        ];
+        $this->assertHtml($expected, $result);
+
+        //Tooltip with alignment
+        $result = $this->Html->link($title, '#', [
+            'tooltip' => 'my tooltip',
+            'tooltip-align' => 'bottom',
+        ]);
+        $expected = [
+            'a' => [
+                'href' => '#',
+                'data-toggle' => 'tooltip',
+                'title' => 'my tooltip',
+                'data-placement' => 'bottom',
             ],
             $title,
             '/a'

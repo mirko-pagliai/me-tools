@@ -1,6 +1,7 @@
 # 2.x branch
 ## 2.10 branch
 ### 2.10.1
+* added support for tooltips alignment;
 * fixed bug for tooltips with quotes or code.
 
 ### 2.10.0

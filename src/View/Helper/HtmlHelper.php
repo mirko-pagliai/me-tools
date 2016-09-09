@@ -97,9 +97,15 @@ class HtmlHelper extends CakeHtmlHelper
         if (!empty($options['tooltip'])) {
             $options = optionValues(['data-toggle' => 'tooltip'], $options);
             $options['title'] = trim(h(strip_tags($options['tooltip'])));
+
+            if (!empty($options['tooltip-align'])) {
+                $options = optionValues([
+                    'data-placement' => $options['tooltip-align'],
+                ], $options);
+            }
         }
 
-        unset($options['tooltip']);
+        unset($options['tooltip'], $options['tooltip-align']);
 
         return $options;
     }
