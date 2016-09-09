@@ -33,7 +33,10 @@ if (!function_exists('buttonClass')) {
     {
         //If "class" doesn't contain a button style, adds the "btn-default"
         //  classes
-        if (empty($options['class']) || !preg_match('/btn-(default|primary|success|info|warning|danger)/', $options['class'])) {
+        if (empty($options['class']) || !preg_match(
+            '/btn-(default|primary|success|info|warning|danger)/',
+            $options['class']
+        )) {
             return optionValues([
                 'class' => ['btn', sprintf('btn-%s', $class)],
             ], $options);
