@@ -35,33 +35,6 @@ use MeTools\Core\Plugin;
 class GlobalFunctionsTest extends TestCase
 {
     /**
-     * Setup the test case, backup the static object values so they can be
-     * restored. Specifically backs up the contents of Configure and paths in
-     *  App if they have not already been backed up
-     * @return void
-     */
-    public function setUp()
-    {
-        parent::setUp();
-
-        Plugin::load(
-            'TestPlugin',
-            ['path' => 'tests/test_app/Plugin/TestPlugin/src']
-        );
-    }
-
-    /**
-     * Teardown any static object changes and restore them
-     * @return void
-     */
-    public function tearDown()
-    {
-        parent::tearDown();
-
-        Plugin::unload('TestPlugin');
-    }
-
-    /**
      * Test for `af()` global function, alias for `array_filter()`
      * @return void
      * @test
