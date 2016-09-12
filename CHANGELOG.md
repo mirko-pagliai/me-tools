@@ -1,6 +1,8 @@
 # 2.x branch
 ## 2.10 branch
 ### 2.10.1
+* fixed serious bug for `BBCodeHelper::remove()` method: now it doesn't remove
+    all the HTML code, but only the BBCode code;
 * added `getChildMethods()` global function;
 * added support for tooltips alignment;
 * fixed bug for tooltips with quotes or code.

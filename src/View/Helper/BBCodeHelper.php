@@ -41,6 +41,15 @@ class BBCodeHelper extends Helper
     public $helpers = ['Html' => ['className' => 'MeTools.Html']];
 
     /**
+     * Pattern
+     * @var array
+     */
+    protected $pattern = [
+        'readmore' => '/(<p(>|.*?[^?]>))?\[read\-?more\s*\/?\s*\](<\/p>)?/',
+        'youtube' => '/\[youtube](.+?)\[\/youtube]/',
+    ];
+
+    /**
      * Executes all parsers
      * @param string $text Text
      * @return string
@@ -65,11 +74,12 @@ class BBCodeHelper extends Helper
      * </code>
      * @param string $text Text
      * @return string
+     * @uses $pattern
      */
     public function readMore($text)
     {
         return preg_replace(
-            '/(<p(>|.*?[^?]>))?\[read\-?more\s*\/?\s*\](<\/p>)?/',
+            $this->pattern['readmore'],
             '<!-- read-more -->',
             $text
         );
@@ -79,11 +89,11 @@ class BBCodeHelper extends Helper
      * Removes all BBCode
      * @param string $text Text
      * @return string
-     * @uses parser()
+     * @uses $pattern
      */
     public function remove($text)
     {
-        return trim(strip_tags(self::parser($text)));
+        return trim(preg_replace($this->pattern, null, $text));
     }
 
     /**
@@ -103,11 +113,12 @@ class BBCodeHelper extends Helper
      * @return string
      * @uses MeTools\Utility\Youtube::getId()
      * @uses MeTools\View\Helper\HtmlHelper::youtube()
+     * @uses $pattern
      */
     public function youtube($text)
     {
         return preg_replace_callback(
-            '/\[youtube](.+?)\[\/youtube]/',
+            $this->pattern['youtube'],
             function ($matches) {
                 if (isUrl($matches[1])) {
                     return $this->Html->youtube(Youtube::getId($matches[1]));
