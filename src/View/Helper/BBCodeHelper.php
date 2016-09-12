@@ -44,17 +44,11 @@ class BBCodeHelper extends Helper
      * Executes all parsers
      * @param string $text Text
      * @return string
-     * @uses readMore()
-     * @uses youtube()
      */
     public function parser($text)
     {
         //Gets all current class methods, except for `parser()` and `remove()`
-        $methods = array_diff(
-            get_class_methods(get_class()),
-            get_class_methods(get_parent_class()),
-            ['parser', 'remove']
-        );
+        $methods = getChildMethods(get_class(), ['parser', 'remove']);
 
         //Calls dynamically each method
         foreach ($methods as $method) {
@@ -115,9 +109,11 @@ class BBCodeHelper extends Helper
         return preg_replace_callback(
             '/\[youtube](.+?)\[\/youtube]/',
             function ($matches) {
-                return $this->Html->youtube(
-                    isUrl($matches[1]) ? Youtube::getId($matches[1]) : $matches[1]
-                );
+                if (isUrl($matches[1])) {
+                    return $this->Html->youtube(Youtube::getId($matches[1]));
+                }
+
+                return $this->Html->youtube($matches[1]);
             },
             $text
         );

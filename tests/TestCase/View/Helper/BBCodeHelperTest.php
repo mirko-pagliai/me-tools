@@ -54,6 +54,7 @@ class BBCodeHelperTest extends TestCase
     public function tearDown()
     {
         parent::tearDown();
+
         unset($this->BBCode, $this->Html, $this->View);
     }
 

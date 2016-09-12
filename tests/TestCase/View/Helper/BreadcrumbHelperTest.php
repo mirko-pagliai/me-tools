@@ -52,6 +52,7 @@ class BreadcrumbHelperTest extends TestCase
     public function tearDown()
     {
         parent::tearDown();
+
         unset($this->Breadcrumb, $this->View);
     }
 

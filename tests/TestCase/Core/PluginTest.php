@@ -31,6 +31,18 @@ use MeTools\Core\Plugin;
 class PluginTest extends TestCase
 {
     /**
+     * Teardown any static object changes and restore them
+     * @return void
+     */
+    public function tearDown()
+    {
+        parent::tearDown();
+
+        Plugin::unload('TestPlugin');
+        Plugin::unload('AnotherTestPlugin');
+    }
+
+    /**
      * Tests for `all()` method
      * @return void
      * @test
@@ -68,12 +80,6 @@ class PluginTest extends TestCase
         $result = Plugin::all(['order' => false]);
         $expected = ['AnotherTestPlugin', 'MeTools', 'TestPlugin'];
         $this->assertEquals($expected, $result);
-
-        $result = Plugin::unload('TestPlugin');
-        $this->assertNull($result);
-
-        $result = Plugin::unload('AnotherTestPlugin');
-        $this->assertNull($result);
     }
 
     /**
