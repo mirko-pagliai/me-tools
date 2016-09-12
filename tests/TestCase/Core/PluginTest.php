@@ -68,6 +68,12 @@ class PluginTest extends TestCase
         $result = Plugin::all(['order' => false]);
         $expected = ['AnotherTestPlugin', 'MeTools', 'TestPlugin'];
         $this->assertEquals($expected, $result);
+
+        $result = Plugin::unload('TestPlugin');
+        $this->assertNull($result);
+
+        $result = Plugin::unload('AnotherTestPlugin');
+        $this->assertNull($result);
     }
 
     /**
