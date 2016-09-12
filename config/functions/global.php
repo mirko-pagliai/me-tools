@@ -128,6 +128,27 @@ if (!function_exists('folderIsWriteable')) {
     }
 }
 
+if (!function_exists('getChildMethods')) {
+    /**
+     * Gets the class methods' names, but unlike the `get_class_methods()`
+     *  function, this function excludes the methods of the parent class
+     * @param string $class Class name
+     * @return array|null
+     */
+    function getChildMethods($class)
+    {
+        $methods = get_class_methods($class);
+
+        $parent = get_parent_class($class);
+
+        if ($parent) {
+            $methods = array_diff($methods, get_class_methods($parent));
+        }
+
+        return $methods;
+    }
+}
+
 if (!function_exists('getClientIp')) {
     /**
      * Gets the client IP

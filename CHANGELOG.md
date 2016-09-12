@@ -1,6 +1,7 @@
 # 2.x branch
 ## 2.10 branch
 ### 2.10.1
+* added `getChildMethods()` global function;
 * added support for tooltips alignment;
 * fixed bug for tooltips with quotes or code.
 

@@ -25,6 +25,7 @@ namespace MeTools\Test\TestCase;
 use Cake\Filesystem\File;
 use Cake\Filesystem\Folder;
 use Cake\TestSuite\TestCase;
+use MeTools\Core\Plugin;
 
 /**
  * GlobalFunctionsTest class.
@@ -156,6 +157,33 @@ class GlobalFunctionsTest extends TestCase
         //Delete folders
         rmdir($path . DS . 'folder' . DS . 'subfolder');
         rmdir($path . DS . 'folder');
+    }
+
+    /**
+     * Test for `getChildMethods()` global function
+     * @return void
+     * @test
+     */
+    public function testGetChildMethods()
+    {
+        Plugin::load(
+            'TestPlugin',
+            ['path' => 'tests/test_app/Plugin/TestPlugin/src']
+        );
+
+        $result = getChildMethods('\TestPlugin\Utility\ParentTestClass');
+        $expected = ['firstParentTestMethod', 'secondParentTestMethod'];
+        $this->assertEquals($expected, $result);
+
+        $result = getChildMethods('\TestPlugin\Utility\ChildTestClass');
+        $expected = ['firstChildTestMethod', 'secondChildTestMethod'];
+        $this->assertEquals($expected, $result);
+
+        Plugin::unload('TestPlugin');
+
+        //With no existing class
+        $result = getChildMethods('\MeCms\Utility\NoExistingClass');
+        $this->assertNull($result);
     }
 
     /**
