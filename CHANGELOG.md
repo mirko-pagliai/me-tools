@@ -5,7 +5,8 @@
     all the HTML code, but only the BBCode code;
 * added `getChildMethods()` global function;
 * added support for tooltips alignment;
-* fixed bug for tooltips with quotes or code.
+* fixed bug for tooltips with quotes or code;
+* removed "bold" style for shells.
 
 ### 2.10.0
 * `HtmlHelper` class has been improved. The `tip` option has been replaced

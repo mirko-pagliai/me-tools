@@ -247,7 +247,7 @@ class InstallShell extends Shell
                 $this->verbose(__d(
                     'me_tools',
                     'File or directory {0} already exists',
-                    $this->bold(rtr($target))
+                    rtr($target)
                 ));
 
                 continue;
@@ -257,13 +257,13 @@ class InstallShell extends Shell
                 $this->verbose(__d(
                     'me_tools',
                     'The file {0} has been copied',
-                    $this->bold(rtr($target))
+                    rtr($target)
                 ));
             } else {
                 $this->err(__d(
                     'me_tools',
                     'The file {0} has not been copied',
-                    $this->bold(rtr($target))
+                    rtr($target)
                 ));
             }
         }
@@ -295,7 +295,7 @@ class InstallShell extends Shell
                     $this->verbose(__d(
                         'me_tools',
                         'File or directory {0} already exists',
-                        $this->bold(rtr($destination))
+                        rtr($destination)
                     ));
 
                     continue;
@@ -306,13 +306,13 @@ class InstallShell extends Shell
                     $this->verbose(__d(
                         'me_tools',
                         'Created symbolic link to {0}',
-                        $this->bold(rtr($destination))
+                        rtr($destination)
                     ));
                 } else {
                     $this->err(__d(
                         'me_tools',
                         'Failed to create a symbolic link to {0}',
-                        $this->bold(rtr($destination))
+                        rtr($destination)
                     ));
                 }
             }
@@ -320,7 +320,7 @@ class InstallShell extends Shell
             $this->err(__d(
                 'me_tools',
                 'File or directory {0} not writeable',
-                $this->bold(rtr($destinationDir))
+                rtr($destinationDir)
             ));
         }
     }
@@ -341,13 +341,13 @@ class InstallShell extends Shell
                     $this->verbose(__d(
                         'me_tools',
                         'Created {0} directory',
-                        $this->bold(rtr($path))
+                        rtr($path)
                     ));
                 } else {
                     $this->err(__d(
                         'me_tools',
                         'Failed to create file or directory {0}',
-                        $this->bold(rtr($path))
+                        rtr($path)
                     ));
 
                     $error = true;
@@ -356,7 +356,7 @@ class InstallShell extends Shell
                 $this->verbose(__d(
                     'me_tools',
                     'File or directory {0} already exists',
-                    $this->bold(rtr($path))
+                    rtr($path)
                 ));
             }
         }
@@ -372,7 +372,7 @@ class InstallShell extends Shell
             $ask = $this->in(__d(
                 'me_tools',
                 'It was not possible to create some directories. Try again using {0}?',
-                $this->bold('sudo')
+                'sudo'
             ), ['Y', 'n'], 'Y');
             if (in_array($ask, ['Y', 'y'])) {
                 exec(sprintf('sudo mkdir -p %s', implode(' ', $this->paths)));
@@ -426,7 +426,7 @@ class InstallShell extends Shell
             $this->err(__d(
                 'me_tools',
                 'File or directory {0} not writeable',
-                $this->bold(rtr($file))
+                rtr($file)
             ));
 
             return;
@@ -442,7 +442,7 @@ class InstallShell extends Shell
             $this->verbose(__d(
                 'me_tools',
                 'The file {0} doesn\'t need to be fixed',
-                $this->bold(rtr($file))
+                rtr($file)
             ));
 
             return;
@@ -463,13 +463,13 @@ class InstallShell extends Shell
             $this->verbose(__d(
                 'me_tools',
                 'The file {0} has been fixed',
-                $this->bold(rtr($file))
+                rtr($file)
             ));
         } else {
             $this->err(__d(
                 'me_tools',
                 'The file {0} has not been fixed',
-                $this->bold(rtr($file))
+                rtr($file)
             ));
         }
     }
@@ -611,13 +611,13 @@ class InstallShell extends Shell
                 $this->verbose(__d(
                     'me_tools',
                     'Setted permissions on {0}',
-                    $this->bold(rtr($path))
+                    rtr($path)
                 ));
             } else {
                 $this->err(__d(
                     'me_tools',
                     'Failed to set permissions on {0}',
-                    $this->bold(rtr($path))
+                    rtr($path)
                 ));
 
                 $error = true;
