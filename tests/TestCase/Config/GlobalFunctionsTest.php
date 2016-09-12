@@ -35,6 +35,33 @@ use MeTools\Core\Plugin;
 class GlobalFunctionsTest extends TestCase
 {
     /**
+     * Setup the test case, backup the static object values so they can be
+     * restored. Specifically backs up the contents of Configure and paths in
+     *  App if they have not already been backed up
+     * @return void
+     */
+    public function setUp()
+    {
+        parent::setUp();
+
+        Plugin::load(
+            'TestPlugin',
+            ['path' => 'tests/test_app/Plugin/TestPlugin/src']
+        );
+    }
+
+    /**
+     * Teardown any static object changes and restore them
+     * @return void
+     */
+    public function tearDown()
+    {
+        parent::tearDown();
+
+        Plugin::unload('TestPlugin');
+    }
+
+    /**
      * Test for `af()` global function, alias for `array_filter()`
      * @return void
      * @test
@@ -166,11 +193,6 @@ class GlobalFunctionsTest extends TestCase
      */
     public function testGetChildMethods()
     {
-        Plugin::load(
-            'TestPlugin',
-            ['path' => 'tests/test_app/Plugin/TestPlugin/src']
-        );
-
         $result = getChildMethods('\TestPlugin\Utility\ParentTestClass');
         $expected = ['firstParentTestMethod', 'secondParentTestMethod'];
         $this->assertEquals($expected, $result);
@@ -179,7 +201,12 @@ class GlobalFunctionsTest extends TestCase
         $expected = ['firstChildTestMethod', 'secondChildTestMethod'];
         $this->assertEquals($expected, $result);
 
-        Plugin::unload('TestPlugin');
+        $result = getChildMethods(
+            '\TestPlugin\Utility\ChildTestClass',
+            'firstChildTestMethod'
+        );
+        $expected = ['secondChildTestMethod'];
+        $this->assertEquals($expected, $result);
 
         //With no existing class
         $result = getChildMethods('\MeCms\Utility\NoExistingClass');
