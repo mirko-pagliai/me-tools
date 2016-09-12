@@ -23,7 +23,9 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "MeTools\\Test\\": "tests"
+            "MeTools\\Test\\": "tests",
+            "TestPlugin\\": "tests/test_app/Plugin/TestPlugin/src",
+            "AnotherTestPlugin\\": "tests/test_app/Plugin/AnotherTestPlugin/src"
         }
     },
     "require-dev": {
