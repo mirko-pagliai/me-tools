@@ -19,7 +19,10 @@
     "autoload": {
         "psr-4": {
             "MeTools\\": "src"
-        }
+        },
+        "files": [
+            "vendor/Recaptcha/recaptchalib.php"
+        ]
     },
     "autoload-dev": {
         "psr-4": {

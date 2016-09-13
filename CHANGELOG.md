@@ -2,7 +2,8 @@
 ## 2.10 branch
 ### 2.10.2
 * added `MailHelper` class with `obfuscate()` method;
-* removed `RecaptchaHelper::mailLink()` method.
+* removed `RecaptchaHelper::mailLink()` method;
+* added tests for `RecaptchaHelper` class;
 
 ### 2.10.1
 * fixed serious bug for `BBCodeHelper::remove()` method: now it doesn't remove
