@@ -1,5 +1,8 @@
 # 2.x branch
 ## 2.10 branch
+### 2.10.2
+* added `MailHelper` class with `obfuscate()` method.
+
 ### 2.10.1
 * fixed serious bug for `BBCodeHelper::remove()` method: now it doesn't remove
     all the HTML code, but only the BBCode code;
