@@ -41,20 +41,23 @@ class BBCodeHelper extends Helper
     public $helpers = ['Html' => ['className' => 'MeTools.Html']];
 
     /**
+     * Pattern
+     * @var array
+     */
+    protected $pattern = [
+        'readmore' => '/(<p(>|.*?[^?]>))?\[read\-?more\s*\/?\s*\](<\/p>)?/',
+        'youtube' => '/\[youtube](.+?)\[\/youtube]/',
+    ];
+
+    /**
      * Executes all parsers
      * @param string $text Text
      * @return string
-     * @uses readMore()
-     * @uses youtube()
      */
     public function parser($text)
     {
         //Gets all current class methods, except for `parser()` and `remove()`
-        $methods = array_diff(
-            get_class_methods(get_class()),
-            get_class_methods(get_parent_class()),
-            ['parser', 'remove']
-        );
+        $methods = getChildMethods(get_class(), ['parser', 'remove']);
 
         //Calls dynamically each method
         foreach ($methods as $method) {
@@ -71,11 +74,12 @@ class BBCodeHelper extends Helper
      * </code>
      * @param string $text Text
      * @return string
+     * @uses $pattern
      */
     public function readMore($text)
     {
         return preg_replace(
-            '/(<p(>|.*?[^?]>))?\[read\-?more\s*\/?\s*\](<\/p>)?/',
+            $this->pattern['readmore'],
             '<!-- read-more -->',
             $text
         );
@@ -85,11 +89,11 @@ class BBCodeHelper extends Helper
      * Removes all BBCode
      * @param string $text Text
      * @return string
-     * @uses parser()
+     * @uses $pattern
      */
     public function remove($text)
     {
-        return trim(strip_tags(self::parser($text)));
+        return trim(preg_replace($this->pattern, null, $text));
     }
 
     /**
@@ -109,15 +113,18 @@ class BBCodeHelper extends Helper
      * @return string
      * @uses MeTools\Utility\Youtube::getId()
      * @uses MeTools\View\Helper\HtmlHelper::youtube()
+     * @uses $pattern
      */
     public function youtube($text)
     {
         return preg_replace_callback(
-            '/\[youtube](.+?)\[\/youtube]/',
+            $this->pattern['youtube'],
             function ($matches) {
-                return $this->Html->youtube(
-                    isUrl($matches[1]) ? Youtube::getId($matches[1]) : $matches[1]
-                );
+                if (isUrl($matches[1])) {
+                    return $this->Html->youtube(Youtube::getId($matches[1]));
+                }
+
+                return $this->Html->youtube($matches[1]);
             },
             $text
         );

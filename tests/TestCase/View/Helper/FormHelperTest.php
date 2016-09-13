@@ -54,6 +54,7 @@ class FormHelperTest extends TestCase
     public function tearDown()
     {
         parent::tearDown();
+
         unset($this->Form, $this->Html, $this->View);
     }
 

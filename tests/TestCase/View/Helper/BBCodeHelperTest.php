@@ -54,6 +54,7 @@ class BBCodeHelperTest extends TestCase
     public function tearDown()
     {
         parent::tearDown();
+
         unset($this->BBCode, $this->Html, $this->View);
     }
 
@@ -65,21 +66,21 @@ class BBCodeHelperTest extends TestCase
     public function testParser()
     {
         ob_start();
-        echo '<p>Some text</p>' . PHP_EOL;
+        echo '<p>Some para text</p>' . PHP_EOL;
         echo '[readmore /]' . PHP_EOL;
-        echo '<span>Some text</span>' . PHP_EOL;
+        echo '<span>Some span text</span>' . PHP_EOL;
         echo '[youtube]bL_CJKq9rIw[/youtube]' . PHP_EOL;
-        echo '<div>Some text</div>' . PHP_EOL;
+        echo '<div>Some div text</div>' . PHP_EOL;
         $buffer = ob_get_clean();
 
         $result = $this->BBCode->parser($buffer);
         $expected = [
             'p' => true,
-            'Some text',
+            'Some para text',
             '/p',
             '<!-- read-more --',
             'span' => true,
-            'Some text',
+            'Some span text',
             '/span',
             ['div' => ['class' => 'embed-responsive embed-responsive-16by9']],
             'iframe' => [
@@ -92,7 +93,37 @@ class BBCodeHelperTest extends TestCase
             '/iframe',
             '/div',
             ['div' => true],
-            'Some text',
+            'Some div text',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    /**
+     * Tests for `remove()` method
+     * @return void
+     * @test
+     */
+    public function testRemove()
+    {
+        ob_start();
+        echo '<p>Some para text</p>' . PHP_EOL;
+        echo '[readmore /]' . PHP_EOL;
+        echo '<span>Some span text</span>' . PHP_EOL;
+        echo '[youtube]bL_CJKq9rIw[/youtube]' . PHP_EOL;
+        echo '<div>Some div text</div>' . PHP_EOL;
+        $buffer = ob_get_clean();
+
+        $result = $this->BBCode->remove($buffer);
+        $expected = [
+            'p' => true,
+            'Some para text',
+            '/p',
+            'span' => true,
+            'Some span text',
+            '/span',
+            'div' => true,
+            'Some div text',
             '/div',
         ];
         $this->assertHtml($expected, $result);
@@ -128,7 +159,9 @@ class BBCodeHelperTest extends TestCase
         $result = $this->BBCode->readmore('<p>[readmore /]</p>');
         $this->assertEquals($expected, $result);
 
-        $result = $this->BBCode->readmore('<p class="my-class">[readmore /]</p>');
+        $result = $this->BBCode->readmore(
+            '<p class="my-class">[readmore /]</p>'
+        );
         $this->assertEquals($expected, $result);
     }
 
@@ -144,13 +177,19 @@ class BBCodeHelperTest extends TestCase
         $result = $this->BBCode->youtube('[youtube]bL_CJKq9rIw[/youtube]');
         $this->assertEquals($expected, $result);
 
-        $result = $this->BBCode->youtube('[youtube]http://youtube.com/watch?v=bL_CJKq9rIw[/youtube]');
+        $result = $this->BBCode->youtube(
+            '[youtube]http://youtube.com/watch?v=bL_CJKq9rIw[/youtube]'
+        );
         $this->assertEquals($expected, $result);
 
-        $result = $this->BBCode->youtube('[youtube]https://www.youtube.com/watch?v=bL_CJKq9rIw[/youtube]');
+        $result = $this->BBCode->youtube(
+            '[youtube]https://www.youtube.com/watch?v=bL_CJKq9rIw[/youtube]'
+        );
         $this->assertEquals($expected, $result);
 
-        $result = $this->BBCode->youtube('[youtube]https://youtu.be/bL_CJKq9rIw[/youtube]');
+        $result = $this->BBCode->youtube(
+            '[youtube]https://youtu.be/bL_CJKq9rIw[/youtube]'
+        );
         $this->assertEquals($expected, $result);
     }
 }

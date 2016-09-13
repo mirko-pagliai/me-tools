@@ -20,12 +20,17 @@
  * @license     http://www.gnu.org/licenses/agpl.txt AGPL License
  * @link        http://git.novatlantis.it Nova Atlantis Ltd
  */
+namespace TestPlugin\Utility;
 
-require_once 'functions/global.php';
-require_once 'functions/html.php';
-require_once 'detectors.php';
+use TestPlugin\Utility\ParentTestClass;
 
-//Sets the default MeTools name
-if (!defined('METOOLS')) {
-    define('METOOLS', 'MeTools');
+class ChildTestClass extends ParentTestClass
+{
+    public function firstChildTestMethod()
+    {
+    }
+
+    public function secondChildTestMethod()
+    {
+    }
 }

@@ -262,7 +262,7 @@ class LibraryHelper extends Helper
             $script = 'fancybox_init';
         //Else, checks for the init script into
         //  `APP/plugin/MeTools/webroot/fancybox/`
-        } elseif (Plugin::path('MeTools', 'webroot' . DS . 'fancybox' . DS . 'fancybox_init.js', true)) {
+        } elseif (Plugin::path(METOOLS, 'webroot' . DS . 'fancybox' . DS . 'fancybox_init.js', true)) {
             $script = 'MeTools./fancybox/fancybox_init';
         } else {
             return;

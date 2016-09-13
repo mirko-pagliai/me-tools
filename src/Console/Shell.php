@@ -33,33 +33,11 @@ use Cake\Console\Shell as CakeShell;
 class Shell extends CakeShell
 {
     /**
-     * Constructs this Shell instance
-     * @param \Cake\Console\ConsoleIo|null $io An io instance.
-     */
-    public function __construct(\Cake\Console\ConsoleIo $io = null)
-    {
-        parent::__construct($io);
-
-        //Adds bold style
-        $this->_io->styles('bold', ['bold' => true]);
-    }
-
-    /**
      * Rewrites the header for the shell
      * @return void
      */
     protected function _welcome()
     {
-    }
-
-    /**
-     * Convenience method that wraps message between <bold /> tag
-     * @param string $message Message
-     * @return string
-     */
-    protected function bold($message)
-    {
-        return sprintf('<bold>%s</bold>', $message);
     }
 
     /**
@@ -76,7 +54,7 @@ class Shell extends CakeShell
             $this->verbose(__d(
                 'me_tools',
                 'File or directory {0} already exists',
-                $this->bold(rtr($path))
+                rtr($path)
             ));
 
             return false;
@@ -87,7 +65,7 @@ class Shell extends CakeShell
             $this->err(__d(
                 'me_tools',
                 'The file {0} has not been created',
-                $this->bold(rtr($path))
+                rtr($path)
             ));
 
             return false;
@@ -109,7 +87,7 @@ class Shell extends CakeShell
             $this->err(__d(
                 'me_tools',
                 'File or directory {0} not readable',
-                $this->bold(rtr($origin))
+                rtr($origin)
             ));
 
             return false;
@@ -120,7 +98,7 @@ class Shell extends CakeShell
             $this->verbose(__d(
                 'me_tools',
                 'Symbolic link {0} already exists',
-                $this->bold(rtr($target))
+                rtr($target)
             ));
 
             return false;
@@ -131,7 +109,7 @@ class Shell extends CakeShell
             $this->err(__d(
                 'me_tools',
                 'File or directory {0} not writeable',
-                $this->bold(rtr(dirname($target)))
+                rtr(dirname($target))
             ));
 
             return false;
@@ -142,7 +120,7 @@ class Shell extends CakeShell
             $this->err(__d(
                 'me_tools',
                 'Failed to create a symbolic link to {0}',
-                $this->bold(rtr($target))
+                rtr($target)
             ));
 
             return false;
@@ -151,7 +129,7 @@ class Shell extends CakeShell
         $this->verbose(__d(
             'me_tools',
             'Created symbolic link to {0}',
-            $this->bold(rtr($target))
+            rtr($target)
         ));
 
         return true;

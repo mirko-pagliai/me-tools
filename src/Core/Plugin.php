@@ -62,11 +62,11 @@ class Plugin extends CakePlugin
         }
 
         if ($options['order']) {
-            $key = array_search('MeTools', $plugins);
+            $key = array_search(METOOLS, $plugins);
 
             if ($key) {
                 unset($plugins[$key]);
-                array_unshift($plugins, 'MeTools');
+                array_unshift($plugins, METOOLS);
             }
         }
 
