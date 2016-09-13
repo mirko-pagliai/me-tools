@@ -85,16 +85,6 @@ class RecaptchaHelper extends Helper
     }
 
     /**
-     * Alias for `mailLink()` method
-     * @return string Html code
-     * @see mailLink()
-     */
-    public function mail()
-    {
-        return call_user_func_array([get_class(), 'mailLink'], func_get_args());
-    }
-
-    /**
      * Creates a link for an hidden email. The link will be open in a popup
      * @param string $title Link title
      * @param string $mail Email to hide
@@ -104,7 +94,7 @@ class RecaptchaHelper extends Helper
      * @uses MeTools\View\Helper\MailHelper::obfuscate()
      * @uses mailUrl()
      */
-    public function mailLink($title, $mail = null, array $options = [])
+    public function mail($title, $mail = null, array $options = [])
     {
         $options = optionValues([
             'target' => '_blank',
