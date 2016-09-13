@@ -9,8 +9,8 @@
 
 return ['Recaptcha' => [
     /**
-     * Form keys.
-     * You can get these keys here: https://www.google.com/recaptcha/admin
+     * Form keys
+     * @see https://www.google.com/recaptcha/admin
      */
     'Form' => [
         //Form public key
@@ -19,8 +19,8 @@ return ['Recaptcha' => [
         'private' => 'your-private-key-here',
     ],
     /**
-     * Mail keys.
-     * You can get these keys here: http://www.google.com/recaptcha/mailhide/apikey
+     * Mail keys
+     * @see http://www.google.com/recaptcha/mailhide/apikey
      */
     'Mail' => [
         //Mail public key
