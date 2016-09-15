@@ -53,10 +53,7 @@ class PluginTest extends TestCase
         $expected = ['MeTools'];
         $this->assertEquals($expected, $result);
 
-        $result = Plugin::load(
-            'TestPlugin',
-            ['path' => 'tests/test_app/Plugin/TestPlugin/src']
-        );
+        $result = Plugin::load('TestPlugin');
         $this->assertNull($result);
 
         $result = Plugin::all();
@@ -67,10 +64,7 @@ class PluginTest extends TestCase
         $expected = ['MeTools'];
         $this->assertEquals($expected, $result);
 
-        $result = Plugin::load(
-            'AnotherTestPlugin',
-            ['path' => 'tests/test_app/Plugin/AnotherTestPlugin/src']
-        );
+        $result = Plugin::load('AnotherTestPlugin');
         $this->assertNull($result);
 
         $result = Plugin::all();
