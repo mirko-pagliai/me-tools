@@ -25,7 +25,6 @@ namespace MeTools\Test\TestCase;
 use Cake\Filesystem\File;
 use Cake\Filesystem\Folder;
 use Cake\TestSuite\TestCase;
-use MeTools\Core\Plugin;
 
 /**
  * GlobalFunctionsTest class.
