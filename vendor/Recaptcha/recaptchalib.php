@@ -218,7 +218,7 @@ function _recaptcha_aes_encrypt($val,$ky) {
 	$mode=MCRYPT_MODE_CBC;   
 	$enc=MCRYPT_RIJNDAEL_128;
 	$val=_recaptcha_aes_pad($val);
-	return mcrypt_encrypt($enc, $ky, $val, $mode, "\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0");
+	return @mcrypt_encrypt($enc, $ky, $val, $mode, "\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0");
 }
 
 
