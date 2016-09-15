@@ -43,7 +43,7 @@ class FlashComponentTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        
+
         $this->Controller = new Controller(new Request(['session' => new Session()]));
         $this->ComponentRegistry = new ComponentRegistry($this->Controller);
         $this->Flash = new FlashComponent($this->ComponentRegistry);
@@ -125,7 +125,7 @@ class FlashComponentTest extends TestCase
             ],
         ];
         $this->assertEquals($expected, $result);
-        
+
         //With custom class
         $this->Flash->success($text, ['params' => ['class' => 'my-class']]);
 
@@ -139,7 +139,7 @@ class FlashComponentTest extends TestCase
             ],
         ];
         $this->assertEquals($expected, $result);
-        
+
         //With other name
         $this->Flash->otherName($text);
 
@@ -151,7 +151,7 @@ class FlashComponentTest extends TestCase
             'params' => [],
         ];
         $this->assertEquals($expected, $result);
-        
+
         //With plugin as `false`
         $this->Flash->success($text, ['plugin' => false]);
 
@@ -163,7 +163,7 @@ class FlashComponentTest extends TestCase
             'params' => [],
         ];
         $this->assertEquals($expected, $result);
-        
+
         //With other plugin
         $this->Flash->success($text, ['plugin' => 'MyPlugin']);
 
