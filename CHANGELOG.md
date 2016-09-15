@@ -4,6 +4,7 @@
 * added `MailHelper` class with `obfuscate()` method;
 * removed `RecaptchaHelper::mailLink()` method;
 * added tests for `RecaptchaHelper` class;
+* added tests for `FlashComponent` class.
 
 ### 2.10.1
 * fixed serious bug for `BBCodeHelper::remove()` method: now it doesn't remove
