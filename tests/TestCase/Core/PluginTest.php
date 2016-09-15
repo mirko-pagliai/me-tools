@@ -124,7 +124,7 @@ class PluginTest extends TestCase
         $expected = [ROOT . 'config' . DS . 'bootstrap.php'];
         $this->assertEquals($expected, $result);
 
-        //No one exists
+        //No existing files
         $result = Plugin::path('MeTools', [
             'config' . DS . 'no_existing.php',
             'config' . DS . 'no_existing2.php',
