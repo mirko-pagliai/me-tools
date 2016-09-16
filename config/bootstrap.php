@@ -21,10 +21,6 @@
  * @link        http://git.novatlantis.it Nova Atlantis Ltd
  */
 
-require_once 'functions/global.php';
-require_once 'functions/html.php';
-require_once 'detectors.php';
-
 //Sets the default MeTools name
 if (!defined('METOOLS')) {
     define('METOOLS', 'MeTools');

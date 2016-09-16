@@ -25,9 +25,7 @@ namespace MeTools\Test\TestCase;
 use Cake\TestSuite\TestCase;
 
 /**
- * HtmlFunctionsTest class.
- *
- * It tests global functions declared in `config/functions/html.php`.
+ * HtmlFunctionsTest class
  */
 class HtmlFunctionsTest extends TestCase
 {

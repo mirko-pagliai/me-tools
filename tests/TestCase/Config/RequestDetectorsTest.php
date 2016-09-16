@@ -26,11 +26,9 @@ use Cake\Network\Request;
 use Cake\TestSuite\TestCase;
 
 /**
- * DetectorsTest class.
- *
- * It tests detectors declared in `config/global_functions.php`.
+ * RequestDetectorsTest class
  */
-class DetectorsTest extends TestCase
+class RequestDetectorsTest extends TestCase
 {
     /**
      * Tests detectors

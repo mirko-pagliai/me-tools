@@ -27,9 +27,7 @@ use Cake\Filesystem\Folder;
 use Cake\TestSuite\TestCase;
 
 /**
- * GlobalFunctionsTest class.
- *
- * It tests global functions declared in `config/functions/global.php`.
+ * GlobalFunctionsTest class
  */
 class GlobalFunctionsTest extends TestCase
 {
