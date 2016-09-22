@@ -58,7 +58,7 @@ class LibraryHelper extends Helper
      */
     protected function _datetimepicker($input, array $options = [])
     {
-        $this->Asset->js([
+        $this->Asset->script([
             '/vendor/moment/moment-with-locales.min',
             '/vendor/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min',
         ], ['block' => 'script_bottom']);
@@ -251,7 +251,7 @@ class LibraryHelper extends Helper
             '/vendor/fancybox/helpers/jquery.fancybox-thumbs',
         ], ['block' => 'css_bottom']);
 
-        $this->Asset->js([
+        $this->Asset->script([
             '/vendor/fancybox/jquery.fancybox.pack',
             '/vendor/fancybox/helpers/jquery.fancybox-buttons',
             '/vendor/fancybox/helpers/jquery.fancybox-thumbs',
@@ -268,7 +268,7 @@ class LibraryHelper extends Helper
             return;
         }
 
-        $this->Asset->js($script, ['block' => 'script_bottom']);
+        $this->Asset->script($script, ['block' => 'script_bottom']);
     }
 
     /**
@@ -307,7 +307,7 @@ class LibraryHelper extends Helper
      */
     public function slugify($sourceField = 'form #title', $targetField = 'form #slug')
     {
-        $this->Asset->js('MeTools.slugify', ['block' => 'script_bottom']);
+        $this->Asset->script('MeTools.slugify', ['block' => 'script_bottom']);
 
         $this->output[] = sprintf(
             '$().slugify("%s", "%s");',

@@ -24,6 +24,7 @@ use Cake\Cache\Cache;
 use Cake\Core\Configure;
 use Cake\Core\Plugin;
 use Cake\Datasource\ConnectionManager;
+use Cake\Routing\DispatcherFactory;
 
 require dirname(__DIR__) . '/vendor/autoload.php';
 
@@ -63,6 +64,9 @@ define('THUMBS', TMP . 'thumbs');
 
 require CORE_PATH . 'config' . DS . 'bootstrap.php';
 
+date_default_timezone_set('UTC');
+mb_internal_encoding('UTF-8');
+
 Configure::write('debug', true);
 Configure::write('App', [
     'namespace' => 'App',
@@ -77,8 +81,8 @@ Configure::write('App', [
     'jsBaseUrl' => 'js/',
     'cssBaseUrl' => 'css/',
     'paths' => [
-        'templates' => [APP . 'Template' . DS],
-        'locales' => [APP . 'Locale' . DS],
+        'plugins' => [APP . 'Plugin' . DS],
+        'templates' => [APP . 'TestApp' . DS . 'Template' . DS],
     ]
 ]);
 
@@ -112,4 +116,11 @@ $config = [
 // Use the test connection for 'debug_kit' as well.
 ConnectionManager::config('test', $config);
 
+Configure::write('Session', [
+    'defaults' => 'php'
+]);
+
 Plugin::load('MeTools', ['bootstrap' => true, 'path' => ROOT]);
+
+DispatcherFactory::add('Routing');
+DispatcherFactory::add('ControllerFactory');

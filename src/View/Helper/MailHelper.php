@@ -20,8 +20,28 @@
  * @license     http://www.gnu.org/licenses/agpl.txt AGPL License
  * @link        http://git.novatlantis.it Nova Atlantis Ltd
  */
+namespace MeTools\View\Helper;
 
-//Sets the default MeTools name
-if (!defined('METOOLS')) {
-    define('METOOLS', 'MeTools');
+use Cake\View\Helper;
+
+/**
+ * Mail helper
+ */
+class MailHelper extends Helper
+{
+    /**
+     * Method to obfuscate an email address.
+     * @param string $mail Mail address
+     * @return string
+     */
+    public function obfuscate($mail)
+    {
+        return preg_replace_callback('/^([^@]+)(.*)$/', function ($matches) {
+            $lenght = floor(strlen($matches[1]) / 2);
+
+            $name = substr($matches[1], 0, $lenght) . str_repeat('*', $lenght);
+
+            return $name . $matches[2];
+        }, $mail);
+    }
 }

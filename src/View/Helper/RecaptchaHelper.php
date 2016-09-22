@@ -40,27 +40,7 @@ class RecaptchaHelper extends Helper
      * Helpers
      * @var array
      */
-    public $helpers = ['MeTools.Html'];
-
-    /**
-     * Internal function to obfuscate an email address.
-     * @param string $mail Mail address
-     * @return string Mail address obfuscated
-     * @see http://stackoverflow.com/a/20545505/1480263
-     */
-    protected function _obfuscate($mail)
-    {
-        $name = implode(
-            array_slice($mail = explode("@", $mail), 0, count($mail) - 1),
-            '@'
-        );
-        $lenght = floor(strlen($name) / 2);
-
-        return substr($name, 0, $lenght) .
-            str_repeat('*', $lenght) .
-            "@" .
-            end($mail);
-    }
+    public $helpers = ['MeTools.Html', 'MeTools.Mail'];
 
     /**
      * Displays the reCAPTCHA widget
@@ -105,37 +85,27 @@ class RecaptchaHelper extends Helper
     }
 
     /**
-     * Alias for `mailLink()` method
-     * @return string Html code
-     * @see mailLink()
-     */
-    public function mail()
-    {
-        return call_user_func_array([get_class(), 'mailLink'], func_get_args());
-    }
-
-    /**
      * Creates a link for an hidden email. The link will be open in a popup
      * @param string $title Link title
      * @param string $mail Email to hide
      * @param array $options Array of options and HTML attributes
      * @return string Html code
      * @uses MeTools\View\Helper\HtmlHelper::link()
-     * @uses _obfuscate()
+     * @uses MeTools\View\Helper\MailHelper::obfuscate()
      * @uses mailUrl()
      */
-    public function mailLink($title, $mail = null, array $options = [])
+    public function mail($title, $mail = null, array $options = [])
     {
         $options = optionValues([
             'target' => '_blank',
             'class' => 'recaptcha-mail',
         ], $options);
 
-        return $this->Html->link(
-            empty($mail) ? $this->_obfuscate($mail = $title) : $title,
-            self::mailUrl($mail),
-            $options
-        );
+        if (empty($mail)) {
+            $title = $this->Mail->obfuscate($mail = $title);
+        }
+
+        return $this->Html->link($title, self::mailUrl($mail), $options);
     }
 
     /**
