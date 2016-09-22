@@ -3,6 +3,7 @@
 ### 2.10.2
 * added `MailHelper` class with `obfuscate()` method;
 * removed `RecaptchaHelper::mailLink()` method;
+* updated for Assets 1.1.0;
 * added tests for `RecaptchaHelper` class;
 * added tests for `FlashComponent` class.
 
