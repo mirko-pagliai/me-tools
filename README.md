@@ -1,4 +1,7 @@
 # MeTools
+
+[![Build Status](https://travis-ci.org/mirko-pagliai/me-tools.svg?branch=master)](https://travis-ci.org/mirko-pagliai/me-tools)
+
 MeTools is a CakePHP plugin to improve applications development.  
 It provides some useful tools, such as components, helpers and javascript libraries.
 
