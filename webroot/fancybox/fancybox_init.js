@@ -19,7 +19,13 @@ $(document).ready(function () {
             });
         },
         helpers: {
-            thumbs: { width: 50, height: 50 }
+            thumbs: {
+                width: 50,
+                height: 50
+            },
+            title: {
+                type: 'over'
+            }
         }
     });
 });

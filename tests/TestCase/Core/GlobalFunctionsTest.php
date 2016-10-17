@@ -255,12 +255,23 @@ class GlobalFunctionsTest extends TestCase
      */
     public function testIsUrl()
     {
+        //Http(s)
         $this->assertTrue(isUrl('https://www.example.com'));
         $this->assertTrue(isUrl('http://www.example.com'));
+        $this->assertTrue(isUrl('www.example.com'));
         $this->assertTrue(isUrl('http://example.com'));
-        $this->assertTrue(isUrl('http://example.com/noexistingfile'));
-        $this->assertTrue(isUrl('http://example.com/noexistingfile.html'));
-        $this->assertTrue(isUrl('http://example.com/subdir/noexistingfile'));
+        $this->assertTrue(isUrl('http://example.com/file'));
+        $this->assertTrue(isUrl('http://example.com/file.html'));
+        $this->assertTrue(isUrl('www.example.com/file.html'));
+        $this->assertTrue(isUrl('http://example.com/subdir/file'));
+
+        //Ftp
+        $this->assertTrue(isUrl('ftp://www.example.com'));
+        $this->assertTrue(isUrl('ftp://example.com'));
+        $this->assertTrue(isUrl('ftp://example.com/file.html'));
+
+        //Missing "http" and/or "www"
+        $this->assertFalse(isUrl('example.com'));
 
         //Files and dirs
         $this->assertFalse(isUrl('folder'));
