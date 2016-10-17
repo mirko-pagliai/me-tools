@@ -19,7 +19,7 @@ $(document).ready(function () {
             });
         },
         helpers: {
-            thumbs: { 
+            thumbs: {
                 width: 50,
                 height: 50
             },
