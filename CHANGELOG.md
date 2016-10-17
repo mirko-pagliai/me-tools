@@ -1,9 +1,7 @@
 # 2.x branch
 ## 2.10 branch
-### 2.10.4
-* little fixes for Fancybox's titles.
-
 ### 2.10.3
+* little fixes for Fancybox's titles.
 * removed `MarkdownHelper`. Instead, you can use `gourmet/common-mark`.
 
 ### 2.10.2
