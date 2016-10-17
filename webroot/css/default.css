@@ -13,11 +13,6 @@
     cursor: pointer;
 }
 
-/* Fancybox's links */
-a.fancybox {
-    cursor: zoom-in;
-}
-
 /* Em (italic) text */
 .em, .em-text, .emText {
     font-style: italic;
@@ -260,6 +255,24 @@ th a.desc:after {
     background: inherit;
     color: inherit;
     line-height: 100%;
+}
+
+/* -------------------------------- */
+/*              Fancybox             */
+/* -------------------------------- */
+/* Fancybox's links */
+a.fancybox {
+    cursor: zoom-in;
+}
+
+/* Fancybox's title */
+.fancybox-title {
+    text-align: justify;
+}
+
+/* Fancybox's title over wrap */
+.fancybox-title.fancybox-title-over-wrap {
+    width: 100%;
 }
 
 /* -------------------------------- */
