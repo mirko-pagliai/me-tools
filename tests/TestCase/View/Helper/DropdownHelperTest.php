@@ -99,12 +99,15 @@ class DropdownHelperTest extends TestCase
         $result = $this->Dropdown->end();
         $this->assertNull($result);
 
-        $result = $this->Dropdown->start($text);
+        //Empty dropdown
+        $this->Dropdown->start($text);
+        echo 'hello!';
+        $result = $this->Dropdown->end();
         $this->assertNull($result);
 
+        $this->Dropdown->start($text);
         echo $this->Html->link('First link', '/first');
         echo $this->Html->link('Second link', '/second');
-
         $result = $this->Dropdown->end();
         $this->assertHtml($expected, $result);
 
@@ -117,8 +120,7 @@ class DropdownHelperTest extends TestCase
 
         //With callback
         $result = call_user_func(function () use ($text) {
-            $result = $this->Dropdown->start($text);
-            $this->assertNull($result);
+            $this->Dropdown->start($text);
 
             echo $this->Html->link('First link', '/first');
             echo $this->Html->link('Second link', '/second');
@@ -161,15 +163,12 @@ class DropdownHelperTest extends TestCase
         ];
 
         //Start link with custom class
-        $result = $this->Dropdown->start(
+        $this->Dropdown->start(
             $text,
             ['class' => 'my-start-class', 'icon' => 'home']
         );
-        $this->assertNull($result);
-
         echo $this->Html->link('First link', '/first');
         echo $this->Html->link('Second link', '/second');
-
         //Ul and list elements with custom classes
         $result = $this->Dropdown->end(
             ['class' => 'ul-class'],
