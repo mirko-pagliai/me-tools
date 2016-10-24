@@ -70,6 +70,17 @@ class YoutubeTest extends TestCase
     }
 
     /**
+     * Tests for `getId()` method, with invalid url
+     * @return void
+     * @test
+     */
+    public function testGetIdInvalidUrl()
+    {
+        $result = Youtube::getId('http://example.com');
+        $this->assertFalse($result);
+    }
+
+    /**
      * Tests for `getPreview()` method
      * @return void
      * @test
