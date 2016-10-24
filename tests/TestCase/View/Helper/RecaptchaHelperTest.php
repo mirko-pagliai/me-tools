@@ -22,6 +22,7 @@
  */
 namespace MeTools\Test\TestCase\View\Helper;
 
+use Cake\Core\Configure;
 use Cake\TestSuite\TestCase;
 use Cake\View\View;
 use MeTools\View\Helper\RecaptchaHelper;
@@ -80,6 +81,19 @@ class RecaptchaHelperTest extends TestCase
     }
 
     /**
+     * Test for `display()` method, with no keys
+     * @expectedException Cake\Network\Exception\InternalErrorException
+     * @expectedExceptionMessage Form keys are not configured
+     */
+    public function testDisplayNoKeys()
+    {
+        //Deletes keys
+        Configure::delete('Recaptcha.Form');
+
+        $this->Recaptcha->display();
+    }
+
+    /**
      * Test for `mail()` method
      * @return void
      * @test
@@ -131,5 +145,18 @@ class RecaptchaHelperTest extends TestCase
             $result
         );
         $this->assertTrue($expected);
+    }
+
+    /**
+     * Test for `mailUrl()` method, with no keys
+     * @expectedException Cake\Network\Exception\InternalErrorException
+     * @expectedExceptionMessage Mail keys are not configured
+     */
+    public function testMailUrlNoKeys()
+    {
+        //Deletes keys
+        Configure::delete('Recaptcha.Mail');
+
+        $this->Recaptcha->mailUrl('myname@mymail.com');
     }
 }

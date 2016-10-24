@@ -43,6 +43,18 @@ class RecaptchaHelper extends Helper
     public $helpers = ['MeTools.Html', 'MeTools.Mail'];
 
     /**
+     * Constructor
+     * @param \Cake\View\View $View The View this helper is being attached to
+     * @param array $config Configuration settings for the helper
+     */
+    public function __construct(\Cake\View\View $View, array $config = [])
+    {
+        parent::__construct($View, $config);
+
+        Configure::load('recaptcha');
+    }
+
+    /**
      * Displays the reCAPTCHA widget
      * @param array $options reCAPTCHA widget options
      * @param array $optionsScript Script option
@@ -55,8 +67,7 @@ class RecaptchaHelper extends Helper
     public function display(array $options = [], array $optionsScript = [])
     {
         //Gets form keys
-//        Configure::load('recaptcha');
-//        $keys = Configure::read('Recaptcha.Form');
+        $keys = Configure::read('Recaptcha.Form');
 
         //Checks for form keys
         if (empty($keys['public']) || empty($keys['private'])) {
@@ -120,7 +131,6 @@ class RecaptchaHelper extends Helper
     public function mailUrl($mail)
     {
         //Gets mail keys
-        Configure::load('recaptcha');
         $keys = Configure::read('Recaptcha.Mail');
 
         //Checks for mail keys
