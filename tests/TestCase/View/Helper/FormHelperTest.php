@@ -179,6 +179,33 @@ class FormHelperTest extends TestCase
     }
 
     /**
+     * Tests for `create()` method
+     * @return void
+     * @test
+     */
+    public function testCreate()
+    {
+        $result = $this->Form->create(null);
+        $result .= $this->Form->end();
+        $expected = [
+            'form' => [
+              'method' => 'post',
+              'accept-charset' => 'utf-8',
+              'action' => '/',
+            ],
+            'div' => ['style' => 'display:none;'],
+            'input' => [
+                'type' => 'hidden',
+                'name' => '_method',
+                'value' => 'POST',
+            ],
+            '/div',
+            '/form',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    /**
      * Tests for `createInline()` and `isInline()` methods
      * @return void
      * @test
@@ -619,6 +646,33 @@ class FormHelperTest extends TestCase
                 'id' => $field,
             ],
             '/textarea',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    /**
+     * Tests for `input()` method, into an inline form
+     * @return void
+     * @test
+     */
+    public function testInputInline()
+    {
+        $field = 'my-field';
+
+        $this->Form->createInline();
+        $result = $this->Form->input($field);
+        $expected = [
+            'div' => ['class' => 'input form-group text'],
+            'label' => ['class' => 'sr-only', 'for' => $field],
+            'My Field',
+            '/label',
+            'input' => [
+                'type' => 'text',
+                'name' => $field,
+                'class' => 'form-control',
+                'id' => $field,
+            ],
             '/div',
         ];
         $this->assertHtml($expected, $result);
