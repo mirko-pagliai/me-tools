@@ -55,8 +55,8 @@ class RecaptchaHelper extends Helper
     public function display(array $options = [], array $optionsScript = [])
     {
         //Gets form keys
-        Configure::load('recaptcha');
-        $keys = Configure::read('Recaptcha.Form');
+//        Configure::load('recaptcha');
+//        $keys = Configure::read('Recaptcha.Form');
 
         //Checks for form keys
         if (empty($keys['public']) || empty($keys['private'])) {
