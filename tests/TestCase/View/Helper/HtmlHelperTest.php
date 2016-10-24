@@ -61,7 +61,7 @@ class HtmlHelperTest extends TestCase
      * @return void
      * @test
      */
-    public function testMagicCall()
+    public function testCall()
     {
         $text = 'my h3 text';
         $class = 'my-class';
@@ -92,6 +92,18 @@ class HtmlHelperTest extends TestCase
             ['class' => $class, 'icon' => 'home', 'icon-align' => 'right']
         );
         $this->assertEquals($expected, $result);
+    }
+
+    /**
+     * Tests for `__call()` method, with a no existing method
+     * @return void
+     * @test
+     * @expectedException Cake\Core\Exception\Exception
+     * @expectedExceptionMessage Method HtmlHelper::noExistingMethod does not exist
+     */
+    public function testCallNoExistingMethod()
+    {
+        $this->Html->noExistingMethod(null, null, null);
     }
 
     /**

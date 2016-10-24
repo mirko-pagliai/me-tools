@@ -23,6 +23,7 @@
  */
 namespace MeTools\View\Helper;
 
+use Cake\Core\Exception\Exception;
 use Cake\View\Helper\HtmlHelper as CakeHtmlHelper;
 
 /**
@@ -45,19 +46,20 @@ class HtmlHelper extends CakeHtmlHelper
      * @param string $method Method to invoke
      * @param array $params Params for the method
      * @return string|void
+     * @throws Exception
      * @uses tag()
      */
     public function __call($method, $params)
     {
-        if (count($params) <= 2) {
-            return self::tag(
-                $method,
-                empty($params[0]) ? null : $params[0],
-                empty($params[1]) ? [] : $params[1]
-            );
+        if (empty($params) || count($params) > 2) {
+            throw new Exception(sprintf('Method HtmlHelper::%s does not exist', $method));
         }
 
-        parent::__call($method, $params);
+        return self::tag(
+            $method,
+            empty($params[0]) ? null : $params[0],
+            empty($params[1]) ? [] : $params[1]
+        );
     }
 
     /**
