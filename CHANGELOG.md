@@ -2,6 +2,7 @@
 ## 2.10 branch
 ### 2.10.4
 * fixed bug for `PaginatorHelper::next()`;
+* little fixes for `Shell` class;
 * added tests for `PaginatorHelper` class.
 
 ### 2.10.3

@@ -45,7 +45,6 @@ class Shell extends CakeShell
      * @param string $path Where to put the file
      * @param string $contents Content to put in the file
      * @return bool
-     * @uses Cake\Console\Shell::createFile()
      */
     public function createFile($path, $contents)
     {
@@ -60,18 +59,7 @@ class Shell extends CakeShell
             return false;
         }
 
-        //Checks if the file has been created
-        if (!parent::createFile($path, $contents)) {
-            $this->err(__d(
-                'me_tools',
-                'The file {0} has not been created',
-                rtr($path)
-            ));
-
-            return false;
-        }
-
-        return true;
+        return parent::createFile($path, $contents);
     }
 
     /**
@@ -84,55 +72,26 @@ class Shell extends CakeShell
     {
         //Checks if the origin file/directory is readable
         if (!is_readable($origin)) {
-            $this->err(__d(
-                'me_tools',
-                'File or directory {0} not readable',
-                rtr($origin)
-            ));
+            $this->err(__d('me_tools', 'File or directory {0} not readable', rtr($origin)));
 
             return false;
         }
 
         //Checks if the link already exists
         if (file_exists($target)) {
-            $this->verbose(__d(
-                'me_tools',
-                'Symbolic link {0} already exists',
-                rtr($target)
-            ));
+            $this->verbose(__d('me_tools', 'File or directory {0} already exists', rtr($target)));
 
             return false;
         }
 
         //Checks if the target directory is writeable
         if (!is_writable(dirname($target))) {
-            $this->err(__d(
-                'me_tools',
-                'File or directory {0} not writeable',
-                rtr(dirname($target))
-            ));
+            $this->err(__d('me_tools', 'File or directory {0} not writeable', rtr(dirname($target))));
 
             return false;
         }
 
-        //Creates the symbolic link
-        if (!symlink($origin, $target)) {
-            $this->err(__d(
-                'me_tools',
-                'Failed to create a symbolic link to {0}',
-                rtr($target)
-            ));
-
-            return false;
-        }
-
-        $this->verbose(__d(
-            'me_tools',
-            'Created symbolic link to {0}',
-            rtr($target)
-        ));
-
-        return true;
+        return symlink($origin, $target);
     }
 
     /**
