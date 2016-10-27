@@ -38,6 +38,9 @@ class ApacheTest extends TestCase
     public function testModule()
     {
         $result = Apache::module('mod_rewrite');
+        $this->assertTrue($result);
+
+        $result = Apache::module('mod_noExisting');
         $this->assertFalse($result);
     }
 
@@ -49,6 +52,6 @@ class ApacheTest extends TestCase
     public function testVersion()
     {
         $result = Apache::version();
-        $this->assertFalse($result);
+        $this->assertEquals('1.3.29', $result);
     }
 }

@@ -114,6 +114,20 @@ Configure::write('Session', [
     'defaults' => 'php'
 ]);
 
+if (!function_exists('apache_get_modules')) {
+    function apache_get_modules()
+    {
+        return ['core', 'http_core', 'mod_so', 'sapi_apache2', 'mod_mime', 'mod_rewrite'];
+    }
+}
+
+if (!function_exists('apache_get_version')) {
+    function apache_get_version()
+    {
+        return 'Apache/1.3.29 (Unix) PHP/4.3.4';
+    }
+}
+
 Plugin::load('MeTools', ['bootstrap' => true, 'path' => ROOT]);
 
 DispatcherFactory::add('Routing');
