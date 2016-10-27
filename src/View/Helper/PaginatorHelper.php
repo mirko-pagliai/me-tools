@@ -56,9 +56,12 @@ class PaginatorHelper extends CakePaginatorHelper
      */
     public function next($title = 'Next >>', array $options = [])
     {
-        list($title, $options) = $this->Html->addIcon($title, $options);
+        $options = optionDefaults([
+            'escape' => false,
+            'icon-align' => 'right',
+        ], $options);
 
-        $options = optionDefaults(['escape' => false], $options);
+        list($title, $options) = $this->Html->addIcon($title, $options);
 
         return parent::next($title, $options);
     }
@@ -71,9 +74,9 @@ class PaginatorHelper extends CakePaginatorHelper
      */
     public function prev($title = '<< Previous', array $options = [])
     {
-        list($title, $options) = $this->Html->addIcon($title, $options);
-
         $options = optionDefaults(['escape' => false], $options);
+
+        list($title, $options) = $this->Html->addIcon($title, $options);
 
         return parent::prev($title, $options);
     }

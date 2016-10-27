@@ -1,5 +1,9 @@
 # 2.x branch
 ## 2.10 branch
+### 2.10.4
+* fixed bug for `PaginatorHelper::next()`;
+* added tests for `PaginatorHelper` class.
+
 ### 2.10.3
 * little fixes for Fancybox's titles.
 * removed `MarkdownHelper`. Instead, you can use `gourmet/common-mark`.
