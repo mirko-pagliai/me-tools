@@ -30,28 +30,19 @@ class Apache
     /**
      * Checks if a module is enabled.
      * @param string $module Name of the module to be checked
-     * @return mixed true if the module is enabled, false otherwise. null if
-     *  cannot check
+     * @return bool
      */
     public static function module($module)
     {
-        if (!function_exists('apache_get_modules')) {
-            return false;
-        }
-
         return in_array($module, apache_get_modules());
     }
 
     /**
      * Gets the version.
-     * @return mixed Version. null if cannot check
+     * @return string
      */
     public static function version()
     {
-        if (!function_exists('apache_get_version')) {
-            return false;
-        }
-
         $version = apache_get_version();
 
         preg_match('/Apache\/([0-9]+\.[0-9]+\.[0-9]+)/i', $version, $matches);

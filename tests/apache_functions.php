@@ -20,38 +20,17 @@
  * @license     http://www.gnu.org/licenses/agpl.txt AGPL License
  * @link        http://git.novatlantis.it Nova Atlantis Ltd
  */
-namespace MeTools\Test\TestCase;
 
-use Cake\TestSuite\TestCase;
-use MeTools\Utility\Apache;
-
-/**
- * ApacheTest class.
- */
-class ApacheTest extends TestCase
-{
-    /**
-     * Tests for `module()` method
-     * @return void
-     * @test
-     */
-    public function testModule()
+if (!function_exists('apache_get_modules')) {
+    function apache_get_modules()
     {
-        $result = Apache::module('mod_rewrite');
-        $this->assertTrue($result);
-
-        $result = Apache::module('mod_noExisting');
-        $this->assertFalse($result);
+        return ['core', 'http_core', 'mod_so', 'sapi_apache2', 'mod_mime', 'mod_rewrite'];
     }
+}
 
-    /**
-     * Tests for `version()` method
-     * @return void
-     * @test
-     */
-    public function testVersion()
+if (!function_exists('apache_get_version')) {
+    function apache_get_version()
     {
-        $result = Apache::version();
-        $this->assertEquals('1.3.29', $result);
+        return 'Apache/1.3.29 (Unix) PHP/4.3.4';
     }
 }

@@ -114,6 +114,9 @@ Configure::write('Session', [
     'defaults' => 'php'
 ]);
 
+//This adds `apache_get_modules()` and `apache_get_version()` functions
+require 'apache_functions.php';
+
 Plugin::load('MeTools', ['bootstrap' => true, 'path' => ROOT]);
 
 DispatcherFactory::add('Routing');
