@@ -28,7 +28,13 @@ use Cake\View\Helper\PaginatorHelper as CakePaginatorHelper;
 /**
  * Provides functionalities to the generation of pagers.
  *
- * Rewrites {@link http://api.cakephp.org/3.3/class-Cake.View.Helper.PaginatorHelper.html PaginatorHelper}.
+ * This class override `Cake\View\Helper\PaginatorHelper` and improve its
+ *  methods.
+ *
+ * You should use this helper as an alias, for example:
+ * <code>
+ * public $helpers = ['Html' => ['className' => 'MeTools.Html']];
+ * </code>
  */
 class PaginatorHelper extends CakePaginatorHelper
 {
@@ -66,7 +72,6 @@ class PaginatorHelper extends CakePaginatorHelper
     public function prev($title = '<< Previous', array $options = [])
     {
         list($title, $options) = $this->Html->addIcon($title, $options);
-        unset($options['icon'], $options['icon-align']);
 
         $options = optionDefaults(['escape' => false], $options);
 
