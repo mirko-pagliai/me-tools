@@ -3,7 +3,8 @@
 ### 2.10.4
 * fixed bug for `PaginatorHelper::next()`;
 * little fixes for `Shell` class;
-* added tests for `PaginatorHelper` class.
+* added tests for `PaginatorHelper` class;
+* added tests for `Shell` class.
 
 ### 2.10.3
 * little fixes for Fancybox's titles.
