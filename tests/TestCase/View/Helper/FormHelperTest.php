@@ -676,6 +676,23 @@ class FormHelperTest extends TestCase
             '/div',
         ];
         $this->assertHtml($expected, $result);
+
+        //Using `label` option
+        $result = $this->Form->input($field, ['label' => 'My label']);
+        $expected = [
+            'div' => ['class' => 'input form-group text'],
+            'label' => ['class' => 'sr-only', 'for' => $field],
+            'My label',
+            '/label',
+            'input' => [
+                'type' => 'text',
+                'name' => $field,
+                'class' => 'form-control',
+                'id' => $field,
+            ],
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
     }
 
     /**
