@@ -29,7 +29,6 @@ use MeTools\Utility\Youtube;
  * BBCode Helper.
  *
  * This helper allows you to handle some BBCode.
- *
  * The `parser()` method executes all parsers.
  */
 class BBCodeHelper extends Helper
@@ -107,11 +106,7 @@ class BBCodeHelper extends Helper
      */
     public function readMore($text)
     {
-        return preg_replace(
-            $this->pattern['readmore'],
-            '<!-- read-more -->',
-            $text
-        );
+        return preg_replace($this->pattern['readmore'], '<!-- read-more -->', $text);
     }
 
     /**
@@ -150,16 +145,12 @@ class BBCodeHelper extends Helper
      */
     public function youtube($text)
     {
-        return preg_replace_callback(
-            $this->pattern['youtube'],
-            function ($matches) {
-                if (isUrl($matches[1])) {
-                    return $this->Html->youtube(Youtube::getId($matches[1]));
-                }
+        return preg_replace_callback($this->pattern['youtube'], function ($matches) {
+            if (isUrl($matches[1])) {
+                return $this->Html->youtube(Youtube::getId($matches[1]));
+            }
 
-                return $this->Html->youtube($matches[1]);
-            },
-            $text
-        );
+            return $this->Html->youtube($matches[1]);
+        }, $text);
     }
 }
