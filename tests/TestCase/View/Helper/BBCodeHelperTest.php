@@ -178,6 +178,18 @@ class BBCodeHelperTest extends TestCase
     }
 
     /**
+     * Tests for `url()` method
+     * @return void
+     * @test
+     */
+    public function testUrl()
+    {
+        $result = $this->BBCode->url('[url="http://example"]my link[/url]');
+        $expected = $this->Html->link('my link', 'http://example');
+        $this->assertEquals($expected, $result);
+    }
+
+    /**
      * Tests for `youtube()` method
      * @return void
      * @test

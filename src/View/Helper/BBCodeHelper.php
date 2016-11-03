@@ -47,6 +47,7 @@ class BBCodeHelper extends Helper
     protected $pattern = [
         'image' => '/\[img](.+?)\[\/img]/',
         'readmore' => '/(<p(>|.*?[^?]>))?\[read\-?more\s*\/?\s*\](<\/p>)?/',
+        'url' => '/\[url=[\'"](.+?)[\'"]](.+?)\[\/url]/',
         'youtube' => '/\[youtube](.+?)\[\/youtube]/',
     ];
 
@@ -111,6 +112,22 @@ class BBCodeHelper extends Helper
             '<!-- read-more -->',
             $text
         );
+    }
+
+    /**
+     * Parses url code.
+     * <code>
+     * [url="http://example"]my link[/url]
+     * </code>
+     * @param string $text Text
+     * @return string
+     * @uses $pattern
+     */
+    public function url($text)
+    {
+        return preg_replace_callback($this->pattern['url'], function ($matches) {
+            return $this->Html->link($matches[2], $matches[1]);
+        }, $text);
     }
 
     /**
