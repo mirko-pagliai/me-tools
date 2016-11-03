@@ -45,6 +45,7 @@ class BBCodeHelper extends Helper
      * @var array
      */
     protected $pattern = [
+        'image' => '/\[img](.+?)\[\/img]/',
         'readmore' => '/(<p(>|.*?[^?]>))?\[read\-?more\s*\/?\s*\](<\/p>)?/',
         'youtube' => '/\[youtube](.+?)\[\/youtube]/',
     ];
@@ -68,6 +69,33 @@ class BBCodeHelper extends Helper
     }
 
     /**
+     * Removes all BBCode
+     * @param string $text Text
+     * @return string
+     * @uses $pattern
+     */
+    public function remove($text)
+    {
+        return trim(preg_replace($this->pattern, null, $text));
+    }
+
+    /**
+     * Parses image code.
+     * <code>
+     * [img]mypic.gif[/img]
+     * </code>
+     * @param string $text Text
+     * @return string
+     * @uses $pattern
+     */
+    public function image($text)
+    {
+        return preg_replace_callback($this->pattern['image'], function ($matches) {
+            return $this->Html->image($matches[1]);
+        }, $text);
+    }
+
+    /**
      * Parses "read mode" code. Example:
      * <code>
      * [read-more /]
@@ -86,19 +114,7 @@ class BBCodeHelper extends Helper
     }
 
     /**
-     * Removes all BBCode
-     * @param string $text Text
-     * @return string
-     * @uses $pattern
-     */
-    public function remove($text)
-    {
-        return trim(preg_replace($this->pattern, null, $text));
-    }
-
-    /**
      * Parses Youtube code.
-     *
      * You can use video ID or video url.
      *
      * Examples:

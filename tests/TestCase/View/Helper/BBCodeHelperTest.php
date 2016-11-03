@@ -130,6 +130,18 @@ class BBCodeHelperTest extends TestCase
     }
 
     /**
+     * Tests for `image()` method
+     * @return void
+     * @test
+     */
+    public function testImage()
+    {
+        $result = $this->BBCode->image('[img]mypic.gif[/img]');
+        $expected = $this->Html->image('mypic.gif');
+        $this->assertEquals($expected, $result);
+    }
+
+    /**
      * Tests for `readMore()` method
      * @return void
      * @test

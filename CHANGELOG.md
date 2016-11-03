@@ -1,6 +1,7 @@
 # 2.x branch
 ## 2.10 branch
 ### 2.10.4
+* added `BBCodeHelper::image()`;
 * fixed bug for `PaginatorHelper::next()`;
 * little fixes for `Shell` class;
 * added tests for `PaginatorHelper` class;
