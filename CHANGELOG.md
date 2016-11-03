@@ -1,8 +1,11 @@
 # 2.x branch
 ## 2.10 branch
 ### 2.10.4
+* added `BBCodeHelper::image()` and `BBCodeHelper::url()`;
 * fixed bug for `PaginatorHelper::next()`;
-* added tests for `PaginatorHelper` class.
+* little fixes for `Shell` class;
+* added tests for `PaginatorHelper` class;
+* added tests for `Shell` class.
 
 ### 2.10.3
 * little fixes for Fancybox's titles.

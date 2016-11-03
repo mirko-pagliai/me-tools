@@ -130,6 +130,18 @@ class BBCodeHelperTest extends TestCase
     }
 
     /**
+     * Tests for `image()` method
+     * @return void
+     * @test
+     */
+    public function testImage()
+    {
+        $result = $this->BBCode->image('[img]mypic.gif[/img]');
+        $expected = $this->Html->image('mypic.gif');
+        $this->assertEquals($expected, $result);
+    }
+
+    /**
      * Tests for `readMore()` method
      * @return void
      * @test
@@ -162,6 +174,18 @@ class BBCodeHelperTest extends TestCase
         $result = $this->BBCode->readmore(
             '<p class="my-class">[readmore /]</p>'
         );
+        $this->assertEquals($expected, $result);
+    }
+
+    /**
+     * Tests for `url()` method
+     * @return void
+     * @test
+     */
+    public function testUrl()
+    {
+        $result = $this->BBCode->url('[url="http://example"]my link[/url]');
+        $expected = $this->Html->link('my link', 'http://example');
         $this->assertEquals($expected, $result);
     }
 

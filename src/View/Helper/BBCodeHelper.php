@@ -29,7 +29,6 @@ use MeTools\Utility\Youtube;
  * BBCode Helper.
  *
  * This helper allows you to handle some BBCode.
- *
  * The `parser()` method executes all parsers.
  */
 class BBCodeHelper extends Helper
@@ -45,7 +44,9 @@ class BBCodeHelper extends Helper
      * @var array
      */
     protected $pattern = [
+        'image' => '/\[img](.+?)\[\/img]/',
         'readmore' => '/(<p(>|.*?[^?]>))?\[read\-?more\s*\/?\s*\](<\/p>)?/',
+        'url' => '/\[url=[\'"](.+?)[\'"]](.+?)\[\/url]/',
         'youtube' => '/\[youtube](.+?)\[\/youtube]/',
     ];
 
@@ -68,24 +69,6 @@ class BBCodeHelper extends Helper
     }
 
     /**
-     * Parses "read mode" code. Example:
-     * <code>
-     * [read-more /]
-     * </code>
-     * @param string $text Text
-     * @return string
-     * @uses $pattern
-     */
-    public function readMore($text)
-    {
-        return preg_replace(
-            $this->pattern['readmore'],
-            '<!-- read-more -->',
-            $text
-        );
-    }
-
-    /**
      * Removes all BBCode
      * @param string $text Text
      * @return string
@@ -97,8 +80,53 @@ class BBCodeHelper extends Helper
     }
 
     /**
+     * Parses image code.
+     * <code>
+     * [img]mypic.gif[/img]
+     * </code>
+     * @param string $text Text
+     * @return string
+     * @uses $pattern
+     */
+    public function image($text)
+    {
+        return preg_replace_callback($this->pattern['image'], function ($matches) {
+            return $this->Html->image($matches[1]);
+        }, $text);
+    }
+
+    /**
+     * Parses "read mode" code. Example:
+     * <code>
+     * [read-more /]
+     * </code>
+     * @param string $text Text
+     * @return string
+     * @uses $pattern
+     */
+    public function readMore($text)
+    {
+        return preg_replace($this->pattern['readmore'], '<!-- read-more -->', $text);
+    }
+
+    /**
+     * Parses url code.
+     * <code>
+     * [url="http://example"]my link[/url]
+     * </code>
+     * @param string $text Text
+     * @return string
+     * @uses $pattern
+     */
+    public function url($text)
+    {
+        return preg_replace_callback($this->pattern['url'], function ($matches) {
+            return $this->Html->link($matches[2], $matches[1]);
+        }, $text);
+    }
+
+    /**
      * Parses Youtube code.
-     *
      * You can use video ID or video url.
      *
      * Examples:
@@ -117,16 +145,12 @@ class BBCodeHelper extends Helper
      */
     public function youtube($text)
     {
-        return preg_replace_callback(
-            $this->pattern['youtube'],
-            function ($matches) {
-                if (isUrl($matches[1])) {
-                    return $this->Html->youtube(Youtube::getId($matches[1]));
-                }
+        return preg_replace_callback($this->pattern['youtube'], function ($matches) {
+            if (isUrl($matches[1])) {
+                return $this->Html->youtube(Youtube::getId($matches[1]));
+            }
 
-                return $this->Html->youtube($matches[1]);
-            },
-            $text
-        );
+            return $this->Html->youtube($matches[1]);
+        }, $text);
     }
 }
