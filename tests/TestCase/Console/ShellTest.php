@@ -33,6 +33,11 @@ class ShellTest extends TestCase
     /**
      * @var \Cake\Console\ConsoleIo
      */
+    protected $io;
+
+    /**
+     * @var \MeTools\Test\TestCase\Console\Shell
+     */
     protected $Shell;
 
     /**
@@ -70,7 +75,10 @@ class ShellTest extends TestCase
     {
         $tmp = TMP . 'example';
 
-        $this->assertFileNotExists($tmp);
+        if (file_exists($tmp)) {
+            unlink($tmp);
+        }
+
         $this->assertTrue($this->Shell->createFile($tmp, null));
         $this->assertFileExists($tmp);
 
@@ -111,7 +119,10 @@ class ShellTest extends TestCase
 
         file_put_contents($origin, null);
 
-        $this->assertFileNotExists($target);
+        if (file_exists($target)) {
+            unlink($target);
+        }
+
         $this->assertTrue($this->Shell->createLink($origin, $target));
         $this->assertFileExists($target);
 
@@ -186,13 +197,11 @@ class ShellTest extends TestCase
      */
     public function testComment()
     {
-        $text = 'This is a text';
-
         $this->io->expects($this->once())
             ->method('out')
             ->with('<comment>This is a text</comment>', 1);
 
-        $this->Shell->comment($text);
+        $this->Shell->comment('This is a text');
     }
 
     /**
@@ -202,13 +211,11 @@ class ShellTest extends TestCase
      */
     public function testQuestion()
     {
-        $text = 'This is a text';
-
         $this->io->expects($this->once())
             ->method('out')
             ->with('<question>This is a text</question>', 1);
 
-        $this->Shell->question($text);
+        $this->Shell->question('This is a text');
     }
 
     /**
@@ -218,12 +225,10 @@ class ShellTest extends TestCase
      */
     public function testWarning()
     {
-        $text = 'This is a text';
-
         $this->io->expects($this->once())
             ->method('err')
             ->with('<warning>This is a text</warning>', 1);
 
-        $this->Shell->warning($text);
+        $this->Shell->warning('This is a text');
     }
 }
