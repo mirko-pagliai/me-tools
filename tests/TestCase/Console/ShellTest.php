@@ -22,7 +22,6 @@
  */
 namespace MeTools\Test\TestCase\Console;
 
-use Cake\Filesystem\File;
 use Cake\TestSuite\TestCase;
 use MeTools\Test\TestCase\Console\Shell;
 
@@ -31,6 +30,11 @@ use MeTools\Test\TestCase\Console\Shell;
  */
 class ShellTest extends TestCase
 {
+    /**
+     * @var \Cake\Console\ConsoleIo
+     */
+    protected $Shell;
+
     /**
      * Setup the test case, backup the static object values so they can be
      * restored. Specifically backs up the contents of Configure and paths in
@@ -82,7 +86,7 @@ class ShellTest extends TestCase
     {
         $tmp = TMP . 'example';
 
-        new File($tmp, true);
+        file_put_contents($tmp, null);
 
         $this->Shell->params = ['verbose' => true];
 
@@ -105,7 +109,7 @@ class ShellTest extends TestCase
         $origin = TMP . 'origin';
         $target = TMP . 'example';
 
-        new File($origin, true);
+        file_put_contents($origin, null);
 
         $this->assertFileNotExists($target);
         $this->assertTrue($this->Shell->createLink($origin, $target));
@@ -125,8 +129,8 @@ class ShellTest extends TestCase
         $origin = TMP . 'origin';
         $target = TMP . 'example';
 
-        new File($origin, true);
-        new File($target, true);
+        file_put_contents($origin, null);
+        file_put_contents($target, null);
 
         $this->Shell->params = ['verbose' => true];
 
@@ -164,7 +168,7 @@ class ShellTest extends TestCase
         $origin = TMP . 'origin';
         $target = TMP . 'noExistingDir' . DS . 'example';
 
-        new File($origin, true);
+        file_put_contents($origin, null);
 
         $this->io->expects($this->once())
             ->method('err')
