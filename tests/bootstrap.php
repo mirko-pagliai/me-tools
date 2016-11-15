@@ -34,6 +34,7 @@ if (!defined('DS')) {
 
 // Path constants to a few helpful things.
 define('ROOT', dirname(__DIR__) . DS);
+define('VENDOR', ROOT . 'vendor' . DS);
 define('CAKE_CORE_INCLUDE_PATH', ROOT . 'vendor' . DS . 'cakephp' . DS . 'cakephp');
 define('CORE_PATH', ROOT . 'vendor' . DS . 'cakephp' . DS . 'cakephp' . DS);
 define('CAKE', CORE_PATH . 'src' . DS);
@@ -117,6 +118,20 @@ Configure::write('Session', [
 //This adds `apache_get_modules()` and `apache_get_version()` functions
 require 'apache_functions.php';
 
+Configure::write('Assets.force', true);
+Configure::write('Assets.target', TMP . 'assets');
+
+//@codingStandardsIgnoreStart
+@mkdir(Configure::read('Assets.target'));
+//@codingStandardsIgnoreEnd
+
+/**
+ * Loads plugins
+ */
+Plugin::load('Assets', [
+    'bootstrap' => true,
+    'path' => VENDOR . 'mirko-pagliai' . DS . 'assets' . DS,
+]);
 Plugin::load('MeTools', ['bootstrap' => true, 'path' => ROOT]);
 
 DispatcherFactory::add('Routing');

@@ -36,7 +36,7 @@ class LibraryHelper extends Helper
      */
     public $helpers = [
         'Html' => ['className' => 'MeTools.Html'],
-        'MeTools.Asset',
+        'Assets.Asset',
     ];
 
     /**

@@ -21,7 +21,14 @@
  * @link        http://git.novatlantis.it Nova Atlantis Ltd
  */
 
+use Cake\Core\Plugin;
+
 //Sets the default MeTools name
 if (!defined('METOOLS')) {
     define('METOOLS', 'MeTools');
+}
+
+//Loads `Assets` plugin
+if (!Plugin::loaded('Assets')) {
+    Plugin::load('Assets', ['bootstrap' => true, 'routes' => true]);
 }
