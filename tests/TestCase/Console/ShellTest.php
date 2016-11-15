@@ -20,28 +20,26 @@
  * @license     http://www.gnu.org/licenses/agpl.txt AGPL License
  * @link        http://git.novatlantis.it Nova Atlantis Ltd
  */
-namespace MeTools\Test\TestCase;
+namespace MeTools\Test\TestCase\Console;
 
-use Cake\Filesystem\File;
 use Cake\TestSuite\TestCase;
-use MeTools\Console\Shell as BaseShell;
-
-/**
- * Makes public some protected methods/properties from `Shell`
- */
-class Shell extends BaseShell
-{
-    public function welcome()
-    {
-        return parent::_welcome();
-    }
-}
+use MeTools\Test\TestCase\Console\Shell;
 
 /**
  * ShellTest class.
  */
 class ShellTest extends TestCase
 {
+    /**
+     * @var \Cake\Console\ConsoleIo
+     */
+    protected $io;
+
+    /**
+     * @var \MeTools\Test\TestCase\Console\Shell
+     */
+    protected $Shell;
+
     /**
      * Setup the test case, backup the static object values so they can be
      * restored. Specifically backs up the contents of Configure and paths in
@@ -77,7 +75,10 @@ class ShellTest extends TestCase
     {
         $tmp = TMP . 'example';
 
-        $this->assertFileNotExists($tmp);
+        if (file_exists($tmp)) {
+            unlink($tmp);
+        }
+
         $this->assertTrue($this->Shell->createFile($tmp, null));
         $this->assertFileExists($tmp);
 
@@ -93,7 +94,7 @@ class ShellTest extends TestCase
     {
         $tmp = TMP . 'example';
 
-        new File($tmp, true);
+        file_put_contents($tmp, null);
 
         $this->Shell->params = ['verbose' => true];
 
@@ -116,9 +117,12 @@ class ShellTest extends TestCase
         $origin = TMP . 'origin';
         $target = TMP . 'example';
 
-        new File($origin, true);
+        file_put_contents($origin, null);
 
-        $this->assertFileNotExists($target);
+        if (file_exists($target)) {
+            unlink($target);
+        }
+
         $this->assertTrue($this->Shell->createLink($origin, $target));
         $this->assertFileExists($target);
 
@@ -136,8 +140,8 @@ class ShellTest extends TestCase
         $origin = TMP . 'origin';
         $target = TMP . 'example';
 
-        new File($origin, true);
-        new File($target, true);
+        file_put_contents($origin, null);
+        file_put_contents($target, null);
 
         $this->Shell->params = ['verbose' => true];
 
@@ -175,7 +179,7 @@ class ShellTest extends TestCase
         $origin = TMP . 'origin';
         $target = TMP . 'noExistingDir' . DS . 'example';
 
-        new File($origin, true);
+        file_put_contents($origin, null);
 
         $this->io->expects($this->once())
             ->method('err')
@@ -193,13 +197,11 @@ class ShellTest extends TestCase
      */
     public function testComment()
     {
-        $text = 'This is a text';
-
         $this->io->expects($this->once())
             ->method('out')
             ->with('<comment>This is a text</comment>', 1);
 
-        $this->Shell->comment($text);
+        $this->Shell->comment('This is a text');
     }
 
     /**
@@ -209,13 +211,11 @@ class ShellTest extends TestCase
      */
     public function testQuestion()
     {
-        $text = 'This is a text';
-
         $this->io->expects($this->once())
             ->method('out')
             ->with('<question>This is a text</question>', 1);
 
-        $this->Shell->question($text);
+        $this->Shell->question('This is a text');
     }
 
     /**
@@ -225,12 +225,10 @@ class ShellTest extends TestCase
      */
     public function testWarning()
     {
-        $text = 'This is a text';
-
         $this->io->expects($this->once())
             ->method('err')
             ->with('<warning>This is a text</warning>', 1);
 
-        $this->Shell->warning($text);
+        $this->Shell->warning('This is a text');
     }
 }

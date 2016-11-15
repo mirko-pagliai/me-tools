@@ -1,5 +1,9 @@
 # 2.x branch
 ## 2.10 branch
+### 2.10.5
+* fixed bug for loading the `Assets` plugin;
+* added some tests for `LibraryHelper` class.
+
 ### 2.10.4
 * added `BBCodeHelper::image()` and `BBCodeHelper::url()`;
 * fixed bug for `PaginatorHelper::next()`;

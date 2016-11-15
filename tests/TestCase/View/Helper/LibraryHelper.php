@@ -20,15 +20,21 @@
  * @license     http://www.gnu.org/licenses/agpl.txt AGPL License
  * @link        http://git.novatlantis.it Nova Atlantis Ltd
  */
+namespace MeTools\Test\TestCase\View\Helper;
 
-use Cake\Core\Plugin;
+use MeTools\View\Helper\LibraryHelper as BaseLibraryHelper;
 
-//Sets the default MeTools name
-if (!defined('METOOLS')) {
-    define('METOOLS', 'MeTools');
-}
+/**
+ * Makes public some protected methods/properties from `LibraryHelper`
+ */
+class LibraryHelper extends BaseLibraryHelper
+{
+    public function output($value = null)
+    {
+        if (!empty($value)) {
+            $this->output = $value;
+        }
 
-//Loads `Assets` plugin
-if (!Plugin::loaded('Assets')) {
-    Plugin::load('Assets', ['bootstrap' => true, 'routes' => true]);
+        return $this->output;
+    }
 }

@@ -20,15 +20,17 @@
  * @license     http://www.gnu.org/licenses/agpl.txt AGPL License
  * @link        http://git.novatlantis.it Nova Atlantis Ltd
  */
+namespace MeTools\Test\TestCase\Console;
 
-use Cake\Core\Plugin;
+use MeTools\Console\Shell as BaseShell;
 
-//Sets the default MeTools name
-if (!defined('METOOLS')) {
-    define('METOOLS', 'MeTools');
-}
-
-//Loads `Assets` plugin
-if (!Plugin::loaded('Assets')) {
-    Plugin::load('Assets', ['bootstrap' => true, 'routes' => true]);
+/**
+ * Makes public some protected methods/properties from `Shell`
+ */
+class Shell extends BaseShell
+{
+    public function welcome()
+    {
+        return parent::_welcome();
+    }
 }
