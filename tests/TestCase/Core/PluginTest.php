@@ -31,6 +31,26 @@ use MeTools\Core\Plugin;
 class PluginTest extends TestCase
 {
     /**
+     * Setup the test case, backup the static object values so they can be
+     * restored. Specifically backs up the contents of Configure and paths in
+     *  App if they have not already been backed up
+     * @return void
+     */
+    public function setUp()
+    {
+        parent::setUp();
+
+        //Gets loaded plugin and removes `MeTools`
+        $loaded = Plugin::loaded();
+        unset($loaded[array_search('MeTools', Plugin::loaded())]);
+
+        //Unloads all plugins
+        foreach ($loaded as $plugin) {
+            Plugin::unload($plugin);
+        }
+    }
+
+    /**
      * Teardown any static object changes and restore them
      * @return void
      */
