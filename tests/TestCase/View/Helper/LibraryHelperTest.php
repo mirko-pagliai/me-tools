@@ -132,7 +132,13 @@ class LibraryHelperTest extends TestCase
         $this->Library->slugify();
 
         $result = $this->View->Blocks->get('script_bottom');
-        $this->assertEquals('<script src="/assets/js/efaac57e38ea02cd3cfb0295790da7aa.js"></script>', $result);
+        $expected = [
+            'script' => [
+                'src' => 'preg:/\/assets\/js\/[a-z0-9]+\.js/',
+            ],
+            '/script',
+        ];
+        $this->assertHtml($expected, $result);
 
         $this->assertEquals(['$().slugify("form #title", "form #slug");'], $this->Library->output());
     }
