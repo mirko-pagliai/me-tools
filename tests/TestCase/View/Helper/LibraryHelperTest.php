@@ -102,6 +102,24 @@ class LibraryHelperTest extends TestCase
     }
 
     /**
+     * Tests for `ckeditor` method
+     * @test
+     */
+    public function testCkeditor()
+    {
+        $this->Library->ckeditor('my-id');
+        $result = $this->View->Blocks->get('script_bottom');
+
+        $expected = [
+            ['script' => ['src' => '/ckeditor/ckeditor.js']],
+            '/script',
+            ['script' => ['src' => '/me_tools/js/ckeditor_init.php?']],
+            '/script',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    /**
      * Tests for `shareaholic` method
      * @test
      */
