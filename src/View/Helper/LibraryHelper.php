@@ -91,11 +91,7 @@ class LibraryHelper extends Helper
             'locale' => empty($locale) ? 'en-gb' : $locale,
         ], $options);
 
-        return sprintf(
-            '$("%s").datetimepicker(%s);',
-            $input,
-            json_encode($options, JSON_PRETTY_PRINT)
-        );
+        return sprintf('$("%s").datetimepicker(%s);', $input, json_encode($options, JSON_PRETTY_PRINT));
     }
 
     /**
@@ -274,15 +270,12 @@ class LibraryHelper extends Helper
      */
     public function shareaholic($siteId)
     {
-        return $this->Html->js(
-            '//dsms0mj1bbhn4.cloudfront.net/assets/pub/shareaholic.js',
-            [
-                'async' => 'async',
-                'block' => 'script_bottom',
-                'data-cfasync' => 'false',
-                'data-shr-siteid' => $siteId,
-            ]
-        );
+        return $this->Html->js('//dsms0mj1bbhn4.cloudfront.net/assets/pub/shareaholic.js', [
+            'async' => 'async',
+            'block' => 'script_bottom',
+            'data-cfasync' => 'false',
+            'data-shr-siteid' => $siteId,
+        ]);
     }
 
     /**
@@ -300,11 +293,7 @@ class LibraryHelper extends Helper
     {
         $this->Asset->script('MeTools.slugify', ['block' => 'script_bottom']);
 
-        $this->output[] = sprintf(
-            '$().slugify("%s", "%s");',
-            $sourceField,
-            $targetField
-        );
+        $this->output[] = sprintf('$().slugify("%s", "%s");', $sourceField, $targetField);
     }
 
     /**
