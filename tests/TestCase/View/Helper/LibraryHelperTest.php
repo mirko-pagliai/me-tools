@@ -211,23 +211,26 @@ class LibraryHelperTest extends TestCase
         $this->Library->datepicker('#my-id');
 
         $output = $this->Library->output();
-        $expected = '$("#my-id").datetimepicker({
-    "format": "YYYY\/MM\/DD",
-    "showTodayButton": true,
-    "showClear": true,
-    "icons": {
-        "time": "fa fa-clock-o",
-        "date": "fa fa-calendar",
-        "up": "fa fa-arrow-up",
-        "down": "fa fa-arrow-down",
-        "previous": "fa fa-arrow-left",
-        "next": "fa fa-arrow-right",
-        "today": "fa fa-dot-circle-o",
-        "clear": "fa fa-trash"
-    },
-    "locale": "en"
-});';
-        $this->assertEquals([$expected], $output);
+        $this->assertEquals(1, preg_match('/\$\("#my-id"\)\.datetimepicker\(({\n(\s+.+\n)+})\);/', $output[0], $matches));
+        $this->assertNotEmpty($matches[1]);
+        $result = json_decode($matches[1], true);
+        $expected = [
+            'format' => 'YYYY/MM/DD',
+            'showTodayButton' => true,
+            'showClear' => true,
+            'icons' => [
+                    'time' => 'fa fa-clock-o',
+                    'date' => 'fa fa-calendar',
+                    'up' => 'fa fa-arrow-up',
+                    'down' => 'fa fa-arrow-down',
+                    'previous' => 'fa fa-arrow-left',
+                    'next' => 'fa fa-arrow-right',
+                    'today' => 'fa fa-dot-circle-o',
+                    'clear' => 'fa fa-trash',
+            ],
+            'locale' => 'en',
+        ];
+        $this->assertEquals($expected, $result);
 
         $result = $this->View->Blocks->get('script_bottom');
         $expected = [
@@ -261,22 +264,25 @@ class LibraryHelperTest extends TestCase
         $this->Library->datetimepicker('#my-id');
 
         $output = $this->Library->output();
-        $expected = '$("#my-id").datetimepicker({
-    "showTodayButton": true,
-    "showClear": true,
-    "icons": {
-        "time": "fa fa-clock-o",
-        "date": "fa fa-calendar",
-        "up": "fa fa-arrow-up",
-        "down": "fa fa-arrow-down",
-        "previous": "fa fa-arrow-left",
-        "next": "fa fa-arrow-right",
-        "today": "fa fa-dot-circle-o",
-        "clear": "fa fa-trash"
-    },
-    "locale": "en"
-});';
-        $this->assertEquals([$expected], $output);
+        $this->assertEquals(1, preg_match('/\$\("#my-id"\)\.datetimepicker\(({\n(\s+.+\n)+})\);/', $output[0], $matches));
+        $this->assertNotEmpty($matches[1]);
+        $result = json_decode($matches[1], true);
+        $expected = [
+            'showTodayButton' => true,
+            'showClear' => true,
+            'icons' => [
+                    'time' => 'fa fa-clock-o',
+                    'date' => 'fa fa-calendar',
+                    'up' => 'fa fa-arrow-up',
+                    'down' => 'fa fa-arrow-down',
+                    'previous' => 'fa fa-arrow-left',
+                    'next' => 'fa fa-arrow-right',
+                    'today' => 'fa fa-dot-circle-o',
+                    'clear' => 'fa fa-trash',
+            ],
+            'locale' => 'en',
+        ];
+        $this->assertEquals($expected, $result);
     }
 
     /**
@@ -394,22 +400,25 @@ class LibraryHelperTest extends TestCase
         $this->Library->timepicker('#my-id');
 
         $output = $this->Library->output();
-        $expected = '$("#my-id").datetimepicker({
-    "pickTime": false,
-    "showTodayButton": true,
-    "showClear": true,
-    "icons": {
-        "time": "fa fa-clock-o",
-        "date": "fa fa-calendar",
-        "up": "fa fa-arrow-up",
-        "down": "fa fa-arrow-down",
-        "previous": "fa fa-arrow-left",
-        "next": "fa fa-arrow-right",
-        "today": "fa fa-dot-circle-o",
-        "clear": "fa fa-trash"
-    },
-    "locale": "en"
-});';
-        $this->assertEquals([$expected], $output);
+        $this->assertEquals(1, preg_match('/\$\("#my-id"\)\.datetimepicker\(({\n(\s+.+\n)+})\);/', $output[0], $matches));
+        $this->assertNotEmpty($matches[1]);
+        $result = json_decode($matches[1], true);
+        $expected = [
+            'pickTime' => false,
+            'showTodayButton' => true,
+            'showClear' => true,
+            'icons' => [
+                    'time' => 'fa fa-clock-o',
+                    'date' => 'fa fa-calendar',
+                    'up' => 'fa fa-arrow-up',
+                    'down' => 'fa fa-arrow-down',
+                    'previous' => 'fa fa-arrow-left',
+                    'next' => 'fa fa-arrow-right',
+                    'today' => 'fa fa-dot-circle-o',
+                    'clear' => 'fa fa-trash',
+            ],
+            'locale' => 'en',
+        ];
+        $this->assertEquals($expected, $result);
     }
 }
