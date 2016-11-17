@@ -118,7 +118,7 @@ Configure::write('Session', [
 //This adds `apache_get_modules()` and `apache_get_version()` functions
 require 'apache_functions.php';
 
-Configure::write('Assets.force', true);
+Configure::write('Assets.force', false);
 Configure::write('Assets.target', TMP . 'assets');
 
 //@codingStandardsIgnoreStart

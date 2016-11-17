@@ -202,6 +202,74 @@ class LibraryHelperTest extends TestCase
     }
 
     /**
+     * Tests for `fancybox` method
+     * @test
+     */
+    public function testFancybox()
+    {
+        symlink(
+            VENDOR . 'newerton' . DS . 'fancy-box' . DS . 'source',
+            WWW_ROOT . 'vendor' . DS . 'fancybox'
+        );
+
+        $this->Library->fancybox();
+
+        $result = $this->View->Blocks->get('css_bottom');
+        $expected = [
+            ['link' => ['rel' => 'stylesheet', 'href' => '/vendor/fancybox/jquery.fancybox.css']],
+            ['link' => ['rel' => 'stylesheet', 'href' => '/vendor/fancybox/helpers/jquery.fancybox-buttons.css']],
+            ['link' => ['rel' => 'stylesheet', 'href' => '/vendor/fancybox/helpers/jquery.fancybox-thumbs.css']],
+        ];
+        $this->assertHtml($expected, $result);
+
+        $result = $this->View->Blocks->get('script_bottom');
+        $expected = [
+            ['script' => ['src' => '/vendor/fancybox/jquery.fancybox.pack.js']],
+            '/script',
+            ['script' => ['src' => '/vendor/fancybox/helpers/jquery.fancybox-buttons.js']],
+            '/script',
+            ['script' => ['src' => '/vendor/fancybox/helpers/jquery.fancybox-thumbs.js']],
+            '/script',
+            ['script' => ['src' => '/me_tools/fancybox/fancybox_init.js']],
+            '/script',
+        ];
+        $this->assertHtml($expected, $result);
+
+        unlink(WWW_ROOT . 'vendor' . DS . 'fancybox');
+    }
+
+    /**
+     * Tests for `fancybox` method, with a js config file from app
+     * @test
+     */
+    public function testFancyboxWithJsFromApp()
+    {
+        symlink(
+            VENDOR . 'newerton' . DS . 'fancy-box' . DS . 'source',
+            WWW_ROOT . 'vendor' . DS . 'fancybox'
+        );
+        file_put_contents(WWW_ROOT . 'js' . DS . 'fancybox_init.js', null);
+
+        $this->Library->fancybox();
+
+        $result = $this->View->Blocks->get('script_bottom');
+        $expected = [
+            ['script' => ['src' => '/vendor/fancybox/jquery.fancybox.pack.js']],
+            '/script',
+            ['script' => ['src' => '/vendor/fancybox/helpers/jquery.fancybox-buttons.js']],
+            '/script',
+            ['script' => ['src' => '/vendor/fancybox/helpers/jquery.fancybox-thumbs.js']],
+            '/script',
+            ['script' => ['src' => '/js/fancybox_init.js']],
+            '/script',
+        ];
+        $this->assertHtml($expected, $result);
+
+        unlink(WWW_ROOT . 'vendor' . DS . 'fancybox');
+        unlink(WWW_ROOT . 'js' . DS . 'fancybox_init.js');
+    }
+
+    /**
      * Tests for `shareaholic` method
      * @test
      */
@@ -233,9 +301,7 @@ class LibraryHelperTest extends TestCase
 
         $result = $this->View->Blocks->get('script_bottom');
         $expected = [
-            'script' => [
-                'src' => 'preg:/\/assets\/js\/[a-z0-9]+\.js/',
-            ],
+            'script' => ['src' => '/me_tools/js/slugify.js'],
             '/script',
         ];
         $this->assertHtml($expected, $result);

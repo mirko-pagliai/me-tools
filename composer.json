@@ -16,6 +16,10 @@
         "fortawesome/font-awesome": "4.*",
         "mirko-pagliai/assets": "1.1.*"
     },
+    "require-dev": {
+        "cakephp/cakephp-codesniffer": "2.*",
+        "newerton/fancy-box": "dev-master"
+    },
     "autoload": {
         "psr-4": {
             "MeTools\\": "src"
@@ -33,8 +37,5 @@
             "TestPlugin\\": "tests/test_app/Plugin/TestPlugin/src",
             "AnotherTestPlugin\\": "tests/test_app/Plugin/AnotherTestPlugin/src"
         }
-    },
-    "require-dev": {
-        "cakephp/cakephp-codesniffer": "2.*"
     }
 }
