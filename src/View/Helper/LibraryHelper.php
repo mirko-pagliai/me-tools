@@ -162,16 +162,14 @@ class LibraryHelper extends Helper
      */
     public function ckeditor($jquery = true)
     {
-        $path = WWW_ROOT . 'ckeditor' . DS;
-
-        if (!is_readable($path . 'ckeditor.js')) {
+        if (!is_readable(WWW_ROOT . 'ckeditor' . DS . 'ckeditor.js')) {
             return;
         }
 
         $scripts = ['/ckeditor/ckeditor'];
 
         //Checks for the jQuery adapter
-        if ($jquery && is_readable($path . 'adapters' . DS . 'jquery.js')) {
+        if ($jquery && is_readable(WWW_ROOT . 'ckeditor' . DS . 'adapters' . DS . 'jquery.js')) {
             $scripts[] = '/ckeditor/adapters/jquery';
         }
 
