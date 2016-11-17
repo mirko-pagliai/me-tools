@@ -23,7 +23,6 @@
 namespace MeTools\View\Helper;
 
 use Cake\View\Helper;
-use MeTools\Core\Plugin;
 
 /**
  * Library helper
@@ -53,8 +52,8 @@ class LibraryHelper extends Helper
      * @param array $options Options for the datepicker
      * @return string jQuery code
      * @see http://eonasdan.github.io/bootstrap-datetimepicker Bootstrap 3 Datepicker v4 documentation
-     * @uses MeTools\View\Helper\AssetHelper::css()
-     * @uses MeTools\View\Helper\AssetHelper::js()
+     * @uses Assets\View\Helper\AssetHelper::css()
+     * @uses Assets\View\Helper\AssetHelper::script()
      */
     protected function _datetimepicker($input, array $options = [])
     {
@@ -238,8 +237,7 @@ class LibraryHelper extends Helper
      * FancyBox must be installed via Composer.
      * @return void
      * @see http://fancyapps.com/fancybox/#docs FancyBox documentation
-     * @uses MeTools\View\Helper\AssetHelper::js()
-     * @uses MeTools\Core\Plugin::path()
+     * @uses Assets\View\Helper\AssetHelper::script()
      */
     public function fancybox()
     {
@@ -255,18 +253,13 @@ class LibraryHelper extends Helper
             '/vendor/fancybox/helpers/jquery.fancybox-thumbs',
         ], ['block' => 'script_bottom']);
 
-        //Checks for the init script into `APP/webroot/js/`
+        //Checks for `APP/webroot/js/`
         if (is_readable(WWW_ROOT . 'js' . DS . 'fancybox_init.js')) {
-            $script = 'fancybox_init';
-        //Else, checks for the init script into
-        //  `APP/plugin/MeTools/webroot/fancybox/`
-        } elseif (Plugin::path(METOOLS, 'webroot' . DS . 'fancybox' . DS . 'fancybox_init.js', true)) {
-            $script = 'MeTools./fancybox/fancybox_init';
+            $this->Asset->script('fancybox_init', ['block' => 'script_bottom']);
+        //Else, uses `APP/plugin/MeTools/webroot/fancybox/`
         } else {
-            return;
+            $this->Asset->script('MeTools./fancybox/fancybox_init', ['block' => 'script_bottom']);
         }
-
-        $this->Asset->script($script, ['block' => 'script_bottom']);
     }
 
     /**
@@ -276,8 +269,8 @@ class LibraryHelper extends Helper
      * To render the "share buttons", you have to use the `HtmlHelper`.
      * @param string $siteId Shareaholic site ID
      * @return mixed Html code
+     * @uses Assets\View\Helper\AssetHelper::script()
      * @see MeTools\View\Helper\HtmlHelper::shareaholic()
-     * @uses MeTools\View\Helper\HtmlHelper::js()
      */
     public function shareaholic($siteId)
     {
@@ -300,7 +293,7 @@ class LibraryHelper extends Helper
      * @param string $sourceField Source field
      * @param string $targetField Target field
      * @return void
-     * @uses MeTools\View\Helper\AssetHelper::js()
+     * @uses Assets\View\Helper\AssetHelper::script()
      * @uses output
      */
     public function slugify($sourceField = 'form #title', $targetField = 'form #slug')
