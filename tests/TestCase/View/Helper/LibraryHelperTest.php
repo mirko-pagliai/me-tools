@@ -107,7 +107,27 @@ class LibraryHelperTest extends TestCase
      */
     public function testCkeditor()
     {
-        $this->Library->ckeditor('my-id');
+        $this->Library->ckeditor();
+        $result = $this->View->Blocks->get('script_bottom');
+
+        $expected = [
+            ['script' => ['src' => '/ckeditor/ckeditor.js']],
+            '/script',
+            ['script' => ['src' => '/ckeditor/adapters/jquery.js']],
+            '/script',
+            ['script' => ['src' => '/me_tools/js/ckeditor_init.php?']],
+            '/script',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    /**
+     * Tests for `ckeditor` method, withouth jQuery adapter
+     * @test
+     */
+    public function testCkeditorWithoutJQueryAdapter()
+    {
+        $this->Library->ckeditor(false);
         $result = $this->View->Blocks->get('script_bottom');
 
         $expected = [
