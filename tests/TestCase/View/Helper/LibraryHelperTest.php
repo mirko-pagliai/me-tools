@@ -109,6 +109,35 @@ class LibraryHelperTest extends TestCase
     {
         $this->Library->ckeditor();
         $result = $this->View->Blocks->get('script_bottom');
+        $this->assertEmpty($result);
+
+        file_put_contents(WWW_ROOT . 'ckeditor' . DS . 'ckeditor.js', null);
+
+        $this->Library->ckeditor();
+        $result = $this->View->Blocks->get('script_bottom');
+
+        $expected = [
+            ['script' => ['src' => '/ckeditor/ckeditor.js']],
+            '/script',
+            ['script' => ['src' => '/me_tools/js/ckeditor_init.php?']],
+            '/script',
+        ];
+        $this->assertHtml($expected, $result);
+
+        unlink(WWW_ROOT . 'ckeditor' . DS . 'ckeditor.js');
+    }
+
+    /**
+     * Tests for `ckeditor` method, with the jQuery adapter
+     * @test
+     */
+    public function testCkeditorWithJqueryAdapter()
+    {
+        file_put_contents(WWW_ROOT . 'ckeditor' . DS . 'ckeditor.js', null);
+        file_put_contents(WWW_ROOT . 'ckeditor' . DS . 'adapters' . DS . 'jquery.js', null);
+
+        $this->Library->ckeditor();
+        $result = $this->View->Blocks->get('script_bottom');
 
         $expected = [
             ['script' => ['src' => '/ckeditor/ckeditor.js']],
@@ -119,24 +148,57 @@ class LibraryHelperTest extends TestCase
             '/script',
         ];
         $this->assertHtml($expected, $result);
+
+        unlink(WWW_ROOT . 'ckeditor' . DS . 'ckeditor.js');
+        unlink(WWW_ROOT . 'ckeditor' . DS . 'adapters' . DS . 'jquery.js');
     }
 
     /**
-     * Tests for `ckeditor` method, withouth jQuery adapter
+     * Tests for `ckeditor` method, with a js config file from app
      * @test
      */
-    public function testCkeditorWithoutJQueryAdapter()
+    public function testCkeditorWithJsFromApp()
     {
-        $this->Library->ckeditor(false);
+        file_put_contents(WWW_ROOT . 'ckeditor' . DS . 'ckeditor.js', null);
+        file_put_contents(WWW_ROOT . 'js' . DS . 'ckeditor_init.js', null);
+
+        $this->Library->ckeditor();
         $result = $this->View->Blocks->get('script_bottom');
 
         $expected = [
             ['script' => ['src' => '/ckeditor/ckeditor.js']],
             '/script',
-            ['script' => ['src' => '/me_tools/js/ckeditor_init.php?']],
+            ['script' => ['src' => '/js/ckeditor_init.js']],
             '/script',
         ];
         $this->assertHtml($expected, $result);
+
+        unlink(WWW_ROOT . 'ckeditor' . DS . 'ckeditor.js');
+        unlink(WWW_ROOT . 'js' . DS . 'ckeditor_init.js');
+    }
+
+    /**
+     * Tests for `ckeditor` method, with a php config file from app
+     * @test
+     */
+    public function testCkeditorWithPhpFromApp()
+    {
+        file_put_contents(WWW_ROOT . 'ckeditor' . DS . 'ckeditor.js', null);
+        file_put_contents(WWW_ROOT . 'js' . DS . 'ckeditor_init.php', null);
+
+        $this->Library->ckeditor();
+        $result = $this->View->Blocks->get('script_bottom');
+
+        $expected = [
+            ['script' => ['src' => '/ckeditor/ckeditor.js']],
+            '/script',
+            ['script' => ['src' => '/js/ckeditor_init.php?']],
+            '/script',
+        ];
+        $this->assertHtml($expected, $result);
+
+        unlink(WWW_ROOT . 'ckeditor' . DS . 'ckeditor.js');
+        unlink(WWW_ROOT . 'js' . DS . 'ckeditor_init.php');
     }
 
     /**
