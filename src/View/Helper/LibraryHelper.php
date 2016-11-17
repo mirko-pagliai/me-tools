@@ -171,7 +171,7 @@ class LibraryHelper extends Helper
         $scripts = ['/ckeditor/ckeditor'];
 
         //Checks for the jQuery adapter
-        if ($jquery && is_readable($path . DS . 'adapters' . DS . 'jquery.js')) {
+        if ($jquery && is_readable($path . 'adapters' . DS . 'jquery.js')) {
             $scripts[] = '/ckeditor/adapters/jquery';
         }
 
