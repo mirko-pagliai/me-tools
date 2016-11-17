@@ -109,25 +109,11 @@ class LibraryHelperTest extends TestCase
     {
         $this->Library->ckeditor();
         $result = $this->View->Blocks->get('script_bottom');
+        $this->assertEmpty($result);
 
-        $expected = [
-            ['script' => ['src' => '/ckeditor/ckeditor.js']],
-            '/script',
-            ['script' => ['src' => '/ckeditor/adapters/jquery.js']],
-            '/script',
-            ['script' => ['src' => '/me_tools/js/ckeditor_init.php?']],
-            '/script',
-        ];
-        $this->assertHtml($expected, $result);
-    }
+        file_put_contents(WWW_ROOT . 'ckeditor' . DS . 'ckeditor.js', null);
 
-    /**
-     * Tests for `ckeditor` method, withouth jQuery adapter
-     * @test
-     */
-    public function testCkeditorWithoutJQueryAdapter()
-    {
-        $this->Library->ckeditor(false);
+        $this->Library->ckeditor();
         $result = $this->View->Blocks->get('script_bottom');
 
         $expected = [
@@ -137,6 +123,8 @@ class LibraryHelperTest extends TestCase
             '/script',
         ];
         $this->assertHtml($expected, $result);
+
+        unlink(WWW_ROOT . 'ckeditor' . DS . 'ckeditor.js');
     }
 
     /**
