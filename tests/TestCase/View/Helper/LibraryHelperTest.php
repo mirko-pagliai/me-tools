@@ -188,7 +188,6 @@ class LibraryHelperTest extends TestCase
 
         $this->Library->ckeditor();
         $result = $this->View->Blocks->get('script_bottom');
-
         $expected = [
             ['script' => ['src' => '/ckeditor/ckeditor.js']],
             '/script',
@@ -202,15 +201,91 @@ class LibraryHelperTest extends TestCase
     }
 
     /**
+     * Tests for `datepicker` method
+     * @test
+     */
+    public function testDatepicker()
+    {
+        $this->assertEmpty($this->Library->output());
+
+        $this->Library->datepicker('#my-id');
+
+        $output = $this->Library->output();
+        $expected = '$("#my-id").datetimepicker({
+    "format": "YYYY\/MM\/DD",
+    "showTodayButton": true,
+    "showClear": true,
+    "icons": {
+        "time": "fa fa-clock-o",
+        "date": "fa fa-calendar",
+        "up": "fa fa-arrow-up",
+        "down": "fa fa-arrow-down",
+        "previous": "fa fa-arrow-left",
+        "next": "fa fa-arrow-right",
+        "today": "fa fa-dot-circle-o",
+        "clear": "fa fa-trash"
+    },
+    "locale": "en"
+});';
+        $this->assertEquals([$expected], $output);
+
+        $result = $this->View->Blocks->get('script_bottom');
+        $expected = [
+            ['script' => ['src' => '/vendor/moment/moment-with-locales.min.js']],
+            '/script',
+            ['script' => ['src' => '/vendor/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js']],
+            '/script',
+        ];
+        $this->assertHtml($expected, $result);
+
+        $result = $this->View->Blocks->get('css_bottom');
+        $expected = [
+            'link' => [
+                'rel' => 'stylesheet',
+                'href' => '/vendor/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css',
+            ],
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    /**
+     * Tests for `datetimepicker` method
+     * @test
+     */
+    public function testDatetimepicker()
+    {
+        //Note: assets have already been tested in the `testDatepicker()` method
+
+        $this->assertEmpty($this->Library->output());
+
+        $this->Library->datetimepicker('#my-id');
+
+        $output = $this->Library->output();
+        $expected = '$("#my-id").datetimepicker({
+    "showTodayButton": true,
+    "showClear": true,
+    "icons": {
+        "time": "fa fa-clock-o",
+        "date": "fa fa-calendar",
+        "up": "fa fa-arrow-up",
+        "down": "fa fa-arrow-down",
+        "previous": "fa fa-arrow-left",
+        "next": "fa fa-arrow-right",
+        "today": "fa fa-dot-circle-o",
+        "clear": "fa fa-trash"
+    },
+    "locale": "en"
+});';
+        $this->assertEquals([$expected], $output);
+    }
+
+    /**
      * Tests for `fancybox` method
      * @test
      */
     public function testFancybox()
     {
-        symlink(
-            VENDOR . 'newerton' . DS . 'fancy-box' . DS . 'source',
-            WWW_ROOT . 'vendor' . DS . 'fancybox'
-        );
+        symlink(VENDOR . 'newerton' . DS . 'fancy-box' . DS . 'source', WWW_ROOT . 'vendor' . DS . 'fancybox');
 
         $this->Library->fancybox();
 
@@ -244,10 +319,7 @@ class LibraryHelperTest extends TestCase
      */
     public function testFancyboxWithJsFromApp()
     {
-        symlink(
-            VENDOR . 'newerton' . DS . 'fancy-box' . DS . 'source',
-            WWW_ROOT . 'vendor' . DS . 'fancybox'
-        );
+        symlink(VENDOR . 'newerton' . DS . 'fancy-box' . DS . 'source', WWW_ROOT . 'vendor' . DS . 'fancybox');
         file_put_contents(WWW_ROOT . 'js' . DS . 'fancybox_init.js', null);
 
         $this->Library->fancybox();
@@ -307,5 +379,37 @@ class LibraryHelperTest extends TestCase
         $this->assertHtml($expected, $result);
 
         $this->assertEquals(['$().slugify("form #title", "form #slug");'], $this->Library->output());
+    }
+
+    /**
+     * Tests for `timepicker` method
+     * @test
+     */
+    public function testTimepicker()
+    {
+        //Note: assets have already been tested in the `testDatepicker()` method
+
+        $this->assertEmpty($this->Library->output());
+
+        $this->Library->timepicker('#my-id');
+
+        $output = $this->Library->output();
+        $expected = '$("#my-id").datetimepicker({
+    "pickTime": false,
+    "showTodayButton": true,
+    "showClear": true,
+    "icons": {
+        "time": "fa fa-clock-o",
+        "date": "fa fa-calendar",
+        "up": "fa fa-arrow-up",
+        "down": "fa fa-arrow-down",
+        "previous": "fa fa-arrow-left",
+        "next": "fa fa-arrow-right",
+        "today": "fa fa-dot-circle-o",
+        "clear": "fa fa-trash"
+    },
+    "locale": "en"
+});';
+        $this->assertEquals([$expected], $output);
     }
 }
