@@ -1,4 +1,8 @@
 # 2.x branch
+## 2.11 branch
+### 2.11.0
+* removed tokens (component, entity and table). Instead, use `cakephp-tokens`.
+
 ## 2.10 branch
 ### 2.10.4
 * added `BBCodeHelper::image()` and `BBCodeHelper::url()`;
