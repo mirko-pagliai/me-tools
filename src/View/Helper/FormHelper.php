@@ -23,6 +23,7 @@
  */
 namespace MeTools\View\Helper;
 
+use Cake\Utility\Hash;
 use Cake\View\Helper\FormHelper as CakeFormHelper;
 use Cake\View\View;
 
@@ -52,22 +53,25 @@ class FormHelper extends CakeFormHelper
     /**
      * Construct the widgets and binds the default context providers.
      *
-     * This method only ewrites the default configuration (`$_defaultConfig`).
+     * This method only rewrites the default templates config.
      * @param Cake\View\View $view The View this helper is being attached to
      * @param array $config Configuration settings for the helper
      * @return void
+     * @uses $_defaultConfig
      */
     public function __construct(View $view, $config = [])
     {
-        parent::__construct($view, $config);
-
-        //Rewrites templates
-        $this->templates([
-            'checkboxContainer' => '<div class="input {{type}}{{required}}">{{content}}{{help}}</div>',
-            'nestingLabel' => '{{hidden}}<label{{attrs}}>{{input}} {{text}}</label>',
-            'inputContainer' => '<div class="form-group input {{type}}{{required}}">{{content}}{{help}}</div>',
-            'inputContainerError' => '<div class="form-group input {{type}}{{required}} has-error">{{content}}{{help}}{{error}}</div>',
+        //Rewrites default templates config
+        $this->_defaultConfig = Hash::merge($this->_defaultConfig, [
+            'templates' => [
+                'checkboxContainer' => '<div class="input {{type}}{{required}}">{{content}}{{help}}</div>',
+                'nestingLabel' => '{{hidden}}<label{{attrs}}>{{input}} {{text}}</label>',
+                'inputContainer' => '<div class="form-group input {{type}}{{required}}">{{content}}{{help}}</div>',
+                'inputContainerError' => '<div class="form-group input {{type}}{{required}} has-error">{{content}}{{help}}{{error}}</div>',
+            ],
         ]);
+
+        parent::__construct($view, $config);
     }
 
     /**
@@ -106,9 +110,7 @@ class FormHelper extends CakeFormHelper
      */
     public function checkbox($fieldName, array $options = [])
     {
-        if (!isset($options['hiddenField']) ||
-            !empty($options['hiddenField'])
-        ) {
+        if (!isset($options['hiddenField']) || !empty($options['hiddenField'])) {
             $options['hiddenField'] = true;
         }
 
@@ -145,10 +147,9 @@ class FormHelper extends CakeFormHelper
     {
         //It's a form inline if there is the `inline` option or if it contains
         //  the `form-inline` class
-        if (!empty($options['inline']) || (
-            isset($options['class']) &&
-            (preg_match('/form-inline/', $options['class']))
-        )) {
+        if (!empty($options['inline']) ||
+            (isset($options['class']) && (preg_match('/form-inline/', $options['class'])))
+        ) {
             return self::createInline($model, $options);
         }
 
@@ -247,6 +248,9 @@ class FormHelper extends CakeFormHelper
      */
     public function input($fieldName, array $options = [])
     {
+        //Resets templates
+        $this->resetTemplates();
+
         //If the field name contains the word "password", then the field type
         //  is `password`
         if (preg_match('/password/', $fieldName)) {
@@ -265,23 +269,16 @@ class FormHelper extends CakeFormHelper
             $options = optionValues(['class' => 'form-control'], $options);
         }
 
-        if ($type === 'select' &&
-            empty($options['default']) &&
-            empty($options['value'])) {
-            $options = optionDefaults([
-                'empty' => true,
-            ], $options);
+        if ($type === 'select' && empty($options['default']) && empty($options['value'])) {
+            $options = optionDefaults(['empty' => true], $options);
         }
 
         //Help blocks
         //See http://getbootstrap.com/css/#forms-help-text
         if (!empty($options['help'])) {
-            $options['templateVars']['help'] = implode(
-                null,
-                array_map(function ($tip) {
-                    return $this->Html->para('help-block', trim($tip));
-                }, (array)$options['help'])
-            );
+            $options['templateVars']['help'] = implode(null, array_map(function ($tip) {
+                return $this->Html->para('help-block', trim($tip));
+            }, (array)$options['help']));
 
             unset($options['help']);
         }
@@ -292,10 +289,7 @@ class FormHelper extends CakeFormHelper
                 'formGroup' => '{{label}}<div class="input-group">{{input}}{{button}}</div>',
             ]);
 
-            $options['templateVars']['button'] = $this->Html->span(
-                $options['button'],
-                ['class' => 'input-group-btn']
-            );
+            $options['templateVars']['button'] = $this->Html->span($options['button'], ['class' => 'input-group-btn']);
 
             unset($options['button']);
         }
@@ -316,9 +310,7 @@ class FormHelper extends CakeFormHelper
                     $options['label'] = ['text' => $options['label']];
                 }
 
-                $options['label'] = optionValues([
-                    'class' => 'sr-only',
-                ], $options['label']);
+                $options['label'] = optionValues(['class' => 'sr-only'], $options['label']);
             }
         }
 
@@ -420,9 +412,7 @@ class FormHelper extends CakeFormHelper
      */
     public function select($fieldName, $options = [], array $attributes = [])
     {
-        if (empty($attributes['default']) &&
-            empty($attributes['value'])
-        ) {
+        if (empty($attributes['default']) && empty($attributes['value'])) {
             $attributes = optionDefaults(['empty' => true], $attributes);
         }
 
