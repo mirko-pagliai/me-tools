@@ -75,19 +75,6 @@ class FormHelper extends CakeFormHelper
     }
 
     /**
-     * Resets templates.
-     *
-     * This method resets the template to the initial state, undoing changes
-     * made by the methods of the class.
-     * @return void
-     * @uses $_defaultConfig
-     */
-    protected function _resetTemplates()
-    {
-        $this->templates($this->_defaultConfig['templates']);
-    }
-
-    /**
      * Creates a button.
      *
      * This method creates a button. To create a POST button, you should use
@@ -258,12 +245,11 @@ class FormHelper extends CakeFormHelper
      * @return string
      * @uses MeTools\View\Helper\HtmlHelper::para()
      * @uses $inline
-     * @uses _resetTemplates()
      */
     public function input($fieldName, array $options = [])
     {
         //Resets templates
-        $this->_resetTemplates();
+        $this->resetTemplates();
 
         //If the field name contains the word "password", then the field type
         //  is `password`
