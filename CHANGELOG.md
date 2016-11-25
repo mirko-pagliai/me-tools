@@ -1,5 +1,9 @@
 # 2.x branch
 ## 2.10 branch
+### 2.10.5
+* fixed bug for `FormHelper`. Templates are correctly reset when you call the
+    `input()` method.
+
 ### 2.10.4
 * added `BBCodeHelper::image()` and `BBCodeHelper::url()`;
 * fixed bug for loading the `Assets` plugin;

@@ -23,6 +23,7 @@
  */
 namespace MeTools\View\Helper;
 
+use Cake\Utility\Hash;
 use Cake\View\Helper\FormHelper as CakeFormHelper;
 use Cake\View\View;
 
@@ -52,22 +53,38 @@ class FormHelper extends CakeFormHelper
     /**
      * Construct the widgets and binds the default context providers.
      *
-     * This method only ewrites the default configuration (`$_defaultConfig`).
+     * This method only rewrites the default templates config.
      * @param Cake\View\View $view The View this helper is being attached to
      * @param array $config Configuration settings for the helper
      * @return void
+     * @uses $_defaultConfig
      */
     public function __construct(View $view, $config = [])
     {
-        parent::__construct($view, $config);
-
-        //Rewrites templates
-        $this->templates([
-            'checkboxContainer' => '<div class="input {{type}}{{required}}">{{content}}{{help}}</div>',
-            'nestingLabel' => '{{hidden}}<label{{attrs}}>{{input}} {{text}}</label>',
-            'inputContainer' => '<div class="form-group input {{type}}{{required}}">{{content}}{{help}}</div>',
-            'inputContainerError' => '<div class="form-group input {{type}}{{required}} has-error">{{content}}{{help}}{{error}}</div>',
+        //Rewrites default templates config
+        $this->_defaultConfig = Hash::merge($this->_defaultConfig, [
+            'templates' => [
+                'checkboxContainer' => '<div class="input {{type}}{{required}}">{{content}}{{help}}</div>',
+                'nestingLabel' => '{{hidden}}<label{{attrs}}>{{input}} {{text}}</label>',
+                'inputContainer' => '<div class="form-group input {{type}}{{required}}">{{content}}{{help}}</div>',
+                'inputContainerError' => '<div class="form-group input {{type}}{{required}} has-error">{{content}}{{help}}{{error}}</div>',
+            ],
         ]);
+
+        parent::__construct($view, $config);
+    }
+
+    /**
+     * Resets templates.
+     *
+     * This method resets the template to the initial state, undoing changes
+     * made by the methods of the class.
+     * @return void
+     * @uses $_defaultConfig
+     */
+    protected function _resetTemplates()
+    {
+        $this->templates($this->_defaultConfig['templates']);
     }
 
     /**
@@ -241,9 +258,13 @@ class FormHelper extends CakeFormHelper
      * @return string
      * @uses MeTools\View\Helper\HtmlHelper::para()
      * @uses $inline
+     * @uses _resetTemplates()
      */
     public function input($fieldName, array $options = [])
     {
+        //Resets templates
+        $this->_resetTemplates();
+
         //If the field name contains the word "password", then the field type
         //  is `password`
         if (preg_match('/password/', $fieldName)) {
