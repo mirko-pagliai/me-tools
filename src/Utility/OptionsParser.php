@@ -99,9 +99,48 @@ class OptionsParser
     }
 
     /**
+     * Adds default values.
+     *
+     * Example:
+     * <code>
+     * $this->addDefault([
+     *  'class' => 'this-is-my-class',
+     *  'data-value => ['first-value', 'second-value'],
+     * ]);
+     * </code>
+     *
+     * To provide backward compatibility, this function can accept two
+     * arguments (value key and value). Example:
+     * <code>
+     * $this->addDefault('class','this-is-my-class');
+     * $this->addDefault('data-value, ['first-value', 'second-value']);
+     * </code>
+     * @param array $values Values
+     * @return \MeTools\Utility\OptionsParser
+     * @uses $options
+     * @uses _setValue()
+     */
+    public function addDefaults($values)
+    {
+        //If called two arguments, the first is the key, the second is the value
+        if (func_num_args() === 2) {
+            $values = [func_get_arg(0) => func_get_arg(1)];
+        }
+
+        foreach ($values as $key => $value) {
+            if (!isset($this->options[$key])) {
+                $this->_setValue($key, $value);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
      * Gets a value from options
      * @param string $key Key value
      * @return string
+     * @uses $options
      */
     public function get($key)
     {
