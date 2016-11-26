@@ -47,17 +47,6 @@ class OptionsParser
     }
 
     /**
-     * Method called by `var_dump()` when dumping an object to get the
-     *  properties that should be shown
-     * @return array
-     * @uses $options
-     */
-    public function __debugInfo()
-    {
-        return $this->options;
-    }
-
-    /**
      * Internal method to set a value
      * @param string $key Key value
      * @param mixed $value Value

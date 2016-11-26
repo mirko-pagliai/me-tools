@@ -52,20 +52,6 @@ class OptionsParser extends BaseOptionsParser
 class OptionsParserTest extends TestCase
 {
     /**
-     * Tests for `__debugInfo()` method
-     * @test
-     */
-    public function testDebugInfo()
-    {
-        ob_start();
-        var_dump(new OptionsParser(['key' => 'value']));
-        $result = ob_get_clean();
-
-        $expected = 'object(MeTools\Test\TestCase\OptionsParser)#50 (1) {' . PHP_EOL . '  ["key"]=>' . PHP_EOL . '  string(5) "value"' . PHP_EOL . '}' . PHP_EOL;
-        $this->assertEquals($expected, $result);
-    }
-
-    /**
      * Tests for `_setValue()` method
      * @test
      */
