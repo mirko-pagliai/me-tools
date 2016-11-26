@@ -30,6 +30,11 @@ use MeTools\Utility\OptionsParser as BaseOptionsParser;
  */
 class OptionsParser extends BaseOptionsParser
 {
+    public function setValue($key, $value)
+    {
+        return $this->_setValue($key, $value);
+    }
+
     public function turnToArray($value)
     {
         return $this->_toArray($value);
@@ -58,6 +63,21 @@ class OptionsParserTest extends TestCase
 
         $expected = 'object(MeTools\Test\TestCase\OptionsParser)#50 (1) {' . PHP_EOL . '  ["key"]=>' . PHP_EOL . '  string(5) "value"' . PHP_EOL . '}' . PHP_EOL;
         $this->assertEquals($expected, $result);
+    }
+
+    /**
+     * Tests for `_setValue()` method
+     * @test
+     */
+    public function testSetValue()
+    {
+        $parser = new OptionsParser(['key' => 'value']);
+
+        $parser->setValue('newKey', 'newValue');
+        $this->assertEquals(['key' => 'value', 'newKey' => 'newValue'], $parser->toArray());
+
+        $parser->setValue('key', 'anotherValue');
+        $this->assertEquals(['key' => 'anotherValue', 'newKey' => 'newValue'], $parser->toArray());
     }
 
     /**

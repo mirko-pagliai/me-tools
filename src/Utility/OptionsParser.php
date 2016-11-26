@@ -58,6 +58,19 @@ class OptionsParser
     }
 
     /**
+     * Internal method to set a value
+     * @param string $key Key value
+     * @param mixed $value Value
+     * @return void
+     * @uses $options
+     * @uses _toString()
+     */
+    protected function _setValue($key, $value)
+    {
+        $this->options[$key] = $this->_toString($value);
+    }
+
+    /**
      * Turns a string into an array
      * @param mixed $value String
      * @return array
