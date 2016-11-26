@@ -124,6 +124,49 @@ class OptionsParserTest extends TestCase
     }
 
     /**
+     * Tests for `addButtonClasses()` method
+     * @test
+     */
+    public function testAddButtonClasses()
+    {
+        $parser = new OptionsParser;
+        $parser->addButtonClasses();
+        $this->assertEquals('btn btn-default', $parser->get('class'));
+
+        $parser = new OptionsParser;
+        $parser->addButtonClasses('primary');
+        $this->assertEquals('btn btn-primary', $parser->get('class'));
+
+        $parser = new OptionsParser;
+        $parser->addButtonClasses('btn primary lg');
+        $this->assertEquals('btn btn-primary btn-lg', $parser->get('class'));
+
+        $parser = new OptionsParser;
+        $parser->addButtonClasses(['btn', 'primary', 'lg']);
+        $this->assertEquals('btn btn-primary btn-lg', $parser->get('class'));
+
+        $parser = new OptionsParser;
+        $parser->addButtonClasses(['btn', 'btn-primary', 'lg']);
+        $this->assertEquals('btn btn-primary btn-lg', $parser->get('class'));
+
+        $parser = new OptionsParser;
+        $parser->addButtonClasses('primary invalidClass btn-invalid');
+        $this->assertEquals('btn btn-primary', $parser->get('class'));
+
+        $parser = new OptionsParser(['class' => 'existingValue']);
+        $parser->addButtonClasses('btn primary');
+        $this->assertEquals('existingValue btn btn-primary', $parser->get('class'));
+
+        $parser = new OptionsParser(['class' => 'btn-primary']);
+        $parser->addButtonClasses('btn primary');
+        $this->assertEquals('btn-primary btn', $parser->get('class'));
+
+        $parser = new OptionsParser(['class' => 'btn']);
+        $parser->addButtonClasses('btn primary');
+        $this->assertEquals('btn btn-primary', $parser->get('class'));
+    }
+
+    /**
      * Tests for `addDefaults()` method
      * @test
      */

@@ -138,6 +138,52 @@ class OptionsParser
     }
 
     /**
+     * Adds button classes.
+     *
+     * Classes can be passed as string or array, with or without the `btn-`
+     *  prefix.
+     *
+     * Example:
+     * <code>
+     * $this->addButtonClasses('primary lg');
+     * </code>
+     *
+     * Or:
+     * <code>
+     * $this->addButtonClasses(['btn-primary', ['lg']);
+     * </code>
+     * @param string|array $classes Classes (eg. `default`, `primary`,
+     *  `success`, etc), with or without the `btn-` prefix
+     * @return void
+     * @uses _toArray()
+     * @uses add()
+     */
+    public function addButtonClasses($classes = 'btn-default')
+    {
+        $classes = $this->_toArray($classes);
+
+        //Filters invalid classes and adds the `btn-` prefix to each class
+        $classes = array_filter(array_map(function ($class) {
+            //Filters invalid classes
+            if (!preg_match('/^(btn\-)?(default|primary|success|info|warning|danger|lg|sm|xs|block)$/', $class)) {
+                return false;
+            }
+
+            //Adds the `btn-` prefix to each class
+            if (substr($class, 0, 4) !== 'btn-') {
+                $class = sprintf('btn-%s', $class);
+            }
+
+            return $class;
+        }, $classes));
+
+        //Prepend the `btn` class
+        array_unshift($classes, 'btn');
+
+        $this->add(['class' => $classes]);
+    }
+
+    /**
      * Adds default values.
      *
      * Example:
