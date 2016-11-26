@@ -117,6 +117,27 @@ class OptionsParserTest extends TestCase
     }
 
     /**
+     * Tests for `add()` method
+     * @test
+     */
+    public function testAdd()
+    {
+        $parser = new OptionsParser(['first' => 'alfa']);
+
+        $parser->add(['first' => 'newAlfa', 'second' => 'beta']);
+        $this->assertEquals(['first' => 'alfa newAlfa', 'second' => 'beta'], $parser->toArray());
+
+        $parser->add(['first' => 'alfa', 'third' => 'gamma delta']);
+        $this->assertEquals(['first' => 'alfa newAlfa', 'second' => 'beta', 'third' => 'gamma delta'], $parser->toArray());
+
+        //With 2 arguments
+        $parser = new OptionsParser(['first' => 'alfa']);
+        $parser->add('first', 'newAlfa');
+        $parser->add('second', 'beta');
+        $this->assertEquals(['first' => 'alfa newAlfa', 'second' => 'beta'], $parser->toArray());
+    }
+
+    /**
      * Tests for `addDefaults()` method
      * @test
      */
@@ -125,7 +146,6 @@ class OptionsParserTest extends TestCase
         $parser = new OptionsParser(['first' => 'alfa']);
 
         $parser->addDefaults(['second' => 'beta']);
-        $parser->addDefaults(['first' => 'newAlfa']);
         $this->assertEquals(['first' => 'alfa', 'second' => 'beta'], $parser->toArray());
 
         $parser->addDefaults([

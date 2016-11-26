@@ -99,6 +99,56 @@ class OptionsParser
     }
 
     /**
+     * Adds values.
+     *
+     * Example:
+     * <code>
+     * $this->add([
+     *  'class' => 'this-is-my-class',
+     *  'data-value => ['first-value', 'second-value'],
+     * ]);
+     * </code>
+     *
+     * To provide backward compatibility, this function can accept two
+     * arguments (value key and value). Example:
+     * <code>
+     * $this->add('class','this-is-my-class');
+     * $this->add('data-value, ['first-value', 'second-value']);
+     * </code>
+     * @param array $values Values
+     * @return $this
+     * @uses $options
+     * @uses _setValue()
+     * @uses _toArray()
+     * @uses _toString()
+     */
+    public function add($values)
+    {
+        //If called two arguments, the first is the key, the second is the value
+        if (func_num_args() === 2) {
+            $values = [func_get_arg(0) => func_get_arg(1)];
+        }
+
+        foreach ($values as $key => $value) {
+            //Turns value into a string
+            $value = $this->_toString($value);
+
+            if (isset($this->options[$key])) {
+                //Chains new value to the existing value
+                $value = $this->options[$key] . ' ' . $value;
+
+                //Turns first into an array and finally into a string again.
+                //Turning into array will also remove duplicates
+                $this->options[$key] = $this->_toString($this->_toArray($value));
+            } else {
+                $this->_setValue($key, $value);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
      * Adds default values.
      *
      * Example:
