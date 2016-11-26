@@ -97,6 +97,18 @@ class OptionsParserTest extends TestCase
     }
 
     /**
+     * Tests for `get()` method
+     * @test
+     */
+    public function testGet()
+    {
+        $parser = new OptionsParser(['key' => 'value']);
+
+        $this->assertEquals('value', $parser->get('key'));
+        $this->assertEquals(null, $parser->get('noExistingKey'));
+    }
+
+    /**
      * Tests for `toArray()` method
      * @test
      */

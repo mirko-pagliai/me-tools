@@ -86,6 +86,20 @@ class OptionsParser
     }
 
     /**
+     * Gets a value from options
+     * @param string $key Key value
+     * @return string
+     */
+    public function get($key)
+    {
+        if (!isset($this->options[$key])) {
+            return null;
+        }
+
+        return $this->options[$key];
+    }
+
+    /**
      * Retunrs options as array
      * @return array
      * @uses $options
