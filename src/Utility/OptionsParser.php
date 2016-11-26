@@ -222,6 +222,23 @@ class OptionsParser
     }
 
     /**
+     * Deletes a value from options
+     * @param string $key Key value
+     * @return bool
+     * @uses $options
+     */
+    public function delete($key)
+    {
+        if (!isset($this->options[$key])) {
+            return false;
+        }
+
+        unset($this->options[$key]);
+
+        return true;
+    }
+
+    /**
      * Gets a value from options
      * @param string $key Key value
      * @return string

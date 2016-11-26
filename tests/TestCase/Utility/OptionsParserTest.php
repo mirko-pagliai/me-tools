@@ -190,6 +190,21 @@ class OptionsParserTest extends TestCase
     }
 
     /**
+     * Tests for `delete()` method
+     * @test
+     */
+    public function testDelete()
+    {
+        $parser = new OptionsParser(['first' => 'alfa', 'second' => 'beta']);
+
+        $this->assertTrue($parser->delete('first'));
+        $this->assertEquals(['second' => 'beta'], $parser->toArray());
+
+        $this->assertFalse($parser->delete('noExistingKey'));
+        $this->assertEquals(['second' => 'beta'], $parser->toArray());
+    }
+
+    /**
      * Tests for `get()` method
      * @test
      */
