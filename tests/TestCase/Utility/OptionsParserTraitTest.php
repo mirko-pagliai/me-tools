@@ -24,6 +24,7 @@ namespace MeTools\Test\TestCase;
 
 use Cake\TestSuite\TestCase;
 use Cake\View\Helper as CakeHelper;
+use Cake\View\StringTemplateTrait;
 use Cake\View\View;
 use MeTools\Utility\OptionsParserTrait;
 
@@ -33,6 +34,7 @@ use MeTools\Utility\OptionsParserTrait;
 class OptionsParserHelper extends CakeHelper
 {
     use OptionsParserTrait;
+    use StringTemplateTrait;
 
     public function setValue($key, $value, array $options)
     {

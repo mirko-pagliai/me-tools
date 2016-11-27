@@ -22,15 +22,11 @@
  */
 namespace MeTools\Utility;
 
-use Cake\View\StringTemplateTrait;
-
 /**
  * An options parser for helpers that generate html code
  */
 trait OptionsParserTrait
 {
-    use StringTemplateTrait;
-
     /**
      * Internal method to set a value
      * @param string $key Key value
