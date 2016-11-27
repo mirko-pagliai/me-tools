@@ -23,13 +23,14 @@
 namespace MeTools\View\Helper;
 
 use Cake\View\Helper;
+use MeTools\Utility\OptionsParserTrait;
 
 /**
  * Library helper
  */
 class LibraryHelper extends Helper
 {
-    use \MeTools\Utility\OptionsParserTrait;
+    use OptionsParserTrait;
 
     /**
      * Helpers

@@ -27,6 +27,7 @@ namespace MeTools\View\Helper;
 use Cake\Core\Configure;
 use Cake\Network\Exception\InternalErrorException;
 use Cake\View\Helper;
+use MeTools\Utility\OptionsParserTrait;
 
 /**
  * Provides several methods for reCAPTCHA.
@@ -36,7 +37,7 @@ use Cake\View\Helper;
  */
 class RecaptchaHelper extends Helper
 {
-    use \MeTools\Utility\OptionsParserTrait;
+    use OptionsParserTrait;
 
     /**
      * Helpers

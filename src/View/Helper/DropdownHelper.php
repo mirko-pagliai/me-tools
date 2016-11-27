@@ -24,6 +24,7 @@
 namespace MeTools\View\Helper;
 
 use Cake\View\Helper;
+use MeTools\Utility\OptionsParserTrait;
 
 /**
  * Provides functionalities for creating dropdown menus, according to Bootstrap.
@@ -66,7 +67,7 @@ use Cake\View\Helper;
  */
 class DropdownHelper extends Helper
 {
-    use \MeTools\Utility\OptionsParserTrait;
+    use OptionsParserTrait;
 
     /**
      * Helpers

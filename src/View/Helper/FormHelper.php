@@ -25,6 +25,7 @@ namespace MeTools\View\Helper;
 
 use Cake\View\Helper\FormHelper as CakeFormHelper;
 use Cake\View\View;
+use MeTools\Utility\OptionsParserTrait;
 
 /**
  * Provides functionalities for forms.
@@ -33,7 +34,7 @@ use Cake\View\View;
  */
 class FormHelper extends CakeFormHelper
 {
-    use \MeTools\Utility\OptionsParserTrait;
+    use OptionsParserTrait;
 
     /**
      * Helpers

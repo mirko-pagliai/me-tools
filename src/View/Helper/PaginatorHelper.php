@@ -24,6 +24,7 @@
 namespace MeTools\View\Helper;
 
 use Cake\View\Helper\PaginatorHelper as CakePaginatorHelper;
+use MeTools\Utility\OptionsParserTrait;
 
 /**
  * Provides functionalities to the generation of pagers.
@@ -38,7 +39,7 @@ use Cake\View\Helper\PaginatorHelper as CakePaginatorHelper;
  */
 class PaginatorHelper extends CakePaginatorHelper
 {
-    use \MeTools\Utility\OptionsParserTrait;
+    use OptionsParserTrait;
 
     /**
      * Helpers
