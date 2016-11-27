@@ -198,6 +198,47 @@ class OptionsParserTraitTest extends TestCase
     }
 
     /**
+     * Tests for `addTooltip()` method
+     * @test
+     */
+    public function testAddTooltip()
+    {
+        $tooltip = 'My tooltip';
+        $expected = ['data-toggle' => 'tooltip', 'title' => $tooltip];
+
+        $result = $this->OptionsParser->addTooltip(['tooltip' => $tooltip]);
+        $this->assertEquals($expected, $result);
+
+        // `tooltip` rewrites `title`
+        $result = $this->OptionsParser->addTooltip([
+            'title' => 'my title',
+            'tooltip' => $tooltip,
+        ]);
+        $this->assertEquals($expected, $result);
+
+        $result = $this->OptionsParser->addTooltip([
+            'data-toggle' => 'some-data-here',
+            'tooltip' => $tooltip,
+        ]);
+        $expected = [
+            'data-toggle' => 'some-data-here tooltip',
+            'title' => $tooltip,
+        ];
+        $this->assertEquals($expected, $result);
+
+        $result = $this->OptionsParser->addTooltip([
+            'tooltip' => $tooltip,
+            'tooltip-align' => 'bottom',
+        ]);
+        $expected = [
+            'data-toggle' => 'tooltip',
+            'title' => $tooltip,
+            'data-placement' => 'bottom',
+        ];
+        $this->assertEquals($expected, $result);
+    }
+
+    /**
      * Tests for `icon()` method
      * @test
      */

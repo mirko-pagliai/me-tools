@@ -156,6 +156,28 @@ trait OptionsParserTrait
     }
 
     /**
+     * Adds tooltip options
+     * @param array $options Array of HTML attributes
+     * @return array
+     * @uses optionsValues()
+     */
+    public function addTooltip($options)
+    {
+        if (!empty($options['tooltip'])) {
+            $options = $this->optionsValues(['data-toggle' => 'tooltip'], $options);
+            $options['title'] = trim(h(strip_tags($options['tooltip'])));
+
+            if (!empty($options['tooltip-align'])) {
+                $options = $this->optionsValues(['data-placement' => $options['tooltip-align']], $options);
+            }
+        }
+
+        unset($options['tooltip'], $options['tooltip-align']);
+
+        return $options;
+    }
+
+    /**
      * Returns icons.
      *
      * Icons can be passed as string, as array or as multiple arguments, with
