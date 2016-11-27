@@ -22,11 +22,17 @@
  */
 namespace MeTools\Utility;
 
+use Cake\Core\InstanceConfigTrait;
+use Cake\View\StringTemplateTrait;
+
 /**
  * An options parser for helpers that generate html code
  */
 trait OptionsParserTrait
 {
+    use InstanceConfigTrait;
+    use StringTemplateTrait;
+
     /**
      * Internal method to set a value
      * @param string $key Key value
@@ -123,6 +129,48 @@ trait OptionsParserTrait
         array_unshift($classes, 'btn');
 
         return $this->optionsValues(['class' => $classes], $options);
+    }
+
+    /**
+     * Returns icons.
+     *
+     * Icons can be passed as string, as array or as multiple arguments, with
+     *  or without the `fa-` prefix.
+     *
+     * Examples:
+     * <code>
+     * echo $this->icon('home');
+     * echo $this->icon(['hand-o-right', '2x']);
+     * echo $this->icon('hand-o-right', '2x');
+     * </code>
+     * @param string|array $icons Icons
+     * @return string
+     * @uses _toArray()
+     * @uses _toString()
+     */
+    public function icon($icons)
+    {
+        if (func_num_args() > 1) {
+            $icons = func_get_args();
+        }
+
+        $icons = $this->_toArray($icons);
+
+        //Prepends the string "fa-" to any other class
+        $icons = preg_replace('/(?<![^ ])(?=[^ ])(?!fa)/', 'fa-', $icons);
+
+        //Prepends the `fa` class
+        array_unshift($icons, 'fa');
+
+        if (!isset($this->_defaultConfig)) {
+            $this->_defaultConfig = [];
+        }
+
+        if (!$this->templates('icon')) {
+            $this->templates(['icon' => '<i class="{{icons}}"> </i>']);
+        }
+
+        return $this->formatTemplate('icon', ['icons' => $this->_toString($icons)]);
     }
 
     /**

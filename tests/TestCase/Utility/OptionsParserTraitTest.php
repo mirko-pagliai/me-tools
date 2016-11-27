@@ -165,6 +165,52 @@ class OptionsParserTraitTest extends TestCase
     }
 
     /**
+     * Tests for `icon()` method
+     * @test
+     */
+    public function testIcon()
+    {
+        $expected = '<i class="fa fa-home"> </i>';
+
+        $result = $this->Trait->icon('home');
+        $this->assertEquals($expected, $result);
+
+        $result = $this->Trait->icon('fa-home');
+        $this->assertEquals($expected, $result);
+
+        $result = $this->Trait->icon('home fa-home');
+        $this->assertEquals($expected, $result);
+
+        $result = $this->Trait->icon('fa fa-home');
+        $this->assertEquals($expected, $result);
+
+        $result = $this->Trait->icon('fa-home fa');
+        $this->assertEquals($expected, $result);
+
+        $result = $this->Trait->icon('fa home');
+        $this->assertEquals($expected, $result);
+
+        $expected = '<i class="fa fa-home fa-2x"> </i>';
+
+        $result = $this->Trait->icon('home 2x');
+        $this->assertEquals($expected, $result);
+
+        //As array
+        $result = $this->Trait->icon(['fa', 'fa-home', 'fa-2x']);
+        $this->assertEquals($expected, $result);
+
+        $result = $this->Trait->icon(['fa', 'home', 'fa-home', 'fa-2x']);
+        $this->assertEquals($expected, $result);
+
+        //Multiple arguments
+        $result = $this->Trait->icon('fa', 'fa-home', 'fa-2x');
+        $this->assertEquals($expected, $result);
+
+        $result = $this->Trait->icon('fa', 'home', 'fa-home', 'fa-2x');
+        $this->assertEquals($expected, $result);
+    }
+
+    /**
      * Tests for `optionsDefaults()` method
      * @test
      */
