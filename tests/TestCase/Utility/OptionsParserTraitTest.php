@@ -23,12 +23,14 @@
 namespace MeTools\Test\TestCase;
 
 use Cake\TestSuite\TestCase;
+use Cake\View\Helper as CakeHelper;
+use Cake\View\View;
 use MeTools\Utility\OptionsParserTrait;
 
 /**
  * Makes public some protected methods/properties from `OptionsParserTrait`
  */
-class OptionsParser
+class OptionsParserHelper extends CakeHelper
 {
     use OptionsParserTrait;
 
@@ -56,7 +58,7 @@ class OptionsParserTraitTest extends TestCase
     /**
      * @var MeTools\Utility\OptionsParserTrait
      */
-    protected $Trait;
+    protected $OptionsParser;
 
     /**
      * setUp method
@@ -66,7 +68,8 @@ class OptionsParserTraitTest extends TestCase
     {
         parent::setUp();
 
-        $this->Trait = new OptionsParser;
+        $this->View = new View();
+        $this->OptionsParser = new OptionsParserHelper($this->View);
     }
 
     /**
@@ -77,7 +80,7 @@ class OptionsParserTraitTest extends TestCase
     {
         parent::tearDown();
 
-        unset($this->Trait);
+        unset($this->OptionsParser, $this->View);
     }
 
     /**
@@ -88,10 +91,10 @@ class OptionsParserTraitTest extends TestCase
     {
         $options = ['key' => 'value'];
 
-        $options = $this->Trait->setValue('newKey', 'newValue', $options);
+        $options = $this->OptionsParser->setValue('newKey', 'newValue', $options);
         $this->assertEquals(['key' => 'value', 'newKey' => 'newValue'], $options);
 
-        $options = $this->Trait->setValue('key', 'anotherValue', $options);
+        $options = $this->OptionsParser->setValue('key', 'anotherValue', $options);
         $this->assertEquals(['key' => 'anotherValue', 'newKey' => 'newValue'], $options);
     }
 
@@ -101,14 +104,14 @@ class OptionsParserTraitTest extends TestCase
      */
     public function testTurnToArray()
     {
-        $this->assertEquals([], $this->Trait->turnToArray(''));
-        $this->assertEquals([], $this->Trait->turnToArray('  '));
-        $this->assertEquals(['a', 'b', 'c'], $this->Trait->turnToArray('a b c'));
-        $this->assertEquals(['a', 'b', 'c'], $this->Trait->turnToArray('a b   c'));
-        $this->assertEquals(['b', 'a', 'c'], $this->Trait->turnToArray('b a c b c'));
+        $this->assertEquals([], $this->OptionsParser->turnToArray(''));
+        $this->assertEquals([], $this->OptionsParser->turnToArray('  '));
+        $this->assertEquals(['a', 'b', 'c'], $this->OptionsParser->turnToArray('a b c'));
+        $this->assertEquals(['a', 'b', 'c'], $this->OptionsParser->turnToArray('a b   c'));
+        $this->assertEquals(['b', 'a', 'c'], $this->OptionsParser->turnToArray('b a c b c'));
 
         //Array
-        $this->assertEquals(['an', 'array'], $this->Trait->turnToArray(['an', 'array']));
+        $this->assertEquals(['an', 'array'], $this->OptionsParser->turnToArray(['an', 'array']));
     }
 
     /**
@@ -117,14 +120,14 @@ class OptionsParserTraitTest extends TestCase
      */
     public function testTurnToString()
     {
-        $this->assertEquals('', $this->Trait->turnToString([]));
-        $this->assertEquals('a', $this->Trait->turnToString(['a']));
-        $this->assertEquals('a b', $this->Trait->turnToString(['a', 'b']));
-        $this->assertEquals('a b', $this->Trait->turnToString(['a', 'a', 'b']));
-        $this->assertEquals('b a', $this->Trait->turnToString(['b', 'a', 'b']));
+        $this->assertEquals('', $this->OptionsParser->turnToString([]));
+        $this->assertEquals('a', $this->OptionsParser->turnToString(['a']));
+        $this->assertEquals('a b', $this->OptionsParser->turnToString(['a', 'b']));
+        $this->assertEquals('a b', $this->OptionsParser->turnToString(['a', 'a', 'b']));
+        $this->assertEquals('b a', $this->OptionsParser->turnToString(['b', 'a', 'b']));
 
         //String
-        $this->assertEquals('thisIsAString', $this->Trait->turnToString('thisIsAString'));
+        $this->assertEquals('thisIsAString', $this->OptionsParser->turnToString('thisIsAString'));
     }
 
     /**
@@ -133,34 +136,34 @@ class OptionsParserTraitTest extends TestCase
      */
     public function testAddButtonClasses()
     {
-        $options = $this->Trait->addButtonClasses([]);
+        $options = $this->OptionsParser->addButtonClasses([]);
         $this->assertEquals('btn btn-default', $options['class']);
 
-        $options = $this->Trait->addButtonClasses([], 'primary');
+        $options = $this->OptionsParser->addButtonClasses([], 'primary');
         $this->assertEquals('btn btn-primary', $options['class']);
 
-        $options = $this->Trait->addButtonClasses([], 'btn primary lg');
+        $options = $this->OptionsParser->addButtonClasses([], 'btn primary lg');
         $this->assertEquals('btn btn-primary btn-lg', $options['class']);
 
-        $options = $this->Trait->addButtonClasses([], ['btn', 'primary', 'lg']);
+        $options = $this->OptionsParser->addButtonClasses([], ['btn', 'primary', 'lg']);
         $this->assertEquals('btn btn-primary btn-lg', $options['class']);
 
-        $options = $this->Trait->addButtonClasses([], ['btn', 'btn-primary', 'lg']);
+        $options = $this->OptionsParser->addButtonClasses([], ['btn', 'btn-primary', 'lg']);
         $this->assertEquals('btn btn-primary btn-lg', $options['class']);
 
-        $options = $this->Trait->addButtonClasses([], 'primary invalidClass btn-invalid');
+        $options = $this->OptionsParser->addButtonClasses([], 'primary invalidClass btn-invalid');
         $this->assertEquals('btn btn-primary', $options['class']);
 
         $options = ['class' => 'existingValue'];
-        $options = $this->Trait->addButtonClasses($options, 'btn primary');
+        $options = $this->OptionsParser->addButtonClasses($options, 'btn primary');
         $this->assertEquals('existingValue btn btn-primary', $options['class']);
 
         $options = ['class' => 'btn-default'];
-        $options = $this->Trait->addButtonClasses($options, 'btn primary');
+        $options = $this->OptionsParser->addButtonClasses($options, 'btn primary');
         $this->assertEquals('btn-default btn', $options['class']);
 
         $options = ['class' => 'btn'];
-        $options = $this->Trait->addButtonClasses($options, 'btn primary');
+        $options = $this->OptionsParser->addButtonClasses($options, 'btn primary');
         $this->assertEquals('btn btn-primary', $options['class']);
     }
 
@@ -172,23 +175,23 @@ class OptionsParserTraitTest extends TestCase
     {
         $text = 'My text';
 
-        $result = $this->Trait->addIconToText($text, ['icon' => 'home']);
+        $result = $this->OptionsParser->addIconToText($text, ['icon' => 'home']);
         $this->assertEquals(['<i class="fa fa-home"> </i> ' . $text, []], $result);
 
         //Missing `icon` option
-        $result = $this->Trait->addIconToText($text, ['class' => 'my-class', 'icon-align' => 'right']);
+        $result = $this->OptionsParser->addIconToText($text, ['class' => 'my-class', 'icon-align' => 'right']);
         $this->assertEquals([$text, ['class' => 'my-class']], $result);
 
         //Empty text
-        $result = $this->Trait->addIconToText(null, ['icon' => 'home']);
+        $result = $this->OptionsParser->addIconToText(null, ['icon' => 'home']);
         $this->assertEquals(['<i class="fa fa-home"> </i>', []], $result);
 
         //Using `icon-align` option
-        $result = $this->Trait->addIconToText($text, ['icon' => 'home', 'icon-align' => 'right']);
+        $result = $this->OptionsParser->addIconToText($text, ['icon' => 'home', 'icon-align' => 'right']);
         $this->assertEquals([$text . ' <i class="fa fa-home"> </i>', []], $result);
 
         //Invalid `icon-align` option
-        $result = $this->Trait->addIconToText($text, ['icon' => 'home', 'icon-align' => 'left']);
+        $result = $this->OptionsParser->addIconToText($text, ['icon' => 'home', 'icon-align' => 'left']);
         $this->assertEquals(['<i class="fa fa-home"> </i> ' . $text, []], $result);
     }
 
@@ -200,41 +203,41 @@ class OptionsParserTraitTest extends TestCase
     {
         $expected = '<i class="fa fa-home"> </i>';
 
-        $result = $this->Trait->icon('home');
+        $result = $this->OptionsParser->icon('home');
         $this->assertEquals($expected, $result);
 
-        $result = $this->Trait->icon('fa-home');
+        $result = $this->OptionsParser->icon('fa-home');
         $this->assertEquals($expected, $result);
 
-        $result = $this->Trait->icon('home fa-home');
+        $result = $this->OptionsParser->icon('home fa-home');
         $this->assertEquals($expected, $result);
 
-        $result = $this->Trait->icon('fa fa-home');
+        $result = $this->OptionsParser->icon('fa fa-home');
         $this->assertEquals($expected, $result);
 
-        $result = $this->Trait->icon('fa-home fa');
+        $result = $this->OptionsParser->icon('fa-home fa');
         $this->assertEquals($expected, $result);
 
-        $result = $this->Trait->icon('fa home');
+        $result = $this->OptionsParser->icon('fa home');
         $this->assertEquals($expected, $result);
 
         $expected = '<i class="fa fa-home fa-2x"> </i>';
 
-        $result = $this->Trait->icon('home 2x');
+        $result = $this->OptionsParser->icon('home 2x');
         $this->assertEquals($expected, $result);
 
         //As array
-        $result = $this->Trait->icon(['fa', 'fa-home', 'fa-2x']);
+        $result = $this->OptionsParser->icon(['fa', 'fa-home', 'fa-2x']);
         $this->assertEquals($expected, $result);
 
-        $result = $this->Trait->icon(['fa', 'home', 'fa-home', 'fa-2x']);
+        $result = $this->OptionsParser->icon(['fa', 'home', 'fa-home', 'fa-2x']);
         $this->assertEquals($expected, $result);
 
         //Multiple arguments
-        $result = $this->Trait->icon('fa', 'fa-home', 'fa-2x');
+        $result = $this->OptionsParser->icon('fa', 'fa-home', 'fa-2x');
         $this->assertEquals($expected, $result);
 
-        $result = $this->Trait->icon('fa', 'home', 'fa-home', 'fa-2x');
+        $result = $this->OptionsParser->icon('fa', 'home', 'fa-home', 'fa-2x');
         $this->assertEquals($expected, $result);
     }
 
@@ -246,10 +249,10 @@ class OptionsParserTraitTest extends TestCase
     {
         $options = ['first' => 'alfa'];
 
-        $options = $this->Trait->optionsDefaults(['second' => 'beta'], $options);
+        $options = $this->OptionsParser->optionsDefaults(['second' => 'beta'], $options);
         $this->assertEquals(['first' => 'alfa', 'second' => 'beta'], $options);
 
-        $options = $this->Trait->optionsDefaults([
+        $options = $this->OptionsParser->optionsDefaults([
             'third' => 'gamma',
             'first' => 'newAlfa',
         ], $options);
@@ -257,11 +260,11 @@ class OptionsParserTraitTest extends TestCase
 
         //Called with 3 arguments
         $options = ['first' => 'alfa'];
-        $options = $this->Trait->optionsDefaults('second', 'beta', $options);
+        $options = $this->OptionsParser->optionsDefaults('second', 'beta', $options);
         $this->assertEquals(['first' => 'alfa', 'second' => 'beta'], $options);
 
         $options = ['first' => 'alfa'];
-        $options = $this->Trait->optionsDefaults('second', ['beta', 'gamma'], $options);
+        $options = $this->OptionsParser->optionsDefaults('second', ['beta', 'gamma'], $options);
         $this->assertEquals(['first' => 'alfa', 'second' => 'beta gamma'], $options);
     }
 
@@ -273,23 +276,23 @@ class OptionsParserTraitTest extends TestCase
     {
         $options = ['first' => 'alfa'];
 
-        $options = $this->Trait->optionsValues(['first' => 'newAlfa', 'second' => 'beta'], $options);
+        $options = $this->OptionsParser->optionsValues(['first' => 'newAlfa', 'second' => 'beta'], $options);
         $this->assertEquals(['first' => 'alfa newAlfa', 'second' => 'beta'], $options);
 
-        $options = $this->Trait->optionsValues(['first' => 'alfa', 'third' => 'gamma delta'], $options);
+        $options = $this->OptionsParser->optionsValues(['first' => 'alfa', 'third' => 'gamma delta'], $options);
         $this->assertEquals(['first' => 'alfa newAlfa', 'second' => 'beta', 'third' => 'gamma delta'], $options);
 
         //Called with 3 arguments
         $options = ['first' => 'alfa'];
 
-        $options = $this->Trait->optionsValues('first', 'newAlfa', $options);
-        $options = $this->Trait->optionsValues('second', 'beta', $options);
+        $options = $this->OptionsParser->optionsValues('first', 'newAlfa', $options);
+        $options = $this->OptionsParser->optionsValues('second', 'beta', $options);
         $this->assertEquals(['first' => 'alfa newAlfa', 'second' => 'beta'], $options);
 
         $options = ['first' => 'alfa'];
 
-        $options = $this->Trait->optionsValues('first', ['beta', 'gamma'], $options);
-        $options = $this->Trait->optionsValues('second', 'delta', $options);
+        $options = $this->OptionsParser->optionsValues('first', ['beta', 'gamma'], $options);
+        $options = $this->OptionsParser->optionsValues('second', 'delta', $options);
         $this->assertEquals(['first' => 'alfa beta gamma', 'second' => 'delta'], $options);
     }
 }

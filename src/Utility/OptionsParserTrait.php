@@ -22,7 +22,6 @@
  */
 namespace MeTools\Utility;
 
-use Cake\Core\InstanceConfigTrait;
 use Cake\View\StringTemplateTrait;
 
 /**
@@ -30,7 +29,6 @@ use Cake\View\StringTemplateTrait;
  */
 trait OptionsParserTrait
 {
-    use InstanceConfigTrait;
     use StringTemplateTrait;
 
     /**
@@ -191,10 +189,6 @@ trait OptionsParserTrait
 
         //Prepends the `fa` class
         array_unshift($icons, 'fa');
-
-        if (!isset($this->_defaultConfig)) {
-            $this->_defaultConfig = [];
-        }
 
         if (!$this->templates('icon')) {
             $this->templates(['icon' => '<i class="{{icons}}"> </i>']);
