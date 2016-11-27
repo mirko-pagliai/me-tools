@@ -85,7 +85,7 @@ trait OptionsParserTrait
      * <code>
      * $this->addButtonClasses(['btn-primary', 'lg'], $options);
      * </code>
-     * @param array $options Options
+     * @param array $options Array of HTML attributes
      * @param string|array $classes Classes (eg. `default`, `primary`,
      *  `success`, etc), with or without the `btn-` prefix
      * @return array Options
@@ -128,7 +128,7 @@ trait OptionsParserTrait
     /**
      * Adds icon to text
      * @param string $text Text
-     * @param array $options Options
+     * @param array $options Array of HTML attributes
      * @return array Text with icons as first value, options as second value
      * @uses icon()
      */
@@ -213,8 +213,8 @@ trait OptionsParserTrait
      *  'second-value',
      * ], $options);
      * </code>
-     * @param array $values Values (array of key values and values)
-     * @param array $options Options
+     * @param array $values Array of key values and values
+     * @param array $options Array of HTML attributes
      * @return array Options
      * @uses _setValue()
      */
@@ -256,8 +256,8 @@ trait OptionsParserTrait
      *  'second-value',
      * ], $options);
      * </code>
-     * @param array $values Values (array of key values and values)
-     * @param array $options Options
+     * @param array $values Array of key values and values
+     * @param array $options Array of HTML attributes
      * @return array Options
      * @uses _setValue()
      * @uses _toArray()
