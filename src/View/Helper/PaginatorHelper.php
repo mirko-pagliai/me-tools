@@ -38,6 +38,8 @@ use Cake\View\Helper\PaginatorHelper as CakePaginatorHelper;
  */
 class PaginatorHelper extends CakePaginatorHelper
 {
+    use \MeTools\Utility\OptionsParserTrait;
+
     /**
      * Helpers
      * @var array
@@ -56,7 +58,7 @@ class PaginatorHelper extends CakePaginatorHelper
      */
     public function next($title = 'Next >>', array $options = [])
     {
-        $options = optionDefaults([
+        $options = $this->optionsDefaults([
             'escape' => false,
             'icon-align' => 'right',
         ], $options);
@@ -74,7 +76,7 @@ class PaginatorHelper extends CakePaginatorHelper
      */
     public function prev($title = '<< Previous', array $options = [])
     {
-        $options = optionDefaults(['escape' => false], $options);
+        $options = $this->optionsDefaults(['escape' => false], $options);
 
         list($title, $options) = $this->Html->addIcon($title, $options);
 

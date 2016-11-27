@@ -30,6 +30,8 @@ use MeTools\View\Helper\HtmlHelper;
  */
 class BreadcrumbHelper extends HtmlHelper
 {
+    use \MeTools\Utility\OptionsParserTrait;
+
     /**
      * Internal property to add elements
      * @var array
@@ -88,14 +90,10 @@ class BreadcrumbHelper extends HtmlHelper
                 $element['link'] = null;
             }
 
-            self::addCrumb(
-                $element['name'],
-                $element['link'],
-                $element['options']
-            );
+            self::addCrumb($element['name'], $element['link'], $element['options']);
         }
 
-        $options = optionDefaults([
+        $options = $this->optionsDefaults([
             'class' => 'breadcrumb',
             'firstClass' => false,
             'lastClass' => 'active',

@@ -26,7 +26,6 @@
         },
         "files": [
             "src/Core/global_functions.php",
-            "src/Core/html_functions.php",
             "src/Core/request_detectors.php",
             "vendor/Recaptcha/recaptchalib.php"
         ]

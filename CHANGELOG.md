@@ -1,6 +1,7 @@
 # 2.x branch
 ## 2.11 branch
 ### 2.11.0
+* html global functions are now `OptionsParserTrait`;
 * removed tokens (component, entity and table). Instead, use `cakephp-tokens`.
 
 ## 2.10 branch

@@ -66,6 +66,8 @@ use Cake\View\Helper;
  */
 class DropdownHelper extends Helper
 {
+    use \MeTools\Utility\OptionsParserTrait;
+
     /**
      * Helpers
      * @var array
@@ -122,7 +124,7 @@ class DropdownHelper extends Helper
     {
         $title = sprintf('%s %s', $title, $this->Html->icon('caret-down'));
 
-        $titleOptions = optionValues([
+        $titleOptions = $this->optionsValues([
             'aria-expanded' => 'false',
             'aria-haspopup' => 'true',
             'class' => 'dropdown-toggle',
@@ -160,7 +162,7 @@ class DropdownHelper extends Helper
             return;
         }
 
-        $listOptions = optionValues(['class' => 'dropdown-menu'], $listOptions);
+        $listOptions = $this->optionsValues(['class' => 'dropdown-menu'], $listOptions);
 
         return $this->_start .
             PHP_EOL .

@@ -29,6 +29,8 @@ use Cake\View\Helper;
  */
 class LibraryHelper extends Helper
 {
+    use \MeTools\Utility\OptionsParserTrait;
+
     /**
      * Helpers
      * @var array
@@ -67,12 +69,12 @@ class LibraryHelper extends Helper
             ['block' => 'css_bottom']
         );
 
-        $options = optionDefaults([
+        $options = $this->optionsDefaults([
             'showTodayButton' => true,
             'showClear' => true,
         ], $options);
 
-        if (empty($options['icons'])) {
+        if (!isset($options['icons'])) {
             $options['icons'] = [
                 'time' => 'fa fa-clock-o',
                 'date' => 'fa fa-calendar',
@@ -87,7 +89,7 @@ class LibraryHelper extends Helper
 
         //Sets the current locale
         $locale = substr(\Cake\I18n\I18n::locale(), 0, 2);
-        $options = optionDefaults([
+        $options = $this->optionsDefaults([
             'locale' => empty($locale) ? 'en-gb' : $locale,
         ], $options);
 
@@ -201,7 +203,7 @@ class LibraryHelper extends Helper
     {
         $input = empty($input) ? '.datepicker' : $input;
 
-        $options = optionDefaults(['format' => 'YYYY/MM/DD'], $options);
+        $options = $this->optionsDefaults(['format' => 'YYYY/MM/DD'], $options);
 
         $this->output[] = self::_datetimepicker($input, $options);
     }
@@ -315,7 +317,7 @@ class LibraryHelper extends Helper
     {
         $input = empty($input) ? '.timepicker' : $input;
 
-        $options = optionDefaults(['pickTime' => false], $options);
+        $options = $this->optionsDefaults(['pickTime' => false], $options);
 
         $this->output[] = self::_datetimepicker($input, $options);
     }
