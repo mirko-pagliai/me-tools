@@ -165,6 +165,34 @@ class OptionsParserTraitTest extends TestCase
     }
 
     /**
+     * Tests for `addIconToText()` method
+     * @test
+     */
+    public function testAddIconToText()
+    {
+        $text = 'My text';
+
+        $result = $this->Trait->addIconToText($text, ['icon' => 'home']);
+        $this->assertEquals(['<i class="fa fa-home"> </i> ' . $text, []], $result);
+
+        //Missing `icon` option
+        $result = $this->Trait->addIconToText($text, ['class' => 'my-class', 'icon-align' => 'right']);
+        $this->assertEquals([$text, ['class' => 'my-class']], $result);
+
+        //Empty text
+        $result = $this->Trait->addIconToText(null, ['icon' => 'home']);
+        $this->assertEquals(['<i class="fa fa-home"> </i>', []], $result);
+
+        //Using `icon-align` option
+        $result = $this->Trait->addIconToText($text, ['icon' => 'home', 'icon-align' => 'right']);
+        $this->assertEquals([$text . ' <i class="fa fa-home"> </i>', []], $result);
+
+        //Invalid `icon-align` option
+        $result = $this->Trait->addIconToText($text, ['icon' => 'home', 'icon-align' => 'left']);
+        $this->assertEquals(['<i class="fa fa-home"> </i> ' . $text, []], $result);
+    }
+
+    /**
      * Tests for `icon()` method
      * @test
      */

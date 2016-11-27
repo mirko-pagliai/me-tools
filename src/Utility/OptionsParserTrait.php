@@ -132,6 +132,36 @@ trait OptionsParserTrait
     }
 
     /**
+     * Adds icon to text
+     * @param string $text Text
+     * @param array $options Options
+     * @return array Text with icons as first value, options as second value
+     * @uses icon()
+     */
+    public function addIconToText($text, array $options)
+    {
+        $align = empty($options['icon-align']) ? false : $options['icon-align'];
+        unset($options['icon-align']);
+
+        if (empty($options['icon'])) {
+            return [$text, $options];
+        }
+
+        $icon = $this->icon($options['icon']);
+        unset($options['icon']);
+
+        if (empty($text)) {
+            $text = $icon;
+        } elseif ($align === 'right') {
+            $text = sprintf('%s %s', $text, $icon);
+        } else {
+            $text = sprintf('%s %s', $icon, $text);
+        }
+
+        return [$text, $options];
+    }
+
+    /**
      * Returns icons.
      *
      * Icons can be passed as string, as array or as multiple arguments, with
