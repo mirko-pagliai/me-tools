@@ -42,16 +42,6 @@ class PaginatorHelper extends CakePaginatorHelper
     use OptionsParserTrait;
 
     /**
-     * Helpers
-     * @var array
-     */
-    public $helpers = [
-        'Html' => ['className' => 'MeTools.Html'],
-        'Number',
-        'Url',
-    ];
-
-    /**
      * Generates a "next" link for a set of paged records
      * @param string $title Title for the link
      * @param array $options Options for pagination link
