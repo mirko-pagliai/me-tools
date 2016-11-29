@@ -47,7 +47,7 @@ class Plugin extends CakePlugin
     {
         $plugins = parent::loaded();
 
-        $options = optionDefaults([
+        $options = array_merge([
             'core' => false,
             'exclude' => [],
             'order' => true,

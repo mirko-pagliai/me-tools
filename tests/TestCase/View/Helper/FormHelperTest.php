@@ -115,6 +115,17 @@ class FormHelperTest extends TestCase
         ];
         $this->assertHtml($expected, $result);
 
+        $result = $this->Form->button($title, ['class' => 'btn btn-danger']);
+        $expected = [
+            'button' => [
+                'type' => 'button',
+                'class' => 'btn btn-danger',
+            ],
+            $title,
+            '/button',
+        ];
+        $this->assertHtml($expected, $result);
+
         $result = $this->Form->button($title, ['class' => 'btn-danger']);
         $expected = [
             'button' => [
