@@ -84,7 +84,6 @@ class FormHelper extends CakeFormHelper
      * @param array $options HTML attributes and options
      * @return string
      * @see postButton(), MeTools\View\Helper\HtmlHelper::button()
-     * @uses MeTools\View\Helper\HtmlHelper::addIcon()
      */
     public function button($title, array $options = [])
     {
@@ -96,7 +95,7 @@ class FormHelper extends CakeFormHelper
             $options = $this->addButtonClasses($options);
         }
 
-        list($title, $options) = $this->Html->addIcon($title, $options);
+        list($title, $options) = $this->addIconToText($title, $options);
 
         return parent::button($title, $options);
     }
@@ -331,13 +330,11 @@ class FormHelper extends CakeFormHelper
      * @param array|string $options HTML attributes, or a string to be used
      *  as a class name
      * @return string
-     * @uses MeTools\View\Helper\HtmlHelper::addIcon()
      */
     public function label($fieldName, $text = null, array $options = [])
     {
         $options = $this->optionsDefaults(['escape' => false], $options);
-
-        list($text, $options) = $this->Html->addIcon($text, $options);
+        list($text, $options) = $this->addIconToText($text, $options);
 
         return parent::label($fieldName, $text, $options);
     }
@@ -379,8 +376,6 @@ class FormHelper extends CakeFormHelper
      *  parameters or external URL
      * @param array $options Array of options and HTML attributes
      * @return string
-     * @uses MeTools\View\Helper\HtmlHelper::addIcon()
-     * @uses MeTools\View\Helper\HtmlHelper::addTooltip()
      */
     public function postLink($title, $url = null, array $options = [])
     {
@@ -391,9 +386,8 @@ class FormHelper extends CakeFormHelper
 
         $options['title'] = trim(h(strip_tags($options['title'])));
 
-        list($title, $options) = $this->Html->addIcon($title, $options);
-
-        $options = $this->Html->addTooltip($options);
+        list($title, $options) = $this->addIconToText($title, $options);
+        $options = $this->addTooltip($options);
 
         return parent::postLink($title, $url, $options);
     }

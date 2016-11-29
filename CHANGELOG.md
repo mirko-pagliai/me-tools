@@ -3,7 +3,8 @@
 ### 2.11.0
 * removed the `BreadcrumbHelper`. Instead, use the `BreadcrumbsHelper` that
     extends the new helper provided by CakePHP;
-* html global functions are now `OptionsParserTrait`;
+* html global functions are now `OptionsParserTrait`. This class also provides
+    `addIconToText()` and `addTooltip()` methods;
 * removed tokens (component, entity and table). Instead, use `cakephp-tokens`.
 
 ## 2.10 branch
