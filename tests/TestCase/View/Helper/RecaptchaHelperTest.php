@@ -148,6 +148,19 @@ class RecaptchaHelperTest extends TestCase
     }
 
     /**
+     * Test for `mailUrl()` method, with bad keys
+     * @expectedException Cake\Network\Exception\InternalErrorException
+     * @expectedExceptionMessage The private mail key is not valid
+     */
+    public function testMailUrlBadKeys()
+    {
+        //Writes a no hexadecimal digits key
+        Configure::write('Recaptcha.Mail.private', 'AR1012');
+
+        $this->Recaptcha->mailUrl('myname@mymail.com');
+    }
+
+    /**
      * Test for `mailUrl()` method, with no keys
      * @expectedException Cake\Network\Exception\InternalErrorException
      * @expectedExceptionMessage Mail keys are not configured
