@@ -10,7 +10,7 @@
     }],
     "require": {
         "php": ">=5.5.9",
-        "cakephp/cakephp": "3.3.*",
+        "cakephp/cakephp": ">=3.3.9 <4.0",
         "ext-mcrypt": "*",
         "components/jquery": "2.*",
         "fortawesome/font-awesome": "4.*",
@@ -26,7 +26,6 @@
         },
         "files": [
             "src/Core/global_functions.php",
-            "src/Core/html_functions.php",
             "src/Core/request_detectors.php",
             "vendor/Recaptcha/recaptchalib.php"
         ]

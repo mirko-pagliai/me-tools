@@ -27,6 +27,7 @@ namespace MeTools\View\Helper;
 use Cake\Core\Configure;
 use Cake\Network\Exception\InternalErrorException;
 use Cake\View\Helper;
+use MeTools\Utility\OptionsParserTrait;
 
 /**
  * Provides several methods for reCAPTCHA.
@@ -36,6 +37,8 @@ use Cake\View\Helper;
  */
 class RecaptchaHelper extends Helper
 {
+    use OptionsParserTrait;
+
     /**
      * Helpers
      * @var array
@@ -76,17 +79,12 @@ class RecaptchaHelper extends Helper
             );
         }
 
-        $optionsScript = optionDefaults([
-            'block' => 'script_bottom',
-        ], $optionsScript);
+        $optionsScript = $this->optionsDefaults(['block' => 'script_bottom'], $optionsScript);
 
-        $this->Html->js(
-            'https://www.google.com/recaptcha/api.js',
-            am($optionsScript, [
-                'async' => true,
-                'defer' => true,
-            ])
-        );
+        $this->Html->js('https://www.google.com/recaptcha/api.js', am($optionsScript, [
+            'async' => true,
+            'defer' => true,
+        ]));
 
         return $this->Html->div(
             'g-recaptcha',
@@ -107,7 +105,7 @@ class RecaptchaHelper extends Helper
      */
     public function mail($title, $mail = null, array $options = [])
     {
-        $options = optionValues([
+        $options = $this->optionsValues([
             'target' => '_blank',
             'class' => 'recaptcha-mail',
         ], $options);

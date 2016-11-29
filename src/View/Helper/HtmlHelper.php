@@ -25,6 +25,7 @@ namespace MeTools\View\Helper;
 
 use Cake\Core\Exception\Exception;
 use Cake\View\Helper\HtmlHelper as CakeHtmlHelper;
+use MeTools\Utility\OptionsParserTrait;
 
 /**
  * Provides functionalities for HTML code.
@@ -38,6 +39,8 @@ use Cake\View\Helper\HtmlHelper as CakeHtmlHelper;
  */
 class HtmlHelper extends CakeHtmlHelper
 {
+    use OptionsParserTrait;
+
     /**
      * Missing method handler.
      *
@@ -57,59 +60,9 @@ class HtmlHelper extends CakeHtmlHelper
 
         return self::tag(
             $method,
-            empty($params[0]) ? null : $params[0],
-            empty($params[1]) ? [] : $params[1]
+            !isset($params[0]) ? null : $params[0],
+            !isset($params[1]) ? [] : $params[1]
         );
-    }
-
-    /**
-     * Adds icons to text
-     * @param string $text Text
-     * @param array $options Array of HTML attributes
-     * @return array Text with icons as first value, options without icons
-     *  (`icon` and `icon-align` options) as second value
-     * @uses icon()
-     */
-    public function addIcon($text, $options)
-    {
-        if (!empty($options['icon'])) {
-            if (empty($text)) {
-                $text = self::icon($options['icon']);
-            } elseif (!empty($options['icon-align']) &&
-                $options['icon-align'] === 'right'
-            ) {
-                $text = sprintf('%s %s', $text, self::icon($options['icon']));
-            } else {
-                $text = sprintf('%s %s', self::icon($options['icon']), $text);
-            }
-        }
-
-        unset($options['icon'], $options['icon-align']);
-
-        return [$text, $options];
-    }
-
-    /**
-     * Adds tooltip options
-     * @param array $options Array of HTML attributes
-     * @return array
-     */
-    public function addTooltip($options)
-    {
-        if (!empty($options['tooltip'])) {
-            $options = optionValues(['data-toggle' => 'tooltip'], $options);
-            $options['title'] = trim(h(strip_tags($options['tooltip'])));
-
-            if (!empty($options['tooltip-align'])) {
-                $options = optionValues([
-                    'data-placement' => $options['tooltip-align'],
-                ], $options);
-            }
-        }
-
-        unset($options['tooltip'], $options['tooltip-align']);
-
-        return $options;
     }
 
     /**
@@ -122,7 +75,7 @@ class HtmlHelper extends CakeHtmlHelper
      */
     public function badge($text, array $options = [])
     {
-        $options = optionValues(['class' => 'badge'], $options);
+        $options = $this->optionsValues(['class' => 'badge'], $options);
 
         return self::tag('span', $text, $options);
     }
@@ -142,14 +95,14 @@ class HtmlHelper extends CakeHtmlHelper
      */
     public function button($title, $url = null, array $options = [])
     {
-        $options = optionValues(['role' => 'button'], $options);
-        $options = buttonClass($options);
+        $options = $this->optionsValues(['role' => 'button'], $options);
+        $options = $this->addButtonClasses($options);
 
         if (!empty($url)) {
             return self::link($title, $url, $options);
         }
 
-        $options = optionDefaults(['title' => $title], $options);
+        $options = $this->optionsDefaults(['title' => $title], $options);
 
         $options['title'] = strip_tags($options['title']);
 
@@ -166,7 +119,7 @@ class HtmlHelper extends CakeHtmlHelper
      */
     public function css($path, array $options = [])
     {
-        $options = optionDefaults(['block' => true], $options);
+        $options = $this->optionsDefaults(['block' => true], $options);
 
         return parent::css($path, $options);
     }
@@ -181,7 +134,7 @@ class HtmlHelper extends CakeHtmlHelper
      */
     public function cssBlock($css, array $options = [])
     {
-        $options = optionDefaults(['block' => true], $options);
+        $options = $this->optionsDefaults(['block' => true], $options);
 
         $out = $this->formatTemplate('style', [
             'attrs' => $this->templater()->formatAttributes($options, ['block']),
@@ -309,8 +262,14 @@ class HtmlHelper extends CakeHtmlHelper
         //Prepends the string "fa-" to any other class
         $icon = preg_replace('/(?<![^ ])(?=[^ ])(?!fa)/', 'fa-', $icon);
 
+        if (!is_array($icon)) {
+            $icon = preg_split('/\s+/', $icon, -1, PREG_SPLIT_NO_EMPTY);
+        }
+
+        array_unshift($icon, 'fa');
+
         //Adds the "fa" class
-        $options = optionDefaults(['class' => ['fa', $icon]]);
+        $options = $this->optionsDefaults(['class' => $icon], []);
 
         return self::tag('i', ' ', $options);
     }
@@ -336,14 +295,8 @@ class HtmlHelper extends CakeHtmlHelper
             unset($options['ratio']);
 
             if (in_array($ratio, ['16by9', '4by3'])) {
-                $divClass = sprintf(
-                    'embed-responsive embed-responsive-%s',
-                    $ratio
-                );
-
-                $options = optionValues([
-                    'class' => 'embed-responsive-item'
-                ], $options);
+                $divClass = sprintf('embed-responsive embed-responsive-%s', $ratio);
+                $options = $this->optionsValues(['class' => 'embed-responsive-item'], $options);
 
                 return self::div($divClass, self::tag('iframe', null, $options));
             }
@@ -361,12 +314,9 @@ class HtmlHelper extends CakeHtmlHelper
      */
     public function image($path, array $options = [])
     {
-        $options = optionDefaults([
-            'alt' => pathinfo($path, PATHINFO_BASENAME),
-        ], $options);
-        $options = optionValues(['class' => 'img-responsive'], $options);
-
-        $options = self::addTooltip($options);
+        $options = $this->optionsDefaults(['alt' => pathinfo($path, PATHINFO_BASENAME)], $options);
+        $options = $this->optionsValues(['class' => 'img-responsive'], $options);
+        $options = $this->addTooltip($options);
 
         return parent::image($path, $options);
     }
@@ -410,11 +360,8 @@ class HtmlHelper extends CakeHtmlHelper
      */
     public function label($text, array $options = [])
     {
-        $options = optionDefaults(['type' => 'default'], $options);
-
-        $options = optionValues([
-            'class' => sprintf('label label-%s', $options['type']),
-        ], $options);
+        $options = $this->optionsDefaults(['type' => 'default'], $options);
+        $options = $this->optionsValues(['class' => sprintf('label label-%s', $options['type'])], $options);
 
         unset($options['type']);
 
@@ -451,21 +398,18 @@ class HtmlHelper extends CakeHtmlHelper
      *  parameters or external URL
      * @param array $options Array of options and HTML attributes
      * @return string
-     * @uses addIcon()
-     * @uses addTooltip()
      */
     public function link($title, $url = null, array $options = [])
     {
-        $options = optionDefaults([
+        $options = $this->optionsDefaults([
             'escape' => false,
             'title' => $title,
         ], $options);
 
         $options['title'] = trim(h(strip_tags($options['title'])));
 
-        list($title, $options) = self::addIcon($title, $options);
-
-        $options = self::addTooltip($options);
+        list($title, $options) = $this->addIconToText($title, $options);
+        $options = $this->addTooltip($options);
 
         return parent::link($title, $url, $options);
     }
@@ -481,7 +425,7 @@ class HtmlHelper extends CakeHtmlHelper
      */
     public function meta($type, $content = null, array $options = [])
     {
-        $options = optionDefaults(['block' => true], $options);
+        $options = $this->optionsDefaults(['block' => true], $options);
 
         return parent::meta($type, $content, $options);
     }
@@ -492,7 +436,6 @@ class HtmlHelper extends CakeHtmlHelper
      * @param array $options HTML attributes of the list tag
      * @param array $itemOptions HTML attributes of the list items
      * @return string
-     * @uses addIcon()
      */
     public function nestedList(array $list, array $options = [], array $itemOptions = [])
     {
@@ -501,11 +444,11 @@ class HtmlHelper extends CakeHtmlHelper
         }
 
         if (!empty($itemOptions['icon'])) {
-            $options = optionValues(['class' => 'fa-ul'], $options);
-            $itemOptions = optionValues(['icon' => 'li'], $itemOptions);
+            $options = $this->optionsValues(['class' => 'fa-ul'], $options);
+            $itemOptions = $this->optionsValues(['icon' => 'li'], $itemOptions);
 
             $list = array_map(function ($element) use ($itemOptions) {
-                return firstValue(self::addIcon($element, $itemOptions));
+                return firstValue($this->addIconToText($element, $itemOptions));
             }, $list);
         }
 
@@ -538,13 +481,11 @@ class HtmlHelper extends CakeHtmlHelper
      * @param string $text Paragraph text
      * @param array $options Array of options and HTML attributes
      * @return string
-     * @uses addIcon()
      */
     public function para($class = null, $text = null, array $options = [])
     {
-        list($text, $options) = self::addIcon($text, $options);
-
-        $options = self::addTooltip($options);
+        list($text, $options) = $this->addIconToText($text, $options);
+        $options = $this->addTooltip($options);
 
         return parent::para($class, is_null($text) ? '' : $text, $options);
     }
@@ -560,7 +501,7 @@ class HtmlHelper extends CakeHtmlHelper
      */
     public function script($url, array $options = [])
     {
-        $options = optionDefaults(['block' => true], $options);
+        $options = $this->optionsDefaults(['block' => true], $options);
 
         return parent::script($url, $options);
     }
@@ -573,7 +514,7 @@ class HtmlHelper extends CakeHtmlHelper
      */
     public function scriptBlock($code, array $options = [])
     {
-        $options = optionDefaults(['block' => true], $options);
+        $options = $this->optionsDefaults(['block' => true], $options);
 
         return parent::scriptBlock($code, $options);
     }
@@ -591,7 +532,7 @@ class HtmlHelper extends CakeHtmlHelper
      */
     public function scriptStart(array $options = [])
     {
-        $options = optionDefaults(['block' => 'script_bottom'], $options);
+        $options = $this->optionsDefaults(['block' => 'script_bottom'], $options);
 
         return parent::scriptStart($options);
     }
@@ -621,14 +562,11 @@ class HtmlHelper extends CakeHtmlHelper
      *  printed
      * @param array $options Array of options and HTML attributes
      * @return string
-     * @uses addIcon()
-     * @uses addTooltip()
      */
     public function tag($name, $text = null, array $options = [])
     {
-        list($text, $options) = self::addIcon($text, $options);
-
-        $options = self::addTooltip($options);
+        list($text, $options) = $this->addIconToText($text, $options);
+        $options = $this->addTooltip($options);
 
         return parent::tag($name, is_null($text) ? '' : $text, $options);
     }
@@ -685,7 +623,7 @@ class HtmlHelper extends CakeHtmlHelper
     {
         $url = sprintf('https://www.youtube.com/embed/%s', $id);
 
-        $options = optionDefaults([
+        $options = $this->optionsDefaults([
             'allowfullscreen' => 'allowfullscreen',
             'height' => 480,
             'ratio' => '16by9',
