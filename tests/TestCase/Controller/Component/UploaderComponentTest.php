@@ -144,37 +144,7 @@ class UploaderComponentTest extends TestCase
         $this->assertEquals('The uploaded file exceeds the maximum size that was specified in php.ini', $error);
         $this->assertFalse($this->Uploader->getFile());
 
-        $this->Uploader->set(['error' => UPLOAD_ERR_FORM_SIZE]);
-        $error = $this->Uploader->error();
-        $this->assertEquals('The uploaded file exceeds the maximum size that was specified in the HTML form', $error);
-        $this->assertFalse($this->Uploader->getFile());
-
-        $this->Uploader->set(['error' => UPLOAD_ERR_PARTIAL]);
-        $error = $this->Uploader->error();
-        $this->assertEquals('The uploaded file was partially uploaded', $error);
-        $this->assertFalse($this->Uploader->getFile());
-
-        $this->Uploader->set(['error' => UPLOAD_ERR_NO_FILE]);
-        $error = $this->Uploader->error();
-        $this->assertEquals('No file was uploaded', $error);
-        $this->assertFalse($this->Uploader->getFile());
-
-        $this->Uploader->set(['error' => UPLOAD_ERR_NO_TMP_DIR]);
-        $error = $this->Uploader->error();
-        $this->assertEquals('Missing a temporary folder', $error);
-        $this->assertFalse($this->Uploader->getFile());
-
-        $this->Uploader->set(['error' => UPLOAD_ERR_CANT_WRITE]);
-        $error = $this->Uploader->error();
-        $this->assertEquals('Failed to write file to disk', $error);
-        $this->assertFalse($this->Uploader->getFile());
-
-        $this->Uploader->set(['error' => UPLOAD_ERR_EXTENSION]);
-        $error = $this->Uploader->error();
-        $this->assertEquals('File upload stopped by extension', $error);
-        $this->assertFalse($this->Uploader->getFile());
-
-        $this->Uploader->set(['error' => 'noExistingError']);
+        $this->Uploader->set(['error' => 'noExistingErrorCode']);
         $error = $this->Uploader->error();
         $this->assertEquals('Unknown upload error', $error);
         $this->assertFalse($this->Uploader->getFile());

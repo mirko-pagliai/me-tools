@@ -176,38 +176,27 @@ class UploaderComponent extends Component
         //Resets `$file` and `$error`
         unset($this->error, $this->file);
 
+        //Errors messages
+        $errors = [
+            UPLOAD_ERR_INI_SIZE => 'The uploaded file exceeds the maximum size that was specified in php.ini',
+            UPLOAD_ERR_FORM_SIZE => 'The uploaded file exceeds the maximum size that was specified in the HTML form',
+            UPLOAD_ERR_PARTIAL => 'The uploaded file was partially uploaded',
+            UPLOAD_ERR_NO_FILE => 'No file was uploaded',
+            UPLOAD_ERR_NO_TMP_DIR => 'Missing a temporary folder',
+            UPLOAD_ERR_CANT_WRITE => 'Failed to write file to disk',
+            UPLOAD_ERR_EXTENSION => 'File upload stopped by extension',
+            'default' => 'Unknown upload error',
+        ];
+
         //Checks errors during upload
-        if ($file['error'] !== UPLOAD_ERR_OK) {
-            switch ($file['error']) {
-                case UPLOAD_ERR_INI_SIZE:
-                    $message = "The uploaded file exceeds the maximum size " .
-                        "that was specified in php.ini";
-                    break;
-                case UPLOAD_ERR_FORM_SIZE:
-                    $message = "The uploaded file exceeds the maximum size " .
-                        "that was specified in the HTML form";
-                    break;
-                case UPLOAD_ERR_PARTIAL:
-                    $message = "The uploaded file was partially uploaded";
-                    break;
-                case UPLOAD_ERR_NO_FILE:
-                    $message = "No file was uploaded";
-                    break;
-                case UPLOAD_ERR_NO_TMP_DIR:
-                    $message = "Missing a temporary folder";
-                    break;
-                case UPLOAD_ERR_CANT_WRITE:
-                    $message = "Failed to write file to disk";
-                    break;
-                case UPLOAD_ERR_EXTENSION:
-                    $message = "File upload stopped by extension";
-                    break;
-                default:
-                    $message = "Unknown upload error";
-                    break;
+        if (!isset($file['error']) || $file['error'] !== UPLOAD_ERR_OK) {
+            //Gets the default error message, if the error can not be
+            //  identified or if the key is not present
+            if (!isset($file['error']) || !array_key_exists($file['error'], $errors)) {
+                $file['error'] = 'default';
             }
 
-            $this->_setError($message);
+            $this->_setError($errors[$file['error']]);
 
             return $this;
         }
