@@ -34,14 +34,13 @@ class UploaderComponent extends Component
     /**
      * Error.
      * It can be set by various methods.
-     * @var string|bool
+     * @var string
      */
-    protected $error = false;
+    protected $error;
 
     /**
      * Uploaded file information
-     * @see set()
-     * @var array
+     * @var object
      */
     protected $file;
 
@@ -60,34 +59,22 @@ class UploaderComponent extends Component
     }
 
     /**
-     * Internal method to set the target
+     * Internal method to find the target filename
      * @param string $target Path
      * @return string
-     * @uses $file
      */
-    protected function _setTarget($target)
+    protected function _findTargetFilename($target)
     {
-        //If the target is a directory, then the filename will be unchanged
-        if (is_dir($target)) {
-            //Adds slash term
-            if (!Folder::isSlashTerm($target)) {
-                $target .= DS;
-            }
-
-            $target .= $this->file->name;
-        }
-
         //If the file already exists, adds a numeric suffix
         if (file_exists($target)) {
-            //Filename (without extension)
-            $filename = pathinfo($this->file->name, PATHINFO_FILENAME);
-            $target = dirname($target);
+            list($dirname,, $extension, $filename) = array_values(pathinfo($target));
 
             for ($i = 1;; $i++) {
-                $tmp = $target . DS . sprintf('%s_%s.%s', $filename, $i, $this->file->extension);
+                $tmp = $dirname . DS . sprintf('%s_%s.%s', $filename, $i, $extension);
 
                 if (!file_exists($tmp)) {
                     $target = $tmp;
+
                     break;
                 }
             }
@@ -103,6 +90,10 @@ class UploaderComponent extends Component
      */
     public function error()
     {
+        if (!isset($this->error)) {
+            return false;
+        }
+
         return $this->error;
     }
 
@@ -134,8 +125,8 @@ class UploaderComponent extends Component
      *  filename of the file.
      * @param string $target Target
      * @return mixed Target path or `false` on failure
+     * @uses _findTargetFilename()
      * @uses _setError()
-     * @uses _setTarget()
      * @uses error()
      * @uses $file
      */
@@ -150,7 +141,17 @@ class UploaderComponent extends Component
             return false;
         }
 
-        $target = $this->_setTarget($target);
+        //If the target is a directory, then adds the filename
+        if (is_dir($target)) {
+            //Adds slash term
+            if (!Folder::isSlashTerm($target)) {
+                $target .= DS;
+            }
+
+            $target .= $this->file->name;
+        }
+
+        $target = $this->_findTargetFilename($target);
 
         if (!move_uploaded_file($this->file->tmp_name, $target)) {
             $this->_setError(__d('me_tools', 'The file was not successfully moved to the target directory'));
@@ -167,50 +168,40 @@ class UploaderComponent extends Component
      * @param array $file Uploaded file information
      * @return \MeCms\Controller\Component\UploaderComponent
      * @uses _setError()
+     * @uses $error
      * @uses $file
      */
     public function set($file)
     {
-        $this->file = (object)$file;
+        //Resets `$file` and `$error`
+        unset($this->error, $this->file);
+
+        //Errors messages
+        $errors = [
+            UPLOAD_ERR_INI_SIZE => 'The uploaded file exceeds the maximum size that was specified in php.ini',
+            UPLOAD_ERR_FORM_SIZE => 'The uploaded file exceeds the maximum size that was specified in the HTML form',
+            UPLOAD_ERR_PARTIAL => 'The uploaded file was partially uploaded',
+            UPLOAD_ERR_NO_FILE => 'No file was uploaded',
+            UPLOAD_ERR_NO_TMP_DIR => 'Missing a temporary folder',
+            UPLOAD_ERR_CANT_WRITE => 'Failed to write file to disk',
+            UPLOAD_ERR_EXTENSION => 'File upload stopped by extension',
+            'default' => 'Unknown upload error',
+        ];
 
         //Checks errors during upload
-        if ($this->file->error !== UPLOAD_ERR_OK) {
-            switch ($this->file->error) {
-                case UPLOAD_ERR_INI_SIZE:
-                    $message = "The uploaded file exceeds the maximum size " .
-                        "that was specified in php.ini";
-                    break;
-                case UPLOAD_ERR_FORM_SIZE:
-                    $message = "The uploaded file exceeds the maximum size " .
-                        "that was specified in the HTML form";
-                    break;
-                case UPLOAD_ERR_PARTIAL:
-                    $message = "The uploaded file was partially uploaded";
-                    break;
-                case UPLOAD_ERR_NO_FILE:
-                    $message = "No file was uploaded";
-                    break;
-                case UPLOAD_ERR_NO_TMP_DIR:
-                    $message = "Missing a temporary folder";
-                    break;
-                case UPLOAD_ERR_CANT_WRITE:
-                    $message = "Failed to write file to disk";
-                    break;
-                case UPLOAD_ERR_EXTENSION:
-                    $message = "File upload stopped by extension";
-                    break;
-                default:
-                    $message = "Unknown upload error";
-                    break;
+        if (!isset($file['error']) || $file['error'] !== UPLOAD_ERR_OK) {
+            //Gets the default error message, if the error can not be
+            //  identified or if the key is not present
+            if (!isset($file['error']) || !array_key_exists($file['error'], $errors)) {
+                $file['error'] = 'default';
             }
 
-            $this->_setError($message);
+            $this->_setError($errors[$file['error']]);
 
             return $this;
         }
 
-        //Adds the file extension
-        $this->file->extension = pathinfo($this->file->name, PATHINFO_EXTENSION);
+        $this->file = (object)$file;
 
         return $this;
     }

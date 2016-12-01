@@ -1,5 +1,8 @@
 # 2.x branch
 ## 2.11 branch
+### 2.11.1
+* added tests for `UploaderComponent` class.
+
 ### 2.11.0
 * removed the `BreadcrumbHelper`. Instead, use the `BreadcrumbsHelper` that
     extends the new helper provided by CakePHP;
