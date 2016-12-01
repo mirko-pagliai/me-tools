@@ -34,15 +34,15 @@ class UploaderComponent extends Component
     /**
      * Error.
      * It can be set by various methods.
-     * @var string|bool
+     * @var string
      */
-    protected $error = false;
+    protected $error;
 
     /**
      * Uploaded file information
-     * @var object|bool
+     * @var object
      */
-    protected $file = false;
+    protected $file;
 
     /**
      * Internal method to set an error.
@@ -90,6 +90,10 @@ class UploaderComponent extends Component
      */
     public function error()
     {
+        if (!isset($this->error)) {
+            return false;
+        }
+
         return $this->error;
     }
 
@@ -170,7 +174,7 @@ class UploaderComponent extends Component
     public function set($file)
     {
         //Resets `$file` and `$error`
-        $this->file = $this->error = false;
+        unset($this->error, $this->file);
 
         //Checks errors during upload
         if ($file['error'] !== UPLOAD_ERR_OK) {

@@ -35,6 +35,10 @@ class UploaderComponent extends BaseUploaderComponent
 {
     public function getFile()
     {
+        if (!isset($this->file)) {
+            return false;
+        }
+
         return $this->file;
     }
 
