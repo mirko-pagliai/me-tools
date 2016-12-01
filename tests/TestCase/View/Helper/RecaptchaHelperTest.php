@@ -84,6 +84,7 @@ class RecaptchaHelperTest extends TestCase
      * Test for `display()` method, with no keys
      * @expectedException Cake\Network\Exception\InternalErrorException
      * @expectedExceptionMessage Form keys are not configured
+     * @test
      */
     public function testDisplayNoKeys()
     {
@@ -151,6 +152,7 @@ class RecaptchaHelperTest extends TestCase
      * Test for `mailUrl()` method, with bad keys
      * @expectedException Cake\Network\Exception\InternalErrorException
      * @expectedExceptionMessage The private mail key is not valid
+     * @test
      */
     public function testMailUrlBadKeys()
     {
@@ -164,6 +166,7 @@ class RecaptchaHelperTest extends TestCase
      * Test for `mailUrl()` method, with no keys
      * @expectedException Cake\Network\Exception\InternalErrorException
      * @expectedExceptionMessage Mail keys are not configured
+     * @test
      */
     public function testMailUrlNoKeys()
     {
