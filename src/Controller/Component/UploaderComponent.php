@@ -40,10 +40,9 @@ class UploaderComponent extends Component
 
     /**
      * Uploaded file information
-     * @see set()
-     * @var array
+     * @var object|bool
      */
-    protected $file;
+    protected $file = false;
 
     /**
      * Internal method to set an error.
@@ -60,34 +59,22 @@ class UploaderComponent extends Component
     }
 
     /**
-     * Internal method to set the target
+     * Internal method to find the target filename
      * @param string $target Path
      * @return string
-     * @uses $file
      */
-    protected function _setTarget($target)
+    protected function _findTargetFilename($target)
     {
-        //If the target is a directory, then the filename will be unchanged
-        if (is_dir($target)) {
-            //Adds slash term
-            if (!Folder::isSlashTerm($target)) {
-                $target .= DS;
-            }
-
-            $target .= $this->file->name;
-        }
-
         //If the file already exists, adds a numeric suffix
         if (file_exists($target)) {
-            //Filename (without extension)
-            $filename = pathinfo($this->file->name, PATHINFO_FILENAME);
-            $target = dirname($target);
+            list($dirname,, $extension, $filename) = array_values(pathinfo($target));
 
             for ($i = 1;; $i++) {
-                $tmp = $target . DS . sprintf('%s_%s.%s', $filename, $i, $this->file->extension);
+                $tmp = $dirname . DS . sprintf('%s_%s.%s', $filename, $i, $extension);
 
                 if (!file_exists($tmp)) {
                     $target = $tmp;
+
                     break;
                 }
             }
@@ -134,8 +121,8 @@ class UploaderComponent extends Component
      *  filename of the file.
      * @param string $target Target
      * @return mixed Target path or `false` on failure
+     * @uses _findTargetFilename()
      * @uses _setError()
-     * @uses _setTarget()
      * @uses error()
      * @uses $file
      */
@@ -150,7 +137,17 @@ class UploaderComponent extends Component
             return false;
         }
 
-        $target = $this->_setTarget($target);
+        //If the target is a directory, then adds the filename
+        if (is_dir($target)) {
+            //Adds slash term
+            if (!Folder::isSlashTerm($target)) {
+                $target .= DS;
+            }
+
+            $target .= $this->file->name;
+        }
+
+        $target = $this->_findTargetFilename($target);
 
         if (!move_uploaded_file($this->file->tmp_name, $target)) {
             $this->_setError(__d('me_tools', 'The file was not successfully moved to the target directory'));
@@ -167,15 +164,17 @@ class UploaderComponent extends Component
      * @param array $file Uploaded file information
      * @return \MeCms\Controller\Component\UploaderComponent
      * @uses _setError()
+     * @uses $error
      * @uses $file
      */
     public function set($file)
     {
-        $this->file = (object)$file;
+        //Resets `$file` and `$error`
+        $this->file = $this->error = false;
 
         //Checks errors during upload
-        if ($this->file->error !== UPLOAD_ERR_OK) {
-            switch ($this->file->error) {
+        if ($file['error'] !== UPLOAD_ERR_OK) {
+            switch ($file['error']) {
                 case UPLOAD_ERR_INI_SIZE:
                     $message = "The uploaded file exceeds the maximum size " .
                         "that was specified in php.ini";
@@ -209,8 +208,7 @@ class UploaderComponent extends Component
             return $this;
         }
 
-        //Adds the file extension
-        $this->file->extension = pathinfo($this->file->name, PATHINFO_EXTENSION);
+        $this->file = (object)$file;
 
         return $this;
     }
