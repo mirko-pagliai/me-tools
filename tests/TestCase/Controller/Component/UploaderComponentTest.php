@@ -75,7 +75,7 @@ class UploaderComponentTest extends TestCase
     protected function _createFile()
     {
         //Creates a file and writes some content
-        $file = tempnam(TMP, 'php');
+        $file = tempnam(TMP . 'uploads', 'php');
         file_put_contents($file, 'string');
 
         return [
@@ -97,6 +97,8 @@ class UploaderComponentTest extends TestCase
     {
         parent::setUp();
 
+        @mkdir(TMP . 'uploads');
+
         $controller = new Controller(new Request());
         $componentRegistry = new ComponentRegistry($controller);
         $this->Uploader = new UploaderComponent($componentRegistry);
@@ -109,6 +111,11 @@ class UploaderComponentTest extends TestCase
     public function tearDown()
     {
         parent::tearDown();
+
+        //Deletes all files
+        foreach (glob(TMP . 'uploads' . DS . '*') as $file) {
+            unlink($file);
+        }
 
         unset($this->Uploader);
     }
@@ -135,9 +142,9 @@ class UploaderComponentTest extends TestCase
      */
     public function testFindTargetFilename()
     {
-        $file1 = TMP . 'target.txt';
-        $file2 = TMP . 'target_1.txt';
-        $file3 = TMP . 'target_2.txt';
+        $file1 = TMP . 'uploads' . DS . 'target.txt';
+        $file2 = TMP . 'uploads' . DS . 'target_1.txt';
+        $file3 = TMP . 'uploads' . DS . 'target_2.txt';
 
         $this->assertEquals($file1, $this->Uploader->findTargetFilename($file1));
 
@@ -149,8 +156,15 @@ class UploaderComponentTest extends TestCase
         file_put_contents($file2, null);
         $this->assertEquals($file3, $this->Uploader->findTargetFilename($file1));
 
-        unlink($file1);
-        unlink($file2);
+        //Files without extension
+        $file1 = TMP . 'uploads' . DS . 'target';
+        $file2 = TMP . 'uploads' . DS . 'target_1';
+
+        $this->assertEquals($file1, $this->Uploader->findTargetFilename($file1));
+
+        //Creates the first file
+        file_put_contents($file1, null);
+        $this->assertEquals($file2, $this->Uploader->findTargetFilename($file1));
     }
 
     /**
