@@ -218,4 +218,32 @@ class UploaderComponentTest extends TestCase
     {
         $this->Uploader->mimetype('text/plain');
     }
+
+    /**
+     * Test for `save()` method
+     * @test
+     */
+    public function testSave()
+    {
+        $file = $this->_createFile();
+        $this->Uploader->set($file);
+
+        //Sets an error
+        $error = 'error before save';
+        $this->Uploader->setError($error);
+
+        $this->assertFalse($this->Uploader->save(TMP));
+        $this->assertEquals($error, $this->Uploader->error());
+    }
+
+    /**
+     * Test for `save()` method, with no file
+     * @expectedException Cake\Network\Exception\InternalErrorException
+     * @expectedExceptionMessage There are no uploaded file information
+     * @test
+     */
+    public function testSaveWithNoFile()
+    {
+        $this->Uploader->save(null);
+    }
 }
