@@ -156,18 +156,21 @@ class UploaderComponentTest extends TestCase
     /**
      * Tests for `set()` method
      * @test
+     * @uses _createFile()
      */
     public function testSet()
     {
-        $this->Uploader->set(['error' => UPLOAD_ERR_OK]);
+        $file = $this->_createFile();
+
+        $this->Uploader->set($file);
         $this->assertEmpty($this->Uploader->error());
         $this->assertNotFalse($this->Uploader->getFile());
 
-        $this->Uploader->set(['error' => UPLOAD_ERR_INI_SIZE]);
+        $this->Uploader->set(array_merge($file, ['error' => UPLOAD_ERR_INI_SIZE]));
         $this->assertNotEmpty($this->Uploader->error());
         $this->assertFalse($this->Uploader->getFile());
 
-        $this->Uploader->set(['error' => 'noExistingErrorCode']);
+        $this->Uploader->set(array_merge($file, ['error' => 'noExistingErrorCode']));
         $this->assertEquals('Unknown upload error', $this->Uploader->error());
         $this->assertFalse($this->Uploader->getFile());
     }
