@@ -69,6 +69,25 @@ class UploaderComponentTest extends TestCase
     protected $Uploader;
 
     /**
+     * Internal method to create a file and get a valid array for upload
+     * @return array
+     */
+    protected function _createFile()
+    {
+        //Creates a file and writes some content
+        $file = tempnam(TMP, 'php');
+        file_put_contents($file, 'string');
+
+        return [
+            'name' => basename($file),
+            'type' => mime_content_type($file),
+            'tmp_name' => $file,
+            'error' => UPLOAD_ERR_OK,
+            'size' => filesize($file),
+        ];
+    }
+
+    /**
      * Setup the test case, backup the static object values so they can be
      * restored. Specifically backs up the contents of Configure and paths in
      *  App if they have not already been backed up
@@ -156,22 +175,12 @@ class UploaderComponentTest extends TestCase
     /**
      * Test for `mimetype()` method
      * @test
+     * @uses _createFile()
      */
     public function testMimetype()
     {
-        //Creates a file and writes some content
-        $file = tempnam(TMP, 'php');
-        file_put_contents($file, 'string');
-
-        $_FILES = ['file' => [
-            'name' => basename($file),
-            'type' => mime_content_type($file),
-            'tmp_name' => $file,
-            'error' => 0,
-            'size' => filesize($file)
-        ]];
-
-        $this->Uploader->set($_FILES['file']);
+        $file = $this->_createFile();
+        $this->Uploader->set($file);
 
         $this->Uploader->mimetype('text/plain');
         $this->assertEmpty($this->Uploader->error());
