@@ -33,6 +33,11 @@ use MeTools\View\Helper\RecaptchaHelper;
 class RecaptchaHelperTest extends TestCase
 {
     /**
+     * @var \MeTools\View\Helper\RecaptchaHelper
+     */
+    protected $Recaptcha;
+
+    /**
      * Setup the test case, backup the static object values so they can be
      * restored. Specifically backs up the contents of Configure and paths in
      *  App if they have not already been backed up

@@ -52,11 +52,6 @@ class LibraryHelperTest extends TestCase
     protected $Library;
 
     /**
-     * @var \Cake\View\View;
-     */
-    protected $View;
-
-    /**
      * Setup the test case, backup the static object values so they can be
      * restored. Specifically backs up the contents of Configure and paths in
      *  App if they have not already been backed up
