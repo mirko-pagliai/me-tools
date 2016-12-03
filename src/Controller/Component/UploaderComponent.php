@@ -65,14 +65,27 @@ class UploaderComponent extends Component
     {
         //If the file already exists, adds a numeric suffix
         if (file_exists($target)) {
-            list($dirname,, $extension, $filename) = array_values(pathinfo($target));
+            $dirname = dirname($target);
+
+            //Adds slash term
+            if (!Folder::isSlashTerm($dirname)) {
+                $dirname .= DS;
+            }
+
+            $filename = pathinfo($target, PATHINFO_FILENAME);
+            $extension = pathinfo($target, PATHINFO_EXTENSION);
+
+            //Initial tmp name
+            $tmp = $dirname . $filename;
 
             for ($i = 1;; $i++) {
-                $tmp = $dirname . DS . sprintf('%s_%s.%s', $filename, $i, $extension);
+                $target = $tmp . '_' . $i;
 
-                if (!file_exists($tmp)) {
-                    $target = $tmp;
+                if (!empty($extension)) {
+                    $target .= '.' . $extension;
+                }
 
+                if (!file_exists($target)) {
                     break;
                 }
             }
