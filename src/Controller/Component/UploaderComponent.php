@@ -32,8 +32,7 @@ use Cake\Network\Exception\InternalErrorException;
 class UploaderComponent extends Component
 {
     /**
-     * Error.
-     * It can be set by various methods.
+     * Last error
      * @var string
      */
     protected $error;
@@ -45,8 +44,7 @@ class UploaderComponent extends Component
     protected $file;
 
     /**
-     * Internal method to set an error.
-     * It sets only the first error.
+     * Internal method to set an error
      * @param string $error Error
      * @return void
      * @uses $error
@@ -98,21 +96,33 @@ class UploaderComponent extends Component
     }
 
     /**
-     * Sets and checks that the mimetype is correct
-     * @param mixed $mimetype Supported mimetypes as string or array or a
-     *  magic word (eg. `images`)
-     * @return \MeCms\Controller\Component\UploaderComponent
+     * Checks if the mimetype is correct
+     * @param string|array $mimetype Supported mimetypes as string or array or
+     *  a magic word (eg. `images`)
+     * @return \MeTools\Controller\Component\UploaderComponent
+     * @throws InternalErrorException
      * @uses _setError()
      * @uses $file
      */
     public function mimetype($mimetype)
     {
-        if ($mimetype === 'image') {
-            $mimetype = ['image/gif', 'image/jpeg', 'image/png'];
+        if (empty($this->file)) {
+            throw new InternalErrorException(__d('me_tools', 'There are no uploaded file information'));
         }
 
-        if (!in_array($this->file->type, (array)$mimetype)) {
-            $this->_setError(__d('me_tools', 'The mimetype {0} is not accepted', $this->file->type));
+        switch ($mimetype) {
+            case 'image':
+                $mimetype = ['image/gif', 'image/jpeg', 'image/png'];
+                break;
+            case 'text':
+                $mimetype = ['text/plain'];
+                break;
+        }
+
+        $mimetype = (array)$mimetype;
+
+        if (!in_array(mime_content_type($this->file->tmp_name), $mimetype)) {
+            $this->_setError(__d('me_tools', 'The mimetype {0} is not accepted', implode(', ', $mimetype)));
         }
 
         return $this;
@@ -166,7 +176,7 @@ class UploaderComponent extends Component
      * Sets uploaded file information (`$_FILES` array, better as
      *  `$this->request->data('file')`)
      * @param array $file Uploaded file information
-     * @return \MeCms\Controller\Component\UploaderComponent
+     * @return \MeTools\Controller\Component\UploaderComponent
      * @uses _setError()
      * @uses $error
      * @uses $file

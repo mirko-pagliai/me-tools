@@ -47,6 +47,11 @@ class UploaderComponent extends BaseUploaderComponent
         return $this->_findTargetFilename($target);
     }
 
+    public function resetError()
+    {
+        unset($this->error);
+    }
+
     public function setError($error)
     {
         return $this->_setError($error);
@@ -135,18 +140,66 @@ class UploaderComponentTest extends TestCase
      */
     public function testSet()
     {
-        $result = $this->Uploader->set(['error' => UPLOAD_ERR_OK]);
-        $this->assertEquals('MeTools\Test\TestCase\Controller\Component\UploaderComponent', get_class($result));
+        $this->Uploader->set(['error' => UPLOAD_ERR_OK]);
+        $this->assertEmpty($this->Uploader->error());
         $this->assertNotFalse($this->Uploader->getFile());
 
         $this->Uploader->set(['error' => UPLOAD_ERR_INI_SIZE]);
-        $error = $this->Uploader->error();
-        $this->assertEquals('The uploaded file exceeds the maximum size that was specified in php.ini', $error);
+        $this->assertNotEmpty($this->Uploader->error());
         $this->assertFalse($this->Uploader->getFile());
 
         $this->Uploader->set(['error' => 'noExistingErrorCode']);
-        $error = $this->Uploader->error();
-        $this->assertEquals('Unknown upload error', $error);
+        $this->assertEquals('Unknown upload error', $this->Uploader->error());
         $this->assertFalse($this->Uploader->getFile());
+    }
+
+    /**
+     * Test for `mimetype()` method
+     * @test
+     */
+    public function testMimetype()
+    {
+        //Creates a file and writes some content
+        $file = tempnam(TMP, 'php');
+        file_put_contents($file, 'string');
+
+        $_FILES = ['file' => [
+            'name' => basename($file),
+            'type' => mime_content_type($file),
+            'tmp_name' => $file,
+            'error' => 0,
+            'size' => filesize($file)
+        ]];
+
+        $this->Uploader->set($_FILES['file']);
+
+        $this->Uploader->mimetype('text/plain');
+        $this->assertEmpty($this->Uploader->error());
+
+        $this->Uploader->mimetype('text');
+        $this->assertEmpty($this->Uploader->error());
+
+        $this->Uploader->mimetype(['text/plain', 'image/gif']);
+        $this->assertEmpty($this->Uploader->error());
+
+        $this->Uploader->mimetype('image/gif');
+        $this->assertEquals('The mimetype image/gif is not accepted', $this->Uploader->error());
+
+        //Resets error
+        $this->Uploader->resetError();
+
+        $this->Uploader->mimetype(['image/gif', 'image/png']);
+        $this->assertEquals('The mimetype image/gif, image/png is not accepted', $this->Uploader->error());
+    }
+
+    /**
+     * Test for `mimetype()` method, with no file
+     * @expectedException Cake\Network\Exception\InternalErrorException
+     * @expectedExceptionMessage There are no uploaded file information
+     * @test
+     */
+    public function testMimetypeWithNoFile()
+    {
+        $this->Uploader->mimetype('text/plain');
     }
 }
