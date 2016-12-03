@@ -34,7 +34,7 @@ use Cake\Network\Exception\InternalErrorException;
 class RecaptchaComponent extends Component
 {
     /**
-     * Error
+     * Last error
      * @var string
      */
     protected $error;
