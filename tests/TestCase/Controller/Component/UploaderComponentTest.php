@@ -33,6 +33,11 @@ use MeTools\Controller\Component\UploaderComponent as BaseUploaderComponent;
  */
 class UploaderComponent extends BaseUploaderComponent
 {
+    protected function move_uploaded_file($filename, $destination)
+    {
+        return rename($filename, $destination);
+    }
+
     public function getFile()
     {
         if (!isset($this->file)) {
@@ -75,7 +80,7 @@ class UploaderComponentTest extends TestCase
     protected function _createFile()
     {
         //Creates a file and writes some content
-        $file = tempnam(UPLOADS, 'php');
+        $file = tempnam(TMP, 'php_upload_');
         file_put_contents($file, 'string');
 
         return [
@@ -238,9 +243,16 @@ class UploaderComponentTest extends TestCase
     public function testSave()
     {
         $file = $this->_createFile();
+        $this->assertFileExists($file['tmp_name']);
         $this->Uploader->set($file);
 
+        $result = $this->Uploader->save(UPLOADS);
+        $this->assertFalse($this->Uploader->error());
+        $this->assertFileExists($result);
+        $this->assertFileNotExists($file['tmp_name']);
+
         //Sets an error
+        $this->Uploader->set($file);
         $error = 'error before save';
         $this->Uploader->setError($error);
 

@@ -65,13 +65,7 @@ class UploaderComponent extends Component
     {
         //If the file already exists, adds a numeric suffix
         if (file_exists($target)) {
-            $dirname = dirname($target);
-
-            //Adds slash term
-            if (!Folder::isSlashTerm($dirname)) {
-                $dirname .= DS;
-            }
-
+            $dirname = dirname($target) . DS;
             $filename = pathinfo($target, PATHINFO_FILENAME);
             $extension = pathinfo($target, PATHINFO_EXTENSION);
 
@@ -179,6 +173,11 @@ class UploaderComponent extends Component
 
         if (!is_dir($directory)) {
             throw new InternalErrorException(__d('me_tools', 'Invalid or no existing directory {0}', $directory));
+        }
+
+        //Adds slash term
+        if (!Folder::isSlashTerm($directory)) {
+            $directory .= DS;
         }
 
         //Gets the target full path
