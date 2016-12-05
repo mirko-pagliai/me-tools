@@ -24,6 +24,7 @@ namespace MeTools\Test\TestCase\Controller\Component;
 
 use Cake\Controller\ComponentRegistry;
 use Cake\Controller\Controller;
+use Cake\Core\Configure;
 use Cake\Network\Request;
 use Cake\TestSuite\TestCase;
 use MeTools\Controller\Component\RecaptchaComponent as BaseRecaptchaComponent;
@@ -87,6 +88,34 @@ class RecatpchaComponentTest extends TestCase
         $this->Controller->request->data['g-recaptcha-response'] = true;
         $this->Recaptcha->check();
         $this->assertEquals('It was not possible to verify the reCAPTCHA control', $this->Recaptcha->getError());
+    }
+
+    /**
+     * Tests for `check()` method, with no private key
+     * @expectedException Cake\Network\Exception\InternalErrorException
+     * @expectedExceptionMessage Form keys are not configured
+     * @test
+     */
+    public function testCheckNoPrivateKey()
+    {
+        //Deletes keys
+        Configure::delete('Recaptcha.Form.private');
+
+        $this->Recaptcha->check();
+    }
+
+    /**
+     * Tests for `check()` method, with no public key
+     * @expectedException Cake\Network\Exception\InternalErrorException
+     * @expectedExceptionMessage Form keys are not configured
+     * @test
+     */
+    public function testCheckNoPublicKey()
+    {
+        //Deletes keys
+        Configure::delete('Recaptcha.Form.public');
+
+        $this->Recaptcha->check();
     }
 
     /**
