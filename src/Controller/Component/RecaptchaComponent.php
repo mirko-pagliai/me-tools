@@ -86,6 +86,10 @@ class RecaptchaComponent extends Component
      */
     public function getError()
     {
+        if (!isset($this->error)) {
+            return false;
+        }
+
         return $this->error;
     }
 }
