@@ -246,8 +246,20 @@ class UploaderComponentTest extends TestCase
         $error = 'error before save';
         $this->Uploader->setError($error);
 
-        $this->assertFalse($this->Uploader->save(TMP));
+        $this->assertFalse($this->Uploader->save(TMP . 'uploads'));
         $this->assertEquals($error, $this->Uploader->error());
+    }
+
+    /**
+     * Test for `save()` method, using a no existing directory
+     * @expectedException Cake\Network\Exception\InternalErrorException
+     * @expectedExceptionMessage Invalid or no existing directory /tmp/noExistingDir
+     * @test
+     */
+    public function testSaveNoExistingDir()
+    {
+        $file = $this->_createFile();
+        $this->Uploader->set($file)->save(TMP . 'noExistingDir');
     }
 
     /**

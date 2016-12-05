@@ -142,18 +142,17 @@ class UploaderComponent extends Component
     }
 
     /**
-     * Saves the file.
-     *
-     * If you specify only a directory as target, it will keep the original
-     *  filename of the file.
-     * @param string $target Target
-     * @return mixed Target path or `false` on failure
+     * Saves the file
+     * @param string $directory Directory where you want to save the uploaded
+     *  file
+     * @return string|bool Final full path of the uploaded file or `false` on
+     *  failure
      * @uses _findTargetFilename()
      * @uses _setError()
      * @uses error()
      * @uses $file
      */
-    public function save($target)
+    public function save($directory)
     {
         if (empty($this->file)) {
             throw new InternalErrorException(__d('me_tools', 'There are no uploaded file information'));
@@ -164,25 +163,20 @@ class UploaderComponent extends Component
             return false;
         }
 
-        //If the target is a directory, then adds the filename
-        if (is_dir($target)) {
-            //Adds slash term
-            if (!Folder::isSlashTerm($target)) {
-                $target .= DS;
-            }
-
-            $target .= $this->file->name;
+        if (!is_dir($directory)) {
+            throw new InternalErrorException(__d('me_tools', 'Invalid or no existing directory {0}', $directory));
         }
 
-        $target = $this->_findTargetFilename($target);
+        //Gets the target full path
+        $file = $this->_findTargetFilename($directory . DS . $this->file->name);
 
-        if (!move_uploaded_file($this->file->tmp_name, $target)) {
+        if (!move_uploaded_file($this->file->tmp_name, $file)) {
             $this->_setError(__d('me_tools', 'The file was not successfully moved to the target directory'));
 
             return false;
         }
 
-        return $target;
+        return $file;
     }
 
     /**
