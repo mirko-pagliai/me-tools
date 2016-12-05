@@ -75,7 +75,7 @@ class UploaderComponentTest extends TestCase
     protected function _createFile()
     {
         //Creates a file and writes some content
-        $file = tempnam(TMP . 'uploads', 'php');
+        $file = tempnam(UPLOADS, 'php');
         file_put_contents($file, 'string');
 
         return [
@@ -97,8 +97,6 @@ class UploaderComponentTest extends TestCase
     {
         parent::setUp();
 
-        @mkdir(TMP . 'uploads');
-
         $controller = new Controller(new Request());
         $componentRegistry = new ComponentRegistry($controller);
         $this->Uploader = new UploaderComponent($componentRegistry);
@@ -113,7 +111,7 @@ class UploaderComponentTest extends TestCase
         parent::tearDown();
 
         //Deletes all files
-        foreach (glob(TMP . 'uploads' . DS . '*') as $file) {
+        foreach (glob(UPLOADS . '*') as $file) {
             unlink($file);
         }
 
@@ -142,9 +140,9 @@ class UploaderComponentTest extends TestCase
      */
     public function testFindTargetFilename()
     {
-        $file1 = TMP . 'uploads' . DS . 'target.txt';
-        $file2 = TMP . 'uploads' . DS . 'target_1.txt';
-        $file3 = TMP . 'uploads' . DS . 'target_2.txt';
+        $file1 = UPLOADS . 'target.txt';
+        $file2 = UPLOADS . 'target_1.txt';
+        $file3 = UPLOADS . 'target_2.txt';
 
         $this->assertEquals($file1, $this->Uploader->findTargetFilename($file1));
 
@@ -157,8 +155,8 @@ class UploaderComponentTest extends TestCase
         $this->assertEquals($file3, $this->Uploader->findTargetFilename($file1));
 
         //Files without extension
-        $file1 = TMP . 'uploads' . DS . 'target';
-        $file2 = TMP . 'uploads' . DS . 'target_1';
+        $file1 = UPLOADS . 'target';
+        $file2 = UPLOADS . 'target_1';
 
         $this->assertEquals($file1, $this->Uploader->findTargetFilename($file1));
 
@@ -246,20 +244,20 @@ class UploaderComponentTest extends TestCase
         $error = 'error before save';
         $this->Uploader->setError($error);
 
-        $this->assertFalse($this->Uploader->save(TMP . 'uploads'));
+        $this->assertFalse($this->Uploader->save(UPLOADS));
         $this->assertEquals($error, $this->Uploader->error());
     }
 
     /**
      * Test for `save()` method, using a no existing directory
      * @expectedException Cake\Network\Exception\InternalErrorException
-     * @expectedExceptionMessage Invalid or no existing directory /tmp/noExistingDir
+     * @expectedExceptionMessage Invalid or no existing directory /tmp/uploads/noExistingDir
      * @test
      */
     public function testSaveNoExistingDir()
     {
         $file = $this->_createFile();
-        $this->Uploader->set($file)->save(TMP . 'noExistingDir');
+        $this->Uploader->set($file)->save(UPLOADS . 'noExistingDir');
     }
 
     /**

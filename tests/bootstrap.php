@@ -48,6 +48,7 @@ define('CONFIG', APP . 'config' . DS);
 define('CACHE', TMP);
 define('LOGS', TMP);
 define('SESSIONS', TMP . 'sessions' . DS);
+define('UPLOADS', TMP . 'uploads' . DS);
 
 //@codingStandardsIgnoreStart
 @mkdir(LOGS);
@@ -55,6 +56,7 @@ define('SESSIONS', TMP . 'sessions' . DS);
 @mkdir(CACHE);
 @mkdir(CACHE . 'views');
 @mkdir(CACHE . 'models');
+@mkdir(UPLOADS);
 //@codingStandardsIgnoreEnd
 
 require CORE_PATH . 'config' . DS . 'bootstrap.php';
