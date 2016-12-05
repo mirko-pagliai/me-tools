@@ -95,6 +95,19 @@ class UploaderComponent extends Component
     }
 
     /**
+     * This allows you to override the `move_uploaded_file()` function, for
+     *  example with the `rename()` function
+     * @param string $filename The filename of the uploaded file
+     * @param string $destination The destination of the moved file
+     * @return bool
+     */
+    //@codingStandardsIgnoreLine
+    protected function move_uploaded_file($filename, $destination)
+    {
+        return move_uploaded_file($filename, $destination);
+    }
+
+    /**
      * Returns the first error
      * @return mixed String or `false`
      * @uses $error
@@ -150,6 +163,7 @@ class UploaderComponent extends Component
      * @uses _findTargetFilename()
      * @uses _setError()
      * @uses error()
+     * @uses move_uploaded_file()
      * @uses $file
      */
     public function save($directory)
@@ -170,7 +184,7 @@ class UploaderComponent extends Component
         //Gets the target full path
         $file = $this->_findTargetFilename($directory . DS . $this->file->name);
 
-        if (!move_uploaded_file($this->file->tmp_name, $file)) {
+        if (!$this->move_uploaded_file($this->file->tmp_name, $file)) {
             $this->_setError(__d('me_tools', 'The file was not successfully moved to the target directory'));
 
             return false;
