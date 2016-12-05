@@ -231,7 +231,7 @@ class UploaderComponentTest extends TestCase
      * @expectedExceptionMessage There are no uploaded file information
      * @test
      */
-    public function testMimetypeWithNoFile()
+    public function testMimetypeNoFile()
     {
         $this->Uploader->mimetype('text/plain');
     }
@@ -239,6 +239,7 @@ class UploaderComponentTest extends TestCase
     /**
      * Test for `save()` method
      * @test
+     * @uses _createFile()
      */
     public function testSave()
     {
@@ -250,14 +251,6 @@ class UploaderComponentTest extends TestCase
         $this->assertFalse($this->Uploader->error());
         $this->assertFileExists($result);
         $this->assertFileNotExists($file['tmp_name']);
-
-        //Sets an error
-        $this->Uploader->set($file);
-        $error = 'error before save';
-        $this->Uploader->setError($error);
-
-        $this->assertFalse($this->Uploader->save(UPLOADS));
-        $this->assertEquals($error, $this->Uploader->error());
     }
 
     /**
@@ -265,6 +258,7 @@ class UploaderComponentTest extends TestCase
      * @expectedException Cake\Network\Exception\InternalErrorException
      * @expectedExceptionMessage Invalid or no existing directory /tmp/uploads/noExistingDir
      * @test
+     * @uses _createFile()
      */
     public function testSaveNoExistingDir()
     {
@@ -278,8 +272,26 @@ class UploaderComponentTest extends TestCase
      * @expectedExceptionMessage There are no uploaded file information
      * @test
      */
-    public function testSaveWithNoFile()
+    public function testSaveNoFile()
     {
         $this->Uploader->save(null);
+    }
+
+    /**
+     * Test for `save()` method, with an error
+     * @test
+     * @uses _createFile()
+     */
+    public function testSaveWithError()
+    {
+        $file = $this->_createFile();
+        $this->Uploader->set($file);
+
+        //Sets an error
+        $error = 'error before save';
+        $this->Uploader->setError($error);
+
+        $this->assertFalse($this->Uploader->save(UPLOADS));
+        $this->assertEquals($error, $this->Uploader->error());
     }
 }
