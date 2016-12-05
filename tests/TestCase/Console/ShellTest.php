@@ -23,7 +23,18 @@
 namespace MeTools\Test\TestCase\Console;
 
 use Cake\TestSuite\TestCase;
-use MeTools\Test\TestCase\Console\Shell;
+use MeTools\Console\Shell as BaseShell;
+
+/**
+ * Makes public some protected methods/properties from `Shell`
+ */
+class Shell extends BaseShell
+{
+    public function welcome()
+    {
+        return parent::_welcome();
+    }
+}
 
 /**
  * ShellTest class.

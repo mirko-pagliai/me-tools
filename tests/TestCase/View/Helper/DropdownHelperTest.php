@@ -33,6 +33,16 @@ use MeTools\View\Helper\HtmlHelper;
 class DropdownHelperTest extends TestCase
 {
     /**
+     * @var \MeTools\View\Helper\DropdownHelper
+     */
+    protected $Dropdown;
+
+    /**
+     * @var \MeTools\View\Helper\HtmlHelper
+     */
+    protected $Html;
+
+    /**
      * Setup the test case, backup the static object values so they can be
      * restored. Specifically backs up the contents of Configure and paths in
      *  App if they have not already been backed up

@@ -35,6 +35,16 @@ use MeTools\Controller\Component\FlashComponent;
 class FlashComponentTest extends TestCase
 {
     /**
+     * @var \MeTools\Controller\Component\FlashComponent
+     */
+    protected $Flash;
+
+    /**
+     * @var \Cake\Network\Session
+     */
+    protected $Session;
+
+    /**
      * Setup the test case, backup the static object values so they can be
      * restored. Specifically backs up the contents of Configure and paths in
      *  App if they have not already been backed up
@@ -44,9 +54,9 @@ class FlashComponentTest extends TestCase
     {
         parent::setUp();
 
-        $this->Controller = new Controller(new Request(['session' => new Session()]));
-        $this->ComponentRegistry = new ComponentRegistry($this->Controller);
-        $this->Flash = new FlashComponent($this->ComponentRegistry);
+        $controller = new Controller(new Request());
+        $componentRegistry = new ComponentRegistry($controller);
+        $this->Flash = new FlashComponent($componentRegistry);
         $this->Session = new Session();
     }
 
@@ -59,6 +69,8 @@ class FlashComponentTest extends TestCase
         parent::tearDown();
 
         $this->Session->destroy();
+
+        unset($this->Flash, $this->Session);
     }
 
     /**
@@ -75,16 +87,12 @@ class FlashComponentTest extends TestCase
         $this->Flash->alert($text);
 
         $result = $this->Session->read('Flash.flash');
-        $expected = [
-            [
-                'message' => $text,
-                'key' => 'flash',
-                'element' => 'MeTools.Flash/flash',
-                'params' => [
-                    'class' => 'alert-warning'
-                ],
-            ],
-        ];
+        $expected = [[
+            'message' => $text,
+            'key' => 'flash',
+            'element' => 'MeTools.Flash/flash',
+            'params' => ['class' => 'alert-warning'],
+        ]];
         $this->assertEquals($expected, $result);
 
         $this->Flash->error($text);
@@ -94,9 +102,7 @@ class FlashComponentTest extends TestCase
             'message' => $text,
             'key' => 'flash',
             'element' => 'MeTools.Flash/flash',
-            'params' => [
-                'class' => 'alert-danger'
-            ],
+            'params' => ['class' => 'alert-danger'],
         ];
         $this->assertEquals($expected, $result);
 
@@ -107,9 +113,7 @@ class FlashComponentTest extends TestCase
             'message' => $text,
             'key' => 'flash',
             'element' => 'MeTools.Flash/flash',
-            'params' => [
-                'class' => 'alert-info'
-            ],
+            'params' => ['class' => 'alert-info'],
         ];
         $this->assertEquals($expected, $result);
 
@@ -120,9 +124,7 @@ class FlashComponentTest extends TestCase
             'message' => $text,
             'key' => 'flash',
             'element' => 'MeTools.Flash/flash',
-            'params' => [
-                'class' => 'alert-success'
-            ],
+            'params' => ['class' => 'alert-success'],
         ];
         $this->assertEquals($expected, $result);
 
@@ -134,9 +136,7 @@ class FlashComponentTest extends TestCase
             'message' => $text,
             'key' => 'flash',
             'element' => 'MeTools.Flash/flash',
-            'params' => [
-                'class' => 'my-class',
-            ],
+            'params' => ['class' => 'my-class'],
         ];
         $this->assertEquals($expected, $result);
 

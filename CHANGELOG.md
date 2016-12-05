@@ -1,6 +1,7 @@
 # 2.x branch
 ## 2.11 branch
 ### 2.11.1
+* `UploaderComponent` has been rewritten and improved;
 * added tests for `UploaderComponent` class.
 
 ### 2.11.0

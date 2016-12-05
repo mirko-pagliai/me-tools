@@ -32,8 +32,7 @@ use Cake\Network\Exception\InternalErrorException;
 class UploaderComponent extends Component
 {
     /**
-     * Error.
-     * It can be set by various methods.
+     * Last error
      * @var string
      */
     protected $error;
@@ -45,8 +44,7 @@ class UploaderComponent extends Component
     protected $file;
 
     /**
-     * Internal method to set an error.
-     * It sets only the first error.
+     * Internal method to set an error
      * @param string $error Error
      * @return void
      * @uses $error
@@ -67,20 +65,40 @@ class UploaderComponent extends Component
     {
         //If the file already exists, adds a numeric suffix
         if (file_exists($target)) {
-            list($dirname,, $extension, $filename) = array_values(pathinfo($target));
+            $dirname = dirname($target) . DS;
+            $filename = pathinfo($target, PATHINFO_FILENAME);
+            $extension = pathinfo($target, PATHINFO_EXTENSION);
+
+            //Initial tmp name
+            $tmp = $dirname . $filename;
 
             for ($i = 1;; $i++) {
-                $tmp = $dirname . DS . sprintf('%s_%s.%s', $filename, $i, $extension);
+                $target = $tmp . '_' . $i;
 
-                if (!file_exists($tmp)) {
-                    $target = $tmp;
+                if (!empty($extension)) {
+                    $target .= '.' . $extension;
+                }
 
+                if (!file_exists($target)) {
                     break;
                 }
             }
         }
 
         return $target;
+    }
+
+    /**
+     * This allows you to override the `move_uploaded_file()` function, for
+     *  example with the `rename()` function
+     * @param string $filename The filename of the uploaded file
+     * @param string $destination The destination of the moved file
+     * @return bool
+     */
+    //@codingStandardsIgnoreLine
+    protected function move_uploaded_file($filename, $destination)
+    {
+        return move_uploaded_file($filename, $destination);
     }
 
     /**
@@ -98,39 +116,51 @@ class UploaderComponent extends Component
     }
 
     /**
-     * Sets and checks that the mimetype is correct
-     * @param mixed $mimetype Supported mimetypes as string or array or a
-     *  magic word (eg. `images`)
-     * @return \MeCms\Controller\Component\UploaderComponent
+     * Checks if the mimetype is correct
+     * @param string|array $mimetype Supported mimetypes as string or array or
+     *  a magic word (eg. `images`)
+     * @return \MeTools\Controller\Component\UploaderComponent
+     * @throws InternalErrorException
      * @uses _setError()
      * @uses $file
      */
     public function mimetype($mimetype)
     {
-        if ($mimetype === 'image') {
-            $mimetype = ['image/gif', 'image/jpeg', 'image/png'];
+        if (empty($this->file)) {
+            throw new InternalErrorException(__d('me_tools', 'There are no uploaded file information'));
         }
 
-        if (!in_array($this->file->type, (array)$mimetype)) {
-            $this->_setError(__d('me_tools', 'The mimetype {0} is not accepted', $this->file->type));
+        switch ($mimetype) {
+            case 'image':
+                $mimetype = ['image/gif', 'image/jpeg', 'image/png'];
+                break;
+            case 'text':
+                $mimetype = ['text/plain'];
+                break;
+        }
+
+        $mimetype = (array)$mimetype;
+
+        if (!in_array(mime_content_type($this->file->tmp_name), $mimetype)) {
+            $this->_setError(__d('me_tools', 'The mimetype {0} is not accepted', implode(', ', $mimetype)));
         }
 
         return $this;
     }
 
     /**
-     * Saves the file.
-     *
-     * If you specify only a directory as target, it will keep the original
-     *  filename of the file.
-     * @param string $target Target
-     * @return mixed Target path or `false` on failure
+     * Saves the file
+     * @param string $directory Directory where you want to save the uploaded
+     *  file
+     * @return string|bool Final full path of the uploaded file or `false` on
+     *  failure
      * @uses _findTargetFilename()
      * @uses _setError()
      * @uses error()
+     * @uses move_uploaded_file()
      * @uses $file
      */
-    public function save($target)
+    public function save($directory)
     {
         if (empty($this->file)) {
             throw new InternalErrorException(__d('me_tools', 'There are no uploaded file information'));
@@ -141,32 +171,32 @@ class UploaderComponent extends Component
             return false;
         }
 
-        //If the target is a directory, then adds the filename
-        if (is_dir($target)) {
-            //Adds slash term
-            if (!Folder::isSlashTerm($target)) {
-                $target .= DS;
-            }
-
-            $target .= $this->file->name;
+        if (!is_dir($directory)) {
+            throw new InternalErrorException(__d('me_tools', 'Invalid or no existing directory {0}', $directory));
         }
 
-        $target = $this->_findTargetFilename($target);
+        //Adds slash term
+        if (!Folder::isSlashTerm($directory)) {
+            $directory .= DS;
+        }
 
-        if (!move_uploaded_file($this->file->tmp_name, $target)) {
+        //Gets the target full path
+        $file = $this->_findTargetFilename($directory . DS . $this->file->name);
+
+        if (!$this->move_uploaded_file($this->file->tmp_name, $file)) {
             $this->_setError(__d('me_tools', 'The file was not successfully moved to the target directory'));
 
             return false;
         }
 
-        return $target;
+        return $file;
     }
 
     /**
      * Sets uploaded file information (`$_FILES` array, better as
      *  `$this->request->data('file')`)
      * @param array $file Uploaded file information
-     * @return \MeCms\Controller\Component\UploaderComponent
+     * @return \MeTools\Controller\Component\UploaderComponent
      * @uses _setError()
      * @uses $error
      * @uses $file

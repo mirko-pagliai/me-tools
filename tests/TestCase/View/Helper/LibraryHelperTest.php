@@ -24,7 +24,22 @@ namespace MeTools\Test\TestCase\View\Helper;
 
 use Cake\TestSuite\TestCase;
 use Cake\View\View;
-use MeTools\Test\TestCase\View\Helper\LibraryHelper;
+use MeTools\View\Helper\LibraryHelper as BaseLibraryHelper;
+
+/**
+ * Makes public some protected methods/properties from `LibraryHelper`
+ */
+class LibraryHelper extends BaseLibraryHelper
+{
+    public function output($value = null)
+    {
+        if (!empty($value)) {
+            $this->output = $value;
+        }
+
+        return $this->output;
+    }
+}
 
 /**
  * LibraryHelperTest class
@@ -35,11 +50,6 @@ class LibraryHelperTest extends TestCase
      * @var \MeTools\View\Helper\LibraryHelper
      */
     protected $Library;
-
-    /**
-     * @var \Cake\View\View;
-     */
-    protected $View;
 
     /**
      * Setup the test case, backup the static object values so they can be

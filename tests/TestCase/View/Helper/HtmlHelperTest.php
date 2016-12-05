@@ -32,6 +32,11 @@ use MeTools\View\Helper\HtmlHelper;
 class HtmlHelperTest extends TestCase
 {
     /**
+     * @var \MeTools\View\Helper\HtmlHelper
+     */
+    protected $Html;
+
+    /**
      * Setup the test case, backup the static object values so they can be
      * restored. Specifically backs up the contents of Configure and paths in
      *  App if they have not already been backed up

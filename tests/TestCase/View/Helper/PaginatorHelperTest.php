@@ -32,6 +32,11 @@ use MeTools\View\Helper\PaginatorHelper;
 class PaginatorHelperTest extends TestCase
 {
     /**
+     * @var \MeTools\View\Helper\PaginatorHelper
+     */
+    protected $Paginator;
+
+    /**
      * Setup the test case, backup the static object values so they can be
      * restored. Specifically backs up the contents of Configure and paths in
      *  App if they have not already been backed up

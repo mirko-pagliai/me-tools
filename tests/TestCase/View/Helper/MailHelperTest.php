@@ -32,6 +32,11 @@ use MeTools\View\Helper\MailHelper;
 class MailHelperTest extends TestCase
 {
     /**
+     * @var \MeTools\View\Helper\MailHelper
+     */
+    protected $Mail;
+
+    /**
      * Setup the test case, backup the static object values so they can be
      * restored. Specifically backs up the contents of Configure and paths in
      *  App if they have not already been backed up

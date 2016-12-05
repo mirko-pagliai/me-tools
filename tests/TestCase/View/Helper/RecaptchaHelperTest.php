@@ -33,6 +33,11 @@ use MeTools\View\Helper\RecaptchaHelper;
 class RecaptchaHelperTest extends TestCase
 {
     /**
+     * @var \MeTools\View\Helper\RecaptchaHelper
+     */
+    protected $Recaptcha;
+
+    /**
      * Setup the test case, backup the static object values so they can be
      * restored. Specifically backs up the contents of Configure and paths in
      *  App if they have not already been backed up
@@ -84,6 +89,7 @@ class RecaptchaHelperTest extends TestCase
      * Test for `display()` method, with no keys
      * @expectedException Cake\Network\Exception\InternalErrorException
      * @expectedExceptionMessage Form keys are not configured
+     * @test
      */
     public function testDisplayNoKeys()
     {
@@ -151,6 +157,7 @@ class RecaptchaHelperTest extends TestCase
      * Test for `mailUrl()` method, with bad keys
      * @expectedException Cake\Network\Exception\InternalErrorException
      * @expectedExceptionMessage The private mail key is not valid
+     * @test
      */
     public function testMailUrlBadKeys()
     {
@@ -164,6 +171,7 @@ class RecaptchaHelperTest extends TestCase
      * Test for `mailUrl()` method, with no keys
      * @expectedException Cake\Network\Exception\InternalErrorException
      * @expectedExceptionMessage Mail keys are not configured
+     * @test
      */
     public function testMailUrlNoKeys()
     {
