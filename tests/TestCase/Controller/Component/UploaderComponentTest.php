@@ -35,7 +35,8 @@ class UploaderComponent extends BaseUploaderComponent
 {
     protected function move_uploaded_file($filename, $destination)
     {
-        return rename($filename, $destination);
+        //@codingStandardsIgnoreLine
+        return @rename($filename, $destination);
     }
 
     public function getFile()
@@ -251,6 +252,24 @@ class UploaderComponentTest extends TestCase
         $this->assertFalse($this->Uploader->error());
         $this->assertFileExists($result);
         $this->assertFileNotExists($file['tmp_name']);
+    }
+
+    /**
+     * Test for `save()` method, with a not writable directory
+     * @test
+     * @uses _createFile()
+     */
+    public function testSaveNoWritableDir()
+    {
+        //Creates a non-writable directory
+        //@codingStandardsIgnoreLine
+        @mkdir(TMP . 'noWritableDir', 0444);
+
+        $file = $this->_createFile();
+        $this->Uploader->set($file);
+
+        $this->assertFalse($this->Uploader->save(TMP . 'noWritableDir'));
+        $this->assertEquals('The file was not successfully moved to the target directory', $this->Uploader->error());
     }
 
     /**
