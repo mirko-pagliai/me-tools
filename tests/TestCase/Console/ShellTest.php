@@ -80,6 +80,7 @@ class ShellTest extends TestCase
 
     /**
      * Tests for `_welcome()` method
+     * @return void
      * @test
      */
     public function testWelcome()
@@ -89,6 +90,7 @@ class ShellTest extends TestCase
 
     /**
      * Tests for `createFile()` method
+     * @return void
      * @test
      */
     public function testCreateFile()
@@ -107,6 +109,7 @@ class ShellTest extends TestCase
 
     /**
      * Tests for `createFile()` method, using a file that already exists
+     * @return void
      * @test
      */
     public function testCreateFileAlreadyExists()
@@ -128,6 +131,7 @@ class ShellTest extends TestCase
 
     /**
      * Tests for `createLink()` method
+     * @return void
      * @test
      */
     public function testCreateLink()
@@ -150,6 +154,7 @@ class ShellTest extends TestCase
 
     /**
      * Tests for `createLink()` method, using a file that already exists
+     * @return void
      * @test
      */
     public function testCreateLinkAlreadyExists()
@@ -174,6 +179,7 @@ class ShellTest extends TestCase
 
     /**
      * Tests for `createLink()` method, using a no existing file
+     * @return void
      * @test
      */
     public function testCreateLinkFileNoExisting()
@@ -187,6 +193,7 @@ class ShellTest extends TestCase
 
     /**
      * Tests for `createLink()` method, using a no existing directory
+     * @return void
      * @test
      */
     public function testCreateLinkNoExistingDir()
@@ -207,6 +214,7 @@ class ShellTest extends TestCase
 
     /**
      * Tests for `comment()` method
+     * @return void
      * @test
      */
     public function testComment()
@@ -220,6 +228,7 @@ class ShellTest extends TestCase
 
     /**
      * Tests for `question()` method
+     * @return void
      * @test
      */
     public function testQuestion()
@@ -233,6 +242,7 @@ class ShellTest extends TestCase
 
     /**
      * Tests for `warning()` method
+     * @return void
      * @test
      */
     public function testWarning()
