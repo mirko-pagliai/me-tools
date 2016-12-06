@@ -74,9 +74,7 @@ class RecaptchaHelper extends Helper
 
         //Checks for form keys
         if (empty($keys['public']) || empty($keys['private'])) {
-            throw new InternalErrorException(
-                __d('me_tools', 'Form keys are not configured')
-            );
+            throw new InternalErrorException(__d('me_tools', 'Form keys are not configured'));
         }
 
         $optionsScript = $this->optionsDefaults(['block' => 'script_bottom'], $optionsScript);
@@ -133,16 +131,12 @@ class RecaptchaHelper extends Helper
 
         //Checks for mail keys
         if (empty($keys['public']) || empty($keys['private'])) {
-            throw new InternalErrorException(
-                __d('me_tools', 'Mail keys are not configured')
-            );
+            throw new InternalErrorException(__d('me_tools', 'Mail keys are not configured'));
         }
 
         //Checks if the private mail key is valid (hexadecimal digits)
         if (!ctype_xdigit($keys['private'])) {
-            throw new InternalErrorException(
-                __d('me_tools', 'The private mail key is not valid')
-            );
+            throw new InternalErrorException(__d('me_tools', 'The private mail key is not valid'));
         }
 
         return recaptcha_mailhide_url($keys['public'], $keys['private'], $mail);

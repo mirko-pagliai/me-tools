@@ -602,11 +602,7 @@ class HtmlHelper extends CakeHtmlHelper
             'width' => 'device-width',
         ], null, ', ');
 
-        return self::meta(
-            am(['name' => 'viewport'], compact('content')),
-            null,
-            $options
-        );
+        return self::meta(am(['name' => 'viewport'], compact('content')), null, $options);
     }
 
     /**

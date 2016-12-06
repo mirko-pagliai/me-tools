@@ -65,14 +65,12 @@ class FormHelper extends CakeFormHelper
     public function __construct(View $view, $config = [])
     {
         //Rewrites default templates config
-        $this->_defaultConfig = Hash::merge($this->_defaultConfig, [
-            'templates' => [
-                'checkboxContainer' => '<div class="input {{type}}{{required}}">{{content}}{{help}}</div>',
-                'nestingLabel' => '{{hidden}}<label{{attrs}}>{{input}} {{text}}</label>',
-                'inputContainer' => '<div class="form-group input {{type}}{{required}}">{{content}}{{help}}</div>',
-                'inputContainerError' => '<div class="form-group input {{type}}{{required}} has-error">{{content}}{{help}}{{error}}</div>',
-            ],
-        ]);
+        $this->_defaultConfig = Hash::merge($this->_defaultConfig, ['templates' => [
+            'checkboxContainer' => '<div class="input {{type}}{{required}}">{{content}}{{help}}</div>',
+            'nestingLabel' => '{{hidden}}<label{{attrs}}>{{input}} {{text}}</label>',
+            'inputContainer' => '<div class="form-group input {{type}}{{required}}">{{content}}{{help}}</div>',
+            'inputContainerError' => '<div class="form-group input {{type}}{{required}} has-error">{{content}}{{help}}{{error}}</div>',
+        ]]);
 
         parent::__construct($view, $config);
     }
