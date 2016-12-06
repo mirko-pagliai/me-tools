@@ -121,6 +121,11 @@ class UploaderComponentTest extends TestCase
             unlink($file);
         }
 
+        //Deletes other temporary files
+        foreach (glob(TMP . 'php_upload*') as $file) {
+            unlink($file);
+        }
+
         unset($this->Uploader);
     }
 
