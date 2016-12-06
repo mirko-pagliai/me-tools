@@ -310,12 +310,10 @@ class InstallShell extends Shell
      */
     public function createRobots()
     {
-        $this->createFile(WWW_ROOT . 'robots.txt', 'User-agent: *
-            Disallow: /admin/
-            Disallow: /ckeditor/
-            Disallow: /css/
-            Disallow: /js/
-            Disallow: /vendor/');
+        $this->createFile(WWW_ROOT . 'robots.txt', 'User-agent: *' . PHP_EOL .
+            'Disallow: /admin/' . PHP_EOL . 'Disallow: /ckeditor/' . PHP_EOL .
+            'Disallow: /css/' . PHP_EOL . 'Disallow: /js/' . PHP_EOL .
+            'Disallow: /vendor/');
     }
 
     /**
@@ -368,36 +366,6 @@ class InstallShell extends Shell
         } else {
             $this->err(__d('me_tools', 'The file {0} has not been fixed', rtr($file)));
         }
-    }
-
-    /**
-     * Gets the option parser instance and configures it
-     * @return ConsoleOptionParser
-     */
-    public function getOptionParser()
-    {
-        $parser = parent::getOptionParser();
-
-        $parser->addSubcommand('all', ['help' => __d('me_tools', 'Executes all available tasks')]);
-        $parser->addSubcommand('copyConfig', ['help' => __d('me_tools', 'Copies the configuration files')]);
-        $parser->addSubcommand('copyFonts', ['help' => __d('me_tools', 'Creates symbolic links for fonts')]);
-        $parser->addSubcommand('createDirectories', ['help' => __d('me_tools', 'Creates default directories')]);
-        $parser->addSubcommand('createRobots', ['help' => __d('me_tools', 'Creates the {0} file', 'robots.txt')]);
-        $parser->addSubcommand('createVendorsLinks', ['help' => __d('me_tools', 'Creates symbolic links for vendor assets')]);
-        $parser->addSubcommand('fixComposerJson', ['help' => __d('me_tools', 'Fixes {0}', 'composer.json')]);
-        $parser->addSubcommand('installPackages', ['help' => __d('me_tools', 'Installs the suggested packages')]);
-        $parser->addSubcommand('setPermissions', ['help' => __d('me_tools', 'Sets directories permissions')]);
-
-        $parser->addOption('force', [
-            'boolean' => true,
-            'default' => false,
-            'help' => __d('me_tools', 'Executes tasks without prompting'),
-            'short' => 'f',
-        ]);
-
-        $parser->description(__d('me_tools', 'Executes some tasks to make the system ready to work'));
-
-        return $parser;
     }
 
     /**
@@ -501,5 +469,35 @@ class InstallShell extends Shell
                 exec($command);
             }
         }
+    }
+
+    /**
+     * Gets the option parser instance and configures it
+     * @return ConsoleOptionParser
+     */
+    public function getOptionParser()
+    {
+        $parser = parent::getOptionParser();
+
+        $parser->addSubcommand('all', ['help' => __d('me_tools', 'Executes all available tasks')]);
+        $parser->addSubcommand('copyConfig', ['help' => __d('me_tools', 'Copies the configuration files')]);
+        $parser->addSubcommand('copyFonts', ['help' => __d('me_tools', 'Creates symbolic links for fonts')]);
+        $parser->addSubcommand('createDirectories', ['help' => __d('me_tools', 'Creates default directories')]);
+        $parser->addSubcommand('createRobots', ['help' => __d('me_tools', 'Creates the {0} file', 'robots.txt')]);
+        $parser->addSubcommand('createVendorsLinks', ['help' => __d('me_tools', 'Creates symbolic links for vendor assets')]);
+        $parser->addSubcommand('fixComposerJson', ['help' => __d('me_tools', 'Fixes {0}', 'composer.json')]);
+        $parser->addSubcommand('installPackages', ['help' => __d('me_tools', 'Installs the suggested packages')]);
+        $parser->addSubcommand('setPermissions', ['help' => __d('me_tools', 'Sets directories permissions')]);
+
+        $parser->addOption('force', [
+            'boolean' => true,
+            'default' => false,
+            'help' => __d('me_tools', 'Executes tasks without prompting'),
+            'short' => 'f',
+        ]);
+
+        $parser->description(__d('me_tools', 'Executes some tasks to make the system ready to work'));
+
+        return $parser;
     }
 }
