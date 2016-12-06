@@ -253,25 +253,6 @@ if (!function_exists('rtr')) {
     }
 }
 
-if (!function_exists('implodeRecursive')) {
-    /**
-     * `implode()` recursive
-     * @param string $glue Glue
-     * @param array $pieces The array of strings to implode
-     * @return string
-     */
-    function implodeRecursive($glue, $pieces)
-    {
-        return implode($glue, array_map(function ($pieces) use ($glue) {
-            if (is_string($pieces)) {
-                return $pieces;
-            }
-
-            return implodeRecursive($glue, $pieces);
-        }, $pieces));
-    }
-}
-
 if (!function_exists('which')) {
     /**
      * Executes the `which` command.

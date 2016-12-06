@@ -50,11 +50,7 @@ class Shell extends CakeShell
     {
         //Checks if the file already exist
         if (file_exists($path)) {
-            $this->verbose(__d(
-                'me_tools',
-                'File or directory {0} already exists',
-                rtr($path)
-            ));
+            $this->verbose(__d('me_tools', 'File or directory {0} already exists', rtr($path)));
 
             return false;
         }
@@ -103,16 +99,9 @@ class Shell extends CakeShell
      * @return int|bool Returns the number of bytes returned from writing to
      *  stdout
      */
-    public function comment(
-        $message = null,
-        $newlines = 1,
-        $level = Shell::NORMAL
-    ) {
-        return parent::out(
-            sprintf('<comment>%s</comment>', $message),
-            $newlines,
-            $level
-        );
+    public function comment($message = null, $newlines = 1, $level = Shell::NORMAL)
+    {
+        return parent::out(sprintf('<comment>%s</comment>', $message), $newlines, $level);
     }
 
     /**
@@ -124,16 +113,9 @@ class Shell extends CakeShell
      * @return int|bool Returns the number of bytes returned from writing to
      *  stdout
      */
-    public function question(
-        $message = null,
-        $newlines = 1,
-        $level = Shell::NORMAL
-    ) {
-        return parent::out(
-            sprintf('<question>%s</question>', $message),
-            $newlines,
-            $level
-        );
+    public function question($message = null, $newlines = 1, $level = Shell::NORMAL)
+    {
+        return parent::out(sprintf('<question>%s</question>', $message), $newlines, $level);
     }
 
     /**

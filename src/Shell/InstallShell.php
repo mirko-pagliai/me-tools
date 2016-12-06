@@ -34,7 +34,6 @@ class InstallShell extends Shell
 {
     /**
      * Configuration files to be copied
-     * @see __construct()
      * @var array
      */
     protected $configs = [];
@@ -42,7 +41,6 @@ class InstallShell extends Shell
     /**
      * Assets for which create symbolic links.
      * Full path for each font
-     * @see __construct()
      * @var array
      */
     protected $fonts = [];
@@ -51,21 +49,18 @@ class InstallShell extends Shell
      * Assets for which create symbolic links.
      * The key must be relative to `vendor/` and the value must be relative
      *  to `webroot/vendor/`
-     * @see __construct()
      * @var array
      */
     protected $links = [];
 
     /**
      * Suggested packages to install by Composer
-     * @see __construct()
      * @var array
      */
     protected $packages = [];
 
     /**
      * Paths to be created and made writable
-     * @see __construct()
      * @var array
      */
     protected $paths = [];
@@ -287,9 +282,9 @@ class InstallShell extends Shell
             if (mkdir($path, 0777, true)) {
                 $this->verbose(__d('me_tools', 'Created {0} directory', rtr($path)));
             } else {
-                $this->err(__d('me_tools', 'Failed to create file or directory {0}', rtr($path)));
-
                 $error = true;
+
+                $this->err(__d('me_tools', 'Failed to create file or directory {0}', rtr($path)));
             }
         }
 
@@ -315,15 +310,12 @@ class InstallShell extends Shell
      */
     public function createRobots()
     {
-        $this->createFile(
-            WWW_ROOT . 'robots.txt',
-            'User-agent: *
+        $this->createFile(WWW_ROOT . 'robots.txt', 'User-agent: *
             Disallow: /admin/
             Disallow: /ckeditor/
             Disallow: /css/
             Disallow: /js/
-            Disallow: /vendor/'
-        );
+            Disallow: /vendor/');
     }
 
     /**
@@ -366,12 +358,10 @@ class InstallShell extends Shell
         }
 
         //Fixeds and encodes the content
-        $contents = (new File($file))->prepare(
-            json_encode(
-                am($contents, ['config' => ['component-dir' => 'vendor/components']]),
-                JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT
-            )
-        );
+        $contents = (new File($file))->prepare(json_encode(
+            am($contents, ['config' => ['component-dir' => 'vendor/components']]),
+            JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT
+        ));
 
         if ((new File($file))->write($contents)) {
             $this->verbose(__d('me_tools', 'The file {0} has been fixed', rtr($file)));
@@ -381,50 +371,33 @@ class InstallShell extends Shell
     }
 
     /**
-     * Gets the option parser instance and configures it.
+     * Gets the option parser instance and configures it
      * @return ConsoleOptionParser
      */
     public function getOptionParser()
     {
         $parser = parent::getOptionParser();
 
-        return $parser->addSubcommands([
-            'all' => [
-                'help' => __d('me_tools', 'Executes all available tasks'),
-            ],
-            'copyConfig' => [
-                'help' => __d('me_tools', 'Copies the configuration files'),
-            ],
-            'copyFonts' => [
-                'help' => __d('me_tools', 'Creates symbolic links for fonts'),
-            ],
-            'createDirectories' => [
-                'help' => __d('me_tools', 'Creates default directories'),
-            ],
-            'createRobots' => [
-                'help' => __d('me_tools', 'Creates the {0} file', 'robots.txt'),
-            ],
-            'createVendorsLinks' => [
-                'help' => __d('me_tools', 'Creates symbolic links for vendor assets'),
-            ],
-            'fixComposerJson' => [
-                'help' => __d('me_tools', 'Fixes {0}', 'composer.json'),
-            ],
-            'installPackages' => [
-                'help' => __d('me_tools', 'Installs the suggested packages'),
-            ],
-            'setPermissions' => [
-                'help' => __d('me_tools', 'Sets directories permissions'),
-            ],
-        ])->addOption('force', [
+        $parser->addSubcommand('all', ['help' => __d('me_tools', 'Executes all available tasks')]);
+        $parser->addSubcommand('copyConfig', ['help' => __d('me_tools', 'Copies the configuration files')]);
+        $parser->addSubcommand('copyFonts', ['help' => __d('me_tools', 'Creates symbolic links for fonts')]);
+        $parser->addSubcommand('createDirectories', ['help' => __d('me_tools', 'Creates default directories')]);
+        $parser->addSubcommand('createRobots', ['help' => __d('me_tools', 'Creates the {0} file', 'robots.txt')]);
+        $parser->addSubcommand('createVendorsLinks', ['help' => __d('me_tools', 'Creates symbolic links for vendor assets')]);
+        $parser->addSubcommand('fixComposerJson', ['help' => __d('me_tools', 'Fixes {0}', 'composer.json')]);
+        $parser->addSubcommand('installPackages', ['help' => __d('me_tools', 'Installs the suggested packages')]);
+        $parser->addSubcommand('setPermissions', ['help' => __d('me_tools', 'Sets directories permissions')]);
+
+        $parser->addOption('force', [
             'boolean' => true,
             'default' => false,
             'help' => __d('me_tools', 'Executes tasks without prompting'),
             'short' => 'f',
-        ])->description(__d(
-            'me_tools',
-            'Executes some tasks to make the system ready to work'
-        ));
+        ]);
+
+        $parser->description(__d('me_tools', 'Executes some tasks to make the system ready to work'));
+
+        return $parser;
     }
 
     /**

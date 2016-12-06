@@ -165,8 +165,6 @@ class DropdownHelper extends Helper
 
         $listOptions = $this->optionsValues(['class' => 'dropdown-menu'], $listOptions);
 
-        return $this->_start .
-            PHP_EOL .
-            $this->Html->ul($matches[0], $listOptions, $itemOptions);
+        return $this->_start . PHP_EOL . $this->Html->ul($matches[0], $listOptions, $itemOptions);
     }
 }

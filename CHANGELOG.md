@@ -2,7 +2,8 @@
 ## 2.11 branch
 ### 2.11.1
 * `UploaderComponent` has been rewritten and improved;
-* added tests for `UploaderComponent` class.
+* added tests for `UploaderComponent` class;
+* added some tests for `RecaptchaComponent` class.
 
 ### 2.11.0
 * removed the `BreadcrumbHelper`. Instead, use the `BreadcrumbsHelper` that

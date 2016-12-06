@@ -40,6 +40,20 @@ class RecaptchaComponent extends Component
     protected $error;
 
     /**
+     * Construct
+     * @param \Cake\Controller\ComponentRegistry $registry A ComponentRegistry
+     *  this component can use to lazy load its components
+     * @param array $config Array of configuration settings
+     */
+    public function __construct(\Cake\Controller\ComponentRegistry $registry, array $config = [])
+    {
+        parent::__construct($registry, $config);
+
+        //Loads the configuration file
+        Configure::load('recaptcha');
+    }
+
+    /**
      * Checks for reCAPTCHA
      * @return bool
      * @see https://developers.google.com/recaptcha/docs/verify
@@ -47,8 +61,7 @@ class RecaptchaComponent extends Component
      */
     public function check()
     {
-        //Loads the configuration file and gets the form keys
-        Configure::load('recaptcha');
+        //Gets the form keys
         $keys = Configure::read('Recaptcha.Form');
 
         //Checks for form keys
@@ -86,6 +99,10 @@ class RecaptchaComponent extends Component
      */
     public function getError()
     {
+        if (!isset($this->error)) {
+            return false;
+        }
+
         return $this->error;
     }
 }
