@@ -37,7 +37,7 @@ class Shell extends BaseShell
 }
 
 /**
- * ShellTest class.
+ * ShellTest class
  */
 class ShellTest extends TestCase
 {
@@ -65,6 +65,17 @@ class ShellTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
         $this->Shell = new Shell($this->io);
+    }
+
+    /**
+     * Teardown any static object changes and restore them
+     * @return void
+     */
+    public function tearDown()
+    {
+        parent::tearDown();
+
+        unset($this->Shell, $this->io);
     }
 
     /**
