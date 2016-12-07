@@ -109,26 +109,36 @@ class ShellTest extends TestCase
      */
     public function testCopyFile()
     {
+        $this->io->level(2);
+
         $source = TMP . 'example';
         $dest = TMP . 'example_copy';
 
+        //Creates the source file
         file_put_contents($source, null);
 
-        $this->io->level(2);
+        //Tries to copy. Source doesn't exist
+        $this->assertFalse($this->Shell->copyFile(TMP . 'noExistingFile', $dest));
 
+        //Tries to copy. Destination is not writable
+        $this->assertFalse($this->Shell->copyFile($source, TMP . 'noExistingDir' . DS . 'example_copy'));
+
+        $error = $this->err->messages();
+        $this->assertEquals(2, count($error));
+        $this->assertEquals('<error>File or directory /tmp/noExistingFile not readable</error>', $error[0]);
+        $this->assertEquals('<error>File /tmp/noExistingDir/example_copy has not been copied</error>', $error[1]);
+
+        //Now it works
         $this->assertFileNotExists($dest);
         $this->assertTrue($this->Shell->copyFile($source, $dest));
         $this->assertFileExists($dest);
 
-        $output = $this->out->messages();
-        $this->assertEquals(1, count($output));
-        $this->assertEquals('File /tmp/example_copy has been copied', $output[0]);
-
-        //Destination already exists
+        //Tries to copy. Destination already exists
         $this->assertFalse($this->Shell->copyFile($source, $dest));
 
         $output = $this->out->messages();
         $this->assertEquals(2, count($output));
+        $this->assertEquals('File /tmp/example_copy has been copied', $output[0]);
         $this->assertEquals('File or directory /tmp/example_copy already exists', $output[1]);
 
         unlink($source);
