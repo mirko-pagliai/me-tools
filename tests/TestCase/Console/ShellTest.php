@@ -22,6 +22,8 @@
  */
 namespace MeTools\Test\TestCase\Console;
 
+use Cake\Console\ConsoleIo;
+use Cake\TestSuite\Stub\ConsoleOutput;
 use Cake\TestSuite\TestCase;
 use MeTools\Console\Shell as BaseShell;
 
@@ -42,14 +44,24 @@ class Shell extends BaseShell
 class ShellTest extends TestCase
 {
     /**
+     * @var \Shell
+     */
+    protected $Shell;
+
+    /**
+     * @var \Cake\TestSuite\Stub\ConsoleOutput
+     */
+    protected $err;
+
+    /**
      * @var \Cake\Console\ConsoleIo
      */
     protected $io;
 
     /**
-     * @var \MeTools\Test\TestCase\Console\Shell
+     * @var \Cake\TestSuite\Stub\ConsoleOutput
      */
-    protected $Shell;
+    protected $out;
 
     /**
      * Setup the test case, backup the static object values so they can be
@@ -61,10 +73,14 @@ class ShellTest extends TestCase
     {
         parent::setUp();
 
-        $this->io = $this->getMockBuilder('Cake\Console\ConsoleIo')
-            ->disableOriginalConstructor()
+        $this->out = new ConsoleOutput();
+        $this->err = new ConsoleOutput();
+        $this->io = new ConsoleIo($this->out, $this->err);
+
+        $this->Shell = $this->getMockBuilder(Shell::class)
+            ->setMethods(['in', '_stop'])
+            ->setConstructorArgs([$this->io])
             ->getMock();
-        $this->Shell = new Shell($this->io);
     }
 
     /**
@@ -75,7 +91,7 @@ class ShellTest extends TestCase
     {
         parent::tearDown();
 
-        unset($this->Shell, $this->io);
+        unset($this->Shell);
     }
 
     /**
@@ -98,15 +114,15 @@ class ShellTest extends TestCase
 
         file_put_contents($source, 'Test');
 
-        $this->Shell->params = ['verbose' => true];
-
-        $this->io->expects($this->once())
-            ->method('verbose')
-            ->with('File /tmp/example_copy has been copied', 1);
+        $this->io->level(2);
 
         $this->assertFileNotExists($copy);
         $this->assertTrue($this->Shell->copyFile($source, $copy));
         $this->assertFileExists($copy);
+
+        $output = $this->out->messages();
+        $this->assertEquals(1, count($output));
+        $this->assertEquals('File /tmp/example_copy has been copied', $output[0]);
 
         unlink($source);
         unlink($copy);
@@ -140,13 +156,13 @@ class ShellTest extends TestCase
 
         file_put_contents($tmp, null);
 
-        $this->Shell->params = ['verbose' => true];
-
-        $this->io->expects($this->once())
-            ->method('verbose')
-            ->with('File or directory /tmp/example already exists', 1);
+        $this->io->level(2);
 
         $this->assertFalse($this->Shell->createFile($tmp, null));
+
+        $output = $this->out->messages();
+        $this->assertEquals(1, count($output));
+        $this->assertEquals('File or directory /tmp/example already exists', $output[0]);
 
         unlink($tmp);
     }
@@ -185,13 +201,13 @@ class ShellTest extends TestCase
         file_put_contents($origin, null);
         file_put_contents($target, null);
 
-        $this->Shell->params = ['verbose' => true];
-
-        $this->io->expects($this->once())
-            ->method('verbose')
-            ->with('File or directory /tmp/example already exists', 1);
+        $this->io->level(2);
 
         $this->assertFalse($this->Shell->createLink($origin, $target));
+
+        $output = $this->out->messages();
+        $this->assertEquals(1, count($output));
+        $this->assertEquals('File or directory /tmp/example already exists', $output[0]);
 
         unlink($origin);
         unlink($target);
@@ -203,11 +219,11 @@ class ShellTest extends TestCase
      */
     public function testCreateLinkFileNoExisting()
     {
-        $this->io->expects($this->once())
-            ->method('err')
-            ->with('<error>File or directory /tmp/noExistingFile not readable</error>', 1);
-
         $this->Shell->createLink(TMP . 'noExistingFile', TMP . 'target');
+
+        $error = $this->err->messages();
+        $this->assertEquals(1, count($error));
+        $this->assertEquals('<error>File or directory /tmp/noExistingFile not readable</error>', $error[0]);
     }
 
     /**
@@ -221,11 +237,11 @@ class ShellTest extends TestCase
 
         file_put_contents($origin, null);
 
-        $this->io->expects($this->once())
-            ->method('err')
-            ->with('<error>File or directory /tmp/noExistingDir not writeable</error>', 1);
-
         $this->assertFalse($this->Shell->createLink($origin, $target));
+
+        $error = $this->err->messages();
+        $this->assertEquals(1, count($error));
+        $this->assertEquals('<error>File or directory /tmp/noExistingDir not writeable</error>', $error[0]);
 
         unlink($origin);
     }
@@ -236,11 +252,11 @@ class ShellTest extends TestCase
      */
     public function testComment()
     {
-        $this->io->expects($this->once())
-            ->method('out')
-            ->with('<comment>This is a text</comment>', 1);
-
         $this->Shell->comment('This is a text');
+
+        $output = $this->out->messages();
+        $this->assertEquals(1, count($output));
+        $this->assertEquals('<comment>This is a text</comment>', $output[0]);
     }
 
     /**
@@ -249,11 +265,11 @@ class ShellTest extends TestCase
      */
     public function testQuestion()
     {
-        $this->io->expects($this->once())
-            ->method('out')
-            ->with('<question>This is a text</question>', 1);
-
         $this->Shell->question('This is a text');
+
+        $output = $this->out->messages();
+        $this->assertEquals(1, count($output));
+        $this->assertEquals('<question>This is a text</question>', $output[0]);
     }
 
     /**
@@ -262,10 +278,10 @@ class ShellTest extends TestCase
      */
     public function testWarning()
     {
-        $this->io->expects($this->once())
-            ->method('err')
-            ->with('<warning>This is a text</warning>', 1);
-
         $this->Shell->warning('This is a text');
+
+        $error = $this->err->messages();
+        $this->assertEquals(1, count($error));
+        $this->assertEquals('<warning>This is a text</warning>', $error[0]);
     }
 }
