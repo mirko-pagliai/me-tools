@@ -110,22 +110,29 @@ class ShellTest extends TestCase
     public function testCopyFile()
     {
         $source = TMP . 'example';
-        $copy = TMP . 'example_copy';
+        $dest = TMP . 'example_copy';
 
-        file_put_contents($source, 'Test');
+        file_put_contents($source, null);
 
         $this->io->level(2);
 
-        $this->assertFileNotExists($copy);
-        $this->assertTrue($this->Shell->copyFile($source, $copy));
-        $this->assertFileExists($copy);
+        $this->assertFileNotExists($dest);
+        $this->assertTrue($this->Shell->copyFile($source, $dest));
+        $this->assertFileExists($dest);
 
         $output = $this->out->messages();
         $this->assertEquals(1, count($output));
         $this->assertEquals('File /tmp/example_copy has been copied', $output[0]);
 
+        //Destination already exists
+        $this->assertFalse($this->Shell->copyFile($source, $dest));
+
+        $output = $this->out->messages();
+        $this->assertEquals(2, count($output));
+        $this->assertEquals('File or directory /tmp/example_copy already exists', $output[1]);
+
         unlink($source);
-        unlink($copy);
+        unlink($dest);
     }
 
     /**
