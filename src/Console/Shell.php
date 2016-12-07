@@ -48,6 +48,13 @@ class Shell extends CakeShell
      */
     public function copyFile($source, $dest)
     {
+        //Checks if the source is readable
+        if (!is_readable($source)) {
+            $this->err(__d('me_tools', 'File or directory {0} not readable', rtr($source)));
+
+            return false;
+        }
+
         //Checks if the destination file already exists
         if (file_exists($dest)) {
             $this->verbose(__d('me_tools', 'File or directory {0} already exists', rtr($dest)));
@@ -55,11 +62,16 @@ class Shell extends CakeShell
             return false;
         }
 
-        if (copy($source, $dest)) {
-            $this->verbose(__d('me_tools', 'File {0} has been copied', rtr($dest)));
-        } else {
+        //@codingStandardsIgnoreLine
+        $copy = @copy($source, $dest);
+
+        if (!$copy) {
             $this->err(__d('me_tools', 'File {0} has not been copied', rtr($dest)));
+
+            return false;
         }
+
+        $this->verbose(__d('me_tools', 'File {0} has been copied', rtr($dest)));
 
         return true;
     }
