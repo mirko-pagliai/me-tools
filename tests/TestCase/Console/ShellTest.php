@@ -54,11 +54,6 @@ class ShellTest extends TestCase
     protected $err;
 
     /**
-     * @var \Cake\Console\ConsoleIo
-     */
-    protected $io;
-
-    /**
      * @var \Cake\TestSuite\Stub\ConsoleOutput
      */
     protected $out;
@@ -75,11 +70,12 @@ class ShellTest extends TestCase
 
         $this->out = new ConsoleOutput();
         $this->err = new ConsoleOutput();
-        $this->io = new ConsoleIo($this->out, $this->err);
+        $io = new ConsoleIo($this->out, $this->err);
+        $io->level(2);
 
         $this->Shell = $this->getMockBuilder(Shell::class)
             ->setMethods(['in', '_stop'])
-            ->setConstructorArgs([$this->io])
+            ->setConstructorArgs([$io])
             ->getMock();
     }
 
@@ -109,8 +105,6 @@ class ShellTest extends TestCase
      */
     public function testCopyFile()
     {
-        $this->io->level(2);
-
         $source = TMP . 'example';
         $dest = TMP . 'example_copy';
 
@@ -153,33 +147,20 @@ class ShellTest extends TestCase
     {
         $tmp = TMP . 'example';
 
-        if (file_exists($tmp)) {
-            unlink($tmp);
-        }
-
+        //Creates the file
+        $this->assertFileNotExists($tmp);
         $this->assertTrue($this->Shell->createFile($tmp, null));
         $this->assertFileExists($tmp);
+        
+        $output = $this->out->messages();
+        $this->assertEquals(3, count($output));
 
-        unlink($tmp);
-    }
-
-    /**
-     * Tests for `createFile()` method, using a file that already exists
-     * @test
-     */
-    public function testCreateFileAlreadyExists()
-    {
-        $tmp = TMP . 'example';
-
-        file_put_contents($tmp, null);
-
-        $this->io->level(2);
-
+        //Tries to create. The file already exists
         $this->assertFalse($this->Shell->createFile($tmp, null));
 
         $output = $this->out->messages();
-        $this->assertEquals(1, count($output));
-        $this->assertEquals('File or directory /tmp/example already exists', $output[0]);
+        $this->assertEquals(4, count($output));
+        $this->assertEquals('File or directory /tmp/example already exists', $output[3]);
 
         unlink($tmp);
     }
@@ -190,77 +171,39 @@ class ShellTest extends TestCase
      */
     public function testCreateLink()
     {
-        $origin = TMP . 'origin';
-        $target = TMP . 'example';
+        $source = TMP . 'origin';
+        $dest = TMP . 'example';
 
-        file_put_contents($origin, null);
+        file_put_contents($source, null);
 
-        if (file_exists($target)) {
-            unlink($target);
-        }
-
-        $this->assertTrue($this->Shell->createLink($origin, $target));
-        $this->assertFileExists($target);
-
-        unlink($origin);
-        unlink($target);
-    }
-
-    /**
-     * Tests for `createLink()` method, using a file that already exists
-     * @test
-     */
-    public function testCreateLinkAlreadyExists()
-    {
-        $origin = TMP . 'origin';
-        $target = TMP . 'example';
-
-        file_put_contents($origin, null);
-        file_put_contents($target, null);
-
-        $this->io->level(2);
-
-        $this->assertFalse($this->Shell->createLink($origin, $target));
+        //Creates the link
+        $this->assertFileNotExists($dest);
+        $this->assertTrue($this->Shell->createLink($source, $dest));
+        $this->assertFileExists($dest);
+        
+        //Tries to create. The link already exists
+        $this->assertFalse($this->Shell->createLink($source, $dest));
 
         $output = $this->out->messages();
         $this->assertEquals(1, count($output));
         $this->assertEquals('File or directory /tmp/example already exists', $output[0]);
 
-        unlink($origin);
-        unlink($target);
-    }
-
-    /**
-     * Tests for `createLink()` method, using a no existing file
-     * @test
-     */
-    public function testCreateLinkFileNoExisting()
-    {
+        //Tries to create. Source doesn't exist
         $this->Shell->createLink(TMP . 'noExistingFile', TMP . 'target');
 
         $error = $this->err->messages();
         $this->assertEquals(1, count($error));
         $this->assertEquals('<error>File or directory /tmp/noExistingFile not readable</error>', $error[0]);
-    }
 
-    /**
-     * Tests for `createLink()` method, using a no existing directory
-     * @test
-     */
-    public function testCreateLinkNoExistingDir()
-    {
-        $origin = TMP . 'origin';
-        $target = TMP . 'noExistingDir' . DS . 'example';
-
-        file_put_contents($origin, null);
-
-        $this->assertFalse($this->Shell->createLink($origin, $target));
+        //Tries to create. Destination is not writable
+        $this->assertFalse($this->Shell->createLink($source, TMP . 'noExistingDir' . DS . 'example'));
 
         $error = $this->err->messages();
-        $this->assertEquals(1, count($error));
-        $this->assertEquals('<error>File or directory /tmp/noExistingDir not writeable</error>', $error[0]);
+        $this->assertEquals(2, count($error));
+        $this->assertEquals('<error>File or directory /tmp/noExistingDir not writeable</error>', $error[1]);
 
-        unlink($origin);
+        unlink($source);
+        unlink($dest);
     }
 
     /**
