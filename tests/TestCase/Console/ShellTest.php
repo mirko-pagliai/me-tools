@@ -88,6 +88,31 @@ class ShellTest extends TestCase
     }
 
     /**
+     * Tests for `copyFile()` method
+     * @test
+     */
+    public function testCopyFile()
+    {
+        $source = TMP . 'example';
+        $copy = TMP . 'example_copy';
+
+        file_put_contents($source, 'Test');
+
+        $this->Shell->params = ['verbose' => true];
+
+        $this->io->expects($this->once())
+            ->method('verbose')
+            ->with('File /tmp/example_copy has been copied', 1);
+
+        $this->assertFileNotExists($copy);
+        $this->assertTrue($this->Shell->copyFile($source, $copy));
+        $this->assertFileExists($copy);
+
+        unlink($source);
+        unlink($copy);
+    }
+
+    /**
      * Tests for `createFile()` method
      * @test
      */

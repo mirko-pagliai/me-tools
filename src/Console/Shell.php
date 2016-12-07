@@ -41,6 +41,30 @@ class Shell extends CakeShell
     }
 
     /**
+     * Copies a file
+     * @param string $source Source file
+     * @param string $dest Destination
+     * @return bool
+     */
+    public function copyFile($source, $dest)
+    {
+        //Checks if the destination file already exists
+        if (file_exists($dest)) {
+            $this->verbose(__d('me_tools', 'File or directory {0} already exists', rtr($dest)));
+
+            return false;
+        }
+
+        if (copy($source, $dest)) {
+            $this->verbose(__d('me_tools', 'File {0} has been copied', rtr($dest)));
+        } else {
+            $this->err(__d('me_tools', 'File {0} has not been copied', rtr($dest)));
+        }
+
+        return true;
+    }
+
+    /**
      * Creates a file at given path
      * @param string $path Where to put the file
      * @param string $contents Content to put in the file
