@@ -162,6 +162,11 @@ class ShellTest extends TestCase
         ], $this->out->messages());
 
         rmdir($dir);
+
+        //Tries to create. Not writable directory
+        $this->assertFalse($this->Shell->createDir(DS . 'notWritable'));
+
+        $this->assertEquals(['<error>Failed to create file or directory /notWritable</error>'], $this->err->messages());
     }
 
     /**

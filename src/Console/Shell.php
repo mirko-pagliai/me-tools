@@ -89,7 +89,14 @@ class Shell extends CakeShell
             return false;
         }
 
-        mkdir($path, 0777, true);
+        $success = @mkdir($path, 0777, true);
+
+        if (!$success) {
+            $this->err(__d('me_tools', 'Failed to create file or directory {0}', rtr($path)));
+
+            return false;
+        }
+
         chmod($path, 0777);
 
         $this->verbose(__d('me_tools', 'Created {0} directory', rtr($path)));
