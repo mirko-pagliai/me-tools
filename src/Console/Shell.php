@@ -89,6 +89,7 @@ class Shell extends CakeShell
             return false;
         }
 
+        //@codingStandardsIgnoreLine
         $success = @mkdir($path, 0777, true);
 
         if (!$success) {
