@@ -81,7 +81,9 @@ class InstallShellTest extends TestCase
             glob(WWW_ROOT . 'fonts' . DS . '*'),
             glob(WWW_ROOT . 'vendor' . DS . '*')
         ) as $file) {
-            unlink($file);
+            if (basename($file) !== 'empty') {
+                unlink($file);
+            }
         }
 
         unset($this->InstallShell);
@@ -153,8 +155,8 @@ class InstallShellTest extends TestCase
 
         $error = $this->err->messages();
         $this->assertEquals([
-            '<error>File or directory vendor/eonasdan/bootstrap-datetimepicker/build not readable</error>',
-            '<error>File or directory vendor/components/moment/min not readable</error>',
+            '<error>File or directory /vendor/eonasdan/bootstrap-datetimepicker/build not readable</error>',
+            '<error>File or directory /vendor/components/moment/min not readable</error>',
         ], $error);
     }
 
