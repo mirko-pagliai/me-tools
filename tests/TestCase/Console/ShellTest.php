@@ -181,12 +181,16 @@ class ShellTest extends TestCase
         $this->assertTrue($this->Shell->createLink($source, $dest));
         $this->assertFileExists($dest);
 
+        $output = $this->out->messages();
+        $this->assertEquals(1, count($output));
+        $this->assertEquals('Link /tmp/example has been created', $output[0]);
+
         //Tries to create. The link already exists
         $this->assertFalse($this->Shell->createLink($source, $dest));
 
         $output = $this->out->messages();
-        $this->assertEquals(1, count($output));
-        $this->assertEquals('File or directory /tmp/example already exists', $output[0]);
+        $this->assertEquals(2, count($output));
+        $this->assertEquals('File or directory /tmp/example already exists', $output[1]);
 
         //Tries to create. Source doesn't exist
         $this->Shell->createLink(TMP . 'noExistingFile', TMP . 'target');

@@ -123,7 +123,11 @@ class Shell extends CakeShell
             return false;
         }
 
-        return symlink($origin, $target);
+        symlink($origin, $target);
+
+        $this->verbose(__d('me_tools', 'Link {0} has been created', rtr($target)));
+
+        return true;
     }
 
     /**
