@@ -154,6 +154,7 @@ class ShellTest extends TestCase
         $this->assertFileNotExists($dir);
         $this->assertTrue($this->Shell->createDir($dir));
         $this->assertFileExists($dir);
+        $this->assertEquals('0777', substr(sprintf('%o', fileperms($dir)), -4));
 
         $this->assertEquals([
             'File or directory /tmp/ already exists',

@@ -90,6 +90,7 @@ class Shell extends CakeShell
         }
 
         mkdir($path, 0777, true);
+        chmod($path, 0777);
 
         $this->verbose(__d('me_tools', 'Created {0} directory', rtr($path)));
 
