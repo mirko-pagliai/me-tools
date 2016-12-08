@@ -253,7 +253,7 @@ class GlobalFunctionsTest extends TestCase
      */
     public function testRtr()
     {
-        $result = rtr(ROOT . DS . 'my' . DS . 'folder');
+        $result = rtr(ROOT . 'my' . DS . 'folder');
         $expected = 'my' . DS . 'folder';
         $this->assertEquals($expected, $result);
 

@@ -249,7 +249,7 @@ if (!function_exists('rtr')) {
      */
     function rtr($path)
     {
-        return preg_replace(sprintf('/^%s/', preg_quote(ROOT . DS, DS)), null, $path);
+        return preg_replace(sprintf('/^%s/', preg_quote(ROOT, DS)), null, $path);
     }
 }
 
