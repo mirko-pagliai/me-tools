@@ -36,7 +36,7 @@ class InstallShell extends Shell
      * Configuration files to be copied
      * @var array
      */
-    protected $configs = [];
+    protected $config = [];
 
     /**
      * Assets for which create symbolic links.
