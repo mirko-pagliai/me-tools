@@ -120,7 +120,7 @@ class ShellTest extends TestCase
         $error = $this->err->messages();
         $this->assertEquals(2, count($error));
         $this->assertEquals('<error>File or directory /tmp/noExistingFile not readable</error>', $error[0]);
-        $this->assertEquals('<error>File /tmp/noExistingDir/example_copy has not been copied</error>', $error[1]);
+        $this->assertEquals('<error>File or directory /tmp/noExistingDir not writeable</error>', $error[1]);
 
         //Now it works
         $this->assertFileNotExists($dest);

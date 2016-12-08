@@ -62,14 +62,14 @@ class Shell extends CakeShell
             return false;
         }
 
-        //@codingStandardsIgnoreLine
-        $copy = @copy($source, $dest);
-
-        if (!$copy) {
-            $this->err(__d('me_tools', 'File {0} has not been copied', rtr($dest)));
+        //Checks if the destination directory is writeable
+        if (!is_writable(dirname($dest))) {
+            $this->err(__d('me_tools', 'File or directory {0} not writeable', rtr(dirname($dest))));
 
             return false;
         }
+
+        copy($source, $dest);
 
         $this->verbose(__d('me_tools', 'File {0} has been copied', rtr($dest)));
 
