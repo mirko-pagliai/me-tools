@@ -1,5 +1,9 @@
 # 2.x branch
 ## 2.11 branch
+### 2.11.2
+* some improvements for `Shell` and `InstallShell` classes;
+* fixed little bugs for `InstallShell`.
+
 ### 2.11.1
 * `UploaderComponent` has been rewritten and improved;
 * added tests for `UploaderComponent` class;
