@@ -139,7 +139,7 @@ class InstallShell extends Shell
     public function all()
     {
         if ($this->param('force')) {
-            $this->createDirectories(true);
+            $this->createDirectories();
             $this->setPermissions(true);
             $this->copyConfig();
             $this->createRobots();
@@ -229,42 +229,14 @@ class InstallShell extends Shell
 
     /**
      * Creates directories
-     * @param bool $force Forces creation
      * @return void
      * @uses $paths
+     * @uses createDir()
      */
-    public function createDirectories($force = false)
+    public function createDirectories()
     {
-        $error = false;
-
         foreach ($this->paths as $path) {
-            if (file_exists($path)) {
-                $this->verbose(__d('me_tools', 'File or directory {0} already exists', rtr($path)));
-
-                continue;
-            }
-
-            if (mkdir($path, 0777, true)) {
-                $this->verbose(__d('me_tools', 'Created {0} directory', rtr($path)));
-            } else {
-                $error = true;
-
-                $this->err(__d('me_tools', 'Failed to create file or directory {0}', rtr($path)));
-            }
-        }
-
-        //In case of error, asks for sudo
-        if ($error && which('sudo')) {
-            if ($this->param('force') || $force) {
-                exec(sprintf('sudo mkdir -p %s', implode(' ', $this->paths)));
-
-                return;
-            }
-
-            $ask = $this->in(__d('me_tools', 'Some directories were not created. Try again using {0}?', 'sudo'), ['Y', 'n'], 'Y');
-            if (in_array($ask, ['Y', 'y'])) {
-                exec(sprintf('sudo mkdir -p %s', implode(' ', $this->paths)));
-            }
+            $this->createDir($path);
         }
     }
 

@@ -117,6 +117,39 @@ class InstallShellTest extends TestCase
     }
 
     /**
+     * Tests for `createDirectories()` method
+     * @test
+     */
+    public function testCreateDirectories()
+    {
+        $this->InstallShell->createDirectories();
+
+        $this->assertEquals([
+            'File or directory /tmp/ already exists',
+            'File or directory /tmp/ already exists',
+            'Created /tmp/cache directory',
+            'Created /tmp/cache/models directory',
+            'Created /tmp/cache/persistent directory',
+            'Created /tmp/cache/views directory',
+            'File or directory /tmp/sessions already exists',
+            'File or directory /tmp/tests already exists',
+            'Created tests/test_app/webroot/files directory',
+            'File or directory tests/test_app/webroot/fonts already exists',
+            'File or directory tests/test_app/webroot/vendor already exists',
+        ], $this->out->messages());
+
+        foreach ([
+            TMP . 'cache' . DS . 'models',
+            TMP . 'cache' . DS . 'persistent',
+            TMP . 'cache' . DS . 'views',
+            TMP . 'cache',
+            WWW_ROOT . 'files',
+        ] as $dir) {
+                rmdir($dir);
+        }
+    }
+
+    /**
      * Tests for `createRobots()` method
      * @test
      */
