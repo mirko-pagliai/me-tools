@@ -140,6 +140,31 @@ class ShellTest extends TestCase
     }
 
     /**
+     * Tests for `createDir()` method
+     * @test
+     */
+    public function testCreateDir()
+    {
+        //Tries to create. Directory already exists
+        $this->assertFalse($this->Shell->createDir(TMP));
+
+        $dir = TMP . 'firstDir' . DS . 'secondDir';
+
+        //Creates the directory
+        $this->assertFileNotExists($dir);
+        $this->assertTrue($this->Shell->createDir($dir));
+        $this->assertFileExists($dir);
+
+        $output = $this->out->messages();
+        $this->assertEquals([
+            'File or directory /tmp/ already exists',
+            'Created /tmp/firstDir/secondDir directory',
+        ], $output);
+
+        rmdir($dir);
+    }
+
+    /**
      * Tests for `createFile()` method
      * @test
      */

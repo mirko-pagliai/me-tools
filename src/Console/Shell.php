@@ -77,6 +77,26 @@ class Shell extends CakeShell
     }
 
     /**
+     * Creates a directory
+     * @param string $path Directory path
+     * @return bool
+     */
+    public function createDir($path)
+    {
+        if (file_exists($path)) {
+            $this->verbose(__d('me_tools', 'File or directory {0} already exists', rtr($path)));
+
+            return false;
+        }
+
+        mkdir($path, 0777, true);
+
+        $this->verbose(__d('me_tools', 'Created {0} directory', rtr($path)));
+
+        return true;
+    }
+
+    /**
      * Creates a file at given path
      * @param string $path Where to put the file
      * @param string $contents Content to put in the file
