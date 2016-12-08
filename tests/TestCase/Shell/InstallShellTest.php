@@ -76,7 +76,45 @@ class InstallShellTest extends TestCase
     {
         parent::tearDown();
 
+        //Deletes all fonts and vendors
+        foreach (array_merge(
+            glob(WWW_ROOT . 'fonts' . DS . '*'),
+            glob(WWW_ROOT . 'vendor' . DS . '*')
+        ) as $file) {
+            unlink($file);
+        }
+
         unset($this->InstallShell);
+    }
+
+    /**
+     * Tests for `copyConfig()` method
+     * @test
+     */
+    public function testCopyConfig()
+    {
+        $this->InstallShell->copyConfig();
+
+        $output = $this->out->messages();
+        $this->assertEquals(1, count($output));
+        $this->assertEquals('File or directory tests/test_app/config/recaptcha.php already exists', $output[0]);
+    }
+
+    /**
+     * Tests for `copyFonts()` method
+     * @test
+     */
+    public function testCopyFonts()
+    {
+        $this->InstallShell->copyFonts();
+
+        $output = $this->out->messages();
+        $this->assertEquals([
+            'Link tests/test_app/webroot/fonts/fontawesome-webfont.eot has been created',
+            'Link tests/test_app/webroot/fonts/fontawesome-webfont.ttf has been created',
+            'Link tests/test_app/webroot/fonts/fontawesome-webfont.woff has been created',
+            'Link tests/test_app/webroot/fonts/fontawesome-webfont.woff2 has been created',
+        ], $output);
     }
 
     /**
@@ -96,6 +134,28 @@ class InstallShellTest extends TestCase
         );
 
         unlink(WWW_ROOT . 'robots.txt');
+    }
+
+    /**
+     * Tests for `createVendorsLinks()` method
+     * @test
+     */
+    public function testCreateVendorsLinks()
+    {
+        $this->InstallShell->createVendorsLinks();
+
+        $output = $this->out->messages();
+        $this->assertEquals([
+            'Link tests/test_app/webroot/vendor/jquery has been created',
+            'Link tests/test_app/webroot/vendor/font-awesome has been created',
+            'Link tests/test_app/webroot/vendor/fancybox has been created',
+        ], $output);
+
+        $error = $this->err->messages();
+        $this->assertEquals([
+            '<error>File or directory vendor/eonasdan/bootstrap-datetimepicker/build not readable</error>',
+            '<error>File or directory vendor/components/moment/min not readable</error>',
+        ], $error);
     }
 
     /**

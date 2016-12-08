@@ -67,15 +67,16 @@ class InstallShell extends Shell
 
     /**
      * Construct
+     * @param \Cake\Console\ConsoleIo|null $io An io instance
      * @uses $config
      * @uses $fonts
      * @uses $links
      * @uses $packages
      * @uses $paths
      */
-    public function __construct()
+    public function __construct(\Cake\Console\ConsoleIo $io = null)
     {
-        parent::__construct();
+        parent::__construct($io);
 
         //Configuration files to be copied
         $this->config = [
@@ -195,6 +196,7 @@ class InstallShell extends Shell
      * Copies the configuration files
      * @return void
      * @uses $config
+     * @uses MeTools\Console\Shell::copyFile()
      * @uses MeTools\Core\Plugin::path()
      */
     public function copyConfig()
@@ -202,21 +204,10 @@ class InstallShell extends Shell
         foreach ($this->config as $file) {
             list($plugin, $file) = pluginSplit($file);
 
-            $file = sprintf('%s.php', $file);
-            $target = ROOT . DS . 'config' . DS . $file;
+            $source = Plugin::path($plugin, 'config' . DS . $file . '.php');
+            $dest = CONFIG . basename($source);
 
-            //Checks if the file already exists
-            if (is_readable($target)) {
-                $this->verbose(__d('me_tools', 'File or directory {0} already exists', rtr($target)));
-
-                continue;
-            }
-
-            if (copy(Plugin::path($plugin, 'config' . DS . $file), $target)) {
-                $this->verbose(__d('me_tools', 'The file {0} has been copied', rtr($target)));
-            } else {
-                $this->err(__d('me_tools', 'The file {0} has not been copied', rtr($target)));
-            }
+            $this->copyFile($source, $dest);
         }
     }
 
@@ -224,41 +215,15 @@ class InstallShell extends Shell
      * Creates symbolic links for fonts
      * @return void
      * @uses $fonts
+     * @uses MeTools\Console\Shell::createLink()
      */
     public function copyFonts()
     {
-        $destinationDir = WWW_ROOT . 'fonts';
-
-        //Checks if the target directory (`webroot/fonts/`) is writeable
-        if (!is_writable($destinationDir)) {
-            $this->err(__d('me_tools', 'File or directory {0} not writeable', rtr($destinationDir)));
-
-            return;
-        }
-
         foreach ($this->fonts as $origin) {
             $origin = ROOT . DS . 'vendor' . DS . $origin;
+            $target = WWW_ROOT . 'fonts' . DS . basename($origin);
 
-            //Continues, if the origin file doesn't exist
-            if (!file_exists($origin)) {
-                continue;
-            }
-
-            $destination = $destinationDir . DS . basename($origin);
-
-            //Continues, if the link already exists
-            if (file_exists($destination)) {
-                $this->verbose(__d('me_tools', 'File or directory {0} already exists', rtr($destination)));
-
-                continue;
-            }
-
-            //Creates the symbolic link
-            if (symlink($origin, $destination)) {
-                $this->verbose(__d('me_tools', 'Created symbolic link to {0}', rtr($destination)));
-            } else {
-                $this->err(__d('me_tools', 'Failed to create a symbolic link to {0}', rtr($destination)));
-            }
+            $this->createLink($origin, $target);
         }
     }
 
@@ -325,7 +290,10 @@ class InstallShell extends Shell
     public function createVendorsLinks()
     {
         foreach ($this->links as $origin => $target) {
-            $this->createLink(ROOT . DS . 'vendor' . DS . $origin, WWW_ROOT . 'vendor' . DS . $target);
+            $origin = ROOT . DS . 'vendor' . DS . $origin;
+            $target = WWW_ROOT . 'vendor' . DS . $target;
+
+            $this->createLink($origin, $target);
         }
     }
 
