@@ -151,7 +151,7 @@ class ShellTest extends TestCase
         $this->assertFileNotExists($tmp);
         $this->assertTrue($this->Shell->createFile($tmp, null));
         $this->assertFileExists($tmp);
-        
+
         $output = $this->out->messages();
         $this->assertEquals(3, count($output));
 
@@ -180,7 +180,7 @@ class ShellTest extends TestCase
         $this->assertFileNotExists($dest);
         $this->assertTrue($this->Shell->createLink($source, $dest));
         $this->assertFileExists($dest);
-        
+
         //Tries to create. The link already exists
         $this->assertFalse($this->Shell->createLink($source, $dest));
 
