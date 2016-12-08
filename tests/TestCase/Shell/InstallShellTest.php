@@ -97,9 +97,7 @@ class InstallShellTest extends TestCase
     {
         $this->InstallShell->copyConfig();
 
-        $output = $this->out->messages();
-        $this->assertEquals(1, count($output));
-        $this->assertEquals('File or directory tests/test_app/config/recaptcha.php already exists', $output[0]);
+        $this->assertEquals(['File or directory tests/test_app/config/recaptcha.php already exists'], $this->out->messages());
     }
 
     /**
@@ -110,13 +108,12 @@ class InstallShellTest extends TestCase
     {
         $this->InstallShell->copyFonts();
 
-        $output = $this->out->messages();
         $this->assertEquals([
             'Link tests/test_app/webroot/fonts/fontawesome-webfont.eot has been created',
             'Link tests/test_app/webroot/fonts/fontawesome-webfont.ttf has been created',
             'Link tests/test_app/webroot/fonts/fontawesome-webfont.woff has been created',
             'Link tests/test_app/webroot/fonts/fontawesome-webfont.woff2 has been created',
-        ], $output);
+        ], $this->out->messages());
     }
 
     /**
@@ -146,18 +143,16 @@ class InstallShellTest extends TestCase
     {
         $this->InstallShell->createVendorsLinks();
 
-        $output = $this->out->messages();
         $this->assertEquals([
             'Link tests/test_app/webroot/vendor/jquery has been created',
             'Link tests/test_app/webroot/vendor/font-awesome has been created',
             'Link tests/test_app/webroot/vendor/fancybox has been created',
-        ], $output);
+        ], $this->out->messages());
 
-        $error = $this->err->messages();
         $this->assertEquals([
             '<error>File or directory /vendor/eonasdan/bootstrap-datetimepicker/build not readable</error>',
             '<error>File or directory /vendor/components/moment/min not readable</error>',
-        ], $error);
+        ], $this->err->messages());
     }
 
     /**

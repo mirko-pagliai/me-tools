@@ -117,10 +117,10 @@ class ShellTest extends TestCase
         //Tries to copy. Destination is not writable
         $this->assertFalse($this->Shell->copyFile($source, TMP . 'noExistingDir' . DS . 'example_copy'));
 
-        $error = $this->err->messages();
-        $this->assertEquals(2, count($error));
-        $this->assertEquals('<error>File or directory /tmp/noExistingFile not readable</error>', $error[0]);
-        $this->assertEquals('<error>File or directory /tmp/noExistingDir not writeable</error>', $error[1]);
+        $this->assertEquals([
+            '<error>File or directory /tmp/noExistingFile not readable</error>',
+            '<error>File or directory /tmp/noExistingDir not writeable</error>',
+        ], $this->err->messages());
 
         //Now it works
         $this->assertFileNotExists($dest);
@@ -130,10 +130,10 @@ class ShellTest extends TestCase
         //Tries to copy. Destination already exists
         $this->assertFalse($this->Shell->copyFile($source, $dest));
 
-        $output = $this->out->messages();
-        $this->assertEquals(2, count($output));
-        $this->assertEquals('File /tmp/example_copy has been copied', $output[0]);
-        $this->assertEquals('File or directory /tmp/example_copy already exists', $output[1]);
+        $this->assertEquals([
+            'File /tmp/example_copy has been copied',
+            'File or directory /tmp/example_copy already exists',
+        ], $this->out->messages());
 
         unlink($source);
         unlink($dest);
@@ -155,11 +155,10 @@ class ShellTest extends TestCase
         $this->assertTrue($this->Shell->createDir($dir));
         $this->assertFileExists($dir);
 
-        $output = $this->out->messages();
         $this->assertEquals([
             'File or directory /tmp/ already exists',
             'Created /tmp/firstDir/secondDir directory',
-        ], $output);
+        ], $this->out->messages());
 
         rmdir($dir);
     }
@@ -177,15 +176,15 @@ class ShellTest extends TestCase
         $this->assertTrue($this->Shell->createFile($tmp, null));
         $this->assertFileExists($tmp);
 
-        $output = $this->out->messages();
-        $this->assertEquals(3, count($output));
-
         //Tries to create. The file already exists
         $this->assertFalse($this->Shell->createFile($tmp, null));
 
-        $output = $this->out->messages();
-        $this->assertEquals(4, count($output));
-        $this->assertEquals('File or directory /tmp/example already exists', $output[3]);
+        $this->assertEquals([
+            '',
+            'Creating file /tmp/example',
+            '<success>Wrote</success> `/tmp/example`',
+            'File or directory /tmp/example already exists',
+        ], $this->out->messages());
 
         unlink($tmp);
     }
@@ -206,30 +205,24 @@ class ShellTest extends TestCase
         $this->assertTrue($this->Shell->createLink($source, $dest));
         $this->assertFileExists($dest);
 
-        $output = $this->out->messages();
-        $this->assertEquals(1, count($output));
-        $this->assertEquals('Link /tmp/example has been created', $output[0]);
-
         //Tries to create. The link already exists
         $this->assertFalse($this->Shell->createLink($source, $dest));
 
-        $output = $this->out->messages();
-        $this->assertEquals(2, count($output));
-        $this->assertEquals('File or directory /tmp/example already exists', $output[1]);
-
+        $this->assertEquals([
+            'Link /tmp/example has been created',
+            'File or directory /tmp/example already exists',
+        ], $this->out->messages());
+        
         //Tries to create. Source doesn't exist
         $this->Shell->createLink(TMP . 'noExistingFile', TMP . 'target');
-
-        $error = $this->err->messages();
-        $this->assertEquals(1, count($error));
-        $this->assertEquals('<error>File or directory /tmp/noExistingFile not readable</error>', $error[0]);
 
         //Tries to create. Destination is not writable
         $this->assertFalse($this->Shell->createLink($source, TMP . 'noExistingDir' . DS . 'example'));
 
-        $error = $this->err->messages();
-        $this->assertEquals(2, count($error));
-        $this->assertEquals('<error>File or directory /tmp/noExistingDir not writeable</error>', $error[1]);
+        $this->assertEquals([
+            '<error>File or directory /tmp/noExistingFile not readable</error>',
+            '<error>File or directory /tmp/noExistingDir not writeable</error>',
+        ], $this->err->messages());
 
         unlink($source);
         unlink($dest);
@@ -243,9 +236,7 @@ class ShellTest extends TestCase
     {
         $this->Shell->comment('This is a text');
 
-        $output = $this->out->messages();
-        $this->assertEquals(1, count($output));
-        $this->assertEquals('<comment>This is a text</comment>', $output[0]);
+        $this->assertEquals(['<comment>This is a text</comment>'], $this->out->messages());
     }
 
     /**
@@ -256,9 +247,7 @@ class ShellTest extends TestCase
     {
         $this->Shell->question('This is a text');
 
-        $output = $this->out->messages();
-        $this->assertEquals(1, count($output));
-        $this->assertEquals('<question>This is a text</question>', $output[0]);
+        $this->assertEquals(['<question>This is a text</question>'], $this->out->messages());
     }
 
     /**
@@ -269,8 +258,6 @@ class ShellTest extends TestCase
     {
         $this->Shell->warning('This is a text');
 
-        $error = $this->err->messages();
-        $this->assertEquals(1, count($error));
-        $this->assertEquals('<warning>This is a text</warning>', $error[0]);
+        $this->assertEquals(['<warning>This is a text</warning>'], $this->err->messages());
     }
 }
