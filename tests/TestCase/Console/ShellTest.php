@@ -213,7 +213,7 @@ class ShellTest extends TestCase
             'Link /tmp/example has been created',
             'File or directory /tmp/example already exists',
         ], $this->out->messages());
-        
+
         //Tries to create. Source doesn't exist
         $this->Shell->createLink(TMP . 'noExistingFile', TMP . 'target');
 
