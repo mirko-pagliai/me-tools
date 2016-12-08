@@ -22,6 +22,8 @@
  */
 namespace MeTools\Test\TestCase\Shell;
 
+use Cake\Console\ConsoleIo;
+use Cake\TestSuite\Stub\ConsoleOutput;
 use Cake\TestSuite\TestCase;
 use MeTools\Shell\InstallShell;
 
@@ -31,14 +33,19 @@ use MeTools\Shell\InstallShell;
 class InstallShellTest extends TestCase
 {
     /**
-     * @var \Cake\Shell\InstallShell
+     * @var \MeTools\Shell\InstallShell
      */
     protected $InstallShell;
 
     /**
-     * @var \Cake\Console\ConsoleIo
+     * @var \Cake\TestSuite\Stub\ConsoleOutput
      */
-    protected $io;
+    protected $err;
+
+    /**
+     * @var \Cake\TestSuite\Stub\ConsoleOutput
+     */
+    protected $out;
 
     /**
      * Setup the test case, backup the static object values so they can be
@@ -50,10 +57,15 @@ class InstallShellTest extends TestCase
     {
         parent::setUp();
 
-        $this->io = $this->getMockBuilder('Cake\Console\ConsoleIo')
-            ->disableOriginalConstructor()
+        $this->out = new ConsoleOutput();
+        $this->err = new ConsoleOutput();
+        $io = new ConsoleIo($this->out, $this->err);
+        $io->level(2);
+
+        $this->InstallShell = $this->getMockBuilder(InstallShell::class)
+            ->setMethods(['in', '_stop'])
+            ->setConstructorArgs([$io])
             ->getMock();
-        $this->InstallShell = new InstallShell($this->io);
     }
 
     /**
@@ -64,7 +76,7 @@ class InstallShellTest extends TestCase
     {
         parent::tearDown();
 
-        unset($this->InstallShell, $this->io);
+        unset($this->InstallShell);
     }
 
     /**
