@@ -25,18 +25,7 @@ namespace MeTools\Test\TestCase\Console;
 use Cake\Console\ConsoleIo;
 use Cake\TestSuite\Stub\ConsoleOutput;
 use Cake\TestSuite\TestCase;
-use MeTools\Console\Shell as BaseShell;
-
-/**
- * Makes public some protected methods/properties from `Shell`
- */
-class Shell extends BaseShell
-{
-    public function welcome()
-    {
-        return parent::_welcome();
-    }
-}
+use MeTools\Console\Shell;
 
 /**
  * ShellTest class
@@ -96,7 +85,10 @@ class ShellTest extends TestCase
      */
     public function testWelcome()
     {
-        $this->assertNull($this->Shell->welcome());
+        $reflector = new \ReflectionMethod(get_class($this->Shell), '_welcome');
+        $reflector->setAccessible(true);
+
+        $this->assertNull($reflector->invoke($this->Shell, '_welcome'));
     }
 
     /**
