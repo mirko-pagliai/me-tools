@@ -240,7 +240,38 @@ class InstallShellTest extends TestCase
 
         unlink($file);
     }
+    
+    /**
+     * Test for `setPermissions()` method
+     * @test
+     */
+    public function testSetPermissions()
+    {
+        //Resets the `paths` property, removing some values
+        $paths = array_diff(array_unique($this->InstallShell->paths), [
+            TMP,
+            WWW_ROOT . 'fonts',
+            WWW_ROOT . 'vendor',
+        ]);
+        $reflector = new \ReflectionProperty(get_class($this->InstallShell), 'paths');
+        $reflector->setAccessible(true);
+        $reflector->setValue($this->InstallShell, $paths);
 
+        $this->InstallShell->setPermissions();
+
+        $this->assertEquals([
+            'Setted permissions on /tmp/sessions',
+            'Setted permissions on /tmp/tests',
+        ], $this->out->messages());
+        $this->assertEquals([
+            '<error>Failed to set permissions on /tmp/cache</error>',
+            '<error>Failed to set permissions on /tmp/cache/models</error>',
+            '<error>Failed to set permissions on /tmp/cache/persistent</error>',
+            '<error>Failed to set permissions on /tmp/cache/views</error>',
+            '<error>Failed to set permissions on tests/test_app/webroot/files</error>',
+        ], $this->err->messages());
+    }
+    
     /**
      * Test for `getOptionParser()` method
      * @test
