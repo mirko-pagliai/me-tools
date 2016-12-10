@@ -270,42 +270,45 @@ class InstallShell extends Shell
     }
 
     /**
-     * Fixes `composer.json`
+     * Fixes the `composer.json` file, adding the `component-dir` value
+     * @param string $path Path for `composer.json` file
      * @return void
      */
-    public function fixComposerJson()
+    public function fixComposerJson($path = null)
     {
-        $file = ROOT . DS . 'composer.json';
+        if (empty($path)) {
+            $path = ROOT . DS . 'composer.json';
+        }
 
-        if (!is_writeable($file)) {
-            $this->err(__d('me_tools', 'File or directory {0} not writeable', rtr($file)));
+        if (!is_writeable($path)) {
+            $this->err(__d('me_tools', 'File or directory {0} not writeable', rtr($path)));
 
             return;
         }
 
         //Gets and decodes the file
-        $contents = json_decode(file_get_contents($file), true);
+        $contents = json_decode(file_get_contents($path), true);
+
+        if (empty($contents)) {
+            $this->err(__d('me_tools', 'The file {0} does not seem a valid {1} file', rtr($path), 'composer.json'));
+
+            return;
+        }
 
         //Checks if the file has been fixed
         if (!empty($contents['config']['component-dir']) &&
             $contents['config']['component-dir'] === 'vendor/components'
         ) {
-            $this->verbose(__d('me_tools', 'The file {0} doesn\'t need to be fixed', rtr($file)));
+            $this->verbose(__d('me_tools', 'The file {0} doesn\'t need to be fixed', rtr($path)));
 
             return;
         }
 
-        //Fixeds and encodes the content
-        $contents = (new File($file))->prepare(json_encode(
-            am($contents, ['config' => ['component-dir' => 'vendor/components']]),
-            JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT
-        ));
+        $contents += ['config' => ['component-dir' => 'vendor/components']];
 
-        if ((new File($file))->write($contents)) {
-            $this->verbose(__d('me_tools', 'The file {0} has been fixed', rtr($file)));
-        } else {
-            $this->err(__d('me_tools', 'The file {0} has not been fixed', rtr($file)));
-        }
+        file_put_contents($path, json_encode($contents, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
+
+        $this->verbose(__d('me_tools', 'The file {0} has been fixed', rtr($path)));
     }
 
     /**

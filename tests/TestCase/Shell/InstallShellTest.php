@@ -189,6 +189,54 @@ class InstallShellTest extends TestCase
     }
 
     /**
+     * Test for `fixComposerJson()` method
+     * @test
+     */
+    public function testFixComposerJson()
+    {
+        //Tries to fix a no existing file
+        $this->InstallShell->fixComposerJson('noExisting');
+
+        //Writes an invalid composer.json file
+        $file = TMP . 'invalid.json';
+        file_put_contents($file, 'String');
+
+        //Tries to fix an invalid file
+        $this->InstallShell->fixComposerJson($file);
+
+        unlink($file);
+
+        $this->assertEquals([
+            '<error>File or directory noExisting not writeable</error>',
+            '<error>The file /tmp/invalid.json does not seem a valid composer.json file</error>',
+        ], $this->err->messages());
+
+        //Writes a `composer.json` file
+        $file = APP . 'composer.json';
+        $json = [
+            'name' => 'example',
+            'description' => 'example of composer.json',
+            'type' => 'project',
+            'require' => ['php' => '>=5.5.9'],
+            'autoload' => ['psr-4' => ['App' => 'src']],
+        ];
+        file_put_contents($file, json_encode($json, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
+
+        //Fixes the file
+        $this->InstallShell->fixComposerJson($file);
+
+        //Tries to fix again
+        $this->InstallShell->fixComposerJson($file);
+
+        $this->assertEquals([
+            'The file tests/test_app/composer.json has been fixed',
+            'The file tests/test_app/composer.json doesn\'t need to be fixed',
+        ], $this->out->messages());
+
+        unlink($file);
+    }
+
+    /**
      * Test for `getOptionParser()` method
      * @test
      */
