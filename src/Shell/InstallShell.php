@@ -22,8 +22,6 @@
  */
 namespace MeTools\Shell;
 
-use Cake\Filesystem\File;
-use Cake\Filesystem\Folder;
 use MeTools\Console\Shell;
 use MeTools\Core\Plugin;
 
@@ -140,7 +138,7 @@ class InstallShell extends Shell
     {
         if ($this->param('force')) {
             $this->createDirectories();
-            $this->setPermissions(true);
+            $this->setPermissions();
             $this->copyConfig();
             $this->createRobots();
             $this->fixComposerJson();
@@ -379,38 +377,14 @@ class InstallShell extends Shell
 
     /**
      * Sets permissions on directories
-     * @param bool $force Forces settings
      * @return void
      * @uses $paths
+     * @uses folderChmod()
      */
-    public function setPermissions($force = false)
+    public function setPermissions()
     {
-        $error = false;
-
         foreach ($this->paths as $path) {
-            if ((new Folder())->chmod($path, 0777, true)) {
-                $this->verbose(__d('me_tools', 'Setted permissions on {0}', rtr($path)));
-            } else {
-                $this->err(__d('me_tools', 'Failed to set permissions on {0}', rtr($path)));
-
-                $error = true;
-            }
-        }
-
-        //In case of error, asks for sudo
-        if ($error && which('sudo')) {
-            $command = sprintf('sudo chmod -R 777 %s', implode(' ', $this->paths));
-
-            if ($this->param('force') || $force) {
-                exec($command);
-
-                return;
-            }
-
-            $ask = $this->in(__d('me_tools', 'Some directories were not created. Try again using {0}?', 'sudo'), ['Y', 'n'], 'Y');
-            if (in_array($ask, ['Y', 'y'])) {
-                exec($command);
-            }
+            $this->folderChmod($path, 0777);
         }
     }
 
