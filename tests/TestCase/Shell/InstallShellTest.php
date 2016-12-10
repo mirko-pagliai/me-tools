@@ -128,12 +128,17 @@ class InstallShellTest extends TestCase
             'File or directory /tmp/ already exists',
             'File or directory /tmp/ already exists',
             'Created /tmp/cache directory',
+            'Setted permissions on /tmp/cache',
             'Created /tmp/cache/models directory',
+            'Setted permissions on /tmp/cache/models',
             'Created /tmp/cache/persistent directory',
+            'Setted permissions on /tmp/cache/persistent',
             'Created /tmp/cache/views directory',
+            'Setted permissions on /tmp/cache/views',
             'File or directory /tmp/sessions already exists',
             'File or directory /tmp/tests already exists',
             'Created tests/test_app/webroot/files directory',
+            'Setted permissions on tests/test_app/webroot/files',
             'File or directory tests/test_app/webroot/fonts already exists',
             'File or directory tests/test_app/webroot/vendor already exists',
         ], $this->out->messages());
@@ -145,7 +150,7 @@ class InstallShellTest extends TestCase
             TMP . 'cache',
             WWW_ROOT . 'files',
         ] as $dir) {
-                rmdir($dir);
+            rmdir($dir);
         }
     }
 

@@ -24,6 +24,7 @@
 namespace MeTools\Console;
 
 use Cake\Console\Shell as CakeShell;
+use Cake\Filesystem\Folder;
 
 /**
  * Base class for command-line utilities for automating programmer chores.
@@ -77,9 +78,12 @@ class Shell extends CakeShell
     }
 
     /**
-     * Creates a directory
+     * Creates a directory.
+     *
+     * This method creates directories recursively.
      * @param string $path Directory path
      * @return bool
+     * @uses folderChmod()
      */
     public function createDir($path)
     {
@@ -98,9 +102,9 @@ class Shell extends CakeShell
             return false;
         }
 
-        chmod($path, 0777);
-
         $this->verbose(__d('me_tools', 'Created {0} directory', rtr($path)));
+
+        $this->folderChmod($path, 0777);
 
         return true;
     }
@@ -155,6 +159,27 @@ class Shell extends CakeShell
         symlink($origin, $target);
 
         $this->verbose(__d('me_tools', 'Link {0} has been created', rtr($target)));
+
+        return true;
+    }
+
+    /**
+     * Sets folder chmods.
+     *
+     * This method applies permissions recursively.
+     * @param string $path Folder path
+     * @param int $chmod Chmod
+     * @return bool
+     */
+    public function folderChmod($path, $chmod)
+    {
+        if (!(new Folder())->chmod($path, $chmod, true)) {
+            $this->err(__d('me_tools', 'Failed to set permissions on {0}', rtr($path)));
+
+            return false;
+        }
+
+        $this->verbose(__d('me_tools', 'Setted permissions on {0}', rtr($path)));
 
         return true;
     }

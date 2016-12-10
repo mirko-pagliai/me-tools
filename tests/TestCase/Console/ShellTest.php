@@ -44,7 +44,7 @@ class Shell extends BaseShell
 class ShellTest extends TestCase
 {
     /**
-     * @var \Shell
+     * @var \MeTools\Console\Shell
      */
     protected $Shell;
 
@@ -159,6 +159,7 @@ class ShellTest extends TestCase
         $this->assertEquals([
             'File or directory /tmp/ already exists',
             'Created /tmp/firstDir/secondDir directory',
+            'Setted permissions on /tmp/firstDir/secondDir',
         ], $this->out->messages());
 
         rmdir($dir);
@@ -232,6 +233,31 @@ class ShellTest extends TestCase
 
         unlink($source);
         unlink($dest);
+    }
+
+    /**
+     * Tests for `folderChmod()` method
+     * @test
+     */
+    public function testFolderChmod()
+    {
+        //Tries to set chmod for a no existing directory
+        $this->assertFalse($this->Shell->folderChmod(DS . 'noExistingDir', 0777));
+
+        $this->assertEquals(['<error>Failed to set permissions on /noExistingDir</error>'], $this->err->messages());
+
+        //Creates a folder
+        $folder = TMP . 'exampleDir';
+        mkdir($folder);
+
+        //Set chmod
+        $this->assertEquals('0755', substr(sprintf('%o', fileperms($folder)), -4));
+        $this->assertTrue($this->Shell->folderChmod($folder, 0777));
+        $this->assertEquals('0777', substr(sprintf('%o', fileperms($folder)), -4));
+
+        $this->assertEquals(['Setted permissions on /tmp/exampleDir'], $this->out->messages());
+
+        rmdir($folder);
     }
 
     /**
