@@ -240,7 +240,7 @@ class InstallShellTest extends TestCase
 
         unlink($file);
     }
-    
+
     /**
      * Test for `setPermissions()` method
      * @test
@@ -271,7 +271,7 @@ class InstallShellTest extends TestCase
             '<error>Failed to set permissions on tests/test_app/webroot/files</error>',
         ], $this->err->messages());
     }
-    
+
     /**
      * Test for `getOptionParser()` method
      * @test
