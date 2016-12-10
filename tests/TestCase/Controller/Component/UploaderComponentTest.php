@@ -266,14 +266,10 @@ class UploaderComponentTest extends TestCase
      */
     public function testSaveNoWritableDir()
     {
-        //Creates a non-writable directory
-        //@codingStandardsIgnoreLine
-        @mkdir(TMP . 'noWritableDir', 0444);
-
         $file = $this->_createFile();
         $this->Uploader->set($file);
 
-        $this->assertFalse($this->Uploader->save(TMP . 'noWritableDir'));
+        $this->assertFalse($this->Uploader->save(DS));
         $this->assertEquals('The file was not successfully moved to the target directory', $this->Uploader->error());
     }
 

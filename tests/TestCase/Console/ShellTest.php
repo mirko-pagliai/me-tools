@@ -163,6 +163,7 @@ class ShellTest extends TestCase
         ], $this->out->messages());
 
         rmdir($dir);
+        rmdir(dirname($dir));
 
         //Tries to create. Not writable directory
         $this->assertFalse($this->Shell->createDir(DS . 'notWritable'));
