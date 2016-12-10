@@ -8,17 +8,26 @@
         "name": "Mirko Pagliai",
         "email": "mirko.pagliai@gmail.com"
     }],
+    "config": {
+        "component-dir": "vendor/components"
+    },
     "require": {
         "php": ">=5.5.9",
         "cakephp/cakephp": ">=3.3.9 <4.0",
         "ext-mcrypt": "*",
-        "components/jquery": "2.*",
-        "fortawesome/font-awesome": "4.*",
+        "components/jquery": "^3.1",
         "mirko-pagliai/assets": "1.1.*"
     },
     "require-dev": {
         "cakephp/cakephp-codesniffer": "2.*",
+        "eonasdan/bootstrap-datetimepicker": "*",
+        "fortawesome/font-awesome": "*",
         "newerton/fancy-box": "dev-master"
+    },
+    "suggest": {
+        "eonasdan/bootstrap-datetimepicker": "To create Bootstrap's datetime pickers",
+        "fortawesome/font-awesome": "To use Font Awesome's icons",
+        "newerton/fancy-box": "To show photos with fancybox"
     },
     "autoload": {
         "psr-4": {

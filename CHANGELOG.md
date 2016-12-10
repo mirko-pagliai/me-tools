@@ -1,6 +1,7 @@
 # 2.x branch
 ## 2.11 branch
 ### 2.11.2
+* fixed `composer.json` with suggested packages;
 * some improvements for `Shell` and `InstallShell` classes;
 * fixed little bugs for `InstallShell`.
 
