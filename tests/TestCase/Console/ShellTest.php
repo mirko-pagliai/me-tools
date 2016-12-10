@@ -244,7 +244,6 @@ class ShellTest extends TestCase
         mkdir($folder);
 
         //Set chmod
-        $this->assertEquals('0755', substr(sprintf('%o', fileperms($folder)), -4));
         $this->assertTrue($this->Shell->folderChmod($folder, 0777));
         $this->assertEquals('0777', substr(sprintf('%o', fileperms($folder)), -4));
 
