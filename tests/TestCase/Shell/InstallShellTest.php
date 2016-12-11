@@ -182,15 +182,12 @@ class InstallShellTest extends TestCase
         $this->InstallShell->createVendorsLinks();
 
         $this->assertEquals([
+            'Link tests/test_app/webroot/vendor/bootstrap-datetimepicker has been created',
             'Link tests/test_app/webroot/vendor/jquery has been created',
+            'Link tests/test_app/webroot/vendor/moment has been created',
             'Link tests/test_app/webroot/vendor/font-awesome has been created',
             'Link tests/test_app/webroot/vendor/fancybox has been created',
         ], $this->out->messages());
-
-        $this->assertEquals([
-            '<error>File or directory /vendor/eonasdan/bootstrap-datetimepicker/build not readable</error>',
-            '<error>File or directory /vendor/components/moment/min not readable</error>',
-        ], $this->err->messages());
     }
 
     /**
