@@ -2,6 +2,8 @@
 ## 2.11 branch
 ### 2.11.2
 * fixed `composer.json` with suggested packages;
+* subcommand `installPackages` provided by `InstallShell` is no longer
+    available. Instead, use suggested packages by Composer;
 * some improvements for `Shell` and `InstallShell` classes;
 * fixed little bugs for `InstallShell`.
 

@@ -286,7 +286,6 @@ class InstallShellTest extends TestCase
             'createRobots',
             'createVendorsLinks',
             'fixComposerJson',
-            'installPackages',
             'setPermissions',
         ], array_keys($parser->subcommands()));
         $this->assertEquals('Executes some tasks to make the system ready to work', $parser->description());

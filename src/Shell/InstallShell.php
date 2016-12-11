@@ -52,12 +52,6 @@ class InstallShell extends Shell
     protected $links = [];
 
     /**
-     * Suggested packages to install by Composer
-     * @var array
-     */
-    protected $packages = [];
-
-    /**
      * Paths to be created and made writable
      * @var array
      */
@@ -69,7 +63,6 @@ class InstallShell extends Shell
      * @uses $config
      * @uses $fonts
      * @uses $links
-     * @uses $packages
      * @uses $paths
      */
     public function __construct(\Cake\Console\ConsoleIo $io = null)
@@ -98,14 +91,6 @@ class InstallShell extends Shell
             'newerton/fancy-box/source' => 'fancybox',
         ];
 
-        //Suggested packages to install by Composer
-        $this->packages = [
-            'components/jquery:^3.1',
-            'eonasdan/bootstrap-datetimepicker:4.*',
-            'fortawesome/font-awesome',
-            'newerton/fancy-box:dev-master',
-        ];
-
         //Paths to be created and made writable
         $this->paths = [
             LOGS,
@@ -131,7 +116,6 @@ class InstallShell extends Shell
      * @uses createRobots()
      * @uses createVendorsLinks()
      * @uses fixComposerJson()
-     * @uses installPackages()
      * @uses setPermissions()
      */
     public function all()
@@ -142,7 +126,6 @@ class InstallShell extends Shell
             $this->copyConfig();
             $this->createRobots();
             $this->fixComposerJson();
-            $this->installPackages(true);
             $this->createVendorsLinks();
             $this->copyFonts();
 
@@ -172,11 +155,6 @@ class InstallShell extends Shell
         $ask = $this->in(__d('me_tools', 'Fix {0}?', 'composer.json'), ['Y', 'n'], 'Y');
         if (in_array($ask, ['Y', 'y'])) {
             $this->fixComposerJson();
-        }
-
-        $ask = $this->in(__d('me_tools', 'Install the suggested packages?'), ['y', 'N', 'all'], 'N');
-        if (in_array($ask, ['Y', 'y', 'all'])) {
-            $this->installPackages($ask === 'all');
         }
 
         $ask = $this->in(__d('me_tools', 'Create symbolic links for vendor assets?'), ['Y', 'n'], 'Y');
@@ -310,62 +288,6 @@ class InstallShell extends Shell
     }
 
     /**
-     * Install the suggested packages
-     * @param bool $force Forces installing
-     * @return void
-     * @uses $packages
-     */
-    public function installPackages($force = false)
-    {
-        //Checks for Composer
-        $bin = which('composer');
-
-        if (!$bin) {
-            $this->err(__d('me_tools', '{0} is not available', 'composer'));
-
-            return;
-        }
-
-        //Empty arrays. These will contain the packages to install and the
-        //  installed packages
-        $packagesToInstall = $installed = [];
-
-        //Asks whick packages to install, if it was not asked to install all of
-        //them or if you are not using the "force" parameter
-        if (!$force && !$this->param('force')) {
-            foreach ($this->packages as $package) {
-                $ask = $this->in(__d('me_tools', 'Do you want to install {0}?', $package), ['Y', 'n'], 'Y');
-
-                if (in_array($ask, ['Y', 'y'])) {
-                    $packagesToInstall[] = $package;
-                }
-            }
-
-            if (empty($packagesToInstall)) {
-                $this->verbose(__d('me_tools', 'No package has been selected for installation'));
-
-                return;
-            }
-        } else {
-            $packagesToInstall = $this->packages;
-        }
-
-        //Gets the list of installed packages
-        exec(sprintf('%s show --latest --name-only', $bin), $installed);
-
-        $packagesToInstall = array_diff($packagesToInstall, $installed);
-
-        if (empty($packagesToInstall)) {
-            $this->verbose(__d('me_tools', 'All packages are already installed'));
-
-            return;
-        }
-
-        //Executes the command
-        exec(sprintf('%s require %s', $bin, implode(' ', $packagesToInstall)));
-    }
-
-    /**
      * Main command. Alias for `main()`
      * @return void
      * @uses main()
@@ -403,7 +325,6 @@ class InstallShell extends Shell
         $parser->addSubcommand('createRobots', ['help' => __d('me_tools', 'Creates the {0} file', 'robots.txt')]);
         $parser->addSubcommand('createVendorsLinks', ['help' => __d('me_tools', 'Creates symbolic links for vendor assets')]);
         $parser->addSubcommand('fixComposerJson', ['help' => __d('me_tools', 'Fixes {0}', 'composer.json')]);
-        $parser->addSubcommand('installPackages', ['help' => __d('me_tools', 'Installs the suggested packages')]);
         $parser->addSubcommand('setPermissions', ['help' => __d('me_tools', 'Sets directories permissions')]);
 
         $parser->addOption('force', [
