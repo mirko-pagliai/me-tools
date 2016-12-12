@@ -100,7 +100,11 @@ class InstallShellTest extends TestCase
     {
         $this->InstallShell->copyConfig();
 
-        $this->assertEquals(['File or directory tests/test_app/config/recaptcha.php already exists'], $this->out->messages());
+        $this->assertEquals([
+            'File or directory tests/test_app/config/recaptcha.php already exists',
+        ], $this->out->messages());
+
+        $this->assertEmpty($this->err->messages());
     }
 
     /**
@@ -117,6 +121,8 @@ class InstallShellTest extends TestCase
             'Link tests/test_app/webroot/fonts/fontawesome-webfont.woff has been created',
             'Link tests/test_app/webroot/fonts/fontawesome-webfont.woff2 has been created',
         ], $this->out->messages());
+
+        $this->assertEmpty($this->err->messages());
     }
 
     /**
@@ -126,6 +132,16 @@ class InstallShellTest extends TestCase
     public function testCreateDirectories()
     {
         $this->InstallShell->createDirectories();
+
+        foreach ([
+            TMP . 'cache' . DS . 'models',
+            TMP . 'cache' . DS . 'persistent',
+            TMP . 'cache' . DS . 'views',
+            TMP . 'cache',
+            WWW_ROOT . 'files',
+        ] as $dir) {
+            rmdir($dir);
+        }
 
         $this->assertEquals([
             'File or directory /tmp/ already exists',
@@ -146,15 +162,7 @@ class InstallShellTest extends TestCase
             'File or directory tests/test_app/webroot/vendor already exists',
         ], $this->out->messages());
 
-        foreach ([
-            TMP . 'cache' . DS . 'models',
-            TMP . 'cache' . DS . 'persistent',
-            TMP . 'cache' . DS . 'views',
-            TMP . 'cache',
-            WWW_ROOT . 'files',
-        ] as $dir) {
-            rmdir($dir);
-        }
+        $this->assertEmpty($this->err->messages());
     }
 
     /**
@@ -163,9 +171,10 @@ class InstallShellTest extends TestCase
      */
     public function testCreateRobots()
     {
+        $this->assertFileNotExists(WWW_ROOT . 'robots.txt');
         $this->InstallShell->createRobots();
-
         $this->assertFileExists(WWW_ROOT . 'robots.txt');
+
         $this->assertEquals(
             file_get_contents(WWW_ROOT . 'robots.txt'),
             'User-agent: *' . PHP_EOL . 'Disallow: /admin/' . PHP_EOL .
@@ -174,6 +183,14 @@ class InstallShellTest extends TestCase
         );
 
         unlink(WWW_ROOT . 'robots.txt');
+
+        $this->assertEquals([
+            '',
+            'Creating file /home/mirko/Libs/Plugins/MeTools/tests/test_app/webroot/robots.txt',
+            '<success>Wrote</success> `/home/mirko/Libs/Plugins/MeTools/tests/test_app/webroot/robots.txt`',
+        ], $this->out->messages());
+
+        $this->assertEmpty($this->err->messages());
     }
 
     /**
@@ -191,6 +208,8 @@ class InstallShellTest extends TestCase
             'Link tests/test_app/webroot/vendor/font-awesome has been created',
             'Link tests/test_app/webroot/vendor/fancybox has been created',
         ], $this->out->messages());
+
+        $this->assertEmpty($this->err->messages());
     }
 
     /**
@@ -211,11 +230,6 @@ class InstallShellTest extends TestCase
 
         unlink($file);
 
-        $this->assertEquals([
-            '<error>File or directory noExisting not writeable</error>',
-            '<error>The file /tmp/invalid.json does not seem a valid composer.json file</error>',
-        ], $this->err->messages());
-
         //Writes a `composer.json` file
         $file = APP . 'composer.json';
         $json = [
@@ -233,12 +247,17 @@ class InstallShellTest extends TestCase
         //Tries to fix again
         $this->InstallShell->fixComposerJson($file);
 
+        unlink($file);
+
         $this->assertEquals([
             'The file tests/test_app/composer.json has been fixed',
             'The file tests/test_app/composer.json doesn\'t need to be fixed',
         ], $this->out->messages());
 
-        unlink($file);
+        $this->assertEquals([
+            '<error>File or directory noExisting not writeable</error>',
+            '<error>The file /tmp/invalid.json does not seem a valid composer.json file</error>',
+        ], $this->err->messages());
     }
 
     /**
@@ -261,6 +280,7 @@ class InstallShellTest extends TestCase
             'Setted permissions on /tmp/sessions',
             'Setted permissions on /tmp/tests',
         ], $this->out->messages());
+
         $this->assertEquals([
             '<error>Failed to set permissions on /tmp/cache</error>',
             '<error>Failed to set permissions on /tmp/cache/models</error>',

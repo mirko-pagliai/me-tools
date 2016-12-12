@@ -110,11 +110,6 @@ class ShellTest extends TestCase
         //Tries to copy. Destination is not writable
         $this->assertFalse($this->Shell->copyFile($source, TMP . 'noExistingDir' . DS . 'example_copy'));
 
-        $this->assertEquals([
-            '<error>File or directory /tmp/noExistingFile not readable</error>',
-            '<error>File or directory /tmp/noExistingDir not writeable</error>',
-        ], $this->err->messages());
-
         //Now it works
         $this->assertFileNotExists($dest);
         $this->assertTrue($this->Shell->copyFile($source, $dest));
@@ -123,13 +118,18 @@ class ShellTest extends TestCase
         //Tries to copy. Destination already exists
         $this->assertFalse($this->Shell->copyFile($source, $dest));
 
+        unlink($source);
+        unlink($dest);
+
+        $this->assertEquals([
+            '<error>File or directory /tmp/noExistingFile not readable</error>',
+            '<error>File or directory /tmp/noExistingDir not writeable</error>',
+        ], $this->err->messages());
+
         $this->assertEquals([
             'File /tmp/example_copy has been copied',
             'File or directory /tmp/example_copy already exists',
         ], $this->out->messages());
-
-        unlink($source);
-        unlink($dest);
     }
 
     /**
@@ -149,19 +149,21 @@ class ShellTest extends TestCase
         $this->assertFileExists($dir);
         $this->assertEquals('0777', substr(sprintf('%o', fileperms($dir)), -4));
 
-        $this->assertEquals([
-            'File or directory /tmp/ already exists',
-            'Created /tmp/firstDir/secondDir directory',
-            'Setted permissions on /tmp/firstDir/secondDir',
-        ], $this->out->messages());
-
         rmdir($dir);
         rmdir(dirname($dir));
 
         //Tries to create. Not writable directory
         $this->assertFalse($this->Shell->createDir(DS . 'notWritable'));
 
-        $this->assertEquals(['<error>Failed to create file or directory /notWritable</error>'], $this->err->messages());
+        $this->assertEquals([
+            'File or directory /tmp/ already exists',
+            'Created /tmp/firstDir/secondDir directory',
+            'Setted permissions on /tmp/firstDir/secondDir',
+        ], $this->out->messages());
+
+        $this->assertEquals([
+            '<error>Failed to create file or directory /notWritable</error>',
+        ], $this->err->messages());
     }
 
     /**
@@ -180,6 +182,8 @@ class ShellTest extends TestCase
         //Tries to create. The file already exists
         $this->assertFalse($this->Shell->createFile($tmp, null));
 
+        unlink($tmp);
+
         $this->assertEquals([
             '',
             'Creating file /tmp/example',
@@ -187,7 +191,7 @@ class ShellTest extends TestCase
             'File or directory /tmp/example already exists',
         ], $this->out->messages());
 
-        unlink($tmp);
+        $this->assertEmpty($this->err->messages());
     }
 
     /**
@@ -209,24 +213,24 @@ class ShellTest extends TestCase
         //Tries to create. The link already exists
         $this->assertFalse($this->Shell->createLink($source, $dest));
 
-        $this->assertEquals([
-            'Link /tmp/example has been created',
-            'File or directory /tmp/example already exists',
-        ], $this->out->messages());
-
         //Tries to create. Source doesn't exist
         $this->Shell->createLink(TMP . 'noExistingFile', TMP . 'target');
 
         //Tries to create. Destination is not writable
         $this->assertFalse($this->Shell->createLink($source, TMP . 'noExistingDir' . DS . 'example'));
 
+        unlink($source);
+        unlink($dest);
+
+        $this->assertEquals([
+            'Link /tmp/example has been created',
+            'File or directory /tmp/example already exists',
+        ], $this->out->messages());
+
         $this->assertEquals([
             '<error>File or directory /tmp/noExistingFile not readable</error>',
             '<error>File or directory /tmp/noExistingDir not writeable</error>',
         ], $this->err->messages());
-
-        unlink($source);
-        unlink($dest);
     }
 
     /**
@@ -235,11 +239,6 @@ class ShellTest extends TestCase
      */
     public function testFolderChmod()
     {
-        //Tries to set chmod for a no existing directory
-        $this->assertFalse($this->Shell->folderChmod(DS . 'noExistingDir', 0777));
-
-        $this->assertEquals(['<error>Failed to set permissions on /noExistingDir</error>'], $this->err->messages());
-
         //Creates a folder
         $folder = TMP . 'exampleDir';
         mkdir($folder);
@@ -248,9 +247,16 @@ class ShellTest extends TestCase
         $this->assertTrue($this->Shell->folderChmod($folder, 0777));
         $this->assertEquals('0777', substr(sprintf('%o', fileperms($folder)), -4));
 
+        rmdir($folder);
+
+        //Tries to set chmod for a no existing directory
+        $this->assertFalse($this->Shell->folderChmod(DS . 'noExistingDir', 0777));
+
         $this->assertEquals(['Setted permissions on /tmp/exampleDir'], $this->out->messages());
 
-        rmdir($folder);
+        $this->assertEquals([
+            '<error>Failed to set permissions on /noExistingDir</error>',
+        ], $this->err->messages());
     }
 
     /**
