@@ -1,17 +1,14 @@
 # 2.x branch
 ## 2.11 branch
-### 2.11.2
+### 2.11.1
+* `UploaderComponent` has been rewritten and improved;
 * added `ReflectionTrait`;
 * fixed `composer.json` with suggested packages;
 * subcommand `installPackages` provided by `InstallShell` is no longer
     available. Instead, use suggested packages by Composer;
 * some improvements for `Shell` and `InstallShell` classes;
-* fixed little bugs for `InstallShell`.
-
-### 2.11.1
-* `UploaderComponent` has been rewritten and improved;
-* added tests for `UploaderComponent` class;
-* added some tests for `RecaptchaComponent` class.
+* fixed little bugs for `InstallShell`;
+* added tests for `UploaderComponent` and `RecaptchaComponent` classes.
 
 ### 2.11.0
 * removed the `BreadcrumbHelper`. Instead, use the `BreadcrumbsHelper` that

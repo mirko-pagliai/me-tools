@@ -51,7 +51,7 @@ class BreadcrumbsHelper extends CakeBreadcrumbsHelper
     public function render(array $attributes = [], array $separator = [])
     {
         if (empty($this->crumbs)) {
-            return '';
+            return parent::render($attributes, $separator);
         }
 
         //Removes the url for the last crumb
