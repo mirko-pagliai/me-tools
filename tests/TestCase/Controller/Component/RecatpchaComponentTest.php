@@ -27,26 +27,28 @@ use Cake\Controller\Controller;
 use Cake\Core\Configure;
 use Cake\Network\Request;
 use Cake\TestSuite\TestCase;
-use MeTools\Controller\Component\RecaptchaComponent as BaseRecaptchaComponent;
-
-/**
- * Makes public some protected methods/properties from `UploaderComponent`
- */
-class RecaptchaComponent extends BaseRecaptchaComponent
-{
-    public function setError($error)
-    {
-        $this->error = $error;
-    }
-}
+use MeTools\Controller\Component\RecaptchaComponent;
+use MeTools\Utility\ReflectionTrait;
 
 /**
  * RecatpchaComponentTest class
  */
 class RecatpchaComponentTest extends TestCase
 {
+    use ReflectionTrait;
+
     /**
-     * @var \RecaptchaComponent
+     * @var \Cake\Controller\ComponentRegistry
+     */
+    protected $ComponentRegistry;
+
+    /**
+     * @var \Cake\Controller\Controller
+     */
+    protected $Controller;
+
+    /**
+     * @var \MeTools\Controller\Component\RecaptchaComponent
      */
     protected $Recaptcha;
 
@@ -61,8 +63,8 @@ class RecatpchaComponentTest extends TestCase
         parent::setUp();
 
         $this->Controller = new Controller(new Request());
-        $componentRegistry = new ComponentRegistry($this->Controller);
-        $this->Recaptcha = new RecaptchaComponent($componentRegistry);
+        $this->ComponentRegistry = new ComponentRegistry($this->Controller);
+        $this->Recaptcha = new RecaptchaComponent($this->ComponentRegistry);
     }
 
     /**
@@ -73,7 +75,7 @@ class RecatpchaComponentTest extends TestCase
     {
         parent::tearDown();
 
-        unset($this->Recaptcha);
+        unset($this->Recaptcha, $this->ComponentRegistry, $this->Controller);
     }
 
     /**
@@ -82,12 +84,24 @@ class RecatpchaComponentTest extends TestCase
      */
     public function testCheck()
     {
-        $this->Recaptcha->check();
+        $this->assertFalse($this->Recaptcha->check());
         $this->assertEquals('You have not filled out the reCAPTCHA control', $this->Recaptcha->getError());
 
         $this->Controller->request->data['g-recaptcha-response'] = true;
-        $this->Recaptcha->check();
+        $this->assertFalse($this->Recaptcha->check());
         $this->assertEquals('It was not possible to verify the reCAPTCHA control', $this->Recaptcha->getError());
+
+        $this->Recaptcha = $this->getMockBuilder(RecaptchaComponent::class)
+            ->setConstructorArgs([$this->ComponentRegistry])
+            ->setMethods(['_getResult'])
+            ->getMock();
+
+        $this->Recaptcha->method('_getResult')
+            ->will($this->returnCallback(function () {
+                return (object)['json' => ['success' => true]];
+            }));
+
+        $this->assertTrue($this->Recaptcha->check());
     }
 
     /**
@@ -127,7 +141,10 @@ class RecatpchaComponentTest extends TestCase
         $this->assertFalse($this->Recaptcha->getError());
 
         $error = 'this is an error';
-        $this->Recaptcha->setError($error);
+
+        //Sets the `error` property
+        $this->setProperty($this->Recaptcha, 'error', $error);
+
         $this->assertEquals($error, $this->Recaptcha->getError());
     }
 }

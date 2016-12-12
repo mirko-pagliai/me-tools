@@ -22,34 +22,33 @@
  */
 namespace MeTools\Test\TestCase\Console;
 
+use Cake\Console\ConsoleIo;
+use Cake\TestSuite\Stub\ConsoleOutput;
 use Cake\TestSuite\TestCase;
-use MeTools\Console\Shell as BaseShell;
+use MeTools\Console\Shell;
+use MeTools\Utility\ReflectionTrait;
 
 /**
- * Makes public some protected methods/properties from `Shell`
- */
-class Shell extends BaseShell
-{
-    public function welcome()
-    {
-        return parent::_welcome();
-    }
-}
-
-/**
- * ShellTest class.
+ * ShellTest class
  */
 class ShellTest extends TestCase
 {
-    /**
-     * @var \Cake\Console\ConsoleIo
-     */
-    protected $io;
+    use ReflectionTrait;
 
     /**
-     * @var \MeTools\Test\TestCase\Console\Shell
+     * @var \MeTools\Console\Shell
      */
     protected $Shell;
+
+    /**
+     * @var \Cake\TestSuite\Stub\ConsoleOutput
+     */
+    protected $err;
+
+    /**
+     * @var \Cake\TestSuite\Stub\ConsoleOutput
+     */
+    protected $out;
 
     /**
      * Setup the test case, backup the static object values so they can be
@@ -61,185 +60,229 @@ class ShellTest extends TestCase
     {
         parent::setUp();
 
-        $this->io = $this->getMockBuilder('Cake\Console\ConsoleIo')
-            ->disableOriginalConstructor()
+        $this->out = new ConsoleOutput();
+        $this->err = new ConsoleOutput();
+        $io = new ConsoleIo($this->out, $this->err);
+        $io->level(2);
+
+        $this->Shell = $this->getMockBuilder(Shell::class)
+            ->setMethods(['in', '_stop'])
+            ->setConstructorArgs([$io])
             ->getMock();
-        $this->Shell = new Shell($this->io);
+    }
+
+    /**
+     * Teardown any static object changes and restore them
+     * @return void
+     */
+    public function tearDown()
+    {
+        parent::tearDown();
+
+        unset($this->Shell);
     }
 
     /**
      * Tests for `_welcome()` method
-     * @return void
      * @test
      */
     public function testWelcome()
     {
-        $this->assertNull($this->Shell->welcome());
+        //Invokes the `_welcome()` method
+        $this->assertNull($this->invokeMethod($this->Shell, '_welcome'));
+    }
+
+    /**
+     * Tests for `copyFile()` method
+     * @test
+     */
+    public function testCopyFile()
+    {
+        $source = TMP . 'example';
+        $dest = TMP . 'example_copy';
+
+        //Creates the source file
+        file_put_contents($source, null);
+
+        //Tries to copy. Source doesn't exist
+        $this->assertFalse($this->Shell->copyFile(TMP . 'noExistingFile', $dest));
+
+        //Tries to copy. Destination is not writable
+        $this->assertFalse($this->Shell->copyFile($source, TMP . 'noExistingDir' . DS . 'example_copy'));
+
+        $this->assertEquals([
+            '<error>File or directory /tmp/noExistingFile not readable</error>',
+            '<error>File or directory /tmp/noExistingDir not writeable</error>',
+        ], $this->err->messages());
+
+        //Now it works
+        $this->assertFileNotExists($dest);
+        $this->assertTrue($this->Shell->copyFile($source, $dest));
+        $this->assertFileExists($dest);
+
+        //Tries to copy. Destination already exists
+        $this->assertFalse($this->Shell->copyFile($source, $dest));
+
+        $this->assertEquals([
+            'File /tmp/example_copy has been copied',
+            'File or directory /tmp/example_copy already exists',
+        ], $this->out->messages());
+
+        unlink($source);
+        unlink($dest);
+    }
+
+    /**
+     * Tests for `createDir()` method
+     * @test
+     */
+    public function testCreateDir()
+    {
+        //Tries to create. Directory already exists
+        $this->assertFalse($this->Shell->createDir(TMP));
+
+        $dir = TMP . 'firstDir' . DS . 'secondDir';
+
+        //Creates the directory
+        $this->assertFileNotExists($dir);
+        $this->assertTrue($this->Shell->createDir($dir));
+        $this->assertFileExists($dir);
+        $this->assertEquals('0777', substr(sprintf('%o', fileperms($dir)), -4));
+
+        $this->assertEquals([
+            'File or directory /tmp/ already exists',
+            'Created /tmp/firstDir/secondDir directory',
+            'Setted permissions on /tmp/firstDir/secondDir',
+        ], $this->out->messages());
+
+        rmdir($dir);
+        rmdir(dirname($dir));
+
+        //Tries to create. Not writable directory
+        $this->assertFalse($this->Shell->createDir(DS . 'notWritable'));
+
+        $this->assertEquals(['<error>Failed to create file or directory /notWritable</error>'], $this->err->messages());
     }
 
     /**
      * Tests for `createFile()` method
-     * @return void
      * @test
      */
     public function testCreateFile()
     {
         $tmp = TMP . 'example';
 
-        if (file_exists($tmp)) {
-            unlink($tmp);
-        }
-
+        //Creates the file
+        $this->assertFileNotExists($tmp);
         $this->assertTrue($this->Shell->createFile($tmp, null));
         $this->assertFileExists($tmp);
 
-        unlink($tmp);
-    }
-
-    /**
-     * Tests for `createFile()` method, using a file that already exists
-     * @return void
-     * @test
-     */
-    public function testCreateFileAlreadyExists()
-    {
-        $tmp = TMP . 'example';
-
-        file_put_contents($tmp, null);
-
-        $this->Shell->params = ['verbose' => true];
-
-        $this->io->expects($this->once())
-            ->method('verbose')
-            ->with('File or directory /tmp/example already exists', 1);
-
+        //Tries to create. The file already exists
         $this->assertFalse($this->Shell->createFile($tmp, null));
+
+        $this->assertEquals([
+            '',
+            'Creating file /tmp/example',
+            '<success>Wrote</success> `/tmp/example`',
+            'File or directory /tmp/example already exists',
+        ], $this->out->messages());
 
         unlink($tmp);
     }
 
     /**
      * Tests for `createLink()` method
-     * @return void
      * @test
      */
     public function testCreateLink()
     {
-        $origin = TMP . 'origin';
-        $target = TMP . 'example';
+        $source = TMP . 'origin';
+        $dest = TMP . 'example';
 
-        file_put_contents($origin, null);
+        file_put_contents($source, null);
 
-        if (file_exists($target)) {
-            unlink($target);
-        }
+        //Creates the link
+        $this->assertFileNotExists($dest);
+        $this->assertTrue($this->Shell->createLink($source, $dest));
+        $this->assertFileExists($dest);
 
-        $this->assertTrue($this->Shell->createLink($origin, $target));
-        $this->assertFileExists($target);
+        //Tries to create. The link already exists
+        $this->assertFalse($this->Shell->createLink($source, $dest));
 
-        unlink($origin);
-        unlink($target);
-    }
+        $this->assertEquals([
+            'Link /tmp/example has been created',
+            'File or directory /tmp/example already exists',
+        ], $this->out->messages());
 
-    /**
-     * Tests for `createLink()` method, using a file that already exists
-     * @return void
-     * @test
-     */
-    public function testCreateLinkAlreadyExists()
-    {
-        $origin = TMP . 'origin';
-        $target = TMP . 'example';
-
-        file_put_contents($origin, null);
-        file_put_contents($target, null);
-
-        $this->Shell->params = ['verbose' => true];
-
-        $this->io->expects($this->once())
-            ->method('verbose')
-            ->with('File or directory /tmp/example already exists', 1);
-
-        $this->assertFalse($this->Shell->createLink($origin, $target));
-
-        unlink($origin);
-        unlink($target);
-    }
-
-    /**
-     * Tests for `createLink()` method, using a no existing file
-     * @return void
-     * @test
-     */
-    public function testCreateLinkFileNoExisting()
-    {
-        $this->io->expects($this->once())
-            ->method('err')
-            ->with('<error>File or directory /tmp/noExistingFile not readable</error>', 1);
-
+        //Tries to create. Source doesn't exist
         $this->Shell->createLink(TMP . 'noExistingFile', TMP . 'target');
+
+        //Tries to create. Destination is not writable
+        $this->assertFalse($this->Shell->createLink($source, TMP . 'noExistingDir' . DS . 'example'));
+
+        $this->assertEquals([
+            '<error>File or directory /tmp/noExistingFile not readable</error>',
+            '<error>File or directory /tmp/noExistingDir not writeable</error>',
+        ], $this->err->messages());
+
+        unlink($source);
+        unlink($dest);
     }
 
     /**
-     * Tests for `createLink()` method, using a no existing directory
-     * @return void
+     * Tests for `folderChmod()` method
      * @test
      */
-    public function testCreateLinkNoExistingDir()
+    public function testFolderChmod()
     {
-        $origin = TMP . 'origin';
-        $target = TMP . 'noExistingDir' . DS . 'example';
+        //Tries to set chmod for a no existing directory
+        $this->assertFalse($this->Shell->folderChmod(DS . 'noExistingDir', 0777));
 
-        file_put_contents($origin, null);
+        $this->assertEquals(['<error>Failed to set permissions on /noExistingDir</error>'], $this->err->messages());
 
-        $this->io->expects($this->once())
-            ->method('err')
-            ->with('<error>File or directory /tmp/noExistingDir not writeable</error>', 1);
+        //Creates a folder
+        $folder = TMP . 'exampleDir';
+        mkdir($folder);
 
-        $this->assertFalse($this->Shell->createLink($origin, $target));
+        //Set chmod
+        $this->assertTrue($this->Shell->folderChmod($folder, 0777));
+        $this->assertEquals('0777', substr(sprintf('%o', fileperms($folder)), -4));
 
-        unlink($origin);
+        $this->assertEquals(['Setted permissions on /tmp/exampleDir'], $this->out->messages());
+
+        rmdir($folder);
     }
 
     /**
      * Tests for `comment()` method
-     * @return void
      * @test
      */
     public function testComment()
     {
-        $this->io->expects($this->once())
-            ->method('out')
-            ->with('<comment>This is a text</comment>', 1);
-
         $this->Shell->comment('This is a text');
+
+        $this->assertEquals(['<comment>This is a text</comment>'], $this->out->messages());
     }
 
     /**
      * Tests for `question()` method
-     * @return void
      * @test
      */
     public function testQuestion()
     {
-        $this->io->expects($this->once())
-            ->method('out')
-            ->with('<question>This is a text</question>', 1);
-
         $this->Shell->question('This is a text');
+
+        $this->assertEquals(['<question>This is a text</question>'], $this->out->messages());
     }
 
     /**
      * Tests for `warning()` method
-     * @return void
      * @test
      */
     public function testWarning()
     {
-        $this->io->expects($this->once())
-            ->method('err')
-            ->with('<warning>This is a text</warning>', 1);
-
         $this->Shell->warning('This is a text');
+
+        $this->assertEquals(['<warning>This is a text</warning>'], $this->err->messages());
     }
 }

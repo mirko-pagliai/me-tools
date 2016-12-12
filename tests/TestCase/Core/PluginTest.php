@@ -111,19 +111,11 @@ class PluginTest extends TestCase
         $result = Plugin::path('MeTools', 'config' . DS . 'bootstrap.php');
         $this->assertEquals($expected, $result);
 
-        $result = Plugin::path(
-            'MeTools',
-            'config' . DS . 'bootstrap.php',
-            true
-        );
+        $result = Plugin::path('MeTools', 'config' . DS . 'bootstrap.php', true);
         $this->assertEquals($expected, $result);
 
         //No existing file
-        $result = Plugin::path(
-            'MeTools',
-            'config' . DS . 'no_existing.php',
-            true
-        );
+        $result = Plugin::path('MeTools', 'config' . DS . 'no_existing.php', true);
         $this->assertFalse($result);
 
         $result = Plugin::path('MeTools', [

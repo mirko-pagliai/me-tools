@@ -249,7 +249,9 @@ if (!function_exists('rtr')) {
      */
     function rtr($path)
     {
-        return preg_replace(sprintf('/^%s/', preg_quote(ROOT . DS, DS)), null, $path);
+        $root = Folder::slashTerm(ROOT);
+
+        return preg_replace(sprintf('/^%s/', preg_quote($root, DS)), null, $path);
     }
 }
 

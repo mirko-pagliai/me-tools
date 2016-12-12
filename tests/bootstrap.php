@@ -125,6 +125,7 @@ Configure::write('Assets.target', TMP . 'assets');
 
 //@codingStandardsIgnoreStart
 @mkdir(Configure::read('Assets.target'));
+@mkdir(WWW_ROOT . 'fonts');
 //@codingStandardsIgnoreEnd
 
 /**

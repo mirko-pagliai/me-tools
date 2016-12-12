@@ -54,9 +54,26 @@ class RecaptchaComponent extends Component
     }
 
     /**
+     * Gets results from Recaptcha
+     * @param string $remoteIp Remote IP
+     * @param string $privateKey Private key
+     * @param string $response Response
+     * @return mixed
+     */
+    protected function _getResult($remoteIp, $privateKey, $response)
+    {
+        return (new Client())->post('https://www.google.com/recaptcha/api/siteverify', [
+            'remoteip' => $remoteIp,
+            'secret' => $privateKey,
+            'response' => $response,
+        ]);
+    }
+
+    /**
      * Checks for reCAPTCHA
      * @return bool
      * @see https://developers.google.com/recaptcha/docs/verify
+     * @uses _getResult()
      * @throws \Cake\Network\Exception\InternalErrorException
      */
     public function check()
@@ -78,10 +95,7 @@ class RecaptchaComponent extends Component
             return false;
         }
 
-        $results = (new Client())->post('https://www.google.com/recaptcha/api/siteverify', am([
-            'remoteip' => $controller->request->clientIp(),
-            'secret' => $keys['private'],
-        ], compact('response')));
+        $results = $this->_getResult($controller->request->clientIp(), $keys['private'], $response);
 
         if (empty($results) || empty($results->json['success'])) {
             $this->error = __d('me_tools', 'It was not possible to verify the {0} control', 'reCAPTCHA');

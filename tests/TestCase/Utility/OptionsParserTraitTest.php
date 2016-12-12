@@ -27,29 +27,15 @@ use Cake\View\Helper as CakeHelper;
 use Cake\View\StringTemplateTrait;
 use Cake\View\View;
 use MeTools\Utility\OptionsParserTrait;
+use MeTools\Utility\ReflectionTrait;
 
 /**
- * Makes public some protected methods/properties from `OptionsParserTrait`
+ * Allow to use `StringTemplateTrait`
  */
 class OptionsParserHelper extends CakeHelper
 {
     use OptionsParserTrait;
     use StringTemplateTrait;
-
-    public function setValue($key, $value, array $options)
-    {
-        return $this->_setValue($key, $value, $options);
-    }
-
-    public function turnToArray($value)
-    {
-        return $this->_toArray($value);
-    }
-
-    public function turnToString($value)
-    {
-        return $this->_toString($value);
-    }
 }
 
 /**
@@ -57,8 +43,10 @@ class OptionsParserHelper extends CakeHelper
  */
 class OptionsParserTraitTest extends TestCase
 {
+    use ReflectionTrait;
+
     /**
-     * @var MeTools\Utility\OptionsParserTrait
+     * @var \OptionsParserHelper
      */
     protected $OptionsParser;
 
@@ -93,10 +81,10 @@ class OptionsParserTraitTest extends TestCase
     {
         $options = ['key' => 'value'];
 
-        $options = $this->OptionsParser->setValue('newKey', 'newValue', $options);
+        $options = $this->invokeMethod($this->OptionsParser, '_setValue', ['newKey', 'newValue', $options]);
         $this->assertEquals(['key' => 'value', 'newKey' => 'newValue'], $options);
 
-        $options = $this->OptionsParser->setValue('key', 'anotherValue', $options);
+        $options = $this->invokeMethod($this->OptionsParser, '_setValue', ['key', 'anotherValue', $options]);
         $this->assertEquals(['key' => 'anotherValue', 'newKey' => 'newValue'], $options);
     }
 
@@ -104,32 +92,32 @@ class OptionsParserTraitTest extends TestCase
      * Tests for `_toArray()` method
      * @test
      */
-    public function testTurnToArray()
+    public function testToArray()
     {
-        $this->assertEquals([], $this->OptionsParser->turnToArray(''));
-        $this->assertEquals([], $this->OptionsParser->turnToArray('  '));
-        $this->assertEquals(['a', 'b', 'c'], $this->OptionsParser->turnToArray('a b c'));
-        $this->assertEquals(['a', 'b', 'c'], $this->OptionsParser->turnToArray('a b   c'));
-        $this->assertEquals(['b', 'a', 'c'], $this->OptionsParser->turnToArray('b a c b c'));
+        $this->assertEquals([], $this->invokeMethod($this->OptionsParser, '_toArray', ['']));
+        $this->assertEquals([], $this->invokeMethod($this->OptionsParser, '_toArray', ['  ']));
+        $this->assertEquals(['a', 'b', 'c'], $this->invokeMethod($this->OptionsParser, '_toArray', ['a b c']));
+        $this->assertEquals(['a', 'b', 'c'], $this->invokeMethod($this->OptionsParser, '_toArray', ['a b   c']));
+        $this->assertEquals(['b', 'a', 'c'], $this->invokeMethod($this->OptionsParser, '_toArray', ['b a c b c']));
 
         //Array
-        $this->assertEquals(['an', 'array'], $this->OptionsParser->turnToArray(['an', 'array']));
+        $this->assertEquals(['an', 'array'], $this->invokeMethod($this->OptionsParser, '_toArray', [['an', 'array']]));
     }
 
     /**
      * Tests for `_toString()` method
      * @test
      */
-    public function testTurnToString()
+    public function testToString()
     {
-        $this->assertEquals('', $this->OptionsParser->turnToString([]));
-        $this->assertEquals('a', $this->OptionsParser->turnToString(['a']));
-        $this->assertEquals('a b', $this->OptionsParser->turnToString(['a', 'b']));
-        $this->assertEquals('a b', $this->OptionsParser->turnToString(['a', 'a', 'b']));
-        $this->assertEquals('b a', $this->OptionsParser->turnToString(['b', 'a', 'b']));
+        $this->assertEquals('', $this->invokeMethod($this->OptionsParser, '_toString', [[]]));
+        $this->assertEquals('a', $this->invokeMethod($this->OptionsParser, '_toString', [['a']]));
+        $this->assertEquals('a b', $this->invokeMethod($this->OptionsParser, '_toString', [['a', 'b']]));
+        $this->assertEquals('a b', $this->invokeMethod($this->OptionsParser, '_toString', [['a', 'a', 'b']]));
+        $this->assertEquals('b a', $this->invokeMethod($this->OptionsParser, '_toString', [['b', 'a', 'b']]));
 
         //String
-        $this->assertEquals('thisIsAString', $this->OptionsParser->turnToString('thisIsAString'));
+        $this->assertEquals('thisIsAString', $this->invokeMethod($this->OptionsParser, '_toString', ['thisIsAString']));
     }
 
     /**

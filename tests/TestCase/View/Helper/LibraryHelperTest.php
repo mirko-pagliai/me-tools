@@ -24,28 +24,16 @@ namespace MeTools\Test\TestCase\View\Helper;
 
 use Cake\TestSuite\TestCase;
 use Cake\View\View;
-use MeTools\View\Helper\LibraryHelper as BaseLibraryHelper;
-
-/**
- * Makes public some protected methods/properties from `LibraryHelper`
- */
-class LibraryHelper extends BaseLibraryHelper
-{
-    public function output($value = null)
-    {
-        if (!empty($value)) {
-            $this->output = $value;
-        }
-
-        return $this->output;
-    }
-}
+use MeTools\Utility\ReflectionTrait;
+use MeTools\View\Helper\LibraryHelper;
 
 /**
  * LibraryHelperTest class
  */
 class LibraryHelperTest extends TestCase
 {
+    use ReflectionTrait;
+
     /**
      * @var \MeTools\View\Helper\LibraryHelper
      */
@@ -82,11 +70,11 @@ class LibraryHelperTest extends TestCase
      */
     public function testBeforeLayout()
     {
-        $this->assertEmpty($this->Library->output());
+        $this->assertEmpty($this->getProperty($this->Library, 'output'));
 
-        $this->Library->output(['//first', '//second']);
+        $this->setProperty($this->Library, 'output', ['//first', '//second']);
         $this->Library->beforeLayout(new \Cake\Event\Event(null), null);
-        $this->assertEmpty($this->Library->output());
+        $this->assertEmpty($this->getProperty($this->Library, 'output'));
         $result = $this->View->Blocks->get('script_bottom');
 
         $result = preg_split('/\n\s*/', $result);
@@ -109,6 +97,26 @@ class LibraryHelperTest extends TestCase
 
         $this->assertEquals('<script>', $result[0]);
         $this->assertEquals('</script>', $result[count($result) - 1]);
+    }
+
+    /**
+     * Tests for `analytics` method, on localhost
+     * @test
+     */
+    public function testAnalyticsOnLocalhost()
+    {
+        $this->Library = $this->getMockBuilder(LibraryHelper::class)
+            ->setMethods(['_isLocalhost'])
+            ->setConstructorArgs([$this->View])
+            ->getMock();
+
+        $this->Library->method('_isLocalhost')
+            ->willReturn(true);
+
+        $this->Library->analytics('my-id');
+        $result = $this->View->Blocks->get('script_bottom');
+
+        $this->assertEmpty($result);
     }
 
     /**
@@ -216,11 +224,9 @@ class LibraryHelperTest extends TestCase
      */
     public function testDatepicker()
     {
-        $this->assertEmpty($this->Library->output());
-
         $this->Library->datepicker('#my-id');
 
-        $output = $this->Library->output();
+        $output = $this->getProperty($this->Library, 'output');
         $this->assertEquals(1, preg_match('/\$\("#my-id"\)\.datetimepicker\(({\n(\s+.+\n)+})\);/', $output[0], $matches));
         $this->assertNotEmpty($matches[1]);
         $result = json_decode($matches[1], true);
@@ -269,11 +275,9 @@ class LibraryHelperTest extends TestCase
     {
         //Note: assets have already been tested in the `testDatepicker()` method
 
-        $this->assertEmpty($this->Library->output());
-
         $this->Library->datetimepicker('#my-id');
 
-        $output = $this->Library->output();
+        $output = $this->getProperty($this->Library, 'output');
         $this->assertEquals(1, preg_match('/\$\("#my-id"\)\.datetimepicker\(({\n(\s+.+\n)+})\);/', $output[0], $matches));
         $this->assertNotEmpty($matches[1]);
         $result = json_decode($matches[1], true);
@@ -301,7 +305,9 @@ class LibraryHelperTest extends TestCase
      */
     public function testFancybox()
     {
-        symlink(VENDOR . 'newerton' . DS . 'fancy-box' . DS . 'source', WWW_ROOT . 'vendor' . DS . 'fancybox');
+        if (!file_exists(WWW_ROOT . 'vendor' . DS . 'fancybox')) {
+            symlink(VENDOR . 'newerton' . DS . 'fancy-box' . DS . 'source', WWW_ROOT . 'vendor' . DS . 'fancybox');
+        }
 
         $this->Library->fancybox();
 
@@ -335,7 +341,10 @@ class LibraryHelperTest extends TestCase
      */
     public function testFancyboxWithJsFromApp()
     {
-        symlink(VENDOR . 'newerton' . DS . 'fancy-box' . DS . 'source', WWW_ROOT . 'vendor' . DS . 'fancybox');
+        if (!file_exists(WWW_ROOT . 'vendor' . DS . 'fancybox')) {
+            symlink(VENDOR . 'newerton' . DS . 'fancy-box' . DS . 'source', WWW_ROOT . 'vendor' . DS . 'fancybox');
+        }
+
         file_put_contents(WWW_ROOT . 'js' . DS . 'fancybox_init.js', null);
 
         $this->Library->fancybox();
@@ -394,7 +403,8 @@ class LibraryHelperTest extends TestCase
         ];
         $this->assertHtml($expected, $result);
 
-        $this->assertEquals(['$().slugify("form #title", "form #slug");'], $this->Library->output());
+        $output = $this->getProperty($this->Library, 'output');
+        $this->assertEquals(['$().slugify("form #title", "form #slug");'], $output);
     }
 
     /**
@@ -405,11 +415,9 @@ class LibraryHelperTest extends TestCase
     {
         //Note: assets have already been tested in the `testDatepicker()` method
 
-        $this->assertEmpty($this->Library->output());
-
         $this->Library->timepicker('#my-id');
 
-        $output = $this->Library->output();
+        $output = $this->getProperty($this->Library, 'output');
         $this->assertEquals(1, preg_match('/\$\("#my-id"\)\.datetimepicker\(({\n(\s+.+\n)+})\);/', $output[0], $matches));
         $this->assertNotEmpty($matches[1]);
         $result = json_decode($matches[1], true);

@@ -26,51 +26,23 @@ use Cake\Controller\ComponentRegistry;
 use Cake\Controller\Controller;
 use Cake\Network\Request;
 use Cake\TestSuite\TestCase;
-use MeTools\Controller\Component\UploaderComponent as BaseUploaderComponent;
-
-/**
- * Makes public some protected methods/properties from `UploaderComponent`
- */
-class UploaderComponent extends BaseUploaderComponent
-{
-    protected function move_uploaded_file($filename, $destination)
-    {
-        //@codingStandardsIgnoreLine
-        return @rename($filename, $destination);
-    }
-
-    public function getFile()
-    {
-        if (!isset($this->file)) {
-            return false;
-        }
-
-        return $this->file;
-    }
-
-    public function findTargetFilename($target)
-    {
-        return $this->_findTargetFilename($target);
-    }
-
-    public function resetError()
-    {
-        unset($this->error);
-    }
-
-    public function setError($error)
-    {
-        return $this->_setError($error);
-    }
-}
+use MeTools\Controller\Component\UploaderComponent;
+use MeTools\Utility\ReflectionTrait;
 
 /**
  * UploaderComponentTest class
  */
 class UploaderComponentTest extends TestCase
 {
+    use ReflectionTrait;
+
     /**
-     * @var \UploaderComponent
+     * @var \Cake\Controller\ComponentRegistry
+     */
+    protected $ComponentRegistry;
+
+    /**
+     * @var \MeTools\Controller\Component\UploaderComponent
      */
     protected $Uploader;
 
@@ -104,8 +76,8 @@ class UploaderComponentTest extends TestCase
         parent::setUp();
 
         $controller = new Controller(new Request());
-        $componentRegistry = new ComponentRegistry($controller);
-        $this->Uploader = new UploaderComponent($componentRegistry);
+        $this->ComponentRegistry = new ComponentRegistry($controller);
+        $this->Uploader = new UploaderComponent($this->ComponentRegistry);
     }
 
     /**
@@ -121,7 +93,12 @@ class UploaderComponentTest extends TestCase
             unlink($file);
         }
 
-        unset($this->Uploader);
+        //Deletes other temporary files
+        foreach (glob(TMP . 'php_upload*') as $file) {
+            unlink($file);
+        }
+
+        unset($this->Uploader, $this->ComponentRegistry);
     }
 
     /**
@@ -132,11 +109,11 @@ class UploaderComponentTest extends TestCase
     {
         $this->assertFalse($this->Uploader->error());
 
-        $this->Uploader->setError('first');
+        $this->invokeMethod($this->Uploader, '_setError', ['first']);
         $this->assertEquals('first', $this->Uploader->error());
 
         //It sets only the first error
-        $this->Uploader->setError('second');
+        $this->invokeMethod($this->Uploader, '_setError', ['second']);
         $this->assertEquals('first', $this->Uploader->error());
     }
 
@@ -150,31 +127,30 @@ class UploaderComponentTest extends TestCase
         $file2 = UPLOADS . 'target_1.txt';
         $file3 = UPLOADS . 'target_2.txt';
 
-        $this->assertEquals($file1, $this->Uploader->findTargetFilename($file1));
+        $this->assertEquals($file1, $this->invokeMethod($this->Uploader, '_findTargetFilename', [$file1]));
 
         //Creates the first file
         file_put_contents($file1, null);
-        $this->assertEquals($file2, $this->Uploader->findTargetFilename($file1));
+        $this->assertEquals($file2, $this->invokeMethod($this->Uploader, '_findTargetFilename', [$file1]));
 
         //Creates the second file
         file_put_contents($file2, null);
-        $this->assertEquals($file3, $this->Uploader->findTargetFilename($file1));
+        $this->assertEquals($file3, $this->invokeMethod($this->Uploader, '_findTargetFilename', [$file1]));
 
         //Files without extension
         $file1 = UPLOADS . 'target';
         $file2 = UPLOADS . 'target_1';
 
-        $this->assertEquals($file1, $this->Uploader->findTargetFilename($file1));
+        $this->assertEquals($file1, $this->invokeMethod($this->Uploader, '_findTargetFilename', [$file1]));
 
         //Creates the first file
         file_put_contents($file1, null);
-        $this->assertEquals($file2, $this->Uploader->findTargetFilename($file1));
+        $this->assertEquals($file2, $this->invokeMethod($this->Uploader, '_findTargetFilename', [$file1]));
     }
 
     /**
      * Tests for `set()` method
      * @test
-     * @uses _createFile()
      */
     public function testSet()
     {
@@ -182,25 +158,24 @@ class UploaderComponentTest extends TestCase
 
         $this->Uploader->set($file);
         $this->assertEmpty($this->Uploader->error());
-        $this->assertEquals('stdClass', get_class($this->Uploader->getFile()));
+        $this->assertEquals('stdClass', get_class($this->Uploader->file));
         $this->assertEquals(
             ['name', 'type', 'tmp_name', 'error', 'size'],
-            array_keys((array)$this->Uploader->getFile())
+            array_keys((array)$this->Uploader->file)
         );
 
         $this->Uploader->set(array_merge($file, ['error' => UPLOAD_ERR_INI_SIZE]));
         $this->assertNotEmpty($this->Uploader->error());
-        $this->assertFalse($this->Uploader->getFile());
+        $this->assertNull($this->Uploader->file);
 
         $this->Uploader->set(array_merge($file, ['error' => 'noExistingErrorCode']));
         $this->assertEquals('Unknown upload error', $this->Uploader->error());
-        $this->assertFalse($this->Uploader->getFile());
+        $this->assertNull($this->Uploader->file);
     }
 
     /**
      * Test for `mimetype()` method
      * @test
-     * @uses _createFile()
      */
     public function testMimetype()
     {
@@ -220,7 +195,7 @@ class UploaderComponentTest extends TestCase
         $this->assertEquals('The mimetype image/gif is not accepted', $this->Uploader->error());
 
         //Resets error
-        $this->Uploader->resetError();
+        $this->setProperty($this->Uploader, 'error', null);
 
         $this->Uploader->mimetype(['image/gif', 'image/png']);
         $this->assertEquals('The mimetype image/gif, image/png is not accepted', $this->Uploader->error());
@@ -240,10 +215,19 @@ class UploaderComponentTest extends TestCase
     /**
      * Test for `save()` method
      * @test
-     * @uses _createFile()
      */
     public function testSave()
     {
+        $this->Uploader = $this->getMockBuilder(UploaderComponent::class)
+            ->setConstructorArgs([$this->ComponentRegistry])
+            ->setMethods(['move_uploaded_file'])
+            ->getMock();
+
+        $this->Uploader->method('move_uploaded_file')
+            ->will($this->returnCallback(function ($filename, $destination) {
+                return rename($filename, $destination);
+            }));
+
         $file = $this->_createFile();
         $this->assertFileExists($file['tmp_name']);
         $this->Uploader->set($file);
@@ -257,18 +241,13 @@ class UploaderComponentTest extends TestCase
     /**
      * Test for `save()` method, with a not writable directory
      * @test
-     * @uses _createFile()
      */
     public function testSaveNoWritableDir()
     {
-        //Creates a non-writable directory
-        //@codingStandardsIgnoreLine
-        @mkdir(TMP . 'noWritableDir', 0444);
-
         $file = $this->_createFile();
         $this->Uploader->set($file);
 
-        $this->assertFalse($this->Uploader->save(TMP . 'noWritableDir'));
+        $this->assertFalse($this->Uploader->save(DS));
         $this->assertEquals('The file was not successfully moved to the target directory', $this->Uploader->error());
     }
 
@@ -277,7 +256,6 @@ class UploaderComponentTest extends TestCase
      * @expectedException Cake\Network\Exception\InternalErrorException
      * @expectedExceptionMessage Invalid or no existing directory /tmp/uploads/noExistingDir
      * @test
-     * @uses _createFile()
      */
     public function testSaveNoExistingDir()
     {
@@ -299,7 +277,6 @@ class UploaderComponentTest extends TestCase
     /**
      * Test for `save()` method, with an error
      * @test
-     * @uses _createFile()
      */
     public function testSaveWithError()
     {
@@ -308,7 +285,7 @@ class UploaderComponentTest extends TestCase
 
         //Sets an error
         $error = 'error before save';
-        $this->Uploader->setError($error);
+        $this->invokeMethod($this->Uploader, '_setError', [$error]);
 
         $this->assertFalse($this->Uploader->save(UPLOADS));
         $this->assertEquals($error, $this->Uploader->error());
