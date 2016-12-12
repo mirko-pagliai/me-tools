@@ -27,7 +27,7 @@ use Cake\Controller\Controller;
 use Cake\Network\Request;
 use Cake\TestSuite\TestCase;
 use MeTools\Controller\Component\UploaderComponent;
-use MeTools\Utility\ReflectionTrait;
+use Reflection\ReflectionTrait;
 
 /**
  * UploaderComponentTest class

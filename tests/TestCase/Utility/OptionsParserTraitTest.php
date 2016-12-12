@@ -27,7 +27,7 @@ use Cake\View\Helper as CakeHelper;
 use Cake\View\StringTemplateTrait;
 use Cake\View\View;
 use MeTools\Utility\OptionsParserTrait;
-use MeTools\Utility\ReflectionTrait;
+use Reflection\ReflectionTrait;
 
 /**
  * Allow to use `StringTemplateTrait`
