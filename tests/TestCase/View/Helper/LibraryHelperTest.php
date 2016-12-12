@@ -100,6 +100,26 @@ class LibraryHelperTest extends TestCase
     }
 
     /**
+     * Tests for `analytics` method, on localhost
+     * @test
+     */
+    public function testAnalyticsOnLocalhost()
+    {
+        $this->Library = $this->getMockBuilder(LibraryHelper::class)
+            ->setMethods(['_isLocalhost'])
+            ->setConstructorArgs([$this->View])
+            ->getMock();
+
+        $this->Library->method('_isLocalhost')
+            ->willReturn(true);
+
+        $this->Library->analytics('my-id');
+        $result = $this->View->Blocks->get('script_bottom');
+
+        $this->assertEmpty($result);
+    }
+
+    /**
      * Tests for `ckeditor` method
      * @test
      */
@@ -285,7 +305,9 @@ class LibraryHelperTest extends TestCase
      */
     public function testFancybox()
     {
-        symlink(VENDOR . 'newerton' . DS . 'fancy-box' . DS . 'source', WWW_ROOT . 'vendor' . DS . 'fancybox');
+        if (!file_exists(WWW_ROOT . 'vendor' . DS . 'fancybox')) {
+            symlink(VENDOR . 'newerton' . DS . 'fancy-box' . DS . 'source', WWW_ROOT . 'vendor' . DS . 'fancybox');
+        }
 
         $this->Library->fancybox();
 
@@ -319,7 +341,10 @@ class LibraryHelperTest extends TestCase
      */
     public function testFancyboxWithJsFromApp()
     {
-        symlink(VENDOR . 'newerton' . DS . 'fancy-box' . DS . 'source', WWW_ROOT . 'vendor' . DS . 'fancybox');
+        if (!file_exists(WWW_ROOT . 'vendor' . DS . 'fancybox')) {
+            symlink(VENDOR . 'newerton' . DS . 'fancy-box' . DS . 'source', WWW_ROOT . 'vendor' . DS . 'fancybox');
+        }
+
         file_put_contents(WWW_ROOT . 'js' . DS . 'fancybox_init.js', null);
 
         $this->Library->fancybox();
