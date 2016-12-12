@@ -37,6 +37,11 @@ class UploaderComponentTest extends TestCase
     use ReflectionTrait;
 
     /**
+     * @var \Cake\Controller\ComponentRegistry
+     */
+    protected $ComponentRegistry;
+
+    /**
      * @var \MeTools\Controller\Component\UploaderComponent
      */
     protected $Uploader;
@@ -71,12 +76,8 @@ class UploaderComponentTest extends TestCase
         parent::setUp();
 
         $controller = new Controller(new Request());
-        $componentRegistry = new ComponentRegistry($controller);
-
-        $this->Uploader = $this->getMockBuilder(UploaderComponent::class)
-            ->setConstructorArgs([$componentRegistry])
-            ->setMethods(['move_uploaded_file'])
-            ->getMock();
+        $this->ComponentRegistry = new ComponentRegistry($controller);
+        $this->Uploader = new UploaderComponent($this->ComponentRegistry);
     }
 
     /**
@@ -97,7 +98,7 @@ class UploaderComponentTest extends TestCase
             unlink($file);
         }
 
-        unset($this->Uploader);
+        unset($this->Uploader, $this->ComponentRegistry);
     }
 
     /**
@@ -217,14 +218,19 @@ class UploaderComponentTest extends TestCase
      */
     public function testSave()
     {
-        $file = $this->_createFile();
-        $this->assertFileExists($file['tmp_name']);
-        $this->Uploader->set($file);
+        $this->Uploader = $this->getMockBuilder(UploaderComponent::class)
+            ->setConstructorArgs([$this->ComponentRegistry])
+            ->setMethods(['move_uploaded_file'])
+            ->getMock();
 
         $this->Uploader->method('move_uploaded_file')
             ->will($this->returnCallback(function ($filename, $destination) {
                 return rename($filename, $destination);
             }));
+
+        $file = $this->_createFile();
+        $this->assertFileExists($file['tmp_name']);
+        $this->Uploader->set($file);
 
         $result = $this->Uploader->save(UPLOADS);
         $this->assertFalse($this->Uploader->error());
