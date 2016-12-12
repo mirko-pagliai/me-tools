@@ -13,7 +13,7 @@
     },
     "require": {
         "php": ">=5.5.9",
-        "cakephp/cakephp": ">=3.3.9 <4.0",
+        "cakephp/cakephp": ">=3.3.10 <4.0",
         "ext-mcrypt": "*",
         "components/jquery": "^3.1",
         "mirko-pagliai/assets": "1.1.*"
