@@ -171,10 +171,7 @@ class GlobalFunctionsTest extends TestCase
         $expected = ['firstChildTestMethod', 'secondChildTestMethod'];
         $this->assertEquals($expected, $result);
 
-        $result = getChildMethods(
-            '\TestPlugin\Utility\ChildTestClass',
-            'firstChildTestMethod'
-        );
+        $result = getChildMethods('\TestPlugin\Utility\ChildTestClass', 'firstChildTestMethod');
         $expected = ['secondChildTestMethod'];
         $this->assertEquals($expected, $result);
 
