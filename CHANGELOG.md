@@ -1,6 +1,7 @@
 # 2.x branch
 ## 2.11 branch
 ### 2.11.2
+* added `ReflectionTrait`;
 * fixed `composer.json` with suggested packages;
 * subcommand `installPackages` provided by `InstallShell` is no longer
     available. Instead, use suggested packages by Composer;
