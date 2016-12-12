@@ -25,7 +25,8 @@ namespace MeTools\Test\TestCase;
 use Cake\TestSuite\TestCase;
 use MeTools\Utility\ReflectionTrait;
 
-class ExampleClass {
+class ExampleClass
+{
     protected $firstProperty;
 
     protected $secondProperty = 'a protected property';
@@ -39,7 +40,8 @@ class ExampleClass {
         return $var;
     }
 
-    public function __get($name) {
+    public function __get($name)
+    {
         return $this->$name;
     }
 }
