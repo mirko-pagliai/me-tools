@@ -28,12 +28,15 @@ use Cake\Core\Configure;
 use Cake\Network\Request;
 use Cake\TestSuite\TestCase;
 use MeTools\Controller\Component\RecaptchaComponent;
+use MeTools\Utility\ReflectionTrait;
 
 /**
  * RecatpchaComponentTest class
  */
 class RecatpchaComponentTest extends TestCase
 {
+    use ReflectionTrait;
+
     /**
      * @var \MeTools\Controller\Component\RecaptchaComponent
      */
@@ -118,9 +121,7 @@ class RecatpchaComponentTest extends TestCase
         $error = 'this is an error';
 
         //Sets the `error` property
-        $reflector = new \ReflectionProperty(get_class($this->Recaptcha), 'error');
-        $reflector->setAccessible(true);
-        $reflector->setValue($this->Recaptcha, $error);
+        $this->setProperty($this->Recaptcha, 'error', $error);
 
         $this->assertEquals($error, $this->Recaptcha->getError());
     }

@@ -26,12 +26,15 @@ use Cake\Console\ConsoleIo;
 use Cake\TestSuite\Stub\ConsoleOutput;
 use Cake\TestSuite\TestCase;
 use MeTools\Console\Shell;
+use MeTools\Utility\ReflectionTrait;
 
 /**
  * ShellTest class
  */
 class ShellTest extends TestCase
 {
+    use ReflectionTrait;
+
     /**
      * @var \MeTools\Console\Shell
      */
@@ -85,10 +88,8 @@ class ShellTest extends TestCase
      */
     public function testWelcome()
     {
-        $reflector = new \ReflectionMethod(get_class($this->Shell), '_welcome');
-        $reflector->setAccessible(true);
-
-        $this->assertNull($reflector->invoke($this->Shell, '_welcome'));
+        //Invokes the `_welcome()` method
+        $this->assertNull($this->invokeMethod($this->Shell, '_welcome'));
     }
 
     /**

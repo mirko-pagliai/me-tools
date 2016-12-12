@@ -26,12 +26,15 @@ use Cake\Console\ConsoleIo;
 use Cake\TestSuite\Stub\ConsoleOutput;
 use Cake\TestSuite\TestCase;
 use MeTools\Shell\InstallShell;
+use MeTools\Utility\ReflectionTrait;
 
 /**
  * InstallShellTest class
  */
 class InstallShellTest extends TestCase
 {
+    use ReflectionTrait;
+
     /**
      * @var \MeTools\Shell\InstallShell
      */
@@ -250,9 +253,7 @@ class InstallShellTest extends TestCase
             WWW_ROOT . 'fonts',
             WWW_ROOT . 'vendor',
         ]);
-        $reflector = new \ReflectionProperty(get_class($this->InstallShell), 'paths');
-        $reflector->setAccessible(true);
-        $reflector->setValue($this->InstallShell, $paths);
+        $this->setProperty($this->InstallShell, 'paths', $paths);
 
         $this->InstallShell->setPermissions();
 

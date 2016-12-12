@@ -26,36 +26,18 @@ use Cake\Controller\ComponentRegistry;
 use Cake\Controller\Controller;
 use Cake\Network\Request;
 use Cake\TestSuite\TestCase;
-use MeTools\Controller\Component\UploaderComponent as BaseUploaderComponent;
-
-/**
- * Makes public some protected methods/properties from `UploaderComponent`
- */
-class UploaderComponent extends BaseUploaderComponent
-{
-    public function findTargetFilename($target)
-    {
-        return $this->_findTargetFilename($target);
-    }
-
-    public function resetError()
-    {
-        unset($this->error);
-    }
-
-    public function setError($error)
-    {
-        return $this->_setError($error);
-    }
-}
+use MeTools\Controller\Component\UploaderComponent;
+use MeTools\Utility\ReflectionTrait;
 
 /**
  * UploaderComponentTest class
  */
 class UploaderComponentTest extends TestCase
 {
+    use ReflectionTrait;
+
     /**
-     * @var \UploaderComponent
+     * @var \MeTools\Controller\Component\UploaderComponent
      */
     protected $Uploader;
 
@@ -126,11 +108,11 @@ class UploaderComponentTest extends TestCase
     {
         $this->assertFalse($this->Uploader->error());
 
-        $this->Uploader->setError('first');
+        $this->invokeMethod($this->Uploader, '_setError', ['first']);
         $this->assertEquals('first', $this->Uploader->error());
 
         //It sets only the first error
-        $this->Uploader->setError('second');
+        $this->invokeMethod($this->Uploader, '_setError', ['second']);
         $this->assertEquals('first', $this->Uploader->error());
     }
 
@@ -144,25 +126,25 @@ class UploaderComponentTest extends TestCase
         $file2 = UPLOADS . 'target_1.txt';
         $file3 = UPLOADS . 'target_2.txt';
 
-        $this->assertEquals($file1, $this->Uploader->findTargetFilename($file1));
+        $this->assertEquals($file1, $this->invokeMethod($this->Uploader, '_findTargetFilename', [$file1]));
 
         //Creates the first file
         file_put_contents($file1, null);
-        $this->assertEquals($file2, $this->Uploader->findTargetFilename($file1));
+        $this->assertEquals($file2, $this->invokeMethod($this->Uploader, '_findTargetFilename', [$file1]));
 
         //Creates the second file
         file_put_contents($file2, null);
-        $this->assertEquals($file3, $this->Uploader->findTargetFilename($file1));
+        $this->assertEquals($file3, $this->invokeMethod($this->Uploader, '_findTargetFilename', [$file1]));
 
         //Files without extension
         $file1 = UPLOADS . 'target';
         $file2 = UPLOADS . 'target_1';
 
-        $this->assertEquals($file1, $this->Uploader->findTargetFilename($file1));
+        $this->assertEquals($file1, $this->invokeMethod($this->Uploader, '_findTargetFilename', [$file1]));
 
         //Creates the first file
         file_put_contents($file1, null);
-        $this->assertEquals($file2, $this->Uploader->findTargetFilename($file1));
+        $this->assertEquals($file2, $this->invokeMethod($this->Uploader, '_findTargetFilename', [$file1]));
     }
 
     /**
@@ -212,7 +194,7 @@ class UploaderComponentTest extends TestCase
         $this->assertEquals('The mimetype image/gif is not accepted', $this->Uploader->error());
 
         //Resets error
-        $this->Uploader->resetError();
+        $this->setProperty($this->Uploader, 'error', null);
 
         $this->Uploader->mimetype(['image/gif', 'image/png']);
         $this->assertEquals('The mimetype image/gif, image/png is not accepted', $this->Uploader->error());
@@ -297,7 +279,7 @@ class UploaderComponentTest extends TestCase
 
         //Sets an error
         $error = 'error before save';
-        $this->Uploader->setError($error);
+        $this->invokeMethod($this->Uploader, '_setError', [$error]);
 
         $this->assertFalse($this->Uploader->save(UPLOADS));
         $this->assertEquals($error, $this->Uploader->error());
