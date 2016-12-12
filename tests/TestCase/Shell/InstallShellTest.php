@@ -26,7 +26,7 @@ use Cake\Console\ConsoleIo;
 use Cake\TestSuite\Stub\ConsoleOutput;
 use Cake\TestSuite\TestCase;
 use MeTools\Shell\InstallShell;
-use MeTools\Utility\ReflectionTrait;
+use Reflection\ReflectionTrait;
 
 /**
  * InstallShellTest class

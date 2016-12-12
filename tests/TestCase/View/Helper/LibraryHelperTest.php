@@ -24,8 +24,8 @@ namespace MeTools\Test\TestCase\View\Helper;
 
 use Cake\TestSuite\TestCase;
 use Cake\View\View;
-use MeTools\Utility\ReflectionTrait;
 use MeTools\View\Helper\LibraryHelper;
+use Reflection\ReflectionTrait;
 
 /**
  * LibraryHelperTest class

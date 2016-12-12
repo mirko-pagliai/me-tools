@@ -28,7 +28,7 @@ use Cake\Core\Configure;
 use Cake\Network\Request;
 use Cake\TestSuite\TestCase;
 use MeTools\Controller\Component\RecaptchaComponent;
-use MeTools\Utility\ReflectionTrait;
+use Reflection\ReflectionTrait;
 
 /**
  * RecatpchaComponentTest class
