@@ -27,18 +27,7 @@ use Cake\Controller\Controller;
 use Cake\Core\Configure;
 use Cake\Network\Request;
 use Cake\TestSuite\TestCase;
-use MeTools\Controller\Component\RecaptchaComponent as BaseRecaptchaComponent;
-
-/**
- * Makes public some protected methods/properties from `UploaderComponent`
- */
-class RecaptchaComponent extends BaseRecaptchaComponent
-{
-    public function setError($error)
-    {
-        $this->error = $error;
-    }
-}
+use MeTools\Controller\Component\RecaptchaComponent;
 
 /**
  * RecatpchaComponentTest class
@@ -46,7 +35,7 @@ class RecaptchaComponent extends BaseRecaptchaComponent
 class RecatpchaComponentTest extends TestCase
 {
     /**
-     * @var \RecaptchaComponent
+     * @var \MeTools\Controller\Component\RecaptchaComponent
      */
     protected $Recaptcha;
 
@@ -127,7 +116,12 @@ class RecatpchaComponentTest extends TestCase
         $this->assertFalse($this->Recaptcha->getError());
 
         $error = 'this is an error';
-        $this->Recaptcha->setError($error);
+
+        //Sets the `error` property
+        $reflector = new \ReflectionProperty(get_class($this->Recaptcha), 'error');
+        $reflector->setAccessible(true);
+        $reflector->setValue($this->Recaptcha, $error);
+
         $this->assertEquals($error, $this->Recaptcha->getError());
     }
 }
