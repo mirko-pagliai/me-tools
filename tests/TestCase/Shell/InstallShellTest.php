@@ -93,6 +93,18 @@ class InstallShellTest extends TestCase
     }
 
     /**
+     * Test for `__construct()` method
+     * @test
+     */
+    public function testConstruct()
+    {
+        $this->assertNotEmpty($this->getProperty($this->InstallShell, 'config'));
+        $this->assertNotEmpty($this->getProperty($this->InstallShell, 'fonts'));
+        $this->assertNotEmpty($this->getProperty($this->InstallShell, 'links'));
+        $this->assertNotEmpty($this->getProperty($this->InstallShell, 'paths'));
+    }
+
+    /**
      * Tests for `copyConfig()` method
      * @test
      */
