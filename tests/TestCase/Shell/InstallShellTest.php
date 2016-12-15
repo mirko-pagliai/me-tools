@@ -89,7 +89,7 @@ class InstallShellTest extends TestCase
             }
         }
 
-        unset($this->InstallShell);
+        unset($this->InstallShell, $this->err, $this->out);
     }
 
     /**
