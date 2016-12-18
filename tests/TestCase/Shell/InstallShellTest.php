@@ -46,6 +46,11 @@ class InstallShellTest extends TestCase
     protected $err;
 
     /**
+     * @var \Cake\Console\ConsoleIo
+     */
+    protected $io;
+
+    /**
      * @var \Cake\TestSuite\Stub\ConsoleOutput
      */
     protected $out;
@@ -62,12 +67,12 @@ class InstallShellTest extends TestCase
 
         $this->out = new ConsoleOutput();
         $this->err = new ConsoleOutput();
-        $io = new ConsoleIo($this->out, $this->err);
-        $io->level(2);
+        $this->io = new ConsoleIo($this->out, $this->err);
+        $this->io->level(2);
 
         $this->InstallShell = $this->getMockBuilder(InstallShell::class)
             ->setMethods(['in', '_stop'])
-            ->setConstructorArgs([$io])
+            ->setConstructorArgs([$this->io])
             ->getMock();
     }
 
@@ -89,7 +94,75 @@ class InstallShellTest extends TestCase
             }
         }
 
-        unset($this->InstallShell);
+        unset($this->InstallShell, $this->io, $this->err, $this->out);
+    }
+
+    /**
+     * Test for `__construct()` method
+     * @test
+     */
+    public function testConstruct()
+    {
+        $this->assertNotEmpty($this->getProperty($this->InstallShell, 'config'));
+        $this->assertNotEmpty($this->getProperty($this->InstallShell, 'fonts'));
+        $this->assertNotEmpty($this->getProperty($this->InstallShell, 'links'));
+        $this->assertNotEmpty($this->getProperty($this->InstallShell, 'paths'));
+    }
+
+    /**
+     * Test for `all()` method
+     * @test
+     */
+    public function testAll()
+    {
+        $methodsToStub = [
+            'createDirectories',
+            'setPermissions',
+            'copyConfig',
+            'createRobots',
+            'fixComposerJson',
+            'createVendorsLinks',
+            'copyFonts',
+        ];
+
+        $this->InstallShell = $this->getMockBuilder(InstallShell::class)
+            ->setMethods(array_merge(['_stop'], $methodsToStub))
+            ->setConstructorArgs([$this->io])
+            ->getMock();
+
+        //Stubs all methods
+        foreach ($methodsToStub as $method) {
+            $this->InstallShell->method($method)
+                ->will($this->returnCallback(function () use ($method) {
+                    $this->out->write(sprintf('called `%s`', $method));
+                }));
+        }
+
+        //Calls with `force` options
+        $this->InstallShell->params['force'] = true;
+        $this->InstallShell->all();
+
+        //Calls with no interactive mode
+        unset($this->InstallShell->params['force']);
+        $this->InstallShell->interactive = false;
+        $this->InstallShell->all();
+
+        $this->assertEquals([
+            'called `createDirectories`',
+            'called `setPermissions`',
+            'called `copyConfig`',
+            'called `createRobots`',
+            'called `fixComposerJson`',
+            'called `createVendorsLinks`',
+            'called `copyFonts`',
+            'called `setPermissions`',
+            'called `copyConfig`',
+            'called `createRobots`',
+            'called `fixComposerJson`',
+            'called `createVendorsLinks`',
+            'called `copyFonts`',
+        ], $this->out->messages());
+        $this->assertEmpty($this->err->messages());
     }
 
     /**
@@ -253,6 +326,30 @@ class InstallShellTest extends TestCase
             '<error>File or directory noExisting not writeable</error>',
             '<error>The file /tmp/invalid.json does not seem a valid composer.json file</error>',
         ], $this->err->messages());
+    }
+
+    /**
+     * Test for `main()` method
+     * @test
+     */
+    public function testMain()
+    {
+        $this->InstallShell = $this->getMockBuilder(InstallShell::class)
+            ->setMethods(['in', '_stop', 'all'])
+            ->setConstructorArgs([$this->io])
+            ->getMock();
+
+        $this->InstallShell->method('all')
+            ->will($this->returnCallback(function () {
+                $this->out->write('called `all`');
+            }));
+
+        $this->InstallShell->main();
+
+        $this->assertEquals([
+            'called `all`',
+        ], $this->out->messages());
+        $this->assertEmpty($this->err->messages());
     }
 
     /**
