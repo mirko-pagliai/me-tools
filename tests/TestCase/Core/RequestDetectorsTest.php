@@ -20,7 +20,7 @@
  * @license     http://www.gnu.org/licenses/agpl.txt AGPL License
  * @link        http://git.novatlantis.it Nova Atlantis Ltd
  */
-namespace MeTools\Test\TestCase;
+namespace MeTools\Test\TestCase\Core;
 
 use Cake\Network\Request;
 use Cake\TestSuite\TestCase;
