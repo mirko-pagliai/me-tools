@@ -154,7 +154,7 @@ class LibraryHelperTest extends TestCase
         file_put_contents(WWW_ROOT . 'ckeditor' . DS . 'ckeditor.js', null);
         file_put_contents(WWW_ROOT . 'ckeditor' . DS . 'adapters' . DS . 'jquery.js', null);
 
-        $this->Library->ckeditor();
+        $this->Library->ckeditor(true);
         $result = $this->View->Blocks->get('script_bottom');
 
         $expected = [

@@ -130,7 +130,7 @@ class FormHelper extends CakeFormHelper
     public function ckeditor($fieldName, array $options = [])
     {
         $options = $this->optionsDefaults(['type' => 'textarea'], $options);
-        $options = $this->optionsValues(['class' => 'ckeditor editor'], $options);
+        $options = $this->optionsValues(['class' => 'wysiwyg editor'], $options);
 
         return self::input($fieldName, $options);
     }
