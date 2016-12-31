@@ -190,7 +190,7 @@ class FormHelperTest extends TestCase
             '/label',
             'textarea' => [
                 'name' => $field,
-                'class' => 'ckeditor editor form-control',
+                'class' => 'wysiwyg editor form-control',
                 'id' => $field,
             ],
             '/textarea',

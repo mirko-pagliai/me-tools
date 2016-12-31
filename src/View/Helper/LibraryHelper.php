@@ -162,13 +162,13 @@ class LibraryHelper extends Helper
      *
      * To create an input field for CKEditor, you should use the `ckeditor()`
      *  method provided by the `FormHelper`.
-     * @param bool $jquery false if you don't want to use the jQuery adapter
+     * @param bool $jquery `true` if you want to use the jQuery adapter
      * @return void
      * @see MeTools\View\Helper\FormHelper::ckeditor()
      * @see http://docs.cksource.com CKEditor documentation
      * @uses MeTools\View\Helper\Html::js()
      */
-    public function ckeditor($jquery = true)
+    public function ckeditor($jquery = false)
     {
         if (!is_readable(WWW_ROOT . 'ckeditor' . DS . 'ckeditor.js')) {
             return;
