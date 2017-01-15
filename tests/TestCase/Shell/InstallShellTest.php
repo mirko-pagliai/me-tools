@@ -120,24 +120,16 @@ class InstallShellTest extends TestCase
      */
     public function testAll()
     {
-        $methodsToStub = [
-            'createDirectories',
-            'setPermissions',
-            'copyConfig',
-            'createPluginsLinks',
-            'createRobots',
-            'fixComposerJson',
-            'createVendorsLinks',
-            'copyFonts',
-        ];
+        //Gets all methods from `InstallShell`
+        $methods = array_diff(getChildMethods(InstallShell::class), ['all']);
 
         $this->InstallShell = $this->getMockBuilder(InstallShell::class)
-            ->setMethods(array_merge(['_stop'], $methodsToStub))
+            ->setMethods(array_merge(['_stop'], $methods))
             ->setConstructorArgs([$this->io])
             ->getMock();
 
-        //Stubs all methods
-        foreach ($methodsToStub as $method) {
+        //Sets a callback for each method
+        foreach ($methods as $method) {
             $this->InstallShell->method($method)
                 ->will($this->returnCallback(function () use ($method) {
                     $this->out->write(sprintf('called `%s`', $method));
@@ -148,28 +140,29 @@ class InstallShellTest extends TestCase
         $this->InstallShell->params['force'] = true;
         $this->InstallShell->all();
 
+        $expectedMethodsCalledInOrder = [
+            'called `setPermissions`',
+            'called `copyConfig`',
+            'called `createRobots`',
+            'called `fixComposerJson`',
+            'called `createPluginsLinks`',
+            'called `createVendorsLinks`',
+            'called `copyFonts`',
+        ];
+
+        $this->assertEquals(am([
+            'called `createDirectories`',
+        ], $expectedMethodsCalledInOrder), $this->out->messages());
+
+        //Resets out messages()
+        $this->setProperty($this->out, '_out', []);
+
         //Calls with no interactive mode
         unset($this->InstallShell->params['force']);
         $this->InstallShell->interactive = false;
         $this->InstallShell->all();
 
-        $this->assertEquals([
-            'called `createDirectories`',
-            'called `setPermissions`',
-            'called `copyConfig`',
-            'called `createRobots`',
-            'called `fixComposerJson`',
-            'called `createPluginsLinks`',
-            'called `createVendorsLinks`',
-            'called `copyFonts`',
-            'called `setPermissions`',
-            'called `copyConfig`',
-            'called `createRobots`',
-            'called `fixComposerJson`',
-            'called `createPluginsLinks`',
-            'called `createVendorsLinks`',
-            'called `copyFonts`',
-        ], $this->out->messages());
+        $this->assertEquals($expectedMethodsCalledInOrder, $this->out->messages());
         $this->assertEmpty($this->err->messages());
     }
 
