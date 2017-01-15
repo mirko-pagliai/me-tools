@@ -113,6 +113,7 @@ class InstallShell extends Shell
      * @uses copyConfig()
      * @uses copyFonts()
      * @uses createDirectories()
+     * @uses createPluginsLinks()
      * @uses createRobots()
      * @uses createVendorsLinks()
      * @uses fixComposerJson()
@@ -126,6 +127,7 @@ class InstallShell extends Shell
             $this->copyConfig();
             $this->createRobots();
             $this->fixComposerJson();
+            $this->createPluginsLinks();
             $this->createVendorsLinks();
             $this->copyFonts();
 
@@ -155,6 +157,11 @@ class InstallShell extends Shell
         $ask = $this->in(__d('me_tools', 'Fix {0}?', 'composer.json'), ['Y', 'n'], 'Y');
         if (in_array($ask, ['Y', 'y'])) {
             $this->fixComposerJson();
+        }
+
+        $ask = $this->in(__d('me_tools', 'Create symbolic links for plugins assets?'), ['Y', 'n'], 'Y');
+        if (in_array($ask, ['Y', 'y'])) {
+            $this->createPluginsLinks();
         }
 
         $ask = $this->in(__d('me_tools', 'Create symbolic links for vendor assets?'), ['Y', 'n'], 'Y');
@@ -214,6 +221,16 @@ class InstallShell extends Shell
         foreach ($this->paths as $path) {
             $this->createDir($path);
         }
+    }
+
+    /**
+     * Creates symbolic links for plugin assets
+     * @return void
+     * @see https://book.cakephp.org/3.0/en/deployment.html#symlink-assets
+     */
+    public function createPluginsLinks()
+    {
+        $this->Tasks->load('Assets')->symlink();
     }
 
     /**
@@ -322,6 +339,7 @@ class InstallShell extends Shell
         $parser->addSubcommand('copyConfig', ['help' => __d('me_tools', 'Copies the configuration files')]);
         $parser->addSubcommand('copyFonts', ['help' => __d('me_tools', 'Creates symbolic links for fonts')]);
         $parser->addSubcommand('createDirectories', ['help' => __d('me_tools', 'Creates default directories')]);
+        $parser->addSubcommand('createPluginsLinks', ['help' => __d('me_tools', 'Creates symbolic links for plugins assets')]);
         $parser->addSubcommand('createRobots', ['help' => __d('me_tools', 'Creates the {0} file', 'robots.txt')]);
         $parser->addSubcommand('createVendorsLinks', ['help' => __d('me_tools', 'Creates symbolic links for vendor assets')]);
         $parser->addSubcommand('fixComposerJson', ['help' => __d('me_tools', 'Fixes {0}', 'composer.json')]);

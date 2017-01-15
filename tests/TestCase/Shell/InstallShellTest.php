@@ -84,13 +84,18 @@ class InstallShellTest extends TestCase
     {
         parent::tearDown();
 
+        //Deletes symbolic links for plugin assets
+        //@codingStandardsIgnoreLine
+        @unlink(WWW_ROOT . 'me_tools');
+
         //Deletes all fonts and vendors
         foreach (array_merge(
             glob(WWW_ROOT . 'fonts' . DS . '*'),
             glob(WWW_ROOT . 'vendor' . DS . '*')
         ) as $file) {
             if (basename($file) !== 'empty') {
-                unlink($file);
+                //@codingStandardsIgnoreLine
+                @unlink($file);
             }
         }
 
@@ -119,6 +124,7 @@ class InstallShellTest extends TestCase
             'createDirectories',
             'setPermissions',
             'copyConfig',
+            'createPluginsLinks',
             'createRobots',
             'fixComposerJson',
             'createVendorsLinks',
@@ -153,12 +159,14 @@ class InstallShellTest extends TestCase
             'called `copyConfig`',
             'called `createRobots`',
             'called `fixComposerJson`',
+            'called `createPluginsLinks`',
             'called `createVendorsLinks`',
             'called `copyFonts`',
             'called `setPermissions`',
             'called `copyConfig`',
             'called `createRobots`',
             'called `fixComposerJson`',
+            'called `createPluginsLinks`',
             'called `createVendorsLinks`',
             'called `copyFonts`',
         ], $this->out->messages());
@@ -259,6 +267,27 @@ class InstallShellTest extends TestCase
 
         $this->assertNotEmpty($this->out->messages());
         $this->assertEmpty($this->err->messages());
+    }
+
+    /**
+     * Tests for `createPluginsLinks()` method
+     * @test
+     */
+    public function testCreatePluginsLinks()
+    {
+        $this->assertFileNotExists(WWW_ROOT . 'me_tools');
+
+        $this->InstallShell->createPluginsLinks();
+
+        $this->assertEquals([
+            'For plugin: MeTools',
+            '---------------------------------------------------------------',
+            'Created symlink ' . WWW_ROOT . 'me_tools',
+            'Done',
+        ], $this->out->messages());
+        $this->assertEmpty($this->err->messages());
+
+        $this->assertFileExists(WWW_ROOT . 'me_tools');
     }
 
     /**
@@ -396,6 +425,7 @@ class InstallShellTest extends TestCase
             'copyConfig',
             'copyFonts',
             'createDirectories',
+            'createPluginsLinks',
             'createRobots',
             'createVendorsLinks',
             'fixComposerJson',
