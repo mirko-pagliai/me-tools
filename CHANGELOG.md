@@ -1,5 +1,8 @@
 # 2.x branch
 ## 2.11 branch
+### 2.11.3
+* added `createPluginsLinks` subcommand to the `InstallShell`.
+
 ### 2.11.2
 * fixed CKEditor init script to work with jQuery 3.x.
 
