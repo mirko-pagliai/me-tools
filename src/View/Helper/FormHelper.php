@@ -303,8 +303,8 @@ class FormHelper extends CakeFormHelper
             ]);
 
             //If it is not a checkbox
-            if ($type !== "checkbox") {
-                if (empty($options['label'])) {
+            if ($type !== "checkbox" && (!isset($options['label']) || $options['label'] !== false)) {
+                if (!isset($options['label'])) {
                     $options['label'] = [];
                 } elseif (is_string($options['label'])) {
                     $options['label'] = ['text' => $options['label']];

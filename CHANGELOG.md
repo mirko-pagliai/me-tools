@@ -1,5 +1,8 @@
 # 2.x branch
 ## 2.11 branch
+### 2.11.4
+* fixed a little bug for labels on inline forms.
+
 ### 2.11.3
 * added `createPluginsLinks` subcommand to the `InstallShell`.
 
