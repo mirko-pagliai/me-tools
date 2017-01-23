@@ -584,6 +584,19 @@ class FormHelperTest extends TestCase
         ];
         $this->assertHtml($expected, $result);
 
+        //Tries with a checkbox
+        $result = $this->Form->input($field, ['type' => 'checkbox']);
+        $expected = [
+            'div' => ['class' => 'input checkbox'],
+            'label' => ['for' => $field],
+            ['input' => ['type' => 'hidden', 'name' => $field, 'value' => '0']],
+            ['input' => ['type' => 'checkbox', 'name' => $field, 'value' => '1', 'id' => $field]],
+            ' My Field',
+            '/label',
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+
         //Using `label` option
         $result = $this->Form->input($field, ['label' => 'My label']);
         $expected = [
@@ -591,6 +604,15 @@ class FormHelperTest extends TestCase
             'label' => ['class' => 'sr-only', 'for' => $field],
             'My label',
             '/label',
+            'input' => ['type' => 'text', 'name' => $field, 'class' => 'form-control', 'id' => $field],
+            '/div',
+        ];
+        $this->assertHtml($expected, $result);
+
+        //`label` option `false`
+        $result = $this->Form->input($field, ['label' => false]);
+        $expected = [
+            'div' => ['class' => 'input form-group text'],
             'input' => ['type' => 'text', 'name' => $field, 'class' => 'form-control', 'id' => $field],
             '/div',
         ];
