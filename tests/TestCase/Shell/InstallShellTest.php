@@ -65,6 +65,10 @@ class InstallShellTest extends TestCase
     {
         parent::setUp();
 
+        //Deletes symbolic links for plugin assets
+        //@codingStandardsIgnoreLine
+        @unlink(WWW_ROOT . 'me_tools');
+
         $this->out = new ConsoleOutput();
         $this->err = new ConsoleOutput();
         $this->io = new ConsoleIo($this->out, $this->err);
@@ -83,10 +87,6 @@ class InstallShellTest extends TestCase
     public function tearDown()
     {
         parent::tearDown();
-
-        //Deletes symbolic links for plugin assets
-        //@codingStandardsIgnoreLine
-        @unlink(WWW_ROOT . 'me_tools');
 
         //Deletes all fonts and vendors
         foreach (array_merge(
@@ -273,6 +273,9 @@ class InstallShellTest extends TestCase
         $this->InstallShell->createPluginsLinks();
 
         $this->assertEquals([
+            '',
+            'Skipping plugin Assets. It does not have webroot folder.',
+            '',
             'For plugin: MeTools',
             '---------------------------------------------------------------',
             'Created symlink ' . WWW_ROOT . 'me_tools',
@@ -412,7 +415,7 @@ class InstallShellTest extends TestCase
     {
         $parser = $this->InstallShell->getOptionParser();
 
-        $this->assertEquals('Cake\Console\ConsoleOptionParser', get_class($parser));
+        $this->assertInstanceOf('Cake\Console\ConsoleOptionParser', $parser);
         $this->assertEquals([
             'all',
             'copyConfig',
