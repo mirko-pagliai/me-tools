@@ -1,5 +1,8 @@
 # 2.x branch
 ## 2.11 branch
+### 2.11.5
+* updated for CakePHP 3.4.
+
 ### 2.11.4
 * fixed a little bug for labels on inline forms.
 
