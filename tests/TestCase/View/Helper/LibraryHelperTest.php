@@ -22,6 +22,7 @@
  */
 namespace MeTools\Test\TestCase\View\Helper;
 
+use Cake\Event\Event;
 use Cake\TestSuite\TestCase;
 use Cake\View\View;
 use MeTools\View\Helper\LibraryHelper;
@@ -73,12 +74,17 @@ class LibraryHelperTest extends TestCase
         $this->assertEmpty($this->getProperty($this->Library, 'output'));
 
         $this->setProperty($this->Library, 'output', ['//first', '//second']);
-        $this->Library->beforeLayout(new \Cake\Event\Event(null), null);
+        $this->Library->beforeLayout(new Event(null), null);
         $this->assertEmpty($this->getProperty($this->Library, 'output'));
         $result = $this->View->Blocks->get('script_bottom');
 
-        $result = preg_split('/\n\s*/', $result);
-        $expected = ['<script>', '//<![CDATA[', '$(function() {', '//first', '//second', '});', '//]]>', '</script>'];
+        $result = preg_split('/\n/', $result);
+        $expected = [
+            '<script>$(function() {',
+            '    //first',
+            '    //second',
+            '});</script>',
+        ];
         $this->assertEquals($expected, $result);
     }
 
@@ -90,13 +96,10 @@ class LibraryHelperTest extends TestCase
     {
         $this->Library->analytics('my-id');
         $result = $this->View->Blocks->get('script_bottom');
-
-        $this->assertNotEmpty($result);
-
-        $result = explode(PHP_EOL, $result);
-
-        $this->assertEquals('<script>', $result[0]);
-        $this->assertEquals('</script>', $result[count($result) - 1]);
+        $this->assertEquals(
+            '<script>!function(e,a,t,n,c,o,s){e.GoogleAnalyticsObject=c,e[c]=e[c]||function(){(e[c].q=e[c].q||[]).push(arguments)},e[c].l=1*new Date,o=a.createElement(t),s=a.getElementsByTagName(t)[0],o.async=1,o.src=n,s.parentNode.insertBefore(o,s)}(window,document,"script","//www.google-analytics.com/analytics.js","ga"),ga("create","my-id","auto"),ga("send","pageview");</script>',
+            $result
+        );
     }
 
     /**

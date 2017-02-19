@@ -120,7 +120,7 @@ class LibraryHelper extends Helper
         //Writes the output
         if (!empty($this->output)) {
             $this->output = implode(PHP_EOL, array_map(function ($v) {
-                return "\t" . $v;
+                return "    " . $v;
             }, $this->output));
 
             $this->Html->scriptBlock(
