@@ -158,11 +158,14 @@ class UploaderComponentTest extends TestCase
 
         $this->Uploader->set($file);
         $this->assertEmpty($this->Uploader->error());
-        $this->assertEquals('stdClass', get_class($this->Uploader->file));
-        $this->assertEquals(
-            ['name', 'type', 'tmp_name', 'error', 'size'],
-            array_keys((array)$this->Uploader->file)
-        );
+        $this->assertInstanceOf('stdClass', $this->Uploader->file);
+        $this->assertEquals([
+            'name',
+            'type',
+            'tmp_name',
+            'error',
+            'size',
+        ], array_keys((array)$this->Uploader->file));
 
         $this->Uploader->set(array_merge($file, ['error' => UPLOAD_ERR_INI_SIZE]));
         $this->assertNotEmpty($this->Uploader->error());

@@ -19,7 +19,7 @@
  * @copyright   Copyright (c) 2016, Mirko Pagliai for Nova Atlantis Ltd
  * @license     http://www.gnu.org/licenses/agpl.txt AGPL License
  * @link        http://git.novatlantis.it Nova Atlantis Ltd
- * @see         http://api.cakephp.org/3.3/class-Cake.Core.Plugin.html Plugin
+ * @see         http://api.cakephp.org/3.4/class-Cake.Core.Plugin.html Plugin
  */
 namespace MeTools\Core;
 
@@ -28,7 +28,7 @@ use Cake\Core\Plugin as CakePlugin;
 /**
  * An utility to handle plugins.
  *
- * Rewrites {@link http://api.cakephp.org/3.3/class-Cake.Core.Plugin.html Plugin}.
+ * Rewrites {@link http://api.cakephp.org/3.4/class-Cake.Core.Plugin.html Plugin}.
  */
 class Plugin extends CakePlugin
 {

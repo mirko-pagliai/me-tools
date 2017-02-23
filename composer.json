@@ -13,7 +13,7 @@
     },
     "require": {
         "php": ">=5.5.9",
-        "cakephp/cakephp": ">=3.3.10 <4.0",
+        "cakephp/cakephp": ">=3.4.1 <3.5",
         "ext-mcrypt": "*",
         "components/jquery": "^3.1",
         "mirko-pagliai/assets": "1.1.*"
@@ -22,8 +22,9 @@
         "cakephp/cakephp-codesniffer": "2.*",
         "eonasdan/bootstrap-datetimepicker": "*",
         "fortawesome/font-awesome": "*",
+        "mirko-pagliai/reflection": "^1.0",
         "newerton/fancy-box": "dev-master",
-        "mirko-pagliai/reflection": "^1.0"
+        "phpunit/phpunit": "^5.7|^6.0"
     },
     "suggest": {
         "eonasdan/bootstrap-datetimepicker": "To create Bootstrap's datetime pickers",

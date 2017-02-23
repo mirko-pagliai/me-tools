@@ -31,26 +31,6 @@ use MeTools\Core\Plugin;
 class PluginTest extends TestCase
 {
     /**
-     * Setup the test case, backup the static object values so they can be
-     * restored. Specifically backs up the contents of Configure and paths in
-     *  App if they have not already been backed up
-     * @return void
-     */
-    public function setUp()
-    {
-        parent::setUp();
-
-        //Gets loaded plugin and removes `MeTools`
-        $loaded = Plugin::loaded();
-        unset($loaded[array_search('MeTools', Plugin::loaded())]);
-
-        //Unloads all plugins
-        foreach ($loaded as $plugin) {
-            Plugin::unload($plugin);
-        }
-    }
-
-    /**
      * Teardown any static object changes and restore them
      * @return void
      */
@@ -70,29 +50,29 @@ class PluginTest extends TestCase
     public function testAll()
     {
         $result = Plugin::all();
-        $expected = ['MeTools'];
+        $expected = ['MeTools', 'Assets'];
         $this->assertEquals($expected, $result);
 
         $result = Plugin::load('TestPlugin');
         $this->assertNull($result);
 
         $result = Plugin::all();
-        $expected = ['MeTools', 'TestPlugin'];
+        $expected = ['MeTools', 'Assets', 'TestPlugin'];
         $this->assertEquals($expected, $result);
 
         $result = Plugin::all(['exclude' => 'TestPlugin']);
-        $expected = ['MeTools'];
+        $expected = ['MeTools', 'Assets'];
         $this->assertEquals($expected, $result);
 
         $result = Plugin::load('AnotherTestPlugin');
         $this->assertNull($result);
 
         $result = Plugin::all();
-        $expected = ['MeTools', 'AnotherTestPlugin', 'TestPlugin'];
+        $expected = ['MeTools', 'AnotherTestPlugin', 'Assets', 'TestPlugin'];
         $this->assertEquals($expected, $result);
 
         $result = Plugin::all(['order' => false]);
-        $expected = ['AnotherTestPlugin', 'MeTools', 'TestPlugin'];
+        $expected = ['AnotherTestPlugin', 'Assets', 'MeTools', 'TestPlugin'];
         $this->assertEquals($expected, $result);
     }
 

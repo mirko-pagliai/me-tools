@@ -19,7 +19,7 @@
  * @copyright   Copyright (c) 2016, Mirko Pagliai for Nova Atlantis Ltd
  * @license     http://www.gnu.org/licenses/agpl.txt AGPL License
  * @link        http://git.novatlantis.it Nova Atlantis Ltd
- * @see         http://api.cakephp.org/3.3/class-Cake.View.Helper.FormHelper.html FormHelper
+ * @see         http://api.cakephp.org/3.4/class-Cake.View.Helper.FormHelper.html FormHelper
  */
 namespace MeTools\View\Helper;
 
@@ -31,7 +31,7 @@ use MeTools\Utility\OptionsParserTrait;
 /**
  * Provides functionalities for forms.
  *
- * Rewrites {@link http://api.cakephp.org/3.3/class-Cake.View.Helper.FormHelper.html FormHelper}.
+ * Rewrites {@link http://api.cakephp.org/3.4/class-Cake.View.Helper.FormHelper.html FormHelper}.
  */
 class FormHelper extends CakeFormHelper
 {

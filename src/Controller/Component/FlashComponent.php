@@ -19,7 +19,7 @@
  * @copyright   Copyright (c) 2016, Mirko Pagliai for Nova Atlantis Ltd
  * @license     http://www.gnu.org/licenses/agpl.txt AGPL License
  * @link        http://git.novatlantis.it Nova Atlantis Ltd
- * @see         http://api.cakephp.org/3.3/class-Cake.Controller.Component.FlashComponent.html FlashComponent
+ * @see         http://api.cakephp.org/3.4/class-Cake.Controller.Component.FlashComponent.html FlashComponent
  */
 namespace MeTools\Controller\Component;
 

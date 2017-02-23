@@ -239,15 +239,17 @@ class ShellTest extends TestCase
      */
     public function testFolderChmod()
     {
-        //Creates a folder
         $folder = TMP . 'exampleDir';
-        mkdir($folder);
+
+        //@codingStandardsIgnoreLine
+        @mkdir($folder);
 
         //Set chmod
         $this->assertTrue($this->Shell->folderChmod($folder, 0777));
         $this->assertEquals('0777', substr(sprintf('%o', fileperms($folder)), -4));
 
-        rmdir($folder);
+                //@codingStandardsIgnoreLine
+        @rmdir($folder);
 
         //Tries to set chmod for a no existing directory
         $this->assertFalse($this->Shell->folderChmod(DS . 'noExistingDir', 0777));
