@@ -194,17 +194,6 @@ if (!function_exists('isJson')) {
     }
 }
 
-if (!function_exists('isLocalhost')) {
-    /**
-     * Checks if the host is the localhost
-     * @return bool
-     */
-    function isLocalhost()
-    {
-        return getClientIp() === '127.0.0.1';
-    }
-}
-
 if (!function_exists('isPositive')) {
     /**
      * Checks if a string is a positive number

@@ -50,7 +50,7 @@ class LibraryHelperTest extends TestCase
     {
         parent::setUp();
 
-        $this->View = new View();
+        $this->View = new View;
         $this->Library = new LibraryHelper($this->View);
     }
 
@@ -108,17 +108,20 @@ class LibraryHelperTest extends TestCase
      */
     public function testAnalyticsOnLocalhost()
     {
-        $this->Library = $this->getMockBuilder(LibraryHelper::class)
-            ->setMethods(['_isLocalhost'])
-            ->setConstructorArgs([$this->View])
+        //On localhost
+        $this->Request = $this->getMockBuilder(Request::class)
+            ->setMethods(['is'])
             ->getMock();
 
-        $this->Library->method('_isLocalhost')
-            ->willReturn(true);
+        $this->Request->expects($this->once())
+             ->method('is')
+             ->with('localhost')
+             ->willReturn(true);
+
+        $this->Library->request = $this->Request;
 
         $this->Library->analytics('my-id');
         $result = $this->View->Blocks->get('script_bottom');
-
         $this->assertEmpty($result);
     }
 
