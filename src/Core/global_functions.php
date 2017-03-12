@@ -88,19 +88,7 @@ if (!function_exists('firstKey')) {
             return null;
         }
 
-        return firstValue(array_keys($array));
-    }
-}
-
-if (!function_exists('firstValue')) {
-    /**
-     * Returns the first value of an array
-     * @param array $array Array
-     * @return mixed First value
-     */
-    function firstValue($array)
-    {
-        return array_values($array)[0];
+        return collection(array_keys($array))->first();
     }
 }
 

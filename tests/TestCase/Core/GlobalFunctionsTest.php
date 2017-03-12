@@ -94,23 +94,6 @@ class GlobalFunctionsTest extends TestCase
     }
 
     /**
-     * Test for `firstValue()` global function
-     * @return void
-     * @test
-     */
-    public function testFirstValue()
-    {
-        $testArray = ['alfa' => 'first', 'beta' => 'second'];
-
-        $result = firstValue($testArray);
-        $expected = 'first';
-        $this->assertEquals($expected, $result);
-
-        $expected = array_values($testArray)[0];
-        $this->assertEquals($expected, $result);
-    }
-
-    /**
      * Tests for `folderIsWriteable()` and `clearDir()` global functions.
      *
      * It creates some directories, so it tests if they are writeable.

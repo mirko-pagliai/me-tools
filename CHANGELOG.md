@@ -1,6 +1,7 @@
 # 2.x branch
 ## 2.11 branch
 ### 2.11.5
+* removed global `firstValue()`. Use instead `CollectionInterface::first()`;
 * updated for CakePHP 3.4.
 
 ### 2.11.4
