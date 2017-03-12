@@ -3,7 +3,7 @@
 ### 2.12.0
 * removed global `firstValue()`. Use instead `CollectionInterface::first()`;
 * removed global `isLocalhost()`. Use instead the `is('localhost')` detector;
-* removed global `getClientIp()`. User instead `ServerRequest::clientIp()`;
+* removed global `getClientIp()`. Use instead `ServerRequest::clientIp()`;
 * updated for CakePHP 3.4.
 
 ### 2.11.4
