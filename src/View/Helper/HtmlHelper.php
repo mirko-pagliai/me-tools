@@ -448,7 +448,7 @@ class HtmlHelper extends CakeHtmlHelper
             $itemOptions = $this->optionsValues(['icon' => 'li'], $itemOptions);
 
             $list = array_map(function ($element) use ($itemOptions) {
-                return firstValue($this->addIconToText($element, $itemOptions));
+                return collection($this->addIconToText($element, $itemOptions))->first();
             }, $list);
         }
 

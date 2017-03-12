@@ -98,15 +98,6 @@ class LibraryHelper extends Helper
     }
 
     /**
-     * Internal method to call the `isLocalhost` global function
-     * @return bool
-     */
-    protected function _isLocalhost()
-    {
-        return isLocalhost();
-    }
-
-    /**
      * Before layout callback. beforeLayout is called before the layout is
      *  rendered.
      * @param \Cake\Event\Event $event An Event instance
@@ -137,12 +128,11 @@ class LibraryHelper extends Helper
      * Create a script block for Google Analytics
      * @param string $id Analytics ID
      * @uses MeTools\View\Helper\HtmlHelper::scriptBlock()
-     * @uses _isLocalhost()
-     * @return mixed|null Html code or null if is localhost
+     * @return mixed|null Html code
      */
     public function analytics($id)
     {
-        if ($this->_isLocalhost()) {
+        if ($this->request->is('localhost')) {
             return;
         }
 

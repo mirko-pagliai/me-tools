@@ -88,19 +88,7 @@ if (!function_exists('firstKey')) {
             return null;
         }
 
-        return firstValue(array_keys($array));
-    }
-}
-
-if (!function_exists('firstValue')) {
-    /**
-     * Returns the first value of an array
-     * @param array $array Array
-     * @return mixed First value
-     */
-    function firstValue($array)
-    {
-        return array_values($array)[0];
+        return collection(array_keys($array))->first();
     }
 }
 
@@ -154,40 +142,6 @@ if (!function_exists('getChildMethods')) {
     }
 }
 
-if (!function_exists('getClientIp')) {
-    /**
-     * Gets the client IP
-     * @return string|bool Client IP or `false`
-     * @see http://stackoverflow.com/a/15699240/1480263
-     */
-    function getClientIp()
-    {
-        if (filter_input(INPUT_SERVER, 'HTTP_CLIENT_IP')) {
-            $ip = filter_input(INPUT_SERVER, 'HTTP_CLIENT_IP');
-        } elseif (filter_input(INPUT_SERVER, 'HTTP_X_FORWARDED_FOR')) {
-            $ip = filter_input(INPUT_SERVER, 'HTTP_X_FORWARDED_FOR');
-        } elseif (filter_input(INPUT_SERVER, 'HTTP_X_FORWARDED')) {
-            $ip = filter_input(INPUT_SERVER, 'HTTP_X_FORWARDED');
-        } elseif (filter_input(INPUT_SERVER, 'HTTP_FORWARDED_FOR')) {
-            $ip = filter_input(INPUT_SERVER, 'HTTP_FORWARDED_FOR');
-        } elseif (filter_input(INPUT_SERVER, 'HTTP_FORWARDED')) {
-            $ip = filter_input(INPUT_SERVER, 'HTTP_FORWARDED');
-        } elseif (filter_input(INPUT_SERVER, 'REMOTE_ADDR')) {
-            $ip = filter_input(INPUT_SERVER, 'REMOTE_ADDR');
-        }
-
-        if (empty($ip)) {
-            return false;
-        }
-
-        if ($ip === '::1') {
-            return '127.0.0.1';
-        }
-
-        return $ip;
-    }
-}
-
 if (!function_exists('isJson')) {
     /**
      * Checks if a string is JSON
@@ -203,17 +157,6 @@ if (!function_exists('isJson')) {
         json_decode($string);
 
         return json_last_error() === JSON_ERROR_NONE;
-    }
-}
-
-if (!function_exists('isLocalhost')) {
-    /**
-     * Checks if the host is the localhost
-     * @return bool
-     */
-    function isLocalhost()
-    {
-        return getClientIp() === '127.0.0.1';
     }
 }
 

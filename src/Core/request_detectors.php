@@ -76,6 +76,15 @@ Request::addDetector('controller', function ($request, $controller) {
 });
 
 /**
+ * Adds `is('localhost')` detector.
+ *
+ * It checks if the host is the localhost.
+ */
+Request::addDetector('localhost', function ($request) {
+    return in_array($request->clientIp(), ['127.0.0.1', '::1']);
+});
+
+/**
  * Adds `is('prefix')` detector.
  *
  * It checks if the specified prefix is the current prefix.

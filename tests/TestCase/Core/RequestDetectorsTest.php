@@ -112,6 +112,27 @@ class RequestDetectorsTest extends TestCase
     }
 
     /**
+     * Tests for `is('localhost')` detector
+     * @return void
+     * @test
+     */
+    public function testIsLocalhost()
+    {
+        $this->assertFalse($this->Request->is('localhost'));
+        $this->assertFalse($this->Request->isLocalhost());
+
+        $this->Request->env('REMOTE_ADDR', '127.0.0.1');
+
+        $this->assertTrue($this->Request->is('localhost'));
+        $this->assertTrue($this->Request->isLocalhost());
+
+        $this->Request->env('REMOTE_ADDR', '::1');
+
+        $this->assertTrue($this->Request->is('localhost'));
+        $this->assertTrue($this->Request->isLocalhost());
+    }
+
+    /**
      * Tests for `is('prefix')` detector
      * @return void
      * @test
