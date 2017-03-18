@@ -103,7 +103,7 @@ class FormHelper extends CakeFormHelper
     }
 
     /**
-     * Creates a checkbox input element
+     * Creates a checkbox element
      * @param string $fieldName Field name, should be "Modelname.fieldname"
      * @param array $options HTML attributes and options
      * @return string
@@ -125,117 +125,14 @@ class FormHelper extends CakeFormHelper
      * @param array $options HTML attributes and options
      * @return string
      * @see MeTools\View\Helper\LibraryHelper::ckeditor()
-     * @uses input()
+     * @uses control()
      */
     public function ckeditor($fieldName, array $options = [])
     {
         $options = $this->optionsDefaults(['type' => 'textarea'], $options);
         $options = $this->optionsValues(['class' => 'wysiwyg editor'], $options);
 
-        return self::input($fieldName, $options);
-    }
-
-    /**
-     * Returns a `<form>` element.
-     * @param mixed $model The model name for which the form is being defined.
-     *  If `false` no model is used
-     * @param array $options HTML attributes and options
-     * @return string An formatted opening `<form>` tag
-     * @uses createInline()
-     */
-    public function create($model = null, array $options = [])
-    {
-        //It's a form inline if there is the `inline` option or if it contains
-        //  the `form-inline` class
-        if (!empty($options['inline']) ||
-            (isset($options['class']) && preg_match('/form-inline/', $options['class']))
-        ) {
-            return self::createInline($model, $options);
-        }
-
-        return parent::create($model, $options);
-    }
-
-    /**
-     * Returns an inline form element.
-     *
-     * You can also create an inline form using the `create()` method with
-     *  the `inline` option.
-     *
-     * Note that by default `createInline` doesn't display help blocks and
-     *  errors.
-     * @param mixed $model The model name for which the form is being defined.
-     *  If `false` no model is used
-     * @param array $options HTML attributes and options
-     * @return string An formatted opening `<form>` tag
-     * @uses $inline
-     */
-    public function createInline($model = null, array $options = [])
-    {
-        $this->inline = true;
-        unset($options['inline']);
-
-        $options = $this->optionsValues(['class' => 'form-inline'], $options);
-
-        return parent::create($model, $options);
-    }
-
-    /**
-     * Creates a datepicker input.
-     *
-     * To add the scripts for datepicker, you should use the `LibraryHelper`.
-     * @param string $fieldName Field name, should be "Modelname.fieldname"
-     * @param array $options HTML attributes and options
-     * @return string
-     * @see MeTools\View\Helper\LibraryHelper::datepicker()
-     * @uses input()
-     */
-    public function datepicker($fieldName, array $options = [])
-    {
-        $options = $this->optionsValues(['class' => 'datepicker'], $options);
-        $options = $this->optionsDefaults([
-            'data-date-format' => 'YYYY-MM-DD',
-            'type' => 'text',
-        ], $options);
-
-        return self::input($fieldName, $options);
-    }
-
-    /**
-     * Creates a datetimepicker input.
-     *
-     * To add the scripts for datetimepicker, you should use the `LibraryHelper`.
-     * @param string $fieldName Field name, should be "Modelname.fieldname"
-     * @param array $options HTML attributes and options
-     * @return string
-     * @see MeTools\View\Helper\LibraryHelper::datetimepicker()
-     * @uses input()
-     */
-    public function datetimepicker($fieldName, array $options = [])
-    {
-        $options = $this->optionsValues(['class' => 'datetimepicker'], $options);
-        $options = $this->optionsDefaults([
-            'data-date-format' => 'YYYY-MM-DD HH:mm',
-            'type' => 'text',
-        ], $options);
-
-        return self::input($fieldName, $options);
-    }
-
-    /**
-     * Closes an HTML form, cleans up values set by `FormHelper::create()`,
-     *  and writes hidden input fields where appropriate
-     * @param array $secureAttributes Secure attibutes which will be passed
-     *  as HTML attributes into the hidden input elements generated for the
-     *  Security Component.
-     * @return string
-     * @uses $inline
-     */
-    public function end(array $secureAttributes = [])
-    {
-        $this->inline = false;
-
-        return parent::end($secureAttributes);
+        return $this->control($fieldName, $options);
     }
 
     /**
@@ -246,7 +143,7 @@ class FormHelper extends CakeFormHelper
      * @uses MeTools\View\Helper\HtmlHelper::para()
      * @uses $inline
      */
-    public function input($fieldName, array $options = [])
+    public function control($fieldName, array $options = [])
     {
         //Resets templates
         $this->resetTemplates();
@@ -257,14 +154,14 @@ class FormHelper extends CakeFormHelper
             $options = $this->optionsDefaults(['type' => 'password'], $options);
         }
 
-        //Gets the input type
+        //Gets the type
         if (empty($options['type'])) {
             $type = self::_inputType($fieldName, $options);
         } else {
             $type = $options['type'];
         }
 
-        // Adds the `form-control` class, except for checkboxes and file inputs
+        // Adds the `form-control` class, except for checkboxes and files
         if (!in_array($type, ['checkbox', 'file'])) {
             $options = $this->optionsValues(['class' => 'form-control'], $options);
         }
@@ -314,7 +211,110 @@ class FormHelper extends CakeFormHelper
             }
         }
 
-        return parent::input($fieldName, $options);
+        return parent::control($fieldName, $options);
+    }
+
+    /**
+     * Returns a `<form>` element.
+     * @param mixed $model The model name for which the form is being defined.
+     *  If `false` no model is used
+     * @param array $options HTML attributes and options
+     * @return string An formatted opening `<form>` tag
+     * @uses createInline()
+     */
+    public function create($model = null, array $options = [])
+    {
+        //It's a form inline if there is the `inline` option or if it contains
+        //  the `form-inline` class
+        if (!empty($options['inline']) ||
+            (isset($options['class']) && preg_match('/form-inline/', $options['class']))
+        ) {
+            return self::createInline($model, $options);
+        }
+
+        return parent::create($model, $options);
+    }
+
+    /**
+     * Returns an inline form element.
+     *
+     * You can also create an inline form using the `create()` method with
+     *  the `inline` option.
+     *
+     * Note that by default `createInline` doesn't display help blocks and
+     *  errors.
+     * @param mixed $model The model name for which the form is being defined.
+     *  If `false` no model is used
+     * @param array $options HTML attributes and options
+     * @return string An formatted opening `<form>` tag
+     * @uses $inline
+     */
+    public function createInline($model = null, array $options = [])
+    {
+        $this->inline = true;
+        unset($options['inline']);
+
+        $options = $this->optionsValues(['class' => 'form-inline'], $options);
+
+        return parent::create($model, $options);
+    }
+
+    /**
+     * Creates a datepicker.
+     *
+     * To add the scripts for datepicker, you should use the `LibraryHelper`.
+     * @param string $fieldName Field name, should be "Modelname.fieldname"
+     * @param array $options HTML attributes and options
+     * @return string
+     * @see MeTools\View\Helper\LibraryHelper::datepicker()
+     * @uses control()
+     */
+    public function datepicker($fieldName, array $options = [])
+    {
+        $options = $this->optionsValues(['class' => 'datepicker'], $options);
+        $options = $this->optionsDefaults([
+            'data-date-format' => 'YYYY-MM-DD',
+            'type' => 'text',
+        ], $options);
+
+        return $this->control($fieldName, $options);
+    }
+
+    /**
+     * Creates a datetimepicker.
+     *
+     * To add the scripts for datetimepicker, you should use the `LibraryHelper`.
+     * @param string $fieldName Field name, should be "Modelname.fieldname"
+     * @param array $options HTML attributes and options
+     * @return string
+     * @see MeTools\View\Helper\LibraryHelper::datetimepicker()
+     * @uses control()
+     */
+    public function datetimepicker($fieldName, array $options = [])
+    {
+        $options = $this->optionsValues(['class' => 'datetimepicker'], $options);
+        $options = $this->optionsDefaults([
+            'data-date-format' => 'YYYY-MM-DD HH:mm',
+            'type' => 'text',
+        ], $options);
+
+        return $this->control($fieldName, $options);
+    }
+
+    /**
+     * Closes an HTML form, cleans up values set by `FormHelper::create()`,
+     *  and writes hidden input fields where appropriate
+     * @param array $secureAttributes Secure attibutes which will be passed
+     *  as HTML attributes into the hidden input elements generated for the
+     *  Security Component.
+     * @return string
+     * @uses $inline
+     */
+    public function end(array $secureAttributes = [])
+    {
+        $this->inline = false;
+
+        return parent::end($secureAttributes);
     }
 
     /**
@@ -446,14 +446,14 @@ class FormHelper extends CakeFormHelper
     }
 
     /**
-     * Creates a text input for timepicker.
+     * Creates a timepicker.
      *
      * To add the scripts for timepicker, you should use the `LibraryHelper`.
      * @param string $fieldName Field name, should be "Modelname.fieldname"
      * @param array $options HTML attributes and options
      * @return string
      * @see MeTools\View\Helper\LibraryHelper::timepicker()
-     * @uses input()
+     * @uses control()
      */
     public function timepicker($fieldName, array $options = [])
     {
@@ -463,6 +463,6 @@ class FormHelper extends CakeFormHelper
             'type' => 'text',
         ], $options);
 
-        return self::input($fieldName, $options);
+        return $this->control($fieldName, $options);
     }
 }
