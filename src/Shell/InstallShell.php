@@ -352,7 +352,7 @@ class InstallShell extends Shell
             'short' => 'f',
         ]);
 
-        $parser->description(__d('me_tools', 'Executes some tasks to make the system ready to work'));
+        $parser->setDescription(__d('me_tools', 'Executes some tasks to make the system ready to work'));
 
         return $parser;
     }
