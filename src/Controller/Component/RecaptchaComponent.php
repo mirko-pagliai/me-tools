@@ -86,8 +86,8 @@ class RecaptchaComponent extends Component
             throw new InternalErrorException(__d('me_tools', 'Form keys are not configured'));
         }
 
-        $controller = $this->_registry->getController();
-        $response = $controller->request->data('g-recaptcha-response');
+        $controller = $this->getController();
+        $response = $controller->request->getData('g-recaptcha-response');
 
         if (empty($response)) {
             $this->error = __d('me_tools', 'You have not filled out the {0} control', 'reCAPTCHA');

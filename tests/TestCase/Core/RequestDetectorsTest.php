@@ -152,7 +152,7 @@ class RequestDetectorsTest extends TestCase
      */
     public function testIsUrl()
     {
-        $this->Request->here = '/some_alias';
+        $this->Request = $this->Request->withRequestTarget('/some_alias');
 
         //Url as array of params
         $this->assertTrue($this->Request->is('url', ['controller' => 'tests_apps', 'action' => 'some_method']));
@@ -168,7 +168,7 @@ class RequestDetectorsTest extends TestCase
         $this->assertFalse($this->Request->is('url', '/some_alias/noExisting'));
         $this->assertFalse($this->Request->isUrl('/some_alias/noExisting'));
 
-        $this->Request->here = '/';
+        $this->Request = $this->Request->withRequestTarget('/');
 
         //Url as array of params
         $this->assertTrue($this->Request->is('url', ['controller' => 'pages', 'action' => 'display', 'home']));
