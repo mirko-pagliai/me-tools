@@ -47,11 +47,9 @@ class RequestDetectorsTest extends TestCase
 
         //Creates request
         $this->Request = new Request;
-        $this->Request->params = [
-            'action' => 'myAction',
-            'controller' => 'myController',
-            'prefix' => 'myPrefix',
-        ];
+        $this->Request = $this->Request->withParam('action', 'myAction')
+            ->withParam('controller', 'myController')
+            ->withParam('prefix', 'myPrefix');
     }
 
     /**
