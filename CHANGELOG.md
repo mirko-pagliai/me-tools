@@ -1,5 +1,8 @@
 # 2.x branch
 ## 2.12 branch
+### 2.12.1
+* methods that have been deprecated with CakePHP 3.4 have been replaced.
+
 ### 2.12.0
 * removed global `firstValue()`. Use instead `CollectionInterface::first()`;
 * removed global `isLocalhost()`. Use instead the `is('localhost')` detector;
