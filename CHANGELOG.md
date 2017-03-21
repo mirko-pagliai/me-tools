@@ -1,11 +1,15 @@
 # 2.x branch
-## 2.11 branch
+## 2.12 branch
+### 2.12.1
+* methods that have been deprecated with CakePHP 3.4 have been replaced.
+
 ### 2.12.0
 * removed global `firstValue()`. Use instead `CollectionInterface::first()`;
 * removed global `isLocalhost()`. Use instead the `is('localhost')` detector;
 * removed global `getClientIp()`. Use instead `ServerRequest::clientIp()`;
 * updated for CakePHP 3.4.
 
+## 2.11 branch
 ### 2.11.4
 * fixed a little bug for labels on inline forms.
 

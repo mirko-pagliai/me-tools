@@ -48,7 +48,7 @@ use Cake\Routing\Router;
  * current controller is `Pages`, otherwise `false`.
  */
 Request::addDetector('action', function ($request, $action, $controller = null) {
-    $action = in_array($request->param('action'), (array)$action);
+    $action = in_array($request->getParam('action'), (array)$action);
 
     //Checks only action
     if (empty($controller)) {
@@ -72,7 +72,7 @@ Request::addDetector('action', function ($request, $action, $controller = null) 
  * returns `true` if the current controller is `Pages`, otherwise `false`.
  */
 Request::addDetector('controller', function ($request, $controller) {
-    return in_array($request->param('controller'), (array)$controller);
+    return in_array($request->getParam('controller'), (array)$controller);
 });
 
 /**
@@ -96,7 +96,7 @@ Request::addDetector('localhost', function ($request) {
  * </code>
  */
 Request::addDetector('prefix', function ($request, $prefix) {
-    return in_array($request->param('prefix'), (array)$prefix);
+    return in_array($request->getParam('prefix'), (array)$prefix);
 });
 
 /**
@@ -110,5 +110,5 @@ Request::addDetector('prefix', function ($request, $prefix) {
  * </code>
  */
 Request::addDetector('url', function ($request, $url) {
-    return rtrim(Router::url($url), '/') === rtrim($request->here, '/');
+    return rtrim(Router::url($url), '/') === rtrim($request->getRequestTarget(), '/');
 });

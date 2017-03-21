@@ -24,6 +24,7 @@
 namespace MeTools\Controller\Component;
 
 use Cake\Controller\Component;
+use Cake\Controller\ComponentRegistry;
 use Cake\Core\Configure;
 use Cake\Http\Client;
 use Cake\Network\Exception\InternalErrorException;
@@ -45,7 +46,7 @@ class RecaptchaComponent extends Component
      *  this component can use to lazy load its components
      * @param array $config Array of configuration settings
      */
-    public function __construct(\Cake\Controller\ComponentRegistry $registry, array $config = [])
+    public function __construct(ComponentRegistry $registry, array $config = [])
     {
         parent::__construct($registry, $config);
 
@@ -86,10 +87,10 @@ class RecaptchaComponent extends Component
             throw new InternalErrorException(__d('me_tools', 'Form keys are not configured'));
         }
 
-        $controller = $this->_registry->getController();
-        $response = $controller->request->data('g-recaptcha-response');
+        $controller = $this->getController();
+        $response = $controller->request->getData('g-recaptcha-response');
 
-        if (empty($response)) {
+        if (!$response) {
             $this->error = __d('me_tools', 'You have not filled out the {0} control', 'reCAPTCHA');
 
             return false;

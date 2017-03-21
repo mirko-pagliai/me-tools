@@ -83,7 +83,7 @@ Configure::write('App', [
     ]
 ]);
 
-Cache::config([
+Cache::setConfig([
     '_cake_core_' => [
         'engine' => 'File',
         'prefix' => 'cake_core_',
@@ -111,7 +111,7 @@ $config = [
 ];
 
 // Use the test connection for 'debug_kit' as well.
-ConnectionManager::config('test', $config);
+ConnectionManager::setConfig('test', $config);
 
 Configure::write('Session', [
     'defaults' => 'php'
