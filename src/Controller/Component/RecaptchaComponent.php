@@ -90,7 +90,7 @@ class RecaptchaComponent extends Component
         $controller = $this->getController();
         $response = $controller->request->getData('g-recaptcha-response');
 
-        if (empty($response)) {
+        if (!$response) {
             $this->error = __d('me_tools', 'You have not filled out the {0} control', 'reCAPTCHA');
 
             return false;
