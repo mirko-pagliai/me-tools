@@ -208,8 +208,8 @@ trait OptionsParserTrait
         //Prepends the `fa` class
         array_unshift($icons, 'fa');
 
-        if (!$this->templates('icon')) {
-            $this->templates(['icon' => '<i class="{{icons}}"> </i>']);
+        if (!$this->getTemplates('icon')) {
+            $this->setTemplates(['icon' => '<i class="{{icons}}"> </i>']);
         }
 
         return $this->formatTemplate('icon', ['icons' => $this->_toString($icons)]);

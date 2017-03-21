@@ -182,7 +182,7 @@ class FormHelper extends CakeFormHelper
 
         if (!empty($options['button'])) {
             //Fixes templates
-            $this->templates([
+            $this->setTemplates([
                 'formGroup' => '{{label}}<div class="input-group">{{input}}{{button}}</div>',
             ]);
 
@@ -194,7 +194,7 @@ class FormHelper extends CakeFormHelper
         //If is an inline form
         if ($this->inline) {
             //By default, no help blocks or error messages
-            $this->templates([
+            $this->setTemplates([
                 'inputContainer' => '<div class="input form-group {{type}}{{required}}">{{content}}</div>',
                 'inputContainerError' => '<div class="input form-group {{type}}{{required}} has-error">{{content}}</div>',
             ]);
