@@ -24,6 +24,7 @@
 namespace MeTools\Controller\Component;
 
 use Cake\Controller\Component;
+use Cake\Controller\ComponentRegistry;
 use Cake\Core\Configure;
 use Cake\Http\Client;
 use Cake\Network\Exception\InternalErrorException;
@@ -45,7 +46,7 @@ class RecaptchaComponent extends Component
      *  this component can use to lazy load its components
      * @param array $config Array of configuration settings
      */
-    public function __construct(\Cake\Controller\ComponentRegistry $registry, array $config = [])
+    public function __construct(ComponentRegistry $registry, array $config = [])
     {
         parent::__construct($registry, $config);
 
