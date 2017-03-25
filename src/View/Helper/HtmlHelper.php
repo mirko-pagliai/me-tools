@@ -381,11 +381,9 @@ class HtmlHelper extends CakeHtmlHelper
     public function li($element, array $options = [])
     {
         if (is_array($element)) {
-            $element = array_map(function ($element) use ($options) {
+            return implode(PHP_EOL, array_map(function ($element) use ($options) {
                 return self::tag('li', $element, $options);
-            }, $element);
-
-            return implode(PHP_EOL, $element);
+            }, $element));
         }
 
         return self::tag('li', $element, $options);
@@ -447,9 +445,9 @@ class HtmlHelper extends CakeHtmlHelper
             $options = $this->optionsValues(['class' => 'fa-ul'], $options);
             $itemOptions = $this->optionsValues(['icon' => 'li'], $itemOptions);
 
-            $list = array_map(function ($element) use ($itemOptions) {
+            $list = collection($list)->map(function ($element) use ($itemOptions) {
                 return collection($this->addIconToText($element, $itemOptions))->first();
-            }, $list);
+            })->toList();
         }
 
         unset(

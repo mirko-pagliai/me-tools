@@ -102,22 +102,19 @@ trait OptionsParserTrait
             return $this->optionsValues(['class' => 'btn'], $options);
         }
 
-        $classes = $this->_toArray($classes);
+        $classes = collection($this->_toArray($classes))
+            ->filter(function ($class) {
+                return preg_match('/^(btn\-)?(default|primary|success|info|warning|danger|lg|sm|xs|block)$/', $class);
+            })
+            ->map(function ($class) {
+                //Adds the `btn-` prefix to each class
+                if (substr($class, 0, 4) !== 'btn-') {
+                    return sprintf('btn-%s', $class);
+                }
 
-        //Filters invalid classes and adds the `btn-` prefix to each class
-        $classes = array_filter(array_map(function ($class) {
-            //Filters invalid classes
-            if (!preg_match('/^(btn\-)?(default|primary|success|info|warning|danger|lg|sm|xs|block)$/', $class)) {
-                return false;
-            }
-
-            //Adds the `btn-` prefix to each class
-            if (substr($class, 0, 4) !== 'btn-') {
-                $class = sprintf('btn-%s', $class);
-            }
-
-            return $class;
-        }, $classes));
+                return $class;
+            })
+            ->toList();
 
         //Prepend the `btn` class
         array_unshift($classes, 'btn');

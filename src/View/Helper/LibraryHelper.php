@@ -22,6 +22,7 @@
  */
 namespace MeTools\View\Helper;
 
+use Cake\Event\Event;
 use Cake\View\Helper;
 use MeTools\Utility\OptionsParserTrait;
 
@@ -106,16 +107,16 @@ class LibraryHelper extends Helper
      * @uses MeTools\View\Helper\HtmlHelper::scriptBlock()
      * @uses output
      */
-    public function beforeLayout(\Cake\Event\Event $event, $layoutFile)
+    public function beforeLayout(Event $event, $layoutFile)
     {
         //Writes the output
         if (!empty($this->output)) {
-            $this->output = implode(PHP_EOL, array_map(function ($v) {
+            $output = implode(PHP_EOL, collection($this->output)->map(function ($v) {
                 return "    " . $v;
-            }, $this->output));
+            })->toList());
 
             $this->Html->scriptBlock(
-                sprintf('$(function() {%s});', PHP_EOL . $this->output . PHP_EOL),
+                sprintf('$(function() {%s});', PHP_EOL . $output . PHP_EOL),
                 ['block' => 'script_bottom']
             );
 
