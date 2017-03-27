@@ -48,10 +48,16 @@ class YoutubeTest extends TestCase
         $result = Youtube::getId('https://www.youtube.com/watch?v=bL_CJKq9rIw');
         $this->assertEquals($expected, $result);
 
+        $result = Youtube::getId('http://youtu.be/bL_CJKq9rIw');
+        $this->assertEquals($expected, $result);
+
         $result = Youtube::getId('https://youtu.be/bL_CJKq9rIw');
         $this->assertEquals($expected, $result);
 
-        $result = Youtube::getId('http://youtu.be/bL_CJKq9rIw');
+        $result = Youtube::getId('http://youtu.be/bL_CJKq9rIw?t=5s');
+        $this->assertEquals($expected, $result);
+
+        $result = Youtube::getId('http://youtu.be/bL_CJKq9rIw?t=1m16s');
         $this->assertEquals($expected, $result);
     }
 

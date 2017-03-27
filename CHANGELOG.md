@@ -1,5 +1,9 @@
 # 2.x branch
 ## 2.12 branch
+### 2.12.2
+* `Youtube::getId()` method takes short url with the duration (eg.
+    `http://youtu.be/bL_CJKq9rIw?t=5s`).
+
 ### 2.12.1
 * methods that have been deprecated with CakePHP 3.4 have been replaced.
 
