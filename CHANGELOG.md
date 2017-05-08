@@ -1,5 +1,8 @@
 # 2.x branch
 ## 2.12 branch
+### 2.12.3
+* added `HtmlHelper::iconClass()` method.
+
 ### 2.12.2
 * `Youtube::getId()` method takes short url with the duration (eg.
     `http://youtu.be/bL_CJKq9rIw?t=5s`).

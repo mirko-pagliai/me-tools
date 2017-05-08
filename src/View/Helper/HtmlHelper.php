@@ -241,19 +241,31 @@ class HtmlHelper extends CakeHtmlHelper
     }
 
     /**
-     * Returns icons. Examples:
+     * Returns icons classes.
+     *
+     * Example:
      * <code>
-     * echo $this->Html->icon('home');
+     * echo $this->Html->iconClass('home');
      * </code>
+     * Returns:
      * <code>
-     * echo $this->Html->icon(['hand-o-right', '2x']);
+     * fa fa-home
+     * </code>
+     *
+     * Example:
+     * <code>
+     * echo $this->Html->iconClass(['hand-o-right', '2x']);
+     * </code>
+     * Returns:
+     * <code>
+     * fa fa-hand-o-right fa-2x
      * </code>
      * @param string|array $icon Icons
      * @return string
      * @see http://fortawesome.github.io/Font-Awesome Font Awesome icons
-     * @uses tag()
+     * @since 2.12.3
      */
-    public function icon($icon)
+    public function iconClass($icon)
     {
         if (func_num_args() > 1) {
             $icon = func_get_args();
@@ -266,10 +278,45 @@ class HtmlHelper extends CakeHtmlHelper
             $icon = preg_split('/\s+/', $icon, -1, PREG_SPLIT_NO_EMPTY);
         }
 
+        //Adds the "fa" class
         array_unshift($icon, 'fa');
 
-        //Adds the "fa" class
-        $options = $this->optionsDefaults(['class' => $icon], []);
+        return implode(' ', array_unique($icon));
+    }
+
+    /**
+     * Returns icons tag.
+     *
+     * Example:
+     * <code>
+     * echo $this->Html->icon('home');
+     * </code>
+     * Returns:
+     * <code>
+     * <i class="fa fa-home"> </i>
+     * </code>
+     *
+     * Example:
+     * <code>
+     * echo $this->Html->icon(['hand-o-right', '2x']);
+     * </code>
+     * Returns:
+     * <code>
+     * <i class="fa fa-hand-o-right fa-2x"> </i>
+     * </code>
+     * @param string|array $icon Icons
+     * @return string
+     * @see http://fortawesome.github.io/Font-Awesome Font Awesome icons
+     * @uses iconClass()
+     * @uses tag()
+     */
+    public function icon($icon)
+    {
+        if (func_num_args() > 1) {
+            $icon = func_get_args();
+        }
+
+        $options = $this->optionsDefaults(['class' => $this->iconClass($icon)], []);
 
         return self::tag('i', ' ', $options);
     }
