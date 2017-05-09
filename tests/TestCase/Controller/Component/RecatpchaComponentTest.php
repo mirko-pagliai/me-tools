@@ -86,7 +86,15 @@ class RecatpchaComponentTest extends TestCase
     {
         $this->assertFalse($this->Recaptcha->check());
         $this->assertEquals('You have not filled out the reCAPTCHA control', $this->Recaptcha->getError());
+    }
 
+    /**
+     * Tests for `check()` method with a response
+     * @group requireNetwork
+     * @test
+     */
+    public function testCheckWithResponse()
+    {
         $this->Controller->request = $this->Controller->request->withData('g-recaptcha-response', true);
         $this->assertFalse($this->Recaptcha->check());
         $this->assertEquals('It was not possible to verify the reCAPTCHA control', $this->Recaptcha->getError());
@@ -96,10 +104,9 @@ class RecatpchaComponentTest extends TestCase
             ->setMethods(['_getResult'])
             ->getMock();
 
-        $this->Recaptcha->method('_getResult')
-            ->will($this->returnCallback(function () {
-                return (object)['json' => ['success' => true]];
-            }));
+        $this->Recaptcha->method('_getResult')->will($this->returnCallback(function () {
+            return (object)['json' => ['success' => true]];
+        }));
 
         $this->assertTrue($this->Recaptcha->check());
     }

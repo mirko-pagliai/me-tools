@@ -664,6 +664,42 @@ class HtmlHelperTest extends TestCase
     }
 
     /**
+     * Test for `iconClass()` method
+     * @return void
+     * @test
+     */
+    public function testIconClass()
+    {
+        $expected = 'fa fa-home';
+
+        foreach ([
+            'home',
+            'fa-home',
+            'fa home',
+            'fa fa-home',
+        ] as $icons) {
+            $result = $this->Html->iconClass($icons);
+            $this->assertEquals($expected, $result);
+        }
+
+        $result = $this->Html->iconClass('fa', 'fa-home');
+        $this->assertEquals($expected, $result);
+
+        $expected = 'fa fa-hand-o-right fa-2x';
+
+        foreach ([
+            'hand-o-right 2x',
+            ['hand-o-right', '2x'],
+        ] as $icons) {
+            $result = $this->Html->iconClass($icons);
+            $this->assertEquals($expected, $result);
+        }
+
+        $result = $this->Html->iconClass('hand-o-right', '2x');
+        $this->assertHtml($expected, $result);
+    }
+
+    /**
      * Test for `icon()` method
      * @return void
      * @test
@@ -673,34 +709,37 @@ class HtmlHelperTest extends TestCase
         $expected = [
             'i' => ['class' => 'fa fa-home'],
             ' ',
-            '/i'
+            '/i',
         ];
 
-        $result = $this->Html->icon('home');
-        $this->assertHtml($expected, $result);
+        foreach ([
+            'home',
+            'fa-home',
+            'fa home',
+            'fa fa-home',
+        ] as $icons) {
+            $result = $this->Html->icon($icons);
+            $this->assertHtml($expected, $result);
+        }
 
-        $result = $this->Html->icon('fa-home');
-        $this->assertHtml($expected, $result);
-
-        $result = $this->Html->icon('fa home');
-        $this->assertHtml($expected, $result);
-
-        $result = $this->Html->icon('fa fa-home');
+        $result = $this->Html->icon('fa', 'fa-home');
         $this->assertHtml($expected, $result);
 
         $expected = [
             'i' => ['class' => 'fa fa-hand-o-right fa-2x'],
             ' ',
-            '/i'
+            '/i',
         ];
 
-        $result = $this->Html->icon('hand-o-right 2x');
-        $this->assertHtml($expected, $result);
+        foreach ([
+            'hand-o-right 2x',
+            ['hand-o-right', '2x'],
+        ] as $icons) {
+            $result = $this->Html->icon($icons);
+            $this->assertHtml($expected, $result);
+        }
 
         $result = $this->Html->icon('hand-o-right', '2x');
-        $this->assertHtml($expected, $result);
-
-        $result = $this->Html->icon(['hand-o-right', '2x']);
         $this->assertHtml($expected, $result);
     }
 
