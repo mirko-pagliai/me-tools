@@ -1,5 +1,9 @@
 # 2.x branch
 ## 2.12 branch
+### 2.12.3
+* by default, the `is('url')` detector removes the query string from the current
+    url. You can pass `false` as second parameter to keep the query string.
+
 ### 2.12.2
 * added `HtmlHelper::iconClass()` method;
 * `Youtube::getId()` method takes short url with the duration (eg.
