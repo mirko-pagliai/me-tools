@@ -108,7 +108,17 @@ Request::addDetector('prefix', function ($request, $prefix) {
  * <code>
  * $this->request->isUrl(['_name' => 'posts']);
  * </code>
+ *
+ * The first argument is the url to be verified as an array of parameters or a
+ *  string. The second argument allows you to not remove the query string from
+ *  the current url.
  */
-Request::addDetector('url', function ($request, $url) {
-    return rtrim(Router::url($url), '/') === rtrim($request->getRequestTarget(), '/');
+Request::addDetector('url', function ($request, $url, $removeQueryString = true) {
+    $current = rtrim($request->getRequestTarget(), '/');
+
+    if ($removeQueryString) {
+        $current = explode('?', $current, 2)[0];
+    }
+
+    return rtrim(Router::url($url), '/') === $current;
 });

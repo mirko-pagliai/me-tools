@@ -182,4 +182,22 @@ class RequestDetectorsTest extends TestCase
         $this->assertFalse($this->Request->is('url', '/noExisting'));
         $this->assertFalse($this->Request->isUrl('/noExisting'));
     }
+
+    /**
+     * Tests for `is('url')` detector, with query strings
+     * @return void
+     * @test
+     */
+    public function testIsUrlQueryString()
+    {
+        $this->Request = $this->Request->withRequestTarget('/some_alias');
+
+        $this->assertTrue($this->Request->isUrl('/some_alias'));
+        $this->assertTrue($this->Request->isUrl('/some_alias', false));
+
+        $this->Request = $this->Request->withRequestTarget('/some_alias?key=value');
+
+        $this->assertTrue($this->Request->isUrl('/some_alias'));
+        $this->assertFalse($this->Request->isUrl('/some_alias', false));
+    }
 }
