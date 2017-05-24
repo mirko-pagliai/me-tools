@@ -78,22 +78,6 @@ class GlobalFunctionsTest extends TestCase
     }
 
     /**
-     * Test for `firstKey()` global function
-     * @return void
-     * @test
-     */
-    public function testFirstKey()
-    {
-        $result = firstKey(['alfa' => 'first', 'beta' => 'second']);
-        $this->assertEquals('alfa', $result);
-
-        //Invalid values
-        $this->assertNull(firstKey(false));
-        $this->assertNull(firstKey('string'));
-        $this->assertNull(firstKey([]));
-    }
-
-    /**
      * Tests for `clearDir()` and `folderIsWriteable()`  global functions.
      *
      * It creates some directories, so it tests if they are writeable.

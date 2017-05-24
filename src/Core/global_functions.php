@@ -76,22 +76,6 @@ if (!function_exists('clearDir')) {
     }
 }
 
-if (!function_exists('firstKey')) {
-    /**
-     * Returns the first key of an array
-     * @param array $array Array
-     * @return string First key
-     */
-    function firstKey($array)
-    {
-        if (empty($array) || !is_array($array)) {
-            return null;
-        }
-
-        return collection(array_keys($array))->first();
-    }
-}
-
 if (!function_exists('folderIsWriteable')) {
     /**
      * Checks if a directory and its subdirectories are readable and writable
