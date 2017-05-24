@@ -22,8 +22,6 @@
  */
 namespace MeTools\Test\TestCase\Core;
 
-use Cake\Filesystem\File;
-use Cake\Filesystem\Folder;
 use Cake\TestSuite\TestCase;
 
 /**
@@ -249,5 +247,17 @@ class GlobalFunctionsTest extends TestCase
         $result = rtr(DS . 'my' . DS . 'folder');
         $expected = DS . 'my' . DS . 'folder';
         $this->assertEquals($expected, $result);
+    }
+
+    /**
+     * Test for `which()` global function
+     * @return void
+     * @test
+     */
+    public function testWhich()
+    {
+        $result = which('phpunit');
+        $this->assertNotEmpty($result);
+        $this->assertContains('phpunit', $result);
     }
 }
