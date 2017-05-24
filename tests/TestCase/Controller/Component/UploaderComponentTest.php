@@ -200,8 +200,8 @@ class UploaderComponentTest extends TestCase
         //Resets error
         $this->setProperty($this->Uploader, 'error', null);
 
-        $this->Uploader->mimetype(['image/gif', 'image/png']);
-        $this->assertEquals('The mimetype image/gif, image/png is not accepted', $this->Uploader->error());
+        $this->Uploader->mimetype('image');
+        $this->assertEquals('The mimetype image/gif, image/jpeg, image/png is not accepted', $this->Uploader->error());
     }
 
     /**
@@ -236,6 +236,16 @@ class UploaderComponentTest extends TestCase
         $this->Uploader->set($file);
 
         $result = $this->Uploader->save(UPLOADS);
+        $this->assertFalse($this->Uploader->error());
+        $this->assertFileExists($result);
+        $this->assertFileNotExists($file['tmp_name']);
+
+        $file = $this->_createFile();
+        $this->assertFileExists($file['tmp_name']);
+        $this->Uploader->set($file);
+
+        //Tries again, missing the slash term from the directory target
+        $result = $this->Uploader->save(rtrim(UPLOADS, DS));
         $this->assertFalse($this->Uploader->error());
         $this->assertFileExists($result);
         $this->assertFileNotExists($file['tmp_name']);

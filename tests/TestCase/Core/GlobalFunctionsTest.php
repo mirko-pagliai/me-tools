@@ -86,15 +86,17 @@ class GlobalFunctionsTest extends TestCase
      */
     public function testFirstKey()
     {
-        $testArray = ['alfa' => 'first', 'beta' => 'second'];
+        $result = firstKey(['alfa' => 'first', 'beta' => 'second']);
+        $this->assertEquals('alfa', $result);
 
-        $result = firstKey($testArray);
-        $expected = 'alfa';
-        $this->assertEquals($expected, $result);
+        //Invalid values
+        $this->assertNull(firstKey(false));
+        $this->assertNull(firstKey('string'));
+        $this->assertNull(firstKey([]));
     }
 
     /**
-     * Tests for `folderIsWriteable()` and `clearDir()` global functions.
+     * Tests for `clearDir()` and `folderIsWriteable()`  global functions.
      *
      * It creates some directories, so it tests if they are writeable.
      * Then creates some files, cleans directories, so it tests if all files
@@ -102,28 +104,26 @@ class GlobalFunctionsTest extends TestCase
      * @return void
      * @test
      */
-    public function testFolders()
+    public function testClearDirAndFolderIsWriteabled()
     {
         $path = TMP . 'tests';
 
         //Creates some folder
-        $folder = new Folder($path);
-        $result = $folder->create($path . DS . 'folder' . DS . 'subfolder');
-        $this->assertTrue($result);
+        //@codingStandardsIgnoreLine
+        @mkdir($path . DS . 'folder' . DS . 'subfolder', 0777, true);
 
         //Test for `folderIsWriteable()`
         $this->assertTrue(folderIsWriteable($path));
 
         $files = [
-            $path . DS . 'first.tmp',
-            $path . DS . 'folder' . DS . 'second.tmp',
-            $path . DS . 'folder' . DS . 'subfolder' . DS . 'third.tmp',
+            'first',
+            'folder' . DS . 'second',
+            'folder' . DS . 'subfolder' . DS . 'third',
         ];
 
         //Creates some files
         foreach ($files as $file) {
-            new File($file, true, 0777);
-            $this->assertTrue(is_readable($file) && is_writable($file));
+            file_put_contents($path . DS . $file, null);
         }
 
         //Test for `clearDir()`
@@ -135,8 +135,13 @@ class GlobalFunctionsTest extends TestCase
         }
 
         //Delete folders
-        rmdir($path . DS . 'folder' . DS . 'subfolder');
-        rmdir($path . DS . 'folder');
+        //@codingStandardsIgnoreStart
+        @rmdir($path . DS . 'folder' . DS . 'subfolder');
+        @rmdir($path . DS . 'folder');
+        //@codingStandardsIgnoreEnd
+
+        //No existing folder
+        $this->assertFalse(folderIsWriteable('/no/Existing'));
     }
 
     /**
