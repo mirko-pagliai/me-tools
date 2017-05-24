@@ -325,8 +325,9 @@ class InstallShellTest extends TestCase
 
         unlink($file);
 
-        //Writes a `composer.json` file
+        //Writes `tests/test_app/composer.json` file
         $file = APP . 'composer.json';
+
         $json = [
             'name' => 'example',
             'description' => 'example of composer.json',
@@ -339,14 +340,14 @@ class InstallShellTest extends TestCase
         //Fixes the file
         $this->InstallShell->fixComposerJson($file);
 
-        //Tries to fix again
-        $this->InstallShell->fixComposerJson($file);
-
         unlink($file);
+
+        //Tries to fix the main `composer.json` file
+        $this->InstallShell->fixComposerJson();
 
         $this->assertEquals([
             'The file tests/test_app/composer.json has been fixed',
-            'The file tests/test_app/composer.json doesn\'t need to be fixed',
+            'The file composer.json doesn\'t need to be fixed',
         ], $this->out->messages());
 
         $this->assertEquals([
