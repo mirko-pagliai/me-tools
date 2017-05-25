@@ -120,19 +120,21 @@ class InstallShellTest extends TestCase
      */
     public function testAll()
     {
-        //Gets all methods from `InstallShell`
+        //Gets all methods from `InstallShell`, except for the `all()` method
         $methods = array_diff(getChildMethods(InstallShell::class), ['all']);
 
         $this->InstallShell = $this->getMockBuilder(InstallShell::class)
-            ->setMethods(array_merge(['_stop'], $methods))
+            ->setMethods(array_merge(['_stop', 'in'], $methods))
             ->setConstructorArgs([$this->io])
             ->getMock();
+
+        $this->InstallShell->method('in')->will($this->returnValue('y'));
 
         //Sets a callback for each method
         foreach ($methods as $method) {
             $this->InstallShell->method($method)
                 ->will($this->returnCallback(function () use ($method) {
-                    $this->out->write(sprintf('called `%s`', $method));
+                    $this->out->write($method);
                 }));
         }
 
@@ -141,18 +143,18 @@ class InstallShellTest extends TestCase
         $this->InstallShell->all();
 
         $expectedMethodsCalledInOrder = [
-            'called `setPermissions`',
-            'called `copyConfig`',
-            'called `createRobots`',
-            'called `fixComposerJson`',
-            'called `createPluginsLinks`',
-            'called `createVendorsLinks`',
-            'called `copyFonts`',
+            'createDirectories',
+            'setPermissions',
+            'copyConfig',
+            'createRobots',
+            'fixComposerJson',
+            'createPluginsLinks',
+            'createVendorsLinks',
+            'copyFonts',
         ];
 
-        $this->assertEquals(am([
-            'called `createDirectories`',
-        ], $expectedMethodsCalledInOrder), $this->out->messages());
+        $this->assertEquals($expectedMethodsCalledInOrder, $this->out->messages());
+        $this->assertEmpty($this->err->messages());
 
         //Resets out messages()
         $this->setProperty($this->out, '_out', []);
@@ -323,8 +325,9 @@ class InstallShellTest extends TestCase
 
         unlink($file);
 
-        //Writes a `composer.json` file
+        //Writes `tests/test_app/composer.json` file
         $file = APP . 'composer.json';
+
         $json = [
             'name' => 'example',
             'description' => 'example of composer.json',
@@ -337,14 +340,14 @@ class InstallShellTest extends TestCase
         //Fixes the file
         $this->InstallShell->fixComposerJson($file);
 
-        //Tries to fix again
-        $this->InstallShell->fixComposerJson($file);
-
         unlink($file);
+
+        //Tries to fix the main `composer.json` file
+        $this->InstallShell->fixComposerJson();
 
         $this->assertEquals([
             'The file tests/test_app/composer.json has been fixed',
-            'The file tests/test_app/composer.json doesn\'t need to be fixed',
+            'The file ' . rtr(ROOT . DS . 'composer.json') . ' doesn\'t need to be fixed',
         ], $this->out->messages());
 
         $this->assertEquals([
@@ -366,14 +369,12 @@ class InstallShellTest extends TestCase
 
         $this->InstallShell->method('all')
             ->will($this->returnCallback(function () {
-                $this->out->write('called `all`');
+                $this->out->write('all');
             }));
 
         $this->InstallShell->main();
 
-        $this->assertEquals([
-            'called `all`',
-        ], $this->out->messages());
+        $this->assertEquals(['all'], $this->out->messages());
         $this->assertEmpty($this->err->messages());
     }
 

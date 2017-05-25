@@ -46,23 +46,22 @@ class HtmlHelper extends CakeHtmlHelper
      *
      * If you pass no more than two parameters, it tries to generate a html
      *  tag with the name of the method and works as alias of `tag()`.
-     * @param string $method Method to invoke
+     * @param string $name Name of the tag
      * @param array $params Params for the method
-     * @return string|void
+     * @return string
      * @throws Exception
      * @uses tag()
      */
-    public function __call($method, $params)
+    public function __call($name, $params)
     {
         if (empty($params) || count($params) > 2) {
-            throw new Exception(sprintf('Method HtmlHelper::%s does not exist', $method));
+            throw new Exception(sprintf('Method HtmlHelper::%s does not exist', $name));
         }
 
-        return self::tag(
-            $method,
-            !isset($params[0]) ? null : $params[0],
-            !isset($params[1]) ? [] : $params[1]
-        );
+        $text = !isset($params[0]) ? null : $params[0];
+        $options = !isset($params[1]) ? [] : $params[1];
+
+        return self::tag($name, $text, $options);
     }
 
     /**

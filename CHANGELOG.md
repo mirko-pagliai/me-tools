@@ -1,5 +1,9 @@
 # 2.x branch
 ## 2.12 branch
+### 2.12.4
+* removed `firstKey()` global function. Use instead
+    `\Cake\Collection\CollectionInterface::first()` with `array_keys()`.
+
 ### 2.12.3
 * by default, the `is('url')` detector removes the query string from the current
     url. You can pass `false` as second parameter to keep the query string.
