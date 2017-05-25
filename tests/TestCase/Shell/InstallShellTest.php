@@ -347,7 +347,7 @@ class InstallShellTest extends TestCase
 
         $this->assertEquals([
             'The file tests/test_app/composer.json has been fixed',
-            'The file composer.json doesn\'t need to be fixed',
+            'The file ' . rtr(ROOT . DS . 'composer.json') . ' doesn\'t need to be fixed',
         ], $this->out->messages());
 
         $this->assertEquals([
