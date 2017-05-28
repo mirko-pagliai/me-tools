@@ -195,13 +195,13 @@ class UploaderComponentTest extends TestCase
         $this->assertEmpty($this->Uploader->error());
 
         $this->Uploader->mimetype('image/gif');
-        $this->assertEquals('The mimetype image/gif is not accepted', $this->Uploader->error());
+        $this->assertEquals('The mimetype text/plain is not accepted', $this->Uploader->error());
 
         //Resets error
         $this->setProperty($this->Uploader, 'error', null);
 
         $this->Uploader->mimetype('image');
-        $this->assertEquals('The mimetype image/gif, image/jpeg, image/png is not accepted', $this->Uploader->error());
+        $this->assertEquals('The mimetype text/plain is not accepted', $this->Uploader->error());
     }
 
     /**

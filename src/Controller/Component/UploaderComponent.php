@@ -117,32 +117,33 @@ class UploaderComponent extends Component
 
     /**
      * Checks if the mimetype is correct
-     * @param string|array $mimetype Supported mimetypes as string or array or
-     *  a magic word (eg. `images`)
+     * @param string|array $acceptedMimetype Accepted mimetypes as string or
+     *  array or a magic word (`images` or `text`)
      * @return \MeTools\Controller\Component\UploaderComponent
      * @throws InternalErrorException
      * @uses _setError()
      * @uses $file
      */
-    public function mimetype($mimetype)
+    public function mimetype($acceptedMimetype)
     {
         if (empty($this->file)) {
             throw new InternalErrorException(__d('me_tools', 'There are no uploaded file information'));
         }
 
-        switch ($mimetype) {
+        //Changes magic words
+        switch ($acceptedMimetype) {
             case 'image':
-                $mimetype = ['image/gif', 'image/jpeg', 'image/png'];
+                $acceptedMimetype = ['image/gif', 'image/jpeg', 'image/png'];
                 break;
             case 'text':
-                $mimetype = ['text/plain'];
+                $acceptedMimetype = ['text/plain'];
                 break;
         }
 
-        $mimetype = (array)$mimetype;
+        $currentMimetype = mime_content_type($this->file->tmp_name);
 
-        if (!in_array(mime_content_type($this->file->tmp_name), $mimetype)) {
-            $this->_setError(__d('me_tools', 'The mimetype {0} is not accepted', implode(', ', $mimetype)));
+        if (!in_array($currentMimetype, (array)$acceptedMimetype)) {
+            $this->_setError(__d('me_tools', 'The mimetype {0} is not accepted', $currentMimetype));
         }
 
         return $this;
