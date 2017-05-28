@@ -1,6 +1,7 @@
 # 2.x branch
 ## 2.12 branch
 ### 2.12.4
+* fixed bug on `UploaderComponent::mimetype()` method. A wrong error was set;
 * removed `firstKey()` global function. Use instead
     `\Cake\Collection\CollectionInterface::first()` with `array_keys()`.
 
