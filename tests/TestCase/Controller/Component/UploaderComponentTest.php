@@ -168,12 +168,12 @@ class UploaderComponentTest extends TestCase
         ], array_keys((array)$this->Uploader->file));
 
         $this->Uploader->set(array_merge($file, ['error' => UPLOAD_ERR_INI_SIZE]));
+        $this->assertInstanceOf('stdClass', $this->Uploader->file);
         $this->assertNotEmpty($this->Uploader->error());
-        $this->assertNull($this->Uploader->file);
 
         $this->Uploader->set(array_merge($file, ['error' => 'noExistingErrorCode']));
+        $this->assertInstanceOf('stdClass', $this->Uploader->file);
         $this->assertEquals('Unknown upload error', $this->Uploader->error());
-        $this->assertNull($this->Uploader->file);
     }
 
     /**
