@@ -182,7 +182,7 @@ class UploaderComponent extends Component
         }
 
         //Gets the target full path
-        $file = $this->_findTargetFilename($directory . DS . $this->file->name);
+        $file = $this->_findTargetFilename($directory . $this->file->name);
 
         if (!$this->move_uploaded_file($this->file->tmp_name, $file)) {
             $this->_setError(__d('me_tools', 'The file was not successfully moved to the target directory'));
@@ -204,8 +204,10 @@ class UploaderComponent extends Component
      */
     public function set($file)
     {
-        //Resets `$file` and `$error`
-        unset($this->error, $this->file);
+        //Resets `$error`
+        unset($this->error);
+
+        $this->file = (object)$file;
 
         //Errors messages
         $errors = [
@@ -231,8 +233,6 @@ class UploaderComponent extends Component
 
             return $this;
         }
-
-        $this->file = (object)$file;
 
         return $this;
     }
