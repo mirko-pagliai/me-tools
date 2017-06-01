@@ -1,5 +1,9 @@
 # 2.x branch
 ## 2.12 branch
+### 2.12.5
+* updated for Assets 1.1.4;
+* updated for CkEditor 4.7.
+
 ### 2.12.4
 * fixed little bug on `UploaderComponent::set()` method;
 * fixed bug on `UploaderComponent::mimetype()` method. A wrong error was set;
