@@ -1,6 +1,7 @@
 # 2.x branch
 ## 2.12 branch
 ### 2.12.5
+* updated for Assets 1.1.4;
 * updated for CkEditor 4.7.
 
 ### 2.12.4

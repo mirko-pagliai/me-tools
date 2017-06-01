@@ -38,8 +38,8 @@ class LibraryHelper extends Helper
      * @var array
      */
     public $helpers = [
-        'Assets.Asset',
-        'Html' => ['className' => 'MeTools.Html'],
+        ASSETS . '.Asset',
+        'Html' => ['className' => METOOLS . '.Html'],
     ];
 
     /**
