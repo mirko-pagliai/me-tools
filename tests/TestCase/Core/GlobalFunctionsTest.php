@@ -30,34 +30,6 @@ use Cake\TestSuite\TestCase;
 class GlobalFunctionsTest extends TestCase
 {
     /**
-     * Test for `af()` global function, alias for `array_filter()`
-     * @return void
-     * @test
-     */
-    public function testAf()
-    {
-        $testArray = ['first', null, 'third', false, 'fifth'];
-        $testCallback = function ($value) {
-            return $value !== 'third';
-        };
-
-        //Removes empty values
-        $result = af($testArray);
-        $expected = array_filter($testArray);
-        $this->assertEquals($expected, $result);
-
-        //Removes empty values and re-order keys
-        $result = array_values(af($testArray));
-        $expected = array_values(array_filter($testArray));
-        $this->assertEquals($expected, $result);
-
-        //Using callback
-        $result = af($testArray, $testCallback);
-        $expected = array_filter($testArray, $testCallback);
-        $this->assertEquals($expected, $result);
-    }
-
-    /**
      * Test for `am()` global function, alias for `array_merge()`
      * @return void
      * @test

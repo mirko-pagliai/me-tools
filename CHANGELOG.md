@@ -1,4 +1,8 @@
 # 2.x branch
+## 2.13 branch
+### 2.13.0
+* removed `af()` global function.
+
 ## 2.12 branch
 ### 2.12.5
 * updated for Assets 1.1.4;
