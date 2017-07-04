@@ -104,9 +104,8 @@ class RecatpchaComponentTest extends TestCase
             ->setMethods(['_getResult'])
             ->getMock();
 
-        $this->Recaptcha->method('_getResult')->will($this->returnCallback(function () {
-            return (object)['json' => ['success' => true]];
-        }));
+        $this->Recaptcha->method('_getResult')
+            ->will($this->returnValue((object)['json' => ['success' => true]]));
 
         $this->assertTrue($this->Recaptcha->check());
     }
