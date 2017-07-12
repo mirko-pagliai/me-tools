@@ -37,9 +37,7 @@
         },
         "files": [
             "src/Core/global_functions.php",
-            "src/Core/request_detectors.php",
-            "vendor/Recaptcha/recaptchalib.php"
-        ]
+            "src/Core/request_detectors.php"        ]
     },
     "autoload-dev": {
         "psr-4": {
