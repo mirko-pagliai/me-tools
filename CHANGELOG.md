@@ -1,6 +1,7 @@
 # 2.x branch
 ## 2.12 branch
 ### 2.12.6
+* fixed bug for `isUrl()` detector; 
 * removed all reCAPTCHA classes and libraries. Use instead
     `crabstudio/Recaptcha` and `mirko-pagliai/cakephp-recaptcha-mailhide`.
 

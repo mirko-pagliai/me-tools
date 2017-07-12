@@ -114,7 +114,7 @@ Request::addDetector('prefix', function ($request, $prefix) {
  *  the current url.
  */
 Request::addDetector('url', function ($request, $url, $removeQueryString = true) {
-    $current = rtrim($request->getRequestTarget(), '/');
+    $current = rtrim($request->env('REQUEST_URI'), '/');
 
     if ($removeQueryString) {
         $current = explode('?', $current, 2)[0];
