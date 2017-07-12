@@ -20,7 +20,6 @@
  * @license     http://www.gnu.org/licenses/agpl.txt AGPL License
  * @link        http://git.novatlantis.it Nova Atlantis Ltd
  */
-
 use Cake\Filesystem\File;
 use Cake\Filesystem\Folder;
 
@@ -44,8 +43,10 @@ if (!function_exists('am')) {
      */
     function am()
     {
+        $array = [];
+
         foreach (func_get_args() as $arg) {
-            $array = array_merge(empty($array) ? [] : $array, (array)$arg);
+            $array = array_merge($array, (array)$arg);
         }
 
         return $array;
@@ -111,14 +112,13 @@ if (!function_exists('getChildMethods')) {
     function getChildMethods($class, $exclude = [])
     {
         $methods = get_class_methods($class);
-
         $parent = get_parent_class($class);
 
         if ($parent) {
             $methods = array_diff($methods, get_class_methods($parent));
         }
 
-        if (!empty($exclude)) {
+        if ($exclude) {
             $methods = array_diff($methods, (array)$exclude);
         }
 
@@ -176,9 +176,7 @@ if (!function_exists('rtr')) {
      */
     function rtr($path)
     {
-        $root = Folder::slashTerm(ROOT);
-
-        return preg_replace(sprintf('/^%s/', preg_quote($root, DS)), null, $path);
+        return preg_replace(sprintf('/^%s/', preg_quote(Folder::slashTerm(ROOT), DS)), null, $path);
     }
 }
 

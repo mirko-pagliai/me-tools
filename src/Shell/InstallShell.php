@@ -22,20 +22,14 @@
  */
 namespace MeTools\Shell;
 
+use Cake\Console\ConsoleIo;
 use MeTools\Console\Shell;
-use MeTools\Core\Plugin;
 
 /**
  * Executes some tasks to make the system ready to work
  */
 class InstallShell extends Shell
 {
-    /**
-     * Configuration files to be copied
-     * @var array
-     */
-    protected $config = [];
-
     /**
      * Assets for which create symbolic links.
      * Full path for each font
@@ -60,19 +54,13 @@ class InstallShell extends Shell
     /**
      * Construct
      * @param \Cake\Console\ConsoleIo|null $io An io instance
-     * @uses $config
      * @uses $fonts
      * @uses $links
      * @uses $paths
      */
-    public function __construct(\Cake\Console\ConsoleIo $io = null)
+    public function __construct(ConsoleIo $io = null)
     {
         parent::__construct($io);
-
-        //Configuration files to be copied
-        $this->config = [
-            'MeTools.recaptcha',
-        ];
 
         //Assets for which create symbolic links (full paths)
         $this->fonts = [
@@ -110,7 +98,6 @@ class InstallShell extends Shell
     /**
      * Executes all available tasks
      * @return void
-     * @uses copyConfig()
      * @uses copyFonts()
      * @uses createDirectories()
      * @uses createPluginsLinks()
@@ -124,7 +111,6 @@ class InstallShell extends Shell
         if ($this->param('force')) {
             $this->createDirectories();
             $this->setPermissions();
-            $this->copyConfig();
             $this->createRobots();
             $this->fixComposerJson();
             $this->createPluginsLinks();
@@ -142,11 +128,6 @@ class InstallShell extends Shell
         $ask = $this->in(__d('me_tools', 'Set directories permissions?'), ['Y', 'n'], 'Y');
         if (in_array($ask, ['Y', 'y'])) {
             $this->setPermissions();
-        }
-
-        $ask = $this->in(__d('me_tools', 'Copy configuration files?'), ['Y', 'n'], 'Y');
-        if (in_array($ask, ['Y', 'y'])) {
-            $this->copyConfig();
         }
 
         $ask = $this->in(__d('me_tools', 'Create {0}?', 'robots.txt'), ['Y', 'n'], 'Y');
@@ -172,25 +153,6 @@ class InstallShell extends Shell
         $ask = $this->in(__d('me_tools', 'Create symbolic links for fonts?'), ['Y', 'n'], 'Y');
         if (in_array($ask, ['Y', 'y'])) {
             $this->copyFonts();
-        }
-    }
-
-    /**
-     * Copies the configuration files
-     * @return void
-     * @uses $config
-     * @uses MeTools\Console\Shell::copyFile()
-     * @uses MeTools\Core\Plugin::path()
-     */
-    public function copyConfig()
-    {
-        foreach ($this->config as $file) {
-            list($plugin, $file) = pluginSplit($file);
-
-            $this->copyFile(
-                Plugin::path($plugin, 'config' . DS . $file . '.php'),
-                CONFIG . $file . '.php'
-            );
         }
     }
 
@@ -336,7 +298,6 @@ class InstallShell extends Shell
         $parser = parent::getOptionParser();
 
         $parser->addSubcommand('all', ['help' => __d('me_tools', 'Executes all available tasks')]);
-        $parser->addSubcommand('copyConfig', ['help' => __d('me_tools', 'Copies the configuration files')]);
         $parser->addSubcommand('copyFonts', ['help' => __d('me_tools', 'Creates symbolic links for fonts')]);
         $parser->addSubcommand('createDirectories', ['help' => __d('me_tools', 'Creates default directories')]);
         $parser->addSubcommand('createPluginsLinks', ['help' => __d('me_tools', 'Creates symbolic links for plugins assets')]);

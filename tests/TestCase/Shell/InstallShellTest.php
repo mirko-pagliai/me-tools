@@ -108,7 +108,6 @@ class InstallShellTest extends TestCase
      */
     public function testConstruct()
     {
-        $this->assertNotEmpty($this->getProperty($this->InstallShell, 'config'));
         $this->assertNotEmpty($this->getProperty($this->InstallShell, 'fonts'));
         $this->assertNotEmpty($this->getProperty($this->InstallShell, 'links'));
         $this->assertNotEmpty($this->getProperty($this->InstallShell, 'paths'));
@@ -145,7 +144,6 @@ class InstallShellTest extends TestCase
         $expectedMethodsCalledInOrder = [
             'createDirectories',
             'setPermissions',
-            'copyConfig',
             'createRobots',
             'fixComposerJson',
             'createPluginsLinks',
@@ -165,21 +163,6 @@ class InstallShellTest extends TestCase
         $this->InstallShell->all();
 
         $this->assertEquals($expectedMethodsCalledInOrder, $this->out->messages());
-        $this->assertEmpty($this->err->messages());
-    }
-
-    /**
-     * Tests for `copyConfig()` method
-     * @test
-     */
-    public function testCopyConfig()
-    {
-        $this->InstallShell->copyConfig();
-
-        $this->assertEquals([
-            'File or directory tests/test_app/config/recaptcha.php already exists',
-        ], $this->out->messages());
-
         $this->assertEmpty($this->err->messages());
     }
 
@@ -419,7 +402,6 @@ class InstallShellTest extends TestCase
         $this->assertInstanceOf('Cake\Console\ConsoleOptionParser', $parser);
         $this->assertEquals([
             'all',
-            'copyConfig',
             'copyFonts',
             'createDirectories',
             'createPluginsLinks',

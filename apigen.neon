@@ -1,9 +1,0 @@
-accessLevels: [public, protected, private]
-destination: API
-download: false
-exclude: {*_old, *.old, *.old.*, src/Template/Bake} 
-source: {src}
-main: MeTools
-php: false
-title: MeTools API
-todo: true

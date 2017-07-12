@@ -78,18 +78,6 @@ $(function () {
     $('.to-be-hidden:visible').addClass('hidden').removeClass('to-be-hidden');
 
     /**
-     * Recapcha mail links.
-     * It opens the popup
-     */
-    $('.recaptcha-mail').click(function (event) {
-        event.preventDefault();
-
-        window.open($(this).attr('href'), '', 'toolbar=0,scrollbars=0,location=0,statusbar=0,menubar=0,resizable=0,width=500,height=300');
-
-        return false;
-    });
-
-    /**
      * Closes automatically the flash messages after a preset time
      */
     setTimeout(close_flashMessage, 3500);
