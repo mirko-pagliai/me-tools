@@ -23,17 +23,6 @@
 use Cake\Filesystem\File;
 use Cake\Filesystem\Folder;
 
-if (!function_exists('af')) {
-    /**
-     *  Alias for `array_filter()`
-     * @return array Filterd array
-     */
-    function af()
-    {
-        return call_user_func_array('array_filter', func_get_args());
-    }
-}
-
 if (!function_exists('am')) {
     /**
      * Merge a group of arrays.

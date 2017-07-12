@@ -150,7 +150,7 @@ class RequestDetectorsTest extends TestCase
      */
     public function testIsUrl()
     {
-        $this->Request = $this->Request->withRequestTarget('/some_alias');
+        $this->Request->env('REQUEST_URI', '/some_alias');
 
         //Url as array of params
         $this->assertTrue($this->Request->is('url', ['controller' => 'tests_apps', 'action' => 'some_method']));
@@ -166,7 +166,7 @@ class RequestDetectorsTest extends TestCase
         $this->assertFalse($this->Request->is('url', '/some_alias/noExisting'));
         $this->assertFalse($this->Request->isUrl('/some_alias/noExisting'));
 
-        $this->Request = $this->Request->withRequestTarget('/');
+        $this->Request->env('REQUEST_URI', '/');
 
         //Url as array of params
         $this->assertTrue($this->Request->is('url', ['controller' => 'pages', 'action' => 'display', 'home']));
@@ -190,12 +190,12 @@ class RequestDetectorsTest extends TestCase
      */
     public function testIsUrlQueryString()
     {
-        $this->Request = $this->Request->withRequestTarget('/some_alias');
+        $this->Request->env('REQUEST_URI', '/some_alias');
 
         $this->assertTrue($this->Request->isUrl('/some_alias'));
         $this->assertTrue($this->Request->isUrl('/some_alias', false));
 
-        $this->Request = $this->Request->withRequestTarget('/some_alias?key=value');
+        $this->Request->env('REQUEST_URI', '/some_alias?key=value');
 
         $this->assertTrue($this->Request->isUrl('/some_alias'));
         $this->assertFalse($this->Request->isUrl('/some_alias', false));

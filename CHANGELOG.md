@@ -1,10 +1,13 @@
 # 2.x branch
-## 2.12 branch
-### 2.12.6
+## 2.13 branch
+### 2.13.0
+* fixed bug for `isUrl()` detector; 
 * removed all reCAPTCHA classes and libraries. Use instead
-    `crabstudio/Recaptcha` and `mirko-pagliai/cakephp-recaptcha-mailhide`.
+    `crabstudio/Recaptcha` and `mirko-pagliai/cakephp-recaptcha-mailhide`
+    plugins;
+* removed `af()` global function.
 
-    plugins
+## 2.12 branch
 ### 2.12.5
 * updated for Assets 1.1.4;
 * updated for CkEditor 4.7.
