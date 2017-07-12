@@ -37,7 +37,8 @@
         },
         "files": [
             "src/Core/global_functions.php",
-            "src/Core/request_detectors.php"        ]
+            "src/Core/request_detectors.php"
+        ]
     },
     "autoload-dev": {
         "psr-4": {
