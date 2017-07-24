@@ -36,7 +36,7 @@ define('WWW_ROOT', APP . 'webroot' . DS);
 define('TMP', sys_get_temp_dir() . DS);
 define('CONFIG', APP . 'config' . DS);
 define('CACHE', TMP);
-define('LOGS', TMP);
+define('LOGS', TMP . 'cakephp_log' . DS);
 define('SESSIONS', TMP . 'sessions' . DS);
 define('UPLOADS', TMP . 'uploads' . DS);
 
@@ -92,20 +92,12 @@ Cache::setConfig([
 ]);
 
 // Ensure default test connection is defined
-if (!getenv('db_dsn')) {
-    putenv('db_dsn=sqlite://127.0.0.1/' . TMP . 'debug_kit_test.sqlite');
-}
-$config = [
-    'url' => getenv('db_dsn'),
+ConnectionManager::setConfig('test', [
+    'url' => 'db_dsn=sqlite://127.0.0.1/' . TMP . 'debug_kit_test.sqlite',
     'timezone' => 'UTC',
-];
-
-// Use the test connection for 'debug_kit' as well.
-ConnectionManager::setConfig('test', $config);
-
-Configure::write('Session', [
-    'defaults' => 'php'
 ]);
+
+Configure::write('Session', ['defaults' => 'php']);
 
 //This adds `apache_get_modules()` and `apache_get_version()` functions
 require 'apache_functions.php';

@@ -193,18 +193,18 @@ class InstallShellTest extends TestCase
         }
 
         $this->assertEquals([
-            'File or directory /tmp/ already exists',
-            'File or directory /tmp/ already exists',
-            'Created /tmp/cache directory',
-            'Setted permissions on /tmp/cache',
-            'Created /tmp/cache/models directory',
-            'Setted permissions on /tmp/cache/models',
-            'Created /tmp/cache/persistent directory',
-            'Setted permissions on /tmp/cache/persistent',
-            'Created /tmp/cache/views directory',
-            'Setted permissions on /tmp/cache/views',
-            'File or directory /tmp/sessions already exists',
-            'File or directory /tmp/tests already exists',
+            'File or directory ' . LOGS . ' already exists',
+            'File or directory ' . TMP . ' already exists',
+            'Created ' . TMP . 'cache directory',
+            'Setted permissions on ' . TMP . 'cache',
+            'Created ' . TMP . 'cache' . DS . 'models directory',
+            'Setted permissions on ' . TMP . 'cache' . DS . 'models',
+            'Created ' . TMP . 'cache' . DS . 'persistent directory',
+            'Setted permissions on ' . TMP . 'cache' . DS . 'persistent',
+            'Created ' . TMP . 'cache' . DS . 'views directory',
+            'Setted permissions on ' . TMP . 'cache' . DS . 'views',
+            'File or directory ' . TMP . 'sessions already exists',
+            'File or directory ' . TMP . 'tests already exists',
             'Created tests/test_app/webroot/files directory',
             'Setted permissions on tests/test_app/webroot/files',
             'File or directory tests/test_app/webroot/fonts already exists',
@@ -368,15 +368,16 @@ class InstallShellTest extends TestCase
         $this->InstallShell->setPermissions();
 
         $this->assertEquals([
-            'Setted permissions on /tmp/sessions',
-            'Setted permissions on /tmp/tests',
+            'Setted permissions on ' . LOGS,
+            'Setted permissions on ' . TMP . 'sessions',
+            'Setted permissions on ' . TMP . 'tests',
         ], $this->out->messages());
 
         $this->assertEquals([
-            '<error>Failed to set permissions on /tmp/cache</error>',
-            '<error>Failed to set permissions on /tmp/cache/models</error>',
-            '<error>Failed to set permissions on /tmp/cache/persistent</error>',
-            '<error>Failed to set permissions on /tmp/cache/views</error>',
+            '<error>Failed to set permissions on ' . TMP . 'cache</error>',
+            '<error>Failed to set permissions on ' . TMP . 'cache/models</error>',
+            '<error>Failed to set permissions on ' . TMP . 'cache/persistent</error>',
+            '<error>Failed to set permissions on ' . TMP . 'cache/views</error>',
             '<error>Failed to set permissions on tests/test_app/webroot/files</error>',
         ], $this->err->messages());
     }
