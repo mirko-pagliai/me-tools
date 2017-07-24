@@ -1,5 +1,8 @@
 # 2.x branch
 ## 2.13 branch
+### 2.13.1
+* the MIT license has been applied.
+
 ### 2.13.0
 * fixed bug for `isUrl()` detector; 
 * removed all reCAPTCHA classes and libraries. Use instead

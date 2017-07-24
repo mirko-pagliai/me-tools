@@ -1,24 +1,14 @@
 <?php
 /**
- * This file is part of MeTools.
+ * This file is part of me-tools.
  *
- * MeTools is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Affero General Public License as
- * published by the Free Software Foundation, either version 3 of the
- * License, or (at your option) any later version.
+ * Licensed under The MIT License
+ * For full copyright and license information, please see the LICENSE.txt
+ * Redistributions of files must retain the above copyright notice.
  *
- * MeTools is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Affero General Public License for more details.
- *
- * You should have received a copy of the GNU Affero General Public License
- * along with MeTools.  If not, see <http://www.gnu.org/licenses/>.
- *
- * @author      Mirko Pagliai <mirko.pagliai@gmail.com>
- * @copyright   Copyright (c) 2016, Mirko Pagliai for Nova Atlantis Ltd
- * @license     http://www.gnu.org/licenses/agpl.txt AGPL License
- * @link        http://git.novatlantis.it Nova Atlantis Ltd
+ * @copyright   Copyright (c) Mirko Pagliai
+ * @link        https://github.com/mirko-pagliai/me-tools
+ * @license     https://opensource.org/licenses/mit-license.php MIT License
  * @see         http://api.cakephp.org/3.4/class-Cake.Controller.Component.FlashComponent.html FlashComponent
  */
 namespace MeTools\Controller\Component;
@@ -32,8 +22,6 @@ use Cake\Controller\Component\FlashComponent as CakeFlashComponent;
  * This class allows the `alert()`, `error()`, `notice()` and `success()`
  * methods are automatically handled by the plugin and rendered dynamically
  * using the `src/Template/Element/Flash/flash.ctp` template.
- *
- * Rewrites the `FlashComponent` class provided by CakePHP.
  */
 class FlashComponent extends CakeFlashComponent
 {
