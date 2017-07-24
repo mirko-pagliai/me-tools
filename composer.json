@@ -3,7 +3,7 @@
     "description": "MeTools plugin for CakePHP",
     "homepage": "https://github.com/mirko-pagliai/me-tools",
     "type": "cakephp-plugin",
-    "license": "AGPL",
+    "license": "MIT",
     "authors": [{
         "name": "Mirko Pagliai",
         "email": "mirko.pagliai@gmail.com"
@@ -19,7 +19,7 @@
         "mirko-pagliai/assets": "1.1.4 <1.2"
     },
     "require-dev": {
-        "cakephp/cakephp-codesniffer": "2.*",
+        "cakephp/cakephp-codesniffer": "^3.0",
         "eonasdan/bootstrap-datetimepicker": "*",
         "fortawesome/font-awesome": "*",
         "mirko-pagliai/reflection": "^1.0",
@@ -42,6 +42,7 @@
     },
     "autoload-dev": {
         "psr-4": {
+            "Cake\\Test\\": "vendor/cakephp/cakephp/tests",
             "MeTools\\Test\\": "tests",
             "TestPlugin\\": "tests/test_app/Plugin/TestPlugin/src",
             "AnotherTestPlugin\\": "tests/test_app/Plugin/AnotherTestPlugin/src"

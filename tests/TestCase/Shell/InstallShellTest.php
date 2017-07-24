@@ -1,24 +1,14 @@
 <?php
 /**
- * This file is part of MeTools.
+ * This file is part of me-tools.
  *
- * MeTools is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Affero General Public License as
- * published by the Free Software Foundation, either version 3 of the
- * License, or (at your option) any later version.
+ * Licensed under The MIT License
+ * For full copyright and license information, please see the LICENSE.txt
+ * Redistributions of files must retain the above copyright notice.
  *
- * MeTools is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Affero General Public License for more details.
- *
- * You should have received a copy of the GNU Affero General Public License
- * along with MeTools.  If not, see <http://www.gnu.org/licenses/>.
- *
- * @author      Mirko Pagliai <mirko.pagliai@gmail.com>
- * @copyright   Copyright (c) 2016, Mirko Pagliai for Nova Atlantis Ltd
- * @license     http://www.gnu.org/licenses/agpl.txt AGPL License
- * @link        http://git.novatlantis.it Nova Atlantis Ltd
+ * @copyright   Copyright (c) Mirko Pagliai
+ * @link        https://github.com/mirko-pagliai/me-tools
+ * @license     https://opensource.org/licenses/mit-license.php MIT License
  */
 namespace MeTools\Test\TestCase\Shell;
 
@@ -203,18 +193,18 @@ class InstallShellTest extends TestCase
         }
 
         $this->assertEquals([
-            'File or directory /tmp/ already exists',
-            'File or directory /tmp/ already exists',
-            'Created /tmp/cache directory',
-            'Setted permissions on /tmp/cache',
-            'Created /tmp/cache/models directory',
-            'Setted permissions on /tmp/cache/models',
-            'Created /tmp/cache/persistent directory',
-            'Setted permissions on /tmp/cache/persistent',
-            'Created /tmp/cache/views directory',
-            'Setted permissions on /tmp/cache/views',
-            'File or directory /tmp/sessions already exists',
-            'File or directory /tmp/tests already exists',
+            'File or directory ' . LOGS . ' already exists',
+            'File or directory ' . TMP . ' already exists',
+            'Created ' . TMP . 'cache directory',
+            'Setted permissions on ' . TMP . 'cache',
+            'Created ' . TMP . 'cache' . DS . 'models directory',
+            'Setted permissions on ' . TMP . 'cache' . DS . 'models',
+            'Created ' . TMP . 'cache' . DS . 'persistent directory',
+            'Setted permissions on ' . TMP . 'cache' . DS . 'persistent',
+            'Created ' . TMP . 'cache' . DS . 'views directory',
+            'Setted permissions on ' . TMP . 'cache' . DS . 'views',
+            'File or directory ' . TMP . 'sessions already exists',
+            'File or directory ' . TMP . 'tests already exists',
             'Created tests/test_app/webroot/files directory',
             'Setted permissions on tests/test_app/webroot/files',
             'File or directory tests/test_app/webroot/fonts already exists',
@@ -378,15 +368,16 @@ class InstallShellTest extends TestCase
         $this->InstallShell->setPermissions();
 
         $this->assertEquals([
-            'Setted permissions on /tmp/sessions',
-            'Setted permissions on /tmp/tests',
+            'Setted permissions on ' . LOGS,
+            'Setted permissions on ' . TMP . 'sessions',
+            'Setted permissions on ' . TMP . 'tests',
         ], $this->out->messages());
 
         $this->assertEquals([
-            '<error>Failed to set permissions on /tmp/cache</error>',
-            '<error>Failed to set permissions on /tmp/cache/models</error>',
-            '<error>Failed to set permissions on /tmp/cache/persistent</error>',
-            '<error>Failed to set permissions on /tmp/cache/views</error>',
+            '<error>Failed to set permissions on ' . TMP . 'cache</error>',
+            '<error>Failed to set permissions on ' . TMP . 'cache/models</error>',
+            '<error>Failed to set permissions on ' . TMP . 'cache/persistent</error>',
+            '<error>Failed to set permissions on ' . TMP . 'cache/views</error>',
             '<error>Failed to set permissions on tests/test_app/webroot/files</error>',
         ], $this->err->messages());
     }
