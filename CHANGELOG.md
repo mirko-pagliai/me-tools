@@ -1,6 +1,7 @@
 # 2.x branch
 ## 2.13 branch
 ### 2.13.1
+* added `LoadAllFixturesTrait` and `LogsMethodsTrait` trait for TestSuite;
 * removed `MailHelper::obfuscate()` method;
 * the MIT license has been applied.
 
