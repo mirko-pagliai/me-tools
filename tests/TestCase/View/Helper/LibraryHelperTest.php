@@ -13,22 +13,24 @@
 namespace MeTools\Test\TestCase\View\Helper;
 
 use Cake\Event\Event;
-use Cake\TestSuite\TestCase;
 use Cake\View\View;
+use MeTools\TestSuite\TestCase;
 use MeTools\View\Helper\LibraryHelper;
-use Reflection\ReflectionTrait;
 
 /**
  * LibraryHelperTest class
  */
 class LibraryHelperTest extends TestCase
 {
-    use ReflectionTrait;
-
     /**
      * @var \MeTools\View\Helper\LibraryHelper
      */
     protected $Library;
+
+    /**
+     * @var \Cake\View\View
+     */
+    protected $View;
 
     /**
      * Setup the test case, backup the static object values so they can be
@@ -52,7 +54,14 @@ class LibraryHelperTest extends TestCase
     {
         parent::tearDown();
 
-        unset($this->Library, $this->View);
+        //@codingStandardsIgnoreStart
+        @unlink(WWW_ROOT . 'ckeditor' . DS . 'adapters' . DS . 'jquery.js');
+        @unlink(WWW_ROOT . 'ckeditor' . DS . 'ckeditor.js');
+        @unlink(WWW_ROOT . 'js' . DS . 'ckeditor_init.js');
+        @unlink(WWW_ROOT . 'js' . DS . 'ckeditor_init.php');
+        @unlink(WWW_ROOT . 'vendor' . DS . 'fancybox');
+        @unlink(WWW_ROOT . 'js' . DS . 'fancybox_init.js');
+        //@codingStandardsIgnoreEnd
     }
 
     /**
@@ -99,16 +108,14 @@ class LibraryHelperTest extends TestCase
     public function testAnalyticsOnLocalhost()
     {
         //On localhost
-        $this->Request = $this->getMockBuilder(Request::class)
+        $this->Library->request = $this->getMockBuilder(Request::class)
             ->setMethods(['is'])
             ->getMock();
 
-        $this->Request->expects($this->once())
+        $this->Library->request->expects($this->once())
              ->method('is')
              ->with('localhost')
              ->willReturn(true);
-
-        $this->Library->request = $this->Request;
 
         $this->Library->analytics('my-id');
         $result = $this->View->Blocks->get('script_bottom');
@@ -137,8 +144,6 @@ class LibraryHelperTest extends TestCase
             '/script',
         ];
         $this->assertHtml($expected, $result);
-
-        unlink(WWW_ROOT . 'ckeditor' . DS . 'ckeditor.js');
     }
 
     /**
@@ -162,9 +167,6 @@ class LibraryHelperTest extends TestCase
             '/script',
         ];
         $this->assertHtml($expected, $result);
-
-        unlink(WWW_ROOT . 'ckeditor' . DS . 'ckeditor.js');
-        unlink(WWW_ROOT . 'ckeditor' . DS . 'adapters' . DS . 'jquery.js');
     }
 
     /**
@@ -186,9 +188,6 @@ class LibraryHelperTest extends TestCase
             '/script',
         ];
         $this->assertHtml($expected, $result);
-
-        unlink(WWW_ROOT . 'ckeditor' . DS . 'ckeditor.js');
-        unlink(WWW_ROOT . 'js' . DS . 'ckeditor_init.js');
     }
 
     /**
@@ -209,9 +208,6 @@ class LibraryHelperTest extends TestCase
             '/script',
         ];
         $this->assertHtml($expected, $result);
-
-        unlink(WWW_ROOT . 'ckeditor' . DS . 'ckeditor.js');
-        unlink(WWW_ROOT . 'js' . DS . 'ckeditor_init.php');
     }
 
     /**
@@ -254,12 +250,10 @@ class LibraryHelperTest extends TestCase
         $this->assertHtml($expected, $result);
 
         $result = $this->View->Blocks->get('css_bottom');
-        $expected = [
-            'link' => [
-                'rel' => 'stylesheet',
-                'href' => '/vendor/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css',
-            ],
-        ];
+        $expected = ['link' => [
+            'rel' => 'stylesheet',
+            'href' => '/vendor/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css',
+        ]];
         $this->assertHtml($expected, $result);
     }
 
@@ -301,9 +295,8 @@ class LibraryHelperTest extends TestCase
      */
     public function testFancybox()
     {
-        if (!file_exists(WWW_ROOT . 'vendor' . DS . 'fancybox')) {
-            symlink(VENDOR . 'newerton' . DS . 'fancy-box' . DS . 'source', WWW_ROOT . 'vendor' . DS . 'fancybox');
-        }
+        //@codingStandardsIgnoreLine
+        @symlink(VENDOR . 'newerton' . DS . 'fancy-box' . DS . 'source', WWW_ROOT . 'vendor' . DS . 'fancybox');
 
         $this->Library->fancybox();
 
@@ -327,8 +320,6 @@ class LibraryHelperTest extends TestCase
             '/script',
         ];
         $this->assertHtml($expected, $result);
-
-        unlink(WWW_ROOT . 'vendor' . DS . 'fancybox');
     }
 
     /**
@@ -337,9 +328,8 @@ class LibraryHelperTest extends TestCase
      */
     public function testFancyboxWithJsFromApp()
     {
-        if (!file_exists(WWW_ROOT . 'vendor' . DS . 'fancybox')) {
-            symlink(VENDOR . 'newerton' . DS . 'fancy-box' . DS . 'source', WWW_ROOT . 'vendor' . DS . 'fancybox');
-        }
+        //@codingStandardsIgnoreLine
+        @symlink(VENDOR . 'newerton' . DS . 'fancy-box' . DS . 'source', WWW_ROOT . 'vendor' . DS . 'fancybox');
 
         file_put_contents(WWW_ROOT . 'js' . DS . 'fancybox_init.js', null);
 
@@ -357,9 +347,6 @@ class LibraryHelperTest extends TestCase
             '/script',
         ];
         $this->assertHtml($expected, $result);
-
-        unlink(WWW_ROOT . 'vendor' . DS . 'fancybox');
-        unlink(WWW_ROOT . 'js' . DS . 'fancybox_init.js');
     }
 
     /**

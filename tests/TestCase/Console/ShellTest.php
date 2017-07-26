@@ -13,18 +13,16 @@
 namespace MeTools\Test\TestCase\Console;
 
 use Cake\Console\ConsoleIo;
+use Cake\Filesystem\Folder;
 use Cake\TestSuite\Stub\ConsoleOutput;
-use Cake\TestSuite\TestCase;
 use MeTools\Console\Shell;
-use Reflection\ReflectionTrait;
+use MeTools\TestSuite\TestCase;
 
 /**
  * ShellTest class
  */
 class ShellTest extends TestCase
 {
-    use ReflectionTrait;
-
     /**
      * @var \MeTools\Console\Shell
      */
@@ -34,6 +32,16 @@ class ShellTest extends TestCase
      * @var \Cake\TestSuite\Stub\ConsoleOutput
      */
     protected $err;
+
+    /**
+     * @var string
+     */
+    protected $exampleDir;
+
+    /**
+     * @var array
+     */
+    protected $exampleFiles;
 
     /**
      * @var \Cake\TestSuite\Stub\ConsoleOutput
@@ -50,8 +58,8 @@ class ShellTest extends TestCase
     {
         parent::setUp();
 
-        $this->out = new ConsoleOutput();
-        $this->err = new ConsoleOutput();
+        $this->out = new ConsoleOutput;
+        $this->err = new ConsoleOutput;
         $io = new ConsoleIo($this->out, $this->err);
         $io->level(2);
 
@@ -59,6 +67,15 @@ class ShellTest extends TestCase
             ->setMethods(['in', '_stop'])
             ->setConstructorArgs([$io])
             ->getMock();
+
+        $this->exampleDir = TMP . 'exampleDir';
+        $this->exampleFiles = [
+            $this->exampleDir . DS . 'example1',
+            $this->exampleDir . DS . 'example2',
+        ];
+
+        //@codingStandardsIgnoreLine
+        @mkdir($this->exampleDir);
     }
 
     /**
@@ -69,7 +86,17 @@ class ShellTest extends TestCase
     {
         parent::tearDown();
 
-        unset($this->Shell);
+        list($dirs, $files) = ((new Folder($this->exampleDir))->tree());
+
+        foreach ($files as $file) {
+            //@codingStandardsIgnoreLine
+            @unlink($file);
+        }
+
+        foreach ($dirs as $dir) {
+            //@codingStandardsIgnoreLine
+            @rmdir($dir);
+        }
     }
 
     /**
@@ -88,37 +115,29 @@ class ShellTest extends TestCase
      */
     public function testCopyFile()
     {
-        $source = TMP . 'example';
-        $dest = TMP . 'example_copy';
-
         //Creates the source file
-        file_put_contents($source, null);
+        file_put_contents($this->exampleFiles[0], null);
 
         //Tries to copy. Source doesn't exist
-        $this->assertFalse($this->Shell->copyFile(TMP . 'noExistingFile', $dest));
+        $this->assertFalse($this->Shell->copyFile(TMP . 'noExistingFile', $this->exampleFiles[0]));
 
         //Tries to copy. Destination is not writable
-        $this->assertFalse($this->Shell->copyFile($source, TMP . 'noExistingDir' . DS . 'example_copy'));
+        $this->assertFalse($this->Shell->copyFile($this->exampleFiles[0], TMP . 'noExistingDir' . DS . 'example_copy'));
 
         //Now it works
-        $this->assertFileNotExists($dest);
-        $this->assertTrue($this->Shell->copyFile($source, $dest));
-        $this->assertFileExists($dest);
+        $this->assertTrue($this->Shell->copyFile($this->exampleFiles[0], $this->exampleFiles[1]));
+        $this->assertFileExists($this->exampleFiles[1]);
 
         //Tries to copy. Destination already exists
-        $this->assertFalse($this->Shell->copyFile($source, $dest));
-
-        unlink($source);
-        unlink($dest);
+        $this->assertFalse($this->Shell->copyFile($this->exampleFiles[0], $this->exampleFiles[1]));
 
         $this->assertEquals([
             '<error>File or directory /tmp/noExistingFile not readable</error>',
             '<error>File or directory /tmp/noExistingDir not writeable</error>',
         ], $this->err->messages());
-
         $this->assertEquals([
-            'File /tmp/example_copy has been copied',
-            'File or directory /tmp/example_copy already exists',
+            'File ' . $this->exampleFiles[1] . ' has been copied',
+            'File or directory ' . $this->exampleFiles[1] . ' already exists',
         ], $this->out->messages());
     }
 
@@ -131,24 +150,20 @@ class ShellTest extends TestCase
         //Tries to create. Directory already exists
         $this->assertFalse($this->Shell->createDir(TMP));
 
-        $dir = TMP . 'firstDir' . DS . 'secondDir';
+        $dir = $this->exampleDir . DS . 'firstDir' . DS . 'secondDir';
 
         //Creates the directory
-        $this->assertFileNotExists($dir);
         $this->assertTrue($this->Shell->createDir($dir));
         $this->assertFileExists($dir);
         $this->assertEquals('0777', substr(sprintf('%o', fileperms($dir)), -4));
-
-        rmdir($dir);
-        rmdir(dirname($dir));
 
         //Tries to create. Not writable directory
         $this->assertFalse($this->Shell->createDir(DS . 'notWritable'));
 
         $this->assertEquals([
-            'File or directory /tmp/ already exists',
-            'Created /tmp/firstDir/secondDir directory',
-            'Setted permissions on /tmp/firstDir/secondDir',
+            'File or directory ' . TMP . ' already exists',
+            'Created ' . $dir . ' directory',
+            'Setted permissions on ' . $dir,
         ], $this->out->messages());
 
         $this->assertEquals([
@@ -162,25 +177,19 @@ class ShellTest extends TestCase
      */
     public function testCreateFile()
     {
-        $tmp = TMP . 'example';
-
         //Creates the file
-        $this->assertFileNotExists($tmp);
-        $this->assertTrue($this->Shell->createFile($tmp, null));
-        $this->assertFileExists($tmp);
+        $this->assertTrue($this->Shell->createFile($this->exampleFiles[0], null));
+        $this->assertFileExists($this->exampleFiles[0]);
 
         //Tries to create. The file already exists
-        $this->assertFalse($this->Shell->createFile($tmp, null));
-
-        unlink($tmp);
+        $this->assertFalse($this->Shell->createFile($this->exampleFiles[0], null));
 
         $this->assertEquals([
             '',
-            'Creating file /tmp/example',
-            '<success>Wrote</success> `/tmp/example`',
-            'File or directory /tmp/example already exists',
+            'Creating file ' . $this->exampleFiles[0],
+            '<success>Wrote</success> `' . $this->exampleFiles[0] . '`',
+            'File or directory ' . $this->exampleFiles[0] . ' already exists',
         ], $this->out->messages());
-
         $this->assertEmpty($this->err->messages());
     }
 
@@ -190,33 +199,25 @@ class ShellTest extends TestCase
      */
     public function testCreateLink()
     {
-        $source = TMP . 'origin';
-        $dest = TMP . 'example';
-
-        file_put_contents($source, null);
+        file_put_contents($this->exampleFiles[0], null);
 
         //Creates the link
-        $this->assertFileNotExists($dest);
-        $this->assertTrue($this->Shell->createLink($source, $dest));
-        $this->assertFileExists($dest);
+        $this->assertTrue($this->Shell->createLink($this->exampleFiles[0], $this->exampleFiles[1]));
+        $this->assertFileExists($this->exampleFiles[1]);
 
         //Tries to create. The link already exists
-        $this->assertFalse($this->Shell->createLink($source, $dest));
+        $this->assertFalse($this->Shell->createLink($this->exampleFiles[0], $this->exampleFiles[1]));
 
         //Tries to create. Source doesn't exist
         $this->Shell->createLink(TMP . 'noExistingFile', TMP . 'target');
 
         //Tries to create. Destination is not writable
-        $this->assertFalse($this->Shell->createLink($source, TMP . 'noExistingDir' . DS . 'example'));
-
-        unlink($source);
-        unlink($dest);
+        $this->assertFalse($this->Shell->createLink($this->exampleFiles[0], TMP . 'noExistingDir' . DS . 'example'));
 
         $this->assertEquals([
-            'Link /tmp/example has been created',
-            'File or directory /tmp/example already exists',
+            'Link ' . $this->exampleFiles[1] . ' has been created',
+            'File or directory ' . $this->exampleFiles[1] . ' already exists',
         ], $this->out->messages());
-
         $this->assertEquals([
             '<error>File or directory /tmp/noExistingFile not readable</error>',
             '<error>File or directory /tmp/noExistingDir not writeable</error>',
@@ -229,58 +230,33 @@ class ShellTest extends TestCase
      */
     public function testFolderChmod()
     {
-        $folder = TMP . 'exampleDir';
-
-        //@codingStandardsIgnoreLine
-        @mkdir($folder);
-
         //Set chmod
-        $this->assertTrue($this->Shell->folderChmod($folder, 0777));
-        $this->assertEquals('0777', substr(sprintf('%o', fileperms($folder)), -4));
-
-                //@codingStandardsIgnoreLine
-        @rmdir($folder);
+        $this->assertTrue($this->Shell->folderChmod($this->exampleDir, 0777));
+        $this->assertEquals('0777', substr(sprintf('%o', fileperms($this->exampleDir)), -4));
 
         //Tries to set chmod for a no existing directory
         $this->assertFalse($this->Shell->folderChmod(DS . 'noExistingDir', 0777));
 
-        $this->assertEquals(['Setted permissions on /tmp/exampleDir'], $this->out->messages());
-
+        $this->assertEquals(['Setted permissions on ' . $this->exampleDir], $this->out->messages());
         $this->assertEquals([
             '<error>Failed to set permissions on /noExistingDir</error>',
         ], $this->err->messages());
     }
 
     /**
-     * Tests for `comment()` method
+     * Tests for `out()` method (`comment()`, `question()` and `warning()`)
      * @test
      */
-    public function testComment()
+    public function testOutMethods()
     {
-        $this->Shell->comment('This is a text');
+        foreach (['comment', 'question', 'warning'] as $method) {
+            $this->Shell->$method('Test');
+        }
 
-        $this->assertEquals(['<comment>This is a text</comment>'], $this->out->messages());
-    }
-
-    /**
-     * Tests for `question()` method
-     * @test
-     */
-    public function testQuestion()
-    {
-        $this->Shell->question('This is a text');
-
-        $this->assertEquals(['<question>This is a text</question>'], $this->out->messages());
-    }
-
-    /**
-     * Tests for `warning()` method
-     * @test
-     */
-    public function testWarning()
-    {
-        $this->Shell->warning('This is a text');
-
-        $this->assertEquals(['<warning>This is a text</warning>'], $this->err->messages());
+        $this->assertEquals([
+            '<comment>Test</comment>',
+            '<question>Test</question>',
+        ], $this->out->messages());
+        $this->assertEquals(['<warning>Test</warning>'], $this->err->messages());
     }
 }

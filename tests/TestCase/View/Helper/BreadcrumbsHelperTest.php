@@ -12,8 +12,8 @@
  */
 namespace MeTools\Test\TestCase\View\Helper;
 
-use Cake\TestSuite\TestCase;
 use Cake\View\View;
+use MeTools\TestSuite\TestCase;
 use MeTools\View\Helper\BreadcrumbsHelper;
 
 /**
@@ -36,19 +36,7 @@ class BreadcrumbsHelperTest extends TestCase
     {
         parent::setUp();
 
-        $this->View = new View();
-        $this->Breadcrumbs = new BreadcrumbsHelper($this->View);
-    }
-
-    /**
-     * Teardown any static object changes and restore them
-     * @return void
-     */
-    public function tearDown()
-    {
-        parent::tearDown();
-
-        unset($this->Breadcrumbs, $this->View);
+        $this->Breadcrumbs = new BreadcrumbsHelper(new View);
     }
 
     /**

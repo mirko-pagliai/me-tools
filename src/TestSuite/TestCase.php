@@ -9,23 +9,30 @@
  * @copyright   Copyright (c) Mirko Pagliai
  * @link        https://github.com/mirko-pagliai/me-tools
  * @license     https://opensource.org/licenses/mit-license.php MIT License
- * @since       2.13.1
+ * @since       2.14.0
  */
-namespace MeTools\TestSuite\Traits;
+namespace MeTools\TestSuite;
+
+use Cake\TestSuite\TestCase as CakeTestCase;
+use MeTools\TestSuite\Traits\TestCaseTrait;
+use Reflection\ReflectionTrait;
 
 /**
- * This trait contains a method to load all fixtures
+ * TestCase class
  */
-trait LoadAllFixturesTrait
+class TestCase extends CakeTestCase
 {
+    use ReflectionTrait;
+    use TestCaseTrait;
+
     /**
-     * Loads all fixtures declared in the `$fixtures` property
+     * Teardown any static object changes and restore them
      * @return void
      */
-    public function loadAllFixtures()
+    public function tearDown()
     {
-        $fixtures = $this->getProperty($this->fixtureManager, '_fixtureMap');
+        parent::tearDown();
 
-        call_user_func_array([$this, 'loadFixtures'], array_keys($fixtures));
+        $this->deleteAllLogs();
     }
 }

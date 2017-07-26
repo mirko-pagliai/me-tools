@@ -12,17 +12,16 @@
  */
 namespace MeTools\Test\TestCase;
 
-use Cake\TestSuite\TestCase;
+use MeTools\TestSuite\TestCase;
 use MeTools\Utility\Youtube;
 
 /**
- * YoutubeTest class.
+ * YoutubeTest class
  */
 class YoutubeTest extends TestCase
 {
     /**
      * Tests for `getId()` method
-     * @return void
      * @test
      */
     public function testGetId()
@@ -52,33 +51,18 @@ class YoutubeTest extends TestCase
     }
 
     /**
-     * Tests for `getId()` method, with invalid parameters
-     * @return void
+     * Tests for `getId()` method, with invalid url or parameters
      * @test
      */
-    public function testGetIdInvalidParameters()
+    public function testGetIdInvalidUrlOrParameters()
     {
-        $result = Youtube::getId('http://youtube.com');
-        $this->assertFalse($result);
-
-        $result = Youtube::getId('http://youtube.com?param=value');
-        $this->assertFalse($result);
-    }
-
-    /**
-     * Tests for `getId()` method, with invalid url
-     * @return void
-     * @test
-     */
-    public function testGetIdInvalidUrl()
-    {
-        $result = Youtube::getId('http://example.com');
-        $this->assertFalse($result);
+        $this->assertFalse(Youtube::getId('http://example.com'));
+        $this->assertFalse(Youtube::getId('http://youtube.com'));
+        $this->assertFalse(Youtube::getId('http://youtube.com?param=value'));
     }
 
     /**
      * Tests for `getPreview()` method
-     * @return void
      * @test
      */
     public function testGetPreview()
@@ -97,7 +81,6 @@ class YoutubeTest extends TestCase
 
     /**
      * Tests for `getUrl()` method
-     * @return void
      * @test
      */
     public function testGetUrl()

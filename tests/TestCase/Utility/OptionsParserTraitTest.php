@@ -12,12 +12,11 @@
  */
 namespace MeTools\Test\TestCase;
 
-use Cake\TestSuite\TestCase;
 use Cake\View\Helper as CakeHelper;
 use Cake\View\StringTemplateTrait;
 use Cake\View\View;
+use MeTools\TestSuite\TestCase;
 use MeTools\Utility\OptionsParserTrait;
-use Reflection\ReflectionTrait;
 
 /**
  * Allow to use `StringTemplateTrait`
@@ -33,8 +32,6 @@ class OptionsParserHelper extends CakeHelper
  */
 class OptionsParserTraitTest extends TestCase
 {
-    use ReflectionTrait;
-
     /**
      * @var \OptionsParserHelper
      */
@@ -48,19 +45,7 @@ class OptionsParserTraitTest extends TestCase
     {
         parent::setUp();
 
-        $this->View = new View();
-        $this->OptionsParser = new OptionsParserHelper($this->View);
-    }
-
-    /**
-     * tearDown method
-     * @return void
-     */
-    public function tearDown()
-    {
-        parent::tearDown();
-
-        unset($this->OptionsParser, $this->View);
+        $this->OptionsParser = new OptionsParserHelper(new View);
     }
 
     /**

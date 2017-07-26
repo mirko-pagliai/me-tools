@@ -1,4 +1,10 @@
 # 2.x branch
+## 2.14 branch
+### 2.14.0
+* added `IntegrationTestCase`, `TestCase` and `TestCaseTrait` classes. Removed
+    `LoadAllFixturesTrait` and `LogsMethodsTrait` classes;
+* significantly improved all tests.
+
 ## 2.13 branch
 ### 2.13.1
 * added `LoadAllFixturesTrait` and `LogsMethodsTrait` trait for TestSuite;

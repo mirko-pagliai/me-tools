@@ -12,8 +12,8 @@
  */
 namespace MeTools\Test\TestCase\Core;
 
-use Cake\TestSuite\TestCase;
 use MeTools\Core\Plugin;
+use MeTools\TestSuite\TestCase;
 
 /**
  * PluginTest class.

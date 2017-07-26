@@ -14,17 +14,14 @@ namespace MeTools\Test\TestCase\Shell;
 
 use Cake\Console\ConsoleIo;
 use Cake\TestSuite\Stub\ConsoleOutput;
-use Cake\TestSuite\TestCase;
 use MeTools\Shell\InstallShell;
-use Reflection\ReflectionTrait;
+use MeTools\TestSuite\TestCase;
 
 /**
  * InstallShellTest class
  */
 class InstallShellTest extends TestCase
 {
-    use ReflectionTrait;
-
     /**
      * @var \MeTools\Shell\InstallShell
      */
@@ -59,8 +56,8 @@ class InstallShellTest extends TestCase
         //@codingStandardsIgnoreLine
         @unlink(WWW_ROOT . 'me_tools');
 
-        $this->out = new ConsoleOutput();
-        $this->err = new ConsoleOutput();
+        $this->out = new ConsoleOutput;
+        $this->err = new ConsoleOutput;
         $this->io = new ConsoleIo($this->out, $this->err);
         $this->io->level(2);
 
@@ -78,18 +75,17 @@ class InstallShellTest extends TestCase
     {
         parent::tearDown();
 
-        //Deletes all fonts and vendors
+        //Deletes all files
         foreach (array_merge(
             glob(WWW_ROOT . 'fonts' . DS . '*'),
-            glob(WWW_ROOT . 'vendor' . DS . '*')
+            glob(WWW_ROOT . 'vendor' . DS . '*'),
+            [WWW_ROOT . 'robots.txt', TMP . 'invalid.json', APP . 'composer.json']
         ) as $file) {
             if (basename($file) !== 'empty') {
                 //@codingStandardsIgnoreLine
                 @unlink($file);
             }
         }
-
-        unset($this->InstallShell, $this->io, $this->err, $this->out);
     }
 
     /**
@@ -165,12 +161,11 @@ class InstallShellTest extends TestCase
         $this->InstallShell->copyFonts();
 
         $this->assertEquals([
-            'Link tests/test_app/webroot/fonts/fontawesome-webfont.eot has been created',
-            'Link tests/test_app/webroot/fonts/fontawesome-webfont.ttf has been created',
-            'Link tests/test_app/webroot/fonts/fontawesome-webfont.woff has been created',
-            'Link tests/test_app/webroot/fonts/fontawesome-webfont.woff2 has been created',
+            'Link ' . rtr(WWW_ROOT) . 'fonts/fontawesome-webfont.eot has been created',
+            'Link ' . rtr(WWW_ROOT) . 'fonts/fontawesome-webfont.ttf has been created',
+            'Link ' . rtr(WWW_ROOT) . 'fonts/fontawesome-webfont.woff has been created',
+            'Link ' . rtr(WWW_ROOT) . 'fonts/fontawesome-webfont.woff2 has been created',
         ], $this->out->messages());
-
         $this->assertEmpty($this->err->messages());
     }
 
@@ -189,7 +184,8 @@ class InstallShellTest extends TestCase
             TMP . 'cache',
             WWW_ROOT . 'files',
         ] as $dir) {
-            rmdir($dir);
+            //@codingStandardsIgnoreLine
+            @rmdir($dir);
         }
 
         $this->assertEquals([
@@ -205,12 +201,11 @@ class InstallShellTest extends TestCase
             'Setted permissions on ' . TMP . 'cache' . DS . 'views',
             'File or directory ' . TMP . 'sessions already exists',
             'File or directory ' . TMP . 'tests already exists',
-            'Created tests/test_app/webroot/files directory',
-            'Setted permissions on tests/test_app/webroot/files',
-            'File or directory tests/test_app/webroot/fonts already exists',
-            'File or directory tests/test_app/webroot/vendor already exists',
+            'Created ' . rtr(WWW_ROOT) . 'files directory',
+            'Setted permissions on ' . rtr(WWW_ROOT) . 'files',
+            'File or directory ' . rtr(WWW_ROOT) . 'fonts already exists',
+            'File or directory ' . rtr(WWW_ROOT) . 'vendor already exists',
         ], $this->out->messages());
-
         $this->assertEmpty($this->err->messages());
     }
 
@@ -220,7 +215,6 @@ class InstallShellTest extends TestCase
      */
     public function testCreateRobots()
     {
-        $this->assertFileNotExists(WWW_ROOT . 'robots.txt');
         $this->InstallShell->createRobots();
         $this->assertFileExists(WWW_ROOT . 'robots.txt');
 
@@ -230,8 +224,6 @@ class InstallShellTest extends TestCase
             'Disallow: /ckeditor/' . PHP_EOL . 'Disallow: /css/' . PHP_EOL .
             'Disallow: /js/' . PHP_EOL . 'Disallow: /vendor/'
         );
-
-        unlink(WWW_ROOT . 'robots.txt');
 
         $this->assertNotEmpty($this->out->messages());
         $this->assertEmpty($this->err->messages());
@@ -243,9 +235,9 @@ class InstallShellTest extends TestCase
      */
     public function testCreatePluginsLinks()
     {
-        $this->assertFileNotExists(WWW_ROOT . 'me_tools');
-
         $this->InstallShell->createPluginsLinks();
+
+        $this->assertFileExists(WWW_ROOT . 'me_tools');
 
         $this->assertEquals([
             '',
@@ -257,8 +249,6 @@ class InstallShellTest extends TestCase
             'Done',
         ], $this->out->messages());
         $this->assertEmpty($this->err->messages());
-
-        $this->assertFileExists(WWW_ROOT . 'me_tools');
     }
 
     /**
@@ -270,13 +260,12 @@ class InstallShellTest extends TestCase
         $this->InstallShell->createVendorsLinks();
 
         $this->assertEquals([
-            'Link tests/test_app/webroot/vendor/bootstrap-datetimepicker has been created',
-            'Link tests/test_app/webroot/vendor/jquery has been created',
-            'Link tests/test_app/webroot/vendor/moment has been created',
-            'Link tests/test_app/webroot/vendor/font-awesome has been created',
-            'Link tests/test_app/webroot/vendor/fancybox has been created',
+            'Link ' . rtr(WWW_ROOT) . 'vendor/bootstrap-datetimepicker has been created',
+            'Link ' . rtr(WWW_ROOT) . 'vendor/jquery has been created',
+            'Link ' . rtr(WWW_ROOT) . 'vendor/moment has been created',
+            'Link ' . rtr(WWW_ROOT) . 'vendor/font-awesome has been created',
+            'Link ' . rtr(WWW_ROOT) . 'vendor/fancybox has been created',
         ], $this->out->messages());
-
         $this->assertEmpty($this->err->messages());
     }
 
@@ -296,8 +285,6 @@ class InstallShellTest extends TestCase
         //Tries to fix an invalid file
         $this->InstallShell->fixComposerJson($file);
 
-        unlink($file);
-
         //Writes `tests/test_app/composer.json` file
         $file = APP . 'composer.json';
 
@@ -313,19 +300,16 @@ class InstallShellTest extends TestCase
         //Fixes the file
         $this->InstallShell->fixComposerJson($file);
 
-        unlink($file);
-
         //Tries to fix the main `composer.json` file
         $this->InstallShell->fixComposerJson();
 
         $this->assertEquals([
-            'The file tests/test_app/composer.json has been fixed',
+            'The file ' . rtr(APP) . 'composer.json has been fixed',
             'The file ' . rtr(ROOT . DS . 'composer.json') . ' doesn\'t need to be fixed',
         ], $this->out->messages());
-
         $this->assertEquals([
             '<error>File or directory noExisting not writeable</error>',
-            '<error>The file /tmp/invalid.json does not seem a valid composer.json file</error>',
+            '<error>The file ' . TMP . 'invalid.json does not seem a valid composer.json file</error>',
         ], $this->err->messages());
     }
 
@@ -372,13 +356,12 @@ class InstallShellTest extends TestCase
             'Setted permissions on ' . TMP . 'sessions',
             'Setted permissions on ' . TMP . 'tests',
         ], $this->out->messages());
-
         $this->assertEquals([
             '<error>Failed to set permissions on ' . TMP . 'cache</error>',
             '<error>Failed to set permissions on ' . TMP . 'cache/models</error>',
             '<error>Failed to set permissions on ' . TMP . 'cache/persistent</error>',
             '<error>Failed to set permissions on ' . TMP . 'cache/views</error>',
-            '<error>Failed to set permissions on tests/test_app/webroot/files</error>',
+            '<error>Failed to set permissions on ' . rtr(WWW_ROOT) . 'files</error>',
         ], $this->err->messages());
     }
 
@@ -391,7 +374,7 @@ class InstallShellTest extends TestCase
         $parser = $this->InstallShell->getOptionParser();
 
         $this->assertInstanceOf('Cake\Console\ConsoleOptionParser', $parser);
-        $this->assertEquals([
+        $this->assertArrayKeysEqual([
             'all',
             'copyFonts',
             'createDirectories',
@@ -400,8 +383,8 @@ class InstallShellTest extends TestCase
             'createVendorsLinks',
             'fixComposerJson',
             'setPermissions',
-        ], array_keys($parser->subcommands()));
+        ], $parser->subcommands());
         $this->assertEquals('Executes some tasks to make the system ready to work', $parser->getDescription());
-        $this->assertEquals(['force', 'help', 'quiet', 'verbose'], array_keys($parser->options()));
+        $this->assertArrayKeysEqual(['force', 'help', 'quiet', 'verbose'], $parser->options());
     }
 }

@@ -12,36 +12,30 @@
  */
 namespace MeTools\Test\TestCase;
 
-use Cake\TestSuite\TestCase;
+use MeTools\TestSuite\TestCase;
 use MeTools\Utility\Apache;
 
 /**
- * ApacheTest class.
+ * ApacheTest class
  */
 class ApacheTest extends TestCase
 {
     /**
      * Tests for `module()` method
-     * @return void
      * @test
      */
     public function testModule()
     {
-        $result = Apache::module('mod_rewrite');
-        $this->assertTrue($result);
-
-        $result = Apache::module('mod_noExisting');
-        $this->assertFalse($result);
+        $this->assertTrue(Apache::module('mod_rewrite'));
+        $this->assertFalse(Apache::module('mod_noExisting'));
     }
 
     /**
      * Tests for `version()` method
-     * @return void
      * @test
      */
     public function testVersion()
     {
-        $result = Apache::version();
-        $this->assertEquals('1.3.29', $result);
+        $this->assertEquals('1.3.29', Apache::version());
     }
 }

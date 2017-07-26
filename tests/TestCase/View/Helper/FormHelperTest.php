@@ -12,8 +12,8 @@
  */
 namespace MeTools\Test\TestCase\View\Helper;
 
-use Cake\TestSuite\TestCase;
 use Cake\View\View;
+use MeTools\TestSuite\TestCase;
 use MeTools\View\Helper\FormHelper;
 use MeTools\View\Helper\HtmlHelper;
 
@@ -42,20 +42,8 @@ class FormHelperTest extends TestCase
     {
         parent::setUp();
 
-        $view = new View();
-        $this->Form = new FormHelper($view);
-        $this->Html = new HtmlHelper($view);
-    }
-
-    /**
-     * Teardown any static object changes and restore them
-     * @return void
-     */
-    public function tearDown()
-    {
-        parent::tearDown();
-
-        unset($this->Form, $this->Html);
+        $this->Form = new FormHelper(new View);
+        $this->Html = new HtmlHelper(new View);
     }
 
     /**

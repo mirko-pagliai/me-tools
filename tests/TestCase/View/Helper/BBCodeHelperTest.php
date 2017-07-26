@@ -12,8 +12,8 @@
  */
 namespace MeTools\Test\TestCase\View\Helper;
 
-use Cake\TestSuite\TestCase;
 use Cake\View\View;
+use MeTools\TestSuite\TestCase;
 use MeTools\View\Helper\BBCodeHelper;
 use MeTools\View\Helper\HtmlHelper;
 
@@ -42,20 +42,8 @@ class BBCodeHelperTest extends TestCase
     {
         parent::setUp();
 
-        $this->View = new View();
-        $this->BBCode = new BBCodeHelper($this->View);
-        $this->Html = new HtmlHelper($this->View);
-    }
-
-    /**
-     * Teardown any static object changes and restore them
-     * @return void
-     */
-    public function tearDown()
-    {
-        parent::tearDown();
-
-        unset($this->BBCode, $this->Html, $this->View);
+        $this->BBCode = new BBCodeHelper(new View);
+        $this->Html = new HtmlHelper(new View);
     }
 
     /**
@@ -171,9 +159,7 @@ class BBCodeHelperTest extends TestCase
         $result = $this->BBCode->readmore('<p>[readmore /]</p>');
         $this->assertEquals($expected, $result);
 
-        $result = $this->BBCode->readmore(
-            '<p class="my-class">[readmore /]</p>'
-        );
+        $result = $this->BBCode->readmore('<p class="my-class">[readmore /]</p>');
         $this->assertEquals($expected, $result);
     }
 
@@ -201,19 +187,13 @@ class BBCodeHelperTest extends TestCase
         $result = $this->BBCode->youtube('[youtube]bL_CJKq9rIw[/youtube]');
         $this->assertEquals($expected, $result);
 
-        $result = $this->BBCode->youtube(
-            '[youtube]http://youtube.com/watch?v=bL_CJKq9rIw[/youtube]'
-        );
+        $result = $this->BBCode->youtube('[youtube]http://youtube.com/watch?v=bL_CJKq9rIw[/youtube]');
         $this->assertEquals($expected, $result);
 
-        $result = $this->BBCode->youtube(
-            '[youtube]https://www.youtube.com/watch?v=bL_CJKq9rIw[/youtube]'
-        );
+        $result = $this->BBCode->youtube('[youtube]https://www.youtube.com/watch?v=bL_CJKq9rIw[/youtube]');
         $this->assertEquals($expected, $result);
 
-        $result = $this->BBCode->youtube(
-            '[youtube]https://youtu.be/bL_CJKq9rIw[/youtube]'
-        );
+        $result = $this->BBCode->youtube('[youtube]https://youtu.be/bL_CJKq9rIw[/youtube]');
         $this->assertEquals($expected, $result);
     }
 }
