@@ -15,17 +15,14 @@ namespace MeTools\Test\TestCase\Controller\Component;
 use Cake\Controller\ComponentRegistry;
 use Cake\Controller\Controller;
 use Cake\Network\Request;
-use Cake\TestSuite\TestCase;
 use MeTools\Controller\Component\UploaderComponent;
-use Reflection\ReflectionTrait;
+use MeTools\TestSuite\TestCase;
 
 /**
  * UploaderComponentTest class
  */
 class UploaderComponentTest extends TestCase
 {
-    use ReflectionTrait;
-
     /**
      * @var \Cake\Controller\ComponentRegistry
      */
@@ -40,7 +37,7 @@ class UploaderComponentTest extends TestCase
      * Internal method to create a file and get a valid array for upload
      * @return array
      */
-    protected function _createFile()
+    protected function createFile()
     {
         //Creates a file and writes some content
         $file = tempnam(TMP, 'php_upload_');
@@ -65,7 +62,7 @@ class UploaderComponentTest extends TestCase
     {
         parent::setUp();
 
-        $controller = new Controller(new Request());
+        $controller = new Controller(new Request);
         $this->ComponentRegistry = new ComponentRegistry($controller);
         $this->Uploader = new UploaderComponent($this->ComponentRegistry);
     }
@@ -79,16 +76,10 @@ class UploaderComponentTest extends TestCase
         parent::tearDown();
 
         //Deletes all files
-        foreach (glob(UPLOADS . '*') as $file) {
+        foreach (array_merge(glob(UPLOADS . '*'), glob(TMP . 'php_upload*')) as $file) {
+            //@codingStandardsIgnoreLine
             unlink($file);
         }
-
-        //Deletes other temporary files
-        foreach (glob(TMP . 'php_upload*') as $file) {
-            unlink($file);
-        }
-
-        unset($this->Uploader, $this->ComponentRegistry);
     }
 
     /**
@@ -144,18 +135,18 @@ class UploaderComponentTest extends TestCase
      */
     public function testSet()
     {
-        $file = $this->_createFile();
+        $file = $this->createFile();
 
         $this->Uploader->set($file);
         $this->assertEmpty($this->Uploader->error());
         $this->assertInstanceOf('stdClass', $this->Uploader->file);
-        $this->assertEquals([
+        $this->assertObjectPropertiesEqual([
             'name',
             'type',
             'tmp_name',
             'error',
             'size',
-        ], array_keys((array)$this->Uploader->file));
+        ], $this->Uploader->file);
 
         $this->Uploader->set(array_merge($file, ['error' => UPLOAD_ERR_INI_SIZE]));
         $this->assertInstanceOf('stdClass', $this->Uploader->file);
@@ -172,26 +163,24 @@ class UploaderComponentTest extends TestCase
      */
     public function testMimetype()
     {
-        $file = $this->_createFile();
+        $file = $this->createFile();
         $this->Uploader->set($file);
 
-        $this->Uploader->mimetype('text/plain');
-        $this->assertEmpty($this->Uploader->error());
+        foreach (['text/plain', 'text', ['text/plain', 'image/gif']] as $mimetype) {
+            $this->Uploader->mimetype($mimetype);
+            $this->assertEmpty($this->Uploader->error());
 
-        $this->Uploader->mimetype('text');
-        $this->assertEmpty($this->Uploader->error());
+            //Resets error
+            $this->setProperty($this->Uploader, 'error', null);
+        }
 
-        $this->Uploader->mimetype(['text/plain', 'image/gif']);
-        $this->assertEmpty($this->Uploader->error());
+        foreach (['image/gif', 'image'] as $mimetype) {
+            $this->Uploader->mimetype($mimetype);
+            $this->assertEquals('The mimetype text/plain is not accepted', $this->Uploader->error());
 
-        $this->Uploader->mimetype('image/gif');
-        $this->assertEquals('The mimetype text/plain is not accepted', $this->Uploader->error());
-
-        //Resets error
-        $this->setProperty($this->Uploader, 'error', null);
-
-        $this->Uploader->mimetype('image');
-        $this->assertEquals('The mimetype text/plain is not accepted', $this->Uploader->error());
+            //Resets error
+            $this->setProperty($this->Uploader, 'error', null);
+        }
     }
 
     /**
@@ -221,8 +210,7 @@ class UploaderComponentTest extends TestCase
                 return rename($filename, $destination);
             }));
 
-        $file = $this->_createFile();
-        $this->assertFileExists($file['tmp_name']);
+        $file = $this->createFile();
         $this->Uploader->set($file);
 
         $result = $this->Uploader->save(UPLOADS);
@@ -230,8 +218,7 @@ class UploaderComponentTest extends TestCase
         $this->assertFileExists($result);
         $this->assertFileNotExists($file['tmp_name']);
 
-        $file = $this->_createFile();
-        $this->assertFileExists($file['tmp_name']);
+        $file = $this->createFile();
         $this->Uploader->set($file);
 
         //Tries again, missing the slash term from the directory target
@@ -247,7 +234,7 @@ class UploaderComponentTest extends TestCase
      */
     public function testSaveNoWritableDir()
     {
-        $file = $this->_createFile();
+        $file = $this->createFile();
         $this->Uploader->set($file);
 
         $this->assertFalse($this->Uploader->save(DS));
@@ -262,7 +249,7 @@ class UploaderComponentTest extends TestCase
      */
     public function testSaveNoExistingDir()
     {
-        $file = $this->_createFile();
+        $file = $this->createFile();
         $this->Uploader->set($file)->save(UPLOADS . 'noExistingDir');
     }
 
@@ -283,7 +270,7 @@ class UploaderComponentTest extends TestCase
      */
     public function testSaveWithError()
     {
-        $file = $this->_createFile();
+        $file = $this->createFile();
         $this->Uploader->set($file);
 
         //Sets an error

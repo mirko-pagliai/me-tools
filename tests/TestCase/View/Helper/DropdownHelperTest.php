@@ -12,8 +12,8 @@
  */
 namespace MeTools\Test\TestCase\View\Helper;
 
-use Cake\TestSuite\TestCase;
 use Cake\View\View;
+use MeTools\TestSuite\TestCase;
 use MeTools\View\Helper\DropdownHelper;
 use MeTools\View\Helper\HtmlHelper;
 
@@ -42,20 +42,8 @@ class DropdownHelperTest extends TestCase
     {
         parent::setUp();
 
-        $this->View = new View();
-        $this->Dropdown = new DropdownHelper($this->View);
-        $this->Html = new HtmlHelper($this->View);
-    }
-
-    /**
-     * Teardown any static object changes and restore them
-     * @return void
-     */
-    public function tearDown()
-    {
-        parent::tearDown();
-
-        unset($this->Dropdown, $this->Html, $this->View);
+        $this->Dropdown = new DropdownHelper(new View);
+        $this->Html = new HtmlHelper(new View);
     }
 
     /**

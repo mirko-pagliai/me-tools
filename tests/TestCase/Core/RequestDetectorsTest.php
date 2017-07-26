@@ -13,7 +13,7 @@
 namespace MeTools\Test\TestCase\Core;
 
 use Cake\Network\Request;
-use Cake\TestSuite\TestCase;
+use MeTools\TestSuite\TestCase;
 
 /**
  * RequestDetectorsTest class
@@ -40,17 +40,6 @@ class RequestDetectorsTest extends TestCase
         $this->Request = $this->Request->withParam('action', 'myAction')
             ->withParam('controller', 'myController')
             ->withParam('prefix', 'myPrefix');
-    }
-
-    /**
-     * Teardown any static object changes and restore them
-     * @return void
-     */
-    public function tearDown()
-    {
-        parent::tearDown();
-
-        unset($this->Request);
     }
 
     /**

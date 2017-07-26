@@ -12,7 +12,7 @@
  */
 namespace MeTools\Test\TestCase\Core;
 
-use Cake\TestSuite\TestCase;
+use MeTools\TestSuite\TestCase;
 
 /**
  * GlobalFunctionsTest class

@@ -16,8 +16,8 @@ use Cake\Controller\ComponentRegistry;
 use Cake\Controller\Controller;
 use Cake\Network\Request;
 use Cake\Network\Session;
-use Cake\TestSuite\TestCase;
 use MeTools\Controller\Component\FlashComponent;
+use MeTools\TestSuite\TestCase;
 
 /**
  * FlashComponentTest class
@@ -44,10 +44,10 @@ class FlashComponentTest extends TestCase
     {
         parent::setUp();
 
-        $controller = new Controller(new Request());
+        $controller = new Controller(new Request);
         $componentRegistry = new ComponentRegistry($controller);
         $this->Flash = new FlashComponent($componentRegistry);
-        $this->Session = new Session();
+        $this->Session = new Session;
     }
 
     /**
@@ -59,8 +59,6 @@ class FlashComponentTest extends TestCase
         parent::tearDown();
 
         $this->Session->destroy();
-
-        unset($this->Flash, $this->Session);
     }
 
     /**

@@ -12,8 +12,8 @@
  */
 namespace MeTools\Test\TestCase\View\Helper;
 
-use Cake\TestSuite\TestCase;
 use Cake\View\View;
+use MeTools\TestSuite\TestCase;
 use MeTools\View\Helper\PaginatorHelper;
 
 /**
@@ -36,19 +36,7 @@ class PaginatorHelperTest extends TestCase
     {
         parent::setUp();
 
-        $this->View = new View();
-        $this->Paginator = new PaginatorHelper($this->View);
-    }
-
-    /**
-     * Teardown any static object changes and restore them
-     * @return void
-     */
-    public function tearDown()
-    {
-        parent::tearDown();
-
-        unset($this->Paginator, $this->View);
+        $this->Paginator = new PaginatorHelper(new View());
     }
 
     /**
