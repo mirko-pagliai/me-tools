@@ -499,7 +499,7 @@ class HtmlHelper extends CakeHtmlHelper
      */
     public function ol(array $list, array $options = [], array $itemOptions = [])
     {
-        return self::nestedList($list, am($options, ['tag' => 'ol']), $itemOptions);
+        return self::nestedList($list, array_merge($options, ['tag' => 'ol']), $itemOptions);
     }
 
     /**
@@ -608,7 +608,7 @@ class HtmlHelper extends CakeHtmlHelper
      */
     public function ul(array $list, array $options = [], array $itemOptions = [])
     {
-        return self::nestedList($list, am($options, ['tag' => 'ul']), $itemOptions);
+        return self::nestedList($list, array_merge($options, ['tag' => 'ul']), $itemOptions);
     }
 
     /**
@@ -629,7 +629,7 @@ class HtmlHelper extends CakeHtmlHelper
             'width' => 'device-width',
         ], null, ', ');
 
-        return self::meta(am(['name' => 'viewport'], compact('content')), null, $options);
+        return self::meta(array_merge(['name' => 'viewport'], compact('content')), null, $options);
     }
 
     /**

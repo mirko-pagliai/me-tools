@@ -13,25 +13,6 @@
 use Cake\Filesystem\File;
 use Cake\Filesystem\Folder;
 
-if (!function_exists('am')) {
-    /**
-     * Merge a group of arrays.
-     * Accepts variable arguments. Each argument will be converted into an
-     *  array and then merged.
-     * @return array All array parameters merged into one
-     */
-    function am()
-    {
-        $array = [];
-
-        foreach (func_get_args() as $arg) {
-            $array = array_merge($array, (array)$arg);
-        }
-
-        return $array;
-    }
-}
-
 if (!function_exists('clearDir')) {
     /**
      * Cleans a directory, deleting all the files, even in sub-directories
