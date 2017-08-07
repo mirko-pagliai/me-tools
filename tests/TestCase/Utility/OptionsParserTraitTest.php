@@ -69,7 +69,7 @@ class OptionsParserTraitTest extends TestCase
      */
     public function testToArray()
     {
-        $toArrayMethod = function($value) {
+        $toArrayMethod = function ($value) {
             return $this->invokeMethod($this->OptionsParser, 'toArray', [$value]);
         };
 
@@ -89,7 +89,7 @@ class OptionsParserTraitTest extends TestCase
      */
     public function testToString()
     {
-        $toStringMethod = function($value) {
+        $toStringMethod = function ($value) {
             return $this->invokeMethod($this->OptionsParser, 'toString', [$value]);
         };
 
