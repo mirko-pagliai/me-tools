@@ -10,7 +10,7 @@
  * @link        https://github.com/mirko-pagliai/me-tools
  * @license     https://opensource.org/licenses/mit-license.php MIT License
  */
-use Cake\Network\Request;
+use Cake\Http\ServerRequest;
 use Cake\Routing\Router;
 
 /**
@@ -37,7 +37,7 @@ use Cake\Routing\Router;
  * returns `true` if the current action is `edit` or `delete` and if the
  * current controller is `Pages`, otherwise `false`.
  */
-Request::addDetector('action', function ($request, $action, $controller = null) {
+ServerRequest::addDetector('action', function (ServerRequest $request, $action, $controller = null) {
     $action = in_array($request->getParam('action'), (array)$action);
 
     //Checks only action
@@ -61,7 +61,7 @@ Request::addDetector('action', function ($request, $action, $controller = null) 
  * </code>
  * returns `true` if the current controller is `Pages`, otherwise `false`.
  */
-Request::addDetector('controller', function ($request, $controller) {
+ServerRequest::addDetector('controller', function (ServerRequest $request, $controller) {
     return in_array($request->getParam('controller'), (array)$controller);
 });
 
@@ -70,7 +70,7 @@ Request::addDetector('controller', function ($request, $controller) {
  *
  * It checks if the host is the localhost.
  */
-Request::addDetector('localhost', function ($request) {
+ServerRequest::addDetector('localhost', function (ServerRequest $request) {
     return in_array($request->clientIp(), ['127.0.0.1', '::1']);
 });
 
@@ -85,7 +85,7 @@ Request::addDetector('localhost', function ($request) {
  * $this->request->isPrefix(['admin', 'manager']);
  * </code>
  */
-Request::addDetector('prefix', function ($request, $prefix) {
+ServerRequest::addDetector('prefix', function (ServerRequest $request, $prefix) {
     return in_array($request->getParam('prefix'), (array)$prefix);
 });
 
@@ -103,7 +103,7 @@ Request::addDetector('prefix', function ($request, $prefix) {
  *  string. The second argument allows you to not remove the query string from
  *  the current url.
  */
-Request::addDetector('url', function ($request, $url, $removeQueryString = true) {
+ServerRequest::addDetector('url', function (ServerRequest $request, $url, $removeQueryString = true) {
     $current = rtrim($request->env('REQUEST_URI'), '/');
 
     if ($removeQueryString) {
