@@ -39,7 +39,7 @@ class UploaderComponent extends Component
      * @return void
      * @uses $error
      */
-    protected function _setError($error)
+    protected function setError($error)
     {
         if (empty($this->error)) {
             $this->error = $error;
@@ -51,7 +51,7 @@ class UploaderComponent extends Component
      * @param string $target Path
      * @return string
      */
-    protected function _findTargetFilename($target)
+    protected function findTargetFilename($target)
     {
         //If the file already exists, adds a numeric suffix
         if (file_exists($target)) {
@@ -111,7 +111,7 @@ class UploaderComponent extends Component
      *  array or a magic word (`images` or `text`)
      * @return \MeTools\Controller\Component\UploaderComponent
      * @throws InternalErrorException
-     * @uses _setError()
+     * @uses setError()
      * @uses $file
      */
     public function mimetype($acceptedMimetype)
@@ -133,7 +133,7 @@ class UploaderComponent extends Component
         $currentMimetype = mime_content_type($this->file->tmp_name);
 
         if (!in_array($currentMimetype, (array)$acceptedMimetype)) {
-            $this->_setError(__d('me_tools', 'The mimetype {0} is not accepted', $currentMimetype));
+            $this->setError(__d('me_tools', 'The mimetype {0} is not accepted', $currentMimetype));
         }
 
         return $this;
@@ -145,8 +145,8 @@ class UploaderComponent extends Component
      *  file
      * @return string|bool Final full path of the uploaded file or `false` on
      *  failure
-     * @uses _findTargetFilename()
-     * @uses _setError()
+     * @uses findTargetFilename()
+     * @uses setError()
      * @uses error()
      * @uses move_uploaded_file()
      * @uses $file
@@ -172,10 +172,10 @@ class UploaderComponent extends Component
         }
 
         //Gets the target full path
-        $file = $this->_findTargetFilename($directory . $this->file->name);
+        $file = $this->findTargetFilename($directory . $this->file->name);
 
         if (!$this->move_uploaded_file($this->file->tmp_name, $file)) {
-            $this->_setError(__d('me_tools', 'The file was not successfully moved to the target directory'));
+            $this->setError(__d('me_tools', 'The file was not successfully moved to the target directory'));
 
             return false;
         }
@@ -188,7 +188,7 @@ class UploaderComponent extends Component
      *  `$this->request->getData('file')`)
      * @param array $file Uploaded file information
      * @return \MeTools\Controller\Component\UploaderComponent
-     * @uses _setError()
+     * @uses setError()
      * @uses $error
      * @uses $file
      */
@@ -219,7 +219,7 @@ class UploaderComponent extends Component
                 $file['error'] = 'default';
             }
 
-            $this->_setError($errors[$file['error']]);
+            $this->setError($errors[$file['error']]);
 
             return $this;
         }

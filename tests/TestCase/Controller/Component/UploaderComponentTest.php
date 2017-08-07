@@ -83,23 +83,23 @@ class UploaderComponentTest extends TestCase
     }
 
     /**
-     * Tests for `_setError()` and `error()` methods
+     * Tests for `setError()` and `error()` methods
      * @test
      */
     public function testErrorAndSetError()
     {
         $this->assertFalse($this->Uploader->error());
 
-        $this->invokeMethod($this->Uploader, '_setError', ['first']);
+        $this->invokeMethod($this->Uploader, 'setError', ['first']);
         $this->assertEquals('first', $this->Uploader->error());
 
         //It sets only the first error
-        $this->invokeMethod($this->Uploader, '_setError', ['second']);
+        $this->invokeMethod($this->Uploader, 'setError', ['second']);
         $this->assertEquals('first', $this->Uploader->error());
     }
 
     /**
-     * Tests for `_findTargetFilename()` method
+     * Tests for `findTargetFilename()` method
      * @test
      */
     public function testFindTargetFilename()
@@ -108,25 +108,25 @@ class UploaderComponentTest extends TestCase
         $file2 = UPLOADS . 'target_1.txt';
         $file3 = UPLOADS . 'target_2.txt';
 
-        $this->assertEquals($file1, $this->invokeMethod($this->Uploader, '_findTargetFilename', [$file1]));
+        $this->assertEquals($file1, $this->invokeMethod($this->Uploader, 'findTargetFilename', [$file1]));
 
         //Creates the first file
         file_put_contents($file1, null);
-        $this->assertEquals($file2, $this->invokeMethod($this->Uploader, '_findTargetFilename', [$file1]));
+        $this->assertEquals($file2, $this->invokeMethod($this->Uploader, 'findTargetFilename', [$file1]));
 
         //Creates the second file
         file_put_contents($file2, null);
-        $this->assertEquals($file3, $this->invokeMethod($this->Uploader, '_findTargetFilename', [$file1]));
+        $this->assertEquals($file3, $this->invokeMethod($this->Uploader, 'findTargetFilename', [$file1]));
 
         //Files without extension
         $file1 = UPLOADS . 'target';
         $file2 = UPLOADS . 'target_1';
 
-        $this->assertEquals($file1, $this->invokeMethod($this->Uploader, '_findTargetFilename', [$file1]));
+        $this->assertEquals($file1, $this->invokeMethod($this->Uploader, 'findTargetFilename', [$file1]));
 
         //Creates the first file
         file_put_contents($file1, null);
-        $this->assertEquals($file2, $this->invokeMethod($this->Uploader, '_findTargetFilename', [$file1]));
+        $this->assertEquals($file2, $this->invokeMethod($this->Uploader, 'findTargetFilename', [$file1]));
     }
 
     /**
@@ -275,7 +275,7 @@ class UploaderComponentTest extends TestCase
 
         //Sets an error
         $error = 'error before save';
-        $this->invokeMethod($this->Uploader, '_setError', [$error]);
+        $this->invokeMethod($this->Uploader, 'setError', [$error]);
 
         $this->assertFalse($this->Uploader->save(UPLOADS));
         $this->assertEquals($error, $this->Uploader->error());

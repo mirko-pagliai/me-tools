@@ -23,21 +23,21 @@ trait OptionsParserTrait
      * @param mixed $value Value
      * @param array $options Options
      * @return array Options
-     * @uses _toString()
+     * @uses toString()
      */
-    protected function _setValue($key, $value, array $options)
+    protected function setValue($key, $value, array $options)
     {
-        $options[$key] = $this->_toString($value);
+        $options[$key] = $this->toString($value);
 
         return $options;
     }
 
     /**
-     * Turns a string into an array
+     * Internal method to turn a string into an array
      * @param mixed $value String
      * @return array
      */
-    protected function _toArray($value)
+    protected function toArray($value)
     {
         if (!is_string($value)) {
             return $value;
@@ -47,11 +47,11 @@ trait OptionsParserTrait
     }
 
     /**
-     * Turns an array into a string
+     * Internal method to turn an array into a string
      * @param mixed $value Array
      * @return string
      */
-    protected function _toString($value)
+    protected function toString($value)
     {
         if (!is_array($value)) {
             return $value;
@@ -79,7 +79,7 @@ trait OptionsParserTrait
      * @param string|array $classes Classes (eg. `default`, `primary`,
      *  `success`, etc), with or without the `btn-` prefix
      * @return array Options
-     * @uses _toArray()
+     * @uses toArray()
      * @uses optionsValues()
      */
     public function addButtonClasses(array $options, $classes = 'btn-default')
@@ -92,7 +92,7 @@ trait OptionsParserTrait
             return $this->optionsValues(['class' => 'btn'], $options);
         }
 
-        $classes = collection($this->_toArray($classes))
+        $classes = collection($this->toArray($classes))
             ->filter(function ($class) {
                 return preg_match('/^(btn\-)?(default|primary|success|info|warning|danger|lg|sm|xs|block)$/', $class);
             })
@@ -178,8 +178,8 @@ trait OptionsParserTrait
      * </code>
      * @param string|array $icons Icons
      * @return string
-     * @uses _toArray()
-     * @uses _toString()
+     * @uses toArray()
+     * @uses toString()
      */
     public function icon($icons)
     {
@@ -187,7 +187,7 @@ trait OptionsParserTrait
             $icons = func_get_args();
         }
 
-        $icons = $this->_toArray($icons);
+        $icons = $this->toArray($icons);
 
         //Prepends the string "fa-" to any other class
         $icons = preg_replace('/(?<![^ ])(?=[^ ])(?!fa)/', 'fa-', $icons);
@@ -199,7 +199,7 @@ trait OptionsParserTrait
             $this->setTemplates(['icon' => '<i class="{{icons}}"> </i>']);
         }
 
-        return $this->formatTemplate('icon', ['icons' => $this->_toString($icons)]);
+        return $this->formatTemplate('icon', ['icons' => $this->toString($icons)]);
     }
 
     /**
@@ -225,7 +225,7 @@ trait OptionsParserTrait
      * @param array $values Array of key values and values
      * @param array $options Array of HTML attributes
      * @return array Options
-     * @uses _setValue()
+     * @uses setValue()
      */
     public function optionsDefaults($values, $options)
     {
@@ -238,7 +238,7 @@ trait OptionsParserTrait
 
         foreach ($values as $key => $value) {
             if (!isset($options[$key])) {
-                $options = $this->_setValue($key, $value, $options);
+                $options = $this->setValue($key, $value, $options);
             }
         }
 
@@ -268,9 +268,9 @@ trait OptionsParserTrait
      * @param array $values Array of key values and values
      * @param array $options Array of HTML attributes
      * @return array Options
-     * @uses _setValue()
-     * @uses _toArray()
-     * @uses _toString()
+     * @uses setValue()
+     * @uses toArray()
+     * @uses toString()
      */
     public function optionsValues($values, $options)
     {
@@ -283,7 +283,7 @@ trait OptionsParserTrait
 
         foreach ($values as $key => $value) {
             //Turns value into a string
-            $value = $this->_toString($value);
+            $value = $this->toString($value);
 
             if (isset($options[$key])) {
                 //Chains new value to the existing value
@@ -291,9 +291,9 @@ trait OptionsParserTrait
 
                 //Turns first into an array and finally into a string again.
                 //Turning into array will also remove duplicates
-                $options[$key] = $this->_toString($this->_toArray($value));
+                $options[$key] = $this->toString($this->toArray($value));
             } else {
-                $options = $this->_setValue($key, $value, $options);
+                $options = $this->setValue($key, $value, $options);
             }
         }
 
