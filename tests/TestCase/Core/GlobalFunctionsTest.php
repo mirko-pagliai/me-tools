@@ -20,26 +20,6 @@ use MeTools\TestSuite\TestCase;
 class GlobalFunctionsTest extends TestCase
 {
     /**
-     * Test for `am()` global function, alias for `array_merge()`
-     * @return void
-     * @test
-     */
-    public function testAm()
-    {
-        $firstTestArray = ['alfa', 'beta', 'gamma'];
-        $secondTestArray = ['first', 'second', 'third'];
-        $testString = 'this is a string';
-
-        $result = am($firstTestArray, $secondTestArray);
-        $expected = array_merge($firstTestArray, $secondTestArray);
-        $this->assertEquals($expected, $result);
-
-        $result = am($firstTestArray, $secondTestArray, $testString);
-        $expected = array_merge($firstTestArray, $secondTestArray, (array)$testString);
-        $this->assertEquals($expected, $result);
-    }
-
-    /**
      * Tests for `clearDir()` and `folderIsWriteable()`  global functions.
      *
      * It creates some directories, so it tests if they are writeable.

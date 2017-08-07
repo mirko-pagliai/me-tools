@@ -49,50 +49,58 @@ class OptionsParserTraitTest extends TestCase
     }
 
     /**
-     * Tests for `_setValue()` method
+     * Tests for `setValue()` method
      * @test
      */
     public function testSetValue()
     {
         $options = ['key' => 'value'];
 
-        $options = $this->invokeMethod($this->OptionsParser, '_setValue', ['newKey', 'newValue', $options]);
+        $options = $this->invokeMethod($this->OptionsParser, 'setValue', ['newKey', 'newValue', $options]);
         $this->assertEquals(['key' => 'value', 'newKey' => 'newValue'], $options);
 
-        $options = $this->invokeMethod($this->OptionsParser, '_setValue', ['key', 'anotherValue', $options]);
+        $options = $this->invokeMethod($this->OptionsParser, 'setValue', ['key', 'anotherValue', $options]);
         $this->assertEquals(['key' => 'anotherValue', 'newKey' => 'newValue'], $options);
     }
 
     /**
-     * Tests for `_toArray()` method
+     * Tests for `toArray()` method
      * @test
      */
     public function testToArray()
     {
-        $this->assertEquals([], $this->invokeMethod($this->OptionsParser, '_toArray', ['']));
-        $this->assertEquals([], $this->invokeMethod($this->OptionsParser, '_toArray', ['  ']));
-        $this->assertEquals(['a', 'b', 'c'], $this->invokeMethod($this->OptionsParser, '_toArray', ['a b c']));
-        $this->assertEquals(['a', 'b', 'c'], $this->invokeMethod($this->OptionsParser, '_toArray', ['a b   c']));
-        $this->assertEquals(['b', 'a', 'c'], $this->invokeMethod($this->OptionsParser, '_toArray', ['b a c b c']));
+        $toArrayMethod = function ($value) {
+            return $this->invokeMethod($this->OptionsParser, 'toArray', [$value]);
+        };
+
+        $this->assertEquals([], $toArrayMethod(''));
+        $this->assertEquals([], $toArrayMethod('  '));
+        $this->assertEquals(['a', 'b', 'c'], $toArrayMethod('a b c'));
+        $this->assertEquals(['a', 'b', 'c'], $toArrayMethod('a b   c'));
+        $this->assertEquals(['b', 'a', 'c'], $toArrayMethod('b a c b c'));
 
         //Array
-        $this->assertEquals(['an', 'array'], $this->invokeMethod($this->OptionsParser, '_toArray', [['an', 'array']]));
+        $this->assertEquals(['an', 'array'], $toArrayMethod(['an', 'array']));
     }
 
     /**
-     * Tests for `_toString()` method
+     * Tests for `toString()` method
      * @test
      */
     public function testToString()
     {
-        $this->assertEquals('', $this->invokeMethod($this->OptionsParser, '_toString', [[]]));
-        $this->assertEquals('a', $this->invokeMethod($this->OptionsParser, '_toString', [['a']]));
-        $this->assertEquals('a b', $this->invokeMethod($this->OptionsParser, '_toString', [['a', 'b']]));
-        $this->assertEquals('a b', $this->invokeMethod($this->OptionsParser, '_toString', [['a', 'a', 'b']]));
-        $this->assertEquals('b a', $this->invokeMethod($this->OptionsParser, '_toString', [['b', 'a', 'b']]));
+        $toStringMethod = function ($value) {
+            return $this->invokeMethod($this->OptionsParser, 'toString', [$value]);
+        };
+
+        $this->assertEquals('', $toStringMethod([]));
+        $this->assertEquals('a', $toStringMethod(['a']));
+        $this->assertEquals('a b', $toStringMethod(['a', 'b']));
+        $this->assertEquals('a b', $toStringMethod(['a', 'a', 'b']));
+        $this->assertEquals('b a', $toStringMethod(['b', 'a', 'b']));
 
         //String
-        $this->assertEquals('thisIsAString', $this->invokeMethod($this->OptionsParser, '_toString', ['thisIsAString']));
+        $this->assertEquals('thisIsAString', $toStringMethod('thisIsAString'));
     }
 
     /**

@@ -13,6 +13,7 @@
 namespace MeTools\View\Helper;
 
 use Cake\Event\Event;
+use Cake\I18n\I18n;
 use Cake\View\Helper;
 use MeTools\Utility\OptionsParserTrait;
 
@@ -49,7 +50,7 @@ class LibraryHelper extends Helper
      * @uses Assets\View\Helper\AssetHelper::css()
      * @uses Assets\View\Helper\AssetHelper::script()
      */
-    protected function _datetimepicker($input, array $options = [])
+    protected function buildDatetimepicker($input, array $options = [])
     {
         $this->Asset->script([
             '/vendor/moment/moment-with-locales.min',
@@ -80,7 +81,7 @@ class LibraryHelper extends Helper
         }
 
         //Sets the current locale
-        $locale = substr(\Cake\I18n\I18n::locale(), 0, 2);
+        $locale = substr(I18n::locale(), 0, 2);
         $options = $this->optionsDefaults([
             'locale' => empty($locale) ? 'en-gb' : $locale,
         ], $options);
@@ -189,7 +190,7 @@ class LibraryHelper extends Helper
      * @see MeTools\View\Helper\FormHelper::datepicker()
      * @see http://eonasdan.github.io/bootstrap-datetimepicker Bootstrap 3 Datepicker v4 documentation
      * @uses output
-     * @uses _datetimepicker()
+     * @uses buildDatetimepicker()
      */
     public function datepicker($input = null, array $options = [])
     {
@@ -197,7 +198,7 @@ class LibraryHelper extends Helper
 
         $options = $this->optionsDefaults(['format' => 'YYYY/MM/DD'], $options);
 
-        $this->output[] = self::_datetimepicker($input, $options);
+        $this->output[] = self::buildDatetimepicker($input, $options);
     }
 
     /**
@@ -212,13 +213,13 @@ class LibraryHelper extends Helper
      * @see MeTools\View\Helper\FormHelper::datetimepicker()
      * @see http://eonasdan.github.io/bootstrap-datetimepicker Bootstrap 3 Datepicker v4 documentation
      * @uses output
-     * @uses _datetimepicker()
+     * @uses buildDatetimepicker()
      */
     public function datetimepicker($input = null, array $options = [])
     {
         $input = empty($input) ? '.datetimepicker' : $input;
 
-        $this->output[] = self::_datetimepicker($input, $options);
+        $this->output[] = self::buildDatetimepicker($input, $options);
     }
 
     /**
@@ -303,7 +304,7 @@ class LibraryHelper extends Helper
      * @see MeTools\View\Helper\FormHelper::timepicker()
      * @see https://github.com/Eonasdan/bootstrap-datetimepicker Bootstrap v3 datetimepicker widget documentation
      * @uses output
-     * @uses _datetimepicker()
+     * @uses buildDatetimepicker()
      */
     public function timepicker($input = null, array $options = [])
     {
@@ -311,6 +312,6 @@ class LibraryHelper extends Helper
 
         $options = $this->optionsDefaults(['pickTime' => false], $options);
 
-        $this->output[] = self::_datetimepicker($input, $options);
+        $this->output[] = self::buildDatetimepicker($input, $options);
     }
 }
