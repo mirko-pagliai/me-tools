@@ -67,6 +67,7 @@ class InstallShell extends Shell
             'components/moment/min' => 'moment',
             'fortawesome/font-awesome' => 'font-awesome',
             'newerton/fancy-box/source' => 'fancybox',
+            'twbs/bootstrap/dist' => 'bootstrap',
         ];
 
         //Paths to be created and made writable
