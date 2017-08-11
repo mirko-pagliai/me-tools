@@ -29,10 +29,7 @@ class FormHelper extends CakeFormHelper
      * Helpers
      * @var array
      */
-    public $helpers = [
-        'Html' => ['className' => 'MeTools.Html'],
-        'Url',
-    ];
+    public $helpers = ['Html' => ['className' => 'MeTools.Html'], 'Url'];
 
     /**
      * Property to check if we're working with an inline form.
@@ -78,13 +75,7 @@ class FormHelper extends CakeFormHelper
     public function button($title, array $options = [])
     {
         $options = $this->optionsDefaults(['type' => 'button'], $options);
-
-        if ($options['type'] === 'submit') {
-            $options = $this->addButtonClasses($options, 'success');
-        } else {
-            $options = $this->addButtonClasses($options);
-        }
-
+        $options = $this->addButtonClasses($options, $options['type'] === 'submit' ? 'success' : 'default');
         list($title, $options) = $this->addIconToText($title, $options);
 
         return parent::button($title, $options);
@@ -128,7 +119,6 @@ class FormHelper extends CakeFormHelper
      * @param string $fieldName Field name, should be "Modelname.fieldname"
      * @param array $options HTML attributes and options
      * @return string
-     * @uses MeTools\View\Helper\HtmlHelper::para()
      * @uses $inline
      */
     public function control($fieldName, array $options = [])
@@ -136,18 +126,13 @@ class FormHelper extends CakeFormHelper
         //Resets templates
         $this->resetTemplates();
 
-        //If the field name contains the word "password", then the field type
-        //  is `password`
+        //If the name contains the "password" word, then the type is `password`
         if (preg_match('/password/', $fieldName)) {
             $options = $this->optionsDefaults(['type' => 'password'], $options);
         }
 
-        //Gets the type
-        if (empty($options['type'])) {
-            $type = self::_inputType($fieldName, $options);
-        } else {
-            $type = $options['type'];
-        }
+        //Gets the input type
+        $type = empty($options['type']) ? self::_inputType($fieldName, $options) : $options['type'];
 
         // Adds the `form-control` class, except for checkboxes and files
         if (!in_array($type, ['checkbox', 'file'])) {
@@ -161,9 +146,11 @@ class FormHelper extends CakeFormHelper
         //Help blocks
         //See http://getbootstrap.com/css/#forms-help-text
         if (!empty($options['help'])) {
-            $options['templateVars']['help'] = implode(null, array_map(function ($tip) {
-                return $this->Html->para('help-block', trim($tip));
-            }, (array)$options['help']));
+            $options['templateVars']['help'] = collection((array)$options['help'])
+                ->map(function ($tip) {
+                    return $this->Html->para('help-block', trim($tip));
+                })
+                ->toArray();
 
             unset($options['help']);
         }
@@ -276,7 +263,6 @@ class FormHelper extends CakeFormHelper
      * @param array $options HTML attributes and options
      * @return string
      * @see MeTools\View\Helper\LibraryHelper::datetimepicker()
-     * @uses control()
      */
     public function datetimepicker($fieldName, array $options = [])
     {
@@ -372,13 +358,8 @@ class FormHelper extends CakeFormHelper
      */
     public function postLink($title, $url = null, array $options = [])
     {
-        $options = $this->optionsDefaults([
-            'escape' => false,
-            'title' => $title,
-        ], $options);
-
+        $options = $this->optionsDefaults(['escape' => false, 'title' => $title], $options);
         $options['title'] = trim(h(strip_tags($options['title'])));
-
         list($title, $options) = $this->addIconToText($title, $options);
         $options = $this->addTooltip($options);
 
@@ -425,10 +406,7 @@ class FormHelper extends CakeFormHelper
      */
     public function textarea($fieldName, array $options = [])
     {
-        $options = $this->optionsDefaults([
-            'cols' => null,
-            'rows' => null,
-        ], $options);
+        $options = $this->optionsDefaults(['cols' => null, 'rows' => null], $options);
 
         return parent::textarea($fieldName, $options);
     }

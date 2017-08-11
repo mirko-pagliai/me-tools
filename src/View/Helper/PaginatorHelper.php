@@ -31,10 +31,7 @@ class PaginatorHelper extends CakePaginatorHelper
      */
     public function next($title = 'Next >>', array $options = [])
     {
-        $options = $this->optionsDefaults([
-            'escape' => false,
-            'icon-align' => 'right',
-        ], $options);
+        $options = $this->optionsDefaults(['escape' => false, 'icon-align' => 'right'], $options);
         list($title, $options) = $this->addIconToText($title, $options);
 
         return parent::next($title, $options);
