@@ -22,37 +22,34 @@ use MeTools\Utility\OptionsParserTrait;
  * Example:
  * <code>
  * $this->Dropdown->start('My dropdown');
- *
- * echo $this->Html->link('First link', '/first');
- * echo $this->Html->link('Second link', '/second');
- *
+ * echo $this->Html->link('First link', '/first', ['class' => 'dropdown-item']);
+ * echo $this->Html->link('Second link', '/second', ['class' => 'dropdown-item']);
  * echo $this->Dropdown->end();
  * </code>
  *
  * Or using the `menu()` method:
  * <code>
  * echo $this->Dropdown->menu('My dropdown', [
- *      $this->Html->link('First link', '/first'),
- *      $this->Html->link('Second link', '/second'),
+ *      $this->Html->link('First link', '/first', ['class' => 'dropdown-item']),
+ *      $this->Html->link('Second link', '/second', ['class' => 'dropdown-item']),
  * ]);
  * </code>
  *
  * You can also use it as a callback.
- * For example, this creates a dropdown menu as an element of a navbar:
+ * For example, this creates a dropdown menu as an element of a list:
  * <code>
  * $this->Html->ul([
  *      $this->Html->link('Home', '/'),
  *      //This is the dropdown menu
  *      call_user_func(function() {
  *          $this->Dropdown->start('My dropdown');
+ *          echo $this->Html->link('First link', '/first', ['class' => 'dropdown-item']);
+ *          echo $this->Html->link('Second link', '/second', ['class' => 'dropdown-item']);
  *
- *          echo $this->Html->link('First link', '/first');
- *          echo $this->Html->link('Second link', '/second');
- *
- *          echo $this->Dropdown->end();
+ *          return $this->Dropdown->end();
  *      }),
- *      $this->Html->link('Other main link', '#')
- * ], ['class' => 'nav navbar-nav']);
+ *      $this->Html->link('Other main link', '#'),
+ * ]);
  * </code>
  */
 class DropdownHelper extends Helper
@@ -63,7 +60,7 @@ class DropdownHelper extends Helper
      * Helpers
      * @var array
      */
-    public $helpers = ['Html' => ['className' => 'MeTools.Html']];
+    public $helpers = ['Html' => ['className' => METOOLS . '.Html']];
 
     /**
      * Start link. This link allows the opening of the dropdown menu
@@ -79,24 +76,19 @@ class DropdownHelper extends Helper
      *  of links
      * @param array $titleOptions HTML attributes and options for the opening
      *  link
-     * @param array $listOptions HTML attributes and options for the list
-     * @param array $itemOptions HTML attributes and options for each list item
+     * @param array $divOptions HTML attributes and options for the wrapper
+     *  element
      * @return string|void
      */
-    public function menu(
-        $title,
-        array $menu,
-        array $titleOptions = [],
-        array $listOptions = [],
-        array $itemOptions = []
-    ) {
+    public function menu($title, array $menu, array $titleOptions = [], array $divOptions = [])
+    {
         $this->start($title, $titleOptions);
 
         array_walk($menu, function ($menu) {
             echo $menu;
         });
 
-        return $this->end($listOptions, $itemOptions);
+        return $this->end($divOptions);
     }
 
     /**
@@ -113,8 +105,6 @@ class DropdownHelper extends Helper
      */
     public function start($title, array $titleOptions = [])
     {
-        $title = sprintf('%s %s', $title, $this->Html->icon('caret-down'));
-
         $titleOptions = $this->optionsValues([
             'aria-expanded' => 'false',
             'aria-haspopup' => 'true',
@@ -131,12 +121,12 @@ class DropdownHelper extends Helper
      * End a buffered section of dropdown menu capturing.
      *
      * Arguments and options regarding the list of the dropdown menu.
-     * @param array $listOptions HTML attributes and options for the list
-     * @param array $itemOptions HTML attributes and options for each list item
+     * @param array $divOptions HTML attributes and options for the wrapper
+     *  element
      * @return string|void
      * @uses $_start
      */
-    public function end(array $listOptions = [], array $itemOptions = [])
+    public function end(array $divOptions = [])
     {
         $buffer = ob_get_contents();
 
@@ -153,8 +143,8 @@ class DropdownHelper extends Helper
             return;
         }
 
-        $listOptions = $this->optionsValues(['class' => 'dropdown-menu'], $listOptions);
+        $divOptions = $this->optionsValues(['class' => 'dropdown-menu'], $divOptions);
 
-        return $this->_start . PHP_EOL . $this->Html->ul($matches[0], $listOptions, $itemOptions);
+        return $this->_start . PHP_EOL . $this->Html->div($divOptions['class'], $matches[0], $divOptions);
     }
 }
