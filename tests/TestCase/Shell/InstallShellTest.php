@@ -265,6 +265,7 @@ class InstallShellTest extends TestCase
             'Link ' . rtr(WWW_ROOT) . 'vendor/moment has been created',
             'Link ' . rtr(WWW_ROOT) . 'vendor/font-awesome has been created',
             'Link ' . rtr(WWW_ROOT) . 'vendor/fancybox has been created',
+            'Link ' . rtr(WWW_ROOT) . 'vendor/bootstrap has been created',
         ], $this->out->messages());
         $this->assertEmpty($this->err->messages());
     }
