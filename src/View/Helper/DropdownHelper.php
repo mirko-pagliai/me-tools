@@ -19,6 +19,10 @@ use MeTools\Utility\OptionsParserTrait;
 /**
  * Provides functionalities for creating dropdown menus, according to Bootstrap.
  *
+ * Dropdowns are built on a third party library, Popper.js, which provides
+ *  dynamic positioning and viewport detection. Be sure to include popper.min.js
+ *  before Bootstrap’s JavaScript.
+ *
  * Example:
  * <code>
  * $this->Dropdown->start('My dropdown');
