@@ -1,4 +1,8 @@
 # 2.x branch
+## 2.16 branch
+### 2.16.0
+* fixed form checkboxes, help text and input group for  Bootstrap 4.
+
 ## 2.15 branch
 ### 2.15.0
 * removed `am()` global function.

@@ -54,8 +54,8 @@ class FormHelper extends CakeFormHelper
     {
         //Rewrites default templates config
         $this->_defaultConfig = Hash::merge($this->_defaultConfig, ['templates' => [
-            'checkboxContainer' => '<div class="input {{type}}{{required}}">{{content}}{{help}}</div>',
-            'nestingLabel' => '{{hidden}}<label{{attrs}}>{{input}} {{text}}</label>',
+            'checkboxContainer' => '<div class="form-check input {{type}}{{required}}">{{content}}</div>',
+            'nestingLabel' => '{{hidden}}<label{{attrs}}>{{input}} {{text}}{{help}}</label>',
             'inputContainer' => '<div class="form-group input {{type}}{{required}}">{{content}}{{help}}</div>',
             'inputContainerError' => '<div class="form-group input {{type}}{{required}} has-error">{{content}}{{help}}{{error}}</div>',
         ]]);
@@ -158,23 +158,27 @@ class FormHelper extends CakeFormHelper
             $options = $this->optionsDefaults(['empty' => true], $options);
         }
 
-        //Help blocks
-        //See http://getbootstrap.com/css/#forms-help-text
+        //Help text
+        //See https://getbootstrap.com/docs/4.0/components/forms/#help-text
         if (!empty($options['help'])) {
-            $options['templateVars']['help'] = implode(null, array_map(function ($tip) {
-                return $this->Html->para('help-block', trim($tip));
-            }, (array)$options['help']));
+            $options['templateVars']['help'] = collection((array)$options['help'])
+                ->map(function ($tip) {
+                    return $this->Html->para('form-text text-muted', trim($tip));
+                });
+            $options['templateVars']['help'] = implode(null, $options['templateVars']['help']->toArray());
 
             unset($options['help']);
         }
 
+        //Input group
+        //See https://getbootstrap.com/docs/4.0/components/input-group/
         if (!empty($options['button'])) {
             //Fixes templates
             $this->setTemplates([
                 'formGroup' => '{{label}}<div class="input-group">{{input}}{{button}}</div>',
             ]);
 
-            $options['templateVars']['button'] = $this->Html->span($options['button'], ['class' => 'input-group-btn']);
+            $options['templateVars']['button'] = $this->Html->span($options['button'], ['class' => 'input-group-addon']);
 
             unset($options['button']);
         }
