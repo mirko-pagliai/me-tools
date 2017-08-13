@@ -1467,7 +1467,7 @@ class HtmlHelperTest extends TestCase
         $result = $this->Html->viewport(['block' => false]);
         $expected = ['meta' => [
             'name' => 'viewport',
-            'content' => 'initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width',
+            'content' => 'initial-scale=1, shrink-to-fit=no, width=device-width',
         ]];
         $this->assertHtml($expected, $result);
 
@@ -1475,7 +1475,7 @@ class HtmlHelperTest extends TestCase
         $expected = ['meta' => [
             'custom-option' => 'custom-value',
             'name' => 'viewport',
-            'content' => 'initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width',
+            'content' => 'initial-scale=1, shrink-to-fit=no, width=device-width',
         ]];
         $this->assertHtml($expected, $result);
     }

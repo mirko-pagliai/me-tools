@@ -624,8 +624,7 @@ class HtmlHelper extends CakeHtmlHelper
     {
         $content = http_build_query([
             'initial-scale' => '1',
-            'maximum-scale' => '1',
-            'user-scalable' => 'no',
+            'shrink-to-fit' => 'no',
             'width' => 'device-width',
         ], null, ', ');
 
