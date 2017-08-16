@@ -29,7 +29,8 @@ if (!$this->Paginator->hasPage(null, 2)) {
             echo $this->Paginator->prev(null, ['icon' => 'caret-left']);
             echo $this->Html->li(
                 $this->Html->span(__d('me_tools', 'Page {0}', $this->Paginator->current()), ['class' => 'page-link']),
-            ['class' => 'page-item']);
+                ['class' => 'page-item']
+            );
             echo $this->Paginator->next(null, ['icon' => 'caret-right']);
         } elseif (!$this->Paginator->hasPrev()) {
             echo $this->Paginator->next(__d('me_tools', 'Next'), ['icon' => 'caret-right', 'icon-align' => 'right']);
