@@ -13,7 +13,9 @@
  */
 namespace MeTools\View\Helper;
 
+use Cake\Utility\Hash;
 use Cake\View\Helper\PaginatorHelper as CakePaginatorHelper;
+use Cake\View\View;
 use MeTools\Utility\OptionsParserTrait;
 
 /**
@@ -22,6 +24,23 @@ use MeTools\Utility\OptionsParserTrait;
 class PaginatorHelper extends CakePaginatorHelper
 {
     use OptionsParserTrait;
+
+    public function __construct(View $View, array $config = [])
+    {
+        $this->_defaultConfig = Hash::merge($this->_defaultConfig, ['templates' => [
+            'nextActive' => '<li class="next page-item"><a class="page-link" rel="next" href="{{url}}">{{text}}</a></li>',
+            'nextDisabled' => '<li class="next page-item disabled"><a class="page-link" href="" onclick="return false;">{{text}}</a></li>',
+            'prevActive' => '<li class="prev page-item"><a class="page-link" rel="prev" href="{{url}}">{{text}}</a></li>',
+            'prevDisabled' => '<li class="prev page-item disabled"><a class="page-link" href="" onclick="return false;">{{text}}</a></li>',
+            'first' => '<li class="first page-item"><a class="page-link" href="{{url}}">{{text}}</a></li>',
+            'last' => '<li class="last page-item"><a class="page-link" href="{{url}}">{{text}}</a></li>',
+            'number' => '<li class="page-item"><a class="page-link" href="{{url}}">{{text}}</a></li>',
+            'current' => '<li class="active page-item"><a class="page-link" href="">{{text}}</a></li>',
+            'ellipsis' => '<li class="ellipsis page-item">&hellip;</li>',
+        ]]);
+
+        parent::__construct($View, $config);
+    }
 
     /**
      * Generates a "next" link for a set of paged records

@@ -3,6 +3,7 @@
 ### 2.16.0
 * fixed form checkboxes, help text and input group for Bootstrap 4;
 * fixed dropdown menus for Bootstrap 4;
+* fixed `PaginatorHelper` and the `paginator` template element;
 * fixed `HtmlHelper::viewport()` method for Bootstrap 4.
 
 ## 2.15 branch
