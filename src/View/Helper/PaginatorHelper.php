@@ -25,6 +25,15 @@ class PaginatorHelper extends CakePaginatorHelper
 {
     use OptionsParserTrait;
 
+    /**
+     * Construct the widgets and binds the default context providers.
+     *
+     * This method only rewrites the default templates config.
+     * @param Cake\View\View $View The View this helper is being attached to
+     * @param array $config Configuration settings for the helper
+     * @return void
+     * @uses $_defaultConfig
+     */
     public function __construct(View $View, array $config = [])
     {
         $this->_defaultConfig = Hash::merge($this->_defaultConfig, ['templates' => [
