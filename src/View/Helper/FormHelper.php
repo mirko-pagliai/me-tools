@@ -57,7 +57,7 @@ class FormHelper extends CakeFormHelper
             'checkboxContainer' => '<div class="form-check input {{type}}{{required}}">{{content}}</div>',
             'nestingLabel' => '{{hidden}}<label{{attrs}}>{{input}} {{text}}{{help}}</label>',
             'inputContainer' => '<div class="form-group input {{type}}{{required}}">{{content}}{{help}}</div>',
-            'inputContainerError' => '<div class="form-group input {{type}}{{required}} has-error">{{content}}{{help}}{{error}}</div>',
+            'inputContainerError' => '<div class="form-group input {{type}}{{required}} is-invalid">{{content}}{{help}}{{error}}</div>',
         ]]);
 
         parent::__construct($view, $config);
@@ -117,6 +117,7 @@ class FormHelper extends CakeFormHelper
      */
     public function ckeditor($fieldName, array $options = [])
     {
+        $options['label'] = false;
         $options = $this->optionsDefaults(['type' => 'textarea'], $options);
         $options = $this->optionsValues(['class' => 'wysiwyg editor'], $options);
 
@@ -188,7 +189,7 @@ class FormHelper extends CakeFormHelper
             //By default, no help blocks or error messages
             $this->setTemplates([
                 'inputContainer' => '<div class="input form-group {{type}}{{required}}">{{content}}</div>',
-                'inputContainerError' => '<div class="input form-group {{type}}{{required}} has-error">{{content}}</div>',
+                'inputContainerError' => '<div class="input form-group {{type}}{{required}} is-invalid">{{content}}</div>',
             ]);
 
             //If it is not a checkbox
