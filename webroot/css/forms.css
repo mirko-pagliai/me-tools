@@ -9,31 +9,21 @@
  * @link        https://github.com/mirko-pagliai/me-tools
  * @license     https://opensource.org/licenses/mit-license.php MIT License
  */
-
 /* -------------------------------- */
-/*              Wrappers            */
+/*              General             */
 /* -------------------------------- */
-/* Form element */
-form {
-    margin-bottom: 20px;
-}
-
-/* Form, input wrapper */
-form .input {
-    position: relative;
-}
-
-/* Form, fielset (only for Firefox) )*/
-/* See @http://stackoverflow.com/a/17863685/1480263 */
-@-moz-document url-prefix() {
-    fieldset {
-        display: table-cell;
-    }
+/* Form control (input wrapper) */
+form .form-control {
+    font-size: inherit;
 }
 
 /* -------------------------------- */
-/*          Required fields         */
+/*            Labels                */
 /* -------------------------------- */
+form label {
+    font-weight: bold;
+}
+
 /* Labels for required inputs */
 form label.required:after,
 form div.required > label:after {
@@ -43,33 +33,46 @@ form div.required > label:after {
 }
 
 /* -------------------------------- */
-/*          Textareas               */
+/*          Checkboxes              */
 /* -------------------------------- */
-/* Textareas */
-form textarea {
-    min-height: 28px;
-    resize: vertical;
+/* Checkboxes wrappers, labels */
+.form-check.checkbox label {
+    margin-bottom: 0;
+}
+
+/* Checkboxes wrappers, labels, inputs */
+.form-check.checkbox label > input {
+    margin-right: .2rem;
 }
 
 /* -------------------------------- */
-/*          Help blocks (tips)      */
+/*           Input group            */
 /* -------------------------------- */
-/* Help blocks */
-form .input .help-block {
-    font-family: sans-serif, Arial;
-    font-size: 11px;
-    margin: 3px 0 0;
+/* Input groups */
+form input + .input-group-addon {
+    padding: 0;
 }
 
-/* Help blocks, first block */
-form .input .help-block:first-of-type {
-    margin-top: 4px;
+/* Input groups, buttons */
+form input + .input-group-addon button {
+    border-radius: 0;
+    padding: .5rem .75rem;
 }
 
-/* Help blocks, links */
-form .input .help-block a {
-    color: inherit;
-    text-decoration: underline;
+/* Input groups, buttons, icons */
+form input + .input-group-addon button .fa {
+    font-size: .75rem;
+}
+
+/* -------------------------------- */
+/*          Help texts (tips)       */
+/* -------------------------------- */
+/* Help texts */
+form .form-text {
+    font-family: sans-serif,Arial;
+    font-size: .6875rem;
+    font-weight: normal;
+    margin-bottom: 0;
 }
 
 /* -------------------------------- */
@@ -78,87 +81,57 @@ form .input .help-block a {
 /* Error messages */
 form .error-message {
     background: #f2dede;
-    border-radius: 4px;
+    border-radius: .2rem;
     color: #b94a48;
-    font-size: 95%;
-    margin-top: 3px;
-    padding: 4px 8px 6px;
+    font-size: .8rem;
+    margin-top: .2rem;
+    padding: .2rem .4rem;
 }
 
-/* Error messages, list */
-form .error-message ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
+/* -------------------------------- */
+/*          Inline forms            */
+/* -------------------------------- */
+/* Inline forms, labels */
+form.form-inline label {
+    line-height: calc(2.25rem + 2px);
+    margin-right: 1rem;
+}
+
+/* Inline forms, checkboxes wrappers, labels */
+form.form-inline .checkbox label {
+    margin-right: 0;
+}
+
+/* Inline forms, buttons */
+form.form-inline .btn {
+    height: calc(2.25rem + 2px);
+}
+
+/* Inline forms, fieldset, all children except legend */
+form.form-inline fieldset > :not(legend) {
+    float: left;
+    margin-right: .4rem;
+}
+
+/* Inline forms, fieldset, all children except legend, last child */
+form.form-inline fieldset > :not(legend):last-child {
+    margin-right: 0;
 }
 
 /* -------------------------------- */
 /*          Float forms             */
 /* -------------------------------- */
 /* Float form */
-form > .float-form {
+form .float-form {
     background: #F7F5FA;
-    border-radius: 5px;
-    margin-bottom: 10px;
-    padding: 12px;
+    border-radius: .3rem;
+    margin-bottom: 1.5rem;
+    padding: .75rem;
 }
 
-/* Small devices, medium devices and large devices */
-@media (min-width: 768px) {
-    /* Float form */
-    form > .float-form {
-        float: right;
-        margin-bottom: 20px;
-        width: 22%;
-    }
-
-    /* Float form on left */
-    form > .float-form.float-left {
-        float: left;
-        margin: 0 20px 20px 0;
-    }
-
-    /* Float form, last input wrapper */
-    form > .float-form .input:last-child {
-        margin-bottom: 0;
-    }
-
-    /* Float form, select input */
-    form > .float-form select {
-        width: 100% !important;
-    }
-
-    form > .float-form + fieldset {
-        padding-right: 20px;
-        width: 78%;
-    }
-}
-
-/* -------------------------------- */
-/*          Inline forms            */
-/* -------------------------------- */
-/* Labels */
-form.form-inline label {
-    line-height: 34px;
-    margin: 0 10px 0 0;
-}
-
-/* Wrappers */
-form.form-inline .input, form.form-inline button {
-    margin-right: 4px;
-    vertical-align: top;
-}
-
-/* Wrappers, last wrapper */
-form.form-inline .input:last-child, form.form-inline button:last-child {
-    margin-right: 0;
-}
-
-/* -------------------------------- */
-/*          reCAPTCHA               */
-/* -------------------------------- */
-.g-recaptcha {
-    margin-bottom: 15px;
+/* Float form, last input wrapper */
+form .float-form .input:last-child {
+    margin-bottom: 0;
 }
 
 /* -------------------------------- */
@@ -166,5 +139,5 @@ form.form-inline .input:last-child, form.form-inline button:last-child {
 /* -------------------------------- */
 /* Content div */
 .cke_wysiwyg_div {
-    padding: 10px 12px !important;
+    padding: 1rem !important;
 }
