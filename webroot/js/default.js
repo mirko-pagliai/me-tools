@@ -60,15 +60,6 @@ $(function () {
     }
 
     /**
-     * Closes a flash message when clicking the close button
-     */
-    $('.alert .close').click(function () {
-        close_flashMessage();
-        //It requires "return false" to prevent the default behavior of jQuery
-        return false;
-    });
-
-    /**
      * Submits button will be disabled when the form is submitted.
      */
     $('form').submit(function () {
@@ -81,9 +72,4 @@ $(function () {
      */
     $('.hidden.to-be-shown:hidden').removeClass('d-none to-be-shown');
     $('.to-be-hidden:visible').addClass('d-none').removeClass('to-be-hidden');
-
-    /**
-     * Closes automatically the flash messages after a preset time
-     */
-    setTimeout(close_flashMessage, 3500);
 });
