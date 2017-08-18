@@ -56,8 +56,11 @@ class FormHelper extends CakeFormHelper
         $this->_defaultConfig = Hash::merge($this->_defaultConfig, ['templates' => [
             'checkboxContainer' => '<div class="form-check input {{type}}{{required}}">{{content}}</div>',
             'nestingLabel' => '{{hidden}}<label{{attrs}}>{{input}} {{text}}{{help}}</label>',
+            'input' => '<input type="{{type}}" name="{{name}}" class="form-control"{{attrs}}/>',
+            'inputError' => '<input type="{{type}}" name="{{name}}" class="form-control is-invalid"{{attrs}}/>',
             'inputContainer' => '<div class="form-group input {{type}}{{required}}">{{content}}{{help}}</div>',
-            'inputContainerError' => '<div class="form-group input {{type}}{{required}} is-invalid">{{content}}{{help}}{{error}}</div>',
+            'select' => '<select name="{{name}}" class="form-control"{{attrs}}>{{content}}</select>',
+            'selectMultiple' => '<select name="{{name}}[]" multiple="multiple" class="form-control"{{attrs}}>{{content}}</select>',
         ]]);
 
         parent::__construct($view, $config);
@@ -150,11 +153,6 @@ class FormHelper extends CakeFormHelper
             $type = $options['type'];
         }
 
-        // Adds the `form-control` class, except for checkboxes and files
-        if (!in_array($type, ['checkbox', 'file'])) {
-            $options = $this->optionsValues(['class' => 'form-control'], $options);
-        }
-
         if ($type === 'select' && empty($options['default']) && empty($options['value'])) {
             $options = $this->optionsDefaults(['empty' => true], $options);
         }
@@ -186,10 +184,9 @@ class FormHelper extends CakeFormHelper
 
         //If is an inline form
         if ($this->inline) {
-            //By default, no help blocks or error messages
+            //By default, no help blocks
             $this->setTemplates([
-                'inputContainer' => '<div class="input form-group {{type}}{{required}}">{{content}}</div>',
-                'inputContainerError' => '<div class="input form-group {{type}}{{required}} is-invalid">{{content}}</div>',
+                'inputContainer' => '<div class="form-group input {{type}}{{required}}">{{content}}</div>',
             ]);
 
             //If it is not a checkbox
