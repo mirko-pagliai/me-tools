@@ -56,12 +56,15 @@ class FormHelper extends CakeFormHelper
         $this->_defaultConfig = Hash::merge($this->_defaultConfig, ['templates' => [
             'checkboxContainer' => '<div class="form-check input {{type}}{{required}}">{{content}}</div>',
             'nestingLabel' => '{{hidden}}<label{{attrs}}>{{input}} {{text}}{{help}}</label>',
+            'hidden' => '<input type="{{type}}" name="{{name}}"{{attrs}}/>',
             'input' => '<input type="{{type}}" name="{{name}}" class="form-control"{{attrs}}/>',
             'inputError' => '<input type="{{type}}" name="{{name}}" class="form-control is-invalid"{{attrs}}/>',
             'inputContainer' => '<div class="form-group input {{type}}{{required}}">{{content}}{{help}}</div>',
             'select' => '<select name="{{name}}" class="form-control"{{attrs}}>{{content}}</select>',
             'selectMultiple' => '<select name="{{name}}[]" multiple="multiple" class="form-control"{{attrs}}>{{content}}</select>',
+            'textarea' => '<textarea name="{{name}}" class="form-control"{{attrs}}>{{value}}</textarea>',
         ]]);
+        $this->_defaultWidgets['hidden'] = ['MeTools\View\Widget\HiddenWidget'];
 
         parent::__construct($view, $config);
     }
@@ -81,12 +84,8 @@ class FormHelper extends CakeFormHelper
     public function button($title, array $options = [])
     {
         $options = $this->optionsDefaults(['type' => 'button'], $options);
-
-        if ($options['type'] === 'submit') {
-            $options = $this->addButtonClasses($options, 'success');
-        } else {
-            $options = $this->addButtonClasses($options);
-        }
+        $buttonClass = $options['type'] === 'submit' ? 'success' : 'default';
+        $options = $this->addButtonClasses($options, $buttonClass);
 
         list($title, $options) = $this->addIconToText($title, $options);
 
@@ -120,9 +119,11 @@ class FormHelper extends CakeFormHelper
      */
     public function ckeditor($fieldName, array $options = [])
     {
-        $options['label'] = false;
+        $options['label'] = isset($options['label']) ? $options['label'] : false;
         $options = $this->optionsDefaults(['type' => 'textarea'], $options);
-        $options = $this->optionsValues(['class' => 'wysiwyg editor'], $options);
+        $options['templates'] = [
+            'textarea' => '<textarea name="{{name}}" class="form-control wysiwyg editor"{{attrs}}>{{value}}</textarea>',
+        ];
 
         return $this->control($fieldName, $options);
     }
@@ -137,9 +138,6 @@ class FormHelper extends CakeFormHelper
      */
     public function control($fieldName, array $options = [])
     {
-        //Resets templates
-        $this->resetTemplates();
-
         //If the field name contains the word "password", then the field type
         //  is `password`
         if (preg_match('/password/', $fieldName)) {
@@ -147,11 +145,7 @@ class FormHelper extends CakeFormHelper
         }
 
         //Gets the type
-        if (empty($options['type'])) {
-            $type = self::_inputType($fieldName, $options);
-        } else {
-            $type = $options['type'];
-        }
+        $type = empty($options['type']) ? self::_inputType($fieldName, $options) : $options['type'];
 
         if ($type === 'select' && empty($options['default']) && empty($options['value'])) {
             $options = $this->optionsDefaults(['empty' => true], $options);
@@ -173,10 +167,9 @@ class FormHelper extends CakeFormHelper
         //See https://getbootstrap.com/docs/4.0/components/input-group/
         if (!empty($options['button'])) {
             //Fixes templates
-            $this->setTemplates([
+            $options['templates'] = [
                 'formGroup' => '{{label}}<div class="input-group">{{input}}{{button}}</div>',
-            ]);
-
+            ];
             $options['templateVars']['button'] = $this->Html->span($options['button'], ['class' => 'input-group-addon']);
 
             unset($options['button']);
@@ -185,9 +178,9 @@ class FormHelper extends CakeFormHelper
         //If is an inline form
         if ($this->inline) {
             //By default, no help blocks
-            $this->setTemplates([
+            $options['templates'] = [
                 'inputContainer' => '<div class="form-group input {{type}}{{required}}">{{content}}</div>',
-            ]);
+            ];
 
             //If it is not a checkbox
             if ($type !== "checkbox" && (!isset($options['label']) || $options['label'] !== false)) {
@@ -261,11 +254,13 @@ class FormHelper extends CakeFormHelper
      */
     public function datepicker($fieldName, array $options = [])
     {
-        $options = $this->optionsValues(['class' => 'datepicker'], $options);
         $options = $this->optionsDefaults([
             'data-date-format' => 'YYYY-MM-DD',
-            'type' => 'text',
-        ], $options);
+            'type' => 'text'], $options);
+        $options['templates'] = [
+            'input' => '<input type="{{type}}" name="{{name}}" class="form-control datepicker"{{attrs}}/>',
+            'inputError' => '<input type="{{type}}" name="{{name}}" class="form-control datepicker is-invalid"{{attrs}}/>',
+        ];
 
         return $this->control($fieldName, $options);
     }
@@ -282,11 +277,14 @@ class FormHelper extends CakeFormHelper
      */
     public function datetimepicker($fieldName, array $options = [])
     {
-        $options = $this->optionsValues(['class' => 'datetimepicker'], $options);
         $options = $this->optionsDefaults([
             'data-date-format' => 'YYYY-MM-DD HH:mm',
             'type' => 'text',
         ], $options);
+        $options['templates'] = [
+            'input' => '<input type="{{type}}" name="{{name}}" class="form-control datetimepicker"{{attrs}}/>',
+            'inputError' => '<input type="{{type}}" name="{{name}}" class="form-control datetimepicker is-invalid"{{attrs}}/>',
+        ];
 
         return $this->control($fieldName, $options);
     }
@@ -374,11 +372,7 @@ class FormHelper extends CakeFormHelper
      */
     public function postLink($title, $url = null, array $options = [])
     {
-        $options = $this->optionsDefaults([
-            'escape' => false,
-            'title' => $title,
-        ], $options);
-
+        $options = $this->optionsDefaults(['escape' => false, 'title' => $title], $options);
         $options['title'] = trim(h(strip_tags($options['title'])));
 
         list($title, $options) = $this->addIconToText($title, $options);
@@ -427,10 +421,7 @@ class FormHelper extends CakeFormHelper
      */
     public function textarea($fieldName, array $options = [])
     {
-        $options = $this->optionsDefaults([
-            'cols' => null,
-            'rows' => null,
-        ], $options);
+        $options = $this->optionsDefaults(['cols' => null, 'rows' => null], $options);
 
         return parent::textarea($fieldName, $options);
     }
@@ -447,11 +438,14 @@ class FormHelper extends CakeFormHelper
      */
     public function timepicker($fieldName, array $options = [])
     {
-        $options = $this->optionsValues(['class' => 'timepicker'], $options);
         $options = $this->optionsDefaults([
             'data-date-format' => 'HH:mm',
             'type' => 'text',
         ], $options);
+        $options['templates'] = [
+            'input' => '<input type="{{type}}" name="{{name}}" class="form-control timepicker"{{attrs}}/>',
+            'inputError' => '<input type="{{type}}" name="{{name}}" class="form-control timepicker is-invalid"{{attrs}}/>',
+        ];
 
         return $this->control($fieldName, $options);
     }

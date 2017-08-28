@@ -136,13 +136,26 @@ class FormHelperTest extends TestCase
     {
         $field = 'my-field';
 
+        $expected = [
+            'div' => ['class' => 'form-group input textarea'],
+            'textarea' => ['name' => $field, 'class' => 'form-control wysiwyg editor', 'id' => $field],
+            '/textarea',
+            '/div',
+        ];
+
         $result = $this->Form->ckeditor($field);
+        $this->assertHtml($expected, $result);
+
+        $result = $this->Form->ckeditor($field, ['label' => false]);
+        $this->assertHtml($expected, $result);
+
+        $result = $this->Form->ckeditor($field, ['label' => 'my label']);
         $expected = [
             'div' => ['class' => 'form-group input textarea'],
             'label' => ['for' => $field],
-            'My Field',
+            'my label',
             '/label',
-            'textarea' => ['name' => $field, 'class' => 'wysiwyg editor form-control', 'id' => $field],
+            'textarea' => ['name' => $field, 'class' => 'form-control wysiwyg editor', 'id' => $field],
             '/textarea',
             '/div',
         ];
@@ -420,7 +433,7 @@ class FormHelperTest extends TestCase
         $this->Form->createInline();
         $result = $this->Form->control($field);
         $expected = [
-            'div' => ['class' => 'input form-group text'],
+            'div' => ['class' => 'form-group input text'],
             'label' => ['class' => 'sr-only', 'for' => $field],
             'My Field',
             '/label',
@@ -445,7 +458,7 @@ class FormHelperTest extends TestCase
         //Using `label` option
         $result = $this->Form->control($field, ['label' => 'My label']);
         $expected = [
-            'div' => ['class' => 'input form-group text'],
+            'div' => ['class' => 'form-group input text'],
             'label' => ['class' => 'sr-only', 'for' => $field],
             'My label',
             '/label',
@@ -457,7 +470,7 @@ class FormHelperTest extends TestCase
         //`label` option `false`
         $result = $this->Form->control($field, ['label' => false]);
         $expected = [
-            'div' => ['class' => 'input form-group text'],
+            'div' => ['class' => 'form-group input text'],
             'input' => ['type' => 'text', 'name' => $field, 'class' => 'form-control', 'id' => $field],
             '/div',
         ];
@@ -549,7 +562,7 @@ class FormHelperTest extends TestCase
             'input' => [
                 'type' => 'text',
                 'name' => $field,
-                'class' => 'datepicker form-control',
+                'class' => 'form-control datepicker',
                 'data-date-format' => 'YYYY-MM-DD',
                 'id' => $field,
             ],
@@ -566,7 +579,7 @@ class FormHelperTest extends TestCase
             'input' => [
                 'type' => 'text',
                 'name' => $field,
-                'class' => 'datetimepicker form-control',
+                'class' => 'form-control datetimepicker',
                 'data-date-format' => 'YYYY-MM-DD HH:mm',
                 'id' => $field,
             ],
@@ -583,7 +596,7 @@ class FormHelperTest extends TestCase
             'input' => [
                 'type' => 'text',
                 'name' => $field,
-                'class' => 'timepicker form-control',
+                'class' => 'form-control timepicker',
                 'data-date-format' => 'HH:mm',
                 'id' => $field,
             ],
@@ -765,7 +778,7 @@ class FormHelperTest extends TestCase
 
         $result = $this->Form->select($field, $options);
         $expected = [
-            'select' => ['name' => $field],
+            'select' => ['name' => $field, 'class' => 'form-control'],
             ['option' => ['value' => '']],
             '/option',
             ['option' => ['value' => '1']],
@@ -781,7 +794,7 @@ class FormHelperTest extends TestCase
         //With default value
         $result = $this->Form->select($field, $options, ['default' => '2']);
         $expected = [
-            'select' => ['name' => $field],
+            'select' => ['name' => $field, 'class' => 'form-control'],
             ['option' => ['value' => '1']],
             $options['1'],
             '/option',
@@ -795,7 +808,7 @@ class FormHelperTest extends TestCase
         //With selected value
         $result = $this->Form->select($field, $options, ['value' => '2']);
         $expected = [
-            'select' => ['name' => $field],
+            'select' => ['name' => $field, 'class' => 'form-control'],
             ['option' => ['value' => '1']],
             $options['1'],
             '/option',
@@ -809,7 +822,7 @@ class FormHelperTest extends TestCase
         //Custom `empty` value
         $result = $this->Form->select($field, $options, ['empty' => '(choose one)']);
         $expected = [
-            'select' => ['name' => $field],
+            'select' => ['name' => $field, 'class' => 'form-control'],
             ['option' => ['value' => '']],
             '(choose one)',
             '/option',
@@ -826,7 +839,7 @@ class FormHelperTest extends TestCase
         // `empty` disabled
         $result = $this->Form->select($field, $options, ['empty' => false]);
         $expected = [
-            'select' => ['name' => $field],
+            'select' => ['name' => $field, 'class' => 'form-control'],
             ['option' => ['value' => '1']],
             $options['1'],
             '/option',
@@ -892,7 +905,7 @@ class FormHelperTest extends TestCase
 
         $result = $this->Form->textarea($field);
         $expected = [
-            'textarea' => ['name' => $field],
+            'textarea' => ['name' => $field, 'class' => 'form-control'],
             '/textarea',
         ];
         $this->assertHtml($expected, $result);
