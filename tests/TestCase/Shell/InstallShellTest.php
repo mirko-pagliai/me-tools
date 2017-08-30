@@ -376,13 +376,13 @@ class InstallShellTest extends TestCase
         $this->assertInstanceOf('Cake\Console\ConsoleOptionParser', $parser);
         $this->assertArrayKeysEqual([
             'all',
-            'copyFonts',
-            'createDirectories',
-            'createPluginsLinks',
-            'createRobots',
-            'createVendorsLinks',
-            'fixComposerJson',
-            'setPermissions',
+            'copy_fonts',
+            'create_directories',
+            'create_plugins_links',
+            'create_robots',
+            'create_vendors_links',
+            'fix_composer_json',
+            'set_permissions',
         ], $parser->subcommands());
         $this->assertEquals('Executes some tasks to make the system ready to work', $parser->getDescription());
         $this->assertArrayKeysEqual(['force', 'help', 'quiet', 'verbose'], $parser->options());
