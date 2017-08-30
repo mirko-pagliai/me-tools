@@ -81,15 +81,4 @@ class IntegrationTestCase extends CakeIntegrationTestCase
     {
         $this->assertResponseOk() && $this->assertResponseNotEmpty();
     }
-
-    /**
-     * Loads all fixtures declared in the `$fixtures` property
-     * @return void
-     */
-    public function loadAllFixtures()
-    {
-        $fixtures = $this->getProperty($this->fixtureManager, '_fixtureMap');
-
-        call_user_func_array([$this, 'loadFixtures'], array_keys($fixtures));
-    }
 }

@@ -1,6 +1,8 @@
 # 2.x branch
 ## 2.15 branch
 ### 2.15.0
+* removed `IntegrationTestCase::loadAllFixtures()` method. Use `loadFixtures()`
+    with no arguments;
 * removed `am()` global function.
 
 ## 2.14 branch
