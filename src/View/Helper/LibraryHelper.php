@@ -78,7 +78,7 @@ class LibraryHelper extends Helper
         }
 
         //Sets the current locale
-        $locale = substr(I18n::locale(), 0, 2);
+        $locale = substr(I18n::getLocale(), 0, 2);
         $options = $this->optionsDefaults(['locale' => empty($locale) ? 'en-gb' : $locale], $options);
 
         return sprintf('$("%s").datetimepicker(%s);', $input, json_encode($options, JSON_PRETTY_PRINT));
