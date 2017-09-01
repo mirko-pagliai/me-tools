@@ -192,7 +192,11 @@ class InstallShellTest extends ConsoleIntegrationTestCase
             TMP . 'cache' . DS . 'persistent',
             TMP . 'cache' . DS . 'views',
             TMP . 'cache',
+            TMP . 'sessions',
+            TMP . 'tests',
             WWW_ROOT . 'files',
+            WWW_ROOT . 'fonts',
+            WWW_ROOT . 'fonts',
         ] as $dir) {
             //@codingStandardsIgnoreLine
             @rmdir($dir);
@@ -211,8 +215,12 @@ class InstallShellTest extends ConsoleIntegrationTestCase
         $this->assertOutputContains('Setted permissions on ' . TMP . 'cache' . DS . 'persistent');
         $this->assertOutputContains('Created ' . TMP . 'cache' . DS . 'views directory');
         $this->assertOutputContains('Setted permissions on ' . TMP . 'cache' . DS . 'views');
-        $this->assertOutputContains('File or directory ' . TMP . 'sessions already exists');
-        $this->assertOutputContains('File or directory ' . TMP . 'tests already exists');
+        $this->assertOutputContains('Created ' . TMP . 'sessions directory');
+        $this->assertOutputContains('Setted permissions on ' . TMP . 'sessions');
+        $this->assertOutputContains('Created ' . TMP . 'tests directory');
+        $this->assertOutputContains('Setted permissions on ' . TMP . 'tests');
+        $this->assertOutputContains('Created ' . rtr(WWW_ROOT) . 'files directory');
+        $this->assertOutputContains('Setted permissions on ' . rtr(WWW_ROOT) . 'files');
         $this->assertOutputContains('Created ' . rtr(WWW_ROOT) . 'files directory');
         $this->assertOutputContains('Setted permissions on ' . rtr(WWW_ROOT) . 'files');
         $this->assertOutputContains('File or directory ' . rtr(WWW_ROOT) . 'fonts already exists');
