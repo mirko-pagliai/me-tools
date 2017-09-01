@@ -28,10 +28,7 @@ class LibraryHelper extends Helper
      * Helpers
      * @var array
      */
-    public $helpers = [
-        ASSETS . '.Asset',
-        'Html' => ['className' => METOOLS . '.Html'],
-    ];
+    public $helpers = [ASSETS . '.Asset', 'Html' => ['className' => METOOLS . '.Html']];
 
     /**
      * It will contain the output code
@@ -81,10 +78,8 @@ class LibraryHelper extends Helper
         }
 
         //Sets the current locale
-        $locale = substr(I18n::locale(), 0, 2);
-        $options = $this->optionsDefaults([
-            'locale' => empty($locale) ? 'en-gb' : $locale,
-        ], $options);
+        $locale = substr(I18n::getLocale(), 0, 2);
+        $options = $this->optionsDefaults(['locale' => empty($locale) ? 'en-gb' : $locale], $options);
 
         return sprintf('$("%s").datetimepicker(%s);', $input, json_encode($options, JSON_PRETTY_PRINT));
     }
@@ -102,12 +97,13 @@ class LibraryHelper extends Helper
     {
         //Writes the output
         if (!empty($this->output)) {
-            $output = implode(PHP_EOL, collection($this->output)->map(function ($v) {
-                return "    " . $v;
-            })->toList());
+            $output = collection($this->output)
+                ->map(function ($v) {
+                    return "    " . $v;
+                });
 
             $this->Html->scriptBlock(
-                sprintf('$(function() {%s});', PHP_EOL . $output . PHP_EOL),
+                sprintf('$(function() {%s});', PHP_EOL . implode(PHP_EOL, $output->toArray()) . PHP_EOL),
                 ['block' => 'script_bottom']
             );
 

@@ -92,8 +92,8 @@ class DropdownHelper extends Helper
     ) {
         $this->start($title, $titleOptions);
 
-        array_walk($menu, function ($menu) {
-            echo $menu;
+        collection($menu)->each(function ($item) {
+            echo $item;
         });
 
         return $this->end($listOptions, $itemOptions);
