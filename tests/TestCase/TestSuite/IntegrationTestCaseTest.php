@@ -32,19 +32,6 @@ class IntegrationTestCaseTest extends IntegrationTestCase
     protected $_response;
 
     /**
-     * @var bool
-     */
-    public $autoFixtures = false;
-
-    /**
-     * @var array
-     */
-    public $fixtures = [
-        'core.articles',
-        'core.comments',
-    ];
-
-    /**
      * Setup the test case, backup the static object values so they can be
      * restored. Specifically backs up the contents of Configure and paths in
      *  App if they have not already been backed up
@@ -108,22 +95,5 @@ class IntegrationTestCaseTest extends IntegrationTestCase
     public function testAssertResponseOkAndNotEmpty()
     {
         $this->assertResponseOkAndNotEmpty();
-    }
-
-    /**
-     * Test for `loadAllFixtures()` method
-     * @test
-     */
-    public function testLoadAllFixtures()
-    {
-        $fixtureMap = $this->getProperty($this->fixtureManager, '_fixtureMap');
-
-        $this->assertFalse($this->fixtureManager->isFixtureSetup('test', $fixtureMap['Articles']));
-        $this->assertFalse($this->fixtureManager->isFixtureSetup('test', $fixtureMap['Comments']));
-
-        $this->loadAllFixtures();
-
-        $this->assertTrue($this->fixtureManager->isFixtureSetup('test', $fixtureMap['Articles']));
-        $this->assertTrue($this->fixtureManager->isFixtureSetup('test', $fixtureMap['Comments']));
     }
 }

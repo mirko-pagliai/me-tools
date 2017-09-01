@@ -216,19 +216,20 @@ class InstallShell extends Shell
 
     /**
      * Fixes the `composer.json` file, adding the `component-dir` value
-     * @param string $path Path for `composer.json` file
-     * @return void
+     * @return bool Success
      */
-    public function fixComposerJson($path = null)
+    public function fixComposerJson()
     {
-        if (empty($path)) {
+        $path = $this->param('path');
+
+        if (!$path) {
             $path = ROOT . DS . 'composer.json';
         }
 
         if (!is_writeable($path)) {
             $this->err(__d('me_tools', 'File or directory {0} not writeable', rtr($path)));
 
-            return;
+            return false;
         }
 
         //Gets and decodes the file
@@ -237,7 +238,7 @@ class InstallShell extends Shell
         if (empty($contents)) {
             $this->err(__d('me_tools', 'The file {0} does not seem a valid {1} file', rtr($path), 'composer.json'));
 
-            return;
+            return false;
         }
 
         //Checks if the file has been fixed
@@ -246,7 +247,7 @@ class InstallShell extends Shell
         ) {
             $this->verbose(__d('me_tools', 'The file {0} doesn\'t need to be fixed', rtr($path)));
 
-            return;
+            return true;
         }
 
         $contents += ['config' => ['component-dir' => 'vendor/components']];
@@ -293,7 +294,17 @@ class InstallShell extends Shell
         $parser->addSubcommand('createPluginsLinks', ['help' => __d('me_tools', 'Creates symbolic links for plugins assets')]);
         $parser->addSubcommand('createRobots', ['help' => __d('me_tools', 'Creates the {0} file', 'robots.txt')]);
         $parser->addSubcommand('createVendorsLinks', ['help' => __d('me_tools', 'Creates symbolic links for vendor assets')]);
-        $parser->addSubcommand('fixComposerJson', ['help' => __d('me_tools', 'Fixes {0}', 'composer.json')]);
+        $parser->addSubcommand('fixComposerJson', [
+            'help' => __d('me_tools', 'Fixes {0}', 'composer.json'),
+            'parser' => [
+                'options' => [
+                    'path' => [
+                        'help' => __d('me_tools', 'Path of the `{0}` file', 'composer.json'),
+                        'short' => 'p',
+                    ],
+                ],
+            ],
+        ]);
         $parser->addSubcommand('setPermissions', ['help' => __d('me_tools', 'Sets directories permissions')]);
 
         $parser->addOption('force', [

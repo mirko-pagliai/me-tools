@@ -105,7 +105,6 @@ class ShellTest extends TestCase
      */
     public function testWelcome()
     {
-        //Invokes the `_welcome()` method
         $this->assertNull($this->invokeMethod($this->Shell, '_welcome'));
     }
 
@@ -132,8 +131,8 @@ class ShellTest extends TestCase
         $this->assertFalse($this->Shell->copyFile($this->exampleFiles[0], $this->exampleFiles[1]));
 
         $this->assertEquals([
-            '<error>File or directory /tmp/noExistingFile not readable</error>',
-            '<error>File or directory /tmp/noExistingDir not writeable</error>',
+            '<error>File or directory ' . TMP . 'noExistingFile not readable</error>',
+            '<error>File or directory ' . TMP . 'noExistingDir not writeable</error>',
         ], $this->err->messages());
         $this->assertEquals([
             'File ' . $this->exampleFiles[1] . ' has been copied',
@@ -219,8 +218,8 @@ class ShellTest extends TestCase
             'File or directory ' . $this->exampleFiles[1] . ' already exists',
         ], $this->out->messages());
         $this->assertEquals([
-            '<error>File or directory /tmp/noExistingFile not readable</error>',
-            '<error>File or directory /tmp/noExistingDir not writeable</error>',
+            '<error>File or directory ' . TMP . 'noExistingFile not readable</error>',
+            '<error>File or directory ' . TMP . 'noExistingDir not writeable</error>',
         ], $this->err->messages());
     }
 
