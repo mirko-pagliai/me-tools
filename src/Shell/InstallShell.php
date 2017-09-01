@@ -216,12 +216,13 @@ class InstallShell extends Shell
 
     /**
      * Fixes the `composer.json` file, adding the `component-dir` value
-     * @param string $path Path for `composer.json` file
      * @return void
      */
-    public function fixComposerJson($path = null)
+    public function fixComposerJson()
     {
-        if (empty($path)) {
+        $path = $this->param('path');
+
+        if (!$path) {
             $path = ROOT . DS . 'composer.json';
         }
 
@@ -293,7 +294,17 @@ class InstallShell extends Shell
         $parser->addSubcommand('createPluginsLinks', ['help' => __d('me_tools', 'Creates symbolic links for plugins assets')]);
         $parser->addSubcommand('createRobots', ['help' => __d('me_tools', 'Creates the {0} file', 'robots.txt')]);
         $parser->addSubcommand('createVendorsLinks', ['help' => __d('me_tools', 'Creates symbolic links for vendor assets')]);
-        $parser->addSubcommand('fixComposerJson', ['help' => __d('me_tools', 'Fixes {0}', 'composer.json')]);
+        $parser->addSubcommand('fixComposerJson', [
+            'help' => __d('me_tools', 'Fixes {0}', 'composer.json'),
+            'parser' => [
+                'options' => [
+                    'path' => [
+                        'help' => __d('me_tools', 'Path of the `{0}` file', 'composer.json'),
+                        'short' => 'p',
+                    ],
+                ],
+            ],
+        ]);
         $parser->addSubcommand('setPermissions', ['help' => __d('me_tools', 'Sets directories permissions')]);
 
         $parser->addOption('force', [

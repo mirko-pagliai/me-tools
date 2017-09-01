@@ -1,6 +1,7 @@
 # 2.x branch
 ## 2.15 branch
 ### 2.15.0
+* `InstallShell::fixComposerJson()` now has the `path` option;
 * updated for CakePHP 3.5;
 * removed `IntegrationTestCase::loadAllFixtures()` method. Use `loadFixtures()`
     with no arguments;
