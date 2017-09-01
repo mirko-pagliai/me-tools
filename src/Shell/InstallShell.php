@@ -216,7 +216,7 @@ class InstallShell extends Shell
 
     /**
      * Fixes the `composer.json` file, adding the `component-dir` value
-     * @return void
+     * @return bool Success
      */
     public function fixComposerJson()
     {
@@ -229,7 +229,7 @@ class InstallShell extends Shell
         if (!is_writeable($path)) {
             $this->err(__d('me_tools', 'File or directory {0} not writeable', rtr($path)));
 
-            return;
+            return false;
         }
 
         //Gets and decodes the file
@@ -238,7 +238,7 @@ class InstallShell extends Shell
         if (empty($contents)) {
             $this->err(__d('me_tools', 'The file {0} does not seem a valid {1} file', rtr($path), 'composer.json'));
 
-            return;
+            return false;
         }
 
         //Checks if the file has been fixed
@@ -247,7 +247,7 @@ class InstallShell extends Shell
         ) {
             $this->verbose(__d('me_tools', 'The file {0} doesn\'t need to be fixed', rtr($path)));
 
-            return;
+            return true;
         }
 
         $contents += ['config' => ['component-dir' => 'vendor/components']];
