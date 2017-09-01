@@ -244,7 +244,7 @@ class UploaderComponentTest extends TestCase
     /**
      * Test for `save()` method, using a no existing directory
      * @expectedException Cake\Network\Exception\InternalErrorException
-     * @expectedExceptionMessage Invalid or no existing directory /tmp/uploads/noExistingDir
+     * @expectedExceptionMessage Invalid or no existing directory /tmp/me_tools/uploads/noExistingDir
      * @test
      */
     public function testSaveNoExistingDir()

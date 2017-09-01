@@ -98,12 +98,12 @@ class RequestDetectorsTest extends TestCase
         $this->assertFalse($this->Request->is('localhost'));
         $this->assertFalse($this->Request->isLocalhost());
 
-        $this->Request->env('REMOTE_ADDR', '127.0.0.1');
+        $this->Request = $this->Request->withEnv('REMOTE_ADDR', '127.0.0.1');
 
         $this->assertTrue($this->Request->is('localhost'));
         $this->assertTrue($this->Request->isLocalhost());
 
-        $this->Request->env('REMOTE_ADDR', '::1');
+        $this->Request = $this->Request->withEnv('REMOTE_ADDR', '::1');
 
         $this->assertTrue($this->Request->is('localhost'));
         $this->assertTrue($this->Request->isLocalhost());
@@ -129,7 +129,7 @@ class RequestDetectorsTest extends TestCase
      */
     public function testIsUrl()
     {
-        $this->Request->env('REQUEST_URI', '/some_alias');
+        $this->Request = $this->Request->withEnv('REQUEST_URI', '/some_alias');
 
         //Url as array of params
         $this->assertTrue($this->Request->is('url', ['controller' => 'tests_apps', 'action' => 'some_method']));
@@ -145,7 +145,7 @@ class RequestDetectorsTest extends TestCase
         $this->assertFalse($this->Request->is('url', '/some_alias/noExisting'));
         $this->assertFalse($this->Request->isUrl('/some_alias/noExisting'));
 
-        $this->Request->env('REQUEST_URI', '/');
+        $this->Request = $this->Request->withEnv('REQUEST_URI', '/');
 
         //Url as array of params
         $this->assertTrue($this->Request->is('url', ['controller' => 'pages', 'action' => 'display', 'home']));
@@ -169,12 +169,12 @@ class RequestDetectorsTest extends TestCase
      */
     public function testIsUrlQueryString()
     {
-        $this->Request->env('REQUEST_URI', '/some_alias');
+        $this->Request = $this->Request->withEnv('REQUEST_URI', '/some_alias');
 
         $this->assertTrue($this->Request->isUrl('/some_alias'));
         $this->assertTrue($this->Request->isUrl('/some_alias', false));
 
-        $this->Request->env('REQUEST_URI', '/some_alias?key=value');
+        $this->Request = $this->Request->withEnv('REQUEST_URI', '/some_alias?key=value');
 
         $this->assertTrue($this->Request->isUrl('/some_alias'));
         $this->assertFalse($this->Request->isUrl('/some_alias', false));
