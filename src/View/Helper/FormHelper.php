@@ -121,9 +121,7 @@ class FormHelper extends CakeFormHelper
     {
         $options['label'] = isset($options['label']) ? $options['label'] : false;
         $options = $this->optionsDefaults(['type' => 'textarea'], $options);
-        $options['templates'] = [
-            'textarea' => '<textarea name="{{name}}" class="form-control wysiwyg editor"{{attrs}}>{{value}}</textarea>',
-        ];
+        $options['templates']['textarea'] = '<textarea name="{{name}}" class="form-control wysiwyg editor"{{attrs}}>{{value}}</textarea>';
 
         return $this->control($fieldName, $options);
     }
@@ -154,11 +152,12 @@ class FormHelper extends CakeFormHelper
         //Help text
         //See https://getbootstrap.com/docs/4.0/components/forms/#help-text
         if (!empty($options['help'])) {
-            $options['templateVars']['help'] = collection((array)$options['help'])
+            $options['help'] = collection((array)$options['help'])
                 ->map(function ($tip) {
                     return $this->Html->para('form-text text-muted', trim($tip));
-                });
-            $options['templateVars']['help'] = implode(null, $options['templateVars']['help']->toArray());
+                })
+                ->toArray();
+            $options['templateVars']['help'] = implode(null, $options['help']);
 
             unset($options['help']);
         }
@@ -167,9 +166,7 @@ class FormHelper extends CakeFormHelper
         //See https://getbootstrap.com/docs/4.0/components/input-group/
         if (!empty($options['button'])) {
             //Fixes templates
-            $options['templates'] = [
-                'formGroup' => '{{label}}<div class="input-group">{{input}}{{button}}</div>',
-            ];
+            $options['templates']['formGroup'] = '{{label}}<div class="input-group">{{input}}{{button}}</div>';
             $options['templateVars']['button'] = $this->Html->span($options['button'], ['class' => 'input-group-addon']);
 
             unset($options['button']);
@@ -178,9 +175,7 @@ class FormHelper extends CakeFormHelper
         //If is an inline form
         if ($this->inline) {
             //By default, no help blocks
-            $options['templates'] = [
-                'inputContainer' => '<div class="form-group input {{type}}{{required}}">{{content}}</div>',
-            ];
+            $options['templates']['inputContainer'] = '<div class="form-group input {{type}}{{required}}">{{content}}</div>';
 
             //If it is not a checkbox
             if ($type !== "checkbox" && (!isset($options['label']) || $options['label'] !== false)) {
@@ -257,10 +252,8 @@ class FormHelper extends CakeFormHelper
         $options = $this->optionsDefaults([
             'data-date-format' => 'YYYY-MM-DD',
             'type' => 'text'], $options);
-        $options['templates'] = [
-            'input' => '<input type="{{type}}" name="{{name}}" class="form-control datepicker"{{attrs}}/>',
-            'inputError' => '<input type="{{type}}" name="{{name}}" class="form-control datepicker is-invalid"{{attrs}}/>',
-        ];
+        $options['templates']['input'] = '<input type="{{type}}" name="{{name}}" class="form-control datepicker"{{attrs}}/>';
+        $options['templates']['inputError'] = '<input type="{{type}}" name="{{name}}" class="form-control datepicker is-invalid"{{attrs}}/';
 
         return $this->control($fieldName, $options);
     }
@@ -281,10 +274,8 @@ class FormHelper extends CakeFormHelper
             'data-date-format' => 'YYYY-MM-DD HH:mm',
             'type' => 'text',
         ], $options);
-        $options['templates'] = [
-            'input' => '<input type="{{type}}" name="{{name}}" class="form-control datetimepicker"{{attrs}}/>',
-            'inputError' => '<input type="{{type}}" name="{{name}}" class="form-control datetimepicker is-invalid"{{attrs}}/>',
-        ];
+        $options['templates']['input'] = '<input type="{{type}}" name="{{name}}" class="form-control datetimepicker"{{attrs}}/>';
+        $options['templates']['inputError'] = '<input type="{{type}}" name="{{name}}" class="form-control datetimepicker is-invalid"{{attrs}}/>';
 
         return $this->control($fieldName, $options);
     }
@@ -442,10 +433,8 @@ class FormHelper extends CakeFormHelper
             'data-date-format' => 'HH:mm',
             'type' => 'text',
         ], $options);
-        $options['templates'] = [
-            'input' => '<input type="{{type}}" name="{{name}}" class="form-control timepicker"{{attrs}}/>',
-            'inputError' => '<input type="{{type}}" name="{{name}}" class="form-control timepicker is-invalid"{{attrs}}/>',
-        ];
+        $options['templates']['input'] = '<input type="{{type}}" name="{{name}}" class="form-control timepicker"{{attrs}}/>';
+        $options['templates']['inputError'] = '<input type="{{type}}" name="{{name}}" class="form-control timepicker is-invalid"{{attrs}}/>';
 
         return $this->control($fieldName, $options);
     }
