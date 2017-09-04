@@ -167,7 +167,7 @@ class FormHelper extends CakeFormHelper
         if (!empty($options['button'])) {
             //Fixes templates
             $options['templates']['formGroup'] = '{{label}}<div class="input-group">{{input}}{{button}}</div>';
-            $options['templateVars']['button'] = $this->Html->span($options['button'], ['class' => 'input-group-addon']);
+            $options['templateVars']['button'] = $this->Html->span($options['button'], ['class' => 'input-group-btn']);
 
             unset($options['button']);
         }
