@@ -40,6 +40,60 @@ class BreadcrumbsHelperTest extends TestCase
     }
 
     /**
+     * Tests for `add()` method
+     * @test
+     */
+    public function testAdd()
+    {
+        $this->Breadcrumbs->add('First', '/');
+        $this->Breadcrumbs->add('Second', '/', ['class' => 'custom-class']);
+
+        $result = $this->Breadcrumbs->render();
+        $expected = [
+            'ul' => ['class' => 'breadcrumb'],
+            ['li' => ['class' => 'breadcrumb-item']],
+            'a' => ['href' => '/'],
+            'First',
+            '/a',
+            '/li',
+            ['li' => ['class' => 'custom-class breadcrumb-item']],
+            'span' => [],
+            'Second',
+            '/span',
+            '/li',
+            '/ul',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    /**
+     * Tests for `prepend()` method
+     * @test
+     */
+    public function testPrepend()
+    {
+        $this->Breadcrumbs->add('Second', '/');
+        $this->Breadcrumbs->prepend('First', '/');
+
+        $result = $this->Breadcrumbs->render();
+        $expected = [
+            'ul' => ['class' => 'breadcrumb'],
+            ['li' => ['class' => 'breadcrumb-item']],
+            'a' => ['href' => '/'],
+            'First',
+            '/a',
+            '/li',
+            ['li' => ['class' => 'breadcrumb-item']],
+            'span' => [],
+            'Second',
+            '/span',
+            '/li',
+            '/ul',
+        ];
+        $this->assertHtml($expected, $result);
+    }
+
+    /**
      * Tests for `render()` method
      * @test
      */
@@ -53,12 +107,12 @@ class BreadcrumbsHelperTest extends TestCase
         $result = $this->Breadcrumbs->render();
         $expected = [
             'ul' => ['class' => 'breadcrumb'],
-            ['li' => []],
+            ['li' => ['class' => 'breadcrumb-item']],
             'a' => ['href' => '/'],
             'First',
             '/a',
             '/li',
-            ['li' => []],
+            ['li' => ['class' => 'breadcrumb-item']],
             'span' => [],
             'Second',
             '/span',
