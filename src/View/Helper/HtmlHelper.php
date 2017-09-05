@@ -85,7 +85,6 @@ class HtmlHelper extends CakeHtmlHelper
         }
 
         $options = $this->optionsDefaults(['title' => $title], $options);
-
         $options['title'] = strip_tags($options['title']);
 
         return self::tag('button', $title, $options);
@@ -196,17 +195,12 @@ class HtmlHelper extends CakeHtmlHelper
      */
     public function heading($text, array $options = [], $small = null, array $smallOptions = [])
     {
-        if (empty($options['type']) || !preg_match('/^h[1-6]$/', $options['type'])) {
-            $type = 'h2';
-        } else {
-            $type = $options['type'];
-        }
+        $type = empty($options['type']) || !preg_match('/^h[1-6]$/', $options['type']) ? 'h2' : $options['type'];
+        unset($options['type']);
 
         if (!empty($small)) {
             $text = sprintf('%s %s', $text, self::small($small, $smallOptions));
         }
-
-        unset($options['type']);
 
         return self::tag($type, $text, $options);
     }
@@ -391,7 +385,6 @@ class HtmlHelper extends CakeHtmlHelper
     {
         $options = $this->optionsDefaults(['type' => 'default'], $options);
         $options = $this->optionsValues(['class' => sprintf('label label-%s', $options['type'])], $options);
-
         unset($options['type']);
 
         return self::tag('span', $text, $options);
@@ -409,13 +402,16 @@ class HtmlHelper extends CakeHtmlHelper
      */
     public function li($element, array $options = [])
     {
-        if (is_array($element)) {
-            return implode(PHP_EOL, array_map(function ($element) use ($options) {
-                return self::tag('li', $element, $options);
-            }, $element));
+        if (!is_array($element)) {
+            return self::tag('li', $element, $options);
         }
 
-        return self::tag('li', $element, $options);
+        $element = collection($element)
+            ->map(function ($element) use ($options) {
+                return self::tag('li', $element, $options);
+            });
+
+        return implode(PHP_EOL, $element->toArray());
     }
 
     /**
@@ -428,13 +424,8 @@ class HtmlHelper extends CakeHtmlHelper
      */
     public function link($title, $url = null, array $options = [])
     {
-        $options = $this->optionsDefaults([
-            'escape' => false,
-            'title' => $title,
-        ], $options);
-
+        $options = $this->optionsDefaults(['escape' => false, 'title' => $title], $options);
         $options['title'] = trim(h(strip_tags($options['title'])));
-
         list($title, $options) = $this->addIconToText($title, $options);
         $options = $this->addTooltip($options);
 
@@ -474,17 +465,14 @@ class HtmlHelper extends CakeHtmlHelper
             $options = $this->optionsValues(['class' => 'fa-ul'], $options);
             $itemOptions = $this->optionsValues(['icon' => 'li'], $itemOptions);
 
-            $list = collection($list)->map(function ($element) use ($itemOptions) {
-                return collection($this->addIconToText($element, $itemOptions))->first();
-            })->toList();
+            $list = collection($list)
+                ->map(function ($element) use ($itemOptions) {
+                    return collection($this->addIconToText($element, $itemOptions))->first();
+                })
+                ->toArray();
         }
 
-        unset(
-            $options['icon'],
-            $options['icon-align'],
-            $itemOptions['icon'],
-            $itemOptions['icon-align']
-        );
+        unset($options['icon'], $options['icon-align'], $itemOptions['icon'], $itemOptions['icon-align']);
 
         return parent::nestedList($list, $options, $itemOptions);
     }

@@ -30,7 +30,7 @@ class FormHelper extends CakeFormHelper
      * @var array
      */
     public $helpers = [
-        'Html' => ['className' => 'MeTools.Html'],
+        'Html' => ['className' => METOOLS . '.Html'],
         'Url',
     ];
 
@@ -84,9 +84,7 @@ class FormHelper extends CakeFormHelper
     public function button($title, array $options = [])
     {
         $options = $this->optionsDefaults(['type' => 'button'], $options);
-        $buttonClass = $options['type'] === 'submit' ? 'success' : 'default';
-        $options = $this->addButtonClasses($options, $buttonClass);
-
+        $options = $this->addButtonClasses($options, $options['type'] === 'submit' ? 'success' : 'default');
         list($title, $options) = $this->addIconToText($title, $options);
 
         return parent::button($title, $options);
@@ -131,18 +129,19 @@ class FormHelper extends CakeFormHelper
      * @param string $fieldName Field name, should be "Modelname.fieldname"
      * @param array $options HTML attributes and options
      * @return string
-     * @uses MeTools\View\Helper\HtmlHelper::para()
      * @uses $inline
      */
     public function control($fieldName, array $options = [])
     {
-        //If the field name contains the word "password", then the field type
-        //  is `password`
+        //Resets templates
+        $this->resetTemplates();
+
+        //If the name contains the "password" word, then the type is `password`
         if (preg_match('/password/', $fieldName)) {
             $options = $this->optionsDefaults(['type' => 'password'], $options);
         }
 
-        //Gets the type
+        //Gets the input type
         $type = empty($options['type']) ? self::_inputType($fieldName, $options) : $options['type'];
 
         if ($type === 'select' && empty($options['default']) && empty($options['value'])) {
@@ -266,7 +265,6 @@ class FormHelper extends CakeFormHelper
      * @param array $options HTML attributes and options
      * @return string
      * @see MeTools\View\Helper\LibraryHelper::datetimepicker()
-     * @uses control()
      */
     public function datetimepicker($fieldName, array $options = [])
     {
@@ -365,7 +363,6 @@ class FormHelper extends CakeFormHelper
     {
         $options = $this->optionsDefaults(['escape' => false, 'title' => $title], $options);
         $options['title'] = trim(h(strip_tags($options['title'])));
-
         list($title, $options) = $this->addIconToText($title, $options);
         $options = $this->addTooltip($options);
 

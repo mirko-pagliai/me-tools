@@ -13,6 +13,11 @@
 
 ## 2.15 branch
 ### 2.15.0
+* `InstallShell::fixComposerJson()` now has the `path` option;
+* added `ConsoleIntegrationTestCase` class. Console tests have been simplified;
+* updated for CakePHP 3.5;
+* removed `IntegrationTestCase::loadAllFixtures()` method. Use `loadFixtures()`
+    with no arguments;
 * removed `am()` global function.
 
 ## 2.14 branch

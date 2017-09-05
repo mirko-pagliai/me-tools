@@ -138,7 +138,11 @@ class FormHelperTest extends TestCase
 
         $expected = [
             'div' => ['class' => 'form-group input textarea'],
-            'textarea' => ['name' => $field, 'class' => 'form-control wysiwyg editor', 'id' => $field],
+            'textarea' => [
+                'name' => $field,
+                'class' => 'form-control wysiwyg editor',
+                'id' => $field,
+            ],
             '/textarea',
             '/div',
         ];
@@ -155,7 +159,11 @@ class FormHelperTest extends TestCase
             'label' => ['for' => $field],
             'my label',
             '/label',
-            'textarea' => ['name' => $field, 'class' => 'form-control wysiwyg editor', 'id' => $field],
+            'textarea' => [
+                'name' => $field,
+                'class' => 'form-control wysiwyg editor',
+                'id' => $field,
+            ],
             '/textarea',
             '/div',
         ];
@@ -221,7 +229,7 @@ class FormHelperTest extends TestCase
             '/label',
             ['div' => ['class' => 'input-group']],
             'input' => ['type' => 'text', 'name' => $field, 'class' => 'form-control', 'id' => $field],
-            'span' => ['class' => 'input-group-addon'],
+            'span' => ['class' => 'input-group-btn'],
             'button' => ['role' => 'button', 'class' => 'btn btn-default', 'title' => 'My button'],
             'My button',
             '/button',
