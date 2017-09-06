@@ -1,5 +1,8 @@
 # 2.x branch
 ## 2.15 branch
+### 2.15.1
+* added `toAttributes()` global function.
+
 ### 2.15.0
 * `InstallShell::fixComposerJson()` now has the `path` option;
 * added `ConsoleIntegrationTestCase` class. Console tests have been simplified;
