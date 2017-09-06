@@ -338,7 +338,7 @@ class HtmlHelper extends CakeHtmlHelper
     public function image($path, array $options = [])
     {
         $options = $this->optionsDefaults(['alt' => pathinfo($path, PATHINFO_BASENAME)], $options);
-        $options = $this->optionsValues(['class' => 'img-responsive'], $options);
+        $options = $this->optionsValues(['class' => 'img-fluid'], $options);
         $options = $this->addTooltip($options);
 
         return parent::image($path, $options);
