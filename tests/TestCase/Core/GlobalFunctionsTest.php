@@ -25,7 +25,6 @@ class GlobalFunctionsTest extends TestCase
      * It creates some directories, so it tests if they are writeable.
      * Then creates some files, cleans directories, so it tests if all files
      *  have been deleted.
-     * @return void
      * @test
      */
     public function testClearDirAndFolderIsWriteabled()
@@ -70,7 +69,6 @@ class GlobalFunctionsTest extends TestCase
 
     /**
      * Test for `getChildMethods()` global function
-     * @return void
      * @test
      */
     public function testGetChildMethods()
@@ -94,7 +92,6 @@ class GlobalFunctionsTest extends TestCase
 
     /**
      * Test for `isJson()` global function
-     * @return void
      * @test
      */
     public function testIsJson()
@@ -112,7 +109,6 @@ class GlobalFunctionsTest extends TestCase
 
     /**
      * Test for `isPositive()` global function
-     * @return void
      * @test
      */
     public function testIsPositive()
@@ -125,7 +121,6 @@ class GlobalFunctionsTest extends TestCase
 
     /**
      * Test for `isUrl()` global function
-     * @return void
      * @test
      */
     public function testIsUrl()
@@ -157,7 +152,6 @@ class GlobalFunctionsTest extends TestCase
 
     /**
      * Test for `rtr()` global function
-     * @return void
      * @test
      */
     public function testRtr()
@@ -177,7 +171,6 @@ class GlobalFunctionsTest extends TestCase
 
     /**
      * Test for `toAttributes()` global function
-     * @return void
      * @test
      */
     public function testToAttributes()
@@ -202,7 +195,6 @@ class GlobalFunctionsTest extends TestCase
 
     /**
      * Test for `which()` global function
-     * @return void
      * @test
      */
     public function testWhich()
