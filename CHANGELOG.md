@@ -1,6 +1,8 @@
 # 2.x branch
 ## 2.15 branch
 ### 2.15.1
+* the fancybox no longer uses the "thumb" plugin to ensure greater compatibility
+    with jQuery 3.x;
 * added `toAttributes()` global function.
 
 ### 2.15.0
