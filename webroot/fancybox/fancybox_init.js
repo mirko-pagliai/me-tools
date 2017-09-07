@@ -11,10 +11,8 @@
  */
 $(document).ready(function () {
     $(".fancybox").fancybox({
-        closeBtn: false,
         prevEffect: 'none',
         nextEffect: 'none',
-        margin: [ 10, 10, 0, 10 ],
         padding: 0,
         type : 'image',
         beforeShow: function () {
@@ -24,10 +22,6 @@ $(document).ready(function () {
             });
         },
         helpers: {
-            thumbs: {
-                width: 50,
-                height: 50
-            },
             title: {
                 type: 'over'
             }
