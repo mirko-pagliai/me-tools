@@ -772,7 +772,7 @@ class HtmlHelperTest extends TestCase
             'img' => [
                 'src' => '/img/image.gif',
                 'alt' => $image,
-                'class' => 'img-responsive',
+                'class' => 'img-fluid',
             ],
         ];
         $this->assertHtml($expected, $result);
@@ -782,7 +782,7 @@ class HtmlHelperTest extends TestCase
             'img' => [
                 'src' => '/img/image.gif',
                 'alt' => $image,
-                'class' => 'my-class img-responsive',
+                'class' => 'my-class img-fluid',
             ],
         ];
         $this->assertHtml($expected, $result);
@@ -793,7 +793,7 @@ class HtmlHelperTest extends TestCase
             'img' => [
                 'src' => '/img/image.gif',
                 'alt' => $image,
-                'class' => 'my-class img-responsive',
+                'class' => 'my-class img-fluid',
             ],
         ];
         $this->assertHtml($expected, $result);
@@ -803,7 +803,7 @@ class HtmlHelperTest extends TestCase
             'img' => [
                 'src' => '/img/image.gif',
                 'alt' => 'my-alt',
-                'class' => 'img-responsive',
+                'class' => 'img-fluid',
             ],
         ];
         $this->assertHtml($expected, $result);
@@ -813,7 +813,7 @@ class HtmlHelperTest extends TestCase
             'img' => [
                 'src' => '/img/image.gif',
                 'alt' => $image,
-                'class' => 'img-responsive',
+                'class' => 'img-fluid',
                 'data-toggle' => 'tooltip',
                 'title' => 'my tooltip',
             ],
@@ -825,7 +825,7 @@ class HtmlHelperTest extends TestCase
             'img' => [
                 'src' => 'http://fullurl/image.gif',
                 'alt' => $image,
-                'class' => 'img-responsive',
+                'class' => 'img-fluid',
             ],
         ];
         $this->assertHtml($expected, $result);
