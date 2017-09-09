@@ -110,7 +110,7 @@ class OptionsParserTraitTest extends TestCase
     public function testAddButtonClasses()
     {
         $options = $this->OptionsParser->addButtonClasses([]);
-        $this->assertEquals('btn btn-default', $options['class']);
+        $this->assertEquals('btn btn-secondary', $options['class']);
 
         $options = $this->OptionsParser->addButtonClasses([], 'primary');
         $this->assertEquals('btn btn-primary', $options['class']);
@@ -131,9 +131,9 @@ class OptionsParserTraitTest extends TestCase
         $options = $this->OptionsParser->addButtonClasses($options, 'btn primary');
         $this->assertEquals('existingValue btn btn-primary', $options['class']);
 
-        $options = ['class' => 'btn-default'];
+        $options = ['class' => 'btn-secondary'];
         $options = $this->OptionsParser->addButtonClasses($options, 'btn primary');
-        $this->assertEquals('btn-default btn', $options['class']);
+        $this->assertEquals('btn-secondary btn', $options['class']);
 
         $options = ['class' => 'btn'];
         $options = $this->OptionsParser->addButtonClasses($options, 'btn primary');

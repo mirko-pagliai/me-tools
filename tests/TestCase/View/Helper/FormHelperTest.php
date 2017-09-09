@@ -59,7 +59,7 @@ class FormHelperTest extends TestCase
 
         $result = $this->Form->button($title);
         $expected = [
-            'button' => ['type' => 'button', 'class' => 'btn btn-default'],
+            'button' => ['type' => 'button', 'class' => 'btn btn-primary'],
             $title,
             '/button',
         ];
@@ -67,7 +67,7 @@ class FormHelperTest extends TestCase
 
         $result = $this->Form->button($title, ['icon' => 'home']);
         $expected = [
-            'button' => ['type' => 'button', 'class' => 'btn btn-default'],
+            'button' => ['type' => 'button', 'class' => 'btn btn-primary'],
             'i' => ['class' => 'fa fa-home'],
             ' ',
             '/i',
@@ -79,7 +79,7 @@ class FormHelperTest extends TestCase
 
         $result = $this->Form->button($title, ['type' => 'reset']);
         $expected = [
-            'button' => ['type' => 'reset', 'class' => 'btn btn-default'],
+            'button' => ['type' => 'reset', 'class' => 'btn btn-primary'],
             $title,
             '/button',
         ];
@@ -230,7 +230,7 @@ class FormHelperTest extends TestCase
             ['div' => ['class' => 'input-group']],
             'input' => ['type' => 'text', 'name' => $field, 'class' => 'form-control', 'id' => $field],
             'span' => ['class' => 'input-group-btn'],
-            'button' => ['role' => 'button', 'class' => 'btn btn-default', 'title' => 'My button'],
+            'button' => ['role' => 'button', 'class' => 'btn btn-secondary', 'title' => 'My button'],
             'My button',
             '/button',
             '/span',
@@ -671,7 +671,7 @@ class FormHelperTest extends TestCase
             'form' => ['name', 'style' => 'display:none;', 'method' => 'post', 'action' => $url],
             'input' => ['type' => 'hidden', 'name' => '_method', 'value' => 'POST'],
             '/form',
-            'a' => ['href' => '#', 'role' => 'button', 'class' => 'btn btn-default', 'title' => $title, 'onclick'],
+            'a' => ['href' => '#', 'role' => 'button', 'class' => 'btn btn-secondary', 'title' => $title, 'onclick'],
             $title,
             '/a',
         ];
@@ -682,7 +682,7 @@ class FormHelperTest extends TestCase
             'form' => ['name', 'style' => 'display:none;', 'method' => 'post', 'action' => $url],
             'input' => ['type' => 'hidden', 'name' => '_method', 'value' => 'POST'],
             '/form',
-            'a' => ['href' => '#', 'role' => 'button', 'class' => 'btn btn-default', 'title' => $title, 'onclick'],
+            'a' => ['href' => '#', 'role' => 'button', 'class' => 'btn btn-secondary', 'title' => $title, 'onclick'],
             'i' => ['class' => 'fa fa-home'],
             ' ',
             '/i',

@@ -128,7 +128,7 @@ class HtmlHelperTest extends TestCase
         $expected = [
             'button' => [
                 'role' => 'button',
-                'class' => 'btn btn-default',
+                'class' => 'btn btn-secondary',
                 'title' => $text,
             ],
             $text,
@@ -142,7 +142,7 @@ class HtmlHelperTest extends TestCase
         $expected = [
             'button' => [
                 'role' => 'button',
-                'class' => 'btn btn-default',
+                'class' => 'btn btn-secondary',
                 'title' => 'my-custom-title',
             ],
             $text,
@@ -154,7 +154,7 @@ class HtmlHelperTest extends TestCase
         $expected = [
             'button' => [
                 'role' => 'button',
-                'class' => 'my-class btn btn-default',
+                'class' => 'my-class btn btn-secondary',
                 'title' => $text,
              ],
             $text,
@@ -178,7 +178,7 @@ class HtmlHelperTest extends TestCase
         $expected = [
             'button' => [
                 'role' => 'button',
-                'class' => 'btn btn-default',
+                'class' => 'btn btn-secondary',
                 'data-toggle' => 'tooltip',
                 'title' => 'my tooltip',
             ],
@@ -196,7 +196,7 @@ class HtmlHelperTest extends TestCase
         $expected = [
             'button' => [
                 'role' => 'button',
-                'class' => 'btn btn-default',
+                'class' => 'btn btn-secondary',
                 'data-toggle' => 'tooltip',
                 'title' => 'my tooltip',
             ],
@@ -209,7 +209,7 @@ class HtmlHelperTest extends TestCase
         $expected = [
             'button' => [
                 'role' => 'button',
-                'class' => 'btn btn-default',
+                'class' => 'btn btn-secondary',
                 'title' => $text,
              ],
             'i' => ['class' => 'fa fa-home'],
@@ -226,7 +226,7 @@ class HtmlHelperTest extends TestCase
         $expected = [
             'button' => [
                 'role' => 'button',
-                'class' => 'btn btn-default',
+                'class' => 'btn btn-secondary',
                 'title' => 'Single quote &#039;',
             ],
             'Single quote \'',
@@ -239,7 +239,7 @@ class HtmlHelperTest extends TestCase
         $expected = [
             'button' => [
                 'role' => 'button',
-                'class' => 'btn btn-default',
+                'class' => 'btn btn-secondary',
                 'title' => 'Double quote &quot;',
              ],
             'Double quote "',
@@ -256,7 +256,7 @@ class HtmlHelperTest extends TestCase
         $expected = [
             'button' => [
                 'role' => 'button',
-                'class' => 'btn btn-default',
+                'class' => 'btn btn-secondary',
                 'title' => 'Single quote &#039;',
             ],
             $text,
@@ -274,7 +274,7 @@ class HtmlHelperTest extends TestCase
             'button' => [
                 'title' => 'Double quote &quot;',
                 'role' => 'button',
-                'class' => 'btn btn-default',
+                'class' => 'btn btn-secondary',
             ],
             $text,
             '/button',
@@ -286,7 +286,7 @@ class HtmlHelperTest extends TestCase
         $expected = [
             'button' => [
                 'role' => 'button',
-                'class' => 'btn btn-default',
+                'class' => 'btn btn-secondary',
                 'title' => 'Code and text',
             ],
             'u' => true,
@@ -306,7 +306,7 @@ class HtmlHelperTest extends TestCase
         $expected = [
             'button' => [
                 'role' => 'button',
-                'class' => 'btn btn-default',
+                'class' => 'btn btn-secondary',
                 'title' => 'Code and text'
             ],
             $text,
@@ -329,7 +329,7 @@ class HtmlHelperTest extends TestCase
             'a' => [
                 'href' => '#',
                 'role' => 'button',
-                'class' => 'btn btn-default',
+                'class' => 'btn btn-secondary',
                 'title' => $text,
             ],
             $text,
@@ -342,7 +342,7 @@ class HtmlHelperTest extends TestCase
             'a' => [
                 'href' => '#',
                 'role' => 'button',
-                'class' => 'my-class btn btn-default',
+                'class' => 'my-class btn btn-secondary',
                 'title' => $text,
             ],
             $text,
@@ -368,7 +368,7 @@ class HtmlHelperTest extends TestCase
             'a' => [
                 'href' => '#',
                 'role' => 'button',
-                'class' => 'btn btn-default',
+                'class' => 'btn btn-secondary',
                 'data-toggle' => 'tooltip',
                 'title' => 'my tooltip',
             ],
@@ -387,7 +387,7 @@ class HtmlHelperTest extends TestCase
             'a' => [
                 'href' => '#',
                 'role' => 'button',
-                'class' => 'btn btn-default',
+                'class' => 'btn btn-secondary',
                 'data-toggle' => 'tooltip',
                 'title' => 'my tooltip',
             ],
@@ -401,7 +401,7 @@ class HtmlHelperTest extends TestCase
             'a' => [
                 'href' => '#',
                 'role' => 'button',
-                'class' => 'btn btn-default',
+                'class' => 'btn btn-secondary',
                 'title' => $text,
             ],
             'i' => ['class' => 'fa fa-home'],

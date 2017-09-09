@@ -84,7 +84,7 @@ class FormHelper extends CakeFormHelper
     public function button($title, array $options = [])
     {
         $options = $this->optionsDefaults(['type' => 'button'], $options);
-        $options = $this->addButtonClasses($options, $options['type'] === 'submit' ? 'success' : 'default');
+        $options = $this->addButtonClasses($options, $options['type'] === 'submit' ? 'success' : 'primary');
         list($title, $options) = $this->addIconToText($title, $options);
 
         return parent::button($title, $options);

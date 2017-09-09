@@ -82,11 +82,11 @@ trait OptionsParserTrait
      * @uses toArray()
      * @uses optionsValues()
      */
-    public function addButtonClasses(array $options, $classes = 'btn-default')
+    public function addButtonClasses(array $options, $classes = 'btn-secondary')
     {
         //If a valid class already exists, it just adds the `btn` class
         if (!empty($options['class']) && preg_match(
-            '/btn\-?(default|primary|success|info|warning|danger|lg|sm|xs|block)/',
+            '/btn\-?(primary|secondary|success|info|warning|danger|lg|sm|xs|block)/',
             $options['class']
         )) {
             return $this->optionsValues(['class' => 'btn'], $options);
@@ -94,7 +94,7 @@ trait OptionsParserTrait
 
         $classes = collection($this->toArray($classes))
             ->filter(function ($class) {
-                return preg_match('/^(btn\-)?(default|primary|success|info|warning|danger|lg|sm|xs|block)$/', $class);
+                return preg_match('/^(btn\-)?(primary|secondary|success|info|warning|danger|lg|sm|xs|block)$/', $class);
             })
             ->map(function ($class) {
                 //Adds the `btn-` prefix to each class
