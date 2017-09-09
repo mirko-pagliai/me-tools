@@ -69,12 +69,6 @@ pre {
     margin-bottom: 0;
 }
 
-/* Tables, cells with the minimum width */
-.table th.min-width,
-.table td.min-width {
-    white-space: nowrap;
-    width: .1rem;
-}
 /* -------------------------------- */
 /*      Ascending/descending sort   */
 /* -------------------------------- */
