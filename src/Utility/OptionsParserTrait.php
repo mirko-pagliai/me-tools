@@ -84,17 +84,42 @@ trait OptionsParserTrait
      */
     public function addButtonClasses(array $options, $classes = 'btn-secondary')
     {
-        //If a valid class already exists, it just adds the `btn` class
+        $baseClasses = [
+            'primary',
+            'secondary',
+            'success',
+            'danger',
+            'warning',
+            'info',
+            'light',
+            'dark',
+            'link',
+        ];
+        $allClasses = array_merge($baseClasses, [
+            'outline-primary',
+            'outline-secondary',
+            'outline-success',
+            'outline-danger',
+            'outline-warning',
+            'outline-info',
+            'outline-light',
+            'outline-dark',
+            'lg',
+            'sm',
+            'block',
+        ]);
+
+        //If a base class already exists, it just adds the `btn` class
         if (!empty($options['class']) && preg_match(
-            '/btn\-?(primary|secondary|success|info|warning|danger|lg|sm|xs|block)/',
+            '/btn\-?(' . implode('|', $baseClasses) . ')/',
             $options['class']
         )) {
             return $this->optionsValues(['class' => 'btn'], $options);
         }
 
         $classes = collection($this->toArray($classes))
-            ->filter(function ($class) {
-                return preg_match('/^(btn\-)?(primary|secondary|success|info|warning|danger|lg|sm|xs|block)$/', $class);
+            ->filter(function ($class) use ($allClasses) {
+                return preg_match('/^(btn\-)?(' . implode('|', $allClasses) . ')$/', $class);
             })
             ->map(function ($class) {
                 //Adds the `btn-` prefix to each class

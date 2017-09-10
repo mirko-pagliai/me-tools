@@ -124,6 +124,12 @@ class OptionsParserTraitTest extends TestCase
         $options = $this->OptionsParser->addButtonClasses([], ['btn', 'btn-primary', 'lg']);
         $this->assertEquals('btn btn-primary btn-lg', $options['class']);
 
+        $options = $this->OptionsParser->addButtonClasses([], 'lg');
+        $this->assertEquals('btn btn-lg', $options['class']);
+
+        $options = $this->OptionsParser->addButtonClasses([], 'secondary lg');
+        $this->assertEquals('btn btn-secondary btn-lg', $options['class']);
+
         $options = $this->OptionsParser->addButtonClasses([], 'primary invalidClass btn-invalid');
         $this->assertEquals('btn btn-primary', $options['class']);
 
@@ -138,6 +144,10 @@ class OptionsParserTraitTest extends TestCase
         $options = ['class' => 'btn'];
         $options = $this->OptionsParser->addButtonClasses($options, 'btn primary');
         $this->assertEquals('btn btn-primary', $options['class']);
+
+        $options = ['class' => 'btn-lg'];
+        $options = $this->OptionsParser->addButtonClasses($options, 'btn lg');
+        $this->assertEquals('btn-lg btn', $options['class']);
     }
 
     /**
