@@ -12,7 +12,8 @@
 * fixed `HtmlHelper::viewport()` method for Bootstrap 4;
 * added a custom `bootstrap-datetimepicker` js file for Bootstrap 4;
 * moved `MeTools\Utility\OptionsParserTrait` to namespace
-    `MeTools\View\OptionsParserTrait`.
+    `MeTools\View\OptionsParserTrait`;
+* the `METOOLS` constant has become `ME_TOOLS`.
 
 ## 2.15 branch
 ### 2.15.1

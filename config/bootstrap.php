@@ -13,8 +13,8 @@
 use Cake\Core\Plugin;
 
 //Sets the default MeTools name
-if (!defined('METOOLS')) {
-    define('METOOLS', 'MeTools');
+if (!defined('ME_TOOLS')) {
+    define('ME_TOOLS', 'MeTools');
 }
 
 //Loads `Assets` plugin

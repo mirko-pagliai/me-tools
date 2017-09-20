@@ -28,7 +28,7 @@ class LibraryHelper extends Helper
      * Helpers
      * @var array
      */
-    public $helpers = [ASSETS . '.Asset', 'Html' => ['className' => METOOLS . '.Html']];
+    public $helpers = [ASSETS . '.Asset', 'Html' => ['className' => ME_TOOLS . '.Html']];
 
     /**
      * It will contain the output code
@@ -51,7 +51,7 @@ class LibraryHelper extends Helper
     {
         $this->Asset->script([
             '/vendor/moment/moment-with-locales.min',
-            METOOLS . '.bootstrap-datetimepicker.min',
+            ME_TOOLS . '.bootstrap-datetimepicker.min',
         ], ['block' => 'script_bottom']);
 
         $this->Asset->css(

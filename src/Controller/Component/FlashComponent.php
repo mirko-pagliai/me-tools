@@ -50,7 +50,7 @@ class FlashComponent extends CakeFlashComponent
 
             $name = 'flash';
 
-            $args[1]['plugin'] = METOOLS;
+            $args[1]['plugin'] = ME_TOOLS;
         }
 
         parent::__call($name, $args);

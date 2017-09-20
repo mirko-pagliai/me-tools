@@ -30,7 +30,7 @@ class FormHelper extends CakeFormHelper
      * @var array
      */
     public $helpers = [
-        'Html' => ['className' => METOOLS . '.Html'],
+        'Html' => ['className' => ME_TOOLS . '.Html'],
         'Url',
     ];
 
