@@ -14,7 +14,7 @@
 namespace MeTools\View\Helper;
 
 use Cake\View\Helper;
-use MeTools\Utility\OptionsParserTrait;
+use MeTools\View\OptionsParserTrait;
 
 /**
  * Provides functionalities for creating dropdown menus, according to Bootstrap.

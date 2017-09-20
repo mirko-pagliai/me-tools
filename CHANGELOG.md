@@ -10,7 +10,9 @@
 * fixed `PaginatorHelper` and the `paginator` template element for Bootstrap 4;
 * fixed flash messages templates for Bootstrap 4;
 * fixed `HtmlHelper::viewport()` method for Bootstrap 4;
-* added a custom `bootstrap-datetimepicker` js file for Bootstrap 4.
+* added a custom `bootstrap-datetimepicker` js file for Bootstrap 4;
+* moved `MeTools\Utility\OptionsParserTrait` to namespace
+    `MeTools\View\OptionsParserTrait`.
 
 ## 2.15 branch
 ### 2.15.1

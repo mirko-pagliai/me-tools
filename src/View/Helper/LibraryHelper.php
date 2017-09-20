@@ -15,7 +15,7 @@ namespace MeTools\View\Helper;
 use Cake\Event\Event;
 use Cake\I18n\I18n;
 use Cake\View\Helper;
-use MeTools\Utility\OptionsParserTrait;
+use MeTools\View\OptionsParserTrait;
 
 /**
  * Library helper

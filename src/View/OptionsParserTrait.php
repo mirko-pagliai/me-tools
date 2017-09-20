@@ -10,7 +10,7 @@
  * @link        https://github.com/mirko-pagliai/me-tools
  * @license     https://opensource.org/licenses/mit-license.php MIT License
  */
-namespace MeTools\Utility;
+namespace MeTools\View;
 
 /**
  * An options parser for helpers that generate html code

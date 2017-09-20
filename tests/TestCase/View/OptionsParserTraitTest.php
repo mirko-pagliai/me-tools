@@ -16,7 +16,7 @@ use Cake\View\Helper as CakeHelper;
 use Cake\View\StringTemplateTrait;
 use Cake\View\View;
 use MeTools\TestSuite\TestCase;
-use MeTools\Utility\OptionsParserTrait;
+use MeTools\View\OptionsParserTrait;
 
 /**
  * Allow to use `StringTemplateTrait`
@@ -28,7 +28,7 @@ class OptionsParserHelper extends CakeHelper
 }
 
 /**
- * MeTools\Utility\OptionsParserTrait Test Case
+ * MeTools\View\OptionsParserTrait Test Case
  */
 class OptionsParserTraitTest extends TestCase
 {

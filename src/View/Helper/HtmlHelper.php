@@ -15,7 +15,7 @@ namespace MeTools\View\Helper;
 
 use Cake\Core\Exception\Exception;
 use Cake\View\Helper\HtmlHelper as CakeHtmlHelper;
-use MeTools\Utility\OptionsParserTrait;
+use MeTools\View\OptionsParserTrait;
 
 /**
  * Provides functionalities for HTML code

@@ -15,7 +15,7 @@
 namespace MeTools\View\Helper;
 
 use Cake\View\Helper\BreadcrumbsHelper as CakeBreadcrumbsHelper;
-use MeTools\Utility\OptionsParserTrait;
+use MeTools\View\OptionsParserTrait;
 
 /**
  * Creates breadcrumbs, according to the Bootstrap component
