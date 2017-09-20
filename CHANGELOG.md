@@ -9,7 +9,8 @@
 * fixed dropdown menus for Bootstrap 4;
 * fixed `PaginatorHelper` and the `paginator` template element for Bootstrap 4;
 * fixed flash messages templates for Bootstrap 4;
-* fixed `HtmlHelper::viewport()` method for Bootstrap 4.
+* fixed `HtmlHelper::viewport()` method for Bootstrap 4;
+* added a custom `bootstrap-datetimepicker` js file for Bootstrap 4.
 
 ## 2.15 branch
 ### 2.15.1

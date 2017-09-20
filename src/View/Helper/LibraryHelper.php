@@ -51,7 +51,7 @@ class LibraryHelper extends Helper
     {
         $this->Asset->script([
             '/vendor/moment/moment-with-locales.min',
-            '/vendor/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min',
+            METOOLS . '.bootstrap-datetimepicker.min',
         ], ['block' => 'script_bottom']);
 
         $this->Asset->css(
@@ -68,12 +68,13 @@ class LibraryHelper extends Helper
             $options['icons'] = [
                 'time' => 'fa fa-clock-o',
                 'date' => 'fa fa-calendar',
-                'up' => 'fa fa-arrow-up',
-                'down' => 'fa fa-arrow-down',
-                'previous' => 'fa fa-arrow-left',
-                'next' => 'fa fa-arrow-right',
+                'up' => 'fa fa-chevron-up',
+                'down' => 'fa fa-chevron-down',
+                'previous' => 'fa fa-chevron-left',
+                'next' => 'fa fa-chevron-right',
                 'today' => 'fa fa-dot-circle-o',
                 'clear' => 'fa fa-trash',
+                'close' => 'fa fa-times',
             ];
         }
 
