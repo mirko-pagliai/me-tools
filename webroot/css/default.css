@@ -12,6 +12,17 @@
 /* -------------------------------- */
 /*        HTML and general          */
 /* -------------------------------- */
+/* Figure */
+figure {
+    display: inline-block;
+}
+
+/* Figure, figure caption */
+figure figcaption {
+    color: #868e96;
+    font-size: 90%;
+}
+
 /* Iframe */
 iframe {
     border: 0;
