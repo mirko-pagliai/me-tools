@@ -23,6 +23,11 @@ pre {
     overflow-y: scroll;
 }
 
+/* Overflow: hidden */
+.overflow-hidden {
+    overflow: hidden;
+}
+
 /* Small tag and "small" class */
 .small, small {
     font-size: 95%;
