@@ -104,3 +104,21 @@ th a.asc:after {
 th a.desc:after {
     content: " \f161";
 }
+
+/* -------------------------------- */
+/*              Fancybox            */
+/* -------------------------------- */
+/* Fancybox's links */
+a.fancybox {
+    cursor: zoom-in;
+}
+
+/* Fancybox's title */
+.fancybox-title {
+    text-align: justify;
+}
+
+/* Fancybox's title over wrap */
+.fancybox-title.fancybox-title-over-wrap {
+    width: 100%;
+}
