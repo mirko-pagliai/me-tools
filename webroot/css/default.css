@@ -39,11 +39,6 @@ pre {
     overflow: hidden;
 }
 
-/* Small tag and "small" class */
-.small, small {
-    font-size: 95%;
-}
-
 /* -------------------------------- */
 /* Contextual backgrounds and text  */
 /* -------------------------------- */
