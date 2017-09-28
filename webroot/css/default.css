@@ -34,11 +34,6 @@ pre {
     overflow-y: scroll;
 }
 
-/* Overflow: hidden */
-.overflow-hidden {
-    overflow: hidden;
-}
-
 /* -------------------------------- */
 /* Contextual backgrounds and text  */
 /* -------------------------------- */
