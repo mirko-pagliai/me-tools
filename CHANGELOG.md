@@ -1,5 +1,8 @@
 # 2.x branch
 ## 2.16 branch
+### 2.16.1-beta
+* little fixes on css rules.
+
 ### 2.16.0-beta
 * updated all the code for Bootstrap 4;
 * added the `HiddenWidget`, to properly render a hidden field;
