@@ -17,7 +17,7 @@
         "ext-mcrypt": "*",
         "components/jquery": "^3.2",
         "mirko-pagliai/assets": ">=1.1.6 <1.2",
-        "twbs/bootstrap": "v4.0.0-beta"
+        "twbs/bootstrap": "v4.0.0-beta.2"
     },
     "require-dev": {
         "cakephp/cakephp-codesniffer": "^3.0",

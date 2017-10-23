@@ -1,5 +1,8 @@
 # 2.x branch
 ## 2.16 branch
+### 2.16.2-beta
+* updated for Bootstrap 4 beta 2.
+
 ### 2.16.1-beta
 * little fixes on css rules.
 
