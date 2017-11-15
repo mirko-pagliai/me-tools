@@ -37,6 +37,7 @@ class OptionsParserTest extends TestCase
         parent::setUp();
 
         $options = [
+            'array' => ['second', ['first'], 'first'],
             'alt' => 'this is a string',
             'false' => false,
             'class' => 'first second third fourth',
@@ -149,6 +150,7 @@ class OptionsParserTest extends TestCase
     {
         $this->assertEquals([
             'alt' => 'this is a string',
+            'array' => ['first', 'second'],
             'class' => 'first fourth second third',
             'defaultKey' => 'defaultValue',
             'false' => false,
@@ -168,9 +170,10 @@ class OptionsParserTest extends TestCase
     public function testToString()
     {
         $this->assertEquals(
-            'alt="this is a string" class="first fourth second third" ' .
-            'defaultKey="defaultValue" false="false" negative="-1" null="null" ' .
-            'true="true" zero="0" zeroAsString="0" zeroDotOne="0.1"',
+            'alt="this is a string" array="first second" '.
+            'class="first fourth second third" defaultKey="defaultValue" ' .
+            'false="false" negative="-1" null="null" true="true" zero="0" ' .
+            'zeroAsString="0" zeroDotOne="0.1"',
             $this->OptionsParser->toString()
         );
     }

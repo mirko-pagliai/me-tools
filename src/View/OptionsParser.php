@@ -67,18 +67,23 @@ class OptionsParser
      */
     protected function buildValue(&$value, $key)
     {
-        //Collapses multi-dimensional arrays into a single dimension
-        if (is_array($value)) {
-            $value = array_values(Hash::flatten($value));
-        }
-
         //Some options have to be exploded
         if (in_array($key, $this->toBeExploded)) {
             if (!is_array($value)) {
                 $value = explode(' ', $value);
             }
-            $value = array_unique(array_filter($value));
+            $value = array_filter($value);
+        }
+
+        if (is_array($value)) {
+            //Collapses multi-dimensional arrays into a single dimension
+            $value = array_values(Hash::flatten($value));
+
+            $value = array_unique($value);
             sort($value);
+        }
+
+        if (in_array($key, $this->toBeExploded)) {
             $value = implode(' ', $value);
         }
 
@@ -156,8 +161,11 @@ class OptionsParser
     {
         $options = $this->toArray();
 
+        //Transforms values as strings
         array_walk($options, function (&$value, $key) {
-            if (is_bool($value)) {
+            if (is_array($value)) {
+                $value = implode(' ', $value);
+            } elseif (is_bool($value)) {
                 $value = $value ? 'true' : 'false';
             } elseif (is_null($value)) {
                 $value = 'null';
