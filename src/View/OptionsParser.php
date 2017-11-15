@@ -90,6 +90,16 @@ class OptionsParser
     }
 
     /**
+     * Checks if a key exists
+     * @param string $key Key
+     * @return bool
+     */
+    public function exists($key)
+    {
+        return isset($this->options[$key]) || isset($this->defaults[$key]);
+    }
+
+    /**
      * Returns options as array
      * @return array
      * @uses $defaults

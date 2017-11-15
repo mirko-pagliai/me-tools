@@ -89,6 +89,23 @@ class OptionsParserTest extends TestCase
     }
 
     /**
+     * Tests for `exists()` method
+     * @test
+     */
+    public function testExists()
+    {
+        $this->assertTrue($this->OptionsParser->exists('alt'));
+
+        //This key exists in each case, because it is present as the default value
+        $this->assertTrue($this->OptionsParser->exists('defaultKey'));
+
+        //The value is empty (`false`), but the key exists anyway
+        $this->assertTrue($this->OptionsParser->exists('false'));
+
+        $this->assertFalse($this->OptionsParser->exists('noExistingKey'));
+    }
+
+    /**
      * Tests for `toArray()` method
      * @test
      */
