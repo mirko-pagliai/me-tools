@@ -93,10 +93,30 @@ class OptionsParser
      * Checks if a key exists
      * @param string $key Key
      * @return bool
+     * @uses $defaults
+     * @uses $options
      */
     public function exists($key)
     {
         return isset($this->options[$key]) || isset($this->defaults[$key]);
+    }
+
+    /**
+     * Gets the value for a key
+     * @param string $key Key
+     * @return mixed
+     * @uses $defaults
+     * @uses $options
+     */
+    public function get($key, $default = null)
+    {
+        $default = null;
+
+        if (isset($this->defaults[$key])) {
+            $default = $this->defaults[$key];
+        }
+
+        return Hash::get($this->options, $key, $default);
     }
 
     /**

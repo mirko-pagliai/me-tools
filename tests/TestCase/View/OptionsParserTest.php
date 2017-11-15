@@ -106,6 +106,21 @@ class OptionsParserTest extends TestCase
     }
 
     /**
+     * Tests for `get()` method
+     * @test
+     */
+    public function testGet()
+    {
+        $this->assertEquals('this is a string', $this->OptionsParser->get('alt'));
+        $this->assertEquals('first fourth second third', $this->OptionsParser->get('class'));
+
+        //Default value
+        $this->assertEquals('defaultValue', $this->OptionsParser->get('defaultKey'));
+
+        $this->assertNull($this->OptionsParser->get('noExistingKey'));
+    }
+
+    /**
      * Tests for `toArray()` method
      * @test
      */
