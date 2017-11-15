@@ -90,6 +90,23 @@ class OptionsParser
     }
 
     /**
+     * Delete a key
+     * @param string|array $key Key or array of keys
+     * @return $this
+     * @uses $options
+     */
+    public function delete($key)
+    {
+        if (is_array($key)) {
+            return array_walk($key, [$this, __METHOD__]);
+        }
+
+        unset($this->options[$key]);
+
+        return $this;
+    }
+
+    /**
      * Checks if a key exists
      * @param string $key Key
      * @return bool
@@ -108,13 +125,9 @@ class OptionsParser
      * @uses $defaults
      * @uses $options
      */
-    public function get($key, $default = null)
+    public function get($key)
     {
-        $default = null;
-
-        if (isset($this->defaults[$key])) {
-            $default = $this->defaults[$key];
-        }
+        $default = isset($this->defaults[$key]) ? $this->defaults[$key] : null;
 
         return Hash::get($this->options, $key, $default);
     }

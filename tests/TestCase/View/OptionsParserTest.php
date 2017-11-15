@@ -89,6 +89,27 @@ class OptionsParserTest extends TestCase
     }
 
     /**
+     * Tests for `delete()` method
+     * @test
+     */
+    public function testDelete()
+    {
+        $result = $this->OptionsParser->delete('class');
+        $this->assertInstanceOf('MeTools\View\OptionsParser', $result);
+        $this->assertFalse($this->OptionsParser->exists('class'));
+
+        //As array of keys
+        $this->OptionsParser->delete(['zero', 'zeroAsString']);
+        $this->assertFalse($this->OptionsParser->exists('zero'));
+        $this->assertFalse($this->OptionsParser->exists('zeroAsString'));
+
+        //This returns `true,` because it exists as the default value
+        $this->OptionsParser->delete('alt');
+        $this->assertTrue($this->OptionsParser->exists('alt'));
+        $this->assertEquals('this value will not be used', $this->OptionsParser->get('alt'));
+    }
+
+    /**
      * Tests for `exists()` method
      * @test
      */
