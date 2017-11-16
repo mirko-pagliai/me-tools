@@ -145,6 +145,9 @@ class OptionsParserTest extends TestCase
         $this->OptionsParser->append('false', ['an array']);
         $this->assertEquals([false, 'an array'], $this->OptionsParser->get('false'));
 
+        $this->OptionsParser->append('class', ['six', ['five']]);
+        $this->assertEquals('first five fourth second six third', $this->OptionsParser->get('class'));
+
         //Array of arguments
         $result = $this->OptionsParser->append(['zeroAsString' => ' with string', 'zeroDotOne' => 2]);
         $this->assertInstanceOf('MeTools\View\OptionsParser', $result);
