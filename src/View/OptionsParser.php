@@ -95,6 +95,47 @@ class OptionsParser
     }
 
     /**
+     * Add a value
+     * @param string $key Key
+     * @param mixed $value Value
+     * @return $this
+     * @uses buildValue()
+     * @uses $options
+     */
+    public function add($key, $value)
+    {
+        $this->options[$key] = $this->buildValue($value, $key);
+
+        return $this;
+    }
+
+    /**
+     * Append a value.
+     *
+     * If the existing value and the value to append are both strings, the
+     *  strings will be concatenated. In any other cases, an array of elements
+     *  will be created.
+     * @param string $key Key
+     * @param mixed $value Value
+     * @return $this
+     * @uses add()
+     */
+    public function append($key, $value)
+    {
+        $existing = $this->get($key);
+
+        if (is_string($existing) && is_string($value)) {
+            $value = $existing . ' ' . trim($value);
+        } elseif (!is_null($existing)) {
+            $value = [$existing, $value];
+        }
+
+        $this->add($key, $value);
+
+        return $this;
+    }
+
+    /**
      * Delete a key
      * @param string|array $key Key or array of keys
      * @return $this

@@ -90,6 +90,57 @@ class OptionsParserTest extends TestCase
     }
 
     /**
+     * Tests for `add()` method
+     * @test
+     */
+    public function testAdd()
+    {
+        $result = $this->OptionsParser->add('newKey', 'newValue');
+        $this->assertInstanceOf('MeTools\View\OptionsParser', $result);
+        $this->assertEquals('newValue', $this->OptionsParser->get('newKey'));
+
+        foreach ([
+            'a c  b d ',
+            ['a', 'c', '', ' ', 'b', 'd'],
+            ['a', 'c', [''], [' ', ['b'], 'd']],
+        ] as $value) {
+            $this->OptionsParser->add('class', $value);
+            $this->assertEquals('a b c d', $this->OptionsParser->get('class'));
+        }
+
+        //This rewrites the existing value
+        $this->OptionsParser->add('alt', 'a new alt value');
+        $this->assertEquals('a new alt value', $this->OptionsParser->get('alt'));
+    }
+
+    /**
+     * Tests for `append()` method
+     * @test
+     */
+    public function testAppend()
+    {
+        $result = $this->OptionsParser->append('newKey', 'newValue');
+        $this->assertInstanceOf('MeTools\View\OptionsParser', $result);
+        $this->assertEquals('newValue', $this->OptionsParser->get('newKey'));
+
+        //The value and the existing value are both strings
+        $this->OptionsParser->append('alt', '  with append ');
+        $this->assertEquals('this is a string with append', $this->OptionsParser->get('alt'));
+
+        //The value and the existing value are both arrays
+        $this->OptionsParser->append('array', ['third', ['fourth']]);
+        $this->assertEquals(['first', 'fourth', 'second', 'third'], $this->OptionsParser->get('array'));
+
+        //Mixed values, boolean and string
+        $this->OptionsParser->append('true', 'a string');
+        $this->assertEquals([true, 'a string'], $this->OptionsParser->get('true'));
+
+        //Mixed values, boolean and array
+        $this->OptionsParser->append('false', ['an array']);
+        $this->assertEquals([false, 'an array'], $this->OptionsParser->get('false'));
+    }
+
+    /**
      * Tests for `delete()` method
      * @test
      */
@@ -170,7 +221,7 @@ class OptionsParserTest extends TestCase
     public function testToString()
     {
         $this->assertEquals(
-            'alt="this is a string" array="first second" '.
+            'alt="this is a string" array="first second" ' .
             'class="first fourth second third" defaultKey="defaultValue" ' .
             'false="false" negative="-1" null="null" true="true" zero="0" ' .
             'zeroAsString="0" zeroDotOne="0.1"',
