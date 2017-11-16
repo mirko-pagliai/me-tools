@@ -95,15 +95,21 @@ class OptionsParser
     }
 
     /**
-     * Add a value
-     * @param string $key Key
-     * @param mixed $value Value
+     * Add a value.
+     *
+     * You can also pass an array with the keys and values as the only argument.
+     * @param string|array $key Key or array with keys and values
+     * @param mixed|null $value Value
      * @return $this
      * @uses buildValue()
      * @uses $options
      */
-    public function add($key, $value)
+    public function add($key, $value = null)
     {
+        if (is_array($key)) {
+            return array_map([$this, __METHOD__], array_keys($key), $key);
+        }
+
         $this->options[$key] = $this->buildValue($value, $key);
 
         return $this;
@@ -115,13 +121,21 @@ class OptionsParser
      * If the existing value and the value to append are both strings, the
      *  strings will be concatenated. In any other cases, an array of elements
      *  will be created.
-     * @param string $key Key
-     * @param mixed $value Value
+     *
+     * You can also pass an array with the keys and values as the only argument.
+     * @param string|array $key Key or array with keys and values
+     * @param mixed|null $value Value
      * @return $this
      * @uses add()
      */
-    public function append($key, $value)
+    public function append($key, $value = null)
     {
+        if (is_array($key)) {
+            array_map([$this, __METHOD__], array_keys($key), $key);
+
+            return $this;
+        }
+
         $existing = $this->get($key);
 
         if (is_string($existing) && is_string($value)) {
@@ -144,7 +158,7 @@ class OptionsParser
     public function delete($key)
     {
         if (is_array($key)) {
-            return array_walk($key, [$this, __METHOD__]);
+            return array_map([$this, __METHOD__], $key);
         }
 
         unset($this->options[$key]);

@@ -111,6 +111,12 @@ class OptionsParserTest extends TestCase
         //This rewrites the existing value
         $this->OptionsParser->add('alt', 'a new alt value');
         $this->assertEquals('a new alt value', $this->OptionsParser->get('alt'));
+
+        //Array of arguments
+        $result = $this->OptionsParser->add(['firstKey' => 'firstValue', 'secondKey' => 'secondValue']);
+        $this->assertInstanceOf('MeTools\View\OptionsParser', $result);
+        $this->assertEquals('firstValue', $this->OptionsParser->get('firstKey'));
+        $this->assertEquals('secondValue', $this->OptionsParser->get('secondKey'));
     }
 
     /**
@@ -138,6 +144,12 @@ class OptionsParserTest extends TestCase
         //Mixed values, boolean and array
         $this->OptionsParser->append('false', ['an array']);
         $this->assertEquals([false, 'an array'], $this->OptionsParser->get('false'));
+
+        //Array of arguments
+        $result = $this->OptionsParser->append(['zeroAsString' => ' with string', 'zeroDotOne' => 2]);
+        $this->assertInstanceOf('MeTools\View\OptionsParser', $result);
+        $this->assertEquals('0 with string', $this->OptionsParser->get('zeroAsString'));
+        $this->assertEquals([0.1, 2], $this->OptionsParser->get('zeroDotOne'));
     }
 
     /**
@@ -150,15 +162,16 @@ class OptionsParserTest extends TestCase
         $this->assertInstanceOf('MeTools\View\OptionsParser', $result);
         $this->assertFalse($this->OptionsParser->exists('class'));
 
-        //As array of keys
-        $this->OptionsParser->delete(['zero', 'zeroAsString']);
-        $this->assertFalse($this->OptionsParser->exists('zero'));
-        $this->assertFalse($this->OptionsParser->exists('zeroAsString'));
-
         //This returns `true,` because it exists as the default value
         $this->OptionsParser->delete('alt');
         $this->assertTrue($this->OptionsParser->exists('alt'));
         $this->assertEquals('this value will not be used', $this->OptionsParser->get('alt'));
+
+        //Array of arguments
+        $result = $this->OptionsParser->delete(['zero', 'zeroAsString']);
+        $this->assertInstanceOf('MeTools\View\OptionsParser', $result);
+        $this->assertFalse($this->OptionsParser->exists('zero'));
+        $this->assertFalse($this->OptionsParser->exists('zeroAsString'));
     }
 
     /**
