@@ -131,9 +131,7 @@ class OptionsParser
     public function append($key, $value = null)
     {
         if (is_array($key)) {
-            array_map([$this, __METHOD__], array_keys($key), $key);
-
-            return $this;
+            return array_map([$this, __METHOD__], array_keys($key), $key);
         }
 
         $existing = $this->get($key);
