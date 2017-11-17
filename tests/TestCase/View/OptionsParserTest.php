@@ -37,7 +37,7 @@ class OptionsParserTest extends TestCase
         parent::setUp();
 
         $options = [
-            'array' => ['second', ['first'], 'first'],
+            'array' => ['second', 'first'],
             'alt' => 'this is a string',
             'false' => false,
             'class' => 'first second third fourth',
@@ -134,8 +134,8 @@ class OptionsParserTest extends TestCase
         $this->assertEquals('this is a string with append', $this->OptionsParser->get('alt'));
 
         //The value and the existing value are both arrays
-        $this->OptionsParser->append('array', ['third', ['fourth']]);
-        $this->assertEquals(['first', 'fourth', 'second', 'third'], $this->OptionsParser->get('array'));
+        $this->OptionsParser->append('array', ['third', 'fourth']);
+        $this->assertEquals(['second', 'first', 'third', 'fourth'], $this->OptionsParser->get('array'));
 
         //Mixed values, boolean and string
         $this->OptionsParser->append('true', 'a string');
@@ -217,7 +217,7 @@ class OptionsParserTest extends TestCase
     {
         $this->assertEquals([
             'alt' => 'this is a string',
-            'array' => ['first', 'second'],
+            'array' => ['second', 'first'],
             'class' => 'first fourth second third',
             'defaultKey' => 'defaultValue',
             'false' => false,
@@ -237,7 +237,7 @@ class OptionsParserTest extends TestCase
     public function testToString()
     {
         $this->assertEquals(
-            'alt="this is a string" array="first second" ' .
+            'alt="this is a string" array="second first" ' .
             'class="first fourth second third" defaultKey="defaultValue" ' .
             'false="false" negative="-1" null="null" true="true" zero="0" ' .
             'zeroAsString="0" zeroDotOne="0.1"',

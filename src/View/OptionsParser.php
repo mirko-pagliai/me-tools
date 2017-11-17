@@ -67,23 +67,15 @@ class OptionsParser
      */
     protected function buildValue(&$value, $key)
     {
-        //Some options have to be exploded
         if (in_array($key, $this->toBeExploded)) {
             if (!is_array($value)) {
                 $value = explode(' ', $value);
+            } else {
+                //Collapses multi-dimensional arrays into a single dimension
+                $value = array_values(Hash::flatten($value));
             }
-            $value = array_filter($value);
-        }
-
-        if (is_array($value)) {
-            //Collapses multi-dimensional arrays into a single dimension
-            $value = array_values(Hash::flatten($value));
-
-            $value = array_unique($value);
+            $value = array_unique(array_filter($value));
             sort($value);
-        }
-
-        if (in_array($key, $this->toBeExploded)) {
             $value = implode(' ', $value);
         }
 
@@ -137,12 +129,14 @@ class OptionsParser
         $existing = $this->get($key);
 
         if (in_array($key, $this->toBeExploded)) {
+            $existing = explode(' ', $existing);
             $value = is_array($value) ? $value : explode(' ', $value);
-            $value = array_merge(explode(' ', $existing), $value);
-        } elseif (is_string($existing) && is_string($value)) {
+        }
+
+        if (is_string($existing) && is_string($value)) {
             $value = $existing . ' ' . trim($value);
         } elseif (!is_null($existing)) {
-            $value = [$existing, $value];
+            $value = array_merge((array)$existing, (array)$value);
         }
 
         $this->add($key, $value);
