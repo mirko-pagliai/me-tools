@@ -156,6 +156,27 @@ class OptionsParserTest extends TestCase
     }
 
     /**
+     * Tests for `contains()` method
+     * @test
+     */
+    public function testContains()
+    {
+        $this->assertFalse($this->OptionsParser->contains('alt', 'a string'));
+        $this->assertTrue($this->OptionsParser->contains('alt', 'this is a string'));
+        $this->assertFalse($this->OptionsParser->contains('array', 'third'));
+        $this->assertTrue($this->OptionsParser->contains('array', 'first'));
+
+        //On a value that must be exploded
+        $this->assertFalse($this->OptionsParser->contains('class', 'five'));
+        $this->assertTrue($this->OptionsParser->contains('class', 'fourth'));
+
+        //Arrays
+        $this->assertFalse($this->OptionsParser->contains('array', ['second', 'first', 'third']));
+        $this->assertTrue($this->OptionsParser->contains('array', ['second', 'first']));
+        $this->assertTrue($this->OptionsParser->contains('array', ['first', 'second']));
+    }
+
+    /**
      * Tests for `delete()` method
      * @test
      */

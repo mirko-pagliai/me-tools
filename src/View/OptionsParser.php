@@ -145,6 +145,41 @@ class OptionsParser
     }
 
     /**
+     * Checks if a key contains a value.
+     *
+     * If the existing value is an array:
+     *  - if you pass an array, the elements of the two arrays will be compared;
+     *  - otherwise, it will be checked if the value you have passed is
+     *      contained in the array.
+     *
+     * In all other cases, the value you have passed and your existing value
+     *  will be compared.
+     * @param string $key Key
+     * @param mixed $value Value
+     * @return bool
+     * @uses get()
+     * @uses $toBeExploded
+     */
+    public function contains($key, $value)
+    {
+        $existing = $this->get($key);
+
+        if (in_array($key, $this->toBeExploded)) {
+            $existing = explode(' ', $existing);
+        }
+
+        if (is_array($existing)) {
+            if (is_array($value)) {
+                return empty(array_diff($existing, $value)) && empty(array_diff($value, $existing));
+            }
+
+            return in_array($value, $existing, true);
+        }
+
+        return $existing === $value;
+    }
+
+    /**
      * Delete a key
      * @param string|array $key Key or array of keys
      * @return $this
