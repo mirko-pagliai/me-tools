@@ -15,15 +15,13 @@
 namespace MeTools\View\Helper;
 
 use Cake\View\Helper\BreadcrumbsHelper as CakeBreadcrumbsHelper;
-use MeTools\View\OptionsParserTrait;
+use MeTools\View\OptionsParser;
 
 /**
  * Creates breadcrumbs, according to the Bootstrap component
  */
 class BreadcrumbsHelper extends CakeBreadcrumbsHelper
 {
-    use OptionsParserTrait;
-
     /**
      * Add a crumb to the end of the trail
      * @param string|array $title If provided as a string, it represents the
@@ -46,9 +44,10 @@ class BreadcrumbsHelper extends CakeBreadcrumbsHelper
      */
     public function add($title, $url = null, array $options = [])
     {
-        $options = $this->optionsValues(['class' => 'breadcrumb-item'], $options);
+        $options = new OptionsParser($options);
+        $options->append('class', 'breadcrumb-item');
 
-        return parent::add($title, $url, $options);
+        return parent::add($title, $url, $options->toArray());
     }
 
     /**
@@ -73,9 +72,10 @@ class BreadcrumbsHelper extends CakeBreadcrumbsHelper
      */
     public function prepend($title, $url = null, array $options = [])
     {
-        $options = $this->optionsValues(['class' => 'breadcrumb-item'], $options);
+        $options = new OptionsParser($options);
+        $options->append('class', 'breadcrumb-item');
 
-        return parent::prepend($title, $url, $options);
+        return parent::prepend($title, $url, $options->toArray());
     }
 
     /**
@@ -96,8 +96,9 @@ class BreadcrumbsHelper extends CakeBreadcrumbsHelper
         $last = key($this->crumbs);
         $this->crumbs[$last]['url'] = null;
 
-        $attributes = $this->optionsValues(['class' => 'breadcrumb'], $attributes);
+        $attributes = new OptionsParser($attributes);
+        $attributes->append('class', 'breadcrumb');
 
-        return parent::render($attributes, $separator);
+        return parent::render($attributes->toArray(), $separator);
     }
 }

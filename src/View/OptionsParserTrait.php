@@ -82,7 +82,7 @@ trait OptionsParserTrait
      * @uses toArray()
      * @uses optionsValues()
      */
-    public function addButtonClasses(array $options, $classes = 'btn-secondary')
+    public function addButtonClasses($options, $classes = 'btn-secondary')
     {
         $baseClasses = [
             'primary',
@@ -110,11 +110,12 @@ trait OptionsParserTrait
         ]);
 
         //If a base class already exists, it just adds the `btn` class
-        if (!empty($options['class']) && preg_match(
+        if ($options->exists('class') && preg_match(
             '/btn\-?(' . implode('|', $baseClasses) . ')/',
-            $options['class']
+            $options->get('class')
         )) {
-            return $this->optionsValues(['class' => 'btn'], $options);
+            return $options->append('class', 'btn');
+//            return $this->optionsValues(['class' => 'btn'], $options);
         }
 
         $classes = collection($this->toArray($classes))
@@ -134,6 +135,7 @@ trait OptionsParserTrait
         //Prepend the `btn` class
         array_unshift($classes, 'btn');
 
+        return $options->append('class', $classes);
         return $this->optionsValues(['class' => $classes], $options);
     }
 
@@ -144,17 +146,17 @@ trait OptionsParserTrait
      * @return array Text with icons as first value, options as second value
      * @uses icon()
      */
-    public function addIconToText($text, array $options)
+    public function addIconToText($text, $options)
     {
-        $align = empty($options['icon-align']) ? false : $options['icon-align'];
-        unset($options['icon-align']);
+        $align = $options->get('icon-align');
+        $options->delete('icon-align');
 
-        if (empty($options['icon'])) {
+        if (!$options->exists('icon')) {
             return [$text, $options];
         }
 
-        $icon = $this->icon($options['icon']);
-        unset($options['icon']);
+        $icon = $this->icon($options->get('icon'));
+        $options->delete('icon');
 
         if (empty($text)) {
             $text = $icon;

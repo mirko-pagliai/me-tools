@@ -56,7 +56,7 @@ class BreadcrumbsHelperTest extends TestCase
             'First',
             '/a',
             '/li',
-            ['li' => ['class' => 'custom-class breadcrumb-item']],
+            ['li' => ['class' => 'breadcrumb-item custom-class']],
             'span' => [],
             'Second',
             '/span',

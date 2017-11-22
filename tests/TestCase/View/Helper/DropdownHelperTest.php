@@ -114,7 +114,7 @@ class DropdownHelperTest extends TestCase
         $expected = [
             ['a' => [
                 'href' => '#',
-                'class' => 'my-start-class dropdown-toggle',
+                'class' => 'dropdown-toggle my-start-class',
                 'aria-expanded' => 'false',
                 'aria-haspopup' => 'true',
                 'data-toggle' => 'dropdown',

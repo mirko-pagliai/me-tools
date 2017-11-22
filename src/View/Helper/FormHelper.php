@@ -16,6 +16,7 @@ namespace MeTools\View\Helper;
 use Cake\Utility\Hash;
 use Cake\View\Helper\FormHelper as CakeFormHelper;
 use Cake\View\View;
+use MeTools\View\OptionsParser;
 use MeTools\View\OptionsParserTrait;
 
 /**
@@ -83,11 +84,11 @@ class FormHelper extends CakeFormHelper
      */
     public function button($title, array $options = [])
     {
-        $options = $this->optionsDefaults(['type' => 'button'], $options);
-        $options = $this->addButtonClasses($options, $options['type'] === 'submit' ? 'success' : 'primary');
+        $options = new OptionsParser($options, ['type' => 'button']);
+        $options = $this->addButtonClasses($options, $options->contains('type', 'submit') ? 'success' : 'primary');
         list($title, $options) = $this->addIconToText($title, $options);
 
-        return parent::button($title, $options);
+        return parent::button($title, $options->toArray());
     }
 
     /**
@@ -98,11 +99,13 @@ class FormHelper extends CakeFormHelper
      */
     public function checkbox($fieldName, array $options = [])
     {
-        if (!isset($options['hiddenField']) || !empty($options['hiddenField'])) {
-            $options['hiddenField'] = true;
+        $options = new OptionsParser($options);
+
+        if (!$options->exists('hiddenField') || !$options->contains('hiddenField', false)) {
+            $options->add('hiddenField', true);
         }
 
-        return parent::checkbox($fieldName, $options);
+        return parent::checkbox($fieldName, $options->toArray());
     }
 
     /**
@@ -117,11 +120,22 @@ class FormHelper extends CakeFormHelper
      */
     public function ckeditor($fieldName, array $options = [])
     {
-        $options['label'] = isset($options['label']) ? $options['label'] : false;
-        $options = $this->optionsDefaults(['type' => 'textarea'], $options);
-        $options['templates']['textarea'] = '<textarea name="{{name}}" class="form-control wysiwyg editor"{{attrs}}>{{value}}</textarea>';
+        $options = new OptionsParser($options, [
+            'label' => false,
+            'type' => 'textarea',
+        ]);
 
-        return $this->control($fieldName, $options);
+//        $options->add('label', $options->get('label', false));
+//
+//        $options['label'] = isset($options['label']) ? $options['label'] : false;
+//        $options = $this->optionsDefaults(['type' => 'textarea'], $options);
+//        $options['templates']['textarea'] = '<textarea name="{{name}}" class="form-control wysiwyg editor"{{attrs}}>{{value}}</textarea>';
+
+        $options->append('templates', [
+            'textarea' => '<textarea name="{{name}}" class="form-control wysiwyg editor"{{attrs}}>{{value}}</textarea>',
+        ]);
+
+        return $this->control($fieldName, $options->toArray());
     }
 
     /**

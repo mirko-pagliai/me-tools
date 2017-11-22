@@ -103,7 +103,7 @@ class FormHelperTest extends TestCase
 
         $result = $this->Form->button($title, ['class' => 'btn-danger']);
         $expected = [
-            'button' => ['type' => 'button', 'class' => 'btn-danger btn'],
+            'button' => ['type' => 'button', 'class' => 'btn btn-danger'],
             $title,
             '/button',
         ];
@@ -883,7 +883,7 @@ class FormHelperTest extends TestCase
 
         $result = $this->Form->submit($title, ['class' => 'btn-danger']);
         $expected = [
-            'button' => ['type' => 'submit', 'class' => 'btn-danger btn'],
+            'button' => ['type' => 'submit', 'class' => 'btn btn-danger'],
             $title,
             '/button',
         ];

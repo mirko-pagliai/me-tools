@@ -15,20 +15,21 @@ namespace MeTools\View\Helper;
 use Cake\Event\Event;
 use Cake\I18n\I18n;
 use Cake\View\Helper;
-use MeTools\View\OptionsParserTrait;
+use MeTools\View\OptionsParser;
 
 /**
  * Library helper
  */
 class LibraryHelper extends Helper
 {
-    use OptionsParserTrait;
-
     /**
      * Helpers
      * @var array
      */
-    public $helpers = [ASSETS . '.Asset', 'Html' => ['className' => ME_TOOLS . '.Html']];
+    public $helpers = [
+        ASSETS . '.Asset',
+        'Html' => ['className' => ME_TOOLS . '.Html'],
+    ];
 
     /**
      * It will contain the output code
@@ -59,13 +60,11 @@ class LibraryHelper extends Helper
             ['block' => 'css_bottom']
         );
 
-        $options = $this->optionsDefaults([
-            'showTodayButton' => true,
-            'showClear' => true,
-        ], $options);
+        //Gets the current locale
+        $locale = substr(I18n::getLocale(), 0, 2);
 
-        if (!isset($options['icons'])) {
-            $options['icons'] = [
+        $options = new OptionsParser($options, [
+            'icons' => [
                 'time' => 'fa fa-clock-o',
                 'date' => 'fa fa-calendar',
                 'up' => 'fa fa-chevron-up',
@@ -75,14 +74,13 @@ class LibraryHelper extends Helper
                 'today' => 'fa fa-dot-circle-o',
                 'clear' => 'fa fa-trash',
                 'close' => 'fa fa-times',
-            ];
-        }
+            ],
+            'locale' => empty($locale) ? 'en-gb' : $locale,
+            'showTodayButton' => true,
+            'showClear' => true,
+        ]);
 
-        //Sets the current locale
-        $locale = substr(I18n::getLocale(), 0, 2);
-        $options = $this->optionsDefaults(['locale' => empty($locale) ? 'en-gb' : $locale], $options);
-
-        return sprintf('$("%s").datetimepicker(%s);', $input, json_encode($options, JSON_PRETTY_PRINT));
+        return sprintf('$("%s").datetimepicker(%s);', $input, json_encode($options->toArray(), JSON_PRETTY_PRINT));
     }
 
     /**
@@ -98,13 +96,12 @@ class LibraryHelper extends Helper
     {
         //Writes the output
         if (!empty($this->output)) {
-            $output = collection($this->output)
-                ->map(function ($v) {
-                    return "    " . $v;
-                });
+            $output = implode(PHP_EOL, array_map(function ($v) {
+                return "    " . $v;
+            }, $this->output));
 
             $this->Html->scriptBlock(
-                sprintf('$(function() {%s});', PHP_EOL . implode(PHP_EOL, $output->toArray()) . PHP_EOL),
+                sprintf('$(function() {%s});', PHP_EOL . $output . PHP_EOL),
                 ['block' => 'script_bottom']
             );
 
@@ -193,9 +190,9 @@ class LibraryHelper extends Helper
     {
         $input = empty($input) ? '.datepicker' : $input;
 
-        $options = $this->optionsDefaults(['format' => 'YYYY/MM/DD'], $options);
+        $options = new OptionsParser($options, ['format' => 'YYYY/MM/DD']);
 
-        $this->output[] = self::buildDatetimepicker($input, $options);
+        $this->output[] = self::buildDatetimepicker($input, $options->toArray());
     }
 
     /**
@@ -307,8 +304,9 @@ class LibraryHelper extends Helper
     {
         $input = empty($input) ? '.timepicker' : $input;
 
-        $options = $this->optionsDefaults(['pickTime' => false], $options);
 
-        $this->output[] = self::buildDatetimepicker($input, $options);
+        $options = new OptionsParser($options, ['pickTime' => false]);
+
+        $this->output[] = self::buildDatetimepicker($input, $options->toArray());
     }
 }

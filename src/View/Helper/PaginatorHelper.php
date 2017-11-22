@@ -17,6 +17,7 @@ use Cake\Utility\Hash;
 use Cake\View\Helper\PaginatorHelper as CakePaginatorHelper;
 use Cake\View\View;
 use MeTools\View\OptionsParserTrait;
+use MeTools\View\OptionsParser;
 
 /**
  * Provides functionalities to the generation of pagers
@@ -59,10 +60,10 @@ class PaginatorHelper extends CakePaginatorHelper
      */
     public function next($title = 'Next >>', array $options = [])
     {
-        $options = $this->optionsDefaults(['escape' => false, 'icon-align' => 'right'], $options);
+        $options = new OptionsParser($options, ['escape' => false, 'icon-align' => 'right']);
         list($title, $options) = $this->addIconToText($title, $options);
 
-        return parent::next($title, $options);
+        return parent::next($title, $options->toArray());
     }
 
     /**
@@ -73,9 +74,9 @@ class PaginatorHelper extends CakePaginatorHelper
      */
     public function prev($title = '<< Previous', array $options = [])
     {
-        $options = $this->optionsDefaults(['escape' => false], $options);
+        $options = new OptionsParser($options, ['escape' => false]);
         list($title, $options) = $this->addIconToText($title, $options);
 
-        return parent::prev($title, $options);
+        return parent::prev($title, $options->toArray());
     }
 }

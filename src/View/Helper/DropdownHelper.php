@@ -14,7 +14,7 @@
 namespace MeTools\View\Helper;
 
 use Cake\View\Helper;
-use MeTools\View\OptionsParserTrait;
+use MeTools\View\OptionsParser;
 
 /**
  * Provides functionalities for creating dropdown menus, according to Bootstrap.
@@ -58,8 +58,6 @@ use MeTools\View\OptionsParserTrait;
  */
 class DropdownHelper extends Helper
 {
-    use OptionsParserTrait;
-
     /**
      * Helpers
      * @var array
@@ -88,7 +86,7 @@ class DropdownHelper extends Helper
     {
         $this->start($title, $titleOptions);
 
-        collection($menu)->each(function ($item) {
+        array_walk($menu, function ($item) {
             echo $item;
         });
 
@@ -109,14 +107,16 @@ class DropdownHelper extends Helper
      */
     public function start($title, array $titleOptions = [])
     {
-        $titleOptions = $this->optionsValues([
+        $titleOptions = new OptionsParser($titleOptions, [
             'aria-expanded' => 'false',
             'aria-haspopup' => 'true',
+        ]);
+        $titleOptions->append([
             'class' => 'dropdown-toggle',
             'data-toggle' => 'dropdown',
-        ], $titleOptions);
+        ]);
 
-        $this->_start = $this->Html->link($title, '#', $titleOptions);
+        $this->_start = $this->Html->link($title, '#', $titleOptions->toArray());
 
         ob_start();
     }
@@ -147,8 +147,9 @@ class DropdownHelper extends Helper
             return;
         }
 
-        $divOptions = $this->optionsValues(['class' => 'dropdown-menu'], $divOptions);
+        $divOptions = new OptionsParser($divOptions);
+        $divOptions->append('class', 'dropdown-menu');
 
-        return $this->_start . PHP_EOL . $this->Html->div($divOptions['class'], $matches[0], $divOptions);
+        return $this->_start . PHP_EOL . $this->Html->div($divOptions->get('class'), $matches[0], $divOptions->toArray());
     }
 }

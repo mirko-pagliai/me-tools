@@ -21,16 +21,16 @@ use Cake\Utility\Hash;
 class OptionsParser
 {
     /**
-     * Default values
-     * @var array
+     * Instance of `OptionsParser` for default values
+     * @var MeTools\View\OptionsParser
      */
-    protected $defaults;
+    public $Default = [];
 
     /**
      * Existing options
      * @var array
      */
-    protected $options;
+    protected $options = [];
 
     /**
      * Keys of options to be exploded
@@ -44,16 +44,18 @@ class OptionsParser
      * @param array $defaults Default values
      * @return $this
      * @uses buildValue()
-     * @uses $defaults
+     * @uses $Default
      * @uses $options
      */
     public function __construct(array $options = [], array $defaults = [])
     {
-        array_walk($defaults, [$this, 'buildValue']);
         array_walk($options, [$this, 'buildValue']);
 
-        $this->defaults = $defaults;
         $this->options = $options;
+
+        if (!empty($defaults)) {
+            $this->Default = new OptionsParser($defaults);
+        }
 
         return $this;
     }
@@ -200,24 +202,24 @@ class OptionsParser
      * Checks if a key exists
      * @param string $key Key
      * @return bool
-     * @uses $defaults
+     * @uses $Default
      * @uses $options
      */
     public function exists($key)
     {
-        return isset($this->options[$key]) || isset($this->defaults[$key]);
+        return isset($this->options[$key]) || isset($this->Default->options[$key]);
     }
 
     /**
      * Gets the value for a key
      * @param string $key Key
      * @return mixed
-     * @uses $defaults
+     * @uses $Default
      * @uses $options
      */
     public function get($key)
     {
-        $default = isset($this->defaults[$key]) ? $this->defaults[$key] : null;
+        $default = $this->Default ? $this->Default->get($key) : null;
 
         return Hash::get($this->options, $key, $default);
     }
@@ -225,12 +227,16 @@ class OptionsParser
     /**
      * Returns options as array
      * @return array
-     * @uses $defaults
+     * @uses $Default
      * @uses $options
      */
     public function toArray()
     {
-        $options = array_merge($this->defaults, $this->options);
+        $options = $this->options;
+
+        if ($this->Default) {
+            $options = array_merge($this->Default->options, $options);
+        }
 
         ksort($options);
 
