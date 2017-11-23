@@ -16,8 +16,8 @@ namespace MeTools\View\Helper;
 use Cake\Utility\Hash;
 use Cake\View\Helper\PaginatorHelper as CakePaginatorHelper;
 use Cake\View\View;
-use MeTools\View\OptionsParserTrait;
 use MeTools\View\OptionsParser;
+use MeTools\View\OptionsParserTrait;
 
 /**
  * Provides functionalities to the generation of pagers

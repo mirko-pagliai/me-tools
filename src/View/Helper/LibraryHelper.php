@@ -75,7 +75,7 @@ class LibraryHelper extends Helper
                 'clear' => 'fa fa-trash',
                 'close' => 'fa fa-times',
             ],
-            'locale' => empty($locale) ? 'en-gb' : $locale,
+            'locale' => $locale ?: 'en-gb',
             'showTodayButton' => true,
             'showClear' => true,
         ]);
@@ -188,11 +188,9 @@ class LibraryHelper extends Helper
      */
     public function datepicker($input = null, array $options = [])
     {
-        $input = empty($input) ? '.datepicker' : $input;
-
         $options = new OptionsParser($options, ['format' => 'YYYY/MM/DD']);
 
-        $this->output[] = self::buildDatetimepicker($input, $options->toArray());
+        $this->output[] = self::buildDatetimepicker($input ?: '.datepicker', $options->toArray());
     }
 
     /**
@@ -211,9 +209,7 @@ class LibraryHelper extends Helper
      */
     public function datetimepicker($input = null, array $options = [])
     {
-        $input = empty($input) ? '.datetimepicker' : $input;
-
-        $this->output[] = self::buildDatetimepicker($input, $options);
+        $this->output[] = self::buildDatetimepicker($input ?: '.datetimepicker', $options);
     }
 
     /**
@@ -302,11 +298,8 @@ class LibraryHelper extends Helper
      */
     public function timepicker($input = null, array $options = [])
     {
-        $input = empty($input) ? '.timepicker' : $input;
-
-
         $options = new OptionsParser($options, ['pickTime' => false]);
 
-        $this->output[] = self::buildDatetimepicker($input, $options->toArray());
+        $this->output[] = self::buildDatetimepicker($input ?: '.timepicker', $options->toArray());
     }
 }

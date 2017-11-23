@@ -136,7 +136,6 @@ trait OptionsParserTrait
         array_unshift($classes, 'btn');
 
         return $options->append('class', $classes);
-        return $this->optionsValues(['class' => $classes], $options);
     }
 
     /**
