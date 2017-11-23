@@ -65,7 +65,7 @@ class OptionsParserTest extends TestCase
     {
         $this->assertInstanceOf(get_class($this->OptionsParser), $this->OptionsParser->Default);
         $this->assertEquals(get_class_methods($this->OptionsParser), get_class_methods($this->OptionsParser->Default));
-        $this->assertEquals([], $this->OptionsParser->Default->Default);
+        $this->assertNull($this->OptionsParser->Default->Default);
 
         $this->assertEquals('this value will not be used', $this->OptionsParser->Default->get('alt'));
         $this->assertNull($this->OptionsParser->Default->delete('alt')->get('alt'));
@@ -179,6 +179,7 @@ class OptionsParserTest extends TestCase
         $this->assertTrue($this->OptionsParser->contains('alt', 'this is a string'));
         $this->assertFalse($this->OptionsParser->contains('array', 'third'));
         $this->assertTrue($this->OptionsParser->contains('array', 'first'));
+        $this->assertFalse($this->OptionsParser->contains('noExistingKey', null));
 
         //On a value that must be exploded
         $this->assertFalse($this->OptionsParser->contains('class', 'five'));
@@ -210,6 +211,12 @@ class OptionsParserTest extends TestCase
         $this->assertInstanceOf('MeTools\View\OptionsParser', $result);
         $this->assertFalse($this->OptionsParser->exists('zero'));
         $this->assertFalse($this->OptionsParser->exists('zeroAsString'));
+
+        //Multiple arguments
+        $result = $this->OptionsParser->delete('true', 'false');
+        $this->assertInstanceOf('MeTools\View\OptionsParser', $result);
+        $this->assertFalse($this->OptionsParser->exists('true'));
+        $this->assertFalse($this->OptionsParser->exists('false'));
     }
 
     /**

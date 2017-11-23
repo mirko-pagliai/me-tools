@@ -202,6 +202,7 @@ class FormHelperTest extends TestCase
             '/p',
             '/div',
         ];
+//        dd($result);
         $this->assertHtml($expected, $result);
 
         $result = $this->Form->control($field, ['help' => ['Tip first line', 'Tip second line']]);
@@ -697,7 +698,13 @@ class FormHelperTest extends TestCase
             'form' => ['name', 'style' => 'display:none;', 'method' => 'post', 'action' => $url],
             'input' => ['type' => 'hidden', 'name' => '_method', 'value' => 'POST'],
             '/form',
-            'a' => ['href' => '#', 'role' => 'button', 'class' => 'btn-danger btn', 'title' => $title, 'onclick'],
+            'a' => [
+                'href' => '#',
+                'class' => 'btn btn-danger',
+                'onclick',
+                'role' => 'button',
+                'title' => $title,
+            ],
             $title,
             '/a',
         ];

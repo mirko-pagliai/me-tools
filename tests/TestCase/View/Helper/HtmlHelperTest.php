@@ -108,7 +108,7 @@ class HtmlHelperTest extends TestCase
 
         $result = $this->Html->badge($text, ['class' => 'my-class']);
         $expected = [
-            'span' => ['class' => 'my-class badge'],
+            'span' => ['class' => 'badge my-class'],
             $text,
             '/span',
         ];
@@ -127,8 +127,8 @@ class HtmlHelperTest extends TestCase
         $result = $this->Html->button($text);
         $expected = [
             'button' => [
-                'role' => 'button',
                 'class' => 'btn btn-secondary',
+                'role' => 'button',
                 'title' => $text,
             ],
             $text,
@@ -141,8 +141,8 @@ class HtmlHelperTest extends TestCase
         ]);
         $expected = [
             'button' => [
-                'role' => 'button',
                 'class' => 'btn btn-secondary',
+                'role' => 'button',
                 'title' => 'my-custom-title',
             ],
             $text,
@@ -153,8 +153,8 @@ class HtmlHelperTest extends TestCase
         $result = $this->Html->button($text, null, ['class' => 'my-class']);
         $expected = [
             'button' => [
+                'class' => 'btn btn-secondary my-class',
                 'role' => 'button',
-                'class' => 'my-class btn btn-secondary',
                 'title' => $text,
              ],
             $text,
@@ -165,8 +165,8 @@ class HtmlHelperTest extends TestCase
         $result = $this->Html->button($text, null, ['class' => 'btn-primary']);
         $expected = [
             'button' => [
+                'class' => 'btn btn-primary',
                 'role' => 'button',
-                'class' => 'btn-primary btn',
                 'title' => $text,
             ],
             $text,
@@ -305,8 +305,8 @@ class HtmlHelperTest extends TestCase
         );
         $expected = [
             'button' => [
-                'role' => 'button',
                 'class' => 'btn btn-secondary',
+                'role' => 'button',
                 'title' => 'Code and text'
             ],
             $text,
@@ -327,9 +327,9 @@ class HtmlHelperTest extends TestCase
         $result = $this->Html->button($text, '#');
         $expected = [
             'a' => [
+                'class' => 'btn btn-secondary',
                 'href' => '#',
                 'role' => 'button',
-                'class' => 'btn btn-secondary',
                 'title' => $text,
             ],
             $text,
@@ -340,9 +340,9 @@ class HtmlHelperTest extends TestCase
         $result = $this->Html->button($text, '#', ['class' => 'my-class']);
         $expected = [
             'a' => [
+                'class' => 'btn btn-secondary my-class',
                 'href' => '#',
                 'role' => 'button',
-                'class' => 'my-class btn btn-secondary',
                 'title' => $text,
             ],
             $text,
@@ -353,9 +353,9 @@ class HtmlHelperTest extends TestCase
         $result = $this->Html->button($text, '#', ['class' => 'btn-primary']);
         $expected = [
             'a' => [
+                'class' => 'btn btn-primary',
                 'href' => '#',
                 'role' => 'button',
-                'class' => 'btn-primary btn',
                 'title' => $text,
             ],
             $text,
@@ -366,9 +366,9 @@ class HtmlHelperTest extends TestCase
         $result = $this->Html->button($text, '#', ['tooltip' => 'my tooltip']);
         $expected = [
             'a' => [
+                'class' => 'btn btn-secondary',
                 'href' => '#',
                 'role' => 'button',
-                'class' => 'btn btn-secondary',
                 'data-toggle' => 'tooltip',
                 'title' => 'my tooltip',
             ],
@@ -385,9 +385,9 @@ class HtmlHelperTest extends TestCase
         );
         $expected = [
             'a' => [
+                'class' => 'btn btn-secondary',
                 'href' => '#',
                 'role' => 'button',
-                'class' => 'btn btn-secondary',
                 'data-toggle' => 'tooltip',
                 'title' => 'my tooltip',
             ],
@@ -399,9 +399,9 @@ class HtmlHelperTest extends TestCase
         $result = $this->Html->button($text, '#', ['icon' => 'home']);
         $expected = [
             'a' => [
+                'class' => 'btn btn-secondary',
                 'href' => '#',
                 'role' => 'button',
-                'class' => 'btn btn-secondary',
                 'title' => $text,
             ],
             'i' => ['class' => 'fa fa-home'],
@@ -683,7 +683,7 @@ class HtmlHelperTest extends TestCase
         $this->assertHtml($expected, $result);
 
         $expected = [
-            'i' => ['class' => 'fa fa-hand-o-right fa-2x'],
+            'i' => ['class' => 'fa fa-2x fa-hand-o-right'],
             ' ',
             '/i',
         ];
@@ -749,7 +749,7 @@ class HtmlHelperTest extends TestCase
         $expected = [
             'div' => ['class' => 'embed-responsive embed-responsive-16by9'],
             'iframe' => [
-                'class' => 'my-class embed-responsive-item',
+                'class' => 'embed-responsive-item my-class',
                 'src' => $url,
             ],
             '/iframe',
@@ -782,7 +782,7 @@ class HtmlHelperTest extends TestCase
             'img' => [
                 'src' => '/img/image.gif',
                 'alt' => $image,
-                'class' => 'my-class img-fluid',
+                'class' => 'img-fluid my-class',
             ],
         ];
         $this->assertHtml($expected, $result);
@@ -793,7 +793,7 @@ class HtmlHelperTest extends TestCase
             'img' => [
                 'src' => '/img/image.gif',
                 'alt' => $image,
-                'class' => 'my-class img-fluid',
+                'class' => 'img-fluid my-class',
             ],
         ];
         $this->assertHtml($expected, $result);
@@ -850,7 +850,7 @@ class HtmlHelperTest extends TestCase
 
         $result = $this->Html->label($text, ['class' => 'my-class']);
         $expected = [
-            'span' => ['class' => 'my-class label label-default'],
+            'span' => ['class' => 'label label-default my-class'],
             $text,
             '/span',
         ];
@@ -869,7 +869,7 @@ class HtmlHelperTest extends TestCase
             ['class' => 'my-class', 'type' => 'success']
         );
         $expected = [
-            'span' => ['class' => 'my-class label label-success'],
+            'span' => ['class' => 'label label-success my-class'],
             $text,
             '/span',
         ];
@@ -1071,9 +1071,9 @@ class HtmlHelperTest extends TestCase
         $expected = [
             'a' => [
                 'href' => '#',
+                'data-placement' => 'bottom',
                 'data-toggle' => 'tooltip',
                 'title' => 'my tooltip',
-                'data-placement' => 'bottom',
             ],
             $title,
             '/a'
@@ -1179,7 +1179,7 @@ class HtmlHelperTest extends TestCase
             ['class' => 'item-class', 'icon' => 'home']
         );
         $expected = [
-            'ul' => ['class' => 'list-class fa-ul'],
+            'ul' => ['class' => 'fa-ul list-class'],
             ['li' => ['class' => 'item-class']],
             ['i' => ['class' => 'fa fa-home fa-li']],
             ' ',
@@ -1553,7 +1553,7 @@ class HtmlHelperTest extends TestCase
                 'allowfullscreen' => 'allowfullscreen',
                 'height' => '480',
                 'width' => '640',
-                'class' => 'my-class embed-responsive-item',
+                'class' => 'embed-responsive-item my-class',
                 'src' => $url,
             ],
             '/iframe',

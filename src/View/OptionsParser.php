@@ -24,7 +24,7 @@ class OptionsParser
      * Instance of `OptionsParser` for default values
      * @var MeTools\View\OptionsParser
      */
-    public $Default = [];
+    public $Default;
 
     /**
      * Existing options
@@ -41,20 +41,20 @@ class OptionsParser
     /**
      * Constructor
      * @param array $options Existing options
-     * @param array $defaults Default values
+     * @param array|null $defaults Default values
      * @return $this
      * @uses buildValue()
      * @uses $Default
      * @uses $options
      */
-    public function __construct(array $options = [], array $defaults = [])
+    public function __construct(array $options = [], $defaults = [])
     {
         array_walk($options, [$this, 'buildValue']);
 
         $this->options = $options;
 
-        if (!empty($defaults)) {
-            $this->Default = new OptionsParser($defaults);
+        if (!is_null($defaults)) {
+            $this->Default = new OptionsParser($defaults, null);
         }
 
         return $this;
@@ -159,11 +159,16 @@ class OptionsParser
      * @param string $key Key
      * @param mixed $value Value
      * @return bool
+     * @uses exists()
      * @uses get()
      * @uses $toBeExploded
      */
     public function contains($key, $value)
     {
+        if (!$this->exists($key)) {
+            return false;
+        }
+
         $existing = $this->get($key);
 
         if (in_array($key, $this->toBeExploded)) {
@@ -189,6 +194,10 @@ class OptionsParser
      */
     public function delete($key)
     {
+        if (func_num_args() > 1) {
+            $key = func_get_args();
+        }
+
         if (is_array($key)) {
             return array_map([$this, __METHOD__], $key);
         }

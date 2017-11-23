@@ -177,16 +177,16 @@ trait OptionsParserTrait
      */
     public function addTooltip($options)
     {
-        if (!empty($options['tooltip'])) {
-            $options = $this->optionsValues(['data-toggle' => 'tooltip'], $options);
-            $options['title'] = trim(h(strip_tags($options['tooltip'])));
+        if ($options->exists('tooltip')) {
+            $options->append('data-toggle', 'tooltip');
+            $options->add('title', trim(h(strip_tags($options->get('tooltip')))));
 
-            if (!empty($options['tooltip-align'])) {
-                $options = $this->optionsValues(['data-placement' => $options['tooltip-align']], $options);
+            if ($options->exists('tooltip-align')) {
+                $options->add('data-placement', $options->get('tooltip-align'));
             }
         }
 
-        unset($options['tooltip'], $options['tooltip-align']);
+        $options->delete('tooltip', 'tooltip-align');
 
         return $options;
     }
