@@ -286,4 +286,23 @@ class OptionsParserTest extends TestCase
             $this->OptionsParser->toString()
         );
     }
+
+    /**
+     * Tests for `tooltip()` method
+     * @test
+     */
+    public function testTooltip()
+    {
+        $this->OptionsParser->add('title', 'a title');
+        $this->assertEquals('a title', $this->OptionsParser->get('title'));
+
+        $result = $this->OptionsParser->add('tooltip', 'a tooltip')->tooltip();
+        $this->assertInstanceOf('MeTools\View\OptionsParser', $result);
+        $this->assertEquals('a tooltip', $this->OptionsParser->get('title'));
+        $this->assertFalse($this->OptionsParser->exists('data-placement'));
+
+        $this->OptionsParser->add(['tooltip' => 'a tooltip', 'tooltip-align' => 'right'])->tooltip();
+        $this->assertEquals('a tooltip', $this->OptionsParser->get('title'));
+        $this->assertEquals('right', $this->OptionsParser->get('data-placement'));
+    }
 }

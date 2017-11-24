@@ -101,7 +101,9 @@ class OptionsParser
     public function add($key, $value = null)
     {
         if (is_array($key)) {
-            return array_map([$this, __METHOD__], array_keys($key), $key);
+            array_map([$this, __METHOD__], array_keys($key), $key);
+
+            return $this;
         }
 
         $this->options[$key] = $this->buildValue($value, $key);
@@ -125,7 +127,9 @@ class OptionsParser
     public function append($key, $value = null)
     {
         if (is_array($key)) {
-            return array_map([$this, __METHOD__], array_keys($key), $key);
+            array_map([$this, __METHOD__], array_keys($key), $key);
+
+            return $this;
         }
 
         $existing = $this->get($key);
@@ -199,7 +203,9 @@ class OptionsParser
         }
 
         if (is_array($key)) {
-            return array_map([$this, __METHOD__], $key);
+            array_map([$this, __METHOD__], $key);
+
+            return $this;
         }
 
         unset($this->options[$key]);
@@ -275,5 +281,36 @@ class OptionsParser
         });
 
         return implode(' ', $options);
+    }
+
+    /**
+     * Builds keys for tooltip.
+     *
+     * Gets `tooltip` and `tooltip-align` keys and builds `data-tootle` and
+     *  `data-placement` keys, as required by Bootstrap tooltips.
+     * @return $this
+     * @see http://getbootstrap.com/docs/4.0/components/tooltips
+     * @uses add()
+     * @uses append()
+     * @uses delete()
+     * @uses exists()
+     * @uses get()
+     */
+    public function tooltip()
+    {
+        $tooltip = $this->get('tooltip');
+
+        if ($tooltip) {
+            $this->append('data-toggle', 'tooltip');
+            $this->add('title', trim(h(strip_tags($tooltip))));
+
+            if ($this->exists('tooltip-align')) {
+                $this->add('data-placement', $this->get('tooltip-align'));
+            }
+        }
+
+        $this->delete('tooltip', 'tooltip-align');
+
+        return $this;
     }
 }
