@@ -126,6 +126,8 @@ class OptionsParser
      * </code>
      * @param string|array $classes Classes
      * @return $this
+     * @uses append()
+     * @uses get()
      */
     public function addButtonClasses($classes = 'btn-secondary')
     {
