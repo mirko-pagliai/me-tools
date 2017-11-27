@@ -134,6 +134,71 @@ class OptionsParserTest extends TestCase
     }
 
     /**
+     * Tests for `addButtonClasses()` method
+     * @test
+     */
+    public function testAddButtonClasses()
+    {
+        $this->OptionsParser = new OptionsParser;
+        $result = $this->OptionsParser->addButtonClasses();
+        $this->assertInstanceOf('MeTools\View\OptionsParser', $result);
+        $this->assertEquals('btn btn-secondary', $this->OptionsParser->get('class'));
+
+        $this->OptionsParser = new OptionsParser;
+        $this->OptionsParser->addButtonClasses('primary');
+        $this->assertEquals('btn btn-primary', $this->OptionsParser->get('class'));
+
+        foreach ([
+            'primary lg',
+            'primary lg lg',
+            'btn btn primary primary lg',
+            ['btn', 'primary', 'lg'],
+            ['btn', 'btn-primary', 'lg'],
+        ] as $classes) {
+            $this->OptionsParser = new OptionsParser;
+            $this->OptionsParser->addButtonClasses($classes);
+            $this->assertEquals('btn btn-lg btn-primary', $this->OptionsParser->get('class'));
+        }
+
+        //As multiple arguments
+        $this->OptionsParser = new OptionsParser;
+        $this->OptionsParser->addButtonClasses('btn', 'btn-primary', 'lg');
+        $this->assertEquals('btn btn-lg btn-primary', $this->OptionsParser->get('class'));
+
+        $this->OptionsParser = new OptionsParser;
+        $this->OptionsParser->addButtonClasses('lg');
+        $this->assertEquals('btn btn-lg', $this->OptionsParser->get('class'));
+
+        $this->OptionsParser = new OptionsParser;
+        $this->OptionsParser->addButtonClasses('secondary lg');
+        $this->assertEquals('btn btn-lg btn-secondary', $this->OptionsParser->get('class'));
+
+        $this->OptionsParser = new OptionsParser;
+        $this->OptionsParser->addButtonClasses('invalidClass btn-invalid');
+        $this->assertEquals('btn', $this->OptionsParser->get('class'));
+
+        $this->OptionsParser = new OptionsParser;
+        $this->OptionsParser->addButtonClasses('primary invalidClass btn-invalid');
+        $this->assertEquals('btn btn-primary', $this->OptionsParser->get('class'));
+
+        $this->OptionsParser = new OptionsParser(['class' => 'existingValue']);
+        $this->OptionsParser->addButtonClasses('btn primary');
+        $this->assertEquals('btn btn-primary existingValue', $this->OptionsParser->get('class'));
+
+        $this->OptionsParser = new OptionsParser(['class' => 'btn-secondary']);
+        $this->OptionsParser->addButtonClasses('btn primary');
+        $this->assertEquals('btn btn-secondary', $this->OptionsParser->get('class'));
+
+        $this->OptionsParser = new OptionsParser(['class' => 'btn']);
+        $this->OptionsParser->addButtonClasses('btn primary');
+        $this->assertEquals('btn btn-primary', $this->OptionsParser->get('class'));
+
+        $this->OptionsParser = new OptionsParser(['class' => 'btn-lg']);
+        $this->OptionsParser->addButtonClasses('btn lg');
+        $this->assertEquals('btn btn-lg', $this->OptionsParser->get('class'));
+    }
+
+    /**
      * Tests for `append()` method
      * @test
      */

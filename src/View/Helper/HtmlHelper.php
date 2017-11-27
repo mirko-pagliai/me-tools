@@ -16,15 +16,12 @@ namespace MeTools\View\Helper;
 use Cake\Core\Exception\Exception;
 use Cake\View\Helper\HtmlHelper as CakeHtmlHelper;
 use MeTools\View\OptionsParser;
-use MeTools\View\OptionsParserTrait;
 
 /**
  * Provides functionalities for HTML code
  */
 class HtmlHelper extends CakeHtmlHelper
 {
-    use OptionsParserTrait;
-
     /**
      * Missing method handler.
      *
@@ -134,7 +131,7 @@ class HtmlHelper extends CakeHtmlHelper
     public function button($title, $url = null, array $options = [])
     {
         $options = new OptionsParser($options, ['role' => 'button']);
-        $options = $this->addButtonClasses($options);
+        $options->addButtonClasses();
 
         if (!empty($url)) {
             return self::link($title, $url, $options->toArray());

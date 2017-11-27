@@ -112,6 +112,55 @@ class OptionsParser
     }
 
     /**
+     * Adds button classes.
+     *
+     * Classes can be passed as string, array or multiple arguments, with or
+     *  without the `btn-` prefix.
+     *
+     * Examples:
+     * <code>
+     * $this->addButtonClasses('primary lg');
+     * </code>
+     * <code>
+     * $this->addButtonClasses(['btn-primary', 'lg']);
+     * </code>
+     * @param string|array $classes Classes
+     * @return $this
+     */
+    public function addButtonClasses($classes = 'btn-secondary')
+    {
+        $baseClasses = [ 'primary', 'secondary', 'success', 'danger', 'warning',
+            'info', 'light', 'dark', 'link'];
+        $allClasses = array_merge($baseClasses, ['outline-primary',
+            'outline-secondary', 'outline-success', 'outline-danger',
+            'outline-warning', 'outline-info', 'outline-light', 'outline-dark',
+            'lg', 'sm', 'block']);
+
+        $existing = $this->get('class');
+
+        //If a base class already exists, it just adds the `btn` class
+        if ($existing && preg_match('/btn\-(' . implode('|', $baseClasses) . ')/', $existing)) {
+            return $this->append('class', 'btn');
+        }
+
+        if (func_num_args() > 1) {
+            $classes = func_get_args();
+        } elseif (is_string($classes)) {
+            $classes = preg_split('/\s+/', $classes, -1, PREG_SPLIT_NO_EMPTY);
+        }
+
+        $classes = collection($classes)
+            ->filter(function ($class) use ($allClasses) {
+                return preg_match('/^(btn\-)?(' . implode('|', $allClasses) . ')$/', $class);
+            })
+            ->map(function ($class) {
+                return substr($class, 0, 4) == 'btn-' ? $class : sprintf('btn-%s', $class);
+            });
+
+        return $this->append('class', array_merge(['btn'], $classes->toList()));
+    }
+
+    /**
      * Append a value.
      *
      * If the existing value and the value to append are both strings, the

@@ -17,15 +17,12 @@ use Cake\Utility\Hash;
 use Cake\View\Helper\FormHelper as CakeFormHelper;
 use Cake\View\View;
 use MeTools\View\OptionsParser;
-use MeTools\View\OptionsParserTrait;
 
 /**
  * Provides functionalities for forms
  */
 class FormHelper extends CakeFormHelper
 {
-    use OptionsParserTrait;
-
     /**
      * Helpers
      * @var array
@@ -85,7 +82,7 @@ class FormHelper extends CakeFormHelper
     public function button($title, array $options = [])
     {
         $options = new OptionsParser($options, ['type' => 'button']);
-        $options = $this->addButtonClasses($options, $options->contains('type', 'submit') ? 'success' : 'primary');
+        $options->addButtonClasses($options->contains('type', 'submit') ? 'success' : 'primary');
         list($title, $options) = $this->Html->addIconToText($title, $options);
 
         return parent::button($title, $options->toArray());
@@ -193,7 +190,10 @@ class FormHelper extends CakeFormHelper
                     $label = ['text' => $label];
                 }
 
-                $options->add('label', $this->optionsValues(['class' => 'sr-only'], $label));
+                $label = new OptionsParser($label);
+                $label->append('class', 'sr-only');
+
+                $options->add('label', $label->toArray());
             }
         }
 
@@ -348,8 +348,7 @@ class FormHelper extends CakeFormHelper
     public function postButton($title, $url, array $options = [])
     {
         $options = new OptionsParser($options);
-        $options->add('role', 'button');
-        $options = $this->addButtonClasses($options);
+        $options->add('role', 'button')->addButtonClasses();
 
         return self::postLink($title, $url, $options->toArray());
     }
