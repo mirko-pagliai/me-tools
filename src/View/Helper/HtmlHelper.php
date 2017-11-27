@@ -70,6 +70,39 @@ class HtmlHelper extends CakeHtmlHelper
     }
 
     /**
+     * Adds icons to text
+     * @param string $text Text
+     * @param OptionsParser $options Instance of `OptionsParser`
+     * @return array Text with icons as first value, instance of `OptionsParser`
+     *  as second value
+     * @since 2.16.2-beta
+     * @uses icon()
+     */
+    public function addIconToText($text, OptionsParser $options)
+    {
+        $icon = $options->get('icon');
+        $align = $options->get('icon-align');
+
+        $options->delete('icon', 'icon-align');
+
+        if (!$icon) {
+            return [$text, $options];
+        }
+
+        $icon = $this->icon($icon);
+
+        if (empty($text)) {
+            $text = $icon;
+        } elseif ($align === 'right') {
+            $text = sprintf('%s %s', $text, $icon);
+        } else {
+            $text = sprintf('%s %s', $icon, $text);
+        }
+
+        return [$text, $options];
+    }
+
+    /**
      * Creates a badge, according to Bootstrap
      * @param string $text Badge text
      * @param array $options Array of options and HTML attributes

@@ -15,6 +15,7 @@ namespace MeTools\Test\TestCase\View\Helper;
 use Cake\View\View;
 use MeTools\TestSuite\TestCase;
 use MeTools\View\Helper\HtmlHelper;
+use MeTools\View\OptionsParser;
 
 /**
  * HtmlHelperTest class
@@ -41,7 +42,6 @@ class HtmlHelperTest extends TestCase
 
     /**
      * Tests for `__call()` method
-     * @return void
      * @test
      */
     public function testCall()
@@ -79,7 +79,6 @@ class HtmlHelperTest extends TestCase
 
     /**
      * Tests for `__call()` method, with a no existing method
-     * @return void
      * @test
      * @expectedException Cake\Core\Exception\Exception
      * @expectedExceptionMessage Method HtmlHelper::noExistingMethod does not exist
@@ -90,8 +89,56 @@ class HtmlHelperTest extends TestCase
     }
 
     /**
+     * Tests for `addIconToText()` method
+     * @test
+     */
+    public function testAddIconToText()
+    {
+        $text = 'My text';
+
+        $options = new OptionsParser(['icon' => 'home']);
+        list($result, $options) = $this->Html->addIconToText($text, $options);
+        $this->assertEquals('<i class="fa fa-home"> </i> ' . $text, $result);
+        $this->assertInstanceOf('MeTools\View\OptionsParser', $options);
+        $this->assertFalse($options->exists('icon'));
+        $this->assertFalse($options->exists('icon-align'));
+
+        //Missing `icon` option
+        $options = new OptionsParser(['class' => 'my-class', 'icon-align' => 'right']);
+        list($result, $options) = $this->Html->addIconToText($text, $options);
+        $this->assertEquals($text, $result);
+        $this->assertInstanceOf('MeTools\View\OptionsParser', $options);
+        $this->assertFalse($options->exists('icon'));
+        $this->assertFalse($options->exists('icon-align'));
+        $this->assertEquals('my-class', $options->get('class'));
+
+        //Empty text
+        $options = new OptionsParser(['icon' => 'home']);
+        list($result, $options) = $this->Html->addIconToText(null, $options);
+        $this->assertEquals('<i class="fa fa-home"> </i>', $result);
+        $this->assertInstanceOf('MeTools\View\OptionsParser', $options);
+        $this->assertFalse($options->exists('icon'));
+        $this->assertFalse($options->exists('icon-align'));
+
+        //Using `icon-align` option
+        $options = new OptionsParser(['icon' => 'home', 'icon-align' => 'right']);
+        list($result, $options) = $this->Html->addIconToText($text, $options);
+        $this->assertEquals($text . ' <i class="fa fa-home"> </i>', $result);
+        $this->assertInstanceOf('MeTools\View\OptionsParser', $options);
+        $this->assertFalse($options->exists('icon'));
+        $this->assertFalse($options->exists('icon-align'));
+
+        //Invalid `icon-align` option
+        $options = new OptionsParser(['icon' => 'home', 'icon-align' => 'left']);
+        list($result, $options) = $this->Html->addIconToText($text, $options);
+        $this->assertEquals('<i class="fa fa-home"> </i> ' . $text, $result);
+        $this->assertInstanceOf('MeTools\View\OptionsParser', $options);
+        $this->assertFalse($options->exists('icon'));
+        $this->assertFalse($options->exists('icon-align'));
+    }
+
+    /**
      * Tests for `badge()` method
-     * @return void
      * @test
      */
     public function testBadge()
@@ -117,7 +164,6 @@ class HtmlHelperTest extends TestCase
 
     /**
      * Test for `button()` method
-     * @return void
      * @test
      */
     public function testButton()
@@ -317,7 +363,6 @@ class HtmlHelperTest extends TestCase
 
     /**
      * Test for `button()` method, with buttons as links
-     * @return void
      * @test
      */
     public function testButtonAsLink()
@@ -416,7 +461,6 @@ class HtmlHelperTest extends TestCase
 
     /**
      * Test for `css()` method
-     * @return void
      * @test
      */
     public function testCss()
@@ -439,7 +483,6 @@ class HtmlHelperTest extends TestCase
 
     /**
      * Test for `cssBlock()` method
-     * @return void
      * @test
      */
     public function testCssBlock()
@@ -460,7 +503,6 @@ class HtmlHelperTest extends TestCase
 
     /**
      * Test for `cssStart()` and `cssEnd()` methods
-     * @return void
      * @test
      */
     public function testCssStartAndCssEnd()
@@ -487,7 +529,6 @@ class HtmlHelperTest extends TestCase
 
     /**
      * Test for `div()` method
-     * @return void
      * @test
      */
     public function testDiv()
@@ -541,7 +582,7 @@ class HtmlHelperTest extends TestCase
 
     /**
      * Tests for `heading()` method
-     * @return void
+
      * @test
      */
     public function testHeading()
@@ -606,7 +647,6 @@ class HtmlHelperTest extends TestCase
 
     /**
      * Test for `hr()` method
-     * @return void
      * @test
      */
     public function testHr()
@@ -622,7 +662,6 @@ class HtmlHelperTest extends TestCase
 
     /**
      * Test for `icon()` method
-     * @return void
      * @test
      */
     public function testIcons()
@@ -664,7 +703,6 @@ class HtmlHelperTest extends TestCase
 
     /**
      * Test for `iframe()` method
-     * @return void
      * @test
      */
     public function testIframe()
@@ -722,7 +760,6 @@ class HtmlHelperTest extends TestCase
 
     /**
      * Test for `image()` and `img()` methods
-     * @return void
      * @test
      */
     public function testImage()
@@ -795,7 +832,6 @@ class HtmlHelperTest extends TestCase
 
     /**
      * Tests for `label()` method
-     * @return void
      * @test
      */
     public function testLabel()
@@ -840,7 +876,6 @@ class HtmlHelperTest extends TestCase
 
     /**
      * Test for `li()` method
-     * @return void
      * @test
      */
     public function testLi()
@@ -907,7 +942,6 @@ class HtmlHelperTest extends TestCase
 
     /**
      * Test for `link()` method
-     * @return void
      * @test
      */
     public function testLink()
@@ -1081,7 +1115,6 @@ class HtmlHelperTest extends TestCase
 
     /**
      * Test for `meta()` method
-     * @return void
      * @test
      */
     public function testMeta()
@@ -1102,7 +1135,6 @@ class HtmlHelperTest extends TestCase
 
     /**
      * Test for `nestedList`, `ol()` and `ul()` methods
-     * @return void
      * @test
      */
     public function testNestedListAndOlAndUl()
@@ -1180,7 +1212,6 @@ class HtmlHelperTest extends TestCase
 
     /**
      * Test for `para()` method
-     * @return void
      * @test
      */
     public function testPara()
@@ -1234,7 +1265,6 @@ class HtmlHelperTest extends TestCase
 
     /**
      * Test for `script()` and `js()` methods
-     * @return void
      * @test
      */
     public function testScript()
@@ -1264,7 +1294,6 @@ class HtmlHelperTest extends TestCase
 
     /**
      * Test for `scriptBlock()` method
-     * @return void
      * @test
      */
     public function testScriptBlock()
@@ -1285,7 +1314,6 @@ class HtmlHelperTest extends TestCase
 
     /**
      * Test for `scriptStart()` and `scriptEnd()` methods
-     * @return void
      * @test
      */
     public function testScriptStartAndScriptEnd()
@@ -1319,7 +1347,6 @@ class HtmlHelperTest extends TestCase
 
     /**
      * Tests for `shareaholic()` method
-     * @return void
      * @test
      */
     public function testShareaholic()
@@ -1335,7 +1362,6 @@ class HtmlHelperTest extends TestCase
 
     /**
      * Test for `tag()` method
-     * @return void
      * @test
      */
     public function testTag()
@@ -1414,7 +1440,6 @@ class HtmlHelperTest extends TestCase
 
     /**
      * Tests for `viewport()` method
-     * @return void
      * @test
      */
     public function testViewport()
@@ -1444,7 +1469,6 @@ class HtmlHelperTest extends TestCase
 
     /**
      * Tests for `youtube()` method
-     * @return void
      * @test
      */
     public function testYoutube()
