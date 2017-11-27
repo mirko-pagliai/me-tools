@@ -1,6 +1,9 @@
 # 2.x branch
 ## 2.16 branch
 ### 2.16.2-beta
+* `OptionsParserTrait` has been replaced with the `OptionsParser` class. The
+    `HtmlHelper` class now provides `buildIconClasses()` and `addIconToText()`
+    methods, while the `iconClass()` method has been deleted;
 * updated for Bootstrap 4 beta 2.
 
 ### 2.16.1-beta
