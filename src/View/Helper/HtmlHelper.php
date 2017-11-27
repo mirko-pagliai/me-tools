@@ -342,8 +342,7 @@ class HtmlHelper extends CakeHtmlHelper
     public function image($path, array $options = [])
     {
         $options = new OptionsParser($options, ['alt' => pathinfo($path, PATHINFO_BASENAME)]);
-        $options->append('class', 'img-fluid');
-        $options = $this->addTooltip($options);
+        $options->append('class', 'img-fluid')->tooltip();
 
         return parent::image($path, $options->toArray());
     }
@@ -430,9 +429,8 @@ class HtmlHelper extends CakeHtmlHelper
     public function link($title, $url = null, array $options = [])
     {
         $options = new OptionsParser($options, ['escape' => false, 'title' => $title]);
-        $options->add('title', trim(h(strip_tags($options->get('title')))));
+        $options->add('title', trim(h(strip_tags($options->get('title')))))->tooltip();
         list($title, $options) = $this->addIconToText($title, $options);
-        $options = $this->addTooltip($options);
 
         return parent::link($title, $url, $options->toArray());
     }
@@ -509,8 +507,8 @@ class HtmlHelper extends CakeHtmlHelper
     public function para($class = null, $text = null, array $options = [])
     {
         $options = new OptionsParser($options);
+        $options->tooltip();
         list($text, $options) = $this->addIconToText($text, $options);
-        $options = $this->addTooltip($options);
 
         return parent::para($class, is_null($text) ? '' : $text, $options->toArray());
     }
@@ -591,8 +589,8 @@ class HtmlHelper extends CakeHtmlHelper
     public function tag($name, $text = null, array $options = [])
     {
         $options = new OptionsParser($options);
+        $options->tooltip();
         list($text, $options) = $this->addIconToText($text, $options);
-        $options = $this->addTooltip($options);
 
         return parent::tag($name, is_null($text) ? '' : $text, $options->toArray());
     }
