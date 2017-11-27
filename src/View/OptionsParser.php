@@ -89,7 +89,7 @@ class OptionsParser
     }
 
     /**
-     * Add a value.
+     * Adds a value.
      *
      * You can also pass an array with the keys and values as the only argument.
      * @param string|array $key Key or array with keys and values
@@ -119,12 +119,11 @@ class OptionsParser
      *
      * Examples:
      * <code>
-     * $this->addButtonClasses('primary lg');
+     * $options->addButtonClasses('primary lg');
+     * $options->addButtonClasses('primary', 'lg');
+     * $options->addButtonClasses(['btn-primary', 'lg']);
      * </code>
-     * <code>
-     * $this->addButtonClasses(['btn-primary', 'lg']);
-     * </code>
-     * @param string|array $classes Classes
+     * @param string|array $classes Classes string, array or multiple arguments
      * @return $this
      * @uses append()
      * @uses get()
@@ -140,7 +139,7 @@ class OptionsParser
 
         $existing = $this->get('class');
 
-        //If a base class already exists, it just adds the `btn` class
+        //If a base class already exists, it just appends the `btn` class
         if ($existing && preg_match('/btn\-(' . implode('|', $baseClasses) . ')/', $existing)) {
             return $this->append('class', 'btn');
         }
@@ -156,14 +155,14 @@ class OptionsParser
                 return preg_match('/^(btn\-)?(' . implode('|', $allClasses) . ')$/', $class);
             })
             ->map(function ($class) {
-                return substr($class, 0, 4) == 'btn-' ? $class : sprintf('btn-%s', $class);
+                return substr($class, 0, 4) == 'btn-' ? $class : 'btn-' . $class;
             });
 
         return $this->append('class', array_merge(['btn'], $classes->toList()));
     }
 
     /**
-     * Append a value.
+     * Appends a value.
      *
      * If the existing value and the value to append are both strings, the
      *  strings will be concatenated. In any other cases, an array of elements

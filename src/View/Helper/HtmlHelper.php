@@ -70,8 +70,7 @@ class HtmlHelper extends CakeHtmlHelper
      * Adds icons to text
      * @param string $text Text
      * @param OptionsParser $options Instance of `OptionsParser`
-     * @return array Text with icons as first value, instance of `OptionsParser`
-     *  as second value
+     * @return array Text with icons and instance of `OptionsParser`
      * @since 2.16.2-beta
      * @uses icon()
      */
