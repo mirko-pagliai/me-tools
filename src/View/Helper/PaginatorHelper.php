@@ -27,7 +27,10 @@ class PaginatorHelper extends CakePaginatorHelper
      * Helpers
      * @var array
      */
-    public $helpers = ['Html' => ['className' => ME_TOOLS . '.Html']];
+    public $helpers = [
+        'Html' => ['className' => ME_TOOLS . '.Html'],
+        'Url',
+    ];
 
     /**
      * Construct the widgets and binds the default context providers.
