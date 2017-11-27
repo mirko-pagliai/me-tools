@@ -49,6 +49,27 @@ class HtmlHelper extends CakeHtmlHelper
     }
 
     /**
+     * Internal method to build icon classes
+     * @param string|array $icon Icons
+     * @return string
+     * @since 2.16.2-beta
+     */
+    protected function buildIconClasses($icon)
+    {
+        //Prepends the string "fa-" to any other class
+        $icon = preg_replace('/(?<![^ ])(?=[^ ])(?!fa)/', 'fa-', $icon);
+
+        if (!is_array($icon)) {
+            $icon = preg_split('/\s+/', $icon, -1, PREG_SPLIT_NO_EMPTY);
+        }
+
+        //Adds the "fa" class
+        array_unshift($icon, 'fa');
+
+        return implode(' ', array_unique($icon));
+    }
+
+    /**
      * Creates a badge, according to Bootstrap
      * @param string $text Badge text
      * @param array $options Array of options and HTML attributes
@@ -220,50 +241,6 @@ class HtmlHelper extends CakeHtmlHelper
     }
 
     /**
-     * Returns icons classes.
-     *
-     * Example:
-     * <code>
-     * echo $this->Html->iconClass('home');
-     * </code>
-     * Returns:
-     * <code>
-     * fa fa-home
-     * </code>
-     *
-     * Example:
-     * <code>
-     * echo $this->Html->iconClass(['hand-o-right', '2x']);
-     * </code>
-     * Returns:
-     * <code>
-     * fa fa-hand-o-right fa-2x
-     * </code>
-     * @param string|array $icon Icons
-     * @return string
-     * @see http://fortawesome.github.io/Font-Awesome Font Awesome icons
-     * @since 2.12.3
-     */
-    public function iconClass($icon)
-    {
-        if (func_num_args() > 1) {
-            $icon = func_get_args();
-        }
-
-        //Prepends the string "fa-" to any other class
-        $icon = preg_replace('/(?<![^ ])(?=[^ ])(?!fa)/', 'fa-', $icon);
-
-        if (!is_array($icon)) {
-            $icon = preg_split('/\s+/', $icon, -1, PREG_SPLIT_NO_EMPTY);
-        }
-
-        //Adds the "fa" class
-        array_unshift($icon, 'fa');
-
-        return implode(' ', array_unique($icon));
-    }
-
-    /**
      * Returns icons tag.
      *
      * Example:
@@ -283,10 +260,10 @@ class HtmlHelper extends CakeHtmlHelper
      * <code>
      * <i class="fa fa-hand-o-right fa-2x"> </i>
      * </code>
-     * @param string|array $icon Icons
+     * @param string|array $icon Icons. You can also pass multiple arguments
      * @return string
      * @see http://fortawesome.github.io/Font-Awesome Font Awesome icons
-     * @uses iconClass()
+     * @uses buildIconClasses()
      * @uses tag()
      */
     public function icon($icon)
@@ -295,9 +272,7 @@ class HtmlHelper extends CakeHtmlHelper
             $icon = func_get_args();
         }
 
-        $options = new OptionsParser([], ['class' => $this->iconClass($icon)]);
-
-        return self::tag('i', ' ', $options->toArray());
+        return self::tag('i', ' ', ['class' => $this->buildIconClasses($icon)]);
     }
 
     /**
