@@ -140,27 +140,6 @@ if (!function_exists('rtr')) {
     }
 }
 
-if (!function_exists('toAttributes')) {
-    /**
-     * Turns options array into an attributes string
-     * @param array $options Options
-     * @return string
-     */
-    function toAttributes(array $options = [])
-    {
-        return implode(' ', array_filter(
-            collection($options)->map(function ($value, $name) {
-                if ($value === false) {
-                    $value = '0';
-                }
-
-                return $name && ($value || $value === '0') ? $name . '="' . $value . '"' : null;
-            })
-            ->toArray()
-        ));
-    }
-}
-
 if (!function_exists('which')) {
     /**
      * Executes the `which` command.

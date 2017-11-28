@@ -170,30 +170,6 @@ class GlobalFunctionsTest extends TestCase
     }
 
     /**
-     * Test for `toAttributes()` global function
-     * @test
-     */
-    public function testToAttributes()
-    {
-        $example = ['key1' => 'var1', 'key2' => 'var2'];
-        $expected = 'key1="var1" key2="var2"';
-
-        $this->assertEmpty(toAttributes());
-        $this->assertEmpty(toAttributes([]));
-
-        $this->assertEquals($expected, toAttributes($example));
-        $this->assertEquals($expected, toAttributes($example + ['varWithNoKey']));
-        $this->assertEquals($expected, toAttributes($example + ['keyWithNoValue' => '']));
-        $this->assertEquals($expected, toAttributes($example + ['keyWithNull' => null]));
-
-        $expected = 'key1="var1" key2="var2" keyWithTrue="1"';
-        $this->assertEquals($expected, toAttributes($example + ['keyWithTrue' => true]));
-
-        $expected = 'key1="var1" key2="var2" keyWithFalse="0"';
-        $this->assertEquals($expected, toAttributes($example + ['keyWithFalse' => false]));
-    }
-
-    /**
      * Test for `which()` global function
      * @test
      */

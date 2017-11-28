@@ -4,6 +4,8 @@
 * `OptionsParserTrait` has been replaced with the `OptionsParser` class. The
     `HtmlHelper` class now provides `buildIconClasses()` and `addIconToText()`
     methods, while the `iconClass()` method has been deleted;
+* `toAttribute()` global function has been removed. Use instead
+    `OptionsParser::toString()` method;
 * updated for Bootstrap 4 beta 2.
 
 ### 2.16.1-beta
