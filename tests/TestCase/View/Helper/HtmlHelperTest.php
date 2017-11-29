@@ -15,7 +15,6 @@ namespace MeTools\Test\TestCase\View\Helper;
 use Cake\View\View;
 use MeTools\TestSuite\TestCase;
 use MeTools\View\Helper\HtmlHelper;
-use MeTools\View\OptionsParser;
 
 /**
  * HtmlHelperTest class
@@ -96,7 +95,7 @@ class HtmlHelperTest extends TestCase
     {
         $text = 'My text';
 
-        $options = new OptionsParser(['icon' => 'home']);
+        $options = optionsParser(['icon' => 'home']);
         list($result, $options) = $this->Html->addIconToText($text, $options);
         $this->assertEquals('<i class="fa fa-home"> </i> ' . $text, $result);
         $this->assertInstanceOf('MeTools\View\OptionsParser', $options);
@@ -104,7 +103,7 @@ class HtmlHelperTest extends TestCase
         $this->assertFalse($options->exists('icon-align'));
 
         //Missing `icon` option
-        $options = new OptionsParser(['class' => 'my-class', 'icon-align' => 'right']);
+        $options = optionsParser(['class' => 'my-class', 'icon-align' => 'right']);
         list($result, $options) = $this->Html->addIconToText($text, $options);
         $this->assertEquals($text, $result);
         $this->assertInstanceOf('MeTools\View\OptionsParser', $options);
@@ -113,7 +112,7 @@ class HtmlHelperTest extends TestCase
         $this->assertEquals('my-class', $options->get('class'));
 
         //Empty text
-        $options = new OptionsParser(['icon' => 'home']);
+        $options = optionsParser(['icon' => 'home']);
         list($result, $options) = $this->Html->addIconToText(null, $options);
         $this->assertEquals('<i class="fa fa-home"> </i>', $result);
         $this->assertInstanceOf('MeTools\View\OptionsParser', $options);
@@ -121,7 +120,7 @@ class HtmlHelperTest extends TestCase
         $this->assertFalse($options->exists('icon-align'));
 
         //Using `icon-align` option
-        $options = new OptionsParser(['icon' => 'home', 'icon-align' => 'right']);
+        $options = optionsParser(['icon' => 'home', 'icon-align' => 'right']);
         list($result, $options) = $this->Html->addIconToText($text, $options);
         $this->assertEquals($text . ' <i class="fa fa-home"> </i>', $result);
         $this->assertInstanceOf('MeTools\View\OptionsParser', $options);
@@ -129,7 +128,7 @@ class HtmlHelperTest extends TestCase
         $this->assertFalse($options->exists('icon-align'));
 
         //Invalid `icon-align` option
-        $options = new OptionsParser(['icon' => 'home', 'icon-align' => 'left']);
+        $options = optionsParser(['icon' => 'home', 'icon-align' => 'left']);
         list($result, $options) = $this->Html->addIconToText($text, $options);
         $this->assertEquals('<i class="fa fa-home"> </i> ' . $text, $result);
         $this->assertInstanceOf('MeTools\View\OptionsParser', $options);

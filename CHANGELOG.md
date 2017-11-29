@@ -1,5 +1,9 @@
 # 2.x branch
 ## 2.16 branch
+### 2.16.3-beta
+* added `optionsParser()` global function, that returns an instance of
+    `OptionsParser`.
+
 ### 2.16.2-beta
 * `OptionsParserTrait` has been replaced with the `OptionsParser` class. The
     `HtmlHelper` class now provides `buildIconClasses()` and `addIconToText()`

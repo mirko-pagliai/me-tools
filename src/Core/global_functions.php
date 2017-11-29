@@ -12,6 +12,7 @@
  */
 use Cake\Filesystem\File;
 use Cake\Filesystem\Folder;
+use MeTools\View\OptionsParser;
 
 if (!function_exists('clearDir')) {
     /**
@@ -125,6 +126,19 @@ if (!function_exists('isUrl')) {
     function isUrl($url)
     {
         return (bool)preg_match("/\b(?:(?:https?|ftp):\/\/|www\.)[-a-z0-9+&@#\/%?=~_|!:,.;]*[-a-z0-9+&@#\/%=~_|]/i", $url);
+    }
+}
+
+if (!function_exists('optionsParser')) {
+    /**
+     * Returns and instance of `OptionsParser`
+     * @param array $options Existing options
+     * @param array|null $defaults Default values
+     * @return OptionsParser
+     */
+    function optionsParser(array $options = [], $defaults = [])
+    {
+        return new OptionsParser($options, $defaults);
     }
 }
 

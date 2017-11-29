@@ -14,7 +14,6 @@
 namespace MeTools\View\Helper;
 
 use Cake\View\Helper;
-use MeTools\View\OptionsParser;
 
 /**
  * Provides functionalities for creating dropdown menus, according to Bootstrap.
@@ -107,11 +106,10 @@ class DropdownHelper extends Helper
      */
     public function start($title, array $titleOptions = [])
     {
-        $titleOptions = new OptionsParser($titleOptions, [
+        $titleOptions = optionsParser($titleOptions, [
             'aria-expanded' => 'false',
             'aria-haspopup' => 'true',
-        ]);
-        $titleOptions->append([
+        ])->append([
             'class' => 'dropdown-toggle',
             'data-toggle' => 'dropdown',
         ]);
@@ -147,8 +145,7 @@ class DropdownHelper extends Helper
             return;
         }
 
-        $divOptions = new OptionsParser($divOptions);
-        $divOptions->append('class', 'dropdown-menu');
+        $divOptions = optionsParser($divOptions)->append('class', 'dropdown-menu');
 
         return $this->_start . PHP_EOL . $this->Html->div($divOptions->get('class'), $matches[0], $divOptions->toArray());
     }

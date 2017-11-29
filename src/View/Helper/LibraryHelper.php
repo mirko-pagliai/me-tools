@@ -15,7 +15,6 @@ namespace MeTools\View\Helper;
 use Cake\Event\Event;
 use Cake\I18n\I18n;
 use Cake\View\Helper;
-use MeTools\View\OptionsParser;
 
 /**
  * Library helper
@@ -63,7 +62,7 @@ class LibraryHelper extends Helper
         //Gets the current locale
         $locale = substr(I18n::getLocale(), 0, 2);
 
-        $options = new OptionsParser($options, [
+        $options = optionsParser($options, [
             'icons' => [
                 'time' => 'fa fa-clock-o',
                 'date' => 'fa fa-calendar',
@@ -188,7 +187,7 @@ class LibraryHelper extends Helper
      */
     public function datepicker($input = null, array $options = [])
     {
-        $options = new OptionsParser($options, ['format' => 'YYYY/MM/DD']);
+        $options = optionsParser($options, ['format' => 'YYYY/MM/DD']);
 
         $this->output[] = self::buildDatetimepicker($input ?: '.datepicker', $options->toArray());
     }
@@ -298,7 +297,7 @@ class LibraryHelper extends Helper
      */
     public function timepicker($input = null, array $options = [])
     {
-        $options = new OptionsParser($options, ['pickTime' => false]);
+        $options = optionsParser($options, ['pickTime' => false]);
 
         $this->output[] = self::buildDatetimepicker($input ?: '.timepicker', $options->toArray());
     }

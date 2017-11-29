@@ -13,6 +13,7 @@
 namespace MeTools\Test\TestCase\Core;
 
 use MeTools\TestSuite\TestCase;
+use MeTools\View\OptionsParser;
 
 /**
  * GlobalFunctionsTest class
@@ -148,6 +149,28 @@ class GlobalFunctionsTest extends TestCase
         $this->assertFalse(isUrl(DS . 'folder'));
         $this->assertFalse(isUrl(DS . 'folder' . DS));
         $this->assertFalse(isUrl(DS . 'folder' . DS . 'file.txt'));
+    }
+
+    /**
+     * Test for `optionsParser()` global function
+     * @test
+     */
+    public function testOptionsParser()
+    {
+        $result = optionsParser();
+        $expected = new OptionsParser;
+        $this->assertInstanceOf('MeTools\View\OptionsParser', $result);
+        $this->assertEquals($expected, $result);
+        $this->assertEquals(get_object_vars($expected), get_object_vars($result));
+
+        $a = ['f' => 'first', 's' => 'second'];
+        $b = ['t' => 'third'];
+
+        $result = optionsParser($a, $b);
+        $expected = new OptionsParser($a, $b);
+        $this->assertInstanceOf('MeTools\View\OptionsParser', $result);
+        $this->assertEquals($expected, $result);
+        $this->assertEquals(get_object_vars($expected), get_object_vars($result));
     }
 
     /**
