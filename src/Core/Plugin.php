@@ -75,7 +75,7 @@ class Plugin extends CakePlugin
     {
         $plugin = parent::path($plugin);
 
-        if (empty($file)) {
+        if (!$file) {
             return $plugin;
         }
 

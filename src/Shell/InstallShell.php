@@ -171,9 +171,7 @@ class InstallShell extends Shell
      */
     public function createDirectories()
     {
-        foreach ($this->paths as $path) {
-            $this->createDir($path);
-        }
+        array_map([$this, 'createDir'], $this->paths);
     }
 
     /**

@@ -41,7 +41,7 @@ class UploaderComponent extends Component
      */
     protected function setError($error)
     {
-        if (empty($this->error)) {
+        if (!$this->error) {
             $this->error = $error;
         }
     }
@@ -93,16 +93,12 @@ class UploaderComponent extends Component
 
     /**
      * Returns the first error
-     * @return mixed String or `false`
+     * @return string|bool String or `false`
      * @uses $error
      */
     public function error()
     {
-        if (!isset($this->error)) {
-            return false;
-        }
-
-        return $this->error;
+        return $this->error ?: false;
     }
 
     /**

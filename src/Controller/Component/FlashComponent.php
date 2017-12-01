@@ -37,15 +37,22 @@ class FlashComponent extends CakeFlashComponent
             in_array($name, ['alert', 'error', 'notice', 'success'])
         ) {
             if (!isset($args[1]['params']['class'])) {
-                if ($name === 'alert') {
-                    $args[1]['params']['class'] = 'alert-warning';
-                } elseif ($name === 'error') {
-                    $args[1]['params']['class'] = 'alert-danger';
-                } elseif ($name === 'notice') {
-                    $args[1]['params']['class'] = 'alert-info';
-                } else {
-                    $args[1]['params']['class'] = sprintf('alert-%s', $name);
+                switch ($name) {
+                    case 'alert':
+                        $class = 'alert-warning';
+                        break;
+                    case 'error':
+                        $class = 'alert-danger';
+                        break;
+                    case 'notice':
+                        $class = 'alert-info';
+                        break;
+                    default:
+                        $class = sprintf('alert-%s', $name);
+                        break;
                 }
+
+                $args[1]['params']['class'] = $class;
             }
 
             $name = 'flash';
