@@ -2,7 +2,8 @@
 ## 2.16 branch
 ### 2.16.3-beta
 * added `optionsParser()` global function, that returns an instance of
-    `OptionsParser`.
+    `OptionsParser`;
+* the CKEditor can now show a style similar to that of the article preview.
 
 ### 2.16.2-beta
 * `OptionsParserTrait` has been replaced with the `OptionsParser` class. The

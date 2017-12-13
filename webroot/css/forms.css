@@ -133,11 +133,3 @@ form .float-form {
 form .float-form .input:last-child {
     margin-bottom: 0;
 }
-
-/* -------------------------------- */
-/*          CKEditor                */
-/* -------------------------------- */
-/* Content div */
-.cke_wysiwyg_div {
-    padding: 1rem !important;
-}
