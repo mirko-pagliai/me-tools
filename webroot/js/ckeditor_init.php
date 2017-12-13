@@ -15,6 +15,22 @@ $baseDir = dirname(dirname(getenv('SCRIPT_NAME')));
 ?>
 $(function () {
     $('.editor.wysiwyg').each(function () {
+        CKEDITOR.on('dialogDefinition', function (ev) {
+            var dialogName = ev.data.name;
+            var dialogDefinition = ev.data.definition;
+
+            if (dialogName == 'table') {
+                var advanced = dialogDefinition.getContents('advanced');
+                var info = dialogDefinition.getContents('info');
+
+                advanced.get('advCSSClasses')['default'] = 'table'; //Default cell classes
+                info.get('txtWidth')['default'] = '100%'; //Default width
+                info.get('txtBorder')['default'] = '0'; //Default border
+                info.get('txtCellSpace')['default'] = '0'; //Default cell spacing
+                info.get('txtCellPad')['default'] = '0'; //Default cell padding
+            }
+        });
+        
         CKEDITOR.replace(this.id, {
             bodyClass: 'article p-3',
             contentsCss: [
