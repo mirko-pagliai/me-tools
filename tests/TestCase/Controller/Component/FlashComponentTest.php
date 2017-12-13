@@ -44,9 +44,7 @@ class FlashComponentTest extends TestCase
     {
         parent::setUp();
 
-        $controller = new Controller(new Request);
-        $componentRegistry = new ComponentRegistry($controller);
-        $this->Flash = new FlashComponent($componentRegistry);
+        $this->Flash = new FlashComponent(new ComponentRegistry(new Controller(new Request)));
         $this->Session = new Session;
     }
 
@@ -72,96 +70,65 @@ class FlashComponentTest extends TestCase
 
         $this->assertNull($this->Session->read('Flash.flash'));
 
-        $this->Flash->alert($text);
+        foreach ([
+            'alert' => 'alert-warning',
+            'error' => 'alert-danger',
+            'notice' => 'alert-info',
+            'success' => 'alert-success',
+        ] as $methodToCall => $expectedClass) {
+            $expected = [[
+                'message' => $text,
+                'key' => 'flash',
+                'element' => 'MeTools.Flash/flash',
+                'params' => ['class' => $expectedClass],
+            ]];
+            call_user_func([$this->Flash, $methodToCall], $text);
+            $this->assertEquals($expected, $this->Session->read('Flash.flash'));
+            $this->Session->delete('Flash.flash');
+        }
 
-        $result = $this->Session->read('Flash.flash');
+        //With custom class
         $expected = [[
             'message' => $text,
             'key' => 'flash',
             'element' => 'MeTools.Flash/flash',
-            'params' => ['class' => 'alert-warning'],
-        ]];
-        $this->assertEquals($expected, $result);
-
-        $this->Flash->error($text);
-
-        $result = $this->Session->read('Flash.flash');
-        $expected[] = [
-            'message' => $text,
-            'key' => 'flash',
-            'element' => 'MeTools.Flash/flash',
-            'params' => ['class' => 'alert-danger'],
-        ];
-        $this->assertEquals($expected, $result);
-
-        $this->Flash->notice($text);
-
-        $result = $this->Session->read('Flash.flash');
-        $expected[] = [
-            'message' => $text,
-            'key' => 'flash',
-            'element' => 'MeTools.Flash/flash',
-            'params' => ['class' => 'alert-info'],
-        ];
-        $this->assertEquals($expected, $result);
-
-        $this->Flash->success($text);
-
-        $result = $this->Session->read('Flash.flash');
-        $expected[] = [
-            'message' => $text,
-            'key' => 'flash',
-            'element' => 'MeTools.Flash/flash',
-            'params' => ['class' => 'alert-success'],
-        ];
-        $this->assertEquals($expected, $result);
-
-        //With custom class
-        $this->Flash->success($text, ['params' => ['class' => 'my-class']]);
-
-        $result = $this->Session->read('Flash.flash');
-        $expected[] = [
-            'message' => $text,
-            'key' => 'flash',
-            'element' => 'MeTools.Flash/flash',
             'params' => ['class' => 'my-class'],
-        ];
-        $this->assertEquals($expected, $result);
+        ]];
+        $this->Flash->success($text, ['params' => ['class' => 'my-class']]);
+        $this->assertEquals($expected, $this->Session->read('Flash.flash'));
+        $this->Session->delete('Flash.flash');
 
         //With other name
-        $this->Flash->otherName($text);
-
-        $result = $this->Session->read('Flash.flash');
-        $expected[] = [
+        $expected = [[
             'message' => $text,
             'key' => 'flash',
             'element' => 'Flash/other_name',
             'params' => [],
-        ];
-        $this->assertEquals($expected, $result);
+        ]];
+        $this->Flash->otherName($text);
+        $this->assertEquals($expected, $this->Session->read('Flash.flash'));
+        $this->Session->delete('Flash.flash');
 
         //With plugin as `false`
-        $this->Flash->success($text, ['plugin' => false]);
-
-        $result = $this->Session->read('Flash.flash');
-        $expected[] = [
+        $expected = [[
             'message' => $text,
             'key' => 'flash',
             'element' => 'Flash/success',
             'params' => [],
-        ];
-        $this->assertEquals($expected, $result);
+        ]];
+        $this->Flash->success($text, ['plugin' => false]);
+        $this->assertEquals($expected, $this->Session->read('Flash.flash'));
+        $this->Session->delete('Flash.flash');
 
         //With other plugin
-        $this->Flash->success($text, ['plugin' => 'MyPlugin']);
-
-        $result = $this->Session->read('Flash.flash');
-        $expected[] = [
+        $expected = [[
             'message' => $text,
             'key' => 'flash',
             'element' => 'MyPlugin.Flash/success',
             'params' => [],
-        ];
-        $this->assertEquals($expected, $result);
+        ]];
+        $this->Flash->success($text, ['plugin' => 'MyPlugin']);
+        $this->assertEquals($expected, $this->Session->read('Flash.flash'));
+        $this->Session->delete('Flash.flash');
     }
 }

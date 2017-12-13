@@ -243,7 +243,7 @@ class ShellTest extends TestCase
     }
 
     /**
-     * Tests for `out()` method (`comment()`, `question()` and `warning()`)
+     * Tests for `out()` methods (`comment()`, `question()` and `warning()`)
      * @test
      */
     public function testOutMethods()

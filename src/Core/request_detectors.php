@@ -41,7 +41,7 @@ ServerRequest::addDetector('action', function (ServerRequest $request, $action, 
     $action = in_array($request->getParam('action'), (array)$action);
 
     //Checks only action
-    if (empty($controller)) {
+    if (!$controller) {
         return $action;
     }
 

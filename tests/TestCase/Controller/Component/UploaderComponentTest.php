@@ -62,8 +62,7 @@ class UploaderComponentTest extends TestCase
     {
         parent::setUp();
 
-        $controller = new Controller(new Request);
-        $this->ComponentRegistry = new ComponentRegistry($controller);
+        $this->ComponentRegistry = new ComponentRegistry(new Controller(new Request));
         $this->Uploader = new UploaderComponent($this->ComponentRegistry);
     }
 

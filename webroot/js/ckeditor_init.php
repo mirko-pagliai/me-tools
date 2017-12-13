@@ -10,17 +10,31 @@
  * @link        https://github.com/mirko-pagliai/me-tools
  * @license     https://opensource.org/licenses/mit-license.php MIT License
  */
+
+$baseDir = dirname(dirname(getenv('SCRIPT_NAME')));
 ?>
 $(function () {
     $('.editor.wysiwyg').each(function () {
         CKEDITOR.replace(this.id, {
+            bodyClass: 'article p-3',
+            contentsCss: [
+                /**
+                 * You can add several css files so that the editor style is the same as the article preview
+                 */
+                '<?= $baseDir ?>/vendor/bootstrap/css/bootstrap.min.css',
+                '<?= $baseDir ?>/me_cms/css/layout.css',
+                '<?= $baseDir ?>/me_cms/css/contents.css',
+                //'<?= $baseDir ?>/css/layout.css',
+                //'<?= $baseDir ?>/css/contents.css',
+            ],
             disableNativeSpellChecker: false,
             fontSize_sizes: '10/10px;11/11px;12/12px;14/14px;16/16px;18/18px;20/20px;22/22px;24/24px;26/26px;28/28px;30/30px;',
             height: 375,
-            image2_alignClasses: [ 'pull-left', 'text-center', 'pull-right' ],
+            image2_alignClasses: [ 'float-left', 'text-center', 'float-right' ],
             insertpre_class: false,
             removeButtons: 'Font',
             removeDialogTabs: false,
+            removePlugins: 'divarea',
             tabSpaces: 4,
             toolbarCanCollapse: true,
             toolbarGroups: [
@@ -43,10 +57,10 @@ $(function () {
             /**
              * To use KCFinder, you have to comment out these lines and indicate the position of KCFinder
              */
-            //filebrowserBrowseUrl: '<?= dirname(dirname($_SERVER['PHP_SELF'])) ?>/vendor/kcfinder/browse.php?type=files',
-            //filebrowserImageBrowseUrl: '<?= dirname(dirname($_SERVER['PHP_SELF'])) ?>/vendor/kcfinder/browse.php?type=images',
-            //filebrowserUploadUrl: '<?= dirname(dirname($_SERVER['PHP_SELF'])) ?>/vendor/kcfinder/upload.php?type=files',
-            //filebrowserImageUploadUrl: '<?= dirname(dirname($_SERVER['PHP_SELF'])) ?>/vendor/kcfinder/upload.php?type=images',
+            //filebrowserBrowseUrl: '<?= $baseDir ?>/vendor/kcfinder/browse.php?type=files',
+            //filebrowserImageBrowseUrl: '<?= $baseDir ?>/vendor/kcfinder/browse.php?type=images',
+            //filebrowserUploadUrl: '<?= $baseDir ?>/vendor/kcfinder/upload.php?type=files',
+            //filebrowserImageUploadUrl: '<?= $baseDir ?>/vendor/kcfinder/upload.php?type=images',
         });
     });
 });

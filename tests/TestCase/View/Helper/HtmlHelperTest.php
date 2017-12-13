@@ -41,7 +41,6 @@ class HtmlHelperTest extends TestCase
 
     /**
      * Tests for `__call()` method
-     * @return void
      * @test
      */
     public function testCall()
@@ -79,7 +78,6 @@ class HtmlHelperTest extends TestCase
 
     /**
      * Tests for `__call()` method, with a no existing method
-     * @return void
      * @test
      * @expectedException Cake\Core\Exception\Exception
      * @expectedExceptionMessage Method HtmlHelper::noExistingMethod does not exist
@@ -90,8 +88,56 @@ class HtmlHelperTest extends TestCase
     }
 
     /**
+     * Tests for `addIconToText()` method
+     * @test
+     */
+    public function testAddIconToText()
+    {
+        $text = 'My text';
+
+        $options = optionsParser(['icon' => 'home']);
+        list($result, $options) = $this->Html->addIconToText($text, $options);
+        $this->assertEquals('<i class="fa fa-home"> </i> ' . $text, $result);
+        $this->assertInstanceOf('MeTools\View\OptionsParser', $options);
+        $this->assertFalse($options->exists('icon'));
+        $this->assertFalse($options->exists('icon-align'));
+
+        //Missing `icon` option
+        $options = optionsParser(['class' => 'my-class', 'icon-align' => 'right']);
+        list($result, $options) = $this->Html->addIconToText($text, $options);
+        $this->assertEquals($text, $result);
+        $this->assertInstanceOf('MeTools\View\OptionsParser', $options);
+        $this->assertFalse($options->exists('icon'));
+        $this->assertFalse($options->exists('icon-align'));
+        $this->assertEquals('my-class', $options->get('class'));
+
+        //Empty text
+        $options = optionsParser(['icon' => 'home']);
+        list($result, $options) = $this->Html->addIconToText(null, $options);
+        $this->assertEquals('<i class="fa fa-home"> </i>', $result);
+        $this->assertInstanceOf('MeTools\View\OptionsParser', $options);
+        $this->assertFalse($options->exists('icon'));
+        $this->assertFalse($options->exists('icon-align'));
+
+        //Using `icon-align` option
+        $options = optionsParser(['icon' => 'home', 'icon-align' => 'right']);
+        list($result, $options) = $this->Html->addIconToText($text, $options);
+        $this->assertEquals($text . ' <i class="fa fa-home"> </i>', $result);
+        $this->assertInstanceOf('MeTools\View\OptionsParser', $options);
+        $this->assertFalse($options->exists('icon'));
+        $this->assertFalse($options->exists('icon-align'));
+
+        //Invalid `icon-align` option
+        $options = optionsParser(['icon' => 'home', 'icon-align' => 'left']);
+        list($result, $options) = $this->Html->addIconToText($text, $options);
+        $this->assertEquals('<i class="fa fa-home"> </i> ' . $text, $result);
+        $this->assertInstanceOf('MeTools\View\OptionsParser', $options);
+        $this->assertFalse($options->exists('icon'));
+        $this->assertFalse($options->exists('icon-align'));
+    }
+
+    /**
      * Tests for `badge()` method
-     * @return void
      * @test
      */
     public function testBadge()
@@ -108,7 +154,7 @@ class HtmlHelperTest extends TestCase
 
         $result = $this->Html->badge($text, ['class' => 'my-class']);
         $expected = [
-            'span' => ['class' => 'my-class badge'],
+            'span' => ['class' => 'badge my-class'],
             $text,
             '/span',
         ];
@@ -117,7 +163,6 @@ class HtmlHelperTest extends TestCase
 
     /**
      * Test for `button()` method
-     * @return void
      * @test
      */
     public function testButton()
@@ -127,8 +172,8 @@ class HtmlHelperTest extends TestCase
         $result = $this->Html->button($text);
         $expected = [
             'button' => [
+                'class' => 'btn btn-secondary',
                 'role' => 'button',
-                'class' => 'btn btn-default',
                 'title' => $text,
             ],
             $text,
@@ -141,8 +186,8 @@ class HtmlHelperTest extends TestCase
         ]);
         $expected = [
             'button' => [
+                'class' => 'btn btn-secondary',
                 'role' => 'button',
-                'class' => 'btn btn-default',
                 'title' => 'my-custom-title',
             ],
             $text,
@@ -153,8 +198,8 @@ class HtmlHelperTest extends TestCase
         $result = $this->Html->button($text, null, ['class' => 'my-class']);
         $expected = [
             'button' => [
+                'class' => 'btn btn-secondary my-class',
                 'role' => 'button',
-                'class' => 'my-class btn btn-default',
                 'title' => $text,
              ],
             $text,
@@ -165,8 +210,8 @@ class HtmlHelperTest extends TestCase
         $result = $this->Html->button($text, null, ['class' => 'btn-primary']);
         $expected = [
             'button' => [
+                'class' => 'btn btn-primary',
                 'role' => 'button',
-                'class' => 'btn-primary btn',
                 'title' => $text,
             ],
             $text,
@@ -178,7 +223,7 @@ class HtmlHelperTest extends TestCase
         $expected = [
             'button' => [
                 'role' => 'button',
-                'class' => 'btn btn-default',
+                'class' => 'btn btn-secondary',
                 'data-toggle' => 'tooltip',
                 'title' => 'my tooltip',
             ],
@@ -196,7 +241,7 @@ class HtmlHelperTest extends TestCase
         $expected = [
             'button' => [
                 'role' => 'button',
-                'class' => 'btn btn-default',
+                'class' => 'btn btn-secondary',
                 'data-toggle' => 'tooltip',
                 'title' => 'my tooltip',
             ],
@@ -209,7 +254,7 @@ class HtmlHelperTest extends TestCase
         $expected = [
             'button' => [
                 'role' => 'button',
-                'class' => 'btn btn-default',
+                'class' => 'btn btn-secondary',
                 'title' => $text,
              ],
             'i' => ['class' => 'fa fa-home'],
@@ -226,7 +271,7 @@ class HtmlHelperTest extends TestCase
         $expected = [
             'button' => [
                 'role' => 'button',
-                'class' => 'btn btn-default',
+                'class' => 'btn btn-secondary',
                 'title' => 'Single quote &#039;',
             ],
             'Single quote \'',
@@ -239,7 +284,7 @@ class HtmlHelperTest extends TestCase
         $expected = [
             'button' => [
                 'role' => 'button',
-                'class' => 'btn btn-default',
+                'class' => 'btn btn-secondary',
                 'title' => 'Double quote &quot;',
              ],
             'Double quote "',
@@ -256,7 +301,7 @@ class HtmlHelperTest extends TestCase
         $expected = [
             'button' => [
                 'role' => 'button',
-                'class' => 'btn btn-default',
+                'class' => 'btn btn-secondary',
                 'title' => 'Single quote &#039;',
             ],
             $text,
@@ -274,7 +319,7 @@ class HtmlHelperTest extends TestCase
             'button' => [
                 'title' => 'Double quote &quot;',
                 'role' => 'button',
-                'class' => 'btn btn-default',
+                'class' => 'btn btn-secondary',
             ],
             $text,
             '/button',
@@ -286,7 +331,7 @@ class HtmlHelperTest extends TestCase
         $expected = [
             'button' => [
                 'role' => 'button',
-                'class' => 'btn btn-default',
+                'class' => 'btn btn-secondary',
                 'title' => 'Code and text',
             ],
             'u' => true,
@@ -305,8 +350,8 @@ class HtmlHelperTest extends TestCase
         );
         $expected = [
             'button' => [
+                'class' => 'btn btn-secondary',
                 'role' => 'button',
-                'class' => 'btn btn-default',
                 'title' => 'Code and text'
             ],
             $text,
@@ -317,7 +362,6 @@ class HtmlHelperTest extends TestCase
 
     /**
      * Test for `button()` method, with buttons as links
-     * @return void
      * @test
      */
     public function testButtonAsLink()
@@ -327,9 +371,9 @@ class HtmlHelperTest extends TestCase
         $result = $this->Html->button($text, '#');
         $expected = [
             'a' => [
+                'class' => 'btn btn-secondary',
                 'href' => '#',
                 'role' => 'button',
-                'class' => 'btn btn-default',
                 'title' => $text,
             ],
             $text,
@@ -340,9 +384,9 @@ class HtmlHelperTest extends TestCase
         $result = $this->Html->button($text, '#', ['class' => 'my-class']);
         $expected = [
             'a' => [
+                'class' => 'btn btn-secondary my-class',
                 'href' => '#',
                 'role' => 'button',
-                'class' => 'my-class btn btn-default',
                 'title' => $text,
             ],
             $text,
@@ -353,9 +397,9 @@ class HtmlHelperTest extends TestCase
         $result = $this->Html->button($text, '#', ['class' => 'btn-primary']);
         $expected = [
             'a' => [
+                'class' => 'btn btn-primary',
                 'href' => '#',
                 'role' => 'button',
-                'class' => 'btn-primary btn',
                 'title' => $text,
             ],
             $text,
@@ -366,9 +410,9 @@ class HtmlHelperTest extends TestCase
         $result = $this->Html->button($text, '#', ['tooltip' => 'my tooltip']);
         $expected = [
             'a' => [
+                'class' => 'btn btn-secondary',
                 'href' => '#',
                 'role' => 'button',
-                'class' => 'btn btn-default',
                 'data-toggle' => 'tooltip',
                 'title' => 'my tooltip',
             ],
@@ -385,9 +429,9 @@ class HtmlHelperTest extends TestCase
         );
         $expected = [
             'a' => [
+                'class' => 'btn btn-secondary',
                 'href' => '#',
                 'role' => 'button',
-                'class' => 'btn btn-default',
                 'data-toggle' => 'tooltip',
                 'title' => 'my tooltip',
             ],
@@ -399,9 +443,9 @@ class HtmlHelperTest extends TestCase
         $result = $this->Html->button($text, '#', ['icon' => 'home']);
         $expected = [
             'a' => [
+                'class' => 'btn btn-secondary',
                 'href' => '#',
                 'role' => 'button',
-                'class' => 'btn btn-default',
                 'title' => $text,
             ],
             'i' => ['class' => 'fa fa-home'],
@@ -416,7 +460,6 @@ class HtmlHelperTest extends TestCase
 
     /**
      * Test for `css()` method
-     * @return void
      * @test
      */
     public function testCss()
@@ -439,7 +482,6 @@ class HtmlHelperTest extends TestCase
 
     /**
      * Test for `cssBlock()` method
-     * @return void
      * @test
      */
     public function testCssBlock()
@@ -460,7 +502,6 @@ class HtmlHelperTest extends TestCase
 
     /**
      * Test for `cssStart()` and `cssEnd()` methods
-     * @return void
      * @test
      */
     public function testCssStartAndCssEnd()
@@ -487,7 +528,6 @@ class HtmlHelperTest extends TestCase
 
     /**
      * Test for `div()` method
-     * @return void
      * @test
      */
     public function testDiv()
@@ -541,7 +581,7 @@ class HtmlHelperTest extends TestCase
 
     /**
      * Tests for `heading()` method
-     * @return void
+
      * @test
      */
     public function testHeading()
@@ -606,7 +646,6 @@ class HtmlHelperTest extends TestCase
 
     /**
      * Test for `hr()` method
-     * @return void
      * @test
      */
     public function testHr()
@@ -621,44 +660,7 @@ class HtmlHelperTest extends TestCase
     }
 
     /**
-     * Test for `iconClass()` method
-     * @return void
-     * @test
-     */
-    public function testIconClass()
-    {
-        $expected = 'fa fa-home';
-
-        foreach ([
-            'home',
-            'fa-home',
-            'fa home',
-            'fa fa-home',
-        ] as $icons) {
-            $result = $this->Html->iconClass($icons);
-            $this->assertEquals($expected, $result);
-        }
-
-        $result = $this->Html->iconClass('fa', 'fa-home');
-        $this->assertEquals($expected, $result);
-
-        $expected = 'fa fa-hand-o-right fa-2x';
-
-        foreach ([
-            'hand-o-right 2x',
-            ['hand-o-right', '2x'],
-        ] as $icons) {
-            $result = $this->Html->iconClass($icons);
-            $this->assertEquals($expected, $result);
-        }
-
-        $result = $this->Html->iconClass('hand-o-right', '2x');
-        $this->assertHtml($expected, $result);
-    }
-
-    /**
      * Test for `icon()` method
-     * @return void
      * @test
      */
     public function testIcons()
@@ -674,16 +676,16 @@ class HtmlHelperTest extends TestCase
             'fa-home',
             'fa home',
             'fa fa-home',
+            ['home'],
+            ['fa', 'home'],
         ] as $icons) {
-            $result = $this->Html->icon($icons);
-            $this->assertHtml($expected, $result);
+            $this->assertHtml($expected, $this->Html->icon($icons));
         }
 
-        $result = $this->Html->icon('fa', 'fa-home');
-        $this->assertHtml($expected, $result);
+        $this->assertHtml($expected, $this->Html->icon('fa', 'fa-home'));
 
         $expected = [
-            'i' => ['class' => 'fa fa-hand-o-right fa-2x'],
+            'i' => ['class' => 'fa fa-2x fa-hand-o-right'],
             ' ',
             '/i',
         ];
@@ -692,17 +694,14 @@ class HtmlHelperTest extends TestCase
             'hand-o-right 2x',
             ['hand-o-right', '2x'],
         ] as $icons) {
-            $result = $this->Html->icon($icons);
-            $this->assertHtml($expected, $result);
+            $this->assertHtml($expected, $this->Html->icon($icons));
         }
 
-        $result = $this->Html->icon('hand-o-right', '2x');
-        $this->assertHtml($expected, $result);
+        $this->assertHtml($expected, $this->Html->icon('hand-o-right', '2x'));
     }
 
     /**
      * Test for `iframe()` method
-     * @return void
      * @test
      */
     public function testIframe()
@@ -749,7 +748,7 @@ class HtmlHelperTest extends TestCase
         $expected = [
             'div' => ['class' => 'embed-responsive embed-responsive-16by9'],
             'iframe' => [
-                'class' => 'my-class embed-responsive-item',
+                'class' => 'embed-responsive-item my-class',
                 'src' => $url,
             ],
             '/iframe',
@@ -760,7 +759,6 @@ class HtmlHelperTest extends TestCase
 
     /**
      * Test for `image()` and `img()` methods
-     * @return void
      * @test
      */
     public function testImage()
@@ -772,7 +770,7 @@ class HtmlHelperTest extends TestCase
             'img' => [
                 'src' => '/img/image.gif',
                 'alt' => $image,
-                'class' => 'img-responsive',
+                'class' => 'img-fluid',
             ],
         ];
         $this->assertHtml($expected, $result);
@@ -782,7 +780,7 @@ class HtmlHelperTest extends TestCase
             'img' => [
                 'src' => '/img/image.gif',
                 'alt' => $image,
-                'class' => 'my-class img-responsive',
+                'class' => 'img-fluid my-class',
             ],
         ];
         $this->assertHtml($expected, $result);
@@ -793,7 +791,7 @@ class HtmlHelperTest extends TestCase
             'img' => [
                 'src' => '/img/image.gif',
                 'alt' => $image,
-                'class' => 'my-class img-responsive',
+                'class' => 'img-fluid my-class',
             ],
         ];
         $this->assertHtml($expected, $result);
@@ -803,7 +801,7 @@ class HtmlHelperTest extends TestCase
             'img' => [
                 'src' => '/img/image.gif',
                 'alt' => 'my-alt',
-                'class' => 'img-responsive',
+                'class' => 'img-fluid',
             ],
         ];
         $this->assertHtml($expected, $result);
@@ -813,7 +811,7 @@ class HtmlHelperTest extends TestCase
             'img' => [
                 'src' => '/img/image.gif',
                 'alt' => $image,
-                'class' => 'img-responsive',
+                'class' => 'img-fluid',
                 'data-toggle' => 'tooltip',
                 'title' => 'my tooltip',
             ],
@@ -825,7 +823,7 @@ class HtmlHelperTest extends TestCase
             'img' => [
                 'src' => 'http://fullurl/image.gif',
                 'alt' => $image,
-                'class' => 'img-responsive',
+                'class' => 'img-fluid',
             ],
         ];
         $this->assertHtml($expected, $result);
@@ -833,7 +831,6 @@ class HtmlHelperTest extends TestCase
 
     /**
      * Tests for `label()` method
-     * @return void
      * @test
      */
     public function testLabel()
@@ -850,7 +847,7 @@ class HtmlHelperTest extends TestCase
 
         $result = $this->Html->label($text, ['class' => 'my-class']);
         $expected = [
-            'span' => ['class' => 'my-class label label-default'],
+            'span' => ['class' => 'label label-default my-class'],
             $text,
             '/span',
         ];
@@ -869,7 +866,7 @@ class HtmlHelperTest extends TestCase
             ['class' => 'my-class', 'type' => 'success']
         );
         $expected = [
-            'span' => ['class' => 'my-class label label-success'],
+            'span' => ['class' => 'label label-success my-class'],
             $text,
             '/span',
         ];
@@ -878,7 +875,6 @@ class HtmlHelperTest extends TestCase
 
     /**
      * Test for `li()` method
-     * @return void
      * @test
      */
     public function testLi()
@@ -945,7 +941,6 @@ class HtmlHelperTest extends TestCase
 
     /**
      * Test for `link()` method
-     * @return void
      * @test
      */
     public function testLink()
@@ -1071,9 +1066,9 @@ class HtmlHelperTest extends TestCase
         $expected = [
             'a' => [
                 'href' => '#',
+                'data-placement' => 'bottom',
                 'data-toggle' => 'tooltip',
                 'title' => 'my tooltip',
-                'data-placement' => 'bottom',
             ],
             $title,
             '/a'
@@ -1119,7 +1114,6 @@ class HtmlHelperTest extends TestCase
 
     /**
      * Test for `meta()` method
-     * @return void
      * @test
      */
     public function testMeta()
@@ -1140,7 +1134,6 @@ class HtmlHelperTest extends TestCase
 
     /**
      * Test for `nestedList`, `ol()` and `ul()` methods
-     * @return void
      * @test
      */
     public function testNestedListAndOlAndUl()
@@ -1179,7 +1172,7 @@ class HtmlHelperTest extends TestCase
             ['class' => 'item-class', 'icon' => 'home']
         );
         $expected = [
-            'ul' => ['class' => 'list-class fa-ul'],
+            'ul' => ['class' => 'fa-ul list-class'],
             ['li' => ['class' => 'item-class']],
             ['i' => ['class' => 'fa fa-home fa-li']],
             ' ',
@@ -1218,7 +1211,6 @@ class HtmlHelperTest extends TestCase
 
     /**
      * Test for `para()` method
-     * @return void
      * @test
      */
     public function testPara()
@@ -1272,7 +1264,6 @@ class HtmlHelperTest extends TestCase
 
     /**
      * Test for `script()` and `js()` methods
-     * @return void
      * @test
      */
     public function testScript()
@@ -1302,7 +1293,6 @@ class HtmlHelperTest extends TestCase
 
     /**
      * Test for `scriptBlock()` method
-     * @return void
      * @test
      */
     public function testScriptBlock()
@@ -1323,7 +1313,6 @@ class HtmlHelperTest extends TestCase
 
     /**
      * Test for `scriptStart()` and `scriptEnd()` methods
-     * @return void
      * @test
      */
     public function testScriptStartAndScriptEnd()
@@ -1357,7 +1346,6 @@ class HtmlHelperTest extends TestCase
 
     /**
      * Tests for `shareaholic()` method
-     * @return void
      * @test
      */
     public function testShareaholic()
@@ -1373,7 +1361,6 @@ class HtmlHelperTest extends TestCase
 
     /**
      * Test for `tag()` method
-     * @return void
      * @test
      */
     public function testTag()
@@ -1452,7 +1439,6 @@ class HtmlHelperTest extends TestCase
 
     /**
      * Tests for `viewport()` method
-     * @return void
      * @test
      */
     public function testViewport()
@@ -1467,7 +1453,7 @@ class HtmlHelperTest extends TestCase
         $result = $this->Html->viewport(['block' => false]);
         $expected = ['meta' => [
             'name' => 'viewport',
-            'content' => 'initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width',
+            'content' => 'initial-scale=1, shrink-to-fit=no, width=device-width',
         ]];
         $this->assertHtml($expected, $result);
 
@@ -1475,14 +1461,13 @@ class HtmlHelperTest extends TestCase
         $expected = ['meta' => [
             'custom-option' => 'custom-value',
             'name' => 'viewport',
-            'content' => 'initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width',
+            'content' => 'initial-scale=1, shrink-to-fit=no, width=device-width',
         ]];
         $this->assertHtml($expected, $result);
     }
 
     /**
      * Tests for `youtube()` method
-     * @return void
      * @test
      */
     public function testYoutube()
@@ -1553,7 +1538,7 @@ class HtmlHelperTest extends TestCase
                 'allowfullscreen' => 'allowfullscreen',
                 'height' => '480',
                 'width' => '640',
-                'class' => 'my-class embed-responsive-item',
+                'class' => 'embed-responsive-item my-class',
                 'src' => $url,
             ],
             '/iframe',

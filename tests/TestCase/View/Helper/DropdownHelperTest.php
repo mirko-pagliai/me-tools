@@ -42,8 +42,10 @@ class DropdownHelperTest extends TestCase
     {
         parent::setUp();
 
-        $this->Dropdown = new DropdownHelper(new View);
-        $this->Html = new HtmlHelper(new View);
+        $view = new View;
+
+        $this->Dropdown = new DropdownHelper($view);
+        $this->Html = new HtmlHelper($view);
     }
 
     /**
@@ -65,22 +67,15 @@ class DropdownHelperTest extends TestCase
                 'title' => $text,
             ]],
             $text,
-            'i' => ['class' => 'fa fa-caret-down'],
-            ' ',
-            '/i',
             '/a',
-            'ul' => ['class' => 'dropdown-menu'],
-            ['li' => true],
-            ['a' => ['href' => '/first', 'title' => 'First link']],
+            'div' => ['class' => 'dropdown-menu'],
+            ['a' => ['href' => '/first', 'class' => 'dropdown-item', 'title' => 'First link']],
             'First link',
             '/a',
-            '/li',
-            ['li' => true],
-            ['a' => ['href' => '/second', 'title' => 'Second link']],
+            ['a' => ['href' => '/second', 'class' => 'dropdown-item', 'title' => 'Second link']],
             'Second link',
             '/a',
-            '/li',
-            '/ul',
+            '/div',
         ];
 
         //No dropdown menu again...
@@ -94,24 +89,23 @@ class DropdownHelperTest extends TestCase
         $this->assertNull($result);
 
         $this->Dropdown->start($text);
-        echo $this->Html->link('First link', '/first');
-        echo $this->Html->link('Second link', '/second');
+        echo $this->Html->link('First link', '/first', ['class' => 'dropdown-item']);
+        echo $this->Html->link('Second link', '/second', ['class' => 'dropdown-item']);
         $result = $this->Dropdown->end();
         $this->assertHtml($expected, $result);
 
         //With `menu()` method
         $result = $this->Dropdown->menu($text, [
-            $this->Html->link('First link', '/first'),
-            $this->Html->link('Second link', '/second'),
+            $this->Html->link('First link', '/first', ['class' => 'dropdown-item']),
+            $this->Html->link('Second link', '/second', ['class' => 'dropdown-item']),
         ]);
         $this->assertHtml($expected, $result);
 
         //With callback
         $result = call_user_func(function () use ($text) {
             $this->Dropdown->start($text);
-
-            echo $this->Html->link('First link', '/first');
-            echo $this->Html->link('Second link', '/second');
+            echo $this->Html->link('First link', '/first', ['class' => 'dropdown-item']);
+            echo $this->Html->link('Second link', '/second', ['class' => 'dropdown-item']);
 
             return $this->Dropdown->end();
         });
@@ -120,7 +114,7 @@ class DropdownHelperTest extends TestCase
         $expected = [
             ['a' => [
                 'href' => '#',
-                'class' => 'my-start-class dropdown-toggle',
+                'class' => 'dropdown-toggle my-start-class',
                 'aria-expanded' => 'false',
                 'aria-haspopup' => 'true',
                 'data-toggle' => 'dropdown',
@@ -131,50 +125,85 @@ class DropdownHelperTest extends TestCase
             '/i',
             ' ',
             $text,
-            ' ',
-            ['i' => ['class' => 'fa fa-caret-down']],
-            ' ',
-            '/i',
             '/a',
-            'ul' => ['class' => 'ul-class dropdown-menu'],
-            ['li' => ['class' => 'li-class']],
-            ['a' => ['href' => '/first', 'title' => 'First link']],
+            'div' => ['class' => 'div-custom-class dropdown-menu', 'attr' => 'value'],
+            ['a' => ['href' => '/first', 'class' => 'dropdown-item', 'title' => 'First link']],
             'First link',
             '/a',
-            '/li',
-            ['li' => ['class' => 'li-class']],
-            ['a' => ['href' => '/second', 'title' => 'Second link']],
+            ['a' => ['href' => '/second', 'class' => 'dropdown-item', 'title' => 'Second link']],
             'Second link',
             '/a',
-            '/li',
-            '/ul',
+            '/div',
         ];
 
         //Start link with custom class
-        $this->Dropdown->start(
-            $text,
-            ['class' => 'my-start-class', 'icon' => 'home']
-        );
-        echo $this->Html->link('First link', '/first');
-        echo $this->Html->link('Second link', '/second');
-        //Ul and list elements with custom classes
-        $result = $this->Dropdown->end(
-            ['class' => 'ul-class'],
-            ['class' => 'li-class']
-        );
+        $this->Dropdown->start($text, ['class' => 'my-start-class', 'icon' => 'home']);
+        echo $this->Html->link('First link', '/first', ['class' => 'dropdown-item']);
+        echo $this->Html->link('Second link', '/second', ['class' => 'dropdown-item']);
+        //Div wrapper with custom class and attribute
+        $result = $this->Dropdown->end(['class' => 'div-custom-class', 'attr' => 'value']);
         $this->assertHtml($expected, $result);
 
         //With `menu()` method
         $result = $this->Dropdown->menu(
             $text,
             [
-                $this->Html->link('First link', '/first'),
-                $this->Html->link('Second link', '/second')
+                $this->Html->link('First link', '/first', ['class' => 'dropdown-item']),
+                $this->Html->link('Second link', '/second', ['class' => 'dropdown-item']),
             ],
             ['class' => 'my-start-class', 'icon' => 'home'],
-            ['class' => 'ul-class'],
-            ['class' => 'li-class']
+            ['class' => 'div-custom-class', 'attr' => 'value']
         );
+        $this->assertHtml($expected, $result);
+
+        //Dropdown inside a list, with other links
+        $expected = [
+            ['ul' => true],
+            ['li' => true],
+            ['a' => ['href' => '/', 'title' => 'Home']],
+            'Home',
+            '/a',
+            '/li',
+            ['li' => true],
+            ['a' => [
+                'href' => '#',
+                'aria-expanded' => 'false',
+                'aria-haspopup' => 'true',
+                'class' => 'dropdown-toggle',
+                'data-toggle' => 'dropdown',
+                'title' => $text,
+            ]],
+            $text,
+            '/a',
+            'div' => ['class' => 'dropdown-menu'],
+            ['a' => ['href' => '/first', 'class' => 'dropdown-item', 'title' => 'First link']],
+            'First link',
+            '/a',
+            ['a' => ['href' => '/second', 'class' => 'dropdown-item', 'title' => 'Second link']],
+            'Second link',
+            '/a',
+            '/div',
+            '/li',
+            ['li' => true],
+            ['a' => ['href' => '#', 'title' => 'Other main link']],
+            'Other main link',
+            '/a',
+            '/li',
+            '/ul',
+        ];
+
+        $result = $this->Html->ul([
+            $this->Html->link('Home', '/'),
+            //This is the dropdown menu
+            call_user_func(function () {
+                $this->Dropdown->start('My dropdown');
+                echo $this->Html->link('First link', '/first', ['class' => 'dropdown-item']);
+                echo $this->Html->link('Second link', '/second', ['class' => 'dropdown-item']);
+
+                return $this->Dropdown->end();
+            }),
+            $this->Html->link('Other main link', '#'),
+        ]);
         $this->assertHtml($expected, $result);
     }
 }

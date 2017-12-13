@@ -229,12 +229,13 @@ class LibraryHelperTest extends TestCase
             'icons' => [
                     'time' => 'fa fa-clock-o',
                     'date' => 'fa fa-calendar',
-                    'up' => 'fa fa-arrow-up',
-                    'down' => 'fa fa-arrow-down',
-                    'previous' => 'fa fa-arrow-left',
-                    'next' => 'fa fa-arrow-right',
+                    'up' => 'fa fa-chevron-up',
+                    'down' => 'fa fa-chevron-down',
+                    'previous' => 'fa fa-chevron-left',
+                    'next' => 'fa fa-chevron-right',
                     'today' => 'fa fa-dot-circle-o',
                     'clear' => 'fa fa-trash',
+                    'close' => 'fa fa-times',
             ],
             'locale' => 'en',
         ];
@@ -244,7 +245,7 @@ class LibraryHelperTest extends TestCase
         $expected = [
             ['script' => ['src' => '/vendor/moment/moment-with-locales.min.js']],
             '/script',
-            ['script' => ['src' => '/vendor/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js']],
+            ['script' => ['src' => '/me_tools/js/bootstrap-datetimepicker.min.js']],
             '/script',
         ];
         $this->assertHtml($expected, $result);
@@ -277,12 +278,13 @@ class LibraryHelperTest extends TestCase
             'icons' => [
                     'time' => 'fa fa-clock-o',
                     'date' => 'fa fa-calendar',
-                    'up' => 'fa fa-arrow-up',
-                    'down' => 'fa fa-arrow-down',
-                    'previous' => 'fa fa-arrow-left',
-                    'next' => 'fa fa-arrow-right',
+                    'up' => 'fa fa-chevron-up',
+                    'down' => 'fa fa-chevron-down',
+                    'previous' => 'fa fa-chevron-left',
+                    'next' => 'fa fa-chevron-right',
                     'today' => 'fa fa-dot-circle-o',
                     'clear' => 'fa fa-trash',
+                    'close' => 'fa fa-times',
             ],
             'locale' => 'en',
         ];
@@ -411,12 +413,13 @@ class LibraryHelperTest extends TestCase
             'icons' => [
                     'time' => 'fa fa-clock-o',
                     'date' => 'fa fa-calendar',
-                    'up' => 'fa fa-arrow-up',
-                    'down' => 'fa fa-arrow-down',
-                    'previous' => 'fa fa-arrow-left',
-                    'next' => 'fa fa-arrow-right',
+                    'up' => 'fa fa-chevron-up',
+                    'down' => 'fa fa-chevron-down',
+                    'previous' => 'fa fa-chevron-left',
+                    'next' => 'fa fa-chevron-right',
                     'today' => 'fa fa-dot-circle-o',
                     'clear' => 'fa fa-trash',
+                    'close' => 'fa fa-times',
             ],
             'locale' => 'en',
         ];

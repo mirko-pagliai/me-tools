@@ -48,8 +48,8 @@ class PaginatorHelperTest extends TestCase
     {
         $result = $this->Paginator->next('Next');
         $expected = [
-            'li' => ['class' => 'next disabled'],
-            'a' => ['href' => '', 'onclick' => 'return false;'],
+            'li' => ['class' => 'next page-item disabled'],
+            'a' => ['class' => 'page-link', 'href' => '', 'onclick' => 'return false;'],
             'Next',
             '/a',
             '/li',
@@ -59,8 +59,8 @@ class PaginatorHelperTest extends TestCase
         //Using `icon` option
         $result = $this->Paginator->next('Next', ['icon' => 'chevron-right']);
         $expected = [
-            'li' => ['class' => 'next disabled'],
-            'a' => ['href' => '', 'onclick' => 'return false;'],
+            'li' => ['class' => 'next page-item disabled'],
+            'a' => ['class' => 'page-link', 'href' => '', 'onclick' => 'return false;'],
             'Next',
             ' ',
             'i' => ['class' => 'fa fa-chevron-right'],
@@ -81,8 +81,8 @@ class PaginatorHelperTest extends TestCase
     {
         $result = $this->Paginator->prev('Previous');
         $expected = [
-            'li' => ['class' => 'prev disabled'],
-            'a' => ['href' => '', 'onclick' => 'return false;'],
+            'li' => ['class' => 'prev page-item disabled'],
+            'a' => ['class' => 'page-link', 'href' => '', 'onclick' => 'return false;'],
             'Previous',
             '/a',
             '/li',
@@ -92,8 +92,8 @@ class PaginatorHelperTest extends TestCase
         //Using `icon` option
         $result = $this->Paginator->prev('Previous', ['icon' => 'chevron-left']);
         $expected = [
-            'li' => ['class' => 'prev disabled'],
-            'a' => ['href' => '', 'onclick' => 'return false;'],
+            'li' => ['class' => 'prev page-item disabled'],
+            'a' => ['class' => 'page-link', 'href' => '', 'onclick' => 'return false;'],
             'i' => ['class' => 'fa fa-chevron-left'],
             ' ',
             '/i',

@@ -13,15 +13,51 @@
  */
 namespace MeTools\View\Helper;
 
+use Cake\Utility\Hash;
 use Cake\View\Helper\PaginatorHelper as CakePaginatorHelper;
-use MeTools\Utility\OptionsParserTrait;
+use Cake\View\View;
 
 /**
  * Provides functionalities to the generation of pagers
  */
 class PaginatorHelper extends CakePaginatorHelper
 {
-    use OptionsParserTrait;
+    /**
+     * Helpers
+     * @var array
+     */
+    public $helpers = [
+        'Form' => ['className' => ME_TOOLS . '.Form'],
+        'Html' => ['className' => ME_TOOLS . '.Html'],
+        'Number',
+        'Url',
+    ];
+
+    /**
+     * Construct the widgets and binds the default context providers.
+     *
+     * This method only rewrites the default templates config.
+     * @param Cake\View\View $View The View this helper is being attached to
+     * @param array $config Configuration settings for the helper
+     * @return void
+     * @uses $_defaultConfig
+     */
+    public function __construct(View $View, array $config = [])
+    {
+        $this->_defaultConfig = Hash::merge($this->_defaultConfig, ['templates' => [
+            'nextActive' => '<li class="next page-item"><a class="page-link" rel="next" href="{{url}}">{{text}}</a></li>',
+            'nextDisabled' => '<li class="next page-item disabled"><a class="page-link" href="" onclick="return false;">{{text}}</a></li>',
+            'prevActive' => '<li class="prev page-item"><a class="page-link" rel="prev" href="{{url}}">{{text}}</a></li>',
+            'prevDisabled' => '<li class="prev page-item disabled"><a class="page-link" href="" onclick="return false;">{{text}}</a></li>',
+            'first' => '<li class="first page-item"><a class="page-link" href="{{url}}">{{text}}</a></li>',
+            'last' => '<li class="last page-item"><a class="page-link" href="{{url}}">{{text}}</a></li>',
+            'number' => '<li class="page-item"><a class="page-link" href="{{url}}">{{text}}</a></li>',
+            'current' => '<li class="active page-item"><a class="page-link" href="">{{text}}</a></li>',
+            'ellipsis' => '<li class="ellipsis page-item">&hellip;</li>',
+        ]]);
+
+        parent::__construct($View, $config);
+    }
 
     /**
      * Generates a "next" link for a set of paged records
@@ -31,10 +67,10 @@ class PaginatorHelper extends CakePaginatorHelper
      */
     public function next($title = 'Next >>', array $options = [])
     {
-        $options = $this->optionsDefaults(['escape' => false, 'icon-align' => 'right'], $options);
-        list($title, $options) = $this->addIconToText($title, $options);
+        $options = optionsParser($options, ['escape' => false, 'icon-align' => 'right']);
+        list($title, $options) = $this->Html->addIconToText($title, $options);
 
-        return parent::next($title, $options);
+        return parent::next($title, $options->toArray());
     }
 
     /**
@@ -45,9 +81,9 @@ class PaginatorHelper extends CakePaginatorHelper
      */
     public function prev($title = '<< Previous', array $options = [])
     {
-        $options = $this->optionsDefaults(['escape' => false], $options);
-        list($title, $options) = $this->addIconToText($title, $options);
+        $options = optionsParser($options, ['escape' => false]);
+        list($title, $options) = $this->Html->addIconToText($title, $options);
 
-        return parent::prev($title, $options);
+        return parent::prev($title, $options->toArray());
     }
 }

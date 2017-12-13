@@ -13,6 +13,7 @@
 namespace MeTools\Test\TestCase\Core;
 
 use MeTools\TestSuite\TestCase;
+use MeTools\View\OptionsParser;
 
 /**
  * GlobalFunctionsTest class
@@ -25,7 +26,6 @@ class GlobalFunctionsTest extends TestCase
      * It creates some directories, so it tests if they are writeable.
      * Then creates some files, cleans directories, so it tests if all files
      *  have been deleted.
-     * @return void
      * @test
      */
     public function testClearDirAndFolderIsWriteabled()
@@ -70,7 +70,6 @@ class GlobalFunctionsTest extends TestCase
 
     /**
      * Test for `getChildMethods()` global function
-     * @return void
      * @test
      */
     public function testGetChildMethods()
@@ -94,7 +93,6 @@ class GlobalFunctionsTest extends TestCase
 
     /**
      * Test for `isJson()` global function
-     * @return void
      * @test
      */
     public function testIsJson()
@@ -112,7 +110,6 @@ class GlobalFunctionsTest extends TestCase
 
     /**
      * Test for `isPositive()` global function
-     * @return void
      * @test
      */
     public function testIsPositive()
@@ -125,59 +122,76 @@ class GlobalFunctionsTest extends TestCase
 
     /**
      * Test for `isUrl()` global function
-     * @return void
      * @test
      */
     public function testIsUrl()
     {
-        //Http(s)
-        $this->assertTrue(isUrl('https://www.example.com'));
-        $this->assertTrue(isUrl('http://www.example.com'));
-        $this->assertTrue(isUrl('www.example.com'));
-        $this->assertTrue(isUrl('http://example.com'));
-        $this->assertTrue(isUrl('http://example.com/file'));
-        $this->assertTrue(isUrl('http://example.com/file.html'));
-        $this->assertTrue(isUrl('www.example.com/file.html'));
-        $this->assertTrue(isUrl('http://example.com/subdir/file'));
+        foreach ([
+            'https://www.example.com',
+            'http://www.example.com',
+            'www.example.com',
+            'http://example.com',
+            'http://example.com/file',
+            'http://example.com/file.html',
+            'http://example.com/subdir/file',
+            'ftp://www.example.com',
+            'ftp://example.com',
+            'ftp://example.com/file.html',
+        ] as $url) {
+            $this->assertTrue(isUrl($url));
+        }
 
-        //Ftp
-        $this->assertTrue(isUrl('ftp://www.example.com'));
-        $this->assertTrue(isUrl('ftp://example.com'));
-        $this->assertTrue(isUrl('ftp://example.com/file.html'));
+        foreach ([
+            'example.com',
+            'folder',
+            DS . 'folder',
+            DS . 'folder' . DS,
+            DS . 'folder' . DS . 'file.txt',
+        ] as $badUrl) {
+            $this->assertFalse(isUrl($badUrl));
+        }
+    }
 
-        //Missing "http" and/or "www"
-        $this->assertFalse(isUrl('example.com'));
+    /**
+     * Test for `optionsParser()` global function
+     * @test
+     */
+    public function testOptionsParser()
+    {
+        $result = optionsParser();
+        $expected = new OptionsParser;
+        $this->assertInstanceOf('MeTools\View\OptionsParser', $result);
+        $this->assertEquals($expected, $result);
+        $this->assertEquals(get_object_vars($expected), get_object_vars($result));
 
-        //Files and dirs
-        $this->assertFalse(isUrl('folder'));
-        $this->assertFalse(isUrl(DS . 'folder'));
-        $this->assertFalse(isUrl(DS . 'folder' . DS));
-        $this->assertFalse(isUrl(DS . 'folder' . DS . 'file.txt'));
+        $a = ['f' => 'first', 's' => 'second'];
+        $b = ['t' => 'third'];
+
+        $result = optionsParser($a, $b);
+        $expected = new OptionsParser($a, $b);
+        $this->assertInstanceOf('MeTools\View\OptionsParser', $result);
+        $this->assertEquals($expected, $result);
+        $this->assertEquals(get_object_vars($expected), get_object_vars($result));
     }
 
     /**
      * Test for `rtr()` global function
-     * @return void
      * @test
      */
     public function testRtr()
     {
         $result = rtr(ROOT . 'my' . DS . 'folder');
-        $expected = 'my' . DS . 'folder';
-        $this->assertEquals($expected, $result);
+        $this->assertEquals('my' . DS . 'folder', $result);
 
         $result = rtr('my' . DS . 'folder');
-        $expected = 'my' . DS . 'folder';
+        $this->assertEquals('my' . DS . 'folder', $result);
 
-        $this->assertEquals($expected, $result);
         $result = rtr(DS . 'my' . DS . 'folder');
-        $expected = DS . 'my' . DS . 'folder';
-        $this->assertEquals($expected, $result);
+        $this->assertEquals(DS . 'my' . DS . 'folder', $result);
     }
 
     /**
      * Test for `which()` global function
-     * @return void
      * @test
      */
     public function testWhich()
