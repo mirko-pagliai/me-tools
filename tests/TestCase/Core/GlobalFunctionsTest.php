@@ -126,29 +126,30 @@ class GlobalFunctionsTest extends TestCase
      */
     public function testIsUrl()
     {
-        //Http(s)
-        $this->assertTrue(isUrl('https://www.example.com'));
-        $this->assertTrue(isUrl('http://www.example.com'));
-        $this->assertTrue(isUrl('www.example.com'));
-        $this->assertTrue(isUrl('http://example.com'));
-        $this->assertTrue(isUrl('http://example.com/file'));
-        $this->assertTrue(isUrl('http://example.com/file.html'));
-        $this->assertTrue(isUrl('www.example.com/file.html'));
-        $this->assertTrue(isUrl('http://example.com/subdir/file'));
+        foreach ([
+            'https://www.example.com',
+            'http://www.example.com',
+            'www.example.com',
+            'http://example.com',
+            'http://example.com/file',
+            'http://example.com/file.html',
+            'http://example.com/subdir/file',
+            'ftp://www.example.com',
+            'ftp://example.com',
+            'ftp://example.com/file.html',
+        ] as $url) {
+            $this->assertTrue(isUrl($url));
+        }
 
-        //Ftp
-        $this->assertTrue(isUrl('ftp://www.example.com'));
-        $this->assertTrue(isUrl('ftp://example.com'));
-        $this->assertTrue(isUrl('ftp://example.com/file.html'));
-
-        //Missing "http" and/or "www"
-        $this->assertFalse(isUrl('example.com'));
-
-        //Files and dirs
-        $this->assertFalse(isUrl('folder'));
-        $this->assertFalse(isUrl(DS . 'folder'));
-        $this->assertFalse(isUrl(DS . 'folder' . DS));
-        $this->assertFalse(isUrl(DS . 'folder' . DS . 'file.txt'));
+        foreach ([
+            'example.com',
+            'folder',
+            DS . 'folder',
+            DS . 'folder' . DS,
+            DS . 'folder' . DS . 'file.txt',
+        ] as $badUrl) {
+            $this->assertFalse(isUrl($badUrl));
+        }
     }
 
     /**
@@ -180,16 +181,13 @@ class GlobalFunctionsTest extends TestCase
     public function testRtr()
     {
         $result = rtr(ROOT . 'my' . DS . 'folder');
-        $expected = 'my' . DS . 'folder';
-        $this->assertEquals($expected, $result);
+        $this->assertEquals('my' . DS . 'folder', $result);
 
         $result = rtr('my' . DS . 'folder');
-        $expected = 'my' . DS . 'folder';
+        $this->assertEquals('my' . DS . 'folder', $result);
 
-        $this->assertEquals($expected, $result);
         $result = rtr(DS . 'my' . DS . 'folder');
-        $expected = DS . 'my' . DS . 'folder';
-        $this->assertEquals($expected, $result);
+        $this->assertEquals(DS . 'my' . DS . 'folder', $result);
     }
 
     /**

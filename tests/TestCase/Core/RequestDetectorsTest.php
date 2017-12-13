@@ -35,9 +35,7 @@ class RequestDetectorsTest extends TestCase
     {
         parent::setUp();
 
-        //Creates request
-        $this->Request = new Request;
-        $this->Request = $this->Request->withParam('action', 'myAction')
+        $this->Request = (new Request)->withParam('action', 'myAction')
             ->withParam('controller', 'myController')
             ->withParam('prefix', 'myPrefix');
     }
@@ -170,12 +168,10 @@ class RequestDetectorsTest extends TestCase
     public function testIsUrlQueryString()
     {
         $this->Request = $this->Request->withEnv('REQUEST_URI', '/some_alias');
-
         $this->assertTrue($this->Request->isUrl('/some_alias'));
         $this->assertTrue($this->Request->isUrl('/some_alias', false));
 
         $this->Request = $this->Request->withEnv('REQUEST_URI', '/some_alias?key=value');
-
         $this->assertTrue($this->Request->isUrl('/some_alias'));
         $this->assertFalse($this->Request->isUrl('/some_alias', false));
     }

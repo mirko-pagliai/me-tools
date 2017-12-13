@@ -92,19 +92,17 @@ class PluginTest extends TestCase
             'config' . DS . 'bootstrap.php',
             'config' . DS . 'no_existing.php',
         ]);
-        $expected = [
+        $this->assertEquals([
             ROOT . 'config' . DS . 'bootstrap.php',
             ROOT . 'config' . DS . 'no_existing.php',
-        ];
-        $this->assertEquals($expected, $result);
+        ], $result);
 
         //Only the first file exists
         $result = Plugin::path(ME_TOOLS, [
             'config' . DS . 'bootstrap.php',
             'config' . DS . 'no_existing.php',
         ], true);
-        $expected = [ROOT . 'config' . DS . 'bootstrap.php'];
-        $this->assertEquals($expected, $result);
+        $this->assertEquals([ROOT . 'config' . DS . 'bootstrap.php'], $result);
 
         //No existing files
         $result = Plugin::path(ME_TOOLS, [
