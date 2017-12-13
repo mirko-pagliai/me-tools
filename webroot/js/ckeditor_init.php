@@ -30,8 +30,11 @@ $(function () {
                 info.get('txtCellPad')['default'] = '0'; //Default cell padding
             }
         });
-        
+
         CKEDITOR.replace(this.id, {
+            autoGrow_bottomSpace: 0,
+            autoGrow_maxHeight: 550,
+            autoGrow_onStartup: true,
             bodyClass: 'article p-3',
             contentsCss: [
                 /**
