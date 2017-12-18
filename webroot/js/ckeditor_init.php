@@ -10,8 +10,14 @@
  * @link        https://github.com/mirko-pagliai/me-tools
  * @license     https://opensource.org/licenses/mit-license.php MIT License
  */
+if (!defined('DS')) {
+    define('DS', DIRECTORY_SEPARATOR);
+}
 
-$baseDir = dirname(dirname(getenv('SCRIPT_NAME')));
+$scriptFilename = getenv('SCRIPT_FILENAME');
+$scriptName = getenv('SCRIPT_NAME');
+$webroot = substr($scriptFilename, 0, strrpos($scriptFilename, DS . 'webroot' . DS)) . DS . 'webroot' . DS;
+$baseDir = substr($scriptName, 0, strrpos($scriptName, '/webroot/'));
 ?>
 $(function () {
     $('.editor.wysiwyg').each(function () {
@@ -23,7 +29,7 @@ $(function () {
                 var advanced = dialogDefinition.getContents('advanced');
                 var info = dialogDefinition.getContents('info');
 
-                advanced.get('advCSSClasses')['default'] = 'table'; //Default cell classes
+                advanced.get('advCSSClasses')['default'] = 'table table-responsive'; //Default table classes
                 info.get('txtWidth')['default'] = '100%'; //Default width
                 info.get('txtBorder')['default'] = '0'; //Default border
                 info.get('txtCellSpace')['default'] = '0'; //Default cell spacing
@@ -38,13 +44,22 @@ $(function () {
             bodyClass: 'article p-3',
             contentsCss: [
                 /**
-                 * You can add several css files so that the editor style is the same as the article preview
+                 * These are the css files that will be loaded into the editor.
+                 * In this way, the style applied within the editor will be the
+                 * style actually used by the post when it will be published
                  */
                 '<?= $baseDir ?>/vendor/bootstrap/css/bootstrap.min.css',
                 '<?= $baseDir ?>/me_cms/css/layout.css',
                 '<?= $baseDir ?>/me_cms/css/contents.css',
-                //'<?= $baseDir ?>/css/layout.css',
-                //'<?= $baseDir ?>/css/contents.css',
+                <?php
+                    //If `layout.css` and `contents.css` files exists in the
+                    //  `webroot/css` directory, they will also be loaded
+                    foreach (['layout.css', 'contents.css'] as $file) {
+                        if (is_readable($webroot . 'css' . DS . $file)) {
+                            echo '\'' . $baseDir . '/css/' . $file . '\',';
+                        }
+                    }
+                ?>
             ],
             disableNativeSpellChecker: false,
             fontSize_sizes: '10/10px;11/11px;12/12px;14/14px;16/16px;18/18px;20/20px;22/22px;24/24px;26/26px;28/28px;30/30px;',
@@ -73,13 +88,15 @@ $(function () {
                 { name: 'about' }
             ],
 
-            /**
-             * To use KCFinder, you have to comment out these lines and indicate the position of KCFinder
-             */
-            //filebrowserBrowseUrl: '<?= $baseDir ?>/vendor/kcfinder/browse.php?type=files',
-            //filebrowserImageBrowseUrl: '<?= $baseDir ?>/vendor/kcfinder/browse.php?type=images',
-            //filebrowserUploadUrl: '<?= $baseDir ?>/vendor/kcfinder/upload.php?type=files',
-            //filebrowserImageUploadUrl: '<?= $baseDir ?>/vendor/kcfinder/upload.php?type=images',
+            <?php
+                //Checks if the KCFinder files exist
+                if (is_readable($webroot . 'vendor' . DS . 'kcfinder' . DS . 'browse.php')) {
+                    echo 'filebrowserBrowseUrl: \'' . $baseDir . '/vendor/kcfinder/browse.php?type=files\',';
+                    echo 'filebrowserImageBrowseUrl: \'' . $baseDir . '/vendor/kcfinder/browse.php?type=images\',';
+                    echo 'filebrowserUploadUrl: \'' . $baseDir . '/vendor/kcfinder/upload.php?type=files\',';
+                    echo 'filebrowserImageUploadUrl: \'' . $baseDir . '/vendor/kcfinder/upload.php?type=images\',';
+                }
+            ?>
         });
     });
 });

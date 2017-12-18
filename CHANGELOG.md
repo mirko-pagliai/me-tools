@@ -1,5 +1,9 @@
 # 2.x branch
 ## 2.16 branch
+### 2.16.5-RC3
+* Css files and KCFinder files to be loaded into the CKEditor editor are
+    automatically set.
+
 ### 2.16.4-RC2
 * added some plugins for CKEditor and set some default values for the tables.
 
