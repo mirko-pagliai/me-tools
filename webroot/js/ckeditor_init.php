@@ -25,6 +25,12 @@ $(function () {
             var dialogName = ev.data.name;
             var dialogDefinition = ev.data.definition;
 
+            if (dialogName == 'iframe') {
+                var advanced = dialogDefinition.getContents('advanced');
+
+                advanced.get('advCSSClasses')['default'] = 'embed-responsive embed-responsive-item'; //Default iframe classes
+            }
+
             if (dialogName == 'table') {
                 var advanced = dialogDefinition.getContents('advanced');
                 var info = dialogDefinition.getContents('info');
