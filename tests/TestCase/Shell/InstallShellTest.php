@@ -118,7 +118,6 @@ class InstallShellTest extends ConsoleIntegrationTestCase
         $this->InstallShell->all();
 
         $expectedMethodsCalledInOrder = [
-            'createDirectories',
             'setPermissions',
             'createRobots',
             'fixComposerJson',
@@ -138,6 +137,7 @@ class InstallShellTest extends ConsoleIntegrationTestCase
         $this->InstallShell->interactive = false;
         $this->InstallShell->all();
 
+        $expectedMethodsCalledInOrder = array_merge(['createDirectories'], $expectedMethodsCalledInOrder);
         $this->assertEquals($expectedMethodsCalledInOrder, $this->out->messages());
         $this->assertEmpty($this->err->messages());
     }

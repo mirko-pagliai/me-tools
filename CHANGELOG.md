@@ -2,6 +2,8 @@
 ## 2.16 branch
 ### 2.16.5-RC3
 * improved the `InstallShell` class;
+* `InstallShell::all()`, if called with the `force` parameter, executes only
+    the default methods;
 * Css files and KCFinder files to be loaded into the CKEditor editor are
     automatically set;
 * setted some default values for tables and iframe for CKEditor.
