@@ -90,17 +90,6 @@ class InstallShellTest extends ConsoleIntegrationTestCase
     }
 
     /**
-     * Test for `__construct()` method
-     * @test
-     */
-    public function testConstruct()
-    {
-        $this->assertNotEmpty($this->getProperty($this->InstallShell, 'fonts'));
-        $this->assertNotEmpty($this->getProperty($this->InstallShell, 'links'));
-        $this->assertNotEmpty($this->getProperty($this->InstallShell, 'paths'));
-    }
-
-    /**
      * Test for `all()` method
      * @test
      */

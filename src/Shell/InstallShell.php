@@ -12,7 +12,6 @@
  */
 namespace MeTools\Shell;
 
-use Cake\Console\ConsoleIo;
 use MeTools\Console\Shell;
 
 /**
@@ -25,7 +24,12 @@ class InstallShell extends Shell
      * Full path for each font
      * @var array
      */
-    protected $fonts = [];
+    protected $fonts = [
+        'fortawesome/font-awesome/fonts/fontawesome-webfont.eot',
+        'fortawesome/font-awesome/fonts/fontawesome-webfont.ttf',
+        'fortawesome/font-awesome/fonts/fontawesome-webfont.woff',
+        'fortawesome/font-awesome/fonts/fontawesome-webfont.woff2',
+    ];
 
     /**
      * Assets for which create symbolic links.
@@ -33,117 +37,92 @@ class InstallShell extends Shell
      *  to `webroot/vendor/`
      * @var array
      */
-    protected $links = [];
+    protected $links = [
+        'eonasdan/bootstrap-datetimepicker/build' => 'bootstrap-datetimepicker',
+        'components/jquery' => 'jquery',
+        'components/moment/min' => 'moment',
+        'fortawesome/font-awesome' => 'font-awesome',
+        'newerton/fancy-box/source' => 'fancybox',
+        'twbs/bootstrap/dist' => 'bootstrap',
+    ];
 
     /**
      * Paths to be created and made writable
      * @var array
      */
-    protected $paths = [];
-
-    /**
-     * Construct
-     * @param \Cake\Console\ConsoleIo|null $io An io instance
-     * @uses $fonts
-     * @uses $links
-     * @uses $paths
-     */
-    public function __construct(ConsoleIo $io = null)
-    {
-        parent::__construct($io);
-
-        //Assets for which create symbolic links (full paths)
-        $this->fonts = [
-            'fortawesome/font-awesome/fonts/fontawesome-webfont.eot',
-            'fortawesome/font-awesome/fonts/fontawesome-webfont.ttf',
-            'fortawesome/font-awesome/fonts/fontawesome-webfont.woff',
-            'fortawesome/font-awesome/fonts/fontawesome-webfont.woff2',
-        ];
-
-        //Assets for which create symbolic links
-        $this->links = [
-            'eonasdan/bootstrap-datetimepicker/build' => 'bootstrap-datetimepicker',
-            'components/jquery' => 'jquery',
-            'components/moment/min' => 'moment',
-            'fortawesome/font-awesome' => 'font-awesome',
-            'newerton/fancy-box/source' => 'fancybox',
-            'twbs/bootstrap/dist' => 'bootstrap',
-        ];
-
-        //Paths to be created and made writable
-        $this->paths = [
-            LOGS,
-            TMP,
-            TMP . 'cache',
-            TMP . 'cache' . DS . 'models',
-            TMP . 'cache' . DS . 'persistent',
-            TMP . 'cache' . DS . 'views',
-            TMP . 'sessions',
-            TMP . 'tests',
-            WWW_ROOT . 'files',
-            WWW_ROOT . 'fonts',
-            WWW_ROOT . 'vendor',
-        ];
-    }
+    protected $paths = [
+        LOGS,
+        TMP,
+        TMP . 'cache',
+        TMP . 'cache' . DS . 'models',
+        TMP . 'cache' . DS . 'persistent',
+        TMP . 'cache' . DS . 'views',
+        TMP . 'sessions',
+        TMP . 'tests',
+        WWW_ROOT . 'files',
+        WWW_ROOT . 'fonts',
+        WWW_ROOT . 'vendor',
+    ];
 
     /**
      * Executes all available tasks
      * @return void
-     * @uses copyFonts()
-     * @uses createDirectories()
-     * @uses createPluginsLinks()
-     * @uses createRobots()
-     * @uses createVendorsLinks()
-     * @uses fixComposerJson()
-     * @uses setPermissions()
      */
     public function all()
     {
-        if ($this->param('force')) {
-            $this->createDirectories();
-            $this->setPermissions();
-            $this->createRobots();
-            $this->fixComposerJson();
-            $this->createPluginsLinks();
-            $this->createVendorsLinks();
-            $this->copyFonts();
+        $methods = [
+            [
+                'question' => __d('me_tools', 'Create default directories?'),
+                'default' => 'N',
+                'method' => 'createDirectories',
+            ],
+            [
+                'question' => __d('me_tools', 'Set directories permissions?'),
+                'default' => 'Y',
+                'method' => 'setPermissions',
+            ],
+            [
+                'question' => __d('me_tools', 'Create {0}?', 'robots.txt'),
+                'default' => 'Y',
+                'method' => 'createRobots',
+            ],
+            [
+                'question' => __d('me_tools', 'Fix {0}?', 'composer.json'),
+                'default' => 'Y',
+                'method' => 'fixComposerJson',
+            ],
+            [
+                'question' => __d('me_tools', 'Create symbolic links for plugins assets?'),
+                'default' => 'Y',
+                'method' => 'createPluginsLinks',
+            ],
+            [
+                'question' => __d('me_tools', 'Create symbolic links for vendor assets?'),
+                'default' => 'Y',
+                'method' => 'createVendorsLinks',
+            ],
+            [
+                'question' => __d('me_tools', 'Create symbolic links for fonts?'),
+                'default' => 'Y',
+                'method' => 'copyFonts',
+            ],
+        ];
 
-            return;
-        }
+        foreach ($methods as $item) {
+            list($question, $default, $method) = array_values($item);
 
-        $ask = $this->in(__d('me_tools', 'Create default directories?'), ['y', 'N'], 'N');
-        if (in_array($ask, ['Y', 'y'])) {
-            $this->createDirectories();
-        }
+            //The method must be executed if the `force` mode is set or if the
+            //  user answers yes to the question
+            if ($this->param('force')) {
+                $toBeExecuted = true;
+            } else {
+                $ask = $this->in($question, $default === 'Y' ? ['Y', 'n'] : ['y', 'N'], $default);
+                $toBeExecuted = in_array($ask, ['Y', 'y']);
+            }
 
-        $ask = $this->in(__d('me_tools', 'Set directories permissions?'), ['Y', 'n'], 'Y');
-        if (in_array($ask, ['Y', 'y'])) {
-            $this->setPermissions();
-        }
-
-        $ask = $this->in(__d('me_tools', 'Create {0}?', 'robots.txt'), ['Y', 'n'], 'Y');
-        if (in_array($ask, ['Y', 'y'])) {
-            $this->createRobots();
-        }
-
-        $ask = $this->in(__d('me_tools', 'Fix {0}?', 'composer.json'), ['Y', 'n'], 'Y');
-        if (in_array($ask, ['Y', 'y'])) {
-            $this->fixComposerJson();
-        }
-
-        $ask = $this->in(__d('me_tools', 'Create symbolic links for plugins assets?'), ['Y', 'n'], 'Y');
-        if (in_array($ask, ['Y', 'y'])) {
-            $this->createPluginsLinks();
-        }
-
-        $ask = $this->in(__d('me_tools', 'Create symbolic links for vendor assets?'), ['Y', 'n'], 'Y');
-        if (in_array($ask, ['Y', 'y'])) {
-            $this->createVendorsLinks();
-        }
-
-        $ask = $this->in(__d('me_tools', 'Create symbolic links for fonts?'), ['Y', 'n'], 'Y');
-        if (in_array($ask, ['Y', 'y'])) {
-            $this->copyFonts();
+            if ($toBeExecuted) {
+                call_user_func([$this, $method]);
+            }
         }
     }
 
