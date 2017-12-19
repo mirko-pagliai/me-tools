@@ -10,22 +10,65 @@
  * @link        https://github.com/mirko-pagliai/me-tools
  * @license     https://opensource.org/licenses/mit-license.php MIT License
  */
-
-$baseDir = dirname(dirname(getenv('SCRIPT_NAME')));
+if (!defined('DS')) {
+    define('DS', DIRECTORY_SEPARATOR);
+}
+if (!defined('WEBROOT')) {
+    $scriptFilename = getenv('SCRIPT_FILENAME');
+    define('WEBROOT', substr($scriptFilename, 0, strrpos($scriptFilename, DS . 'webroot' . DS)) . DS . 'webroot' . DS);
+}
+if (!defined('BASEDIR')) {
+    $scriptName = getenv('SCRIPT_NAME');
+    define('BASEDIR', substr($scriptName, 0, strrpos($scriptName, '/webroot/')));
+}
 ?>
 $(function () {
     $('.editor.wysiwyg').each(function () {
+        CKEDITOR.on('dialogDefinition', function (ev) {
+            var dialogName = ev.data.name;
+            var dialogDefinition = ev.data.definition;
+
+            if (dialogName == 'iframe') {
+                var advanced = dialogDefinition.getContents('advanced');
+
+                advanced.get('advCSSClasses')['default'] = 'embed-responsive embed-responsive-item'; //Default iframe classes
+            }
+
+            if (dialogName == 'table') {
+                var advanced = dialogDefinition.getContents('advanced');
+                var info = dialogDefinition.getContents('info');
+
+                advanced.get('advCSSClasses')['default'] = 'table table-responsive'; //Default table classes
+                info.get('txtWidth')['default'] = '100%'; //Default width
+                info.get('txtBorder')['default'] = '0'; //Default border
+                info.get('txtCellSpace')['default'] = '0'; //Default cell spacing
+                info.get('txtCellPad')['default'] = '0'; //Default cell padding
+            }
+        });
+
         CKEDITOR.replace(this.id, {
+            autoGrow_bottomSpace: 0,
+            autoGrow_maxHeight: 550,
+            autoGrow_onStartup: true,
             bodyClass: 'article p-3',
             contentsCss: [
                 /**
-                 * You can add several css files so that the editor style is the same as the article preview
+                 * These are the css files that will be loaded into the editor.
+                 * In this way, the style applied within the editor will be the
+                 * style actually used by the post when it will be published
                  */
-                '<?= $baseDir ?>/vendor/bootstrap/css/bootstrap.min.css',
-                '<?= $baseDir ?>/me_cms/css/layout.css',
-                '<?= $baseDir ?>/me_cms/css/contents.css',
-                //'<?= $baseDir ?>/css/layout.css',
-                //'<?= $baseDir ?>/css/contents.css',
+                '<?= BASEDIR ?>/vendor/bootstrap/css/bootstrap.min.css',
+                '<?= BASEDIR ?>/me_cms/css/layout.css',
+                '<?= BASEDIR ?>/me_cms/css/contents.css',
+                <?php
+                //If `layout.css` and `contents.css` files exists in the
+                //  `webroot/css` directory, they will also be loaded
+                foreach (['layout.css', 'contents.css'] as $file) {
+                    if (is_readable(WEBROOT . 'css' . DS . $file)) {
+                        echo '\'' . BASEDIR . '/css/' . $file . '\',';
+                    }
+                }
+                ?>
             ],
             disableNativeSpellChecker: false,
             fontSize_sizes: '10/10px;11/11px;12/12px;14/14px;16/16px;18/18px;20/20px;22/22px;24/24px;26/26px;28/28px;30/30px;',
@@ -54,13 +97,15 @@ $(function () {
                 { name: 'about' }
             ],
 
-            /**
-             * To use KCFinder, you have to comment out these lines and indicate the position of KCFinder
-             */
-            //filebrowserBrowseUrl: '<?= $baseDir ?>/vendor/kcfinder/browse.php?type=files',
-            //filebrowserImageBrowseUrl: '<?= $baseDir ?>/vendor/kcfinder/browse.php?type=images',
-            //filebrowserUploadUrl: '<?= $baseDir ?>/vendor/kcfinder/upload.php?type=files',
-            //filebrowserImageUploadUrl: '<?= $baseDir ?>/vendor/kcfinder/upload.php?type=images',
+            <?php
+            //Checks if the KCFinder files exist
+            if (is_readable(WEBROOT . 'vendor' . DS . 'kcfinder' . DS . 'browse.php')) {
+                echo 'filebrowserBrowseUrl: \'' . BASEDIR . '/vendor/kcfinder/browse.php?type=files\',';
+                echo 'filebrowserImageBrowseUrl: \'' . BASEDIR . '/vendor/kcfinder/browse.php?type=images\',';
+                echo 'filebrowserUploadUrl: \'' . BASEDIR . '/vendor/kcfinder/upload.php?type=files\',';
+                echo 'filebrowserImageUploadUrl: \'' . BASEDIR . '/vendor/kcfinder/upload.php?type=images\',';
+            }
+            ?>
         });
     });
 });

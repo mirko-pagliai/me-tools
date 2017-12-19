@@ -46,14 +46,13 @@ if (!function_exists('folderIsWriteable')) {
      */
     function folderIsWriteable($dir)
     {
-        if (!is_readable($dir) || !is_writeable($dir)) {
+        if (!is_readable($dir) || !is_writable($dir)) {
             return false;
         }
 
-        $subdirs = (new Folder())->tree($dir, false, 'dir');
-
-        foreach ($subdirs as $subdir) {
-            if (!is_readable($subdir) || !is_writeable($subdir)) {
+        //Checks each sub-directory
+        foreach ((new Folder())->tree($dir, false, 'dir') as $subdir) {
+            if (!is_readable($subdir) || !is_writable($subdir)) {
                 return false;
             }
         }

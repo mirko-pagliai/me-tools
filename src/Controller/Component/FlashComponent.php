@@ -33,9 +33,7 @@ class FlashComponent extends CakeFlashComponent
      */
     public function __call($name, $args)
     {
-        if (!isset($args[1]['plugin']) &&
-            in_array($name, ['alert', 'error', 'notice', 'success'])
-        ) {
+        if (!isset($args[1]['plugin']) && in_array($name, ['alert', 'error', 'notice', 'success'])) {
             if (!isset($args[1]['params']['class'])) {
                 switch ($name) {
                     case 'alert':

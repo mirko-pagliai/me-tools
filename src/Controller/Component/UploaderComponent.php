@@ -65,7 +65,7 @@ class UploaderComponent extends Component
             for ($i = 1;; $i++) {
                 $target = $tmp . '_' . $i;
 
-                if (!empty($extension)) {
+                if ($extension) {
                     $target .= '.' . $extension;
                 }
 
@@ -149,7 +149,7 @@ class UploaderComponent extends Component
      */
     public function save($directory)
     {
-        if (empty($this->file)) {
+        if (!$this->file) {
             throw new InternalErrorException(__d('me_tools', 'There are no uploaded file information'));
         }
 

@@ -28,21 +28,20 @@ class HiddenWidget extends BasicWidget
      */
     public function render(array $data, ContextInterface $context)
     {
-        $data += [
+        $data = optionsParser($data, [
             'name' => '',
             'val' => null,
             'type' => 'text',
             'escape' => true,
             'templateVars' => [],
-        ];
-        $data['value'] = $data['val'];
-        unset($data['val']);
+        ]);
+        $data->add('value', $data->get('val'))->delete('val');
 
         return $this->_templates->format('hidden', [
-            'name' => $data['name'],
-            'type' => $data['type'],
-            'templateVars' => $data['templateVars'],
-            'attrs' => $this->_templates->formatAttributes($data, ['name', 'type']),
+            'name' => $data->get('name'),
+            'type' => $data->get('type'),
+            'templateVars' => $data->get('templateVars'),
+            'attrs' => $this->_templates->formatAttributes($data->toArray(), ['name', 'type']),
         ]);
     }
 }

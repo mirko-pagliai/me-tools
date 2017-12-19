@@ -52,7 +52,7 @@ class BBCodeHelper extends Helper
 
         //Calls dynamically each method
         foreach ($methods as $method) {
-            $text = self::{$method}($text);
+            $text = call_user_func([$this, $method], $text);
         }
 
         return $text;

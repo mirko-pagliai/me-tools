@@ -49,9 +49,11 @@ trait TestCaseTrait
             foreach ($filename as $var) {
                 parent::assertFileExists($var, $message);
             }
-        } else {
-            parent::assertFileExists($filename, $message);
+
+            return;
         }
+
+        parent::assertFileExists($filename, $message);
     }
 
     /**
@@ -68,9 +70,11 @@ trait TestCaseTrait
             foreach ($filename as $var) {
                 parent::assertFileNotExists($var, $message);
             }
-        } else {
-            parent::assertFileNotExists($filename, $message);
+
+            return;
         }
+
+        parent::assertFileNotExists($filename, $message);
     }
 
     /**
@@ -90,9 +94,11 @@ trait TestCaseTrait
             foreach ($actual as $var) {
                 parent::assertInstanceOf($expected, $var, $message);
             }
-        } else {
-            parent::assertInstanceOf($expected, $actual, $message);
+
+            return;
         }
+
+        parent::assertInstanceOf($expected, $actual, $message);
     }
 
     /**

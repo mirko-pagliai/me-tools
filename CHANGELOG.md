@@ -1,5 +1,14 @@
 # 2.x branch
 ## 2.16 branch
+### 2.16.5-RC3
+* improved the `InstallShell` class;
+* Css files and KCFinder files to be loaded into the CKEditor editor are
+    automatically set;
+* setted some default values for tables and iframe for CKEditor.
+
+### 2.16.4-RC2
+* added some plugins for CKEditor and set some default values for the tables.
+
 ### 2.16.3-RC1
 * added `optionsParser()` global function, that returns an instance of
     `OptionsParser`;
