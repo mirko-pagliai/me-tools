@@ -13,11 +13,14 @@
 if (!defined('DS')) {
     define('DS', DIRECTORY_SEPARATOR);
 }
-
-$scriptFilename = getenv('SCRIPT_FILENAME');
-$scriptName = getenv('SCRIPT_NAME');
-$webroot = substr($scriptFilename, 0, strrpos($scriptFilename, DS . 'webroot' . DS)) . DS . 'webroot' . DS;
-$baseDir = substr($scriptName, 0, strrpos($scriptName, '/webroot/'));
+if (!defined('WEBROOT')) {
+    $scriptFilename = getenv('SCRIPT_FILENAME');
+    define('WEBROOT', substr($scriptFilename, 0, strrpos($scriptFilename, DS . 'webroot' . DS)) . DS . 'webroot' . DS);
+}
+if (!defined('BASEDIR')) {
+    $scriptName = getenv('SCRIPT_NAME');
+    define('BASEDIR', substr($scriptName, 0, strrpos($scriptName, '/webroot/')));
+}
 ?>
 $(function () {
     $('.editor.wysiwyg').each(function () {
@@ -54,17 +57,17 @@ $(function () {
                  * In this way, the style applied within the editor will be the
                  * style actually used by the post when it will be published
                  */
-                '<?= $baseDir ?>/vendor/bootstrap/css/bootstrap.min.css',
-                '<?= $baseDir ?>/me_cms/css/layout.css',
-                '<?= $baseDir ?>/me_cms/css/contents.css',
+                '<?= BASEDIR ?>/vendor/bootstrap/css/bootstrap.min.css',
+                '<?= BASEDIR ?>/me_cms/css/layout.css',
+                '<?= BASEDIR ?>/me_cms/css/contents.css',
                 <?php
-                    //If `layout.css` and `contents.css` files exists in the
-                    //  `webroot/css` directory, they will also be loaded
-                    foreach (['layout.css', 'contents.css'] as $file) {
-                        if (is_readable($webroot . 'css' . DS . $file)) {
-                            echo '\'' . $baseDir . '/css/' . $file . '\',';
-                        }
+                //If `layout.css` and `contents.css` files exists in the
+                //  `webroot/css` directory, they will also be loaded
+                foreach (['layout.css', 'contents.css'] as $file) {
+                    if (is_readable(WEBROOT . 'css' . DS . $file)) {
+                        echo '\'' . BASEDIR . '/css/' . $file . '\',';
                     }
+                }
                 ?>
             ],
             disableNativeSpellChecker: false,
@@ -95,13 +98,13 @@ $(function () {
             ],
 
             <?php
-                //Checks if the KCFinder files exist
-                if (is_readable($webroot . 'vendor' . DS . 'kcfinder' . DS . 'browse.php')) {
-                    echo 'filebrowserBrowseUrl: \'' . $baseDir . '/vendor/kcfinder/browse.php?type=files\',';
-                    echo 'filebrowserImageBrowseUrl: \'' . $baseDir . '/vendor/kcfinder/browse.php?type=images\',';
-                    echo 'filebrowserUploadUrl: \'' . $baseDir . '/vendor/kcfinder/upload.php?type=files\',';
-                    echo 'filebrowserImageUploadUrl: \'' . $baseDir . '/vendor/kcfinder/upload.php?type=images\',';
-                }
+            //Checks if the KCFinder files exist
+            if (is_readable(WEBROOT . 'vendor' . DS . 'kcfinder' . DS . 'browse.php')) {
+                echo 'filebrowserBrowseUrl: \'' . BASEDIR . '/vendor/kcfinder/browse.php?type=files\',';
+                echo 'filebrowserImageBrowseUrl: \'' . BASEDIR . '/vendor/kcfinder/browse.php?type=images\',';
+                echo 'filebrowserUploadUrl: \'' . BASEDIR . '/vendor/kcfinder/upload.php?type=files\',';
+                echo 'filebrowserImageUploadUrl: \'' . BASEDIR . '/vendor/kcfinder/upload.php?type=images\',';
+            }
             ?>
         });
     });
