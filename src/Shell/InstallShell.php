@@ -146,7 +146,6 @@ class InstallShell extends Shell
      * Creates directories
      * @return void
      * @uses $paths
-     * @uses createDir()
      */
     public function createDirectories()
     {
@@ -180,7 +179,7 @@ class InstallShell extends Shell
      * Creates symbolic links for vendor assets
      * @return void
      * @uses $links
-     * @uses createLink()
+     * @uses MeTools\Console\Shell::createLink()
      */
     public function createVendorsLinks()
     {
@@ -198,11 +197,7 @@ class InstallShell extends Shell
      */
     public function fixComposerJson()
     {
-        $path = $this->param('path');
-
-        if (!$path) {
-            $path = ROOT . DS . 'composer.json';
-        }
+        $path = $this->param('path') ?: ROOT . DS . 'composer.json';
 
         if (!is_writeable($path)) {
             $this->err(__d('me_tools', 'File or directory {0} not writeable', rtr($path)));
@@ -238,7 +233,7 @@ class InstallShell extends Shell
     /**
      * Main command. Alias for `main()`
      * @return void
-     * @uses main()
+     * @uses all()
      */
     public function main()
     {
@@ -249,7 +244,7 @@ class InstallShell extends Shell
      * Sets permissions on directories
      * @return void
      * @uses $paths
-     * @uses folderChmod()
+     * @uses MeTools\Console\Shell::folderChmod()
      */
     public function setPermissions()
     {

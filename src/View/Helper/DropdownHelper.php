@@ -106,13 +106,8 @@ class DropdownHelper extends Helper
      */
     public function start($title, array $titleOptions = [])
     {
-        $titleOptions = optionsParser($titleOptions, [
-            'aria-expanded' => 'false',
-            'aria-haspopup' => 'true',
-        ])->append([
-            'class' => 'dropdown-toggle',
-            'data-toggle' => 'dropdown',
-        ]);
+        $titleOptions = optionsParser($titleOptions, ['aria-expanded' => 'false', 'aria-haspopup' => 'true'])
+            ->append(['class' => 'dropdown-toggle', 'data-toggle' => 'dropdown']);
 
         $this->_start = $this->Html->link($title, '#', $titleOptions->toArray());
 
