@@ -13,6 +13,7 @@
 namespace MeTools\Shell;
 
 use Cake\Console\ConsoleIo;
+use Cake\Utility\Hash;
 use MeTools\Console\Shell;
 
 /**
@@ -126,8 +127,14 @@ class InstallShell extends Shell
      */
     public function all()
     {
-        foreach ($this->questions as $question) {
-            list($question, $default, $method) = array_values($question);
+        $questions = $this->questions;
+
+        if ($this->param('force')) {
+            $questions = Hash::extract($questions, '{n}[default=Y]');
+        }
+
+        foreach ($questions as $var) {
+            list($question, $default, $method) = array_values($var);
 
             //The method must be executed if the `force` mode is set or if the
             //  user answers yes to the question
