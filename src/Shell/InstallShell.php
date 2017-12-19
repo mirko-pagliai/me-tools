@@ -12,6 +12,7 @@
  */
 namespace MeTools\Shell;
 
+use Cake\Console\ConsoleIo;
 use MeTools\Console\Shell;
 
 /**
@@ -65,12 +66,21 @@ class InstallShell extends Shell
     ];
 
     /**
-     * Executes all available tasks
-     * @return void
+     * Questions used by `all()` method
+     * @var array
      */
-    public function all()
+    protected $questions = [];
+
+    /**
+     * Constructs this `Shell` instance
+     * @param ConsoleIo $io A `ConsoleIo` instance
+     * @uses $questions
+     */
+    public function __construct(ConsoleIo $io = null)
     {
-        $methods = [
+        parent::__construct($io);
+
+        $this->questions = [
             [
                 'question' => __d('me_tools', 'Create default directories?'),
                 'default' => 'N',
@@ -107,9 +117,17 @@ class InstallShell extends Shell
                 'method' => 'copyFonts',
             ],
         ];
+    }
 
-        foreach ($methods as $item) {
-            list($question, $default, $method) = array_values($item);
+    /**
+     * Executes all available tasks
+     * @return void
+     * @uses $questions
+     */
+    public function all()
+    {
+        foreach ($this->questions as $question) {
+            list($question, $default, $method) = array_values($question);
 
             //The method must be executed if the `force` mode is set or if the
             //  user answers yes to the question
