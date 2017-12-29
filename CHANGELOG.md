@@ -1,5 +1,8 @@
 # 2.x branch
 ## 2.16 branch
+### 2.16.5-RC3
+* `UploaderComponent::save()` method now accepts the optional `basename` argument.
+
 ### 2.16.4-RC2
 * improved the `InstallShell` class;
 * `InstallShell::all()`, if called with the `force` parameter, executes only

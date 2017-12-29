@@ -139,6 +139,8 @@ class UploaderComponent extends Component
      * Saves the file
      * @param string $directory Directory where you want to save the uploaded
      *  file
+     * @param string $basename Optional basename. Otherwise, it will be
+     *  generated automatically
      * @return string|bool Final full path of the uploaded file or `false` on
      *  failure
      * @uses findTargetFilename()
@@ -147,7 +149,7 @@ class UploaderComponent extends Component
      * @uses move_uploaded_file()
      * @uses $file
      */
-    public function save($directory)
+    public function save($directory, $basename = null)
     {
         if (!$this->file) {
             throw new InternalErrorException(__d('me_tools', 'There are no uploaded file information'));
@@ -167,8 +169,16 @@ class UploaderComponent extends Component
             $directory .= DS;
         }
 
-        //Gets the target full path
-        $file = $this->findTargetFilename($directory . $this->file->name);
+        if ($basename) {
+            $extension = pathinfo($this->file->name, PATHINFO_EXTENSION);
+            $file = $directory . $basename;
+
+            if ($extension) {
+                $file .= '.' . $extension;
+            }
+        } else {
+            $file = $this->findTargetFilename($directory . $this->file->name);
+        }
 
         if (!$this->move_uploaded_file($this->file->tmp_name, $file)) {
             $this->setError(__d('me_tools', 'The file was not successfully moved to the target directory'));

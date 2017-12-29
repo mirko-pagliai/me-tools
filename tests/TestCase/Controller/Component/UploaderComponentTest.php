@@ -220,6 +220,16 @@ class UploaderComponentTest extends TestCase
         $file = $this->createFile();
         $this->Uploader->set($file);
 
+        //Using a basename
+        $result = $this->Uploader->save(UPLOADS, 'anotherBasename');
+        $this->assertEquals(UPLOADS . 'anotherBasename', $result);
+        $this->assertFalse($this->Uploader->error());
+        $this->assertFileExists($result);
+        $this->assertFileNotExists($file['tmp_name']);
+
+        $file = $this->createFile();
+        $this->Uploader->set($file);
+
         //Tries again, missing the slash term from the directory target
         $result = $this->Uploader->save(rtrim(UPLOADS, DS));
         $this->assertFalse($this->Uploader->error());
