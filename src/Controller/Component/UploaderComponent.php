@@ -139,6 +139,8 @@ class UploaderComponent extends Component
      * Saves the file
      * @param string $directory Directory where you want to save the uploaded
      *  file
+     * @param string $basename Optional basename. Otherwise, it will be
+     *  generated automatically
      * @return string|bool Final full path of the uploaded file or `false` on
      *  failure
      * @uses findTargetFilename()
