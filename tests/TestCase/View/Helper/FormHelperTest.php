@@ -230,11 +230,11 @@ class FormHelperTest extends TestCase
             '/label',
             ['div' => ['class' => 'input-group']],
             'input' => ['type' => 'text', 'name' => $field, 'class' => 'form-control', 'id' => $field],
-            'span' => ['class' => 'input-group-btn'],
+            ['div' => ['class' => 'input-group-append']],
             'button' => ['role' => 'button', 'class' => 'btn btn-secondary', 'title' => 'My button'],
             'My button',
             '/button',
-            '/span',
+            '/div',
             '/div',
         ];
         $this->assertHtml($expected, $result);
