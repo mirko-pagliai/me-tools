@@ -1,5 +1,8 @@
 # 2.x branch
 ## 2.16 branch
+### 2.16.6
+* updated for Bootstrap 4.0.0.
+
 ### 2.16.5-RC3
 * `UploaderComponent::save()` method now accepts the optional `basename` argument;
 * updated for Bootstrap 4 beta 3.
