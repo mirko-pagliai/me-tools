@@ -48,7 +48,6 @@ class BBCodeHelperTest extends TestCase
 
     /**
      * Tests for `parser()` method
-     * @return void
      * @test
      */
     public function testParser()
@@ -89,7 +88,6 @@ class BBCodeHelperTest extends TestCase
 
     /**
      * Tests for `remove()` method
-     * @return void
      * @test
      */
     public function testRemove()
@@ -119,7 +117,6 @@ class BBCodeHelperTest extends TestCase
 
     /**
      * Tests for `image()` method
-     * @return void
      * @test
      */
     public function testImage()
@@ -131,7 +128,6 @@ class BBCodeHelperTest extends TestCase
 
     /**
      * Tests for `readMore()` method
-     * @return void
      * @test
      */
     public function testReadMore()
@@ -165,7 +161,6 @@ class BBCodeHelperTest extends TestCase
 
     /**
      * Tests for `url()` method
-     * @return void
      * @test
      */
     public function testUrl()
@@ -177,7 +172,6 @@ class BBCodeHelperTest extends TestCase
 
     /**
      * Tests for `youtube()` method
-     * @return void
      * @test
      */
     public function testYoutube()

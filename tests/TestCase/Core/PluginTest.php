@@ -34,7 +34,6 @@ class PluginTest extends TestCase
 
     /**
      * Tests for `all()` method
-     * @return void
      * @test
      */
     public function testAll()
@@ -68,7 +67,6 @@ class PluginTest extends TestCase
 
     /**
      * Tests for `path()` method
-     * @return void
      * @test
      */
     public function testPath()

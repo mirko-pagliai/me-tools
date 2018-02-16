@@ -61,7 +61,6 @@ class FlashComponentTest extends TestCase
 
     /**
      * Tests for `__call()` method
-     * @return void
      * @test
      */
     public function testMagicCall()

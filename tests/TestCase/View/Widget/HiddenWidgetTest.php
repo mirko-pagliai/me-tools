@@ -41,7 +41,6 @@ class HiddenWidgetTest extends TestCase
 
     /**
      * Tests for `render()` method
-     * @return void
      * @test
      */
     public function testRender()

@@ -50,7 +50,6 @@ class DropdownHelperTest extends TestCase
 
     /**
      * Tests for `menu()`, `start()` and `end()` methods
-     * @return void
      * @test
      */
     public function testMenuAndStartAndEnd()

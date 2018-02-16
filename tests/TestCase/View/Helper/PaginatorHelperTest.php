@@ -41,7 +41,6 @@ class PaginatorHelperTest extends TestCase
 
     /**
      * Tests for `next()` method
-     * @return void
      * @test
      */
     public function testNext()
@@ -74,7 +73,6 @@ class PaginatorHelperTest extends TestCase
 
     /**
      * Tests for `prev()` method
-     * @return void
      * @test
      */
     public function testPrev()

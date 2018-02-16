@@ -50,7 +50,6 @@ class FormHelperTest extends TestCase
 
     /**
      * Tests for `button()` method
-     * @return void
      * @test
      */
     public function testButton()
@@ -112,7 +111,6 @@ class FormHelperTest extends TestCase
 
     /**
      * Tests for `checkbox()` method
-     * @return void
      * @test
      */
     public function testCheckbox()
@@ -129,7 +127,6 @@ class FormHelperTest extends TestCase
 
     /**
      * Tests for `ckeditor()` method
-     * @return void
      * @test
      */
     public function testCkeditor()
@@ -172,7 +169,6 @@ class FormHelperTest extends TestCase
 
     /**
      * Tests for `control()` method
-     * @return void
      * @test
      */
     public function testControl()
@@ -242,7 +238,6 @@ class FormHelperTest extends TestCase
 
     /**
      * Tests for `control()` method with checkboxes
-     * @return void
      * @test
      */
     public function testControlCheckbox()
@@ -264,7 +259,6 @@ class FormHelperTest extends TestCase
 
     /**
      * Tests for `control()` method with password inputs
-     * @return void
      * @test
      */
     public function testControlPassword()
@@ -284,7 +278,6 @@ class FormHelperTest extends TestCase
 
     /**
      * Tests for `control()` method with selects
-     * @return void
      * @test
      */
     public function testControlSelect()
@@ -410,7 +403,6 @@ class FormHelperTest extends TestCase
 
     /**
      * Tests for `control()` method with textareas
-     * @return void
      * @test
      */
     public function testControlTextarea()
@@ -432,7 +424,6 @@ class FormHelperTest extends TestCase
 
     /**
      * Tests for `control()` method, into an inline form
-     * @return void
      * @test
      */
     public function testControlInline()
@@ -496,7 +487,6 @@ class FormHelperTest extends TestCase
 
     /**
      * Tests for `create()` method
-     * @return void
      * @test
      */
     public function testCreate()
@@ -515,7 +505,6 @@ class FormHelperTest extends TestCase
 
     /**
      * Tests for `createInline()` and `isInline()` methods
-     * @return void
      * @test
      */
     public function testCreateInlineAndIsInline()
@@ -563,7 +552,6 @@ class FormHelperTest extends TestCase
 
     /**
      * Tests for `datepicker()`, `datetimepicker()` and `timepicker()` methods
-     * @return void
      * @test
      */
     public function testDatetimepicker()
@@ -624,7 +612,6 @@ class FormHelperTest extends TestCase
 
     /**
      * Tests for `label()` method
-     * @return void
      * @test
      */
     public function testLabel()
@@ -667,7 +654,6 @@ class FormHelperTest extends TestCase
 
     /**
      * Tests for `postButton()` method
-     * @return void
      * @test
      */
     public function testPostButton()
@@ -721,7 +707,6 @@ class FormHelperTest extends TestCase
 
     /**
      * Tests for `postLink()` method
-     * @return void
      * @test
      */
     public function testPostLink()
@@ -791,7 +776,6 @@ class FormHelperTest extends TestCase
 
     /**
      * Tests for `select()` method
-     * @return void
      * @test
      */
     public function testSelect()
@@ -876,7 +860,6 @@ class FormHelperTest extends TestCase
 
     /**
      * Tests for `submit()` method
-     * @return void
      * @test
      */
     public function testSubmit()
@@ -919,7 +902,6 @@ class FormHelperTest extends TestCase
 
     /**
      * Tests for `textarea()` method
-     * @return void
      * @test
      */
     public function testTextarea()
