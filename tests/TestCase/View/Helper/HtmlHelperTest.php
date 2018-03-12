@@ -78,9 +78,9 @@ class HtmlHelperTest extends TestCase
 
     /**
      * Tests for `__call()` method, with a no existing method
-     * @test
      * @expectedException Cake\Core\Exception\Exception
      * @expectedExceptionMessage Method HtmlHelper::noExistingMethod does not exist
+     * @test
      */
     public function testCallNoExistingMethod()
     {
