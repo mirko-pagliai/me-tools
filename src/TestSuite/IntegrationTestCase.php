@@ -55,7 +55,7 @@ class IntegrationTestCase extends CakeIntegrationTestCase
             $this->fail('Not response set, cannot assert cookies');
         }
 
-        $this->assertEmpty($this->_response->cookie($name)['value'], $message);
+        $this->assertEmpty($this->_response->getCookie($name)['value'], $message);
     }
 
     /**
