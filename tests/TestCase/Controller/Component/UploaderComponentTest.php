@@ -162,8 +162,7 @@ class UploaderComponentTest extends TestCase
      */
     public function testMimetype()
     {
-        $file = $this->createFile();
-        $this->Uploader->set($file);
+        $this->Uploader->set($this->createFile());
 
         foreach (['text/plain', 'text', ['text/plain', 'image/gif']] as $mimetype) {
             $this->Uploader->mimetype($mimetype);
@@ -217,8 +216,7 @@ class UploaderComponentTest extends TestCase
         $this->assertFileExists($result);
         $this->assertFileNotExists($file['tmp_name']);
 
-        $file = $this->createFile();
-        $this->Uploader->set($file);
+        $this->Uploader->set($this->createFile());
 
         //Using a basename
         $result = $this->Uploader->save(UPLOADS, 'anotherBasename');
@@ -243,8 +241,7 @@ class UploaderComponentTest extends TestCase
      */
     public function testSaveNoWritableDir()
     {
-        $file = $this->createFile();
-        $this->Uploader->set($file);
+        $this->Uploader->set($this->createFile());
 
         $this->assertFalse($this->Uploader->save(DS));
         $this->assertEquals('The file was not successfully moved to the target directory', $this->Uploader->error());
@@ -258,8 +255,7 @@ class UploaderComponentTest extends TestCase
      */
     public function testSaveNoExistingDir()
     {
-        $file = $this->createFile();
-        $this->Uploader->set($file)->save(UPLOADS . 'noExistingDir');
+        $this->Uploader->set($this->createFile())->save(UPLOADS . 'noExistingDir');
     }
 
     /**
@@ -279,8 +275,7 @@ class UploaderComponentTest extends TestCase
      */
     public function testSaveWithError()
     {
-        $file = $this->createFile();
-        $this->Uploader->set($file);
+        $this->Uploader->set($this->createFile());
 
         //Sets an error
         $error = 'error before save';
