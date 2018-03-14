@@ -93,20 +93,22 @@ class LibraryHelper extends Helper
      */
     public function beforeLayout(Event $event, $layoutFile)
     {
-        //Writes the output
-        if (!empty($this->output)) {
-            $output = implode(PHP_EOL, array_map(function ($v) {
-                return "    " . $v;
-            }, $this->output));
-
-            $this->Html->scriptBlock(
-                sprintf('$(function() {%s});', PHP_EOL . $output . PHP_EOL),
-                ['block' => 'script_bottom']
-            );
-
-            //Resets the output
-            $this->output = [];
+        if (!$this->output) {
+            return;
         }
+
+        //Writes the output
+        $output = implode(PHP_EOL, array_map(function ($v) {
+            return "    " . $v;
+        }, $this->output));
+
+        $this->Html->scriptBlock(
+            sprintf('$(function() {%s});', PHP_EOL . $output . PHP_EOL),
+            ['block' => 'script_bottom']
+        );
+
+        //Resets the output
+        $this->output = [];
     }
 
     /**

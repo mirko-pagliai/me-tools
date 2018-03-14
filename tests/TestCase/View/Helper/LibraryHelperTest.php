@@ -77,7 +77,7 @@ class LibraryHelperTest extends TestCase
         $this->assertEmpty($this->getProperty($this->Library, 'output'));
         $result = $this->View->Blocks->get('script_bottom');
 
-        $result = preg_split('/\n/', $result);
+        $result = preg_split('/' . PHP_EOL . '/', $result);
         $expected = [
             '<script>$(function() {',
             '    //first',
