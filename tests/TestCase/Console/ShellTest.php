@@ -238,7 +238,7 @@ class ShellTest extends TestCase
 
         $this->assertEquals(['Setted permissions on ' . $this->exampleDir], $this->out->messages());
         $this->assertEquals([
-            '<error>Failed to set permissions on /noExistingDir</error>',
+            '<error>Failed to set permissions on ' . DS . 'noExistingDir</error>',
         ], $this->err->messages());
     }
 
