@@ -153,6 +153,26 @@ class GlobalFunctionsTest extends TestCase
     }
 
     /**
+     * Test for `isWin()` global function on Unix
+     * @group onlyUnix
+     * @test
+     */
+    public function testIsWinOnUnix()
+    {
+        $this->assertFalse(isWin());
+    }
+
+    /**
+     * Test for `isWin()` global function on Windows
+     * @group onlyWindows
+     * @test
+     */
+    public function testIsWinOnWin()
+    {
+        $this->assertTrue(isWin());
+    }
+
+    /**
      * Test for `optionsParser()` global function
      * @test
      */
@@ -199,5 +219,27 @@ class GlobalFunctionsTest extends TestCase
         $result = which('phpunit');
         $this->assertNotEmpty($result);
         $this->assertContains('phpunit', $result);
+    }
+
+    /**
+     * Test for `which()` global function on Unix
+     * @group onlyUnix
+     * @test
+     */
+    public function testWhichOnUnix()
+    {
+        $this->assertEquals('/bin/cat', which('cat'));
+        $this->assertNull(which('noExistingBin'));
+    }
+
+    /**
+     * Test for `which()` global function on Windows
+     * @group onlyWindows
+     * @test
+     */
+    public function testWhichOnWindws()
+    {
+        $this->assertEquals('"C:\Program Files\Git\usr\bin\cat.exe"', which('cat'));
+        $this->assertNull(which('noExistingBin'));
     }
 }

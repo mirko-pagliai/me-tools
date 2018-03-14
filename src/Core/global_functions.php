@@ -128,6 +128,17 @@ if (!function_exists('isUrl')) {
     }
 }
 
+if (!function_exists('isWin')) {
+    /**
+     * Returns `true` if the environment is Windows
+     * @return bool
+     */
+    function isWin()
+    {
+        return DS === '\\';
+    }
+}
+
 if (!function_exists('optionsParser')) {
     /**
      * Returns and instance of `OptionsParser`
@@ -155,14 +166,18 @@ if (!function_exists('rtr')) {
 
 if (!function_exists('which')) {
     /**
-     * Executes the `which` command.
-     *
-     * It shows the full path of (shell) commands.
+     * Executes the `which` command and shows the full path of (shell) commands
      * @param string $command Command
-     * @return string Full path of command
+     * @return string|null
      */
     function which($command)
     {
-        return exec(sprintf('which %s', $command));
+        $executable = isWin() ? 'where' : 'which';
+
+        exec(sprintf('%s %s 2>&1', $executable, $command), $path, $exitCode);
+
+        $path = isWin() && !empty($path) ? array_map('escapeshellarg', $path) : $path;
+
+        return $exitCode === 0 && !empty($path[0]) ? $path[0] : null;
     }
 }

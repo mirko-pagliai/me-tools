@@ -1,6 +1,7 @@
 # 2.x branch
 ## 2.16 branch
 ### 2.16.7
+* added `isWin()` global function;
 * updated for jQuery 3.3.
 
 ### 2.16.6
