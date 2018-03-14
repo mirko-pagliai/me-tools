@@ -171,10 +171,11 @@ class UploaderComponent extends Component
         }
 
         if ($basename) {
+            $extension = pathinfo($this->file->name, PATHINFO_EXTENSION);
             $file = $directory . $basename;
 
-            if (preg_match('/\.(\w+)(\.tmp)?$/', $this->file->name, $matches) && !empty($matches[1])) {
-                $file .= '.' . $matches[1];
+            if ($extension) {
+                $file .= '.' . $extension;
             }
         } else {
             $file = $this->findTargetFilename($directory . $this->file->name);
