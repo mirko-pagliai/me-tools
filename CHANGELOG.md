@@ -1,6 +1,8 @@
 # 2.x branch
 ## 2.16 branch
 ### 2.16.7
+* now the `UploaderComponent::save()` method takes the `$filename` parameter
+    instead of the `$basename` parameter;
 * updated for jQuery 3.3.
 
 ### 2.16.6

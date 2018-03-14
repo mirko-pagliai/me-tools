@@ -216,11 +216,32 @@ class UploaderComponentTest extends TestCase
         $this->assertFileExists($result);
         $this->assertFileNotExists($file['tmp_name']);
 
-        $this->Uploader->set($this->createFile());
+        $file = $this->createFile();
+        $this->Uploader->set($file);
 
-        //Using a basename
-        $result = $this->Uploader->save(UPLOADS, 'anotherBasename');
-        $this->assertEquals(UPLOADS . 'anotherBasename', $result);
+        //Using a filename
+        $result = $this->Uploader->save(UPLOADS, 'customFilename');
+        $this->assertEquals(UPLOADS . 'customFilename', $result);
+        $this->assertFalse($this->Uploader->error());
+        $this->assertFileExists($result);
+        $this->assertFileNotExists($file['tmp_name']);
+
+        $file = $this->createFile();
+        $this->Uploader->set($file);
+
+        //Using a filename with extension
+        $result = $this->Uploader->save(UPLOADS, 'customFilename.txt');
+        $this->assertEquals(UPLOADS . 'customFilename.txt', $result);
+        $this->assertFalse($this->Uploader->error());
+        $this->assertFileExists($result);
+        $this->assertFileNotExists($file['tmp_name']);
+
+        $file = $this->createFile();
+        $this->Uploader->set($file);
+
+        //Using a filename with full path extension
+        $result = $this->Uploader->save(UPLOADS, TMP . 'customFilename.txt');
+        $this->assertEquals(UPLOADS . 'customFilename.txt', $result);
         $this->assertFalse($this->Uploader->error());
         $this->assertFileExists($result);
         $this->assertFileNotExists($file['tmp_name']);
