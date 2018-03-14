@@ -12,7 +12,7 @@
  */
 namespace MeTools\Test\TestCase\TestSuite;
 
-use Cake\Http\Session;
+use Cake\Network\Session;
 use Cake\TestSuite\Stub\Response;
 use MeTools\TestSuite\IntegrationTestCase;
 

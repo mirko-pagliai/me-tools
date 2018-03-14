@@ -184,7 +184,7 @@ class UploaderComponentTest extends TestCase
 
     /**
      * Test for `mimetype()` method, with no file
-     * @expectedException RuntimeException
+     * @expectedException Cake\Network\Exception\InternalErrorException
      * @expectedExceptionMessage There are no uploaded file information
      * @test
      */
@@ -252,7 +252,7 @@ class UploaderComponentTest extends TestCase
 
     /**
      * Test for `save()` method, using a no existing directory
-     * @expectedException RuntimeException
+     * @expectedException Cake\Network\Exception\InternalErrorException
      * @expectedExceptionMessage Invalid or no existing directory /tmp/me_tools/uploads/noExistingDir
      * @test
      */
@@ -264,7 +264,7 @@ class UploaderComponentTest extends TestCase
 
     /**
      * Test for `save()` method, with no file
-     * @expectedException RuntimeException
+     * @expectedException Cake\Network\Exception\InternalErrorException
      * @expectedExceptionMessage There are no uploaded file information
      * @test
      */

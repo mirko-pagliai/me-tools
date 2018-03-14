@@ -1,8 +1,7 @@
 # 2.x branch
 ## 2.16 branch
 ### 2.16.7
-* updated for jQuery 3.3;
-* some fixes to work with the 3.6 CakePHP branch.
+* updated for jQuery 3.3.
 
 ### 2.16.6
 * updated for Bootstrap 4.0.0.
