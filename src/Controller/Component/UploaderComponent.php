@@ -174,7 +174,6 @@ class UploaderComponent extends Component
             $file = $directory . $basename;
 
             if (preg_match('/\.(\w+)(\.tmp)?$/', $this->file->name, $matches) && !empty($matches[1])) {
-                dd($matches);
                 $file .= '.' . $matches[1];
             }
         } else {
