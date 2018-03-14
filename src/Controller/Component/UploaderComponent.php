@@ -14,7 +14,7 @@ namespace MeTools\Controller\Component;
 
 use Cake\Controller\Component;
 use Cake\Filesystem\Folder;
-use Cake\Network\Exception\InternalErrorException;
+use RuntimeException;
 
 /**
  * A component to upload files
@@ -106,14 +106,14 @@ class UploaderComponent extends Component
      * @param string|array $acceptedMimetype Accepted mimetypes as string or
      *  array or a magic word (`images` or `text`)
      * @return \MeTools\Controller\Component\UploaderComponent
-     * @throws InternalErrorException
+     * @throws RuntimeException
      * @uses setError()
      * @uses $file
      */
     public function mimetype($acceptedMimetype)
     {
         if (empty($this->file)) {
-            throw new InternalErrorException(__d('me_tools', 'There are no uploaded file information'));
+            throw new RuntimeException(__d('me_tools', 'There are no uploaded file information'));
         }
 
         //Changes magic words
@@ -143,6 +143,7 @@ class UploaderComponent extends Component
      *  generated automatically
      * @return string|bool Final full path of the uploaded file or `false` on
      *  failure
+     * @throws RuntimeException
      * @uses findTargetFilename()
      * @uses setError()
      * @uses error()
@@ -152,7 +153,7 @@ class UploaderComponent extends Component
     public function save($directory, $basename = null)
     {
         if (!$this->file) {
-            throw new InternalErrorException(__d('me_tools', 'There are no uploaded file information'));
+            throw new RuntimeException(__d('me_tools', 'There are no uploaded file information'));
         }
 
         //Checks for previous errors
@@ -161,7 +162,7 @@ class UploaderComponent extends Component
         }
 
         if (!is_dir($directory)) {
-            throw new InternalErrorException(__d('me_tools', 'Invalid or no existing directory {0}', $directory));
+            throw new RuntimeException(__d('me_tools', 'Invalid or no existing directory {0}', $directory));
         }
 
         //Adds slash term
