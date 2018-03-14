@@ -208,52 +208,34 @@ class UploaderComponentTest extends TestCase
                 return rename($filename, $destination);
             }));
 
-        $file = $this->createFile();
-        $this->Uploader->set($file);
+        foreach ([
+            UPLOADS,
+            rtrim(UPLOADS, DS),
+        ] as $targetDirectory) {
+            $file = $this->createFile();
+            $this->Uploader->set($file);
 
-        $result = $this->Uploader->save(UPLOADS);
-        $this->assertFalse($this->Uploader->error());
-        $this->assertFileExists($result);
-        $this->assertFileNotExists($file['tmp_name']);
+            $result = $this->Uploader->save($targetDirectory);
+            $this->assertRegExp(sprintf('/^%sphp_upload_[\w\d]+$/', preg_quote(UPLOADS, '/')), $result);
+            $this->assertFalse($this->Uploader->error());
+            $this->assertFileExists($result);
+            $this->assertFileNotExists($file['tmp_name']);
+        }
 
-        $file = $this->createFile();
-        $this->Uploader->set($file);
+        foreach ([
+            'customFilename',
+            'customFilename.txt',
+            TMP . 'customFilename.txt',
+        ] as $targetFilename) {
+            $file = $this->createFile();
+            $this->Uploader->set($file);
 
-        //Using a filename
-        $result = $this->Uploader->save(UPLOADS, 'customFilename');
-        $this->assertEquals(UPLOADS . 'customFilename', $result);
-        $this->assertFalse($this->Uploader->error());
-        $this->assertFileExists($result);
-        $this->assertFileNotExists($file['tmp_name']);
-
-        $file = $this->createFile();
-        $this->Uploader->set($file);
-
-        //Using a filename with extension
-        $result = $this->Uploader->save(UPLOADS, 'customFilename.txt');
-        $this->assertEquals(UPLOADS . 'customFilename.txt', $result);
-        $this->assertFalse($this->Uploader->error());
-        $this->assertFileExists($result);
-        $this->assertFileNotExists($file['tmp_name']);
-
-        $file = $this->createFile();
-        $this->Uploader->set($file);
-
-        //Using a filename with full path extension
-        $result = $this->Uploader->save(UPLOADS, TMP . 'customFilename.txt');
-        $this->assertEquals(UPLOADS . 'customFilename.txt', $result);
-        $this->assertFalse($this->Uploader->error());
-        $this->assertFileExists($result);
-        $this->assertFileNotExists($file['tmp_name']);
-
-        $file = $this->createFile();
-        $this->Uploader->set($file);
-
-        //Tries again, missing the slash term from the directory target
-        $result = $this->Uploader->save(rtrim(UPLOADS, DS));
-        $this->assertFalse($this->Uploader->error());
-        $this->assertFileExists($result);
-        $this->assertFileNotExists($file['tmp_name']);
+            $result = $this->Uploader->save(UPLOADS, $targetFilename);
+            $this->assertEquals(UPLOADS . basename($targetFilename), $result);
+            $this->assertFalse($this->Uploader->error());
+            $this->assertFileExists($result);
+            $this->assertFileNotExists($file['tmp_name']);
+        }
     }
 
     /**
