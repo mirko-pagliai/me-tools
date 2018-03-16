@@ -70,7 +70,9 @@ class LibraryHelperTest extends TestCase
      */
     public function testBeforeLayout()
     {
+        $this->Library->beforeLayout(new Event(null), null);
         $this->assertEmpty($this->getProperty($this->Library, 'output'));
+        $this->assertEmpty($this->View->Blocks->get('script_bottom'));
 
         $this->setProperty($this->Library, 'output', ['//first', '//second']);
         $this->Library->beforeLayout(new Event(null), null);
