@@ -136,11 +136,9 @@ class BBCodeHelper extends Helper
     public function youtube($text)
     {
         return preg_replace_callback($this->pattern['youtube'], function ($matches) {
-            if (isUrl($matches[1])) {
-                return $this->Html->youtube(Youtube::getId($matches[1]));
-            }
+            $id = isUrl($matches[1]) ? Youtube::getId($matches[1]) : $matches[1];
 
-            return $this->Html->youtube($matches[1]);
+            return $this->Html->youtube($id);
         }, $text);
     }
 }
