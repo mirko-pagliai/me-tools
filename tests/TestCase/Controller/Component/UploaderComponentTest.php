@@ -216,7 +216,7 @@ class UploaderComponentTest extends TestCase
             $this->Uploader->set($file);
 
             $result = $this->Uploader->save($targetDirectory);
-            $this->assertRegExp(sprintf('/^%sphp_upload_[\w\d]+$/', preg_quote(UPLOADS, '/')), $result);
+            $this->assertRegExp(sprintf('/^%sphp[\w\d\._]+$/', preg_quote(UPLOADS, '/')), $result);
             $this->assertFalse($this->Uploader->error());
             $this->assertFileExists($result);
             $this->assertFileNotExists($file['tmp_name']);
@@ -253,7 +253,7 @@ class UploaderComponentTest extends TestCase
     /**
      * Test for `save()` method, using a no existing directory
      * @expectedException RuntimeException
-     * @expectedExceptionMessage Invalid or no existing directory /tmp/me_tools/uploads/noExistingDir
+     * @expectedExceptionMessageRegExp /^Invalid or no existing directory [\w\d_\/\\:]+noExistingDir$/
      * @test
      */
     public function testSaveNoExistingDir()

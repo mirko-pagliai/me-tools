@@ -1,6 +1,7 @@
 # 2.x branch
 ## 2.16 branch
 ### 2.16.7
+* added `isWin()` global function;
 * now the `UploaderComponent::save()` method takes the `$filename` parameter
     instead of the `$basename` parameter;
 * updated for jQuery 3.3.
