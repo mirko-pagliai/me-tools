@@ -216,7 +216,7 @@ class UploaderComponentTest extends TestCase
             $this->Uploader->set($file);
 
             $result = $this->Uploader->save($targetDirectory);
-            $this->assertRegExp(sprintf('/^%sphp_upload_[\w\d]+$/', preg_quote(UPLOADS, '/')), $result);
+            $this->assertRegExp(sprintf('/^%sphp_upload_[\w\d\.]+$/', preg_quote(UPLOADS, DS)), $result);
             $this->assertFalse($this->Uploader->error());
             $this->assertFileExists($result);
             $this->assertFileNotExists($file['tmp_name']);
