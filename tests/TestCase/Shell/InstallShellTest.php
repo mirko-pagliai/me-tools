@@ -158,14 +158,14 @@ class InstallShellTest extends ConsoleIntegrationTestCase
         $this->assertExitWithSuccess();
 
         foreach ($files as $file) {
-            $this->assertOutputContains('Link ' . rtr(WWW_ROOT . 'fonts/') . $file . ' has been created');
+            $this->assertOutputContains('Link ' . rtr(WWW_ROOT) . 'fonts' . DS . $file . ' has been created');
         }
 
         $this->exec('me_tools.install copy_fonts -v');
         $this->assertExitWithSuccess();
 
         foreach ($files as $file) {
-            $this->assertOutputContains('File or directory ' . rtr(WWW_ROOT . 'fonts/') . $file . ' already exists');
+            $this->assertOutputContains('File or directory ' . rtr(WWW_ROOT) . 'fonts' . DS . $file . ' already exists');
         }
     }
 
@@ -260,7 +260,7 @@ class InstallShellTest extends ConsoleIntegrationTestCase
         $this->assertExitWithSuccess();
 
         foreach ($this->getProperty($this->InstallShell, 'links') as $link) {
-            $this->assertOutputContains('Link ' . rtr(WWW_ROOT) . 'vendor/' . $link . ' has been created');
+            $this->assertOutputContains('Link ' . rtr(WWW_ROOT) . 'vendor' . DS . $link . ' has been created');
         }
     }
 

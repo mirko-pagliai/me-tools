@@ -162,8 +162,7 @@ class UploaderComponentTest extends TestCase
      */
     public function testMimetype()
     {
-        $file = $this->createFile();
-        $this->Uploader->set($file);
+        $this->Uploader->set($this->createFile());
 
         foreach (['text/plain', 'text', ['text/plain', 'image/gif']] as $mimetype) {
             $this->Uploader->mimetype($mimetype);
@@ -184,7 +183,7 @@ class UploaderComponentTest extends TestCase
 
     /**
      * Test for `mimetype()` method, with no file
-     * @expectedException Cake\Network\Exception\InternalErrorException
+     * @expectedException RuntimeException
      * @expectedExceptionMessage There are no uploaded file information
      * @test
      */
@@ -209,32 +208,34 @@ class UploaderComponentTest extends TestCase
                 return rename($filename, $destination);
             }));
 
-        $file = $this->createFile();
-        $this->Uploader->set($file);
+        foreach ([
+            UPLOADS,
+            rtrim(UPLOADS, DS),
+        ] as $targetDirectory) {
+            $file = $this->createFile();
+            $this->Uploader->set($file);
 
-        $result = $this->Uploader->save(UPLOADS);
-        $this->assertFalse($this->Uploader->error());
-        $this->assertFileExists($result);
-        $this->assertFileNotExists($file['tmp_name']);
+            $result = $this->Uploader->save($targetDirectory);
+            $this->assertRegExp(sprintf('/^%sphp[\w\d\._]+$/', preg_quote(UPLOADS, '/')), $result);
+            $this->assertFalse($this->Uploader->error());
+            $this->assertFileExists($result);
+            $this->assertFileNotExists($file['tmp_name']);
+        }
 
-        $file = $this->createFile();
-        $this->Uploader->set($file);
+        foreach ([
+            'customFilename',
+            'customFilename.txt',
+            TMP . 'customFilename.txt',
+        ] as $targetFilename) {
+            $file = $this->createFile();
+            $this->Uploader->set($file);
 
-        //Using a basename
-        $result = $this->Uploader->save(UPLOADS, 'anotherBasename');
-        $this->assertEquals(UPLOADS . 'anotherBasename', $result);
-        $this->assertFalse($this->Uploader->error());
-        $this->assertFileExists($result);
-        $this->assertFileNotExists($file['tmp_name']);
-
-        $file = $this->createFile();
-        $this->Uploader->set($file);
-
-        //Tries again, missing the slash term from the directory target
-        $result = $this->Uploader->save(rtrim(UPLOADS, DS));
-        $this->assertFalse($this->Uploader->error());
-        $this->assertFileExists($result);
-        $this->assertFileNotExists($file['tmp_name']);
+            $result = $this->Uploader->save(UPLOADS, $targetFilename);
+            $this->assertEquals(UPLOADS . basename($targetFilename), $result);
+            $this->assertFalse($this->Uploader->error());
+            $this->assertFileExists($result);
+            $this->assertFileNotExists($file['tmp_name']);
+        }
     }
 
     /**
@@ -243,8 +244,7 @@ class UploaderComponentTest extends TestCase
      */
     public function testSaveNoWritableDir()
     {
-        $file = $this->createFile();
-        $this->Uploader->set($file);
+        $this->Uploader->set($this->createFile());
 
         $this->assertFalse($this->Uploader->save(DS));
         $this->assertEquals('The file was not successfully moved to the target directory', $this->Uploader->error());
@@ -252,19 +252,18 @@ class UploaderComponentTest extends TestCase
 
     /**
      * Test for `save()` method, using a no existing directory
-     * @expectedException Cake\Network\Exception\InternalErrorException
-     * @expectedExceptionMessage Invalid or no existing directory /tmp/me_tools/uploads/noExistingDir
+     * @expectedException RuntimeException
+     * @expectedExceptionMessageRegExp /^Invalid or no existing directory [\w\d_\/\\:]+noExistingDir$/
      * @test
      */
     public function testSaveNoExistingDir()
     {
-        $file = $this->createFile();
-        $this->Uploader->set($file)->save(UPLOADS . 'noExistingDir');
+        $this->Uploader->set($this->createFile())->save(UPLOADS . 'noExistingDir');
     }
 
     /**
      * Test for `save()` method, with no file
-     * @expectedException Cake\Network\Exception\InternalErrorException
+     * @expectedException RuntimeException
      * @expectedExceptionMessage There are no uploaded file information
      * @test
      */
@@ -279,8 +278,7 @@ class UploaderComponentTest extends TestCase
      */
     public function testSaveWithError()
     {
-        $file = $this->createFile();
-        $this->Uploader->set($file);
+        $this->Uploader->set($this->createFile());
 
         //Sets an error
         $error = 'error before save';

@@ -48,7 +48,6 @@ class BBCodeHelperTest extends TestCase
 
     /**
      * Tests for `parser()` method
-     * @return void
      * @test
      */
     public function testParser()
@@ -61,7 +60,6 @@ class BBCodeHelperTest extends TestCase
         echo '<div>Some div text</div>' . PHP_EOL;
         $buffer = ob_get_clean();
 
-        $result = $this->BBCode->parser($buffer);
         $expected = [
             'p' => true,
             'Some para text',
@@ -84,12 +82,11 @@ class BBCodeHelperTest extends TestCase
             'Some div text',
             '/div',
         ];
-        $this->assertHtml($expected, $result);
+        $this->assertHtml($expected, $this->BBCode->parser($buffer));
     }
 
     /**
      * Tests for `remove()` method
-     * @return void
      * @test
      */
     public function testRemove()
@@ -102,7 +99,6 @@ class BBCodeHelperTest extends TestCase
         echo '<div>Some div text</div>' . PHP_EOL;
         $buffer = ob_get_clean();
 
-        $result = $this->BBCode->remove($buffer);
         $expected = [
             'p' => true,
             'Some para text',
@@ -114,86 +110,66 @@ class BBCodeHelperTest extends TestCase
             'Some div text',
             '/div',
         ];
-        $this->assertHtml($expected, $result);
+        $this->assertHtml($expected, $this->BBCode->remove($buffer));
     }
 
     /**
      * Tests for `image()` method
-     * @return void
      * @test
      */
     public function testImage()
     {
-        $result = $this->BBCode->image('[img]mypic.gif[/img]');
         $expected = $this->Html->image('mypic.gif');
-        $this->assertEquals($expected, $result);
+        $this->assertEquals($expected, $this->BBCode->image('[img]mypic.gif[/img]'));
     }
 
     /**
      * Tests for `readMore()` method
-     * @return void
      * @test
      */
     public function testReadMore()
     {
         $expected = '<!-- read-more -->';
 
-        $result = $this->BBCode->readmore('[readmore]');
-        $this->assertEquals($expected, $result);
-
-        $result = $this->BBCode->readmore('[readmore/]');
-        $this->assertEquals($expected, $result);
-
-        $result = $this->BBCode->readmore('[readmore /]');
-        $this->assertEquals($expected, $result);
-
-        $result = $this->BBCode->readmore('[read-more /]');
-        $this->assertEquals($expected, $result);
-
-        $result = $this->BBCode->readmore('[readmore    /]');
-        $this->assertEquals($expected, $result);
-
-        $result = $this->BBCode->readmore('[readmore / ]');
-        $this->assertEquals($expected, $result);
-
-        $result = $this->BBCode->readmore('<p>[readmore /]</p>');
-        $this->assertEquals($expected, $result);
-
-        $result = $this->BBCode->readmore('<p class="my-class">[readmore /]</p>');
-        $this->assertEquals($expected, $result);
+        foreach ([
+            '[readmore]',
+            '[readmore/]',
+            '[readmore /]',
+            '[read-more /]',
+            '[readmore    /]',
+            '[readmore / ]',
+            '<p>[readmore /]</p>',
+            '<p class="my-class">[readmore /]</p>',
+        ] as $text) {
+            $this->assertEquals($expected, $this->BBCode->readmore($text));
+        }
     }
 
     /**
      * Tests for `url()` method
-     * @return void
      * @test
      */
     public function testUrl()
     {
-        $result = $this->BBCode->url('[url="http://example"]my link[/url]');
         $expected = $this->Html->link('my link', 'http://example');
-        $this->assertEquals($expected, $result);
+        $this->assertEquals($expected, $this->BBCode->url('[url="http://example"]my link[/url]'));
     }
 
     /**
      * Tests for `youtube()` method
-     * @return void
      * @test
      */
     public function testYoutube()
     {
         $expected = $this->Html->youtube('bL_CJKq9rIw');
 
-        $result = $this->BBCode->youtube('[youtube]bL_CJKq9rIw[/youtube]');
-        $this->assertEquals($expected, $result);
-
-        $result = $this->BBCode->youtube('[youtube]http://youtube.com/watch?v=bL_CJKq9rIw[/youtube]');
-        $this->assertEquals($expected, $result);
-
-        $result = $this->BBCode->youtube('[youtube]https://www.youtube.com/watch?v=bL_CJKq9rIw[/youtube]');
-        $this->assertEquals($expected, $result);
-
-        $result = $this->BBCode->youtube('[youtube]https://youtu.be/bL_CJKq9rIw[/youtube]');
-        $this->assertEquals($expected, $result);
+        foreach ([
+            '[youtube]bL_CJKq9rIw[/youtube]',
+            '[youtube]http://youtube.com/watch?v=bL_CJKq9rIw[/youtube]',
+            '[youtube]https://www.youtube.com/watch?v=bL_CJKq9rIw[/youtube]',
+            '[youtube]https://youtu.be/bL_CJKq9rIw[/youtube]',
+        ] as $text) {
+            $this->assertEquals($expected, $this->BBCode->youtube($text));
+        }
     }
 }

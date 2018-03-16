@@ -14,7 +14,7 @@ namespace MeTools\Controller\Component;
 
 use Cake\Controller\Component;
 use Cake\Filesystem\Folder;
-use Cake\Network\Exception\InternalErrorException;
+use RuntimeException;
 
 /**
  * A component to upload files
@@ -106,14 +106,14 @@ class UploaderComponent extends Component
      * @param string|array $acceptedMimetype Accepted mimetypes as string or
      *  array or a magic word (`images` or `text`)
      * @return \MeTools\Controller\Component\UploaderComponent
-     * @throws InternalErrorException
+     * @throws RuntimeException
      * @uses setError()
      * @uses $file
      */
     public function mimetype($acceptedMimetype)
     {
         if (empty($this->file)) {
-            throw new InternalErrorException(__d('me_tools', 'There are no uploaded file information'));
+            throw new RuntimeException(__d('me_tools', 'There are no uploaded file information'));
         }
 
         //Changes magic words
@@ -139,20 +139,21 @@ class UploaderComponent extends Component
      * Saves the file
      * @param string $directory Directory where you want to save the uploaded
      *  file
-     * @param string $basename Optional basename. Otherwise, it will be
+     * @param string $filename Optional filename. Otherwise, it will be
      *  generated automatically
      * @return string|bool Final full path of the uploaded file or `false` on
      *  failure
+     * @throws RuntimeException
      * @uses findTargetFilename()
      * @uses setError()
      * @uses error()
      * @uses move_uploaded_file()
      * @uses $file
      */
-    public function save($directory, $basename = null)
+    public function save($directory, $filename = null)
     {
         if (!$this->file) {
-            throw new InternalErrorException(__d('me_tools', 'There are no uploaded file information'));
+            throw new RuntimeException(__d('me_tools', 'There are no uploaded file information'));
         }
 
         //Checks for previous errors
@@ -161,7 +162,7 @@ class UploaderComponent extends Component
         }
 
         if (!is_dir($directory)) {
-            throw new InternalErrorException(__d('me_tools', 'Invalid or no existing directory {0}', $directory));
+            throw new RuntimeException(__d('me_tools', 'Invalid or no existing directory {0}', $directory));
         }
 
         //Adds slash term
@@ -169,16 +170,8 @@ class UploaderComponent extends Component
             $directory .= DS;
         }
 
-        if ($basename) {
-            $extension = pathinfo($this->file->name, PATHINFO_EXTENSION);
-            $file = $directory . $basename;
-
-            if ($extension) {
-                $file .= '.' . $extension;
-            }
-        } else {
-            $file = $this->findTargetFilename($directory . $this->file->name);
-        }
+        $filename = $filename ? basename($filename) : $this->findTargetFilename($this->file->name);
+        $file = $directory . $filename;
 
         if (!$this->move_uploaded_file($this->file->tmp_name, $file)) {
             $this->setError(__d('me_tools', 'The file was not successfully moved to the target directory'));

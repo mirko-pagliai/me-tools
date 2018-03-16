@@ -42,7 +42,6 @@ class RequestDetectorsTest extends TestCase
 
     /**
      * Tests for `is('action')` detector
-     * @return void
      * @test
      */
     public function testIsAction()
@@ -71,7 +70,6 @@ class RequestDetectorsTest extends TestCase
 
     /**
      * Tests for `is('controller')` detector
-     * @return void
      * @test
      */
     public function testIsController()
@@ -88,7 +86,6 @@ class RequestDetectorsTest extends TestCase
 
     /**
      * Tests for `is('localhost')` detector
-     * @return void
      * @test
      */
     public function testIsLocalhost()
@@ -109,7 +106,6 @@ class RequestDetectorsTest extends TestCase
 
     /**
      * Tests for `is('prefix')` detector
-     * @return void
      * @test
      */
     public function testIsPrefix()
@@ -122,7 +118,6 @@ class RequestDetectorsTest extends TestCase
 
     /**
      * Tests for `is('url')` detector
-     * @return void
      * @test
      */
     public function testIsUrl()
@@ -162,7 +157,6 @@ class RequestDetectorsTest extends TestCase
 
     /**
      * Tests for `is('url')` detector, with query strings
-     * @return void
      * @test
      */
     public function testIsUrlQueryString()

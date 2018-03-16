@@ -41,12 +41,10 @@ class PaginatorHelperTest extends TestCase
 
     /**
      * Tests for `next()` method
-     * @return void
      * @test
      */
     public function testNext()
     {
-        $result = $this->Paginator->next('Next');
         $expected = [
             'li' => ['class' => 'next page-item disabled'],
             'a' => ['class' => 'page-link', 'href' => '', 'onclick' => 'return false;'],
@@ -54,10 +52,9 @@ class PaginatorHelperTest extends TestCase
             '/a',
             '/li',
         ];
-        $this->assertHtml($expected, $result);
+        $this->assertHtml($expected, $this->Paginator->next('Next'));
 
         //Using `icon` option
-        $result = $this->Paginator->next('Next', ['icon' => 'chevron-right']);
         $expected = [
             'li' => ['class' => 'next page-item disabled'],
             'a' => ['class' => 'page-link', 'href' => '', 'onclick' => 'return false;'],
@@ -69,17 +66,15 @@ class PaginatorHelperTest extends TestCase
             '/a',
             '/li',
         ];
-        $this->assertHtml($expected, $result);
+        $this->assertHtml($expected, $this->Paginator->next('Next', ['icon' => 'chevron-right']));
     }
 
     /**
      * Tests for `prev()` method
-     * @return void
      * @test
      */
     public function testPrev()
     {
-        $result = $this->Paginator->prev('Previous');
         $expected = [
             'li' => ['class' => 'prev page-item disabled'],
             'a' => ['class' => 'page-link', 'href' => '', 'onclick' => 'return false;'],
@@ -87,10 +82,9 @@ class PaginatorHelperTest extends TestCase
             '/a',
             '/li',
         ];
-        $this->assertHtml($expected, $result);
+        $this->assertHtml($expected, $this->Paginator->prev('Previous'));
 
         //Using `icon` option
-        $result = $this->Paginator->prev('Previous', ['icon' => 'chevron-left']);
         $expected = [
             'li' => ['class' => 'prev page-item disabled'],
             'a' => ['class' => 'page-link', 'href' => '', 'onclick' => 'return false;'],
@@ -102,6 +96,6 @@ class PaginatorHelperTest extends TestCase
             '/a',
             '/li',
         ];
-        $this->assertHtml($expected, $result);
+        $this->assertHtml($expected, $this->Paginator->prev('Previous', ['icon' => 'chevron-left']));
     }
 }

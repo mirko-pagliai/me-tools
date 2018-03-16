@@ -15,7 +15,7 @@
         "php": ">=5.5.9",
         "cakephp/cakephp": ">=3.5 <4",
         "ext-mcrypt": "*",
-        "components/jquery": "^3.2",
+        "components/jquery": "^3.3",
         "mirko-pagliai/assets": ">=1.1.6 <1.2",
         "twbs/bootstrap": "v4.0.*"
     },
