@@ -163,7 +163,7 @@ class BBCodeHelperTest extends TestCase
     {
         $expected = $this->Html->youtube('bL_CJKq9rIw');
 
-        foreach([
+        foreach ([
             '[youtube]bL_CJKq9rIw[/youtube]',
             '[youtube]http://youtube.com/watch?v=bL_CJKq9rIw[/youtube]',
             '[youtube]https://www.youtube.com/watch?v=bL_CJKq9rIw[/youtube]',
