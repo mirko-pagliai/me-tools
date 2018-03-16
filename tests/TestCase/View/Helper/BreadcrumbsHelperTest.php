@@ -48,7 +48,6 @@ class BreadcrumbsHelperTest extends TestCase
         $this->Breadcrumbs->add('First', '/');
         $this->Breadcrumbs->add('Second', '/', ['class' => 'custom-class']);
 
-        $result = $this->Breadcrumbs->render();
         $expected = [
             'ul' => ['class' => 'breadcrumb'],
             ['li' => ['class' => 'breadcrumb-item']],
@@ -63,7 +62,7 @@ class BreadcrumbsHelperTest extends TestCase
             '/li',
             '/ul',
         ];
-        $this->assertHtml($expected, $result);
+        $this->assertHtml($expected, $this->Breadcrumbs->render());
     }
 
     /**
@@ -75,7 +74,6 @@ class BreadcrumbsHelperTest extends TestCase
         $this->Breadcrumbs->add('Second', '/');
         $this->Breadcrumbs->prepend('First', '/');
 
-        $result = $this->Breadcrumbs->render();
         $expected = [
             'ul' => ['class' => 'breadcrumb'],
             ['li' => ['class' => 'breadcrumb-item']],
@@ -90,7 +88,7 @@ class BreadcrumbsHelperTest extends TestCase
             '/li',
             '/ul',
         ];
-        $this->assertHtml($expected, $result);
+        $this->assertHtml($expected, $this->Breadcrumbs->render());
     }
 
     /**
@@ -104,7 +102,6 @@ class BreadcrumbsHelperTest extends TestCase
         $this->Breadcrumbs->add('First', '/');
         $this->Breadcrumbs->add('Second', '/');
 
-        $result = $this->Breadcrumbs->render();
         $expected = [
             'ul' => ['class' => 'breadcrumb'],
             ['li' => ['class' => 'breadcrumb-item']],
@@ -119,6 +116,6 @@ class BreadcrumbsHelperTest extends TestCase
             '/li',
             '/ul',
         ];
-        $this->assertHtml($expected, $result);
+        $this->assertHtml($expected, $this->Breadcrumbs->render());
     }
 }

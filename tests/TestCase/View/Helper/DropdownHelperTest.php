@@ -42,10 +42,8 @@ class DropdownHelperTest extends TestCase
     {
         parent::setUp();
 
-        $view = new View;
-
-        $this->Dropdown = new DropdownHelper($view);
-        $this->Html = new HtmlHelper($view);
+        $this->Dropdown = new DropdownHelper(new View);
+        $this->Html = new HtmlHelper(new View);
     }
 
     /**
@@ -78,8 +76,7 @@ class DropdownHelperTest extends TestCase
         ];
 
         //No dropdown menu again...
-        $result = $this->Dropdown->end();
-        $this->assertNull($result);
+        $this->assertNull($this->Dropdown->end());
 
         //Empty dropdown
         $this->Dropdown->start($text);
