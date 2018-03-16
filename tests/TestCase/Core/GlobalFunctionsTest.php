@@ -211,17 +211,6 @@ class GlobalFunctionsTest extends TestCase
     }
 
     /**
-     * Test for `which()` global function
-     * @test
-     */
-    public function testWhich()
-    {
-        $result = which('phpunit');
-        $this->assertNotEmpty($result);
-        $this->assertContains('phpunit', $result);
-    }
-
-    /**
      * Test for `which()` global function on Unix
      * @group onlyUnix
      * @test

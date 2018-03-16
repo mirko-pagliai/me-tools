@@ -156,15 +156,23 @@ class ShellTest extends TestCase
         $this->assertFileExists($dir);
         $this->assertEquals('0777', substr(sprintf('%o', fileperms($dir)), -4));
 
-        //Tries to create. Not writable directory
-        $this->assertFalse($this->Shell->createDir(DS . 'notWritable'));
-
         $this->assertEquals([
             'File or directory ' . TMP . ' already exists',
             'Created ' . $dir . ' directory',
             'Setted permissions on ' . $dir,
         ], $this->out->messages());
+        $this->assertEmpty($this->err->messages());
+    }
 
+    /**
+     * Tests for `createDir()` method, with a not writable directory
+     * @group onlyUnix
+     * @test
+     */
+    public function testCreateDirNotWritableDir()
+    {
+        $this->assertFalse($this->Shell->createDir(DS . 'notWritable'));
+        $this->assertEmpty($this->out->messages());
         $this->assertEquals([
             '<error>Failed to create file or directory /notWritable</error>',
         ], $this->err->messages());
