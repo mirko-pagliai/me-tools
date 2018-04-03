@@ -15,7 +15,7 @@ namespace MeTools\TestSuite;
 
 use Cake\TestSuite\TestCase as CakeTestCase;
 use MeTools\TestSuite\Traits\TestCaseTrait;
-use Reflection\ReflectionTrait;
+use Tools\ReflectionTrait;
 
 /**
  * TestCase class

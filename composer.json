@@ -17,13 +17,13 @@
         "ext-mcrypt": "*",
         "components/jquery": "^3.3",
         "mirko-pagliai/assets": ">=1.1.6 <1.2",
+        "mirko-pagliai/php-tools": "^1.0",
         "twbs/bootstrap": "v4.0.*"
     },
     "require-dev": {
         "cakephp/cakephp-codesniffer": "^3.0",
         "eonasdan/bootstrap-datetimepicker": "*",
         "fortawesome/font-awesome": "*",
-        "mirko-pagliai/reflection": "^1.0",
         "newerton/fancy-box": "dev-master",
         "phpunit/phpunit": "^5.7|^6.0"
     },

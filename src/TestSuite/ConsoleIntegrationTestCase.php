@@ -16,7 +16,7 @@ namespace MeTools\TestSuite;
 use Cake\Console\Shell;
 use Cake\TestSuite\ConsoleIntegrationTestCase as CakeConsoleIntegrationTestCase;
 use MeTools\TestSuite\Traits\TestCaseTrait;
-use Reflection\ReflectionTrait;
+use Tools\ReflectionTrait;
 
 /**
  * ConsoleIntegrationTestCase class

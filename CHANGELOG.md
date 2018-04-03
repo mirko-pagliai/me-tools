@@ -2,10 +2,11 @@
 ## 2.16 branch
 ### 2.16.7
 * full compability with Windows;
-* added `isWin()` global function;
 * now the `UploaderComponent::save()` method takes the `$filename` parameter
     instead of the `$basename` parameter;
-* updated for jQuery 3.3.
+* updated for jQuery 3.3;
+* now it uses the `mirko-pagliai/php-tools` package. This also replaces
+    `mirko-pagliai/reflection`.
 
 ### 2.16.6
 * updated for Bootstrap 4.0.0.

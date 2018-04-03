@@ -15,7 +15,7 @@ namespace MeTools\TestSuite;
 
 use Cake\TestSuite\IntegrationTestCase as CakeIntegrationTestCase;
 use MeTools\TestSuite\Traits\TestCaseTrait;
-use Reflection\ReflectionTrait;
+use Tools\ReflectionTrait;
 
 /**
  * A test case class intended to make integration tests of your controllers
