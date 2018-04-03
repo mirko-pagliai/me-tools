@@ -14,7 +14,7 @@ namespace MeTools\Test\TestCase;
 
 use MeTools\TestSuite\TestCase;
 use MeTools\View\OptionsParser;
-use Reflection\ReflectionTrait;
+use Tools\ReflectionTrait;
 
 /**
  * MeTools\View\OptionsParser Test Case

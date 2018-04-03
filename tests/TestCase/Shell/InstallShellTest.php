@@ -96,7 +96,7 @@ class InstallShellTest extends ConsoleIntegrationTestCase
     public function testAll()
     {
         //Gets all methods from `InstallShell`, except for the `all()` method
-        $methods = array_diff(getChildMethods(InstallShell::class), ['all']);
+        $methods = array_diff(get_child_methods(InstallShell::class), ['all']);
 
         $this->InstallShell = $this->getMockBuilder(InstallShell::class)
             ->setMethods(array_merge(['_stop', 'in'], $methods))

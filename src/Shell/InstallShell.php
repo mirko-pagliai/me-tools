@@ -160,7 +160,7 @@ class InstallShell extends Shell
     public function copyFonts()
     {
         foreach ($this->fonts as $origin) {
-            $origin = isWin() ? str_replace('/', DS, $origin) : $origin;
+            $origin = is_win() ? str_replace('/', DS, $origin) : $origin;
 
             $this->createLink(
                 ROOT . DS . 'vendor' . DS . $origin,
@@ -211,7 +211,7 @@ class InstallShell extends Shell
     public function createVendorsLinks()
     {
         foreach ($this->links as $origin => $target) {
-            $origin = isWin() ? str_replace('/', DS, $origin) : $origin;
+            $origin = is_win() ? str_replace('/', DS, $origin) : $origin;
 
             $this->createLink(
                 ROOT . DS . 'vendor' . DS . $origin,

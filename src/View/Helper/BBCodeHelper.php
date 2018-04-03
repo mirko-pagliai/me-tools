@@ -48,7 +48,7 @@ class BBCodeHelper extends Helper
     public function parser($text)
     {
         //Gets all current class methods, except for `parser()` and `remove()`
-        $methods = getChildMethods(get_class(), ['parser', 'remove']);
+        $methods = array_diff(get_child_methods(get_class()), ['parser', 'remove']);
 
         //Calls dynamically each method
         foreach ($methods as $method) {
@@ -136,7 +136,7 @@ class BBCodeHelper extends Helper
     public function youtube($text)
     {
         return preg_replace_callback($this->pattern['youtube'], function ($matches) {
-            $id = isUrl($matches[1]) ? Youtube::getId($matches[1]) : $matches[1];
+            $id = is_url($matches[1]) ? Youtube::getId($matches[1]) : $matches[1];
 
             return $this->Html->youtube($id);
         }, $text);

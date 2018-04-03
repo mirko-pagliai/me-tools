@@ -49,7 +49,7 @@ class Youtube
      */
     public static function getPreview($id)
     {
-        if (isUrl($id)) {
+        if (is_url($id)) {
             $id = self::getId($id);
         }
 
