@@ -66,7 +66,7 @@ class OptionsParserTest extends TestCase
     public function testDefaultProperty()
     {
         $this->assertInstanceOf(get_class($this->OptionsParser), $this->OptionsParser->Default);
-        $this->assertEquals(get_class_methods($this->OptionsParser), get_class_methods($this->OptionsParser->Default));
+        $this->assertSameMethods($this->OptionsParser, $this->OptionsParser->Default);
         $this->assertNull($this->OptionsParser->Default->Default);
 
         $this->assertEquals('this value will not be used', $this->OptionsParser->Default->get('alt'));

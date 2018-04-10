@@ -17,7 +17,7 @@
         "ext-mcrypt": "*",
         "components/jquery": "^3.3",
         "mirko-pagliai/assets": ">=1.1.6 <1.2",
-        "mirko-pagliai/php-tools": "^1.0",
+        "mirko-pagliai/php-tools": ">=1.0.2 <1.1",
         "twbs/bootstrap": "v4.0.*"
     },
     "require-dev": {
