@@ -1,5 +1,12 @@
 # 2.x branch
 ## 2.16 branch
+### 2.16.8
+* removed `assertArrayKeysEqual()`, `assertFileExists()`, `assertFileNotExists()`,
+    `assertInstanceOf()`, `assertIsArray()`, `assertIsObject()`,
+    `assertIsString()`, `assertObjectPropertiesEqual()` methods from
+    `\MeTools\TestSuite\Traits\TestCaseTrait` and the `Apache` utility.
+    Now they are provided by the `mirko-pagliai/php-tools` package.
+
 ### 2.16.7
 * full compability with Windows;
 * now the `UploaderComponent::save()` method takes the `$filename` parameter
