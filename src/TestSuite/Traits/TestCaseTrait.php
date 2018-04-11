@@ -13,6 +13,7 @@
  */
 namespace MeTools\TestSuite\Traits;
 
+use Tools\ReflectionTrait;
 use Tools\TestSuite\TestCaseTrait as ToolsTestCaseTrait;
 
 /**
@@ -21,27 +22,26 @@ use Tools\TestSuite\TestCaseTrait as ToolsTestCaseTrait;
  */
 trait TestCaseTrait
 {
+    use ReflectionTrait;
     use ToolsTestCaseTrait;
 
     /**
      * Asserts log file contents
-     * @param string $expected The expected contents
-     * @param string $name Log name
+     * @param string $expectedContent The expected contents
+     * @param string $logName Log name
      * @param string $message The failure message that will be appended to the
      *  generated message
      * @return void
      */
-    public function assertLogContains($expected, $name, $message = '')
+    public function assertLogContains($expectedContent, $logName, $message = '')
     {
-        $file = LOGS . $name . '.log';
+        $file = LOGS . $logName . '.log';
 
         if (!is_readable($file)) {
-            $this->fail('Log file ' . $file . ' not readable');
+            $this->fail('Log file `' . $file . '` not readable');
         }
 
-        $content = trim(file_get_contents($file));
-
-        $this->assertContains($expected, $content, $message);
+        $this->assertContains($expectedContent, file_get_contents($file), $message);
     }
 
     /**
@@ -58,12 +58,12 @@ trait TestCaseTrait
 
     /**
      * Deletes a log file
-     * @param string $name Log name
+     * @param string $logName Log name
      * @return void
      */
-    public function deleteLog($name)
+    public function deleteLog($logName)
     {
         //@codingStandardsIgnoreLine
-        @unlink(LOGS . $name . '.log');
+        @unlink(LOGS . $logName . '.log');
     }
 }

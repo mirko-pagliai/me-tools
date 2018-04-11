@@ -40,7 +40,7 @@ class TestCaseTest extends TestCase
     /**
      * Tests for `assertLogContains` method, with a no existing log
      * @expectedException PHPUnit\Framework\AssertionFailedError
-     * @expectedExceptionMessageRegExp /^Log file [\w\d_\/\\:]+noExisting.log not readable$/
+     * @expectedExceptionMessageRegExp /^Log file `[\w\d_\/\\:]+noExisting.log` not readable$/
      * @test
      */
     public function testAssertLogContainsNoExistingLog()
