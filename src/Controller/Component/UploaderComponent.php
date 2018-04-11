@@ -165,13 +165,8 @@ class UploaderComponent extends Component
             throw new RuntimeException(__d('me_tools', 'Invalid or no existing directory {0}', $directory));
         }
 
-        //Adds slash term
-        if (!Folder::isSlashTerm($directory)) {
-            $directory .= DS;
-        }
-
         $filename = $filename ? basename($filename) : $this->findTargetFilename($this->file->name);
-        $file = $directory . $filename;
+        $file = Folder::slashTerm($directory) . $filename;
 
         if (!$this->move_uploaded_file($this->file->tmp_name, $file)) {
             $this->setError(__d('me_tools', 'The file was not successfully moved to the target directory'));
