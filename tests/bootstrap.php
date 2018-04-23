@@ -40,14 +40,13 @@ define('LOGS', TMP . 'cakephp_log' . DS);
 define('SESSIONS', TMP . 'sessions' . DS);
 define('UPLOADS', TMP . 'uploads' . DS);
 
-//@codingStandardsIgnoreStart
-@mkdir(LOGS);
-@mkdir(SESSIONS);
-@mkdir(CACHE);
-@mkdir(CACHE . 'views');
-@mkdir(CACHE . 'models');
-@mkdir(UPLOADS);
-//@codingStandardsIgnoreEnd
+safe_mkdir(LOGS);
+safe_mkdir(SESSIONS);
+safe_mkdir(CACHE);
+safe_mkdir(CACHE . 'views');
+safe_mkdir(CACHE . 'models');
+safe_mkdir(UPLOADS);
+safe_mkdir(WWW_ROOT . 'fonts');
 
 require CORE_PATH . 'config' . DS . 'bootstrap.php';
 
@@ -102,9 +101,6 @@ Configure::write('Session', ['defaults' => 'php']);
 //This adds `apache_get_modules()` and `apache_get_version()` functions
 require 'apache_functions.php';
 
-//@codingStandardsIgnoreLine
-@mkdir(WWW_ROOT . 'fonts');
-
 Configure::write('Assets.target', TMP . 'assets');
 
 /**
@@ -112,7 +108,7 @@ Configure::write('Assets.target', TMP . 'assets');
  */
 Plugin::load('Assets', [
     'bootstrap' => true,
-    'path' => VENDOR . 'mirko-pagliai' . DS . 'assets' . DS,
+    'path' => VENDOR . 'mirko-pagliai' . DS . 'cakephp-assets' . DS,
 ]);
 Plugin::load('MeTools', ['bootstrap' => true, 'path' => ROOT]);
 

@@ -51,8 +51,7 @@ trait TestCaseTrait
     public function deleteAllLogs()
     {
         foreach (glob(LOGS . '*') as $file) {
-            //@codingStandardsIgnoreLine
-            @unlink($file);
+            safe_unlink($file);
         }
     }
 
@@ -63,7 +62,6 @@ trait TestCaseTrait
      */
     public function deleteLog($logName)
     {
-        //@codingStandardsIgnoreLine
-        @unlink(LOGS . $logName . '.log');
+        safe_unlink(LOGS . $logName . '.log');
     }
 }

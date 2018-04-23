@@ -53,8 +53,7 @@ class InstallShellTest extends ConsoleIntegrationTestCase
         parent::setUp();
 
         //Deletes symbolic links for plugin assets
-        //@codingStandardsIgnoreLine
-        @unlink(WWW_ROOT . 'me_tools');
+        safe_unlink(WWW_ROOT . 'me_tools');
 
         $this->out = new ConsoleOutput;
         $this->err = new ConsoleOutput;
@@ -83,8 +82,7 @@ class InstallShellTest extends ConsoleIntegrationTestCase
             ]
         ) as $file) {
             if (basename($file) !== 'empty') {
-                //@codingStandardsIgnoreLine
-                @unlink($file);
+                safe_unlink($file);
             }
         }
     }
@@ -187,8 +185,7 @@ class InstallShellTest extends ConsoleIntegrationTestCase
             WWW_ROOT . 'fonts',
             WWW_ROOT . 'fonts',
         ] as $dir) {
-            //@codingStandardsIgnoreLine
-            @rmdir($dir);
+            safe_rmdir($dir);
         }
 
         $this->exec('me_tools.install create_directories -v');

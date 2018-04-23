@@ -81,8 +81,7 @@ class Shell extends CakeShell
             return false;
         }
 
-        //@codingStandardsIgnoreLine
-        $success = @mkdir($path, 0777, true);
+        $success = safe_mkdir($path, 0777, true);
 
         if (!$success) {
             $this->err(__d('me_tools', 'Failed to create file or directory {0}', rtr($path)));
