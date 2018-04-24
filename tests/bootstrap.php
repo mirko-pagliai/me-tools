@@ -14,7 +14,6 @@ use Cake\Cache\Cache;
 use Cake\Core\Configure;
 use Cake\Core\Plugin;
 use Cake\Datasource\ConnectionManager;
-use Cake\Routing\DispatcherFactory;
 
 require dirname(__DIR__) . '/vendor/autoload.php';
 
@@ -68,7 +67,6 @@ Configure::write('App', [
     'cssBaseUrl' => 'css/',
     'paths' => [
         'plugins' => [APP . 'Plugin' . DS],
-        'templates' => [APP . 'TestApp' . DS . 'Template' . DS],
     ]
 ]);
 
@@ -91,15 +89,9 @@ Cache::setConfig([
 ]);
 
 // Ensure default test connection is defined
-ConnectionManager::setConfig('test', [
-    'url' => 'sqlite://127.0.0.1/' . TMP . 'debug_kit_test.sqlite',
-    'timezone' => 'UTC',
-]);
+ConnectionManager::setConfig('test', ['url' => 'sqlite:///' . TMP . 'test.sq3']);
 
 Configure::write('Session', ['defaults' => 'php']);
-
-//This adds `apache_get_modules()` and `apache_get_version()` functions
-require 'apache_functions.php';
 
 Configure::write('Assets.target', TMP . 'assets');
 
@@ -112,7 +104,6 @@ Plugin::load('Assets', [
 ]);
 Plugin::load('MeTools', ['bootstrap' => true, 'path' => ROOT]);
 
-DispatcherFactory::add('Routing');
-DispatcherFactory::add('ControllerFactory');
-
 ini_set('intl.default_locale', 'en_US');
+
+$_SERVER['PHP_SELF'] = '/';

@@ -14,8 +14,8 @@ namespace MeTools\Test\TestCase\Controller\Component;
 
 use Cake\Controller\ComponentRegistry;
 use Cake\Controller\Controller;
+use Cake\Http\Session;
 use Cake\Network\Request;
-use Cake\Network\Session;
 use MeTools\Controller\Component\FlashComponent;
 use MeTools\TestSuite\TestCase;
 
