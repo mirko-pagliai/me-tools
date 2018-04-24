@@ -33,8 +33,7 @@ class TestCaseTest extends TestCase
             $this->assertLogContains($word, 'debug');
         }
 
-        //@codingStandardsIgnoreLine
-        @unlink($file);
+        safe_unlink($file);
     }
 
     /**

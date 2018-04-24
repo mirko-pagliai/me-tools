@@ -33,8 +33,7 @@ class GlobalFunctionsTest extends TestCase
         $path = TMP . 'tests';
 
         //Creates some folder
-        //@codingStandardsIgnoreLine
-        @mkdir($path . DS . 'folder' . DS . 'subfolder', 0777, true);
+        safe_mkdir($path . DS . 'folder' . DS . 'subfolder', 0777, true);
 
         //Test for `folderIsWriteable()`
         $this->assertTrue(folderIsWriteable($path));
@@ -59,10 +58,8 @@ class GlobalFunctionsTest extends TestCase
         }
 
         //Delete folders
-        //@codingStandardsIgnoreStart
-        @rmdir($path . DS . 'folder' . DS . 'subfolder');
-        @rmdir($path . DS . 'folder');
-        //@codingStandardsIgnoreEnd
+        safe_rmdir($path . DS . 'folder' . DS . 'subfolder');
+        safe_rmdir($path . DS . 'folder');
 
         //No existing folder
         $this->assertFalse(folderIsWriteable('/no/Existing'));

@@ -14,7 +14,6 @@ use Cake\Cache\Cache;
 use Cake\Core\Configure;
 use Cake\Core\Plugin;
 use Cake\Datasource\ConnectionManager;
-use Cake\Routing\DispatcherFactory;
 
 require dirname(__DIR__) . '/vendor/autoload.php';
 
@@ -40,14 +39,13 @@ define('LOGS', TMP . 'cakephp_log' . DS);
 define('SESSIONS', TMP . 'sessions' . DS);
 define('UPLOADS', TMP . 'uploads' . DS);
 
-//@codingStandardsIgnoreStart
-@mkdir(LOGS);
-@mkdir(SESSIONS);
-@mkdir(CACHE);
-@mkdir(CACHE . 'views');
-@mkdir(CACHE . 'models');
-@mkdir(UPLOADS);
-//@codingStandardsIgnoreEnd
+safe_mkdir(LOGS);
+safe_mkdir(SESSIONS);
+safe_mkdir(CACHE);
+safe_mkdir(CACHE . 'views');
+safe_mkdir(CACHE . 'models');
+safe_mkdir(UPLOADS);
+safe_mkdir(WWW_ROOT . 'fonts');
 
 require CORE_PATH . 'config' . DS . 'bootstrap.php';
 
@@ -69,7 +67,6 @@ Configure::write('App', [
     'cssBaseUrl' => 'css/',
     'paths' => [
         'plugins' => [APP . 'Plugin' . DS],
-        'templates' => [APP . 'TestApp' . DS . 'Template' . DS],
     ]
 ]);
 
@@ -92,18 +89,9 @@ Cache::setConfig([
 ]);
 
 // Ensure default test connection is defined
-ConnectionManager::setConfig('test', [
-    'url' => 'sqlite://127.0.0.1/' . TMP . 'debug_kit_test.sqlite',
-    'timezone' => 'UTC',
-]);
+ConnectionManager::setConfig('test', ['url' => 'sqlite:///' . TMP . 'test.sq3']);
 
 Configure::write('Session', ['defaults' => 'php']);
-
-//This adds `apache_get_modules()` and `apache_get_version()` functions
-require 'apache_functions.php';
-
-//@codingStandardsIgnoreLine
-@mkdir(WWW_ROOT . 'fonts');
 
 Configure::write('Assets.target', TMP . 'assets');
 
@@ -112,11 +100,10 @@ Configure::write('Assets.target', TMP . 'assets');
  */
 Plugin::load('Assets', [
     'bootstrap' => true,
-    'path' => VENDOR . 'mirko-pagliai' . DS . 'assets' . DS,
+    'path' => VENDOR . 'mirko-pagliai' . DS . 'cakephp-assets' . DS,
 ]);
 Plugin::load('MeTools', ['bootstrap' => true, 'path' => ROOT]);
 
-DispatcherFactory::add('Routing');
-DispatcherFactory::add('ControllerFactory');
-
 ini_set('intl.default_locale', 'en_US');
+
+$_SERVER['PHP_SELF'] = '/';

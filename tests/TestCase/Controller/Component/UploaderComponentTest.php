@@ -76,8 +76,7 @@ class UploaderComponentTest extends TestCase
 
         //Deletes all files
         foreach (array_merge(glob(UPLOADS . '*'), glob(TMP . 'php_upload*')) as $file) {
-            //@codingStandardsIgnoreLine
-            unlink($file);
+            safe_unlink($file);
         }
     }
 

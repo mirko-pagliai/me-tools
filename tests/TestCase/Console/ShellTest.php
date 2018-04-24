@@ -74,8 +74,7 @@ class ShellTest extends TestCase
             $this->exampleDir . DS . 'example2',
         ];
 
-        //@codingStandardsIgnoreLine
-        @mkdir($this->exampleDir);
+        safe_mkdir($this->exampleDir);
     }
 
     /**
@@ -89,13 +88,11 @@ class ShellTest extends TestCase
         list($dirs, $files) = ((new Folder($this->exampleDir))->tree());
 
         foreach ($files as $file) {
-            //@codingStandardsIgnoreLine
-            @unlink($file);
+            safe_unlink($file);
         }
 
         foreach ($dirs as $dir) {
-            //@codingStandardsIgnoreLine
-            @rmdir($dir);
+            safe_rmdir($dir);
         }
     }
 

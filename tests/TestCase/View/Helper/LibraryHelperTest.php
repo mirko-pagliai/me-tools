@@ -62,8 +62,7 @@ class LibraryHelperTest extends TestCase
             'js' . DS . 'fancybox_init.js',
             'vendor' . DS . 'fancybox',
         ] as $file) {
-            //@codingStandardsIgnoreLine
-            @unlink(WWW_ROOT . $file);
+            safe_unlink(WWW_ROOT . $file);
         }
     }
 
@@ -278,8 +277,7 @@ class LibraryHelperTest extends TestCase
      */
     public function testFancybox()
     {
-        //@codingStandardsIgnoreLine
-        @symlink(VENDOR . 'newerton' . DS . 'fancy-box' . DS . 'source', WWW_ROOT . 'vendor' . DS . 'fancybox');
+        safe_symlink(VENDOR . 'newerton' . DS . 'fancy-box' . DS . 'source', WWW_ROOT . 'vendor' . DS . 'fancybox');
 
         $expected = [
             ['link' => ['rel' => 'stylesheet', 'href' => '/vendor/fancybox/jquery.fancybox.css']],
@@ -308,9 +306,7 @@ class LibraryHelperTest extends TestCase
      */
     public function testFancyboxWithJsFromApp()
     {
-        //@codingStandardsIgnoreLine
-        @symlink(VENDOR . 'newerton' . DS . 'fancy-box' . DS . 'source', WWW_ROOT . 'vendor' . DS . 'fancybox');
-
+        safe_symlink(VENDOR . 'newerton' . DS . 'fancy-box' . DS . 'source', WWW_ROOT . 'vendor' . DS . 'fancybox');
         file_put_contents(WWW_ROOT . 'js' . DS . 'fancybox_init.js', null);
 
         $expected = [

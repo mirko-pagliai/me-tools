@@ -1,5 +1,8 @@
 # 2.x branch
 ## 2.16 branch
+### 2.16.9
+* updated for CakePHP 3.6 and cakephp-assets 1.2.
+
 ### 2.16.8
 * removed `assertArrayKeysEqual()`, `assertFileExists()`, `assertFileNotExists()`,
     `assertInstanceOf()`, `assertIsArray()`, `assertIsObject()`,
