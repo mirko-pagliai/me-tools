@@ -15,6 +15,7 @@ namespace MeTools\Console;
 
 use Cake\Console\Shell as CakeShell;
 use Cake\Filesystem\Folder;
+use Exception;
 
 /**
  * Base class for command-line utilities for automating programmer chores
@@ -32,35 +33,31 @@ class Shell extends CakeShell
     /**
      * Copies a file
      * @param string $source Source file
-     * @param string $dest Destination
+     * @param string $dest Destination file
      * @return bool
      */
     public function copyFile($source, $dest)
     {
-        //Checks if the source is readable
-        if (!is_readable($source)) {
-            $this->err(__d('me_tools', 'File or directory {0} not readable', rtr($source)));
+        //Checks if the source is readable and the destination is writable
+        try {
+            is_readable_or_fail($source);
+            is_writable_or_fail(dirname($dest));
+        } catch (Exception $e) {
+            $this->err($e->getMessage());
 
             return false;
         }
 
         //Checks if the destination file already exists
         if (file_exists($dest)) {
-            $this->verbose(__d('me_tools', 'File or directory {0} already exists', rtr($dest)));
+            $this->verbose(__d('me_tools', 'File or directory `{0}` already exists', rtr($dest)));
 
             return false;
         }
 
-        //Checks if the destination directory is writeable
-        if (!is_writable(dirname($dest))) {
-            $this->err(__d('me_tools', 'File or directory {0} not writeable', rtr(dirname($dest))));
+        safe_copy($source, $dest);
 
-            return false;
-        }
-
-        copy($source, $dest);
-
-        $this->verbose(__d('me_tools', 'File {0} has been copied', rtr($dest)));
+        $this->verbose(__d('me_tools', 'File `{0}` has been copied', rtr($dest)));
 
         return true;
     }
@@ -76,7 +73,7 @@ class Shell extends CakeShell
     public function createDir($path)
     {
         if (file_exists($path)) {
-            $this->verbose(__d('me_tools', 'File or directory {0} already exists', rtr($path)));
+            $this->verbose(__d('me_tools', 'File or directory `{0}` already exists', rtr($path)));
 
             return false;
         }
@@ -84,12 +81,12 @@ class Shell extends CakeShell
         $success = safe_mkdir($path, 0777, true);
 
         if (!$success) {
-            $this->err(__d('me_tools', 'Failed to create file or directory {0}', rtr($path)));
+            $this->err(__d('me_tools', 'Failed to create file or directory `{0}`', rtr($path)));
 
             return false;
         }
 
-        $this->verbose(__d('me_tools', 'Created {0} directory', rtr($path)));
+        $this->verbose(__d('me_tools', 'Created `{0}` directory', rtr($path)));
         $this->folderChmod($path, 0777);
 
         return true;
@@ -105,7 +102,7 @@ class Shell extends CakeShell
     {
         //Checks if the file already exist
         if (file_exists($path)) {
-            $this->verbose(__d('me_tools', 'File or directory {0} already exists', rtr($path)));
+            $this->verbose(__d('me_tools', 'File or directory `{0}` already exists', rtr($path)));
 
             return false;
         }
@@ -115,36 +112,31 @@ class Shell extends CakeShell
 
     /**
      * Creates a symbolic link
-     * @param string $origin Origin file or directory
-     * @param string $target Target link
+     * @param string $source Source file or directory
+     * @param string $dest Destination file or directory
      * @return bool
      */
-    public function createLink($origin, $target)
+    public function createLink($source, $dest)
     {
-        //Checks if the origin file/directory is readable
-        if (!is_readable($origin)) {
-            $this->err(__d('me_tools', 'File or directory {0} not readable', rtr($origin)));
+        //Checks if the source is readable and the destination directory is writable
+        try {
+            is_readable_or_fail($source);
+            is_writable_or_fail(dirname($dest));
+        } catch (Exception $e) {
+            $this->err($e->getMessage());
 
             return false;
         }
-
         //Checks if the link already exists
-        if (file_exists($target)) {
-            $this->verbose(__d('me_tools', 'File or directory {0} already exists', rtr($target)));
+        if (file_exists($dest)) {
+            $this->verbose(__d('me_tools', 'File or directory `{0}` already exists', rtr($dest)));
 
             return false;
         }
 
-        //Checks if the target directory is writeable
-        if (!is_writable(dirname($target))) {
-            $this->err(__d('me_tools', 'File or directory {0} not writeable', rtr(dirname($target))));
+        safe_symlink($source, $dest);
 
-            return false;
-        }
-
-        symlink($origin, $target);
-
-        $this->verbose(__d('me_tools', 'Link {0} has been created', rtr($target)));
+        $this->verbose(__d('me_tools', 'Link `{0}` has been created', rtr($dest)));
 
         return true;
     }
@@ -160,12 +152,12 @@ class Shell extends CakeShell
     public function folderChmod($path, $chmod)
     {
         if (!(new Folder())->chmod($path, $chmod, true)) {
-            $this->err(__d('me_tools', 'Failed to set permissions on {0}', rtr($path)));
+            $this->err(__d('me_tools', 'Failed to set permissions on `{0}`', rtr($path)));
 
             return false;
         }
 
-        $this->verbose(__d('me_tools', 'Setted permissions on {0}', rtr($path)));
+        $this->verbose(__d('me_tools', 'Setted permissions on `{0}`', rtr($path)));
 
         return true;
     }
