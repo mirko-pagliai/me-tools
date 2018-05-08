@@ -38,19 +38,19 @@ class Shell extends CakeShell
      */
     public function copyFile($source, $dest)
     {
+        //Checks if the destination file already exists
+        if (file_exists($dest)) {
+            $this->verbose(__d('me_tools', 'File or directory `{0}` already exists', rtr($dest)));
+
+            return false;
+        }
+
         //Checks if the source is readable and the destination is writable
         try {
             is_readable_or_fail($source);
             is_writable_or_fail(dirname($dest));
         } catch (Exception $e) {
             $this->err($e->getMessage());
-
-            return false;
-        }
-
-        //Checks if the destination file already exists
-        if (file_exists($dest)) {
-            $this->verbose(__d('me_tools', 'File or directory `{0}` already exists', rtr($dest)));
 
             return false;
         }
@@ -118,18 +118,19 @@ class Shell extends CakeShell
      */
     public function createLink($source, $dest)
     {
+        //Checks if the link already exists
+        if (file_exists($dest)) {
+            $this->verbose(__d('me_tools', 'File or directory `{0}` already exists', rtr($dest)));
+
+            return false;
+        }
+
         //Checks if the source is readable and the destination directory is writable
         try {
             is_readable_or_fail($source);
             is_writable_or_fail(dirname($dest));
         } catch (Exception $e) {
             $this->err($e->getMessage());
-
-            return false;
-        }
-        //Checks if the link already exists
-        if (file_exists($dest)) {
-            $this->verbose(__d('me_tools', 'File or directory `{0}` already exists', rtr($dest)));
 
             return false;
         }

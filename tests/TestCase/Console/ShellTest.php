@@ -111,29 +111,31 @@ class ShellTest extends TestCase
      */
     public function testCopyFile()
     {
+        list($source, $dest) = $this->exampleFiles;
+
         //Creates the source file
-        file_put_contents($this->exampleFiles[0], null);
+        file_put_contents($source, null);
 
         //Tries to copy. Source doesn't exist
-        $this->assertFalse($this->Shell->copyFile(TMP . 'noExistingFile', $this->exampleFiles[0]));
+        $this->assertFalse($this->Shell->copyFile(TMP . 'noExistingFile', $dest));
 
         //Tries to copy. Destination is not writable
-        $this->assertFalse($this->Shell->copyFile($this->exampleFiles[0], TMP . 'noExistingDir' . DS . 'example_copy'));
+        $this->assertFalse($this->Shell->copyFile($source, TMP . 'noExistingDir' . DS . 'example_copy'));
 
         //Now it works
-        $this->assertTrue($this->Shell->copyFile($this->exampleFiles[0], $this->exampleFiles[1]));
-        $this->assertFileExists($this->exampleFiles[1]);
+        $this->assertTrue($this->Shell->copyFile($source, $dest));
+        $this->assertFileExists($dest);
 
         //Tries to copy. Destination already exists
-        $this->assertFalse($this->Shell->copyFile($this->exampleFiles[0], $this->exampleFiles[1]));
+        $this->assertFalse($this->Shell->copyFile($source, $dest));
 
         $this->assertEquals([
             '<error>File or directory `' . TMP . 'noExistingFile` is not readable</error>',
             '<error>File or directory `' . TMP . 'noExistingDir` is not writable</error>',
         ], $this->err->messages());
         $this->assertEquals([
-            'File `' . $this->exampleFiles[1] . '` has been copied',
-            'File or directory `' . $this->exampleFiles[1] . '` already exists',
+            'File `' . $dest . '` has been copied',
+            'File or directory `' . $dest . '` already exists',
         ], $this->out->messages());
     }
 
