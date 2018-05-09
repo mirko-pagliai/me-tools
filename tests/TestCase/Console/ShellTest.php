@@ -69,12 +69,10 @@ class ShellTest extends TestCase
             ->getMock();
 
         $this->exampleDir = TMP . 'exampleDir';
-        $this->exampleFiles = [
-            $this->exampleDir . DS . 'example1',
-            $this->exampleDir . DS . 'example2',
-        ];
-
         safe_mkdir($this->exampleDir);
+
+        $this->exampleFiles[0] = $this->exampleDir . DS . 'example1';
+        $this->exampleFiles[1] = $this->exampleDir . DS . 'example2';
     }
 
     /**
@@ -85,15 +83,7 @@ class ShellTest extends TestCase
     {
         parent::tearDown();
 
-        list($dirs, $files) = ((new Folder($this->exampleDir))->tree());
-
-        foreach ($files as $file) {
-            safe_unlink($file);
-        }
-
-        foreach ($dirs as $dir) {
-            safe_rmdir($dir);
-        }
+        safe_rmdir_recursive($this->exampleDir);
     }
 
     /**
