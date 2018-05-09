@@ -94,7 +94,7 @@ class UploaderComponent extends Component
      * @return string|bool String or `false`
      * @uses $error
      */
-    public function error()
+    public function getError()
     {
         return $this->error ?: false;
     }
@@ -143,8 +143,8 @@ class UploaderComponent extends Component
      *  failure
      * @throws RuntimeException
      * @uses findTargetFilename()
+     * @uses getError()
      * @uses setError()
-     * @uses error()
      * @uses move_uploaded_file()
      * @uses $file
      */
@@ -155,7 +155,7 @@ class UploaderComponent extends Component
         }
 
         //Checks for previous errors
-        if ($this->error()) {
+        if ($this->getError()) {
             return false;
         }
 

@@ -1,6 +1,7 @@
 # 2.x branch
 ## 2.16 branch
 ### 2.16.10
+* `UploaderComponent::error()` renamed as `getError()`;
 * fixed code and output for the `Shell` class.
 
 ### 2.16.9
