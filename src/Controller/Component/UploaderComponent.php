@@ -41,9 +41,7 @@ class UploaderComponent extends Component
      */
     protected function setError($error)
     {
-        if (!$this->error) {
-            $this->error = $error;
-        }
+        $this->error = $this->error ?: $error;
     }
 
     /**
@@ -161,9 +159,7 @@ class UploaderComponent extends Component
             return false;
         }
 
-        if (!is_dir($directory)) {
-            throw new RuntimeException(__d('me_tools', 'Invalid or no existing directory {0}', $directory));
-        }
+        is_dir_or_fail($directory);
 
         $filename = $filename ? basename($filename) : $this->findTargetFilename($this->file->name);
         $file = Folder::slashTerm($directory) . $filename;

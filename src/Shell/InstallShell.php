@@ -22,8 +22,7 @@ use MeTools\Console\Shell;
 class InstallShell extends Shell
 {
     /**
-     * Assets for which create symbolic links.
-     * Full path for each font
+     * Fonts for which create symbolic links
      * @var array
      */
     protected $fonts = [

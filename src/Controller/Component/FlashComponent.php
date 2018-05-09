@@ -54,7 +54,6 @@ class FlashComponent extends CakeFlashComponent
             }
 
             $name = 'flash';
-
             $args[1]['plugin'] = ME_TOOLS;
         }
 

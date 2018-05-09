@@ -250,17 +250,6 @@ class UploaderComponentTest extends TestCase
     }
 
     /**
-     * Test for `save()` method, using a no existing directory
-     * @expectedException RuntimeException
-     * @expectedExceptionMessageRegExp /^Invalid or no existing directory [\w\d_\/\\:]+noExistingDir$/
-     * @test
-     */
-    public function testSaveNoExistingDir()
-    {
-        $this->Uploader->set($this->createFile())->save(UPLOADS . 'noExistingDir');
-    }
-
-    /**
      * Test for `save()` method, with no file
      * @expectedException RuntimeException
      * @expectedExceptionMessage There are no uploaded file information

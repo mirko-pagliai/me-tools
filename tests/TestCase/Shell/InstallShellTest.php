@@ -105,10 +105,9 @@ class InstallShellTest extends ConsoleIntegrationTestCase
 
         //Sets a callback for each method
         foreach ($methods as $method) {
-            $this->InstallShell->method($method)
-                ->will($this->returnCallback(function () use ($method) {
-                    $this->out->write($method);
-                }));
+            $this->InstallShell->method($method)->will($this->returnCallback(function () use ($method) {
+                $this->out->write($method);
+            }));
         }
 
         //Calls with `force` options
@@ -146,24 +145,20 @@ class InstallShellTest extends ConsoleIntegrationTestCase
      */
     public function testCopyFonts()
     {
-        $files = collection($this->getProperty($this->InstallShell, 'fonts'))
-            ->map(function ($file) {
-                return basename($file);
-            })
-            ->toArray();
+        $files = array_map('basename', $this->InstallShell->fonts);
 
         $this->exec('me_tools.install copy_fonts -v');
         $this->assertExitWithSuccess();
 
         foreach ($files as $file) {
-            $this->assertOutputContains('Link ' . rtr(WWW_ROOT) . 'fonts' . DS . $file . ' has been created');
+            $this->assertOutputContains('Link `' . rtr(WWW_ROOT) . 'fonts' . DS . $file . '` has been created');
         }
 
         $this->exec('me_tools.install copy_fonts -v');
         $this->assertExitWithSuccess();
 
         foreach ($files as $file) {
-            $this->assertOutputContains('File or directory ' . rtr(WWW_ROOT) . 'fonts' . DS . $file . ' already exists');
+            $this->assertOutputContains('File or directory `' . rtr(WWW_ROOT) . 'fonts' . DS . $file . '` already exists');
         }
     }
 
@@ -173,44 +168,26 @@ class InstallShellTest extends ConsoleIntegrationTestCase
      */
     public function testCreateDirectories()
     {
-        foreach ([
-            LOGS,
-            TMP . 'cache' . DS . 'models',
-            TMP . 'cache' . DS . 'persistent',
-            TMP . 'cache' . DS . 'views',
+        $pathsAlreadyExist = [
+            TMP,
             TMP . 'cache',
-            TMP . 'sessions',
-            TMP . 'tests',
-            WWW_ROOT . 'files',
             WWW_ROOT . 'fonts',
-            WWW_ROOT . 'fonts',
-        ] as $dir) {
-            safe_rmdir($dir);
-        }
+            WWW_ROOT . 'vendor',
+        ];
+        $pathsToBeCreated = array_diff($this->InstallShell->paths, $pathsAlreadyExist);
+        array_walk($pathsToBeCreated, 'safe_rmdir');
 
         $this->exec('me_tools.install create_directories -v');
         $this->assertExitWithSuccess();
-        $this->assertOutputContains('Created ' . LOGS . ' directory');
-        $this->assertOutputContains('Setted permissions on ' . LOGS);
-        $this->assertOutputContains('File or directory ' . TMP . ' already exists');
-        $this->assertOutputContains('Created ' . TMP . 'cache directory');
-        $this->assertOutputContains('Setted permissions on ' . TMP . 'cache');
-        $this->assertOutputContains('Created ' . TMP . 'cache' . DS . 'models directory');
-        $this->assertOutputContains('Setted permissions on ' . TMP . 'cache' . DS . 'models');
-        $this->assertOutputContains('Created ' . TMP . 'cache' . DS . 'persistent directory');
-        $this->assertOutputContains('Setted permissions on ' . TMP . 'cache' . DS . 'persistent');
-        $this->assertOutputContains('Created ' . TMP . 'cache' . DS . 'views directory');
-        $this->assertOutputContains('Setted permissions on ' . TMP . 'cache' . DS . 'views');
-        $this->assertOutputContains('Created ' . TMP . 'sessions directory');
-        $this->assertOutputContains('Setted permissions on ' . TMP . 'sessions');
-        $this->assertOutputContains('Created ' . TMP . 'tests directory');
-        $this->assertOutputContains('Setted permissions on ' . TMP . 'tests');
-        $this->assertOutputContains('Created ' . rtr(WWW_ROOT) . 'files directory');
-        $this->assertOutputContains('Setted permissions on ' . rtr(WWW_ROOT) . 'files');
-        $this->assertOutputContains('Created ' . rtr(WWW_ROOT) . 'files directory');
-        $this->assertOutputContains('Setted permissions on ' . rtr(WWW_ROOT) . 'files');
-        $this->assertOutputContains('File or directory ' . rtr(WWW_ROOT) . 'fonts already exists');
-        $this->assertOutputContains('File or directory ' . rtr(WWW_ROOT) . 'vendor already exists');
+
+        foreach ($pathsAlreadyExist as $path) {
+            $this->assertOutputContains('File or directory `' . rtr($path) . '` already exists');
+        }
+
+        foreach ($pathsToBeCreated as $path) {
+            $this->assertOutputContains('Created `' . rtr($path) . '` directory');
+            $this->assertOutputContains('Setted permissions on `' . rtr($path) . '`');
+        }
     }
 
     /**
@@ -257,7 +234,7 @@ class InstallShellTest extends ConsoleIntegrationTestCase
         $this->assertExitWithSuccess();
 
         foreach ($this->getProperty($this->InstallShell, 'links') as $link) {
-            $this->assertOutputContains('Link ' . rtr(WWW_ROOT) . 'vendor' . DS . $link . ' has been created');
+            $this->assertOutputContains('Link `' . rtr(WWW_ROOT) . 'vendor' . DS . $link . '` has been created');
         }
     }
 
@@ -309,15 +286,9 @@ class InstallShellTest extends ConsoleIntegrationTestCase
             ->setConstructorArgs([$this->io])
             ->getMock();
 
-        $this->InstallShell->method('all')
-            ->will($this->returnCallback(function () {
-                $this->out->write('all');
-            }));
+        $this->InstallShell->expects($this->once())->method('all');
 
         $this->InstallShell->main();
-
-        $this->assertEquals(['all'], $this->out->messages());
-        $this->assertEmpty($this->err->messages());
     }
 
     /**
@@ -329,8 +300,8 @@ class InstallShellTest extends ConsoleIntegrationTestCase
         $this->exec('me_tools.install set_permissions -v');
         $this->assertExitWithSuccess();
 
-        foreach ($this->getProperty($this->InstallShell, 'paths') as $dir) {
-            $this->assertOutputContains('Setted permissions on ' . rtr($dir));
+        foreach ($this->InstallShell->paths as $path) {
+            $this->assertOutputContains('Setted permissions on `' . rtr($path) . '`');
         }
     }
 
