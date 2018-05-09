@@ -33,21 +33,11 @@ class Plugin extends CakePlugin
      */
     public static function all(array $options = [])
     {
+        $options += ['core' => false, 'exclude' => [], 'order' => true];
+
         $plugins = parent::loaded();
-
-        $options = array_merge([
-            'core' => false,
-            'exclude' => [],
-            'order' => true,
-        ], $options);
-
-        if (!$options['core']) {
-            $plugins = array_diff($plugins, ['DebugKit', 'Migrations', 'Bake']);
-        }
-
-        if (!empty($options['exclude'])) {
-            $plugins = array_diff($plugins, (array)$options['exclude']);
-        }
+        $plugins = $options['core'] ? $plugins : array_diff($plugins, ['DebugKit', 'Migrations', 'Bake']);
+        $plugins = !$options['exclude'] ? $plugins : array_diff($plugins, (array)$options['exclude']);
 
         if ($options['order']) {
             $key = array_search(ME_TOOLS, $plugins);

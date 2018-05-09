@@ -14,6 +14,7 @@ namespace MeTools\Shell;
 
 use Cake\Console\ConsoleIo;
 use Cake\Utility\Hash;
+use Exception;
 use MeTools\Console\Shell;
 
 /**
@@ -126,20 +127,15 @@ class InstallShell extends Shell
      */
     public function all()
     {
-        $questions = $this->questions;
-
-        if ($this->param('force')) {
-            $questions = Hash::extract($questions, '{n}[default=Y]');
-        }
+        $questions = $this->param('force') ? Hash::extract($this->questions, '{n}[default=Y]') : $this->questions;
 
         foreach ($questions as $var) {
             list($question, $default, $method) = array_values($var);
 
             //The method must be executed if the `force` mode is set or if the
             //  user answers yes to the question
-            if ($this->param('force')) {
-                $toBeExecuted = true;
-            } else {
+            $toBeExecuted = true;
+            if (!$this->param('force')) {
                 $ask = $this->in($question, $default === 'Y' ? ['Y', 'n'] : ['y', 'N'], $default);
                 $toBeExecuted = in_array($ask, ['Y', 'y']);
             }
@@ -227,8 +223,10 @@ class InstallShell extends Shell
     {
         $path = $this->param('path') ?: ROOT . DS . 'composer.json';
 
-        if (!is_writeable($path)) {
-            $this->err(__d('me_tools', 'File or directory {0} not writeable', rtr($path)));
+        try {
+            is_writable_or_fail($path);
+        } catch (Exception $e) {
+            $this->err($e->getMessage());
 
             return false;
         }

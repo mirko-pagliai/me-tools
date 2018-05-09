@@ -13,6 +13,7 @@
  */
 namespace MeTools\TestSuite\Traits;
 
+use Exception;
 use Tools\ReflectionTrait;
 use Tools\TestSuite\TestCaseTrait as ToolsTestCaseTrait;
 
@@ -32,13 +33,16 @@ trait TestCaseTrait
      * @param string $message The failure message that will be appended to the
      *  generated message
      * @return void
+     * @todo `$logName` could be an absolute path or have an extension
      */
     public function assertLogContains($expectedContent, $logName, $message = '')
     {
         $file = LOGS . $logName . '.log';
 
-        if (!is_readable($file)) {
-            $this->fail('Log file `' . $file . '` not readable');
+        try {
+            is_readable_or_fail($file);
+        } catch (Exception $e) {
+            $this->fail($e->getMessage());
         }
 
         $this->assertContains($expectedContent, file_get_contents($file), $message);

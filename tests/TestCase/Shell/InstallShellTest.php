@@ -252,7 +252,7 @@ class InstallShellTest extends ConsoleIntegrationTestCase
         //Tries to fix a no existing file
         $this->exec('me_tools.install fix_composer_json -p ' . TMP . 'noExisting -v');
         $this->assertExitWithError();
-        $this->assertErrorContains('<error>File or directory ' . TMP . 'noExisting not writeable</error>');
+        $this->assertErrorContains('<error>File or directory `' . TMP . 'noExisting` is not writable</error>');
 
         //Tries to fix an invalid composer.json file
         $file = TMP . 'invalid.json';

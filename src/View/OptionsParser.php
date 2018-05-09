@@ -81,11 +81,7 @@ class OptionsParser
             $value = implode(' ', $value);
         }
 
-        if (is_string($value)) {
-            $value = trim($value);
-        }
-
-        return $value;
+        return is_string($value) ? trim($value) : $value;
     }
 
     /**
@@ -224,10 +220,7 @@ class OptionsParser
         }
 
         $existing = $this->get($key);
-
-        if (in_array($key, $this->toBeExploded)) {
-            $existing = explode(' ', $existing);
-        }
+        $existing = in_array($key, $this->toBeExploded) ? explode(' ', $existing) : $existing;
 
         if (is_array($existing)) {
             if (is_array($value)) {
@@ -248,9 +241,7 @@ class OptionsParser
      */
     public function delete($key)
     {
-        if (func_num_args() > 1) {
-            $key = func_get_args();
-        }
+        $key = func_num_args() > 1 ? func_get_args() : $key;
 
         if (is_array($key)) {
             array_map([$this, __METHOD__], $key);

@@ -49,11 +49,7 @@ class Youtube
      */
     public static function getPreview($id)
     {
-        if (is_url($id)) {
-            $id = self::getId($id);
-        }
-
-        return sprintf('http://img.youtube.com/vi/%s/0.jpg', $id);
+        return sprintf('http://img.youtube.com/vi/%s/0.jpg', is_url($id) ? self::getId($id) : $id);
     }
 
     /**

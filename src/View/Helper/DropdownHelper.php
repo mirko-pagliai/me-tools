@@ -134,9 +134,7 @@ class DropdownHelper extends Helper
         ob_end_clean();
 
         //Split all links
-        preg_match_all('/(<a[^>]*>.*?<\/a[^>]*>)/', $buffer, $matches);
-
-        if (empty($matches[0])) {
+        if (preg_match_all('/(<a[^>]*>.*?<\/a[^>]*>)/', $buffer, $matches) === 0) {
             return;
         }
 

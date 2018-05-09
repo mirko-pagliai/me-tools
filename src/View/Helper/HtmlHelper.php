@@ -55,9 +55,7 @@ class HtmlHelper extends CakeHtmlHelper
         //Prepends the string "fa-" to any other class
         $icon = preg_replace('/(?<![^ ])(?=[^ ])(?!fa)/', 'fa-', $icon);
 
-        if (!is_array($icon)) {
-            $icon = preg_split('/\s+/', $icon, -1, PREG_SPLIT_NO_EMPTY);
-        }
+        $icon = !is_array($icon) ? preg_split('/\s+/', $icon, -1, PREG_SPLIT_NO_EMPTY) : $icon;
 
         //Adds the "fa" class
         array_unshift($icon, 'fa');
@@ -248,9 +246,7 @@ class HtmlHelper extends CakeHtmlHelper
         $type = !$options->exists('type') || !preg_match('/^h[1-6]$/', $options->get('type')) ? 'h2' : $options->get('type');
         $options->delete('type');
 
-        if (!empty($small)) {
-            $text = sprintf('%s %s', $text, self::small($small, $smallOptions));
-        }
+        $text = $small ? sprintf('%s %s', $text, self::small($small, $smallOptions)) : $text;
 
         return self::tag($type, $text, $options->toArray());
     }
@@ -294,9 +290,7 @@ class HtmlHelper extends CakeHtmlHelper
      */
     public function icon($icon)
     {
-        if (func_num_args() > 1) {
-            $icon = func_get_args();
-        }
+        $icon = func_num_args() > 1 ? func_get_args() : $icon;
 
         return self::tag('i', ' ', ['class' => $this->buildIconClasses($icon)]);
     }
@@ -411,12 +405,11 @@ class HtmlHelper extends CakeHtmlHelper
             return self::tag('li', $element, $options);
         }
 
-        $element = collection($element)
-            ->map(function ($element) use ($options) {
-                return self::tag('li', $element, $options);
-            });
+        $element = array_map(function ($element) use ($options) {
+            return self::tag('li', $element, $options);
+        }, $element);
 
-        return implode(PHP_EOL, $element->toArray());
+        return implode(PHP_EOL, $element);
     }
 
     /**
@@ -472,11 +465,9 @@ class HtmlHelper extends CakeHtmlHelper
             $options->append('class', 'fa-ul');
             $itemOptions->append('icon', 'li');
 
-            $list = collection($list)
-                ->map(function ($element) use ($itemOptions) {
-                    return collection($this->addIconToText($element, clone $itemOptions))->first();
-                })
-                ->toArray();
+            $list = array_map(function ($element) use ($itemOptions) {
+                return collection($this->addIconToText($element, clone $itemOptions))->first();
+            }, $list);
         }
 
         $options->delete('icon', 'icon-align');
@@ -635,12 +626,11 @@ class HtmlHelper extends CakeHtmlHelper
      * @param string $id YouTube video ID
      * @param array $options Array of options and HTML attributes
      * @return string
+     * @todo can use `Youtube::getUrl()`?
      * @uses iframe()
      */
     public function youtube($id, array $options = [])
     {
-        $url = sprintf('https://www.youtube.com/embed/%s', $id);
-
         $options = optionsParser($options, [
             'allowfullscreen' => 'allowfullscreen',
             'height' => 480,
@@ -648,6 +638,6 @@ class HtmlHelper extends CakeHtmlHelper
             'width' => 640,
         ]);
 
-        return self::iframe($url, $options->toArray());
+        return self::iframe(sprintf('https://www.youtube.com/embed/%s', $id), $options->toArray());
     }
 }

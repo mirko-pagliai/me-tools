@@ -98,12 +98,12 @@ class LibraryHelper extends Helper
         }
 
         //Writes the output
-        $output = implode(PHP_EOL, array_map(function ($v) {
+        $output = array_map(function ($v) {
             return "    " . $v;
-        }, $this->output));
+        }, $this->output);
 
         $this->Html->scriptBlock(
-            sprintf('$(function() {%s});', PHP_EOL . $output . PHP_EOL),
+            sprintf('$(function() {%s});', PHP_EOL . implode(PHP_EOL, $output) . PHP_EOL),
             ['block' => 'script_bottom']
         );
 
@@ -147,9 +147,7 @@ class LibraryHelper extends Helper
      */
     public function ckeditor($jquery = false)
     {
-        if (!is_readable(WWW_ROOT . 'ckeditor' . DS . 'ckeditor.js')) {
-            return;
-        }
+        is_readable_or_fail(WWW_ROOT . 'ckeditor' . DS . 'ckeditor.js');
 
         $scripts = ['/ckeditor/ckeditor'];
 

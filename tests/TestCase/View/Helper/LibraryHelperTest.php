@@ -122,9 +122,6 @@ class LibraryHelperTest extends TestCase
      */
     public function testCkeditor()
     {
-        $this->Library->ckeditor();
-        $this->assertEmpty($this->View->Blocks->get('script_bottom'));
-
         file_put_contents(WWW_ROOT . 'ckeditor' . DS . 'ckeditor.js', null);
 
         $expected = [
