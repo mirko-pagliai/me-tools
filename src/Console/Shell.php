@@ -31,17 +31,32 @@ class Shell extends CakeShell
     }
 
     /**
+     * Internal method to check if a file already exists and output a warning at
+     *  the verbose level
+     * @param string $path Path
+     * @return bool
+     */
+    protected function verboseIfFileExists($path)
+    {
+        if (!file_exists($path)) {
+            return false;
+        }
+
+        $this->verbose(__d('me_tools', 'File or directory `{0}` already exists', rtr($path)));
+
+        return true;
+    }
+
+    /**
      * Copies a file
      * @param string $source Source file
      * @param string $dest Destination file
      * @return bool
+     * @uses verboseIfFileExists()
      */
     public function copyFile($source, $dest)
     {
-        //Checks if the destination file already exists
-        if (file_exists($dest)) {
-            $this->verbose(__d('me_tools', 'File or directory `{0}` already exists', rtr($dest)));
-
+        if ($this->verboseIfFileExists($dest)) {
             return false;
         }
 
@@ -69,18 +84,15 @@ class Shell extends CakeShell
      * @param string $path Directory path
      * @return bool
      * @uses folderChmod()
+     * @uses verboseIfFileExists()
      */
     public function createDir($path)
     {
-        if (file_exists($path)) {
-            $this->verbose(__d('me_tools', 'File or directory `{0}` already exists', rtr($path)));
-
+        if ($this->verboseIfFileExists($path)) {
             return false;
         }
 
-        $success = safe_mkdir($path, 0777, true);
-
-        if (!$success) {
+        if (!safe_mkdir($path, 0777, true)) {
             $this->err(__d('me_tools', 'Failed to create file or directory `{0}`', rtr($path)));
 
             return false;
@@ -97,17 +109,11 @@ class Shell extends CakeShell
      * @param string $path Where to put the file
      * @param string $contents Content to put in the file
      * @return bool
+     * @uses verboseIfFileExists()
      */
     public function createFile($path, $contents)
     {
-        //Checks if the file already exist
-        if (file_exists($path)) {
-            $this->verbose(__d('me_tools', 'File or directory `{0}` already exists', rtr($path)));
-
-            return false;
-        }
-
-        return parent::createFile($path, $contents);
+        return $this->verboseIfFileExists($path) ? false : parent::createFile($path, $contents);
     }
 
     /**
@@ -118,10 +124,7 @@ class Shell extends CakeShell
      */
     public function createLink($source, $dest)
     {
-        //Checks if the link already exists
-        if (file_exists($dest)) {
-            $this->verbose(__d('me_tools', 'File or directory `{0}` already exists', rtr($dest)));
-
+        if ($this->verboseIfFileExists($dest)) {
             return false;
         }
 
