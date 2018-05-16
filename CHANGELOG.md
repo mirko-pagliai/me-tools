@@ -2,6 +2,7 @@
 ## 2.16 branch
 ### 2.16.10
 * `UploaderComponent::error()` renamed as `getError()`;
+* `Shell::folderChmod()` has a default value for the `$chmod` argument;
 * fixed code and output for the `Shell` class.
 
 ### 2.16.9

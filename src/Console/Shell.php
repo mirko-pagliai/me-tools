@@ -153,7 +153,7 @@ class Shell extends CakeShell
      * @param int $chmod Chmod
      * @return bool
      */
-    public function folderChmod($path, $chmod)
+    public function folderChmod($path, $chmod = 0777)
     {
         if (!(new Folder())->chmod($path, $chmod, true)) {
             $this->err(__d('me_tools', 'Failed to set permissions on `{0}`', rtr($path)));

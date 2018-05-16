@@ -274,9 +274,7 @@ class InstallShell extends Shell
      */
     public function setPermissions()
     {
-        foreach ($this->paths as $path) {
-            $this->folderChmod($path, 0777);
-        }
+        array_map([$this, 'folderChmod'], $this->paths);
     }
 
     /**
