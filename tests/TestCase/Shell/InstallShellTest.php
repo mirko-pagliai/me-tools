@@ -168,12 +168,16 @@ class InstallShellTest extends ConsoleIntegrationTestCase
      */
     public function testCreateDirectories()
     {
-        $pathsAlreadyExist = [
+        foreach ([
             TMP,
             TMP . 'cache',
             WWW_ROOT . 'fonts',
             WWW_ROOT . 'vendor',
-        ];
+        ] as $path) {
+            safe_mkdir($path, 0777, true);
+            $pathsAlreadyExist[] = $path;
+        }
+
         $pathsToBeCreated = array_diff($this->InstallShell->paths, $pathsAlreadyExist);
         array_walk($pathsToBeCreated, 'safe_rmdir');
 
