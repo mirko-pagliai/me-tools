@@ -87,10 +87,6 @@ class Plugin extends CakePlugin
 
         $path = $plugin . $file;
 
-        if ($check && !is_readable($path)) {
-            return false;
-        }
-
-        return $path;
+        return $check && !is_readable($path) ? false : $path;
     }
 }

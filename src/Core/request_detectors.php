@@ -40,13 +40,8 @@ use Cake\Routing\Router;
 ServerRequest::addDetector('action', function (ServerRequest $request, $action, $controller = null) {
     $action = in_array($request->getParam('action'), (array)$action);
 
-    //Checks only action
-    if (!$controller) {
-        return $action;
-    }
-
     //Checks action and controller
-    return $action && $request->is('controller', $controller);
+    return $controller ? $action && $request->is('controller', $controller) : $action;
 });
 
 /**
