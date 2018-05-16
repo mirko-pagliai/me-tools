@@ -10,8 +10,6 @@
  * @link        https://github.com/mirko-pagliai/me-tools
  * @license     https://opensource.org/licenses/mit-license.php MIT License
  */
-use Cake\Filesystem\File;
-use Cake\Filesystem\Folder;
 use MeTools\View\OptionsParser;
 
 if (!function_exists('clearDir')) {
@@ -24,40 +22,14 @@ if (!function_exists('clearDir')) {
     {
         $success = true;
 
-        //Gets files
-        $files = (new Folder($directory))->tree(false, ['empty'])[1];
-
         //Deletes each file
-        foreach ($files as $file) {
-            if (!(new File($file))->delete()) {
+        foreach (array_values(dir_tree($directory, 'empty'))[1] as $file) {
+            if (!safe_unlink($file)) {
                 $success = false;
             }
         }
 
         return $success;
-    }
-}
-
-if (!function_exists('folderIsWriteable')) {
-    /**
-     * Checks if a directory and its subdirectories are readable and writable
-     * @param string $dir Directory path
-     * @return bool
-     */
-    function folderIsWriteable($dir)
-    {
-        if (!is_readable($dir) || !is_writable($dir)) {
-            return false;
-        }
-
-        //Checks each sub-directory
-        foreach ((new Folder())->tree($dir, false, 'dir') as $subdir) {
-            if (!is_readable($subdir) || !is_writable($subdir)) {
-                return false;
-            }
-        }
-
-        return true;
     }
 }
 

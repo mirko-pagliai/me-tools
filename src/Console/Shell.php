@@ -99,7 +99,7 @@ class Shell extends CakeShell
         }
 
         $this->verbose(__d('me_tools', 'Created `{0}` directory', rtr($path)));
-        $this->folderChmod($path, 0777);
+        $this->folderChmod($path);
 
         return true;
     }

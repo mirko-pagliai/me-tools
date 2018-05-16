@@ -21,22 +21,15 @@ use MeTools\View\OptionsParser;
 class GlobalFunctionsTest extends TestCase
 {
     /**
-     * Tests for `clearDir()` and `folderIsWriteable()`  global functions.
-     *
-     * It creates some directories, so it tests if they are writeable.
-     * Then creates some files, cleans directories, so it tests if all files
-     *  have been deleted.
+     * Tests for `clearDir()` global function
      * @test
      */
-    public function testClearDirAndFolderIsWriteabled()
+    public function testClearDir()
     {
         $path = TMP . 'tests';
 
         //Creates some folder
         safe_mkdir($path . DS . 'folder' . DS . 'subfolder', 0777, true);
-
-        //Test for `folderIsWriteable()`
-        $this->assertTrue(folderIsWriteable($path));
 
         $files = [
             'first',
@@ -58,11 +51,7 @@ class GlobalFunctionsTest extends TestCase
         }
 
         //Delete folders
-        safe_rmdir($path . DS . 'folder' . DS . 'subfolder');
-        safe_rmdir($path . DS . 'folder');
-
-        //No existing folder
-        $this->assertFalse(folderIsWriteable('/no/Existing'));
+        safe_rmdir_recursive($path . DS . 'folder');
     }
 
     /**

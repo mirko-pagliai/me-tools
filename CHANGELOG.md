@@ -3,7 +3,9 @@
 ### 2.16.10
 * `UploaderComponent::error()` renamed as `getError()`;
 * `Shell::folderChmod()` has a default value for the `$chmod` argument;
-* fixed code and output for the `Shell` class.
+* fixed code and output for the `Shell` class;
+* removed `folderIsWriteable()` global function. Use instead
+    `is_writable_resursive()` provided by `php-tools`.
 
 ### 2.16.9
 * updated for CakePHP 3.6 and cakephp-assets 1.2.
