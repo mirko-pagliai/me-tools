@@ -37,7 +37,7 @@ class IntegrationTestCase extends CakeIntegrationTestCase
     {
         parent::tearDown();
 
-        $this->deleteAllLogs();
+        safe_unlink_recursive(LOGS);
     }
 
     /**

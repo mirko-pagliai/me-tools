@@ -48,20 +48,6 @@ class TestCaseTest extends TestCase
     }
 
     /**
-     * Tests for `deleteAllLogs` method
-     * @test
-     */
-    public function testDeleteAllLogs()
-    {
-        file_put_contents(LOGS . 'first.log', null);
-        file_put_contents(LOGS . 'second.log', null);
-
-        $this->deleteAllLogs();
-        $this->assertFileNotExists(LOGS . 'first.log');
-        $this->assertFileNotExists(LOGS . 'second.log');
-    }
-
-    /**
      * Tests for `deleteLog` method
      * @test
      */

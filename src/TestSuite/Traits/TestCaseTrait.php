@@ -49,20 +49,10 @@ trait TestCaseTrait
     }
 
     /**
-     * Deletes all logs file
-     * @return void
-     */
-    public function deleteAllLogs()
-    {
-        foreach (glob(LOGS . '*') as $file) {
-            safe_unlink($file);
-        }
-    }
-
-    /**
      * Deletes a log file
      * @param string $logName Log name
      * @return void
+     * @todo `$logName` could be an absolute path or have an extension
      */
     public function deleteLog($logName)
     {

@@ -4,6 +4,7 @@
 * `UploaderComponent::error()` renamed as `getError()`;
 * `Shell::folderChmod()` has a default value for the `$chmod` argument;
 * fixed code and output for the `Shell` class;
+* removed `TestCaseTrait::deleteAllLogs()` method;
 * removed `folderIsWriteable()` global function. Use instead
     `is_writable_resursive()` provided by `php-tools`.
 
