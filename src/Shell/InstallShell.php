@@ -27,10 +27,10 @@ class InstallShell extends Shell
      * @var array
      */
     protected $fonts = [
-        'fortawesome/font-awesome/fonts/fontawesome-webfont.eot',
-        'fortawesome/font-awesome/fonts/fontawesome-webfont.ttf',
-        'fortawesome/font-awesome/fonts/fontawesome-webfont.woff',
-        'fortawesome/font-awesome/fonts/fontawesome-webfont.woff2',
+        'fortawesome' . DS . 'font-awesome' . DS . 'fonts' . DS . 'fontawesome-webfont.eot',
+        'fortawesome' . DS . 'font-awesome' . DS . 'fonts' . DS . 'fontawesome-webfont.ttf',
+        'fortawesome' . DS . 'font-awesome' . DS . 'fonts' . DS . 'fontawesome-webfont.woff',
+        'fortawesome' . DS . 'font-awesome' . DS . 'fonts' . DS . 'fontawesome-webfont.woff2',
     ];
 
     /**
@@ -40,12 +40,12 @@ class InstallShell extends Shell
      * @var array
      */
     protected $links = [
-        'eonasdan/bootstrap-datetimepicker/build' => 'bootstrap-datetimepicker',
-        'components/jquery' => 'jquery',
-        'components/moment/min' => 'moment',
-        'fortawesome/font-awesome' => 'font-awesome',
-        'newerton/fancy-box/source' => 'fancybox',
-        'twbs/bootstrap/dist' => 'bootstrap',
+        'eonasdan' . DS . 'bootstrap-datetimepicker' . DS . 'build' => 'bootstrap-datetimepicker',
+        'components' . DS . 'jquery' => 'jquery',
+        'components' . DS . 'moment' . DS . 'min' => 'moment',
+        'fortawesome' . DS . 'font-awesome' => 'font-awesome',
+        'newerton' . DS . 'fancy-box' . DS . 'source' => 'fancybox',
+        'twbs' . DS . 'bootstrap' . DS . 'dist' => 'bootstrap',
     ];
 
     /**
@@ -151,13 +151,10 @@ class InstallShell extends Shell
      * @return void
      * @uses $fonts
      * @uses MeTools\Console\Shell::createLink()
-     * @todo remove `is_win()`
      */
     public function copyFonts()
     {
         foreach ($this->fonts as $origin) {
-            $origin = is_win() ? str_replace('/', DS, $origin) : $origin;
-
             $this->createLink(
                 ROOT . DS . 'vendor' . DS . $origin,
                 WWW_ROOT . 'fonts' . DS . basename($origin)
@@ -203,13 +200,10 @@ class InstallShell extends Shell
      * @return void
      * @uses $links
      * @uses MeTools\Console\Shell::createLink()
-     * @todo remove `is_win()`
      */
     public function createVendorsLinks()
     {
         foreach ($this->links as $origin => $target) {
-            $origin = is_win() ? str_replace('/', DS, $origin) : $origin;
-
             $this->createLink(
                 ROOT . DS . 'vendor' . DS . $origin,
                 WWW_ROOT . 'vendor' . DS . $target
