@@ -59,9 +59,6 @@ class LibraryHelper extends Helper
             ['block' => 'css_bottom']
         );
 
-        //Gets the current locale
-        $locale = substr(I18n::getLocale(), 0, 2);
-
         $options = optionsParser($options, [
             'icons' => [
                 'time' => 'fa fa-clock-o',
@@ -74,7 +71,7 @@ class LibraryHelper extends Helper
                 'clear' => 'fa fa-trash',
                 'close' => 'fa fa-times',
             ],
-            'locale' => $locale ?: 'en-gb',
+            'locale' => substr(I18n::getLocale(), 0, 2) ?: 'en-gb',
             'showTodayButton' => true,
             'showClear' => true,
         ]);
@@ -115,15 +112,11 @@ class LibraryHelper extends Helper
      * Create a script block for Google Analytics
      * @param string $id Analytics ID
      * @uses MeTools\View\Helper\HtmlHelper::scriptBlock()
-     * @return mixed|null Html code
+     * @return mixed A script tag or `null`
      */
     public function analytics($id)
     {
-        if ($this->request->is('localhost')) {
-            return;
-        }
-
-        return $this->Html->scriptBlock(
+        return $this->request->is('localhost') ? null : $this->Html->scriptBlock(
             sprintf('!function(e,a,t,n,c,o,s){e.GoogleAnalyticsObject=c,e[c]=e[c]||function(){(e[c].q=e[c].q||[]).push(arguments)},e[c].l=1*new Date,o=a.createElement(t),s=a.getElementsByTagName(t)[0],o.async=1,o.src=n,s.parentNode.insertBefore(o,s)}(window,document,"script","//www.google-analytics.com/analytics.js","ga"),ga("create","%s","auto"),ga("send","pageview");', $id),
             ['block' => 'script_bottom']
         );
@@ -143,7 +136,7 @@ class LibraryHelper extends Helper
      * @return void
      * @see MeTools\View\Helper\FormHelper::ckeditor()
      * @see http://docs.cksource.com CKEditor documentation
-     * @uses MeTools\View\Helper\Html::js()
+     * @uses MeTools\View\Helper\Html::script()
      */
     public function ckeditor($jquery = false)
     {
@@ -167,7 +160,7 @@ class LibraryHelper extends Helper
             $scripts[] = 'MeTools.ckeditor_init.php?';
         }
 
-        $this->Html->js($scripts, ['block' => 'script_bottom']);
+        $this->Html->script($scripts, ['block' => 'script_bottom']);
     }
 
     /**

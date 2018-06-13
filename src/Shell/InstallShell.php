@@ -129,8 +129,8 @@ class InstallShell extends Shell
     {
         $questions = $this->param('force') ? Hash::extract($this->questions, '{n}[default=Y]') : $this->questions;
 
-        foreach ($questions as $var) {
-            list($question, $default, $method) = array_values($var);
+        foreach ($questions as $question) {
+            list($question, $default, $method) = array_values($question);
 
             //The method must be executed if the `force` mode is set or if the
             //  user answers yes to the question
@@ -151,6 +151,7 @@ class InstallShell extends Shell
      * @return void
      * @uses $fonts
      * @uses MeTools\Console\Shell::createLink()
+     * @todo remove `is_win()`
      */
     public function copyFonts()
     {
@@ -202,6 +203,7 @@ class InstallShell extends Shell
      * @return void
      * @uses $links
      * @uses MeTools\Console\Shell::createLink()
+     * @todo remove `is_win()`
      */
     public function createVendorsLinks()
     {

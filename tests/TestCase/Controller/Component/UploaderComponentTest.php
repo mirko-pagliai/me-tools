@@ -40,7 +40,8 @@ class UploaderComponentTest extends TestCase
     protected function createFile()
     {
         //Creates a file and writes some content
-        $file = tempnam(TMP, 'php_upload_');
+        safe_mkdir(TMP . 'upload_test');
+        $file = tempnam(TMP . 'upload_test', 'php_upload_');
         file_put_contents($file, 'string');
 
         return [
@@ -74,10 +75,8 @@ class UploaderComponentTest extends TestCase
     {
         parent::tearDown();
 
-        //Deletes all files
-        foreach (array_merge(glob(UPLOADS . '*'), glob(TMP . 'php_upload*')) as $file) {
-            safe_unlink($file);
-        }
+        safe_unlink_recursive(UPLOADS);
+        safe_rmdir_recursive(TMP . 'upload_test');
     }
 
     /**

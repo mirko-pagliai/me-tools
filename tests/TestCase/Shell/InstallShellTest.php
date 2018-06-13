@@ -71,20 +71,11 @@ class InstallShellTest extends ConsoleIntegrationTestCase
     {
         parent::tearDown();
 
-        //Deletes all files
-        foreach (array_merge(
-            glob(WWW_ROOT . 'fonts' . DS . '*'),
-            glob(WWW_ROOT . 'vendor' . DS . '*'),
-            [
-                WWW_ROOT . 'robots.txt',
-                TMP . 'invalid.json',
-                APP . 'composer.json',
-            ]
-        ) as $file) {
-            if (basename($file) !== 'empty') {
-                safe_unlink($file);
-            }
-        }
+        unlink_recursive(WWW_ROOT . 'fonts', 'empty');
+        unlink_recursive(WWW_ROOT . 'vendor', 'empty');
+        safe_unlink(WWW_ROOT . 'robots.txt');
+        safe_unlink(TMP . 'invalid.json');
+        safe_unlink(APP . 'composer.json');
     }
 
     /**

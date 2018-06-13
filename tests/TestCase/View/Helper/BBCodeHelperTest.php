@@ -129,8 +129,6 @@ class BBCodeHelperTest extends TestCase
      */
     public function testReadMore()
     {
-        $expected = '<!-- read-more -->';
-
         foreach ([
             '[readmore]',
             '[readmore/]',
@@ -141,7 +139,7 @@ class BBCodeHelperTest extends TestCase
             '<p>[readmore /]</p>',
             '<p class="my-class">[readmore /]</p>',
         ] as $text) {
-            $this->assertEquals($expected, $this->BBCode->readmore($text));
+            $this->assertEquals('<!-- read-more -->', $this->BBCode->readmore($text));
         }
     }
 
@@ -161,15 +159,13 @@ class BBCodeHelperTest extends TestCase
      */
     public function testYoutube()
     {
-        $expected = $this->Html->youtube('bL_CJKq9rIw');
-
         foreach ([
             '[youtube]bL_CJKq9rIw[/youtube]',
             '[youtube]http://youtube.com/watch?v=bL_CJKq9rIw[/youtube]',
             '[youtube]https://www.youtube.com/watch?v=bL_CJKq9rIw[/youtube]',
             '[youtube]https://youtu.be/bL_CJKq9rIw[/youtube]',
         ] as $text) {
-            $this->assertEquals($expected, $this->BBCode->youtube($text));
+            $this->assertEquals($this->Html->youtube('bL_CJKq9rIw'), $this->BBCode->youtube($text));
         }
     }
 }

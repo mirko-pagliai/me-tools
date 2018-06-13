@@ -491,16 +491,15 @@ class FormHelperTest extends TestCase
             '/div',
             '/form',
         ];
-        $this->assertFalse($this->Form->isInline());
 
+        $this->assertFalse($this->Form->isInline());
         $result = $this->Form->createInline(null);
         $inline = $this->Form->isInline();
         $result .= $this->Form->end();
         $this->assertTrue($inline);
         $this->assertHtml($expected, $result);
 
-        $inline = $this->Form->isInline();
-        $this->assertFalse($inline);
+        $this->assertFalse($this->Form->isInline());
 
         // `create()` method with `inline` option
         $result = $this->Form->create(null, ['inline' => true]);
@@ -517,8 +516,6 @@ class FormHelperTest extends TestCase
         $result .= $this->Form->end();
         $this->assertTrue($inline);
         $this->assertHtml($expected, $result);
-
-        $this->assertFalse($this->Form->isInline());
     }
 
     /**

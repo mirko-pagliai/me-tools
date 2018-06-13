@@ -26,28 +26,17 @@ class YoutubeTest extends TestCase
      */
     public function testGetId()
     {
-        $expected = 'bL_CJKq9rIw';
-
-        $result = Youtube::getId('http://youtube.com/watch?v=bL_CJKq9rIw');
-        $this->assertEquals($expected, $result);
-
-        $result = Youtube::getId('http://www.youtube.com/watch?v=bL_CJKq9rIw');
-        $this->assertEquals($expected, $result);
-
-        $result = Youtube::getId('https://www.youtube.com/watch?v=bL_CJKq9rIw');
-        $this->assertEquals($expected, $result);
-
-        $result = Youtube::getId('http://youtu.be/bL_CJKq9rIw');
-        $this->assertEquals($expected, $result);
-
-        $result = Youtube::getId('https://youtu.be/bL_CJKq9rIw');
-        $this->assertEquals($expected, $result);
-
-        $result = Youtube::getId('http://youtu.be/bL_CJKq9rIw?t=5s');
-        $this->assertEquals($expected, $result);
-
-        $result = Youtube::getId('http://youtu.be/bL_CJKq9rIw?t=1m16s');
-        $this->assertEquals($expected, $result);
+        foreach ([
+            'http://youtube.com/watch?v=bL_CJKq9rIw',
+            'http://www.youtube.com/watch?v=bL_CJKq9rIw',
+            'https://www.youtube.com/watch?v=bL_CJKq9rIw',
+            'http://youtu.be/bL_CJKq9rIw',
+            'https://youtu.be/bL_CJKq9rIw',
+            'http://youtu.be/bL_CJKq9rIw?t=5s',
+            'http://youtu.be/bL_CJKq9rIw?t=1m16s',
+        ] as $url) {
+            $this->assertEquals('bL_CJKq9rIw', Youtube::getId($url));
+        }
     }
 
     /**
@@ -67,16 +56,13 @@ class YoutubeTest extends TestCase
      */
     public function testGetPreview()
     {
-        $expected = 'http://img.youtube.com/vi/bL_CJKq9rIw/0.jpg';
-
-        $result = Youtube::getPreview('bL_CJKq9rIw');
-        $this->assertEquals($expected, $result);
-
-        $result = Youtube::getPreview('https://www.youtube.com/watch?v=bL_CJKq9rIw');
-        $this->assertEquals($expected, $result);
-
-        $result = Youtube::getPreview('http://youtu.be/bL_CJKq9rIw');
-        $this->assertEquals($expected, $result);
+        foreach ([
+            'bL_CJKq9rIw',
+            'https://www.youtube.com/watch?v=bL_CJKq9rIw',
+            'http://youtu.be/bL_CJKq9rIw',
+        ] as $value) {
+            $this->assertEquals('http://img.youtube.com/vi/bL_CJKq9rIw/0.jpg', Youtube::getPreview($value));
+        }
     }
 
     /**
@@ -85,8 +71,7 @@ class YoutubeTest extends TestCase
      */
     public function testGetUrl()
     {
-        $result = Youtube::getUrl('bL_CJKq9rIw');
         $expected = 'http://youtu.be/bL_CJKq9rIw';
-        $this->assertEquals($expected, $result);
+        $this->assertEquals($expected, Youtube::getUrl('bL_CJKq9rIw'));
     }
 }

@@ -93,15 +93,11 @@ class RequestDetectorsTest extends TestCase
         $this->assertFalse($this->Request->is('localhost'));
         $this->assertFalse($this->Request->isLocalhost());
 
-        $this->Request = $this->Request->withEnv('REMOTE_ADDR', '127.0.0.1');
-
-        $this->assertTrue($this->Request->is('localhost'));
-        $this->assertTrue($this->Request->isLocalhost());
-
-        $this->Request = $this->Request->withEnv('REMOTE_ADDR', '::1');
-
-        $this->assertTrue($this->Request->is('localhost'));
-        $this->assertTrue($this->Request->isLocalhost());
+        foreach (['127.0.0.1', '::1'] as $remoteIp) {
+            $this->Request = $this->Request->withEnv('REMOTE_ADDR', $remoteIp);
+            $this->assertTrue($this->Request->is('localhost'));
+            $this->assertTrue($this->Request->isLocalhost());
+        }
     }
 
     /**

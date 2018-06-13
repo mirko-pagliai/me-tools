@@ -78,14 +78,20 @@ class IntegrationTestCaseTest extends IntegrationTestCase
      */
     public function testAssertFlashMessage()
     {
-        $this->_requestSession->write('Flash.flash.0.message', 'first flash');
-        $this->_requestSession->write('Flash.flash.1.message', 'second flash');
+        $messages = [
+            0 => 'first flash',
+            1 => 'second flash',
+        ];
 
-        $this->assertFlashMessage('first flash');
-        $this->assertFlashMessage('first flash', 0);
-        $this->assertFlashMessage('first flash', '0');
-        $this->assertFlashMessage('second flash', 1);
-        $this->assertFlashMessage('second flash', '1');
+        foreach ($messages as $key => $expectedMessage) {
+            $this->_requestSession->write('Flash.flash.' . $key . '.message', $expectedMessage);
+
+            $this->assertFlashMessage($expectedMessage, (int)$key);
+            $this->assertFlashMessage($expectedMessage, (string)$key);
+        }
+
+        //Call without key
+        $this->assertFlashMessage($messages[0]);
     }
 
     /**

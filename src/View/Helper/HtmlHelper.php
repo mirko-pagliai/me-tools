@@ -15,6 +15,7 @@ namespace MeTools\View\Helper;
 
 use Cake\Core\Exception\Exception;
 use Cake\View\Helper\HtmlHelper as CakeHtmlHelper;
+use MeTools\View\OptionsParser;
 
 /**
  * Provides functionalities for HTML code
@@ -66,12 +67,12 @@ class HtmlHelper extends CakeHtmlHelper
     /**
      * Adds icons to text
      * @param string $text Text
-     * @param \MeTools\View\OptionsParser $options Instance of `OptionsParser`
+     * @param OptionsParser $options Instance of `OptionsParser`
      * @return array Text with icons and instance of `OptionsParser`
      * @since 2.16.2-beta
      * @uses icon()
      */
-    public function addIconToText($text, \MeTools\View\OptionsParser $options)
+    public function addIconToText($text, OptionsParser $options)
     {
         $icon = $options->get('icon');
         $align = $options->get('icon-align');

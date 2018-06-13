@@ -237,6 +237,7 @@ class OptionsParser
      * Delete a key
      * @param string|array $key Key or array of keys
      * @return $this
+     * @todo add `consume()` method
      * @uses $options
      */
     public function delete($key)

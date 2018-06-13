@@ -13,7 +13,6 @@
 namespace MeTools\Test\TestCase\Console;
 
 use Cake\Console\ConsoleIo;
-use Cake\Filesystem\Folder;
 use Cake\TestSuite\Stub\ConsoleOutput;
 use MeTools\Console\Shell;
 use MeTools\TestSuite\TestCase;
@@ -106,10 +105,8 @@ class ShellTest extends TestCase
         //Creates the source file
         file_put_contents($source, null);
 
-        //Tries to copy. Source doesn't exist
+        //Tries to copy. Source doesn't exist, then destination is not writable
         $this->assertFalse($this->Shell->copyFile(TMP . 'noExistingFile', $dest));
-
-        //Tries to copy. Destination is not writable
         $this->assertFalse($this->Shell->copyFile($source, TMP . 'noExistingDir' . DS . 'example_copy'));
 
         //Now it works
@@ -201,13 +198,9 @@ class ShellTest extends TestCase
         $this->assertTrue($this->Shell->createLink($this->exampleFiles[0], $this->exampleFiles[1]));
         $this->assertFileExists($this->exampleFiles[1]);
 
-        //Tries to create. The link already exists
+        //Tries to create. The link already exists, the source doesn't exist, the the destination is not writable
         $this->assertFalse($this->Shell->createLink($this->exampleFiles[0], $this->exampleFiles[1]));
-
-        //Tries to create. Source doesn't exist
-        $this->Shell->createLink(TMP . 'noExistingFile', TMP . 'target');
-
-        //Tries to create. Destination is not writable
+        $this->assertFalse($this->Shell->createLink(TMP . 'noExistingFile', TMP . 'target'));
         $this->assertFalse($this->Shell->createLink($this->exampleFiles[0], TMP . 'noExistingDir' . DS . 'example'));
 
         $this->assertEquals([
