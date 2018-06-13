@@ -30,7 +30,14 @@ class TestCaseTest extends TestCase
         file_put_contents($file, $string);
 
         foreach (explode(' ', $string) as $word) {
-            $this->assertLogContains($word, 'debug');
+            //Full path
+            $this->assertLogContains($word, $file);
+            //Full path without extension
+            $this->assertLogContains($word, dirname($file) . DS . pathinfo($file, PATHINFO_FILENAME));
+            //Relative path
+            $this->assertLogContains($word, basename($file));
+            //Relative path without extension
+            $this->assertLogContains($word, pathinfo($file, PATHINFO_FILENAME));
         }
 
         safe_unlink($file);

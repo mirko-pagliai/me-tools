@@ -13,6 +13,7 @@
  */
 namespace MeTools\TestSuite\Traits;
 
+use Cake\Filesystem\Folder;
 use Exception;
 use Tools\ReflectionTrait;
 use Tools\TestSuite\TestCaseTrait as ToolsTestCaseTrait;
@@ -29,15 +30,20 @@ trait TestCaseTrait
     /**
      * Asserts log file contents
      * @param string $expectedContent The expected contents
-     * @param string $logName Log name
+     * @param string $file Log name
      * @param string $message The failure message that will be appended to the
      *  generated message
      * @return void
-     * @todo `$logName` could be an absolute path or have an extension
      */
-    public function assertLogContains($expectedContent, $logName, $message = '')
+    public function assertLogContains($expectedContent, $file, $message = '')
     {
-        $file = LOGS . $logName . '.log';
+        if (!pathinfo($file, PATHINFO_EXTENSION)) {
+            $file .= '.log';
+        }
+
+        if (!Folder::isAbsolute($file)) {
+            $file = LOGS . $file;
+        }
 
         try {
             is_readable_or_fail($file);
