@@ -155,20 +155,17 @@ class FormHelper extends CakeFormHelper
         if ($options->exists('help')) {
             $help = array_map(function ($help) {
                 return $this->Html->para('form-text text-muted', trim($help));
-            }, (array)$options->get('help'));
+            }, (array)$options->consume('help'));
             $options->append('templateVars', ['help' => implode(null, $help)]);
-            $options->delete('help');
         }
 
-        //Input group
+        //Input group. Fixes templates
         //See https://getbootstrap.com/docs/4.0/components/input-group/
         if ($options->exists('button')) {
-            //Fixes templates
             $options->append([
                 'templates' => ['formGroup' => '{{label}}<div class="input-group">{{input}}{{button}}</div>'],
-                'templateVars' => ['button' => $this->Html->div('input-group-append', $options->get('button'))],
+                'templateVars' => ['button' => $this->Html->div('input-group-append', $options->consume('button'))],
             ]);
-            $options->delete('button');
         }
 
         //If is an inline form

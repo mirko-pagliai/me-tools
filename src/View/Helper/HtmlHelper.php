@@ -74,10 +74,8 @@ class HtmlHelper extends CakeHtmlHelper
      */
     public function addIconToText($text, OptionsParser $options)
     {
-        $icon = $options->get('icon');
-        $align = $options->get('icon-align');
-
-        $options->delete('icon', 'icon-align');
+        $icon = $options->consume('icon');
+        $align = $options->consume('icon-align');
 
         if (!$icon) {
             return [$text, $options];
@@ -244,8 +242,8 @@ class HtmlHelper extends CakeHtmlHelper
     public function heading($text, array $options = [], $small = null, array $smallOptions = [])
     {
         $options = optionsParser($options);
-        $type = !$options->exists('type') || !preg_match('/^h[1-6]$/', $options->get('type')) ? 'h2' : $options->get('type');
-        $options->delete('type');
+        $type = $options->consume('type');
+        $type = is_string($type) && preg_match('/^h[1-6]$/', $type) ? $type : 'h2';
 
         $text = $small ? sprintf('%s %s', $text, self::small($small, $smallOptions)) : $text;
 
@@ -313,8 +311,7 @@ class HtmlHelper extends CakeHtmlHelper
         $options = optionsParser($options)->add('src', $url);
 
         if ($options->exists('ratio')) {
-            $ratio = $options->get('ratio');
-            $options->delete('ratio');
+            $ratio = $options->consume('ratio');
 
             if (in_array($ratio, ['16by9', '4by3'])) {
                 $divClass = sprintf('embed-responsive embed-responsive-%s', $ratio);
@@ -383,9 +380,7 @@ class HtmlHelper extends CakeHtmlHelper
     public function label($text, array $options = [])
     {
         $options = optionsParser($options);
-        $type = $options->get('type') ?: 'default';
-        $options->append('class', sprintf('label label-%s', $type));
-        $options->delete('type');
+        $options->append('class', sprintf('label label-%s', $options->consume('type') ?: 'default'));
 
         return self::tag('span', $text, $options->toArray());
     }

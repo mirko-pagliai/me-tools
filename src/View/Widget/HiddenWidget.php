@@ -35,7 +35,7 @@ class HiddenWidget extends BasicWidget
             'escape' => true,
             'templateVars' => [],
         ]);
-        $data->add('value', $data->get('val'))->delete('val');
+        $data->add('value', $data->consume('val'));
 
         return $this->_templates->format('hidden', [
             'name' => $data->get('name'),

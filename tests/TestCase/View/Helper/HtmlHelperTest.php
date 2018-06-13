@@ -755,6 +755,7 @@ class HtmlHelperTest extends TestCase
             $text,
             '/span',
         ];
+//        dd($this->Html->label($text));
         $this->assertHtml($expected, $this->Html->label($text));
 
         $expected = [

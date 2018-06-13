@@ -197,6 +197,22 @@ class OptionsParser
     }
 
     /**
+     * Used to read and delete a value from a key
+     * @param string $key Key
+     * @return mixed
+     * @since 2.16.10
+     * @uses delete()
+     * @uses get()
+     */
+    public function consume($key)
+    {
+        $value = $this->get($key);
+        $this->delete($key);
+
+        return $value;
+    }
+
+    /**
      * Checks if a key contains a value.
      *
      * If the existing value is an array:
@@ -237,7 +253,6 @@ class OptionsParser
      * Delete a key
      * @param string|array $key Key or array of keys
      * @return $this
-     * @todo add `consume()` method
      * @uses $options
      */
     public function delete($key)
@@ -340,18 +355,18 @@ class OptionsParser
      */
     public function tooltip()
     {
-        $tooltip = $this->get('tooltip');
+        $tooltip = $this->consume('tooltip');
 
-        if ($tooltip) {
-            $this->append('data-toggle', 'tooltip');
-            $this->add('title', trim(h(strip_tags($tooltip))));
-
-            if ($this->exists('tooltip-align')) {
-                $this->add('data-placement', $this->get('tooltip-align'));
-            }
+        if (!$tooltip) {
+            return $this;
         }
 
-        $this->delete('tooltip', 'tooltip-align');
+        $this->append('data-toggle', 'tooltip');
+        $this->add('title', trim(h(strip_tags($tooltip))));
+
+        if ($this->exists('tooltip-align')) {
+            $this->add('data-placement', $this->consume('tooltip-align'));
+        }
 
         return $this;
     }

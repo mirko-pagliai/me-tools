@@ -237,6 +237,25 @@ class OptionsParserTest extends TestCase
     }
 
     /**
+     * Tests for `consume()` method
+     * @test
+     */
+    public function testConsume()
+    {
+        $this->assertEquals('first fourth second third', $this->OptionsParser->consume('class'));
+        $this->assertNull($this->OptionsParser->get('class'));
+        $this->assertFalse($this->OptionsParser->exists('class'));
+
+        //Default value
+        $expected = 'defaultValue';
+        $this->assertEquals($expected, $this->OptionsParser->consume('defaultKey'));
+        $this->assertEquals($expected, $this->OptionsParser->get('defaultKey'));
+        $this->assertTrue($this->OptionsParser->exists('defaultKey'));
+
+        $this->assertNull($this->OptionsParser->consume('noExistingKey'));
+    }
+
+    /**
      * Tests for `contains()` method
      * @test
      */
