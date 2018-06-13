@@ -13,14 +13,35 @@
 namespace MeTools\Test\TestCase\TestSuite;
 
 use MeTools\TestSuite\TestCase;
+use Tools\ReflectionTrait;
 
 /**
  * TestCaseTest class
  */
 class TestCaseTest extends TestCase
 {
+    use ReflectionTrait;
+
     /**
-     * Tests for `assertLogContains` method
+     * Tests for `getLogFullPath()` method
+     * @test
+     */
+    public function testGetLogFullPath()
+    {
+        $expected = LOGS . 'debug.log';
+
+        foreach ([
+            'debug',
+            'debug.log',
+            LOGS . 'debug',
+            $expected,
+        ] as $filename) {
+            $this->assertEquals($expected, $this->invokeMethod($this, 'getLogFullPath', [$filename]));
+        }
+    }
+
+    /**
+     * Tests for `assertLogContains()` method
      * @test
      */
     public function testAssertLogContains()
@@ -30,21 +51,14 @@ class TestCaseTest extends TestCase
         file_put_contents($file, $string);
 
         foreach (explode(' ', $string) as $word) {
-            //Full path
             $this->assertLogContains($word, $file);
-            //Full path without extension
-            $this->assertLogContains($word, dirname($file) . DS . pathinfo($file, PATHINFO_FILENAME));
-            //Relative path
-            $this->assertLogContains($word, basename($file));
-            //Relative path without extension
-            $this->assertLogContains($word, pathinfo($file, PATHINFO_FILENAME));
         }
 
         safe_unlink($file);
     }
 
     /**
-     * Tests for `assertLogContains` method, with a no existing log
+     * Tests for `assertLogContains()` method, with a no existing log
      * @expectedException PHPUnit\Framework\AssertionFailedError
      * @expectedExceptionMessageRegExp /^File or directory `[\w\d_\/\\:]+noExisting.log` is not readable$/
      * @test
@@ -55,7 +69,7 @@ class TestCaseTest extends TestCase
     }
 
     /**
-     * Tests for `deleteLog` method
+     * Tests for `deleteLog()` method
      * @test
      */
     public function testDeleteLog()

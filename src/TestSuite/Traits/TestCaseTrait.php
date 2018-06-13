@@ -28,40 +28,54 @@ trait TestCaseTrait
     use ToolsTestCaseTrait;
 
     /**
+     * Internal method to get a log full path
+     * @param string $filename Log filename
+     * @return string
+     * @since 2.16.10
+     */
+    protected function getLogFullPath($filename)
+    {
+        if (!pathinfo($filename, PATHINFO_EXTENSION)) {
+            $filename .= '.log';
+        }
+
+        if (!Folder::isAbsolute($filename)) {
+            $filename = LOGS . $filename;
+        }
+
+        return $filename;
+    }
+
+    /**
      * Asserts log file contents
      * @param string $expectedContent The expected contents
-     * @param string $file Log name
+     * @param string $filename Log filename
      * @param string $message The failure message that will be appended to the
      *  generated message
      * @return void
+     * @uses getLogFullPath()
      */
-    public function assertLogContains($expectedContent, $file, $message = '')
+    public function assertLogContains($expectedContent, $filename, $message = '')
     {
-        if (!pathinfo($file, PATHINFO_EXTENSION)) {
-            $file .= '.log';
-        }
-
-        if (!Folder::isAbsolute($file)) {
-            $file = LOGS . $file;
-        }
+        $filename = $this->getLogFullPath($filename);
 
         try {
-            is_readable_or_fail($file);
+            is_readable_or_fail($filename);
         } catch (Exception $e) {
             $this->fail($e->getMessage());
         }
 
-        $this->assertContains($expectedContent, file_get_contents($file), $message);
+        $this->assertContains($expectedContent, file_get_contents($filename), $message);
     }
 
     /**
      * Deletes a log file
-     * @param string $logName Log name
+     * @param string $filename Log filename
      * @return void
-     * @todo `$logName` could be an absolute path or have an extension
+     * @uses getLogFullPath()
      */
-    public function deleteLog($logName)
+    public function deleteLog($filename)
     {
-        safe_unlink(LOGS . $logName . '.log');
+        safe_unlink($this->getLogFullPath($filename));
     }
 }
