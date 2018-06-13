@@ -622,7 +622,6 @@ class HtmlHelper extends CakeHtmlHelper
      * @param string $id YouTube video ID
      * @param array $options Array of options and HTML attributes
      * @return string
-     * @todo can use `Youtube::getUrl()`?
      * @uses iframe()
      */
     public function youtube($id, array $options = [])
