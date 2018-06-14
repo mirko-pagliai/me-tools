@@ -1,27 +1,16 @@
 <?php
 /**
- * This file is part of MeTools.
+ * This file is part of me-tools.
  *
- * MeTools is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Affero General Public License as
- * published by the Free Software Foundation, either version 3 of the
- * License, or (at your option) any later version.
+ * Licensed under The MIT License
+ * For full copyright and license information, please see the LICENSE.txt
+ * Redistributions of files must retain the above copyright notice.
  *
- * MeTools is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Affero General Public License for more details.
- *
- * You should have received a copy of the GNU Affero General Public License
- * along with MeTools.  If not, see <http://www.gnu.org/licenses/>.
- *
- * @author      Mirko Pagliai <mirko.pagliai@gmail.com>
- * @copyright   Copyright (c) 2016, Mirko Pagliai for Nova Atlantis Ltd
- * @license     http://www.gnu.org/licenses/agpl.txt AGPL License
- * @link        http://git.novatlantis.it Nova Atlantis Ltd
+ * @copyright   Copyright (c) Mirko Pagliai
+ * @link        https://github.com/mirko-pagliai/me-tools
+ * @license     https://opensource.org/licenses/mit-license.php MIT License
  */
-
-use Cake\Network\Request;
+use Cake\Http\ServerRequest;
 use Cake\Routing\Router;
 
 /**
@@ -48,16 +37,11 @@ use Cake\Routing\Router;
  * returns `true` if the current action is `edit` or `delete` and if the
  * current controller is `Pages`, otherwise `false`.
  */
-Request::addDetector('action', function ($request, $action, $controller = null) {
-    $action = in_array($request->param('action'), (array)$action);
-
-    //Checks only action
-    if (empty($controller)) {
-        return $action;
-    }
+ServerRequest::addDetector('action', function (ServerRequest $request, $action, $controller = null) {
+    $action = in_array($request->getParam('action'), (array)$action);
 
     //Checks action and controller
-    return $action && $request->is('controller', $controller);
+    return $controller ? $action && $request->is('controller', $controller) : $action;
 });
 
 /**
@@ -72,8 +56,17 @@ Request::addDetector('action', function ($request, $action, $controller = null) 
  * </code>
  * returns `true` if the current controller is `Pages`, otherwise `false`.
  */
-Request::addDetector('controller', function ($request, $controller) {
-    return in_array($request->param('controller'), (array)$controller);
+ServerRequest::addDetector('controller', function (ServerRequest $request, $controller) {
+    return in_array($request->getParam('controller'), (array)$controller);
+});
+
+/**
+ * Adds `is('localhost')` detector.
+ *
+ * It checks if the host is the localhost.
+ */
+ServerRequest::addDetector('localhost', function (ServerRequest $request) {
+    return in_array($request->clientIp(), ['127.0.0.1', '::1']);
 });
 
 /**
@@ -87,8 +80,8 @@ Request::addDetector('controller', function ($request, $controller) {
  * $this->request->isPrefix(['admin', 'manager']);
  * </code>
  */
-Request::addDetector('prefix', function ($request, $prefix) {
-    return in_array($request->param('prefix'), (array)$prefix);
+ServerRequest::addDetector('prefix', function (ServerRequest $request, $prefix) {
+    return in_array($request->getParam('prefix'), (array)$prefix);
 });
 
 /**
@@ -100,7 +93,14 @@ Request::addDetector('prefix', function ($request, $prefix) {
  * <code>
  * $this->request->isUrl(['_name' => 'posts']);
  * </code>
+ *
+ * The first argument is the url to be verified as an array of parameters or a
+ *  string. The second argument allows you to not remove the query string from
+ *  the current url.
  */
-Request::addDetector('url', function ($request, $url) {
-    return rtrim(Router::url($url), '/') === rtrim($request->here, '/');
+ServerRequest::addDetector('url', function (ServerRequest $request, $url, $removeQueryString = true) {
+    $current = rtrim($request->getEnv('REQUEST_URI'), '/');
+    $current = $removeQueryString ? explode('?', $current, 2)[0] : $current;
+
+    return rtrim(Router::url($url), '/') === $current;
 });

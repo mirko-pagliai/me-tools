@@ -1,29 +1,20 @@
 <?php
 /**
- * This file is part of MeTools.
+ * This file is part of me-tools.
  *
- * MeTools is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Affero General Public License as
- * published by the Free Software Foundation, either version 3 of the
- * License, or (at your option) any later version.
+ * Licensed under The MIT License
+ * For full copyright and license information, please see the LICENSE.txt
+ * Redistributions of files must retain the above copyright notice.
  *
- * MeTools is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Affero General Public License for more details.
- *
- * You should have received a copy of the GNU Affero General Public License
- * along with MeTools.  If not, see <http://www.gnu.org/licenses/>.
- *
- * @author      Mirko Pagliai <mirko.pagliai@gmail.com>
- * @copyright   Copyright (c) 2016, Mirko Pagliai for Nova Atlantis Ltd
- * @license     http://www.gnu.org/licenses/agpl.txt AGPL License
- * @link        http://git.novatlantis.it Nova Atlantis Ltd
+ * @copyright   Copyright (c) Mirko Pagliai
+ * @link        https://github.com/mirko-pagliai/me-tools
+ * @license     https://opensource.org/licenses/mit-license.php MIT License
  */
 namespace MeTools\View\Helper;
 
+use Cake\Event\Event;
+use Cake\I18n\I18n;
 use Cake\View\Helper;
-use MeTools\Core\Plugin;
 
 /**
  * Library helper
@@ -35,8 +26,8 @@ class LibraryHelper extends Helper
      * @var array
      */
     public $helpers = [
-        'Html' => ['className' => 'MeTools.Html'],
-        'MeTools.Asset',
+        ASSETS . '.Asset',
+        'Html' => ['className' => ME_TOOLS . '.Html'],
     ];
 
     /**
@@ -53,14 +44,14 @@ class LibraryHelper extends Helper
      * @param array $options Options for the datepicker
      * @return string jQuery code
      * @see http://eonasdan.github.io/bootstrap-datetimepicker Bootstrap 3 Datepicker v4 documentation
-     * @uses MeTools\View\Helper\AssetHelper::css()
-     * @uses MeTools\View\Helper\AssetHelper::js()
+     * @uses Assets\View\Helper\AssetHelper::css()
+     * @uses Assets\View\Helper\AssetHelper::script()
      */
-    protected function _datetimepicker($input, array $options = [])
+    protected function buildDatetimepicker($input, array $options = [])
     {
         $this->Asset->script([
             '/vendor/moment/moment-with-locales.min',
-            '/vendor/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min',
+            ME_TOOLS . '.bootstrap-datetimepicker.min',
         ], ['block' => 'script_bottom']);
 
         $this->Asset->css(
@@ -68,35 +59,24 @@ class LibraryHelper extends Helper
             ['block' => 'css_bottom']
         );
 
-        $options = optionDefaults([
-            'showTodayButton' => true,
-            'showClear' => true,
-        ], $options);
-
-        if (empty($options['icons'])) {
-            $options['icons'] = [
+        $options = optionsParser($options, [
+            'icons' => [
                 'time' => 'fa fa-clock-o',
                 'date' => 'fa fa-calendar',
-                'up' => 'fa fa-arrow-up',
-                'down' => 'fa fa-arrow-down',
-                'previous' => 'fa fa-arrow-left',
-                'next' => 'fa fa-arrow-right',
+                'up' => 'fa fa-chevron-up',
+                'down' => 'fa fa-chevron-down',
+                'previous' => 'fa fa-chevron-left',
+                'next' => 'fa fa-chevron-right',
                 'today' => 'fa fa-dot-circle-o',
                 'clear' => 'fa fa-trash',
-            ];
-        }
+                'close' => 'fa fa-times',
+            ],
+            'locale' => substr(I18n::getLocale(), 0, 2) ?: 'en-gb',
+            'showTodayButton' => true,
+            'showClear' => true,
+        ]);
 
-        //Sets the current locale
-        $locale = substr(\Cake\I18n\I18n::locale(), 0, 2);
-        $options = optionDefaults([
-            'locale' => empty($locale) ? 'en-gb' : $locale,
-        ], $options);
-
-        return sprintf(
-            '$("%s").datetimepicker(%s);',
-            $input,
-            json_encode($options, JSON_PRETTY_PRINT)
-        );
+        return sprintf('$("%s").datetimepicker(%s);', $input, json_encode($options->toArray(), JSON_PRETTY_PRINT));
     }
 
     /**
@@ -108,37 +88,35 @@ class LibraryHelper extends Helper
      * @uses MeTools\View\Helper\HtmlHelper::scriptBlock()
      * @uses output
      */
-    public function beforeLayout(\Cake\Event\Event $event, $layoutFile)
+    public function beforeLayout(Event $event, $layoutFile)
     {
-        //Writes the output
-        if (!empty($this->output)) {
-            $this->output = implode(PHP_EOL, array_map(function ($v) {
-                return "\t" . $v;
-            }, $this->output));
-
-            $this->Html->scriptBlock(
-                sprintf('$(function() {%s});', PHP_EOL . $this->output . PHP_EOL),
-                ['block' => 'script_bottom']
-            );
-
-            //Resets the output
-            $this->output = [];
+        if (!$this->output) {
+            return;
         }
+
+        //Writes the output
+        $output = array_map(function ($v) {
+            return "    " . $v;
+        }, $this->output);
+
+        $this->Html->scriptBlock(
+            sprintf('$(function() {%s});', PHP_EOL . implode(PHP_EOL, $output) . PHP_EOL),
+            ['block' => 'script_bottom']
+        );
+
+        //Resets the output
+        $this->output = [];
     }
 
     /**
      * Create a script block for Google Analytics
      * @param string $id Analytics ID
      * @uses MeTools\View\Helper\HtmlHelper::scriptBlock()
-     * @return mixed|null Html code or null if is localhost
+     * @return mixed A script tag or `null`
      */
     public function analytics($id)
     {
-        if (isLocalhost()) {
-            return;
-        }
-
-        return $this->Html->scriptBlock(
+        return $this->request->is('localhost') ? null : $this->Html->scriptBlock(
             sprintf('!function(e,a,t,n,c,o,s){e.GoogleAnalyticsObject=c,e[c]=e[c]||function(){(e[c].q=e[c].q||[]).push(arguments)},e[c].l=1*new Date,o=a.createElement(t),s=a.getElementsByTagName(t)[0],o.async=1,o.src=n,s.parentNode.insertBefore(o,s)}(window,document,"script","//www.google-analytics.com/analytics.js","ga"),ga("create","%s","auto"),ga("send","pageview");', $id),
             ['block' => 'script_bottom']
         );
@@ -154,24 +132,20 @@ class LibraryHelper extends Helper
      *
      * To create an input field for CKEditor, you should use the `ckeditor()`
      *  method provided by the `FormHelper`.
-     * @param bool $jquery false if you don't want to use the jQuery adapter
+     * @param bool $jquery `true` if you want to use the jQuery adapter
      * @return void
      * @see MeTools\View\Helper\FormHelper::ckeditor()
      * @see http://docs.cksource.com CKEditor documentation
-     * @uses MeTools\View\Helper\Html::js()
+     * @uses MeTools\View\Helper\Html::script()
      */
-    public function ckeditor($jquery = true)
+    public function ckeditor($jquery = false)
     {
-        $path = WWW_ROOT . 'ckeditor' . DS;
-
-        if (!is_readable($path . 'ckeditor.js')) {
-            return;
-        }
+        is_readable_or_fail(WWW_ROOT . 'ckeditor' . DS . 'ckeditor.js');
 
         $scripts = ['/ckeditor/ckeditor'];
 
         //Checks for the jQuery adapter
-        if ($jquery && is_readable($path . DS . 'adapters' . DS . 'jquery.js')) {
+        if ($jquery && is_readable(WWW_ROOT . 'ckeditor' . DS . 'adapters' . DS . 'jquery.js')) {
             $scripts[] = '/ckeditor/adapters/jquery';
         }
 
@@ -186,7 +160,7 @@ class LibraryHelper extends Helper
             $scripts[] = 'MeTools.ckeditor_init.php?';
         }
 
-        $this->Html->js($scripts, ['block' => 'script_bottom']);
+        $this->Html->script($scripts, ['block' => 'script_bottom']);
     }
 
     /**
@@ -202,15 +176,13 @@ class LibraryHelper extends Helper
      * @see MeTools\View\Helper\FormHelper::datepicker()
      * @see http://eonasdan.github.io/bootstrap-datetimepicker Bootstrap 3 Datepicker v4 documentation
      * @uses output
-     * @uses _datetimepicker()
+     * @uses buildDatetimepicker()
      */
     public function datepicker($input = null, array $options = [])
     {
-        $input = empty($input) ? '.datepicker' : $input;
+        $options = optionsParser($options, ['format' => 'YYYY/MM/DD']);
 
-        $options = optionDefaults(['format' => 'YYYY/MM/DD'], $options);
-
-        $this->output[] = self::_datetimepicker($input, $options);
+        $this->output[] = self::buildDatetimepicker($input ?: '.datepicker', $options->toArray());
     }
 
     /**
@@ -225,13 +197,11 @@ class LibraryHelper extends Helper
      * @see MeTools\View\Helper\FormHelper::datetimepicker()
      * @see http://eonasdan.github.io/bootstrap-datetimepicker Bootstrap 3 Datepicker v4 documentation
      * @uses output
-     * @uses _datetimepicker()
+     * @uses buildDatetimepicker()
      */
     public function datetimepicker($input = null, array $options = [])
     {
-        $input = empty($input) ? '.datetimepicker' : $input;
-
-        $this->output[] = self::_datetimepicker($input, $options);
+        $this->output[] = self::buildDatetimepicker($input ?: '.datetimepicker', $options);
     }
 
     /**
@@ -240,8 +210,7 @@ class LibraryHelper extends Helper
      * FancyBox must be installed via Composer.
      * @return void
      * @see http://fancyapps.com/fancybox/#docs FancyBox documentation
-     * @uses MeTools\View\Helper\AssetHelper::js()
-     * @uses MeTools\Core\Plugin::path()
+     * @uses Assets\View\Helper\AssetHelper::script()
      */
     public function fancybox()
     {
@@ -251,24 +220,21 @@ class LibraryHelper extends Helper
             '/vendor/fancybox/helpers/jquery.fancybox-thumbs',
         ], ['block' => 'css_bottom']);
 
-        $this->Asset->script([
+        $scripts = [
             '/vendor/fancybox/jquery.fancybox.pack',
             '/vendor/fancybox/helpers/jquery.fancybox-buttons',
             '/vendor/fancybox/helpers/jquery.fancybox-thumbs',
-        ], ['block' => 'script_bottom']);
+        ];
 
-        //Checks for the init script into `APP/webroot/js/`
+        //Checks for `APP/webroot/js/`
         if (is_readable(WWW_ROOT . 'js' . DS . 'fancybox_init.js')) {
-            $script = 'fancybox_init';
-        //Else, checks for the init script into
-        //  `APP/plugin/MeTools/webroot/fancybox/`
-        } elseif (Plugin::path(METOOLS, 'webroot' . DS . 'fancybox' . DS . 'fancybox_init.js', true)) {
-            $script = 'MeTools./fancybox/fancybox_init';
+            $scripts[] = 'fancybox_init';
+        //Else, uses `APP/plugin/MeTools/webroot/fancybox/`
         } else {
-            return;
+            $scripts[] = 'MeTools./fancybox/fancybox_init';
         }
 
-        $this->Asset->script($script, ['block' => 'script_bottom']);
+        $this->Asset->script($scripts, ['block' => 'script_bottom']);
     }
 
     /**
@@ -278,20 +244,17 @@ class LibraryHelper extends Helper
      * To render the "share buttons", you have to use the `HtmlHelper`.
      * @param string $siteId Shareaholic site ID
      * @return mixed Html code
+     * @uses Assets\View\Helper\AssetHelper::script()
      * @see MeTools\View\Helper\HtmlHelper::shareaholic()
-     * @uses MeTools\View\Helper\HtmlHelper::js()
      */
     public function shareaholic($siteId)
     {
-        return $this->Html->js(
-            '//dsms0mj1bbhn4.cloudfront.net/assets/pub/shareaholic.js',
-            [
-                'async' => 'async',
-                'block' => 'script_bottom',
-                'data-cfasync' => 'false',
-                'data-shr-siteid' => $siteId,
-            ]
-        );
+        return $this->Html->js('//dsms0mj1bbhn4.cloudfront.net/assets/pub/shareaholic.js', [
+            'async' => 'async',
+            'block' => 'script_bottom',
+            'data-cfasync' => 'false',
+            'data-shr-siteid' => $siteId,
+        ]);
     }
 
     /**
@@ -302,18 +265,14 @@ class LibraryHelper extends Helper
      * @param string $sourceField Source field
      * @param string $targetField Target field
      * @return void
-     * @uses MeTools\View\Helper\AssetHelper::js()
+     * @uses Assets\View\Helper\AssetHelper::script()
      * @uses output
      */
     public function slugify($sourceField = 'form #title', $targetField = 'form #slug')
     {
         $this->Asset->script('MeTools.slugify', ['block' => 'script_bottom']);
 
-        $this->output[] = sprintf(
-            '$().slugify("%s", "%s");',
-            $sourceField,
-            $targetField
-        );
+        $this->output[] = sprintf('$().slugify("%s", "%s");', $sourceField, $targetField);
     }
 
     /**
@@ -329,14 +288,12 @@ class LibraryHelper extends Helper
      * @see MeTools\View\Helper\FormHelper::timepicker()
      * @see https://github.com/Eonasdan/bootstrap-datetimepicker Bootstrap v3 datetimepicker widget documentation
      * @uses output
-     * @uses _datetimepicker()
+     * @uses buildDatetimepicker()
      */
     public function timepicker($input = null, array $options = [])
     {
-        $input = empty($input) ? '.timepicker' : $input;
+        $options = optionsParser($options, ['pickTime' => false]);
 
-        $options = optionDefaults(['pickTime' => false], $options);
-
-        $this->output[] = self::_datetimepicker($input, $options);
+        $this->output[] = self::buildDatetimepicker($input ?: '.timepicker', $options->toArray());
     }
 }

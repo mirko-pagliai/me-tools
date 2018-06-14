@@ -1,30 +1,20 @@
 <?php
 /**
- * This file is part of MeTools.
+ * This file is part of me-tools.
  *
- * MeTools is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Affero General Public License as
- * published by the Free Software Foundation, either version 3 of the
- * License, or (at your option) any later version.
+ * Licensed under The MIT License
+ * For full copyright and license information, please see the LICENSE.txt
+ * Redistributions of files must retain the above copyright notice.
  *
- * MeTools is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Affero General Public License for more details.
- *
- * You should have received a copy of the GNU Affero General Public License
- * along with MeTools.  If not, see <http://www.gnu.org/licenses/>.
- *
- * @author      Mirko Pagliai <mirko.pagliai@gmail.com>
- * @copyright   Copyright (c) 2016, Mirko Pagliai for Nova Atlantis Ltd
- * @license     http://www.gnu.org/licenses/agpl.txt AGPL License
- * @link        http://git.novatlantis.it Nova Atlantis Ltd
+ * @copyright   Copyright (c) Mirko Pagliai
+ * @link        https://github.com/mirko-pagliai/me-tools
+ * @license     https://opensource.org/licenses/mit-license.php MIT License
  */
 namespace MeTools\Controller\Component;
 
 use Cake\Controller\Component;
 use Cake\Filesystem\Folder;
-use Cake\Network\Exception\InternalErrorException;
+use RuntimeException;
 
 /**
  * A component to upload files
@@ -32,62 +22,52 @@ use Cake\Network\Exception\InternalErrorException;
 class UploaderComponent extends Component
 {
     /**
-     * Error.
-     * It can be set by various methods.
-     * @var mixed String or `false`
+     * Last error
+     * @var string
      */
-    protected $error = false;
+    protected $error;
 
     /**
      * Uploaded file information
-     * @see set()
-     * @var array
+     * @var object
      */
     protected $file;
 
     /**
-     * Internal method to set an error.
-     * It sets only the first error.
+     * Internal method to set an error
      * @param string $error Error
      * @return void
      * @uses $error
      */
-    protected function _setError($error)
+    protected function setError($error)
     {
-        if (empty($this->error)) {
-            $this->error = $error;
-        }
+        $this->error = $this->error ?: $error;
     }
 
     /**
-     * Internal method to set the target
+     * Internal method to find the target filename
      * @param string $target Path
      * @return string
-     * @uses $file
      */
-    protected function _setTarget($target)
+    protected function findTargetFilename($target)
     {
-        //If the target is a directory, then the filename will be unchanged
-        if (is_dir($target)) {
-            //Adds slash term
-            if (!Folder::isSlashTerm($target)) {
-                $target .= DS;
-            }
-
-            $target .= $this->file->name;
-        }
-
         //If the file already exists, adds a numeric suffix
         if (file_exists($target)) {
-            //Filename (without extension)
-            $filename = pathinfo($this->file->name, PATHINFO_FILENAME);
-            $target = dirname($target);
+            $dirname = dirname($target) . DS;
+            $filename = pathinfo($target, PATHINFO_FILENAME);
+            $extension = pathinfo($target, PATHINFO_EXTENSION);
+
+            //Initial tmp name
+            $tmp = $dirname . $filename;
 
             for ($i = 1;; $i++) {
-                $tmp = $target . DS . sprintf('%s_%s.%s', $filename, $i, $this->file->extension);
+                $target = $tmp . '_' . $i;
 
-                if (!file_exists($tmp)) {
-                    $target = $tmp;
+                if ($extension) {
+                    $target .= '.' . $extension;
+                }
+
+                if (!file_exists($target)) {
                     break;
                 }
             }
@@ -97,120 +77,142 @@ class UploaderComponent extends Component
     }
 
     /**
-     * Returns the first error
-     * @return mixed String or `false`
-     * @uses $error
+     * This allows you to override the `move_uploaded_file()` function, for
+     *  example with the `rename()` function
+     * @param string $filename The filename of the uploaded file
+     * @param string $destination The destination of the moved file
+     * @return bool
      */
-    public function error()
+    //@codingStandardsIgnoreLine
+    protected function move_uploaded_file($filename, $destination)
     {
-        return $this->error;
+        return move_uploaded_file($filename, $destination);
     }
 
     /**
-     * Sets and checks that the mimetype is correct
-     * @param mixed $mimetype Supported mimetypes as string or array or a
-     *  magic word (eg. `images`)
-     * @return \MeCms\Controller\Component\UploaderComponent
-     * @uses _setError()
+     * Returns the first error
+     * @return string|bool String or `false`
+     * @uses $error
+     */
+    public function getError()
+    {
+        return $this->error ?: false;
+    }
+
+    /**
+     * Checks if the mimetype is correct
+     * @param string|array $acceptedMimetype Accepted mimetypes as string or
+     *  array or a magic word (`images` or `text`)
+     * @return \MeTools\Controller\Component\UploaderComponent
+     * @throws RuntimeException
+     * @uses setError()
      * @uses $file
      */
-    public function mimetype($mimetype)
+    public function mimetype($acceptedMimetype)
     {
-        if ($mimetype === 'image') {
-            $mimetype = ['image/gif', 'image/jpeg', 'image/png'];
+        if (empty($this->file)) {
+            throw new RuntimeException(__d('me_tools', 'There are no uploaded file information'));
         }
 
-        if (!in_array($this->file->type, (array)$mimetype)) {
-            $this->_setError(__d('me_tools', 'The mimetype {0} is not accepted', $this->file->type));
+        //Changes magic words
+        switch ($acceptedMimetype) {
+            case 'image':
+                $acceptedMimetype = ['image/gif', 'image/jpeg', 'image/png'];
+                break;
+            case 'text':
+                $acceptedMimetype = ['text/plain'];
+                break;
+        }
+
+        $currentMimetype = mime_content_type($this->file->tmp_name);
+
+        if (!in_array($currentMimetype, (array)$acceptedMimetype)) {
+            $this->setError(__d('me_tools', 'The mimetype {0} is not accepted', $currentMimetype));
         }
 
         return $this;
     }
 
     /**
-     * Saves the file.
-     *
-     * If you specify only a directory as target, it will keep the original
-     *  filename of the file.
-     * @param string $target Target
-     * @return mixed Target path or `false` on failure
-     * @uses _setError()
-     * @uses _setTarget()
-     * @uses error()
+     * Saves the file
+     * @param string $directory Directory where you want to save the uploaded
+     *  file
+     * @param string $filename Optional filename. Otherwise, it will be
+     *  generated automatically
+     * @return string|bool Final full path of the uploaded file or `false` on
+     *  failure
+     * @throws RuntimeException
+     * @uses findTargetFilename()
+     * @uses getError()
+     * @uses setError()
+     * @uses move_uploaded_file()
      * @uses $file
      */
-    public function save($target)
+    public function save($directory, $filename = null)
     {
-        if (empty($this->file)) {
-            throw new InternalErrorException(__d('me_tools', 'There are no uploaded file information'));
+        if (!$this->file) {
+            throw new RuntimeException(__d('me_tools', 'There are no uploaded file information'));
         }
 
         //Checks for previous errors
-        if ($this->error()) {
+        if ($this->getError()) {
             return false;
         }
 
-        $target = $this->_setTarget($target);
+        is_dir_or_fail($directory);
 
-        if (!move_uploaded_file($this->file->tmp_name, $target)) {
-            $this->_setError(__d('me_tools', 'The file was not successfully moved to the target directory'));
+        $filename = $filename ? basename($filename) : $this->findTargetFilename($this->file->name);
+        $file = Folder::slashTerm($directory) . $filename;
+
+        if (!$this->move_uploaded_file($this->file->tmp_name, $file)) {
+            $this->setError(__d('me_tools', 'The file was not successfully moved to the target directory'));
 
             return false;
         }
 
-        return $target;
+        return $file;
     }
 
     /**
      * Sets uploaded file information (`$_FILES` array, better as
-     *  `$this->request->data('file')`)
+     *  `$this->request->getData('file')`)
      * @param array $file Uploaded file information
-     * @return \MeCms\Controller\Component\UploaderComponent
-     * @uses _setError()
+     * @return \MeTools\Controller\Component\UploaderComponent
+     * @uses setError()
+     * @uses $error
      * @uses $file
      */
     public function set($file)
     {
+        //Resets `$error`
+        unset($this->error);
+
         $this->file = (object)$file;
 
+        //Errors messages
+        $errors = [
+            UPLOAD_ERR_INI_SIZE => 'The uploaded file exceeds the maximum size that was specified in php.ini',
+            UPLOAD_ERR_FORM_SIZE => 'The uploaded file exceeds the maximum size that was specified in the HTML form',
+            UPLOAD_ERR_PARTIAL => 'The uploaded file was partially uploaded',
+            UPLOAD_ERR_NO_FILE => 'No file was uploaded',
+            UPLOAD_ERR_NO_TMP_DIR => 'Missing a temporary folder',
+            UPLOAD_ERR_CANT_WRITE => 'Failed to write file to disk',
+            UPLOAD_ERR_EXTENSION => 'File upload stopped by extension',
+            'default' => 'Unknown upload error',
+        ];
+
         //Checks errors during upload
-        if ($this->file->error !== UPLOAD_ERR_OK) {
-            switch ($this->file->error) {
-                case UPLOAD_ERR_INI_SIZE:
-                    $message = "The uploaded file exceeds the maximum size " .
-                        "that was specified in php.ini";
-                    break;
-                case UPLOAD_ERR_FORM_SIZE:
-                    $message = "The uploaded file exceeds the maximum size " .
-                        "that was specified in the HTML form";
-                    break;
-                case UPLOAD_ERR_PARTIAL:
-                    $message = "The uploaded file was partially uploaded";
-                    break;
-                case UPLOAD_ERR_NO_FILE:
-                    $message = "No file was uploaded";
-                    break;
-                case UPLOAD_ERR_NO_TMP_DIR:
-                    $message = "Missing a temporary folder";
-                    break;
-                case UPLOAD_ERR_CANT_WRITE:
-                    $message = "Failed to write file to disk";
-                    break;
-                case UPLOAD_ERR_EXTENSION:
-                    $message = "File upload stopped by extension";
-                    break;
-                default:
-                    $message = "Unknown upload error";
-                    break;
+        if (!isset($file['error']) || $file['error'] !== UPLOAD_ERR_OK) {
+            //Gets the default error message, if the error can not be
+            //  identified or if the key is not present
+            if (!isset($file['error']) || !array_key_exists($file['error'], $errors)) {
+                $file['error'] = 'default';
             }
 
-            $this->_setError($message);
+            $this->setError($errors[$file['error']]);
 
             return $this;
         }
-
-        //Adds the file extension
-        $this->file->extension = pathinfo($this->file->name, PATHINFO_EXTENSION);
 
         return $this;
     }

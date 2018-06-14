@@ -1,34 +1,24 @@
 <?php
 /**
- * This file is part of MeTools.
+ * This file is part of me-tools.
  *
- * MeTools is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Affero General Public License as
- * published by the Free Software Foundation, either version 3 of the
- * License, or (at your option) any later version.
+ * Licensed under The MIT License
+ * For full copyright and license information, please see the LICENSE.txt
+ * Redistributions of files must retain the above copyright notice.
  *
- * MeTools is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Affero General Public License for more details.
- *
- * You should have received a copy of the GNU Affero General Public License
- * along with MeTools.  If not, see <http://www.gnu.org/licenses/>.
- *
- * @author      Mirko Pagliai <mirko.pagliai@gmail.com>
- * @copyright   Copyright (c) 2016, Mirko Pagliai for Nova Atlantis Ltd
- * @license     http://www.gnu.org/licenses/agpl.txt AGPL License
- * @link        http://git.novatlantis.it Nova Atlantis Ltd
- * @see         http://api.cakephp.org/3.3/class-Cake.Console.Shell.html Shell
+ * @copyright   Copyright (c) Mirko Pagliai
+ * @link        https://github.com/mirko-pagliai/me-tools
+ * @license     https://opensource.org/licenses/mit-license.php MIT License
+ * @see         http://api.cakephp.org/3.4/class-Cake.Console.Shell.html Shell
  */
 namespace MeTools\Console;
 
 use Cake\Console\Shell as CakeShell;
+use Cake\Filesystem\Folder;
+use Exception;
 
 /**
- * Base class for command-line utilities for automating programmer chores.
- *
- * Rewrites {@link http://api.cakephp.org/3.3/class-Cake.Console.Shell.html Shell}.
+ * Base class for command-line utilities for automating programmer chores
  */
 class Shell extends CakeShell
 {
@@ -41,96 +31,137 @@ class Shell extends CakeShell
     }
 
     /**
-     * Creates a file at given path
-     * @param string $path Where to put the file
-     * @param string $contents Content to put in the file
+     * Internal method to check if a file already exists and output a warning at
+     *  the verbose level
+     * @param string $path Path
      * @return bool
-     * @uses Cake\Console\Shell::createFile()
      */
-    public function createFile($path, $contents)
+    protected function verboseIfFileExists($path)
     {
-        //Checks if the file already exist
-        if (file_exists($path)) {
-            $this->verbose(__d(
-                'me_tools',
-                'File or directory {0} already exists',
-                rtr($path)
-            ));
-
+        if (!file_exists($path)) {
             return false;
         }
 
-        //Checks if the file has been created
-        if (!parent::createFile($path, $contents)) {
-            $this->err(__d(
-                'me_tools',
-                'The file {0} has not been created',
-                rtr($path)
-            ));
-
-            return false;
-        }
+        $this->verbose(__d('me_tools', 'File or directory `{0}` already exists', rtr($path)));
 
         return true;
     }
 
     /**
+     * Copies a file
+     * @param string $source Source file
+     * @param string $dest Destination file
+     * @return bool
+     * @uses verboseIfFileExists()
+     */
+    public function copyFile($source, $dest)
+    {
+        if ($this->verboseIfFileExists($dest)) {
+            return false;
+        }
+
+        //Checks if the source is readable and the destination is writable
+        try {
+            is_readable_or_fail($source);
+            is_writable_or_fail(dirname($dest));
+        } catch (Exception $e) {
+            $this->err($e->getMessage());
+
+            return false;
+        }
+
+        safe_copy($source, $dest);
+
+        $this->verbose(__d('me_tools', 'File `{0}` has been copied', rtr($dest)));
+
+        return true;
+    }
+
+    /**
+     * Creates a directory.
+     *
+     * This method creates directories recursively.
+     * @param string $path Directory path
+     * @return bool
+     * @uses folderChmod()
+     * @uses verboseIfFileExists()
+     */
+    public function createDir($path)
+    {
+        if ($this->verboseIfFileExists($path)) {
+            return false;
+        }
+
+        if (!safe_mkdir($path, 0777, true)) {
+            $this->err(__d('me_tools', 'Failed to create file or directory `{0}`', rtr($path)));
+
+            return false;
+        }
+
+        $this->verbose(__d('me_tools', 'Created `{0}` directory', rtr($path)));
+        $this->folderChmod($path);
+
+        return true;
+    }
+
+    /**
+     * Creates a file at given path
+     * @param string $path Where to put the file
+     * @param string $contents Content to put in the file
+     * @return bool
+     * @uses verboseIfFileExists()
+     */
+    public function createFile($path, $contents)
+    {
+        return $this->verboseIfFileExists($path) ? false : parent::createFile($path, $contents);
+    }
+
+    /**
      * Creates a symbolic link
-     * @param string $origin Origin file or directory
-     * @param string $target Target link
+     * @param string $source Source file or directory
+     * @param string $dest Destination file or directory
      * @return bool
      */
-    public function createLink($origin, $target)
+    public function createLink($source, $dest)
     {
-        //Checks if the origin file/directory is readable
-        if (!is_readable($origin)) {
-            $this->err(__d(
-                'me_tools',
-                'File or directory {0} not readable',
-                rtr($origin)
-            ));
+        if ($this->verboseIfFileExists($dest)) {
+            return false;
+        }
+
+        //Checks if the source is readable and the destination directory is writable
+        try {
+            is_readable_or_fail($source);
+            is_writable_or_fail(dirname($dest));
+        } catch (Exception $e) {
+            $this->err($e->getMessage());
 
             return false;
         }
 
-        //Checks if the link already exists
-        if (file_exists($target)) {
-            $this->verbose(__d(
-                'me_tools',
-                'Symbolic link {0} already exists',
-                rtr($target)
-            ));
+        safe_symlink($source, $dest);
+
+        $this->verbose(__d('me_tools', 'Link `{0}` has been created', rtr($dest)));
+
+        return true;
+    }
+
+    /**
+     * Sets folder chmods.
+     *
+     * This method applies permissions recursively.
+     * @param string $path Folder path
+     * @param int $chmod Chmod
+     * @return bool
+     */
+    public function folderChmod($path, $chmod = 0777)
+    {
+        if (!(new Folder())->chmod($path, $chmod, true)) {
+            $this->err(__d('me_tools', 'Failed to set permissions on `{0}`', rtr($path)));
 
             return false;
         }
 
-        //Checks if the target directory is writeable
-        if (!is_writable(dirname($target))) {
-            $this->err(__d(
-                'me_tools',
-                'File or directory {0} not writeable',
-                rtr(dirname($target))
-            ));
-
-            return false;
-        }
-
-        //Creates the symbolic link
-        if (!symlink($origin, $target)) {
-            $this->err(__d(
-                'me_tools',
-                'Failed to create a symbolic link to {0}',
-                rtr($target)
-            ));
-
-            return false;
-        }
-
-        $this->verbose(__d(
-            'me_tools',
-            'Created symbolic link to {0}',
-            rtr($target)
-        ));
+        $this->verbose(__d('me_tools', 'Setted permissions on `{0}`', rtr($path)));
 
         return true;
     }
@@ -144,16 +175,9 @@ class Shell extends CakeShell
      * @return int|bool Returns the number of bytes returned from writing to
      *  stdout
      */
-    public function comment(
-        $message = null,
-        $newlines = 1,
-        $level = Shell::NORMAL
-    ) {
-        return parent::out(
-            sprintf('<comment>%s</comment>', $message),
-            $newlines,
-            $level
-        );
+    public function comment($message = null, $newlines = 1, $level = Shell::NORMAL)
+    {
+        return parent::out(sprintf('<comment>%s</comment>', $message), $newlines, $level);
     }
 
     /**
@@ -165,16 +189,9 @@ class Shell extends CakeShell
      * @return int|bool Returns the number of bytes returned from writing to
      *  stdout
      */
-    public function question(
-        $message = null,
-        $newlines = 1,
-        $level = Shell::NORMAL
-    ) {
-        return parent::out(
-            sprintf('<question>%s</question>', $message),
-            $newlines,
-            $level
-        );
+    public function question($message = null, $newlines = 1, $level = Shell::NORMAL)
+    {
+        return parent::out(sprintf('<question>%s</question>', $message), $newlines, $level);
     }
 
     /**

@@ -1,35 +1,24 @@
 <?php
 /**
- * This file is part of MeTools.
+ * This file is part of me-tools.
  *
- * MeTools is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Affero General Public License as
- * published by the Free Software Foundation, either version 3 of the
- * License, or (at your option) any later version.
+ * Licensed under The MIT License
+ * For full copyright and license information, please see the LICENSE.txt
+ * Redistributions of files must retain the above copyright notice.
  *
- * MeTools is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Affero General Public License for more details.
- *
- * You should have received a copy of the GNU Affero General Public License
- * along with MeTools.  If not, see <http://www.gnu.org/licenses/>.
- *
- * @author      Mirko Pagliai <mirko.pagliai@gmail.com>
- * @copyright   Copyright (c) 2016, Mirko Pagliai for Nova Atlantis Ltd
- * @license     http://www.gnu.org/licenses/agpl.txt AGPL License
- * @link        http://git.novatlantis.it Nova Atlantis Ltd
- * @see         http://api.cakephp.org/3.3/class-Cake.View.Helper.FormHelper.html FormHelper
+ * @copyright   Copyright (c) Mirko Pagliai
+ * @link        https://github.com/mirko-pagliai/me-tools
+ * @license     https://opensource.org/licenses/mit-license.php MIT License
+ * @see         http://api.cakephp.org/3.4/class-Cake.View.Helper.FormHelper.html FormHelper
  */
 namespace MeTools\View\Helper;
 
+use Cake\Utility\Hash;
 use Cake\View\Helper\FormHelper as CakeFormHelper;
 use Cake\View\View;
 
 /**
- * Provides functionalities for forms.
- *
- * Rewrites {@link http://api.cakephp.org/3.3/class-Cake.View.Helper.FormHelper.html FormHelper}.
+ * Provides functionalities for forms
  */
 class FormHelper extends CakeFormHelper
 {
@@ -38,7 +27,7 @@ class FormHelper extends CakeFormHelper
      * @var array
      */
     public $helpers = [
-        'Html' => ['className' => 'MeTools.Html'],
+        'Html' => ['className' => ME_TOOLS . '.Html'],
         'Url',
     ];
 
@@ -52,22 +41,29 @@ class FormHelper extends CakeFormHelper
     /**
      * Construct the widgets and binds the default context providers.
      *
-     * This method only ewrites the default configuration (`$_defaultConfig`).
+     * This method only rewrites the default templates config.
      * @param Cake\View\View $view The View this helper is being attached to
      * @param array $config Configuration settings for the helper
      * @return void
+     * @uses $_defaultConfig
      */
     public function __construct(View $view, $config = [])
     {
-        parent::__construct($view, $config);
-
-        //Rewrites templates
-        $this->templates([
-            'checkboxContainer' => '<div class="input {{type}}{{required}}">{{content}}{{help}}</div>',
-            'nestingLabel' => '{{hidden}}<label{{attrs}}>{{input}} {{text}}</label>',
+        //Rewrites default templates config
+        $this->_defaultConfig = Hash::merge($this->_defaultConfig, ['templates' => [
+            'checkboxContainer' => '<div class="form-check input {{type}}{{required}}">{{content}}</div>',
+            'nestingLabel' => '{{hidden}}<label{{attrs}}>{{input}} {{text}}{{help}}</label>',
+            'hidden' => '<input type="{{type}}" name="{{name}}"{{attrs}}/>',
+            'input' => '<input type="{{type}}" name="{{name}}" class="form-control"{{attrs}}/>',
+            'inputError' => '<input type="{{type}}" name="{{name}}" class="form-control is-invalid"{{attrs}}/>',
             'inputContainer' => '<div class="form-group input {{type}}{{required}}">{{content}}{{help}}</div>',
-            'inputContainerError' => '<div class="form-group input {{type}}{{required}} has-error">{{content}}{{help}}{{error}}</div>',
-        ]);
+            'select' => '<select name="{{name}}" class="form-control"{{attrs}}>{{content}}</select>',
+            'selectMultiple' => '<select name="{{name}}[]" multiple="multiple" class="form-control"{{attrs}}>{{content}}</select>',
+            'textarea' => '<textarea name="{{name}}" class="form-control"{{attrs}}>{{value}}</textarea>',
+        ]]);
+        $this->_defaultWidgets['hidden'] = ['MeTools\View\Widget\HiddenWidget'];
+
+        parent::__construct($view, $config);
     }
 
     /**
@@ -81,38 +77,31 @@ class FormHelper extends CakeFormHelper
      * @param array $options HTML attributes and options
      * @return string
      * @see postButton(), MeTools\View\Helper\HtmlHelper::button()
-     * @uses MeTools\View\Helper\HtmlHelper::addIcon()
      */
     public function button($title, array $options = [])
     {
-        $options = optionDefaults(['type' => 'button'], $options);
+        $options = optionsParser($options, ['type' => 'button']);
+        $options->addButtonClasses($options->contains('type', 'submit') ? 'success' : 'primary');
+        list($title, $options) = $this->Html->addIconToText($title, $options);
 
-        if ($options['type'] === 'submit') {
-            $options = buttonClass($options, 'success');
-        } else {
-            $options = buttonClass($options);
-        }
-
-        list($title, $options) = $this->Html->addIcon($title, $options);
-
-        return parent::button($title, $options);
+        return parent::button($title, $options->toArray());
     }
 
     /**
-     * Creates a checkbox input element
+     * Creates a checkbox element
      * @param string $fieldName Field name, should be "Modelname.fieldname"
      * @param array $options HTML attributes and options
      * @return string
      */
     public function checkbox($fieldName, array $options = [])
     {
-        if (!isset($options['hiddenField']) ||
-            !empty($options['hiddenField'])
-        ) {
-            $options['hiddenField'] = true;
+        $options = optionsParser($options);
+
+        if (!$options->exists('hiddenField') || !$options->contains('hiddenField', false)) {
+            $options->add('hiddenField', true);
         }
 
-        return parent::checkbox($fieldName, $options);
+        return parent::checkbox($fieldName, $options->toArray());
     }
 
     /**
@@ -123,14 +112,86 @@ class FormHelper extends CakeFormHelper
      * @param array $options HTML attributes and options
      * @return string
      * @see MeTools\View\Helper\LibraryHelper::ckeditor()
-     * @uses input()
+     * @uses control()
      */
     public function ckeditor($fieldName, array $options = [])
     {
-        $options = optionDefaults(['type' => 'textarea'], $options);
-        $options = optionValues(['class' => 'ckeditor editor'], $options);
+        $options = optionsParser($options, ['label' => false, 'type' => 'textarea'])
+            ->append('templates', [
+                'textarea' => '<textarea name="{{name}}" class="form-control wysiwyg editor"{{attrs}}>{{value}}</textarea>',
+            ]);
 
-        return self::input($fieldName, $options);
+        return $this->control($fieldName, $options->toArray());
+    }
+
+    /**
+     * Generates an input element complete with label and wrapper div
+     * @param string $fieldName Field name, should be "Modelname.fieldname"
+     * @param array $options HTML attributes and options
+     * @return string
+     * @uses $inline
+     */
+    public function control($fieldName, array $options = [])
+    {
+        //Resets templates
+        $this->resetTemplates();
+
+        $options = optionsParser($options);
+
+        //If the name contains the "password" word, then the type is `password`
+        if (strpos($fieldName, 'password') !== false) {
+            $options->Default->add(['type' => 'password']);
+        }
+
+        //Gets the input type
+        $type = $options->get('type') ?: self::_inputType($fieldName, $options->toArray());
+
+        if ($type === 'select' && !$options->exists('default') && !$options->exists('value')) {
+            $options->Default->add(['empty' => true]);
+        }
+
+        //Help text
+        //See https://getbootstrap.com/docs/4.0/components/forms/#help-text
+        if ($options->exists('help')) {
+            $help = array_map(function ($help) {
+                return $this->Html->para('form-text text-muted', trim($help));
+            }, (array)$options->consume('help'));
+            $options->append('templateVars', ['help' => implode(null, $help)]);
+        }
+
+        //Input group. Fixes templates
+        //See https://getbootstrap.com/docs/4.0/components/input-group/
+        if ($options->exists('button')) {
+            $options->append([
+                'templates' => ['formGroup' => '{{label}}<div class="input-group">{{input}}{{button}}</div>'],
+                'templateVars' => ['button' => $this->Html->div('input-group-append', $options->consume('button'))],
+            ]);
+        }
+
+        //If is an inline form
+        if ($this->inline) {
+            //By default, no help blocks
+            $options->append('templates', [
+                'inputContainer' => '<div class="form-group input {{type}}{{required}}">{{content}}</div>',
+            ]);
+
+            //If it is not a checkbox
+            if ($type !== "checkbox" && (!$options->exists('label') || $options->get('label') !== false)) {
+                $label = $options->get('label');
+
+                if (!$label) {
+                    $label = [];
+                } elseif (is_string($label)) {
+                    $label = ['text' => $label];
+                }
+
+                $label = optionsParser($label)->append('class', 'sr-only');
+
+                $options->add('label', $label->toArray());
+            }
+        }
+
+        return parent::control($fieldName, $options->toArray());
     }
 
     /**
@@ -143,16 +204,14 @@ class FormHelper extends CakeFormHelper
      */
     public function create($model = null, array $options = [])
     {
-        //It's a form inline if there is the `inline` option or if it contains
-        //  the `form-inline` class
-        if (!empty($options['inline']) || (
-            isset($options['class']) &&
-            (preg_match('/form-inline/', $options['class']))
-        )) {
-            return self::createInline($model, $options);
+        $options = optionsParser($options);
+
+        //It's a form inline with the `inline` option or the `form-inline` class
+        if ($options->exists('inline') || $options->contains('class', 'form-inline')) {
+            return self::createInline($model, $options->toArray());
         }
 
-        return parent::create($model, $options);
+        return parent::create($model, $options->toArray());
     }
 
     /**
@@ -172,53 +231,50 @@ class FormHelper extends CakeFormHelper
     public function createInline($model = null, array $options = [])
     {
         $this->inline = true;
-        unset($options['inline']);
+        $options = optionsParser($options)->delete('inline')->append('class', 'form-inline');
 
-        $options = optionValues(['class' => 'form-inline'], $options);
-
-        return parent::create($model, $options);
+        return parent::create($model, $options->toArray());
     }
 
     /**
-     * Creates a datepicker input.
+     * Creates a datepicker.
      *
      * To add the scripts for datepicker, you should use the `LibraryHelper`.
      * @param string $fieldName Field name, should be "Modelname.fieldname"
      * @param array $options HTML attributes and options
      * @return string
      * @see MeTools\View\Helper\LibraryHelper::datepicker()
-     * @uses input()
+     * @uses control()
      */
     public function datepicker($fieldName, array $options = [])
     {
-        $options = optionValues(['class' => 'datepicker'], $options);
-        $options = optionDefaults([
-            'data-date-format' => 'YYYY-MM-DD',
-            'type' => 'text',
-        ], $options);
+        $options = optionsParser($options, ['data-date-format' => 'YYYY-MM-DD', 'type' => 'text'])
+            ->append('templates', [
+                'input' => '<input type="{{type}}" name="{{name}}" class="form-control datepicker"{{attrs}}/>',
+                'inputError' => '<input type="{{type}}" name="{{name}}" class="form-control datepicker is-invalid"{{attrs}}/',
+            ]);
 
-        return self::input($fieldName, $options);
+        return $this->control($fieldName, $options->toArray());
     }
 
     /**
-     * Creates a datetimepicker input.
+     * Creates a datetimepicker.
      *
      * To add the scripts for datetimepicker, you should use the `LibraryHelper`.
      * @param string $fieldName Field name, should be "Modelname.fieldname"
      * @param array $options HTML attributes and options
      * @return string
      * @see MeTools\View\Helper\LibraryHelper::datetimepicker()
-     * @uses input()
      */
     public function datetimepicker($fieldName, array $options = [])
     {
-        $options = optionValues(['class' => 'datetimepicker'], $options);
-        $options = optionDefaults([
-            'data-date-format' => 'YYYY-MM-DD HH:mm',
-            'type' => 'text',
-        ], $options);
+        $options = optionsParser($options, ['data-date-format' => 'YYYY-MM-DD HH:mm', 'type' => 'text'])
+            ->append('templates', [
+                'input' => '<input type="{{type}}" name="{{name}}" class="form-control datetimepicker"{{attrs}}/>',
+                'inputError' => '<input type="{{type}}" name="{{name}}" class="form-control datetimepicker is-invalid"{{attrs}}/>',
+            ]);
 
-        return self::input($fieldName, $options);
+        return $this->control($fieldName, $options->toArray());
     }
 
     /**
@@ -235,94 +291,6 @@ class FormHelper extends CakeFormHelper
         $this->inline = false;
 
         return parent::end($secureAttributes);
-    }
-
-    /**
-     * Generates an input element complete with label and wrapper div
-     * @param string $fieldName Field name, should be "Modelname.fieldname"
-     * @param array $options HTML attributes and options
-     * @return string
-     * @uses MeTools\View\Helper\HtmlHelper::para()
-     * @uses $inline
-     */
-    public function input($fieldName, array $options = [])
-    {
-        //If the field name contains the word "password", then the field type
-        //  is `password`
-        if (preg_match('/password/', $fieldName)) {
-            $options = optionDefaults(['type' => 'password'], $options);
-        }
-
-        //Gets the input type
-        if (empty($options['type'])) {
-            $type = self::_inputType($fieldName, $options);
-        } else {
-            $type = $options['type'];
-        }
-
-        // Adds the `form-control` class, except for checkboxes and file inputs
-        if (!in_array($type, ['checkbox', 'file'])) {
-            $options = optionValues(['class' => 'form-control'], $options);
-        }
-
-        if ($type === 'select' &&
-            empty($options['default']) &&
-            empty($options['value'])) {
-            $options = optionDefaults([
-                'empty' => true,
-            ], $options);
-        }
-
-        //Help blocks
-        //See http://getbootstrap.com/css/#forms-help-text
-        if (!empty($options['help'])) {
-            $options['templateVars']['help'] = implode(
-                null,
-                array_map(function ($tip) {
-                    return $this->Html->para('help-block', trim($tip));
-                }, (array)$options['help'])
-            );
-
-            unset($options['help']);
-        }
-
-        if (!empty($options['button'])) {
-            //Fixes templates
-            $this->templates([
-                'formGroup' => '{{label}}<div class="input-group">{{input}}{{button}}</div>',
-            ]);
-
-            $options['templateVars']['button'] = $this->Html->span(
-                $options['button'],
-                ['class' => 'input-group-btn']
-            );
-
-            unset($options['button']);
-        }
-
-        //If is an inline form
-        if ($this->inline) {
-            //By default, no help blocks or error messages
-            $this->templates([
-                'inputContainer' => '<div class="input form-group {{type}}{{required}}">{{content}}</div>',
-                'inputContainerError' => '<div class="input form-group {{type}}{{required}} has-error">{{content}}</div>',
-            ]);
-
-            //If it is not a checkbox
-            if ($type !== "checkbox") {
-                if (empty($options['label'])) {
-                    $options['label'] = [];
-                } elseif (is_string($options['label'])) {
-                    $options['label'] = ['text' => $options['label']];
-                }
-
-                $options['label'] = optionValues([
-                    'class' => 'sr-only',
-                ], $options['label']);
-            }
-        }
-
-        return parent::input($fieldName, $options);
     }
 
     /**
@@ -343,15 +311,13 @@ class FormHelper extends CakeFormHelper
      * @param array|string $options HTML attributes, or a string to be used
      *  as a class name
      * @return string
-     * @uses MeTools\View\Helper\HtmlHelper::addIcon()
      */
     public function label($fieldName, $text = null, array $options = [])
     {
-        $options = optionDefaults(['escape' => false], $options);
+        $options = optionsParser($options, ['escape' => false]);
+        list($text, $options) = $this->Html->addIconToText($text, $options);
 
-        list($text, $options) = $this->Html->addIcon($text, $options);
-
-        return parent::label($fieldName, $text, $options);
+        return parent::label($fieldName, $text, $options->toArray());
     }
 
     /**
@@ -372,10 +338,9 @@ class FormHelper extends CakeFormHelper
      */
     public function postButton($title, $url, array $options = [])
     {
-        $options = optionValues(['role' => 'button'], $options);
-        $options = buttonClass($options);
+        $options = optionsParser($options)->add('role', 'button')->addButtonClasses();
 
-        return self::postLink($title, $url, $options);
+        return self::postLink($title, $url, $options->toArray());
     }
 
     /**
@@ -391,23 +356,14 @@ class FormHelper extends CakeFormHelper
      *  parameters or external URL
      * @param array $options Array of options and HTML attributes
      * @return string
-     * @uses MeTools\View\Helper\HtmlHelper::addIcon()
-     * @uses MeTools\View\Helper\HtmlHelper::addTooltip()
      */
     public function postLink($title, $url = null, array $options = [])
     {
-        $options = optionDefaults([
-            'escape' => false,
-            'title' => $title,
-        ], $options);
+        $options = optionsParser($options, ['escape' => false, 'title' => $title]);
+        $options->add('title', trim(h(strip_tags($options->get('title')))))->tooltip();
+        list($title, $options) = $this->Html->addIconToText($title, $options);
 
-        $options['title'] = trim(h(strip_tags($options['title'])));
-
-        list($title, $options) = $this->Html->addIcon($title, $options);
-
-        $options = $this->Html->addTooltip($options);
-
-        return parent::postLink($title, $url, $options);
+        return parent::postLink($title, $url, $options->toArray());
     }
 
     /**
@@ -420,13 +376,13 @@ class FormHelper extends CakeFormHelper
      */
     public function select($fieldName, $options = [], array $attributes = [])
     {
-        if (empty($attributes['default']) &&
-            empty($attributes['value'])
-        ) {
-            $attributes = optionDefaults(['empty' => true], $attributes);
+        $attributes = optionsParser($attributes);
+
+        if (!$attributes->exists('default') && !$attributes->exists('value')) {
+            $attributes->Default->add('empty', true);
         }
 
-        return parent::select($fieldName, $options, $attributes);
+        return parent::select($fieldName, $options, $attributes->toArray());
     }
 
     /**
@@ -439,9 +395,9 @@ class FormHelper extends CakeFormHelper
      */
     public function submit($caption = null, array $options = [])
     {
-        $options['type'] = 'submit';
+        $options = optionsParser($options)->add('type', 'submit');
 
-        return self::button($caption, $options);
+        return self::button($caption, $options->toArray());
     }
 
     /**
@@ -452,32 +408,29 @@ class FormHelper extends CakeFormHelper
      */
     public function textarea($fieldName, array $options = [])
     {
-        $options = optionDefaults([
-            'cols' => null,
-            'rows' => null,
-        ], $options);
+        $options = optionsParser($options, ['cols' => null, 'rows' => null]);
 
-        return parent::textarea($fieldName, $options);
+        return parent::textarea($fieldName, $options->toArray());
     }
 
     /**
-     * Creates a text input for timepicker.
+     * Creates a timepicker.
      *
      * To add the scripts for timepicker, you should use the `LibraryHelper`.
      * @param string $fieldName Field name, should be "Modelname.fieldname"
      * @param array $options HTML attributes and options
      * @return string
      * @see MeTools\View\Helper\LibraryHelper::timepicker()
-     * @uses input()
+     * @uses control()
      */
     public function timepicker($fieldName, array $options = [])
     {
-        $options = optionValues(['class' => 'timepicker'], $options);
-        $options = optionDefaults([
-            'data-date-format' => 'HH:mm',
-            'type' => 'text',
-        ], $options);
+        $options = optionsParser($options, ['data-date-format' => 'HH:mm', 'type' => 'text'])
+            ->append('templates', [
+                'input' => '<input type="{{type}}" name="{{name}}" class="form-control timepicker"{{attrs}}/>',
+                'inputError' => '<input type="{{type}}" name="{{name}}" class="form-control timepicker is-invalid"{{attrs}}/>',
+            ]);
 
-        return self::input($fieldName, $options);
+        return $this->control($fieldName, $options->toArray());
     }
 }

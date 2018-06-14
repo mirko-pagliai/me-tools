@@ -1,8 +1,13 @@
 /*!
- * This file is part of MeTools.
- * @author      Mirko Pagliai <mirko.pagliai@gmail.com>
- * @copyright   Copyright (c) 2016, Mirko Pagliai for Nova Atlantis Ltd
- * @license     http://www.gnu.org/licenses/agpl.txt AGPL License
+ * This file is part of me-tools.
+ *
+ * Licensed under The MIT License
+ * For full copyright and license information, please see the LICENSE.txt
+ * Redistributions of files must retain the above copyright notice.
+ *
+ * @copyright   Copyright (c) Mirko Pagliai
+ * @link        https://github.com/mirko-pagliai/me-tools
+ * @license     https://opensource.org/licenses/mit-license.php MIT License
  */
 
 /**
@@ -55,15 +60,6 @@ $(function () {
     }
 
     /**
-     * Closes a flash message when clicking the close button
-     */
-    $('.alert .close').click(function () {
-        close_flashMessage();
-        //It requires "return false" to prevent the default behavior of jQuery
-        return false;
-    });
-
-    /**
      * Submits button will be disabled when the form is submitted.
      */
     $('form').submit(function () {
@@ -74,23 +70,6 @@ $(function () {
      * Change the visibility of some elements.
      * Elements with "to-be-shown" class will be shown, while elements with "to-be-hidden" class will be hidden
      */
-    $('.hidden.to-be-shown:hidden').removeClass('hidden to-be-shown');
-    $('.to-be-hidden:visible').addClass('hidden').removeClass('to-be-hidden');
-
-    /**
-     * Recapcha mail links.
-     * It opens the popup
-     */
-    $('.recaptcha-mail').click(function (event) {
-        event.preventDefault();
-
-        window.open($(this).attr('href'), '', 'toolbar=0,scrollbars=0,location=0,statusbar=0,menubar=0,resizable=0,width=500,height=300');
-
-        return false;
-    });
-
-    /**
-     * Closes automatically the flash messages after a preset time
-     */
-    setTimeout(close_flashMessage, 3500);
+    $('.hidden.to-be-shown:hidden').removeClass('d-none to-be-shown');
+    $('.to-be-hidden:visible').addClass('d-none').removeClass('to-be-hidden');
 });

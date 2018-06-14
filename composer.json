@@ -3,17 +3,34 @@
     "description": "MeTools plugin for CakePHP",
     "homepage": "https://github.com/mirko-pagliai/me-tools",
     "type": "cakephp-plugin",
-    "license": "AGPL",
+    "license": "MIT",
     "authors": [{
         "name": "Mirko Pagliai",
         "email": "mirko.pagliai@gmail.com"
     }],
+    "config": {
+        "component-dir": "vendor/components"
+    },
     "require": {
         "php": ">=5.5.9",
-        "cakephp/cakephp": "3.3.*",
+        "cakephp/cakephp": ">=3.6 <4",
         "ext-mcrypt": "*",
-        "components/jquery": "2.*",
-        "fortawesome/font-awesome": "4.*"
+        "components/jquery": "^3.3",
+        "mirko-pagliai/cakephp-assets": ">=1.1.6 <1.3",
+        "mirko-pagliai/php-tools": ">=1.0.7 <1.1",
+        "twbs/bootstrap": "v4.0.*"
+    },
+    "require-dev": {
+        "cakephp/cakephp-codesniffer": "^3.0",
+        "eonasdan/bootstrap-datetimepicker": "*",
+        "fortawesome/font-awesome": "*",
+        "newerton/fancy-box": "dev-master",
+        "phpunit/phpunit": "^5.7|^6.0"
+    },
+    "suggest": {
+        "eonasdan/bootstrap-datetimepicker": "To create Bootstrap's datetime pickers",
+        "fortawesome/font-awesome": "To use Font Awesome's icons",
+        "newerton/fancy-box": "To show photos with fancybox"
     },
     "autoload": {
         "psr-4": {
@@ -21,19 +38,15 @@
         },
         "files": [
             "src/Core/global_functions.php",
-            "src/Core/html_functions.php",
-            "src/Core/request_detectors.php",
-            "vendor/Recaptcha/recaptchalib.php"
+            "src/Core/request_detectors.php"
         ]
     },
     "autoload-dev": {
         "psr-4": {
+            "Cake\\Test\\": "vendor/cakephp/cakephp/tests",
             "MeTools\\Test\\": "tests",
             "TestPlugin\\": "tests/test_app/Plugin/TestPlugin/src",
             "AnotherTestPlugin\\": "tests/test_app/Plugin/AnotherTestPlugin/src"
         }
-    },
-    "require-dev": {
-        "cakephp/cakephp-codesniffer": "2.*"
     }
 }

@@ -1,29 +1,19 @@
 <?php
 /**
- * This file is part of MeTools.
+ * This file is part of me-tools.
  *
- * MeTools is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Affero General Public License as
- * published by the Free Software Foundation, either version 3 of the
- * License, or (at your option) any later version.
+ * Licensed under The MIT License
+ * For full copyright and license information, please see the LICENSE.txt
+ * Redistributions of files must retain the above copyright notice.
  *
- * MeTools is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Affero General Public License for more details.
- *
- * You should have received a copy of the GNU Affero General Public License
- * along with MeTools.  If not, see <http://www.gnu.org/licenses/>.
- *
- * @author      Mirko Pagliai <mirko.pagliai@gmail.com>
- * @copyright   Copyright (c) 2016, Mirko Pagliai for Nova Atlantis Ltd
- * @license     http://www.gnu.org/licenses/agpl.txt AGPL License
- * @link        http://git.novatlantis.it Nova Atlantis Ltd
+ * @copyright   Copyright (c) Mirko Pagliai
+ * @link        https://github.com/mirko-pagliai/me-tools
+ * @license     https://opensource.org/licenses/mit-license.php MIT License
  */
 namespace MeTools\Test\TestCase\View\Helper;
 
-use Cake\TestSuite\TestCase;
 use Cake\View\View;
+use MeTools\TestSuite\TestCase;
 use MeTools\View\Helper\DropdownHelper;
 use MeTools\View\Helper\HtmlHelper;
 
@@ -32,6 +22,16 @@ use MeTools\View\Helper\HtmlHelper;
  */
 class DropdownHelperTest extends TestCase
 {
+    /**
+     * @var \MeTools\View\Helper\DropdownHelper
+     */
+    protected $Dropdown;
+
+    /**
+     * @var \MeTools\View\Helper\HtmlHelper
+     */
+    protected $Html;
+
     /**
      * Setup the test case, backup the static object values so they can be
      * restored. Specifically backs up the contents of Configure and paths in
@@ -42,25 +42,12 @@ class DropdownHelperTest extends TestCase
     {
         parent::setUp();
 
-        $this->View = new View();
-        $this->Dropdown = new DropdownHelper($this->View);
-        $this->Html = new HtmlHelper($this->View);
-    }
-
-    /**
-     * Teardown any static object changes and restore them
-     * @return void
-     */
-    public function tearDown()
-    {
-        parent::tearDown();
-
-        unset($this->Dropdown, $this->Html, $this->View);
+        $this->Dropdown = new DropdownHelper(new View);
+        $this->Html = new HtmlHelper(new View);
     }
 
     /**
      * Tests for `menu()`, `start()` and `end()` methods
-     * @return void
      * @test
      */
     public function testMenuAndStartAndEnd()
@@ -77,27 +64,19 @@ class DropdownHelperTest extends TestCase
                 'title' => $text,
             ]],
             $text,
-            'i' => ['class' => 'fa fa-caret-down'],
-            ' ',
-            '/i',
             '/a',
-            'ul' => ['class' => 'dropdown-menu'],
-            ['li' => true],
-            ['a' => ['href' => '/first', 'title' => 'First link']],
+            'div' => ['class' => 'dropdown-menu'],
+            ['a' => ['href' => '/first', 'class' => 'dropdown-item', 'title' => 'First link']],
             'First link',
             '/a',
-            '/li',
-            ['li' => true],
-            ['a' => ['href' => '/second', 'title' => 'Second link']],
+            ['a' => ['href' => '/second', 'class' => 'dropdown-item', 'title' => 'Second link']],
             'Second link',
             '/a',
-            '/li',
-            '/ul',
+            '/div',
         ];
 
         //No dropdown menu again...
-        $result = $this->Dropdown->end();
-        $this->assertNull($result);
+        $this->assertNull($this->Dropdown->end());
 
         //Empty dropdown
         $this->Dropdown->start($text);
@@ -106,24 +85,23 @@ class DropdownHelperTest extends TestCase
         $this->assertNull($result);
 
         $this->Dropdown->start($text);
-        echo $this->Html->link('First link', '/first');
-        echo $this->Html->link('Second link', '/second');
+        echo $this->Html->link('First link', '/first', ['class' => 'dropdown-item']);
+        echo $this->Html->link('Second link', '/second', ['class' => 'dropdown-item']);
         $result = $this->Dropdown->end();
         $this->assertHtml($expected, $result);
 
         //With `menu()` method
         $result = $this->Dropdown->menu($text, [
-            $this->Html->link('First link', '/first'),
-            $this->Html->link('Second link', '/second'),
+            $this->Html->link('First link', '/first', ['class' => 'dropdown-item']),
+            $this->Html->link('Second link', '/second', ['class' => 'dropdown-item']),
         ]);
         $this->assertHtml($expected, $result);
 
         //With callback
         $result = call_user_func(function () use ($text) {
             $this->Dropdown->start($text);
-
-            echo $this->Html->link('First link', '/first');
-            echo $this->Html->link('Second link', '/second');
+            echo $this->Html->link('First link', '/first', ['class' => 'dropdown-item']);
+            echo $this->Html->link('Second link', '/second', ['class' => 'dropdown-item']);
 
             return $this->Dropdown->end();
         });
@@ -132,7 +110,7 @@ class DropdownHelperTest extends TestCase
         $expected = [
             ['a' => [
                 'href' => '#',
-                'class' => 'my-start-class dropdown-toggle',
+                'class' => 'dropdown-toggle my-start-class',
                 'aria-expanded' => 'false',
                 'aria-haspopup' => 'true',
                 'data-toggle' => 'dropdown',
@@ -143,50 +121,85 @@ class DropdownHelperTest extends TestCase
             '/i',
             ' ',
             $text,
-            ' ',
-            ['i' => ['class' => 'fa fa-caret-down']],
-            ' ',
-            '/i',
             '/a',
-            'ul' => ['class' => 'ul-class dropdown-menu'],
-            ['li' => ['class' => 'li-class']],
-            ['a' => ['href' => '/first', 'title' => 'First link']],
+            'div' => ['class' => 'div-custom-class dropdown-menu', 'attr' => 'value'],
+            ['a' => ['href' => '/first', 'class' => 'dropdown-item', 'title' => 'First link']],
             'First link',
             '/a',
-            '/li',
-            ['li' => ['class' => 'li-class']],
-            ['a' => ['href' => '/second', 'title' => 'Second link']],
+            ['a' => ['href' => '/second', 'class' => 'dropdown-item', 'title' => 'Second link']],
             'Second link',
             '/a',
-            '/li',
-            '/ul',
+            '/div',
         ];
 
         //Start link with custom class
-        $this->Dropdown->start(
-            $text,
-            ['class' => 'my-start-class', 'icon' => 'home']
-        );
-        echo $this->Html->link('First link', '/first');
-        echo $this->Html->link('Second link', '/second');
-        //Ul and list elements with custom classes
-        $result = $this->Dropdown->end(
-            ['class' => 'ul-class'],
-            ['class' => 'li-class']
-        );
+        $this->Dropdown->start($text, ['class' => 'my-start-class', 'icon' => 'home']);
+        echo $this->Html->link('First link', '/first', ['class' => 'dropdown-item']);
+        echo $this->Html->link('Second link', '/second', ['class' => 'dropdown-item']);
+        //Div wrapper with custom class and attribute
+        $result = $this->Dropdown->end(['class' => 'div-custom-class', 'attr' => 'value']);
         $this->assertHtml($expected, $result);
 
         //With `menu()` method
         $result = $this->Dropdown->menu(
             $text,
             [
-                $this->Html->link('First link', '/first'),
-                $this->Html->link('Second link', '/second')
+                $this->Html->link('First link', '/first', ['class' => 'dropdown-item']),
+                $this->Html->link('Second link', '/second', ['class' => 'dropdown-item']),
             ],
             ['class' => 'my-start-class', 'icon' => 'home'],
-            ['class' => 'ul-class'],
-            ['class' => 'li-class']
+            ['class' => 'div-custom-class', 'attr' => 'value']
         );
+        $this->assertHtml($expected, $result);
+
+        //Dropdown inside a list, with other links
+        $expected = [
+            ['ul' => true],
+            ['li' => true],
+            ['a' => ['href' => '/', 'title' => 'Home']],
+            'Home',
+            '/a',
+            '/li',
+            ['li' => true],
+            ['a' => [
+                'href' => '#',
+                'aria-expanded' => 'false',
+                'aria-haspopup' => 'true',
+                'class' => 'dropdown-toggle',
+                'data-toggle' => 'dropdown',
+                'title' => $text,
+            ]],
+            $text,
+            '/a',
+            'div' => ['class' => 'dropdown-menu'],
+            ['a' => ['href' => '/first', 'class' => 'dropdown-item', 'title' => 'First link']],
+            'First link',
+            '/a',
+            ['a' => ['href' => '/second', 'class' => 'dropdown-item', 'title' => 'Second link']],
+            'Second link',
+            '/a',
+            '/div',
+            '/li',
+            ['li' => true],
+            ['a' => ['href' => '#', 'title' => 'Other main link']],
+            'Other main link',
+            '/a',
+            '/li',
+            '/ul',
+        ];
+
+        $result = $this->Html->ul([
+            $this->Html->link('Home', '/'),
+            //This is the dropdown menu
+            call_user_func(function () {
+                $this->Dropdown->start('My dropdown');
+                echo $this->Html->link('First link', '/first', ['class' => 'dropdown-item']);
+                echo $this->Html->link('Second link', '/second', ['class' => 'dropdown-item']);
+
+                return $this->Dropdown->end();
+            }),
+            $this->Html->link('Other main link', '#'),
+        ]);
         $this->assertHtml($expected, $result);
     }
 }

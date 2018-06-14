@@ -1,34 +1,22 @@
 <?php
 /**
- * This file is part of MeTools.
+ * This file is part of me-tools.
  *
- * MeTools is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Affero General Public License as
- * published by the Free Software Foundation, either version 3 of the
- * License, or (at your option) any later version.
+ * Licensed under The MIT License
+ * For full copyright and license information, please see the LICENSE.txt
+ * Redistributions of files must retain the above copyright notice.
  *
- * MeTools is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Affero General Public License for more details.
- *
- * You should have received a copy of the GNU Affero General Public License
- * along with MeTools.  If not, see <http://www.gnu.org/licenses/>.
- *
- * @author      Mirko Pagliai <mirko.pagliai@gmail.com>
- * @copyright   Copyright (c) 2016, Mirko Pagliai for Nova Atlantis Ltd
- * @license     http://www.gnu.org/licenses/agpl.txt AGPL License
- * @link        http://git.novatlantis.it Nova Atlantis Ltd
- * @see         http://api.cakephp.org/3.3/class-Cake.Core.Plugin.html Plugin
+ * @copyright   Copyright (c) Mirko Pagliai
+ * @link        https://github.com/mirko-pagliai/me-tools
+ * @license     https://opensource.org/licenses/mit-license.php MIT License
+ * @see         http://api.cakephp.org/3.4/class-Cake.Core.Plugin.html Plugin
  */
 namespace MeTools\Core;
 
 use Cake\Core\Plugin as CakePlugin;
 
 /**
- * An utility to handle plugins.
- *
- * Rewrites {@link http://api.cakephp.org/3.3/class-Cake.Core.Plugin.html Plugin}.
+ * An utility to handle plugins
  */
 class Plugin extends CakePlugin
 {
@@ -45,28 +33,18 @@ class Plugin extends CakePlugin
      */
     public static function all(array $options = [])
     {
+        $options += ['core' => false, 'exclude' => [], 'order' => true];
+
         $plugins = parent::loaded();
-
-        $options = optionDefaults([
-            'core' => false,
-            'exclude' => [],
-            'order' => true,
-        ], $options);
-
-        if (!$options['core']) {
-            $plugins = array_diff($plugins, ['DebugKit', 'Migrations', 'Bake']);
-        }
-
-        if (!empty($options['exclude'])) {
-            $plugins = array_diff($plugins, (array)$options['exclude']);
-        }
+        $plugins = $options['core'] ? $plugins : array_diff($plugins, ['DebugKit', 'Migrations', 'Bake']);
+        $plugins = !$options['exclude'] ? $plugins : array_diff($plugins, (array)$options['exclude']);
 
         if ($options['order']) {
-            $key = array_search(METOOLS, $plugins);
+            $key = array_search(ME_TOOLS, $plugins);
 
             if ($key) {
                 unset($plugins[$key]);
-                array_unshift($plugins, METOOLS);
+                array_unshift($plugins, ME_TOOLS);
             }
         }
 
@@ -87,7 +65,7 @@ class Plugin extends CakePlugin
     {
         $plugin = parent::path($plugin);
 
-        if (empty($file)) {
+        if (!$file) {
             return $plugin;
         }
 
@@ -109,10 +87,6 @@ class Plugin extends CakePlugin
 
         $path = $plugin . $file;
 
-        if ($check && !is_readable($path)) {
-            return false;
-        }
-
-        return $path;
+        return $check && !is_readable($path) ? false : $path;
     }
 }

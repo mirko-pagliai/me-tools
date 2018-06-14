@@ -1,24 +1,14 @@
 <?php
 /**
- * This file is part of MeTools.
+ * This file is part of me-tools.
  *
- * MeTools is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Affero General Public License as
- * published by the Free Software Foundation, either version 3 of the
- * License, or (at your option) any later version.
+ * Licensed under The MIT License
+ * For full copyright and license information, please see the LICENSE.txt
+ * Redistributions of files must retain the above copyright notice.
  *
- * MeTools is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Affero General Public License for more details.
- *
- * You should have received a copy of the GNU Affero General Public License
- * along with MeTools.  If not, see <http://www.gnu.org/licenses/>.
- *
- * @author      Mirko Pagliai <mirko.pagliai@gmail.com>
- * @copyright   Copyright (c) 2016, Mirko Pagliai for Nova Atlantis Ltd
- * @license     http://www.gnu.org/licenses/agpl.txt AGPL License
- * @link        http://git.novatlantis.it Nova Atlantis Ltd
+ * @copyright   Copyright (c) Mirko Pagliai
+ * @link        https://github.com/mirko-pagliai/me-tools
+ * @license     https://opensource.org/licenses/mit-license.php MIT License
  */
 namespace MeTools\View\Helper;
 
@@ -29,7 +19,6 @@ use MeTools\Utility\Youtube;
  * BBCode Helper.
  *
  * This helper allows you to handle some BBCode.
- *
  * The `parser()` method executes all parsers.
  */
 class BBCodeHelper extends Helper
@@ -45,7 +34,9 @@ class BBCodeHelper extends Helper
      * @var array
      */
     protected $pattern = [
+        'image' => '/\[img](.+?)\[\/img]/',
         'readmore' => '/(<p(>|.*?[^?]>))?\[read\-?more\s*\/?\s*\](<\/p>)?/',
+        'url' => '/\[url=[\'"](.+?)[\'"]](.+?)\[\/url]/',
         'youtube' => '/\[youtube](.+?)\[\/youtube]/',
     ];
 
@@ -57,32 +48,14 @@ class BBCodeHelper extends Helper
     public function parser($text)
     {
         //Gets all current class methods, except for `parser()` and `remove()`
-        $methods = getChildMethods(get_class(), ['parser', 'remove']);
+        $methods = array_diff(get_child_methods(get_class()), ['parser', 'remove']);
 
         //Calls dynamically each method
         foreach ($methods as $method) {
-            $text = self::{$method}($text);
+            $text = call_user_func([$this, $method], $text);
         }
 
         return $text;
-    }
-
-    /**
-     * Parses "read mode" code. Example:
-     * <code>
-     * [read-more /]
-     * </code>
-     * @param string $text Text
-     * @return string
-     * @uses $pattern
-     */
-    public function readMore($text)
-    {
-        return preg_replace(
-            $this->pattern['readmore'],
-            '<!-- read-more -->',
-            $text
-        );
     }
 
     /**
@@ -97,8 +70,53 @@ class BBCodeHelper extends Helper
     }
 
     /**
+     * Parses image code.
+     * <code>
+     * [img]mypic.gif[/img]
+     * </code>
+     * @param string $text Text
+     * @return string
+     * @uses $pattern
+     */
+    public function image($text)
+    {
+        return preg_replace_callback($this->pattern['image'], function ($matches) {
+            return $this->Html->image($matches[1]);
+        }, $text);
+    }
+
+    /**
+     * Parses "read mode" code. Example:
+     * <code>
+     * [read-more /]
+     * </code>
+     * @param string $text Text
+     * @return string
+     * @uses $pattern
+     */
+    public function readMore($text)
+    {
+        return preg_replace($this->pattern['readmore'], '<!-- read-more -->', $text);
+    }
+
+    /**
+     * Parses url code.
+     * <code>
+     * [url="http://example"]my link[/url]
+     * </code>
+     * @param string $text Text
+     * @return string
+     * @uses $pattern
+     */
+    public function url($text)
+    {
+        return preg_replace_callback($this->pattern['url'], function ($matches) {
+            return $this->Html->link($matches[2], $matches[1]);
+        }, $text);
+    }
+
+    /**
      * Parses Youtube code.
-     *
      * You can use video ID or video url.
      *
      * Examples:
@@ -117,16 +135,10 @@ class BBCodeHelper extends Helper
      */
     public function youtube($text)
     {
-        return preg_replace_callback(
-            $this->pattern['youtube'],
-            function ($matches) {
-                if (isUrl($matches[1])) {
-                    return $this->Html->youtube(Youtube::getId($matches[1]));
-                }
+        return preg_replace_callback($this->pattern['youtube'], function ($matches) {
+            $id = is_url($matches[1]) ? Youtube::getId($matches[1]) : $matches[1];
 
-                return $this->Html->youtube($matches[1]);
-            },
-            $text
-        );
+            return $this->Html->youtube($id);
+        }, $text);
     }
 }

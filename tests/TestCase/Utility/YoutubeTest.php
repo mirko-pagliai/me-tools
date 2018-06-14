@@ -1,113 +1,77 @@
 <?php
 /**
- * This file is part of MeTools.
+ * This file is part of me-tools.
  *
- * MeTools is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Affero General Public License as
- * published by the Free Software Foundation, either version 3 of the
- * License, or (at your option) any later version.
+ * Licensed under The MIT License
+ * For full copyright and license information, please see the LICENSE.txt
+ * Redistributions of files must retain the above copyright notice.
  *
- * MeTools is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Affero General Public License for more details.
- *
- * You should have received a copy of the GNU Affero General Public License
- * along with MeTools.  If not, see <http://www.gnu.org/licenses/>.
- *
- * @author      Mirko Pagliai <mirko.pagliai@gmail.com>
- * @copyright   Copyright (c) 2016, Mirko Pagliai for Nova Atlantis Ltd
- * @license     http://www.gnu.org/licenses/agpl.txt AGPL License
- * @link        http://git.novatlantis.it Nova Atlantis Ltd
+ * @copyright   Copyright (c) Mirko Pagliai
+ * @link        https://github.com/mirko-pagliai/me-tools
+ * @license     https://opensource.org/licenses/mit-license.php MIT License
  */
 namespace MeTools\Test\TestCase;
 
-use Cake\TestSuite\TestCase;
+use MeTools\TestSuite\TestCase;
 use MeTools\Utility\Youtube;
 
 /**
- * YoutubeTest class.
+ * YoutubeTest class
  */
 class YoutubeTest extends TestCase
 {
     /**
      * Tests for `getId()` method
-     * @return void
      * @test
      */
     public function testGetId()
     {
-        $expected = 'bL_CJKq9rIw';
-
-        $result = Youtube::getId('http://youtube.com/watch?v=bL_CJKq9rIw');
-        $this->assertEquals($expected, $result);
-
-        $result = Youtube::getId('http://www.youtube.com/watch?v=bL_CJKq9rIw');
-        $this->assertEquals($expected, $result);
-
-        $result = Youtube::getId('https://www.youtube.com/watch?v=bL_CJKq9rIw');
-        $this->assertEquals($expected, $result);
-
-        $result = Youtube::getId('https://youtu.be/bL_CJKq9rIw');
-        $this->assertEquals($expected, $result);
-
-        $result = Youtube::getId('http://youtu.be/bL_CJKq9rIw');
-        $this->assertEquals($expected, $result);
+        foreach ([
+            'http://youtube.com/watch?v=bL_CJKq9rIw',
+            'http://www.youtube.com/watch?v=bL_CJKq9rIw',
+            'https://www.youtube.com/watch?v=bL_CJKq9rIw',
+            'http://youtu.be/bL_CJKq9rIw',
+            'https://youtu.be/bL_CJKq9rIw',
+            'http://youtu.be/bL_CJKq9rIw?t=5s',
+            'http://youtu.be/bL_CJKq9rIw?t=1m16s',
+        ] as $url) {
+            $this->assertEquals('bL_CJKq9rIw', Youtube::getId($url));
+        }
     }
 
     /**
-     * Tests for `getId()` method, with invalid parameters
-     * @return void
+     * Tests for `getId()` method, with invalid url or parameters
      * @test
      */
-    public function testGetIdInvalidParameters()
+    public function testGetIdInvalidUrlOrParameters()
     {
-        $result = Youtube::getId('http://youtube.com');
-        $this->assertFalse($result);
-
-        $result = Youtube::getId('http://youtube.com?param=value');
-        $this->assertFalse($result);
-    }
-
-    /**
-     * Tests for `getId()` method, with invalid url
-     * @return void
-     * @test
-     */
-    public function testGetIdInvalidUrl()
-    {
-        $result = Youtube::getId('http://example.com');
-        $this->assertFalse($result);
+        $this->assertFalse(Youtube::getId('http://example.com'));
+        $this->assertFalse(Youtube::getId('http://youtube.com'));
+        $this->assertFalse(Youtube::getId('http://youtube.com?param=value'));
     }
 
     /**
      * Tests for `getPreview()` method
-     * @return void
      * @test
      */
     public function testGetPreview()
     {
-        $expected = 'http://img.youtube.com/vi/bL_CJKq9rIw/0.jpg';
-
-        $result = Youtube::getPreview('bL_CJKq9rIw');
-        $this->assertEquals($expected, $result);
-
-        $result = Youtube::getPreview('https://www.youtube.com/watch?v=bL_CJKq9rIw');
-        $this->assertEquals($expected, $result);
-
-        $result = Youtube::getPreview('http://youtu.be/bL_CJKq9rIw');
-        $this->assertEquals($expected, $result);
+        foreach ([
+            'bL_CJKq9rIw',
+            'https://www.youtube.com/watch?v=bL_CJKq9rIw',
+            'http://youtu.be/bL_CJKq9rIw',
+        ] as $value) {
+            $this->assertEquals('http://img.youtube.com/vi/bL_CJKq9rIw/0.jpg', Youtube::getPreview($value));
+        }
     }
 
     /**
      * Tests for `getUrl()` method
-     * @return void
      * @test
      */
     public function testGetUrl()
     {
-        $result = Youtube::getUrl('bL_CJKq9rIw');
         $expected = 'http://youtu.be/bL_CJKq9rIw';
-        $this->assertEquals($expected, $result);
+        $this->assertEquals($expected, Youtube::getUrl('bL_CJKq9rIw'));
     }
 }

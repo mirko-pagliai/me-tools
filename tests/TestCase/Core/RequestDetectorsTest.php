@@ -1,29 +1,19 @@
 <?php
 /**
- * This file is part of MeTools.
+ * This file is part of me-tools.
  *
- * MeTools is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Affero General Public License as
- * published by the Free Software Foundation, either version 3 of the
- * License, or (at your option) any later version.
+ * Licensed under The MIT License
+ * For full copyright and license information, please see the LICENSE.txt
+ * Redistributions of files must retain the above copyright notice.
  *
- * MeTools is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Affero General Public License for more details.
- *
- * You should have received a copy of the GNU Affero General Public License
- * along with MeTools.  If not, see <http://www.gnu.org/licenses/>.
- *
- * @author      Mirko Pagliai <mirko.pagliai@gmail.com>
- * @copyright   Copyright (c) 2016, Mirko Pagliai for Nova Atlantis Ltd
- * @license     http://www.gnu.org/licenses/agpl.txt AGPL License
- * @link        http://git.novatlantis.it Nova Atlantis Ltd
+ * @copyright   Copyright (c) Mirko Pagliai
+ * @link        https://github.com/mirko-pagliai/me-tools
+ * @license     https://opensource.org/licenses/mit-license.php MIT License
  */
-namespace MeTools\Test\TestCase;
+namespace MeTools\Test\TestCase\Core;
 
 use Cake\Network\Request;
-use Cake\TestSuite\TestCase;
+use MeTools\TestSuite\TestCase;
 
 /**
  * RequestDetectorsTest class
@@ -31,92 +21,148 @@ use Cake\TestSuite\TestCase;
 class RequestDetectorsTest extends TestCase
 {
     /**
-     * Tests detectors
+     * @var \Cake\Network\Request
+     */
+    public $Request;
+
+    /**
+     * Setup the test case, backup the static object values so they can be
+     * restored. Specifically backs up the contents of Configure and paths in
+     *  App if they have not already been backed up
      * @return void
+     */
+    public function setUp()
+    {
+        parent::setUp();
+
+        $this->Request = (new Request)->withParam('action', 'myAction')
+            ->withParam('controller', 'myController')
+            ->withParam('prefix', 'myPrefix');
+    }
+
+    /**
+     * Tests for `is('action')` detector
      * @test
      */
-    public function testDetectors()
+    public function testIsAction()
     {
-        //Creates request
-        $request = new Request();
-        $request->params = [
-            'action' => 'myAction',
-            'controller' => 'myController',
-            'prefix' => 'myPrefix',
-        ];
-
-        //Controller
-        $this->assertTrue($request->is('controller', 'myController'));
-        $this->assertFalse($request->is('controller', 'notMyController'));
-        $this->assertTrue($request->isController('myController'));
-        $this->assertFalse($request->isController('notMyController'));
-
-        //Multiple controllers
-        $this->assertTrue($request->isController(['myController', 'notMyController']));
-        $this->assertFalse($request->isController(['notMyController', 'againNotMyController']));
-
-        //Action
-        $this->assertTrue($request->is('action', 'myAction'));
-        $this->assertFalse($request->is('action', 'notMyAction'));
-        $this->assertTrue($request->isAction('myAction'));
-        $this->assertFalse($request->isAction('notMyAction'));
+        $this->assertTrue($this->Request->is('action', 'myAction'));
+        $this->assertFalse($this->Request->is('action', 'notMyAction'));
+        $this->assertTrue($this->Request->isAction('myAction'));
+        $this->assertFalse($this->Request->isAction('notMyAction'));
 
         //Multiple actions
-        $this->assertTrue($request->isAction(['myAction', 'notMyAction']));
-        $this->assertFalse($request->isAction(['notMyAction', 'againNotMyAction']));
+        $this->assertTrue($this->Request->isAction(['myAction', 'notMyAction']));
+        $this->assertFalse($this->Request->isAction(['notMyAction', 'againNotMyAction']));
 
         //Action + Controller
-        $this->assertTrue($request->is('action', 'myAction', 'myController'));
-        $this->assertFalse($request->is('action', 'myAction', 'notMyController'));
-        $this->assertTrue($request->isAction('myAction', 'myController'));
-        $this->assertFalse($request->isAction('myAction', 'notMyController'));
+        $this->assertTrue($this->Request->is('action', 'myAction', 'myController'));
+        $this->assertFalse($this->Request->is('action', 'myAction', 'notMyController'));
+        $this->assertTrue($this->Request->isAction('myAction', 'myController'));
+        $this->assertFalse($this->Request->isAction('myAction', 'notMyController'));
 
         //Multiple actions + controller
-        $this->assertTrue($request->isAction(['myAction', 'notMyAction'], 'myController'));
-        $this->assertFalse($request->isAction(['notMyAction', 'againNotMyAction'], 'myController'));
-        $this->assertFalse($request->isAction(['myAction', 'notMyAction'], 'notMyController'));
-        $this->assertFalse($request->isAction(['notMyAction', 'againNotMyAction'], 'notMyController'));
+        $this->assertTrue($this->Request->isAction(['myAction', 'notMyAction'], 'myController'));
+        $this->assertFalse($this->Request->isAction(['notMyAction', 'againNotMyAction'], 'myController'));
+        $this->assertFalse($this->Request->isAction(['myAction', 'notMyAction'], 'notMyController'));
+        $this->assertFalse($this->Request->isAction(['notMyAction', 'againNotMyAction'], 'notMyController'));
+    }
 
-        //Prefix
-        $this->assertTrue($request->is('prefix', 'myPrefix'));
-        $this->assertFalse($request->is('prefix', 'notMyPrefix'));
-        $this->assertTrue($request->isPrefix('myPrefix'));
-        $this->assertFalse($request->isPrefix('notMyPrefix'));
+    /**
+     * Tests for `is('controller')` detector
+     * @test
+     */
+    public function testIsController()
+    {
+        $this->assertTrue($this->Request->is('controller', 'myController'));
+        $this->assertFalse($this->Request->is('controller', 'notMyController'));
+        $this->assertTrue($this->Request->isController('myController'));
+        $this->assertFalse($this->Request->isController('notMyController'));
 
-        //Create request
-        $request = new Request();
-        $request->here = '/some_alias';
+        //Multiple controllers
+        $this->assertTrue($this->Request->isController(['myController', 'notMyController']));
+        $this->assertFalse($this->Request->isController(['notMyController', 'againNotMyController']));
+    }
+
+    /**
+     * Tests for `is('localhost')` detector
+     * @test
+     */
+    public function testIsLocalhost()
+    {
+        $this->assertFalse($this->Request->is('localhost'));
+        $this->assertFalse($this->Request->isLocalhost());
+
+        foreach (['127.0.0.1', '::1'] as $remoteIp) {
+            $this->Request = $this->Request->withEnv('REMOTE_ADDR', $remoteIp);
+            $this->assertTrue($this->Request->is('localhost'));
+            $this->assertTrue($this->Request->isLocalhost());
+        }
+    }
+
+    /**
+     * Tests for `is('prefix')` detector
+     * @test
+     */
+    public function testIsPrefix()
+    {
+        $this->assertTrue($this->Request->is('prefix', 'myPrefix'));
+        $this->assertFalse($this->Request->is('prefix', 'notMyPrefix'));
+        $this->assertTrue($this->Request->isPrefix('myPrefix'));
+        $this->assertFalse($this->Request->isPrefix('notMyPrefix'));
+    }
+
+    /**
+     * Tests for `is('url')` detector
+     * @test
+     */
+    public function testIsUrl()
+    {
+        $this->Request = $this->Request->withEnv('REQUEST_URI', '/some_alias');
 
         //Url as array of params
-        $this->assertTrue($request->is('url', ['controller' => 'tests_apps', 'action' => 'some_method']));
-        $this->assertTrue($request->isUrl(['controller' => 'tests_apps', 'action' => 'some_method']));
-        $this->assertFalse($request->is('url', ['controller' => 'tests_apps', 'action' => 'noMethod']));
-        $this->assertFalse($request->isUrl(['controller' => 'tests_apps', 'action' => 'noMethod']));
+        $this->assertTrue($this->Request->is('url', ['controller' => 'tests_apps', 'action' => 'some_method']));
+        $this->assertTrue($this->Request->isUrl(['controller' => 'tests_apps', 'action' => 'some_method']));
+        $this->assertFalse($this->Request->is('url', ['controller' => 'tests_apps', 'action' => 'noMethod']));
+        $this->assertFalse($this->Request->isUrl(['controller' => 'tests_apps', 'action' => 'noMethod']));
 
         //Urls as strings
-        $this->assertTrue($request->is('url', '/some_alias'));
-        $this->assertTrue($request->isUrl('/some_alias'));
-        $this->assertTrue($request->is('url', '/some_alias/'));
-        $this->assertTrue($request->isUrl('/some_alias/'));
-        $this->assertFalse($request->is('url', '/some_alias/noExisting'));
-        $this->assertFalse($request->isUrl('/some_alias/noExisting'));
+        $this->assertTrue($this->Request->is('url', '/some_alias'));
+        $this->assertTrue($this->Request->isUrl('/some_alias'));
+        $this->assertTrue($this->Request->is('url', '/some_alias/'));
+        $this->assertTrue($this->Request->isUrl('/some_alias/'));
+        $this->assertFalse($this->Request->is('url', '/some_alias/noExisting'));
+        $this->assertFalse($this->Request->isUrl('/some_alias/noExisting'));
 
-        //Create request
-        $request = new Request();
-        $request->here = '/';
+        $this->Request = $this->Request->withEnv('REQUEST_URI', '/');
 
         //Url as array of params
-        $this->assertTrue($request->is('url', ['controller' => 'pages', 'action' => 'display', 'home']));
-        $this->assertTrue($request->isUrl(['controller' => 'pages', 'action' => 'display', 'home']));
-        $this->assertFalse($request->is('url', ['controller' => 'pages', 'action' => 'noExisting', 'home']));
-        $this->assertFalse($request->isUrl(['controller' => 'pages', 'action' => 'noExisting', 'home']));
-        $this->assertFalse($request->is('url', ['controller' => 'pages', 'action' => 'display', 'noExisting']));
-        $this->assertFalse($request->isUrl(['controller' => 'pages', 'action' => 'display', 'noExisting']));
+        $this->assertTrue($this->Request->is('url', ['controller' => 'pages', 'action' => 'display', 'home']));
+        $this->assertTrue($this->Request->isUrl(['controller' => 'pages', 'action' => 'display', 'home']));
+        $this->assertFalse($this->Request->is('url', ['controller' => 'pages', 'action' => 'noExisting', 'home']));
+        $this->assertFalse($this->Request->isUrl(['controller' => 'pages', 'action' => 'noExisting', 'home']));
+        $this->assertFalse($this->Request->is('url', ['controller' => 'pages', 'action' => 'display', 'noExisting']));
+        $this->assertFalse($this->Request->isUrl(['controller' => 'pages', 'action' => 'display', 'noExisting']));
 
         //Urls as strings
-        $this->assertTrue($request->is('url', '/'));
-        $this->assertTrue($request->isUrl('/'));
-        $this->assertFalse($request->is('url', '/noExisting'));
-        $this->assertFalse($request->isUrl('/noExisting'));
+        $this->assertTrue($this->Request->is('url', '/'));
+        $this->assertTrue($this->Request->isUrl('/'));
+        $this->assertFalse($this->Request->is('url', '/noExisting'));
+        $this->assertFalse($this->Request->isUrl('/noExisting'));
+    }
+
+    /**
+     * Tests for `is('url')` detector, with query strings
+     * @test
+     */
+    public function testIsUrlQueryString()
+    {
+        $this->Request = $this->Request->withEnv('REQUEST_URI', '/some_alias');
+        $this->assertTrue($this->Request->isUrl('/some_alias'));
+        $this->assertTrue($this->Request->isUrl('/some_alias', false));
+
+        $this->Request = $this->Request->withEnv('REQUEST_URI', '/some_alias?key=value');
+        $this->assertTrue($this->Request->isUrl('/some_alias'));
+        $this->assertFalse($this->Request->isUrl('/some_alias', false));
     }
 }

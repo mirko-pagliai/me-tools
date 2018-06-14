@@ -1,29 +1,19 @@
 <?php
 /**
- * This file is part of MeTools.
+ * This file is part of me-tools.
  *
- * MeTools is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Affero General Public License as
- * published by the Free Software Foundation, either version 3 of the
- * License, or (at your option) any later version.
+ * Licensed under The MIT License
+ * For full copyright and license information, please see the LICENSE.txt
+ * Redistributions of files must retain the above copyright notice.
  *
- * MeTools is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Affero General Public License for more details.
- *
- * You should have received a copy of the GNU Affero General Public License
- * along with MeTools.  If not, see <http://www.gnu.org/licenses/>.
- *
- * @author      Mirko Pagliai <mirko.pagliai@gmail.com>
- * @copyright   Copyright (c) 2016, Mirko Pagliai for Nova Atlantis Ltd
- * @license     http://www.gnu.org/licenses/agpl.txt AGPL License
- * @link        http://git.novatlantis.it Nova Atlantis Ltd
+ * @copyright   Copyright (c) Mirko Pagliai
+ * @link        https://github.com/mirko-pagliai/me-tools
+ * @license     https://opensource.org/licenses/mit-license.php MIT License
  */
-namespace MeTools\Test\TestCase;
+namespace MeTools\Test\TestCase\Core;
 
-use Cake\TestSuite\TestCase;
 use MeTools\Core\Plugin;
+use MeTools\TestSuite\TestCase;
 
 /**
  * PluginTest class.
@@ -44,88 +34,66 @@ class PluginTest extends TestCase
 
     /**
      * Tests for `all()` method
-     * @return void
      * @test
      */
     public function testAll()
     {
-        $result = Plugin::all();
-        $expected = ['MeTools'];
-        $this->assertEquals($expected, $result);
+        $expected = [ME_TOOLS, ASSETS];
+        $this->assertEquals($expected, Plugin::all());
 
-        $result = Plugin::load('TestPlugin');
-        $this->assertNull($result);
+        Plugin::load('TestPlugin');
 
-        $result = Plugin::all();
-        $expected = ['MeTools', 'TestPlugin'];
-        $this->assertEquals($expected, $result);
+        $expected = [ME_TOOLS, ASSETS, 'TestPlugin'];
+        $this->assertEquals($expected, Plugin::all());
 
-        $result = Plugin::all(['exclude' => 'TestPlugin']);
-        $expected = ['MeTools'];
-        $this->assertEquals($expected, $result);
+        $expected = [ME_TOOLS, ASSETS];
+        $this->assertEquals($expected, Plugin::all(['exclude' => 'TestPlugin']));
 
-        $result = Plugin::load('AnotherTestPlugin');
-        $this->assertNull($result);
+        Plugin::load('AnotherTestPlugin');
 
-        $result = Plugin::all();
-        $expected = ['MeTools', 'AnotherTestPlugin', 'TestPlugin'];
-        $this->assertEquals($expected, $result);
+        $expected = [ME_TOOLS, 'AnotherTestPlugin', ASSETS, 'TestPlugin'];
+        $this->assertEquals($expected, Plugin::all());
 
-        $result = Plugin::all(['order' => false]);
-        $expected = ['AnotherTestPlugin', 'MeTools', 'TestPlugin'];
-        $this->assertEquals($expected, $result);
+        $expected = ['AnotherTestPlugin', ASSETS, ME_TOOLS, 'TestPlugin'];
+        $this->assertEquals($expected, Plugin::all(['order' => false]));
     }
 
     /**
      * Tests for `path()` method
-     * @return void
      * @test
      */
     public function testPath()
     {
-        $result = Plugin::path('MeTools');
-        $this->assertEquals(ROOT, $result);
+        $this->assertEquals(ROOT, Plugin::path(ME_TOOLS));
 
         $expected = ROOT . 'config' . DS . 'bootstrap.php';
 
-        $result = Plugin::path('MeTools', 'config' . DS . 'bootstrap.php');
-        $this->assertEquals($expected, $result);
-
-        $result = Plugin::path(
-            'MeTools',
-            'config' . DS . 'bootstrap.php',
-            true
-        );
-        $this->assertEquals($expected, $result);
+        $this->assertEquals($expected, Plugin::path(ME_TOOLS, 'config' . DS . 'bootstrap.php'));
+        $this->assertEquals($expected, Plugin::path(ME_TOOLS, 'config' . DS . 'bootstrap.php', true));
 
         //No existing file
-        $result = Plugin::path(
-            'MeTools',
-            'config' . DS . 'no_existing.php',
-            true
-        );
-        $this->assertFalse($result);
+        $this->assertFalse(Plugin::path(ME_TOOLS, 'config' . DS . 'no_existing.php', true));
 
-        $result = Plugin::path('MeTools', [
-            'config' . DS . 'bootstrap.php',
-            'config' . DS . 'no_existing.php',
-        ]);
         $expected = [
             ROOT . 'config' . DS . 'bootstrap.php',
             ROOT . 'config' . DS . 'no_existing.php',
         ];
+        $result = Plugin::path(ME_TOOLS, [
+            'config' . DS . 'bootstrap.php',
+            'config' . DS . 'no_existing.php',
+        ]);
         $this->assertEquals($expected, $result);
 
         //Only the first file exists
-        $result = Plugin::path('MeTools', [
+        $expected = [ROOT . 'config' . DS . 'bootstrap.php'];
+        $result = Plugin::path(ME_TOOLS, [
             'config' . DS . 'bootstrap.php',
             'config' . DS . 'no_existing.php',
         ], true);
-        $expected = [ROOT . 'config' . DS . 'bootstrap.php'];
         $this->assertEquals($expected, $result);
 
         //No existing files
-        $result = Plugin::path('MeTools', [
+        $result = Plugin::path(ME_TOOLS, [
             'config' . DS . 'no_existing.php',
             'config' . DS . 'no_existing2.php',
         ], true);

@@ -1,29 +1,19 @@
 <?php
 /**
- * This file is part of MeTools.
+ * This file is part of me-tools.
  *
- * MeTools is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Affero General Public License as
- * published by the Free Software Foundation, either version 3 of the
- * License, or (at your option) any later version.
+ * Licensed under The MIT License
+ * For full copyright and license information, please see the LICENSE.txt
+ * Redistributions of files must retain the above copyright notice.
  *
- * MeTools is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Affero General Public License for more details.
- *
- * You should have received a copy of the GNU Affero General Public License
- * along with MeTools.  If not, see <http://www.gnu.org/licenses/>.
- *
- * @author      Mirko Pagliai <mirko.pagliai@gmail.com>
- * @copyright   Copyright (c) 2016, Mirko Pagliai for Nova Atlantis Ltd
- * @license     http://www.gnu.org/licenses/agpl.txt AGPL License
- * @link        http://git.novatlantis.it Nova Atlantis Ltd
+ * @copyright   Copyright (c) Mirko Pagliai
+ * @link        https://github.com/mirko-pagliai/me-tools
+ * @license     https://opensource.org/licenses/mit-license.php MIT License
  */
 namespace MeTools\Test\TestCase\View\Helper;
 
-use Cake\TestSuite\TestCase;
 use Cake\View\View;
+use MeTools\TestSuite\TestCase;
 use MeTools\View\Helper\PaginatorHelper;
 
 /**
@@ -31,6 +21,11 @@ use MeTools\View\Helper\PaginatorHelper;
  */
 class PaginatorHelperTest extends TestCase
 {
+    /**
+     * @var \MeTools\View\Helper\PaginatorHelper
+     */
+    protected $Paginator;
+
     /**
      * Setup the test case, backup the static object values so they can be
      * restored. Specifically backs up the contents of Configure and paths in
@@ -41,43 +36,28 @@ class PaginatorHelperTest extends TestCase
     {
         parent::setUp();
 
-        $this->View = new View();
-        $this->Paginator = new PaginatorHelper($this->View);
-    }
-
-    /**
-     * Teardown any static object changes and restore them
-     * @return void
-     */
-    public function tearDown()
-    {
-        parent::tearDown();
-
-        unset($this->Paginator, $this->View);
+        $this->Paginator = new PaginatorHelper(new View());
     }
 
     /**
      * Tests for `next()` method
-     * @return void
      * @test
      */
     public function testNext()
     {
-        $result = $this->Paginator->next('Next');
         $expected = [
-            'li' => ['class' => 'next disabled'],
-            'a' => ['href' => '', 'onclick' => 'return false;'],
+            'li' => ['class' => 'next page-item disabled'],
+            'a' => ['class' => 'page-link', 'href' => '', 'onclick' => 'return false;'],
             'Next',
             '/a',
             '/li',
         ];
-        $this->assertHtml($expected, $result);
+        $this->assertHtml($expected, $this->Paginator->next('Next'));
 
         //Using `icon` option
-        $result = $this->Paginator->next('Next', ['icon' => 'chevron-right']);
         $expected = [
-            'li' => ['class' => 'next disabled'],
-            'a' => ['href' => '', 'onclick' => 'return false;'],
+            'li' => ['class' => 'next page-item disabled'],
+            'a' => ['class' => 'page-link', 'href' => '', 'onclick' => 'return false;'],
             'Next',
             ' ',
             'i' => ['class' => 'fa fa-chevron-right'],
@@ -86,31 +66,28 @@ class PaginatorHelperTest extends TestCase
             '/a',
             '/li',
         ];
-        $this->assertHtml($expected, $result);
+        $this->assertHtml($expected, $this->Paginator->next('Next', ['icon' => 'chevron-right']));
     }
 
     /**
      * Tests for `prev()` method
-     * @return void
      * @test
      */
     public function testPrev()
     {
-        $result = $this->Paginator->prev('Previous');
         $expected = [
-            'li' => ['class' => 'prev disabled'],
-            'a' => ['href' => '', 'onclick' => 'return false;'],
+            'li' => ['class' => 'prev page-item disabled'],
+            'a' => ['class' => 'page-link', 'href' => '', 'onclick' => 'return false;'],
             'Previous',
             '/a',
             '/li',
         ];
-        $this->assertHtml($expected, $result);
+        $this->assertHtml($expected, $this->Paginator->prev('Previous'));
 
         //Using `icon` option
-        $result = $this->Paginator->prev('Previous', ['icon' => 'chevron-left']);
         $expected = [
-            'li' => ['class' => 'prev disabled'],
-            'a' => ['href' => '', 'onclick' => 'return false;'],
+            'li' => ['class' => 'prev page-item disabled'],
+            'a' => ['class' => 'page-link', 'href' => '', 'onclick' => 'return false;'],
             'i' => ['class' => 'fa fa-chevron-left'],
             ' ',
             '/i',
@@ -119,6 +96,6 @@ class PaginatorHelperTest extends TestCase
             '/a',
             '/li',
         ];
-        $this->assertHtml($expected, $result);
+        $this->assertHtml($expected, $this->Paginator->prev('Previous', ['icon' => 'chevron-left']));
     }
 }
