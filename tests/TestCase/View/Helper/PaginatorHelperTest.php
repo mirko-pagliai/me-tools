@@ -60,7 +60,7 @@ class PaginatorHelperTest extends TestCase
             'a' => ['class' => 'page-link', 'href' => '', 'onclick' => 'return false;'],
             'Next',
             ' ',
-            'i' => ['class' => 'fa fa-chevron-right'],
+            'i' => ['class' => 'fas fa-chevron-right'],
             ' ',
             '/i',
             '/a',
@@ -88,7 +88,7 @@ class PaginatorHelperTest extends TestCase
         $expected = [
             'li' => ['class' => 'prev page-item disabled'],
             'a' => ['class' => 'page-link', 'href' => '', 'onclick' => 'return false;'],
-            'i' => ['class' => 'fa fa-chevron-left'],
+            'i' => ['class' => 'fas fa-chevron-left'],
             ' ',
             '/i',
             ' ',

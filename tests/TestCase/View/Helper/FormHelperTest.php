@@ -63,7 +63,7 @@ class FormHelperTest extends TestCase
 
         $expected = [
             'button' => ['type' => 'button', 'class' => 'btn btn-primary'],
-            'i' => ['class' => 'fa fa-home'],
+            'i' => ['class' => 'fas fa-home'],
             ' ',
             '/i',
             ' ',
@@ -589,7 +589,7 @@ class FormHelperTest extends TestCase
 
         $expected = [
             'label' => ['for' => 'my-fieldname'],
-            'i' => ['class' => 'fa fa-home'],
+            'i' => ['class' => 'fas fa-home'],
             ' ',
             '/i',
             ' ',
@@ -637,7 +637,7 @@ class FormHelperTest extends TestCase
             'input' => ['type' => 'hidden', 'name' => '_method', 'value' => 'POST'],
             '/form',
             'a' => ['href' => '#', 'role' => 'button', 'class' => 'btn btn-secondary', 'title' => $title, 'onclick'],
-            'i' => ['class' => 'fa fa-home'],
+            'i' => ['class' => 'fas fa-home'],
             ' ',
             '/i',
             ' ',
@@ -687,7 +687,7 @@ class FormHelperTest extends TestCase
             'input' => ['type' => 'hidden', 'name' => '_method', 'value' => 'POST'],
             '/form',
             'a' => ['href' => '#', 'title' => $title, 'onclick'],
-            'i' => ['class' => 'fa fa-home'],
+            'i' => ['class' => 'fas fa-home'],
             ' ',
             '/i',
             ' ',
@@ -833,7 +833,7 @@ class FormHelperTest extends TestCase
 
         $expected = [
             'button' => ['type' => 'submit', 'class' => 'btn btn-success'],
-            'i' => ['class' => 'fa fa-home'],
+            'i' => ['class' => 'fas fa-home'],
             ' ',
             '/i',
             ' ',

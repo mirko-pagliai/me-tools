@@ -60,7 +60,11 @@ form input + .input-group-addon button {
 }
 
 /* Input groups, buttons, icons */
-form input + .input-group-addon button .fa {
+form input + .input-group-addon button .fa,
+form input + .input-group-addon button .fab,
+form input + .input-group-addon button .fal,
+form input + .input-group-addon button .far,
+form input + .input-group-addon button .fas {
     font-size: .75rem;
 }
 
