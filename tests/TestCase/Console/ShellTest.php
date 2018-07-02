@@ -140,7 +140,7 @@ class ShellTest extends TestCase
         //Creates the directory
         $this->assertTrue($this->Shell->createDir($dir));
         $this->assertFileExists($dir);
-        $this->assertEquals('0777', substr(sprintf('%o', fileperms($dir)), -4));
+        $this->assertFilePerms($dir, '0777');
 
         $this->assertEquals([
             'File or directory `' . TMP . '` already exists',
@@ -221,7 +221,7 @@ class ShellTest extends TestCase
     {
         //Set chmod
         $this->assertTrue($this->Shell->folderChmod($this->exampleDir, 0777));
-        $this->assertEquals('0777', substr(sprintf('%o', fileperms($this->exampleDir)), -4));
+        $this->assertFilePerms($this->exampleDir, '0777');
 
         //Tries to set chmod for a no existing directory
         $this->assertFalse($this->Shell->folderChmod(DS . 'noExistingDir', 0777));

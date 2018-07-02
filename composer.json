@@ -14,10 +14,9 @@
     "require": {
         "php": ">=5.5.9",
         "cakephp/cakephp": ">=3.6 <4",
-        "ext-mcrypt": "*",
         "components/jquery": "^3.3",
         "mirko-pagliai/cakephp-assets": ">=1.1.6 <1.3",
-        "mirko-pagliai/php-tools": ">=1.0.8 <1.1",
+        "mirko-pagliai/php-tools": ">=1.0.9 <1.1",
         "twbs/bootstrap": "v4.0.*"
     },
     "require-dev": {
