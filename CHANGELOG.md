@@ -1,4 +1,9 @@
 # 2.x branch
+## 2.17 branch
+### 2.17.0
+* updated Font Awesome to 5.1. So the `InstallShell::copyFonts()` method has
+    been removed and the `webroot/fonts` directory no longer exists.
+
 ## 2.16 branch
 ### 2.16.10
 * `UploaderComponent::error()` renamed as `getError()`;

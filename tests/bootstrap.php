@@ -45,7 +45,6 @@ safe_mkdir(CACHE);
 safe_mkdir(CACHE . 'views');
 safe_mkdir(CACHE . 'models');
 safe_mkdir(UPLOADS);
-safe_mkdir(WWW_ROOT . 'fonts');
 
 require CORE_PATH . 'config' . DS . 'bootstrap.php';
 

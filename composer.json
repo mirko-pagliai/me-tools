@@ -22,8 +22,8 @@
     "require-dev": {
         "cakephp/cakephp-codesniffer": "^3.0",
         "eonasdan/bootstrap-datetimepicker": "*",
-        "fortawesome/font-awesome": "*",
         "newerton/fancy-box": "dev-master",
+        "npm-asset/fortawesome--fontawesome-free": "^5.1",
         "phpunit/phpunit": "^5.7|^6.0"
     },
     "suggest": {
@@ -31,6 +31,12 @@
         "fortawesome/font-awesome": "To use Font Awesome's icons",
         "newerton/fancy-box": "To show photos with fancybox"
     },
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://asset-packagist.org"
+        }
+    ],
     "autoload": {
         "psr-4": {
             "MeTools\\": "src"

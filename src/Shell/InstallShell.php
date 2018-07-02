@@ -23,17 +23,6 @@ use MeTools\Console\Shell;
 class InstallShell extends Shell
 {
     /**
-     * Fonts for which create symbolic links
-     * @var array
-     */
-    protected $fonts = [
-        'fortawesome' . DS . 'font-awesome' . DS . 'fonts' . DS . 'fontawesome-webfont.eot',
-        'fortawesome' . DS . 'font-awesome' . DS . 'fonts' . DS . 'fontawesome-webfont.ttf',
-        'fortawesome' . DS . 'font-awesome' . DS . 'fonts' . DS . 'fontawesome-webfont.woff',
-        'fortawesome' . DS . 'font-awesome' . DS . 'fonts' . DS . 'fontawesome-webfont.woff2',
-    ];
-
-    /**
      * Assets for which create symbolic links.
      * The key must be relative to `vendor/` and the value must be relative
      *  to `webroot/vendor/`
@@ -43,8 +32,8 @@ class InstallShell extends Shell
         'eonasdan' . DS . 'bootstrap-datetimepicker' . DS . 'build' => 'bootstrap-datetimepicker',
         'components' . DS . 'jquery' => 'jquery',
         'components' . DS . 'moment' . DS . 'min' => 'moment',
-        'fortawesome' . DS . 'font-awesome' => 'font-awesome',
         'newerton' . DS . 'fancy-box' . DS . 'source' => 'fancybox',
+        'npm-asset' . DS . 'fortawesome--fontawesome-free' => 'font-awesome',
         'twbs' . DS . 'bootstrap' . DS . 'dist' => 'bootstrap',
     ];
 
@@ -62,7 +51,6 @@ class InstallShell extends Shell
         TMP . 'sessions',
         TMP . 'tests',
         WWW_ROOT . 'files',
-        WWW_ROOT . 'fonts',
         WWW_ROOT . 'vendor',
     ];
 
@@ -112,11 +100,6 @@ class InstallShell extends Shell
                 'default' => 'Y',
                 'method' => 'createVendorsLinks',
             ],
-            [
-                'question' => __d('me_tools', 'Create symbolic links for fonts?'),
-                'default' => 'Y',
-                'method' => 'copyFonts',
-            ],
         ];
     }
 
@@ -143,22 +126,6 @@ class InstallShell extends Shell
             if ($toBeExecuted) {
                 call_user_func([$this, $method]);
             }
-        }
-    }
-
-    /**
-     * Creates symbolic links for fonts
-     * @return void
-     * @uses $fonts
-     * @uses MeTools\Console\Shell::createLink()
-     */
-    public function copyFonts()
-    {
-        foreach ($this->fonts as $origin) {
-            $this->createLink(
-                ROOT . DS . 'vendor' . DS . $origin,
-                WWW_ROOT . 'fonts' . DS . basename($origin)
-            );
         }
     }
 
@@ -282,7 +249,6 @@ class InstallShell extends Shell
         $parser = parent::getOptionParser();
 
         $parser->addSubcommand('all', ['help' => __d('me_tools', 'Executes all available tasks')]);
-        $parser->addSubcommand('copyFonts', ['help' => __d('me_tools', 'Creates symbolic links for fonts')]);
         $parser->addSubcommand('createDirectories', ['help' => __d('me_tools', 'Creates default directories')]);
         $parser->addSubcommand('createPluginsLinks', ['help' => __d('me_tools', 'Creates symbolic links for plugins assets')]);
         $parser->addSubcommand('createRobots', ['help' => __d('me_tools', 'Creates the {0} file', 'robots.txt')]);
