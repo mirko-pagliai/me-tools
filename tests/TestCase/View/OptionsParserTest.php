@@ -144,7 +144,7 @@ class OptionsParserTest extends TestCase
         $this->OptionsParser = new OptionsParser;
         $result = $this->OptionsParser->addButtonClasses();
         $this->assertInstanceOf('MeTools\View\OptionsParser', $result);
-        $this->assertEquals('btn btn-secondary', $this->OptionsParser->get('class'));
+        $this->assertEquals('btn btn-light', $this->OptionsParser->get('class'));
 
         $this->OptionsParser = new OptionsParser;
         $this->OptionsParser->addButtonClasses('primary');
