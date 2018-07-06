@@ -46,26 +46,12 @@ form div.required > label:after {
 }
 
 /* -------------------------------- */
-/*           Input group            */
-/* -------------------------------- */
-/* Input groups */
-form input + .input-group-addon {
-    padding: 0;
-}
-
-/* Input groups, buttons */
-form input + .input-group-addon button {
-    border-radius: 0;
-    padding: .5rem .75rem;
-}
-
-/* Input groups, buttons, icons */
-form input + .input-group-addon button .fa,
-form input + .input-group-addon button .fab,
-form input + .input-group-addon button .fal,
-form input + .input-group-addon button .far,
-form input + .input-group-addon button .fas {
-    font-size: .75rem;
+/*           Button addons          */
+/* -------------------------------- */ù
+/* Button addons, buttons */
+form input + .input-group-append .btn,
+form input + .input-group-prepend .btn {
+    border: 1px solid #ced4da;
 }
 
 /* -------------------------------- */
