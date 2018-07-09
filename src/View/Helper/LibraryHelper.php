@@ -61,13 +61,13 @@ class LibraryHelper extends Helper
 
         $options = optionsParser($options, [
             'icons' => [
-                'time' => 'fas fa-clock-o',
+                'time' => 'fas fa-clock',
                 'date' => 'fas fa-calendar',
                 'up' => 'fas fa-chevron-up',
                 'down' => 'fas fa-chevron-down',
                 'previous' => 'fas fa-chevron-left',
                 'next' => 'fas fa-chevron-right',
-                'today' => 'fas fa-dot-circle-o',
+                'today' => 'fas fa-dot-circle',
                 'clear' => 'fas fa-trash',
                 'close' => 'fas fa-times',
             ],
