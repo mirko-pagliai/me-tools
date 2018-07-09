@@ -124,7 +124,7 @@ class OptionsParser
      * @uses append()
      * @uses get()
      */
-    public function addButtonClasses($classes = 'btn-secondary')
+    public function addButtonClasses($classes = 'btn-light')
     {
         $baseClasses = [ 'primary', 'secondary', 'success', 'danger', 'warning',
             'info', 'light', 'dark', 'link'];

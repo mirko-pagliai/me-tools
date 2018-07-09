@@ -95,7 +95,7 @@ class HtmlHelperTest extends TestCase
 
         $options = optionsParser(['icon' => 'home']);
         list($result, $options) = $this->Html->addIconToText($text, $options);
-        $this->assertEquals('<i class="fa fa-home"> </i> ' . $text, $result);
+        $this->assertEquals('<i class="fas fa-home"> </i> ' . $text, $result);
         $this->assertInstanceOf('MeTools\View\OptionsParser', $options);
         $this->assertFalse($options->exists('icon'));
         $this->assertFalse($options->exists('icon-align'));
@@ -112,7 +112,7 @@ class HtmlHelperTest extends TestCase
         //Empty text
         $options = optionsParser(['icon' => 'home']);
         list($result, $options) = $this->Html->addIconToText(null, $options);
-        $this->assertEquals('<i class="fa fa-home"> </i>', $result);
+        $this->assertEquals('<i class="fas fa-home"> </i>', $result);
         $this->assertInstanceOf('MeTools\View\OptionsParser', $options);
         $this->assertFalse($options->exists('icon'));
         $this->assertFalse($options->exists('icon-align'));
@@ -120,7 +120,7 @@ class HtmlHelperTest extends TestCase
         //Using `icon-align` option
         $options = optionsParser(['icon' => 'home', 'icon-align' => 'right']);
         list($result, $options) = $this->Html->addIconToText($text, $options);
-        $this->assertEquals($text . ' <i class="fa fa-home"> </i>', $result);
+        $this->assertEquals($text . ' <i class="fas fa-home"> </i>', $result);
         $this->assertInstanceOf('MeTools\View\OptionsParser', $options);
         $this->assertFalse($options->exists('icon'));
         $this->assertFalse($options->exists('icon-align'));
@@ -128,7 +128,7 @@ class HtmlHelperTest extends TestCase
         //Invalid `icon-align` option
         $options = optionsParser(['icon' => 'home', 'icon-align' => 'left']);
         list($result, $options) = $this->Html->addIconToText($text, $options);
-        $this->assertEquals('<i class="fa fa-home"> </i> ' . $text, $result);
+        $this->assertEquals('<i class="fas fa-home"> </i> ' . $text, $result);
         $this->assertInstanceOf('MeTools\View\OptionsParser', $options);
         $this->assertFalse($options->exists('icon'));
         $this->assertFalse($options->exists('icon-align'));
@@ -167,7 +167,7 @@ class HtmlHelperTest extends TestCase
 
         $expected = [
             'button' => [
-                'class' => 'btn btn-secondary',
+                'class' => 'btn btn-light',
                 'role' => 'button',
                 'title' => $text,
             ],
@@ -178,7 +178,7 @@ class HtmlHelperTest extends TestCase
 
         $expected = [
             'button' => [
-                'class' => 'btn btn-secondary',
+                'class' => 'btn btn-light',
                 'role' => 'button',
                 'title' => 'my-custom-title',
             ],
@@ -189,7 +189,7 @@ class HtmlHelperTest extends TestCase
 
         $expected = [
             'button' => [
-                'class' => 'btn btn-secondary my-class',
+                'class' => 'btn btn-light my-class',
                 'role' => 'button',
                 'title' => $text,
              ],
@@ -212,7 +212,7 @@ class HtmlHelperTest extends TestCase
         $expected = [
             'button' => [
                 'role' => 'button',
-                'class' => 'btn btn-secondary',
+                'class' => 'btn btn-light',
                 'data-toggle' => 'tooltip',
                 'title' => 'my tooltip',
             ],
@@ -225,7 +225,7 @@ class HtmlHelperTest extends TestCase
         $expected = [
             'button' => [
                 'role' => 'button',
-                'class' => 'btn btn-secondary',
+                'class' => 'btn btn-light',
                 'data-toggle' => 'tooltip',
                 'title' => 'my tooltip',
             ],
@@ -242,10 +242,10 @@ class HtmlHelperTest extends TestCase
         $expected = [
             'button' => [
                 'role' => 'button',
-                'class' => 'btn btn-secondary',
+                'class' => 'btn btn-light',
                 'title' => $text,
              ],
-            'i' => ['class' => 'fa fa-home'],
+            'i' => ['class' => 'fas fa-home'],
             ' ',
             '/i',
             ' ',
@@ -258,7 +258,7 @@ class HtmlHelperTest extends TestCase
         $expected = [
             'button' => [
                 'role' => 'button',
-                'class' => 'btn btn-secondary',
+                'class' => 'btn btn-light',
                 'title' => 'Single quote &#039;',
             ],
             'Single quote \'',
@@ -270,7 +270,7 @@ class HtmlHelperTest extends TestCase
         $expected = [
             'button' => [
                 'role' => 'button',
-                'class' => 'btn btn-secondary',
+                'class' => 'btn btn-light',
                 'title' => 'Double quote &quot;',
              ],
             'Double quote "',
@@ -282,7 +282,7 @@ class HtmlHelperTest extends TestCase
         $expected = [
             'button' => [
                 'role' => 'button',
-                'class' => 'btn btn-secondary',
+                'class' => 'btn btn-light',
                 'title' => 'Single quote &#039;',
             ],
             $text,
@@ -295,7 +295,7 @@ class HtmlHelperTest extends TestCase
             'button' => [
                 'title' => 'Double quote &quot;',
                 'role' => 'button',
-                'class' => 'btn btn-secondary',
+                'class' => 'btn btn-light',
             ],
             $text,
             '/button',
@@ -306,7 +306,7 @@ class HtmlHelperTest extends TestCase
         $expected = [
             'button' => [
                 'role' => 'button',
-                'class' => 'btn btn-secondary',
+                'class' => 'btn btn-light',
                 'title' => 'Code and text',
             ],
             'u' => true,
@@ -320,7 +320,7 @@ class HtmlHelperTest extends TestCase
         //Code on custom title
         $expected = [
             'button' => [
-                'class' => 'btn btn-secondary',
+                'class' => 'btn btn-light',
                 'role' => 'button',
                 'title' => 'Code and text'
             ],
@@ -340,7 +340,7 @@ class HtmlHelperTest extends TestCase
 
         $expected = [
             'a' => [
-                'class' => 'btn btn-secondary',
+                'class' => 'btn btn-light',
                 'href' => '#',
                 'role' => 'button',
                 'title' => $text,
@@ -352,7 +352,7 @@ class HtmlHelperTest extends TestCase
 
         $expected = [
             'a' => [
-                'class' => 'btn btn-secondary my-class',
+                'class' => 'btn btn-light my-class',
                 'href' => '#',
                 'role' => 'button',
                 'title' => $text,
@@ -376,7 +376,7 @@ class HtmlHelperTest extends TestCase
 
         $expected = [
             'a' => [
-                'class' => 'btn btn-secondary',
+                'class' => 'btn btn-light',
                 'href' => '#',
                 'role' => 'button',
                 'data-toggle' => 'tooltip',
@@ -390,7 +390,7 @@ class HtmlHelperTest extends TestCase
         // `tooltip` value rewrites `title` value
         $expected = [
             'a' => [
-                'class' => 'btn btn-secondary',
+                'class' => 'btn btn-light',
                 'href' => '#',
                 'role' => 'button',
                 'data-toggle' => 'tooltip',
@@ -404,12 +404,12 @@ class HtmlHelperTest extends TestCase
 
         $expected = [
             'a' => [
-                'class' => 'btn btn-secondary',
+                'class' => 'btn btn-light',
                 'href' => '#',
                 'role' => 'button',
                 'title' => $text,
             ],
-            'i' => ['class' => 'fa fa-home'],
+            'i' => ['class' => 'fas fa-home'],
             ' ',
             '/i',
             ' ',
@@ -509,7 +509,7 @@ class HtmlHelperTest extends TestCase
 
         $expected = [
             'div' => ['class' => 'my-class', 'id' => 'my-id'],
-            'i' => ['class' => 'fa fa-home'],
+            'i' => ['class' => 'fas fa-home'],
             ' ',
             '/i',
             ' ',
@@ -599,7 +599,7 @@ class HtmlHelperTest extends TestCase
     public function testIcons()
     {
         $expected = [
-            'i' => ['class' => 'fa fa-home'],
+            'i' => ['class' => 'preg:/(fa|fab|fal|far|fas) fa\-home/'],
             ' ',
             '/i',
         ];
@@ -608,17 +608,22 @@ class HtmlHelperTest extends TestCase
             'home',
             'fa-home',
             'fa home',
+            'fas home',
+            'fab home',
+            'fal home',
+            'far home',
+            'fas home',
             'fa fa-home',
             ['home'],
             ['fa', 'home'],
+            ['fas', 'home']
         ] as $icons) {
             $this->assertHtml($expected, $this->Html->icon($icons));
         }
-
         $this->assertHtml($expected, $this->Html->icon('fa', 'fa-home'));
 
         $expected = [
-            'i' => ['class' => 'fa fa-2x fa-hand-o-right'],
+            'i' => ['class' => 'fas fa-hand-o-right fa-2x'],
             ' ',
             '/i',
         ];
@@ -629,7 +634,6 @@ class HtmlHelperTest extends TestCase
         ] as $icons) {
             $this->assertHtml($expected, $this->Html->icon($icons));
         }
-
         $this->assertHtml($expected, $this->Html->icon('hand-o-right', '2x'));
     }
 
@@ -793,7 +797,7 @@ class HtmlHelperTest extends TestCase
 
         $expected = [
             'li' => true,
-            'i' => ['class' => 'fa fa-home'],
+            'i' => ['class' => 'fas fa-home'],
             ' ',
             '/i',
             ' ',
@@ -826,14 +830,14 @@ class HtmlHelperTest extends TestCase
 
         $expected = [
             ['li' => true],
-            ['i' => ['class' => 'fa fa-home']],
+            ['i' => ['class' => 'fas fa-home']],
             ' ',
             '/i',
             ' ',
             'first-value',
             '/li',
             ['li' => true],
-            ['i' => ['class' => 'fa fa-home']],
+            ['i' => ['class' => 'fas fa-home']],
             ' ',
             '/i',
             ' ',
@@ -861,7 +865,7 @@ class HtmlHelperTest extends TestCase
 
         $expected = [
             'a' => ['href' => 'http://link', 'title' => $title],
-            'i' => ['class' => 'fa fa-home'],
+            'i' => ['class' => 'fas fa-home'],
             ' ',
             '/i',
             ' ',
@@ -874,7 +878,7 @@ class HtmlHelperTest extends TestCase
             'a' => ['href' => '#', 'title' => $title],
             $title,
             ' ',
-            'i' => ['class' => 'fa fa-home'],
+            'i' => ['class' => 'fas fa-home'],
             ' ',
             '/i',
             '/a',
@@ -1034,14 +1038,14 @@ class HtmlHelperTest extends TestCase
         $expected = [
             'ul' => ['class' => 'fa-ul'],
             ['li' => true],
-            ['i' => ['class' => 'fa fa-home fa-li']],
+            ['i' => ['class' => 'fas fa-home fa-li']],
             ' ',
             '/i',
             ' ',
             'first',
             '/li',
             ['li' => true],
-            ['i' => ['class' => 'fa fa-home fa-li']],
+            ['i' => ['class' => 'fas fa-home fa-li']],
             ' ',
             '/i',
             ' ',
@@ -1058,14 +1062,14 @@ class HtmlHelperTest extends TestCase
         $expected = [
             'ul' => ['class' => 'fa-ul list-class'],
             ['li' => ['class' => 'item-class']],
-            ['i' => ['class' => 'fa fa-home fa-li']],
+            ['i' => ['class' => 'fas fa-home fa-li']],
             ' ',
             '/i',
             ' ',
             'first',
             '/li',
             ['li' => ['class' => 'item-class']],
-            ['i' => ['class' => 'fa fa-home fa-li']],
+            ['i' => ['class' => 'fas fa-home fa-li']],
             ' ',
             '/i',
             ' ',
@@ -1125,7 +1129,7 @@ class HtmlHelperTest extends TestCase
 
         $expected = [
             'p' => ['class' => 'my-class', 'id' => 'my-id'],
-            'i' => ['class' => 'fa fa-home'],
+            'i' => ['class' => 'fas fa-home'],
             ' ',
             '/i',
             ' ',
@@ -1246,7 +1250,7 @@ class HtmlHelperTest extends TestCase
 
         $expected = [
             'h3' => ['class' => '$class'],
-            'i' => ['class' => 'fa fa-home'],
+            'i' => ['class' => 'fas fa-home'],
             ' ',
             '/i',
             ' ',
@@ -1259,7 +1263,7 @@ class HtmlHelperTest extends TestCase
             'h3' => ['class' => '$class'],
             $text,
             ' ',
-            'i' => ['class' => 'fa fa-home'],
+            'i' => ['class' => 'fas fa-home'],
             ' ',
             '/i',
             '/h3',

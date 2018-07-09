@@ -55,11 +55,12 @@ class HtmlHelper extends CakeHtmlHelper
     {
         //Prepends the string "fa-" to any other class
         $icon = preg_replace('/(?<![^ ])(?=[^ ])(?!fa)/', 'fa-', $icon);
-
         $icon = !is_array($icon) ? preg_split('/\s+/', $icon, -1, PREG_SPLIT_NO_EMPTY) : $icon;
 
-        //Adds the "fa" class
-        array_unshift($icon, 'fa');
+        //Adds the "fa" class, if no other "basic" class is present
+        if (!count(array_intersect(['fa', 'fab', 'fal', 'far', 'fas'], $icon))) {
+            array_unshift($icon, 'fas');
+        }
 
         return implode(' ', array_unique($icon));
     }
@@ -270,7 +271,7 @@ class HtmlHelper extends CakeHtmlHelper
      * </code>
      * Returns:
      * <code>
-     * <i class="fa fa-home"> </i>
+     * <i class="fas fa-home"> </i>
      * </code>
      *
      * Example:
@@ -279,19 +280,22 @@ class HtmlHelper extends CakeHtmlHelper
      * </code>
      * Returns:
      * <code>
-     * <i class="fa fa-hand-o-right fa-2x"> </i>
+     * <i class="fas fa-hand-o-right fa-2x"> </i>
      * </code>
      * @param string|array $icon Icons. You can also pass multiple arguments
      * @return string
      * @see http://fortawesome.github.io/Font-Awesome Font Awesome icons
      * @uses buildIconClasses()
-     * @uses tag()
      */
     public function icon($icon)
     {
         $icon = func_num_args() > 1 ? func_get_args() : $icon;
 
-        return self::tag('i', ' ', ['class' => $this->buildIconClasses($icon)]);
+        return $this->formatTemplate('tag', [
+            'attrs' => $this->templater()->formatAttributes(['class' => $this->buildIconClasses($icon)]),
+            'content' => ' ',
+            'tag' => 'i',
+        ]);
     }
 
     /**

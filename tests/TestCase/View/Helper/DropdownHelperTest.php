@@ -116,7 +116,7 @@ class DropdownHelperTest extends TestCase
                 'data-toggle' => 'dropdown',
                 'title' => $text,
             ]],
-            ['i' => ['class' => 'fa fa-home']],
+            ['i' => ['class' => 'fas fa-home']],
             ' ',
             '/i',
             ' ',

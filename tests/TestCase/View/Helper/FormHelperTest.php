@@ -63,7 +63,7 @@ class FormHelperTest extends TestCase
 
         $expected = [
             'button' => ['type' => 'button', 'class' => 'btn btn-primary'],
-            'i' => ['class' => 'fa fa-home'],
+            'i' => ['class' => 'fas fa-home'],
             ' ',
             '/i',
             ' ',
@@ -209,7 +209,7 @@ class FormHelperTest extends TestCase
             ['div' => ['class' => 'input-group']],
             'input' => ['type' => 'text', 'name' => $field, 'class' => 'form-control', 'id' => $field],
             ['div' => ['class' => 'input-group-append']],
-            'button' => ['role' => 'button', 'class' => 'btn btn-secondary', 'title' => 'My button'],
+            'button' => ['role' => 'button', 'class' => 'btn btn-light', 'title' => 'My button'],
             'My button',
             '/button',
             '/div',
@@ -589,7 +589,7 @@ class FormHelperTest extends TestCase
 
         $expected = [
             'label' => ['for' => 'my-fieldname'],
-            'i' => ['class' => 'fa fa-home'],
+            'i' => ['class' => 'fas fa-home'],
             ' ',
             '/i',
             ' ',
@@ -626,7 +626,7 @@ class FormHelperTest extends TestCase
             'form' => ['name', 'style' => 'display:none;', 'method' => 'post', 'action' => $url],
             'input' => ['type' => 'hidden', 'name' => '_method', 'value' => 'POST'],
             '/form',
-            'a' => ['href' => '#', 'role' => 'button', 'class' => 'btn btn-secondary', 'title' => $title, 'onclick'],
+            'a' => ['href' => '#', 'role' => 'button', 'class' => 'btn btn-light', 'title' => $title, 'onclick'],
             $title,
             '/a',
         ];
@@ -636,8 +636,8 @@ class FormHelperTest extends TestCase
             'form' => ['name', 'style' => 'display:none;', 'method' => 'post', 'action' => $url],
             'input' => ['type' => 'hidden', 'name' => '_method', 'value' => 'POST'],
             '/form',
-            'a' => ['href' => '#', 'role' => 'button', 'class' => 'btn btn-secondary', 'title' => $title, 'onclick'],
-            'i' => ['class' => 'fa fa-home'],
+            'a' => ['href' => '#', 'role' => 'button', 'class' => 'btn btn-light', 'title' => $title, 'onclick'],
+            'i' => ['class' => 'fas fa-home'],
             ' ',
             '/i',
             ' ',
@@ -687,7 +687,7 @@ class FormHelperTest extends TestCase
             'input' => ['type' => 'hidden', 'name' => '_method', 'value' => 'POST'],
             '/form',
             'a' => ['href' => '#', 'title' => $title, 'onclick'],
-            'i' => ['class' => 'fa fa-home'],
+            'i' => ['class' => 'fas fa-home'],
             ' ',
             '/i',
             ' ',
@@ -833,7 +833,7 @@ class FormHelperTest extends TestCase
 
         $expected = [
             'button' => ['type' => 'submit', 'class' => 'btn btn-success'],
-            'i' => ['class' => 'fa fa-home'],
+            'i' => ['class' => 'fas fa-home'],
             ' ',
             '/i',
             ' ',

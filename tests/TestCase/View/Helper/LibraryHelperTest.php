@@ -33,6 +33,11 @@ class LibraryHelperTest extends TestCase
     protected $View;
 
     /**
+     * @var array
+     */
+    protected $expectedDatepickerIcons;
+
+    /**
      * Setup the test case, backup the static object values so they can be
      * restored. Specifically backs up the contents of Configure and paths in
      *  App if they have not already been backed up
@@ -44,6 +49,18 @@ class LibraryHelperTest extends TestCase
 
         $this->View = new View;
         $this->Library = new LibraryHelper($this->View);
+
+        $this->expectedDatepickerIcons = [
+            'time' => 'fas fa-clock',
+            'date' => 'fas fa-calendar',
+            'up' => 'fas fa-chevron-up',
+            'down' => 'fas fa-chevron-down',
+            'previous' => 'fas fa-chevron-left',
+            'next' => 'fas fa-chevron-right',
+            'today' => 'fas fa-dot-circle',
+            'clear' => 'fas fa-trash',
+            'close' => 'fas fa-times',
+        ];
     }
 
     /**
@@ -201,20 +218,10 @@ class LibraryHelperTest extends TestCase
     {
         $expected = [
             'format' => 'YYYY/MM/DD',
+            'icons' => $this->expectedDatepickerIcons,
+            'locale' => 'en',
             'showTodayButton' => true,
             'showClear' => true,
-            'icons' => [
-                    'time' => 'fa fa-clock-o',
-                    'date' => 'fa fa-calendar',
-                    'up' => 'fa fa-chevron-up',
-                    'down' => 'fa fa-chevron-down',
-                    'previous' => 'fa fa-chevron-left',
-                    'next' => 'fa fa-chevron-right',
-                    'today' => 'fa fa-dot-circle-o',
-                    'clear' => 'fa fa-trash',
-                    'close' => 'fa fa-times',
-            ],
-            'locale' => 'en',
         ];
         $this->Library->datepicker('#my-id');
         $output = $this->getProperty($this->Library, 'output');
@@ -246,20 +253,10 @@ class LibraryHelperTest extends TestCase
     public function testDatetimepicker()
     {
         $expected = [
+            'icons' => $this->expectedDatepickerIcons,
+            'locale' => 'en',
             'showTodayButton' => true,
             'showClear' => true,
-            'icons' => [
-                    'time' => 'fa fa-clock-o',
-                    'date' => 'fa fa-calendar',
-                    'up' => 'fa fa-chevron-up',
-                    'down' => 'fa fa-chevron-down',
-                    'previous' => 'fa fa-chevron-left',
-                    'next' => 'fa fa-chevron-right',
-                    'today' => 'fa fa-dot-circle-o',
-                    'clear' => 'fa fa-trash',
-                    'close' => 'fa fa-times',
-            ],
-            'locale' => 'en',
         ];
         $this->Library->datetimepicker('#my-id');
         $output = $this->getProperty($this->Library, 'output');
@@ -365,21 +362,11 @@ class LibraryHelperTest extends TestCase
     public function testTimepicker()
     {
         $expected = [
+            'icons' => $this->expectedDatepickerIcons,
+            'locale' => 'en',
             'pickTime' => false,
             'showTodayButton' => true,
             'showClear' => true,
-            'icons' => [
-                    'time' => 'fa fa-clock-o',
-                    'date' => 'fa fa-calendar',
-                    'up' => 'fa fa-chevron-up',
-                    'down' => 'fa fa-chevron-down',
-                    'previous' => 'fa fa-chevron-left',
-                    'next' => 'fa fa-chevron-right',
-                    'today' => 'fa fa-dot-circle-o',
-                    'clear' => 'fa fa-trash',
-                    'close' => 'fa fa-times',
-            ],
-            'locale' => 'en',
         ];
         $this->Library->timepicker('#my-id');
         $output = $this->getProperty($this->Library, 'output');

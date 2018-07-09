@@ -71,7 +71,6 @@ class InstallShellTest extends ConsoleIntegrationTestCase
     {
         parent::tearDown();
 
-        unlink_recursive(WWW_ROOT . 'fonts', 'empty');
         unlink_recursive(WWW_ROOT . 'vendor', 'empty');
         safe_unlink(WWW_ROOT . 'robots.txt');
         safe_unlink(TMP . 'invalid.json');
@@ -111,7 +110,6 @@ class InstallShellTest extends ConsoleIntegrationTestCase
             'fixComposerJson',
             'createPluginsLinks',
             'createVendorsLinks',
-            'copyFonts',
         ];
 
         $this->assertEquals($expectedMethodsCalledInOrder, $this->out->messages());
@@ -131,29 +129,6 @@ class InstallShellTest extends ConsoleIntegrationTestCase
     }
 
     /**
-     * Tests for `copyFonts()` method
-     * @test
-     */
-    public function testCopyFonts()
-    {
-        $files = array_map('basename', $this->InstallShell->fonts);
-
-        $this->exec('me_tools.install copy_fonts -v');
-        $this->assertExitWithSuccess();
-
-        foreach ($files as $file) {
-            $this->assertOutputContains('Link `' . rtr(WWW_ROOT) . 'fonts' . DS . $file . '` has been created');
-        }
-
-        $this->exec('me_tools.install copy_fonts -v');
-        $this->assertExitWithSuccess();
-
-        foreach ($files as $file) {
-            $this->assertOutputContains('File or directory `' . rtr(WWW_ROOT) . 'fonts' . DS . $file . '` already exists');
-        }
-    }
-
-    /**
      * Tests for `createDirectories()` method
      * @test
      */
@@ -162,7 +137,6 @@ class InstallShellTest extends ConsoleIntegrationTestCase
         foreach ([
             TMP,
             TMP . 'cache',
-            WWW_ROOT . 'fonts',
             WWW_ROOT . 'vendor',
         ] as $path) {
             safe_mkdir($path, 0777, true);
@@ -311,7 +285,6 @@ class InstallShellTest extends ConsoleIntegrationTestCase
         $this->assertInstanceOf('Cake\Console\ConsoleOptionParser', $parser);
         $this->assertArrayKeysEqual([
             'all',
-            'copy_fonts',
             'create_directories',
             'create_plugins_links',
             'create_robots',
