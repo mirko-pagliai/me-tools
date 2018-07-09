@@ -14,6 +14,7 @@ namespace MeTools\Test\TestCase\Shell;
 
 use Cake\Console\ConsoleIo;
 use Cake\TestSuite\Stub\ConsoleOutput;
+use Cake\Utility\Inflector;
 use MeTools\Shell\InstallShell;
 use MeTools\TestSuite\ConsoleIntegrationTestCase;
 
@@ -71,7 +72,7 @@ class InstallShellTest extends ConsoleIntegrationTestCase
     {
         parent::tearDown();
 
-        unlink_recursive(WWW_ROOT . 'vendor', 'empty');
+        safe_unlink_recursive(WWW_ROOT . 'vendor', 'empty');
         safe_unlink(WWW_ROOT . 'robots.txt');
         safe_unlink(TMP . 'invalid.json');
         safe_unlink(APP . 'composer.json');
@@ -283,15 +284,13 @@ class InstallShellTest extends ConsoleIntegrationTestCase
         $parser = $this->InstallShell->getOptionParser();
 
         $this->assertInstanceOf('Cake\Console\ConsoleOptionParser', $parser);
-        $this->assertArrayKeysEqual([
-            'all',
-            'create_directories',
-            'create_plugins_links',
-            'create_robots',
-            'create_vendors_links',
-            'fix_composer_json',
-            'set_permissions',
-        ], $parser->subcommands());
+
+        $expectedMethods = get_child_methods(InstallShell::class);
+        $expectedMethods = array_map([Inflector::class, 'underscore'], array_diff($expectedMethods, ['main']));
+
+        sort($expectedMethods);
+
+        $this->assertArrayKeysEqual($expectedMethods, $parser->subcommands());
         $this->assertEquals('Executes some tasks to make the system ready to work', $parser->getDescription());
         $this->assertArrayKeysEqual(['force', 'help', 'quiet', 'verbose'], $parser->options());
     }
