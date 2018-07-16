@@ -80,19 +80,23 @@ pre {
 /* -------------------------------- */
 /* Ascending and descending sort */
 th a.asc:after, th a.desc:after {
-    font-family: FontAwesome;
-    font-weight: normal;
-    white-space: nowrap;
+    font-family: "Font Awesome 5 Free";
+    display: inline-block;
+    font-style: normal;
+    font-variant: normal;
+    padding-left: .2em;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
 }
 
 /* Ascending sort */
 th a.asc:after {
-    content: " \f160";
+    content: "\f160";
 }
 
 /* Descending sort */
 th a.desc:after {
-    content: " \f161";
+    content: "\f161";
 }
 
 /* -------------------------------- */
