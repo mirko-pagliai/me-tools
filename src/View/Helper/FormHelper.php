@@ -57,6 +57,7 @@ class FormHelper extends CakeFormHelper
             'input' => '<input type="{{type}}" name="{{name}}" class="form-control"{{attrs}}/>',
             'inputError' => '<input type="{{type}}" name="{{name}}" class="form-control is-invalid"{{attrs}}/>',
             'inputContainer' => '<div class="form-group input {{type}}{{required}}">{{content}}{{help}}</div>',
+            'inputContainerError' => '<div class="form-group input {{type}}{{required}} error">{{content}}{{error}}</div>',
             'select' => '<select name="{{name}}" class="form-control"{{attrs}}>{{content}}</select>',
             'selectMultiple' => '<select name="{{name}}[]" multiple="multiple" class="form-control"{{attrs}}>{{content}}</select>',
             'textarea' => '<textarea name="{{name}}" class="form-control"{{attrs}}>{{value}}</textarea>',

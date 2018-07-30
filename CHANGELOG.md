@@ -1,8 +1,8 @@
 # 2.x branch
 ## 2.17 branch
 ### 2.17.1
-* some fixes for Font Awesome icons;
-* updated for Bootstrap 4.1.
+* updated for cakephp-assets 1.3, php-tools 1.1 and Bootstrap 4.1;
+* some fixes for Font Awesome icons.
 
 ### 2.17.0
 * updated Font Awesome to 5.1. So the `InstallShell::copyFonts()` method has
