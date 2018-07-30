@@ -28,8 +28,8 @@
     },
     "suggest": {
         "eonasdan/bootstrap-datetimepicker": "To create Bootstrap's datetime pickers",
-        "fortawesome/font-awesome": "To use Font Awesome's icons",
-        "newerton/fancy-box": "To show photos with fancybox"
+        "newerton/fancy-box": "To show photos with fancybox",
+        "npm-asset/fortawesome--fontawesome-free": "To use Font Awesome's icons"
     },
     "repositories": [
         {
