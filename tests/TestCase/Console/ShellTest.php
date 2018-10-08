@@ -233,6 +233,26 @@ class ShellTest extends TestCase
     }
 
     /**
+     * Tests for `hasParam()` method
+     * @test
+     */
+    public function testHasParam()
+    {
+        $this->Shell->params = [
+            'false' => false,
+            'null' => null,
+            'string' => 'string',
+            'true' => true,
+        ];
+
+        $this->assertTrue($this->Shell->hasParam('false'));
+        $this->assertTrue($this->Shell->hasParam('null'));
+        $this->assertTrue($this->Shell->hasParam('string'));
+        $this->assertTrue($this->Shell->hasParam('true'));
+        $this->assertFalse($this->Shell->hasParam('noExisting'));
+    }
+
+    /**
      * Tests for `out()` methods (`comment()`, `question()` and `warning()`)
      * @test
      */
