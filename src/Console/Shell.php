@@ -167,6 +167,17 @@ class Shell extends CakeShell
     }
 
     /**
+     * Checks if a param exists
+     * @param string $param Param name
+     * @return bool
+     * @since 2.17.2
+     */
+    public function hasParam($param)
+    {
+        return array_key_exists($param, $this->params);
+    }
+
+    /**
      * Convenience method for out() that wraps message between <comment /> tag
      * @param string|array|null $message A string or an array of strings to
      *  output
