@@ -1,4 +1,9 @@
 # 2.x branch
+## 2.18 branch
+### 2.18.0
+* removed `clearDir()` global function. Use instead `safe_unlink_recursive()`
+    provided by `php-tools`.
+
 ## 2.17 branch
 ### 2.17.2
 * added `Shell::hasParam()` method.
