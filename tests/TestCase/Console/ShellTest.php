@@ -245,10 +245,10 @@ class ShellTest extends TestCase
             'true' => true,
         ];
 
-        $this->assertTrue($this->Shell->hasParam('false'));
-        $this->assertTrue($this->Shell->hasParam('null'));
-        $this->assertTrue($this->Shell->hasParam('string'));
-        $this->assertTrue($this->Shell->hasParam('true'));
+        foreach (array_keys($this->Shell->params) as $param) {
+            $this->assertTrue($this->Shell->hasParam($param));
+        }
+
         $this->assertFalse($this->Shell->hasParam('noExisting'));
     }
 

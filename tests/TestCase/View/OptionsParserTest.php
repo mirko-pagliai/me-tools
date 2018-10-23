@@ -65,7 +65,7 @@ class OptionsParserTest extends TestCase
      */
     public function testDefaultProperty()
     {
-        $this->assertInstanceOf(get_class($this->OptionsParser), $this->OptionsParser->Default);
+        $this->assertInstanceOf(OptionsParser::class, $this->OptionsParser->Default);
         $this->assertSameMethods($this->OptionsParser, $this->OptionsParser->Default);
         $this->assertNull($this->OptionsParser->Default->Default);
 
@@ -112,7 +112,7 @@ class OptionsParserTest extends TestCase
     public function testAdd()
     {
         $result = $this->OptionsParser->add('newKey', 'newValue');
-        $this->assertInstanceOf('MeTools\View\OptionsParser', $result);
+        $this->assertInstanceOf(OptionsParser::class, $result);
         $this->assertEquals('newValue', $this->OptionsParser->get('newKey'));
 
         foreach ([
@@ -130,7 +130,7 @@ class OptionsParserTest extends TestCase
 
         //Array of arguments
         $result = $this->OptionsParser->add(['firstKey' => 'firstValue', 'secondKey' => 'secondValue']);
-        $this->assertInstanceOf('MeTools\View\OptionsParser', $result);
+        $this->assertInstanceOf(OptionsParser::class, $result);
         $this->assertEquals('firstValue', $this->OptionsParser->get('firstKey'));
         $this->assertEquals('secondValue', $this->OptionsParser->get('secondKey'));
     }
@@ -143,7 +143,7 @@ class OptionsParserTest extends TestCase
     {
         $this->OptionsParser = new OptionsParser;
         $result = $this->OptionsParser->addButtonClasses();
-        $this->assertInstanceOf('MeTools\View\OptionsParser', $result);
+        $this->assertInstanceOf(OptionsParser::class, $result);
         $this->assertEquals('btn btn-light', $this->OptionsParser->get('class'));
 
         $this->OptionsParser = new OptionsParser;
@@ -207,7 +207,7 @@ class OptionsParserTest extends TestCase
     public function testAppend()
     {
         $result = $this->OptionsParser->append('newKey', 'newValue');
-        $this->assertInstanceOf('MeTools\View\OptionsParser', $result);
+        $this->assertInstanceOf(OptionsParser::class, $result);
         $this->assertEquals('newValue', $this->OptionsParser->get('newKey'));
 
         //The value and the existing value are both strings
@@ -231,7 +231,7 @@ class OptionsParserTest extends TestCase
 
         //Array of arguments
         $result = $this->OptionsParser->append(['zeroAsString' => ' with string', 'zeroDotOne' => 2]);
-        $this->assertInstanceOf('MeTools\View\OptionsParser', $result);
+        $this->assertInstanceOf(OptionsParser::class, $result);
         $this->assertEquals('0 with string', $this->OptionsParser->get('zeroAsString'));
         $this->assertEquals([0.1, 2], $this->OptionsParser->get('zeroDotOne'));
     }
@@ -284,7 +284,7 @@ class OptionsParserTest extends TestCase
     public function testDelete()
     {
         $result = $this->OptionsParser->delete('class');
-        $this->assertInstanceOf('MeTools\View\OptionsParser', $result);
+        $this->assertInstanceOf(OptionsParser::class, $result);
         $this->assertFalse($this->OptionsParser->exists('class'));
 
         //This returns `true,` because it exists as the default value
@@ -294,13 +294,13 @@ class OptionsParserTest extends TestCase
 
         //Array of arguments
         $result = $this->OptionsParser->delete(['zero', 'zeroAsString']);
-        $this->assertInstanceOf('MeTools\View\OptionsParser', $result);
+        $this->assertInstanceOf(OptionsParser::class, $result);
         $this->assertFalse($this->OptionsParser->exists('zero'));
         $this->assertFalse($this->OptionsParser->exists('zeroAsString'));
 
         //Multiple arguments
         $result = $this->OptionsParser->delete('true', 'false');
-        $this->assertInstanceOf('MeTools\View\OptionsParser', $result);
+        $this->assertInstanceOf(OptionsParser::class, $result);
         $this->assertFalse($this->OptionsParser->exists('true'));
         $this->assertFalse($this->OptionsParser->exists('false'));
     }
@@ -383,7 +383,7 @@ class OptionsParserTest extends TestCase
         $this->assertEquals('a title', $this->OptionsParser->get('title'));
 
         $result = $this->OptionsParser->add('tooltip', 'a tooltip')->tooltip();
-        $this->assertInstanceOf('MeTools\View\OptionsParser', $result);
+        $this->assertInstanceOf(OptionsParser::class, $result);
         $this->assertEquals('a tooltip', $this->OptionsParser->get('title'));
         $this->assertFalse($this->OptionsParser->exists('data-placement'));
 

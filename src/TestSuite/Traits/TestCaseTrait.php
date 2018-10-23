@@ -39,11 +39,7 @@ trait TestCaseTrait
             $filename .= '.log';
         }
 
-        if (!Folder::isAbsolute($filename)) {
-            $filename = LOGS . $filename;
-        }
-
-        return $filename;
+        return Folder::isAbsolute($filename) ? $filename : LOGS . $filename;
     }
 
     /**
