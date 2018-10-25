@@ -12,6 +12,7 @@
  */
 namespace MeTools\Test\TestCase\Core;
 
+use Cake\Http\BaseApplication;
 use MeTools\Core\Plugin;
 use MeTools\TestSuite\TestCase;
 
@@ -21,27 +22,17 @@ use MeTools\TestSuite\TestCase;
 class PluginTest extends TestCase
 {
     /**
-     * Teardown any static object changes and restore them
-     * @return void
-     */
-    public function tearDown()
-    {
-        parent::tearDown();
-
-        Plugin::unload('TestPlugin');
-        Plugin::unload('AnotherTestPlugin');
-    }
-
-    /**
      * Tests for `all()` method
      * @test
      */
     public function testAll()
     {
+        $app = $this->getMockForAbstractClass(BaseApplication::class, ['']);
+
         $expected = [ME_TOOLS, ASSETS];
         $this->assertEquals($expected, Plugin::all());
 
-        Plugin::load('TestPlugin');
+        $app->addPlugin('TestPlugin');
 
         $expected = [ME_TOOLS, ASSETS, 'TestPlugin'];
         $this->assertEquals($expected, Plugin::all());
@@ -49,7 +40,7 @@ class PluginTest extends TestCase
         $expected = [ME_TOOLS, ASSETS];
         $this->assertEquals($expected, Plugin::all(['exclude' => 'TestPlugin']));
 
-        Plugin::load('AnotherTestPlugin');
+        $app->addPlugin('AnotherTestPlugin');
 
         $expected = [ME_TOOLS, 'AnotherTestPlugin', ASSETS, 'TestPlugin'];
         $this->assertEquals($expected, Plugin::all());

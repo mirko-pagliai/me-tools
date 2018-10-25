@@ -1,5 +1,8 @@
 # 2.x branch
 ## 2.17 branch
+### 2.17.3
+* updated for CakePHP 3.6.
+
 ### 2.17.2
 * added `Shell::hasParam()` method.
 

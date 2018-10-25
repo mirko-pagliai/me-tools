@@ -14,6 +14,7 @@
 namespace MeTools\TestSuite;
 
 use Cake\Console\Shell;
+use Cake\Http\BaseApplication;
 use Cake\TestSuite\ConsoleIntegrationTestCase as CakeConsoleIntegrationTestCase;
 use MeTools\TestSuite\Traits\TestCaseTrait;
 
@@ -23,6 +24,20 @@ use MeTools\TestSuite\Traits\TestCaseTrait;
 class ConsoleIntegrationTestCase extends CakeConsoleIntegrationTestCase
 {
     use TestCaseTrait;
+
+    /**
+     * Setup the test case, backup the static object values so they can be
+     * restored. Specifically backs up the contents of Configure and paths in
+     *  App if they have not already been backed up
+     * @return void
+     */
+    public function setUp()
+    {
+        parent::setUp();
+
+        $app = $this->getMockForAbstractClass(BaseApplication::class, ['']);
+        $app->addPlugin('MeTools')->pluginBootstrap();
+    }
 
     /**
      * Asserts shell exited with the error code
