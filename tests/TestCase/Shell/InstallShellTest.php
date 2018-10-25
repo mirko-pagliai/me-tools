@@ -87,23 +87,23 @@ class InstallShellTest extends ConsoleIntegrationTestCase
         //Gets all methods from `InstallShell`, except for the `all()` method
         $methods = array_diff(get_child_methods(InstallShell::class), ['all']);
 
-        $this->InstallShell = $this->getMockBuilder(InstallShell::class)
+        $InstallShell = $this->getMockBuilder(InstallShell::class)
             ->setMethods(array_merge(['_stop', 'in'], $methods))
             ->setConstructorArgs([$this->io])
             ->getMock();
 
-        $this->InstallShell->method('in')->will($this->returnValue('y'));
+        $InstallShell->method('in')->will($this->returnValue('y'));
 
         //Sets a callback for each method
         foreach ($methods as $method) {
-            $this->InstallShell->method($method)->will($this->returnCallback(function () use ($method) {
+            $InstallShell->method($method)->will($this->returnCallback(function () use ($method) {
                 $this->out->write($method);
             }));
         }
 
         //Calls with `force` options
-        $this->InstallShell->params['force'] = true;
-        $this->InstallShell->all();
+        $InstallShell->params['force'] = true;
+        $InstallShell->all();
 
         $expectedMethodsCalledInOrder = [
             'setPermissions',
@@ -120,9 +120,9 @@ class InstallShellTest extends ConsoleIntegrationTestCase
         $this->setProperty($this->out, '_out', []);
 
         //Calls with no interactive mode
-        unset($this->InstallShell->params['force']);
-        $this->InstallShell->interactive = false;
-        $this->InstallShell->all();
+        unset($InstallShell->params['force']);
+        $InstallShell->interactive = false;
+        $InstallShell->all();
 
         $expectedMethodsCalledInOrder = array_merge(['createDirectories'], $expectedMethodsCalledInOrder);
         $this->assertEquals($expectedMethodsCalledInOrder, $this->out->messages());
@@ -251,14 +251,14 @@ class InstallShellTest extends ConsoleIntegrationTestCase
      */
     public function testMain()
     {
-        $this->InstallShell = $this->getMockBuilder(InstallShell::class)
+        $InstallShell = $this->getMockBuilder(InstallShell::class)
             ->setMethods(['in', '_stop', 'all'])
             ->setConstructorArgs([$this->io])
             ->getMock();
 
-        $this->InstallShell->expects($this->once())->method('all');
+        $InstallShell->expects($this->once())->method('all');
 
-        $this->InstallShell->main();
+        $InstallShell->main();
     }
 
     /**

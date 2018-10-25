@@ -13,6 +13,7 @@
 namespace MeTools\Test\TestCase\View\Helper;
 
 use Cake\Event\Event;
+use Cake\Http\ServerRequest;
 use Cake\View\View;
 use MeTools\TestSuite\TestCase;
 use MeTools\View\Helper\LibraryHelper;
@@ -91,7 +92,7 @@ class LibraryHelperTest extends TestCase
     {
         $this->Library->beforeLayout(new Event(null), null);
         $this->assertEmpty($this->getProperty($this->Library, 'output'));
-        $this->assertEmpty($this->View->Blocks->get('script_bottom'));
+        $this->assertEmpty($this->View->fetch('script_bottom'));
 
         $expected = [
             '<script>$(function() {',
@@ -102,7 +103,7 @@ class LibraryHelperTest extends TestCase
         $this->setProperty($this->Library, 'output', ['//first', '//second']);
         $this->Library->beforeLayout(new Event(null), null);
         $this->assertEmpty($this->getProperty($this->Library, 'output'));
-        $result = preg_split('/' . PHP_EOL . '/', $this->View->Blocks->get('script_bottom'));
+        $result = preg_split('/' . PHP_EOL . '/', $this->View->fetch('script_bottom'));
         $this->assertEquals($expected, $result);
     }
 
@@ -114,7 +115,7 @@ class LibraryHelperTest extends TestCase
     {
         $expected = '<script>!function(e,a,t,n,c,o,s){e.GoogleAnalyticsObject=c,e[c]=e[c]||function(){(e[c].q=e[c].q||[]).push(arguments)},e[c].l=1*new Date,o=a.createElement(t),s=a.getElementsByTagName(t)[0],o.async=1,o.src=n,s.parentNode.insertBefore(o,s)}(window,document,"script","//www.google-analytics.com/analytics.js","ga"),ga("create","my-id","auto"),ga("send","pageview");</script>';
         $this->Library->analytics('my-id');
-        $this->assertEquals($expected, $this->View->Blocks->get('script_bottom'));
+        $this->assertEquals($expected, $this->View->fetch('script_bottom'));
     }
 
     /**
@@ -123,14 +124,15 @@ class LibraryHelperTest extends TestCase
      */
     public function testAnalyticsOnLocalhost()
     {
-        $this->Library->request = $this->getMockBuilder(Request::class)
+        $request = $this->getMockBuilder(ServerRequest::class)
             ->setMethods(['is'])
             ->getMock();
 
-        $this->Library->request->method('is')->willReturn(true);
+        $request->expects($this->any())->method('is')->willReturn(true);
 
+        $this->Library->getView()->request = $request;
         $this->Library->analytics('my-id');
-        $this->assertEmpty($this->View->Blocks->get('script_bottom'));
+        $this->assertEmpty($this->View->fetch('script_bottom'));
     }
 
     /**
@@ -148,7 +150,7 @@ class LibraryHelperTest extends TestCase
             '/script',
         ];
         $this->Library->ckeditor();
-        $this->assertHtml($expected, $this->View->Blocks->get('script_bottom'));
+        $this->assertHtml($expected, $this->View->fetch('script_bottom'));
     }
 
     /**
@@ -169,7 +171,7 @@ class LibraryHelperTest extends TestCase
             '/script',
         ];
         $this->Library->ckeditor(true);
-        $this->assertHtml($expected, $this->View->Blocks->get('script_bottom'));
+        $this->assertHtml($expected, $this->View->fetch('script_bottom'));
     }
 
     /**
@@ -188,7 +190,7 @@ class LibraryHelperTest extends TestCase
             '/script',
         ];
         $this->Library->ckeditor();
-        $this->assertHtml($expected, $this->View->Blocks->get('script_bottom'));
+        $this->assertHtml($expected, $this->View->fetch('script_bottom'));
     }
 
     /**
@@ -207,7 +209,7 @@ class LibraryHelperTest extends TestCase
             '/script',
         ];
         $this->Library->ckeditor();
-        $this->assertHtml($expected, $this->View->Blocks->get('script_bottom'));
+        $this->assertHtml($expected, $this->View->fetch('script_bottom'));
     }
 
     /**
@@ -235,13 +237,13 @@ class LibraryHelperTest extends TestCase
             ['script' => ['src' => '/me_tools/js/bootstrap-datetimepicker.min.js']],
             '/script',
         ];
-        $this->assertHtml($expected, $this->View->Blocks->get('script_bottom'));
+        $this->assertHtml($expected, $this->View->fetch('script_bottom'));
 
         $expected = ['link' => [
             'rel' => 'stylesheet',
             'href' => '/vendor/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css',
         ]];
-        $this->assertHtml($expected, $this->View->Blocks->get('css_bottom'));
+        $this->assertHtml($expected, $this->View->fetch('css_bottom'));
     }
 
     /**
@@ -279,7 +281,7 @@ class LibraryHelperTest extends TestCase
             ['link' => ['rel' => 'stylesheet', 'href' => '/vendor/fancybox/helpers/jquery.fancybox-thumbs.css']],
         ];
         $this->Library->fancybox();
-        $this->assertHtml($expected, $this->View->Blocks->get('css_bottom'));
+        $this->assertHtml($expected, $this->View->fetch('css_bottom'));
 
         $expected = [
             ['script' => ['src' => '/vendor/fancybox/jquery.fancybox.pack.js']],
@@ -291,7 +293,7 @@ class LibraryHelperTest extends TestCase
             ['script' => ['src' => '/me_tools/fancybox/fancybox_init.js']],
             '/script',
         ];
-        $this->assertHtml($expected, $this->View->Blocks->get('script_bottom'));
+        $this->assertHtml($expected, $this->View->fetch('script_bottom'));
     }
 
     /**
@@ -314,7 +316,7 @@ class LibraryHelperTest extends TestCase
             '/script',
         ];
         $this->Library->fancybox();
-        $this->assertHtml($expected, $this->View->Blocks->get('script_bottom'));
+        $this->assertHtml($expected, $this->View->fetch('script_bottom'));
     }
 
     /**
@@ -333,7 +335,7 @@ class LibraryHelperTest extends TestCase
             '/script',
         ];
         $this->Library->shareaholic('my-id');
-        $this->assertHtml($expected, $this->View->Blocks->get('script_bottom'));
+        $this->assertHtml($expected, $this->View->fetch('script_bottom'));
     }
 
     /**
@@ -347,7 +349,7 @@ class LibraryHelperTest extends TestCase
             '/script',
         ];
         $this->Library->slugify();
-        $this->assertHtml($expected, $this->View->Blocks->get('script_bottom'));
+        $this->assertHtml($expected, $this->View->fetch('script_bottom'));
 
         $expected = ['$().slugify("form #title", "form #slug");'];
         $this->assertEquals($expected, $this->getProperty($this->Library, 'output'));

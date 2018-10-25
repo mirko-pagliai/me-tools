@@ -78,10 +78,7 @@ class IntegrationTestCaseTest extends IntegrationTestCase
      */
     public function testAssertFlashMessage()
     {
-        $messages = [
-            0 => 'first flash',
-            1 => 'second flash',
-        ];
+        $messages = ['first flash', 'second flash'];
 
         foreach ($messages as $key => $expectedMessage) {
             $this->_requestSession->write('Flash.flash.' . $key . '.message', $expectedMessage);

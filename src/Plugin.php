@@ -14,10 +14,25 @@
 namespace MeTools;
 
 use Cake\Core\BasePlugin;
+use Cake\Core\PluginApplicationInterface;
 
 /**
  * Plugin class
  */
 class Plugin extends BasePlugin
 {
+    /**
+     * Load all the application configuration and bootstrap logic
+     * @param PluginApplicationInterface $app The host application
+     * @return void
+     * @since 2.17.3
+     */
+    public function bootstrap(PluginApplicationInterface $app)
+    {
+        parent::bootstrap($app);
+
+        if (!$app->getPlugins()->has('Assets')) {
+            $app->addPlugin('Assets')->pluginBootstrap();
+        }
+    }
 }

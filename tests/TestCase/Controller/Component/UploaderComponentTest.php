@@ -196,12 +196,12 @@ class UploaderComponentTest extends TestCase
      */
     public function testSave()
     {
-        $this->Uploader = $this->getMockBuilder(UploaderComponent::class)
+        $Uploader = $this->getMockBuilder(UploaderComponent::class)
             ->setConstructorArgs([$this->ComponentRegistry])
             ->setMethods(['move_uploaded_file'])
             ->getMock();
 
-        $this->Uploader->method('move_uploaded_file')
+        $Uploader->method('move_uploaded_file')
             ->will($this->returnCallback(function ($filename, $destination) {
                 return rename($filename, $destination);
             }));
@@ -211,11 +211,11 @@ class UploaderComponentTest extends TestCase
             rtrim(UPLOADS, DS),
         ] as $targetDirectory) {
             $file = $this->createFile();
-            $this->Uploader->set($file);
+            $Uploader->set($file);
 
-            $result = $this->Uploader->save($targetDirectory);
+            $result = $Uploader->save($targetDirectory);
             $this->assertRegExp(sprintf('/^%sphp[\w\d\._]+$/', preg_quote(UPLOADS, '/')), $result);
-            $this->assertFalse($this->Uploader->getError());
+            $this->assertFalse($Uploader->getError());
             $this->assertFileExists($result);
             $this->assertFileNotExists($file['tmp_name']);
         }
@@ -226,11 +226,11 @@ class UploaderComponentTest extends TestCase
             TMP . 'customFilename.txt',
         ] as $targetFilename) {
             $file = $this->createFile();
-            $this->Uploader->set($file);
+            $Uploader->set($file);
 
-            $result = $this->Uploader->save(UPLOADS, $targetFilename);
+            $result = $Uploader->save(UPLOADS, $targetFilename);
             $this->assertEquals(UPLOADS . basename($targetFilename), $result);
-            $this->assertFalse($this->Uploader->getError());
+            $this->assertFalse($Uploader->getError());
             $this->assertFileExists($result);
             $this->assertFileNotExists($file['tmp_name']);
         }
