@@ -1,4 +1,4 @@
-ve  <?php
+<?php
 /**
  * This file is part of me-tools.
  *
