@@ -1,5 +1,9 @@
 # 2.x branch
 ## 2.17 branch
+### 2.17.4
+* fixed bug in the integration with CKeditor when uploading images (see
+    [this issue](https://github.com/sunhater/kcfinder/issues/171)).
+
 ### 2.17.3
 * updated for CakePHP 3.6.
 
