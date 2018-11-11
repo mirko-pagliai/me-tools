@@ -21,7 +21,7 @@ use MeTools\TestSuite\Traits\TestCaseTrait;
 /**
  * ConsoleIntegrationTestCase class
  */
-class ConsoleIntegrationTestCase extends CakeConsoleIntegrationTestCase
+abstract class ConsoleIntegrationTestCase extends CakeConsoleIntegrationTestCase
 {
     use TestCaseTrait;
 

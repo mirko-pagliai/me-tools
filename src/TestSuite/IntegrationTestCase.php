@@ -26,7 +26,7 @@ use MeTools\TestSuite\Traits\TestCaseTrait;
  *  integration tests over mock objects as you can test more of your code
  *  easily and avoid some of the maintenance pitfalls that mock objects create.
  */
-class IntegrationTestCase extends CakeIntegrationTestCase
+abstract class IntegrationTestCase extends CakeIntegrationTestCase
 {
     use TestCaseTrait;
 
