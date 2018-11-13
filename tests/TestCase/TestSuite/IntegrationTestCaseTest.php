@@ -23,11 +23,6 @@ use MeTools\TestSuite\IntegrationTestCase;
 class IntegrationTestCaseTest extends IntegrationTestCase
 {
     /**
-     * @var \Cake\Network\Session
-     */
-    protected $_requestSession;
-
-    /**
      * @var \Cake\TestSuite\Stub\Response
      */
     protected $_response;
@@ -40,7 +35,6 @@ class IntegrationTestCaseTest extends IntegrationTestCase
     {
         parent::setUp();
 
-        $this->_requestSession = new Session;
         $this->_response = new Response;
     }
 
@@ -78,10 +72,10 @@ class IntegrationTestCaseTest extends IntegrationTestCase
     public function testAssertFlashMessage()
     {
         $messages = ['first flash', 'second flash'];
+        $this->_requestSession = new Session;
 
         foreach ($messages as $key => $expectedMessage) {
             $this->_requestSession->write('Flash.flash.' . $key . '.message', $expectedMessage);
-
             $this->assertFlashMessage($expectedMessage, (int)$key);
             $this->assertFlashMessage($expectedMessage, (string)$key);
         }

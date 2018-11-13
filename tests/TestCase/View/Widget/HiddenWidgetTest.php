@@ -12,8 +12,8 @@
  */
 namespace MeTools\Test\TestCase\View\Widget;
 
-use Cake\View\View;
 use MeTools\TestSuite\TestCase;
+use MeTools\TestSuite\Traits\MockTrait;
 use MeTools\View\Helper\FormHelper;
 
 /**
@@ -21,10 +21,12 @@ use MeTools\View\Helper\FormHelper;
  */
 class HiddenWidgetTest extends TestCase
 {
+    use MockTrait;
+
     /**
-     * @var \MeTools\View\Helper\FormHelper
+     * @var \PHPUnit\Framework\MockObject\MockObject
      */
-    protected $Form;
+    protected $Helper;
 
     /**
      * Called before every test method
@@ -34,7 +36,7 @@ class HiddenWidgetTest extends TestCase
     {
         parent::setUp();
 
-        $this->Form = new FormHelper(new View);
+        $this->Helper = $this->getMockForHelper(FormHelper::class, null);
     }
 
     /**
@@ -45,11 +47,11 @@ class HiddenWidgetTest extends TestCase
     {
         $field = 'My field';
 
-        $result = $this->Form->hidden($field);
+        $result = $this->Helper->hidden($field);
         $expected = ['input' => ['type' => 'hidden', 'name' => $field]];
         $this->assertHtml($expected, $result);
 
-        $result = $this->Form->control($field, ['type' => 'hidden']);
+        $result = $this->Helper->control($field, ['type' => 'hidden']);
         $expected = ['input' => ['type' => 'hidden', 'name' => $field, 'id' => 'my-field']];
         $this->assertHtml($expected, $result);
     }
