@@ -12,7 +12,6 @@
  */
 use Cake\Cache\Cache;
 use Cake\Core\Configure;
-use Cake\Core\Plugin;
 use Cake\Datasource\ConnectionManager;
 
 if (!defined('DS')) {
@@ -89,18 +88,12 @@ Cache::setConfig([
 ConnectionManager::setConfig('test', ['url' => 'sqlite:///' . TMP . 'test.sq3']);
 
 Configure::write('Session', ['defaults' => 'php']);
-
 Configure::write('Assets.target', TMP . 'assets');
-
-/**
- * Loads plugins
- */
-Plugin::load('Assets', [
-    'bootstrap' => true,
-    'path' => VENDOR . 'mirko-pagliai' . DS . 'cakephp-assets' . DS,
-]);
-Plugin::load('MeTools', ['bootstrap' => true, 'path' => ROOT]);
 
 ini_set('intl.default_locale', 'en_US');
 
 $_SERVER['PHP_SELF'] = '/';
+
+if (!class_exists('PHPUnit\Runner\Version')) {
+    class_alias('PHPUnit_Framework_MockObject_MockObject', 'PHPUnit\Framework\MockObject\MockObject');
+}

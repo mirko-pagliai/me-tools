@@ -12,53 +12,13 @@
  */
 namespace MeTools\Test\TestCase\Controller\Component;
 
-use Cake\Controller\ComponentRegistry;
-use Cake\Controller\Controller;
-use Cake\Http\Session;
-use Cake\Network\Request;
-use MeTools\Controller\Component\FlashComponent;
-use MeTools\TestSuite\TestCase;
+use MeTools\TestSuite\ComponentTestCase;
 
 /**
  * FlashComponentTest class
  */
-class FlashComponentTest extends TestCase
+class FlashComponentTest extends ComponentTestCase
 {
-    /**
-     * @var \MeTools\Controller\Component\FlashComponent
-     */
-    protected $Flash;
-
-    /**
-     * @var \Cake\Network\Session
-     */
-    protected $Session;
-
-    /**
-     * Setup the test case, backup the static object values so they can be
-     * restored. Specifically backs up the contents of Configure and paths in
-     *  App if they have not already been backed up
-     * @return void
-     */
-    public function setUp()
-    {
-        parent::setUp();
-
-        $this->Flash = new FlashComponent(new ComponentRegistry(new Controller(new Request)));
-        $this->Session = new Session;
-    }
-
-    /**
-     * Teardown any static object changes and restore them
-     * @return void
-     */
-    public function tearDown()
-    {
-        parent::tearDown();
-
-        $this->Session->destroy();
-    }
-
     /**
      * Tests for `__call()` method
      * @test
@@ -66,24 +26,23 @@ class FlashComponentTest extends TestCase
     public function testMagicCall()
     {
         $text = 'My message';
-
-        $this->assertNull($this->Session->read('Flash.flash'));
-
-        foreach ([
+        $expectedClasses = [
             'alert' => 'alert-warning',
             'error' => 'alert-danger',
             'notice' => 'alert-info',
             'success' => 'alert-success',
-        ] as $methodToCall => $expectedClass) {
+        ];
+
+        foreach ($expectedClasses as $methodToCall => $expectedClass) {
             $expected = [[
                 'message' => $text,
                 'key' => 'flash',
                 'element' => 'MeTools.Flash/flash',
                 'params' => ['class' => $expectedClass],
             ]];
-            call_user_func([$this->Flash, $methodToCall], $text);
-            $this->assertEquals($expected, $this->Session->read('Flash.flash'));
-            $this->Session->delete('Flash.flash');
+            call_user_func([$this->Component, $methodToCall], $text);
+            $this->assertEquals($expected, $this->Component->_session->read('Flash.flash'));
+            $this->Component->_session->delete('Flash.flash');
         }
 
         //With custom class
@@ -93,9 +52,9 @@ class FlashComponentTest extends TestCase
             'element' => 'MeTools.Flash/flash',
             'params' => ['class' => 'my-class'],
         ]];
-        $this->Flash->success($text, ['params' => ['class' => 'my-class']]);
-        $this->assertEquals($expected, $this->Session->read('Flash.flash'));
-        $this->Session->delete('Flash.flash');
+        $this->Component->success($text, ['params' => ['class' => 'my-class']]);
+        $this->assertEquals($expected, $this->Component->_session->read('Flash.flash'));
+        $this->Component->_session->delete('Flash.flash');
 
         //With other name
         $expected = [[
@@ -104,9 +63,9 @@ class FlashComponentTest extends TestCase
             'element' => 'Flash/other_name',
             'params' => [],
         ]];
-        $this->Flash->otherName($text);
-        $this->assertEquals($expected, $this->Session->read('Flash.flash'));
-        $this->Session->delete('Flash.flash');
+        $this->Component->otherName($text);
+        $this->assertEquals($expected, $this->Component->_session->read('Flash.flash'));
+        $this->Component->_session->delete('Flash.flash');
 
         //With plugin as `false`
         $expected = [[
@@ -115,9 +74,9 @@ class FlashComponentTest extends TestCase
             'element' => 'Flash/success',
             'params' => [],
         ]];
-        $this->Flash->success($text, ['plugin' => false]);
-        $this->assertEquals($expected, $this->Session->read('Flash.flash'));
-        $this->Session->delete('Flash.flash');
+        $this->Component->success($text, ['plugin' => false]);
+        $this->assertEquals($expected, $this->Component->_session->read('Flash.flash'));
+        $this->Component->_session->delete('Flash.flash');
 
         //With other plugin
         $expected = [[
@@ -126,8 +85,8 @@ class FlashComponentTest extends TestCase
             'element' => 'MyPlugin.Flash/success',
             'params' => [],
         ]];
-        $this->Flash->success($text, ['plugin' => 'MyPlugin']);
-        $this->assertEquals($expected, $this->Session->read('Flash.flash'));
-        $this->Session->delete('Flash.flash');
+        $this->Component->success($text, ['plugin' => 'MyPlugin']);
+        $this->assertEquals($expected, $this->Component->_session->read('Flash.flash'));
+        $this->Component->_session->delete('Flash.flash');
     }
 }

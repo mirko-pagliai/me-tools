@@ -13,6 +13,7 @@
  */
 namespace MeTools\TestSuite;
 
+use Cake\Http\BaseApplication;
 use Cake\TestSuite\IntegrationTestCase as CakeIntegrationTestCase;
 use MeTools\TestSuite\Traits\TestCaseTrait;
 
@@ -25,9 +26,23 @@ use MeTools\TestSuite\Traits\TestCaseTrait;
  *  integration tests over mock objects as you can test more of your code
  *  easily and avoid some of the maintenance pitfalls that mock objects create.
  */
-class IntegrationTestCase extends CakeIntegrationTestCase
+abstract class IntegrationTestCase extends CakeIntegrationTestCase
 {
     use TestCaseTrait;
+
+    /**
+     * Setup the test case, backup the static object values so they can be
+     * restored. Specifically backs up the contents of Configure and paths in
+     *  App if they have not already been backed up
+     * @return void
+     */
+    public function setUp()
+    {
+        parent::setUp();
+
+        $app = $this->getMockForAbstractClass(BaseApplication::class, ['']);
+        $app->addPlugin('MeTools')->pluginBootstrap();
+    }
 
     /**
      * Teardown any static object changes and restore them

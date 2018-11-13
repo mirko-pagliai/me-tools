@@ -22,6 +22,10 @@ use Cake\Controller\Component\FlashComponent as CakeFlashComponent;
  * This class allows the `alert()`, `error()`, `notice()` and `success()`
  * methods are automatically handled by the plugin and rendered dynamically
  * using the `src/Template/Element/Flash/flash.ctp` template.
+ * @method void alert(string $message, array $options = []) Set a message an "alert" message
+ * @method void error(string $message, array $options = []) Set a message an "error" message
+ * @method void notice(string $message, array $options = []) Set a message a "notice" message
+ * @method void success(string $message, array $options = []) Set a message a "success" message
  */
 class FlashComponent extends CakeFlashComponent
 {

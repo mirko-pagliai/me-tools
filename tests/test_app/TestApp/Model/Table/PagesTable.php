@@ -1,16 +1,21 @@
 <?php
 /**
- * This file is part of me-tools.
+ * This file is part of cakephp-assets.
  *
  * Licensed under The MIT License
  * For full copyright and license information, please see the LICENSE.txt
  * Redistributions of files must retain the above copyright notice.
  *
  * @copyright   Copyright (c) Mirko Pagliai
- * @link        https://github.com/mirko-pagliai/me-tools
+ * @link        https://github.com/mirko-pagliai/cakephp-assets
  * @license     https://opensource.org/licenses/mit-license.php MIT License
+ * @since       2.17.5
  */
-//Sets the default MeTools name
-if (!defined('ME_TOOLS')) {
-    define('ME_TOOLS', 'MeTools');
+namespace App\Model\Table;
+
+use Cake\ORM\Table;
+
+class PagesTable extends Table
+{
+
 }
