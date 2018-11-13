@@ -2,7 +2,9 @@
 ## 2.17 branch
 ### 2.17.5
 * added `MockTrait`, `ComponentTestCase` and `HelperTestCase` classes for test
-    suite.
+    suite;
+* added `getParserDescription()`, `getParserOptions()` and
+    `getParserSubcommands()` methods for the `ConsoleIntegrationTestCase` class.
 
 ### 2.17.4
 * fixed bug in the integration with CKeditor when uploading images (see

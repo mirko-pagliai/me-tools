@@ -12,36 +12,23 @@
  */
 namespace MeTools\Test\TestCase\Shell;
 
-use Cake\Console\ConsoleIo;
+use Cake\Http\BaseApplication;
 use Cake\TestSuite\Stub\ConsoleOutput;
-use Cake\Utility\Inflector;
 use MeTools\Shell\InstallShell;
 use MeTools\TestSuite\ConsoleIntegrationTestCase;
+use MeTools\TestSuite\Traits\MockTrait;
 
 /**
  * InstallShellTest class
  */
 class InstallShellTest extends ConsoleIntegrationTestCase
 {
-    /**
-     * @var \MeTools\Shell\InstallShell
-     */
-    protected $InstallShell;
+    use MockTrait;
 
     /**
-     * @var \Cake\TestSuite\Stub\ConsoleOutput
+     * @var \PHPUnit\Framework\MockObject\MockObject
      */
-    protected $err;
-
-    /**
-     * @var \Cake\Console\ConsoleIo
-     */
-    protected $io;
-
-    /**
-     * @var \Cake\TestSuite\Stub\ConsoleOutput
-     */
-    protected $out;
+    protected $Shell;
 
     /**
      * Called before every test method
@@ -51,29 +38,27 @@ class InstallShellTest extends ConsoleIntegrationTestCase
     {
         parent::setUp();
 
+        $app = $this->getMockForAbstractClass(BaseApplication::class, ['']);
+        $app->addPlugin('MeTools')->pluginBootstrap();
+
         //Deletes symbolic links for plugin assets
         safe_unlink(WWW_ROOT . 'me_tools');
 
-        $this->out = new ConsoleOutput;
-        $this->err = new ConsoleOutput;
-        $this->io = new ConsoleIo($this->out, $this->err);
-        $this->io->level(2);
-
-        $this->InstallShell = new InstallShell;
+        $this->Shell = $this->getMockForShell(InstallShell::class);
     }
 
     /**
-     * Teardown any static object changes and restore them
+     * Called after every test method
      * @return void
      */
     public function tearDown()
     {
-        parent::tearDown();
-
         safe_unlink_recursive(WWW_ROOT . 'vendor', 'empty');
         safe_unlink(WWW_ROOT . 'robots.txt');
         safe_unlink(TMP . 'invalid.json');
         safe_unlink(APP . 'composer.json');
+
+        parent::tearDown();
     }
 
     /**
@@ -85,17 +70,14 @@ class InstallShellTest extends ConsoleIntegrationTestCase
         //Gets all methods from `InstallShell`, except for the `all()` method
         $methods = array_diff(get_child_methods(InstallShell::class), ['all']);
 
-        $InstallShell = $this->getMockBuilder(InstallShell::class)
-            ->setMethods(array_merge(['_stop', 'in'], $methods))
-            ->setConstructorArgs([$this->io])
-            ->getMock();
-
+        $InstallShell = $this->getMockForShell(InstallShell::class, array_merge(['_stop', 'in'], $methods));
         $InstallShell->method('in')->will($this->returnValue('y'));
 
         //Sets a callback for each method
         foreach ($methods as $method) {
             $InstallShell->method($method)->will($this->returnCallback(function () use ($method) {
-                $this->out->write($method);
+                $this->_out = empty($this->_out) ? new ConsoleOutput : $this->_out;
+                $this->_out->write($method);
             }));
         }
 
@@ -110,21 +92,15 @@ class InstallShellTest extends ConsoleIntegrationTestCase
             'createPluginsLinks',
             'createVendorsLinks',
         ];
-
-        $this->assertEquals($expectedMethodsCalledInOrder, $this->out->messages());
-        $this->assertEmpty($this->err->messages());
-
-        //Resets out messages()
-        $this->setProperty($this->out, '_out', []);
+        $this->assertEquals($expectedMethodsCalledInOrder, $this->_out->messages());
 
         //Calls with no interactive mode
+        $this->_out = new ConsoleOutput;
         unset($InstallShell->params['force']);
         $InstallShell->interactive = false;
         $InstallShell->all();
-
         $expectedMethodsCalledInOrder = array_merge(['createDirectories'], $expectedMethodsCalledInOrder);
-        $this->assertEquals($expectedMethodsCalledInOrder, $this->out->messages());
-        $this->assertEmpty($this->err->messages());
+        $this->assertEquals($expectedMethodsCalledInOrder, $this->_out->messages());
     }
 
     /**
@@ -133,16 +109,12 @@ class InstallShellTest extends ConsoleIntegrationTestCase
      */
     public function testCreateDirectories()
     {
-        foreach ([
-            TMP,
-            TMP . 'cache',
-            WWW_ROOT . 'vendor',
-        ] as $path) {
+        foreach ([TMP, TMP . 'cache', WWW_ROOT . 'vendor'] as $path) {
             safe_mkdir($path, 0777, true);
             $pathsAlreadyExist[] = $path;
         }
 
-        $pathsToBeCreated = array_diff($this->InstallShell->paths, $pathsAlreadyExist);
+        $pathsToBeCreated = array_diff($this->Shell->paths, $pathsAlreadyExist);
         array_walk($pathsToBeCreated, 'safe_rmdir');
 
         $this->exec('me_tools.install create_directories -v');
@@ -168,7 +140,6 @@ class InstallShellTest extends ConsoleIntegrationTestCase
         $this->assertExitWithSuccess();
         $this->assertOutputContains('Creating file ' . WWW_ROOT . 'robots.txt');
         $this->assertOutputContains('<success>Wrote</success> `' . WWW_ROOT . 'robots.txt`');
-
         $this->assertStringEqualsFile(
             WWW_ROOT . 'robots.txt',
             'User-agent: *' . PHP_EOL . 'Disallow: /admin/' . PHP_EOL .
@@ -201,7 +172,7 @@ class InstallShellTest extends ConsoleIntegrationTestCase
         $this->exec('me_tools.install create_vendors_links -v');
         $this->assertExitWithSuccess();
 
-        foreach ($this->getProperty($this->InstallShell, 'links') as $link) {
+        foreach ($this->Shell->links as $link) {
             $this->assertOutputContains('Link `' . rtr(WWW_ROOT) . 'vendor' . DS . $link . '` has been created');
         }
     }
@@ -249,13 +220,8 @@ class InstallShellTest extends ConsoleIntegrationTestCase
      */
     public function testMain()
     {
-        $InstallShell = $this->getMockBuilder(InstallShell::class)
-            ->setMethods(['in', '_stop', 'all'])
-            ->setConstructorArgs([$this->io])
-            ->getMock();
-
+        $InstallShell = $this->getMockForShell(InstallShell::class, ['in', '_stop', 'all']);
         $InstallShell->expects($this->once())->method('all');
-
         $InstallShell->main();
     }
 
@@ -268,7 +234,7 @@ class InstallShellTest extends ConsoleIntegrationTestCase
         $this->exec('me_tools.install set_permissions -v');
         $this->assertExitWithSuccess();
 
-        foreach ($this->InstallShell->paths as $path) {
+        foreach ($this->Shell->paths as $path) {
             $this->assertOutputContains('Setted permissions on `' . rtr($path) . '`');
         }
     }
@@ -279,17 +245,25 @@ class InstallShellTest extends ConsoleIntegrationTestCase
      */
     public function testGetOptionParser()
     {
-        $parser = $this->InstallShell->getOptionParser();
+        $this->assertEquals('Executes some tasks to make the system ready to work', $this->getParserDescription());
 
-        $this->assertInstanceOf('Cake\Console\ConsoleOptionParser', $parser);
+        $expectedOptions = [
+            ['name' => 'force', 'short' => 'f', 'help' => 'Executes tasks without prompting'],
+            ['name' => 'help', 'short' => 'h', 'help' => 'Display this help.'],
+            ['name' => 'quiet', 'short' => 'q', 'help' => 'Enable quiet output.'],
+            ['name' => 'verbose', 'short' => 'v', 'help' => 'Enable verbose output.'],
+        ];
+        $this->assertEquals($expectedOptions, $this->getParserOptions());
 
-        $expectedMethods = get_child_methods(InstallShell::class);
-        $expectedMethods = array_map([Inflector::class, 'underscore'], array_diff($expectedMethods, ['main']));
-
-        sort($expectedMethods);
-
-        $this->assertArrayKeysEqual($expectedMethods, $parser->subcommands());
-        $this->assertEquals('Executes some tasks to make the system ready to work', $parser->getDescription());
-        $this->assertArrayKeysEqual(['force', 'help', 'quiet', 'verbose'], $parser->options());
+        $expectedSubcommands = [
+            ['name' => 'all', 'help' => 'Executes all available tasks'],
+            ['name' => 'create_directories', 'help' => 'Creates default directories'],
+            ['name' => 'create_plugins_links', 'help' => 'Creates symbolic links for plugins assets'],
+            ['name' => 'create_robots', 'help' => 'Creates the robots.txt file'],
+            ['name' => 'create_vendors_links', 'help' => 'Creates symbolic links for vendor assets'],
+            ['name' => 'fix_composer_json', 'help' => 'Fixes composer.json'],
+            ['name' => 'set_permissions', 'help' => 'Sets directories permissions'],
+        ];
+        $this->assertEquals($expectedSubcommands, $this->getParserSubcommands());
     }
 }
