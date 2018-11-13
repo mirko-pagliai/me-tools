@@ -16,12 +16,15 @@ namespace MeTools\TestSuite;
 use Cake\Console\Shell;
 use Cake\TestSuite\ConsoleIntegrationTestCase as CakeConsoleIntegrationTestCase;
 use Cake\Utility\Inflector;
+use MeTools\TestSuite\Traits\TestCaseTrait;
 
 /**
  * ConsoleIntegrationTestCase class
  */
 abstract class ConsoleIntegrationTestCase extends CakeConsoleIntegrationTestCase
 {
+    use TestCaseTrait;
+
     /**
      * Internal method to get the help output for the current command.
      *
