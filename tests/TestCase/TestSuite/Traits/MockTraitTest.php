@@ -15,7 +15,6 @@ namespace MeTools\Test\TestCase\TestSuite\Traits;
 use Cake\ORM\TableRegistry;
 use MeTools\TestSuite\TestCase;
 use MeTools\TestSuite\Traits\MockTrait;
-use PHPUnit\Framework\MockObject\MockObject;
 
 /**
  * MockTraitTest class
@@ -45,7 +44,7 @@ class MockTraitTest extends TestCase
     public function testGetMockForComponent()
     {
         $Mock = $this->getMockForComponent('Cake\Controller\Component\FlashComponent', null);
-        $this->assertInstanceOf(MockObject::class, $Mock);
+        $this->assertIsMock($Mock);
     }
 
     /**
@@ -55,11 +54,11 @@ class MockTraitTest extends TestCase
     public function testGetMockForController()
     {
         $Mock = $this->getMockForController('App\Controller\PagesController', null);
-        $this->assertInstanceOf(MockObject::class, $Mock);
+        $this->assertIsMock($Mock);
         $this->assertEquals('Pages', $Mock->getName());
 
         $Mock = $this->getMockForController('App\Controller\PagesController', null, 'MyController');
-        $this->assertInstanceOf(MockObject::class, $Mock);
+        $this->assertIsMock($Mock);
         $this->assertEquals('MyController', $Mock->getName());
     }
 
@@ -80,14 +79,14 @@ class MockTraitTest extends TestCase
     public function testGetMockForTable()
     {
         $Mock = $this->getMockForTable('App\Model\Table\PagesTable', null);
-        $this->assertInstanceOf(MockObject::class, $Mock);
+        $this->assertIsMock($Mock);
         $this->assertEquals('Pages', $Mock->getAlias());
         $this->assertEquals('Cake\ORM\Entity', $Mock->getEntityClass());
         $this->assertNotEquals('App\Model\Entity\Page', $Mock->getEntityClass());
         $this->assertTrue(TableRegistry::getTableLocator()->exists($Mock->getAlias()));
 
         $Mock = $this->getMockForTable('App\Model\Table\PostsTable', null);
-        $this->assertInstanceOf(MockObject::class, $Mock);
+        $this->assertIsMock($Mock);
         $this->assertEquals('Posts', $Mock->getAlias());
         $this->assertEquals('App\Model\Entity\Post', $Mock->getEntityClass());
         $this->assertTrue(TableRegistry::getTableLocator()->exists($Mock->getAlias()));

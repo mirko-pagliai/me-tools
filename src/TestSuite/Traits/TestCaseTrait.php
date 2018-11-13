@@ -15,6 +15,7 @@ namespace MeTools\TestSuite\Traits;
 
 use Cake\Filesystem\Folder;
 use Exception;
+use PHPUnit\Framework\MockObject\MockObject;
 use Tools\ReflectionTrait;
 use Tools\TestSuite\TestCaseTrait as ToolsTestCaseTrait;
 
@@ -62,6 +63,19 @@ trait TestCaseTrait
         }
 
         $this->assertContains($expectedContent, file_get_contents($filename), $message);
+    }
+
+    /**
+     * Asserts that an object is a mock
+     * @param object $object Object
+     * @param string $message The failure message that will be appended to the
+     *  generated message
+     * @return void
+     * @since 2.17.5
+     */
+    public function assertIsMock($object, $message = '')
+    {
+        $this->assertInstanceOf(MockObject::class, $object, $message);
     }
 
     /**
