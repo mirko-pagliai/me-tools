@@ -17,6 +17,7 @@ use Cake\Controller\ComponentRegistry;
 use Cake\Controller\Controller;
 use Cake\Datasource\ConnectionManager;
 use Cake\ORM\Entity;
+use Cake\View\View;
 use Cake\Utility\Inflector;
 
 /**
@@ -69,6 +70,20 @@ trait MockTrait
         return $this->getMockBuilder($className)
             ->setConstructorArgs([null, null, $alias])
             ->setMethods($methods)
+            ->getMock();
+    }
+
+    /**
+     * Mocks an helper
+     * @param string $className Helper class name
+     * @param array|null $methods The list of methods to mock
+     * @return \PHPUnit\Framework\MockObject\MockObject
+     */
+    protected function getMockForHelper($className, $methods = [])
+    {
+        return $this->getMockBuilder($className)
+            ->setMethods($methods)
+            ->setConstructorArgs([new View])
             ->getMock();
     }
 
