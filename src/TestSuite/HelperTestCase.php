@@ -9,21 +9,22 @@
  * @copyright   Copyright (c) Mirko Pagliai
  * @link        https://github.com/mirko-pagliai/me-tools
  * @license     https://opensource.org/licenses/mit-license.php MIT License
+ * @since       2.17.5
  */
-namespace MeTools\Test\TestCase\View\Widget;
+namespace MeTools\TestSuite;
 
 use MeTools\TestSuite\TestCase;
 use MeTools\TestSuite\Traits\MockTrait;
-use MeTools\View\Helper\FormHelper;
 
 /**
- * HiddenWidgetTest class
+ * Abstract class for test helpers
  */
-class HiddenWidgetTest extends TestCase
+class HelperTestCase extends TestCase
 {
     use MockTrait;
 
     /**
+     * Helper instance
      * @var \PHPUnit\Framework\MockObject\MockObject
      */
     protected $Helper;
@@ -31,28 +32,19 @@ class HiddenWidgetTest extends TestCase
     /**
      * Called before every test method
      * @return void
+     * @uses $Helper
      */
     public function setUp()
     {
         parent::setUp();
 
-        $this->Helper = $this->getMockForHelper(FormHelper::class, null);
-    }
+        if (!$this->Helper) {
+            $parts = explode('\\', get_class($this));
+            array_splice($parts, 1, 2, []);
+            $parts[] = substr(array_pop($parts), 0, -4);
+            $className = implode('\\', $parts);
 
-    /**
-     * Tests for `render()` method
-     * @test
-     */
-    public function testRender()
-    {
-        $field = 'My field';
-
-        $result = $this->Helper->hidden($field);
-        $expected = ['input' => ['type' => 'hidden', 'name' => $field]];
-        $this->assertHtml($expected, $result);
-
-        $result = $this->Helper->control($field, ['type' => 'hidden']);
-        $expected = ['input' => ['type' => 'hidden', 'name' => $field, 'id' => 'my-field']];
-        $this->assertHtml($expected, $result);
+            $this->Helper = $this->getMockForHelper($className, null);
+        }
     }
 }

@@ -12,38 +12,31 @@
  */
 namespace MeTools\Test\TestCase\View\Helper;
 
-use Cake\View\View;
-use MeTools\TestSuite\TestCase;
-use MeTools\View\Helper\DropdownHelper;
+use MeTools\TestSuite\HelperTestCase;
+use MeTools\TestSuite\Traits\MockTrait;
 use MeTools\View\Helper\HtmlHelper;
 
 /**
  * DropdownHelperTest class
  */
-class DropdownHelperTest extends TestCase
+class DropdownHelperTest extends HelperTestCase
 {
-    /**
-     * @var \MeTools\View\Helper\DropdownHelper
-     */
-    protected $Dropdown;
+    use MockTrait;
 
     /**
-     * @var \MeTools\View\Helper\HtmlHelper
+     * @var \PHPUnit\Framework\MockObject\MockObject
      */
     protected $Html;
 
     /**
-     * Setup the test case, backup the static object values so they can be
-     * restored. Specifically backs up the contents of Configure and paths in
-     *  App if they have not already been backed up
+     * Called before every test method
      * @return void
      */
     public function setUp()
     {
         parent::setUp();
 
-        $this->Dropdown = new DropdownHelper(new View);
-        $this->Html = new HtmlHelper(new View);
+        $this->Html = $this->getMockForHelper(HtmlHelper::class, null);
     }
 
     /**
@@ -52,8 +45,8 @@ class DropdownHelperTest extends TestCase
      */
     public function testMenuAndStartAndEnd()
     {
+        //No dropdown menu again...
         $text = 'My dropdown';
-
         $expected = [
             ['a' => [
                 'href' => '#',
@@ -74,24 +67,22 @@ class DropdownHelperTest extends TestCase
             '/a',
             '/div',
         ];
-
-        //No dropdown menu again...
-        $this->assertNull($this->Dropdown->end());
+        $this->assertNull($this->Helper->end());
 
         //Empty dropdown
-        $this->Dropdown->start($text);
+        $this->Helper->start($text);
         echo 'hello!';
-        $result = $this->Dropdown->end();
+        $result = $this->Helper->end();
         $this->assertNull($result);
 
-        $this->Dropdown->start($text);
+        $this->Helper->start($text);
         echo $this->Html->link('First link', '/first', ['class' => 'dropdown-item']);
         echo $this->Html->link('Second link', '/second', ['class' => 'dropdown-item']);
-        $result = $this->Dropdown->end();
+        $result = $this->Helper->end();
         $this->assertHtml($expected, $result);
 
         //With `menu()` method
-        $result = $this->Dropdown->menu($text, [
+        $result = $this->Helper->menu($text, [
             $this->Html->link('First link', '/first', ['class' => 'dropdown-item']),
             $this->Html->link('Second link', '/second', ['class' => 'dropdown-item']),
         ]);
@@ -99,14 +90,15 @@ class DropdownHelperTest extends TestCase
 
         //With callback
         $result = call_user_func(function () use ($text) {
-            $this->Dropdown->start($text);
+            $this->Helper->start($text);
             echo $this->Html->link('First link', '/first', ['class' => 'dropdown-item']);
             echo $this->Html->link('Second link', '/second', ['class' => 'dropdown-item']);
 
-            return $this->Dropdown->end();
+            return $this->Helper->end();
         });
         $this->assertHtml($expected, $result);
 
+        //Start link with custom class
         $expected = [
             ['a' => [
                 'href' => '#',
@@ -131,17 +123,15 @@ class DropdownHelperTest extends TestCase
             '/a',
             '/div',
         ];
-
-        //Start link with custom class
-        $this->Dropdown->start($text, ['class' => 'my-start-class', 'icon' => 'home']);
+        $this->Helper->start($text, ['class' => 'my-start-class', 'icon' => 'home']);
         echo $this->Html->link('First link', '/first', ['class' => 'dropdown-item']);
         echo $this->Html->link('Second link', '/second', ['class' => 'dropdown-item']);
         //Div wrapper with custom class and attribute
-        $result = $this->Dropdown->end(['class' => 'div-custom-class', 'attr' => 'value']);
+        $result = $this->Helper->end(['class' => 'div-custom-class', 'attr' => 'value']);
         $this->assertHtml($expected, $result);
 
         //With `menu()` method
-        $result = $this->Dropdown->menu(
+        $result = $this->Helper->menu(
             $text,
             [
                 $this->Html->link('First link', '/first', ['class' => 'dropdown-item']),
@@ -187,16 +177,15 @@ class DropdownHelperTest extends TestCase
             '/li',
             '/ul',
         ];
-
         $result = $this->Html->ul([
             $this->Html->link('Home', '/'),
             //This is the dropdown menu
             call_user_func(function () {
-                $this->Dropdown->start('My dropdown');
+                $this->Helper->start('My dropdown');
                 echo $this->Html->link('First link', '/first', ['class' => 'dropdown-item']);
                 echo $this->Html->link('Second link', '/second', ['class' => 'dropdown-item']);
 
-                return $this->Dropdown->end();
+                return $this->Helper->end();
             }),
             $this->Html->link('Other main link', '#'),
         ]);

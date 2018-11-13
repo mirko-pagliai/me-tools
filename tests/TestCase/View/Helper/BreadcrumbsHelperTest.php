@@ -12,42 +12,19 @@
  */
 namespace MeTools\Test\TestCase\View\Helper;
 
-use Cake\View\View;
-use MeTools\TestSuite\TestCase;
-use MeTools\View\Helper\BreadcrumbsHelper;
+use MeTools\TestSuite\HelperTestCase;
 
 /**
  * MeTools\View\Helper\BreadcrumbsHelper Test Case
  */
-class BreadcrumbsHelperTest extends TestCase
+class BreadcrumbsHelperTest extends HelperTestCase
 {
-    /**
-     * @var \MeTools\View\Helper\BreadcrumbsHelper
-     */
-    protected $Breadcrumbs;
-
-    /**
-     * Setup the test case, backup the static object values so they can be
-     * restored. Specifically backs up the contents of Configure and paths in
-     *  App if they have not already been backed up
-     * @return void
-     */
-    public function setUp()
-    {
-        parent::setUp();
-
-        $this->Breadcrumbs = new BreadcrumbsHelper(new View);
-    }
-
     /**
      * Tests for `add()` method
      * @test
      */
     public function testAdd()
     {
-        $this->Breadcrumbs->add('First', '/');
-        $this->Breadcrumbs->add('Second', '/', ['class' => 'custom-class']);
-
         $expected = [
             'ul' => ['class' => 'breadcrumb'],
             ['li' => ['class' => 'breadcrumb-item']],
@@ -62,7 +39,9 @@ class BreadcrumbsHelperTest extends TestCase
             '/li',
             '/ul',
         ];
-        $this->assertHtml($expected, $this->Breadcrumbs->render());
+        $this->Helper->add('First', '/');
+        $this->Helper->add('Second', '/', ['class' => 'custom-class']);
+        $this->assertHtml($expected, $this->Helper->render());
     }
 
     /**
@@ -71,9 +50,6 @@ class BreadcrumbsHelperTest extends TestCase
      */
     public function testPrepend()
     {
-        $this->Breadcrumbs->add('Second', '/');
-        $this->Breadcrumbs->prepend('First', '/');
-
         $expected = [
             'ul' => ['class' => 'breadcrumb'],
             ['li' => ['class' => 'breadcrumb-item']],
@@ -88,7 +64,9 @@ class BreadcrumbsHelperTest extends TestCase
             '/li',
             '/ul',
         ];
-        $this->assertHtml($expected, $this->Breadcrumbs->render());
+        $this->Helper->add('Second', '/');
+        $this->Helper->prepend('First', '/');
+        $this->assertHtml($expected, $this->Helper->render());
     }
 
     /**
@@ -97,10 +75,7 @@ class BreadcrumbsHelperTest extends TestCase
      */
     public function testRender()
     {
-        $this->assertSame('', $this->Breadcrumbs->render());
-
-        $this->Breadcrumbs->add('First', '/');
-        $this->Breadcrumbs->add('Second', '/');
+        $this->assertSame('', $this->Helper->render());
 
         $expected = [
             'ul' => ['class' => 'breadcrumb'],
@@ -116,6 +91,8 @@ class BreadcrumbsHelperTest extends TestCase
             '/li',
             '/ul',
         ];
-        $this->assertHtml($expected, $this->Breadcrumbs->render());
+        $this->Helper->add('First', '/');
+        $this->Helper->add('Second', '/');
+        $this->assertHtml($expected, $this->Helper->render());
     }
 }

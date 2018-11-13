@@ -14,29 +14,106 @@
 namespace MeTools\TestSuite;
 
 use Cake\Console\Shell;
-use Cake\Http\BaseApplication;
 use Cake\TestSuite\ConsoleIntegrationTestCase as CakeConsoleIntegrationTestCase;
-use MeTools\TestSuite\Traits\TestCaseTrait;
+use Cake\Utility\Inflector;
 
 /**
  * ConsoleIntegrationTestCase class
  */
 abstract class ConsoleIntegrationTestCase extends CakeConsoleIntegrationTestCase
 {
-    use TestCaseTrait;
+    /**
+     * Internal method to get the help output for the current command.
+     *
+     * In other words, it runs the command:
+     * `cake Plugin.shell_name [args]`
+     *
+     * And returns the output as string
+     * @return string
+     */
+    protected function getHelpOutput()
+    {
+        $parts = explode('\\', get_class($this));
+        $command = Inflector::underscore(substr(array_pop($parts), 0, -9));
+
+        $prefix = first_value($parts);
+        if ($prefix !== 'App') {
+            $command = sprintf('%s.%s', Inflector::underscore($prefix), $command);
+        }
+
+        //Executes the command
+        $command .= ' -h';
+        $this->exec($command);
+
+        return first_value($this->_out->messages());
+    }
 
     /**
-     * Setup the test case, backup the static object values so they can be
-     * restored. Specifically backs up the contents of Configure and paths in
-     *  App if they have not already been backed up
-     * @return void
+     * Gets the description for the current command
+     * @return string
+     * @uses getHelpOutput()
      */
-    public function setUp()
+    public function getParserDescription()
     {
-        parent::setUp();
+        $message = $this->getHelpOutput();
 
-        $app = $this->getMockForAbstractClass(BaseApplication::class, ['']);
-        $app->addPlugin('MeTools')->pluginBootstrap();
+        if (!preg_match('/^(.+)\v{2}<info>Usage:<\/info>/', $message, $matches)) {
+            $this->fail('Unable to retrevie the shell description');
+        }
+
+        return $matches[1];
+    }
+
+    /**
+     * Gets the options for the current command
+     * @return array
+     * @uses getHelpOutput()
+     */
+    public function getParserOptions()
+    {
+        $message = $this->getHelpOutput();
+
+        if (!preg_match('/<info>Options:<\/info>\v{2}((.|\v)+)\v$/', $message, $matches)) {
+            $this->fail('Unable to retrevie the shell options');
+        }
+
+        $options = explode(PHP_EOL, $matches[1]);
+
+        return array_map(function ($line) {
+            if (!preg_match('/^--(\w+)(,\s+-(\w))?\s+(.+)$/', $line, $matches)) {
+                $this->fail('Unable to parse the shell options');
+            }
+
+            list(, $name,, $short, $help) = $matches;
+
+            return array_filter(compact('name', 'short', 'help'));
+        }, $options);
+    }
+
+    /**
+     * Gets the subcommand for the current command
+     * @return array
+     * @uses getHelpOutput()
+     */
+    public function getParserSubcommands()
+    {
+        $message = $this->getHelpOutput();
+
+        if (!preg_match('/<info>Subcommands:<\/info>\v+((\V+\v)+\V+)\v+To see help on a subcommand/', $message, $matches)) {
+            $this->fail('Unable to retrevie the shell subcommands');
+        }
+
+        $subcommands = explode(PHP_EOL, $matches[1]);
+
+        return array_map(function ($subcommand) {
+            if (!preg_match('/^(\S+)\s+(.+)$/', $subcommand, $matches)) {
+                $this->fail('Unable to parse the subcommand');
+            }
+
+            list(, $name, $help) = $matches;
+
+            return compact('name', 'help');
+        }, $subcommands);
     }
 
     /**
