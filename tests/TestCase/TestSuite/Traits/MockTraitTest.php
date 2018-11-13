@@ -13,8 +13,8 @@
 namespace MeTools\Test\TestCase\TestSuite\Traits;
 
 use Cake\ORM\TableRegistry;
-use MeTools\TestSuite\Traits\MockTrait;
 use MeTools\TestSuite\TestCase;
+use MeTools\TestSuite\Traits\MockTrait;
 use PHPUnit\Framework\MockObject\MockObject;
 
 /**
