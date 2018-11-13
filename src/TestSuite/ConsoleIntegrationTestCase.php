@@ -58,10 +58,8 @@ abstract class ConsoleIntegrationTestCase extends CakeConsoleIntegrationTestCase
     public function getParserDescription()
     {
         $message = $this->getHelpOutput();
-
-        if (!preg_match('/^(.+)\v{2}<info>Usage:<\/info>/', $message, $matches)) {
-            $this->fail('Unable to retrevie the shell description');
-        }
+        $regex = '/^(.+)\v{2}<info>Usage:<\/info>/';
+        preg_match($regex, $message, $matches) ?: $this->fail('Unable to retrevie the shell description');
 
         return $matches[1];
     }
@@ -75,11 +73,8 @@ abstract class ConsoleIntegrationTestCase extends CakeConsoleIntegrationTestCase
     public function getParserOptions()
     {
         $message = $this->getHelpOutput();
-
-        if (!preg_match('/<info>Options:<\/info>\v{2}((.|\v)+)\v$/', $message, $matches)) {
-            $this->fail('Unable to retrevie the shell options');
-        }
-
+        $regex = '/<info>Options:<\/info>\v{2}((.|\v)+)\v$/';
+        preg_match($regex, $message, $matches) ?: $this->fail('Unable to retrevie the shell options');
         $options = explode(PHP_EOL, $matches[1]);
 
         return array_map(function ($line) {
@@ -102,18 +97,14 @@ abstract class ConsoleIntegrationTestCase extends CakeConsoleIntegrationTestCase
     public function getParserSubcommands()
     {
         $message = $this->getHelpOutput();
-
-        if (!preg_match('/<info>Subcommands:<\/info>\v+((\V+\v)+\V+)\v+To see help on a subcommand/', $message, $matches)) {
-            $this->fail('Unable to retrevie the shell subcommands');
-        }
-
+        $regex = '/<info>Subcommands:<\/info>\v+((\V+\v)+\V+)\v+To see help on a subcommand/';
+        preg_match($regex, $message, $matches) ?: $this->fail('Unable to retrevie the shell subcommands');
         $subcommands = explode(PHP_EOL, $matches[1]);
 
         return array_map(function ($subcommand) {
             if (!preg_match('/^(\S+)\s+(.+)$/', $subcommand, $matches)) {
                 $this->fail('Unable to parse the subcommand');
             }
-
             list(, $name, $help) = $matches;
 
             return compact('name', 'help');
