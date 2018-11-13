@@ -51,11 +51,11 @@ abstract class ConsoleIntegrationTestCase extends CakeConsoleIntegrationTestCase
     /**
      * Gets the description for the current command
      * @return string
-     * @uses getHelpOptionOutput()
+     * @uses getHelpOutput()
      */
     public function getParserDescription()
     {
-        $message = $this->getHelpOptionOutput();
+        $message = $this->getHelpOutput();
 
         if (!preg_match('/^(.+)\v{2}<info>Usage:<\/info>/', $message, $matches)) {
             $this->fail('Unable to retrevie the shell description');
@@ -67,11 +67,11 @@ abstract class ConsoleIntegrationTestCase extends CakeConsoleIntegrationTestCase
     /**
      * Gets the options for the current command
      * @return array
-     * @uses getHelpOptionOutput()
+     * @uses getHelpOutput()
      */
     public function getParserOptions()
     {
-        $message = $this->getHelpOptionOutput();
+        $message = $this->getHelpOutput();
 
         if (!preg_match('/<info>Options:<\/info>\v{2}((.|\v)+)\v$/', $message, $matches)) {
             $this->fail('Unable to retrevie the shell options');
@@ -93,11 +93,11 @@ abstract class ConsoleIntegrationTestCase extends CakeConsoleIntegrationTestCase
     /**
      * Gets the subcommand for the current command
      * @return array
-     * @uses getHelpOptionOutput()
+     * @uses getHelpOutput()
      */
     public function getParserSubcommands()
     {
-        $message = $this->getHelpOptionOutput();
+        $message = $this->getHelpOutput();
 
         if (!preg_match('/<info>Subcommands:<\/info>\v+((\V+\v)+\V+)\v+To see help on a subcommand/', $message, $matches)) {
             $this->fail('Unable to retrevie the shell subcommands');
