@@ -73,7 +73,7 @@ class ShellTest extends TestCase
     }
 
     /**
-     * Teardown any static object changes and restore them
+     * Called after every test method
      * @return void
      */
     public function tearDown()
