@@ -12,6 +12,7 @@
  */
 namespace MeTools\Test\TestCase\TestSuite;
 
+use Cake\Http\Cookie\Cookie;
 use Cake\Http\Session;
 use Cake\TestSuite\Stub\Response;
 use MeTools\TestSuite\IntegrationTestCase;
@@ -53,10 +54,10 @@ class IntegrationTestCaseTest extends IntegrationTestCase
     {
         $this->assertCookieIsEmpty('test-cookie');
 
-        $this->_response = $this->_response->withCookie('test-cookie', null);
+        $this->_response = $this->_response->withCookie(new Cookie('test-cookie', null));
         $this->assertCookieIsEmpty('test-cookie');
 
-        $this->_response = $this->_response->withCookie('test-cookie', false);
+        $this->_response = $this->_response->withCookie(new Cookie('test-cookie', false));
         $this->assertCookieIsEmpty('test-cookie');
     }
 
