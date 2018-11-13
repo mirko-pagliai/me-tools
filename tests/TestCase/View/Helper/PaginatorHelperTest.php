@@ -12,33 +12,13 @@
  */
 namespace MeTools\Test\TestCase\View\Helper;
 
-use Cake\View\View;
-use MeTools\TestSuite\TestCase;
-use MeTools\View\Helper\PaginatorHelper;
+use MeTools\TestSuite\HelperTestCase;
 
 /**
  * PaginatorHelperTest class
  */
-class PaginatorHelperTest extends TestCase
+class PaginatorHelperTest extends HelperTestCase
 {
-    /**
-     * @var \MeTools\View\Helper\PaginatorHelper
-     */
-    protected $Paginator;
-
-    /**
-     * Setup the test case, backup the static object values so they can be
-     * restored. Specifically backs up the contents of Configure and paths in
-     *  App if they have not already been backed up
-     * @return void
-     */
-    public function setUp()
-    {
-        parent::setUp();
-
-        $this->Paginator = new PaginatorHelper(new View());
-    }
-
     /**
      * Tests for `next()` method
      * @test
@@ -52,7 +32,7 @@ class PaginatorHelperTest extends TestCase
             '/a',
             '/li',
         ];
-        $this->assertHtml($expected, $this->Paginator->next('Next'));
+        $this->assertHtml($expected, $this->Helper->next('Next'));
 
         //Using `icon` option
         $expected = [
@@ -66,7 +46,7 @@ class PaginatorHelperTest extends TestCase
             '/a',
             '/li',
         ];
-        $this->assertHtml($expected, $this->Paginator->next('Next', ['icon' => 'chevron-right']));
+        $this->assertHtml($expected, $this->Helper->next('Next', ['icon' => 'chevron-right']));
     }
 
     /**
@@ -82,7 +62,7 @@ class PaginatorHelperTest extends TestCase
             '/a',
             '/li',
         ];
-        $this->assertHtml($expected, $this->Paginator->prev('Previous'));
+        $this->assertHtml($expected, $this->Helper->prev('Previous'));
 
         //Using `icon` option
         $expected = [
@@ -96,6 +76,6 @@ class PaginatorHelperTest extends TestCase
             '/a',
             '/li',
         ];
-        $this->assertHtml($expected, $this->Paginator->prev('Previous', ['icon' => 'chevron-left']));
+        $this->assertHtml($expected, $this->Helper->prev('Previous', ['icon' => 'chevron-left']));
     }
 }

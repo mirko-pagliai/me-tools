@@ -14,55 +14,27 @@ namespace MeTools\Test\TestCase\View\Helper;
 
 use Cake\Event\Event;
 use Cake\Http\ServerRequest;
-use Cake\View\View;
-use MeTools\TestSuite\TestCase;
-use MeTools\View\Helper\LibraryHelper;
+use MeTools\TestSuite\HelperTestCase;
 
 /**
  * LibraryHelperTest class
  */
-class LibraryHelperTest extends TestCase
+class LibraryHelperTest extends HelperTestCase
 {
-    /**
-     * @var \MeTools\View\Helper\LibraryHelper
-     */
-    protected $Library;
-
-    /**
-     * @var \Cake\View\View
-     */
-    protected $View;
-
     /**
      * @var array
      */
-    protected $expectedDatepickerIcons;
-
-    /**
-     * Setup the test case, backup the static object values so they can be
-     * restored. Specifically backs up the contents of Configure and paths in
-     *  App if they have not already been backed up
-     * @return void
-     */
-    public function setUp()
-    {
-        parent::setUp();
-
-        $this->View = new View;
-        $this->Library = new LibraryHelper($this->View);
-
-        $this->expectedDatepickerIcons = [
-            'time' => 'fas fa-clock',
-            'date' => 'fas fa-calendar',
-            'up' => 'fas fa-chevron-up',
-            'down' => 'fas fa-chevron-down',
-            'previous' => 'fas fa-chevron-left',
-            'next' => 'fas fa-chevron-right',
-            'today' => 'fas fa-dot-circle',
-            'clear' => 'fas fa-trash',
-            'close' => 'fas fa-times',
-        ];
-    }
+    protected $expectedDatepickerIcons = [
+        'time' => 'fas fa-clock',
+        'date' => 'fas fa-calendar',
+        'up' => 'fas fa-chevron-up',
+        'down' => 'fas fa-chevron-down',
+        'previous' => 'fas fa-chevron-left',
+        'next' => 'fas fa-chevron-right',
+        'today' => 'fas fa-dot-circle',
+        'clear' => 'fas fa-trash',
+        'close' => 'fas fa-times',
+    ];
 
     /**
      * Teardown any static object changes and restore them
@@ -90,9 +62,9 @@ class LibraryHelperTest extends TestCase
      */
     public function testBeforeLayout()
     {
-        $this->Library->beforeLayout(new Event(null), null);
-        $this->assertEmpty($this->getProperty($this->Library, 'output'));
-        $this->assertEmpty($this->View->fetch('script_bottom'));
+        $this->Helper->beforeLayout(new Event(null), null);
+        $this->assertEmpty($this->getProperty($this->Helper, 'output'));
+        $this->assertEmpty($this->Helper->getView()->fetch('script_bottom'));
 
         $expected = [
             '<script>$(function() {',
@@ -100,10 +72,10 @@ class LibraryHelperTest extends TestCase
             '    //second',
             '});</script>',
         ];
-        $this->setProperty($this->Library, 'output', ['//first', '//second']);
-        $this->Library->beforeLayout(new Event(null), null);
-        $this->assertEmpty($this->getProperty($this->Library, 'output'));
-        $result = preg_split('/' . PHP_EOL . '/', $this->View->fetch('script_bottom'));
+        $this->setProperty($this->Helper, 'output', ['//first', '//second']);
+        $this->Helper->beforeLayout(new Event(null), null);
+        $this->assertEmpty($this->getProperty($this->Helper, 'output'));
+        $result = preg_split('/' . PHP_EOL . '/', $this->Helper->getView()->fetch('script_bottom'));
         $this->assertEquals($expected, $result);
     }
 
@@ -114,8 +86,8 @@ class LibraryHelperTest extends TestCase
     public function testAnalytics()
     {
         $expected = '<script>!function(e,a,t,n,c,o,s){e.GoogleAnalyticsObject=c,e[c]=e[c]||function(){(e[c].q=e[c].q||[]).push(arguments)},e[c].l=1*new Date,o=a.createElement(t),s=a.getElementsByTagName(t)[0],o.async=1,o.src=n,s.parentNode.insertBefore(o,s)}(window,document,"script","//www.google-analytics.com/analytics.js","ga"),ga("create","my-id","auto"),ga("send","pageview");</script>';
-        $this->Library->analytics('my-id');
-        $this->assertEquals($expected, $this->View->fetch('script_bottom'));
+        $this->Helper->analytics('my-id');
+        $this->assertEquals($expected, $this->Helper->getView()->fetch('script_bottom'));
     }
 
     /**
@@ -130,9 +102,9 @@ class LibraryHelperTest extends TestCase
 
         $request->expects($this->any())->method('is')->willReturn(true);
 
-        $this->Library->getView()->request = $request;
-        $this->Library->analytics('my-id');
-        $this->assertEmpty($this->View->fetch('script_bottom'));
+        $this->Helper->getView()->request = $request;
+        $this->Helper->analytics('my-id');
+        $this->assertEmpty($this->Helper->getView()->fetch('script_bottom'));
     }
 
     /**
@@ -149,8 +121,8 @@ class LibraryHelperTest extends TestCase
             ['script' => ['src' => '/me_tools/js/ckeditor_init.php?']],
             '/script',
         ];
-        $this->Library->ckeditor();
-        $this->assertHtml($expected, $this->View->fetch('script_bottom'));
+        $this->Helper->ckeditor();
+        $this->assertHtml($expected, $this->Helper->getView()->fetch('script_bottom'));
     }
 
     /**
@@ -170,8 +142,8 @@ class LibraryHelperTest extends TestCase
             ['script' => ['src' => '/me_tools/js/ckeditor_init.php?']],
             '/script',
         ];
-        $this->Library->ckeditor(true);
-        $this->assertHtml($expected, $this->View->fetch('script_bottom'));
+        $this->Helper->ckeditor(true);
+        $this->assertHtml($expected, $this->Helper->getView()->fetch('script_bottom'));
     }
 
     /**
@@ -189,8 +161,8 @@ class LibraryHelperTest extends TestCase
             ['script' => ['src' => '/js/ckeditor_init.js']],
             '/script',
         ];
-        $this->Library->ckeditor();
-        $this->assertHtml($expected, $this->View->fetch('script_bottom'));
+        $this->Helper->ckeditor();
+        $this->assertHtml($expected, $this->Helper->getView()->fetch('script_bottom'));
     }
 
     /**
@@ -208,8 +180,8 @@ class LibraryHelperTest extends TestCase
             ['script' => ['src' => '/js/ckeditor_init.php?']],
             '/script',
         ];
-        $this->Library->ckeditor();
-        $this->assertHtml($expected, $this->View->fetch('script_bottom'));
+        $this->Helper->ckeditor();
+        $this->assertHtml($expected, $this->Helper->getView()->fetch('script_bottom'));
     }
 
     /**
@@ -225,8 +197,8 @@ class LibraryHelperTest extends TestCase
             'showTodayButton' => true,
             'showClear' => true,
         ];
-        $this->Library->datepicker('#my-id');
-        $output = $this->getProperty($this->Library, 'output');
+        $this->Helper->datepicker('#my-id');
+        $output = $this->getProperty($this->Helper, 'output');
         $this->assertEquals(1, preg_match('/\$\("#my-id"\)\.datetimepicker\(({\n(\s+.+\n)+})\);/', $output[0], $matches));
         $this->assertNotEmpty($matches[1]);
         $this->assertEquals($expected, json_decode($matches[1], true));
@@ -237,13 +209,13 @@ class LibraryHelperTest extends TestCase
             ['script' => ['src' => '/me_tools/js/bootstrap-datetimepicker.min.js']],
             '/script',
         ];
-        $this->assertHtml($expected, $this->View->fetch('script_bottom'));
+        $this->assertHtml($expected, $this->Helper->getView()->fetch('script_bottom'));
 
         $expected = ['link' => [
             'rel' => 'stylesheet',
             'href' => '/vendor/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css',
         ]];
-        $this->assertHtml($expected, $this->View->fetch('css_bottom'));
+        $this->assertHtml($expected, $this->Helper->getView()->fetch('css_bottom'));
     }
 
     /**
@@ -260,8 +232,8 @@ class LibraryHelperTest extends TestCase
             'showTodayButton' => true,
             'showClear' => true,
         ];
-        $this->Library->datetimepicker('#my-id');
-        $output = $this->getProperty($this->Library, 'output');
+        $this->Helper->datetimepicker('#my-id');
+        $output = $this->getProperty($this->Helper, 'output');
         $this->assertEquals(1, preg_match('/\$\("#my-id"\)\.datetimepicker\(({\n(\s+.+\n)+})\);/', $output[0], $matches));
         $this->assertNotEmpty($matches[1]);
         $this->assertEquals($expected, json_decode($matches[1], true));
@@ -280,8 +252,8 @@ class LibraryHelperTest extends TestCase
             ['link' => ['rel' => 'stylesheet', 'href' => '/vendor/fancybox/helpers/jquery.fancybox-buttons.css']],
             ['link' => ['rel' => 'stylesheet', 'href' => '/vendor/fancybox/helpers/jquery.fancybox-thumbs.css']],
         ];
-        $this->Library->fancybox();
-        $this->assertHtml($expected, $this->View->fetch('css_bottom'));
+        $this->Helper->fancybox();
+        $this->assertHtml($expected, $this->Helper->getView()->fetch('css_bottom'));
 
         $expected = [
             ['script' => ['src' => '/vendor/fancybox/jquery.fancybox.pack.js']],
@@ -293,7 +265,7 @@ class LibraryHelperTest extends TestCase
             ['script' => ['src' => '/me_tools/fancybox/fancybox_init.js']],
             '/script',
         ];
-        $this->assertHtml($expected, $this->View->fetch('script_bottom'));
+        $this->assertHtml($expected, $this->Helper->getView()->fetch('script_bottom'));
     }
 
     /**
@@ -315,8 +287,8 @@ class LibraryHelperTest extends TestCase
             ['script' => ['src' => '/js/fancybox_init.js']],
             '/script',
         ];
-        $this->Library->fancybox();
-        $this->assertHtml($expected, $this->View->fetch('script_bottom'));
+        $this->Helper->fancybox();
+        $this->assertHtml($expected, $this->Helper->getView()->fetch('script_bottom'));
     }
 
     /**
@@ -334,8 +306,8 @@ class LibraryHelperTest extends TestCase
             ],
             '/script',
         ];
-        $this->Library->shareaholic('my-id');
-        $this->assertHtml($expected, $this->View->fetch('script_bottom'));
+        $this->Helper->shareaholic('my-id');
+        $this->assertHtml($expected, $this->Helper->getView()->fetch('script_bottom'));
     }
 
     /**
@@ -348,11 +320,11 @@ class LibraryHelperTest extends TestCase
             'script' => ['src' => '/me_tools/js/slugify.js'],
             '/script',
         ];
-        $this->Library->slugify();
-        $this->assertHtml($expected, $this->View->fetch('script_bottom'));
+        $this->Helper->slugify();
+        $this->assertHtml($expected, $this->Helper->getView()->fetch('script_bottom'));
 
         $expected = ['$().slugify("form #title", "form #slug");'];
-        $this->assertEquals($expected, $this->getProperty($this->Library, 'output'));
+        $this->assertEquals($expected, $this->getProperty($this->Helper, 'output'));
     }
 
     /**
@@ -370,8 +342,8 @@ class LibraryHelperTest extends TestCase
             'showTodayButton' => true,
             'showClear' => true,
         ];
-        $this->Library->timepicker('#my-id');
-        $output = $this->getProperty($this->Library, 'output');
+        $this->Helper->timepicker('#my-id');
+        $output = $this->getProperty($this->Helper, 'output');
         $this->assertEquals(1, preg_match('/\$\("#my-id"\)\.datetimepicker\(({\n(\s+.+\n)+})\);/', $output[0], $matches));
         $this->assertNotEmpty($matches[1]);
         $this->assertEquals($expected, json_decode($matches[1], true));
