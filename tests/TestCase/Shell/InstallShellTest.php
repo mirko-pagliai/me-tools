@@ -13,7 +13,6 @@
 namespace MeTools\Test\TestCase\Shell;
 
 use Cake\Http\BaseApplication;
-use Cake\TestSuite\Stub\ConsoleOutput;
 use MeTools\Shell\InstallShell;
 use MeTools\TestSuite\ConsoleIntegrationTestCase;
 use MeTools\TestSuite\Traits\MockTrait;
@@ -29,6 +28,11 @@ class InstallShellTest extends ConsoleIntegrationTestCase
      * @var \PHPUnit\Framework\MockObject\MockObject
      */
     protected $Shell;
+
+    /**
+     * @var array
+     */
+    protected $debug;
 
     /**
      * Called before every test method
@@ -76,8 +80,7 @@ class InstallShellTest extends ConsoleIntegrationTestCase
         //Sets a callback for each method
         foreach ($methods as $method) {
             $InstallShell->method($method)->will($this->returnCallback(function () use ($method) {
-                $this->_out = empty($this->_out) ? new ConsoleOutput : $this->_out;
-                $this->_out->write($method);
+                $this->debug[] = $method;
             }));
         }
 
@@ -92,15 +95,15 @@ class InstallShellTest extends ConsoleIntegrationTestCase
             'createPluginsLinks',
             'createVendorsLinks',
         ];
-        $this->assertEquals($expectedMethodsCalledInOrder, $this->_out->messages());
+        $this->assertEquals($expectedMethodsCalledInOrder, $this->debug);
 
         //Calls with no interactive mode
-        $this->_out = new ConsoleOutput;
+        $this->debug = [];
         unset($InstallShell->params['force']);
         $InstallShell->interactive = false;
         $InstallShell->all();
         $expectedMethodsCalledInOrder = array_merge(['createDirectories'], $expectedMethodsCalledInOrder);
-        $this->assertEquals($expectedMethodsCalledInOrder, $this->_out->messages());
+        $this->assertEquals($expectedMethodsCalledInOrder, $this->debug);
     }
 
     /**
@@ -128,6 +131,8 @@ class InstallShellTest extends ConsoleIntegrationTestCase
             $this->assertOutputContains('Created `' . rtr($path) . '` directory');
             $this->assertOutputContains('Setted permissions on `' . rtr($path) . '`');
         }
+
+        $this->assertErrorEmpty();
     }
 
     /**
@@ -140,6 +145,7 @@ class InstallShellTest extends ConsoleIntegrationTestCase
         $this->assertExitWithSuccess();
         $this->assertOutputContains('Creating file ' . WWW_ROOT . 'robots.txt');
         $this->assertOutputContains('<success>Wrote</success> `' . WWW_ROOT . 'robots.txt`');
+        $this->assertErrorEmpty();
         $this->assertStringEqualsFile(
             WWW_ROOT . 'robots.txt',
             'User-agent: *' . PHP_EOL . 'Disallow: /admin/' . PHP_EOL .
@@ -160,6 +166,7 @@ class InstallShellTest extends ConsoleIntegrationTestCase
         $this->assertOutputContains('For plugin: MeTools');
         $this->assertOutputContains('Created symlink ' . WWW_ROOT . 'me_tools');
         $this->assertOutputContains('Done');
+        $this->assertErrorEmpty();
         $this->assertFileExists(WWW_ROOT . 'me_tools');
     }
 
@@ -175,6 +182,8 @@ class InstallShellTest extends ConsoleIntegrationTestCase
         foreach ($this->Shell->links as $link) {
             $this->assertOutputContains('Link `' . rtr(WWW_ROOT) . 'vendor' . DS . $link . '` has been created');
         }
+
+        $this->assertErrorEmpty();
     }
 
     /**
@@ -187,18 +196,19 @@ class InstallShellTest extends ConsoleIntegrationTestCase
         $this->exec('me_tools.install fix_composer_json -v');
         $this->assertExitWithSuccess();
         $this->assertOutputContains('The file ' . rtr(ROOT . DS . 'composer.json') . ' doesn\'t need to be fixed');
+        $this->assertErrorEmpty();
 
         //Tries to fix a no existing file
         $this->exec('me_tools.install fix_composer_json -p ' . TMP . 'noExisting -v');
         $this->assertExitWithError();
-        $this->assertErrorContains('<error>File or directory `' . TMP . 'noExisting` is not writable</error>');
+        $this->assertErrorContains('File or directory `' . TMP . 'noExisting` is not writable');
 
         //Tries to fix an invalid composer.json file
         $file = TMP . 'invalid.json';
         file_put_contents($file, 'String');
         $this->exec('me_tools.install fix_composer_json -p ' . $file . ' -v');
         $this->assertExitWithError();
-        $this->assertErrorContains('<error>The file ' . $file . ' does not seem a valid composer.json file</error>');
+        $this->assertErrorContains('The file ' . $file . ' does not seem a valid composer.json file');
 
         //Fixes a valid composer.json file
         $file = APP . 'composer.json';
@@ -212,6 +222,7 @@ class InstallShellTest extends ConsoleIntegrationTestCase
         $this->exec('me_tools.install fix_composer_json -p ' . $file . ' -v');
         $this->assertExitWithSuccess();
         $this->assertOutputContains('The file ' . rtr($file) . ' has been fixed');
+        $this->assertErrorEmpty();
     }
 
     /**
@@ -237,6 +248,8 @@ class InstallShellTest extends ConsoleIntegrationTestCase
         foreach ($this->Shell->paths as $path) {
             $this->assertOutputContains('Setted permissions on `' . rtr($path) . '`');
         }
+
+        $this->assertErrorEmpty();
     }
 
     /**
