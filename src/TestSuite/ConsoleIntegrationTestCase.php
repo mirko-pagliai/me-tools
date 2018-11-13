@@ -30,6 +30,7 @@ abstract class ConsoleIntegrationTestCase extends CakeConsoleIntegrationTestCase
      *
      * And returns the output as string
      * @return string
+     * @since 2.17.5
      */
     protected function getHelpOutput()
     {
@@ -51,6 +52,7 @@ abstract class ConsoleIntegrationTestCase extends CakeConsoleIntegrationTestCase
     /**
      * Gets the description for the current command
      * @return string
+     * @since 2.17.5
      * @uses getHelpOutput()
      */
     public function getParserDescription()
@@ -67,6 +69,7 @@ abstract class ConsoleIntegrationTestCase extends CakeConsoleIntegrationTestCase
     /**
      * Gets the options for the current command
      * @return array
+     * @since 2.17.5
      * @uses getHelpOutput()
      */
     public function getParserOptions()
@@ -93,6 +96,7 @@ abstract class ConsoleIntegrationTestCase extends CakeConsoleIntegrationTestCase
     /**
      * Gets the subcommand for the current command
      * @return array
+     * @since 2.17.5
      * @uses getHelpOutput()
      */
     public function getParserSubcommands()
