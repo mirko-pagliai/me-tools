@@ -85,10 +85,12 @@ abstract class IntegrationTestCase extends CakeIntegrationTestCase
     /**
      * Asserts that the response status code is in the 2xx range and the
      *  response content is not empty.
+     * @param string $message The failure message that will be appended to the
+     *  generated message
      * @return void
      */
-    public function assertResponseOkAndNotEmpty()
+    public function assertResponseOkAndNotEmpty($message = '')
     {
-        $this->assertResponseOk() && $this->assertResponseNotEmpty();
+        $this->assertResponseOk($message) && $this->assertResponseNotEmpty($message);
     }
 }
