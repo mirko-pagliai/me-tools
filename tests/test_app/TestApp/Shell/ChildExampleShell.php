@@ -13,26 +13,11 @@
  */
 namespace App\Shell;
 
-use MeTools\Console\Shell;
+use App\Shell\ExampleShell;
 
-class ExampleShell extends Shell
+class ChildExampleShell extends ExampleShell
 {
-    public static $tableHeaders = ['number', 'char', 'word'];
-
-    public static $tableRows = [
-        [1, 'a', 'alfa'],
-        [2, 'b', 'beta'],
-        [3, 'c', 'gamma'],
-    ];
-
-    public function doNothing()
+    public function childMethod()
     {
-    }
-
-    public function printTable()
-    {
-        $table = self::$tableRows;
-        array_unshift($table, self::$tableHeaders);
-        $this->helper('table')->output($table);
     }
 }

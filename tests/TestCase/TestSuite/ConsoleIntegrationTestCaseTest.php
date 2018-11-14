@@ -12,6 +12,7 @@
  */
 namespace MeTools\Test\TestCase\TestSuite;
 
+use App\Shell\ChildExampleShell;
 use App\Shell\ExampleShell;
 use MeTools\TestSuite\ConsoleIntegrationTestCase;
 
@@ -49,5 +50,18 @@ class ConsoleIntegrationTestCaseTest extends ConsoleIntegrationTestCase
     {
         $this->exec('example print_table');
         $this->assertTableRowsEquals($this->Shell::$tableRows);
+    }
+
+    /**
+     * Test for `getShellMethods()` method
+     * @test
+     */
+    public function testgetShellMethods()
+    {
+        $this->assertEquals(['doNothing', 'printTable'], $this->getShellMethods());
+        $this->assertEquals(['printTable'], $this->getShellMethods(['doNothing']));
+
+        $this->Shell = $this->getMockForShell(ChildExampleShell::class);
+        $this->assertEquals(['childMethod', 'doNothing', 'printTable'], $this->getShellMethods());
     }
 }

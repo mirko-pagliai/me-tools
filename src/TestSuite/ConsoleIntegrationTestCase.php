@@ -13,8 +13,9 @@
  */
 namespace MeTools\TestSuite;
 
-use Cake\Console\Shell;
+use Cake\Console\Shell as CakeShell;
 use Cake\TestSuite\ConsoleIntegrationTestCase as CakeConsoleIntegrationTestCase;
+use MeTools\Console\Shell;
 use MeTools\TestSuite\Traits\MockTrait;
 use MeTools\TestSuite\Traits\TestCaseTrait;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -69,15 +70,14 @@ abstract class ConsoleIntegrationTestCase extends CakeConsoleIntegrationTestCase
      */
     protected function getShellMethods(array $exclude = [])
     {
-        if (empty($this->Shell)) {
-            $this->fail('The property `$this->Shell` has not been set');
-        }
+        !empty($this->Shell) ?: $this->fail('The property `$this->Shell` has not been set');
 
         $class = $this->Shell instanceof MockObject ? get_parent_class($this->Shell) : $this->Shell;
-
+        $parentClass = get_parent_class($class);
         $methods = get_child_methods($class);
-        if (!in_array(get_parent_class($class), [Shell::class, 'MeTools\Console\Shell'])) {
-            $methods = array_merge($methods, get_child_methods(get_parent_class($class)));
+
+        if (!in_array($parentClass, [CakeShell::class, Shell::class])) {
+            $methods = array_merge($methods, get_child_methods($parentClass));
         }
 
         $methods = array_diff($methods, array_merge(['main'], $exclude));
