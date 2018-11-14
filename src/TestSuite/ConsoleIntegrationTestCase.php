@@ -107,7 +107,12 @@ abstract class ConsoleIntegrationTestCase extends CakeConsoleIntegrationTestCase
             return preg_replace('/<info>([^<]+)<\/info>/', '$1', $header);
         }, array_filter(preg_split('/' . $regexColumnDivider . '/', $matches[2]))));
         $rows = array_values(array_map(function ($row) use ($regexColumnDivider) {
-            return array_values(array_filter(preg_split('/' . $regexColumnDivider . '/', $row)));
+            $row = preg_split('/' . $regexColumnDivider . '/', $row);
+            $row = array_filter($row, function ($row) {
+                return in_array($row, [0, '0'], true) || !empty($row);
+            });
+
+            return array_values($row);
         }, array_filter(explode(PHP_EOL, $matches[5]))));
 
         return compact('headers', 'rows');
