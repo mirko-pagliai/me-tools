@@ -3,6 +3,8 @@
 ### 2.17.5
 * added `MockTrait`, `ComponentTestCase` and `HelperTestCase` classes for test
     suite;
+* the `ConsoleIntegrationTestCase` class automatically creates an instance of
+    the shell class. Added `getShellMethods()` method;
 * added `TestCaseTrait::assertIsMock()` assert method.
 
 ### 2.17.4

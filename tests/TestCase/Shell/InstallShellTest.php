@@ -17,20 +17,12 @@ use Cake\Http\BaseApplication;
 use Cake\Utility\Inflector;
 use MeTools\Shell\InstallShell;
 use MeTools\TestSuite\ConsoleIntegrationTestCase;
-use MeTools\TestSuite\Traits\MockTrait;
 
 /**
  * InstallShellTest class
  */
 class InstallShellTest extends ConsoleIntegrationTestCase
 {
-    use MockTrait;
-
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
-     */
-    protected $Shell;
-
     /**
      * @var array
      */
@@ -49,8 +41,6 @@ class InstallShellTest extends ConsoleIntegrationTestCase
 
         //Deletes symbolic links for plugin assets
         safe_unlink(WWW_ROOT . 'me_tools');
-
-        $this->Shell = $this->getMockForShell(InstallShell::class);
     }
 
     /**
@@ -73,8 +63,7 @@ class InstallShellTest extends ConsoleIntegrationTestCase
      */
     public function testAll()
     {
-        //Gets all methods from `InstallShell`, except for the `all()` method
-        $methods = array_diff(get_child_methods(InstallShell::class), ['all']);
+        $methods = $this->getShellMethods(['all']);
 
         $InstallShell = $this->getMockForShell(InstallShell::class, array_merge(['_stop', 'in'], $methods));
         $InstallShell->method('in')->will($this->returnValue('y'));
@@ -89,7 +78,6 @@ class InstallShellTest extends ConsoleIntegrationTestCase
         //Calls with `force` options
         $InstallShell->params['force'] = true;
         $InstallShell->all();
-
         $expectedMethodsCalledInOrder = [
             'setPermissions',
             'createRobots',
@@ -265,8 +253,7 @@ class InstallShellTest extends ConsoleIntegrationTestCase
         $this->assertEquals('Executes some tasks to make the system ready to work', $parser->getDescription());
         $this->assertArrayKeysEqual(['force', 'help', 'quiet', 'verbose'], $parser->options());
 
-        $expectedMethods = array_diff(get_child_methods(InstallShell::class), ['main']);
-        $expectedMethods = array_values(array_map([Inflector::class, 'underscore'], $expectedMethods));
+        $expectedMethods = array_values(array_map([Inflector::class, 'underscore'], $this->getShellMethods()));
         $this->assertArrayKeysEqual($expectedMethods, $parser->subcommands());
     }
 }
