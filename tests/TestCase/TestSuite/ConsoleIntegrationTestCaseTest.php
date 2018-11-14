@@ -56,7 +56,7 @@ class ConsoleIntegrationTestCaseTest extends ConsoleIntegrationTestCase
      * Test for `getShellMethods()` method
      * @test
      */
-    public function testgetShellMethods()
+    public function testGetShellMethods()
     {
         $this->assertEquals(['doNothing', 'printTable'], $this->getShellMethods());
         $this->assertEquals(['printTable'], $this->getShellMethods(['doNothing']));
