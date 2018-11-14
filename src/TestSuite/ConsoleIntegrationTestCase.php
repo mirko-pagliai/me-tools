@@ -15,7 +15,6 @@ namespace MeTools\TestSuite;
 
 use Cake\Console\Shell;
 use Cake\TestSuite\ConsoleIntegrationTestCase as CakeConsoleIntegrationTestCase;
-use Cake\Utility\Inflector;
 use MeTools\TestSuite\Traits\TestCaseTrait;
 
 /**
@@ -24,95 +23,6 @@ use MeTools\TestSuite\Traits\TestCaseTrait;
 abstract class ConsoleIntegrationTestCase extends CakeConsoleIntegrationTestCase
 {
     use TestCaseTrait;
-
-    /**
-     * Internal method to get the help output for the current command.
-     *
-     * In other words, it runs the command:
-     * `cake Plugin.shell_name [args]`
-     *
-     * And returns the output as string
-     * @return string
-     * @since 2.17.5
-     */
-    protected function getHelpOutput()
-    {
-        $parts = explode('\\', get_class($this));
-        $command = Inflector::underscore(substr(array_pop($parts), 0, -9));
-
-        $prefix = first_value($parts);
-        if ($prefix !== 'App') {
-            $command = sprintf('%s.%s', Inflector::underscore($prefix), $command);
-        }
-
-        //Executes the command
-        $command .= ' -h';
-        $this->exec($command);
-
-        return first_value($this->_out->messages());
-    }
-
-    /**
-     * Gets the description for the current command
-     * @return string
-     * @since 2.17.5
-     * @uses getHelpOutput()
-     */
-    public function getParserDescription()
-    {
-        $message = $this->getHelpOutput();
-        $regex = '/^(.+)\v{2}<info>Usage:<\/info>/';
-        preg_match($regex, $message, $matches) ?: $this->fail('Unable to retrevie the shell description');
-
-        return $matches[1];
-    }
-
-    /**
-     * Gets the options for the current command
-     * @return array
-     * @since 2.17.5
-     * @uses getHelpOutput()
-     */
-    public function getParserOptions()
-    {
-        $message = $this->getHelpOutput();
-        $regex = '/<info>Options:<\/info>\v{2}((.|\v)+)\v$/';
-        preg_match($regex, $message, $matches) ?: $this->fail('Unable to retrevie the shell options');
-        $options = explode(PHP_EOL, $matches[1]);
-
-        return array_map(function ($line) {
-            if (!preg_match('/^--(\w+)(,\s+-(\w))?\s+(.+)$/', $line, $matches)) {
-                $this->fail('Unable to parse the shell options');
-            }
-
-            list(, $name,, $short, $help) = $matches;
-
-            return array_filter(compact('name', 'short', 'help'));
-        }, $options);
-    }
-
-    /**
-     * Gets the subcommand for the current command
-     * @return array
-     * @since 2.17.5
-     * @uses getHelpOutput()
-     */
-    public function getParserSubcommands()
-    {
-        $message = $this->getHelpOutput();
-        $regex = '/<info>Subcommands:<\/info>\v+((\V+\v)+\V+)\v+To see help on a subcommand/';
-        preg_match($regex, $message, $matches) ?: $this->fail('Unable to retrevie the shell subcommands');
-        $subcommands = explode(PHP_EOL, $matches[1]);
-
-        return array_map(function ($subcommand) {
-            if (!preg_match('/^(\S+)\s+(.+)$/', $subcommand, $matches)) {
-                $this->fail('Unable to parse the subcommand');
-            }
-            list(, $name, $help) = $matches;
-
-            return compact('name', 'help');
-        }, $subcommands);
-    }
 
     /**
      * Asserts shell exited with the error code

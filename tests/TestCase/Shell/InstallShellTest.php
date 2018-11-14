@@ -12,7 +12,9 @@
  */
 namespace MeTools\Test\TestCase\Shell;
 
+use Cake\Console\ConsoleOptionParser;
 use Cake\Http\BaseApplication;
+use Cake\Utility\Inflector;
 use MeTools\Shell\InstallShell;
 use MeTools\TestSuite\ConsoleIntegrationTestCase;
 use MeTools\TestSuite\Traits\MockTrait;
@@ -258,25 +260,13 @@ class InstallShellTest extends ConsoleIntegrationTestCase
      */
     public function testGetOptionParser()
     {
-        $this->assertEquals('Executes some tasks to make the system ready to work', $this->getParserDescription());
+        $parser = $this->Shell->getOptionParser();
+        $this->assertInstanceOf(ConsoleOptionParser::class, $parser);
+        $this->assertEquals('Executes some tasks to make the system ready to work', $parser->getDescription());
+        $this->assertArrayKeysEqual(['force', 'help', 'quiet', 'verbose'], $parser->options());
 
-        $expectedOptions = [
-            ['name' => 'force', 'short' => 'f', 'help' => 'Executes tasks without prompting'],
-            ['name' => 'help', 'short' => 'h', 'help' => 'Display this help.'],
-            ['name' => 'quiet', 'short' => 'q', 'help' => 'Enable quiet output.'],
-            ['name' => 'verbose', 'short' => 'v', 'help' => 'Enable verbose output.'],
-        ];
-        $this->assertEquals($expectedOptions, $this->getParserOptions());
-
-        $expectedSubcommands = [
-            ['name' => 'all', 'help' => 'Executes all available tasks'],
-            ['name' => 'create_directories', 'help' => 'Creates default directories'],
-            ['name' => 'create_plugins_links', 'help' => 'Creates symbolic links for plugins assets'],
-            ['name' => 'create_robots', 'help' => 'Creates the robots.txt file'],
-            ['name' => 'create_vendors_links', 'help' => 'Creates symbolic links for vendor assets'],
-            ['name' => 'fix_composer_json', 'help' => 'Fixes composer.json'],
-            ['name' => 'set_permissions', 'help' => 'Sets directories permissions'],
-        ];
-        $this->assertEquals($expectedSubcommands, $this->getParserSubcommands());
+        $expectedMethods = array_diff(get_child_methods(InstallShell::class), ['main']);
+        $expectedMethods = array_values(array_map([Inflector::class, 'underscore'], $expectedMethods));
+        $this->assertArrayKeysEqual($expectedMethods, $parser->subcommands());
     }
 }
