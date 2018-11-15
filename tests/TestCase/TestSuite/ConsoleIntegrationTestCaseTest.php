@@ -39,7 +39,8 @@ class ConsoleIntegrationTestCaseTest extends ConsoleIntegrationTestCase
     public function testAssertTableHeadersEquals()
     {
         $this->exec('example print_table');
-        $this->assertTableHeadersEquals($this->Shell::$tableHeaders);
+        $class = $this->Shell;
+        $this->assertTableHeadersEquals($class::$tableHeaders);
     }
 
     /**
@@ -49,7 +50,8 @@ class ConsoleIntegrationTestCaseTest extends ConsoleIntegrationTestCase
     public function testAssertTableRowsEquals()
     {
         $this->exec('example print_table');
-        $this->assertTableRowsEquals($this->Shell::$tableRows);
+        $class = $this->Shell;
+        $this->assertTableRowsEquals($class::$tableRows);
     }
 
     /**
