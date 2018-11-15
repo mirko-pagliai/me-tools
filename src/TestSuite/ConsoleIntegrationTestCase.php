@@ -13,107 +13,109 @@
  */
 namespace MeTools\TestSuite;
 
-use Cake\Console\Shell;
+use Cake\Console\Shell as CakeShell;
 use Cake\TestSuite\ConsoleIntegrationTestCase as CakeConsoleIntegrationTestCase;
-use Cake\Utility\Inflector;
+use MeTools\Console\Shell;
+use MeTools\TestSuite\Traits\MockTrait;
+use MeTools\TestSuite\Traits\TestCaseTrait;
+use PHPUnit\Framework\MockObject\MockObject;
 
 /**
  * ConsoleIntegrationTestCase class
  */
 abstract class ConsoleIntegrationTestCase extends CakeConsoleIntegrationTestCase
 {
+    use MockTrait;
+    use TestCaseTrait;
+
     /**
-     * Internal method to get the help output for the current command.
+     * Shell instance
+     * @var \PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $Shell;
+
+    /**
+     * If `true`, a mock instance of the shell will be created
+     * @var bool
+     */
+    protected $autoInitializeClass = true;
+
+    /**
+     * Called before every test method
+     * @return void
+     * @uses $Shell
+     * @uses $autoInitializeClass
+     */
+    public function setUp()
+    {
+        parent::setUp();
+
+        if (!$this->Shell && $this->autoInitializeClass) {
+            $parts = explode('\\', get_class($this));
+            array_splice($parts, 1, 2, []);
+            $parts[] = substr(array_pop($parts), 0, -4);
+            $className = implode('\\', $parts);
+
+            $this->Shell = $this->getMockForShell($className);
+        }
+    }
+
+    /**
+     * Gets all shell methods.
      *
-     * In other words, it runs the command:
-     * `cake Plugin.shell_name [args]`
-     *
-     * And returns the output as string
-     * @return string
-     */
-    protected function getHelpOutput()
-    {
-        $parts = explode('\\', get_class($this));
-        $command = Inflector::underscore(substr(array_pop($parts), 0, -9));
-
-        $prefix = first_value($parts);
-        if ($prefix !== 'App') {
-            $command = sprintf('%s.%s', Inflector::underscore($prefix), $command);
-        }
-
-        //Executes the command
-        $command .= ' -h';
-        $this->exec($command);
-
-        return first_value($this->_out->messages());
-    }
-
-    /**
-     * Gets the description for the current command
-     * @return string
-     * @uses getHelpOutput()
-     */
-    public function getParserDescription()
-    {
-        $message = $this->getHelpOutput();
-
-        if (!preg_match('/^(.+)\v{2}<info>Usage:<\/info>/', $message, $matches)) {
-            $this->fail('Unable to retrevie the shell description');
-        }
-
-        return $matches[1];
-    }
-
-    /**
-     * Gets the options for the current command
+     * It excludes the `main` method.
+     * @param array $exclude Other methods you want to exclude
      * @return array
-     * @uses getHelpOutput()
+     * @uses $Shell
      */
-    public function getParserOptions()
+    protected function getShellMethods(array $exclude = [])
     {
-        $message = $this->getHelpOutput();
+        !empty($this->Shell) ?: $this->fail('The property `$this->Shell` has not been set');
 
-        if (!preg_match('/<info>Options:<\/info>\v{2}((.|\v)+)\v$/', $message, $matches)) {
-            $this->fail('Unable to retrevie the shell options');
+        $class = $this->Shell instanceof MockObject ? get_parent_class($this->Shell) : $this->Shell;
+        $parentClass = get_parent_class($class);
+        $methods = get_child_methods($class);
+
+        if (!in_array($parentClass, [CakeShell::class, Shell::class])) {
+            $methods = array_merge($methods, get_child_methods($parentClass));
         }
 
-        $options = explode(PHP_EOL, $matches[1]);
+        $methods = array_diff($methods, array_merge(['main'], $exclude));
+        sort($methods);
 
-        return array_map(function ($line) {
-            if (!preg_match('/^--(\w+)(,\s+-(\w))?\s+(.+)$/', $line, $matches)) {
-                $this->fail('Unable to parse the shell options');
-            }
-
-            list(, $name,, $short, $help) = $matches;
-
-            return array_filter(compact('name', 'short', 'help'));
-        }, $options);
+        return $methods;
     }
 
     /**
-     * Gets the subcommand for the current command
-     * @return array
-     * @uses getHelpOutput()
+     * Gets a table from output
+     * @return array Headers and rows
+     * @uses $_out
      */
-    public function getParserSubcommands()
+    protected function getTableFromOutput()
     {
-        $message = $this->getHelpOutput();
+        $regexRowDivider = '(\+|\-)+';
+        $regexHeader = '(\|(\s+<info>[^<]+<\/info>\s+\|)+)';
+        $regexRow = '\|(\s+[^\|]+\s+\|)+';
+        $regexRows = '((' . $regexRow . '\v)+)';
+        $regexTable = $regexRowDivider . '\v' . $regexHeader . '\v' . $regexRowDivider . '\v' . $regexRows . $regexRowDivider;
+        $output = implode(PHP_EOL, $this->_out->messages());
 
-        if (!preg_match('/<info>Subcommands:<\/info>\v+((\V+\v)+\V+)\v+To see help on a subcommand/', $message, $matches)) {
-            $this->fail('Unable to retrevie the shell subcommands');
-        }
+        preg_match('/' . $regexTable . '/', $output, $matches) ?: $this->fail('Unable to retrieve a table output');
 
-        $subcommands = explode(PHP_EOL, $matches[1]);
+        $regexColumnDivider = '\s*\|\s*';
+        $headers = array_values(array_map(function ($header) {
+            return preg_replace('/<info>([^<]+)<\/info>/', '$1', $header);
+        }, array_filter(preg_split('/' . $regexColumnDivider . '/', $matches[2]))));
+        $rows = array_values(array_map(function ($row) use ($regexColumnDivider) {
+            $row = preg_split('/' . $regexColumnDivider . '/', $row);
+            $row = array_filter($row, function ($row) {
+                return in_array($row, [0, '0'], true) || !empty($row);
+            });
 
-        return array_map(function ($subcommand) {
-            if (!preg_match('/^(\S+)\s+(.+)$/', $subcommand, $matches)) {
-                $this->fail('Unable to parse the subcommand');
-            }
+            return array_values($row);
+        }, array_filter(explode(PHP_EOL, $matches[5]))));
 
-            list(, $name, $help) = $matches;
-
-            return compact('name', 'help');
-        }, $subcommands);
+        return compact('headers', 'rows');
     }
 
     /**
@@ -136,5 +138,35 @@ abstract class ConsoleIntegrationTestCase extends CakeConsoleIntegrationTestCase
     public function assertExitWithSuccess($message = '')
     {
         $this->assertExitCode(Shell::CODE_SUCCESS, $message);
+    }
+
+    /**
+     * Asserts that a table has headers
+     * @param array $expected Expected headers values
+     * @param string $message Failure message to be appended to the generated
+     *  message
+     * @return void
+     * @uses getTableFromOutput()
+     */
+    public function assertTableHeadersEquals($expected, $message = '')
+    {
+        list($headers) = array_values($this->getTableFromOutput());
+
+        $this->assertEquals($expected, $headers, $message);
+    }
+
+    /**
+     * Asserts that a table has rows
+     * @param array $expected Expected rows values
+     * @param string $message Failure message to be appended to the generated
+     *  message
+     * @return void
+     * @uses getTableFromOutput()
+     */
+    public function assertTableRowsEquals($expected, $message = '')
+    {
+        list(, $rows) = array_values($this->getTableFromOutput());
+
+        $this->assertEquals($expected, $rows, $message);
     }
 }

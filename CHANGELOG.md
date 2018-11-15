@@ -8,8 +8,11 @@
 ### 2.17.5
 * added `MockTrait`, `ComponentTestCase` and `HelperTestCase` classes for test
     suite;
-* added `getParserDescription()`, `getParserOptions()` and
-    `getParserSubcommands()` methods for the `ConsoleIntegrationTestCase` class.
+* the `ConsoleIntegrationTestCase` class automatically creates an instance of
+    the shell class. Added `assertTableHeadersEquals()`,
+     `assertTableRowsEquals()`, `getShellMethods()` and `getTableFromOutput()`
+    methods;
+* added `TestCaseTrait::assertIsMock()` assert method.
 
 ### 2.17.4
 * fixed bug in the integration with CKeditor when uploading images (see
