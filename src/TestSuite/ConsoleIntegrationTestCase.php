@@ -93,11 +93,11 @@ abstract class ConsoleIntegrationTestCase extends CakeConsoleIntegrationTestCase
      */
     protected function getTableFromOutput()
     {
-        $regexRowDivider = '[\+\-]+';
+        $regexRowDivider = '[+-]+';
         $regexHeader = '(\|(\s+<info>[^<]+<\/info>\s+\|)+)';
         $regexRow = '\|(\s+[^\|]+\s+\|)+';
-        $regexRows = '((' . $regexRow . '\v)+)';
-        $regexTable = $regexRowDivider . '\v' . $regexHeader . '\v' . $regexRowDivider . '\v' . $regexRows . $regexRowDivider;
+        $regexRows = '((' . $regexRow . '\R)+)';
+        $regexTable = $regexRowDivider . '\R' . $regexHeader . '\R' . $regexRowDivider . '\R' . $regexRows . $regexRowDivider;
         $output = implode(PHP_EOL, $this->_out->messages());
 
         preg_match('/' . $regexTable . '/', $output, $matches) ?: $this->fail('Unable to retrieve a table output');
