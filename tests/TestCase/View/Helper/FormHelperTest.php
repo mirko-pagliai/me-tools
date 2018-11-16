@@ -12,38 +12,28 @@
  */
 namespace MeTools\Test\TestCase\View\Helper;
 
-use Cake\View\View;
-use MeTools\TestSuite\TestCase;
-use MeTools\View\Helper\FormHelper;
+use MeTools\TestSuite\HelperTestCase;
 use MeTools\View\Helper\HtmlHelper;
 
 /**
  * FormHelperTest class
  */
-class FormHelperTest extends TestCase
+class FormHelperTest extends HelperTestCase
 {
     /**
-     * @var \MeTools\View\Helper\FormHelper
-     */
-    protected $Form;
-
-    /**
-     * @var \MeTools\View\Helper\HtmlHelper
+     * @var \PHPUnit\Framework\MockObject\MockObject
      */
     protected $Html;
 
     /**
-     * Setup the test case, backup the static object values so they can be
-     * restored. Specifically backs up the contents of Configure and paths in
-     *  App if they have not already been backed up
+     * Called before every test method
      * @return void
      */
     public function setUp()
     {
         parent::setUp();
 
-        $this->Form = new FormHelper(new View);
-        $this->Html = new HtmlHelper(new View);
+        $this->Html = $this->getMockForHelper(HtmlHelper::class, null);
     }
 
     /**
@@ -59,7 +49,7 @@ class FormHelperTest extends TestCase
             $title,
             '/button',
         ];
-        $this->assertHtml($expected, $this->Form->button($title));
+        $this->assertHtml($expected, $this->Helper->button($title));
 
         $expected = [
             'button' => ['type' => 'button', 'class' => 'btn btn-primary'],
@@ -70,35 +60,35 @@ class FormHelperTest extends TestCase
             $title,
             '/button',
         ];
-        $this->assertHtml($expected, $this->Form->button($title, ['icon' => 'home']));
+        $this->assertHtml($expected, $this->Helper->button($title, ['icon' => 'home']));
 
         $expected = [
             'button' => ['type' => 'reset', 'class' => 'btn btn-primary'],
             $title,
             '/button',
         ];
-        $this->assertHtml($expected, $this->Form->button($title, ['type' => 'reset']));
+        $this->assertHtml($expected, $this->Helper->button($title, ['type' => 'reset']));
 
         $expected = [
             'button' => ['type' => 'submit', 'class' => 'btn btn-success'],
             $title,
             '/button',
         ];
-        $this->assertHtml($expected, $this->Form->button($title, ['type' => 'submit']));
+        $this->assertHtml($expected, $this->Helper->button($title, ['type' => 'submit']));
 
         $expected = [
             'button' => ['type' => 'button', 'class' => 'btn btn-danger'],
             $title,
             '/button',
         ];
-        $this->assertHtml($expected, $this->Form->button($title, ['class' => 'btn btn-danger']));
+        $this->assertHtml($expected, $this->Helper->button($title, ['class' => 'btn btn-danger']));
 
         $expected = [
             'button' => ['type' => 'button', 'class' => 'btn btn-danger'],
             $title,
             '/button',
         ];
-        $this->assertHtml($expected, $this->Form->button($title, ['class' => 'btn-danger']));
+        $this->assertHtml($expected, $this->Helper->button($title, ['class' => 'btn-danger']));
     }
 
     /**
@@ -108,12 +98,11 @@ class FormHelperTest extends TestCase
     public function testCheckbox()
     {
         $field = 'my-field';
-
         $expected = [
             ['input' => ['type' => 'hidden', 'name' => $field, 'value' => '0']],
             ['input' => ['type' => 'checkbox', 'name' => $field, 'value' => '1']],
         ];
-        $this->assertHtml($expected, $this->Form->checkbox($field));
+        $this->assertHtml($expected, $this->Helper->checkbox($field));
     }
 
     /**
@@ -134,8 +123,8 @@ class FormHelperTest extends TestCase
             '/textarea',
             '/div',
         ];
-        $this->assertHtml($expected, $this->Form->ckeditor($field));
-        $this->assertHtml($expected, $this->Form->ckeditor($field, ['label' => false]));
+        $this->assertHtml($expected, $this->Helper->ckeditor($field));
+        $this->assertHtml($expected, $this->Helper->ckeditor($field, ['label' => false]));
 
         $expected = [
             'div' => ['class' => 'form-group input textarea'],
@@ -150,7 +139,7 @@ class FormHelperTest extends TestCase
             '/textarea',
             '/div',
         ];
-        $this->assertHtml($expected, $this->Form->ckeditor($field, ['label' => 'my label']));
+        $this->assertHtml($expected, $this->Helper->ckeditor($field, ['label' => 'my label']));
     }
 
     /**
@@ -169,7 +158,7 @@ class FormHelperTest extends TestCase
             'input' => ['type' => 'text', 'name' => $field, 'class' => 'form-control', 'id' => $field],
             '/div',
         ];
-        $this->assertHtml($expected, $this->Form->control($field));
+        $this->assertHtml($expected, $this->Helper->control($field));
 
         $expected = [
             'div' => ['class' => 'form-group input text'],
@@ -182,7 +171,7 @@ class FormHelperTest extends TestCase
             '/p',
             '/div',
         ];
-        $this->assertHtml($expected, $this->Form->control($field, ['help' => 'My tip']));
+        $this->assertHtml($expected, $this->Helper->control($field, ['help' => 'My tip']));
 
         $expected = [
             'div' => ['class' => 'form-group input text'],
@@ -198,7 +187,7 @@ class FormHelperTest extends TestCase
             '/p',
             '/div',
         ];
-        $result = $this->Form->control($field, ['help' => ['Tip first line', 'Tip second line']]);
+        $result = $this->Helper->control($field, ['help' => ['Tip first line', 'Tip second line']]);
         $this->assertHtml($expected, $result);
 
         $expected = [
@@ -215,7 +204,7 @@ class FormHelperTest extends TestCase
             '/div',
             '/div',
         ];
-        $result = $this->Form->control($field, ['button' => $this->Html->button('My button')]);
+        $result = $this->Helper->control($field, ['button' => $this->Html->button('My button')]);
         $this->assertHtml($expected, $result);
     }
 
@@ -226,7 +215,6 @@ class FormHelperTest extends TestCase
     public function testControlCheckbox()
     {
         $field = 'my-field';
-
         $expected = [
             'div' => ['class' => 'form-check input checkbox'],
             'label' => ['for' => $field],
@@ -236,7 +224,7 @@ class FormHelperTest extends TestCase
             '/label',
             '/div',
         ];
-        $this->assertHtml($expected, $this->Form->control($field, ['type' => 'checkbox']));
+        $this->assertHtml($expected, $this->Helper->control($field, ['type' => 'checkbox']));
     }
 
     /**
@@ -253,7 +241,7 @@ class FormHelperTest extends TestCase
             'input' => ['type' => 'password', 'name' => 'old-password', 'class' => 'form-control', 'id' => 'old-password'],
             '/div',
         ];
-        $this->assertHtml($expected, $this->Form->control('old-password'));
+        $this->assertHtml($expected, $this->Helper->control('old-password'));
     }
 
     /**
@@ -282,7 +270,7 @@ class FormHelperTest extends TestCase
             '/select',
             '/div',
         ];
-        $result = $this->Form->control($field, ['options' => $options, 'type' => 'select']);
+        $result = $this->Helper->control($field, ['options' => $options, 'type' => 'select']);
         $this->assertHtml($expected, $result);
 
         //With default value
@@ -301,7 +289,7 @@ class FormHelperTest extends TestCase
             '/select',
             '/div',
         ];
-        $result = $this->Form->control($field, [
+        $result = $this->Helper->control($field, [
             'default' => '2',
             'options' => $options,
             'type' => 'select',
@@ -324,7 +312,7 @@ class FormHelperTest extends TestCase
             '/select',
             '/div',
         ];
-        $result = $this->Form->control($field, [
+        $result = $this->Helper->control($field, [
             'options' => $options,
             'type' => 'select',
             'value' => '2',
@@ -350,7 +338,7 @@ class FormHelperTest extends TestCase
             '/select',
             '/div',
         ];
-        $result = $this->Form->control($field, [
+        $result = $this->Helper->control($field, [
             'empty' => '(choose one)',
             'options' => $options,
             'type' => 'select',
@@ -373,11 +361,7 @@ class FormHelperTest extends TestCase
             '/select',
             '/div',
         ];
-        $result = $this->Form->control($field, [
-            'empty' => false,
-            'options' => $options,
-            'type' => 'select',
-        ]);
+        $result = $this->Helper->control($field, compact('options') + ['empty' => false, 'type' => 'select']);
         $this->assertHtml($expected, $result);
     }
 
@@ -398,7 +382,7 @@ class FormHelperTest extends TestCase
             '/textarea',
             '/div',
         ];
-        $this->assertHtml($expected, $this->Form->control($field, ['type' => 'textarea']));
+        $this->assertHtml($expected, $this->Helper->control($field, ['type' => 'textarea']));
     }
 
     /**
@@ -417,8 +401,8 @@ class FormHelperTest extends TestCase
             'input' => ['type' => 'text', 'name' => $field, 'class' => 'form-control', 'id' => $field],
             '/div',
         ];
-        $this->Form->createInline();
-        $this->assertHtml($expected, $this->Form->control($field));
+        $this->Helper->createInline();
+        $this->assertHtml($expected, $this->Helper->control($field));
 
         //Tries with a checkbox
         $expected = [
@@ -430,7 +414,7 @@ class FormHelperTest extends TestCase
             '/label',
             '/div',
         ];
-        $this->assertHtml($expected, $this->Form->control($field, ['type' => 'checkbox']));
+        $this->assertHtml($expected, $this->Helper->control($field, ['type' => 'checkbox']));
 
         //Using `label` option
         $expected = [
@@ -449,7 +433,7 @@ class FormHelperTest extends TestCase
             ],
             '/div',
         ];
-        $this->assertHtml($expected, $this->Form->control($field, ['label' => 'My label']));
+        $this->assertHtml($expected, $this->Helper->control($field, ['label' => 'My label']));
 
         //`label` option `false`
         $expected = [
@@ -457,7 +441,7 @@ class FormHelperTest extends TestCase
             'input' => ['type' => 'text', 'name' => $field, 'class' => 'form-control', 'id' => $field],
             '/div',
         ];
-        $this->assertHtml($expected, $this->Form->control($field, ['label' => false]));
+        $this->assertHtml($expected, $this->Helper->control($field, ['label' => false]));
     }
 
     /**
@@ -473,9 +457,7 @@ class FormHelperTest extends TestCase
             '/div',
             '/form',
         ];
-        $result = $this->Form->create(null);
-        $result .= $this->Form->end();
-        $this->assertHtml($expected, $result);
+        $this->assertHtml($expected, $this->Helper->create(null) . $this->Helper->end());
     }
 
     /**
@@ -492,28 +474,28 @@ class FormHelperTest extends TestCase
             '/form',
         ];
 
-        $this->assertFalse($this->Form->isInline());
-        $result = $this->Form->createInline(null);
-        $inline = $this->Form->isInline();
-        $result .= $this->Form->end();
+        $this->assertFalse($this->Helper->isInline());
+        $result = $this->Helper->createInline(null);
+        $inline = $this->Helper->isInline();
+        $result .= $this->Helper->end();
         $this->assertTrue($inline);
         $this->assertHtml($expected, $result);
 
-        $this->assertFalse($this->Form->isInline());
+        $this->assertFalse($this->Helper->isInline());
 
-        // `create()` method with `inline` option
-        $result = $this->Form->create(null, ['inline' => true]);
-        $inline = $this->Form->isInline();
-        $result .= $this->Form->end();
+        //Tests `create()` method, with `inline` option
+        $result = $this->Helper->create(null, ['inline' => true]);
+        $inline = $this->Helper->isInline();
+        $result .= $this->Helper->end();
         $this->assertTrue($inline);
         $this->assertHtml($expected, $result);
 
-        $this->assertFalse($this->Form->isInline());
+        $this->assertFalse($this->Helper->isInline());
 
-        // `create()` method with `form-inline` class
-        $result = $this->Form->create(null, ['class' => 'form-inline']);
-        $inline = $this->Form->isInline();
-        $result .= $this->Form->end();
+        //Tests `create()` method, with `form-inline` class
+        $result = $this->Helper->create(null, ['class' => 'form-inline']);
+        $inline = $this->Helper->isInline();
+        $result .= $this->Helper->end();
         $this->assertTrue($inline);
         $this->assertHtml($expected, $result);
     }
@@ -540,7 +522,7 @@ class FormHelperTest extends TestCase
             ],
             '/div',
         ];
-        $this->assertHtml($expected, $this->Form->datepicker($field));
+        $this->assertHtml($expected, $this->Helper->datepicker($field));
 
         $expected = [
             'div' => ['class' => 'form-group input text'],
@@ -556,7 +538,7 @@ class FormHelperTest extends TestCase
             ],
             '/div',
         ];
-        $this->assertHtml($expected, $this->Form->datetimepicker($field));
+        $this->assertHtml($expected, $this->Helper->datetimepicker($field));
 
         $expected = [
             'div' => ['class' => 'form-group input text'],
@@ -572,7 +554,7 @@ class FormHelperTest extends TestCase
             ],
             '/div',
         ];
-        $this->assertHtml($expected, $this->Form->timepicker($field));
+        $this->assertHtml($expected, $this->Helper->timepicker($field));
     }
 
     /**
@@ -585,7 +567,7 @@ class FormHelperTest extends TestCase
         $title = 'My label';
 
         $expected = ['label' => ['for' => 'my-fieldname'], $title, '/label'];
-        $this->assertHtml($expected, $this->Form->label($fieldname, $title));
+        $this->assertHtml($expected, $this->Helper->label($fieldname, $title));
 
         $expected = [
             'label' => ['for' => 'my-fieldname'],
@@ -596,21 +578,21 @@ class FormHelperTest extends TestCase
             $title,
             '/label',
         ];
-        $this->assertHtml($expected, $this->Form->label($fieldname, $title, ['icon' => 'home']));
+        $this->assertHtml($expected, $this->Helper->label($fieldname, $title, ['icon' => 'home']));
 
         $expected = [
             'label' => ['for' => 'my-fieldname'],
             'Single escape \'',
             '/label',
         ];
-        $this->assertHtml($expected, $this->Form->label($fieldname, 'Single escape \''));
+        $this->assertHtml($expected, $this->Helper->label($fieldname, 'Single escape \''));
 
         $expected = [
             'label' => ['for' => 'my-fieldname'],
             'Double escape "',
             '/label',
         ];
-        $this->assertHtml($expected, $this->Form->label($fieldname, 'Double escape "'));
+        $this->assertHtml($expected, $this->Helper->label($fieldname, 'Double escape "'));
     }
 
     /**
@@ -630,7 +612,7 @@ class FormHelperTest extends TestCase
             $title,
             '/a',
         ];
-        $this->assertHtml($expected, $this->Form->postButton($title, $url));
+        $this->assertHtml($expected, $this->Helper->postButton($title, $url));
 
         $expected = [
             'form' => ['name', 'style' => 'display:none;', 'method' => 'post', 'action' => $url],
@@ -644,7 +626,7 @@ class FormHelperTest extends TestCase
             $title,
             '/a',
         ];
-        $this->assertHtml($expected, $this->Form->postButton($title, $url, ['icon' => 'home']));
+        $this->assertHtml($expected, $this->Helper->postButton($title, $url, ['icon' => 'home']));
 
         $expected = [
             'form' => ['name', 'style' => 'display:none;', 'method' => 'post', 'action' => $url],
@@ -660,7 +642,7 @@ class FormHelperTest extends TestCase
             $title,
             '/a',
         ];
-        $this->assertHtml($expected, $this->Form->postButton($title, $url, ['class' => 'btn-danger']));
+        $this->assertHtml($expected, $this->Helper->postButton($title, $url, ['class' => 'btn-danger']));
     }
 
     /**
@@ -680,7 +662,7 @@ class FormHelperTest extends TestCase
             $title,
             '/a',
         ];
-        $this->assertHtml($expected, $this->Form->postLink($title, $url));
+        $this->assertHtml($expected, $this->Helper->postLink($title, $url));
 
         $expected = [
             'form' => ['name', 'style' => 'display:none;', 'method' => 'post', 'action' => $url],
@@ -694,7 +676,7 @@ class FormHelperTest extends TestCase
             $title,
             '/a',
         ];
-        $this->assertHtml($expected, $this->Form->postLink($title, $url, ['icon' => 'home']));
+        $this->assertHtml($expected, $this->Helper->postLink($title, $url, ['icon' => 'home']));
 
         $expected = [
             'form' => ['name', 'style' => 'display:none;', 'method' => 'post', 'action' => $url],
@@ -704,7 +686,7 @@ class FormHelperTest extends TestCase
             $title,
             '/a',
         ];
-        $this->assertHtml($expected, $this->Form->postLink($title, $url, ['tooltip' => 'My tooltip']));
+        $this->assertHtml($expected, $this->Helper->postLink($title, $url, ['tooltip' => 'My tooltip']));
 
         $expected = [
             'form' => ['name', 'style' => 'display:none;', 'method' => 'post', 'action' => $url],
@@ -714,7 +696,7 @@ class FormHelperTest extends TestCase
             'Single quote \'',
             '/a',
         ];
-        $this->assertHtml($expected, $this->Form->postLink('Single quote \'', $url));
+        $this->assertHtml($expected, $this->Helper->postLink('Single quote \'', $url));
 
         $expected = [
             'form' => ['name', 'style' => 'display:none;', 'method' => 'post', 'action' => $url],
@@ -724,7 +706,7 @@ class FormHelperTest extends TestCase
             'Double quote "',
             '/a',
         ];
-        $this->assertHtml($expected, $this->Form->postLink('Double quote "', $url));
+        $this->assertHtml($expected, $this->Helper->postLink('Double quote "', $url));
     }
 
     /**
@@ -748,9 +730,9 @@ class FormHelperTest extends TestCase
             '/option',
             '/select',
         ];
-        $this->assertHtml($expected, $this->Form->select($field, $options));
+        $this->assertHtml($expected, $this->Helper->select($field, $options));
 
-        //With default value
+        //With `default` value
         $expected = [
             'select' => ['name' => $field, 'class' => 'form-control'],
             ['option' => ['value' => '1']],
@@ -761,9 +743,9 @@ class FormHelperTest extends TestCase
             '/option',
             '/select',
         ];
-        $this->assertHtml($expected, $this->Form->select($field, $options, ['default' => '2']));
+        $this->assertHtml($expected, $this->Helper->select($field, $options, ['default' => '2']));
 
-        //With selected value
+        //With `selected` value
         $expected = [
             'select' => ['name' => $field, 'class' => 'form-control'],
             ['option' => ['value' => '1']],
@@ -774,7 +756,7 @@ class FormHelperTest extends TestCase
             '/option',
             '/select',
         ];
-        $this->assertHtml($expected, $this->Form->select($field, $options, ['value' => '2']));
+        $this->assertHtml($expected, $this->Helper->select($field, $options, ['value' => '2']));
 
         //Custom `empty` value
         $expected = [
@@ -790,9 +772,9 @@ class FormHelperTest extends TestCase
             '/option',
             '/select',
         ];
-        $this->assertHtml($expected, $this->Form->select($field, $options, ['empty' => '(choose one)']));
+        $this->assertHtml($expected, $this->Helper->select($field, $options, ['empty' => '(choose one)']));
 
-        // `empty` disabled
+        //With `empty` disabled
         $expected = [
             'select' => ['name' => $field, 'class' => 'form-control'],
             ['option' => ['value' => '1']],
@@ -803,7 +785,7 @@ class FormHelperTest extends TestCase
             '/option',
             '/select',
         ];
-        $this->assertHtml($expected, $this->Form->select($field, $options, ['empty' => false]));
+        $this->assertHtml($expected, $this->Helper->select($field, $options, ['empty' => false]));
     }
 
     /**
@@ -819,17 +801,17 @@ class FormHelperTest extends TestCase
             $title,
             '/button',
         ];
-        $this->assertHtml($expected, $this->Form->submit($title));
+        $this->assertHtml($expected, $this->Helper->submit($title));
 
         //The `type` option will be overwritten
-        $this->assertHtml($expected, $this->Form->submit($title, ['type' => 'reset']));
+        $this->assertHtml($expected, $this->Helper->submit($title, ['type' => 'reset']));
 
         $expected = [
             'button' => ['type' => 'submit', 'class' => 'btn btn-danger'],
             $title,
             '/button',
         ];
-        $this->assertHtml($expected, $this->Form->submit($title, ['class' => 'btn-danger']));
+        $this->assertHtml($expected, $this->Helper->submit($title, ['class' => 'btn-danger']));
 
         $expected = [
             'button' => ['type' => 'submit', 'class' => 'btn btn-success'],
@@ -840,7 +822,7 @@ class FormHelperTest extends TestCase
             $title,
             '/button',
         ];
-        $this->assertHtml($expected, $this->Form->submit($title, ['icon' => 'home']));
+        $this->assertHtml($expected, $this->Helper->submit($title, ['icon' => 'home']));
     }
 
     /**
@@ -850,11 +832,10 @@ class FormHelperTest extends TestCase
     public function testTextarea()
     {
         $field = 'my-field';
-
         $expected = [
             'textarea' => ['name' => $field, 'class' => 'form-control'],
             '/textarea',
         ];
-        $this->assertHtml($expected, $this->Form->textarea($field));
+        $this->assertHtml($expected, $this->Helper->textarea($field));
     }
 }

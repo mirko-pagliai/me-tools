@@ -12,38 +12,28 @@
  */
 namespace MeTools\Test\TestCase\View\Helper;
 
-use Cake\View\View;
-use MeTools\TestSuite\TestCase;
-use MeTools\View\Helper\BBCodeHelper;
+use MeTools\TestSuite\HelperTestCase;
 use MeTools\View\Helper\HtmlHelper;
 
 /**
  * BBCodeHelperTest class
  */
-class BBCodeHelperTest extends TestCase
+class BBCodeHelperTest extends HelperTestCase
 {
     /**
-     * @var \MeTools\View\Helper\BBCodeHelper
-     */
-    protected $BBCode;
-
-    /**
-     * @var \MeTools\View\Helper\HtmlHelper
+     * @var \PHPUnit\Framework\MockObject\MockObject
      */
     protected $Html;
 
     /**
-     * Setup the test case, backup the static object values so they can be
-     * restored. Specifically backs up the contents of Configure and paths in
-     *  App if they have not already been backed up
+     * Called before every test method
      * @return void
      */
     public function setUp()
     {
         parent::setUp();
 
-        $this->BBCode = new BBCodeHelper(new View);
-        $this->Html = new HtmlHelper(new View);
+        $this->Html = $this->getMockForHelper(HtmlHelper::class, null);
     }
 
     /**
@@ -52,14 +42,6 @@ class BBCodeHelperTest extends TestCase
      */
     public function testParser()
     {
-        ob_start();
-        echo '<p>Some para text</p>' . PHP_EOL;
-        echo '[readmore /]' . PHP_EOL;
-        echo '<span>Some span text</span>' . PHP_EOL;
-        echo '[youtube]bL_CJKq9rIw[/youtube]' . PHP_EOL;
-        echo '<div>Some div text</div>' . PHP_EOL;
-        $buffer = ob_get_clean();
-
         $expected = [
             'p' => true,
             'Some para text',
@@ -82,7 +64,13 @@ class BBCodeHelperTest extends TestCase
             'Some div text',
             '/div',
         ];
-        $this->assertHtml($expected, $this->BBCode->parser($buffer));
+        ob_start();
+        echo '<p>Some para text</p>' . PHP_EOL;
+        echo '[readmore /]' . PHP_EOL;
+        echo '<span>Some span text</span>' . PHP_EOL;
+        echo '[youtube]bL_CJKq9rIw[/youtube]' . PHP_EOL;
+        echo '<div>Some div text</div>' . PHP_EOL;
+        $this->assertHtml($expected, $this->Helper->parser(ob_get_clean()));
     }
 
     /**
@@ -91,14 +79,6 @@ class BBCodeHelperTest extends TestCase
      */
     public function testRemove()
     {
-        ob_start();
-        echo '<p>Some para text</p>' . PHP_EOL;
-        echo '[readmore /]' . PHP_EOL;
-        echo '<span>Some span text</span>' . PHP_EOL;
-        echo '[youtube]bL_CJKq9rIw[/youtube]' . PHP_EOL;
-        echo '<div>Some div text</div>' . PHP_EOL;
-        $buffer = ob_get_clean();
-
         $expected = [
             'p' => true,
             'Some para text',
@@ -110,7 +90,13 @@ class BBCodeHelperTest extends TestCase
             'Some div text',
             '/div',
         ];
-        $this->assertHtml($expected, $this->BBCode->remove($buffer));
+        ob_start();
+        echo '<p>Some para text</p>' . PHP_EOL;
+        echo '[readmore /]' . PHP_EOL;
+        echo '<span>Some span text</span>' . PHP_EOL;
+        echo '[youtube]bL_CJKq9rIw[/youtube]' . PHP_EOL;
+        echo '<div>Some div text</div>' . PHP_EOL;
+        $this->assertHtml($expected, $this->Helper->remove(ob_get_clean()));
     }
 
     /**
@@ -120,7 +106,7 @@ class BBCodeHelperTest extends TestCase
     public function testImage()
     {
         $expected = $this->Html->image('mypic.gif');
-        $this->assertEquals($expected, $this->BBCode->image('[img]mypic.gif[/img]'));
+        $this->assertEquals($expected, $this->Helper->image('[img]mypic.gif[/img]'));
     }
 
     /**
@@ -139,7 +125,7 @@ class BBCodeHelperTest extends TestCase
             '<p>[readmore /]</p>',
             '<p class="my-class">[readmore /]</p>',
         ] as $text) {
-            $this->assertEquals('<!-- read-more -->', $this->BBCode->readmore($text));
+            $this->assertEquals('<!-- read-more -->', $this->Helper->readmore($text));
         }
     }
 
@@ -150,7 +136,7 @@ class BBCodeHelperTest extends TestCase
     public function testUrl()
     {
         $expected = $this->Html->link('my link', 'http://example');
-        $this->assertEquals($expected, $this->BBCode->url('[url="http://example"]my link[/url]'));
+        $this->assertEquals($expected, $this->Helper->url('[url="http://example"]my link[/url]'));
     }
 
     /**
@@ -159,13 +145,14 @@ class BBCodeHelperTest extends TestCase
      */
     public function testYoutube()
     {
+        $expected = $this->Html->youtube('bL_CJKq9rIw');
         foreach ([
             '[youtube]bL_CJKq9rIw[/youtube]',
             '[youtube]http://youtube.com/watch?v=bL_CJKq9rIw[/youtube]',
             '[youtube]https://www.youtube.com/watch?v=bL_CJKq9rIw[/youtube]',
             '[youtube]https://youtu.be/bL_CJKq9rIw[/youtube]',
         ] as $text) {
-            $this->assertEquals($this->Html->youtube('bL_CJKq9rIw'), $this->BBCode->youtube($text));
+            $this->assertEquals($expected, $this->Helper->youtube($text));
         }
     }
 }

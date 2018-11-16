@@ -26,14 +26,12 @@ use MeTools\TestSuite\Traits\TestCaseTrait;
  *  integration tests over mock objects as you can test more of your code
  *  easily and avoid some of the maintenance pitfalls that mock objects create.
  */
-class IntegrationTestCase extends CakeIntegrationTestCase
+abstract class IntegrationTestCase extends CakeIntegrationTestCase
 {
     use TestCaseTrait;
 
     /**
-     * Setup the test case, backup the static object values so they can be
-     * restored. Specifically backs up the contents of Configure and paths in
-     *  App if they have not already been backed up
+     * Called before every test method
      * @return void
      */
     public function setUp()
@@ -45,7 +43,7 @@ class IntegrationTestCase extends CakeIntegrationTestCase
     }
 
     /**
-     * Teardown any static object changes and restore them
+     * Called after every test method
      * @return void
      */
     public function tearDown()
@@ -87,10 +85,12 @@ class IntegrationTestCase extends CakeIntegrationTestCase
     /**
      * Asserts that the response status code is in the 2xx range and the
      *  response content is not empty.
+     * @param string $message The failure message that will be appended to the
+     *  generated message
      * @return void
      */
-    public function assertResponseOkAndNotEmpty()
+    public function assertResponseOkAndNotEmpty($message = '')
     {
-        $this->assertResponseOk() && $this->assertResponseNotEmpty();
+        $this->assertResponseOk($message) && $this->assertResponseNotEmpty($message);
     }
 }

@@ -210,8 +210,6 @@ class UploaderComponent extends Component
             }
 
             $this->setError($errors[$file['error']]);
-
-            return $this;
         }
 
         return $this;
