@@ -13,7 +13,6 @@
 namespace MeTools\Test\TestCase\View\Helper;
 
 use MeTools\TestSuite\HelperTestCase;
-use MeTools\TestSuite\Traits\MockTrait;
 use MeTools\View\Helper\HtmlHelper;
 
 /**
@@ -21,8 +20,6 @@ use MeTools\View\Helper\HtmlHelper;
  */
 class BBCodeHelperTest extends HelperTestCase
 {
-    use MockTrait;
-
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject
      */
@@ -148,13 +145,14 @@ class BBCodeHelperTest extends HelperTestCase
      */
     public function testYoutube()
     {
+        $expected = $this->Html->youtube('bL_CJKq9rIw');
         foreach ([
             '[youtube]bL_CJKq9rIw[/youtube]',
             '[youtube]http://youtube.com/watch?v=bL_CJKq9rIw[/youtube]',
             '[youtube]https://www.youtube.com/watch?v=bL_CJKq9rIw[/youtube]',
             '[youtube]https://youtu.be/bL_CJKq9rIw[/youtube]',
         ] as $text) {
-            $this->assertEquals($this->Html->youtube('bL_CJKq9rIw'), $this->Helper->youtube($text));
+            $this->assertEquals($expected, $this->Helper->youtube($text));
         }
     }
 }

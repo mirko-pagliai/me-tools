@@ -13,7 +13,6 @@
 namespace MeTools\Test\TestCase\View\Helper;
 
 use MeTools\TestSuite\HelperTestCase;
-use MeTools\TestSuite\Traits\MockTrait;
 use MeTools\View\Helper\HtmlHelper;
 
 /**
@@ -21,8 +20,6 @@ use MeTools\View\Helper\HtmlHelper;
  */
 class FormHelperTest extends HelperTestCase
 {
-    use MockTrait;
-
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject
      */
@@ -101,7 +98,6 @@ class FormHelperTest extends HelperTestCase
     public function testCheckbox()
     {
         $field = 'my-field';
-
         $expected = [
             ['input' => ['type' => 'hidden', 'name' => $field, 'value' => '0']],
             ['input' => ['type' => 'checkbox', 'name' => $field, 'value' => '1']],
@@ -219,7 +215,6 @@ class FormHelperTest extends HelperTestCase
     public function testControlCheckbox()
     {
         $field = 'my-field';
-
         $expected = [
             'div' => ['class' => 'form-check input checkbox'],
             'label' => ['for' => $field],
@@ -366,11 +361,7 @@ class FormHelperTest extends HelperTestCase
             '/select',
             '/div',
         ];
-        $result = $this->Helper->control($field, [
-            'empty' => false,
-            'options' => $options,
-            'type' => 'select',
-        ]);
+        $result = $this->Helper->control($field, compact('options') + ['empty' => false, 'type' => 'select']);
         $this->assertHtml($expected, $result);
     }
 
@@ -466,9 +457,7 @@ class FormHelperTest extends HelperTestCase
             '/div',
             '/form',
         ];
-        $result = $this->Helper->create(null);
-        $result .= $this->Helper->end();
-        $this->assertHtml($expected, $result);
+        $this->assertHtml($expected, $this->Helper->create(null) . $this->Helper->end());
     }
 
     /**
@@ -494,7 +483,7 @@ class FormHelperTest extends HelperTestCase
 
         $this->assertFalse($this->Helper->isInline());
 
-        // `create()` method with `inline` option
+        //Tests `create()` method, with `inline` option
         $result = $this->Helper->create(null, ['inline' => true]);
         $inline = $this->Helper->isInline();
         $result .= $this->Helper->end();
@@ -503,7 +492,7 @@ class FormHelperTest extends HelperTestCase
 
         $this->assertFalse($this->Helper->isInline());
 
-        // `create()` method with `form-inline` class
+        //Tests `create()` method, with `form-inline` class
         $result = $this->Helper->create(null, ['class' => 'form-inline']);
         $inline = $this->Helper->isInline();
         $result .= $this->Helper->end();
@@ -743,7 +732,7 @@ class FormHelperTest extends HelperTestCase
         ];
         $this->assertHtml($expected, $this->Helper->select($field, $options));
 
-        //With default value
+        //With `default` value
         $expected = [
             'select' => ['name' => $field, 'class' => 'form-control'],
             ['option' => ['value' => '1']],
@@ -756,7 +745,7 @@ class FormHelperTest extends HelperTestCase
         ];
         $this->assertHtml($expected, $this->Helper->select($field, $options, ['default' => '2']));
 
-        //With selected value
+        //With `selected` value
         $expected = [
             'select' => ['name' => $field, 'class' => 'form-control'],
             ['option' => ['value' => '1']],
@@ -785,7 +774,7 @@ class FormHelperTest extends HelperTestCase
         ];
         $this->assertHtml($expected, $this->Helper->select($field, $options, ['empty' => '(choose one)']));
 
-        // `empty` disabled
+        //With `empty` disabled
         $expected = [
             'select' => ['name' => $field, 'class' => 'form-control'],
             ['option' => ['value' => '1']],
@@ -843,7 +832,6 @@ class FormHelperTest extends HelperTestCase
     public function testTextarea()
     {
         $field = 'my-field';
-
         $expected = [
             'textarea' => ['name' => $field, 'class' => 'form-control'],
             '/textarea',

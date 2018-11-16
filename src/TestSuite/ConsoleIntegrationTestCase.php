@@ -21,7 +21,7 @@ use MeTools\TestSuite\Traits\TestCaseTrait;
 use PHPUnit\Framework\MockObject\MockObject;
 
 /**
- * ConsoleIntegrationTestCase class
+ * Abstract class for console helpers
  */
 abstract class ConsoleIntegrationTestCase extends CakeConsoleIntegrationTestCase
 {

@@ -19,7 +19,7 @@ use MeTools\TestSuite\Traits\MockTrait;
 /**
  * Abstract class for test helpers
  */
-class HelperTestCase extends TestCase
+abstract class HelperTestCase extends TestCase
 {
     use MockTrait;
 

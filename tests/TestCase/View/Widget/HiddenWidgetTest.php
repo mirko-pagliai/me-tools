@@ -47,12 +47,10 @@ class HiddenWidgetTest extends TestCase
     {
         $field = 'My field';
 
-        $result = $this->Helper->hidden($field);
         $expected = ['input' => ['type' => 'hidden', 'name' => $field]];
-        $this->assertHtml($expected, $result);
+        $this->assertHtml($expected, $this->Helper->hidden($field));
 
-        $result = $this->Helper->control($field, ['type' => 'hidden']);
         $expected = ['input' => ['type' => 'hidden', 'name' => $field, 'id' => 'my-field']];
-        $this->assertHtml($expected, $result);
+        $this->assertHtml($expected, $this->Helper->control($field, ['type' => 'hidden']));
     }
 }
