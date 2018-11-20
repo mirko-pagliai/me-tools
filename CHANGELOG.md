@@ -3,6 +3,9 @@
 ### 2.18.0
 * `comment()` `question()` and `warning()` methods provided by `Shell` class
     have been replaced by the `__call()` magic method;
+* `ConsoleIntegrationTestCase`, `IntegrationTestCase` and `TestCase` classes now
+    have the `$app` property, that contains the instance of the current
+    application;
 * removed `clearDir()` global function. Use instead `safe_unlink_recursive()`
     provided by `php-tools`.
 

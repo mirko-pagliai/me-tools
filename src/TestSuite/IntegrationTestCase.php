@@ -31,15 +31,23 @@ abstract class IntegrationTestCase extends CakeIntegrationTestCase
     use TestCaseTrait;
 
     /**
+     * Application instance
+     * @since 2.18.0
+     * @var \Cake\Http\BaseApplication
+     */
+    protected $app;
+
+    /**
      * Called before every test method
      * @return void
+     * @uses $app
      */
     public function setUp()
     {
         parent::setUp();
 
-        $app = $this->getMockForAbstractClass(BaseApplication::class, ['']);
-        $app->addPlugin('MeTools')->pluginBootstrap();
+        $this->app = $this->getMockForAbstractClass(BaseApplication::class, ['']);
+        $this->app->addPlugin('MeTools')->pluginBootstrap();
     }
 
     /**

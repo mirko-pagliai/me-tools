@@ -13,7 +13,6 @@
 namespace MeTools\Test\TestCase\Shell;
 
 use Cake\Console\ConsoleOptionParser;
-use Cake\Http\BaseApplication;
 use Cake\Utility\Inflector;
 use MeTools\Shell\InstallShell;
 use MeTools\TestSuite\ConsoleIntegrationTestCase;
@@ -35,9 +34,6 @@ class InstallShellTest extends ConsoleIntegrationTestCase
     public function setUp()
     {
         parent::setUp();
-
-        $app = $this->getMockForAbstractClass(BaseApplication::class, ['']);
-        $app->addPlugin('MeTools')->pluginBootstrap();
 
         //Deletes symbolic links for plugin assets
         safe_unlink(WWW_ROOT . 'me_tools');

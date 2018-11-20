@@ -12,7 +12,6 @@
  */
 namespace MeTools\Test\TestCase\Core;
 
-use Cake\Http\BaseApplication;
 use MeTools\Core\Plugin;
 use MeTools\TestSuite\TestCase;
 
@@ -27,12 +26,10 @@ class PluginTest extends TestCase
      */
     public function testAll()
     {
-        $app = $this->getMockForAbstractClass(BaseApplication::class, ['']);
-
         $expected = [ME_TOOLS, ASSETS];
         $this->assertEquals($expected, Plugin::all());
 
-        $app->addPlugin('TestPlugin');
+        $this->app->addPlugin('TestPlugin');
 
         $expected = [ME_TOOLS, ASSETS, 'TestPlugin'];
         $this->assertEquals($expected, Plugin::all());
@@ -40,7 +37,7 @@ class PluginTest extends TestCase
         $expected = [ME_TOOLS, ASSETS];
         $this->assertEquals($expected, Plugin::all(['exclude' => 'TestPlugin']));
 
-        $app->addPlugin('AnotherTestPlugin');
+        $this->app->addPlugin('AnotherTestPlugin');
 
         $expected = [ME_TOOLS, 'AnotherTestPlugin', ASSETS, 'TestPlugin'];
         $this->assertEquals($expected, Plugin::all());
