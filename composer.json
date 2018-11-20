@@ -8,35 +8,23 @@
         "name": "Mirko Pagliai",
         "email": "mirko.pagliai@gmail.com"
     }],
-    "config": {
-        "component-dir": "vendor/components"
-    },
     "require": {
         "php": ">=5.5.9",
         "cakephp/cakephp": "^3.6",
-        "components/jquery": "^3.3",
         "mirko-pagliai/cakephp-assets": "^1.3",
-        "mirko-pagliai/php-tools": "^1.1",
-        "twbs/bootstrap": "^v4.1"
+        "mirko-pagliai/php-tools": "^1.1"
     },
     "require-dev": {
         "cakephp/cakephp-codesniffer": "^3.0",
-        "eonasdan/bootstrap-datetimepicker": "*",
-        "newerton/fancy-box": "dev-master",
-        "npm-asset/fortawesome--fontawesome-free": "^5.2",
         "phpunit/phpunit": "^5.7|^6.0"
     },
     "suggest": {
+        "components/jquery": "To use jQuery, the JavaScript library",
         "eonasdan/bootstrap-datetimepicker": "To create Bootstrap's datetime pickers",
         "newerton/fancy-box": "To show photos with fancybox",
-        "npm-asset/fortawesome--fontawesome-free": "To use Font Awesome's icons"
+        "npm-asset/fortawesome--fontawesome-free": "To use Font Awesome's icons",
+        "twbs/bootstrap": "To use Bootstrap, the world’s most popular framework for building responsive, mobile-first sites"
     },
-    "repositories": [
-        {
-            "type": "composer",
-            "url": "https://asset-packagist.org"
-        }
-    ],
     "autoload": {
         "psr-4": {
             "MeTools\\": "src"
