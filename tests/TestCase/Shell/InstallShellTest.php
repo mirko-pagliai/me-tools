@@ -166,10 +166,10 @@ class InstallShellTest extends ConsoleIntegrationTestCase
         $this->assertExitWithSuccess();
 
         foreach ($this->Shell->links as $link) {
-            $this->assertOutputContains('Link `' . rtr(WWW_ROOT) . 'vendor' . DS . $link . '` has been created');
+            $this->assertErrorContains(sprintf('<warning>File or directory %s not readable</warning>', 'vendor' . DS . $link));
         }
 
-        $this->assertErrorEmpty();
+        $this->assertOutputEmpty();
     }
 
     /**
@@ -178,21 +178,15 @@ class InstallShellTest extends ConsoleIntegrationTestCase
      */
     public function testFixComposerJson()
     {
-        //Tries to fix the main `composer.json` file
-        $this->exec('me_tools.install fix_composer_json -v');
-        $this->assertExitWithSuccess();
-        $this->assertOutputContains('The file ' . rtr(ROOT . DS . 'composer.json') . ' doesn\'t need to be fixed');
-        $this->assertErrorEmpty();
-
         //Tries to fix a no existing file
-        $this->exec('me_tools.install fix_composer_json -p ' . TMP . 'noExisting -v');
+        $this->exec('me_tools.install fix_composer_json -v -p ' . TMP . 'noExisting');
         $this->assertExitWithError();
         $this->assertErrorContains('File or directory `' . TMP . 'noExisting` is not writable');
 
         //Tries to fix an invalid composer.json file
         $file = TMP . 'invalid.json';
         file_put_contents($file, 'String');
-        $this->exec('me_tools.install fix_composer_json -p ' . $file . ' -v');
+        $this->exec('me_tools.install fix_composer_json -v -p ' . $file);
         $this->assertExitWithError();
         $this->assertErrorContains('The file ' . $file . ' does not seem a valid composer.json file');
 
@@ -205,9 +199,15 @@ class InstallShellTest extends ConsoleIntegrationTestCase
             'require' => ['php' => '>=5.5.9'],
             'autoload' => ['psr-4' => ['App' => 'src']],
         ], JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
-        $this->exec('me_tools.install fix_composer_json -p ' . $file . ' -v');
+        $this->exec('me_tools.install fix_composer_json -v -p ' . $file);
         $this->assertExitWithSuccess();
         $this->assertOutputContains('The file ' . rtr($file) . ' has been fixed');
+        $this->assertErrorEmpty();
+
+        //Tries again with the same. Now it doesn't need to be fixed
+        $this->exec('me_tools.install fix_composer_json -v -p ' . $file);
+        $this->assertExitWithSuccess();
+        $this->assertOutputContains('The file ' . rtr($file) . ' doesn\'t need to be fixed');
         $this->assertErrorEmpty();
     }
 

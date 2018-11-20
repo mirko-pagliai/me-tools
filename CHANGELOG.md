@@ -3,6 +3,8 @@
 ### 2.18.0
 * `comment()` `question()` and `warning()` methods provided by `Shell` class
     have been replaced by the `__call()` magic method;
+* now the `InstallShell::createVendorsLinks()` method writes a warning if the
+    origin vendor directory does not exist;
 * `ConsoleIntegrationTestCase`, `IntegrationTestCase` and `TestCase` classes now
     have the `$app` property, that contains the instance of the current
     application;

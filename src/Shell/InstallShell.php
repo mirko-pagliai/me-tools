@@ -171,10 +171,14 @@ class InstallShell extends Shell
     public function createVendorsLinks()
     {
         foreach ($this->links as $origin => $target) {
-            $this->createLink(
-                ROOT . DS . 'vendor' . DS . $origin,
-                WWW_ROOT . 'vendor' . DS . $target
-            );
+            $origin = ROOT . 'vendor' . DS . $target;
+
+            if (!is_readable($origin)) {
+                $this->warning(__d('me_tools', 'File or directory {0} not readable', rtr($origin)));
+                continue;
+            }
+
+            $this->createLink($origin, WWW_ROOT . 'vendor' . DS . $target);
         }
     }
 
