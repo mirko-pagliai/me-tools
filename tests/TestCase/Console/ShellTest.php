@@ -75,6 +75,29 @@ class ShellTest extends ConsoleIntegrationTestCase
     }
 
     /**
+     * Tests for `__call()` method
+     * @test
+     */
+    public function testMagicCall()
+    {
+        $this->Shell->comment('Test');
+        $this->Shell->question('Test');
+        $this->assertOutputContains('<comment>Test</comment>');
+        $this->assertOutputContains('<question>Test</question>');
+    }
+
+    /**
+     * Tests for `__call()` method with a no existing method
+     * @expectedException BadMethodCallException
+     * @expectedExceptionMessage  The `noExisting` method does not exist
+     * @test
+     */
+    public function testMagicCallNoExistingMethod()
+    {
+        $this->Shell->noExisting();
+    }
+
+    /**
      * Tests for `_welcome()` method
      * @test
      */
@@ -225,17 +248,12 @@ class ShellTest extends ConsoleIntegrationTestCase
     }
 
     /**
-     * Tests for `out()` methods (`comment()`, `question()` and `warning()`)
+     * Tests for `warning()` method
      * @test
      */
-    public function testOutMethods()
+    public function testwarning()
     {
-        foreach (['comment', 'question', 'warning'] as $method) {
-            $this->Shell->$method('Test');
-        }
-
-        $this->assertOutputContains('<comment>Test</comment>');
-        $this->assertOutputContains('<question>Test</question>');
+        $this->Shell->warning('Test');
         $this->assertErrorContains('<warning>Test</warning>');
     }
 }

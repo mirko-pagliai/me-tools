@@ -13,15 +13,37 @@
  */
 namespace MeTools\Console;
 
+use BadMethodCallException;
 use Cake\Console\Shell as CakeShell;
 use Cake\Filesystem\Folder;
 use Exception;
 
 /**
  * Base class for command-line utilities for automating programmer chores
+ * @method int|bool comment(string|array|null $message = null, int $newlines = 1, int $level = Shell::NORMAL) Convenience method for out() that wraps message between <comment /> tag
+ * @method int|bool question(string|array|null $message = null, int $newlines = 1, int $level = Shell::NORMAL) Convenience method for out() that wraps message between <question /> tag
  */
 class Shell extends CakeShell
 {
+    /**
+     * Magic method. It provides `comment()` and `question()` methods
+     * @param string $name Method name
+     * @param array $arguments Method arguments
+     * @return int|bool The number of bytes returned from writing to stdout
+     * @since 2.18.0
+     * @throws BadMethodCallException
+     */
+    public function __call($name, $arguments)
+    {
+        if (in_array($name, ['comment', 'question'])) {
+            $arguments[0] = sprintf('<%s>%s</%s>', $name, empty($arguments[0]) ? null : $arguments[0], $name);
+
+            return call_user_func_array([$this, 'out'], $arguments);
+        }
+
+        throw new BadMethodCallException(sprintf('The `%s` method does not exist', $name));
+    }
+
     /**
      * Rewrites the header for the shell
      * @return void
@@ -70,11 +92,9 @@ class Shell extends CakeShell
             return false;
         }
 
-        safe_copy($source, $dest);
-
         $this->verbose(__d('me_tools', 'File `{0}` has been copied', rtr($dest)));
 
-        return true;
+        return safe_copy($source, $dest);
     }
 
     /**
@@ -138,11 +158,9 @@ class Shell extends CakeShell
             return false;
         }
 
-        safe_symlink($source, $dest);
-
         $this->verbose(__d('me_tools', 'Link `{0}` has been created', rtr($dest)));
 
-        return true;
+        return safe_symlink($source, $dest);
     }
 
     /**
@@ -175,34 +193,6 @@ class Shell extends CakeShell
     public function hasParam($param)
     {
         return array_key_exists($param, $this->params);
-    }
-
-    /**
-     * Convenience method for out() that wraps message between <comment /> tag
-     * @param string|array|null $message A string or an array of strings to
-     *  output
-     * @param int $newlines Number of newlines to append
-     * @param int $level The message's output level, see above
-     * @return int|bool Returns the number of bytes returned from writing to
-     *  stdout
-     */
-    public function comment($message = null, $newlines = 1, $level = Shell::NORMAL)
-    {
-        return parent::out(sprintf('<comment>%s</comment>', $message), $newlines, $level);
-    }
-
-    /**
-     * Convenience method for out() that wraps message between <question /> tag
-     * @param string|array|null $message A string or an array of strings to
-     *  output
-     * @param int $newlines Number of newlines to append
-     * @param int $level The message's output level, see above
-     * @return int|bool Returns the number of bytes returned from writing to
-     *  stdout
-     */
-    public function question($message = null, $newlines = 1, $level = Shell::NORMAL)
-    {
-        return parent::out(sprintf('<question>%s</question>', $message), $newlines, $level);
     }
 
     /**
