@@ -152,7 +152,6 @@ class InstallShell extends Shell
     /**
      * Creates the `robots.txt` file
      * @return void
-     * @uses MeTools\Console\Shell::createFile()
      */
     public function createRobots()
     {
@@ -166,7 +165,6 @@ class InstallShell extends Shell
      * Creates symbolic links for vendor assets
      * @return void
      * @uses $links
-     * @uses MeTools\Console\Shell::createLink()
      */
     public function createVendorsLinks()
     {
@@ -184,7 +182,7 @@ class InstallShell extends Shell
 
     /**
      * Fixes the `composer.json` file, adding the `component-dir` value
-     * @return bool Success
+     * @return bool
      */
     public function fixComposerJson()
     {
@@ -237,7 +235,6 @@ class InstallShell extends Shell
      * Sets permissions on directories
      * @return void
      * @uses $paths
-     * @uses MeTools\Console\Shell::folderChmod()
      */
     public function setPermissions()
     {
