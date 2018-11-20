@@ -1,8 +1,8 @@
 # 2.x branch
 ## 2.18 branch
 ### 2.18.0
-* `comment()` and `question()` method provided by `Shell` class have been
-    replaced by the `__call()` magic method;
+* `comment()` `question()` and `warning()` methods provided by `Shell` class
+    have been replaced by the `__call()` magic method;
 * removed `clearDir()` global function. Use instead `safe_unlink_recursive()`
     provided by `php-tools`.
 

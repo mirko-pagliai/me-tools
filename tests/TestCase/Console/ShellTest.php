@@ -82,8 +82,10 @@ class ShellTest extends ConsoleIntegrationTestCase
     {
         $this->Shell->comment('Test');
         $this->Shell->question('Test');
+        $this->Shell->warning('Test');
         $this->assertOutputContains('<comment>Test</comment>');
         $this->assertOutputContains('<question>Test</question>');
+        $this->assertErrorContains('<warning>Test</warning>');
     }
 
     /**
@@ -245,15 +247,5 @@ class ShellTest extends ConsoleIntegrationTestCase
         }
 
         $this->assertFalse($this->Shell->hasParam('noExisting'));
-    }
-
-    /**
-     * Tests for `warning()` method
-     * @test
-     */
-    public function testwarning()
-    {
-        $this->Shell->warning('Test');
-        $this->assertErrorContains('<warning>Test</warning>');
     }
 }

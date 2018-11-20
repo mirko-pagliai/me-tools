@@ -22,11 +22,12 @@ use Exception;
  * Base class for command-line utilities for automating programmer chores
  * @method int|bool comment(string|array|null $message = null, int $newlines = 1, int $level = Shell::NORMAL) Convenience method for out() that wraps message between <comment /> tag
  * @method int|bool question(string|array|null $message = null, int $newlines = 1, int $level = Shell::NORMAL) Convenience method for out() that wraps message between <question /> tag
+ * @method int|bool warning(string|array|null $message = null, int $newlines = 1) Convenience method for err() that wraps message between <warning /> tag
  */
 class Shell extends CakeShell
 {
     /**
-     * Magic method. It provides `comment()` and `question()` methods
+     * Magic method. It provides `comment()`, `question()` and `warning()` methods
      * @param string $name Method name
      * @param array $arguments Method arguments
      * @return int|bool The number of bytes returned from writing to stdout
@@ -35,10 +36,14 @@ class Shell extends CakeShell
      */
     public function __call($name, $arguments)
     {
-        if (in_array($name, ['comment', 'question'])) {
-            $arguments[0] = sprintf('<%s>%s</%s>', $name, empty($arguments[0]) ? null : $arguments[0], $name);
+        switch ($name) {
+            case 'comment':
+            case 'question':
+                $arguments[0] = sprintf('<%s>%s</%s>', $name, empty($arguments[0]) ? null : $arguments[0], $name);
 
-            return call_user_func_array([$this, 'out'], $arguments);
+                return call_user_func_array([$this, 'out'], $arguments);
+            case 'warning':
+                return call_user_func_array([$this, 'warn'], $arguments);
         }
 
         throw new BadMethodCallException(sprintf('The `%s` method does not exist', $name));
@@ -193,18 +198,5 @@ class Shell extends CakeShell
     public function hasParam($param)
     {
         return array_key_exists($param, $this->params);
-    }
-
-    /**
-     * Convenience method for err() that wraps message between <warning /> tag
-     * @param string|array|null $message A string or an array of strings to
-     *  output
-     * @param int $newlines Number of newlines to append
-     * @return int|bool Returns the number of bytes returned from writing to
-     *  stdout
-     */
-    public function warning($message = null, $newlines = 1)
-    {
-        return parent::warn($message, $newlines);
     }
 }
