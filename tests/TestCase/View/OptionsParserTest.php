@@ -111,7 +111,7 @@ class OptionsParserTest extends TestCase
     {
         $result = $this->OptionsParser->add('newKey', 'newValue');
         $this->assertInstanceOf(OptionsParser::class, $result);
-        $this->assertEquals('newValue', $this->OptionsParser->get('newKey'));
+        $this->assertEquals('newValue', $result->get('newKey'));
 
         foreach ([
             'a c  b d ',
@@ -129,8 +129,8 @@ class OptionsParserTest extends TestCase
         //Array of arguments
         $result = $this->OptionsParser->add(['firstKey' => 'firstValue', 'secondKey' => 'secondValue']);
         $this->assertInstanceOf(OptionsParser::class, $result);
-        $this->assertEquals('firstValue', $this->OptionsParser->get('firstKey'));
-        $this->assertEquals('secondValue', $this->OptionsParser->get('secondKey'));
+        $this->assertEquals('firstValue', $result->get('firstKey'));
+        $this->assertEquals('secondValue', $result->get('secondKey'));
     }
 
     /**
@@ -139,14 +139,14 @@ class OptionsParserTest extends TestCase
      */
     public function testAddButtonClasses()
     {
-        $this->OptionsParser = new OptionsParser;
-        $result = $this->OptionsParser->addButtonClasses();
+        $OptionsParser = new OptionsParser;
+        $result = $OptionsParser->addButtonClasses();
         $this->assertInstanceOf(OptionsParser::class, $result);
-        $this->assertEquals('btn btn-light', $this->OptionsParser->get('class'));
+        $this->assertEquals('btn btn-light', $OptionsParser->get('class'));
 
-        $this->OptionsParser = new OptionsParser;
-        $this->OptionsParser->addButtonClasses('primary');
-        $this->assertEquals('btn btn-primary', $this->OptionsParser->get('class'));
+        $OptionsParser = new OptionsParser;
+        $OptionsParser->addButtonClasses('primary');
+        $this->assertEquals('btn btn-primary', $OptionsParser->get('class'));
 
         foreach ([
             'primary lg',
@@ -155,47 +155,47 @@ class OptionsParserTest extends TestCase
             ['btn', 'primary', 'lg'],
             ['btn', 'btn-primary', 'lg'],
         ] as $classes) {
-            $this->OptionsParser = new OptionsParser;
-            $this->OptionsParser->addButtonClasses($classes);
-            $this->assertEquals('btn btn-lg btn-primary', $this->OptionsParser->get('class'));
+            $OptionsParser = new OptionsParser;
+            $OptionsParser->addButtonClasses($classes);
+            $this->assertEquals('btn btn-lg btn-primary', $OptionsParser->get('class'));
         }
 
         //As multiple arguments
-        $this->OptionsParser = new OptionsParser;
-        $this->OptionsParser->addButtonClasses('btn', 'btn-primary', 'lg');
-        $this->assertEquals('btn btn-lg btn-primary', $this->OptionsParser->get('class'));
+        $OptionsParser = new OptionsParser;
+        $OptionsParser->addButtonClasses('btn', 'btn-primary', 'lg');
+        $this->assertEquals('btn btn-lg btn-primary', $OptionsParser->get('class'));
 
-        $this->OptionsParser = new OptionsParser;
-        $this->OptionsParser->addButtonClasses('lg');
-        $this->assertEquals('btn btn-lg', $this->OptionsParser->get('class'));
+        $OptionsParser = new OptionsParser;
+        $OptionsParser->addButtonClasses('lg');
+        $this->assertEquals('btn btn-lg', $OptionsParser->get('class'));
 
-        $this->OptionsParser = new OptionsParser;
-        $this->OptionsParser->addButtonClasses('secondary lg');
-        $this->assertEquals('btn btn-lg btn-secondary', $this->OptionsParser->get('class'));
+        $OptionsParser = new OptionsParser;
+        $OptionsParser->addButtonClasses('secondary lg');
+        $this->assertEquals('btn btn-lg btn-secondary', $OptionsParser->get('class'));
 
-        $this->OptionsParser = new OptionsParser;
-        $this->OptionsParser->addButtonClasses('invalidClass btn-invalid');
-        $this->assertEquals('btn', $this->OptionsParser->get('class'));
+        $OptionsParser = new OptionsParser;
+        $OptionsParser->addButtonClasses('invalidClass btn-invalid');
+        $this->assertEquals('btn', $OptionsParser->get('class'));
 
-        $this->OptionsParser = new OptionsParser;
-        $this->OptionsParser->addButtonClasses('primary invalidClass btn-invalid');
-        $this->assertEquals('btn btn-primary', $this->OptionsParser->get('class'));
+        $OptionsParser = new OptionsParser;
+        $OptionsParser->addButtonClasses('primary invalidClass btn-invalid');
+        $this->assertEquals('btn btn-primary', $OptionsParser->get('class'));
 
-        $this->OptionsParser = new OptionsParser(['class' => 'existingValue']);
-        $this->OptionsParser->addButtonClasses('btn primary');
-        $this->assertEquals('btn btn-primary existingValue', $this->OptionsParser->get('class'));
+        $OptionsParser = new OptionsParser(['class' => 'existingValue']);
+        $OptionsParser->addButtonClasses('btn primary');
+        $this->assertEquals('btn btn-primary existingValue', $OptionsParser->get('class'));
 
-        $this->OptionsParser = new OptionsParser(['class' => 'btn-secondary']);
-        $this->OptionsParser->addButtonClasses('btn primary');
-        $this->assertEquals('btn btn-secondary', $this->OptionsParser->get('class'));
+        $OptionsParser = new OptionsParser(['class' => 'btn-secondary']);
+        $OptionsParser->addButtonClasses('btn primary');
+        $this->assertEquals('btn btn-secondary', $OptionsParser->get('class'));
 
-        $this->OptionsParser = new OptionsParser(['class' => 'btn']);
-        $this->OptionsParser->addButtonClasses('btn primary');
-        $this->assertEquals('btn btn-primary', $this->OptionsParser->get('class'));
+        $OptionsParser = new OptionsParser(['class' => 'btn']);
+        $OptionsParser->addButtonClasses('btn primary');
+        $this->assertEquals('btn btn-primary', $OptionsParser->get('class'));
 
-        $this->OptionsParser = new OptionsParser(['class' => 'btn-lg']);
-        $this->OptionsParser->addButtonClasses('btn lg');
-        $this->assertEquals('btn btn-lg', $this->OptionsParser->get('class'));
+        $OptionsParser = new OptionsParser(['class' => 'btn-lg']);
+        $OptionsParser->addButtonClasses('btn lg');
+        $this->assertEquals('btn btn-lg', $OptionsParser->get('class'));
     }
 
     /**
@@ -206,32 +206,32 @@ class OptionsParserTest extends TestCase
     {
         $result = $this->OptionsParser->append('newKey', 'newValue');
         $this->assertInstanceOf(OptionsParser::class, $result);
-        $this->assertEquals('newValue', $this->OptionsParser->get('newKey'));
+        $this->assertEquals('newValue', $result->get('newKey'));
 
         //The value and the existing value are both strings
-        $this->OptionsParser->append('alt', '  with append ');
-        $this->assertEquals('this is a string with append', $this->OptionsParser->get('alt'));
+        $result->append('alt', '  with append ');
+        $this->assertEquals('this is a string with append', $result->get('alt'));
 
         //The value and the existing value are both arrays
-        $this->OptionsParser->append('array', ['third', 'fourth']);
-        $this->assertEquals(['second', 'first', 'third', 'fourth'], $this->OptionsParser->get('array'));
+        $result->append('array', ['third', 'fourth']);
+        $this->assertEquals(['second', 'first', 'third', 'fourth'], $result->get('array'));
 
         //Mixed values, boolean and string
-        $this->OptionsParser->append('true', 'a string');
-        $this->assertEquals([true, 'a string'], $this->OptionsParser->get('true'));
+        $result->append('true', 'a string');
+        $this->assertEquals([true, 'a string'], $result->get('true'));
 
         //Mixed values, boolean and array
-        $this->OptionsParser->append('false', ['an array']);
-        $this->assertEquals([false, 'an array'], $this->OptionsParser->get('false'));
+        $result->append('false', ['an array']);
+        $this->assertEquals([false, 'an array'], $result->get('false'));
 
-        $this->OptionsParser->append('class', ['six', ['five']]);
-        $this->assertEquals('first five fourth second six third', $this->OptionsParser->get('class'));
+        $result->append('class', ['six', ['five']]);
+        $this->assertEquals('first five fourth second six third', $result->get('class'));
 
         //Array of arguments
-        $result = $this->OptionsParser->append(['zeroAsString' => ' with string', 'zeroDotOne' => 2]);
+        $result = $result->append(['zeroAsString' => ' with string', 'zeroDotOne' => 2]);
         $this->assertInstanceOf(OptionsParser::class, $result);
-        $this->assertEquals('0 with string', $this->OptionsParser->get('zeroAsString'));
-        $this->assertEquals([0.1, 2], $this->OptionsParser->get('zeroDotOne'));
+        $this->assertEquals('0 with string', $result->get('zeroAsString'));
+        $this->assertEquals([0.1, 2], $result->get('zeroDotOne'));
     }
 
     /**
@@ -283,24 +283,22 @@ class OptionsParserTest extends TestCase
     {
         $result = $this->OptionsParser->delete('class');
         $this->assertInstanceOf(OptionsParser::class, $result);
-        $this->assertFalse($this->OptionsParser->exists('class'));
+        $this->assertFalse($result->exists('class'));
 
         //This returns `true,` because it exists as the default value
-        $this->OptionsParser->delete('alt');
-        $this->assertTrue($this->OptionsParser->exists('alt'));
-        $this->assertEquals('this value will not be used', $this->OptionsParser->get('alt'));
+        $result->delete('alt');
+        $this->assertTrue($result->exists('alt'));
+        $this->assertEquals('this value will not be used', $result->get('alt'));
 
         //Array of arguments
-        $result = $this->OptionsParser->delete(['zero', 'zeroAsString']);
-        $this->assertInstanceOf(OptionsParser::class, $result);
-        $this->assertFalse($this->OptionsParser->exists('zero'));
-        $this->assertFalse($this->OptionsParser->exists('zeroAsString'));
+        $result->delete(['zero', 'zeroAsString']);
+        $this->assertFalse($result->exists('zero'));
+        $this->assertFalse($result->exists('zeroAsString'));
 
         //Multiple arguments
-        $result = $this->OptionsParser->delete('true', 'false');
-        $this->assertInstanceOf(OptionsParser::class, $result);
-        $this->assertFalse($this->OptionsParser->exists('true'));
-        $this->assertFalse($this->OptionsParser->exists('false'));
+        $result->delete('true', 'false');
+        $this->assertFalse($result->exists('true'));
+        $this->assertFalse($result->exists('false'));
     }
 
     /**
@@ -382,11 +380,11 @@ class OptionsParserTest extends TestCase
 
         $result = $this->OptionsParser->add('tooltip', 'a tooltip')->tooltip();
         $this->assertInstanceOf(OptionsParser::class, $result);
-        $this->assertEquals('a tooltip', $this->OptionsParser->get('title'));
-        $this->assertFalse($this->OptionsParser->exists('data-placement'));
+        $this->assertEquals('a tooltip', $result->get('title'));
+        $this->assertFalse($result->exists('data-placement'));
 
-        $this->OptionsParser->add(['tooltip' => 'a tooltip', 'tooltip-align' => 'right'])->tooltip();
-        $this->assertEquals('a tooltip', $this->OptionsParser->get('title'));
-        $this->assertEquals('right', $this->OptionsParser->get('data-placement'));
+        $result->add(['tooltip' => 'a tooltip', 'tooltip-align' => 'right'])->tooltip();
+        $this->assertEquals('a tooltip', $result->get('title'));
+        $this->assertEquals('right', $result->get('data-placement'));
     }
 }

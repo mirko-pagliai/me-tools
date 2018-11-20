@@ -13,7 +13,6 @@
 namespace MeTools\Test\TestCase\View\Helper;
 
 use MeTools\TestSuite\HelperTestCase;
-use MeTools\TestSuite\Traits\MockTrait;
 use MeTools\View\Helper\HtmlHelper;
 
 /**
@@ -21,8 +20,6 @@ use MeTools\View\Helper\HtmlHelper;
  */
 class DropdownHelperTest extends HelperTestCase
 {
-    use MockTrait;
-
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject
      */
@@ -46,6 +43,8 @@ class DropdownHelperTest extends HelperTestCase
     public function testMenuAndStartAndEnd()
     {
         //No dropdown menu again...
+        $this->assertNull($this->Helper->end());
+
         $text = 'My dropdown';
         $expected = [
             ['a' => [
@@ -67,7 +66,6 @@ class DropdownHelperTest extends HelperTestCase
             '/a',
             '/div',
         ];
-        $this->assertNull($this->Helper->end());
 
         //Empty dropdown
         $this->Helper->start($text);
@@ -98,7 +96,6 @@ class DropdownHelperTest extends HelperTestCase
         });
         $this->assertHtml($expected, $result);
 
-        //Start link with custom class
         $expected = [
             ['a' => [
                 'href' => '#',
@@ -123,6 +120,8 @@ class DropdownHelperTest extends HelperTestCase
             '/a',
             '/div',
         ];
+
+        //Start link with custom class
         $this->Helper->start($text, ['class' => 'my-start-class', 'icon' => 'home']);
         echo $this->Html->link('First link', '/first', ['class' => 'dropdown-item']);
         echo $this->Html->link('Second link', '/second', ['class' => 'dropdown-item']);
@@ -142,7 +141,6 @@ class DropdownHelperTest extends HelperTestCase
         );
         $this->assertHtml($expected, $result);
 
-        //Dropdown inside a list, with other links
         $expected = [
             ['ul' => true],
             ['li' => true],
@@ -177,6 +175,8 @@ class DropdownHelperTest extends HelperTestCase
             '/li',
             '/ul',
         ];
+
+        //Dropdown inside a list, with other links
         $result = $this->Html->ul([
             $this->Html->link('Home', '/'),
             //This is the dropdown menu

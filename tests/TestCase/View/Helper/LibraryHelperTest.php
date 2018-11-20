@@ -75,8 +75,7 @@ class LibraryHelperTest extends HelperTestCase
         $this->setProperty($this->Helper, 'output', ['//first', '//second']);
         $this->Helper->beforeLayout(new Event(null), null);
         $this->assertEmpty($this->getProperty($this->Helper, 'output'));
-        $result = preg_split('/' . PHP_EOL . '/', $this->Helper->getView()->fetch('script_bottom'));
-        $this->assertEquals($expected, $result);
+        $this->assertEquals($expected, preg_split('/' . PHP_EOL . '/', $this->Helper->getView()->fetch('script_bottom')));
     }
 
     /**
