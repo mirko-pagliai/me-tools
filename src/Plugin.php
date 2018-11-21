@@ -33,7 +33,7 @@ class Plugin extends BasePlugin
         parent::bootstrap($app);
 
         if (class_exists(Assets::class) && !$app->getPlugins()->has('Assets')) {
-            $app->addPlugin(Assets::class)->pluginBootstrap();
+            $app->addPlugin(Assets::class);
         }
     }
 }
