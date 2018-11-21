@@ -26,23 +26,23 @@ class PluginTest extends TestCase
      */
     public function testAll()
     {
-        $expected = [ME_TOOLS, ASSETS];
+        $expected = [ME_TOOLS, 'Assets'];
         $this->assertEquals($expected, Plugin::all());
 
         $this->app->addPlugin('TestPlugin');
 
-        $expected = [ME_TOOLS, ASSETS, 'TestPlugin'];
+        $expected = [ME_TOOLS, 'Assets', 'TestPlugin'];
         $this->assertEquals($expected, Plugin::all());
 
-        $expected = [ME_TOOLS, ASSETS];
+        $expected = [ME_TOOLS, 'Assets'];
         $this->assertEquals($expected, Plugin::all(['exclude' => 'TestPlugin']));
 
         $this->app->addPlugin('AnotherTestPlugin');
 
-        $expected = [ME_TOOLS, 'AnotherTestPlugin', ASSETS, 'TestPlugin'];
+        $expected = [ME_TOOLS, 'AnotherTestPlugin', 'Assets', 'TestPlugin'];
         $this->assertEquals($expected, Plugin::all());
 
-        $expected = ['AnotherTestPlugin', ASSETS, ME_TOOLS, 'TestPlugin'];
+        $expected = ['AnotherTestPlugin', 'Assets', ME_TOOLS, 'TestPlugin'];
         $this->assertEquals($expected, Plugin::all(['order' => false]));
     }
 

@@ -26,7 +26,7 @@ class LibraryHelper extends Helper
      * @var array
      */
     public $helpers = [
-        ASSETS . '.Asset',
+        'Assets.Asset',
         'Html' => ['className' => ME_TOOLS . '.Html'],
     ];
 
