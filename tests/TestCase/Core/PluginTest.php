@@ -53,38 +53,23 @@ class PluginTest extends TestCase
     public function testPath()
     {
         $this->assertEquals(ROOT, Plugin::path('MeTools'));
+        $this->assertFalse(Plugin::path('MeTools', 'no_existing.php', true));
 
-        $expected = ROOT . 'config' . DS . 'bootstrap.php';
+        $file = 'src' . DS . 'Console' . DS . 'Shell.php';
 
-        $this->assertEquals($expected, Plugin::path('MeTools', 'config' . DS . 'bootstrap.php'));
-        $this->assertEquals($expected, Plugin::path('MeTools', 'config' . DS . 'bootstrap.php', true));
+        $this->assertEquals(ROOT . $file, Plugin::path('MeTools', $file));
+        $this->assertEquals(ROOT . $file, Plugin::path('MeTools', $file, true));
 
-        //No existing file
-        $this->assertFalse(Plugin::path('MeTools', 'config' . DS . 'no_existing.php', true));
-
-        $expected = [
-            ROOT . 'config' . DS . 'bootstrap.php',
-            ROOT . 'config' . DS . 'no_existing.php',
-        ];
-        $result = Plugin::path('MeTools', [
-            'config' . DS . 'bootstrap.php',
-            'config' . DS . 'no_existing.php',
-        ]);
+        $expected = [ROOT . $file, ROOT . 'no_existing.php'];
+        $result = Plugin::path('MeTools', [$file, 'no_existing.php']);
         $this->assertEquals($expected, $result);
 
         //Only the first file exists
-        $expected = [ROOT . 'config' . DS . 'bootstrap.php'];
-        $result = Plugin::path('MeTools', [
-            'config' . DS . 'bootstrap.php',
-            'config' . DS . 'no_existing.php',
-        ], true);
-        $this->assertEquals($expected, $result);
+        $result = Plugin::path('MeTools', [$file, 'no_existing.php'], true);
+        $this->assertEquals([ROOT . $file], $result);
 
         //No existing files
-        $result = Plugin::path('MeTools', [
-            'config' . DS . 'no_existing.php',
-            'config' . DS . 'no_existing2.php',
-        ], true);
+        $result = Plugin::path('MeTools', ['no_existing.php', 'no_existing2.php'], true);
         $this->assertEmpty($result);
     }
 }
