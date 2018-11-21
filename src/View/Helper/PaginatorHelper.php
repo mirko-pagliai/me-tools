@@ -27,8 +27,8 @@ class PaginatorHelper extends CakePaginatorHelper
      * @var array
      */
     public $helpers = [
-        'Form' => ['className' => ME_TOOLS . '.Form'],
-        'Html' => ['className' => ME_TOOLS . '.Html'],
+        'Form' => ['className' => 'MeTools.Form'],
+        'Html' => ['className' => 'MeTools.Html'],
         'Number',
         'Url',
     ];

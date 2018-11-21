@@ -10,7 +10,4 @@
  * @link        https://github.com/mirko-pagliai/me-tools
  * @license     https://opensource.org/licenses/mit-license.php MIT License
  */
-//Sets the default MeTools name
-if (!defined('ME_TOOLS')) {
-    define('ME_TOOLS', 'MeTools');
-}
+

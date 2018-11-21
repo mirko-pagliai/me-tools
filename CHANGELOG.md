@@ -11,7 +11,7 @@
 * `jquery`, `bootstrap`, `bootstrap-datetimepicker`, `fancy-box` and
     `fortawesome--fontawesome-free` are no longer required packages for
     Composer, but only suggested packages;
-* it no longer uses the `ASSETS` constant;
+* removed `ME_TOOLS` constants. It no longer uses also the `ASSETS` constant;
 * removed `clearDir()` global function. Use instead `safe_unlink_recursive()`
     provided by `php-tools`.
 
