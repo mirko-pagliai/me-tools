@@ -13,6 +13,7 @@
  */
 namespace MeTools;
 
+use Assets\Plugin as Assets;
 use Cake\Core\BasePlugin;
 use Cake\Core\PluginApplicationInterface;
 
@@ -31,8 +32,8 @@ class Plugin extends BasePlugin
     {
         parent::bootstrap($app);
 
-        if (!$app->getPlugins()->has('Assets')) {
-            $app->addPlugin('Assets')->pluginBootstrap();
+        if (class_exists(Assets::class) && !$app->getPlugins()->has('Assets')) {
+            $app->addPlugin(Assets::class)->pluginBootstrap();
         }
     }
 }
