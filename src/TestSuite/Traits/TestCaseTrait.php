@@ -88,4 +88,30 @@ trait TestCaseTrait
     {
         safe_unlink($this->getLogFullPath($filename));
     }
+
+    /**
+     * Checks if there's a plugin in the global plugin collaction
+     * @param string $plugin Plugin you want to check
+     * @return bool
+     * @since 2.18.0
+     */
+    public function hasPlugin($plugin)
+    {
+        return Plugin::getCollection()->has($plugin);
+    }
+
+    /**
+     * Remove plugins from the global plugin collection
+     * @param array $plugins A list of plugins you want to remove
+     * @return void
+     * @since 2.18.0
+     * @todo remove with CakePHP 3.7
+     */
+    public function removePlugins(array $plugins = [])
+    {
+        $collection = Plugin::getCollection();
+        foreach ($plugins as $plugin) {
+            $collection->remove($plugin);
+        }
+    }
 }
