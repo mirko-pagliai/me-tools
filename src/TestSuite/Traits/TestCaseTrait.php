@@ -58,11 +58,12 @@ trait TestCaseTrait
 
         try {
             is_readable_or_fail($filename);
+            $content = file_get_contents($filename);
         } catch (Exception $e) {
             $this->fail($e->getMessage());
         }
 
-        $this->assertContains($expectedContent, file_get_contents($filename), $message);
+        $this->assertContains($expectedContent, $content, $message);
     }
 
     /**
