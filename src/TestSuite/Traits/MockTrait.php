@@ -105,6 +105,7 @@ trait MockTrait
      * @param string $className Table class name
      * @param array|null $methods The list of methods to mock
      * @return \PHPUnit\Framework\MockObject\MockObject
+     * @todo remove with CakePHP 3.7, use instead getMockForModel()
      */
     protected function getMockForTable($className, $methods = [])
     {
