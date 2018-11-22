@@ -148,12 +148,21 @@ class InstallShellTest extends ConsoleIntegrationTestCase
     {
         $this->exec('me_tools.install create_plugins_links -v');
         $this->assertExitWithSuccess();
-        $this->assertOutputContains('Skipping plugin Assets. It does not have webroot folder.');
         $this->assertOutputContains('For plugin: MeTools');
         $this->assertOutputContains('Created symlink ' . WWW_ROOT . 'me_tools');
         $this->assertOutputContains('Done');
         $this->assertErrorEmpty();
         $this->assertFileExists(WWW_ROOT . 'me_tools');
+
+        $this->skipIf(!$this->hasPlugin('Assets'));
+
+        $this->assertOutputContains('Skipping plugin Assets. It does not have webroot folder.');
+
+        //Runs again, without the `Assets` plugin
+        $this->removePlugins(['Assets']);
+        $this->exec('me_tools.install create_plugins_links -v');
+        $this->assertExitWithSuccess();
+        $this->assertOutputNotContains('Skipping plugin Assets. It does not have webroot folder.');
     }
 
     /**

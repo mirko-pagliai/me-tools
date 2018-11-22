@@ -9,9 +9,10 @@
 * `ConsoleIntegrationTestCase`, `IntegrationTestCase` and `TestCase` classes now
     have the `$app` property, that contains the instance of the current
     application;
-* `jquery`, `bootstrap`, `bootstrap-datetimepicker`, `fancy-box` and
-    `fortawesome--fontawesome-free` are no longer required packages for
-    Composer, but only suggested packages;
+* `cakephp-assets`, `jquery`, `bootstrap`, `bootstrap-datetimepicker`,
+    `fancy-box` and `fortawesome--fontawesome-free` are no longer required
+    packages for Composer (`cakephp-assets` is required for developing), but
+    only suggested packages;
 * removed `ME_TOOLS` constants. It no longer uses also the `ASSETS` constant;
 * removed `clearDir()` global function. Use instead `safe_unlink_recursive()`
     provided by `php-tools`.

@@ -12,6 +12,7 @@
  */
 namespace MeTools\View\Helper;
 
+use Cake\Core\Plugin;
 use Cake\Event\Event;
 use Cake\I18n\I18n;
 use Cake\View\Helper;
@@ -22,11 +23,13 @@ use Cake\View\Helper;
 class LibraryHelper extends Helper
 {
     /**
-     * Helpers
+     * Helpers.
+     *
+     * The `Asset` helper will be loaded by the `initialize()` method. If the
+     *  `Assets` plugin doesn't exist, it will be a copy of the `Html` helper.
      * @var array
      */
     public $helpers = [
-        'Assets.Asset',
         'Html' => ['className' => 'MeTools.Html'],
     ];
 
@@ -35,6 +38,26 @@ class LibraryHelper extends Helper
      * @var array
      */
     protected $output = [];
+
+    /**
+     * Constructor hook method.
+     *
+     * Implement this method to avoid having to overwrite the constructor and
+     *  call parent.
+     * @param array $config The configuration settings provided to this helper
+     * @return void
+     * @since 2.18.0
+     */
+    public function initialize(array $config)
+    {
+        parent::initialize($config);
+
+        if (Plugin::getCollection()->has('Assets')) {
+            $this->Asset = $this->getView()->loadHelper('Assets.Asset');
+        } else {
+            $this->Asset = clone $this->Html;
+        }
+    }
 
     /**
      * Internal function to generate datepicker and timepicker.

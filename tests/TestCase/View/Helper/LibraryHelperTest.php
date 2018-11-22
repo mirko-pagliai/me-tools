@@ -12,9 +12,11 @@
  */
 namespace MeTools\Test\TestCase\View\Helper;
 
+use Assets\View\Helper\AssetHelper;
 use Cake\Event\Event;
 use Cake\Http\ServerRequest;
 use MeTools\TestSuite\HelperTestCase;
+use MeTools\View\Helper\HtmlHelper;
 
 /**
  * LibraryHelperTest class
@@ -54,6 +56,25 @@ class LibraryHelperTest extends HelperTestCase
         ] as $file) {
             safe_unlink(WWW_ROOT . $file);
         }
+    }
+
+    /**
+     * Tests for `initialize()` method
+     * @test
+     */
+    public function testInitialize()
+    {
+        //Checks that, when the `Assets` plugin is not present, the
+        //  `AssetHelper` matches the `HtmlHelper`
+        if ($this->hasPlugin('Assets')) {
+            $this->Helper->initialize([]);
+            $this->assertInstanceof(AssetHelper::class, $this->Helper->Asset);
+
+            $this->removePlugins(['Assets']);
+        }
+
+        $this->Helper->initialize([]);
+        $this->assertInstanceof(HtmlHelper::class, $this->Helper->Asset);
     }
 
     /**

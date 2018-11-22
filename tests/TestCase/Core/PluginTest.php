@@ -26,23 +26,25 @@ class PluginTest extends TestCase
      */
     public function testAll()
     {
-        $expected = ['MeTools', 'Assets'];
+        $expected = ['MeTools'];
+        if ($this->hasPlugin('Assets')) {
+            $expected[] = 'Assets';
+        }
         $this->assertEquals($expected, Plugin::all());
 
         $this->app->addPlugin('TestPlugin');
-
-        $expected = ['MeTools', 'Assets', 'TestPlugin'];
-        $this->assertEquals($expected, Plugin::all());
-
-        $expected = ['MeTools', 'Assets'];
+        $this->assertEquals(array_merge($expected, ['TestPlugin']), Plugin::all());
         $this->assertEquals($expected, Plugin::all(['exclude' => 'TestPlugin']));
 
+        $expected = ['MeTools', 'AnotherTestPlugin'];
+        if ($this->hasPlugin('Assets')) {
+            $expected[] = 'Assets';
+        }
+        $expected[] = 'TestPlugin';
         $this->app->addPlugin('AnotherTestPlugin');
-
-        $expected = ['MeTools', 'AnotherTestPlugin', 'Assets', 'TestPlugin'];
         $this->assertEquals($expected, Plugin::all());
 
-        $expected = ['AnotherTestPlugin', 'Assets', 'MeTools', 'TestPlugin'];
+        sort($expected);
         $this->assertEquals($expected, Plugin::all(['order' => false]));
     }
 
