@@ -30,15 +30,22 @@ abstract class HelperTestCase extends TestCase
     protected $Helper;
 
     /**
+     * If `true`, a mock instance of the shell will be created
+     * @var bool
+     */
+    protected $autoInitializeClass = true;
+
+    /**
      * Called before every test method
      * @return void
      * @uses $Helper
+     * @uses $autoInitializeClass
      */
     public function setUp()
     {
         parent::setUp();
 
-        if (!$this->Helper) {
+        if (!$this->Helper && $this->autoInitializeClass) {
             $this->Helper = $this->getMockForHelper($this->getOriginClassName($this), null);
         }
     }
