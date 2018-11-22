@@ -39,12 +39,7 @@ abstract class HelperTestCase extends TestCase
         parent::setUp();
 
         if (!$this->Helper) {
-            $parts = explode('\\', get_class($this));
-            array_splice($parts, 1, 2, []);
-            $parts[] = substr(array_pop($parts), 0, -4);
-            $className = implode('\\', $parts);
-
-            $this->Helper = $this->getMockForHelper($className, null);
+            $this->Helper = $this->getMockForHelper($this->getOriginClassName($this), null);
         }
     }
 }

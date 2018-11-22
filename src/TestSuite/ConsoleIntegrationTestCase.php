@@ -63,12 +63,7 @@ abstract class ConsoleIntegrationTestCase extends CakeConsoleIntegrationTestCase
         $this->app->addPlugin('MeTools')->pluginBootstrap();
 
         if (!$this->Shell && $this->autoInitializeClass) {
-            $parts = explode('\\', get_class($this));
-            array_splice($parts, 1, 2, []);
-            $parts[] = substr(array_pop($parts), 0, -4);
-            $className = implode('\\', $parts);
-
-            $this->Shell = $this->getMockForShell($className);
+            $this->Shell = $this->getMockForShell($this->getOriginClassName($this));
         }
     }
 

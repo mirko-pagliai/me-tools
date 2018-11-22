@@ -16,7 +16,7 @@
 * removed `ME_TOOLS` constants. It no longer uses also the `ASSETS` constant;
 * removed `clearDir()` global function. Use instead `safe_unlink_recursive()`
     provided by `php-tools`;
-* removed `MockTrait::assertIsMock()`.
+* added `getOriginClassName()` and removed `assertIsMock()` from `MockTrait`.
 
 ## 2.17 branch
 ### 2.17.5

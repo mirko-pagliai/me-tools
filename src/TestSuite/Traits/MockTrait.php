@@ -129,4 +129,23 @@ trait MockTrait
 
         return $table;
     }
+
+    /**
+     * Gets the classname for which a test is being performed, starting from the
+     *  test class name.
+     *
+     * Example: class `MyPlugin\Test\TestCase\Controller\PagesControllerTest`
+     *  will return the string `MyPlugin\Controller\PagesController`.
+     * @param object $testClass A test class
+     * @return string The class name for which a test is being performed
+     * @since 2.18.0
+     */
+    protected function getOriginClassName($testClass)
+    {
+        $parts = explode('\\', get_class($testClass));
+        array_splice($parts, 1, 2, []);
+        $parts[] = substr(array_pop($parts), 0, -4);
+
+        return implode('\\', $parts);
+    }
 }

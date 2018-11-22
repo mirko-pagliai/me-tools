@@ -40,12 +40,7 @@ abstract class ComponentTestCase extends TestCase
 
         //Tries to retrieve the component
         if (!$this->Component) {
-            $parts = explode('\\', get_class($this));
-            array_splice($parts, 1, 2, []);
-            $parts[] = substr(array_pop($parts), 0, -4);
-            $className = implode('\\', $parts);
-
-            $this->Component = $this->getMockForComponent($className, null);
+            $this->Component = $this->getMockForComponent($this->getOriginClassName($this), null);
         }
     }
 }
