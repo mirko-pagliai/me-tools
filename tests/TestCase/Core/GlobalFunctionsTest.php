@@ -28,7 +28,7 @@ class GlobalFunctionsTest extends TestCase
     {
         $result = optionsParser();
         $expected = new OptionsParser;
-        $this->assertInstanceOf('MeTools\View\OptionsParser', $result);
+        $this->assertInstanceOf(OptionsParser::class, $result);
         $this->assertEquals($expected, $result);
         $this->assertEquals(get_object_vars($expected), get_object_vars($result));
 
@@ -37,7 +37,7 @@ class GlobalFunctionsTest extends TestCase
 
         $result = optionsParser($a, $b);
         $expected = new OptionsParser($a, $b);
-        $this->assertInstanceOf('MeTools\View\OptionsParser', $result);
+        $this->assertInstanceOf(OptionsParser::class, $result);
         $this->assertEquals($expected, $result);
         $this->assertEquals(get_object_vars($expected), get_object_vars($result));
     }
