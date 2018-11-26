@@ -33,37 +33,15 @@ class ConsoleIntegrationTestCaseTest extends ConsoleIntegrationTestCase
     }
 
     /**
-     * Test for `assertTableHeadersEquals()` method
-     * @test
-     */
-    public function testAssertTableHeadersEquals()
-    {
-        $this->exec('example print_table');
-        $class = $this->Shell;
-        $this->assertTableHeadersEquals($class::$tableHeaders);
-    }
-
-    /**
-     * Test for `assertTableRowsEquals()` method
-     * @test
-     */
-    public function testAssertTableRowsEquals()
-    {
-        $this->exec('example print_table');
-        $class = $this->Shell;
-        $this->assertTableRowsEquals($class::$tableRows);
-    }
-
-    /**
      * Test for `getShellMethods()` method
      * @test
      */
     public function testGetShellMethods()
     {
-        $this->assertEquals(['doNothing', 'printTable'], $this->getShellMethods());
-        $this->assertEquals(['printTable'], $this->getShellMethods(['doNothing']));
+        $this->assertEquals(['aSimpleMethod', 'doNothing'], $this->getShellMethods());
+        $this->assertEquals(['aSimpleMethod'], $this->getShellMethods(['doNothing']));
 
         $this->Shell = $this->getMockForShell(ChildExampleShell::class);
-        $this->assertEquals(['childMethod', 'doNothing', 'printTable'], $this->getShellMethods());
+        $this->assertEquals(['aSimpleMethod', 'childMethod', 'doNothing'], $this->getShellMethods());
     }
 }
