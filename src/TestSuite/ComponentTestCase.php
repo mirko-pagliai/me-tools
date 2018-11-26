@@ -30,16 +30,23 @@ abstract class ComponentTestCase extends TestCase
     protected $Component;
 
     /**
+     * If `true`, a mock instance of the shell will be created
+     * @var bool
+     */
+    protected $autoInitializeClass = true;
+
+    /**
      * Called before every test method
      * @return void
      * @uses $Component
+     * @uses $autoInitializeClass
      */
     public function setUp()
     {
         parent::setUp();
 
         //Tries to retrieve the component
-        if (!$this->Component) {
+        if (!$this->Component && $this->autoInitializeClass) {
             $this->Component = $this->getMockForComponent($this->getOriginClassName($this), null);
         }
     }
