@@ -15,6 +15,7 @@ namespace MeTools\Test\TestCase\View\Helper;
 use Assets\View\Helper\AssetHelper;
 use Cake\Event\Event;
 use Cake\Http\ServerRequest;
+use Cake\View\View;
 use MeTools\TestSuite\HelperTestCase;
 use MeTools\View\Helper\HtmlHelper;
 
@@ -122,9 +123,13 @@ class LibraryHelperTest extends HelperTestCase
 
         $request->expects($this->any())->method('is')->willReturn(true);
 
-        $this->Helper->getView()->request = $request;
-        $this->Helper->analytics('my-id');
-        $this->assertEmpty($this->Helper->getView()->fetch('script_bottom'));
+        $helper = $this->getMockBuilder(get_class($this->Helper))
+            ->setMethods(null)
+            ->setConstructorArgs([new View($request)])
+            ->getMock();
+
+        $helper->analytics('my-id');
+        $this->assertEmpty($helper->getView()->fetch('script_bottom'));
     }
 
     /**

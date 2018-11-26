@@ -16,7 +16,8 @@
 * removed `ME_TOOLS` constants. It no longer uses also the `ASSETS` constant;
 * removed `clearDir()` global function. Use instead `safe_unlink_recursive()`
     provided by `php-tools`;
-* added `getOriginClassName()` and removed `assertIsMock()` from `MockTrait`.
+* added `getOriginClassName()` and removed `assertIsMock()` from `MockTrait`;
+* updated for CakePHP 3.7.
 
 ## 2.17 branch
 ### 2.17.5
