@@ -17,22 +17,11 @@ use MeTools\Console\Shell;
 
 class ExampleShell extends Shell
 {
-    public static $tableHeaders = ['number', 'char', 'word'];
-
-    public static $tableRows = [
-        [1, 'a', 'alfa'],
-        [2, 'b', 'beta'],
-        [3, 'c', 'gamma'],
-    ];
-
-    public function doNothing()
+    public function aSimpleMethod()
     {
     }
 
-    public function printTable()
+    public function doNothing()
     {
-        $table = self::$tableRows;
-        array_unshift($table, self::$tableHeaders);
-        $this->helper('table')->output($table);
     }
 }

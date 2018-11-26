@@ -94,38 +94,6 @@ abstract class ConsoleIntegrationTestCase extends CakeConsoleIntegrationTestCase
     }
 
     /**
-     * Gets a table from output
-     * @return array Headers and rows
-     * @uses $_out
-     */
-    protected function getTableFromOutput()
-    {
-        $regexRowDivider = '[+-]+';
-        $regexHeader = '(\|(\s+<info>[^<]+<\/info>\s+\|)+)';
-        $regexRow = '\|(\s+[^\|]+\s+\|)+';
-        $regexRows = '((' . $regexRow . '\R)+)';
-        $regexTable = $regexRowDivider . '\R' . $regexHeader . '\R' . $regexRowDivider . '\R' . $regexRows . $regexRowDivider;
-        $output = implode(PHP_EOL, $this->_out->messages());
-
-        preg_match('/' . $regexTable . '/', $output, $matches) ?: $this->fail('Unable to retrieve a table output');
-
-        $regexColumnDivider = '\s*\|\s*';
-        $headers = array_values(array_map(function ($header) {
-            return preg_replace('/<info>([^<]+)<\/info>/', '$1', $header);
-        }, array_filter(preg_split('/' . $regexColumnDivider . '/', $matches[1]))));
-        $rows = array_values(array_map(function ($row) use ($regexColumnDivider) {
-            $row = preg_split('/' . $regexColumnDivider . '/', $row);
-            $row = array_filter($row, function ($row) {
-                return in_array($row, [0, '0'], true) || !empty($row);
-            });
-
-            return array_values($row);
-        }, array_filter(explode(PHP_EOL, $matches[3]))));
-
-        return compact('headers', 'rows');
-    }
-
-    /**
      * Asserts shell exited with the error code
      * @param string $message Failure message to be appended to the generated
      *  message
@@ -145,35 +113,5 @@ abstract class ConsoleIntegrationTestCase extends CakeConsoleIntegrationTestCase
     public function assertExitWithSuccess($message = '')
     {
         $this->assertExitCode(Shell::CODE_SUCCESS, $message);
-    }
-
-    /**
-     * Asserts that a table has headers
-     * @param array $expected Expected headers values
-     * @param string $message Failure message to be appended to the generated
-     *  message
-     * @return void
-     * @uses getTableFromOutput()
-     */
-    public function assertTableHeadersEquals($expected, $message = '')
-    {
-        list($headers) = array_values($this->getTableFromOutput());
-
-        $this->assertEquals($expected, $headers, $message);
-    }
-
-    /**
-     * Asserts that a table has rows
-     * @param array $expected Expected rows values
-     * @param string $message Failure message to be appended to the generated
-     *  message
-     * @return void
-     * @uses getTableFromOutput()
-     */
-    public function assertTableRowsEquals($expected, $message = '')
-    {
-        list(, $rows) = array_values($this->getTableFromOutput());
-
-        $this->assertEquals($expected, $rows, $message);
     }
 }
