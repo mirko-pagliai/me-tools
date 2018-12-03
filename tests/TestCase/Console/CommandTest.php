@@ -22,6 +22,21 @@ use MeTools\TestSuite\ConsoleIntegrationTestCase;
 class CommandTest extends ConsoleIntegrationTestCase
 {
     /**
+     * @var \Cake\TestSuite\Stub\ConsoleOutput
+     */
+    protected $_err;
+
+    /**
+     * @var \Cake\TestSuite\Stub\ConsoleOutput
+     */
+    protected $_out;
+
+    /**
+     * @var \Cake\Console\ConsoleIo
+     */
+    protected $io;
+
+    /**
      * @var array
      */
     protected $exampleFiles = [
