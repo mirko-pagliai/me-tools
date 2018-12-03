@@ -20,6 +20,9 @@
 * updated for CakePHP 3.7.
 
 ## 2.17 branch
+### 2.17.6
+* added `Command` class. It can be used instead of the `Shell` class.
+
 ### 2.17.5
 * added `MockTrait`, `ComponentTestCase` and `HelperTestCase` classes for test
     suite;

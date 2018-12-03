@@ -13,9 +13,11 @@
  */
 namespace MeTools\TestSuite;
 
+use Cake\Console\Command as CakeCommand;
 use Cake\Console\Shell as CakeShell;
 use Cake\Http\BaseApplication;
 use Cake\TestSuite\ConsoleIntegrationTestCase as CakeConsoleIntegrationTestCase;
+use MeTools\Console\Command;
 use MeTools\Console\Shell;
 use MeTools\TestSuite\Traits\MockTrait;
 use MeTools\TestSuite\Traits\TestCaseTrait;
@@ -65,6 +67,10 @@ abstract class ConsoleIntegrationTestCase extends CakeConsoleIntegrationTestCase
         if (!$this->Shell && $this->autoInitializeClass) {
             $this->Shell = $this->getMockForShell($this->getOriginClassName($this));
         }
+
+        if ($this->Shell instanceof Command || $this->Shell instanceof CakeCommand) {
+            $this->useCommandRunner();
+        }
     }
 
     /**
@@ -83,7 +89,7 @@ abstract class ConsoleIntegrationTestCase extends CakeConsoleIntegrationTestCase
         $parentClass = get_parent_class($class);
         $methods = get_child_methods($class);
 
-        if (!in_array($parentClass, [CakeShell::class, Shell::class])) {
+        if (!in_array($parentClass, [CakeCommand::class, CakeShell::class, Command::class, Shell::class])) {
             $methods = array_merge($methods, get_child_methods($parentClass));
         }
 
