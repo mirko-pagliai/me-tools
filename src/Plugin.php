@@ -16,6 +16,13 @@ namespace MeTools;
 use Assets\Plugin as Assets;
 use Cake\Core\BasePlugin;
 use Cake\Core\PluginApplicationInterface;
+use MeTools\Command\CreateDirectoriesCommand;
+use MeTools\Command\CreatePluginsLinksCommand;
+use MeTools\Command\CreateRobotsCommand;
+use MeTools\Command\CreateVendorsLinksCommand;
+use MeTools\Command\FixComposerJsonCommand;
+use MeTools\Command\RunAllCommand;
+use MeTools\Command\SetPermissionsCommand;
 
 /**
  * Plugin class
@@ -35,5 +42,23 @@ class Plugin extends BasePlugin
         if (class_exists(Assets::class) && !$app->getPlugins()->has('Assets')) {
             $app->addPlugin(Assets::class);
         }
+    }
+
+    /**
+     * Add console commands for the plugin
+     * @param Cake\Console\CommandCollection $commands The command collection to update
+     * @return Cake\Console\CommandCollection
+     */
+    public function console($commands)
+    {
+        $commands->add('me_tools.create_directories', CreateDirectoriesCommand::class);
+        $commands->add('me_tools.create_plugins_links', CreatePluginsLinksCommand::class);
+        $commands->add('me_tools.create_robots', CreateRobotsCommand::class);
+        $commands->add('me_tools.create_vendors_links', CreateVendorsLinksCommand::class);
+        $commands->add('me_tools.fix_composer_json', FixComposerJsonCommand::class);
+        $commands->add('me_tools.install', RunAllCommand::class);
+        $commands->add('me_tools.set_permissions', SetPermissionsCommand::class);
+
+        return $commands;
     }
 }

@@ -1,6 +1,8 @@
 # 2.x branch
 ## 2.18 branch
 ### 2.18.0
+* `InstallShell` has been replaced with console commands. Every method of the
+    previous class is now a `Command` class;
 * `comment()` `question()` and `warning()` methods provided by `Shell` class
     have been replaced by the `__call()` magic method;
 * now the `InstallShell::createVendorsLinks()` method writes a warning if the
