@@ -112,4 +112,16 @@ abstract class ConsoleIntegrationTestCase extends CakeConsoleIntegrationTestCase
     {
         $this->assertExitCode(Shell::CODE_SUCCESS, $message);
     }
+
+    /**
+     * Asserts that `stdout` is not empty
+     * @param string $message Failure message to be appended to the generated
+     *  message
+     * @return void
+     * @since 2.17.6
+     */
+    public function assertOutputNotEmpty($message = '')
+    {
+        $this->assertNotEmpty($this->_out->messages(), $message);
+    }
 }
