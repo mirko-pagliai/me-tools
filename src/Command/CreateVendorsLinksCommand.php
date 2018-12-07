@@ -16,6 +16,7 @@ namespace MeTools\Command;
 use Cake\Console\Arguments;
 use Cake\Console\ConsoleIo;
 use Cake\Console\ConsoleOptionParser;
+use Cake\Core\Configure;
 use MeTools\Console\Command;
 
 /**
@@ -23,21 +24,6 @@ use MeTools\Console\Command;
  */
 class CreateVendorsLinksCommand extends Command
 {
-    /**
-     * Assets for which create symbolic links.
-     * The key must be relative to `vendor/` and the value must be relative
-     *  to `webroot/vendor/`
-     * @var array
-     */
-    public $links = [
-        'eonasdan' . DS . 'bootstrap-datetimepicker' . DS . 'build' => 'bootstrap-datetimepicker',
-        'components' . DS . 'jquery' => 'jquery',
-        'components' . DS . 'moment' . DS . 'min' => 'moment',
-        'newerton' . DS . 'fancy-box' . DS . 'source' => 'fancybox',
-        'npm-asset' . DS . 'fortawesome--fontawesome-free' => 'font-awesome',
-        'twbs' . DS . 'bootstrap' . DS . 'dist' => 'bootstrap',
-    ];
-
     /**
      * Hook method for defining this command's option parser
      * @param ConsoleOptionParser $parser The parser to be defined
@@ -56,11 +42,10 @@ class CreateVendorsLinksCommand extends Command
      * @param ConsoleIo $io The console io
      * @return null|int The exit code or null for success
      * @uses Command::createLink()
-     * @uses $links
      */
     public function execute(Arguments $args, ConsoleIo $io)
     {
-        foreach ($this->links as $origin => $target) {
+        foreach (Configure::read('VENDOR_LINKS') as $origin => $target) {
             $this->createLink(
                 $io,
                 ROOT . 'vendor' . DS . $origin,

@@ -12,6 +12,7 @@
  */
 namespace MeTools\Test\TestCase\Command;
 
+use Cake\Core\Configure;
 use MeTools\TestSuite\ConsoleIntegrationTestCase;
 
 /**
@@ -36,7 +37,9 @@ class CreateVendorsLinksCommandTest extends ConsoleIntegrationTestCase
      */
     public function testExecute()
     {
-        foreach (array_keys($this->Shell->links) as $link) {
+        $links = Configure::read('VENDOR_LINKS');
+
+        foreach (array_keys($links) as $link) {
             $link = ROOT . 'vendor' . DS . $link;
             safe_mkdir($link, 0777, true);
             file_put_contents($link . DS . 'empty', null);
@@ -45,7 +48,7 @@ class CreateVendorsLinksCommandTest extends ConsoleIntegrationTestCase
         $this->exec('me_tools.create_vendors_links -v');
         $this->assertExitWithSuccess();
 
-        foreach ($this->Shell->links as $link) {
+        foreach ($links as $link) {
             $this->assertOutputContains('Link `' . rtr(WWW_ROOT) . 'vendor' . DS . $link . '` has been created');
         }
 

@@ -54,6 +54,16 @@ class Plugin extends BasePlugin
             WWW_ROOT . 'vendor',
         ]);
 
+        //Sets symbolic links for vendor assets to be created
+        Configure::write('VENDOR_LINKS', [
+            'eonasdan' . DS . 'bootstrap-datetimepicker' . DS . 'build' => 'bootstrap-datetimepicker',
+            'components' . DS . 'jquery' => 'jquery',
+            'components' . DS . 'moment' . DS . 'min' => 'moment',
+            'newerton' . DS . 'fancy-box' . DS . 'source' => 'fancybox',
+            'npm-asset' . DS . 'fortawesome--fontawesome-free' => 'font-awesome',
+            'twbs' . DS . 'bootstrap' . DS . 'dist' => 'bootstrap',
+        ]);
+
         if (class_exists(Assets::class) && !$app->getPlugins()->has('Assets')) {
             $app->addPlugin(Assets::class);
         }
