@@ -40,6 +40,7 @@ class Plugin extends BasePlugin
     {
         parent::bootstrap($app);
 
+        //Sets directories to be created and must be writable
         Configure::write('WRITABLE_DIRS', [
             LOGS,
             TMP,
@@ -54,6 +55,7 @@ class Plugin extends BasePlugin
         ]);
 
         if (class_exists(Assets::class) && !$app->getPlugins()->has('Assets')) {
+            Configure::write('Assets.target', TMP . 'assets');
             $app->addPlugin(Assets::class);
         }
     }

@@ -66,6 +66,7 @@ Configure::write('App', [
         'plugins' => [APP . 'Plugin' . DS],
     ]
 ]);
+Configure::write('Session', ['defaults' => 'php']);
 
 Cache::setConfig([
     '_cake_core_' => [
@@ -87,9 +88,6 @@ Cache::setConfig([
 
 // Ensure default test connection is defined
 ConnectionManager::setConfig('test', ['url' => 'sqlite:///' . TMP . 'test.sq3']);
-
-Configure::write('Session', ['defaults' => 'php']);
-Configure::write('Assets.target', TMP . 'assets');
 
 ini_set('intl.default_locale', 'en_US');
 
