@@ -3,10 +3,6 @@
 ### 2.18.0
 * `InstallShell` has been replaced with console commands. Every method of the
     previous class is now a `MeTools\Command\Install` class;
-* `comment()` `question()` and `warning()` methods provided by `Shell` class
-    have been replaced by the `__call()` magic method;
-* now the `InstallShell::createVendorsLinks()` method writes a warning if the
-    origin vendor directory does not exist;
 * `cakephp-assets`, `jquery`, `bootstrap`, `bootstrap-datetimepicker`,
     `fancy-box` and `fortawesome--fontawesome-free` are no longer required
     packages for Composer (`cakephp-assets` is required for developing), but
