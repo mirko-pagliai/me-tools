@@ -67,6 +67,7 @@ Configure::write('App', [
     ]
 ]);
 Configure::write('Session', ['defaults' => 'php']);
+Configure::write('Assets.target', TMP . 'assets');
 
 Cache::setConfig([
     '_cake_core_' => [

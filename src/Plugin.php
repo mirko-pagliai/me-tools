@@ -55,7 +55,6 @@ class Plugin extends BasePlugin
         ]);
 
         if (class_exists(Assets::class) && !$app->getPlugins()->has('Assets')) {
-            Configure::write('Assets.target', TMP . 'assets');
             $app->addPlugin(Assets::class);
         }
     }
