@@ -60,10 +60,7 @@ abstract class IntegrationTestCase extends CakeIntegrationTestCase
      */
     public function assertCookieIsEmpty($name, $message = '')
     {
-        if (!$this->_response) {
-            $this->fail('Not response set, cannot assert cookies');
-        }
-
+        $this->_response ?: $this->fail('Not response set, cannot assert cookies');
         $this->assertEmpty($this->_response->getCookie($name)['value'], $message);
     }
 
