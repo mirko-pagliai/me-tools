@@ -11,18 +11,18 @@
  * @license     https://opensource.org/licenses/mit-license.php MIT License
  * @since       2.18.0
  */
-namespace MeTools\Command;
+namespace MeTools\Command\Install;
 
 use Cake\Console\Arguments;
 use Cake\Console\ConsoleIo;
 use Cake\Console\ConsoleOptionParser;
 use Cake\Utility\Hash;
-use MeTools\Command\CreateDirectoriesCommand;
-use MeTools\Command\CreatePluginsLinksCommand;
-use MeTools\Command\CreateRobotsCommand;
-use MeTools\Command\CreateVendorsLinksCommand;
-use MeTools\Command\FixComposerJsonCommand;
-use MeTools\Command\SetPermissionsCommand;
+use MeTools\Command\Install\CreateDirectoriesCommand;
+use MeTools\Command\Install\CreatePluginsLinksCommand;
+use MeTools\Command\Install\CreateRobotsCommand;
+use MeTools\Command\Install\CreateVendorsLinksCommand;
+use MeTools\Command\Install\FixComposerJsonCommand;
+use MeTools\Command\Install\SetPermissionsCommand;
 use MeTools\Console\Command;
 
 /**

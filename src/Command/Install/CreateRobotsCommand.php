@@ -11,18 +11,17 @@
  * @license     https://opensource.org/licenses/mit-license.php MIT License
  * @since       2.18.0
  */
-namespace MeTools\Command;
+namespace MeTools\Command\Install;
 
 use Cake\Console\Arguments;
 use Cake\Console\ConsoleIo;
 use Cake\Console\ConsoleOptionParser;
-use Cake\Core\Configure;
 use MeTools\Console\Command;
 
 /**
- * Creates symbolic links for vendor assets
+ * Creates the `robots.txt` file
  */
-class CreateVendorsLinksCommand extends Command
+class CreateRobotsCommand extends Command
 {
     /**
      * Hook method for defining this command's option parser
@@ -31,27 +30,24 @@ class CreateVendorsLinksCommand extends Command
      */
     protected function buildOptionParser(ConsoleOptionParser $parser)
     {
-        $parser->setDescription(__d('me_tools', 'Creates symbolic links for vendor assets'));
+        $parser->setDescription(__d('me_tools', 'Creates the {0} file', 'robots.txt'));
 
         return $parser;
     }
 
     /**
-     * Creates symbolic links for vendor assets
+     * Creates the `robots.txt` file
      * @param Arguments $args The command arguments
      * @param ConsoleIo $io The console io
      * @return null|int The exit code or null for success
-     * @uses Command::createLink()
+     * @uses Command::createFile()
      */
     public function execute(Arguments $args, ConsoleIo $io)
     {
-        foreach (Configure::read('VENDOR_LINKS') as $origin => $target) {
-            $this->createLink(
-                $io,
-                ROOT . 'vendor' . DS . $origin,
-                WWW_ROOT . 'vendor' . DS . $target
-            );
-        }
+        $this->createFile($io, WWW_ROOT . 'robots.txt', 'User-agent: *' . PHP_EOL .
+            'Disallow: /admin/' . PHP_EOL . 'Disallow: /ckeditor/' . PHP_EOL .
+            'Disallow: /css/' . PHP_EOL . 'Disallow: /js/' . PHP_EOL .
+            'Disallow: /vendor/');
 
         return null;
     }

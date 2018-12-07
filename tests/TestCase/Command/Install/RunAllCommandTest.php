@@ -10,7 +10,7 @@
  * @link        https://github.com/mirko-pagliai/me-tools
  * @license     https://opensource.org/licenses/mit-license.php MIT License
  */
-namespace MeTools\Test\TestCase\Command;
+namespace MeTools\Test\TestCase\Command\Install;
 
 use Cake\Console\Arguments;
 use Cake\Console\ConsoleIo;
@@ -50,16 +50,16 @@ class RunAllCommandTest extends ConsoleIntegrationTestCase
         }, $this->Shell->questions);
 
         $expected = [
-            'MeTools\Command\SetPermissionsCommand',
-            'MeTools\Command\CreateRobotsCommand',
-            'MeTools\Command\FixComposerJsonCommand',
-            'MeTools\Command\CreatePluginsLinksCommand',
-            'MeTools\Command\CreateVendorsLinksCommand',
+            'MeTools\Command\Install\SetPermissionsCommand',
+            'MeTools\Command\Install\CreateRobotsCommand',
+            'MeTools\Command\Install\FixComposerJsonCommand',
+            'MeTools\Command\Install\CreatePluginsLinksCommand',
+            'MeTools\Command\Install\CreateVendorsLinksCommand',
         ];
         $this->Shell->execute(new Arguments([], ['force' => true], []), $io);
         $this->assertEquals($expected, $this->debug);
 
-        $expected = array_merge(['MeTools\Command\CreateDirectoriesCommand'], $expected);
+        $expected = array_merge(['MeTools\Command\Install\CreateDirectoriesCommand'], $expected);
         $this->debug = [];
         $this->Shell->execute(new Arguments([], [], []), $io);
         $this->assertEquals($expected, $this->debug);

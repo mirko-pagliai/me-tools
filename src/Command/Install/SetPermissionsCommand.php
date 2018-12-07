@@ -11,18 +11,18 @@
  * @license     https://opensource.org/licenses/mit-license.php MIT License
  * @since       2.18.0
  */
-namespace MeTools\Command;
+namespace MeTools\Command\Install;
 
 use Cake\Console\Arguments;
 use Cake\Console\ConsoleIo;
 use Cake\Console\ConsoleOptionParser;
-use Cake\Shell\Task\AssetsTask;
+use Cake\Core\Configure;
 use MeTools\Console\Command;
 
 /**
- * 'Creates symbolic links for plugins assets'
+ * Sets directories permissions
  */
-class CreatePluginsLinksCommand extends Command
+class SetPermissionsCommand extends Command
 {
     /**
      * Hook method for defining this command's option parser
@@ -31,20 +31,23 @@ class CreatePluginsLinksCommand extends Command
      */
     protected function buildOptionParser(ConsoleOptionParser $parser)
     {
-        $parser->setDescription(__d('me_tools', 'Creates symbolic links for plugins assets'));
+        $parser->setDescription(__d('me_tools', 'Sets directories permissions'));
 
         return $parser;
     }
 
     /**
-     * 'Creates symbolic links for plugins assets'
+     * Sets directories permissions
      * @param Arguments $args The command arguments
      * @param ConsoleIo $io The console io
      * @return null|int The exit code or null for success
+     * @uses Command::folderChmod
      */
     public function execute(Arguments $args, ConsoleIo $io)
     {
-        (new AssetsTask($io))->symlink();
+        foreach (Configure::read('WRITABLE_DIRS') as $path) {
+            $this->folderChmod($io, $path);
+        }
 
         return null;
     }

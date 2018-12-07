@@ -17,13 +17,13 @@ use Assets\Plugin as Assets;
 use Cake\Core\BasePlugin;
 use Cake\Core\Configure;
 use Cake\Core\PluginApplicationInterface;
-use MeTools\Command\CreateDirectoriesCommand;
-use MeTools\Command\CreatePluginsLinksCommand;
-use MeTools\Command\CreateRobotsCommand;
-use MeTools\Command\CreateVendorsLinksCommand;
-use MeTools\Command\FixComposerJsonCommand;
-use MeTools\Command\RunAllCommand;
-use MeTools\Command\SetPermissionsCommand;
+use MeTools\Command\Install\CreateDirectoriesCommand;
+use MeTools\Command\Install\CreatePluginsLinksCommand;
+use MeTools\Command\Install\CreateRobotsCommand;
+use MeTools\Command\Install\CreateVendorsLinksCommand;
+use MeTools\Command\Install\FixComposerJsonCommand;
+use MeTools\Command\Install\RunAllCommand;
+use MeTools\Command\Install\SetPermissionsCommand;
 
 /**
  * Plugin class

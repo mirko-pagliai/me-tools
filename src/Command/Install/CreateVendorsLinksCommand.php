@@ -11,7 +11,7 @@
  * @license     https://opensource.org/licenses/mit-license.php MIT License
  * @since       2.18.0
  */
-namespace MeTools\Command;
+namespace MeTools\Command\Install;
 
 use Cake\Console\Arguments;
 use Cake\Console\ConsoleIo;
@@ -20,9 +20,9 @@ use Cake\Core\Configure;
 use MeTools\Console\Command;
 
 /**
- * Sets directories permissions
+ * Creates symbolic links for vendor assets
  */
-class SetPermissionsCommand extends Command
+class CreateVendorsLinksCommand extends Command
 {
     /**
      * Hook method for defining this command's option parser
@@ -31,22 +31,26 @@ class SetPermissionsCommand extends Command
      */
     protected function buildOptionParser(ConsoleOptionParser $parser)
     {
-        $parser->setDescription(__d('me_tools', 'Sets directories permissions'));
+        $parser->setDescription(__d('me_tools', 'Creates symbolic links for vendor assets'));
 
         return $parser;
     }
 
     /**
-     * Sets directories permissions
+     * Creates symbolic links for vendor assets
      * @param Arguments $args The command arguments
      * @param ConsoleIo $io The console io
      * @return null|int The exit code or null for success
-     * @uses Command::folderChmod
+     * @uses Command::createLink()
      */
     public function execute(Arguments $args, ConsoleIo $io)
     {
-        foreach (Configure::read('WRITABLE_DIRS') as $path) {
-            $this->folderChmod($io, $path);
+        foreach (Configure::read('VENDOR_LINKS') as $origin => $target) {
+            $this->createLink(
+                $io,
+                ROOT . 'vendor' . DS . $origin,
+                WWW_ROOT . 'vendor' . DS . $target
+            );
         }
 
         return null;

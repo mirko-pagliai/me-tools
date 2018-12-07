@@ -10,7 +10,7 @@
  * @link        https://github.com/mirko-pagliai/me-tools
  * @license     https://opensource.org/licenses/mit-license.php MIT License
  */
-namespace MeTools\Test\TestCase\Command;
+namespace MeTools\Test\TestCase\Command\Install;
 
 use Cake\Core\Configure;
 use MeTools\TestSuite\ConsoleIntegrationTestCase;

@@ -11,17 +11,18 @@
  * @license     https://opensource.org/licenses/mit-license.php MIT License
  * @since       2.18.0
  */
-namespace MeTools\Command;
+namespace MeTools\Command\Install;
 
 use Cake\Console\Arguments;
 use Cake\Console\ConsoleIo;
 use Cake\Console\ConsoleOptionParser;
+use Cake\Shell\Task\AssetsTask;
 use MeTools\Console\Command;
 
 /**
- * Creates the `robots.txt` file
+ * 'Creates symbolic links for plugins assets'
  */
-class CreateRobotsCommand extends Command
+class CreatePluginsLinksCommand extends Command
 {
     /**
      * Hook method for defining this command's option parser
@@ -30,24 +31,20 @@ class CreateRobotsCommand extends Command
      */
     protected function buildOptionParser(ConsoleOptionParser $parser)
     {
-        $parser->setDescription(__d('me_tools', 'Creates the {0} file', 'robots.txt'));
+        $parser->setDescription(__d('me_tools', 'Creates symbolic links for plugins assets'));
 
         return $parser;
     }
 
     /**
-     * Creates the `robots.txt` file
+     * 'Creates symbolic links for plugins assets'
      * @param Arguments $args The command arguments
      * @param ConsoleIo $io The console io
      * @return null|int The exit code or null for success
-     * @uses Command::createFile()
      */
     public function execute(Arguments $args, ConsoleIo $io)
     {
-        $this->createFile($io, WWW_ROOT . 'robots.txt', 'User-agent: *' . PHP_EOL .
-            'Disallow: /admin/' . PHP_EOL . 'Disallow: /ckeditor/' . PHP_EOL .
-            'Disallow: /css/' . PHP_EOL . 'Disallow: /js/' . PHP_EOL .
-            'Disallow: /vendor/');
+        (new AssetsTask($io))->symlink();
 
         return null;
     }

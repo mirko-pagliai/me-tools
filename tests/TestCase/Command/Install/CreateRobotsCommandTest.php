@@ -10,14 +10,14 @@
  * @link        https://github.com/mirko-pagliai/me-tools
  * @license     https://opensource.org/licenses/mit-license.php MIT License
  */
-namespace MeTools\Test\TestCase\Command;
+namespace MeTools\Test\TestCase\Command\Install;
 
 use MeTools\TestSuite\ConsoleIntegrationTestCase;
 
 /**
- * CreatePluginsLinksCommandTest class
+ * CreateRobotsCommandTest class
  */
-class CreatePluginsLinksCommandTest extends ConsoleIntegrationTestCase
+class CreateRobotsCommandTest extends ConsoleIntegrationTestCase
 {
     /**
      * Called after every test method
@@ -25,7 +25,9 @@ class CreatePluginsLinksCommandTest extends ConsoleIntegrationTestCase
      */
     public function tearDown()
     {
-        safe_unlink(WWW_ROOT . 'me_tools');
+        parent::tearDown();
+
+        safe_unlink(WWW_ROOT . 'robots.txt');
     }
 
     /**
@@ -34,13 +36,16 @@ class CreatePluginsLinksCommandTest extends ConsoleIntegrationTestCase
      */
     public function testExecute()
     {
-        $this->exec('me_tools.create_plugins_links -v');
+        $this->exec('me_tools.create_robots -v');
         $this->assertExitWithSuccess();
-        $this->assertOutputContains('Skipping plugin Assets. It does not have webroot folder.');
-        $this->assertOutputContains('For plugin: MeTools');
-        $this->assertOutputContains('Created symlink ' . WWW_ROOT . 'me_tools');
-        $this->assertOutputContains('Done');
+        $this->assertOutputContains('Creating file ' . WWW_ROOT . 'robots.txt');
+        $this->assertOutputContains('<success>Wrote</success> `' . WWW_ROOT . 'robots.txt`');
         $this->assertErrorEmpty();
-        $this->assertFileExists(WWW_ROOT . 'me_tools');
+        $this->assertStringEqualsFile(
+            WWW_ROOT . 'robots.txt',
+            'User-agent: *' . PHP_EOL . 'Disallow: /admin/' . PHP_EOL .
+            'Disallow: /ckeditor/' . PHP_EOL . 'Disallow: /css/' . PHP_EOL .
+            'Disallow: /js/' . PHP_EOL . 'Disallow: /vendor/'
+        );
     }
 }
