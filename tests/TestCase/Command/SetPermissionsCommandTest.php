@@ -12,13 +12,17 @@
  */
 namespace MeTools\Test\TestCase\Command;
 
+use Cake\Core\Configure;
 use MeTools\TestSuite\ConsoleIntegrationTestCase;
+use Tools\TestSuite\TestCaseTrait;
 
 /**
  * SetPermissionsCommandTest class
  */
 class SetPermissionsCommandTest extends ConsoleIntegrationTestCase
 {
+    use TestCaseTrait;
+
     /**
      * Tests for `execute()` method
      * @test
@@ -28,7 +32,7 @@ class SetPermissionsCommandTest extends ConsoleIntegrationTestCase
         $this->exec('me_tools.set_permissions -v');
         $this->assertExitWithSuccess();
 
-        foreach ($this->Shell->paths as $path) {
+        foreach (Configure::read('WRITABLE_DIRS') as $path) {
             $this->assertOutputContains('Setted permissions on `' . rtr($path) . '`');
         }
 

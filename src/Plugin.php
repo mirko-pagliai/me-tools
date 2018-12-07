@@ -15,6 +15,7 @@ namespace MeTools;
 
 use Assets\Plugin as Assets;
 use Cake\Core\BasePlugin;
+use Cake\Core\Configure;
 use Cake\Core\PluginApplicationInterface;
 use MeTools\Command\CreateDirectoriesCommand;
 use MeTools\Command\CreatePluginsLinksCommand;
@@ -38,6 +39,19 @@ class Plugin extends BasePlugin
     public function bootstrap(PluginApplicationInterface $app)
     {
         parent::bootstrap($app);
+
+        Configure::write('WRITABLE_DIRS', [
+            LOGS,
+            TMP,
+            TMP . 'cache',
+            TMP . 'cache' . DS . 'models',
+            TMP . 'cache' . DS . 'persistent',
+            TMP . 'cache' . DS . 'views',
+            TMP . 'sessions',
+            TMP . 'tests',
+            WWW_ROOT . 'files',
+            WWW_ROOT . 'vendor',
+        ]);
 
         if (class_exists(Assets::class) && !$app->getPlugins()->has('Assets')) {
             $app->addPlugin(Assets::class);

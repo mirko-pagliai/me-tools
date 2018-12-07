@@ -16,6 +16,7 @@ namespace MeTools\Command;
 use Cake\Console\Arguments;
 use Cake\Console\ConsoleIo;
 use Cake\Console\ConsoleOptionParser;
+use Cake\Core\Configure;
 use MeTools\Console\Command;
 
 /**
@@ -23,23 +24,6 @@ use MeTools\Console\Command;
  */
 class CreateDirectoriesCommand extends Command
 {
-    /**
-     * Paths to be created and made writable
-     * @var array
-     */
-    public $paths = [
-        LOGS,
-        TMP,
-        TMP . 'cache',
-        TMP . 'cache' . DS . 'models',
-        TMP . 'cache' . DS . 'persistent',
-        TMP . 'cache' . DS . 'views',
-        TMP . 'sessions',
-        TMP . 'tests',
-        WWW_ROOT . 'files',
-        WWW_ROOT . 'vendor',
-    ];
-
     /**
      * Hook method for defining this command's option parser
      * @param ConsoleOptionParser $parser The parser to be defined
@@ -58,11 +42,10 @@ class CreateDirectoriesCommand extends Command
      * @param ConsoleIo $io The console io
      * @return null|int The exit code or null for success
      * @uses Command::createDir()
-     * @uses $paths
      */
     public function execute(Arguments $args, ConsoleIo $io)
     {
-        foreach ($this->paths as $path) {
+        foreach (Configure::read('WRITABLE_DIRS') as $path) {
             $this->createDir($io, $path);
         }
 

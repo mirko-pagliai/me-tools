@@ -12,6 +12,7 @@
  */
 namespace MeTools\Test\TestCase\Command;
 
+use Cake\Core\Configure;
 use MeTools\TestSuite\ConsoleIntegrationTestCase;
 
 /**
@@ -30,7 +31,7 @@ class CreateDirectoriesCommandTest extends ConsoleIntegrationTestCase
             safe_mkdir($path, 0777, true);
         }
 
-        $pathsToBeCreated = array_diff($this->Shell->paths, $pathsAlreadyExist);
+        $pathsToBeCreated = array_diff(Configure::read('WRITABLE_DIRS'), $pathsAlreadyExist);
         array_walk($pathsToBeCreated, 'safe_rmdir');
 
         $this->exec('me_tools.create_directories -v');
