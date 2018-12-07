@@ -61,10 +61,7 @@ trait MockTrait
      */
     protected function getMockForController($className, $methods = [], $alias = null)
     {
-        if (!class_exists($className)) {
-            $this->fail('Class `' . $className . '` does not exist');
-        }
-
+        class_exists($className) ?: $this->fail('Class `' . $className . '` does not exist');
         $alias = $alias ?: $this->getControllerAlias($className);
 
         return $this->getMockBuilder($className)
