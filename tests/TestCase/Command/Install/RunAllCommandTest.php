@@ -34,11 +34,29 @@ class RunAllCommandTest extends ConsoleIntegrationTestCase
     protected $debug = [];
 
     /**
+     * Called after every test method
+     * @return void
+     */
+    public function tearDown()
+    {
+        parent::tearDown();
+
+        safe_unlink(WWW_ROOT . 'me_tools');
+        safe_unlink(WWW_ROOT . 'robots.txt');
+        safe_unlink_recursive(WWW_ROOT . 'vendor', 'empty');
+    }
+
+    /**
      * Tests for `execute()` method
      * @test
      */
     public function testExecute()
     {
+        $this->exec('me_tools.install -f -v');
+        $this->assertExitWithSuccess();
+        $this->assertOutputNotEmpty();
+        $this->assertErrorEmpty();
+
         $io = $this->getMockBuilder(ConsoleIo::class)
             ->setMethods(['askChoice'])
             ->getMock();
@@ -58,15 +76,22 @@ class RunAllCommandTest extends ConsoleIntegrationTestCase
         $expected = [
             'MeTools\Command\Install\SetPermissionsCommand',
             'MeTools\Command\Install\CreateRobotsCommand',
-            'MeTools\Command\Install\FixComposerJsonCommand',
             'MeTools\Command\Install\CreatePluginsLinksCommand',
             'MeTools\Command\Install\CreateVendorsLinksCommand',
         ];
         $this->Shell->execute(new Arguments([], ['force' => true], []), $io);
         $this->assertEquals($expected, $this->debug);
 
-        $expected = array_merge(['MeTools\Command\Install\CreateDirectoriesCommand'], $expected);
         $this->debug = [];
+
+        $expected = [
+            'MeTools\Command\Install\CreateDirectoriesCommand',
+            'MeTools\Command\Install\SetPermissionsCommand',
+            'MeTools\Command\Install\CreateRobotsCommand',
+            'MeTools\Command\Install\FixComposerJsonCommand',
+            'MeTools\Command\Install\CreatePluginsLinksCommand',
+            'MeTools\Command\Install\CreateVendorsLinksCommand',
+        ];
         $this->Shell->execute(new Arguments([], [], []), $io);
         $this->assertEquals($expected, $this->debug);
     }

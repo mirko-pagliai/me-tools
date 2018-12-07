@@ -80,7 +80,7 @@ class RunAllCommand extends Command
             ],
             [
                 'question' => __d('me_tools', 'Fix {0}?', 'composer.json'),
-                'default' => 'Y',
+                'default' => 'N',
                 'command' => FixComposerJsonCommand::class,
             ],
             [
