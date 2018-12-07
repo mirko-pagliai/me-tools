@@ -24,7 +24,7 @@
         "mirko-pagliai/cakephp-assets": "A CakePHP plugin to allows you to generate assets",
         "newerton/fancy-box": "To show photos with fancybox",
         "npm-asset/fortawesome--fontawesome-free": "To use Font Awesome's icons",
-        "twbs/bootstrap": "To use Bootstrap, the world’s most popular framework for building responsive, mobile-first sites"
+        "twbs/bootstrap": "To use Bootstrap, the world's most popular framework for building responsive, mobile-first sites"
     },
     "autoload": {
         "psr-4": {
@@ -43,6 +43,5 @@
             "TestPlugin\\": "tests/test_app/Plugin/TestPlugin/src",
             "AnotherTestPlugin\\": "tests/test_app/Plugin/AnotherTestPlugin/src"
         }
-    },
-    "minimum-stability": "RC"
+    }
 }
