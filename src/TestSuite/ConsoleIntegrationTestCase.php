@@ -48,7 +48,7 @@ abstract class ConsoleIntegrationTestCase extends CakeConsoleIntegrationTestCase
      * If `true`, a mock instance of the shell will be created
      * @var bool
      */
-    protected $autoInitializeClass = true;
+    protected $autoInitializeClass = false;
 
     /**
      * Called before every test method
@@ -64,11 +64,13 @@ abstract class ConsoleIntegrationTestCase extends CakeConsoleIntegrationTestCase
         $this->app = $this->getMockForAbstractClass(BaseApplication::class, ['']);
         $this->app->addPlugin('MeTools')->pluginBootstrap();
 
+        $className = $this->getOriginClassName($this);
         if (!$this->Shell && $this->autoInitializeClass) {
-            $this->Shell = $this->getMockForShell($this->getOriginClassName($this));
+            $this->Shell = $this->getMockForShell($className);
         }
 
-        if ($this->Shell instanceof Command || $this->Shell instanceof CakeCommand) {
+        $parts = explode('\\', $className);
+        if (next($parts) === 'Command') {
             $this->useCommandRunner();
         }
     }

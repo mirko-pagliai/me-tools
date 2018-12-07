@@ -23,6 +23,12 @@ use MeTools\TestSuite\ConsoleIntegrationTestCase;
 class RunAllCommandTest extends ConsoleIntegrationTestCase
 {
     /**
+     * If `true`, a mock instance of the shell will be created
+     * @var bool
+     */
+    protected $autoInitializeClass = true;
+
+    /**
      * @var array
      */
     protected $debug = [];

@@ -32,9 +32,10 @@ class CommandTest extends ConsoleIntegrationTestCase
     protected $_out;
 
     /**
-     * @var \Cake\Console\ConsoleIo
+     * If `true`, a mock instance of the shell will be created
+     * @var bool
      */
-    protected $io;
+    protected $autoInitializeClass = true;
 
     /**
      * @var array
@@ -43,6 +44,11 @@ class CommandTest extends ConsoleIntegrationTestCase
         TMP . 'exampleDir' . DS . 'example1',
         TMP . 'exampleDir' . DS . 'example2',
     ];
+
+    /**
+     * @var \Cake\Console\ConsoleIo
+     */
+    protected $io;
 
     /**
      * Called before every test method
