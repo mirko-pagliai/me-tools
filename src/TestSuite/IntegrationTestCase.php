@@ -13,7 +13,6 @@
  */
 namespace MeTools\TestSuite;
 
-use Cake\Http\BaseApplication;
 use Cake\TestSuite\IntegrationTestCase as CakeIntegrationTestCase;
 use MeTools\TestSuite\Traits\TestCaseTrait;
 
@@ -31,23 +30,14 @@ abstract class IntegrationTestCase extends CakeIntegrationTestCase
     use TestCaseTrait;
 
     /**
-     * Application instance
-     * @since 2.18.0
-     * @var \Cake\Http\BaseApplication
-     */
-    protected $app;
-
-    /**
      * Called before every test method
      * @return void
-     * @uses $app
      */
     public function setUp()
     {
         parent::setUp();
 
-        $this->app = $this->getMockForAbstractClass(BaseApplication::class, ['']);
-        $this->app->addPlugin('MeTools')->pluginBootstrap();
+        $this->loadPlugins(['MeTools']);
     }
 
     /**

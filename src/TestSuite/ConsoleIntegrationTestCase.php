@@ -15,7 +15,6 @@ namespace MeTools\TestSuite;
 
 use Cake\Console\Command as CakeCommand;
 use Cake\Console\Shell as CakeShell;
-use Cake\Http\BaseApplication;
 use Cake\TestSuite\ConsoleIntegrationTestCase as CakeConsoleIntegrationTestCase;
 use MeTools\Console\Command;
 use MeTools\Console\Shell;
@@ -38,13 +37,6 @@ abstract class ConsoleIntegrationTestCase extends CakeConsoleIntegrationTestCase
     protected $Shell;
 
     /**
-     * Application instance
-     * @since 2.18.0
-     * @var \Cake\Http\BaseApplication
-     */
-    protected $app;
-
-    /**
      * If `true`, a mock instance of the shell will be created
      * @var bool
      */
@@ -54,15 +46,13 @@ abstract class ConsoleIntegrationTestCase extends CakeConsoleIntegrationTestCase
      * Called before every test method
      * @return void
      * @uses $Shell
-     * @uses $app
      * @uses $autoInitializeClass
      */
     public function setUp()
     {
         parent::setUp();
 
-        $this->app = $this->getMockForAbstractClass(BaseApplication::class, ['']);
-        $this->app->addPlugin('MeTools')->pluginBootstrap();
+        $this->loadPlugins(['MeTools']);
 
         $className = $this->getOriginClassName($this);
         if (!$this->Shell && $this->autoInitializeClass) {

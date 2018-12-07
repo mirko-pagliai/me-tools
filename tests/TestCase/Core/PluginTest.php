@@ -32,7 +32,7 @@ class PluginTest extends TestCase
         }
         $this->assertEquals($expected, Plugin::all());
 
-        $this->app->addPlugin('TestPlugin');
+        $this->loadPlugins(['TestPlugin']);
         $this->assertEquals(array_merge($expected, ['TestPlugin']), Plugin::all());
         $this->assertEquals($expected, Plugin::all(['exclude' => 'TestPlugin']));
 
@@ -41,7 +41,7 @@ class PluginTest extends TestCase
             $expected[] = 'Assets';
         }
         $expected[] = 'TestPlugin';
-        $this->app->addPlugin('AnotherTestPlugin');
+        $this->loadPlugins(['AnotherTestPlugin']);
         $this->assertEquals($expected, Plugin::all());
 
         sort($expected);

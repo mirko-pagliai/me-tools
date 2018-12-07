@@ -8,9 +8,6 @@
 * now the `InstallShell::createVendorsLinks()` method writes a warning if the
     origin vendor directory does not exist;
 * added `hasPlugin()` and `removePlugins()` methods for the `TestCaseTrait`;
-* `ConsoleIntegrationTestCase`, `IntegrationTestCase` and `TestCase` classes now
-    have the `$app` property, that contains the instance of the current
-    application;
 * `cakephp-assets`, `jquery`, `bootstrap`, `bootstrap-datetimepicker`,
     `fancy-box` and `fortawesome--fontawesome-free` are no longer required
     packages for Composer (`cakephp-assets` is required for developing), but
