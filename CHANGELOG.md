@@ -1,7 +1,8 @@
 # 2.x branch
 ## 2.17 branch
 ### 2.17.6
-* added `Command` class. It can be used instead of the `Shell` class.
+* added `Command` class. It can be used instead of the `Shell` class;
+* added `ConsoleIntegrationTestCase::assertOutputNotEmpty()` method.
 
 ### 2.17.5
 * added `MockTrait`, `ComponentTestCase` and `HelperTestCase` classes for test
