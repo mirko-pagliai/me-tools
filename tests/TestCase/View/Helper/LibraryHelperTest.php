@@ -13,6 +13,7 @@
 namespace MeTools\Test\TestCase\View\Helper;
 
 use Assets\View\Helper\AssetHelper;
+use Cake\Core\Plugin;
 use Cake\Event\Event;
 use Cake\Http\ServerRequest;
 use Cake\View\View;
@@ -67,7 +68,7 @@ class LibraryHelperTest extends HelperTestCase
     {
         //Checks that, when the `Assets` plugin is not present, the
         //  `AssetHelper` matches the `HtmlHelper`
-        if ($this->hasPlugin('Assets')) {
+        if (Plugin::getCollection()->has('Assets')) {
             $this->Helper->initialize([]);
             $this->assertInstanceof(AssetHelper::class, $this->Helper->Asset);
 

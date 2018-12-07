@@ -76,15 +76,4 @@ trait TestCaseTrait
     {
         safe_unlink($this->getLogFullPath($filename));
     }
-
-    /**
-     * Checks if there's a plugin in the global plugin collaction
-     * @param string $plugin Plugin you want to check
-     * @return bool
-     * @since 2.18.0
-     */
-    public function hasPlugin($plugin)
-    {
-        return Plugin::getCollection()->has($plugin);
-    }
 }

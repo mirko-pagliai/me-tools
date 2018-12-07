@@ -27,7 +27,7 @@ class PluginTest extends TestCase
     public function testAll()
     {
         $expected = ['MeTools'];
-        if ($this->hasPlugin('Assets')) {
+        if (Plugin::getCollection()->has('Assets')) {
             $expected[] = 'Assets';
         }
         $this->assertEquals($expected, Plugin::all());
@@ -37,7 +37,7 @@ class PluginTest extends TestCase
         $this->assertEquals($expected, Plugin::all(['exclude' => 'TestPlugin']));
 
         $expected = ['MeTools', 'AnotherTestPlugin'];
-        if ($this->hasPlugin('Assets')) {
+        if (Plugin::getCollection()->has('Assets')) {
             $expected[] = 'Assets';
         }
         $expected[] = 'TestPlugin';
