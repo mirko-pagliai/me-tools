@@ -15,13 +15,16 @@ namespace MeTools\Test\TestCase\Command\Install;
 use Cake\Console\Arguments;
 use Cake\Console\ConsoleIo;
 use MeTools\Console\Command;
-use MeTools\TestSuite\ConsoleIntegrationTestCase;
+use MeTools\TestSuite\ConsoleIntegrationTestTrait;
+use MeTools\TestSuite\TestCase;
 
 /**
  * RunAllCommandTest class
  */
-class RunAllCommandTest extends ConsoleIntegrationTestCase
+class RunAllCommandTest extends TestCase
 {
+    use ConsoleIntegrationTestTrait;
+
     /**
      * If `true`, a mock instance of the shell will be created
      * @var bool

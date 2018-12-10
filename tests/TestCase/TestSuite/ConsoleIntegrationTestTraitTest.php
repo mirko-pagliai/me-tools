@@ -14,13 +14,16 @@ namespace MeTools\Test\TestCase\TestSuite;
 
 use App\Shell\ChildExampleShell;
 use App\Shell\ExampleShell;
-use MeTools\TestSuite\ConsoleIntegrationTestCase;
+use MeTools\TestSuite\ConsoleIntegrationTestTrait;
+use MeTools\TestSuite\TestCase;
 
 /**
- * ConsoleIntegrationTestCaseTest class
+ * ConsoleIntegrationTestTraitTest class
  */
-class ConsoleIntegrationTestCaseTest extends ConsoleIntegrationTestCase
+class ConsoleIntegrationTestTraitTest extends TestCase
 {
+    use ConsoleIntegrationTestTrait;
+
     /**
      * Called before every test method
      * @return void

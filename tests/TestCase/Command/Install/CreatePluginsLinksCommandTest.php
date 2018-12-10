@@ -12,13 +12,16 @@
  */
 namespace MeTools\Test\TestCase\Command\Install;
 
-use MeTools\TestSuite\ConsoleIntegrationTestCase;
+use MeTools\TestSuite\ConsoleIntegrationTestTrait;
+use MeTools\TestSuite\TestCase;
 
 /**
  * CreatePluginsLinksCommandTest class
  */
-class CreatePluginsLinksCommandTest extends ConsoleIntegrationTestCase
+class CreatePluginsLinksCommandTest extends TestCase
 {
+    use ConsoleIntegrationTestTrait;
+
     /**
      * Called after every test method
      * @return void

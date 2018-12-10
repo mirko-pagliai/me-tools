@@ -15,17 +15,15 @@ namespace MeTools\Test\TestCase\Console;
 use Cake\Console\ConsoleIo;
 use Cake\TestSuite\Stub\ConsoleOutput;
 use MeTools\Console\Shell;
-use MeTools\TestSuite\ConsoleIntegrationTestCase;
+use MeTools\TestSuite\ConsoleIntegrationTestTrait;
+use MeTools\TestSuite\TestCase;
 
 /**
  * ShellTest class
  */
-class ShellTest extends ConsoleIntegrationTestCase
+class ShellTest extends TestCase
 {
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
-     */
-    protected $Shell;
+    use ConsoleIntegrationTestTrait;
 
     /**
      * @var string

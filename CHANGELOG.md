@@ -4,6 +4,9 @@
 * `InstallShell` has been replaced with console commands. Every method of the
     previous class is now a `MeTools\Command\Install` class;
 * `MockTrait` moved from `MeTools\TestSuite\Traits` to `MeTools\TestSuite`;
+* `ConsoleIntegrationTestCase` and `IntegrationTestCase` classes have been
+    replaced with `ConsoleIntegrationTestTrait` and `IntegrationTestTrait, as
+    for CakePHP 3.7;
 * removed `TestCaseTrait`, because now all the necessary methods are in the
     `TestCase` class;
 * `cakephp-assets`, `jquery`, `bootstrap`, `bootstrap-datetimepicker`,

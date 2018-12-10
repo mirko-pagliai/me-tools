@@ -13,13 +13,16 @@
 namespace MeTools\Test\TestCase\Command\Install;
 
 use Cake\Core\Configure;
-use MeTools\TestSuite\ConsoleIntegrationTestCase;
+use MeTools\TestSuite\ConsoleIntegrationTestTrait;
+use MeTools\TestSuite\TestCase;
 
 /**
  * CreateVendorsLinksCommandTest class
  */
-class CreateVendorsLinksCommandTest extends ConsoleIntegrationTestCase
+class CreateVendorsLinksCommandTest extends TestCase
 {
+    use ConsoleIntegrationTestTrait;
+
     /**
      * Called after every test method
      * @return void

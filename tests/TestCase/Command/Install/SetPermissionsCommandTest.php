@@ -13,13 +13,16 @@
 namespace MeTools\Test\TestCase\Command\Install;
 
 use Cake\Core\Configure;
-use MeTools\TestSuite\ConsoleIntegrationTestCase;
+use MeTools\TestSuite\ConsoleIntegrationTestTrait;
+use MeTools\TestSuite\TestCase;
 
 /**
  * SetPermissionsCommandTest class
  */
-class SetPermissionsCommandTest extends ConsoleIntegrationTestCase
+class SetPermissionsCommandTest extends TestCase
 {
+    use ConsoleIntegrationTestTrait;
+
     /**
      * Tests for `execute()` method
      * @test

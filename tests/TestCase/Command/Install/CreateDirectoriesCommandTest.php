@@ -13,13 +13,16 @@
 namespace MeTools\Test\TestCase\Command\Install;
 
 use Cake\Core\Configure;
-use MeTools\TestSuite\ConsoleIntegrationTestCase;
+use MeTools\TestSuite\ConsoleIntegrationTestTrait;
+use MeTools\TestSuite\TestCase;
 
 /**
  * CreateDirectoriesCommandTest class
  */
-class CreateDirectoriesCommandTest extends ConsoleIntegrationTestCase
+class CreateDirectoriesCommandTest extends TestCase
 {
+    use ConsoleIntegrationTestTrait;
+
     /**
      * Tests for `execute()` method
      * @test

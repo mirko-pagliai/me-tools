@@ -9,36 +9,29 @@
  * @copyright   Copyright (c) Mirko Pagliai
  * @link        https://github.com/mirko-pagliai/me-tools
  * @license     https://opensource.org/licenses/mit-license.php MIT License
- * @since       2.15.0
+ * @since       2.18
  */
 namespace MeTools\TestSuite;
 
 use Cake\Console\Command as CakeCommand;
 use Cake\Console\Shell as CakeShell;
-use Cake\TestSuite\ConsoleIntegrationTestTrait;
+use Cake\TestSuite\ConsoleIntegrationTestTrait as BaseConsoleIntegrationTestTrait;
 use MeTools\Console\Command;
 use MeTools\Console\Shell;
-use MeTools\TestSuite\TestCase;
 use PHPUnit\Framework\MockObject\MockObject;
 
 /**
- * Abstract class for console helpers
+ * A trait intended to make integration tests of cake console commands easier
  */
-abstract class ConsoleIntegrationTestCase extends TestCase
+trait ConsoleIntegrationTestTrait
 {
-    use ConsoleIntegrationTestTrait;
+    use BaseConsoleIntegrationTestTrait;
 
     /**
      * Shell instance
      * @var \PHPUnit\Framework\MockObject\MockObject
      */
     protected $Shell;
-
-    /**
-     * If `true`, a mock instance of the shell will be created
-     * @var bool
-     */
-    protected $autoInitializeClass = false;
 
     /**
      * Called before every test method
@@ -50,10 +43,8 @@ abstract class ConsoleIntegrationTestCase extends TestCase
     {
         parent::setUp();
 
-        $this->loadPlugins(['MeTools']);
-
         $className = $this->getOriginClassName($this);
-        if (!$this->Shell && $this->autoInitializeClass) {
+        if (!$this->Shell && !empty($this->autoInitializeClass)) {
             $this->Shell = $this->getMockForShell($className);
         }
 

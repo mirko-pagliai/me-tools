@@ -14,13 +14,16 @@ namespace MeTools\Test\TestCase\Console;
 
 use Cake\Console\ConsoleIo;
 use Cake\TestSuite\Stub\ConsoleOutput;
-use MeTools\TestSuite\ConsoleIntegrationTestCase;
+use MeTools\TestSuite\ConsoleIntegrationTestTrait;
+use MeTools\TestSuite\TestCase;
 
 /**
  * CommandTest class
  */
-class CommandTest extends ConsoleIntegrationTestCase
+class CommandTest extends TestCase
 {
+    use ConsoleIntegrationTestTrait;
+
     /**
      * @var \Cake\TestSuite\Stub\ConsoleOutput
      */
@@ -30,12 +33,6 @@ class CommandTest extends ConsoleIntegrationTestCase
      * @var \Cake\TestSuite\Stub\ConsoleOutput
      */
     protected $_out;
-
-    /**
-     * If `true`, a mock instance of the shell will be created
-     * @var bool
-     */
-    protected $autoInitializeClass = true;
 
     /**
      * @var array
@@ -58,6 +55,7 @@ class CommandTest extends ConsoleIntegrationTestCase
     {
         parent::setUp();
 
+        $this->Shell = $this->getMockForShell($this->getOriginClassName($this));
         $this->_out = new ConsoleOutput;
         $this->_err = new ConsoleOutput;
         $this->io = $this->getMockBuilder(ConsoleIo::class)
