@@ -41,7 +41,9 @@ trait ConsoleIntegrationTestTrait
 
         $className = $this->getOriginClassName($this);
         if (!$this->Command && !empty($this->autoInitializeClass)) {
-            $this->Command = $this->getMockForShell($className);
+            $this->Command = $this->getMockBuilder($className)
+                ->setMethods(null)
+                ->getMock();
         }
 
         $parts = explode('\\', $className);

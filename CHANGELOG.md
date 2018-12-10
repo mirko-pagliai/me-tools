@@ -4,7 +4,8 @@
 * `Shell` class has been removed, use instead the `Command` class;
 * `InstallShell` has been replaced with console commands. Every method of the
     previous class is now a `MeTools\Command\Install` class;
-* `MockTrait` moved from `MeTools\TestSuite\Traits` to `MeTools\TestSuite`;
+* `MockTrait` moved from `MeTools\TestSuite\Traits` to `MeTools\TestSuite`.
+    `getMockForShell()` method no longer exists;
 * `ConsoleIntegrationTestCase` and `IntegrationTestCase` classes have been
     replaced with `ConsoleIntegrationTestTrait` and `IntegrationTestTrait, as
     for CakePHP 3.7;

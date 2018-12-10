@@ -55,7 +55,9 @@ class CommandTest extends TestCase
     {
         parent::setUp();
 
-        $this->Command = $this->getMockForShell($this->getOriginClassName($this));
+        $this->Command = $this->getMockBuilder($this->getOriginClassName($this))
+                ->setMethods(null)
+                ->getMock();
         $this->_out = new ConsoleOutput;
         $this->_err = new ConsoleOutput;
         $this->io = $this->getMockBuilder(ConsoleIo::class)

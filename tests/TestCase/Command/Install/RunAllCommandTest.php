@@ -67,7 +67,9 @@ class RunAllCommandTest extends TestCase
         $io->method('askChoice')->will($this->returnValue('y'));
 
         $this->Command->questions = array_map(function ($question) {
-            $command = $this->getMockForShell(Command::class, ['execute']);
+            $command = $this->getMockBuilder(Command::class)
+                ->setMethods(['execute'])
+                ->getMock();
             $command->method('execute')->will($this->returnCallback(function () use ($question) {
                 $this->debug[] = $question['command'];
             }));

@@ -85,19 +85,6 @@ trait MockTrait
     }
 
     /**
-     * Mocks a shell
-     * @param string $className Shell class name
-     * @param array|null $methods The list of methods to mock
-     * @return \PHPUnit\Framework\MockObject\MockObject
-     */
-    protected function getMockForShell($className, $methods = ['_stop', 'in'])
-    {
-        return $this->getMockBuilder($className)
-            ->setMethods($methods)
-            ->getMock();
-    }
-
-    /**
      * Mocks a table
      * @param string $className Table class name
      * @param array|null $methods The list of methods to mock
