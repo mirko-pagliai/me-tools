@@ -24,15 +24,15 @@ trait ConsoleIntegrationTestTrait
     use BaseConsoleIntegrationTestTrait;
 
     /**
-     * Shell instance
+     * Command instance
      * @var \PHPUnit\Framework\MockObject\MockObject
      */
-    protected $Shell;
+    protected $Command;
 
     /**
      * Called before every test method
      * @return void
-     * @uses $Shell
+     * @uses $Command
      * @uses $autoInitializeClass
      */
     public function setUp()
@@ -40,8 +40,8 @@ trait ConsoleIntegrationTestTrait
         parent::setUp();
 
         $className = $this->getOriginClassName($this);
-        if (!$this->Shell && !empty($this->autoInitializeClass)) {
-            $this->Shell = $this->getMockForShell($className);
+        if (!$this->Command && !empty($this->autoInitializeClass)) {
+            $this->Command = $this->getMockForShell($className);
         }
 
         $parts = explode('\\', $className);

@@ -66,7 +66,7 @@ class RunAllCommandTest extends TestCase
 
         $io->method('askChoice')->will($this->returnValue('y'));
 
-        $this->Shell->questions = array_map(function ($question) {
+        $this->Command->questions = array_map(function ($question) {
             $command = $this->getMockForShell(Command::class, ['execute']);
             $command->method('execute')->will($this->returnCallback(function () use ($question) {
                 $this->debug[] = $question['command'];
@@ -74,7 +74,7 @@ class RunAllCommandTest extends TestCase
             $question['command'] = $command;
 
             return $question;
-        }, $this->Shell->questions);
+        }, $this->Command->questions);
 
         $expected = [
             'MeTools\Command\Install\SetPermissionsCommand',
@@ -82,7 +82,7 @@ class RunAllCommandTest extends TestCase
             'MeTools\Command\Install\CreatePluginsLinksCommand',
             'MeTools\Command\Install\CreateVendorsLinksCommand',
         ];
-        $this->Shell->execute(new Arguments([], ['force' => true], []), $io);
+        $this->Command->execute(new Arguments([], ['force' => true], []), $io);
         $this->assertEquals($expected, $this->debug);
 
         $this->debug = [];
@@ -95,7 +95,7 @@ class RunAllCommandTest extends TestCase
             'MeTools\Command\Install\CreatePluginsLinksCommand',
             'MeTools\Command\Install\CreateVendorsLinksCommand',
         ];
-        $this->Shell->execute(new Arguments([], [], []), $io);
+        $this->Command->execute(new Arguments([], [], []), $io);
         $this->assertEquals($expected, $this->debug);
     }
 }
