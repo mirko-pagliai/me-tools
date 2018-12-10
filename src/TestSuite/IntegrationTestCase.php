@@ -13,8 +13,8 @@
  */
 namespace MeTools\TestSuite;
 
-use Cake\TestSuite\IntegrationTestCase as CakeIntegrationTestCase;
-use MeTools\TestSuite\Traits\TestCaseTrait;
+use Cake\TestSuite\IntegrationTestTrait;
+use MeTools\TestSuite\TestCase;
 
 /**
  * A test case class intended to make integration tests of your controllers
@@ -25,9 +25,9 @@ use MeTools\TestSuite\Traits\TestCaseTrait;
  *  integration tests over mock objects as you can test more of your code
  *  easily and avoid some of the maintenance pitfalls that mock objects create.
  */
-abstract class IntegrationTestCase extends CakeIntegrationTestCase
+abstract class IntegrationTestCase extends TestCase
 {
-    use TestCaseTrait;
+    use IntegrationTestTrait;
 
     /**
      * Called before every test method
@@ -37,6 +37,7 @@ abstract class IntegrationTestCase extends CakeIntegrationTestCase
     {
         parent::setUp();
 
+        $this->useHttpServer(true);
         $this->loadPlugins(['MeTools']);
     }
 

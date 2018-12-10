@@ -15,20 +15,18 @@ namespace MeTools\TestSuite;
 
 use Cake\Console\Command as CakeCommand;
 use Cake\Console\Shell as CakeShell;
-use Cake\TestSuite\ConsoleIntegrationTestCase as CakeConsoleIntegrationTestCase;
+use Cake\TestSuite\ConsoleIntegrationTestTrait;
 use MeTools\Console\Command;
 use MeTools\Console\Shell;
-use MeTools\TestSuite\MockTrait;
-use MeTools\TestSuite\Traits\TestCaseTrait;
+use MeTools\TestSuite\TestCase;
 use PHPUnit\Framework\MockObject\MockObject;
 
 /**
  * Abstract class for console helpers
  */
-abstract class ConsoleIntegrationTestCase extends CakeConsoleIntegrationTestCase
+abstract class ConsoleIntegrationTestCase extends TestCase
 {
-    use MockTrait;
-    use TestCaseTrait;
+    use ConsoleIntegrationTestTrait;
 
     /**
      * Shell instance
