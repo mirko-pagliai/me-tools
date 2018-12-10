@@ -14,6 +14,7 @@
 namespace MeTools\TestSuite;
 
 use Cake\TestSuite\TestCase as CakeTestCase;
+use MeTools\TestSuite\MockTrait;
 use MeTools\TestSuite\Traits\TestCaseTrait;
 
 /**
@@ -21,6 +22,7 @@ use MeTools\TestSuite\Traits\TestCaseTrait;
  */
 abstract class TestCase extends CakeTestCase
 {
+    use MockTrait;
     use TestCaseTrait;
 
     /**
