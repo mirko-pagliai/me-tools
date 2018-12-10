@@ -13,7 +13,6 @@
  */
 namespace MeTools\TestSuite\Traits;
 
-use Cake\Core\Plugin;
 use Cake\Filesystem\Folder;
 use Exception;
 use Tools\ReflectionTrait;
