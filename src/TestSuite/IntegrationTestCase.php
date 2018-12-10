@@ -38,18 +38,6 @@ abstract class IntegrationTestCase extends TestCase
         parent::setUp();
 
         $this->useHttpServer(true);
-        $this->loadPlugins(['MeTools']);
-    }
-
-    /**
-     * Called after every test method
-     * @return void
-     */
-    public function tearDown()
-    {
-        parent::tearDown();
-
-        safe_unlink_recursive(LOGS);
     }
 
     /**
