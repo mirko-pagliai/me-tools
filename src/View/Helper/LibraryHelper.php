@@ -139,13 +139,7 @@ class LibraryHelper extends Helper
      */
     public function analytics($id)
     {
-        /**
-         * @todo remove with CakePHP 3.7
-         */
-        $view = $this->getView();
-        $request = method_exists($view, 'getRequest') ? $view->getRequest() : $view->request;
-
-        return $request->is('localhost') ? null : $this->Html->scriptBlock(
+        return $this->getView()->getRequest()->is('localhost') ? null : $this->Html->scriptBlock(
             sprintf('!function(e,a,t,n,c,o,s){e.GoogleAnalyticsObject=c,e[c]=e[c]||function(){(e[c].q=e[c].q||[]).push(arguments)},e[c].l=1*new Date,o=a.createElement(t),s=a.getElementsByTagName(t)[0],o.async=1,o.src=n,s.parentNode.insertBefore(o,s)}(window,document,"script","//www.google-analytics.com/analytics.js","ga"),ga("create","%s","auto"),ga("send","pageview");', $id),
             ['block' => 'script_bottom']
         );
