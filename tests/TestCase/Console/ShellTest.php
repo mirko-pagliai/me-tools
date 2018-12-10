@@ -16,15 +16,12 @@ use Cake\Console\ConsoleIo;
 use Cake\TestSuite\Stub\ConsoleOutput;
 use MeTools\Console\Shell;
 use MeTools\TestSuite\ConsoleIntegrationTestCase;
-use MeTools\TestSuite\Traits\TestCaseTrait;
 
 /**
  * ShellTest class
  */
 class ShellTest extends ConsoleIntegrationTestCase
 {
-    use TestCaseTrait;
-
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject
      */
