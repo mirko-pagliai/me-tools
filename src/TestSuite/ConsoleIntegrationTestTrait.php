@@ -13,10 +13,8 @@
  */
 namespace MeTools\TestSuite;
 
-use Cake\Console\Command as CakeCommand;
 use Cake\TestSuite\ConsoleIntegrationTestTrait as BaseConsoleIntegrationTestTrait;
 use MeTools\Console\Command;
-use PHPUnit\Framework\MockObject\MockObject;
 
 /**
  * A trait intended to make integration tests of cake console commands easier
