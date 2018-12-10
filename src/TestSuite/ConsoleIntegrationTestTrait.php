@@ -14,10 +14,8 @@
 namespace MeTools\TestSuite;
 
 use Cake\Console\Command as CakeCommand;
-use Cake\Console\Shell as CakeShell;
 use Cake\TestSuite\ConsoleIntegrationTestTrait as BaseConsoleIntegrationTestTrait;
 use MeTools\Console\Command;
-use MeTools\Console\Shell;
 use PHPUnit\Framework\MockObject\MockObject;
 
 /**
@@ -55,32 +53,6 @@ trait ConsoleIntegrationTestTrait
     }
 
     /**
-     * Gets all shell methods.
-     *
-     * It excludes the `main` method.
-     * @param array $exclude Other methods you want to exclude
-     * @return array
-     * @uses $Shell
-     */
-    protected function getShellMethods(array $exclude = [])
-    {
-        !empty($this->Shell) ?: $this->fail('The property `$this->Shell` has not been set');
-
-        $class = $this->Shell instanceof MockObject ? get_parent_class($this->Shell) : $this->Shell;
-        $parentClass = get_parent_class($class);
-        $methods = get_child_methods($class);
-
-        if (!in_array($parentClass, [CakeCommand::class, CakeShell::class, Command::class, Shell::class])) {
-            $methods = array_merge($methods, get_child_methods($parentClass));
-        }
-
-        $methods = array_diff($methods, array_merge(['main'], $exclude));
-        sort($methods);
-
-        return $methods;
-    }
-
-    /**
      * Asserts shell exited with the error code
      * @param string $message Failure message to be appended to the generated
      *  message
@@ -88,7 +60,7 @@ trait ConsoleIntegrationTestTrait
      */
     public function assertExitWithError($message = '')
     {
-        $this->assertExitCode(Shell::CODE_ERROR, $message);
+        $this->assertExitCode(Command::CODE_ERROR, $message);
     }
 
     /**
@@ -99,7 +71,7 @@ trait ConsoleIntegrationTestTrait
      */
     public function assertExitWithSuccess($message = '')
     {
-        $this->assertExitCode(Shell::CODE_SUCCESS, $message);
+        $this->assertExitCode(Command::CODE_SUCCESS, $message);
     }
 
     /**

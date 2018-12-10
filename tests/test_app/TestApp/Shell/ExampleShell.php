@@ -13,7 +13,7 @@
  */
 namespace App\Shell;
 
-use MeTools\Console\Shell;
+use Cake\Console\Shell;
 
 class ExampleShell extends Shell
 {

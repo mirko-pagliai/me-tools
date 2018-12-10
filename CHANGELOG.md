@@ -1,6 +1,7 @@
 # 2.x branch
 ## 2.18 branch
 ### 2.18.0
+* `Shell` class has been removed, use instead the `Command` class;
 * `InstallShell` has been replaced with console commands. Every method of the
     previous class is now a `MeTools\Command\Install` class;
 * `MockTrait` moved from `MeTools\TestSuite\Traits` to `MeTools\TestSuite`;

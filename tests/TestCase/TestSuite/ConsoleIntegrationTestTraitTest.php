@@ -34,17 +34,4 @@ class ConsoleIntegrationTestTraitTest extends TestCase
 
         parent::setUp();
     }
-
-    /**
-     * Test for `getShellMethods()` method
-     * @test
-     */
-    public function testGetShellMethods()
-    {
-        $this->assertEquals(['aSimpleMethod', 'doNothing'], $this->getShellMethods());
-        $this->assertEquals(['aSimpleMethod'], $this->getShellMethods(['doNothing']));
-
-        $this->Shell = $this->getMockForShell(ChildExampleShell::class);
-        $this->assertEquals(['aSimpleMethod', 'childMethod', 'doNothing'], $this->getShellMethods());
-    }
 }

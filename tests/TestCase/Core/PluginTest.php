@@ -57,7 +57,7 @@ class PluginTest extends TestCase
         $this->assertEquals(ROOT, Plugin::path('MeTools'));
         $this->assertFalse(Plugin::path('MeTools', 'no_existing.php', true));
 
-        $file = 'src' . DS . 'Console' . DS . 'Shell.php';
+        $file = 'src' . DS . 'Console' . DS . 'Command.php';
 
         $this->assertEquals(ROOT . $file, Plugin::path('MeTools', $file));
         $this->assertEquals(ROOT . $file, Plugin::path('MeTools', $file, true));
