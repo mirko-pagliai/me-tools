@@ -9,26 +9,19 @@
  * @copyright   Copyright (c) Mirko Pagliai
  * @link        https://github.com/mirko-pagliai/me-tools
  * @license     https://opensource.org/licenses/mit-license.php MIT License
- * @since       2.14.0
+ * @since       2.18.0
  */
 namespace MeTools\TestSuite;
 
-use Cake\TestSuite\IntegrationTestTrait;
-use MeTools\TestSuite\TestCase;
+use Cake\TestSuite\IntegrationTestTrait as BaseIntegrationTestTrait;
 
 /**
- * A test case class intended to make integration tests of your controllers
- *  easier.
- *
- * This test class provides a number of helper methods and features that make
- *  dispatching requests and checking their responses simpler. It favours full
- *  integration tests over mock objects as you can test more of your code
- *  easily and avoid some of the maintenance pitfalls that mock objects create.
+ * A trait intended to make integration tests of your controllers easier
  */
-abstract class IntegrationTestCase extends TestCase
+trait IntegrationTestTrait
 {
-    use IntegrationTestTrait;
-
+    use BaseIntegrationTestTrait;
+    
     /**
      * Called before every test method
      * @return void

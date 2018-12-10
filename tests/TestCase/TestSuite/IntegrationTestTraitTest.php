@@ -15,13 +15,16 @@ namespace MeTools\Test\TestCase\TestSuite;
 use Cake\Http\Cookie\Cookie;
 use Cake\Http\Session;
 use Cake\TestSuite\Stub\Response;
-use MeTools\TestSuite\IntegrationTestCase;
+use MeTools\TestSuite\IntegrationTestTrait;
+use MeTools\TestSuite\TestCase;
 
 /**
- * IntegrationTestCaseTest class
+ * IntegrationTestTraitTest class
  */
-class IntegrationTestCaseTest extends IntegrationTestCase
+class IntegrationTestTraitTest extends TestCase
 {
+    use IntegrationTestTrait;
+    
     /**
      * @var \Cake\TestSuite\Stub\Response
      */
