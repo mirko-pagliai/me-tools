@@ -3,6 +3,7 @@
 ### 2.18.0
 * `InstallShell` has been replaced with console commands. Every method of the
     previous class is now a `MeTools\Command\Install` class;
+* `MockTrait` moved from `MeTools\TestSuite\Traits` to `MeTools\TestSuite`;
 * `cakephp-assets`, `jquery`, `bootstrap`, `bootstrap-datetimepicker`,
     `fancy-box` and `fortawesome--fontawesome-free` are no longer required
     packages for Composer (`cakephp-assets` is required for developing), but

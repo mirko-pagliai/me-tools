@@ -16,7 +16,7 @@ use Cake\Console\ConsoleIo;
 use Cake\TestSuite\Stub\ConsoleOutput;
 use MeTools\Console\Shell;
 use MeTools\TestSuite\ConsoleIntegrationTestCase;
-use MeTools\TestSuite\Traits\MockTrait;
+use MeTools\TestSuite\MockTrait;
 use MeTools\TestSuite\Traits\TestCaseTrait;
 
 /**

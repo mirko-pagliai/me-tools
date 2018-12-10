@@ -10,11 +10,11 @@
  * @link        https://github.com/mirko-pagliai/me-tools
  * @license     https://opensource.org/licenses/mit-license.php MIT License
  */
-namespace MeTools\Test\TestCase\TestSuite\Traits;
+namespace MeTools\Test\TestCase\TestSuite;
 
 use Cake\ORM\TableRegistry;
+use MeTools\TestSuite\MockTrait;
 use MeTools\TestSuite\TestCase;
-use MeTools\TestSuite\Traits\MockTrait;
 use PHPUnit\Framework\MockObject\MockObject;
 
 /**

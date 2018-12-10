@@ -13,8 +13,8 @@
  */
 namespace MeTools\TestSuite;
 
+use MeTools\TestSuite\MockTrait;
 use MeTools\TestSuite\TestCase;
-use MeTools\TestSuite\Traits\MockTrait;
 
 /**
  * Abstract class for test helpers

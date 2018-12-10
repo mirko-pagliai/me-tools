@@ -12,8 +12,8 @@
  */
 namespace MeTools\Test\TestCase\View\Widget;
 
+use MeTools\TestSuite\MockTrait;
 use MeTools\TestSuite\TestCase;
-use MeTools\TestSuite\Traits\MockTrait;
 use MeTools\View\Helper\FormHelper;
 
 /**

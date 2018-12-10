@@ -18,7 +18,7 @@ use Cake\Console\Shell as CakeShell;
 use Cake\TestSuite\ConsoleIntegrationTestCase as CakeConsoleIntegrationTestCase;
 use MeTools\Console\Command;
 use MeTools\Console\Shell;
-use MeTools\TestSuite\Traits\MockTrait;
+use MeTools\TestSuite\MockTrait;
 use MeTools\TestSuite\Traits\TestCaseTrait;
 use PHPUnit\Framework\MockObject\MockObject;
 

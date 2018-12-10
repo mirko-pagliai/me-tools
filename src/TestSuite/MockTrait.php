@@ -11,7 +11,7 @@
  * @license     https://opensource.org/licenses/mit-license.php MIT License
  * @since       2.17.5
  */
-namespace MeTools\TestSuite\Traits;
+namespace MeTools\TestSuite;
 
 use Cake\Controller\ComponentRegistry;
 use Cake\Controller\Controller;
