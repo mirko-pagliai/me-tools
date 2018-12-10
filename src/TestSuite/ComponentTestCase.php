@@ -13,7 +13,6 @@
  */
 namespace MeTools\TestSuite;
 
-use MeTools\TestSuite\MockTrait;
 use MeTools\TestSuite\TestCase;
 
 /**
@@ -21,8 +20,6 @@ use MeTools\TestSuite\TestCase;
  */
 abstract class ComponentTestCase extends TestCase
 {
-    use MockTrait;
-
     /**
      * Component instance
      * @var \PHPUnit\Framework\MockObject\MockObject

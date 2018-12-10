@@ -13,7 +13,6 @@
 namespace MeTools\Test\TestCase\TestSuite;
 
 use Cake\ORM\TableRegistry;
-use MeTools\TestSuite\MockTrait;
 use MeTools\TestSuite\TestCase;
 use PHPUnit\Framework\MockObject\MockObject;
 
@@ -22,8 +21,6 @@ use PHPUnit\Framework\MockObject\MockObject;
  */
 class MockTraitTest extends TestCase
 {
-    use MockTrait;
-
     /**
      * Tests for `getControllerAlias()` method
      * @test
