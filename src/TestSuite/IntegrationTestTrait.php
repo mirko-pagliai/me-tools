@@ -21,7 +21,7 @@ use Cake\TestSuite\IntegrationTestTrait as BaseIntegrationTestTrait;
 trait IntegrationTestTrait
 {
     use BaseIntegrationTestTrait;
-    
+
     /**
      * Called before every test method
      * @return void

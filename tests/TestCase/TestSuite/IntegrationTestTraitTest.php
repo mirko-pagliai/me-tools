@@ -24,7 +24,7 @@ use MeTools\TestSuite\TestCase;
 class IntegrationTestTraitTest extends TestCase
 {
     use IntegrationTestTrait;
-    
+
     /**
      * @var \Cake\TestSuite\Stub\Response
      */
