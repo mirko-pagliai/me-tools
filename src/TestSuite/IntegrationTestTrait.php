@@ -13,24 +13,44 @@
  */
 namespace MeTools\TestSuite;
 
-use Cake\TestSuite\IntegrationTestTrait as BaseIntegrationTestTrait;
+use Cake\TestSuite\IntegrationTestTrait as CakeIntegrationTestTrait;
+use MeTools\Controller\Component\UploaderComponent;
 
 /**
  * A trait intended to make integration tests of your controllers easier
  */
 trait IntegrationTestTrait
 {
-    use BaseIntegrationTestTrait;
+    use CakeIntegrationTestTrait {
+        CakeIntegrationTestTrait::controllerSpy as cakeControllerSpy;
+    }
 
     /**
-     * Called before every test method
+     * Adds additional event spies to the controller/view event manager
+     * @param \Cake\Event\Event $event A dispatcher event
+     * @param \Cake\Controller\Controller|null $controller Controller instance
      * @return void
      */
-    public function setUp()
+    public function controllerSpy($event, $controller = null)
     {
-        parent::setUp();
+        $this->cakeControllerSpy($event, $controller);
 
-        $this->useHttpServer(true);
+        $this->_controller->viewBuilder()->setLayout('with_flash');
+
+        //Sets key for cookies
+        if (!$this->_controller->components()->has('Cookie')) {
+            $this->_controller->loadComponent('Cookie');
+        }
+        $this->_controller->Cookie->setConfig('key', 'somerandomhaskeysomerandomhaskey');
+
+        if ($this->_controller->components()->has('Uploader')) {
+            $this->_controller->Uploader = $this->getMockForComponent(UploaderComponent::class, ['move_uploaded_file']);
+
+            $this->_controller->Uploader->method('move_uploaded_file')
+                ->will($this->returnCallback(function ($filename, $destination) {
+                    return rename($filename, $destination);
+                }));
+        }
     }
 
     /**
