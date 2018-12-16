@@ -81,7 +81,7 @@ trait ConsoleIntegrationTestTrait
      * @return void
      * @since 2.17.6
      */
-    public function assertOutputNotEmpty($message = '')
+    public function assertOutputNotEmpty($message = 'stdout was empty')
     {
         $this->assertNotEmpty($this->_out->messages(), $message);
     }
