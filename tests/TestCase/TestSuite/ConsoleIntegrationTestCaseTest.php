@@ -14,6 +14,7 @@ namespace MeTools\Test\TestCase\TestSuite;
 
 use App\Shell\ChildExampleShell;
 use App\Shell\ExampleShell;
+use Cake\TestSuite\Stub\ConsoleOutput;
 use MeTools\TestSuite\ConsoleIntegrationTestCase;
 
 /**
@@ -22,12 +23,18 @@ use MeTools\TestSuite\ConsoleIntegrationTestCase;
 class ConsoleIntegrationTestCaseTest extends ConsoleIntegrationTestCase
 {
     /**
+     * @var Cake\TestSuite\Stub\ConsoleOutput
+     */
+    protected $_out;
+
+    /**
      * Called before every test method
      * @return void
      */
     public function setUp()
     {
         $this->Shell = $this->getMockForShell(ExampleShell::class);
+        $this->_out = new ConsoleOutput;
 
         parent::setUp();
     }
@@ -43,5 +50,26 @@ class ConsoleIntegrationTestCaseTest extends ConsoleIntegrationTestCase
 
         $this->Shell = $this->getMockForShell(ChildExampleShell::class);
         $this->assertEquals(['aSimpleMethod', 'childMethod', 'doNothing'], $this->getShellMethods());
+    }
+
+    /**
+     * Test for `assertOutputNotEmpty()` method
+     * @test
+     */
+    public function testAssertOutputNotEmpty()
+    {
+        $this->_out->write('message');
+        $this->assertOutputNotEmpty();
+    }
+
+    /**
+     * Test for `assertOutputNotEmpty()` method, on failure
+     * @expectedException PHPUnit\Framework\ExpectationFailedException
+     * @expectedExceptionMessage stdout was empty
+     * @test
+     */
+    public function testAssertOutputNotEmptyOnFailure()
+    {
+        $this->assertOutputNotEmpty();
     }
 }
