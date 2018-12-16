@@ -10,6 +10,7 @@
  * @link        https://github.com/mirko-pagliai/me-tools
  * @license     https://opensource.org/licenses/mit-license.php MIT License
  * @see         http://api.cakephp.org/3.4/class-Cake.Console.Shell.html Shell
+ * @todo        To be removed in a later release
  */
 namespace MeTools\Console;
 

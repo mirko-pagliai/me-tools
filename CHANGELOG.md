@@ -1,12 +1,14 @@
 # 2.x branch
 ## 2.17 branch
+### 2.17.6
+* added `Command` class. It can be used instead of the `Shell` class;
+* added `ConsoleIntegrationTestCase::assertOutputNotEmpty()` method.
+
 ### 2.17.5
 * added `MockTrait`, `ComponentTestCase` and `HelperTestCase` classes for test
     suite;
 * the `ConsoleIntegrationTestCase` class automatically creates an instance of
-    the shell class. Added `assertTableHeadersEquals()`,
-     `assertTableRowsEquals()`, `getShellMethods()` and `getTableFromOutput()`
-    methods;
+    the shell class. Added `getShellMethods()` method;
 * added `TestCaseTrait::assertIsMock()` assert method.
 
 ### 2.17.4

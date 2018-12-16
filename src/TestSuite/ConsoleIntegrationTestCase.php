@@ -13,8 +13,10 @@
  */
 namespace MeTools\TestSuite;
 
+use Cake\Console\Command as CakeCommand;
 use Cake\Console\Shell as CakeShell;
 use Cake\TestSuite\ConsoleIntegrationTestCase as CakeConsoleIntegrationTestCase;
+use MeTools\Console\Command;
 use MeTools\Console\Shell;
 use MeTools\TestSuite\Traits\MockTrait;
 use MeTools\TestSuite\Traits\TestCaseTrait;
@@ -58,6 +60,10 @@ abstract class ConsoleIntegrationTestCase extends CakeConsoleIntegrationTestCase
 
             $this->Shell = $this->getMockForShell($className);
         }
+
+        if ($this->Shell instanceof Command || $this->Shell instanceof CakeCommand) {
+            $this->useCommandRunner();
+        }
     }
 
     /**
@@ -76,7 +82,7 @@ abstract class ConsoleIntegrationTestCase extends CakeConsoleIntegrationTestCase
         $parentClass = get_parent_class($class);
         $methods = get_child_methods($class);
 
-        if (!in_array($parentClass, [CakeShell::class, Shell::class])) {
+        if (!in_array($parentClass, [CakeCommand::class, CakeShell::class, Command::class, Shell::class])) {
             $methods = array_merge($methods, get_child_methods($parentClass));
         }
 
@@ -84,38 +90,6 @@ abstract class ConsoleIntegrationTestCase extends CakeConsoleIntegrationTestCase
         sort($methods);
 
         return $methods;
-    }
-
-    /**
-     * Gets a table from output
-     * @return array Headers and rows
-     * @uses $_out
-     */
-    protected function getTableFromOutput()
-    {
-        $regexRowDivider = '[+-]+';
-        $regexHeader = '(\|(\s+<info>[^<]+<\/info>\s+\|)+)';
-        $regexRow = '\|(\s+[^\|]+\s+\|)+';
-        $regexRows = '((' . $regexRow . '\R)+)';
-        $regexTable = $regexRowDivider . '\R' . $regexHeader . '\R' . $regexRowDivider . '\R' . $regexRows . $regexRowDivider;
-        $output = implode(PHP_EOL, $this->_out->messages());
-
-        preg_match('/' . $regexTable . '/', $output, $matches) ?: $this->fail('Unable to retrieve a table output');
-
-        $regexColumnDivider = '\s*\|\s*';
-        $headers = array_values(array_map(function ($header) {
-            return preg_replace('/<info>([^<]+)<\/info>/', '$1', $header);
-        }, array_filter(preg_split('/' . $regexColumnDivider . '/', $matches[1]))));
-        $rows = array_values(array_map(function ($row) use ($regexColumnDivider) {
-            $row = preg_split('/' . $regexColumnDivider . '/', $row);
-            $row = array_filter($row, function ($row) {
-                return in_array($row, [0, '0'], true) || !empty($row);
-            });
-
-            return array_values($row);
-        }, array_filter(explode(PHP_EOL, $matches[3]))));
-
-        return compact('headers', 'rows');
     }
 
     /**
@@ -141,32 +115,14 @@ abstract class ConsoleIntegrationTestCase extends CakeConsoleIntegrationTestCase
     }
 
     /**
-     * Asserts that a table has headers
-     * @param array $expected Expected headers values
+     * Asserts that `stdout` is not empty
      * @param string $message Failure message to be appended to the generated
      *  message
      * @return void
-     * @uses getTableFromOutput()
+     * @since 2.17.6
      */
-    public function assertTableHeadersEquals($expected, $message = '')
+    public function assertOutputNotEmpty($message = 'stdout was empty')
     {
-        list($headers) = array_values($this->getTableFromOutput());
-
-        $this->assertEquals($expected, $headers, $message);
-    }
-
-    /**
-     * Asserts that a table has rows
-     * @param array $expected Expected rows values
-     * @param string $message Failure message to be appended to the generated
-     *  message
-     * @return void
-     * @uses getTableFromOutput()
-     */
-    public function assertTableRowsEquals($expected, $message = '')
-    {
-        list(, $rows) = array_values($this->getTableFromOutput());
-
-        $this->assertEquals($expected, $rows, $message);
+        $this->assertNotEmpty($this->_out->messages(), $message);
     }
 }

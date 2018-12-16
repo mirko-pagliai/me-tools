@@ -30,20 +30,25 @@ define('WEBROOT_DIR', 'webroot');
 define('WWW_ROOT', APP . 'webroot' . DS);
 define('TMP', sys_get_temp_dir() . DS . 'me_tools' . DS);
 define('CONFIG', APP . 'config' . DS);
-define('CACHE', TMP);
+define('CACHE', TMP . 'cache' . DS);
 define('LOGS', TMP . 'cakephp_log' . DS);
 define('SESSIONS', TMP . 'sessions' . DS);
 define('UPLOADS', TMP . 'uploads' . DS);
 
-safe_mkdir(LOGS);
-safe_mkdir(SESSIONS);
-safe_mkdir(CACHE);
-safe_mkdir(CACHE . 'views');
-safe_mkdir(CACHE . 'models');
-safe_mkdir(UPLOADS);
+safe_mkdir(TMP . 'tests', 0777, true);
+safe_mkdir(LOGS, 0777, true);
+safe_mkdir(SESSIONS, 0777, true);
+safe_mkdir(CACHE . 'models', 0777, true);
+safe_mkdir(CACHE . 'persistent', 0777, true);
+safe_mkdir(CACHE . 'views', 0777, true);
+safe_mkdir(UPLOADS, 0777, true);
 
 require_once dirname(__DIR__) . '/vendor/autoload.php';
 require_once CORE_PATH . 'config' . DS . 'bootstrap.php';
+
+if (version_compare(Configure::version(), '3.6', '>')) {
+    error_reporting(E_ALL & ~E_USER_DEPRECATED);
+}
 
 date_default_timezone_set('UTC');
 mb_internal_encoding('UTF-8');
