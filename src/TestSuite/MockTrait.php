@@ -11,7 +11,7 @@
  * @license     https://opensource.org/licenses/mit-license.php MIT License
  * @since       2.17.5
  */
-namespace MeTools\TestSuite\Traits;
+namespace MeTools\TestSuite;
 
 use Cake\Controller\ComponentRegistry;
 use Cake\Controller\Controller;
@@ -85,44 +85,21 @@ trait MockTrait
     }
 
     /**
-     * Mocks a shell
-     * @param string $className Shell class name
-     * @param array|null $methods The list of methods to mock
-     * @return \PHPUnit\Framework\MockObject\MockObject
+     * Gets the classname for which a test is being performed, starting from the
+     *  test class name.
+     *
+     * Example: class `MyPlugin\Test\TestCase\Controller\PagesControllerTest`
+     *  will return the string `MyPlugin\Controller\PagesController`.
+     * @param object $testClass A test class
+     * @return string The class name for which a test is being performed
+     * @since 2.18.0
      */
-    protected function getMockForShell($className, $methods = ['_stop', 'in'])
+    protected function getOriginClassName($testClass)
     {
-        return $this->getMockBuilder($className)
-            ->setMethods($methods)
-            ->getMock();
-    }
+        $parts = explode('\\', get_class($testClass));
+        array_splice($parts, 1, 2, []);
+        $parts[] = substr(array_pop($parts), 0, -4);
 
-    /**
-     * Mocks a table
-     * @param string $className Table class name
-     * @param array|null $methods The list of methods to mock
-     * @return \PHPUnit\Framework\MockObject\MockObject
-     */
-    protected function getMockForTable($className, $methods = [])
-    {
-        $parts = explode('\\', $className);
-        $alias = substr(array_pop($parts), 0, -5);
-        $connection = ConnectionManager::get($className::defaultConnectionName());
-
-        $table = $this->getMockBuilder($className)
-            ->setMethods($methods)
-            ->setConstructorArgs([compact('alias', 'connection', 'className')])
-            ->getMock();
-
-        $entityAlias = Inflector::classify(Inflector::underscore($alias));
-        $entityClass = implode('\\', array_slice($parts, 0, -1)) . '\\Entity\\' . $entityAlias;
-
-        if ($table->getEntityClass() === Entity::class && class_exists($entityClass)) {
-            $table->setEntityClass($entityClass);
-        }
-
-        $this->getTableLocator()->set($alias, $table);
-
-        return $table;
+        return implode('\\', $parts);
     }
 }

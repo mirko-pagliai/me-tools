@@ -12,7 +12,6 @@
  */
 namespace MeTools\Test\TestCase\Core;
 
-use Cake\Http\BaseApplication;
 use MeTools\Core\Plugin;
 use MeTools\TestSuite\TestCase;
 
@@ -27,25 +26,25 @@ class PluginTest extends TestCase
      */
     public function testAll()
     {
-        $app = $this->getMockForAbstractClass(BaseApplication::class, ['']);
-
-        $expected = [ME_TOOLS, ASSETS];
+        $expected = ['MeTools'];
+        if (Plugin::getCollection()->has('Assets')) {
+            $expected[] = 'Assets';
+        }
         $this->assertEquals($expected, Plugin::all());
 
-        $app->addPlugin('TestPlugin');
-
-        $expected = [ME_TOOLS, ASSETS, 'TestPlugin'];
-        $this->assertEquals($expected, Plugin::all());
-
-        $expected = [ME_TOOLS, ASSETS];
+        $this->loadPlugins(['TestPlugin']);
+        $this->assertEquals(array_merge($expected, ['TestPlugin']), Plugin::all());
         $this->assertEquals($expected, Plugin::all(['exclude' => 'TestPlugin']));
 
-        $app->addPlugin('AnotherTestPlugin');
-
-        $expected = [ME_TOOLS, 'AnotherTestPlugin', ASSETS, 'TestPlugin'];
+        $expected = ['MeTools', 'AnotherTestPlugin'];
+        if (Plugin::getCollection()->has('Assets')) {
+            $expected[] = 'Assets';
+        }
+        $expected[] = 'TestPlugin';
+        $this->loadPlugins(['AnotherTestPlugin']);
         $this->assertEquals($expected, Plugin::all());
 
-        $expected = ['AnotherTestPlugin', ASSETS, ME_TOOLS, 'TestPlugin'];
+        sort($expected);
         $this->assertEquals($expected, Plugin::all(['order' => false]));
     }
 
@@ -55,39 +54,24 @@ class PluginTest extends TestCase
      */
     public function testPath()
     {
-        $this->assertEquals(ROOT, Plugin::path(ME_TOOLS));
+        $this->assertEquals(ROOT, Plugin::path('MeTools'));
+        $this->assertFalse(Plugin::path('MeTools', 'no_existing.php', true));
 
-        $expected = ROOT . 'config' . DS . 'bootstrap.php';
+        $file = 'src' . DS . 'Console' . DS . 'Command.php';
 
-        $this->assertEquals($expected, Plugin::path(ME_TOOLS, 'config' . DS . 'bootstrap.php'));
-        $this->assertEquals($expected, Plugin::path(ME_TOOLS, 'config' . DS . 'bootstrap.php', true));
+        $this->assertEquals(ROOT . $file, Plugin::path('MeTools', $file));
+        $this->assertEquals(ROOT . $file, Plugin::path('MeTools', $file, true));
 
-        //No existing file
-        $this->assertFalse(Plugin::path(ME_TOOLS, 'config' . DS . 'no_existing.php', true));
-
-        $expected = [
-            ROOT . 'config' . DS . 'bootstrap.php',
-            ROOT . 'config' . DS . 'no_existing.php',
-        ];
-        $result = Plugin::path(ME_TOOLS, [
-            'config' . DS . 'bootstrap.php',
-            'config' . DS . 'no_existing.php',
-        ]);
+        $expected = [ROOT . $file, ROOT . 'no_existing.php'];
+        $result = Plugin::path('MeTools', [$file, 'no_existing.php']);
         $this->assertEquals($expected, $result);
 
         //Only the first file exists
-        $expected = [ROOT . 'config' . DS . 'bootstrap.php'];
-        $result = Plugin::path(ME_TOOLS, [
-            'config' . DS . 'bootstrap.php',
-            'config' . DS . 'no_existing.php',
-        ], true);
-        $this->assertEquals($expected, $result);
+        $result = Plugin::path('MeTools', [$file, 'no_existing.php'], true);
+        $this->assertEquals([ROOT . $file], $result);
 
         //No existing files
-        $result = Plugin::path(ME_TOOLS, [
-            'config' . DS . 'no_existing.php',
-            'config' . DS . 'no_existing2.php',
-        ], true);
+        $result = Plugin::path('MeTools', ['no_existing.php', 'no_existing2.php'], true);
         $this->assertEmpty($result);
     }
 }

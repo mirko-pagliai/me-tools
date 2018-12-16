@@ -12,9 +12,13 @@
  */
 namespace MeTools\Test\TestCase\View\Helper;
 
+use Assets\View\Helper\AssetHelper;
+use Cake\Core\Plugin;
 use Cake\Event\Event;
 use Cake\Http\ServerRequest;
+use Cake\View\View;
 use MeTools\TestSuite\HelperTestCase;
+use MeTools\View\Helper\HtmlHelper;
 
 /**
  * LibraryHelperTest class
@@ -54,6 +58,25 @@ class LibraryHelperTest extends HelperTestCase
         ] as $file) {
             safe_unlink(WWW_ROOT . $file);
         }
+    }
+
+    /**
+     * Tests for `initialize()` method
+     * @test
+     */
+    public function testInitialize()
+    {
+        //Checks that, when the `Assets` plugin is not present, the
+        //  `AssetHelper` matches the `HtmlHelper`
+        if (Plugin::getCollection()->has('Assets')) {
+            $this->Helper->initialize([]);
+            $this->assertInstanceof(AssetHelper::class, $this->Helper->Asset);
+
+            $this->removePlugins(['Assets']);
+        }
+
+        $this->Helper->initialize([]);
+        $this->assertInstanceof(HtmlHelper::class, $this->Helper->Asset);
     }
 
     /**
@@ -101,9 +124,13 @@ class LibraryHelperTest extends HelperTestCase
 
         $request->expects($this->any())->method('is')->willReturn(true);
 
-        $this->Helper->getView()->request = $request;
-        $this->Helper->analytics('my-id');
-        $this->assertEmpty($this->Helper->getView()->fetch('script_bottom'));
+        $helper = $this->getMockBuilder(get_class($this->Helper))
+            ->setMethods(null)
+            ->setConstructorArgs([new View($request)])
+            ->getMock();
+
+        $helper->analytics('my-id');
+        $this->assertEmpty($helper->getView()->fetch('script_bottom'));
     }
 
     /**

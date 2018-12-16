@@ -40,11 +40,11 @@ class Plugin extends CakePlugin
         $plugins = !$options['exclude'] ? $plugins : array_diff($plugins, (array)$options['exclude']);
 
         if ($options['order']) {
-            $key = array_search(ME_TOOLS, $plugins);
+            $key = array_search('MeTools', $plugins);
 
             if ($key) {
                 unset($plugins[$key]);
-                array_unshift($plugins, ME_TOOLS);
+                array_unshift($plugins, 'MeTools');
             }
         }
 

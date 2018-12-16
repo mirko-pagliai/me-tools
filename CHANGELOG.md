@@ -1,4 +1,25 @@
 # 2.x branch
+## 2.18 branch
+### 2.18.0
+* `InstallShell` has been replaced with console commands. Every method of the
+    previous class is now a `MeTools\Command\Install` class;
+* `Shell` class has been removed, use instead the `Command` class;
+* `MockTrait` moved from `MeTools\TestSuite\Traits` to `MeTools\TestSuite`.
+    `assertIsMock()` and `getMockForShell()` methods no longer exist; added
+    `getOriginClassName()`. `getMockForTable()` has been removed, use instead
+    `getMockForModel()` provided by CakePHP;
+* `ConsoleIntegrationTestCase` and `IntegrationTestCase` classes have been
+    replaced with `ConsoleIntegrationTestTrait` and `IntegrationTestTrait, as
+    for CakePHP 3.7;
+* removed `TestCaseTrait`, methods have been moved to the `TestCase` class;
+* `cakephp-assets`, `jquery`, `bootstrap`, `bootstrap-datetimepicker`, `fancy-box`
+    and `fortawesome--fontawesome-free` are no longer required packages 
+    (`cakephp-assets` is required for developing), but only suggested packages;
+* removed `clearDir()` global function. Use instead `safe_unlink_recursive()`
+    provided by `php-tools`;
+* removed `ME_TOOLS` constants. It no longer uses also the `ASSETS` constant;
+* updated for CakePHP 3.7.
+
 ## 2.17 branch
 ### 2.17.6
 * added `Command` class. It can be used instead of the `Shell` class;

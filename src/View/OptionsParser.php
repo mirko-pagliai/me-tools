@@ -151,7 +151,7 @@ class OptionsParser
                 return preg_match('/^(btn\-)?(' . implode('|', $allClasses) . ')$/', $class);
             })
             ->map(function ($class) {
-                return substr($class, 0, 4) == 'btn-' ? $class : 'btn-' . $class;
+                return starts_with($class, 'btn-') ? $class : 'btn-' . $class;
             });
 
         return $this->append('class', array_merge(['btn'], $classes->toList()));

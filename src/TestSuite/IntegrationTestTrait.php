@@ -9,48 +9,48 @@
  * @copyright   Copyright (c) Mirko Pagliai
  * @link        https://github.com/mirko-pagliai/me-tools
  * @license     https://opensource.org/licenses/mit-license.php MIT License
- * @since       2.14.0
+ * @since       2.18.0
  */
 namespace MeTools\TestSuite;
 
-use Cake\Http\BaseApplication;
-use Cake\TestSuite\IntegrationTestCase as CakeIntegrationTestCase;
-use MeTools\TestSuite\Traits\TestCaseTrait;
+use Cake\TestSuite\IntegrationTestTrait as CakeIntegrationTestTrait;
+use MeTools\Controller\Component\UploaderComponent;
 
 /**
- * A test case class intended to make integration tests of your controllers
- *  easier.
- *
- * This test class provides a number of helper methods and features that make
- *  dispatching requests and checking their responses simpler. It favours full
- *  integration tests over mock objects as you can test more of your code
- *  easily and avoid some of the maintenance pitfalls that mock objects create.
+ * A trait intended to make integration tests of your controllers easier
  */
-abstract class IntegrationTestCase extends CakeIntegrationTestCase
+trait IntegrationTestTrait
 {
-    use TestCaseTrait;
-
-    /**
-     * Called before every test method
-     * @return void
-     */
-    public function setUp()
-    {
-        parent::setUp();
-
-        $app = $this->getMockForAbstractClass(BaseApplication::class, ['']);
-        $app->addPlugin('MeTools')->pluginBootstrap();
+    use CakeIntegrationTestTrait {
+        CakeIntegrationTestTrait::controllerSpy as cakeControllerSpy;
     }
 
     /**
-     * Called after every test method
+     * Adds additional event spies to the controller/view event manager
+     * @param \Cake\Event\Event $event A dispatcher event
+     * @param \Cake\Controller\Controller|null $controller Controller instance
      * @return void
      */
-    public function tearDown()
+    public function controllerSpy($event, $controller = null)
     {
-        parent::tearDown();
+        $this->cakeControllerSpy($event, $controller);
 
-        safe_unlink_recursive(LOGS);
+        $this->_controller->viewBuilder()->setLayout('with_flash');
+
+        //Sets key for cookies
+        if (!$this->_controller->components()->has('Cookie')) {
+            $this->_controller->loadComponent('Cookie');
+        }
+        $this->_controller->Cookie->setConfig('key', 'somerandomhaskeysomerandomhaskey');
+
+        if ($this->_controller->components()->has('Uploader')) {
+            $this->_controller->Uploader = $this->getMockForComponent(UploaderComponent::class, ['move_uploaded_file']);
+
+            $this->_controller->Uploader->method('move_uploaded_file')
+                ->will($this->returnCallback(function ($filename, $destination) {
+                    return rename($filename, $destination);
+                }));
+        }
     }
 
     /**
