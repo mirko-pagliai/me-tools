@@ -14,15 +14,12 @@
 namespace MeTools\TestSuite;
 
 use MeTools\TestSuite\TestCase;
-use MeTools\TestSuite\Traits\MockTrait;
 
 /**
  * Abstract class for test helpers
  */
 abstract class HelperTestCase extends TestCase
 {
-    use MockTrait;
-
     /**
      * Helper instance
      * @var \PHPUnit\Framework\MockObject\MockObject
@@ -30,21 +27,23 @@ abstract class HelperTestCase extends TestCase
     protected $Helper;
 
     /**
+     * If `true`, a mock instance of the shell will be created
+     * @var bool
+     */
+    protected $autoInitializeClass = true;
+
+    /**
      * Called before every test method
      * @return void
      * @uses $Helper
+     * @uses $autoInitializeClass
      */
     public function setUp()
     {
         parent::setUp();
 
-        if (!$this->Helper) {
-            $parts = explode('\\', get_class($this));
-            array_splice($parts, 1, 2, []);
-            $parts[] = substr(array_pop($parts), 0, -4);
-            $className = implode('\\', $parts);
-
-            $this->Helper = $this->getMockForHelper($className, null);
+        if (!$this->Helper && $this->autoInitializeClass) {
+            $this->Helper = $this->getMockForHelper($this->getOriginClassName($this), null);
         }
     }
 }

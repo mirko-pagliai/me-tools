@@ -21,40 +21,6 @@ use MeTools\View\OptionsParser;
 class GlobalFunctionsTest extends TestCase
 {
     /**
-     * Tests for `clearDir()` global function
-     * @test
-     */
-    public function testClearDir()
-    {
-        $path = TMP . 'tests';
-
-        //Creates some folder
-        safe_mkdir($path . DS . 'folder' . DS . 'subfolder', 0777, true);
-
-        $files = [
-            'first',
-            'folder' . DS . 'second',
-            'folder' . DS . 'subfolder' . DS . 'third',
-        ];
-
-        //Creates some files
-        foreach ($files as $file) {
-            file_put_contents($path . DS . $file, null);
-        }
-
-        //Test for `clearDir()`
-        $this->assertTrue(clearDir($path));
-
-        //Now checks that the files no longer exist
-        foreach ($files as $file) {
-            $this->assertTrue(!file_exists($file));
-        }
-
-        //Delete folders
-        safe_rmdir_recursive($path . DS . 'folder');
-    }
-
-    /**
      * Test for `optionsParser()` global function
      * @test
      */
@@ -62,7 +28,7 @@ class GlobalFunctionsTest extends TestCase
     {
         $result = optionsParser();
         $expected = new OptionsParser;
-        $this->assertInstanceOf('MeTools\View\OptionsParser', $result);
+        $this->assertInstanceOf(OptionsParser::class, $result);
         $this->assertEquals($expected, $result);
         $this->assertEquals(get_object_vars($expected), get_object_vars($result));
 
@@ -71,7 +37,7 @@ class GlobalFunctionsTest extends TestCase
 
         $result = optionsParser($a, $b);
         $expected = new OptionsParser($a, $b);
-        $this->assertInstanceOf('MeTools\View\OptionsParser', $result);
+        $this->assertInstanceOf(OptionsParser::class, $result);
         $this->assertEquals($expected, $result);
         $this->assertEquals(get_object_vars($expected), get_object_vars($result));
     }

@@ -61,7 +61,7 @@ class DropdownHelper extends Helper
      * Helpers
      * @var array
      */
-    public $helpers = ['Html' => ['className' => ME_TOOLS . '.Html']];
+    public $helpers = ['Html' => ['className' => 'MeTools.Html']];
 
     /**
      * Start link. This link allows the opening of the dropdown menu

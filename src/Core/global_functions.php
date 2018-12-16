@@ -12,27 +12,6 @@
  */
 use MeTools\View\OptionsParser;
 
-if (!function_exists('clearDir')) {
-    /**
-     * Cleans a directory, deleting all the files, even in sub-directories
-     * @param string $directory Directory path
-     * @return bool
-     */
-    function clearDir($directory)
-    {
-        $success = true;
-
-        //Deletes each file
-        foreach (array_values(dir_tree($directory, 'empty'))[1] as $file) {
-            if (!safe_unlink($file)) {
-                $success = false;
-            }
-        }
-
-        return $success;
-    }
-}
-
 if (!function_exists('optionsParser')) {
     /**
      * Returns and instance of `OptionsParser`

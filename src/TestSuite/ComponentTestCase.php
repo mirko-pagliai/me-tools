@@ -14,15 +14,12 @@
 namespace MeTools\TestSuite;
 
 use MeTools\TestSuite\TestCase;
-use MeTools\TestSuite\Traits\MockTrait;
 
 /**
  * Abstract class for test components
  */
 abstract class ComponentTestCase extends TestCase
 {
-    use MockTrait;
-
     /**
      * Component instance
      * @var \PHPUnit\Framework\MockObject\MockObject
@@ -30,22 +27,24 @@ abstract class ComponentTestCase extends TestCase
     protected $Component;
 
     /**
+     * If `true`, a mock instance of the shell will be created
+     * @var bool
+     */
+    protected $autoInitializeClass = true;
+
+    /**
      * Called before every test method
      * @return void
      * @uses $Component
+     * @uses $autoInitializeClass
      */
     public function setUp()
     {
         parent::setUp();
 
         //Tries to retrieve the component
-        if (!$this->Component) {
-            $parts = explode('\\', get_class($this));
-            array_splice($parts, 1, 2, []);
-            $parts[] = substr(array_pop($parts), 0, -4);
-            $className = implode('\\', $parts);
-
-            $this->Component = $this->getMockForComponent($className, null);
+        if (!$this->Component && $this->autoInitializeClass) {
+            $this->Component = $this->getMockForComponent($this->getOriginClassName($this), null);
         }
     }
 }

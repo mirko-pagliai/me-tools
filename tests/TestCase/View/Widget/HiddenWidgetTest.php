@@ -13,7 +13,6 @@
 namespace MeTools\Test\TestCase\View\Widget;
 
 use MeTools\TestSuite\TestCase;
-use MeTools\TestSuite\Traits\MockTrait;
 use MeTools\View\Helper\FormHelper;
 
 /**
@@ -21,8 +20,6 @@ use MeTools\View\Helper\FormHelper;
  */
 class HiddenWidgetTest extends TestCase
 {
-    use MockTrait;
-
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject
      */

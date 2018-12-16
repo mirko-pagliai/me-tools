@@ -12,16 +12,17 @@
  */
 namespace MeTools\Test\TestCase\TestSuite;
 
-use App\Shell\ChildExampleShell;
-use App\Shell\ExampleShell;
 use Cake\TestSuite\Stub\ConsoleOutput;
-use MeTools\TestSuite\ConsoleIntegrationTestCase;
+use MeTools\TestSuite\ConsoleIntegrationTestTrait;
+use MeTools\TestSuite\TestCase;
 
 /**
- * ConsoleIntegrationTestCaseTest class
+ * ConsoleIntegrationTestTraitTest class
  */
-class ConsoleIntegrationTestCaseTest extends ConsoleIntegrationTestCase
+class ConsoleIntegrationTestTraitTest extends TestCase
 {
+    use ConsoleIntegrationTestTrait;
+
     /**
      * @var Cake\TestSuite\Stub\ConsoleOutput
      */
@@ -33,23 +34,9 @@ class ConsoleIntegrationTestCaseTest extends ConsoleIntegrationTestCase
      */
     public function setUp()
     {
-        $this->Shell = $this->getMockForShell(ExampleShell::class);
-        $this->_out = new ConsoleOutput;
-
         parent::setUp();
-    }
 
-    /**
-     * Test for `getShellMethods()` method
-     * @test
-     */
-    public function testGetShellMethods()
-    {
-        $this->assertEquals(['aSimpleMethod', 'doNothing'], $this->getShellMethods());
-        $this->assertEquals(['aSimpleMethod'], $this->getShellMethods(['doNothing']));
-
-        $this->Shell = $this->getMockForShell(ChildExampleShell::class);
-        $this->assertEquals(['aSimpleMethod', 'childMethod', 'doNothing'], $this->getShellMethods());
+        $this->_out = new ConsoleOutput;
     }
 
     /**
