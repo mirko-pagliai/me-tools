@@ -12,11 +12,14 @@
  */
 namespace MeTools\Test\TestCase\TestSuite;
 
+use Cake\Controller\Controller;
+use Cake\Event\Event;
 use Cake\Http\Cookie\Cookie;
 use Cake\Http\Session;
 use Cake\TestSuite\Stub\Response;
 use MeTools\TestSuite\IntegrationTestTrait;
 use MeTools\TestSuite\TestCase;
+use PHPUnit\Framework\MockObject\MockObject;
 
 /**
  * IntegrationTestTraitTest class
@@ -24,11 +27,6 @@ use MeTools\TestSuite\TestCase;
 class IntegrationTestTraitTest extends TestCase
 {
     use IntegrationTestTrait;
-
-    /**
-     * @var \Cake\TestSuite\Stub\Response
-     */
-    protected $_response;
 
     /**
      * Called before every test method
@@ -39,6 +37,20 @@ class IntegrationTestTraitTest extends TestCase
         parent::setUp();
 
         $this->_response = new Response;
+    }
+
+    /**
+     * Test for `controllerSpy()` method
+     * @test
+     */
+    public function testcontrollerSpy()
+    {
+        $this->_controller = new Controller;
+        $this->_controller->loadComponent('MeTools.Uploader');
+        $this->controllerSpy(new Event('myEvent'), $this->_controller);
+        $this->assertEquals('with_flash', $this->_controller->viewBuilder()->getLayout());
+        $this->assertEquals('somerandomhaskeysomerandomhaskey', $this->_controller->Cookie->getConfig('key'));
+        $this->assertInstanceOf(MockObject::class, $this->_controller->Uploader);
     }
 
     /**
