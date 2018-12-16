@@ -69,24 +69,4 @@ class MockTraitTest extends TestCase
     {
         $this->getMockForController('App\Controller\NoExistingController');
     }
-
-    /**
-     * Tests for `getMockForTable()` method
-     * @test
-     */
-    public function testGetMockForTable()
-    {
-        $Mock = $this->getMockForTable('App\Model\Table\PagesTable', null);
-        $this->assertInstanceOf(MockObject::class, $Mock);
-        $this->assertEquals('Pages', $Mock->getAlias());
-        $this->assertEquals('Cake\ORM\Entity', $Mock->getEntityClass());
-        $this->assertNotEquals('App\Model\Entity\Page', $Mock->getEntityClass());
-        $this->assertTrue(TableRegistry::getTableLocator()->exists($Mock->getAlias()));
-
-        $Mock = $this->getMockForTable('App\Model\Table\PostsTable', null);
-        $this->assertInstanceOf(MockObject::class, $Mock);
-        $this->assertEquals('Posts', $Mock->getAlias());
-        $this->assertEquals('App\Model\Entity\Post', $Mock->getEntityClass());
-        $this->assertTrue(TableRegistry::getTableLocator()->exists($Mock->getAlias()));
-    }
 }
