@@ -50,7 +50,16 @@ class IntegrationTestTraitTest extends TestCase
         $this->controllerSpy(new Event('myEvent'), $this->_controller);
         $this->assertEquals('with_flash', $this->_controller->viewBuilder()->getLayout());
         $this->assertEquals('somerandomhaskeysomerandomhaskey', $this->_controller->Cookie->getConfig('key'));
+
         $this->assertInstanceOf(MockObject::class, $this->_controller->Uploader);
+        $source = TMP . 'example';
+        $destination = TMP . 'example2';
+        $this->assertFileNotExists($destination);
+        file_put_contents($source, null);
+        $this->invokeMethod($this->_controller->Uploader, 'move_uploaded_file', [$source, $destination]);
+        $this->assertFileNotExists($source);
+        $this->assertFileExists($destination);
+        safe_unlink($destination);
     }
 
     /**
