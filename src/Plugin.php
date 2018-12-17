@@ -44,14 +44,14 @@ class Plugin extends BasePlugin
         Configure::write('WRITABLE_DIRS', [
             LOGS,
             TMP,
-            TMP . 'cache',
+            TMP . 'cache' . DS,
             TMP . 'cache' . DS . 'models',
             TMP . 'cache' . DS . 'persistent',
             TMP . 'cache' . DS . 'views',
-            TMP . 'sessions',
-            TMP . 'tests',
-            WWW_ROOT . 'files',
-            WWW_ROOT . 'vendor',
+            TMP . 'sessions'. DS,
+            TMP . 'tests'. DS,
+            WWW_ROOT . 'files' . DS,
+            WWW_ROOT . 'vendor' . DS,
         ]);
 
         //Sets symbolic links for vendor assets to be created
