@@ -38,6 +38,7 @@ define('UPLOADS', TMP . 'uploads' . DS);
 safe_mkdir(TMP . 'tests', 0777, true);
 safe_mkdir(LOGS, 0777, true);
 safe_mkdir(SESSIONS, 0777, true);
+safe_mkdir(CACHE, 0777, true);
 safe_mkdir(CACHE . 'models', 0777, true);
 safe_mkdir(CACHE . 'persistent', 0777, true);
 safe_mkdir(CACHE . 'views', 0777, true);

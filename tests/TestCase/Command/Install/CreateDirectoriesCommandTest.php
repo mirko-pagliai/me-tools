@@ -29,7 +29,7 @@ class CreateDirectoriesCommandTest extends TestCase
      */
     public function testExecute()
     {
-        $pathsAlreadyExist = [TMP, TMP . 'cache', WWW_ROOT . 'vendor'];
+        $pathsAlreadyExist = [TMP, CACHE, WWW_ROOT . 'vendor'];
         foreach ($pathsAlreadyExist as $path) {
             safe_mkdir($path, 0777, true);
         }
