@@ -44,7 +44,7 @@ class FixComposerJsonCommandTest extends TestCase
         //Tries to fix a no existing file
         $this->exec($command . ' -p noExisting');
         $this->assertExitWithError();
-        $this->assertErrorContains('File or directory `noExisting` is not writable');
+        $this->assertErrorContains('File or directory is not writable');
 
         //Tries to fix an invalid composer.json file
         $file = TMP . 'invalid.json';

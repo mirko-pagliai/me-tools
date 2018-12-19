@@ -30,19 +30,13 @@ class HtmlHelper extends CakeHtmlHelper
      * @param string $name Name of the tag
      * @param array $params Params for the method
      * @return string
-     * @throws Exception
      * @uses tag()
      */
     public function __call($name, $params)
     {
-        if (empty($params) || count($params) > 2) {
-            throw new Exception(sprintf('Method HtmlHelper::%s does not exist', $name));
-        }
+        is_true_or_fail($params && count($params) < 3, sprintf('Method HtmlHelper::%s does not exist', $name), Exception::class);
 
-        $text = !isset($params[0]) ? null : $params[0];
-        $options = !isset($params[1]) ? [] : $params[1];
-
-        return self::tag($name, $text, $options);
+        return self::tag($name, $params[0], isset($params[1]) ? $params[1] : []);
     }
 
     /**
