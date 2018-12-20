@@ -139,7 +139,7 @@ class LibraryHelperTest extends HelperTestCase
      */
     public function testCkeditor()
     {
-        file_put_contents(WWW_ROOT . 'ckeditor' . DS . 'ckeditor.js', null);
+        safe_create_file(WWW_ROOT . 'ckeditor' . DS . 'ckeditor.js');
 
         $expected = [
             ['script' => ['src' => '/ckeditor/ckeditor.js']],
@@ -157,8 +157,8 @@ class LibraryHelperTest extends HelperTestCase
      */
     public function testCkeditorWithJqueryAdapter()
     {
-        file_put_contents(WWW_ROOT . 'ckeditor' . DS . 'ckeditor.js', null);
-        file_put_contents(WWW_ROOT . 'ckeditor' . DS . 'adapters' . DS . 'jquery.js', null);
+        safe_create_file(WWW_ROOT . 'ckeditor' . DS . 'ckeditor.js');
+        safe_create_file(WWW_ROOT . 'ckeditor' . DS . 'adapters' . DS . 'jquery.js');
 
         $expected = [
             ['script' => ['src' => '/ckeditor/ckeditor.js']],
@@ -178,8 +178,8 @@ class LibraryHelperTest extends HelperTestCase
      */
     public function testCkeditorWithJsFromApp()
     {
-        file_put_contents(WWW_ROOT . 'ckeditor' . DS . 'ckeditor.js', null);
-        file_put_contents(WWW_ROOT . 'js' . DS . 'ckeditor_init.js', null);
+        safe_create_file(WWW_ROOT . 'ckeditor' . DS . 'ckeditor.js');
+        safe_create_file(WWW_ROOT . 'js' . DS . 'ckeditor_init.js');
 
         $expected = [
             ['script' => ['src' => '/ckeditor/ckeditor.js']],
@@ -197,8 +197,8 @@ class LibraryHelperTest extends HelperTestCase
      */
     public function testCkeditorWithPhpFromApp()
     {
-        file_put_contents(WWW_ROOT . 'ckeditor' . DS . 'ckeditor.js', null);
-        file_put_contents(WWW_ROOT . 'js' . DS . 'ckeditor_init.php', null);
+        safe_create_file(WWW_ROOT . 'ckeditor' . DS . 'ckeditor.js');
+        safe_create_file(WWW_ROOT . 'js' . DS . 'ckeditor_init.php');
 
         $expected = [
             ['script' => ['src' => '/ckeditor/ckeditor.js']],
@@ -301,7 +301,7 @@ class LibraryHelperTest extends HelperTestCase
     public function testFancyboxWithJsFromApp()
     {
         safe_symlink(VENDOR . 'newerton' . DS . 'fancy-box' . DS . 'source', WWW_ROOT . 'vendor' . DS . 'fancybox');
-        file_put_contents(WWW_ROOT . 'js' . DS . 'fancybox_init.js', null);
+        safe_create_file(WWW_ROOT . 'js' . DS . 'fancybox_init.js');
 
         $expected = [
             ['script' => ['src' => '/vendor/fancybox/jquery.fancybox.pack.js']],

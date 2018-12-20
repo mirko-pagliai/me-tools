@@ -44,18 +44,18 @@ class FixComposerJsonCommandTest extends TestCase
         //Tries to fix a no existing file
         $this->exec($command . ' -p noExisting');
         $this->assertExitWithError();
-        $this->assertErrorContains('File or directory `noExisting` is not writable');
+        $this->assertErrorContains('File or directory is not writable');
 
         //Tries to fix an invalid composer.json file
         $file = TMP . 'invalid.json';
-        file_put_contents($file, 'String');
+        safe_create_file($file, 'String');
         $this->exec($command . ' -p ' . $file);
         $this->assertExitWithError();
         $this->assertErrorContains('The file ' . $file . ' does not seem a valid composer.json file');
 
         //Fixes a valid composer.json file
         $file = APP . 'composer.json';
-        file_put_contents($file, json_encode([
+        safe_create_file($file, json_encode([
             'name' => 'example',
             'description' => 'example of composer.json',
             'type' => 'project',

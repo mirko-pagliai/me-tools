@@ -16,7 +16,8 @@ namespace MeTools\Console;
 use Cake\Console\Command as CakeCommand;
 use Cake\Console\ConsoleIo;
 use Cake\Filesystem\Folder;
-use Exception;
+use Tools\Exception\NotReadableException;
+use Tools\Exception\NotWritableException;
 
 /**
  * Base class for console commands
@@ -59,10 +60,14 @@ abstract class Command extends CakeCommand
         try {
             is_readable_or_fail($source);
             is_writable_or_fail(dirname($dest));
-        } catch (Exception $e) {
-            $io->err($e->getMessage());
-
-            return false;
+        } catch (NotReadableException $e) {
+            $io->err(sprintf('`%s`: %s', $source, $e->getMessage()));
+        } catch (NotWritableException $e) {
+            $io->err(sprintf('`%s`: %s', dirname($dest), $e->getMessage()));
+        } finally {
+            if (isset($e)) {
+                return false;
+            }
         }
 
         safe_copy($source, $dest);
@@ -129,10 +134,14 @@ abstract class Command extends CakeCommand
         try {
             is_readable_or_fail($source);
             is_writable_or_fail(dirname($dest));
-        } catch (Exception $e) {
-            $io->err($e->getMessage());
-
-            return false;
+        } catch (NotReadableException $e) {
+            $io->err(sprintf('`%s`: %s', $source, $e->getMessage()));
+        } catch (NotWritableException $e) {
+            $io->err(sprintf('`%s`: %s', dirname($dest), $e->getMessage()));
+        } finally {
+            if (isset($e)) {
+                return false;
+            }
         }
 
         safe_symlink($source, $dest);

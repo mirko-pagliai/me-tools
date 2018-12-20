@@ -17,6 +17,7 @@ use Cake\Filesystem\Folder;
 use Cake\TestSuite\TestCase as CakeTestCase;
 use Exception;
 use MeTools\TestSuite\MockTrait;
+use Tools\Exception\NotReadableException;
 use Tools\ReflectionTrait;
 use Tools\TestSuite\TestCaseTrait;
 
@@ -82,6 +83,8 @@ abstract class TestCase extends CakeTestCase
         try {
             is_readable_or_fail($filename);
             $content = file_get_contents($filename);
+        } catch (NotReadableException $e) {
+            $this->fail(sprintf('`%s`: %s', $filename, $e->getMessage()));
         } catch (Exception $e) {
             $this->fail($e->getMessage());
         }

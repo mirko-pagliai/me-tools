@@ -28,9 +28,7 @@ class UploaderComponentTest extends ComponentTestCase
     protected function createFile()
     {
         //Creates a file and writes some content
-        safe_mkdir(TMP . 'upload_test');
-        $file = tempnam(TMP . 'upload_test', 'php_upload_');
-        file_put_contents($file, 'string');
+        $file = safe_create_tmp_file('string', TMP . 'upload_test');
 
         return [
             'name' => basename($file),
@@ -86,11 +84,11 @@ class UploaderComponentTest extends ComponentTestCase
         $this->assertEquals($file1, $findTargetFilenameMethod($file1));
 
         //Creates the first file
-        file_put_contents($file1, null);
+        safe_create_file($file1);
         $this->assertEquals($file2, $findTargetFilenameMethod($file1));
 
         //Creates the second file
-        file_put_contents($file2, null);
+        safe_create_file($file2);
         $this->assertEquals($file3, $findTargetFilenameMethod($file1));
 
         //Files without extension
@@ -99,7 +97,7 @@ class UploaderComponentTest extends ComponentTestCase
         $this->assertEquals($file1, $findTargetFilenameMethod($file1));
 
         //Creates the first file
-        file_put_contents($file1, null);
+        safe_create_file($file1);
         $this->assertEquals($file2, $findTargetFilenameMethod($file1));
     }
 
@@ -182,7 +180,7 @@ class UploaderComponentTest extends ComponentTestCase
             $file = $this->createFile();
             $Uploader->set($file);
             $result = $Uploader->save($targetDirectory);
-            $this->assertRegExp(sprintf('/^%sphp[\w\d\._]+$/', preg_quote(UPLOADS, '/')), $result);
+            $this->assertStringStartsWith(UPLOADS, $result);
             $this->assertFalse($Uploader->getError());
             $this->assertFileExists($result);
             $this->assertFileNotExists($file['tmp_name']);
