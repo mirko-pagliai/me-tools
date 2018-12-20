@@ -2,7 +2,7 @@
 ## 2.18 branch
 ### 2.18.1
 * little code fixes;
-* updated for `php-tools` 1.1.7.
+* updated for `php-tools` 1.1.8.
 
 ### 2.18.0
 * `InstallShell` has been replaced with console commands. Every method of the
