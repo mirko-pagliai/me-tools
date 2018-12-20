@@ -13,7 +13,7 @@
  */
 namespace MeTools\TestSuite;
 
-use MeTools\TestSuite\TestCase;
+use MeCms\TestSuite\TestCase;
 
 /**
  * Abstract class for test components
