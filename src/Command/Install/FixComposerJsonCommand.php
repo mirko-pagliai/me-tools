@@ -77,7 +77,7 @@ class FixComposerJsonCommand extends Command
         }
 
         $contents += ['config' => ['component-dir' => 'vendor/components']];
-        file_put_contents($path, json_encode($contents, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
+        create_file($path, json_encode($contents, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
         $io->verbose(__d('me_tools', 'The file {0} has been fixed', rtr($path)));
 
         return null;

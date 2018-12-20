@@ -48,7 +48,7 @@ class TestCaseTest extends TestCase
     {
         $string = 'cat dog bird';
         $file = LOGS . 'debug.log';
-        file_put_contents($file, $string);
+        safe_create_file($file, $string);
 
         foreach (explode(' ', $string) as $word) {
             $this->assertLogContains($word, $file);
@@ -74,9 +74,8 @@ class TestCaseTest extends TestCase
      */
     public function testDeleteLog()
     {
-        file_put_contents(LOGS . 'first.log', null);
-        file_put_contents(LOGS . 'second.log', null);
-
+        safe_create_file(LOGS . 'first.log');
+        safe_create_file(LOGS . 'second.log');
         $this->deleteLog('first');
         $this->deleteLog('second');
         $this->assertFileNotExists(LOGS . 'first.log');
