@@ -120,7 +120,7 @@ class RunAllCommand extends Command
             }
 
             if ($toBeExecuted) {
-                $command = $command instanceof Command ? $command : new $command;
+                $command = is_string($command) ? new $command : $command;
                 $command->execute(new Arguments([], compact('verbose'), []), $io);
             }
         }
