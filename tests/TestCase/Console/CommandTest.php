@@ -90,8 +90,8 @@ class CommandTest extends TestCase
         //Tries to copy. Source doesn't exist, then destination is not writable
         $this->assertFalse($this->Command->copyFile($this->io, TMP . 'noExistingFile', $dest));
         $this->assertFalse($this->Command->copyFile($this->io, $source, TMP . 'noExistingDir' . DS . 'example_copy'));
-        $this->assertErrorContains('`' . TMP . 'noExistingFile`: File or directory is not readable');
-        $this->assertErrorContains('`' . TMP . 'noExistingDir`: File or directory is not writable');
+        $this->assertErrorContains('File or directory `' . TMP . 'noExistingFile` is not readable');
+        $this->assertErrorContains('File or directory `' . TMP . 'noExistingDir` is not writable');
 
         //Now it works
         $this->assertTrue($this->Command->copyFile($this->io, $source, $dest));
@@ -176,8 +176,8 @@ class CommandTest extends TestCase
         $this->assertFalse($this->Command->createLink($this->io, TMP . 'noExistingFile', TMP . 'target'));
         $this->assertFalse($this->Command->createLink($this->io, $source, TMP . 'noExistingDir' . DS . 'example'));
         $this->assertOutputContains('File or directory `' . $dest . '` already exists');
-        $this->assertErrorContains('`' . TMP . 'noExistingFile`: File or directory is not readable');
-        $this->assertErrorContains('`' . TMP . 'noExistingDir`: File or directory is not writable');
+        $this->assertErrorContains('File or directory `' . TMP . 'noExistingFile` is not readable');
+        $this->assertErrorContains('File or directory `' . TMP . 'noExistingDir` is not writable');
     }
 
     /**

@@ -13,6 +13,7 @@
 namespace MeTools\Test\TestCase\TestSuite;
 
 use MeTools\TestSuite\TestCase;
+use PHPUnit\Framework\AssertionFailedError;
 use Tools\ReflectionTrait;
 
 /**
@@ -54,17 +55,9 @@ class TestCaseTest extends TestCase
             $this->assertLogContains($word, $file);
         }
 
-        safe_unlink($file);
-    }
-
-    /**
-     * Tests for `assertLogContains()` method, with a no existing log
-     * @expectedException PHPUnit\Framework\AssertionFailedError
-     * @expectedExceptionMessageRegExp /^`[\w\d_\/\\:]+noExisting.log`: File or directory is not readable$/
-     * @test
-     */
-    public function testAssertLogContainsNoExistingLog()
-    {
+        //With a no existing log
+        $this->expectException(AssertionFailedError::class);
+        $this->expectExceptionMessage('File or directory `' . $this->getLogFullPath('noExisting') . '` is not readable');
         $this->assertLogContains('content', 'noExisting');
     }
 

@@ -26,14 +26,13 @@ class FlashComponentTest extends ComponentTestCase
     public function testMagicCall()
     {
         $text = 'My message';
-        $expectedClasses = [
+
+        foreach ([
             'alert' => 'alert-warning',
             'error' => 'alert-danger',
             'notice' => 'alert-info',
             'success' => 'alert-success',
-        ];
-
-        foreach ($expectedClasses as $methodToCall => $expectedClass) {
+        ] as $methodToCall => $expectedClass) {
             $expected = [[
                 'message' => $text,
                 'key' => 'flash',

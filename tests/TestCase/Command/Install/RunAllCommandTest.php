@@ -37,19 +37,6 @@ class RunAllCommandTest extends TestCase
     protected $debug = [];
 
     /**
-     * Called after every test method
-     * @return void
-     */
-    public function tearDown()
-    {
-        parent::tearDown();
-
-        safe_unlink(WWW_ROOT . 'me_tools');
-        safe_unlink(WWW_ROOT . 'robots.txt');
-        safe_unlink_recursive(WWW_ROOT . 'vendor', 'empty');
-    }
-
-    /**
      * Tests for `execute()` method
      * @test
      */

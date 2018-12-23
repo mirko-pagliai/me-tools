@@ -3,7 +3,7 @@
 ### 2.18.1
 * improved the `MockTrait`.
 * little code fixes;
-* updated for `php-tools` 1.1.8.
+* updated for `php-tools` 1.1.9.
 
 ### 2.18.0
 * `InstallShell` has been replaced with console commands. Every method of the
