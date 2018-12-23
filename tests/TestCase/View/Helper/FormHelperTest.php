@@ -44,9 +44,6 @@ class FormHelperTest extends HelperTestCase
     {
         $title = 'My button';
 
-        $expected = [ 'button' => ['type' => 'button', 'class' => 'btn btn-primary'], $title, '/button'];
-        $this->assertHtml($expected, $this->Helper->button($title));
-
         $expected = [
             'button' => ['type' => 'button', 'class' => 'btn btn-primary'],
             'i' => ['class' => 'fas fa-home'],
@@ -65,9 +62,6 @@ class FormHelperTest extends HelperTestCase
         $this->assertHtml($expected, $this->Helper->button($title, ['type' => 'submit']));
 
         $expected = ['button' => ['type' => 'button', 'class' => 'btn btn-danger'], $title, '/button'];
-        $this->assertHtml($expected, $this->Helper->button($title, ['class' => 'btn btn-danger']));
-
-        $expected = ['button' => ['type' => 'button', 'class' => 'btn btn-danger'], $title, '/button'];
         $this->assertHtml($expected, $this->Helper->button($title, ['class' => 'btn-danger']));
     }
 
@@ -77,12 +71,11 @@ class FormHelperTest extends HelperTestCase
      */
     public function testCheckbox()
     {
-        $field = 'my-field';
         $expected = [
-            ['input' => ['type' => 'hidden', 'name' => $field, 'value' => '0']],
-            ['input' => ['type' => 'checkbox', 'name' => $field, 'value' => '1']],
+            ['input' => ['type' => 'hidden', 'name' => 'my-field', 'value' => '0']],
+            ['input' => ['type' => 'checkbox', 'name' => 'my-field', 'value' => '1']],
         ];
-        $this->assertHtml($expected, $this->Helper->checkbox($field));
+        $this->assertHtml($expected, $this->Helper->checkbox('my-field'));
     }
 
     /**
@@ -344,7 +337,6 @@ class FormHelperTest extends HelperTestCase
     public function testControlTextarea()
     {
         $field = 'my-field';
-
         $expected = [
             'div' => ['class' => 'form-group input textarea'],
             'label' => ['for' => $field],
@@ -472,53 +464,22 @@ class FormHelperTest extends HelperTestCase
     {
         $field = 'my-field';
 
-        $expected = [
-            'div' => ['class' => 'form-group input text'],
-            'label' => ['for' => $field],
-            'My Field',
-            '/label',
-            'input' => [
-                'type' => 'text',
-                'name' => $field,
-                'class' => 'form-control datepicker',
-                'data-date-format' => 'YYYY-MM-DD',
-                'id' => $field,
-            ],
-            '/div',
-        ];
-        $this->assertHtml($expected, $this->Helper->datepicker($field));
-
-        $expected = [
-            'div' => ['class' => 'form-group input text'],
-            'label' => ['for' => $field],
-            'My Field',
-            '/label',
-            'input' => [
-                'type' => 'text',
-                'name' => $field,
-                'class' => 'form-control datetimepicker',
-                'data-date-format' => 'YYYY-MM-DD HH:mm',
-                'id' => $field,
-            ],
-            '/div',
-        ];
-        $this->assertHtml($expected, $this->Helper->datetimepicker($field));
-
-        $expected = [
-            'div' => ['class' => 'form-group input text'],
-            'label' => ['for' => $field],
-            'My Field',
-            '/label',
-            'input' => [
-                'type' => 'text',
-                'name' => $field,
-                'class' => 'form-control timepicker',
-                'data-date-format' => 'HH:mm',
-                'id' => $field,
-            ],
-            '/div',
-        ];
-        $this->assertHtml($expected, $this->Helper->timepicker($field));
+        foreach (['datepicker', 'datetimepicker', 'timepicker'] as $method) {
+            $expected = [
+                'div' => ['class' => 'form-group input text'],
+                'label' => ['for' => $field],
+                'My Field',
+                '/label',
+                'input' => [
+                    'type' => 'text',
+                    'name' => $field,
+                    'class' => 'form-control ' . $method,
+                    'data-date-format' => 'preg:/(YYYY\-MM\-DD)?\s?(HH:mm)?/',
+                    'id' => $field],
+                '/div',
+            ];
+            $this->assertHtml($expected, $this->Helper->{$method}($field));
+        }
     }
 
     /**
@@ -527,28 +488,19 @@ class FormHelperTest extends HelperTestCase
      */
     public function testLabel()
     {
-        $fieldname = 'my-fieldname';
-        $title = 'My label';
-
-        $expected = ['label' => ['for' => 'my-fieldname'], $title, '/label'];
-        $this->assertHtml($expected, $this->Helper->label($fieldname, $title));
-
         $expected = [
             'label' => ['for' => 'my-fieldname'],
             'i' => ['class' => 'fas fa-home'],
             ' ',
             '/i',
             ' ',
-            $title,
+            'My label',
             '/label',
         ];
-        $this->assertHtml($expected, $this->Helper->label($fieldname, $title, ['icon' => 'home']));
+        $this->assertHtml($expected, $this->Helper->label('my-fieldname', 'My label', ['icon' => 'home']));
 
-        $expected = ['label' => ['for' => 'my-fieldname'], 'Single escape \'', '/label'];
-        $this->assertHtml($expected, $this->Helper->label($fieldname, 'Single escape \''));
-
-        $expected = ['label' => ['for' => 'my-fieldname'], 'Double escape "', '/label'];
-        $this->assertHtml($expected, $this->Helper->label($fieldname, 'Double escape "'));
+        $expected = ['label' => ['for' => 'my-fieldname'], '" \'', '/label'];
+        $this->assertHtml($expected, $this->Helper->label('my-fieldname', '" \''));
     }
 
     /**
@@ -559,16 +511,6 @@ class FormHelperTest extends HelperTestCase
     {
         $title = 'My title';
         $url = 'http://link';
-
-        $expected = [
-            'form' => ['name', 'style' => 'display:none;', 'method' => 'post', 'action' => $url],
-            'input' => ['type' => 'hidden', 'name' => '_method', 'value' => 'POST'],
-            '/form',
-            'a' => ['href' => '#', 'role' => 'button', 'class' => 'btn btn-light', 'title' => $title, 'onclick'],
-            $title,
-            '/a',
-        ];
-        $this->assertHtml($expected, $this->Helper->postButton($title, $url));
 
         $expected = [
             'form' => ['name', 'style' => 'display:none;', 'method' => 'post', 'action' => $url],
@@ -609,16 +551,6 @@ class FormHelperTest extends HelperTestCase
             'input' => ['type' => 'hidden', 'name' => '_method', 'value' => 'POST'],
             '/form',
             'a' => ['href' => '#', 'title' => $title, 'onclick'],
-            $title,
-            '/a',
-        ];
-        $this->assertHtml($expected, $this->Helper->postLink($title, $url));
-
-        $expected = [
-            'form' => ['name', 'style' => 'display:none;', 'method' => 'post', 'action' => $url],
-            'input' => ['type' => 'hidden', 'name' => '_method', 'value' => 'POST'],
-            '/form',
-            'a' => ['href' => '#', 'title' => $title, 'onclick'],
             'i' => ['class' => 'fas fa-home'],
             ' ',
             '/i',
@@ -642,21 +574,11 @@ class FormHelperTest extends HelperTestCase
             'form' => ['name', 'style' => 'display:none;', 'method' => 'post', 'action' => $url],
             'input' => ['type' => 'hidden', 'name' => '_method', 'value' => 'POST'],
             '/form',
-            'a' => ['href' => '#', 'title' => 'Single quote &amp;#039;', 'onclick'],
-            'Single quote \'',
+            'a' => ['href' => '#', 'title' => '&amp;quot; &amp;#039;', 'onclick'],
+            '" \'',
             '/a',
         ];
-        $this->assertHtml($expected, $this->Helper->postLink('Single quote \'', $url));
-
-        $expected = [
-            'form' => ['name', 'style' => 'display:none;', 'method' => 'post', 'action' => $url],
-            'input' => ['type' => 'hidden', 'name' => '_method', 'value' => 'POST'],
-            '/form',
-            'a' => ['href' => '#', 'title' => 'Double quote &amp;quot;', 'onclick'],
-            'Double quote "',
-            '/a',
-        ];
-        $this->assertHtml($expected, $this->Helper->postLink('Double quote "', $url));
+        $this->assertHtml($expected, $this->Helper->postLink('" \'', $url));
     }
 
     /**
@@ -746,17 +668,12 @@ class FormHelperTest extends HelperTestCase
     {
         $title = 'My title';
 
-        $expected = ['button' => ['type' => 'submit', 'class' => 'btn btn-success'], $title, '/button'];
-        $this->assertHtml($expected, $this->Helper->submit($title));
-
         //The `type` option will be overwritten
+        $expected = ['button' => ['type' => 'submit', 'class' => 'btn btn-success'], $title, '/button'];
         $this->assertHtml($expected, $this->Helper->submit($title, ['type' => 'reset']));
 
-        $expected = ['button' => ['type' => 'submit', 'class' => 'btn btn-danger'], $title, '/button'];
-        $this->assertHtml($expected, $this->Helper->submit($title, ['class' => 'btn-danger']));
-
         $expected = [
-            'button' => ['type' => 'submit', 'class' => 'btn btn-success'],
+            'button' => ['type' => 'submit', 'class' => 'btn btn-danger'],
             'i' => ['class' => 'fas fa-home'],
             ' ',
             '/i',
@@ -764,7 +681,7 @@ class FormHelperTest extends HelperTestCase
             $title,
             '/button',
         ];
-        $this->assertHtml($expected, $this->Helper->submit($title, ['icon' => 'home']));
+        $this->assertHtml($expected, $this->Helper->submit($title, ['class' => 'btn-danger', 'icon' => 'home']));
     }
 
     /**
@@ -773,8 +690,7 @@ class FormHelperTest extends HelperTestCase
      */
     public function testTextarea()
     {
-        $field = 'my-field';
-        $expected = ['textarea' => ['name' => $field, 'class' => 'form-control'], '/textarea'];
-        $this->assertHtml($expected, $this->Helper->textarea($field));
+        $expected = ['textarea' => ['name' => 'my-field', 'class' => 'form-control'], '/textarea'];
+        $this->assertHtml($expected, $this->Helper->textarea('my-field'));
     }
 }
