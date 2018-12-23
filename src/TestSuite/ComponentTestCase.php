@@ -22,7 +22,7 @@ abstract class ComponentTestCase extends TestCase
 {
     /**
      * Component instance
-     * @var \PHPUnit\Framework\MockObject\MockObject
+     * @var \Cake\Controller\Component|\PHPUnit_Framework_MockObject_MockObject
      */
     protected $Component;
 
