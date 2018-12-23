@@ -1,9 +1,7 @@
 # 2.x branch
 ## 2.18 branch
-### 2.18.2
-* improved the `MockTrait`.
-
 ### 2.18.1
+* improved the `MockTrait`.
 * little code fixes;
 * updated for `php-tools` 1.1.8.
 
