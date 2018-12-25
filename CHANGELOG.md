@@ -3,7 +3,7 @@
 ### 2.18.1
 * improved the `MockTrait`.
 * you can load test plugins writing the `pluginsToLoad` variable in Configure;
-* little code fixes;
+* little code and test fixes;
 * updated for `php-tools` 1.1.9.
 
 ### 2.18.0

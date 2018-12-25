@@ -12,7 +12,10 @@
  */
 namespace MeTools\Test\TestCase\Command\Install;
 
+use Cake\Console\Arguments;
+use Cake\Console\ConsoleIo;
 use Cake\Core\Configure;
+use MeTools\Command\Install\SetPermissionsCommand;
 use MeTools\TestSuite\ConsoleIntegrationTestTrait;
 use MeTools\TestSuite\TestCase;
 
@@ -29,13 +32,22 @@ class SetPermissionsCommandTest extends TestCase
      */
     public function testExecute()
     {
-        $this->exec('me_tools.set_permissions -v');
-        $this->assertExitWithSuccess();
+        $io = new ConsoleIo;
+        $Command = $this->getMockBuilder(SetPermissionsCommand::class)
+            ->setMethods(['folderChmod'])
+            ->getMock();
 
+        $count = 0;
         foreach (Configure::read('WRITABLE_DIRS') as $path) {
-            $this->assertOutputContains('Setted permissions on `' . rtr($path) . '`');
+            $Command->expects($this->at($count++))
+                ->method('folderChmod')
+                ->with($io, $path);
         }
 
-        $this->assertErrorEmpty();
+        $Command->expects($this->exactly(count(Configure::read('WRITABLE_DIRS'))))
+            ->method('folderChmod');
+
+        $result = $Command->execute(new Arguments([], [], []), $io);
+        $this->assertNull($result);
     }
 }

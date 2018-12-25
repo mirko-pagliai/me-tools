@@ -12,7 +12,10 @@
  */
 namespace MeTools\Test\TestCase\Command\Install;
 
+use Cake\Console\Arguments;
+use Cake\Console\ConsoleIo;
 use Cake\Core\Configure;
+use MeTools\Command\Install\CreateVendorsLinksCommand;
 use MeTools\TestSuite\ConsoleIntegrationTestTrait;
 use MeTools\TestSuite\TestCase;
 
@@ -29,17 +32,22 @@ class CreateVendorsLinksCommandTest extends TestCase
      */
     public function testExecute()
     {
-        foreach (array_keys(Configure::read('VENDOR_LINKS')) as $link) {
-            safe_create_file(ROOT . 'vendor' . DS . $link . DS . 'empty');
+        $io = new ConsoleIo;
+        $Command = $this->getMockBuilder(CreateVendorsLinksCommand::class)
+            ->setMethods(['createLink'])
+            ->getMock();
+
+        $count = 0;
+        foreach (Configure::read('VENDOR_LINKS') as $origin => $target) {
+            $Command->expects($this->at($count++))
+                ->method('createLink')
+                ->with($io, ROOT . 'vendor' . DS . $origin, WWW_ROOT . 'vendor' . DS . $target);
         }
 
-        $this->exec('me_tools.create_vendors_links -v');
-        $this->assertExitWithSuccess();
+        $Command->expects($this->exactly(count(Configure::read('VENDOR_LINKS'))))
+            ->method('createLink');
 
-        foreach (Configure::read('VENDOR_LINKS') as $link) {
-            $this->assertOutputContains('Link `' . rtr(WWW_ROOT) . 'vendor' . DS . $link . '` has been created');
-        }
-
-        $this->assertErrorEmpty();
+        $result = $Command->execute(new Arguments([], [], []), $io);
+        $this->assertNull($result);
     }
 }

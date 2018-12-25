@@ -12,7 +12,10 @@
  */
 namespace MeTools\Test\TestCase\Command\Install;
 
+use Cake\Console\Arguments;
+use Cake\Console\ConsoleIo;
 use Cake\Core\Configure;
+use MeTools\Command\Install\CreateDirectoriesCommand;
 use MeTools\TestSuite\ConsoleIntegrationTestTrait;
 use MeTools\TestSuite\TestCase;
 
@@ -29,26 +32,23 @@ class CreateDirectoriesCommandTest extends TestCase
      */
     public function testExecute()
     {
-        $pathsAlreadyExist = [TMP, CACHE, WWW_ROOT . 'vendor'];
-        foreach ($pathsAlreadyExist as $path) {
-            safe_mkdir($path, 0777, true);
+
+        $io = new ConsoleIo;
+        $Command = $this->getMockBuilder(CreateDirectoriesCommand::class)
+            ->setMethods(['createDir'])
+            ->getMock();
+
+        $count = 0;
+        foreach (Configure::read('WRITABLE_DIRS') as $path) {
+            $Command->expects($this->at($count++))
+                ->method('createDir')
+                ->with($io, $path);
         }
 
-        $pathsToBeCreated = array_diff(Configure::read('WRITABLE_DIRS'), $pathsAlreadyExist);
-        array_walk($pathsToBeCreated, 'safe_rmdir');
+        $Command->expects($this->exactly(count(Configure::read('WRITABLE_DIRS'))))
+            ->method('createDir');
 
-        $this->exec('me_tools.create_directories -v');
-        $this->assertExitWithSuccess();
-
-        foreach ($pathsAlreadyExist as $path) {
-            $this->assertOutputContains('File or directory `' . rtr($path) . '` already exists');
-        }
-
-        foreach ($pathsToBeCreated as $path) {
-            $this->assertOutputContains('Created `' . rtr($path) . '` directory');
-            $this->assertOutputContains('Setted permissions on `' . rtr($path) . '`');
-        }
-
-        $this->assertErrorEmpty();
+        $result = $Command->execute(new Arguments([], [], []), $io);
+        $this->assertNull($result);
     }
 }
