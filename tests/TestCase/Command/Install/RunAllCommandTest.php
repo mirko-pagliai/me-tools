@@ -42,11 +42,6 @@ class RunAllCommandTest extends TestCase
      */
     public function testExecute()
     {
-        $this->exec('me_tools.install -f -v');
-        $this->assertExitWithSuccess();
-        $this->assertOutputNotEmpty();
-        $this->assertErrorEmpty();
-
         $io = $this->getMockBuilder(ConsoleIo::class)
             ->setMethods(['askChoice'])
             ->getMock();
