@@ -13,6 +13,7 @@
  */
 namespace MeTools\TestSuite;
 
+use Cake\Core\Configure;
 use Cake\Filesystem\Folder;
 use Cake\TestSuite\TestCase as CakeTestCase;
 use Exception;
@@ -37,7 +38,7 @@ abstract class TestCase extends CakeTestCase
     {
         parent::setUp();
 
-        $this->loadPlugins(['MeTools']);
+        $this->loadPlugins(Configure::read('pluginsToLoad') ?: ['MeTools']);
     }
 
     /**
