@@ -104,7 +104,7 @@ class UploaderComponent extends Component
      * @param string|array $acceptedMimetype Accepted mimetypes as string or
      *  array or a magic word (`images` or `text`)
      * @return \MeTools\Controller\Component\UploaderComponent
-     * @throw RuntimeException
+     * @throws RuntimeException
      * @uses setError()
      * @uses $file
      */
@@ -139,7 +139,7 @@ class UploaderComponent extends Component
      *  generated automatically
      * @return string|bool Final full path of the uploaded file or `false` on
      *  failure
-     * @throw RuntimeException
+     * @throws RuntimeException
      * @uses findTargetFilename()
      * @uses getError()
      * @uses setError()
