@@ -48,16 +48,13 @@ class LibraryHelperTest extends HelperTestCase
     {
         parent::tearDown();
 
-        foreach ([
-            'ckeditor' . DS . 'adapters' . DS . 'jquery.js',
-            'ckeditor' . DS . 'ckeditor.js',
-            'js' . DS . 'ckeditor_init.js',
-            'js' . DS . 'ckeditor_init.php',
-            'js' . DS . 'fancybox_init.js',
-            'vendor' . DS . 'fancybox',
-        ] as $file) {
-            safe_unlink(WWW_ROOT . $file);
-        }
+        array_map('safe_unlink', [
+            WWW_ROOT . 'ckeditor' . DS . 'adapters' . DS . 'jquery.js',
+            WWW_ROOT . 'ckeditor' . DS . 'ckeditor.js',
+            WWW_ROOT . 'js' . DS . 'ckeditor_init.js',
+            WWW_ROOT . 'js' . DS . 'ckeditor_init.php',
+            WWW_ROOT . 'js' . DS . 'fancybox_init.js',
+        ]);
     }
 
     /**
@@ -71,7 +68,6 @@ class LibraryHelperTest extends HelperTestCase
         if (Plugin::getCollection()->has('Assets')) {
             $this->Helper->initialize([]);
             $this->assertInstanceof(AssetHelper::class, $this->Helper->Asset);
-
             $this->removePlugins(['Assets']);
         }
 
@@ -342,10 +338,7 @@ class LibraryHelperTest extends HelperTestCase
      */
     public function testSlugify()
     {
-        $expected = [
-            'script' => ['src' => '/me_tools/js/slugify.js'],
-            '/script',
-        ];
+        $expected = ['script' => ['src' => '/me_tools/js/slugify.js'], '/script'];
         $this->Helper->slugify();
         $this->assertHtml($expected, $this->Helper->getView()->fetch('script_bottom'));
 

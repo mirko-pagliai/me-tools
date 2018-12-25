@@ -12,7 +12,6 @@
  */
 namespace MeTools\Test\TestCase\TestSuite;
 
-use Cake\ORM\TableRegistry;
 use MeTools\TestSuite\TestCase;
 use PHPUnit\Framework\MockObject\MockObject;
 

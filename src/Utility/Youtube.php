@@ -34,7 +34,9 @@ class Youtube
             parse_str($url['query'], $url);
 
             return empty($url['v']) ? false : $url['v'];
-        } elseif (preg_match('/youtu\.be\/([^?]+)/', $url, $matches)) {
+        }
+
+        if (preg_match('/youtu\.be\/([^?]+)/', $url, $matches)) {
             return $matches[1];
         }
 

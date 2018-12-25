@@ -23,17 +23,6 @@ class CreateRobotsCommandTest extends TestCase
     use ConsoleIntegrationTestTrait;
 
     /**
-     * Called after every test method
-     * @return void
-     */
-    public function tearDown()
-    {
-        parent::tearDown();
-
-        safe_unlink(WWW_ROOT . 'robots.txt');
-    }
-
-    /**
      * Tests for `execute()` method
      * @test
      */

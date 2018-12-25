@@ -109,6 +109,7 @@ class RunAllCommand extends Command
         $questions = $args->getOption('force') ? Hash::extract($this->questions, '{n}[default=Y]') : $this->questions;
 
         foreach ($questions as $question) {
+            is_true_or_fail(['question', 'default', 'command'] === array_keys($question), __d('me_tools', 'Invalid question keys'));
             list($question, $default, $command) = array_values($question);
 
             //The method must be executed if the `force` mode is set or if the
@@ -120,7 +121,7 @@ class RunAllCommand extends Command
             }
 
             if ($toBeExecuted) {
-                $command = $command instanceof Command ? $command : new $command;
+                $command = is_string($command) ? new $command : $command;
                 $command->execute(new Arguments([], compact('verbose'), []), $io);
             }
         }

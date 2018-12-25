@@ -111,20 +111,14 @@ class UploaderComponentTest extends ComponentTestCase
         $this->Component->set($file);
         $this->assertEmpty($this->Component->getError());
         $this->assertInstanceOf(stdClass::class, $this->Component->file);
-        $this->assertObjectPropertiesEqual([
-            'name',
-            'type',
-            'tmp_name',
-            'error',
-            'size',
-        ], $this->Component->file);
+        $this->assertObjectPropertiesEqual(['name', 'type', 'tmp_name', 'error', 'size'], $this->Component->file);
 
         $this->Component->set(array_merge($file, ['error' => UPLOAD_ERR_INI_SIZE]));
-        $this->assertInstanceOf('stdClass', $this->Component->file);
+        $this->assertInstanceOf(stdClass::class, $this->Component->file);
         $this->assertNotEmpty($this->Component->getError());
 
         $this->Component->set(array_merge($file, ['error' => 'noExistingErrorCode']));
-        $this->assertInstanceOf('stdClass', $this->Component->file);
+        $this->assertInstanceOf(stdClass::class, $this->Component->file);
         $this->assertEquals('Unknown upload error', $this->Component->getError());
     }
 

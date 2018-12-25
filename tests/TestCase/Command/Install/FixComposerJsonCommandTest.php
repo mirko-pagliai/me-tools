@@ -23,17 +23,6 @@ class FixComposerJsonCommandTest extends TestCase
     use ConsoleIntegrationTestTrait;
 
     /**
-     * Called after every test method
-     * @return void
-     */
-    public function tearDown()
-    {
-        parent::tearDown();
-
-        safe_unlink(APP . 'composer.json');
-    }
-
-    /**
      * Tests for `execute()` method
      * @test
      */
@@ -44,7 +33,7 @@ class FixComposerJsonCommandTest extends TestCase
         //Tries to fix a no existing file
         $this->exec($command . ' -p noExisting');
         $this->assertExitWithError();
-        $this->assertErrorContains('File or directory is not writable');
+        $this->assertErrorContains('File or directory `noExisting` is not writable');
 
         //Tries to fix an invalid composer.json file
         $file = TMP . 'invalid.json';
@@ -72,5 +61,7 @@ class FixComposerJsonCommandTest extends TestCase
         $this->assertExitWithSuccess();
         $this->assertOutputContains('The file ' . rtr($file) . ' doesn\'t need to be fixed');
         $this->assertErrorEmpty();
+
+        safe_unlink(APP . 'composer.json');
     }
 }

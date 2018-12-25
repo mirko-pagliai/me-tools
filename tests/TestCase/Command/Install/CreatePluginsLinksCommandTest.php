@@ -23,15 +23,6 @@ class CreatePluginsLinksCommandTest extends TestCase
     use ConsoleIntegrationTestTrait;
 
     /**
-     * Called after every test method
-     * @return void
-     */
-    public function tearDown()
-    {
-        safe_unlink(WWW_ROOT . 'me_tools');
-    }
-
-    /**
      * Tests for `execute()` method
      * @test
      */

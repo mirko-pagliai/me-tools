@@ -37,29 +37,11 @@ class RunAllCommandTest extends TestCase
     protected $debug = [];
 
     /**
-     * Called after every test method
-     * @return void
-     */
-    public function tearDown()
-    {
-        parent::tearDown();
-
-        safe_unlink(WWW_ROOT . 'me_tools');
-        safe_unlink(WWW_ROOT . 'robots.txt');
-        safe_unlink_recursive(WWW_ROOT . 'vendor', 'empty');
-    }
-
-    /**
      * Tests for `execute()` method
      * @test
      */
     public function testExecute()
     {
-        $this->exec('me_tools.install -f -v');
-        $this->assertExitWithSuccess();
-        $this->assertOutputNotEmpty();
-        $this->assertErrorEmpty();
-
         $io = $this->getMockBuilder(ConsoleIo::class)
             ->setMethods(['askChoice'])
             ->getMock();

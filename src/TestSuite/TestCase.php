@@ -13,11 +13,11 @@
  */
 namespace MeTools\TestSuite;
 
+use Cake\Core\Configure;
 use Cake\Filesystem\Folder;
 use Cake\TestSuite\TestCase as CakeTestCase;
 use Exception;
 use MeTools\TestSuite\MockTrait;
-use Tools\Exception\NotReadableException;
 use Tools\ReflectionTrait;
 use Tools\TestSuite\TestCaseTrait;
 
@@ -38,7 +38,7 @@ abstract class TestCase extends CakeTestCase
     {
         parent::setUp();
 
-        $this->loadPlugins(['MeTools']);
+        $this->loadPlugins(Configure::read('pluginsToLoad') ?: ['MeTools']);
     }
 
     /**
@@ -49,7 +49,10 @@ abstract class TestCase extends CakeTestCase
     {
         parent::tearDown();
 
+        safe_unlink_recursive(WWW_ROOT . 'vendor', 'empty');
         safe_unlink_recursive(LOGS);
+        safe_unlink(WWW_ROOT . 'me_tools');
+        safe_unlink(WWW_ROOT . 'robots.txt');
     }
 
     /**
@@ -83,8 +86,6 @@ abstract class TestCase extends CakeTestCase
         try {
             is_readable_or_fail($filename);
             $content = file_get_contents($filename);
-        } catch (NotReadableException $e) {
-            $this->fail(sprintf('`%s`: %s', $filename, $e->getMessage()));
         } catch (Exception $e) {
             $this->fail($e->getMessage());
         }

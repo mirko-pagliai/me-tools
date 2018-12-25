@@ -130,12 +130,13 @@ class DropdownHelperTest extends HelperTestCase
         $this->assertHtml($expected, $result);
 
         //With `menu()` method
+        $links = [
+            $this->Html->link('First link', '/first', ['class' => 'dropdown-item']),
+            $this->Html->link('Second link', '/second', ['class' => 'dropdown-item']),
+        ];
         $result = $this->Helper->menu(
             $text,
-            [
-                $this->Html->link('First link', '/first', ['class' => 'dropdown-item']),
-                $this->Html->link('Second link', '/second', ['class' => 'dropdown-item']),
-            ],
+            $links,
             ['class' => 'my-start-class', 'icon' => 'home'],
             ['class' => 'div-custom-class', 'attr' => 'value']
         );
@@ -180,10 +181,10 @@ class DropdownHelperTest extends HelperTestCase
         $result = $this->Html->ul([
             $this->Html->link('Home', '/'),
             //This is the dropdown menu
-            call_user_func(function () {
+            call_user_func(function () use ($links) {
                 $this->Helper->start('My dropdown');
-                echo $this->Html->link('First link', '/first', ['class' => 'dropdown-item']);
-                echo $this->Html->link('Second link', '/second', ['class' => 'dropdown-item']);
+                echo $links[0];
+                echo $links[1];
 
                 return $this->Helper->end();
             }),
