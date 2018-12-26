@@ -1,5 +1,8 @@
 # 2.x branch
 ## 2.18 branch
+### 2.18.2
+* fixed bug the `Asstes` bootstrap was not loaded automatically.
+
 ### 2.18.1
 * improved the `MockTrait`.
 * you can load test plugins writing the `pluginsToLoad` variable in Configure;
