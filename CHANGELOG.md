@@ -1,7 +1,8 @@
 # 2.x branch
 ## 2.18 branch
 ### 2.18.2
-* fixed bug: the `Assets` bootstrap was not loaded automatically.
+* fixed bug, the `Assets` bootstrap was not loaded automatically;
+* fixed bug in the output of some errors in the console.
 
 ### 2.18.1
 * improved the `MockTrait`.
