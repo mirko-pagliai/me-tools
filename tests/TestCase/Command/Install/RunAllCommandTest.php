@@ -12,7 +12,6 @@
  */
 namespace MeTools\Test\TestCase\Command\Install;
 
-use Cake\Console\Arguments;
 use Cake\Console\ConsoleIo;
 use MeTools\Console\Command;
 use MeTools\TestSuite\ConsoleIntegrationTestTrait;
@@ -68,7 +67,7 @@ class RunAllCommandTest extends TestCase
             'MeTools\Command\Install\CreatePluginsLinksCommand',
             'MeTools\Command\Install\CreateVendorsLinksCommand',
         ];
-        $this->assertNull($this->Command->run(['force' => true], $io));
+        $this->assertNull($this->Command->run([], $io));
         $this->assertEquals($expected, $this->debug);
     }
 }
