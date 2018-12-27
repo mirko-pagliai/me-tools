@@ -12,7 +12,6 @@
  */
 namespace MeTools\Test\TestCase\Command\Install;
 
-use Cake\Console\Arguments;
 use Cake\Console\ConsoleIo;
 use Cake\Core\Configure;
 use MeTools\Command\Install\SetPermissionsCommand;
@@ -47,7 +46,6 @@ class SetPermissionsCommandTest extends TestCase
         $Command->expects($this->exactly(count(Configure::read('WRITABLE_DIRS'))))
             ->method('folderChmod');
 
-        $result = $Command->execute(new Arguments([], [], []), $io);
-        $this->assertNull($result);
+        $this->assertNull($Command->run([], $io));
     }
 }

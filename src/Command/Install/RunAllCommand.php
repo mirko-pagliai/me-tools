@@ -105,7 +105,6 @@ class RunAllCommand extends Command
      */
     public function execute(Arguments $args, ConsoleIo $io)
     {
-        $verbose = $args->getOption('verbose') ?: false;
         $questions = $args->getOption('force') ? Hash::extract($this->questions, '{n}[default=Y]') : $this->questions;
 
         foreach ($questions as $question) {
@@ -122,7 +121,7 @@ class RunAllCommand extends Command
 
             if ($toBeExecuted) {
                 $command = is_string($command) ? new $command : $command;
-                $command->execute(new Arguments([], compact('verbose'), []), $io);
+                $command->run($args->getOptions(), $io);
             }
         }
 

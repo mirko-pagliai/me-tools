@@ -61,17 +61,6 @@ class RunAllCommandTest extends TestCase
         }, $this->Command->questions);
 
         $expected = [
-            'MeTools\Command\Install\SetPermissionsCommand',
-            'MeTools\Command\Install\CreateRobotsCommand',
-            'MeTools\Command\Install\CreatePluginsLinksCommand',
-            'MeTools\Command\Install\CreateVendorsLinksCommand',
-        ];
-        $this->Command->execute(new Arguments([], ['force' => true], []), $io);
-        $this->assertEquals($expected, $this->debug);
-
-        $this->debug = [];
-
-        $expected = [
             'MeTools\Command\Install\CreateDirectoriesCommand',
             'MeTools\Command\Install\SetPermissionsCommand',
             'MeTools\Command\Install\CreateRobotsCommand',
@@ -79,7 +68,7 @@ class RunAllCommandTest extends TestCase
             'MeTools\Command\Install\CreatePluginsLinksCommand',
             'MeTools\Command\Install\CreateVendorsLinksCommand',
         ];
-        $this->Command->execute(new Arguments([], [], []), $io);
+        $this->assertNull($this->Command->run(['force' => true], $io));
         $this->assertEquals($expected, $this->debug);
     }
 }
