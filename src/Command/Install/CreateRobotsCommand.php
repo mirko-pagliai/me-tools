@@ -31,9 +31,7 @@ class CreateRobotsCommand extends Command
      */
     protected function buildOptionParser(ConsoleOptionParser $parser)
     {
-        $parser->setDescription(__d('me_tools', 'Creates the {0} file', 'robots.txt'));
-
-        return $parser;
+        return $parser->setDescription(__d('me_tools', 'Creates the {0} file', 'robots.txt'));
     }
 
     /**

@@ -16,6 +16,7 @@ namespace MeTools\Command\Install;
 use Cake\Console\Arguments;
 use Cake\Console\ConsoleIo;
 use Cake\Console\ConsoleOptionParser;
+use Cake\Filesystem\Folder;
 use Exception;
 use MeTools\Console\Command;
 
@@ -31,13 +32,11 @@ class FixComposerJsonCommand extends Command
      */
     protected function buildOptionParser(ConsoleOptionParser $parser)
     {
-        $parser->setDescription(__d('me_tools', 'Fixes {0}', 'composer.json'));
-        $parser->addOption('path', [
-            'help' => __d('me_tools', 'Path of the `{0}` file', 'composer.json'),
-            'short' => 'p',
-        ]);
-
-        return $parser;
+        return $parser->setDescription(__d('me_tools', 'Fixes {0}', 'composer.json'))
+            ->addOption('path', [
+                'help' => __d('me_tools', 'Path of the `{0}` file', 'composer.json'),
+                'short' => 'p',
+            ]);
     }
 
     /**
@@ -50,7 +49,7 @@ class FixComposerJsonCommand extends Command
      */
     public function execute(Arguments $args, ConsoleIo $io)
     {
-        $path = $args->getOption('path') ?: ROOT . DS . 'composer.json';
+        $path = $args->getOption('path') ?: Folder::slashTerm(ROOT) . 'composer.json';
 
         try {
             is_writable_or_fail($path);
@@ -68,17 +67,13 @@ class FixComposerJsonCommand extends Command
         }
 
         //Checks if the file has been fixed
-        if (!empty($contents['config']['component-dir']) &&
-            $contents['config']['component-dir'] === 'vendor/components'
-        ) {
+        if (empty($contents['config']['component-dir']) || $contents['config']['component-dir'] !== 'vendor/components') {
+            $contents += ['config' => ['component-dir' => 'vendor/components']];
+            create_file($path, json_encode($contents, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
+            $io->verbose(__d('me_tools', 'The file {0} has been fixed', rtr($path)));
+        } else {
             $io->verbose(__d('me_tools', 'The file {0} doesn\'t need to be fixed', rtr($path)));
-
-            return null;
         }
-
-        $contents += ['config' => ['component-dir' => 'vendor/components']];
-        create_file($path, json_encode($contents, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
-        $io->verbose(__d('me_tools', 'The file {0} has been fixed', rtr($path)));
 
         return null;
     }

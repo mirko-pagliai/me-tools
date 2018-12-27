@@ -32,9 +32,7 @@ class CreateVendorsLinksCommand extends Command
      */
     protected function buildOptionParser(ConsoleOptionParser $parser)
     {
-        $parser->setDescription(__d('me_tools', 'Creates symbolic links for vendor assets'));
-
-        return $parser;
+        return $parser->setDescription(__d('me_tools', 'Creates symbolic links for vendor assets'));
     }
 
     /**
