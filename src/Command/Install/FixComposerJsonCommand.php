@@ -63,9 +63,8 @@ class FixComposerJsonCommand extends Command
         $contents = json_decode(file_get_contents($path), true);
 
         if (empty($contents)) {
-            $io->error(__d('me_tools', 'The file {0} does not seem a valid {1} file', rtr($path), 'composer.json'));
-
-            return null;
+            $io->err(__d('me_tools', 'The file {0} does not seem a valid {1} file', rtr($path), 'composer.json'));
+            $this->abort();
         }
 
         //Checks if the file has been fixed
