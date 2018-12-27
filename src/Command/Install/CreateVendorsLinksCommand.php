@@ -17,6 +17,7 @@ use Cake\Console\Arguments;
 use Cake\Console\ConsoleIo;
 use Cake\Console\ConsoleOptionParser;
 use Cake\Core\Configure;
+use Cake\Filesystem\Folder;
 use MeTools\Console\Command;
 
 /**
@@ -48,8 +49,8 @@ class CreateVendorsLinksCommand extends Command
         foreach (Configure::read('VENDOR_LINKS') as $origin => $target) {
             $this->createLink(
                 $io,
-                ROOT . 'vendor' . DS . $origin,
-                WWW_ROOT . 'vendor' . DS . $target
+                Folder::slashTerm(ROOT) . 'vendor' . DS . $origin,
+                Folder::slashTerm(WWW_ROOT) . 'vendor' . DS . $target
             );
         }
 

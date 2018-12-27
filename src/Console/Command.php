@@ -17,8 +17,6 @@ use Cake\Console\Command as CakeCommand;
 use Cake\Console\ConsoleIo;
 use Cake\Filesystem\Folder;
 use Exception;
-use Tools\Exception\NotReadableException;
-use Tools\Exception\NotWritableException;
 
 /**
  * Base class for console commands
@@ -62,7 +60,7 @@ abstract class Command extends CakeCommand
             is_readable_or_fail($source);
             is_writable_or_fail(dirname($dest));
         } catch (Exception $e) {
-            $io->err($e->getMessage());
+            $io->error($e->getMessage());
 
             return false;
         }
@@ -90,7 +88,7 @@ abstract class Command extends CakeCommand
         }
 
         if (!safe_mkdir($path, 0777, true)) {
-            $io->err(__d('me_tools', 'Failed to create file or directory `{0}`', rtr($path)));
+            $io->error(__d('me_tools', 'Failed to create file or directory `{0}`', rtr($path)));
 
             return false;
         }
@@ -132,7 +130,7 @@ abstract class Command extends CakeCommand
             is_readable_or_fail($source);
             is_writable_or_fail(dirname($dest));
         } catch (Exception $e) {
-            $io->err($e->getMessage());
+            $io->error($e->getMessage());
 
             return false;
         }
@@ -155,7 +153,7 @@ abstract class Command extends CakeCommand
     public function folderChmod(ConsoleIo $io, $path, $chmod = 0777)
     {
         if (!(new Folder())->chmod($path, $chmod, true)) {
-            $io->err(__d('me_tools', 'Failed to set permissions on `{0}`', rtr($path)));
+            $io->error(__d('me_tools', 'Failed to set permissions on `{0}`', rtr($path)));
 
             return false;
         }
