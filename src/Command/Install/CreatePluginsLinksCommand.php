@@ -31,9 +31,7 @@ class CreatePluginsLinksCommand extends Command
      */
     protected function buildOptionParser(ConsoleOptionParser $parser)
     {
-        $parser->setDescription(__d('me_tools', 'Creates symbolic links for plugins assets'));
-
-        return $parser;
+        return $parser->setDescription(__d('me_tools', 'Creates symbolic links for plugins assets'));
     }
 
     /**

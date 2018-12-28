@@ -43,15 +43,13 @@ class RunAllCommand extends Command
      */
     protected function buildOptionParser(ConsoleOptionParser $parser)
     {
-        $parser->setDescription(__d('me_tools', 'Executes all available commands'));
-        $parser->addOption('force', [
-            'boolean' => true,
-            'default' => false,
-            'help' => __d('me_tools', 'Executes tasks without prompting'),
-            'short' => 'f',
-        ]);
-
-        return $parser;
+        return $parser->setDescription(__d('me_tools', 'Executes all available commands'))
+            ->addOption('force', [
+                'boolean' => true,
+                'default' => false,
+                'help' => __d('me_tools', 'Executes tasks without prompting'),
+                'short' => 'f',
+            ]);
     }
 
     /**
@@ -121,7 +119,7 @@ class RunAllCommand extends Command
 
             if ($toBeExecuted) {
                 $command = is_string($command) ? new $command : $command;
-                $command->run($args->getOptions(), $io);
+                $command->run($args->getOption('verbose') ? ['--verbose'] : [], $io);
             }
         }
 

@@ -31,9 +31,7 @@ class CreateDirectoriesCommand extends Command
      */
     protected function buildOptionParser(ConsoleOptionParser $parser)
     {
-        $parser->setDescription(__d('me_tools', 'Creates default directories'));
-
-        return $parser;
+        return $parser->setDescription(__d('me_tools', 'Creates default directories'));
     }
 
     /**

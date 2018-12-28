@@ -31,9 +31,7 @@ class SetPermissionsCommand extends Command
      */
     protected function buildOptionParser(ConsoleOptionParser $parser)
     {
-        $parser->setDescription(__d('me_tools', 'Sets directories permissions'));
-
-        return $parser;
+        return $parser->setDescription(__d('me_tools', 'Sets directories permissions'));
     }
 
     /**
