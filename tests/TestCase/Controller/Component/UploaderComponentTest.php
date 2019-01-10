@@ -27,8 +27,7 @@ class UploaderComponentTest extends ComponentTestCase
      */
     protected function createFile()
     {
-        //Creates a file and writes some content
-        $file = safe_create_tmp_file('string', TMP . 'upload_test');
+        $file = create_tmp_file('string');
 
         return [
             'name' => basename($file),
@@ -45,8 +44,8 @@ class UploaderComponentTest extends ComponentTestCase
      */
     public function tearDown()
     {
-        safe_unlink_recursive(UPLOADS);
-        safe_rmdir_recursive(TMP . 'upload_test');
+        unlink_recursive(UPLOADS);
+        rmdir_recursive(TMP . 'upload_test');
 
         parent::tearDown();
     }
@@ -84,11 +83,11 @@ class UploaderComponentTest extends ComponentTestCase
         $this->assertEquals($file1, $findTargetFilenameMethod($file1));
 
         //Creates the first file
-        safe_create_file($file1);
+        create_file($file1);
         $this->assertEquals($file2, $findTargetFilenameMethod($file1));
 
         //Creates the second file
-        safe_create_file($file2);
+        create_file($file2);
         $this->assertEquals($file3, $findTargetFilenameMethod($file1));
 
         //Files without extension
@@ -97,7 +96,7 @@ class UploaderComponentTest extends ComponentTestCase
         $this->assertEquals($file1, $findTargetFilenameMethod($file1));
 
         //Creates the first file
-        safe_create_file($file1);
+        create_file($file1);
         $this->assertEquals($file2, $findTargetFilenameMethod($file1));
     }
 

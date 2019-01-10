@@ -49,10 +49,10 @@ abstract class TestCase extends CakeTestCase
     {
         parent::tearDown();
 
-        safe_unlink_recursive(WWW_ROOT . 'vendor', 'empty');
-        safe_unlink_recursive(LOGS);
-        safe_unlink(WWW_ROOT . 'me_tools');
-        safe_unlink(WWW_ROOT . 'robots.txt');
+        unlink_recursive(WWW_ROOT . 'vendor', 'empty');
+        unlink_recursive(LOGS);
+        @unlink(WWW_ROOT . 'me_tools');
+        @unlink(WWW_ROOT . 'robots.txt');
     }
 
     /**
@@ -101,6 +101,6 @@ abstract class TestCase extends CakeTestCase
      */
     public function deleteLog($filename)
     {
-        safe_unlink($this->getLogFullPath($filename));
+        unlink($this->getLogFullPath($filename));
     }
 }

@@ -48,7 +48,7 @@ class LibraryHelperTest extends HelperTestCase
     {
         parent::tearDown();
 
-        array_map('safe_unlink', [
+        @array_map('unlink', [
             WWW_ROOT . 'ckeditor' . DS . 'adapters' . DS . 'jquery.js',
             WWW_ROOT . 'ckeditor' . DS . 'ckeditor.js',
             WWW_ROOT . 'js' . DS . 'ckeditor_init.js',
@@ -135,7 +135,7 @@ class LibraryHelperTest extends HelperTestCase
      */
     public function testCkeditor()
     {
-        safe_create_file(WWW_ROOT . 'ckeditor' . DS . 'ckeditor.js');
+        create_file(WWW_ROOT . 'ckeditor' . DS . 'ckeditor.js');
 
         $expected = [
             ['script' => ['src' => '/ckeditor/ckeditor.js']],
@@ -153,8 +153,8 @@ class LibraryHelperTest extends HelperTestCase
      */
     public function testCkeditorWithJqueryAdapter()
     {
-        safe_create_file(WWW_ROOT . 'ckeditor' . DS . 'ckeditor.js');
-        safe_create_file(WWW_ROOT . 'ckeditor' . DS . 'adapters' . DS . 'jquery.js');
+        create_file(WWW_ROOT . 'ckeditor' . DS . 'ckeditor.js');
+        create_file(WWW_ROOT . 'ckeditor' . DS . 'adapters' . DS . 'jquery.js');
 
         $expected = [
             ['script' => ['src' => '/ckeditor/ckeditor.js']],
@@ -174,8 +174,8 @@ class LibraryHelperTest extends HelperTestCase
      */
     public function testCkeditorWithJsFromApp()
     {
-        safe_create_file(WWW_ROOT . 'ckeditor' . DS . 'ckeditor.js');
-        safe_create_file(WWW_ROOT . 'js' . DS . 'ckeditor_init.js');
+        create_file(WWW_ROOT . 'ckeditor' . DS . 'ckeditor.js');
+        create_file(WWW_ROOT . 'js' . DS . 'ckeditor_init.js');
 
         $expected = [
             ['script' => ['src' => '/ckeditor/ckeditor.js']],
@@ -193,8 +193,8 @@ class LibraryHelperTest extends HelperTestCase
      */
     public function testCkeditorWithPhpFromApp()
     {
-        safe_create_file(WWW_ROOT . 'ckeditor' . DS . 'ckeditor.js');
-        safe_create_file(WWW_ROOT . 'js' . DS . 'ckeditor_init.php');
+        create_file(WWW_ROOT . 'ckeditor' . DS . 'ckeditor.js');
+        create_file(WWW_ROOT . 'js' . DS . 'ckeditor_init.php');
 
         $expected = [
             ['script' => ['src' => '/ckeditor/ckeditor.js']],
@@ -267,7 +267,7 @@ class LibraryHelperTest extends HelperTestCase
      */
     public function testFancybox()
     {
-        safe_symlink(VENDOR . 'newerton' . DS . 'fancy-box' . DS . 'source', WWW_ROOT . 'vendor' . DS . 'fancybox');
+        symlink(VENDOR . 'newerton' . DS . 'fancy-box' . DS . 'source', WWW_ROOT . 'vendor' . DS . 'fancybox');
 
         $expected = [
             ['link' => ['rel' => 'stylesheet', 'href' => '/vendor/fancybox/jquery.fancybox.css']],
@@ -296,8 +296,8 @@ class LibraryHelperTest extends HelperTestCase
      */
     public function testFancyboxWithJsFromApp()
     {
-        safe_symlink(VENDOR . 'newerton' . DS . 'fancy-box' . DS . 'source', WWW_ROOT . 'vendor' . DS . 'fancybox');
-        safe_create_file(WWW_ROOT . 'js' . DS . 'fancybox_init.js');
+        symlink(VENDOR . 'newerton' . DS . 'fancy-box' . DS . 'source', WWW_ROOT . 'vendor' . DS . 'fancybox');
+        create_file(WWW_ROOT . 'js' . DS . 'fancybox_init.js');
 
         $expected = [
             ['script' => ['src' => '/vendor/fancybox/jquery.fancybox.pack.js']],
