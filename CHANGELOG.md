@@ -1,5 +1,8 @@
 # 2.x branch
 ## 2.18 branch
+### 2.18.3
+* updated for `php-tools` 1.1.12.
+
 ### 2.18.2
 * fixed bug, the `Assets` bootstrap was not loaded automatically;
 * fixed bug in the output of some errors in the console.

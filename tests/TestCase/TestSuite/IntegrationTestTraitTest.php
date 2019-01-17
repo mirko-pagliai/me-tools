@@ -52,13 +52,13 @@ class IntegrationTestTraitTest extends TestCase
         $this->assertEquals('somerandomhaskeysomerandomhaskey', $this->_controller->Cookie->getConfig('key'));
 
         $this->assertInstanceOf(MockObject::class, $this->_controller->Uploader);
-        $source = safe_create_tmp_file();
+        $source = create_tmp_file();
         $destination = TMP . 'example2';
         $this->assertFileNotExists($destination);
         $this->invokeMethod($this->_controller->Uploader, 'move_uploaded_file', [$source, $destination]);
         $this->assertFileNotExists($source);
         $this->assertFileExists($destination);
-        safe_unlink($destination);
+        unlink($destination);
     }
 
     /**

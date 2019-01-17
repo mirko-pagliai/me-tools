@@ -65,7 +65,7 @@ abstract class Command extends CakeCommand
             return false;
         }
 
-        safe_copy($source, $dest);
+        copy($source, $dest);
         $io->verbose(__d('me_tools', 'File `{0}` has been copied', rtr($dest)));
 
         return true;
@@ -87,7 +87,7 @@ abstract class Command extends CakeCommand
             return false;
         }
 
-        if (!safe_mkdir($path, 0777, true)) {
+        if (!@mkdir($path, 0777, true)) {
             $io->error(__d('me_tools', 'Failed to create file or directory `{0}`', rtr($path)));
 
             return false;
@@ -135,7 +135,7 @@ abstract class Command extends CakeCommand
             return false;
         }
 
-        safe_symlink($source, $dest);
+        symlink($source, $dest);
         $io->verbose(__d('me_tools', 'Link `{0}` has been created', rtr($dest)));
 
         return true;

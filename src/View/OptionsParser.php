@@ -70,13 +70,8 @@ class OptionsParser
     protected function buildValue(&$value, $key)
     {
         if (in_array($key, $this->toBeExploded)) {
-            if (!is_array($value)) {
-                $value = explode(' ', $value);
-            } else {
-                //Collapses multi-dimensional arrays into a single dimension
-                $value = array_values(Hash::flatten($value));
-            }
-            $value = array_unique(array_filter($value));
+            //Collapses multi-dimensional arrays into a single dimension
+            $value = array_clean(is_array($value) ? Hash::flatten($value) : explode(' ', $value));
             sort($value);
             $value = implode(' ', $value);
         }
@@ -151,7 +146,7 @@ class OptionsParser
                 return preg_match('/^(btn\-)?(' . implode('|', $allClasses) . ')$/', $class);
             })
             ->map(function ($class) {
-                return starts_with($class, 'btn-') ? $class : 'btn-' . $class;
+                return string_starts_with($class, 'btn-') ? $class : 'btn-' . $class;
             });
 
         return $this->append('class', array_merge(['btn'], $classes->toList()));

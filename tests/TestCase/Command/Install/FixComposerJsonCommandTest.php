@@ -37,14 +37,14 @@ class FixComposerJsonCommandTest extends TestCase
 
         //Tries to fix an invalid composer.json file
         $file = TMP . 'invalid.json';
-        safe_create_file($file, 'String');
+        create_file($file, 'String');
         $this->exec($command . ' -p ' . $file);
         $this->assertExitWithError();
         $this->assertErrorContains('The file ' . $file . ' does not seem a valid composer.json file');
 
         //Fixes a valid composer.json file
         $file = APP . 'composer.json';
-        safe_create_file($file, json_encode([
+        create_file($file, json_encode([
             'name' => 'example',
             'description' => 'example of composer.json',
             'type' => 'project',
@@ -62,6 +62,6 @@ class FixComposerJsonCommandTest extends TestCase
         $this->assertOutputContains('The file ' . rtr($file) . ' doesn\'t need to be fixed');
         $this->assertErrorEmpty();
 
-        safe_unlink(APP . 'composer.json');
+        unlink(APP . 'composer.json');
     }
 }

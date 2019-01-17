@@ -35,14 +35,14 @@ define('LOGS', TMP . 'cakephp_log' . DS);
 define('SESSIONS', TMP . 'sessions' . DS);
 define('UPLOADS', TMP . 'uploads' . DS);
 
-safe_mkdir(TMP . 'tests', 0777, true);
-safe_mkdir(LOGS, 0777, true);
-safe_mkdir(SESSIONS, 0777, true);
-safe_mkdir(CACHE, 0777, true);
-safe_mkdir(CACHE . 'models', 0777, true);
-safe_mkdir(CACHE . 'persistent', 0777, true);
-safe_mkdir(CACHE . 'views', 0777, true);
-safe_mkdir(UPLOADS, 0777, true);
+@mkdir(TMP . 'tests', 0777, true);
+@mkdir(LOGS, 0777, true);
+@mkdir(SESSIONS, 0777, true);
+@mkdir(CACHE, 0777, true);
+@mkdir(CACHE . 'models', 0777, true);
+@mkdir(CACHE . 'persistent', 0777, true);
+@mkdir(CACHE . 'views', 0777, true);
+@mkdir(UPLOADS, 0777, true);
 
 require_once dirname(__DIR__) . '/vendor/autoload.php';
 require_once CORE_PATH . 'config' . DS . 'bootstrap.php';
