@@ -35,14 +35,6 @@ class CommandTest extends TestCase
     protected $_out;
 
     /**
-     * @var array
-     */
-    protected $exampleFiles = [
-        TMP . 'exampleDir' . DS . 'example1',
-        TMP . 'exampleDir' . DS . 'example2',
-    ];
-
-    /**
      * @var \Cake\Console\ConsoleIo
      */
     protected $io;
@@ -75,7 +67,7 @@ class CommandTest extends TestCase
     {
         parent::tearDown();
 
-        rmdir_recursive(dirname(first_value($this->exampleFiles)));
+        rmdir_recursive(TMP . 'exampleDir');
     }
 
     /**
@@ -84,7 +76,8 @@ class CommandTest extends TestCase
      */
     public function testCopyFile()
     {
-        list($source, $dest) = $this->exampleFiles;
+        $source = TMP . 'exampleDir' . DS . 'source';
+        $dest = TMP . 'exampleDir' . DS . 'dest';
         create_file($source);
 
         //Tries to copy. Source doesn't exist, then destination is not writable
@@ -114,7 +107,7 @@ class CommandTest extends TestCase
         $this->assertOutputContains('File or directory `' . TMP . '` already exists');
 
         //Creates the directory
-        $dir = dirname(first_value($this->exampleFiles)) . DS . 'firstDir' . DS . 'secondDir';
+        $dir = TMP . 'exampleDir' . DS . 'firstDir' . DS . 'secondDir';
         $this->assertTrue($this->Command->createDir($this->io, $dir));
         $this->assertFileExists($dir);
         $this->assertFilePerms($dir, '0777');
@@ -142,8 +135,8 @@ class CommandTest extends TestCase
      */
     public function testCreateFile()
     {
-        list($source) = $this->exampleFiles;
-        mkdir(dirname($source), 0777, true);
+        $source = TMP . 'exampleDir' . DS . 'example';
+        @mkdir(dirname($source), 0777, true);
 
         //Creates the file
         $this->assertTrue($this->Command->createFile($this->io, $source, 'test'));
@@ -163,7 +156,8 @@ class CommandTest extends TestCase
      */
     public function testCreateLink()
     {
-        list($source, $dest) = $this->exampleFiles;
+        $source = TMP . 'exampleDir' . DS . 'source';
+        $dest = TMP . 'exampleDir' . DS . 'dest';
         create_file($source);
 
         //Creates the link
@@ -186,7 +180,7 @@ class CommandTest extends TestCase
      */
     public function testFolderChmod()
     {
-        $dir = dirname(first_value($this->exampleFiles));
+        $dir = TMP . 'exampleDir';
         mkdir($dir, 0777, true);
 
         //Set chmod
