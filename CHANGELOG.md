@@ -1,5 +1,9 @@
 # 2.x branch
 ## 2.18 branch
+### 2.18.4
+* fixed bug for `ConsoleIntegrationTestTrait`;
+* added [API](//mirko-pagliai.github.io/me-tools).
+
 ### 2.18.3
 * updated for `php-tools` 1.1.12.
 

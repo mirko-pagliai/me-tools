@@ -49,8 +49,11 @@ abstract class TestCase extends CakeTestCase
     {
         parent::tearDown();
 
+        if (LOGS !== TMP) {
+            unlink_recursive(LOGS, 'empty');
+        }
+
         unlink_recursive(WWW_ROOT . 'vendor', 'empty');
-        unlink_recursive(LOGS);
         @unlink(WWW_ROOT . 'me_tools');
         @unlink(WWW_ROOT . 'robots.txt');
     }
