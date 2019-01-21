@@ -46,8 +46,7 @@ trait ConsoleIntegrationTestTrait
                 ->getMock();
         }
 
-        $parts = explode('\\', $className);
-        if (next($parts) === 'Command') {
+        if (string_ends_with($className, 'Command')) {
             $this->useCommandRunner();
         }
     }
