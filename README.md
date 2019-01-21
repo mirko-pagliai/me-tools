@@ -6,7 +6,8 @@
 [![Coverage Status](https://img.shields.io/codecov/c/github/mirko-pagliai/me-tools.svg?style=flat-square)](https://codecov.io/github/mirko-pagliai/me-tools)
 
 MeTools is a CakePHP plugin to improve applications development.  
-It provides some useful tools, such as components, helpers and javascript libraries.
+It provides some useful tools, such as components, helpers and javascript libraries.  
+Refer to our [API](//mirko-pagliai.github.io/me-tools) to discover them all.
 
 ## Tests
 Tests are divided into two groups, `onlyUnix` and `onlyWindows`. This is
