@@ -93,10 +93,17 @@ trait MockTrait
      */
     protected function getOriginClassName($testClass)
     {
-        $parts = explode('\\', get_class($testClass));
+        $testClass = get_class($testClass);
+        $parts = explode('\\', $testClass);
         array_splice($parts, 1, 2, []);
         $parts[] = substr(array_pop($parts), 0, -4);
 
-        return implode('\\', $parts);
+        $className = implode('\\', $parts);
+
+        if (!class_exists($className)) {
+            $this->fail(sprintf('The original class for the `%s` test class can not be found', $testClass));
+        }
+
+        return $className;
     }
 }
