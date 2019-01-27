@@ -44,7 +44,11 @@ abstract class ComponentTestCase extends TestCase
 
         //Tries to retrieve the component
         if (!$this->Component && $this->autoInitializeClass) {
-            $this->Component = $this->getMockForComponent($this->getOriginClassName($this), null);
+            $className = $this->getOriginClassName($this);
+            if (!class_exists($className)) {
+                $this->fail(sprintf('Class `%s` does not exist', $className));
+            }
+            $this->Component = $this->getMockForComponent($className, null);
         }
     }
 }
