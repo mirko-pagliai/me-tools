@@ -98,12 +98,6 @@ trait MockTrait
         array_splice($parts, 1, 2, []);
         $parts[] = substr(array_pop($parts), 0, -4);
 
-        $className = implode('\\', $parts);
-
-        if (!class_exists($className)) {
-            $this->fail(sprintf('The original class for the `%s` test class can not be found', $testClass));
-        }
-
-        return $className;
+        return implode('\\', $parts);
     }
 }

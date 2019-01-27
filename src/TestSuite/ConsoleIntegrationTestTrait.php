@@ -41,6 +41,8 @@ trait ConsoleIntegrationTestTrait
 
         $className = $this->getOriginClassName($this);
         if (!$this->Command && !empty($this->autoInitializeClass)) {
+            class_exists($className) ?: $this->fail(sprintf('Class `%s` does not exist', $className));
+
             $this->Command = $this->getMockBuilder($className)
                 ->setMethods(null)
                 ->getMock();
