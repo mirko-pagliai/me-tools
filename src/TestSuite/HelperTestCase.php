@@ -44,9 +44,8 @@ abstract class HelperTestCase extends TestCase
 
         if (!$this->Helper && $this->autoInitializeClass) {
             $className = $this->getOriginClassName($this);
-            if (!class_exists($className)) {
-                $this->fail(sprintf('Class `%s` does not exist', $className));
-            }
+            class_exists($className) ?: $this->fail(sprintf('Class `%s` does not exist', $className));
+
             $this->Helper = $this->getMockForHelper($className, null);
         }
     }
