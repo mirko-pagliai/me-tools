@@ -87,16 +87,23 @@ trait MockTrait
      *
      * Example: class `MyPlugin\Test\TestCase\Controller\PagesControllerTest`
      *  will return the string `MyPlugin\Controller\PagesController`.
-     * @param object $testClass A test class
+     * @param object|string $testClass A test class as object or string
      * @return string The class name for which a test is being performed
      * @since 2.18.0
      */
-    protected function getOriginClassName($testClass)
+    public function getOriginClassName($testClass)
     {
-        $parts = explode('\\', get_class($testClass));
+        $testClass = is_string($testClass) ? $testClass : get_class($testClass);
+        $parts = explode('\\', $testClass);
         array_splice($parts, 1, 2, []);
         $parts[] = substr(array_pop($parts), 0, -4);
 
-        return implode('\\', $parts);
+        $className = implode('\\', $parts);
+
+        if (!class_exists($className)) {
+            $this->fail(sprintf('The original class for the `%s` test class can not be found', $testClass));
+        }
+
+        return $className;
     }
 }

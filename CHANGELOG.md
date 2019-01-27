@@ -1,5 +1,10 @@
 # 2.x branch
 ## 2.18 branch
+### 2.18.5
+* `MockTrait::getOriginClassName()` is now public and can take a string as arg;
+* fixed a small bug in deleting logs during tests;
+* fixed a small bug for the `MockTrait`.
+
 ### 2.18.4
 * fixed bug for `ConsoleIntegrationTestTrait`;
 * added [API](//mirko-pagliai.github.io/me-tools).

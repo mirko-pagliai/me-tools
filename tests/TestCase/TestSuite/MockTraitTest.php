@@ -13,6 +13,7 @@
 namespace MeTools\Test\TestCase\TestSuite;
 
 use MeTools\TestSuite\TestCase;
+use PHPUnit\Framework\AssertionFailedError;
 use PHPUnit\Framework\MockObject\MockObject;
 
 /**
@@ -26,12 +27,14 @@ class MockTraitTest extends TestCase
      */
     public function testGetControllerAlias()
     {
-        $expected = 'Pages';
-
-        $this->assertEquals($expected, $this->getControllerAlias('App\Controller\PagesController'));
-        $this->assertEquals($expected, $this->getControllerAlias('App\Controller\Admin\PagesController'));
-        $this->assertEquals($expected, $this->getControllerAlias('Plugin\Controller\PagesController'));
-        $this->assertEquals($expected, $this->getControllerAlias('Plugin\Controller\Admin\PagesController'));
+        foreach ([
+            'App\Controller\PagesController',
+            'App\Controller\Admin\PagesController',
+            'Plugin\Controller\PagesController',
+            'Plugin\Controller\Admin\PagesController',
+        ] as $class) {
+            $this->assertEquals('Pages', $this->getControllerAlias($class));
+        }
     }
 
     /**
@@ -57,15 +60,23 @@ class MockTraitTest extends TestCase
         $Mock = $this->getMockForController('App\Controller\PagesController', null, 'MyController');
         $this->assertInstanceOf(MockObject::class, $Mock);
         $this->assertEquals('MyController', $Mock->getName());
+
+        //With a no existing class
+        $this->expectException(AssertionFailedError::class);
+        $this->expectExceptionMessage('Class `App\Controller\NoExistingController` does not exist');
+        $this->getMockForController('App\Controller\NoExistingController');
     }
 
     /**
-     * Tests for `getMockForComponent()` method, with a no existing class
-     * @expectedException \PHPUnit\Framework\AssertionFailedError
+     * Tests for `getOriginClassName()` method
      * @test
      */
-    public function testGetMockForControllerNoExistingClass()
+    public function testGetOriginClassName()
     {
-        $this->getMockForController('App\Controller\NoExistingController');
+        $this->assertEquals('MeTools\TestSuite\TestCase', $this->getOriginClassName('MeTools\Test\TestCase\TestSuite\TestCaseTest'));
+
+        $this->expectException(AssertionFailedError::class);
+        $this->expectExceptionMessage('The original class for the `noExistingClass` test class can not be found');
+        $this->getOriginClassName('noExistingClass');
     }
 }
