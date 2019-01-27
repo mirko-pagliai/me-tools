@@ -13,6 +13,7 @@
 namespace MeTools\Test\TestCase\TestSuite;
 
 use MeTools\TestSuite\TestCase;
+use PHPUnit\Framework\AssertionFailedError;
 use PHPUnit\Framework\MockObject\MockObject;
 
 /**
@@ -67,5 +68,18 @@ class MockTraitTest extends TestCase
     public function testGetMockForControllerNoExistingClass()
     {
         $this->getMockForController('App\Controller\NoExistingController');
+    }
+
+    /**
+     * Tests for `getOriginClassName()` method
+     * @test
+     */
+    public function testGetOriginClassName()
+    {
+        $this->assertEquals('MeTools\TestSuite\TestCase', $this->getOriginClassName('MeTools\Test\TestCase\TestSuite\TestCaseTest'));
+
+        $this->expectException(AssertionFailedError::class);
+        $this->expectExceptionMessage('The original class for the `noExistingClass` test class can not be found');
+        $this->getOriginClassName('noExistingClass');
     }
 }
