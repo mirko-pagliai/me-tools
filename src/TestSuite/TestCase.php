@@ -19,7 +19,7 @@ use Cake\TestSuite\TestCase as CakeTestCase;
 use Exception;
 use MeTools\TestSuite\MockTrait;
 use Tools\ReflectionTrait;
-use Tools\TestSuite\TestCaseTrait;
+use Tools\TestSuite\TestTrait;
 
 /**
  * TestCase class
@@ -28,7 +28,7 @@ abstract class TestCase extends CakeTestCase
 {
     use MockTrait;
     use ReflectionTrait;
-    use TestCaseTrait;
+    use TestTrait;
 
     /**
      * Called before every test method
@@ -48,6 +48,8 @@ abstract class TestCase extends CakeTestCase
     public function tearDown()
     {
         parent::tearDown();
+
+        @unlink_recursive(TMP);
 
         if (LOGS !== TMP) {
             @unlink_recursive(LOGS, 'empty');
