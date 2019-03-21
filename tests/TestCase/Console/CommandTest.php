@@ -110,7 +110,7 @@ class CommandTest extends TestCase
         $dir = TMP . 'exampleDir' . DS . 'firstDir' . DS . 'secondDir';
         $this->assertTrue($this->Command->createDir($this->io, $dir));
         $this->assertFileExists($dir);
-        $this->assertFilePerms($dir, '0777');
+        $this->assertFilePerms('0777', $dir);
         $this->assertOutputContains('Created `' . $dir . '` directory');
         $this->assertOutputContains('Setted permissions on `' . $dir . '`');
 
@@ -185,7 +185,7 @@ class CommandTest extends TestCase
 
         //Set chmod
         $this->assertTrue($this->Command->folderChmod($this->io, $dir, 0777));
-        $this->assertFilePerms($dir, '0777');
+        $this->assertFilePerms('0777', $dir);
         $this->assertOutputContains('Setted permissions on `' . $dir . '`');
 
         //Tries to set chmod for a no existing directory
