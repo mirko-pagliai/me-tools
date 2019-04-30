@@ -37,12 +37,6 @@ trait IntegrationTestTrait
 
         $this->_controller->viewBuilder()->setLayout('with_flash');
 
-        //Sets key for cookies
-        if (!$this->_controller->components()->has('Cookie')) {
-            $this->_controller->loadComponent('Cookie');
-        }
-        $this->_controller->Cookie->setConfig('key', 'somerandomhaskeysomerandomhaskey');
-
         if ($this->_controller->components()->has('Uploader')) {
             $this->_controller->Uploader = $this->getMockForComponent(UploaderComponent::class, ['move_uploaded_file']);
 

@@ -61,7 +61,7 @@ class Plugin extends CakePlugin
      *  plugin or of a single plugin file. Otherwise, an array if you asked
      *  the path of several plugin files
      */
-    public static function path($plugin, $file = null, $check = false)
+    public static function path($plugin, $file = null, $check = false): string
     {
         $plugin = parent::path($plugin);
 

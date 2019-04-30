@@ -30,7 +30,7 @@ class FixComposerJsonCommand extends Command
      * @param ConsoleOptionParser $parser The parser to be defined
      * @return ConsoleOptionParser
      */
-    protected function buildOptionParser(ConsoleOptionParser $parser)
+    protected function buildOptionParser(ConsoleOptionParser $parser): ConsoleOptionParser
     {
         return $parser->setDescription(__d('me_tools', 'Fixes {0}', 'composer.json'))
             ->addOption('path', [

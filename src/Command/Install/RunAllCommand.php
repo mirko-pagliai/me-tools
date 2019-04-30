@@ -41,7 +41,7 @@ class RunAllCommand extends Command
      * @param ConsoleOptionParser $parser The parser to be defined
      * @return ConsoleOptionParser
      */
-    protected function buildOptionParser(ConsoleOptionParser $parser)
+    protected function buildOptionParser(ConsoleOptionParser $parser): ConsoleOptionParser
     {
         return $parser->setDescription(__d('me_tools', 'Executes all available commands'))
             ->addOption('force', [

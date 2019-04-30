@@ -48,7 +48,7 @@ class LibraryHelper extends Helper
      * @return void
      * @since 2.18.0
      */
-    public function initialize(array $config)
+    public function initialize(array $config): void
     {
         parent::initialize($config);
 

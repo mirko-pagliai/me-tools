@@ -38,10 +38,10 @@ class BreadcrumbsHelper extends CakeBreadcrumbsHelper
      *      inner element of the crumb (by default, to the link)
      *  - *templateVars*: Specific template vars in case you override the
      *  templates provided
-     * @return $this
+     * @return CakeBreadcrumbsHelper
      * @since 2.16.0
      */
-    public function add($title, $url = null, array $options = [])
+    public function add($title, $url = null, array $options = []): CakeBreadcrumbsHelper
     {
         $options = optionsParser($options)->append('class', 'breadcrumb-item');
 
@@ -65,10 +65,10 @@ class BreadcrumbsHelper extends CakeBreadcrumbsHelper
      *      inner element of the crumb (by default, to the link)
      *  - *templateVars*: Specific template vars in case you override the
      *  templates provided
-     * @return $this
+     * @return CakeBreadcrumbsHelper
      * @since 2.16.0
      */
-    public function prepend($title, $url = null, array $options = [])
+    public function prepend($title, $url = null, array $options = []): CakeBreadcrumbsHelper
     {
         $options = optionsParser($options)->append('class', 'breadcrumb-item');
 
@@ -82,7 +82,7 @@ class BreadcrumbsHelper extends CakeBreadcrumbsHelper
      * @param array $separator Array of attributes for the `separator` template
      * @return string The breadcrumbs trail
      */
-    public function render(array $attributes = [], array $separator = [])
+    public function render(array $attributes = [], array $separator = []): string
     {
         if (empty($this->crumbs)) {
             return parent::render($attributes, $separator);

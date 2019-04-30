@@ -1,4 +1,8 @@
 # 2.x branch
+## 2.19 branch
+### 2.19.0
+* updated for `cakephp` 4.
+
 ## 2.18 branch
 ### 2.18.6
 * updated for `php-tools` 1.2.

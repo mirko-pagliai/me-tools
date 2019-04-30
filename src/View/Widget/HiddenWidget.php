@@ -26,7 +26,7 @@ class HiddenWidget extends BasicWidget
      * @param \Cake\View\Form\ContextInterface $context The current form context
      * @return string
      */
-    public function render(array $data, ContextInterface $context)
+    public function render(array $data, ContextInterface $context): string
     {
         $data = optionsParser($data, [
             'name' => '',

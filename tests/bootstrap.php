@@ -94,7 +94,3 @@ ConnectionManager::setConfig('test', ['url' => 'sqlite:///' . TMP . 'test.sq3'])
 ini_set('intl.default_locale', 'en_US');
 
 $_SERVER['PHP_SELF'] = '/';
-
-if (!class_exists('PHPUnit\Runner\Version')) {
-    class_alias('PHPUnit_Framework_MockObject_MockObject', 'PHPUnit\Framework\MockObject\MockObject');
-}

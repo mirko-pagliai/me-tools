@@ -65,7 +65,7 @@ class PaginatorHelper extends CakePaginatorHelper
      * @param array $options Options for pagination link
      * @return string A "next" link or a disabled link
      */
-    public function next($title = 'Next >>', array $options = [])
+    public function next($title = 'Next >>', array $options = []): string
     {
         $options = optionsParser($options, ['escape' => false, 'icon-align' => 'right']);
         list($title, $options) = $this->Html->addIconToText($title, $options);
@@ -79,7 +79,7 @@ class PaginatorHelper extends CakePaginatorHelper
      * @param array $options Options for pagination link
      * @return string A "previous" link or a disabled link
      */
-    public function prev($title = '<< Previous', array $options = [])
+    public function prev($title = '<< Previous', array $options = []): string
     {
         $options = optionsParser($options, ['escape' => false]);
         list($title, $options) = $this->Html->addIconToText($title, $options);

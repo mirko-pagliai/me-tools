@@ -35,7 +35,7 @@ class FlashComponent extends CakeFlashComponent
      * @param array $args Parameters to pass
      * @return void
      */
-    public function __call($name, $args)
+    public function __call($name, array $args): void
     {
         if (!isset($args[1]['plugin']) && in_array($name, ['alert', 'error', 'notice', 'success'])) {
             if (!isset($args[1]['params']['class'])) {
