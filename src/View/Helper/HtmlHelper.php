@@ -205,19 +205,6 @@ class HtmlHelper extends CakeHtmlHelper
     }
 
     /**
-     * Returns a formatted DIV tag
-     * @param string $class CSS class name of the div element
-     * @param string $text String content that will appear inside the div
-     *  element
-     * @param array $options Array of options and HTML attributes
-     * @return string
-     */
-    public function div($class = null, $text = null, array $options = [])
-    {
-        return parent::div($class, $text, $options);
-    }
-
-    /**
      * Creates an heading, according to Bootstrap.
      *
      * This method is useful if you want to create an heading with a secondary
