@@ -13,6 +13,7 @@
  */
 namespace MeTools\Core;
 
+use Cake\Core\Exception\MissingPluginException;
 use Cake\Core\Plugin as CakePlugin;
 
 /**
@@ -53,13 +54,12 @@ class Plugin extends CakePlugin
 
     /**
      * Gets a path for a plugin.
-     * It can also be used to get the path of plugin files.
+     * It can also be used to get the path of a plugin file.
      * @param string $plugin Plugin name
-     * @param string|array $file Files
-     * @param bool $check Checks if the files exist
-     * @return string|array|bool String or `false` if you asked the path of a
-     *  plugin or of a single plugin file. Otherwise, an array if you asked
-     *  the path of several plugin files
+     * @param string|null $file File
+     * @param bool $check Checks if the file exists
+     * @return string Path of the plugin or path of the path of a plugin file
+     * @throws MissingPluginException
      */
     public static function path($plugin, $file = null, $check = false)
     {
@@ -69,24 +69,12 @@ class Plugin extends CakePlugin
             return $plugin;
         }
 
-        if (is_array($file)) {
-            $path = [];
-
-            foreach ($file as $fileName) {
-                $filePath = $plugin . $fileName;
-
-                if ($check && !is_readable($filePath)) {
-                    continue;
-                }
-
-                $path[] = $filePath;
-            }
-
-            return $path;
-        }
-
         $path = $plugin . $file;
 
-        return $check && !is_readable($path) ? false : $path;
+        if ($check && !is_readable($path)) {
+            throw new MissingPluginException(__d('me_tools', 'File or directory `{0}` does not exist', rtr($path)));
+        }
+
+        return $path;
     }
 }
