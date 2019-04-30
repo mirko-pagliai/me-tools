@@ -79,7 +79,7 @@ class FormHelper extends CakeFormHelper
      * @return string
      * @see postButton(), MeTools\View\Helper\HtmlHelper::button()
      */
-    public function button($title, array $options = []): string
+    public function button(string $title, array $options = []): string
     {
         $options = optionsParser($options, ['type' => 'button']);
         $options->addButtonClasses($options->contains('type', 'submit') ? 'success' : 'primary');
@@ -94,7 +94,7 @@ class FormHelper extends CakeFormHelper
      * @param array $options HTML attributes and options
      * @return string
      */
-    public function checkbox($fieldName, array $options = [])
+    public function checkbox(string $fieldName, array $options = [])
     {
         $options = optionsParser($options);
 
@@ -132,7 +132,7 @@ class FormHelper extends CakeFormHelper
      * @return string
      * @uses $inline
      */
-    public function control($fieldName, array $options = []): string
+    public function control(string $fieldName, array $options = []): string
     {
         //Resets templates
         $this->resetTemplates();
@@ -307,13 +307,13 @@ class FormHelper extends CakeFormHelper
      * Returns a formatted `<label>` element.
      * Will automatically generate a `for` attribute if one is not provided.
      * @param string $fieldName Field name, should be "Modelname.fieldname"
-     * @param string $text Text that will appear in the label field. If is
+     * @param string|null $text Text that will appear in the label field. If is
      *  left undefined the text will be inflected from the fieldName
      * @param array|string $options HTML attributes, or a string to be used
      *  as a class name
      * @return string
      */
-    public function label($fieldName, $text = null, array $options = []): string
+    public function label(string $fieldName, ?string $text = null, array $options = []): string
     {
         $options = optionsParser($options, ['escape' => false]);
         list($text, $options) = $this->Html->addIconToText($text, $options);
@@ -337,7 +337,7 @@ class FormHelper extends CakeFormHelper
      * @return string Html code
      * @uses postLink()
      */
-    public function postButton($title, $url, array $options = []): string
+    public function postButton(string $title, $url, array $options = []): string
     {
         $options = optionsParser($options)->add('role', 'button')->addButtonClasses();
 
@@ -358,7 +358,7 @@ class FormHelper extends CakeFormHelper
      * @param array $options Array of options and HTML attributes
      * @return string
      */
-    public function postLink($title, $url = null, array $options = []): string
+    public function postLink(string $title, $url = null, array $options = []): string
     {
         $options = optionsParser($options, ['escape' => false, 'title' => $title]);
         $options->add('title', trim(h(strip_tags($options->get('title')))))->tooltip();
@@ -370,12 +370,12 @@ class FormHelper extends CakeFormHelper
     /**
      * Returns a formatted SELECT element
      * @param string $fieldName Name attribute of the SELECT
-     * @param array|\Traversable $options Array of the OPTION elements
+     * @param iterable|null $options Array of the OPTION elements
      *  (as 'value'=>'Text' pairs) to be used in the SELECT element
      * @param array $attributes The HTML attributes of the select element
      * @return string
      */
-    public function select($fieldName, $options = [], array $attributes = []): string
+    public function select(string $fieldName, ?iterable $options = [], array $attributes = []): string
     {
         $attributes = optionsParser($attributes);
 
@@ -388,13 +388,13 @@ class FormHelper extends CakeFormHelper
 
     /**
      * Creates a submit button
-     * @param string $caption The label appearing on the submit button or an
-     *  image
+     * @param string|null $caption The label appearing on the submit button or
+     *  an image
      * @param array $options HTML attributes and options
      * @return string
      * @uses button()
      */
-    public function submit($caption = null, array $options = []): string
+    public function submit(?string $caption = null, array $options = []): string
     {
         $options = optionsParser($options)->add('type', 'submit');
 
@@ -407,7 +407,7 @@ class FormHelper extends CakeFormHelper
      * @param array $options HTML attributes and options
      * @return string
      */
-    public function textarea($fieldName, array $options = []): string
+    public function textarea(string $fieldName, array $options = []): string
     {
         $options = optionsParser($options, ['cols' => null, 'rows' => null]);
 

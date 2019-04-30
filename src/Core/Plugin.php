@@ -61,9 +61,9 @@ class Plugin extends CakePlugin
      * @return string Path of the plugin or path of the path of a plugin file
      * @throws MissingPluginException
      */
-    public static function path($plugin, $file = null, $check = false): string
+    public static function path(string $name, $file = null, $check = false): string
     {
-        $plugin = parent::path($plugin);
+        $plugin = parent::path($name);
 
         if (!$file) {
             return $plugin;

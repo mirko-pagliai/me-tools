@@ -206,13 +206,13 @@ class HtmlHelper extends CakeHtmlHelper
 
     /**
      * Returns a formatted DIV tag
-     * @param string $class CSS class name of the div element
+     * @param string|null $class CSS class name of the div element
      * @param string|array|null $text String content that will appear inside the
      *  div element
      * @param array $options Array of options and HTML attributes
      * @return string
      */
-    public function div($class = null, $text = null, array $options = []): string
+    public function div(?string $class = null, $text = null, array $options = []): string
     {
         return parent::div($class, is_array($text) ? implode(PHP_EOL, $text) : $text, $options);
     }
@@ -516,15 +516,15 @@ class HtmlHelper extends CakeHtmlHelper
 
     /**
      * Returns a Javascript code block
-     * @param string $code Javascript code
+     * @param string $script Javascript code
      * @param array $options Array of options and HTML attributes
      * @return mixed A script tag or `null`
      */
-    public function scriptBlock($code, array $options = []): ?string
+    public function scriptBlock(string $script, array $options = []): ?string
     {
         $options = optionsParser($options, ['block' => true]);
 
-        return parent::scriptBlock($code, $options->toArray());
+        return parent::scriptBlock($script, $options->toArray());
     }
 
     /**
@@ -565,12 +565,12 @@ class HtmlHelper extends CakeHtmlHelper
     /**
      * Returns a formatted block tag
      * @param string $name Tag name
-     * @param string $text Tag content. If `null`, only a start tag will be
+     * @param string|null $text Tag content. If `null`, only a start tag will be
      *  printed
      * @param array $options Array of options and HTML attributes
      * @return string
      */
-    public function tag($name, $text = null, array $options = []): string
+    public function tag(string $name, ?string $text = null, array $options = []): string
     {
         $options = optionsParser($options)->tooltip();
         list($text, $options) = $this->addIconToText($text, $options);
