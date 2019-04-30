@@ -4,6 +4,11 @@
 * updated for `cakephp` 4.
 
 ## 2.18 branch
+### 2.18.7
+* `Plugin::path()` takes only a string or `null` as first argument, and no more
+    arrays. It always returns a string and if you ask for the path of a file
+    that does not exist, it throws an exception.
+
 ### 2.18.6
 * updated for `php-tools` 1.2.
 
