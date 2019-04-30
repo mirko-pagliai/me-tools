@@ -105,7 +105,7 @@ class HtmlHelperTest extends HelperTestCase
      */
     public function testBadge()
     {
-        $expected = ['span' => ['class' => 'badge my-class'], 'My text', '/span' ];
+        $expected = ['span' => ['class' => 'badge my-class'], 'My text', '/span'];
         $this->assertHtml($expected, $this->Helper->badge('My text', ['class' => 'my-class']));
     }
 
