@@ -477,16 +477,12 @@ class HtmlHelper extends CakeHtmlHelper
      * @param array $options Array of options and HTML attributes
      * @return string
      */
-    public function para($class = null, $text = null, array $options = []): string
+    public function para(?string $class = null, ?string $text = null, array $options = []): string
     {
         $options = optionsParser($options)->tooltip();
         list($text, $options) = $this->addIconToText($text, $options);
 
-<<<<<<< HEAD
-        return parent::para(is_null($class) ? '' : $class, is_null($text) ? '' : $text, $options->toArray());
-=======
-        return parent::para($class, (string)$text, $options->toArray());
->>>>>>> develop
+        return parent::para(is_null($class) ? '' : $class, (string)$text, $options->toArray());
     }
 
     /**
