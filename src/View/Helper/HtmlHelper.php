@@ -135,7 +135,7 @@ class HtmlHelper extends CakeHtmlHelper
      * Adds a css file to the layout.
      *
      * If it's used in the layout, you should set the `inline` option to `true`.
-     * @param mixed $path Css filename or an array of css filenames
+     * @param mixed $path CSS filename or an array of CSS filenames
      * @param array $options Array of options and HTML attributes
      * @return string Html, `<link>` or `<style>` tag
      */
@@ -148,7 +148,7 @@ class HtmlHelper extends CakeHtmlHelper
 
     /**
      * Wrap `$css` in a style tag
-     * @param string $css The css code to wrap
+     * @param string $css The CSS code to wrap
      * @param array $options The options to use. Options not listed above will
      *  be treated as HTML attributes
      * @return string|null String or `null`, depending on the value of
@@ -175,7 +175,7 @@ class HtmlHelper extends CakeHtmlHelper
     }
 
     /**
-     * Begin a css block that captures output until `cssEnd()` is called. This
+     * Begin a CSS block that captures output until `cssEnd()` is called. This
      *  capturing block will capture all output between the methods and create
      *  a cssBlock from it
      * @param array $options Options for the code block.
@@ -205,19 +205,6 @@ class HtmlHelper extends CakeHtmlHelper
     }
 
     /**
-     * Returns a formatted DIV tag
-     * @param string $class CSS class name of the div element
-     * @param string $text String content that will appear inside the div
-     *  element
-     * @param array $options Array of options and HTML attributes
-     * @return string
-     */
-    public function div($class = null, $text = null, array $options = [])
-    {
-        return parent::div($class, $text, $options);
-    }
-
-    /**
      * Creates an heading, according to Bootstrap.
      *
      * This method is useful if you want to create an heading with a secondary
@@ -227,7 +214,7 @@ class HtmlHelper extends CakeHtmlHelper
      *  tag, you have to use the `type` option.
      * @param string $text Heading text
      * @param array $options Array of options and HTML attributes
-     * @param string $small Small text
+     * @param string|null $small Small text
      * @param array $smallOptions Array of options and HTML attributes
      * @return string
      * @see http://getbootstrap.com/css/#type-headings Bootstrap documentation
@@ -485,8 +472,8 @@ class HtmlHelper extends CakeHtmlHelper
 
     /**
      * Returns a formatted `<p>` tag.
-     * @param string $class Class name
-     * @param string $text Paragraph text
+     * @param string|null $class Class name
+     * @param string|null $text Paragraph text
      * @param array $options Array of options and HTML attributes
      * @return string
      */
@@ -495,7 +482,7 @@ class HtmlHelper extends CakeHtmlHelper
         $options = optionsParser($options)->tooltip();
         list($text, $options) = $this->addIconToText($text, $options);
 
-        return parent::para($class, is_null($text) ? '' : $text, $options->toArray());
+        return parent::para($class, (string)$text, $options->toArray());
     }
 
     /**
@@ -566,7 +553,7 @@ class HtmlHelper extends CakeHtmlHelper
     /**
      * Returns a formatted block tag
      * @param string $name Tag name
-     * @param string $text Tag content. If `null`, only a start tag will be
+     * @param string|null $text Tag content. If `null`, only a start tag will be
      *  printed
      * @param array $options Array of options and HTML attributes
      * @return string

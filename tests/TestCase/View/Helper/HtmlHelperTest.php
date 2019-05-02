@@ -105,7 +105,7 @@ class HtmlHelperTest extends HelperTestCase
      */
     public function testBadge()
     {
-        $expected = ['span' => ['class' => 'badge my-class'], 'My text', '/span' ];
+        $expected = ['span' => ['class' => 'badge my-class'], 'My text', '/span'];
         $this->assertHtml($expected, $this->Helper->badge('My text', ['class' => 'my-class']));
     }
 
@@ -267,41 +267,6 @@ class HtmlHelperTest extends HelperTestCase
         $this->Helper->cssStart(['block' => false]);
         echo $css;
         $result = $this->Helper->cssEnd();
-        $this->assertHtml($expected, $result);
-    }
-
-    /**
-     * Test for `div()` method
-     * @test
-     */
-    public function testDiv()
-    {
-        $expected = ['div' => true, '/div'];
-        $this->assertHtml($expected, $this->Helper->div());
-        $this->assertHtml($expected, $this->Helper->div(null));
-        $this->assertHtml($expected, $this->Helper->div(null, null));
-        $this->assertHtml($expected, $this->Helper->div(null, ''));
-
-        $expected = ['div' => ['class' => 'my-class']];
-        $this->assertHtml($expected, $this->Helper->div('my-class'));
-        $this->assertHtml($expected, $this->Helper->div('my-class', null));
-
-        $expected = ['div' => true, ' ', '/div'];
-        $this->assertHtml($expected, $this->Helper->div(null, ' '));
-
-        $expected = ['div' => ['data-toggle' => 'tooltip', 'title' => 'my tooltip'], 'my text', '/div'];
-        $this->assertHtml($expected, $this->Helper->div(null, 'my text', ['tooltip' => 'my tooltip']));
-
-        $expected = [
-            'div' => ['class' => 'my-class', 'id' => 'my-id'],
-            'i' => ['class' => 'fas fa-home'],
-            ' ',
-            '/i',
-            ' ',
-            'My text',
-            '/div'
-        ];
-        $result = $this->Helper->div('my-class', 'My text', ['id' => 'my-id', 'icon' => 'home']);
         $this->assertHtml($expected, $result);
     }
 
