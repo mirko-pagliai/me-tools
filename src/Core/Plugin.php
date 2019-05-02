@@ -55,7 +55,7 @@ class Plugin extends CakePlugin
     /**
      * Gets a path for a plugin.
      * It can also be used to get the path of a plugin file.
-     * @param string $plugin Plugin name
+     * @param string $name Plugin name
      * @param string|null $file File
      * @param bool $check Checks if the file exists
      * @return string Path of the plugin or path of the path of a plugin file
