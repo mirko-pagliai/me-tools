@@ -27,11 +27,11 @@ use TestPlugin\Utility\ParentTestClass;
 
 class ChildTestClass extends ParentTestClass
 {
-    public function firstChildTestMethod()
+    public function firstChildTestMethod(): void
     {
     }
 
-    public function secondChildTestMethod()
+    public function secondChildTestMethod(): void
     {
     }
 }

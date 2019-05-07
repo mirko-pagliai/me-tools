@@ -223,7 +223,7 @@ class LibraryHelper extends Helper
      * @uses buildDatetimepicker()
      * @uses $output
      */
-    public function datetimepicker($input = null, array $options = [])
+    public function datetimepicker(?string $input, array $options = []): void
     {
         $this->output[] = self::buildDatetimepicker($input ?: '.datetimepicker', $options);
     }

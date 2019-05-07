@@ -21,7 +21,7 @@ if (!function_exists('optionsParser')) {
      * @param array|null $defaults Default values
      * @return \MeTools\View\OptionsParser
      */
-    function optionsParser(array $options = [], $defaults = [])
+    function optionsParser(array $options = [], ?array $defaults = [])
     {
         return new OptionsParser($options, $defaults);
     }

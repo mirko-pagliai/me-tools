@@ -33,7 +33,7 @@ class Plugin extends CakePlugin
      * @return array Plugins
      * @uses Cake\Core\Plugin::loaded()
      */
-    public static function all(array $options = [])
+    public static function all(array $options = []): array
     {
         $options += ['core' => false, 'exclude' => [], 'order' => true];
 
@@ -62,7 +62,7 @@ class Plugin extends CakePlugin
      * @return string Path of the plugin or path of the path of a plugin file
      * @throws \Cake\Core\Exception\MissingPluginException
      */
-    public static function path(string $name, $file = null, $check = false): string
+    public static function path(string $name, ?string $file = null, bool $check = false): string
     {
         $plugin = parent::path($name);
 

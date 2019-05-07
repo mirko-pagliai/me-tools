@@ -23,7 +23,7 @@ class Youtube
      * @param string $url Video url
      * @return string|null Youtube ID or `null` on failure
      */
-    public static function getId($url)
+    public static function getId(string $url): ?string
     {
         if (strpos($url, 'youtube.com') !== false) {
             $url = parse_url($url);
@@ -50,7 +50,7 @@ class Youtube
      * @return string
      * @uses getId()
      */
-    public static function getPreview($id)
+    public static function getPreview(string $id): string
     {
         return sprintf('http://img.youtube.com/vi/%s/0.jpg', is_url($id) ? self::getId($id) : $id);
     }
@@ -60,7 +60,7 @@ class Youtube
      * @param string $id YouTube ID
      * @return string
      */
-    public static function getUrl($id)
+    public static function getUrl(string $id): string
     {
         return sprintf('http://youtu.be/%s', $id);
     }

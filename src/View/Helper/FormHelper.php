@@ -95,7 +95,7 @@ class FormHelper extends CakeFormHelper
      * @param array $options HTML attributes and options
      * @return string
      */
-    public function checkbox(string $fieldName, array $options = [])
+    public function checkbox(string $fieldName, array $options = []): string
     {
         $options = optionsParser($options);
 
@@ -116,7 +116,7 @@ class FormHelper extends CakeFormHelper
      * @see MeTools\View\Helper\LibraryHelper::ckeditor()
      * @uses control()
      */
-    public function ckeditor($fieldName, array $options = [])
+    public function ckeditor(string $fieldName, array $options = []): string
     {
         $options = optionsParser($options, ['label' => false, 'type' => 'textarea'])
             ->append('templates', [
@@ -230,7 +230,7 @@ class FormHelper extends CakeFormHelper
      * @return string An formatted opening `<form>` tag
      * @uses $inline
      */
-    public function createInline($model = null, array $options = [])
+    public function createInline($model = null, array $options = []): string
     {
         $this->inline = true;
         $options = optionsParser($options)->delete('inline')->append('class', 'form-inline');
@@ -248,7 +248,7 @@ class FormHelper extends CakeFormHelper
      * @see MeTools\View\Helper\LibraryHelper::datepicker()
      * @uses control()
      */
-    public function datepicker($fieldName, array $options = [])
+    public function datepicker(string $fieldName, array $options = []): string
     {
         $options = optionsParser($options, ['data-date-format' => 'YYYY-MM-DD', 'type' => 'text'])
             ->append('templates', [
@@ -268,7 +268,7 @@ class FormHelper extends CakeFormHelper
      * @return string
      * @see MeTools\View\Helper\LibraryHelper::datetimepicker()
      */
-    public function datetimepicker($fieldName, array $options = [])
+    public function datetimepicker(string $fieldName, array $options = []): string
     {
         $options = optionsParser($options, ['data-date-format' => 'YYYY-MM-DD HH:mm', 'type' => 'text'])
             ->append('templates', [
@@ -299,7 +299,7 @@ class FormHelper extends CakeFormHelper
      * Checks if the current opened form is an inline form
      * @return bool
      */
-    public function isInline()
+    public function isInline(): bool
     {
         return !empty($this->inline);
     }
@@ -425,7 +425,7 @@ class FormHelper extends CakeFormHelper
      * @see MeTools\View\Helper\LibraryHelper::timepicker()
      * @uses control()
      */
-    public function timepicker($fieldName, array $options = [])
+    public function timepicker(string $fieldName, array $options = []): string
     {
         $options = optionsParser($options, ['data-date-format' => 'HH:mm', 'type' => 'text'])
             ->append('templates', [

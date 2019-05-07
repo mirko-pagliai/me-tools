@@ -14,6 +14,8 @@ declare(strict_types=1);
  */
 namespace MeTools\TestSuite;
 
+use Cake\Controller\Controller;
+use Cake\Event\Event;
 use Cake\TestSuite\IntegrationTestTrait as CakeIntegrationTestTrait;
 use MeTools\Controller\Component\UploaderComponent;
 
@@ -32,7 +34,7 @@ trait IntegrationTestTrait
      * @param \Cake\Controller\Controller|null $controller Controller instance
      * @return void
      */
-    public function controllerSpy($event, $controller = null)
+    public function controllerSpy(Event $event, ?Controller $controller): void
     {
         $this->cakeControllerSpy($event, $controller);
 
@@ -55,7 +57,7 @@ trait IntegrationTestTrait
      *  generated message
      * @return void
      */
-    public function assertCookieIsEmpty($name, $message = '')
+    public function assertCookieIsEmpty(string $name, string $message = ''): void
     {
         $this->_response ?: $this->fail('Not response set, cannot assert cookies');
         $this->assertEmpty($this->_response->getCookie($name)['value'], $message);
@@ -69,7 +71,7 @@ trait IntegrationTestTrait
      *  generated message
      * @return void
      */
-    public function assertFlashMessage($expected, $key = 0, $message = '')
+    public function assertFlashMessage(string $expected, int $key = 0, string $message = ''): void
     {
         $this->assertSession($expected, sprintf('Flash.flash.%d.message', $key), $message);
     }
@@ -81,7 +83,7 @@ trait IntegrationTestTrait
      *  generated message
      * @return void
      */
-    public function assertResponseOkAndNotEmpty($message = '')
+    public function assertResponseOkAndNotEmpty(string $message = ''): void
     {
         $this->assertResponseOk($message) && $this->assertResponseNotEmpty($message);
     }

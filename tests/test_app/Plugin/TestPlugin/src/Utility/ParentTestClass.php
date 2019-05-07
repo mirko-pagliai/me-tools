@@ -25,11 +25,11 @@ namespace TestPlugin\Utility;
 
 class ParentTestClass
 {
-    public function firstParentTestMethod()
+    public function firstParentTestMethod(): void
     {
     }
 
-    public function secondParentTestMethod()
+    public function secondParentTestMethod(): void
     {
     }
 }

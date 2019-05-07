@@ -95,7 +95,6 @@ class IntegrationTestTraitTest extends TestCase
         foreach ($messages as $key => $expectedMessage) {
             $this->_requestSession->write('Flash.flash.' . $key . '.message', $expectedMessage);
             $this->assertFlashMessage($expectedMessage, (int)$key);
-            $this->assertFlashMessage($expectedMessage, (string)$key);
         }
 
         //Call without key
