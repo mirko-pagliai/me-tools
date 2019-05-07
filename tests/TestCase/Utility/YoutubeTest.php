@@ -37,17 +37,11 @@ class YoutubeTest extends TestCase
         ] as $url) {
             $this->assertEquals('bL_CJKq9rIw', Youtube::getId($url));
         }
-    }
 
-    /**
-     * Tests for `getId()` method, with invalid url or parameters
-     * @test
-     */
-    public function testGetIdInvalidUrlOrParameters()
-    {
-        $this->assertFalse(Youtube::getId('http://example.com'));
-        $this->assertFalse(Youtube::getId('http://youtube.com'));
-        $this->assertFalse(Youtube::getId('http://youtube.com?param=value'));
+        //With invalid url
+        $this->assertEmpty(Youtube::getId('http://example.com'));
+        $this->assertEmpty(Youtube::getId('http://youtube.com'));
+        $this->assertEmpty(Youtube::getId('http://youtube.com?param=value'));
     }
 
     /**
