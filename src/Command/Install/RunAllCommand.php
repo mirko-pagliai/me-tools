@@ -111,7 +111,7 @@ class RunAllCommand extends Command
                 !array_diff(['question', 'default', 'command'], array_keys($question)),
                 __d('me_tools', 'Invalid question keys')
             );
-            list($question, $default, $command) = array_values($question);
+            [$question, $default, $command] = array_values($question);
 
             //The method must be executed if the `force` mode is set or if the
             //  user answers yes to the question

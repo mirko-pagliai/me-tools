@@ -41,7 +41,7 @@ class HtmlHelper extends CakeHtmlHelper
             Exception::class
         );
 
-        return self::tag($name, $params[0], isset($params[1]) ? $params[1] : []);
+        return self::tag($name, $params[0], $params[1] ?? []);
     }
 
     /**
@@ -410,7 +410,7 @@ class HtmlHelper extends CakeHtmlHelper
     {
         $options = optionsParser($options, ['escape' => false, 'title' => $title]);
         $options->add('title', trim(h(strip_tags($options->get('title')))))->tooltip();
-        list($title, $options) = $this->addIconToText($title, $options);
+        [$title, $options] = $this->addIconToText($title, $options);
 
         return parent::link($title, $url, $options->toArray());
     }
@@ -485,9 +485,9 @@ class HtmlHelper extends CakeHtmlHelper
     public function para(?string $class = null, ?string $text = null, array $options = []): string
     {
         $options = optionsParser($options)->tooltip();
-        list($text, $options) = $this->addIconToText($text, $options);
+        [$text, $options] = $this->addIconToText($text, $options);
 
-        return parent::para(is_null($class) ? '' : $class, (string)$text, $options->toArray());
+        return parent::para($class ?? '', (string)$text, $options->toArray());
     }
 
     /**
@@ -565,7 +565,7 @@ class HtmlHelper extends CakeHtmlHelper
     public function tag(string $name, ?string $text = null, array $options = []): string
     {
         $options = optionsParser($options)->tooltip();
-        list($text, $options) = $this->addIconToText($text, $options);
+        [$text, $options] = $this->addIconToText($text, $options);
 
         return parent::tag($name, is_null($text) ? '' : $text, $options->toArray());
     }

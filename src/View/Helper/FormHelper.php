@@ -84,7 +84,7 @@ class FormHelper extends CakeFormHelper
     {
         $options = optionsParser($options, ['type' => 'button']);
         $options->addButtonClasses($options->contains('type', 'submit') ? 'success' : 'primary');
-        list($title, $options) = $this->Html->addIconToText($title, $options);
+        [$title, $options] = $this->Html->addIconToText($title, $options);
 
         return parent::button($title, $options->toArray());
     }
@@ -317,7 +317,7 @@ class FormHelper extends CakeFormHelper
     public function label(string $fieldName, ?string $text = null, array $options = []): string
     {
         $options = optionsParser($options, ['escape' => false]);
-        list($text, $options) = $this->Html->addIconToText($text, $options);
+        [$text, $options] = $this->Html->addIconToText($text, $options);
 
         return parent::label($fieldName, $text, $options->toArray());
     }
@@ -363,7 +363,7 @@ class FormHelper extends CakeFormHelper
     {
         $options = optionsParser($options, ['escape' => false, 'title' => $title]);
         $options->add('title', trim(h(strip_tags($options->get('title')))))->tooltip();
-        list($title, $options) = $this->Html->addIconToText($title, $options);
+        [$title, $options] = $this->Html->addIconToText($title, $options);
 
         return parent::postLink($title, $url, $options->toArray());
     }
