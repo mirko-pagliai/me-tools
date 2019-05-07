@@ -248,14 +248,8 @@ class LibraryHelper extends Helper
             '/vendor/fancybox/jquery.fancybox.pack',
             '/vendor/fancybox/helpers/jquery.fancybox-buttons',
             '/vendor/fancybox/helpers/jquery.fancybox-thumbs',
+            is_readable(WWW_ROOT . 'js' . DS . 'fancybox_init.js') ? 'fancybox_init' : 'MeTools./fancybox/fancybox_init',
         ];
-
-        //Checks for `APP/webroot/js/`. Otherwise, it uses
-        //  `APP/plugin/MeTools/webroot/fancybox/`
-        $scripts[] = 'fancybox_init';
-        if (!is_readable(WWW_ROOT . 'js' . DS . 'fancybox_init.js')) {
-            $scripts[] = 'MeTools./fancybox/fancybox_init';
-        }
 
         $this->Asset->script($scripts, ['block' => 'script_bottom']);
     }
