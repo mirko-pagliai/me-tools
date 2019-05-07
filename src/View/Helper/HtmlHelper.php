@@ -84,10 +84,8 @@ class HtmlHelper extends CakeHtmlHelper
 
         if (empty($text)) {
             $text = $icon;
-        } elseif ($align === 'right') {
-            $text = sprintf('%s %s', $text, $icon);
         } else {
-            $text = sprintf('%s %s', $icon, $text);
+            $text = $align === 'right' ? sprintf('%s %s', $text, $icon) : sprintf('%s %s', $icon, $text);
         }
 
         return [$text, $options];
