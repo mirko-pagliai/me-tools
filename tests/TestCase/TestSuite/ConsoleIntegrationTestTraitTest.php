@@ -16,6 +16,7 @@ namespace MeTools\Test\TestCase\TestSuite;
 use Cake\TestSuite\Stub\ConsoleOutput;
 use MeTools\TestSuite\ConsoleIntegrationTestTrait;
 use MeTools\TestSuite\TestCase;
+use PHPUnit\Framework\ExpectationFailedException;
 
 /**
  * ConsoleIntegrationTestTraitTest class
@@ -30,34 +31,19 @@ class ConsoleIntegrationTestTraitTest extends TestCase
     protected $_out;
 
     /**
-     * Called before every test method
-     * @return void
-     */
-    public function setUp(): void
-    {
-        parent::setUp();
-
-        $this->_out = new ConsoleOutput();
-    }
-
-    /**
      * Test for `assertOutputNotEmpty()` method
      * @test
      */
     public function testAssertOutputNotEmpty()
     {
+        $this->_out = new ConsoleOutput();
         $this->_out->write('message');
         $this->assertOutputNotEmpty();
-    }
 
-    /**
-     * Test for `assertOutputNotEmpty()` method, on failure
-     * @expectedException PHPUnit\Framework\ExpectationFailedException
-     * @expectedExceptionMessage stdout was empty
-     * @test
-     */
-    public function testAssertOutputNotEmptyOnFailure()
-    {
+        //On failure
+        $this->expectException(ExpectationFailedException::class);
+        $this->expectExceptionMessage('stdout was empty');
+        $this->_out = new ConsoleOutput();
         $this->assertOutputNotEmpty();
     }
 }
