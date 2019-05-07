@@ -47,7 +47,7 @@ class FormHelper extends CakeFormHelper
      * @return void
      * @uses $_defaultConfig
      */
-    public function __construct(View $view, $config = [])
+    public function __construct(View $view, array $config = [])
     {
         //Rewrites default templates config
         $this->_defaultConfig = Hash::merge($this->_defaultConfig, ['templates' => [
