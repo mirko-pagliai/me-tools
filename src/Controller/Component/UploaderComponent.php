@@ -186,7 +186,7 @@ class UploaderComponent extends Component
      * @uses $error
      * @uses $file
      */
-    public function set($file)
+    public function set(array $file)
     {
         //Resets `$error`
         unset($this->error);
