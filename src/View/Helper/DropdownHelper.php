@@ -120,7 +120,7 @@ class DropdownHelper extends Helper
      * Arguments and options regarding the list of the dropdown menu.
      * @param array $divOptions HTML attributes and options for the wrapper
      *  element
-     * @return string|void
+     * @return string|null
      * @uses $_start
      */
     public function end(array $divOptions = [])
@@ -128,14 +128,14 @@ class DropdownHelper extends Helper
         $buffer = ob_get_contents();
 
         if (empty($buffer)) {
-            return;
+            return null;
         }
 
         ob_end_clean();
 
         //Split all links
         if (preg_match_all('/(<a[^>]*>.*?<\/a[^>]*>)/', $buffer, $matches) === 0) {
-            return;
+            return null;
         }
 
         $divOptions = optionsParser($divOptions)->append('class', 'dropdown-menu');
