@@ -52,7 +52,7 @@ trait MockTrait
      * Mocks a controller
      * @param string $className Controller class name
      * @param array|null $methods The list of methods to mock
-     * @param string $alias Controller alias
+     * @param string|null $alias Controller alias
      * @return \Cake\Controller\Controller|\PHPUnit_Framework_MockObject_MockObject
      * @uses getControllerAlias()
      */
