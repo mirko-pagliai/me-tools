@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * This file is part of me-tools.
  *
@@ -42,7 +43,7 @@ class UploaderComponentTest extends ComponentTestCase
      * Called after every test method
      * @return void
      */
-    public function tearDown()
+    public function tearDown(): void
     {
         unlink_recursive(UPLOADS);
         rmdir_recursive(TMP . 'upload_test');

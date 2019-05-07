@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * This file is part of me-tools.
  *
@@ -337,7 +338,7 @@ class HtmlHelper extends CakeHtmlHelper
 
     /**
      * Alias for `script()` method
-     * @return mixed String of `<script />` tags or null if `$inline` is false
+     * @return string|null String of `<script />` tags or null if `$inline` is false
      *  or if `$once` is true and the file has been included before
      * @see script()
      */
@@ -489,9 +490,9 @@ class HtmlHelper extends CakeHtmlHelper
      * Adds a js file to the layout.
      *
      * If it's used in the layout, you should set the `inline` option to `true`.
-     * @param mixed $url Javascript files as string or array
+     * @param string|array $url Javascript files as string or array
      * @param array $options Array of options and HTML attributes
-     * @return mixed String of `<script />` tags or `null` if `$inline` is false
+     * @return string|null String of `<script />` tags or `null` if `$inline` is false
      *  or if `$once` is true and the file has been included before
      */
     public function script($url, array $options = []): ?string
@@ -505,7 +506,7 @@ class HtmlHelper extends CakeHtmlHelper
      * Returns a Javascript code block
      * @param string $script Javascript code
      * @param array $options Array of options and HTML attributes
-     * @return mixed A script tag or `null`
+     * @return string|null A script tag or `null`
      */
     public function scriptBlock(string $script, array $options = []): ?string
     {
@@ -522,7 +523,7 @@ class HtmlHelper extends CakeHtmlHelper
      * To capture output with a single method, you can also use the
      *  `scriptBlock()` method.
      * @param array $options Options for the code block
-     * @return mixed A script tag or `null`
+     * @return string|null A script tag or `null`
      * @see scriptBlock()
      */
     public function scriptStart(array $options = []): void

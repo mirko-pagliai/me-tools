@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * This file is part of me-tools.
  *
@@ -41,7 +42,7 @@ class SetPermissionsCommand extends Command
      * @return null|int The exit code or null for success
      * @uses Command::folderChmod
      */
-    public function execute(Arguments $args, ConsoleIo $io)
+    public function execute(Arguments $args, ConsoleIo $io): ?int
     {
         foreach (Configure::read('WRITABLE_DIRS') as $path) {
             $this->folderChmod($io, $path);

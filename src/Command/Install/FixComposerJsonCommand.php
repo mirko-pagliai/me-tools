@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * This file is part of me-tools.
  *
@@ -47,7 +48,7 @@ class FixComposerJsonCommand extends Command
      * @uses Command::createLink()
      * @uses $links
      */
-    public function execute(Arguments $args, ConsoleIo $io)
+    public function execute(Arguments $args, ConsoleIo $io): ?int
     {
         $path = $args->getOption('path') ?: Folder::slashTerm(ROOT) . 'composer.json';
 

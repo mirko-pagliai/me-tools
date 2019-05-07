@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * This file is part of me-tools.
  *
@@ -37,7 +38,7 @@ class FlashComponentTest extends ComponentTestCase
             $expected = [[
                 'message' => $text,
                 'key' => 'flash',
-                'element' => 'MeTools.Flash/flash',
+                'element' => 'MeTools.flash/flash',
                 'params' => ['class' => $expectedClass],
             ]];
             call_user_func([$this->Component, $methodToCall], $text);
@@ -49,7 +50,7 @@ class FlashComponentTest extends ComponentTestCase
         $expected = [[
             'message' => $text,
             'key' => 'flash',
-            'element' => 'MeTools.Flash/flash',
+            'element' => 'MeTools.flash/flash',
             'params' => ['class' => 'my-class'],
         ]];
         $this->Component->success($text, ['params' => ['class' => 'my-class']]);
@@ -60,7 +61,7 @@ class FlashComponentTest extends ComponentTestCase
         $expected = [[
             'message' => $text,
             'key' => 'flash',
-            'element' => 'Flash/other_name',
+            'element' => 'flash/other_name',
             'params' => [],
         ]];
         $this->Component->otherName($text);
@@ -71,7 +72,7 @@ class FlashComponentTest extends ComponentTestCase
         $expected = [[
             'message' => $text,
             'key' => 'flash',
-            'element' => 'Flash/success',
+            'element' => 'flash/success',
             'params' => [],
         ]];
         $this->Component->success($text, ['plugin' => false]);
@@ -82,7 +83,7 @@ class FlashComponentTest extends ComponentTestCase
         $expected = [[
             'message' => $text,
             'key' => 'flash',
-            'element' => 'MyPlugin.Flash/success',
+            'element' => 'MyPlugin.flash/success',
             'params' => [],
         ]];
         $this->Component->success($text, ['plugin' => 'MyPlugin']);

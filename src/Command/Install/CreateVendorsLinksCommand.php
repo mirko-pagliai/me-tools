@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * This file is part of me-tools.
  *
@@ -42,7 +43,7 @@ class CreateVendorsLinksCommand extends Command
      * @return null|int The exit code or null for success
      * @uses Command::createLink()
      */
-    public function execute(Arguments $args, ConsoleIo $io)
+    public function execute(Arguments $args, ConsoleIo $io): ?int
     {
         foreach (Configure::read('VENDOR_LINKS') as $origin => $target) {
             $this->createLink(

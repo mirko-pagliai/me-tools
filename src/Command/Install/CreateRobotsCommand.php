@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * This file is part of me-tools.
  *
@@ -41,7 +42,7 @@ class CreateRobotsCommand extends Command
      * @return null|int The exit code or null for success
      * @uses Command::createFile()
      */
-    public function execute(Arguments $args, ConsoleIo $io)
+    public function execute(Arguments $args, ConsoleIo $io): ?int
     {
         $this->createFile($io, Folder::slashTerm(WWW_ROOT) . 'robots.txt', 'User-agent: *' . PHP_EOL .
             'Disallow: /admin/' . PHP_EOL . 'Disallow: /ckeditor/' . PHP_EOL .
