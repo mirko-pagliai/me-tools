@@ -39,7 +39,7 @@ class BreadcrumbsHelper extends CakeBreadcrumbsHelper
      *      inner element of the crumb (by default, to the link)
      *  - *templateVars*: Specific template vars in case you override the
      *  templates provided
-     * @return CakeBreadcrumbsHelper
+     * @return \Cake\View\Helper\BreadcrumbsHelper
      * @since 2.16.0
      */
     public function add($title, $url = null, array $options = []): CakeBreadcrumbsHelper
@@ -66,7 +66,7 @@ class BreadcrumbsHelper extends CakeBreadcrumbsHelper
      *      inner element of the crumb (by default, to the link)
      *  - *templateVars*: Specific template vars in case you override the
      *  templates provided
-     * @return CakeBreadcrumbsHelper
+     * @return \Cake\View\Helper\BreadcrumbsHelper
      * @since 2.16.0
      */
     public function prepend($title, $url = null, array $options = []): CakeBreadcrumbsHelper

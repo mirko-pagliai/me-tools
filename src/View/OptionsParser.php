@@ -177,7 +177,7 @@ class OptionsParser
         $existing = $this->get($key);
 
         if (in_array($key, $this->toBeExploded)) {
-            $existing = explode(' ', $existing);
+            $existing = is_string($existing) ? explode(' ', $existing) : $existing;
             $value = is_array($value) ? $value : explode(' ', $value);
         }
 

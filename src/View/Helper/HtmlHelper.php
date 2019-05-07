@@ -527,7 +527,7 @@ class HtmlHelper extends CakeHtmlHelper
      * To capture output with a single method, you can also use the
      *  `scriptBlock()` method.
      * @param array $options Options for the code block
-     * @return string|null A script tag or `null`
+     * @return void
      * @see scriptBlock()
      */
     public function scriptStart(array $options = []): void
@@ -598,7 +598,7 @@ class HtmlHelper extends CakeHtmlHelper
             'initial-scale' => '1',
             'shrink-to-fit' => 'no',
             'width' => 'device-width',
-        ], null, ', ');
+        ], '', ', ');
 
         return self::meta(array_merge(['name' => 'viewport'], compact('content')), null, $options);
     }
