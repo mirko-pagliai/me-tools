@@ -3,7 +3,7 @@
 ### 2.18.7
 * `TestCase::tearDown()` method no longer empties temporary files. This should
     be done as appropriate;
-* `UploaderComponent::getError()` method returns `null` with no errors
+* `UploaderComponent::getError()` method returns `null` with no errors;
 * `Plugin::path()` takes only a string or `null` as first argument, and no more
     arrays. It always returns a string and if you ask for the path of a file
     that does not exist, it throws an exception;
