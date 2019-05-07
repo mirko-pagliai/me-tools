@@ -14,6 +14,7 @@ namespace MeTools\Test\TestCase\Controller\Component;
 
 use MeTools\Controller\Component\UploaderComponent;
 use MeTools\TestSuite\ComponentTestCase;
+use RuntimeException;
 use stdClass;
 
 /**
@@ -144,17 +145,11 @@ class UploaderComponentTest extends ComponentTestCase
             //Resets error
             $this->setProperty($this->Component, 'error', null);
         }
-    }
 
-    /**
-     * Test for `mimetype()` method, with no file
-     * @expectedException RuntimeException
-     * @expectedExceptionMessage There are no uploaded file information
-     * @test
-     */
-    public function testMimetypeNoFile()
-    {
-        $this->Component->mimetype('text/plain');
+        //With no file
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('There are no uploaded file information');
+        $this->getMockForComponent(UploaderComponent::class, null)->mimetype('text/plain');
     }
 
     /**
@@ -188,6 +183,11 @@ class UploaderComponentTest extends ComponentTestCase
             $this->assertFileExists($result);
             $this->assertFileNotExists($file['tmp_name']);
         }
+
+        //With no file
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('There are no uploaded file information');
+        $this->getMockForComponent(UploaderComponent::class, null)->save(null);
     }
 
     /**
@@ -199,17 +199,6 @@ class UploaderComponentTest extends ComponentTestCase
         $this->Component->set($this->createFile());
         $this->assertFalse($this->Component->save(DS));
         $this->assertEquals('The file was not successfully moved to the target directory', $this->Component->getError());
-    }
-
-    /**
-     * Test for `save()` method, with no file
-     * @expectedException RuntimeException
-     * @expectedExceptionMessage There are no uploaded file information
-     * @test
-     */
-    public function testSaveNoFile()
-    {
-        $this->Component->save(null);
     }
 
     /**
