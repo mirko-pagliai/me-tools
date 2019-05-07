@@ -92,12 +92,12 @@ class UploaderComponent extends Component
 
     /**
      * Returns the first error
-     * @return string|bool String or `false`
+     * @return string|null First error or `null` with no errors
      * @uses $error
      */
     public function getError()
     {
-        return $this->error ?: false;
+        return $this->error ?: null;
     }
 
     /**
@@ -140,7 +140,7 @@ class UploaderComponent extends Component
      * Saves the file
      * @param string $directory Directory where you want to save the uploaded
      *  file
-     * @param string $filename Optional filename. Otherwise, it will be
+     * @param string|null $filename Optional filename. Otherwise, it will be
      *  generated automatically
      * @return string|bool Final full path of the uploaded file or `false` on
      *  failure

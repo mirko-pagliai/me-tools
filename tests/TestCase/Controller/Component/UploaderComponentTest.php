@@ -58,7 +58,7 @@ class UploaderComponentTest extends ComponentTestCase
      */
     public function testGetErrorAndSetError()
     {
-        $this->assertFalse($this->Component->getError());
+        $this->assertEmpty($this->Component->getError());
 
         $this->invokeMethod($this->Component, 'setError', ['first']);
         $this->assertEquals('first', $this->Component->getError());
@@ -170,7 +170,7 @@ class UploaderComponentTest extends ComponentTestCase
             $Uploader->set($file);
             $result = $Uploader->save($targetDirectory);
             $this->assertStringStartsWith(UPLOADS, $result);
-            $this->assertFalse($Uploader->getError());
+            $this->assertEmpty($Uploader->getError());
             $this->assertFileExists($result);
             $this->assertFileNotExists($file['tmp_name']);
         }
@@ -180,7 +180,7 @@ class UploaderComponentTest extends ComponentTestCase
             $Uploader->set($file);
             $result = $Uploader->save(UPLOADS, $targetFilename);
             $this->assertEquals(UPLOADS . basename($targetFilename), $result);
-            $this->assertFalse($Uploader->getError());
+            $this->assertEmpty($Uploader->getError());
             $this->assertFileExists($result);
             $this->assertFileNotExists($file['tmp_name']);
         }
