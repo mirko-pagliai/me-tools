@@ -31,7 +31,7 @@ class CreateVendorsLinksCommandTest extends TestCase
      */
     public function testExecute()
     {
-        $io = new ConsoleIo;
+        $io = new ConsoleIo();
         $Command = $this->getMockBuilder(CreateVendorsLinksCommand::class)
             ->setMethods(['createLink'])
             ->getMock();

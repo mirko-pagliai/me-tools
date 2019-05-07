@@ -104,13 +104,17 @@ class UploaderComponent extends Component
      * @param string|array $acceptedMimetype Accepted mimetypes as string or
      *  array or a magic word (`images` or `text`)
      * @return \MeTools\Controller\Component\UploaderComponent
-     * @throws RuntimeException
+     * @throws \RuntimeException
      * @uses setError()
      * @uses $file
      */
     public function mimetype($acceptedMimetype)
     {
-        is_true_or_fail($this->file, __d('me_tools', 'There are no uploaded file information'), RuntimeException::class);
+        is_true_or_fail(
+            $this->file,
+            __d('me_tools', 'There are no uploaded file information'),
+            RuntimeException::class
+        );
 
         //Changes magic words
         switch ($acceptedMimetype) {
@@ -139,7 +143,7 @@ class UploaderComponent extends Component
      *  generated automatically
      * @return string|bool Final full path of the uploaded file or `false` on
      *  failure
-     * @throws RuntimeException
+     * @throws \RuntimeException
      * @uses findTargetFilename()
      * @uses getError()
      * @uses setError()
@@ -148,7 +152,11 @@ class UploaderComponent extends Component
      */
     public function save($directory, $filename = null)
     {
-        is_true_or_fail($this->file, __d('me_tools', 'There are no uploaded file information'), RuntimeException::class);
+        is_true_or_fail(
+            $this->file,
+            __d('me_tools', 'There are no uploaded file information'),
+            RuntimeException::class
+        );
 
         //Checks for previous errors
         if ($this->getError()) {

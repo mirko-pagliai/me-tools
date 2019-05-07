@@ -22,7 +22,7 @@ class OptionsParser
 {
     /**
      * Instance of `OptionsParser` for default values
-     * @var MeTools\View\OptionsParser
+     * @var \MeTools\View\OptionsParser
      */
     public $Default;
 

@@ -20,7 +20,7 @@
  * @license     http://www.gnu.org/licenses/agpl.txt AGPL License
  * @link        http://git.novatlantis.it Nova Atlantis Ltd
  */
-namespace TestPlugin\Utility;
+namespace TestPlugin\Utility\Children;
 
 use TestPlugin\Utility\ParentTestClass;
 

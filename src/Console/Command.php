@@ -26,7 +26,7 @@ abstract class Command extends CakeCommand
     /**
      * Internal method to check if a file already exists and output a warning at
      *  the verbose level
-     * @param ConsoleIo $io The console io
+     * @param \Cake\Console\ConsoleIo $io The console io
      * @param string $path Path
      * @return bool
      */
@@ -43,7 +43,7 @@ abstract class Command extends CakeCommand
 
     /**
      * Copies a file
-     * @param ConsoleIo $io The console io
+     * @param \Cake\Console\ConsoleIo $io The console io
      * @param string $source Source file
      * @param string $dest Destination file
      * @return bool
@@ -75,7 +75,7 @@ abstract class Command extends CakeCommand
      * Creates a directory.
      *
      * This method creates directories recursively.
-     * @param ConsoleIo $io The console io
+     * @param \Cake\Console\ConsoleIo $io The console io
      * @param string $path Directory path
      * @return bool
      * @uses folderChmod()
@@ -101,7 +101,7 @@ abstract class Command extends CakeCommand
 
     /**
      * Creates a file at given path
-     * @param ConsoleIo $io The console io
+     * @param \Cake\Console\ConsoleIo $io The console io
      * @param string $path Where to put the file
      * @param string $contents Content to put in the file
      * @return bool
@@ -114,7 +114,7 @@ abstract class Command extends CakeCommand
 
     /**
      * Creates a symbolic link
-     * @param ConsoleIo $io The console io
+     * @param \Cake\Console\ConsoleIo $io The console io
      * @param string $source Source file or directory
      * @param string $dest Destination file or directory
      * @return bool
@@ -145,7 +145,7 @@ abstract class Command extends CakeCommand
      * Sets folder chmods.
      *
      * This method applies permissions recursively.
-     * @param ConsoleIo $io The console io
+     * @param \Cake\Console\ConsoleIo $io The console io
      * @param string $path Folder path
      * @param int $chmod Chmod
      * @return bool

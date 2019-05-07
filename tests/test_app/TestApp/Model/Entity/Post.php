@@ -17,5 +17,4 @@ use Cake\ORM\Entity;
 
 class Post extends Entity
 {
-
 }

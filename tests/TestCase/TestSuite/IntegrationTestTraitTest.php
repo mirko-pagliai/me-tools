@@ -36,7 +36,7 @@ class IntegrationTestTraitTest extends TestCase
     {
         parent::setUp();
 
-        $this->_response = new Response;
+        $this->_response = new Response();
     }
 
     /**
@@ -45,7 +45,7 @@ class IntegrationTestTraitTest extends TestCase
      */
     public function testcontrollerSpy()
     {
-        $this->_controller = new Controller;
+        $this->_controller = new Controller();
         $this->_controller->loadComponent('MeTools.Uploader');
         $this->controllerSpy(new Event('myEvent'), $this->_controller);
         $this->assertEquals('with_flash', $this->_controller->viewBuilder()->getLayout());
@@ -89,7 +89,7 @@ class IntegrationTestTraitTest extends TestCase
     public function testAssertFlashMessage()
     {
         $messages = ['first flash', 'second flash'];
-        $this->_requestSession = new Session;
+        $this->_requestSession = new Session();
 
         foreach ($messages as $key => $expectedMessage) {
             $this->_requestSession->write('Flash.flash.' . $key . '.message', $expectedMessage);

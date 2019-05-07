@@ -27,8 +27,8 @@ class FixComposerJsonCommand extends Command
 {
     /**
      * Hook method for defining this command's option parser
-     * @param ConsoleOptionParser $parser The parser to be defined
-     * @return ConsoleOptionParser
+     * @param \Cake\Console\ConsoleOptionParser $parser The parser to be defined
+     * @return \Cake\Console\ConsoleOptionParser
      */
     protected function buildOptionParser(ConsoleOptionParser $parser)
     {
@@ -41,8 +41,8 @@ class FixComposerJsonCommand extends Command
 
     /**
      * Creates symbolic links for vendor assets
-     * @param Arguments $args The command arguments
-     * @param ConsoleIo $io The console io
+     * @param \Cake\Console\Arguments $args The command arguments
+     * @param \Cake\Console\ConsoleIo $io The console io
      * @return null|int The exit code or null for success
      * @uses Command::createLink()
      * @uses $links
@@ -67,7 +67,8 @@ class FixComposerJsonCommand extends Command
         }
 
         //Checks if the file has been fixed
-        if (empty($contents['config']['component-dir']) || $contents['config']['component-dir'] !== 'vendor/components') {
+        if (empty($contents['config']['component-dir']) ||
+            $contents['config']['component-dir'] !== 'vendor/components') {
             $contents += ['config' => ['component-dir' => 'vendor/components']];
             create_file($path, json_encode($contents, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
             $io->verbose(__d('me_tools', 'The file {0} has been fixed', rtr($path)));

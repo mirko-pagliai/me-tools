@@ -34,7 +34,11 @@ class HtmlHelper extends CakeHtmlHelper
      */
     public function __call($name, $params)
     {
-        is_true_or_fail($params && count($params) < 3, sprintf('Method `%s::%s()` does not exist', __CLASS__, $name), Exception::class);
+        is_true_or_fail(
+            $params && count($params) < 3,
+            sprintf('Method `%s::%s()` does not exist', __CLASS__, $name),
+            Exception::class
+        );
 
         return self::tag($name, $params[0], isset($params[1]) ? $params[1] : []);
     }
@@ -62,7 +66,7 @@ class HtmlHelper extends CakeHtmlHelper
     /**
      * Adds icons to text
      * @param string $text Text
-     * @param OptionsParser $options Instance of `OptionsParser`
+     * @param \MeTools\View\OptionsParser $options Instance of `OptionsParser`
      * @return array Text with icons and instance of `OptionsParser`
      * @since 2.16.2-beta
      * @uses icon()

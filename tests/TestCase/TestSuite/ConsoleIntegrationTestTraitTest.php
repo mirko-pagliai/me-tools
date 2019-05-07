@@ -36,7 +36,7 @@ class ConsoleIntegrationTestTraitTest extends TestCase
     {
         parent::setUp();
 
-        $this->_out = new ConsoleOutput;
+        $this->_out = new ConsoleOutput();
     }
 
     /**

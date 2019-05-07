@@ -17,5 +17,4 @@ use Cake\ORM\Table;
 
 class PagesTable extends Table
 {
-
 }
