@@ -21,7 +21,7 @@ class Youtube
     /**
      * Parses a YouTube url and returns the YouTube ID
      * @param string $url Video url
-     * @return mixed Youtube ID or `false`
+     * @return string|null Youtube ID or `null` on failure
      */
     public static function getId($url)
     {
@@ -29,19 +29,19 @@ class Youtube
             $url = parse_url($url);
 
             if (empty($url['query'])) {
-                return false;
+                return null;
             }
 
             parse_str($url['query'], $url);
 
-            return empty($url['v']) ? false : $url['v'];
+            return empty($url['v']) ? null : $url['v'];
         }
 
         if (preg_match('/youtu\.be\/([^?]+)/', $url, $matches)) {
             return $matches[1];
         }
 
-        return false;
+        return null;
     }
 
     /**
