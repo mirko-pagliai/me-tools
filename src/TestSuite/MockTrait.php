@@ -44,7 +44,7 @@ trait MockTrait
     protected function getMockForComponent($className, $methods = [])
     {
         return $this->getMockBuilder($className)
-            ->setConstructorArgs([new ComponentRegistry(new Controller)])
+            ->setConstructorArgs([new ComponentRegistry(new Controller())])
             ->setMethods($methods)
             ->getMock();
     }
@@ -78,7 +78,7 @@ trait MockTrait
     {
         return $this->getMockBuilder($className)
             ->setMethods($methods)
-            ->setConstructorArgs([new View])
+            ->setConstructorArgs([new View()])
             ->getMock();
     }
 

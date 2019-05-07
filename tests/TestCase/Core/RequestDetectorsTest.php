@@ -42,7 +42,7 @@ class RequestDetectorsTest extends TestCase
             $routes->fallbacks();
         });
 
-        $this->Request = (new ServerRequest)->withParam('action', 'myAction')
+        $this->Request = (new ServerRequest())->withParam('action', 'myAction')
             ->withParam('controller', 'myController')
             ->withParam('prefix', 'myPrefix');
     }

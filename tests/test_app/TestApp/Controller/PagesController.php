@@ -18,5 +18,4 @@ use Cake\Controller\Controller;
 
 class PagesController extends Controller
 {
-
 }

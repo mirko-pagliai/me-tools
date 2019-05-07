@@ -28,7 +28,7 @@ class GlobalFunctionsTest extends TestCase
     public function testOptionsParser()
     {
         $result = optionsParser();
-        $expected = new OptionsParser;
+        $expected = new OptionsParser();
         $this->assertInstanceOf(OptionsParser::class, $result);
         $this->assertEquals($expected, $result);
         $this->assertEquals(get_object_vars($expected), get_object_vars($result));

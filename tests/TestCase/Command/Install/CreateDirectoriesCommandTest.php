@@ -32,7 +32,7 @@ class CreateDirectoriesCommandTest extends TestCase
      */
     public function testExecute()
     {
-        $io = new ConsoleIo;
+        $io = new ConsoleIo();
         $Command = $this->getMockBuilder(CreateDirectoriesCommand::class)
             ->setMethods(['createDir'])
             ->getMock();

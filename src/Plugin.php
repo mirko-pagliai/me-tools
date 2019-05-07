@@ -34,7 +34,7 @@ class Plugin extends BasePlugin
 {
     /**
      * Load all the application configuration and bootstrap logic
-     * @param PluginApplicationInterface $app The host application
+     * @param \Cake\Core\PluginApplicationInterface $app The host application
      * @return void
      * @since 2.17.3
      */
@@ -67,7 +67,7 @@ class Plugin extends BasePlugin
         ]);
 
         if (class_exists(Assets::class) && !$app->getPlugins()->has('Assets')) {
-            $plugin = new Assets;
+            $plugin = new Assets();
             $plugin->bootstrap($app);
             $app->addPlugin($plugin);
         }
@@ -75,8 +75,8 @@ class Plugin extends BasePlugin
 
     /**
      * Add console commands for the plugin
-     * @param CommandCollection $commands The command collection to update
-     * @return CommandCollection
+     * @param \Cake\Console\CommandCollection $commands The command collection to update
+     * @return \Cake\Console\CommandCollection
      */
     public function console(CommandCollection $commands): CommandCollection
     {

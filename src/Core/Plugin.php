@@ -60,7 +60,7 @@ class Plugin extends CakePlugin
      * @param string|null $file File
      * @param bool $check Checks if the file exists
      * @return string Path of the plugin or path of the path of a plugin file
-     * @throws MissingPluginException
+     * @throws \Cake\Core\Exception\MissingPluginException
      */
     public static function path(string $name, $file = null, $check = false): string
     {

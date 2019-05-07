@@ -51,8 +51,8 @@ class CommandTest extends TestCase
         $this->Command = $this->getMockBuilder($this->getOriginClassName($this))
                 ->setMethods(null)
                 ->getMock();
-        $this->_out = new ConsoleOutput;
-        $this->_err = new ConsoleOutput;
+        $this->_out = new ConsoleOutput();
+        $this->_err = new ConsoleOutput();
         $this->io = $this->getMockBuilder(ConsoleIo::class)
             ->setConstructorArgs([$this->_out, $this->_err, null, null])
             ->setMethods(['in'])

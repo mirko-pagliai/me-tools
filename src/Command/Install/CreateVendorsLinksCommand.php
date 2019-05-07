@@ -28,8 +28,8 @@ class CreateVendorsLinksCommand extends Command
 {
     /**
      * Hook method for defining this command's option parser
-     * @param ConsoleOptionParser $parser The parser to be defined
-     * @return ConsoleOptionParser
+     * @param \Cake\Console\ConsoleOptionParser $parser The parser to be defined
+     * @return \Cake\Console\ConsoleOptionParser
      */
     protected function buildOptionParser(ConsoleOptionParser $parser): ConsoleOptionParser
     {
@@ -38,8 +38,8 @@ class CreateVendorsLinksCommand extends Command
 
     /**
      * Creates symbolic links for vendor assets
-     * @param Arguments $args The command arguments
-     * @param ConsoleIo $io The console io
+     * @param \Cake\Console\Arguments $args The command arguments
+     * @param \Cake\Console\ConsoleIo $io The console io
      * @return null|int The exit code or null for success
      * @uses Command::createLink()
      */

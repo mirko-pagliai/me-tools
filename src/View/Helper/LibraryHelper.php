@@ -110,7 +110,7 @@ class LibraryHelper extends Helper
      * @param string|null $layoutFile The layout about to be rendered
      * @return void
      * @uses MeTools\View\Helper\HtmlHelper::scriptBlock()
-     * @uses output
+     * @uses $output
      */
     public function beforeLayout(Event $event, ?string $layoutFile): void
     {
@@ -199,8 +199,8 @@ class LibraryHelper extends Helper
      * @return void
      * @see MeTools\View\Helper\FormHelper::datepicker()
      * @see http://eonasdan.github.io/bootstrap-datetimepicker Bootstrap 3 Datepicker v4 documentation
-     * @uses output
      * @uses buildDatetimepicker()
+     * @uses $output
      */
     public function datepicker(?string $input, array $options = []): void
     {
@@ -220,8 +220,8 @@ class LibraryHelper extends Helper
      * @return void
      * @see MeTools\View\Helper\FormHelper::datetimepicker()
      * @see http://eonasdan.github.io/bootstrap-datetimepicker Bootstrap 3 Datepicker v4 documentation
-     * @uses output
      * @uses buildDatetimepicker()
+     * @uses $output
      */
     public function datetimepicker($input = null, array $options = [])
     {
@@ -290,7 +290,7 @@ class LibraryHelper extends Helper
      * @param string $targetField Target field
      * @return void
      * @uses Assets\View\Helper\AssetHelper::script()
-     * @uses output
+     * @uses $output
      */
     public function slugify(string $sourceField = 'form #title', string $targetField = 'form #slug'): void
     {
@@ -311,8 +311,8 @@ class LibraryHelper extends Helper
      * @return void
      * @see MeTools\View\Helper\FormHelper::timepicker()
      * @see https://github.com/Eonasdan/bootstrap-datetimepicker Bootstrap v3 datetimepicker widget documentation
-     * @uses output
      * @uses buildDatetimepicker()
+     * @uses $output
      */
     public function timepicker(?string $input, array $options = []): void
     {

@@ -38,7 +38,7 @@ class PaginatorHelper extends CakePaginatorHelper
      * Construct the widgets and binds the default context providers.
      *
      * This method only rewrites the default templates config.
-     * @param Cake\View\View $View The View this helper is being attached to
+     * @param \Cake\View\View $View The View this helper is being attached to
      * @param array $config Configuration settings for the helper
      * @return void
      * @uses $_defaultConfig

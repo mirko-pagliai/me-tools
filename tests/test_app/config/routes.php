@@ -20,17 +20,12 @@
  * @license     http://www.gnu.org/licenses/agpl.txt AGPL License
  * @link        http://git.novatlantis.it Nova Atlantis Ltd
  */
-namespace TestPlugin\Utility;
 
-use TestPlugin\Utility\ParentTestClass;
+use Cake\Routing\RouteBuilder;
+use Cake\Routing\Router;
 
-class ChildTestClass extends ParentTestClass
-{
-    public function firstChildTestMethod()
-    {
-    }
-
-    public function secondChildTestMethod()
-    {
-    }
-}
+Router::scope('/', function (RouteBuilder $routes) {
+    $routes->connect('/', ['controller' => 'pages', 'action' => 'display', 'home']);
+    $routes->connect('/some_alias', ['controller' => 'tests_apps', 'action' => 'some_method']);
+    $routes->fallbacks();
+});
