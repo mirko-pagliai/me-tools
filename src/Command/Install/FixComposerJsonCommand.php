@@ -44,7 +44,7 @@ class FixComposerJsonCommand extends Command
      * Creates symbolic links for vendor assets
      * @param \Cake\Console\Arguments $args The command arguments
      * @param \Cake\Console\ConsoleIo $io The console io
-     * @return null|int The exit code or null for success
+     * @return int|null The exit code or null for success
      * @uses Command::createLink()
      * @uses $links
      */
