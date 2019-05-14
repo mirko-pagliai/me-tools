@@ -15,7 +15,7 @@ declare(strict_types=1);
 namespace MeTools\TestSuite;
 
 use Cake\Controller\Controller;
-use Cake\Event\Event;
+use Cake\Event\EventInterface;
 use Cake\TestSuite\IntegrationTestTrait as CakeIntegrationTestTrait;
 use MeTools\Controller\Component\UploaderComponent;
 
@@ -30,11 +30,11 @@ trait IntegrationTestTrait
 
     /**
      * Adds additional event spies to the controller/view event manager
-     * @param \Cake\Event\Event $event A dispatcher event
+     * @param \Cake\Event\EventInterface $event A dispatcher event
      * @param \Cake\Controller\Controller|null $controller Controller instance
      * @return void
      */
-    public function controllerSpy(Event $event, ?Controller $controller): void
+    public function controllerSpy(EventInterface $event, ?Controller $controller = null): void
     {
         $this->cakeControllerSpy($event, $controller);
 
