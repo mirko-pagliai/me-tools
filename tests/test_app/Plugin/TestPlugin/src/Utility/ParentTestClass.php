@@ -1,4 +1,5 @@
 <?php
+ declare(strict_types=1);
 /**
  * This file is part of MeTools.
  *
@@ -24,11 +25,11 @@ namespace TestPlugin\Utility;
 
 class ParentTestClass
 {
-    public function firstParentTestMethod()
+    public function firstParentTestMethod(): void
     {
     }
 
-    public function secondParentTestMethod()
+    public function secondParentTestMethod(): void
     {
     }
 }

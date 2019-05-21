@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * This file is part of me-tools.
  *
@@ -30,7 +31,7 @@ class FixComposerJsonCommand extends Command
      * @param \Cake\Console\ConsoleOptionParser $parser The parser to be defined
      * @return \Cake\Console\ConsoleOptionParser
      */
-    protected function buildOptionParser(ConsoleOptionParser $parser)
+    protected function buildOptionParser(ConsoleOptionParser $parser): ConsoleOptionParser
     {
         return $parser->setDescription(__d('me_tools', 'Fixes {0}', 'composer.json'))
             ->addOption('path', [
@@ -47,7 +48,7 @@ class FixComposerJsonCommand extends Command
      * @uses Command::createLink()
      * @uses $links
      */
-    public function execute(Arguments $args, ConsoleIo $io)
+    public function execute(Arguments $args, ConsoleIo $io): ?int
     {
         $path = $args->getOption('path') ?: Folder::slashTerm(ROOT) . 'composer.json';
 

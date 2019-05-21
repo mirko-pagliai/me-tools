@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * This file is part of me-tools.
  *
@@ -27,7 +28,7 @@ trait MockTrait
      * @param string $className Controller class name
      * @return string
      */
-    protected function getControllerAlias($className)
+    protected function getControllerAlias(string $className): string
     {
         $parts = explode('\\', $className);
 
@@ -40,7 +41,7 @@ trait MockTrait
      * @param array|null $methods The list of methods to mock
      * @return \Cake\Controller\Component|\PHPUnit_Framework_MockObject_MockObject
      */
-    protected function getMockForComponent($className, $methods = [])
+    protected function getMockForComponent(string $className, ?array $methods = []): object
     {
         return $this->getMockBuilder($className)
             ->setConstructorArgs([new ComponentRegistry(new Controller())])
@@ -56,7 +57,7 @@ trait MockTrait
      * @return \Cake\Controller\Controller|\PHPUnit_Framework_MockObject_MockObject
      * @uses getControllerAlias()
      */
-    protected function getMockForController($className, $methods = [], $alias = null)
+    protected function getMockForController(string $className, ?array $methods = [], ?string $alias = null): object
     {
         class_exists($className) ?: $this->fail('Class `' . $className . '` does not exist');
         $alias = $alias ?: $this->getControllerAlias($className);
@@ -73,7 +74,7 @@ trait MockTrait
      * @param array|null $methods The list of methods to mock
      * @return \Cake\View\Helper|\PHPUnit_Framework_MockObject_MockObject
      */
-    protected function getMockForHelper($className, $methods = [])
+    protected function getMockForHelper(string $className, ?array $methods = []): object
     {
         return $this->getMockBuilder($className)
             ->setMethods($methods)
@@ -91,7 +92,7 @@ trait MockTrait
      * @return string The class name for which a test is being performed
      * @since 2.18.0
      */
-    public function getOriginClassName($testClass)
+    public function getOriginClassName($testClass): string
     {
         $testClass = is_string($testClass) ? $testClass : get_class($testClass);
         $parts = explode('\\', $testClass);

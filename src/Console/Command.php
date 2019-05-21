@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * This file is part of me-tools.
  *
@@ -30,7 +31,7 @@ abstract class Command extends CakeCommand
      * @param string $path Path
      * @return bool
      */
-    protected function verboseIfFileExists(ConsoleIo $io, $path)
+    protected function verboseIfFileExists(ConsoleIo $io, string $path): bool
     {
         if (!file_exists($path)) {
             return false;
@@ -49,7 +50,7 @@ abstract class Command extends CakeCommand
      * @return bool
      * @uses verboseIfFileExists()
      */
-    public function copyFile(ConsoleIo $io, $source, $dest)
+    public function copyFile(ConsoleIo $io, string $source, string $dest): bool
     {
         if ($this->verboseIfFileExists($io, $dest)) {
             return false;
@@ -81,7 +82,7 @@ abstract class Command extends CakeCommand
      * @uses folderChmod()
      * @uses verboseIfFileExists()
      */
-    public function createDir(ConsoleIo $io, $path)
+    public function createDir(ConsoleIo $io, string $path): bool
     {
         if ($this->verboseIfFileExists($io, $path)) {
             return false;
@@ -107,7 +108,7 @@ abstract class Command extends CakeCommand
      * @return bool
      * @uses verboseIfFileExists()
      */
-    public function createFile(ConsoleIo $io, $path, $contents)
+    public function createFile(ConsoleIo $io, string $path, string $contents): bool
     {
         return $this->verboseIfFileExists($io, $path) ? false : $io->createFile($path, $contents);
     }
@@ -119,7 +120,7 @@ abstract class Command extends CakeCommand
      * @param string $dest Destination file or directory
      * @return bool
      */
-    public function createLink(ConsoleIo $io, $source, $dest)
+    public function createLink(ConsoleIo $io, string $source, string $dest): bool
     {
         if ($this->verboseIfFileExists($io, $dest)) {
             return false;
@@ -150,7 +151,7 @@ abstract class Command extends CakeCommand
      * @param int $chmod Chmod
      * @return bool
      */
-    public function folderChmod(ConsoleIo $io, $path, $chmod = 0777)
+    public function folderChmod(ConsoleIo $io, string $path, int $chmod = 0777): bool
     {
         if (!(new Folder())->chmod($path, $chmod, true)) {
             $io->error(__d('me_tools', 'Failed to set permissions on `{0}`', rtr($path)));

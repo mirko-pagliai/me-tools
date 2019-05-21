@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * This file is part of me-tools.
  *
@@ -65,10 +66,10 @@ class PaginatorHelper extends CakePaginatorHelper
      * @param array $options Options for pagination link
      * @return string A "next" link or a disabled link
      */
-    public function next($title = 'Next >>', array $options = [])
+    public function next(string $title = 'Next >>', array $options = []): string
     {
         $options = optionsParser($options, ['escape' => false, 'icon-align' => 'right']);
-        list($title, $options) = $this->Html->addIconToText($title, $options);
+        [$title, $options] = $this->Html->addIconToText($title, $options);
 
         return parent::next($title, $options->toArray());
     }
@@ -79,10 +80,10 @@ class PaginatorHelper extends CakePaginatorHelper
      * @param array $options Options for pagination link
      * @return string A "previous" link or a disabled link
      */
-    public function prev($title = '<< Previous', array $options = [])
+    public function prev(string $title = '<< Previous', array $options = []): string
     {
         $options = optionsParser($options, ['escape' => false]);
-        list($title, $options) = $this->Html->addIconToText($title, $options);
+        [$title, $options] = $this->Html->addIconToText($title, $options);
 
         return parent::prev($title, $options->toArray());
     }

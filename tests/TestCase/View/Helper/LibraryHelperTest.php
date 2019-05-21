@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * This file is part of me-tools.
  *
@@ -44,7 +45,7 @@ class LibraryHelperTest extends HelperTestCase
      * Called after every test method
      * @return void
      */
-    public function tearDown()
+    public function tearDown(): void
     {
         parent::tearDown();
 
@@ -81,7 +82,7 @@ class LibraryHelperTest extends HelperTestCase
      */
     public function testBeforeLayout()
     {
-        $this->Helper->beforeLayout(new Event(null), null);
+        $this->Helper->beforeLayout(new Event('myEvent'), null);
         $this->assertEmpty($this->getProperty($this->Helper, 'output'));
         $this->assertEmpty($this->Helper->getView()->fetch('script_bottom'));
 
@@ -92,7 +93,7 @@ class LibraryHelperTest extends HelperTestCase
             '});</script>',
         ];
         $this->setProperty($this->Helper, 'output', ['//first', '//second']);
-        $this->Helper->beforeLayout(new Event(null), null);
+        $this->Helper->beforeLayout(new Event('myEvent'), null);
         $this->assertEmpty($this->getProperty($this->Helper, 'output'));
         $this->assertEquals($expected, preg_split('/' . PHP_EOL . '/', $this->Helper->getView()->fetch('script_bottom')));
     }

@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * This file is part of me-tools.
  *
@@ -26,7 +27,7 @@ class HiddenWidget extends BasicWidget
      * @param \Cake\View\Form\ContextInterface $context The current form context
      * @return string
      */
-    public function render(array $data, ContextInterface $context)
+    public function render(array $data, ContextInterface $context): string
     {
         $data = optionsParser($data, [
             'name' => '',

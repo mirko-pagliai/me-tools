@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * This file is part of me-tools.
  *
@@ -41,7 +42,7 @@ class RunAllCommand extends Command
      * @param \Cake\Console\ConsoleOptionParser $parser The parser to be defined
      * @return \Cake\Console\ConsoleOptionParser
      */
-    protected function buildOptionParser(ConsoleOptionParser $parser)
+    protected function buildOptionParser(ConsoleOptionParser $parser): ConsoleOptionParser
     {
         return $parser->setDescription(__d('me_tools', 'Executes all available commands'))
             ->addOption('force', [
@@ -101,7 +102,7 @@ class RunAllCommand extends Command
      * @return int|null The exit code or null for success
      * @uses $questions
      */
-    public function execute(Arguments $args, ConsoleIo $io)
+    public function execute(Arguments $args, ConsoleIo $io): ?int
     {
         $questions = $args->getOption('force') ? Hash::extract($this->questions, '{n}[default=Y]') : $this->questions;
 
@@ -110,7 +111,7 @@ class RunAllCommand extends Command
                 !array_diff(['question', 'default', 'command'], array_keys($question)),
                 __d('me_tools', 'Invalid question keys')
             );
-            list($question, $default, $command) = array_values($question);
+            [$question, $default, $command] = array_values($question);
 
             //The method must be executed if the `force` mode is set or if the
             //  user answers yes to the question

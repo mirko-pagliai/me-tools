@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * This file is part of me-tools.
  *
@@ -27,20 +28,20 @@ class HtmlHelper extends CakeHtmlHelper
      *
      * If you pass no more than two parameters, it tries to generate a html
      *  tag with the name of the method and works as alias of `tag()`.
-     * @param string $name Name of the tag
+     * @param string $method Name of the tag
      * @param array $params Params for the method
      * @return string
      * @uses tag()
      */
-    public function __call($name, $params)
+    public function __call($method, $params): string
     {
         is_true_or_fail(
             $params && count($params) < 3,
-            sprintf('Method `%s::%s()` does not exist', __CLASS__, $name),
+            sprintf('Method `%s::%s()` does not exist', __CLASS__, $method),
             Exception::class
         );
 
-        return self::tag($name, $params[0], isset($params[1]) ? $params[1] : []);
+        return self::tag($method, $params[0], $params[1] ?? []);
     }
 
     /**
@@ -49,7 +50,7 @@ class HtmlHelper extends CakeHtmlHelper
      * @return string
      * @since 2.16.2-beta
      */
-    protected function buildIconClasses($icon)
+    protected function buildIconClasses($icon): string
     {
         //Prepends the string "fa-" to any other class
         $icon = preg_replace('/(?<![^ ])(?=[^ ])(?!fa)/', 'fa-', $icon);
@@ -65,13 +66,13 @@ class HtmlHelper extends CakeHtmlHelper
 
     /**
      * Adds icons to text
-     * @param string $text Text
+     * @param string|null $text Text
      * @param \MeTools\View\OptionsParser $options Instance of `OptionsParser`
      * @return array Text with icons and instance of `OptionsParser`
      * @since 2.16.2-beta
      * @uses icon()
      */
-    public function addIconToText($text, OptionsParser $options)
+    public function addIconToText(?string $text, OptionsParser $options): array
     {
         $icon = $options->consume('icon');
         $align = $options->consume('icon-align');
@@ -99,7 +100,7 @@ class HtmlHelper extends CakeHtmlHelper
      * @see http://getbootstrap.com/components/#badges Bootstrap documentation
      * @uses tag()
      */
-    public function badge($text, array $options = [])
+    public function badge(string $text, array $options = []): string
     {
         $options = optionsParser($options)->append('class', 'badge');
 
@@ -119,7 +120,7 @@ class HtmlHelper extends CakeHtmlHelper
      * @uses link()
      * @uses tag()
      */
-    public function button($title, $url = null, array $options = [])
+    public function button(string $title, $url = null, array $options = []): string
     {
         $options = optionsParser($options, ['role' => 'button'])->addButtonClasses();
 
@@ -141,7 +142,7 @@ class HtmlHelper extends CakeHtmlHelper
      * @param array $options Array of options and HTML attributes
      * @return string Html, `<link>` or `<style>` tag
      */
-    public function css($path, array $options = [])
+    public function css($path, array $options = []): ?string
     {
         $options = optionsParser($options, ['block' => true]);
 
@@ -156,7 +157,7 @@ class HtmlHelper extends CakeHtmlHelper
      * @return string|null String or `null`, depending on the value of
      *  $options['block']`
      */
-    public function cssBlock($css, array $options = [])
+    public function cssBlock(string $css, array $options = []): ?string
     {
         $options = optionsParser($options, ['block' => true]);
 
@@ -174,6 +175,8 @@ class HtmlHelper extends CakeHtmlHelper
         }
 
         $this->_View->append($options->get('block'), $out);
+
+        return null;
     }
 
     /**
@@ -183,7 +186,7 @@ class HtmlHelper extends CakeHtmlHelper
      * @param array $options Options for the code block.
      * @return void
      */
-    public function cssStart(array $options = [])
+    public function cssStart(array $options = []): void
     {
         $options += ['block' => null];
         $this->_cssBlockOptions = $options;
@@ -197,7 +200,7 @@ class HtmlHelper extends CakeHtmlHelper
      * @return string|null Depending on the settings of `cssStart()`, either a
      *  style tag or null
      */
-    public function cssEnd()
+    public function cssEnd(): ?string
     {
         $buffer = ob_get_clean();
         $options = $this->_cssBlockOptions;
@@ -223,7 +226,7 @@ class HtmlHelper extends CakeHtmlHelper
      * @uses small()
      * @uses tag()
      */
-    public function heading($text, array $options = [], $small = null, array $smallOptions = [])
+    public function heading(string $text, array $options = [], ?string $small = null, array $smallOptions = []): string
     {
         $options = optionsParser($options);
         $type = $options->consume('type');
@@ -240,7 +243,7 @@ class HtmlHelper extends CakeHtmlHelper
      * @return string
      * @uses tag()
      */
-    public function hr(array $options = [])
+    public function hr(array $options = []): string
     {
         return self::tag('hr', null, $options);
     }
@@ -270,7 +273,7 @@ class HtmlHelper extends CakeHtmlHelper
      * @see http://fortawesome.github.io/Font-Awesome Font Awesome icons
      * @uses buildIconClasses()
      */
-    public function icon($icon)
+    public function icon($icon): string
     {
         $icon = func_num_args() > 1 ? func_get_args() : $icon;
 
@@ -293,7 +296,7 @@ class HtmlHelper extends CakeHtmlHelper
      * @uses div()
      * @uses tag()
      */
-    public function iframe($url, array $options = [])
+    public function iframe(string $url, array $options = []): string
     {
         $options = optionsParser($options)->add('src', $url);
 
@@ -313,12 +316,12 @@ class HtmlHelper extends CakeHtmlHelper
 
     /**
      * Creates a formatted `<img>` element
-     * @param string $path Path to the image file, relative to the
+     * @param string|array $path Path to the image file, relative to the
      *  `APP/webroot/img/` directory
      * @param array $options Array of options and HTML attributes
      * @return string
      */
-    public function image($path, array $options = [])
+    public function image($path, array $options = []): string
     {
         $options = optionsParser($options, ['alt' => pathinfo($path, PATHINFO_BASENAME)])
             ->append('class', 'img-fluid')
@@ -332,18 +335,18 @@ class HtmlHelper extends CakeHtmlHelper
      * @return string
      * @see image()
      */
-    public function img()
+    public function img(): string
     {
         return call_user_func_array([get_class(), 'image'], func_get_args());
     }
 
     /**
      * Alias for `script()` method
-     * @return mixed String of `<script />` tags or null if `$inline` is false
+     * @return string|null String of `<script />` tags or null if `$inline` is false
      *  or if `$once` is true and the file has been included before
      * @see script()
      */
-    public function js()
+    public function js(): ?string
     {
         return call_user_func_array([get_class(), 'script'], func_get_args());
     }
@@ -364,7 +367,7 @@ class HtmlHelper extends CakeHtmlHelper
      * @see http://getbootstrap.com/components/#labels Bootstrap documentation
      * @uses tag()
      */
-    public function label($text, array $options = [])
+    public function label(string $text, array $options = []): string
     {
         $options = optionsParser($options);
         $options->append('class', sprintf('label label-%s', $options->consume('type') ?: 'default'));
@@ -382,7 +385,7 @@ class HtmlHelper extends CakeHtmlHelper
      * @return string
      * @uses tag()
      */
-    public function li($element, array $options = [])
+    public function li($element, array $options = []): string
     {
         if (!is_array($element)) {
             return self::tag('li', $element, $options);
@@ -397,17 +400,19 @@ class HtmlHelper extends CakeHtmlHelper
 
     /**
      * Creates an HTML link
-     * @param string $title The content to be wrapped by <a> tags
+     * @param string|array $title The content to be wrapped by `<a>` tags.
+     *  Can be an array if $url is null. If $url is null, $title will be used
+     *  as both the URL and title.
      * @param string|array|null $url Cake-relative URL or array of URL
      *  parameters or external URL
      * @param array $options Array of options and HTML attributes
      * @return string
      */
-    public function link($title, $url = null, array $options = [])
+    public function link($title, $url = null, array $options = []): string
     {
         $options = optionsParser($options, ['escape' => false, 'title' => $title]);
         $options->add('title', trim(h(strip_tags($options->get('title')))))->tooltip();
-        list($title, $options) = $this->addIconToText($title, $options);
+        [$title, $options] = $this->addIconToText($title, $options);
 
         return parent::link($title, $url, $options->toArray());
     }
@@ -421,7 +426,7 @@ class HtmlHelper extends CakeHtmlHelper
      *  type attribute is html, rss, atom, or icon, the mime-type is returned
      * @return string A completed `<link />` element
      */
-    public function meta($type, $content = null, array $options = [])
+    public function meta($type, $content = null, array $options = []): ?string
     {
         $options = optionsParser($options, ['block' => true]);
 
@@ -435,7 +440,7 @@ class HtmlHelper extends CakeHtmlHelper
      * @param array $itemOptions HTML attributes of the list items
      * @return string
      */
-    public function nestedList(array $list, array $options = [], array $itemOptions = [])
+    public function nestedList(array $list, array $options = [], array $itemOptions = []): string
     {
         $options = optionsParser($options);
         $itemOptions = optionsParser($itemOptions);
@@ -467,7 +472,7 @@ class HtmlHelper extends CakeHtmlHelper
      * @return string
      * @uses nestedList()
      */
-    public function ol(array $list, array $options = [], array $itemOptions = [])
+    public function ol(array $list, array $options = [], array $itemOptions = []): string
     {
         return self::nestedList($list, array_merge($options, ['tag' => 'ol']), $itemOptions);
     }
@@ -479,24 +484,24 @@ class HtmlHelper extends CakeHtmlHelper
      * @param array $options Array of options and HTML attributes
      * @return string
      */
-    public function para($class = null, $text = null, array $options = [])
+    public function para(?string $class = null, ?string $text = null, array $options = []): string
     {
         $options = optionsParser($options)->tooltip();
-        list($text, $options) = $this->addIconToText($text, $options);
+        [$text, $options] = $this->addIconToText($text, $options);
 
-        return parent::para($class, (string)$text, $options->toArray());
+        return parent::para($class ?? '', (string)$text, $options->toArray());
     }
 
     /**
      * Adds a js file to the layout.
      *
      * If it's used in the layout, you should set the `inline` option to `true`.
-     * @param mixed $url Javascript files as string or array
+     * @param string|array $url Javascript files as string or array
      * @param array $options Array of options and HTML attributes
-     * @return mixed String of `<script />` tags or `null` if `$inline` is false
+     * @return string|null String of `<script />` tags or `null` if `$inline` is false
      *  or if `$once` is true and the file has been included before
      */
-    public function script($url, array $options = [])
+    public function script($url, array $options = []): ?string
     {
         $options = optionsParser($options, ['block' => true]);
 
@@ -505,15 +510,15 @@ class HtmlHelper extends CakeHtmlHelper
 
     /**
      * Returns a Javascript code block
-     * @param string $code Javascript code
+     * @param string $script Javascript code
      * @param array $options Array of options and HTML attributes
-     * @return mixed A script tag or `null`
+     * @return string|null A script tag or `null`
      */
-    public function scriptBlock($code, array $options = [])
+    public function scriptBlock(string $script, array $options = []): ?string
     {
         $options = optionsParser($options, ['block' => true]);
 
-        return parent::scriptBlock($code, $options->toArray());
+        return parent::scriptBlock($script, $options->toArray());
     }
 
     /**
@@ -524,14 +529,13 @@ class HtmlHelper extends CakeHtmlHelper
      * To capture output with a single method, you can also use the
      *  `scriptBlock()` method.
      * @param array $options Options for the code block
-     * @return mixed A script tag or `null`
+     * @return void
      * @see scriptBlock()
      */
-    public function scriptStart(array $options = [])
+    public function scriptStart(array $options = []): void
     {
         $options = optionsParser($options, ['block' => 'script_bottom']);
-
-        return parent::scriptStart($options->toArray());
+        parent::scriptStart($options->toArray());
     }
 
     /**
@@ -544,7 +548,7 @@ class HtmlHelper extends CakeHtmlHelper
      * @see MeTools\View\Helper\LayoutHelper::shareaholic()
      * @uses div()
      */
-    public function shareaholic($appId)
+    public function shareaholic(string $appId): string
     {
         return self::div('shareaholic-canvas', null, [
             'data-app' => 'share_buttons',
@@ -560,10 +564,10 @@ class HtmlHelper extends CakeHtmlHelper
      * @param array $options Array of options and HTML attributes
      * @return string
      */
-    public function tag($name, $text = null, array $options = [])
+    public function tag(string $name, ?string $text = null, array $options = []): string
     {
         $options = optionsParser($options)->tooltip();
-        list($text, $options) = $this->addIconToText($text, $options);
+        [$text, $options] = $this->addIconToText($text, $options);
 
         return parent::tag($name, is_null($text) ? '' : $text, $options->toArray());
     }
@@ -576,7 +580,7 @@ class HtmlHelper extends CakeHtmlHelper
      * @return string
      * @uses nestedList()
      */
-    public function ul(array $list, array $options = [], array $itemOptions = [])
+    public function ul(array $list, array $options = [], array $itemOptions = []): string
     {
         return self::nestedList($list, array_merge($options, ['tag' => 'ul']), $itemOptions);
     }
@@ -586,17 +590,17 @@ class HtmlHelper extends CakeHtmlHelper
      *  by Bootstrap
      * @param array $options Attributes for the generated tag. If the type
      *  attribute is html, rss, atom, or icon, the mime-type is returned
-     * @return string
+     * @return string|null
      * @see http://getbootstrap.com/css/#overview-mobile Bootstrap documentation
      * @uses meta()
      */
-    public function viewport(array $options = [])
+    public function viewport(array $options = []): ?string
     {
         $content = http_build_query([
             'initial-scale' => '1',
             'shrink-to-fit' => 'no',
             'width' => 'device-width',
-        ], null, ', ');
+        ], '', ', ');
 
         return self::meta(array_merge(['name' => 'viewport'], compact('content')), null, $options);
     }
@@ -611,7 +615,7 @@ class HtmlHelper extends CakeHtmlHelper
      * @return string
      * @uses iframe()
      */
-    public function youtube($id, array $options = [])
+    public function youtube(string $id, array $options = []): string
     {
         $options = optionsParser($options, [
             'allowfullscreen' => 'allowfullscreen',

@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * This file is part of me-tools.
  *
@@ -13,6 +14,8 @@
  */
 namespace MeTools\TestSuite;
 
+use Cake\Controller\Controller;
+use Cake\Event\EventInterface;
 use Cake\TestSuite\IntegrationTestTrait as CakeIntegrationTestTrait;
 use MeTools\Controller\Component\UploaderComponent;
 
@@ -27,21 +30,15 @@ trait IntegrationTestTrait
 
     /**
      * Adds additional event spies to the controller/view event manager
-     * @param \Cake\Event\Event $event A dispatcher event
+     * @param \Cake\Event\EventInterface $event A dispatcher event
      * @param \Cake\Controller\Controller|null $controller Controller instance
      * @return void
      */
-    public function controllerSpy($event, $controller = null)
+    public function controllerSpy(EventInterface $event, ?Controller $controller = null): void
     {
         $this->cakeControllerSpy($event, $controller);
 
         $this->_controller->viewBuilder()->setLayout('with_flash');
-
-        //Sets key for cookies
-        if (!$this->_controller->components()->has('Cookie')) {
-            $this->_controller->loadComponent('Cookie');
-        }
-        $this->_controller->Cookie->setConfig('key', 'somerandomhaskeysomerandomhaskey');
 
         if ($this->_controller->components()->has('Uploader')) {
             $this->_controller->Uploader = $this->getMockForComponent(UploaderComponent::class, ['move_uploaded_file']);
@@ -60,7 +57,7 @@ trait IntegrationTestTrait
      *  generated message
      * @return void
      */
-    public function assertCookieIsEmpty($name, $message = '')
+    public function assertCookieIsEmpty(string $name, string $message = ''): void
     {
         $this->_response ?: $this->fail('Not response set, cannot assert cookies');
         $this->assertEmpty($this->_response->getCookie($name)['value'], $message);
@@ -74,7 +71,7 @@ trait IntegrationTestTrait
      *  generated message
      * @return void
      */
-    public function assertFlashMessage($expected, $key = 0, $message = '')
+    public function assertFlashMessage(string $expected, int $key = 0, string $message = ''): void
     {
         $this->assertSession($expected, sprintf('Flash.flash.%d.message', $key), $message);
     }
@@ -86,7 +83,7 @@ trait IntegrationTestTrait
      *  generated message
      * @return void
      */
-    public function assertResponseOkAndNotEmpty($message = '')
+    public function assertResponseOkAndNotEmpty(string $message = ''): void
     {
         $this->assertResponseOk($message) && $this->assertResponseNotEmpty($message);
     }

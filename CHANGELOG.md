@@ -1,4 +1,8 @@
 # 2.x branch
+## 2.19 branch
+### 2.19.0
+* updated for `cakephp` 4 and `phpunit` 8.
+
 ## 2.18 branch
 ### 2.18.7
 * `TestCase::tearDown()` method no longer empties temporary files. This should

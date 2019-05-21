@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * This file is part of me-tools.
  *
@@ -39,7 +40,7 @@ class UploaderComponent extends Component
      * @return void
      * @uses $error
      */
-    protected function setError($error)
+    protected function setError(string $error): void
     {
         $this->error = $this->error ?: $error;
     }
@@ -49,7 +50,7 @@ class UploaderComponent extends Component
      * @param string $target Path
      * @return string
      */
-    protected function findTargetFilename($target)
+    protected function findTargetFilename(string $target): string
     {
         //If the file already exists, adds a numeric suffix
         if (file_exists($target)) {
@@ -84,7 +85,7 @@ class UploaderComponent extends Component
      * @return bool
      */
     //@codingStandardsIgnoreLine
-    protected function move_uploaded_file($filename, $destination)
+    protected function move_uploaded_file(string $filename, string $destination): bool
     {
         return move_uploaded_file($filename, $destination);
     }
@@ -94,7 +95,7 @@ class UploaderComponent extends Component
      * @return string|null First error or `null` with no errors
      * @uses $error
      */
-    public function getError()
+    public function getError(): ?string
     {
         return $this->error ?: null;
     }
@@ -103,7 +104,7 @@ class UploaderComponent extends Component
      * Checks if the mimetype is correct
      * @param string|array $acceptedMimetype Accepted mimetypes as string or
      *  array or a magic word (`images` or `text`)
-     * @return \MeTools\Controller\Component\UploaderComponent
+     * @return $this
      * @throws \RuntimeException
      * @uses setError()
      * @uses $file
@@ -150,7 +151,7 @@ class UploaderComponent extends Component
      * @uses move_uploaded_file()
      * @uses $file
      */
-    public function save($directory, $filename = null)
+    public function save(string $directory, ?string $filename = null)
     {
         is_true_or_fail(
             $this->file,
@@ -181,7 +182,7 @@ class UploaderComponent extends Component
      * Sets uploaded file information (`$_FILES` array, better as
      *  `$this->request->getData('file')`)
      * @param array $file Uploaded file information
-     * @return \MeTools\Controller\Component\UploaderComponent
+     * @return $this
      * @uses setError()
      * @uses $error
      * @uses $file

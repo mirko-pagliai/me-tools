@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * This file is part of me-tools.
  *
@@ -35,7 +36,7 @@ trait ConsoleIntegrationTestTrait
      * @uses $Command
      * @uses $autoInitializeClass
      */
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -59,7 +60,7 @@ trait ConsoleIntegrationTestTrait
      *  message
      * @return void
      */
-    public function assertExitWithError($message = '')
+    public function assertExitWithError(string $message = ''): void
     {
         $this->assertExitCode(Command::CODE_ERROR, $message);
     }
@@ -70,7 +71,7 @@ trait ConsoleIntegrationTestTrait
      *  message
      * @return void
      */
-    public function assertExitWithSuccess($message = '')
+    public function assertExitWithSuccess(string $message = ''): void
     {
         $this->assertExitCode(Command::CODE_SUCCESS, $message);
     }
@@ -82,7 +83,7 @@ trait ConsoleIntegrationTestTrait
      * @return void
      * @since 2.17.6
      */
-    public function assertOutputNotEmpty($message = 'stdout was empty')
+    public function assertOutputNotEmpty(string $message = 'stdout was empty'): void
     {
         $this->assertNotEmpty($this->_out->messages(), $message);
     }

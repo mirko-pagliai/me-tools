@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * This file is part of me-tools.
  *
@@ -12,7 +13,9 @@
  */
 namespace MeTools\Test\TestCase\Core;
 
-use Cake\Network\Request;
+use Cake\Http\ServerRequest;
+use Cake\Routing\RouteBuilder;
+use Cake\Routing\Router;
 use MeTools\TestSuite\TestCase;
 
 /**
@@ -21,7 +24,7 @@ use MeTools\TestSuite\TestCase;
 class RequestDetectorsTest extends TestCase
 {
     /**
-     * @var \Cake\Network\Request
+     * @var \Cake\Http\ServerRequest
      */
     public $Request;
 
@@ -29,11 +32,17 @@ class RequestDetectorsTest extends TestCase
      * Called before every test method
      * @return void
      */
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
-        $this->Request = (new Request())->withParam('action', 'myAction')
+        Router::scope('/', function (RouteBuilder $routes) {
+            $routes->connect('/', ['controller' => 'pages', 'action' => 'display', 'home']);
+            $routes->connect('/some_alias', ['controller' => 'tests_apps', 'action' => 'some_method']);
+            $routes->fallbacks();
+        });
+
+        $this->Request = (new ServerRequest())->withParam('action', 'myAction')
             ->withParam('controller', 'myController')
             ->withParam('prefix', 'myPrefix');
     }

@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * This file is part of me-tools.
  *
@@ -34,7 +35,7 @@ abstract class TestCase extends CakeTestCase
      * Called before every test method
      * @return void
      */
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -45,7 +46,7 @@ abstract class TestCase extends CakeTestCase
      * Called after every test method
      * @return void
      */
-    public function tearDown()
+    public function tearDown(): void
     {
         parent::tearDown();
 
@@ -64,7 +65,7 @@ abstract class TestCase extends CakeTestCase
      * @return string
      * @since 2.16.10
      */
-    protected function getLogFullPath($filename)
+    protected function getLogFullPath(string $filename): string
     {
         if (!pathinfo($filename, PATHINFO_EXTENSION)) {
             $filename .= '.log';
@@ -82,7 +83,7 @@ abstract class TestCase extends CakeTestCase
      * @return void
      * @uses getLogFullPath()
      */
-    public function assertLogContains($expectedContent, $filename, $message = '')
+    public function assertLogContains(string $expectedContent, string $filename, string $message = ''): void
     {
         $filename = $this->getLogFullPath($filename);
 
@@ -93,7 +94,7 @@ abstract class TestCase extends CakeTestCase
             $this->fail($e->getMessage());
         }
 
-        $this->assertContains($expectedContent, $content, $message);
+        $this->assertStringContainsString($expectedContent, $content, $message);
     }
 
     /**
@@ -102,7 +103,7 @@ abstract class TestCase extends CakeTestCase
      * @return void
      * @uses getLogFullPath()
      */
-    public function deleteLog($filename)
+    public function deleteLog(string $filename): void
     {
         unlink($this->getLogFullPath($filename));
     }

@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * This file is part of me-tools.
  *
@@ -38,7 +39,7 @@ abstract class HelperTestCase extends TestCase
      * @uses $Helper
      * @uses $autoInitializeClass
      */
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 

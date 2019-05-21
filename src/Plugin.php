@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * This file is part of me-tools.
  *
@@ -14,6 +15,7 @@
 namespace MeTools;
 
 use Assets\Plugin as Assets;
+use Cake\Console\CommandCollection;
 use Cake\Core\BasePlugin;
 use Cake\Core\Configure;
 use Cake\Core\PluginApplicationInterface;
@@ -36,7 +38,7 @@ class Plugin extends BasePlugin
      * @return void
      * @since 2.17.3
      */
-    public function bootstrap(PluginApplicationInterface $app)
+    public function bootstrap(PluginApplicationInterface $app): void
     {
         parent::bootstrap($app);
 
@@ -76,16 +78,14 @@ class Plugin extends BasePlugin
      * @param \Cake\Console\CommandCollection $commands The command collection to update
      * @return \Cake\Console\CommandCollection
      */
-    public function console($commands)
+    public function console(CommandCollection $commands): CommandCollection
     {
-        $commands->add('me_tools.create_directories', CreateDirectoriesCommand::class);
-        $commands->add('me_tools.create_plugins_links', CreatePluginsLinksCommand::class);
-        $commands->add('me_tools.create_robots', CreateRobotsCommand::class);
-        $commands->add('me_tools.create_vendors_links', CreateVendorsLinksCommand::class);
-        $commands->add('me_tools.fix_composer_json', FixComposerJsonCommand::class);
-        $commands->add('me_tools.install', RunAllCommand::class);
-        $commands->add('me_tools.set_permissions', SetPermissionsCommand::class);
-
-        return $commands;
+        return $commands->add('me_tools.create_directories', CreateDirectoriesCommand::class)
+            ->add('me_tools.create_plugins_links', CreatePluginsLinksCommand::class)
+            ->add('me_tools.create_robots', CreateRobotsCommand::class)
+            ->add('me_tools.create_vendors_links', CreateVendorsLinksCommand::class)
+            ->add('me_tools.fix_composer_json', FixComposerJsonCommand::class)
+            ->add('me_tools.install', RunAllCommand::class)
+            ->add('me_tools.set_permissions', SetPermissionsCommand::class);
     }
 }

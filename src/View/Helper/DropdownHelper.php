@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * This file is part of me-tools.
  *
@@ -81,7 +82,7 @@ class DropdownHelper extends Helper
      *  element
      * @return string|void
      */
-    public function menu($title, array $menu, array $titleOptions = [], array $divOptions = [])
+    public function menu(string $title, array $menu, array $titleOptions = [], array $divOptions = []): ?string
     {
         $this->start($title, $titleOptions);
 
@@ -104,7 +105,7 @@ class DropdownHelper extends Helper
      * @return void
      * @uses $_start
      */
-    public function start($title, array $titleOptions = [])
+    public function start(string $title, array $titleOptions = []): void
     {
         $titleOptions = optionsParser($titleOptions, ['aria-expanded' => 'false', 'aria-haspopup' => 'true'])
             ->append(['class' => 'dropdown-toggle', 'data-toggle' => 'dropdown']);
@@ -123,7 +124,7 @@ class DropdownHelper extends Helper
      * @return string|null
      * @uses $_start
      */
-    public function end(array $divOptions = [])
+    public function end(array $divOptions = []): ?string
     {
         $buffer = ob_get_contents();
 
@@ -139,8 +140,9 @@ class DropdownHelper extends Helper
         }
 
         $divOptions = optionsParser($divOptions)->append('class', 'dropdown-menu');
+        $links = implode(PHP_EOL, (array)$matches[0]);
 
         return $this->_start . PHP_EOL .
-            $this->Html->div($divOptions->get('class'), $matches[0], $divOptions->toArray());
+            $this->Html->div($divOptions->get('class'), $links, $divOptions->toArray());
     }
 }
