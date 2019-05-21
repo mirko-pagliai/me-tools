@@ -10,7 +10,7 @@
  * @link        https://github.com/mirko-pagliai/me-tools
  * @license     https://opensource.org/licenses/mit-license.php MIT License
  */
-namespace MeTools\Test\TestCase;
+namespace MeTools\Test\TestCase\Utility;
 
 use MeTools\TestSuite\TestCase;
 use MeTools\Utility\Youtube;
