@@ -10,7 +10,7 @@ declare(strict_types=1);
  * @copyright   Copyright (c) Mirko Pagliai
  * @link        https://github.com/mirko-pagliai/me-tools
  * @license     https://opensource.org/licenses/mit-license.php MIT License
- * @see         http://api.cakephp.org/3.4/class-Cake.View.Helper.FormHelper.html FormHelper
+ * @see         http://api.cakephp.org/3.7/class-Cake.View.Helper.FormHelper.html
  */
 namespace MeTools\View\Helper;
 
