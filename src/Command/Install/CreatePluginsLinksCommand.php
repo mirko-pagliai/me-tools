@@ -35,7 +35,7 @@ class CreatePluginsLinksCommand extends Command
     }
 
     /**
-     * 'Creates symbolic links for plugins assets'
+     * Creates symbolic links for plugins assets
      * @param Arguments $args The command arguments
      * @param ConsoleIo $io The console io
      * @return null|int The exit code or null for success
