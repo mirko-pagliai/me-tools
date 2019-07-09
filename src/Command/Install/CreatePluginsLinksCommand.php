@@ -53,7 +53,7 @@ class CreatePluginsLinksCommand extends Command
                 continue;
             }
 
-            list($link, $destDir, $namespaced) = [Inflector::underscore($plugin), WWW_ROOT, false];
+            [$link, $destDir, $namespaced] = [Inflector::underscore($plugin), WWW_ROOT, false];
             $plugins[$plugin] = compact('destDir', 'link', 'namespaced', 'srcPath');
         }
 
