@@ -27,6 +27,8 @@ class PluginTest extends TestCase
      */
     public function testAll()
     {
+        $this->removePlugins(['TestPlugin']);
+
         $expected = ['MeTools'];
         if (Plugin::getCollection()->has('Assets')) {
             $expected[] = 'Assets';

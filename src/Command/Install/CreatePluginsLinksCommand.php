@@ -16,8 +16,9 @@ namespace MeTools\Command\Install;
 use Cake\Console\Arguments;
 use Cake\Console\ConsoleIo;
 use Cake\Console\ConsoleOptionParser;
-use Cake\Shell\Task\AssetsTask;
+use Cake\Utility\Inflector;
 use MeTools\Console\Command;
+use MeTools\Core\Plugin;
 
 /**
  * 'Creates symbolic links for plugins assets'
@@ -42,7 +43,32 @@ class CreatePluginsLinksCommand extends Command
      */
     public function execute(Arguments $args, ConsoleIo $io)
     {
-        (new AssetsTask($io))->symlink();
+        $plugins = [];
+
+        foreach (Plugin::loaded() as $plugin) {
+            $srcPath = Plugin::path($plugin) . 'webroot';
+            if (!is_dir($srcPath)) {
+                $io->verbose(sprintf('Skipping plugin %s. It does not have webroot folder.', $plugin), 1);
+                continue;
+            }
+
+            list($link, $destDir, $namespaced) = [Inflector::underscore($plugin), WWW_ROOT, false];
+            $plugins[$plugin] = compact('destDir', 'link', 'namespaced', 'srcPath');
+        }
+
+        foreach ($plugins as $plugin => $config) {
+            $io->verbose('For plugin: ' . $plugin);
+
+            $dest = $config['destDir'] . $config['link'];
+            if (file_exists($dest)) {
+                $io->verbose('Link `' . rtr($dest) . '` already exists', 1);
+                continue;
+            }
+
+            $this->createLink($io, $config['srcPath'], $dest);
+        }
+
+        $io->verbose('Done');
 
         return null;
     }
