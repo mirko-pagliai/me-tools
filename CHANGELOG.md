@@ -4,6 +4,9 @@
 * updated for `cakephp` 4 and `phpunit` 8.
 
 ## 2.18 branch
+### 2.18.8
+* fixed `CreatePluginsLinksCommand`, now it works without the `AssetsTask`.
+
 ### 2.18.7
 * `TestCase::tearDown()` method no longer empties temporary files. This should
     be done as appropriate;
