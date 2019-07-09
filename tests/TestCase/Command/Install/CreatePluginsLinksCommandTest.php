@@ -36,7 +36,7 @@ class CreatePluginsLinksCommandTest extends TestCase
         $this->assertOutputEmpty();
         $this->assertErrorEmpty();
         $this->assertFileExists(WWW_ROOT . 'me_tools');
-        $this->assertFileExists(WWW_ROOT . 'test_plugin');
+        $this->assertFileExists(WWW_ROOT . 'test_plugin' . DS . 'example');
 
         @array_map('unlink', [WWW_ROOT . 'me_tools', WWW_ROOT . 'test_plugin']);
         $this->exec('me_tools.create_plugins_links -v');
@@ -49,7 +49,7 @@ class CreatePluginsLinksCommandTest extends TestCase
         $this->assertOutputContains('Done');
         $this->assertErrorEmpty();
         $this->assertFileExists(WWW_ROOT . 'me_tools');
-        $this->assertFileExists(WWW_ROOT . 'test_plugin');
+        $this->assertFileExists(WWW_ROOT . 'test_plugin' . DS . 'example');
 
         //Already exist
         $this->exec('me_tools.create_plugins_links -v');
