@@ -30,7 +30,7 @@ class CreatePluginsLinksCommandTest extends TestCase
     {
         $this->loadPlugins(['TestPlugin']);
 
-        @array_map('unlink', [WWW_ROOT . 'me_tools', WWW_ROOT . 'test_plugin']);
+        @array_map(IS_WIN ? 'rmdir_recursive' : 'unlink', [WWW_ROOT . 'me_tools', WWW_ROOT . 'test_plugin']);
         $this->exec('me_tools.create_plugins_links');
         $this->assertExitWithSuccess();
         $this->assertOutputEmpty();
@@ -38,7 +38,7 @@ class CreatePluginsLinksCommandTest extends TestCase
         $this->assertFileExists(WWW_ROOT . 'me_tools');
         $this->assertFileExists(WWW_ROOT . 'test_plugin' . DS . 'example');
 
-        @array_map('unlink', [WWW_ROOT . 'me_tools', WWW_ROOT . 'test_plugin']);
+        @array_map(IS_WIN ? 'rmdir_recursive' : 'unlink', [WWW_ROOT . 'me_tools', WWW_ROOT . 'test_plugin']);
         $this->exec('me_tools.create_plugins_links -v');
         $this->assertExitWithSuccess();
         $this->assertOutputContains('Skipping plugin Assets. It does not have webroot folder.');
@@ -59,7 +59,7 @@ class CreatePluginsLinksCommandTest extends TestCase
         $this->assertOutputContains('Done');
         $this->assertErrorEmpty();
 
-        @array_map('unlink', [WWW_ROOT . 'me_tools', WWW_ROOT . 'test_plugin']);
+        @array_map(IS_WIN ? 'rmdir_recursive' : 'unlink', [WWW_ROOT . 'me_tools', WWW_ROOT . 'test_plugin']);
         $this->removePlugins(['TestPlugin']);
     }
 }
