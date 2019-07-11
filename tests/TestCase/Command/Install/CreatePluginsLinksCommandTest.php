@@ -46,7 +46,6 @@ class CreatePluginsLinksCommandTest extends TestCase
         $this->assertOutputContains('Link `' . rtr(WWW_ROOT) . 'me_tools` has been created');
         $this->assertOutputContains('For plugin: TestPlugin');
         $this->assertOutputContains('Link `' . rtr(WWW_ROOT) . 'test_plugin` has been created');
-        $this->assertOutputContains('Done');
         $this->assertErrorEmpty();
         $this->assertFileExists(WWW_ROOT . 'me_tools');
         $this->assertFileExists(WWW_ROOT . 'test_plugin');
@@ -54,9 +53,9 @@ class CreatePluginsLinksCommandTest extends TestCase
         //Already exist
         $this->exec('me_tools.create_plugins_links -v');
         $this->assertExitWithSuccess();
-        $this->assertOutputContains('Link `' . rtr(WWW_ROOT) . 'me_tools` already exists');
-        $this->assertOutputContains('Link `' . rtr(WWW_ROOT) . 'test_plugin` already exists');
-        $this->assertOutputContains('Done');
+//        dd($this->_out->messages());
+        $this->assertOutputContains('File or directory `' . rtr(WWW_ROOT . 'me_tools') . '` already exists');
+        $this->assertOutputContains('File or directory `' . rtr(WWW_ROOT . 'test_plugin') . '` already exists');
         $this->assertErrorEmpty();
 
         @array_map(IS_WIN ? 'rmdir_recursive' : 'unlink', [WWW_ROOT . 'me_tools', WWW_ROOT . 'test_plugin']);

@@ -58,17 +58,8 @@ class CreatePluginsLinksCommand extends Command
 
         foreach ($plugins as $plugin => $config) {
             $io->verbose('For plugin: ' . $plugin);
-
-            $dest = $config['destDir'] . $config['link'];
-            if (file_exists($dest)) {
-                $io->verbose(__d('me_tools', 'Link `{0}` already exists', rtr($dest)), 1);
-                continue;
-            }
-
-            $this->createLink($io, $config['srcPath'], $dest);
+            $this->createLink($io, $config['srcPath'], $config['destDir'] . $config['link']);
         }
-
-        $io->verbose(__d('me_tools', 'Done'));
 
         return null;
     }
