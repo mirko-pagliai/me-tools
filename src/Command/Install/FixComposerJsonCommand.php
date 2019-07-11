@@ -17,7 +17,6 @@ namespace MeTools\Command\Install;
 use Cake\Console\Arguments;
 use Cake\Console\ConsoleIo;
 use Cake\Console\ConsoleOptionParser;
-use Cake\Filesystem\Folder;
 use Exception;
 use MeTools\Console\Command;
 
@@ -50,7 +49,7 @@ class FixComposerJsonCommand extends Command
      */
     public function execute(Arguments $args, ConsoleIo $io): ?int
     {
-        $path = $args->getOption('path') ?: Folder::slashTerm(ROOT) . 'composer.json';
+        $path = $args->getOption('path') ?: add_slash_term(ROOT) . 'composer.json';
 
         try {
             is_writable_or_fail($path);

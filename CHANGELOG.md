@@ -5,7 +5,8 @@
 
 ## 2.18 branch
 ### 2.18.8
-* fixed `CreatePluginsLinksCommand`, now it works without the `AssetsTask`.
+* fixed `CreatePluginsLinksCommand`, now it works without the `AssetsTask`;
+* updated for `php-tools` `1.2.6`.
 
 ### 2.18.7
 * `TestCase::tearDown()` method no longer empties temporary files. This should

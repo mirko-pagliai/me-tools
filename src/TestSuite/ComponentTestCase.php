@@ -28,7 +28,7 @@ abstract class ComponentTestCase extends TestCase
     protected $Component;
 
     /**
-     * If `true`, a mock instance of the shell will be created
+     * If `true`, a mock instance of the component will be created
      * @var bool
      */
     protected $autoInitializeClass = true;

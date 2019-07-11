@@ -28,7 +28,7 @@ abstract class HelperTestCase extends TestCase
     protected $Helper;
 
     /**
-     * If `true`, a mock instance of the shell will be created
+     * If `true`, a mock instance of the helper will be created
      * @var bool
      */
     protected $autoInitializeClass = true;
