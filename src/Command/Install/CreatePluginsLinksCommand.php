@@ -48,7 +48,7 @@ class CreatePluginsLinksCommand extends Command
         foreach (Plugin::loaded() as $plugin) {
             $srcPath = Plugin::path($plugin) . 'webroot';
             if (!is_dir($srcPath)) {
-                $io->verbose(sprintf('Skipping plugin %s. It does not have webroot folder.', $plugin), 1);
+                $io->verbose(__d('me_tools', 'Skipping plugin `{0}`. It does not have webroot folder', $plugin), 1);
                 continue;
             }
 
@@ -61,14 +61,14 @@ class CreatePluginsLinksCommand extends Command
 
             $dest = $config['destDir'] . $config['link'];
             if (file_exists($dest)) {
-                $io->verbose('Link `' . rtr($dest) . '` already exists', 1);
+                $io->verbose(__d('me_tools', 'Link `{0}` already exists', rtr($dest)), 1);
                 continue;
             }
 
             $this->createLink($io, $config['srcPath'], $dest);
         }
 
-        $io->verbose('Done');
+        $io->verbose(__d('me_tools', 'Done'));
 
         return null;
     }
