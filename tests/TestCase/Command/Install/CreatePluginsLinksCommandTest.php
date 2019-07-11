@@ -53,7 +53,6 @@ class CreatePluginsLinksCommandTest extends TestCase
         //Already exist
         $this->exec('me_tools.create_plugins_links -v');
         $this->assertExitWithSuccess();
-//        dd($this->_out->messages());
         $this->assertOutputContains('File or directory `' . rtr(WWW_ROOT . 'me_tools') . '` already exists');
         $this->assertOutputContains('File or directory `' . rtr(WWW_ROOT . 'test_plugin') . '` already exists');
         $this->assertErrorEmpty();
