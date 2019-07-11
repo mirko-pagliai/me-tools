@@ -155,7 +155,7 @@ class FormHelper extends CakeFormHelper
         //Help text
         //See https://getbootstrap.com/docs/4.0/components/forms/#help-text
         if ($options->exists('help')) {
-            $help = array_map(function ($help) {
+            $help = array_map(function (string $help) {
                 return $this->Html->para('form-text text-muted', trim($help));
             }, (array)$options->consume('help'));
             $options->append('templateVars', ['help' => implode(null, $help)]);

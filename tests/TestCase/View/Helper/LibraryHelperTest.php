@@ -26,7 +26,7 @@ use MeTools\View\Helper\HtmlHelper;
  */
 class LibraryHelperTest extends HelperTestCase
 {
-    const EXPECTED_DATEPICKER_ICONS = [
+    protected const EXPECTED_DATEPICKER_ICONS = [
         'time' => 'fas fa-clock',
         'date' => 'fas fa-calendar',
         'up' => 'fas fa-chevron-up',

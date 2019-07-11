@@ -142,10 +142,10 @@ class OptionsParser
         }
 
         $classes = collection($classes)
-            ->filter(function ($class) use ($allClasses) {
+            ->filter(function (string $class) use ($allClasses) {
                 return preg_match('/^(btn\-)?(' . implode('|', $allClasses) . ')$/', $class);
             })
-            ->map(function ($class) {
+            ->map(function (string $class) {
                 return string_starts_with($class, 'btn-') ? $class : 'btn-' . $class;
             });
 
@@ -320,7 +320,7 @@ class OptionsParser
         $options = $this->toArray();
 
         //Transforms values as strings
-        array_walk($options, function (&$value, $key) {
+        array_walk($options, function (&$value, string $key) {
             if (is_array($value)) {
                 $value = implode(' ', $value);
             } elseif (is_bool($value)) {

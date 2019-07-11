@@ -33,7 +33,7 @@ class HtmlHelper extends CakeHtmlHelper
      * @return string
      * @uses tag()
      */
-    public function __call($method, $params): string
+    public function __call(string $method, array $params): string
     {
         is_true_or_fail(count($params) < 3, sprintf('Method `%s::%s()` does not exist', __CLASS__, $method), Exception::class);
 
@@ -387,7 +387,7 @@ class HtmlHelper extends CakeHtmlHelper
             return self::tag('li', $element, $options);
         }
 
-        $element = array_map(function ($element) use ($options) {
+        $element = array_map(function (string $element) use ($options) {
             return self::tag('li', $element, $options);
         }, $element);
 
@@ -449,7 +449,7 @@ class HtmlHelper extends CakeHtmlHelper
             $options->append('class', 'fa-ul');
             $itemOptions->append('icon', 'li');
 
-            $list = array_map(function ($element) use ($itemOptions) {
+            $list = array_map(function (string $element) use ($itemOptions) {
                 return collection($this->addIconToText($element, clone $itemOptions))->first();
             }, $list);
         }
@@ -531,6 +531,7 @@ class HtmlHelper extends CakeHtmlHelper
     public function scriptStart(array $options = []): void
     {
         $options = optionsParser($options, ['block' => 'script_bottom']);
+
         parent::scriptStart($options->toArray());
     }
 
