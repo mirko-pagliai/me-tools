@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2018-12-20 16:05+0100\n"
+"POT-Creation-Date: 2019-07-11 13:42+0200\n"
 "PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
 "Last-Translator: NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
@@ -18,8 +18,12 @@ msgstr ""
 msgid "Creates default directories"
 msgstr ""
 
-#: Command/Install/CreatePluginsLinksCommand.php:34
+#: Command/Install/CreatePluginsLinksCommand.php:35
 msgid "Creates symbolic links for plugins assets"
+msgstr ""
+
+#: Command/Install/CreatePluginsLinksCommand.php:51
+msgid "Skipping plugin `{0}`. It does not have webroot folder"
 msgstr ""
 
 #: Command/Install/CreateRobotsCommand.php:33
@@ -38,16 +42,16 @@ msgstr ""
 msgid "Path of the `{0}` file"
 msgstr ""
 
-#: Command/Install/FixComposerJsonCommand.php:66
+#: Command/Install/FixComposerJsonCommand.php:64
 msgid "The file {0} does not seem a valid {1} file"
+msgstr ""
+
+#: Command/Install/FixComposerJsonCommand.php:72
+msgid "The file {0} has been fixed"
 msgstr ""
 
 #: Command/Install/FixComposerJsonCommand.php:74
 msgid "The file {0} doesn't need to be fixed"
-msgstr ""
-
-#: Command/Install/FixComposerJsonCommand.php:81
-msgid "The file {0} has been fixed"
 msgstr ""
 
 #: Command/Install/RunAllCommand.php:46
@@ -58,27 +62,27 @@ msgstr ""
 msgid "Executes tasks without prompting"
 msgstr ""
 
-#: Command/Install/RunAllCommand.php:67
+#: Command/Install/RunAllCommand.php:65
 msgid "Create default directories?"
 msgstr ""
 
-#: Command/Install/RunAllCommand.php:72
+#: Command/Install/RunAllCommand.php:70
 msgid "Set directories permissions?"
 msgstr ""
 
-#: Command/Install/RunAllCommand.php:77
+#: Command/Install/RunAllCommand.php:75
 msgid "Create {0}?"
 msgstr ""
 
-#: Command/Install/RunAllCommand.php:82
+#: Command/Install/RunAllCommand.php:80
 msgid "Fix {0}?"
 msgstr ""
 
-#: Command/Install/RunAllCommand.php:87
+#: Command/Install/RunAllCommand.php:85
 msgid "Create symbolic links for plugins assets?"
 msgstr ""
 
-#: Command/Install/RunAllCommand.php:92
+#: Command/Install/RunAllCommand.php:90
 msgid "Create symbolic links for vendor assets?"
 msgstr ""
 
@@ -86,35 +90,36 @@ msgstr ""
 msgid "Sets directories permissions"
 msgstr ""
 
-#: Console/Command.php:40
+#: Console/Command.php:39
 msgid "File or directory `{0}` already exists"
 msgstr ""
 
-#: Console/Command.php:74
+#: Console/Command.php:69
 msgid "File `{0}` has been copied"
 msgstr ""
 
-#: Console/Command.php:96
+#: Console/Command.php:91
 msgid "Failed to create file or directory `{0}`"
 msgstr ""
 
-#: Console/Command.php:101
+#: Console/Command.php:96
 msgid "Created `{0}` directory"
 msgstr ""
 
-#: Console/Command.php:148
+#: Console/Command.php:139
 msgid "Link `{0}` has been created"
 msgstr ""
 
-#: Console/Command.php:165
+#: Console/Command.php:156
 msgid "Failed to set permissions on `{0}`"
 msgstr ""
 
-#: Console/Command.php:170
+#: Console/Command.php:161
 msgid "Setted permissions on `{0}`"
 msgstr ""
 
-#: Controller/Component/UploaderComponent.php:112;149
+#: Controller/Component/UploaderComponent.php:112
+#: Controller/Component/UploaderComponent.php:150
 msgid "There are no uploaded file information"
 msgstr ""
 
@@ -122,8 +127,12 @@ msgstr ""
 msgid "The mimetype {0} is not accepted"
 msgstr ""
 
-#: Controller/Component/UploaderComponent.php:162
+#: Controller/Component/UploaderComponent.php:163
 msgid "The file was not successfully moved to the target directory"
+msgstr ""
+
+#: Core/Plugin.php:75
+msgid "File or directory `{0}` does not exist"
 msgstr ""
 
 #: Template/Element/paginator.ctp:31
