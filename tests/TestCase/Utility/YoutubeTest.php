@@ -66,7 +66,6 @@ class YoutubeTest extends TestCase
      */
     public function testGetUrl()
     {
-        $expected = 'http://youtu.be/bL_CJKq9rIw';
-        $this->assertEquals($expected, Youtube::getUrl('bL_CJKq9rIw'));
+        $this->assertEquals('http://youtu.be/bL_CJKq9rIw', Youtube::getUrl('bL_CJKq9rIw'));
     }
 }

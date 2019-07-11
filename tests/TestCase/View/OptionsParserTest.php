@@ -15,15 +15,12 @@ namespace MeTools\Test\TestCase\View;
 
 use MeTools\TestSuite\TestCase;
 use MeTools\View\OptionsParser;
-use Tools\ReflectionTrait;
 
 /**
  * MeTools\View\OptionsParser Test Case
  */
 class OptionsParserTest extends TestCase
 {
-    use ReflectionTrait;
-
     /**
      * @var \MeTools\View\OptionsParser
      */
@@ -49,7 +46,6 @@ class OptionsParserTest extends TestCase
             'zeroDotOne' => 0.1,
             'negative' => -1,
         ];
-
         $defaults = [
             'alt' => 'this value will not be used',
             'defaultKey' => 'defaultValue',

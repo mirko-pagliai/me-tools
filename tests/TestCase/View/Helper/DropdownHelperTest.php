@@ -71,14 +71,12 @@ class DropdownHelperTest extends HelperTestCase
         //Empty dropdown
         $this->Helper->start($text);
         echo 'hello!';
-        $result = $this->Helper->end();
-        $this->assertNull($result);
+        $this->assertNull($this->Helper->end());
 
         $this->Helper->start($text);
         echo $this->Html->link('First link', '/first', ['class' => 'dropdown-item']);
         echo $this->Html->link('Second link', '/second', ['class' => 'dropdown-item']);
-        $result = $this->Helper->end();
-        $this->assertHtml($expected, $result);
+        $this->assertHtml($expected, $this->Helper->end());
 
         //With `menu()` method
         $result = $this->Helper->menu($text, [

@@ -26,10 +26,7 @@ use MeTools\View\Helper\HtmlHelper;
  */
 class LibraryHelperTest extends HelperTestCase
 {
-    /**
-     * @var array
-     */
-    protected $expectedDatepickerIcons = [
+    const EXPECTED_DATEPICKER_ICONS = [
         'time' => 'fas fa-clock',
         'date' => 'fas fa-calendar',
         'up' => 'fas fa-chevron-up',
@@ -215,7 +212,7 @@ class LibraryHelperTest extends HelperTestCase
     {
         $expected = [
             'format' => 'YYYY/MM/DD',
-            'icons' => $this->expectedDatepickerIcons,
+            'icons' => self::EXPECTED_DATEPICKER_ICONS,
             'locale' => 'en',
             'showTodayButton' => true,
             'showClear' => true,
@@ -250,7 +247,7 @@ class LibraryHelperTest extends HelperTestCase
     public function testDatetimepicker()
     {
         $expected = [
-            'icons' => $this->expectedDatepickerIcons,
+            'icons' => self::EXPECTED_DATEPICKER_ICONS,
             'locale' => 'en',
             'showTodayButton' => true,
             'showClear' => true,
@@ -356,7 +353,7 @@ class LibraryHelperTest extends HelperTestCase
     public function testTimepicker()
     {
         $expected = [
-            'icons' => $this->expectedDatepickerIcons,
+            'icons' => self::EXPECTED_DATEPICKER_ICONS,
             'locale' => 'en',
             'pickTime' => false,
             'showTodayButton' => true,
