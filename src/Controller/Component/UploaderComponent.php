@@ -13,7 +13,6 @@
 namespace MeTools\Controller\Component;
 
 use Cake\Controller\Component;
-use Cake\Filesystem\Folder;
 use RuntimeException;
 
 /**
@@ -158,7 +157,7 @@ class UploaderComponent extends Component
         is_dir_or_fail($directory);
 
         $filename = $filename ? basename($filename) : $this->findTargetFilename($this->file->name);
-        $file = Folder::slashTerm($directory) . $filename;
+        $file = add_slash_term($directory) . $filename;
 
         if (!$this->move_uploaded_file($this->file->tmp_name, $file)) {
             $this->setError(__d('me_tools', 'The file was not successfully moved to the target directory'));

@@ -16,7 +16,6 @@ namespace MeTools\Command\Install;
 use Cake\Console\Arguments;
 use Cake\Console\ConsoleIo;
 use Cake\Console\ConsoleOptionParser;
-use Cake\Filesystem\Folder;
 use MeTools\Console\Command;
 
 /**
@@ -43,7 +42,7 @@ class CreateRobotsCommand extends Command
      */
     public function execute(Arguments $args, ConsoleIo $io)
     {
-        $this->createFile($io, Folder::slashTerm(WWW_ROOT) . 'robots.txt', 'User-agent: *' . PHP_EOL .
+        $this->createFile($io, add_slash_term(WWW_ROOT) . 'robots.txt', 'User-agent: *' . PHP_EOL .
             'Disallow: /admin/' . PHP_EOL . 'Disallow: /ckeditor/' . PHP_EOL .
             'Disallow: /css/' . PHP_EOL . 'Disallow: /js/' . PHP_EOL .
             'Disallow: /vendor/');
