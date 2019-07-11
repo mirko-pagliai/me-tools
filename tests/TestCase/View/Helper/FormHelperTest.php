@@ -436,7 +436,6 @@ class FormHelperTest extends HelperTestCase
         $result .= $this->Helper->end();
         $this->assertTrue($inline);
         $this->assertHtml($expected, $result);
-
         $this->assertFalse($this->Helper->isInline());
 
         //Tests `create()` method, with `inline` option
@@ -445,7 +444,6 @@ class FormHelperTest extends HelperTestCase
         $result .= $this->Helper->end();
         $this->assertTrue($inline);
         $this->assertHtml($expected, $result);
-
         $this->assertFalse($this->Helper->isInline());
 
         //Tests `create()` method, with `form-inline` class

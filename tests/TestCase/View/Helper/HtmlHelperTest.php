@@ -14,6 +14,7 @@ namespace MeTools\Test\TestCase\View\Helper;
 
 use Cake\Core\Exception\Exception;
 use MeTools\TestSuite\HelperTestCase;
+use MeTools\View\Helper\HtmlHelper;
 use MeTools\View\OptionsParser;
 
 /**
@@ -46,7 +47,7 @@ class HtmlHelperTest extends HelperTestCase
 
         //With a no existing method
         $this->expectException(Exception::class);
-        $this->expectExceptionMessage('Method `' . get_parent_class($this->Helper) . '::noExistingMethod()` does not exist');
+        $this->expectExceptionMessage('Method `' . HtmlHelper::class . '::noExistingMethod()` does not exist');
         $this->Helper->noExistingMethod(null, null, null);
     }
 

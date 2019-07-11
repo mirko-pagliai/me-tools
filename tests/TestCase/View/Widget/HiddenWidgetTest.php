@@ -21,7 +21,7 @@ use MeTools\View\Helper\FormHelper;
 class HiddenWidgetTest extends TestCase
 {
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
+     * @var \Cake\View\Helper|\PHPUnit_Framework_MockObject_MockObject
      */
     protected $Helper;
 
