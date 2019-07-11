@@ -52,10 +52,9 @@ class LibraryHelper extends Helper
     {
         parent::initialize($config);
 
+        $this->Asset = clone $this->Html;
         if (Plugin::getCollection()->has('Assets')) {
             $this->Asset = $this->getView()->loadHelper('Assets.Asset');
-        } else {
-            $this->Asset = clone $this->Html;
         }
     }
 
