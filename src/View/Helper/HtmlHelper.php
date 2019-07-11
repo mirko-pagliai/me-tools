@@ -34,7 +34,7 @@ class HtmlHelper extends CakeHtmlHelper
      */
     public function __call($name, $params)
     {
-        is_true_or_fail($params && count($params) < 3, sprintf('Method `%s::%s()` does not exist', __CLASS__, $name), Exception::class);
+        is_true_or_fail(count($params) < 3, sprintf('Method `%s::%s()` does not exist', __CLASS__, $name), Exception::class);
 
         return self::tag($name, $params[0], isset($params[1]) ? $params[1] : []);
     }
