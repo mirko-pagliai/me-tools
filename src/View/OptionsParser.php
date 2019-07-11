@@ -51,7 +51,6 @@ class OptionsParser
     public function __construct(array $options = [], $defaults = [])
     {
         array_walk($options, [$this, 'buildValue']);
-
         $this->options = $options;
 
         if (!is_null($defaults)) {
