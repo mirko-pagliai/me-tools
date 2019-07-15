@@ -107,7 +107,7 @@ class RunAllCommand extends Command
         $questions = $args->getOption('force') ? Hash::extract($this->questions, '{n}[default=Y]') : $this->questions;
 
         foreach ($questions as $question) {
-            is_true_or_fail(['question', 'default', 'command'] === array_keys($question), 'Invalid question keys');
+            is_true_or_fail(!array_diff(array_keys($question), ['question', 'default', 'command']), 'Invalid question keys');
             [$question, $default, $command] = array_values($question);
 
             //The method must be executed if the `force` mode is set or if the
