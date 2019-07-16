@@ -5,6 +5,10 @@
 
 ## 2.18 branch
 ### 2.18.8
+* `button()`, `postButton()` and `postLink()` methods provided by `FormHelper`
+    can be called with the first argument as `null`;
+* `button()` and `link()` methods provided by `HtmlHelper` can be called with
+    the first argument as `null`;
 * fixed `CreatePluginsLinksCommand`, now it works without the `AssetsTask`;
 * updated for `php-tools` `1.2.6`.
 

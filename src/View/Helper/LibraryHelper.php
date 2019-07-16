@@ -193,7 +193,7 @@ class LibraryHelper extends Helper
      *  `datepicker()` method provided by the `FormHelper`.
      *
      * Bootstrap Datepicker and Moment.js should be installed via Composer.
-     * @param string $input Target field. Default is `.datepicker`
+     * @param string|null $input Target field. Default is `.datepicker`
      * @param array $options Options for the datepicker
      * @return void
      * @see MeTools\View\Helper\FormHelper::datepicker()
@@ -214,7 +214,7 @@ class LibraryHelper extends Helper
      * To create an input field compatible with datetimepicker, you should use
      *  the `datetimepicker()` method provided by the `FormHelper`.
      * Bootstrap Datepicker and Moment.js should be installed via Composer.
-     * @param string $input Target field. Default is `.datetimepicker`
+     * @param string|null $input Target field. Default is `.datetimepicker`
      * @param array $options Options for the datetimepicker
      * @return void
      * @see MeTools\View\Helper\FormHelper::datetimepicker()
@@ -298,7 +298,7 @@ class LibraryHelper extends Helper
      *  `timepicker()` method provided by the `FormHelper`.
      *
      * Bootstrap Datepicker and Moment.js should be installed via Composer.
-     * @param string $input Target field. Default is `.timepicker`
+     * @param string|null $input Target field. Default is `.timepicker`
      * @param array $options Options for the timepicker
      * @return void
      * @see MeTools\View\Helper\FormHelper::timepicker()

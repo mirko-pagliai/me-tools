@@ -173,6 +173,8 @@ class HtmlHelperTest extends HelperTestCase
         //Code on custom title
         $expected = ['button' => ['class' => 'btn btn-light', 'role' => 'button', 'title' => 'Code'], $text, '/button'];
         $this->assertHtml($expected, $this->Helper->button($text, null, ['title' => '<u>Code</u>']));
+
+        $this->assertSame('<button class="btn btn-light" role="button" title=""></button>', $this->Helper->button());
     }
 
     /**
@@ -536,6 +538,8 @@ class HtmlHelperTest extends HelperTestCase
             '/a',
         ];
         $this->assertHtml($expected, $this->Helper->link($title, '#', ['tooltip' => '<u>Code</u>']));
+
+        $this->assertSame('<a href="/" title="">/</a>', $this->Helper->link());
     }
 
     /**

@@ -108,7 +108,7 @@ class HtmlHelper extends CakeHtmlHelper
      *
      * If `$url` is not null, creates a link (`<a>` tag) with the appearance
      *  of a button.
-     * @param string $title Button title
+     * @param string|null $title Button title
      * @param string|array|null $url Cake-relative URL or array of URL
      *  parameters or external URL
      * @param array $options Array of options and HTML attributes
@@ -116,7 +116,7 @@ class HtmlHelper extends CakeHtmlHelper
      * @uses link()
      * @uses tag()
      */
-    public function button(string $title, $url = null, array $options = []): string
+    public function button(?string $title = null, $url = null, array $options = []): string
     {
         $options = optionsParser($options, ['role' => 'button'])->addButtonClasses();
 
@@ -396,7 +396,7 @@ class HtmlHelper extends CakeHtmlHelper
 
     /**
      * Creates an HTML link
-     * @param string|array $title The content to be wrapped by `<a>` tags.
+     * @param string|array|null $title The content to be wrapped by `<a>` tags.
      *  Can be an array if $url is null. If $url is null, $title will be used
      *  as both the URL and title.
      * @param string|array|null $url Cake-relative URL or array of URL
@@ -404,7 +404,7 @@ class HtmlHelper extends CakeHtmlHelper
      * @param array $options Array of options and HTML attributes
      * @return string
      */
-    public function link($title, $url = null, array $options = []): string
+    public function link($title = null, $url = null, array $options = []): string
     {
         $options = optionsParser($options, ['escape' => false, 'title' => $title]);
         $options->add('title', trim(h(strip_tags($options->get('title')))))->tooltip();
