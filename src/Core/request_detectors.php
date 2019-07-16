@@ -26,13 +26,13 @@ use Cake\Routing\Router;
  *
  * Example:
  * <code>
- * $this->request->isAction('delete');
+ * $this->getRequest()->isAction('delete');
  * </code>
  * returns `true` if the current action is `delete`, otherwise `false`.
  *
  * Example:
  * <code>
- * $this->request->isAction(['edit', 'delete'], 'Pages');
+ * $this->getRequest()->isAction(['edit', 'delete'], 'Pages');
  * </code>
  * returns `true` if the current action is `edit` or `delete` and if the
  * current controller is `Pages`, otherwise `false`.
@@ -52,7 +52,7 @@ ServerRequest::addDetector('action', function (ServerRequest $request, $action, 
  *
  * Example:
  * <code>
- * $this->request->isController('Pages');
+ * $this->getRequest()->isController('Pages');
  * </code>
  * returns `true` if the current controller is `Pages`, otherwise `false`.
  */
@@ -77,7 +77,7 @@ ServerRequest::addDetector('localhost', function (ServerRequest $request) {
  *
  * Example:
  * <code>
- * $this->request->isPrefix(['admin', 'manager']);
+ * $this->getRequest()->isPrefix(['admin', 'manager']);
  * </code>
  */
 ServerRequest::addDetector('prefix', function (ServerRequest $request, $prefix) {
@@ -91,7 +91,7 @@ ServerRequest::addDetector('prefix', function (ServerRequest $request, $prefix) 
  *
  * Example:
  * <code>
- * $this->request->isUrl(['_name' => 'posts']);
+ * $this->getRequest()->isUrl(['_name' => 'posts']);
  * </code>
  *
  * The first argument is the url to be verified as an array of parameters or a
