@@ -1,6 +1,7 @@
 # 2.x branch
 ## 2.18 branch
 ### 2.18.8
+* `FormHelper::button()` method can be called with the first argument as `null`;
 * fixed `CreatePluginsLinksCommand`, now it works without the `AssetsTask`;
 * updated for `php-tools` `1.2.6`.
 

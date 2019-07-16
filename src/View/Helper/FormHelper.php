@@ -74,12 +74,12 @@ class FormHelper extends CakeFormHelper
      *  the `postButton()` method.
      * Instead, to create a link with the appearance of a button, you should
      *  use the `button()` method provided by `HtmlHelper`.
-     * @param string $title The button label or an image
+     * @param string|null $title The button label or an image
      * @param array $options HTML attributes and options
      * @return string
      * @see postButton(), MeTools\View\Helper\HtmlHelper::button()
      */
-    public function button($title, array $options = [])
+    public function button($title = null, array $options = [])
     {
         $options = optionsParser($options, ['type' => 'button']);
         $options->addButtonClasses($options->contains('type', 'submit') ? 'success' : 'primary');

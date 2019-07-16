@@ -63,6 +63,8 @@ class FormHelperTest extends HelperTestCase
 
         $expected = ['button' => ['type' => 'button', 'class' => 'btn btn-danger'], $title, '/button'];
         $this->assertHtml($expected, $this->Helper->button($title, ['class' => 'btn-danger']));
+
+        $this->assertSame('<button class="btn btn-primary" type="button"></button>', $this->Helper->button());
     }
 
     /**
