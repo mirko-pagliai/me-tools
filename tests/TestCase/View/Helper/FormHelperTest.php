@@ -535,6 +535,15 @@ class FormHelperTest extends HelperTestCase
             '/a',
         ];
         $this->assertHtml($expected, $this->Helper->postButton($title, $url, ['class' => 'btn-danger']));
+
+        $expected = [
+            'form' => ['name', 'style' => 'display:none;', 'method' => 'post', 'action' => '/'],
+            'input' => ['type' => 'hidden', 'name' => '_method', 'value' => 'POST'],
+            '/form',
+            'a' => ['href' => '#', 'class' => 'btn btn-light', 'onclick', 'role' => 'button', 'title' => ''],
+            '/a',
+        ];
+        $this->assertHtml($expected, $this->Helper->postButton());
     }
 
     /**
@@ -579,6 +588,15 @@ class FormHelperTest extends HelperTestCase
             '/a',
         ];
         $this->assertHtml($expected, $this->Helper->postLink('" \'', $url));
+
+        $expected = [
+            'form' => ['name', 'style' => 'display:none;', 'method' => 'post', 'action' => '/'],
+            'input' => ['type' => 'hidden', 'name' => '_method', 'value' => 'POST'],
+            '/form',
+            'a' => ['href' => '#', 'title' => '', 'onclick'],
+            '/a',
+        ];
+        $this->assertHtml($expected, $this->Helper->postLink());
     }
 
     /**
