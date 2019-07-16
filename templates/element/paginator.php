@@ -12,7 +12,7 @@
  */
 
 //Returns, if there's only one page
-if (!$this->Paginator->hasPage(null, 2)) {
+if (!$this->Paginator->hasPage(2, null)) {
     return;
 }
 ?>
