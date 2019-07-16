@@ -125,7 +125,7 @@ class HtmlHelper extends CakeHtmlHelper
         }
 
         $options->Default->add('title', $title);
-        $options->add('title', strip_tags($options->get('title')));
+        $options->add('title', strip_tags($options->get('title') ?? ''));
 
         return self::tag('button', $title, $options->toArray());
     }
@@ -407,8 +407,8 @@ class HtmlHelper extends CakeHtmlHelper
     public function link($title = null, $url = null, array $options = []): string
     {
         $options = optionsParser($options, ['escape' => false, 'title' => $title]);
-        $options->add('title', trim(h(strip_tags($options->get('title')))))->tooltip();
-        [$title, $options] = $this->addIconToText($title, $options);
+        $options->add('title', trim(h(strip_tags($options->get('title') ?? ''))))->tooltip();
+        [$title, $options] = $this->addIconToText((string)$title, $options);
 
         return parent::link($title, $url, $options->toArray());
     }
