@@ -25,10 +25,7 @@ use MeTools\View\Helper\HtmlHelper;
  */
 class LibraryHelperTest extends HelperTestCase
 {
-    /**
-     * @var array
-     */
-    protected $expectedDatepickerIcons = [
+    const EXPECTED_DATEPICKER_ICONS = [
         'time' => 'fas fa-clock',
         'date' => 'fas fa-calendar',
         'up' => 'fas fa-chevron-up',
@@ -214,16 +211,19 @@ class LibraryHelperTest extends HelperTestCase
     {
         $expected = [
             'format' => 'YYYY/MM/DD',
-            'icons' => $this->expectedDatepickerIcons,
+            'icons' => self::EXPECTED_DATEPICKER_ICONS,
             'locale' => 'en',
             'showTodayButton' => true,
             'showClear' => true,
         ];
-        $this->Helper->datepicker('#my-id');
-        $output = $this->getProperty($this->Helper, 'output');
-        $this->assertEquals(1, preg_match('/\$\("#my-id"\)\.datetimepicker\(({\n(\s+.+\n)+})\);/', $output[0], $matches));
-        $this->assertNotEmpty($matches[1]);
-        $this->assertEquals($expected, json_decode($matches[1], true));
+
+        foreach (['#my-id', null] as $input) {
+            $this->Helper->datepicker($input);
+            $output = $this->getProperty($this->Helper, 'output');
+            $this->assertEquals(1, preg_match('/\$\("#my-id"\)\.datetimepicker\(({\n(\s+.+\n)+})\);/', $output[0], $matches));
+            $this->assertNotEmpty($matches[1]);
+            $this->assertEquals($expected, json_decode($matches[1], true));
+        }
 
         $expected = [
             ['script' => ['src' => '/vendor/moment/moment-with-locales.min.js']],
@@ -249,16 +249,19 @@ class LibraryHelperTest extends HelperTestCase
     public function testDatetimepicker()
     {
         $expected = [
-            'icons' => $this->expectedDatepickerIcons,
+            'icons' => self::EXPECTED_DATEPICKER_ICONS,
             'locale' => 'en',
             'showTodayButton' => true,
             'showClear' => true,
         ];
-        $this->Helper->datetimepicker('#my-id');
-        $output = $this->getProperty($this->Helper, 'output');
-        $this->assertEquals(1, preg_match('/\$\("#my-id"\)\.datetimepicker\(({\n(\s+.+\n)+})\);/', $output[0], $matches));
-        $this->assertNotEmpty($matches[1]);
-        $this->assertEquals($expected, json_decode($matches[1], true));
+
+        foreach (['#my-id', null] as $input) {
+            $this->Helper->datetimepicker($input);
+            $output = $this->getProperty($this->Helper, 'output');
+            $this->assertEquals(1, preg_match('/\$\("#my-id"\)\.datetimepicker\(({\n(\s+.+\n)+})\);/', $output[0], $matches));
+            $this->assertNotEmpty($matches[1]);
+            $this->assertEquals($expected, json_decode($matches[1], true));
+        }
     }
 
     /**
@@ -355,16 +358,19 @@ class LibraryHelperTest extends HelperTestCase
     public function testTimepicker()
     {
         $expected = [
-            'icons' => $this->expectedDatepickerIcons,
+            'icons' => self::EXPECTED_DATEPICKER_ICONS,
             'locale' => 'en',
             'pickTime' => false,
             'showTodayButton' => true,
             'showClear' => true,
         ];
-        $this->Helper->timepicker('#my-id');
-        $output = $this->getProperty($this->Helper, 'output');
-        $this->assertEquals(1, preg_match('/\$\("#my-id"\)\.datetimepicker\(({\n(\s+.+\n)+})\);/', $output[0], $matches));
-        $this->assertNotEmpty($matches[1]);
-        $this->assertEquals($expected, json_decode($matches[1], true));
+
+        foreach (['#my-id', null] as $input) {
+            $this->Helper->timepicker($input);
+            $output = $this->getProperty($this->Helper, 'output');
+            $this->assertEquals(1, preg_match('/\$\("#my-id"\)\.datetimepicker\(({\n(\s+.+\n)+})\);/', $output[0], $matches));
+            $this->assertNotEmpty($matches[1]);
+            $this->assertEquals($expected, json_decode($matches[1], true));
+        }
     }
 }

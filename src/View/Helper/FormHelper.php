@@ -74,12 +74,12 @@ class FormHelper extends CakeFormHelper
      *  the `postButton()` method.
      * Instead, to create a link with the appearance of a button, you should
      *  use the `button()` method provided by `HtmlHelper`.
-     * @param string $title The button label or an image
+     * @param string|null $title The button label or an image
      * @param array $options HTML attributes and options
      * @return string
      * @see postButton(), MeTools\View\Helper\HtmlHelper::button()
      */
-    public function button($title, array $options = [])
+    public function button($title = null, array $options = [])
     {
         $options = optionsParser($options, ['type' => 'button']);
         $options->addButtonClasses($options->contains('type', 'submit') ? 'success' : 'primary');
@@ -330,14 +330,14 @@ class FormHelper extends CakeFormHelper
      * To create a normal button, you should use the `button()` method.
      * To create a button with the appearance of a link, you should use the
      *  `button()` method provided by the `HtmlHelper`.
-     * @param string $title Button title
+     * @param string|null $title Button title
      * @param string|array|null $url Cake-relative URL or array of URL
      *  parameters or external URL
      * @param array $options Array of options and HTML attributes
      * @return string Html code
      * @uses postLink()
      */
-    public function postButton($title, $url, array $options = [])
+    public function postButton($title = null, $url = null, array $options = [])
     {
         $options = optionsParser($options)->add('role', 'button')->addButtonClasses();
 
@@ -352,13 +352,13 @@ class FormHelper extends CakeFormHelper
      *
      * To create a normal link, you should use the `link()` method of the
      *  `HtmlHelper`.
-     * @param string $title The content to be wrapped by <a> tags
+     * @param string|null $title The content to be wrapped by <a> tags
      * @param string|array|null $url Cake-relative URL or array of URL
      *  parameters or external URL
      * @param array $options Array of options and HTML attributes
      * @return string
      */
-    public function postLink($title, $url = null, array $options = [])
+    public function postLink($title = null, $url = null, array $options = [])
     {
         $options = optionsParser($options, ['escape' => false, 'title' => $title]);
         $options->add('title', trim(h(strip_tags($options->get('title')))))->tooltip();

@@ -14,6 +14,7 @@ namespace MeTools\Test\TestCase\View\Helper;
 
 use Cake\Core\Exception\Exception;
 use MeTools\TestSuite\HelperTestCase;
+use MeTools\View\Helper\HtmlHelper;
 use MeTools\View\OptionsParser;
 
 /**
@@ -46,7 +47,7 @@ class HtmlHelperTest extends HelperTestCase
 
         //With a no existing method
         $this->expectException(Exception::class);
-        $this->expectExceptionMessage('Method `' . get_parent_class($this->Helper) . '::noExistingMethod()` does not exist');
+        $this->expectExceptionMessage('Method `' . HtmlHelper::class . '::noExistingMethod()` does not exist');
         $this->Helper->noExistingMethod(null, null, null);
     }
 
@@ -171,6 +172,8 @@ class HtmlHelperTest extends HelperTestCase
         //Code on custom title
         $expected = ['button' => ['class' => 'btn btn-light', 'role' => 'button', 'title' => 'Code'], $text, '/button'];
         $this->assertHtml($expected, $this->Helper->button($text, null, ['title' => '<u>Code</u>']));
+
+        $this->assertSame('<button class="btn btn-light" role="button" title=""></button>', $this->Helper->button());
     }
 
     /**
@@ -534,6 +537,8 @@ class HtmlHelperTest extends HelperTestCase
             '/a'
         ];
         $this->assertHtml($expected, $this->Helper->link($title, '#', ['tooltip' => '<u>Code</u>']));
+
+        $this->assertSame('<a href="/" title="">/</a>', $this->Helper->link());
     }
 
     /**

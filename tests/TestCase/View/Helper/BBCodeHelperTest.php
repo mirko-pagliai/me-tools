@@ -105,8 +105,7 @@ class BBCodeHelperTest extends HelperTestCase
      */
     public function testImage()
     {
-        $expected = $this->Html->image('mypic.gif');
-        $this->assertEquals($expected, $this->Helper->image('[img]mypic.gif[/img]'));
+        $this->assertEquals($this->Html->image('mypic.gif'), $this->Helper->image('[img]mypic.gif[/img]'));
     }
 
     /**

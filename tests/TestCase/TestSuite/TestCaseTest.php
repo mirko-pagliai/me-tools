@@ -31,12 +31,7 @@ class TestCaseTest extends TestCase
     {
         $expected = LOGS . 'debug.log';
 
-        foreach ([
-            'debug',
-            'debug.log',
-            LOGS . 'debug',
-            $expected,
-        ] as $filename) {
+        foreach (['debug', 'debug.log', LOGS . 'debug', $expected] as $filename) {
             $this->assertEquals($expected, $this->invokeMethod($this, 'getLogFullPath', [$filename]));
         }
     }
