@@ -179,7 +179,7 @@ class UploaderComponent extends Component
 
     /**
      * Sets uploaded file information (`$_FILES` array, better as
-     *  `$this->request->getData('file')`)
+     *  `$this->getRequest()->getData('file')`)
      * @param array $file Uploaded file information
      * @return $this
      * @uses setError()

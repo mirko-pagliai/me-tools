@@ -109,4 +109,22 @@ class IntegrationTestTraitTest extends TestCase
     {
         $this->assertResponseOkAndNotEmpty();
     }
+
+    /**
+     * Test for `assertSessionEmpty()` method
+     * @test
+     */
+    public function testSessionEmpty()
+    {
+        $this->_requestSession = new Session();
+        $this->_requestSession->write('first.second', 'value');
+        $this->_requestSession->write('first.third', 'value');
+        $this->assertSessionEmpty('first.fourth');
+
+        $this->_requestSession->delete('first.third');
+        $this->assertSessionEmpty('first.third');
+
+        $this->expectException(AssertionFailedError::class);
+        $this->assertSessionEmpty('first.second');
+    }
 }
