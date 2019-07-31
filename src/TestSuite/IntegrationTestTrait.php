@@ -13,6 +13,7 @@
  */
 namespace MeTools\TestSuite;
 
+use Cake\TestSuite\Constraint\Session\SessionEquals;
 use Cake\TestSuite\IntegrationTestTrait as CakeIntegrationTestTrait;
 use MeTools\Controller\Component\UploaderComponent;
 
@@ -89,5 +90,18 @@ trait IntegrationTestTrait
     public function assertResponseOkAndNotEmpty($message = '')
     {
         $this->assertResponseOk($message) && $this->assertResponseNotEmpty($message);
+    }
+
+    /**
+     * Asserts session is empty
+     * @param string $path The session data path. Uses Hash::get() compatible notation
+     * @param string $message The failure message that will be appended to the generated message
+     * @return void
+     * @since 2.18.9
+     */
+    public function assertSessionEmpty($path, $message = '')
+    {
+        $verboseMessage = $this->extractVerboseMessage($message);
+        $this->assertThat(null, new SessionEquals($this->_requestSession, $path), $verboseMessage);
     }
 }

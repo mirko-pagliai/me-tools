@@ -43,9 +43,9 @@ class CreatePluginsLinksCommandTest extends TestCase
         $this->assertExitWithSuccess();
         $this->assertOutputContains('Skipping plugin `Assets`. It does not have webroot folder');
         $this->assertOutputContains('For plugin: MeTools');
-        $this->assertOutputContains('Link `' . rtr(WWW_ROOT) . 'me_tools` has been created');
+        $this->assertOutputContains('Link `' . rtr(WWW_ROOT . 'me_tools') . '` has been created');
         $this->assertOutputContains('For plugin: TestPlugin');
-        $this->assertOutputContains('Link `' . rtr(WWW_ROOT) . 'test_plugin` has been created');
+        $this->assertOutputContains('Link `' . rtr(WWW_ROOT . 'test_plugin') . '` has been created');
         $this->assertErrorEmpty();
         $this->assertFileExists(WWW_ROOT . 'me_tools');
         $this->assertFileExists(WWW_ROOT . 'test_plugin');

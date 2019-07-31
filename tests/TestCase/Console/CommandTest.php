@@ -104,7 +104,7 @@ class CommandTest extends TestCase
     {
         //Tries to create. Directory already exists
         $this->assertFalse($this->Command->createDir($this->io, TMP));
-        $this->assertOutputContains('File or directory `' . TMP . '` already exists');
+        $this->assertOutputContains('File or directory `' . rtr(TMP) . '` already exists');
 
         //Creates the directory
         $dir = TMP . 'exampleDir' . DS . 'firstDir' . DS . 'secondDir';
@@ -152,6 +152,7 @@ class CommandTest extends TestCase
 
     /**
      * Tests for `createLink()` method
+     * @group onlyUnix
      * @test
      */
     public function testCreateLink()
@@ -181,7 +182,7 @@ class CommandTest extends TestCase
     public function testFolderChmod()
     {
         $dir = TMP . 'exampleDir';
-        mkdir($dir, 0777, true);
+        @mkdir($dir, 0777, true);
 
         //Set chmod
         $this->assertTrue($this->Command->folderChmod($this->io, $dir, 0777));
