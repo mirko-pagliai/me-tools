@@ -17,8 +17,8 @@ namespace MeTools\Console;
 use Cake\Console\Command as CakeCommand;
 use Cake\Console\ConsoleIo;
 use Exception;
-use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Filesystem\Exception\IOException;
+use Symfony\Component\Filesystem\Filesystem;
 
 /**
  * Base class for console commands
@@ -156,8 +156,7 @@ abstract class Command extends CakeCommand
     {
         try {
             (new Filesystem())->chmod($path, $chmod, 0000, true);
-        }
-        catch (IOException $e) {
+        } catch (IOException $e) {
             $io->error(__d('me_tools', 'Failed to set permissions on `{0}`', rtr($path)));
 
             return false;
