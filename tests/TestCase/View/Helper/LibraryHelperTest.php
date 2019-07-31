@@ -52,6 +52,7 @@ class LibraryHelperTest extends HelperTestCase
             WWW_ROOT . 'js' . DS . 'ckeditor_init.js',
             WWW_ROOT . 'js' . DS . 'ckeditor_init.php',
             WWW_ROOT . 'js' . DS . 'fancybox_init.js',
+            WWW_ROOT . 'vendor' . DS . 'fancybox',
         ]);
     }
 
