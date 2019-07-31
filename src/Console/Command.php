@@ -15,8 +15,9 @@ namespace MeTools\Console;
 
 use Cake\Console\Command as CakeCommand;
 use Cake\Console\ConsoleIo;
-use Cake\Filesystem\Folder;
 use Exception;
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Filesystem\Exception\IOException;
 
 /**
  * Base class for console commands
@@ -59,13 +60,13 @@ abstract class Command extends CakeCommand
         try {
             is_readable_or_fail($source);
             is_writable_or_fail(dirname($dest));
+            (new Filesystem())->copy($source, $dest);
         } catch (Exception $e) {
             $io->error($e->getMessage());
 
             return false;
         }
 
-        copy($source, $dest);
         $io->verbose(__d('me_tools', 'File `{0}` has been copied', rtr($dest)));
 
         return true;
@@ -129,13 +130,13 @@ abstract class Command extends CakeCommand
         try {
             is_readable_or_fail($source);
             is_writable_or_fail(dirname($dest));
+            (new Filesystem())->symlink($source, $dest, true);
         } catch (Exception $e) {
             $io->error($e->getMessage());
 
             return false;
         }
 
-        symlink($source, $dest);
         $io->verbose(__d('me_tools', 'Link `{0}` has been created', rtr($dest)));
 
         return true;
@@ -152,7 +153,10 @@ abstract class Command extends CakeCommand
      */
     public function folderChmod(ConsoleIo $io, $path, $chmod = 0777)
     {
-        if (!(new Folder())->chmod($path, $chmod, true)) {
+        try {
+            (new Filesystem())->chmod($path, $chmod, 0000, true);
+        }
+        catch (IOException $e) {
             $io->error(__d('me_tools', 'Failed to set permissions on `{0}`', rtr($path)));
 
             return false;

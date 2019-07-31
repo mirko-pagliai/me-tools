@@ -14,7 +14,6 @@
 namespace MeTools\TestSuite;
 
 use Cake\Core\Configure;
-use Cake\Filesystem\Folder;
 use Cake\TestSuite\TestCase as CakeTestCase;
 use Exception;
 use MeTools\TestSuite\MockTrait;
@@ -70,7 +69,7 @@ abstract class TestCase extends CakeTestCase
             $filename .= '.log';
         }
 
-        return Folder::isAbsolute($filename) ? $filename : LOGS . $filename;
+        return is_absolute($filename) ? $filename : LOGS . $filename;
     }
 
     /**

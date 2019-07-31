@@ -1,7 +1,9 @@
 # 2.x branch
 ## 2.18 branch
 ### 2.18.9
-* added `IntegrationTestTrait::assertSessionEmpty()` method.
+* added `IntegrationTestTrait::assertSessionEmpty()` method;
+* uses the Symfony's `Filesystem` class;
+* updated for `php-tools` 1.2.8.
 
 ### 2.18.8
 * `button()`, `postButton()` and `postLink()` methods provided by `FormHelper`
