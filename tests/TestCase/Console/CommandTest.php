@@ -153,6 +153,7 @@ class CommandTest extends TestCase
 
     /**
      * Tests for `createLink()` method
+     * @group onlyUnix
      * @test
      */
     public function testCreateLink()
