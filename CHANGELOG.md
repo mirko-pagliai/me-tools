@@ -7,6 +7,7 @@
 ### 2.18.9
 * added `IntegrationTestTrait::assertSessionEmpty()` method;
 * uses the Symfony's `Filesystem` class;
+* fixed bug for `TestCase::tearDown()` method;
 * updated for `php-tools` 1.2.8.
 
 ### 2.18.8
