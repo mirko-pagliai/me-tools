@@ -17,9 +17,9 @@ use Cake\Core\Configure;
 use Cake\TestSuite\TestCase as CakeTestCase;
 use Exception;
 use MeTools\TestSuite\MockTrait;
+use Symfony\Component\Filesystem\Exception\IOException;
 use Tools\ReflectionTrait;
 use Tools\TestSuite\TestTrait;
-use Symfony\Component\Filesystem\Exception\IOException;
 
 /**
  * TestCase class
