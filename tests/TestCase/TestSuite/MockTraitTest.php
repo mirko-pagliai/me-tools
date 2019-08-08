@@ -16,6 +16,7 @@ namespace MeTools\Test\TestCase\TestSuite;
 use MeTools\TestSuite\TestCase;
 use PHPUnit\Framework\AssertionFailedError;
 use PHPUnit\Framework\MockObject\MockObject;
+use ReflectionException;
 
 /**
  * MockTraitTest class
@@ -31,11 +32,14 @@ class MockTraitTest extends TestCase
         foreach ([
             'App\Controller\PagesController',
             'App\Controller\Admin\PagesController',
-            'Plugin\Controller\PagesController',
-            'Plugin\Controller\Admin\PagesController',
+            'TestPlugin\Controller\PagesController',
+            'TestPlugin\Controller\Admin\PagesController',
         ] as $class) {
             $this->assertEquals('Pages', $this->getControllerAlias($class));
         }
+
+        $this->expectException(ReflectionException::class);
+        $this->getControllerAlias('App\NoExisting\Class');
     }
 
     /**

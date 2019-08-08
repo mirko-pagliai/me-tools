@@ -20,7 +20,6 @@ use Exception;
 use MeTools\TestSuite\MockTrait;
 use Tools\ReflectionTrait;
 use Tools\TestSuite\TestTrait;
-use Symfony\Component\Filesystem\Exception\IOException;
 
 /**
  * TestCase class
@@ -55,9 +54,9 @@ abstract class TestCase extends CakeTestCase
                 unlink_recursive(LOGS, 'empty');
             }
             unlink_recursive(WWW_ROOT . 'vendor', 'empty');
-            @unlink(WWW_ROOT . 'me_tools');
-            @unlink(WWW_ROOT . 'robots.txt');
-        } catch (IOException $e) {
+            unlink(WWW_ROOT . 'me_tools');
+            unlink(WWW_ROOT . 'robots.txt');
+        } catch (Exception $e) {
         }
     }
 

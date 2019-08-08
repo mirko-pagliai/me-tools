@@ -29,6 +29,7 @@ class CreateRobotsCommandTest extends TestCase
      */
     public function testExecute()
     {
+        @unlink(WWW_ROOT . 'robots.txt');
         $this->exec('me_tools.create_robots -v');
         $this->assertExitWithSuccess();
         $this->assertOutputContains('Creating file ' . WWW_ROOT . 'robots.txt');

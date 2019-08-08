@@ -25,6 +25,17 @@ class TestCaseTest extends TestCase
     use ReflectionTrait;
 
     /**
+     * Tests for `tearDown()` method
+     * @test
+     */
+    public function testTearDown()
+    {
+        array_map('create_file', [WWW_ROOT . 'me_tools', WWW_ROOT . 'robots.txt']);
+        $this->tearDown();
+        array_map([$this, 'assertFileNotExists'], [WWW_ROOT . 'me_tools', WWW_ROOT . 'robots.txt']);
+    }
+
+    /**
      * Tests for `getLogFullPath()` method
      * @test
      */

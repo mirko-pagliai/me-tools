@@ -27,12 +27,11 @@ trait MockTrait
      * Gets the alias for a controller
      * @param string $className Controller class name
      * @return string
+     * @throws \ReflectionException
      */
     protected function getControllerAlias(string $className): string
     {
-        $parts = explode('\\', $className);
-
-        return substr(array_pop($parts), 0, -10);
+        return substr(get_class_short_name($className), 0, -10);
     }
 
     /**

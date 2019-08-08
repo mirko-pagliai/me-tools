@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 /**
  * This file is part of cakephp-assets.
  *
@@ -11,10 +10,11 @@ declare(strict_types=1);
  * @link        https://github.com/mirko-pagliai/cakephp-assets
  * @license     https://opensource.org/licenses/mit-license.php MIT License
  */
-namespace App\Controller;
+namespace TestPlugin\Controller\Admin;
 
 use Cake\Controller\Controller;
 
 class PagesController extends Controller
 {
+
 }
