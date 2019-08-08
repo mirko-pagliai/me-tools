@@ -10,7 +10,7 @@
  * @link        https://github.com/mirko-pagliai/cakephp-assets
  * @license     https://opensource.org/licenses/mit-license.php MIT License
  */
-namespace App\Controller;
+namespace TestPlugin\Controller\Admin;
 
 use Cake\Controller\Controller;
 
