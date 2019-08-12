@@ -173,13 +173,13 @@ class LibraryHelper extends Helper
 
         //Checks for `APP/webroot/js/ckeditor_init.php`
         if (is_readable(WWW_ROOT . 'js' . DS . 'ckeditor_init.php')) {
-            $scripts[] = 'ckeditor_init.php?';
+            $scripts[] = 'ckeditor_init.php?type=js';
         //Checks for `APP/webroot/js/ckeditor_init.js`
         } elseif (is_readable(WWW_ROOT . 'js' . DS . 'ckeditor_init.js')) {
             $scripts[] = 'ckeditor_init';
         //Else, uses `APP/plugin/MeTools/webroot/js/ckeditor_init.js`
         } else {
-            $scripts[] = 'MeTools.ckeditor_init.php?';
+            $scripts[] = 'MeTools.ckeditor_init.php?type=js';
         }
 
         $this->Html->script($scripts, ['block' => 'script_bottom']);
