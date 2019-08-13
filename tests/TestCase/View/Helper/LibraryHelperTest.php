@@ -138,7 +138,7 @@ class LibraryHelperTest extends HelperTestCase
         $expected = [
             ['script' => ['src' => '/ckeditor/ckeditor.js']],
             '/script',
-            ['script' => ['src' => '/me_tools/js/ckeditor_init.php?']],
+            ['script' => ['src' => '/me_tools/js/ckeditor_init.php?type=js']],
             '/script',
         ];
         $this->Helper->ckeditor();
@@ -159,7 +159,7 @@ class LibraryHelperTest extends HelperTestCase
             '/script',
             ['script' => ['src' => '/ckeditor/adapters/jquery.js']],
             '/script',
-            ['script' => ['src' => '/me_tools/js/ckeditor_init.php?']],
+            ['script' => ['src' => '/me_tools/js/ckeditor_init.php?type=js']],
             '/script',
         ];
         $this->Helper->ckeditor(true);
@@ -197,7 +197,7 @@ class LibraryHelperTest extends HelperTestCase
         $expected = [
             ['script' => ['src' => '/ckeditor/ckeditor.js']],
             '/script',
-            ['script' => ['src' => '/js/ckeditor_init.php?']],
+            ['script' => ['src' => '/js/ckeditor_init.php?type=js']],
             '/script',
         ];
         $this->Helper->ckeditor();
