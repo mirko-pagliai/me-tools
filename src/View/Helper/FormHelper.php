@@ -82,7 +82,7 @@ class FormHelper extends CakeFormHelper
      */
     public function button(?string $title = null, array $options = []): string
     {
-        $options = optionsParser($options, ['type' => 'button']);
+        $options = optionsParser($options, ['escapeTitle' => false, 'type' => 'button']);
         $options->addButtonClasses($options->contains('type', 'submit') ? 'success' : 'primary');
         [$title, $options] = $this->Html->addIconToText($title, $options);
 

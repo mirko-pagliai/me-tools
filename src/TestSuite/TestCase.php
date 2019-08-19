@@ -15,6 +15,8 @@ declare(strict_types=1);
 namespace MeTools\TestSuite;
 
 use Cake\Core\Configure;
+use Cake\ORM\Table;
+use Cake\ORM\TableRegistry;
 use Cake\TestSuite\TestCase as CakeTestCase;
 use Exception;
 use MeTools\TestSuite\MockTrait;
@@ -73,6 +75,24 @@ abstract class TestCase extends CakeTestCase
         }
 
         return is_absolute($filename) ? $filename : LOGS . $filename;
+    }
+
+    /**
+     * Get a table instance from the registry
+     * @param string $alias The alias name you want to get
+     * @param array $options The options you want to build the table with
+     * @return \Cake\ORM\Table|null
+     * @since 2.18.11
+     */
+    protected function getTable(string $alias, array $options = []): ?Table
+    {
+        if ($alias === 'App' || (isset($options['className']) && !class_exists($options['className']))) {
+            return null;
+        }
+
+        TableRegistry::getTableLocator()->clear();
+
+        return TableRegistry::getTableLocator()->get($alias, $options);
     }
 
     /**

@@ -13,6 +13,7 @@ declare(strict_types=1);
  */
 namespace MeTools\Test\TestCase\TestSuite;
 
+use Cake\ORM\Table;
 use MeTools\TestSuite\TestCase;
 use PHPUnit\Framework\AssertionFailedError;
 use Tools\ReflectionTrait;
@@ -46,6 +47,20 @@ class TestCaseTest extends TestCase
         foreach (['debug', 'debug.log', LOGS . 'debug', $expected] as $filename) {
             $this->assertEquals($expected, $this->invokeMethod($this, 'getLogFullPath', [$filename]));
         }
+    }
+
+    /**
+     * Tests for `getTable()` method
+     * @test
+     */
+    public function testGetTable()
+    {
+        $table = $this->getTable('Articles');
+        $this->assertSame('Articles', $table->getAlias());
+        $this->assertInstanceOf(Table::class, $table);
+
+        //With a no-existing table
+        $this->assertNull($this->getTable('NoExistingTable', ['className' => '\Cake\ORM\NoExistingTable']));
     }
 
     /**

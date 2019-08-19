@@ -61,7 +61,8 @@ trait IntegrationTestTrait
     public function assertCookieIsEmpty(string $name, string $message = ''): void
     {
         $this->_response ?: $this->fail('Not response set, cannot assert cookies');
-        $this->assertEmpty($this->_response->getCookie($name)['value'], $message);
+        $cookie = $this->_response->getCookie($name);
+        $this->assertTrue(!isset($cookie['value']) || !$cookie['value'], $message);
     }
 
     /**
