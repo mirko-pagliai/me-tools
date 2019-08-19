@@ -15,8 +15,8 @@
     },
     "require-dev": {
         "cakephp/cakephp-codesniffer": "^3.0",
-        "mirko-pagliai/cakephp-assets": "^1.3",
-        "phpunit/phpunit": "^5.7|^6.0"
+        "mirko-pagliai/cakephp-assets": "^1.4.1",
+        "phpunit/phpunit": "^5.7.14|^6.0"
     },
     "suggest": {
         "components/jquery": "To use jQuery, the JavaScript library",
