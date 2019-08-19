@@ -1,5 +1,8 @@
 # 2.x branch
 ## 2.18 branch
+### 2.18.11
+* added `TestCase::getTable()` method.
+
 ### 2.18.10
 * fixed little bug for `LibraryHelper::ckeditor()`.
 
