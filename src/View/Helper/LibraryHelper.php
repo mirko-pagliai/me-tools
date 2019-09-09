@@ -248,13 +248,13 @@ class LibraryHelper extends Helper
             '/vendor/fancybox/helpers/jquery.fancybox-thumbs',
         ];
 
-        //Checks for `APP/webroot/js/`
-        if (is_readable(WWW_ROOT . 'js' . DS . 'fancybox_init.js')) {
-            $scripts[] = 'fancybox_init';
-        //Else, uses `APP/plugin/MeTools/webroot/fancybox/`
-        } else {
-            $scripts[] = 'MeTools./fancybox/fancybox_init';
+        //Checks the init file inside `APP/webroot/js/`. Otherwise,
+        //  uses the init file inside `APP/plugin/MeTools/webroot/fancybox/`
+        $init = 'fancybox_init';
+        if (!is_readable(WWW_ROOT . 'js' . DS . 'fancybox_init.js')) {
+            $init = 'MeTools./fancybox/fancybox_init';
         }
+        $scripts[] = $init;
 
         $this->Asset->script($scripts, ['block' => 'script_bottom']);
     }
