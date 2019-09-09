@@ -89,7 +89,7 @@ class IconHelperTest extends HelperTestCase
             'fa fa-home',
             ['home'],
             ['fa', 'home'],
-            ['fas', 'home']
+            ['fas', 'home'],
         ] as $icons) {
             $this->assertHtml($expected, $this->Helper->icon($icons));
         }
