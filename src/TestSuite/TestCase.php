@@ -73,7 +73,7 @@ abstract class TestCase extends CakeTestCase
             $filename .= '.log';
         }
 
-        return Filesystem::isAbsolutePath($filename) ? $filename : LOGS . $filename;
+        return (new Filesystem())->isAbsolutePath($filename) ? $filename : LOGS . $filename;
     }
 
     /**
