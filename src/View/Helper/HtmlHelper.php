@@ -15,7 +15,6 @@ namespace MeTools\View\Helper;
 
 use Cake\Core\Exception\Exception;
 use Cake\View\Helper\HtmlHelper as CakeHtmlHelper;
-use MeTools\View\OptionsParser;
 
 /**
  * Provides functionalities for HTML code
@@ -475,13 +474,12 @@ class HtmlHelper extends CakeHtmlHelper
      * @param string $name Tag name
      * @param string|null $text Tag content. If `null`, only a start tag will be
      *  printed
-     * @param MeTools\View\OptionsParser|array $options Array of options and HTML
-     *  attributes
+     * @param array $options Array of options and HTML attributes
      * @return string
      */
-    public function tag($name, $text = null, $options = [])
+    public function tag($name, $text = null, array $options = [])
     {
-        $options = $options instanceof OptionsParser ? $options : optionsParser($options);
+        $options = optionsParser($options);
         list($text, $options) = $this->Icon->addIconToText($text, $options->tooltip());
 
         return parent::tag($name, is_null($text) ? '' : $text, $options->toArray());
