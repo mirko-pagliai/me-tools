@@ -32,11 +32,10 @@ class GlobalFunctionsTest extends TestCase
         $this->assertEquals($expected, $result);
         $this->assertEquals(get_object_vars($expected), get_object_vars($result));
 
-        $a = ['f' => 'first', 's' => 'second'];
-        $b = ['t' => 'third'];
-
-        $result = optionsParser($a, $b);
-        $expected = new OptionsParser($a, $b);
+        $first = ['f' => 'first', 's' => 'second'];
+        $second = ['t' => 'third'];
+        $result = optionsParser($first, $second);
+        $expected = new OptionsParser($first, $second);
         $this->assertInstanceOf(OptionsParser::class, $result);
         $this->assertEquals($expected, $result);
         $this->assertEquals(get_object_vars($expected), get_object_vars($result));
