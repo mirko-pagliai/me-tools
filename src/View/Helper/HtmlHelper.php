@@ -24,6 +24,12 @@ use MeTools\View\OptionsParser;
 class HtmlHelper extends CakeHtmlHelper
 {
     /**
+     * Helpers
+     * @var array
+     */
+    public $helpers = ['MeTools.Icon', 'Url'];
+
+    /**
      * Missing method handler.
      *
      * If you pass no more than two parameters, it tries to generate a html
@@ -38,54 +44,6 @@ class HtmlHelper extends CakeHtmlHelper
         is_true_or_fail(count($params) < 3, sprintf('Method `%s::%s()` does not exist', __CLASS__, $method), Exception::class);
 
         return self::tag($method, $params[0], $params[1] ?? []);
-    }
-
-    /**
-     * Internal method to build icon classes
-     * @param string|array $icon Icons
-     * @return string
-     * @since 2.16.2-beta
-     */
-    protected function buildIconClasses($icon): string
-    {
-        //Prepends the string "fa-" to any other class
-        $icon = preg_replace('/(?<![^ ])(?=[^ ])(?!fa)/', 'fa-', $icon);
-        $icon = !is_array($icon) ? preg_split('/\s+/', $icon, -1, PREG_SPLIT_NO_EMPTY) : $icon;
-
-        //Adds the "fa" class, if no other "basic" class is present
-        if (!count(array_intersect(['fa', 'fab', 'fal', 'far', 'fas'], $icon))) {
-            array_unshift($icon, 'fas');
-        }
-
-        return implode(' ', array_unique($icon));
-    }
-
-    /**
-     * Adds icons to text
-     * @param string|null $text Text
-     * @param \MeTools\View\OptionsParser $options Instance of `OptionsParser`
-     * @return array Text with icons and instance of `OptionsParser`
-     * @since 2.16.2-beta
-     * @uses icon()
-     */
-    public function addIconToText(?string $text, OptionsParser $options): array
-    {
-        $icon = $options->consume('icon');
-        $align = $options->consume('icon-align');
-
-        if (!$icon) {
-            return [$text, $options];
-        }
-
-        $icon = $this->icon($icon);
-
-        if (empty($text)) {
-            $text = $icon;
-        } else {
-            $text = $align === 'right' ? sprintf('%s %s', $text, $icon) : sprintf('%s %s', $icon, $text);
-        }
-
-        return [$text, $options];
     }
 
     /**
@@ -245,42 +203,6 @@ class HtmlHelper extends CakeHtmlHelper
     }
 
     /**
-     * Returns icons tag.
-     *
-     * Example:
-     * <code>
-     * echo $this->Html->icon('home');
-     * </code>
-     * Returns:
-     * <code>
-     * <i class="fas fa-home"> </i>
-     * </code>
-     *
-     * Example:
-     * <code>
-     * echo $this->Html->icon(['hand-o-right', '2x']);
-     * </code>
-     * Returns:
-     * <code>
-     * <i class="fas fa-hand-o-right fa-2x"> </i>
-     * </code>
-     * @param string|array $icon Icons. You can also pass multiple arguments
-     * @return string
-     * @see http://fortawesome.github.io/Font-Awesome Font Awesome icons
-     * @uses buildIconClasses()
-     */
-    public function icon($icon): string
-    {
-        $icon = func_num_args() > 1 ? func_get_args() : $icon;
-
-        return $this->formatTemplate('tag', [
-            'attrs' => $this->templater()->formatAttributes(['class' => $this->buildIconClasses($icon)]),
-            'content' => ' ',
-            'tag' => 'i',
-        ]);
-    }
-
-    /**
      * Create an `<iframe>` element.
      *
      * You can use the `$ratio` option (valid values: `16by9` or `4by3`) to
@@ -408,7 +330,7 @@ class HtmlHelper extends CakeHtmlHelper
     {
         $options = optionsParser($options, ['escape' => false, 'title' => $title]);
         $options->add('title', trim(h(strip_tags($options->get('title') ?? ''))))->tooltip();
-        [$title, $options] = $this->addIconToText((string)$title, $options);
+        [$title, $options] = $this->Icon->addIconToText((string)$title, $options);
 
         return parent::link($title, $url, $options->toArray());
     }
@@ -450,7 +372,7 @@ class HtmlHelper extends CakeHtmlHelper
             $itemOptions->append('icon', 'li');
 
             $list = array_map(function (string $element) use ($itemOptions) {
-                return collection($this->addIconToText($element, clone $itemOptions))->first();
+                return array_value_first($this->Icon->addIconToText($element, clone $itemOptions));
             }, $list);
         }
 
@@ -483,7 +405,7 @@ class HtmlHelper extends CakeHtmlHelper
     public function para(?string $class = null, ?string $text = null, array $options = []): string
     {
         $options = optionsParser($options)->tooltip();
-        [$text, $options] = $this->addIconToText($text, $options);
+        [$text, $options] = $this->Icon->addIconToText($text, $options);
 
         return parent::para($class ?? '', (string)$text, $options->toArray());
     }
@@ -558,13 +480,13 @@ class HtmlHelper extends CakeHtmlHelper
      * @param string $name Tag name
      * @param string|null $text Tag content. If `null`, only a start tag will be
      *  printed
-     * @param array $options Array of options and HTML attributes
+     * @param OptionsParser|array $options Array of options and HTML attributes
      * @return string
      */
-    public function tag(string $name, ?string $text = null, array $options = []): string
+    public function tag(string $name, ?string $text = null, $options = []): string
     {
-        $options = optionsParser($options)->tooltip();
-        [$text, $options] = $this->addIconToText($text, $options);
+        $options = $options instanceof OptionsParser ? $options : optionsParser($options);
+        [$text, $options] = $this->Icon->addIconToText($text, $options->tooltip());
 
         return parent::tag($name, is_null($text) ? '' : $text, $options->toArray());
     }

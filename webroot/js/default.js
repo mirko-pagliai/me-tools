@@ -19,7 +19,7 @@
  */
 function send_form(element)
 {
-    $(element).closest('form').submit();
+    $(element).closest("form").submit();
 }
 
 /**
@@ -32,10 +32,10 @@ function send_form(element)
 jQuery.fn.extend({
     disable: function (state) {
         return this.each(function () {
-            if ($(this).is('input, button')) {
-                $(this).prop('disabled', state);
+            if ($(this).is("input, button")) {
+                $(this).prop("disabled", state);
             } else {
-                $(this).toggleClass('disabled', state);
+                $(this).toggleClass("disabled", state);
             }
         });
     }
@@ -46,8 +46,8 @@ jQuery.fn.extend({
  */
 function close_flashMessage()
 {
-    $('.alert').animate({opacity: '0'}, '800', function () {
-        $(this).slideUp('200');
+    $(".alert").animate({opacity: "0"}, "800", function () {
+        $(this).slideUp("200");
     });
 }
 
@@ -55,21 +55,21 @@ $(function () {
     /**
      * Enables tooltips, if there are elements that require them
      */
-    if ($('[data-toggle~="tooltip"]').length) {
-        $('[data-toggle~="tooltip"]').tooltip();
+    if ($("[data-toggle~=\"tooltip\"]").length) {
+        $("[data-toggle~=\"tooltip\"]").tooltip();
     }
 
     /**
      * Submits button will be disabled when the form is submitted.
      */
-    $('form').submit(function () {
-        $(':submit', this).disable(true);
+    $("form").submit(function () {
+        $(":submit", this).disable(true);
     });
 
     /**
      * Change the visibility of some elements.
      * Elements with "to-be-shown" class will be shown, while elements with "to-be-hidden" class will be hidden
      */
-    $('.hidden.to-be-shown:hidden').removeClass('d-none to-be-shown');
-    $('.to-be-hidden:visible').addClass('d-none').removeClass('to-be-hidden');
+    $(".hidden.to-be-shown:hidden").removeClass("d-none to-be-shown");
+    $(".to-be-hidden:visible").addClass("d-none").removeClass("to-be-hidden");
 });
