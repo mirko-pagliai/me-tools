@@ -475,7 +475,8 @@ class HtmlHelper extends CakeHtmlHelper
      * @param string $name Tag name
      * @param string|null $text Tag content. If `null`, only a start tag will be
      *  printed
-     * @param OptionsParser|array $options Array of options and HTML attributes
+     * @param MeTools\View\OptionsParser|array $options Array of options and HTML
+     *  attributes
      * @return string
      */
     public function tag($name, $text = null, $options = [])

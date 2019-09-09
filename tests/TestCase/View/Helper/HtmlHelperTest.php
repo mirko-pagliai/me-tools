@@ -15,7 +15,6 @@ namespace MeTools\Test\TestCase\View\Helper;
 use Cake\Core\Exception\Exception;
 use MeTools\TestSuite\HelperTestCase;
 use MeTools\View\Helper\HtmlHelper;
-use MeTools\View\OptionsParser;
 
 /**
  * HtmlHelperTest class
