@@ -77,7 +77,7 @@ class HtmlHelper extends CakeHtmlHelper
     {
         $options = optionsParser($options, ['role' => 'button'])->addButtonClasses();
 
-        if (!empty($url)) {
+        if ($url) {
             return self::link($title, $url, $options->toArray());
         }
 
@@ -219,10 +219,12 @@ class HtmlHelper extends CakeHtmlHelper
             $ratio = $options->consume('ratio');
 
             if (in_array($ratio, ['16by9', '4by3'])) {
-                $divClass = sprintf('embed-responsive embed-responsive-%s', $ratio);
                 $options->append('class', 'embed-responsive-item');
 
-                return self::div($divClass, self::tag('iframe', null, $options->toArray()));
+                return self::div(
+                    sprintf('embed-responsive embed-responsive-%s', $ratio),
+                    self::tag('iframe', null, $options->toArray())
+                );
             }
         }
 
@@ -365,12 +367,10 @@ class HtmlHelper extends CakeHtmlHelper
         if ($itemOptions->exists('icon')) {
             $options->append('class', 'fa-ul');
             $itemOptions->append('icon', 'li');
-
             $list = array_map(function ($element) use ($itemOptions) {
                 return array_value_first($this->Icon->addIconToText($element, clone $itemOptions));
             }, $list);
         }
-
         $options->delete('icon', 'icon-align');
         $itemOptions->delete('icon', 'icon-align');
 
@@ -387,7 +387,7 @@ class HtmlHelper extends CakeHtmlHelper
      */
     public function ol(array $list, array $options = [], array $itemOptions = [])
     {
-        return self::nestedList($list, array_merge($options, ['tag' => 'ol']), $itemOptions);
+        return self::nestedList($list, ['tag' => 'ol'] + $options, $itemOptions);
     }
 
     /**
@@ -497,7 +497,7 @@ class HtmlHelper extends CakeHtmlHelper
      */
     public function ul(array $list, array $options = [], array $itemOptions = [])
     {
-        return self::nestedList($list, array_merge($options, ['tag' => 'ul']), $itemOptions);
+        return self::nestedList($list, ['tag' => 'ul'] + $options, $itemOptions);
     }
 
     /**
@@ -517,7 +517,7 @@ class HtmlHelper extends CakeHtmlHelper
             'width' => 'device-width',
         ], null, ', ');
 
-        return self::meta(array_merge(['name' => 'viewport'], compact('content')), null, $options);
+        return self::meta(['name' => 'viewport'] + compact('content'), null, $options);
     }
 
     /**
