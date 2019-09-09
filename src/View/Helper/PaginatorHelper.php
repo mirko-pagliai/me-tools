@@ -29,6 +29,7 @@ class PaginatorHelper extends CakePaginatorHelper
     public $helpers = [
         'Form' => ['className' => 'MeTools.Form'],
         'Html' => ['className' => 'MeTools.Html'],
+        'MeTools.Icon',
         'Number',
         'Url',
     ];
@@ -68,7 +69,7 @@ class PaginatorHelper extends CakePaginatorHelper
     public function next($title = 'Next >>', array $options = [])
     {
         $options = optionsParser($options, ['escape' => false, 'icon-align' => 'right']);
-        list($title, $options) = $this->Html->addIconToText($title, $options);
+        list($title, $options) = $this->Icon->addIconToText($title, $options);
 
         return parent::next($title, $options->toArray());
     }
@@ -82,7 +83,7 @@ class PaginatorHelper extends CakePaginatorHelper
     public function prev($title = '<< Previous', array $options = [])
     {
         $options = optionsParser($options, ['escape' => false]);
-        list($title, $options) = $this->Html->addIconToText($title, $options);
+        list($title, $options) = $this->Icon->addIconToText($title, $options);
 
         return parent::prev($title, $options->toArray());
     }

@@ -1,5 +1,9 @@
 # 2.x branch
 ## 2.18 branch
+### 2.18.12
+* added the `IconHelper`. `addIconToText()` and `icon()` methods have been moved
+    from the `HtmlHelper`.
+
 ### 2.18.11
 * added `TestCase::getTable()` method;
 * added tests for lower dependencies.

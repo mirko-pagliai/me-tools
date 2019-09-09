@@ -248,15 +248,14 @@ class LibraryHelper extends Helper
             '/vendor/fancybox/helpers/jquery.fancybox-thumbs',
         ];
 
-        //Checks the init file inside `APP/webroot/js/`. Otherwise,
-        //  uses the init file inside `APP/plugin/MeTools/webroot/fancybox/`
+        //Checks the init file inside `APP/webroot/js/`.
+        //Otherwise uses the init file inside `APP/plugin/MeTools/webroot/fancybox/`
         $init = 'fancybox_init';
         if (!is_readable(WWW_ROOT . 'js' . DS . 'fancybox_init.js')) {
             $init = 'MeTools./fancybox/fancybox_init';
         }
-        $scripts[] = $init;
 
-        $this->Asset->script($scripts, ['block' => 'script_bottom']);
+        $this->Asset->script(array_merge($scripts, [$init]), ['block' => 'script_bottom']);
     }
 
     /**
