@@ -14,8 +14,8 @@
     $.fn.extend({
         slugify: function (source, target) {
             //Sets the default values, if necessary
-            source = typeof source !== 'undefined' ? source : 'form #title';
-            target = typeof target !== 'undefined' ? target : 'form #slug';
+            source = typeof source !== "undefined" ? source : "form #title";
+            target = typeof target !== "undefined" ? target : "form #slug";
 
             /**
              * Gets a slug from a string
@@ -31,10 +31,10 @@
                     str = str.replace(new RegExp(from.charAt(i), 'g'), to.charAt(i));
                 }
 
-                return str.replace(/[^a-z0-9 -]/g, '') //Removes invalid chars
-                .replace(/^\s+|\s+$/g, '') //Trim
-                .replace(/\s+/g, '-') //Collapses whitespace and replace by -
-                .replace(/-+/g, '-'); //Collapses dashes
+                return str.replace(/[^a-z0-9 -]/g, "") //Removes invalid chars
+                .replace(/^\s+|\s+$/g, "") //Trim
+                .replace(/\s+/g, "-") //Collapses whitespace and replace by -
+                .replace(/-+/g, "-"); //Collapses dashes
             }
 
             //When changing the source or the target (the slug field)
