@@ -16,6 +16,7 @@ namespace MeTools\View\Helper;
 use Cake\Utility\Hash;
 use Cake\View\Helper\FormHelper as CakeFormHelper;
 use Cake\View\View;
+use MeTools\View\OptionsParser;
 
 /**
  * Provides functionalities for forms
@@ -66,6 +67,23 @@ class FormHelper extends CakeFormHelper
         $this->_defaultWidgets['hidden'] = ['MeTools\View\Widget\HiddenWidget'];
 
         parent::__construct($view, $config);
+    }
+
+    /**
+     * Internal method to get an `OptionParser` instance for datetime pickers
+     * @param array $options HTML attributes and options
+     * @param string $class Class name
+     * @param string $dateFormat Date time format
+     * @return \MeTools\View\OptionsParser
+     * @since 2.18.12
+     */
+    protected function __datetimepickerOptions(array $options, $class, $dateFormat)
+    {
+        return optionsParser($options, ['data-date-format' => $dateFormat, 'type' => 'text'])
+            ->append('templates', [
+                'input' => sprintf('<input type="{{type}}" name="{{name}}" class="form-control %s"{{attrs}}/>', $class),
+                'inputError' => sprintf('<input type="{{type}}" name="{{name}}" class="form-control %s is-invalid"{{attrs}}/>', $class),
+            ]);
     }
 
     /**
@@ -238,15 +256,12 @@ class FormHelper extends CakeFormHelper
      * @param array $options HTML attributes and options
      * @return string
      * @see MeTools\View\Helper\LibraryHelper::datepicker()
+     * @uses __datetimepickerOptions()
      * @uses control()
      */
     public function datepicker($fieldName, array $options = [])
     {
-        $options = optionsParser($options, ['data-date-format' => 'YYYY-MM-DD', 'type' => 'text'])
-            ->append('templates', [
-                'input' => '<input type="{{type}}" name="{{name}}" class="form-control datepicker"{{attrs}}/>',
-                'inputError' => '<input type="{{type}}" name="{{name}}" class="form-control datepicker is-invalid"{{attrs}}/',
-            ]);
+        $options = $this->__datetimepickerOptions($options, 'datepicker', 'YYYY-MM-DD');
 
         return $this->control($fieldName, $options->toArray());
     }
@@ -259,14 +274,12 @@ class FormHelper extends CakeFormHelper
      * @param array $options HTML attributes and options
      * @return string
      * @see MeTools\View\Helper\LibraryHelper::datetimepicker()
+     * @uses __datetimepickerOptions()
+     * @uses control()
      */
     public function datetimepicker($fieldName, array $options = [])
     {
-        $options = optionsParser($options, ['data-date-format' => 'YYYY-MM-DD HH:mm', 'type' => 'text'])
-            ->append('templates', [
-                'input' => '<input type="{{type}}" name="{{name}}" class="form-control datetimepicker"{{attrs}}/>',
-                'inputError' => '<input type="{{type}}" name="{{name}}" class="form-control datetimepicker is-invalid"{{attrs}}/>',
-            ]);
+        $options = $this->__datetimepickerOptions($options, 'datetimepicker', 'YYYY-MM-DD HH:mm');
 
         return $this->control($fieldName, $options->toArray());
     }
@@ -415,15 +428,12 @@ class FormHelper extends CakeFormHelper
      * @param array $options HTML attributes and options
      * @return string
      * @see MeTools\View\Helper\LibraryHelper::timepicker()
+     * @uses __datetimepickerOptions()
      * @uses control()
      */
     public function timepicker($fieldName, array $options = [])
     {
-        $options = optionsParser($options, ['data-date-format' => 'HH:mm', 'type' => 'text'])
-            ->append('templates', [
-                'input' => '<input type="{{type}}" name="{{name}}" class="form-control timepicker"{{attrs}}/>',
-                'inputError' => '<input type="{{type}}" name="{{name}}" class="form-control timepicker is-invalid"{{attrs}}/>',
-            ]);
+        $options = $this->__datetimepickerOptions($options, 'timepicker', 'HH:mm');
 
         return $this->control($fieldName, $options->toArray());
     }
