@@ -12,7 +12,7 @@
 
 (function ($) {
     $.fn.extend({
-        slugify: function (source, target) {
+        slugify(source, target) {
             //Sets the default values, if necessary
             source = typeof source !== "undefined" ? source : "form #title";
             target = typeof target !== "undefined" ? target : "form #slug";
@@ -28,7 +28,7 @@
                 var to = "aaaaeeeeiiiiioooouuuunc------";
 
                 for (var i = 0, l = from.length; i < l; i++) {
-                    str = str.replace(new RegExp(from.charAt(i), 'g'), to.charAt(i));
+                    str = str.replace(new RegExp(from.charAt(i), "g"), to.charAt(i));
                 }
 
                 return str.replace(/[^a-z0-9 -]/g, "") //Removes invalid chars

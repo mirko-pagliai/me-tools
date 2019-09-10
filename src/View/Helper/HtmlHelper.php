@@ -260,17 +260,6 @@ class HtmlHelper extends CakeHtmlHelper
     }
 
     /**
-     * Alias for `script()` method
-     * @return string|null String of `<script />` tags or null if `$inline` is false
-     *  or if `$once` is true and the file has been included before
-     * @see script()
-     */
-    public function js(): ?string
-    {
-        return call_user_func_array([get_class(), 'script'], func_get_args());
-    }
-
-    /**
      * Create a label, according to the Bootstrap component.
      *
      * This method creates only a label element. Not to be confused with the

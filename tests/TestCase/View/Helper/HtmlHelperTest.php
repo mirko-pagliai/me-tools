@@ -567,7 +567,7 @@ class HtmlHelperTest extends HelperTestCase
     }
 
     /**
-     * Test for `script()` and `js()` methods
+     * Test for `script()` method
      * @test
      */
     public function testScript()
@@ -575,14 +575,9 @@ class HtmlHelperTest extends HelperTestCase
         //By default, `block` is `true`
         $this->assertNull($this->Helper->script('my-file'));
         $this->assertNull($this->Helper->script('my-file2', ['block' => true]));
-        $this->assertNull($this->Helper->js('my-file4'));
-        $this->assertNull($this->Helper->js('my-file5', ['block' => true]));
 
         $expected = ['script' => ['src' => '/js/my-file3.js']];
         $this->assertHtml($expected, $this->Helper->script('my-file3', ['block' => false]));
-
-        $expected = ['script' => ['src' => '/js/my-file6.js']];
-        $this->assertHtml($expected, $this->Helper->js('my-file6', ['block' => false]));
     }
 
     /**

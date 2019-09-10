@@ -120,7 +120,7 @@ class CommandTest extends TestCase
 
     /**
      * Tests for `createDir()` method, with a not writable directory
-     * @group onlyUnix
+     * @requires OS Linux
      * @test
      */
     public function testCreateDirNotWritableDir()
@@ -153,7 +153,7 @@ class CommandTest extends TestCase
 
     /**
      * Tests for `createLink()` method
-     * @group onlyUnix
+     * @requires OS Linux
      * @test
      */
     public function testCreateLink()

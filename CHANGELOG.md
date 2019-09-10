@@ -6,7 +6,9 @@
 ## 2.18 branch
 ### 2.18.12
 * added the `IconHelper`. `addIconToText()` and `icon()` methods have been moved
-    from the `HtmlHelper`.
+    from the `HtmlHelper`;
+* `HtmlHelper::js()` alias method has been removed;
+* javascript `send_form()` function becomes `sendForm()`.
 
 ### 2.18.11
 * added `TestCase::getTable()` method;

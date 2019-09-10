@@ -14,10 +14,10 @@
  * Function to auto-submit a form.
  *
  * Example:
- * <select onchange="send_form(this)"></select>
+ * <select onchange="sendForm(this)"></select>
  * @param {Object} element
  */
-function send_form(element)
+function sendForm(element)
 {
     $(element).closest("form").submit();
 }
@@ -30,7 +30,7 @@ function send_form(element)
  * @see http://stackoverflow.com/a/16788240/1480263
  */
 jQuery.fn.extend({
-    disable: function (state) {
+    disable (state) {
         return this.each(function () {
             if ($(this).is("input, button")) {
                 $(this).prop("disabled", state);
@@ -44,7 +44,7 @@ jQuery.fn.extend({
 /**
  * Closes a flash messages with an animation
  */
-function close_flashMessage()
+function closeFlashMessage()
 {
     $(".alert").animate({opacity: "0"}, "800", function () {
         $(this).slideUp("200");

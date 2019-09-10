@@ -14,7 +14,6 @@ declare(strict_types=1);
 namespace MeTools\View\Helper;
 
 use Cake\Core\Plugin;
-use Cake\Event\Event;
 use Cake\I18n\I18n;
 use Cake\View\Helper;
 
@@ -104,22 +103,20 @@ class LibraryHelper extends Helper
 
     /**
      * Before layout callback. beforeLayout is called before the layout is
-     *  rendered.
-     * @param \Cake\Event\Event $event An Event instance
-     * @param string|null $layoutFile The layout about to be rendered
+     *  rendered
      * @return void
      * @uses MeTools\View\Helper\HtmlHelper::scriptBlock()
      * @uses $output
      */
-    public function beforeLayout(Event $event, ?string $layoutFile): void
+    public function beforeLayout(): void
     {
         if (!$this->output) {
             return;
         }
 
         //Writes the output
-        $output = array_map(function ($v) {
-            return "    " . $v;
+        $output = array_map(function ($output) {
+            return "    " . $output;
         }, $this->output);
 
         $this->Html->scriptBlock(
@@ -172,18 +169,17 @@ class LibraryHelper extends Helper
             $scripts[] = '/ckeditor/adapters/jquery';
         }
 
-        //Checks for `APP/webroot/js/ckeditor_init.php`
+        //Checks the init file `APP/webroot/js/ckeditor_init.php` or
+        //  `APP/webroot/js/ckeditor_init.js`.
+        //Otherwise uses the init file `APP/plugin/MeTools/webroot/js/ckeditor_init.js`
+        $init = 'MeTools.ckeditor_init.php?type=js';
         if (is_readable(WWW_ROOT . 'js' . DS . 'ckeditor_init.php')) {
-            $scripts[] = 'ckeditor_init.php?type=js';
-        //Checks for `APP/webroot/js/ckeditor_init.js`
+            $init = 'ckeditor_init.php?type=js';
         } elseif (is_readable(WWW_ROOT . 'js' . DS . 'ckeditor_init.js')) {
-            $scripts[] = 'ckeditor_init';
-        //Else, uses `APP/plugin/MeTools/webroot/js/ckeditor_init.js`
-        } else {
-            $scripts[] = 'MeTools.ckeditor_init.php?type=js';
+            $init = 'ckeditor_init';
         }
 
-        $this->Html->script($scripts, ['block' => 'script_bottom']);
+        $this->Html->script(array_merge($scripts, [$init]), ['block' => 'script_bottom']);
     }
 
     /**
@@ -271,7 +267,7 @@ class LibraryHelper extends Helper
      */
     public function shareaholic(string $siteId): ?string
     {
-        return $this->Html->js('//dsms0mj1bbhn4.cloudfront.net/assets/pub/shareaholic.js', [
+        return $this->Html->script('//dsms0mj1bbhn4.cloudfront.net/assets/pub/shareaholic.js', [
             'async' => 'async',
             'block' => 'script_bottom',
             'data-cfasync' => 'false',
