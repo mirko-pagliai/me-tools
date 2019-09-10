@@ -28,6 +28,7 @@ class FormHelper extends CakeFormHelper
      */
     public $helpers = [
         'Html' => ['className' => 'MeTools.Html'],
+        'MeTools.Icon',
         'Url',
     ];
 
@@ -68,6 +69,23 @@ class FormHelper extends CakeFormHelper
     }
 
     /**
+     * Internal method to get an `OptionParser` instance for datetime pickers
+     * @param array $options HTML attributes and options
+     * @param string $class Class name
+     * @param string $dateFormat Date time format
+     * @return \MeTools\View\OptionsParser
+     * @since 2.18.12
+     */
+    protected function __datetimepickerOptions(array $options, $class, $dateFormat)
+    {
+        return optionsParser($options, ['data-date-format' => $dateFormat, 'type' => 'text'])
+            ->append('templates', [
+                'input' => sprintf('<input type="{{type}}" name="{{name}}" class="form-control %s"{{attrs}}/>', $class),
+                'inputError' => sprintf('<input type="{{type}}" name="{{name}}" class="form-control %s is-invalid"{{attrs}}/>', $class),
+            ]);
+    }
+
+    /**
      * Creates a button.
      *
      * This method creates a button. To create a POST button, you should use
@@ -83,7 +101,7 @@ class FormHelper extends CakeFormHelper
     {
         $options = optionsParser($options, ['type' => 'button']);
         $options->addButtonClasses($options->contains('type', 'submit') ? 'success' : 'primary');
-        list($title, $options) = $this->Html->addIconToText($title, $options);
+        list($title, $options) = $this->Icon->addIconToText($title, $options);
 
         return parent::button($title, $options->toArray());
     }
@@ -178,16 +196,8 @@ class FormHelper extends CakeFormHelper
 
             //If it is not a checkbox
             if ($type !== "checkbox" && (!$options->exists('label') || $options->get('label') !== false)) {
-                $label = $options->get('label');
-
-                if (!$label) {
-                    $label = [];
-                } elseif (is_string($label)) {
-                    $label = ['text' => $label];
-                }
-
+                $label = $options->get('label') ? ['text' => $options->get('label')] : [];
                 $label = optionsParser($label)->append('class', 'sr-only');
-
                 $options->add('label', $label->toArray());
             }
         }
@@ -245,15 +255,12 @@ class FormHelper extends CakeFormHelper
      * @param array $options HTML attributes and options
      * @return string
      * @see MeTools\View\Helper\LibraryHelper::datepicker()
+     * @uses __datetimepickerOptions()
      * @uses control()
      */
     public function datepicker($fieldName, array $options = [])
     {
-        $options = optionsParser($options, ['data-date-format' => 'YYYY-MM-DD', 'type' => 'text'])
-            ->append('templates', [
-                'input' => '<input type="{{type}}" name="{{name}}" class="form-control datepicker"{{attrs}}/>',
-                'inputError' => '<input type="{{type}}" name="{{name}}" class="form-control datepicker is-invalid"{{attrs}}/',
-            ]);
+        $options = $this->__datetimepickerOptions($options, 'datepicker', 'YYYY-MM-DD');
 
         return $this->control($fieldName, $options->toArray());
     }
@@ -266,14 +273,12 @@ class FormHelper extends CakeFormHelper
      * @param array $options HTML attributes and options
      * @return string
      * @see MeTools\View\Helper\LibraryHelper::datetimepicker()
+     * @uses __datetimepickerOptions()
+     * @uses control()
      */
     public function datetimepicker($fieldName, array $options = [])
     {
-        $options = optionsParser($options, ['data-date-format' => 'YYYY-MM-DD HH:mm', 'type' => 'text'])
-            ->append('templates', [
-                'input' => '<input type="{{type}}" name="{{name}}" class="form-control datetimepicker"{{attrs}}/>',
-                'inputError' => '<input type="{{type}}" name="{{name}}" class="form-control datetimepicker is-invalid"{{attrs}}/>',
-            ]);
+        $options = $this->__datetimepickerOptions($options, 'datetimepicker', 'YYYY-MM-DD HH:mm');
 
         return $this->control($fieldName, $options->toArray());
     }
@@ -316,7 +321,7 @@ class FormHelper extends CakeFormHelper
     public function label($fieldName, $text = null, array $options = [])
     {
         $options = optionsParser($options, ['escape' => false]);
-        list($text, $options) = $this->Html->addIconToText($text, $options);
+        list($text, $options) = $this->Icon->addIconToText($text, $options);
 
         return parent::label($fieldName, $text, $options->toArray());
     }
@@ -362,7 +367,7 @@ class FormHelper extends CakeFormHelper
     {
         $options = optionsParser($options, ['escape' => false, 'title' => $title]);
         $options->add('title', trim(h(strip_tags($options->get('title')))))->tooltip();
-        list($title, $options) = $this->Html->addIconToText($title, $options);
+        list($title, $options) = $this->Icon->addIconToText($title, $options);
 
         return parent::postLink($title, $url, $options->toArray());
     }
@@ -422,15 +427,12 @@ class FormHelper extends CakeFormHelper
      * @param array $options HTML attributes and options
      * @return string
      * @see MeTools\View\Helper\LibraryHelper::timepicker()
+     * @uses __datetimepickerOptions()
      * @uses control()
      */
     public function timepicker($fieldName, array $options = [])
     {
-        $options = optionsParser($options, ['data-date-format' => 'HH:mm', 'type' => 'text'])
-            ->append('templates', [
-                'input' => '<input type="{{type}}" name="{{name}}" class="form-control timepicker"{{attrs}}/>',
-                'inputError' => '<input type="{{type}}" name="{{name}}" class="form-control timepicker is-invalid"{{attrs}}/>',
-            ]);
+        $options = $this->__datetimepickerOptions($options, 'timepicker', 'HH:mm');
 
         return $this->control($fieldName, $options->toArray());
     }

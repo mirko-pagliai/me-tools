@@ -11,11 +11,11 @@
  */
 $(document).ready(function () {
     $(".fancybox").fancybox({
-        prevEffect: 'none',
-        nextEffect: 'none',
+        prevEffect: "none",
+        nextEffect: "none",
         padding: 0,
-        type : 'image',
-        beforeShow: function () {
+        type : "image",
+        beforeShow() {
             /* Right click disabled by default */
             $.fancybox.wrap.bind("contextmenu", function () {
                 return false;
@@ -23,7 +23,7 @@ $(document).ready(function () {
         },
         helpers: {
             title: {
-                type: 'over'
+                type: "over"
             }
         }
     });

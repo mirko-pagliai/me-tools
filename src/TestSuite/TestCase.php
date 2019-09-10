@@ -18,6 +18,7 @@ use Cake\ORM\TableRegistry;
 use Cake\TestSuite\TestCase as CakeTestCase;
 use Exception;
 use MeTools\TestSuite\MockTrait;
+use Symfony\Component\Filesystem\Filesystem;
 use Tools\ReflectionTrait;
 use Tools\TestSuite\TestTrait;
 
@@ -72,7 +73,7 @@ abstract class TestCase extends CakeTestCase
             $filename .= '.log';
         }
 
-        return is_absolute($filename) ? $filename : LOGS . $filename;
+        return (new Filesystem())->isAbsolutePath($filename) ? $filename : LOGS . $filename;
     }
 
     /**
