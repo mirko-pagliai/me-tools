@@ -28,4 +28,4 @@ install:
 
 test_script:
   - cd C:\projects\me-tools
-  - vendor\bin\phpunit.bat --exclude-group=onlyUnix
+  - vendor\bin\phpunit.bat
