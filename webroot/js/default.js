@@ -14,10 +14,10 @@
  * Function to auto-submit a form.
  *
  * Example:
- * <select onchange="send_form(this)"></select>
+ * <select onchange="sendForm(this)"></select>
  * @param {Object} element
  */
-function send_form(element)
+function sendForm(element)
 {
     $(element).closest("form").submit();
 }
