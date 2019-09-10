@@ -66,13 +66,13 @@ class FixComposerJsonCommand extends Command
         }
 
         //Checks if the file has been fixed
+        $message = __d('me_tools', 'The file {0} doesn\'t need to be fixed', rtr($path));
         if (empty($contents['config']['component-dir']) || $contents['config']['component-dir'] !== 'vendor/components') {
             $contents += ['config' => ['component-dir' => 'vendor/components']];
             create_file($path, json_encode($contents, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
-            $io->verbose(__d('me_tools', 'The file {0} has been fixed', rtr($path)));
-        } else {
-            $io->verbose(__d('me_tools', 'The file {0} doesn\'t need to be fixed', rtr($path)));
+            $message = __d('me_tools', 'The file {0} has been fixed', rtr($path));
         }
+        $io->verbose($message);
 
         return null;
     }
