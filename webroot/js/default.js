@@ -30,7 +30,7 @@ function sendForm(element)
  * @see http://stackoverflow.com/a/16788240/1480263
  */
 jQuery.fn.extend({
-    disable: function (state) {
+    disable (state) {
         return this.each(function () {
             if ($(this).is("input, button")) {
                 $(this).prop("disabled", state);
