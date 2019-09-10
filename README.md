@@ -4,6 +4,7 @@
 [![Build Status](https://travis-ci.org/mirko-pagliai/me-tools.svg?branch=master)](https://travis-ci.org/mirko-pagliai/me-tools)
 [![Build status](https://ci.appveyor.com/api/projects/status/mlm4yqrmj8c5thr0?svg=true)](https://ci.appveyor.com/project/mirko-pagliai/me-tools)
 [![Coverage Status](https://img.shields.io/codecov/c/github/mirko-pagliai/me-tools.svg?style=flat-square)](https://codecov.io/github/mirko-pagliai/me-tools)
+[![CodeFactor](https://www.codefactor.io/repository/github/mirko-pagliai/me-tools/badge/develop)](https://www.codefactor.io/repository/github/mirko-pagliai/me-tools/overview/develop)
 
 MeTools is a CakePHP plugin to improve applications development.  
 It provides some useful tools, such as components, helpers and javascript libraries.  
