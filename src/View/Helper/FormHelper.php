@@ -16,7 +16,6 @@ namespace MeTools\View\Helper;
 use Cake\Utility\Hash;
 use Cake\View\Helper\FormHelper as CakeFormHelper;
 use Cake\View\View;
-use MeTools\View\OptionsParser;
 
 /**
  * Provides functionalities for forms
