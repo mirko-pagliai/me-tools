@@ -16,7 +16,6 @@ namespace MeTools\View\Helper;
 
 use Cake\Core\Exception\Exception;
 use Cake\View\Helper\HtmlHelper as CakeHtmlHelper;
-use MeTools\View\OptionsParser;
 
 /**
  * Provides functionalities for HTML code
@@ -78,7 +77,7 @@ class HtmlHelper extends CakeHtmlHelper
     {
         $options = optionsParser($options, ['role' => 'button'])->addButtonClasses();
 
-        if (!empty($url)) {
+        if ($url) {
             return self::link($title, $url, $options->toArray());
         }
 
@@ -222,10 +221,12 @@ class HtmlHelper extends CakeHtmlHelper
             $ratio = $options->consume('ratio');
 
             if (in_array($ratio, ['16by9', '4by3'])) {
-                $divClass = sprintf('embed-responsive embed-responsive-%s', $ratio);
                 $options->append('class', 'embed-responsive-item');
 
-                return self::div($divClass, self::tag('iframe', null, $options->toArray()));
+                return self::div(
+                    sprintf('embed-responsive embed-responsive-%s', $ratio),
+                    self::tag('iframe', null, $options->toArray())
+                );
             }
         }
 
@@ -375,7 +376,6 @@ class HtmlHelper extends CakeHtmlHelper
                 return array_value_first($this->Icon->addIconToText($element, clone $itemOptions));
             }, $list);
         }
-
         $options->delete('icon', 'icon-align');
         $itemOptions->delete('icon', 'icon-align');
 
@@ -392,7 +392,7 @@ class HtmlHelper extends CakeHtmlHelper
      */
     public function ol(array $list, array $options = [], array $itemOptions = []): string
     {
-        return self::nestedList($list, array_merge($options, ['tag' => 'ol']), $itemOptions);
+        return self::nestedList($list, ['tag' => 'ol'] + $options, $itemOptions);
     }
 
     /**
@@ -480,13 +480,12 @@ class HtmlHelper extends CakeHtmlHelper
      * @param string $name Tag name
      * @param string|null $text Tag content. If `null`, only a start tag will be
      *  printed
-     * @param \MeTools\View\OptionsParser|array $options Array of options and HTML
-     *  attributes
+     * @param array $options Array of options and HTML attributes
      * @return string
      */
-    public function tag(string $name, ?string $text = null, $options = []): string
+    public function tag(string $name, ?string $text = null, array $options = []): string
     {
-        $options = $options instanceof OptionsParser ? $options : optionsParser($options);
+        $options = optionsParser($options);
         [$text, $options] = $this->Icon->addIconToText($text, $options->tooltip());
 
         return parent::tag($name, is_null($text) ? '' : $text, $options->toArray());
@@ -502,7 +501,7 @@ class HtmlHelper extends CakeHtmlHelper
      */
     public function ul(array $list, array $options = [], array $itemOptions = []): string
     {
-        return self::nestedList($list, array_merge($options, ['tag' => 'ul']), $itemOptions);
+        return self::nestedList($list, ['tag' => 'ul'] + $options, $itemOptions);
     }
 
     /**
@@ -522,7 +521,7 @@ class HtmlHelper extends CakeHtmlHelper
             'width' => 'device-width',
         ], '', ', ');
 
-        return self::meta(array_merge(['name' => 'viewport'], compact('content')), null, $options);
+        return self::meta(['name' => 'viewport'] + compact('content'), null, $options);
     }
 
     /**
