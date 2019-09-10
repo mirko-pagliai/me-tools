@@ -266,7 +266,7 @@ class LibraryHelper extends Helper
      */
     public function shareaholic($siteId)
     {
-        return $this->Html->js('//dsms0mj1bbhn4.cloudfront.net/assets/pub/shareaholic.js', [
+        return $this->Html->script('//dsms0mj1bbhn4.cloudfront.net/assets/pub/shareaholic.js', [
             'async' => 'async',
             'block' => 'script_bottom',
             'data-cfasync' => 'false',
