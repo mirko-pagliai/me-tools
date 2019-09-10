@@ -12,7 +12,7 @@
 
 (function ($) {
     $.fn.extend({
-        slugify: function (source, target) {
+        slugify(source, target) {
             //Sets the default values, if necessary
             source = typeof source !== "undefined" ? source : "form #title";
             target = typeof target !== "undefined" ? target : "form #slug";

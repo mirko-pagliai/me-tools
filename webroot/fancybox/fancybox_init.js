@@ -15,7 +15,7 @@ $(document).ready(function () {
         nextEffect: "none",
         padding: 0,
         type : "image",
-        beforeShow: function () {
+        beforeShow() {
             /* Right click disabled by default */
             $.fancybox.wrap.bind("contextmenu", function () {
                 return false;
