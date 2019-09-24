@@ -48,6 +48,10 @@ abstract class HelperTestCase extends TestCase
             class_exists($className) ?: $this->fail(sprintf('Class `%s` does not exist', $className));
 
             $this->Helper = $this->getMockForHelper($className, null);
+
+            if (method_exists($this->Helper, 'initialize')) {
+                $this->Helper->initialize([]);
+            }
         }
     }
 }
