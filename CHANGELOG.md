@@ -1,5 +1,9 @@
 # 2.x branch
 ## 2.18 branch
+### 2.18.13
+* for classes automatically created during tests, the `initialize()` method for
+    components, consoles and helpers is automatically called.
+
 ### 2.18.12
 * added the `IconHelper`. `addIconToText()` and `icon()` methods have been moved
     from the `HtmlHelper`;
