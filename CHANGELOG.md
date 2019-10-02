@@ -1,4 +1,8 @@
 # 2.x branch
+## 2.19 branch
+### 2.19.0
+* the `BBCodeHelper` was deprecated and was removed.
+
 ## 2.18 branch
 ### 2.18.14
 * added `\MeTools\Utility\BBCode` utility. This utility allows you to parse 
