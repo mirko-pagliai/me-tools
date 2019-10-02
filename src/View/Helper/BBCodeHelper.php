@@ -21,6 +21,7 @@ use MeTools\Utility\BBCode;
  *
  * This helper allows you to handle some BBCode.
  * The `parser()` method executes all parsers.
+ * @deprecated 2.18.14
  */
 class BBCodeHelper extends Helper
 {
@@ -44,6 +45,8 @@ class BBCodeHelper extends Helper
      */
     public function __call($method, $params)
     {
+        deprecationWarning('The `BBCodeHelper` is deprecated. Use instead the `BBCode` utility');
+
         if (!method_exists(BBCode::class, $method)) {
             parent::__call($method, $params);
         }

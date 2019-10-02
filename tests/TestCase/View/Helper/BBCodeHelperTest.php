@@ -31,6 +31,19 @@ class BBCodeHelperTest extends BBCodeTest
         parent::setUp();
 
         $this->BBCode = new BBCodeHelper(new View());
+
+        $this->oldErrorReporting = ini_set('error_reporting', E_ALL & ~E_USER_DEPRECATED);
+    }
+
+    /**
+     * Called after every test method
+     * @return void
+     */
+    public function tearDown()
+    {
+        parent::tearDown();
+
+        ini_set('error_reporting', $this->oldErrorReporting);
     }
 
     /**
@@ -41,5 +54,17 @@ class BBCodeHelperTest extends BBCodeTest
     {
         $this->expectException(Warning::class);
         $this->BBCode->noExisting();
+    }
+
+    /**
+     * Tests class deprecation
+     * @test
+     */
+    public function testDeprecation()
+    {
+        ini_set('error_reporting', $this->oldErrorReporting);
+        $this->expectException(\PHPUnit\Framework\Error\Deprecated::class);
+        $this->expectExceptionMessageRegExp('/^The `BBCodeHelper` is deprecated\. Use instead the `BBCode` utility/');
+        $this->BBCode->parser();
     }
 }

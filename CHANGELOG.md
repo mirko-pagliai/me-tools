@@ -2,8 +2,8 @@
 ## 2.18 branch
 ### 2.18.14
 * added `\MeTools\Utility\BBCode` utility. This utility allows you to parse 
-    BBCode also outside the view. The `BBCodeHelper` uses this utility and will
-    be deprecated in a future release.
+    BBCode also outside the view. The `BBCodeHelper` is now deprecated and will
+    be removed in a future release.
 
 ### 2.18.13
 * for classes automatically created during tests, the `initialize()` method for
