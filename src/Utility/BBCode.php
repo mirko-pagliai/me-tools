@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * This file is part of me-tools.
  *
@@ -42,7 +43,7 @@ class BBCode
      * Constructor
      * @param HtmlHelper|null $HtmlHelper An `HtmlHelper` instance
      */
-    public function __construct(HtmlHelper $HtmlHelper = null)
+    public function __construct(?HtmlHelper $HtmlHelper = null)
     {
         $this->Html = $HtmlHelper ?: new HtmlHelper(new View());
     }
