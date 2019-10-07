@@ -1,9 +1,15 @@
 # 2.x branch
 ## 2.19 branch
 ### 2.19.0
-* updated for `cakephp` 4 and `phpunit` 8.
+* updated for `cakephp` 4 and `phpunit` 8;
+* the `BBCodeHelper` have been removed.
 
 ## 2.18 branch
+### 2.18.14
+* added `\MeTools\Utility\BBCode` utility. This utility allows you to parse 
+    BBCode also outside the view. The `BBCodeHelper` is now deprecated and will
+    be removed in a future release.
+
 ### 2.18.13
 * for classes automatically created during tests, the `initialize()` method for
     components, consoles and helpers is automatically called.

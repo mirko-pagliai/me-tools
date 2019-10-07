@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 /**
  * This file is part of me-tools.
  *
@@ -11,16 +10,22 @@ declare(strict_types=1);
  * @link        https://github.com/mirko-pagliai/me-tools
  * @license     https://opensource.org/licenses/mit-license.php MIT License
  */
-namespace MeTools\Test\TestCase\View\Helper;
+namespace MeTools\Test\TestCase\Utility;
 
-use MeTools\TestSuite\HelperTestCase;
+use MeTools\TestSuite\TestCase;
+use MeTools\Utility\BBCode;
 use MeTools\View\Helper\HtmlHelper;
 
 /**
- * BBCodeHelperTest class
+ * BBCodeTest class
  */
-class BBCodeHelperTest extends HelperTestCase
+class BBCodeTest extends TestCase
 {
+    /**
+     * @var \MeTools\Utility\BBCode
+     */
+    public $BBCode;
+
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject
      */
@@ -35,6 +40,7 @@ class BBCodeHelperTest extends HelperTestCase
         parent::setUp();
 
         $this->Html = $this->getMockForHelper(HtmlHelper::class, null);
+        $this->BBCode = new BBCode($this->Html);
     }
 
     /**
@@ -71,7 +77,7 @@ class BBCodeHelperTest extends HelperTestCase
         echo '<span>Some span text</span>' . PHP_EOL;
         echo '[youtube]bL_CJKq9rIw[/youtube]' . PHP_EOL;
         echo '<div>Some div text</div>' . PHP_EOL;
-        $this->assertHtml($expected, $this->Helper->parser(ob_get_clean()));
+        $this->assertHtml($expected, $this->BBCode->parser(ob_get_clean()));
     }
 
     /**
@@ -97,7 +103,7 @@ class BBCodeHelperTest extends HelperTestCase
         echo '<span>Some span text</span>' . PHP_EOL;
         echo '[youtube]bL_CJKq9rIw[/youtube]' . PHP_EOL;
         echo '<div>Some div text</div>' . PHP_EOL;
-        $this->assertHtml($expected, $this->Helper->remove(ob_get_clean()));
+        $this->assertHtml($expected, $this->BBCode->remove(ob_get_clean()));
     }
 
     /**
@@ -106,7 +112,7 @@ class BBCodeHelperTest extends HelperTestCase
      */
     public function testImage()
     {
-        $this->assertEquals($this->Html->image('mypic.gif'), $this->Helper->image('[img]mypic.gif[/img]'));
+        $this->assertEquals($this->Html->image('mypic.gif'), $this->BBCode->image('[img]mypic.gif[/img]'));
     }
 
     /**
@@ -125,7 +131,7 @@ class BBCodeHelperTest extends HelperTestCase
             '<p>[readmore /]</p>',
             '<p class="my-class">[readmore /]</p>',
         ] as $text) {
-            $this->assertEquals('<!-- read-more -->', $this->Helper->readmore($text));
+            $this->assertEquals('<!-- read-more -->', $this->BBCode->readmore($text));
         }
     }
 
@@ -136,7 +142,7 @@ class BBCodeHelperTest extends HelperTestCase
     public function testUrl()
     {
         $expected = $this->Html->link('my link', 'http://example');
-        $this->assertEquals($expected, $this->Helper->url('[url="http://example"]my link[/url]'));
+        $this->assertEquals($expected, $this->BBCode->url('[url="http://example"]my link[/url]'));
     }
 
     /**
@@ -152,7 +158,7 @@ class BBCodeHelperTest extends HelperTestCase
             '[youtube]https://www.youtube.com/watch?v=bL_CJKq9rIw[/youtube]',
             '[youtube]https://youtu.be/bL_CJKq9rIw[/youtube]',
         ] as $text) {
-            $this->assertEquals($expected, $this->Helper->youtube($text));
+            $this->assertEquals($expected, $this->BBCode->youtube($text));
         }
     }
 }

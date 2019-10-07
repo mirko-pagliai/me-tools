@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 /**
  * This file is part of me-tools.
  *
@@ -10,25 +9,23 @@ declare(strict_types=1);
  * @copyright   Copyright (c) Mirko Pagliai
  * @link        https://github.com/mirko-pagliai/me-tools
  * @license     https://opensource.org/licenses/mit-license.php MIT License
+ * @since       2.18.13
  */
-namespace MeTools\View\Helper;
+namespace MeTools\Utility;
 
-use Cake\View\Helper;
-use MeTools\Utility\Youtube;
+use Cake\View\View;
+use MeTools\View\Helper\HtmlHelper;
 
 /**
- * BBCode Helper.
- *
- * This helper allows you to handle some BBCode.
+ * This utility allows you to handle some BBCode.
  * The `parser()` method executes all parsers.
  */
-class BBCodeHelper extends Helper
+class BBCode
 {
     /**
-     * Helpers
-     * @var array
+     * @var \MeTools\View\Helper\HtmlHelper
      */
-    public $helpers = ['Html' => ['className' => 'MeTools.Html']];
+    public $Html;
 
     /**
      * Pattern
@@ -42,14 +39,23 @@ class BBCodeHelper extends Helper
     ];
 
     /**
+     * Constructor
+     * @param HtmlHelper|null $HtmlHelper An `HtmlHelper` instance
+     */
+    public function __construct(HtmlHelper $HtmlHelper = null)
+    {
+        $this->Html = $HtmlHelper ?: new HtmlHelper(new View());
+    }
+
+    /**
      * Executes all parsers
      * @param string $text Text
      * @return string
      */
     public function parser(string $text): string
     {
-        //Gets all current class methods, except for `parser()` and `remove()`
-        $methods = array_diff(get_child_methods(get_class()), ['parser', 'remove']);
+        //Gets all class methods, except for `parser()` and `remove()`
+        $methods = array_diff(get_class_methods(__CLASS__), ['__construct', 'parser', 'remove']);
 
         //Calls dynamically each method
         foreach ($methods as $method) {
@@ -77,11 +83,12 @@ class BBCodeHelper extends Helper
      * </code>
      * @param string $text Text
      * @return string
+     * @uses $Html
      * @uses $pattern
      */
     public function image(string $text): string
     {
-        return preg_replace_callback($this->pattern['image'], function (array $matches) {
+        return preg_replace_callback($this->pattern['image'], function ($matches) {
             return $this->Html->image($matches[1]);
         }, $text);
     }
@@ -107,11 +114,12 @@ class BBCodeHelper extends Helper
      * </code>
      * @param string $text Text
      * @return string
+     * @uses $Html
      * @uses $pattern
      */
     public function url(string $text): string
     {
-        return preg_replace_callback($this->pattern['url'], function (array $matches) {
+        return preg_replace_callback($this->pattern['url'], function ($matches) {
             return $this->Html->link($matches[2], $matches[1]);
         }, $text);
     }
@@ -130,13 +138,13 @@ class BBCodeHelper extends Helper
      * </code>
      * @param string $text Text
      * @return string
-     * @uses MeTools\Utility\Youtube::getId()
-     * @uses MeTools\View\Helper\HtmlHelper::youtube()
+     * @uses \MeTools\Utility\Youtube::getId()
+     * @uses $Html
      * @uses $pattern
      */
     public function youtube(string $text): string
     {
-        return preg_replace_callback($this->pattern['youtube'], function (array $matches) {
+        return preg_replace_callback($this->pattern['youtube'], function ($matches) {
             $id = is_url($matches[1]) ? Youtube::getId($matches[1]) : $matches[1];
 
             return $this->Html->youtube($id);
