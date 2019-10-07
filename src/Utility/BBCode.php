@@ -41,7 +41,7 @@ class BBCode
 
     /**
      * Constructor
-     * @param HtmlHelper|null $HtmlHelper An `HtmlHelper` instance
+     * @param \MeTools\View\Helper\HtmlHelper|null $HtmlHelper An `HtmlHelper` instance
      */
     public function __construct(?HtmlHelper $HtmlHelper = null)
     {
