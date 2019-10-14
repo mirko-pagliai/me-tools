@@ -5,6 +5,9 @@
 * the `BBCodeHelper` have been removed.
 
 ## 2.18 branch
+### 2.18.15
+* fixed little bug for `MockTrait::getOriginClassName()` method.
+
 ### 2.18.14
 * added `\MeTools\Utility\BBCode` utility. This utility allows you to parse 
     BBCode also outside the view. The `BBCodeHelper` is now deprecated and will
