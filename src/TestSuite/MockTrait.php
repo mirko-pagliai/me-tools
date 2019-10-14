@@ -93,10 +93,7 @@ trait MockTrait
     public function getOriginClassName($testClass)
     {
         $testClass = is_string($testClass) ? $testClass : get_class($testClass);
-        $parts = explode('\\', $testClass);
-        array_splice($parts, 1, 2, []);
-        $parts[] = substr(array_pop($parts), 0, -4);
 
-        return implode('\\', $parts);
+        return preg_replace('/^(.+)Test\\\\TestCase\\\\(.+)Test$/', '\1\2', $testClass);
     }
 }
