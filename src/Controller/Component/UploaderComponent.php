@@ -82,7 +82,6 @@ class UploaderComponent extends Component
      * @param string $destination The destination of the moved file
      * @return bool
      */
-    //@codingStandardsIgnoreLine
     protected function move_uploaded_file($filename, $destination)
     {
         return move_uploaded_file($filename, $destination);

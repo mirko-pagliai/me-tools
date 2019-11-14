@@ -23,6 +23,7 @@ use MeTools\View\Helper\HtmlHelper;
 class BBCode
 {
     /**
+     * An `HtmlHelper` instance
      * @var \MeTools\View\Helper\HtmlHelper
      */
     public $Html;
@@ -40,7 +41,7 @@ class BBCode
 
     /**
      * Constructor
-     * @param HtmlHelper|null $HtmlHelper An `HtmlHelper` instance
+     * @param \MeTools\View\Helper\HtmlHelper|null $HtmlHelper An `HtmlHelper` instance
      */
     public function __construct(HtmlHelper $HtmlHelper = null)
     {
