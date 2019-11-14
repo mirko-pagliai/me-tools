@@ -411,9 +411,6 @@ class FormHelperTest extends HelperTestCase
     {
         $expected = [
             'form' => ['method' => 'post', 'accept-charset' => 'utf-8', 'action' => '/'],
-            'div' => ['style' => 'display:none;'],
-            'input' => ['type' => 'hidden', 'name' => '_method', 'value' => 'POST'],
-            '/div',
             '/form',
         ];
         $this->assertHtml($expected, $this->Helper->create(null) . $this->Helper->end());
@@ -427,9 +424,6 @@ class FormHelperTest extends HelperTestCase
     {
         $expected = [
             'form' => ['method' => 'post', 'accept-charset' => 'utf-8', 'class' => 'form-inline', 'action' => '/'],
-            'div' => ['style' => 'display:none;'],
-            'input' => ['type' => 'hidden', 'name' => '_method', 'value' => 'POST'],
-            '/div',
             '/form',
         ];
 

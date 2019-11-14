@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<phpdocumentor>
+    <title>me-tools</title>
+    <parser>
+        <default-package-name>me-tools</default-package-name>
+        <target>../me-tools-gh-pages/cache</target>
+    </parser>
+    <transformer>
+        <target>../me-tools-gh-pages</target>
+    </transformer>
+    <files>
+        <directory>src</directory>
+    </files>
+    <transformations>
+        <template name="responsive" />
+    </transformations>
+</phpdocumentor>

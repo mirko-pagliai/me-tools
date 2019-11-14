@@ -20,6 +20,9 @@
     <rule ref="PSR1.Files.SideEffects.FoundWithSymbols">
         <exclude-pattern>/webroot</exclude-pattern>
     </rule>
+    <rule ref="PSR1.Methods.CamelCapsMethodName.NotCamelCaps">
+        <exclude-pattern>/src/Controller/Component/UploaderComponent.php</exclude-pattern>
+    </rule>
     <rule ref="PSR12.ControlStructures.ControlStructureSpacing.CloseParenthesisLine">
         <severity>0</severity>
     </rule>
