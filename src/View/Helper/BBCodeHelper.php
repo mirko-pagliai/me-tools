@@ -32,6 +32,7 @@ class BBCodeHelper extends Helper
     public $helpers = ['Html' => ['className' => 'MeTools.Html']];
 
     /**
+     * A `BBCode` instance
      * @var \MeTools\Utility\BBCode
      */
     public $BBCode;

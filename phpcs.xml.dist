@@ -17,6 +17,9 @@
     <rule ref="PSR1.Files.SideEffects.FoundWithSymbols">
         <exclude-pattern>/webroot</exclude-pattern>
     </rule>
+    <rule ref="PSR1.Methods.CamelCapsMethodName.NotCamelCaps">
+        <exclude-pattern>/src/Controller/Component/UploaderComponent.php</exclude-pattern>
+    </rule>
 
     <exclude-pattern>*.min.css</exclude-pattern>
     <exclude-pattern>*.min.js</exclude-pattern>
