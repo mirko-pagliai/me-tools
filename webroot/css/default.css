@@ -102,11 +102,6 @@ th a.desc:after {
 /* -------------------------------- */
 /*              Fancybox            */
 /* -------------------------------- */
-/* Fancybox's links */
-a.fancybox {
-    cursor: zoom-in;
-}
-
 /* Fancybox's title */
 .fancybox-title {
     text-align: justify;
