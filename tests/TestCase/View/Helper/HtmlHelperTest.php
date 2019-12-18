@@ -81,7 +81,7 @@ class HtmlHelperTest extends HelperTestCase
         $expected = [
             'button' => ['role' => 'button', 'class' => 'btn btn-light', 'data-toggle' => 'tooltip', 'title' => 'my tooltip'],
             $text,
-            '/button'
+            '/button',
         ];
         $result = $this->Helper->button($text, null, ['title' => 'my custom title', 'tooltip' => 'my tooltip']);
         $this->assertHtml($expected, $result);
@@ -147,7 +147,7 @@ class HtmlHelperTest extends HelperTestCase
                 'title' => 'my tooltip',
             ],
             $text,
-            '/a'
+            '/a',
         ];
         $result = $this->Helper->button($text, '#', ['title' => 'my custom title', 'tooltip' => 'my tooltip']);
         $this->assertHtml($expected, $result);
@@ -363,7 +363,7 @@ class HtmlHelperTest extends HelperTestCase
             '/i',
             ' ',
             'My text',
-            '/li'
+            '/li',
         ];
         $this->assertHtml($expected, $this->Helper->li('My text', ['icon' => 'home']));
 
@@ -438,21 +438,21 @@ class HtmlHelperTest extends HelperTestCase
         $expected = [
             'a' => ['href' => '#', 'data-placement' => 'bottom', 'data-toggle' => 'tooltip', 'title' => 'my tooltip'],
             $title,
-            '/a'
+            '/a',
         ];
         $this->assertHtml($expected, $this->Helper->link($title, '#', ['tooltip' => 'my tooltip', 'tooltip-align' => 'bottom']));
 
         $expected = [
             'a' => ['href' => '#', 'title' => '&quot; &#039;', 'data-toggle' => 'tooltip'],
             $title,
-            '/a'
+            '/a',
         ];
         $this->assertHtml($expected, $this->Helper->link($title, '#', ['tooltip' => '" \'']));
 
         $expected = [
             'a' => ['href' => '#', 'title' => 'Code', 'data-toggle' => 'tooltip'],
             $title,
-            '/a'
+            '/a',
         ];
         $this->assertHtml($expected, $this->Helper->link($title, '#', ['tooltip' => '<u>Code</u>']));
 
@@ -560,7 +560,7 @@ class HtmlHelperTest extends HelperTestCase
             '/i',
             ' ',
             'text',
-            '/p'
+            '/p',
         ];
         $this->assertHtml($expected, $this->Helper->para('my-class', 'text', ['id' => 'my-id', 'icon' => 'home']));
     }

@@ -23,6 +23,7 @@ use MeTools\View\Helper\HtmlHelper;
 class BBCode
 {
     /**
+     * An `HtmlHelper` instance
      * @var \MeTools\View\Helper\HtmlHelper
      */
     public $Html;
