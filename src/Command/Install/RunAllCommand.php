@@ -118,7 +118,7 @@ class RunAllCommand extends Command
             }
 
             if ($toBeExecuted) {
-                $command = is_string($command) ? new $command : $command;
+                $command = is_string($command) ? new $command() : $command;
                 $command->run($args->getOption('verbose') ? ['--verbose'] : [], $io);
             }
         }

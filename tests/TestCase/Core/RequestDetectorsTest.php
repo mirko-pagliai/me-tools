@@ -33,7 +33,7 @@ class RequestDetectorsTest extends TestCase
     {
         parent::setUp();
 
-        $this->Request = (new Request)->withParam('action', 'myAction')
+        $this->Request = (new Request())->withParam('action', 'myAction')
             ->withParam('controller', 'myController')
             ->withParam('prefix', 'myPrefix');
     }
