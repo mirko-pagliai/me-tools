@@ -1,24 +1,12 @@
 <?xml version="1.0"?>
-<ruleset>
+<ruleset name="me-tools">
     <arg value="p"/>
     <file>.</file>
 
-    <rule ref="./vendor/cakephp/cakephp-codesniffer/CakePHP/ruleset.xml"/>
+    <rule ref="./vendor/mirko-pagliai/php-tools/sniffer-ruleset.xml"/>
 
-    <rule ref="Generic.Commenting.Todo">
-        <severity>0</severity>
-    </rule>
-    <rule ref="Generic.PHP.NoSilencedErrors.Discouraged">
-        <severity>0</severity>
-    </rule>
-    <rule ref="Internal.NoCodeFound">
-        <severity>0</severity>
-    </rule>
-    <rule ref="PSR1.Files.SideEffects.FoundWithSymbols">
-        <exclude-pattern>/webroot</exclude-pattern>
-    </rule>
     <rule ref="PSR1.Methods.CamelCapsMethodName.NotCamelCaps">
-        <exclude-pattern>/src/Controller/Component/UploaderComponent.php</exclude-pattern>
+        <severity>0</severity>
     </rule>
 
     <exclude-pattern>*.min.css</exclude-pattern>
