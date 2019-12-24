@@ -74,7 +74,7 @@ class IconHelper extends CakeHtmlHelper
      *
      * Example:
      * <code>
-     * echo $this->Html->icon('home');
+     * echo $this->Icon->icon('home');
      * </code>
      * Returns:
      * <code>
@@ -83,7 +83,7 @@ class IconHelper extends CakeHtmlHelper
      *
      * Example:
      * <code>
-     * echo $this->Html->icon(['hand-o-right', '2x']);
+     * echo $this->Icon->icon(['hand-o-right', '2x']);
      * </code>
      * Returns:
      * <code>
