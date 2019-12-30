@@ -60,6 +60,7 @@ abstract class TestCase extends CakeTestCase
             unlink(WWW_ROOT . 'me_tools');
             unlink(WWW_ROOT . 'robots.txt');
         } catch (Exception $e) {
+            //Ignores exceptions
         }
     }
 
