@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * This file is part of me-tools.
  *
@@ -20,27 +21,27 @@ class Youtube
     /**
      * Parses a YouTube url and returns the YouTube ID
      * @param string $url Video url
-     * @return mixed Youtube ID or `false`
+     * @return string|null Youtube ID or `null` on failure
      */
-    public static function getId($url)
+    public static function getId(string $url): ?string
     {
         if (strpos($url, 'youtube.com') !== false) {
             $url = parse_url($url);
 
             if (empty($url['query'])) {
-                return false;
+                return null;
             }
 
             parse_str($url['query'], $url);
 
-            return empty($url['v']) ? false : $url['v'];
+            return empty($url['v']) ? null : $url['v'];
         }
 
         if (preg_match('/youtu\.be\/([^?]+)/', $url, $matches)) {
             return $matches[1];
         }
 
-        return false;
+        return null;
     }
 
     /**
@@ -49,7 +50,7 @@ class Youtube
      * @return string
      * @uses getId()
      */
-    public static function getPreview($id)
+    public static function getPreview(string $id): string
     {
         return sprintf('http://img.youtube.com/vi/%s/0.jpg', is_url($id) ? self::getId($id) : $id);
     }
@@ -59,7 +60,7 @@ class Youtube
      * @param string $id YouTube ID
      * @return string
      */
-    public static function getUrl($id)
+    public static function getUrl(string $id): string
     {
         return sprintf('http://youtu.be/%s', $id);
     }

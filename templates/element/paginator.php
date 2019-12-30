@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * This file is part of me-tools.
  *
@@ -12,7 +13,7 @@
  */
 
 //Returns, if there's only one page
-if (!$this->Paginator->hasPage(null, 2)) {
+if (!$this->Paginator->hasPage(2, null)) {
     return;
 }
 ?>

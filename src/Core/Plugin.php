@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * This file is part of me-tools.
  *
@@ -9,7 +10,7 @@
  * @copyright   Copyright (c) Mirko Pagliai
  * @link        https://github.com/mirko-pagliai/me-tools
  * @license     https://opensource.org/licenses/mit-license.php MIT License
- * @see         http://api.cakephp.org/3.4/class-Cake.Core.Plugin.html Plugin
+ * @see         http://api.cakephp.org/3.7/class-Cake.Core.Plugin.html
  */
 namespace MeTools\Core;
 
@@ -32,7 +33,7 @@ class Plugin extends CakePlugin
      * @return array Plugins
      * @uses Cake\Core\Plugin::loaded()
      */
-    public static function all(array $options = [])
+    public static function all(array $options = []): array
     {
         $options += ['core' => false, 'exclude' => [], 'order' => true];
 
@@ -55,15 +56,15 @@ class Plugin extends CakePlugin
     /**
      * Gets a path for a plugin.
      * It can also be used to get the path of a plugin file.
-     * @param string $plugin Plugin name
+     * @param string $name Plugin name
      * @param string|null $file File
      * @param bool $check Checks if the file exists
      * @return string Path of the plugin or path of the path of a plugin file
-     * @throws MissingPluginException
+     * @throws \Cake\Core\Exception\MissingPluginException
      */
-    public static function path($plugin, $file = null, $check = false)
+    public static function path(string $name, ?string $file = null, bool $check = false): string
     {
-        $plugin = parent::path($plugin);
+        $plugin = parent::path($name);
 
         if (!$file) {
             return $plugin;

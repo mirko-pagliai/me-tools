@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * This file is part of me-tools.
  *
@@ -10,7 +11,7 @@
  * @link        https://github.com/mirko-pagliai/me-tools
  * @license     https://opensource.org/licenses/mit-license.php MIT License
  */
-namespace MeTools\Test\TestCase;
+namespace MeTools\Test\TestCase\View;
 
 use MeTools\TestSuite\TestCase;
 use MeTools\View\OptionsParser;
@@ -29,7 +30,7 @@ class OptionsParserTest extends TestCase
      * Called before every test method
      * @return void
      */
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 

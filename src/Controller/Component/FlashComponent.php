@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * This file is part of me-tools.
  *
@@ -9,7 +10,7 @@
  * @copyright   Copyright (c) Mirko Pagliai
  * @link        https://github.com/mirko-pagliai/me-tools
  * @license     https://opensource.org/licenses/mit-license.php MIT License
- * @see         http://api.cakephp.org/3.4/class-Cake.Controller.Component.FlashComponent.html FlashComponent
+ * @see         http://api.cakephp.org/3.7/class-Cake.Controller.Component.FlashComponent.html
  */
 namespace MeTools\Controller\Component;
 
@@ -35,7 +36,7 @@ class FlashComponent extends CakeFlashComponent
      * @param array $args Parameters to pass
      * @return void
      */
-    public function __call($name, $args)
+    public function __call(string $name, array $args): void
     {
         if (!isset($args[1]['plugin']) && in_array($name, ['alert', 'error', 'notice', 'success'])) {
             if (!isset($args[1]['params']['class'])) {

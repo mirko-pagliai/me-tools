@@ -1,4 +1,5 @@
 <?php
+ declare(strict_types=1);
 /**
  * This file is part of me-tools.
  *
@@ -10,6 +11,7 @@
  * @link        https://github.com/mirko-pagliai/me-tools
  * @license     https://opensource.org/licenses/mit-license.php MIT License
  */
+
 use MeTools\View\OptionsParser;
 
 if (!function_exists('optionsParser')) {
@@ -17,9 +19,9 @@ if (!function_exists('optionsParser')) {
      * Returns and instance of `OptionsParser`
      * @param array $options Existing options
      * @param array|null $defaults Default values
-     * @return OptionsParser
+     * @return \MeTools\View\OptionsParser
      */
-    function optionsParser(array $options = [], $defaults = [])
+    function optionsParser(array $options = [], ?array $defaults = [])
     {
         return new OptionsParser($options, $defaults);
     }

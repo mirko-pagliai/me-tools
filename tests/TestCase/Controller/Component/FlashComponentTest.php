@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * This file is part of me-tools.
  *
@@ -25,6 +26,7 @@ class FlashComponentTest extends ComponentTestCase
      */
     public function testMagicCall()
     {
+        $session = $this->Component->getController()->getRequest()->getSession();
         $text = 'My message';
 
         foreach ([
@@ -36,56 +38,56 @@ class FlashComponentTest extends ComponentTestCase
             $expected = [[
                 'message' => $text,
                 'key' => 'flash',
-                'element' => 'MeTools.Flash/flash',
+                'element' => 'MeTools.flash/flash',
                 'params' => ['class' => $expectedClass],
             ]];
             call_user_func([$this->Component, $methodToCall], $text);
-            $this->assertEquals($expected, $this->Component->_session->read('Flash.flash'));
-            $this->Component->_session->delete('Flash.flash');
+            $this->assertEquals($expected, $session->read('Flash.flash'));
+            $session->delete('Flash.flash');
         }
 
         //With custom class
         $expected = [[
             'message' => $text,
             'key' => 'flash',
-            'element' => 'MeTools.Flash/flash',
+            'element' => 'MeTools.flash/flash',
             'params' => ['class' => 'my-class'],
         ]];
         $this->Component->success($text, ['params' => ['class' => 'my-class']]);
-        $this->assertEquals($expected, $this->Component->_session->read('Flash.flash'));
-        $this->Component->_session->delete('Flash.flash');
+        $this->assertEquals($expected, $session->read('Flash.flash'));
+        $session->delete('Flash.flash');
 
         //With other name
         $expected = [[
             'message' => $text,
             'key' => 'flash',
-            'element' => 'Flash/other_name',
+            'element' => 'flash/other_name',
             'params' => [],
         ]];
         $this->Component->otherName($text);
-        $this->assertEquals($expected, $this->Component->_session->read('Flash.flash'));
-        $this->Component->_session->delete('Flash.flash');
+        $this->assertEquals($expected, $session->read('Flash.flash'));
+        $session->delete('Flash.flash');
 
         //With plugin as `false`
         $expected = [[
             'message' => $text,
             'key' => 'flash',
-            'element' => 'Flash/success',
+            'element' => 'flash/success',
             'params' => [],
         ]];
         $this->Component->success($text, ['plugin' => false]);
-        $this->assertEquals($expected, $this->Component->_session->read('Flash.flash'));
-        $this->Component->_session->delete('Flash.flash');
+        $this->assertEquals($expected, $session->read('Flash.flash'));
+        $session->delete('Flash.flash');
 
         //With other plugin
         $expected = [[
             'message' => $text,
             'key' => 'flash',
-            'element' => 'MyPlugin.Flash/success',
+            'element' => 'MyPlugin.flash/success',
             'params' => [],
         ]];
         $this->Component->success($text, ['plugin' => 'MyPlugin']);
-        $this->assertEquals($expected, $this->Component->_session->read('Flash.flash'));
-        $this->Component->_session->delete('Flash.flash');
+        $this->assertEquals($expected, $session->read('Flash.flash'));
+        $session->delete('Flash.flash');
     }
 }

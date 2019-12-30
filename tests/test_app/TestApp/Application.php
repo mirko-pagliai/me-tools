@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * This file is part of cakephp-assets.
  *
@@ -14,6 +15,7 @@
 namespace App;
 
 use Cake\Http\BaseApplication;
+use Cake\Http\MiddlewareQueue;
 use Cake\Routing\Middleware\RoutingMiddleware;
 use MeTools\Plugin as MeTools;
 
@@ -28,20 +30,18 @@ class Application extends BaseApplication
     /**
      * Load all the application configuration and bootstrap logic
      */
-    public function bootstrap()
+    public function bootstrap(): void
     {
         $this->addPlugin(MeTools::class);
     }
 
     /**
      * Define the HTTP middleware layers for an application
-     * @param \Cake\Http\MiddlewareQueue $middlewareQueue The middleware queue to set in your App Class
-     * @return \Cake\Http\MiddlewareQueue
+     * @param MiddlewareQueue $middlewareQueue The middleware queue to set in your App Class
+     * @return MiddlewareQueue
      */
-    public function middleware($middlewareQueue)
+    public function middleware(MiddlewareQueue $middlewareQueue): MiddlewareQueue
     {
-        $middlewareQueue->add(new RoutingMiddleware());
-
-        return $middlewareQueue;
+        return $middlewareQueue->add(new RoutingMiddleware());
     }
 }

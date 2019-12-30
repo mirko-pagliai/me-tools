@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * This file is part of me-tools.
  *
@@ -29,7 +30,7 @@ class IconHelperTest extends HelperTestCase
         $text = 'My text';
 
         $options = optionsParser(['icon' => 'home']);
-        list($result, $options) = $this->Helper->addIconToText($text, $options);
+        [$result, $options] = $this->Helper->addIconToText($text, $options);
         $this->assertEquals('<i class="fas fa-home"> </i> ' . $text, $result);
         $this->assertInstanceOf(OptionsParser::class, $options);
         $this->assertFalse($options->exists('icon'));
@@ -37,7 +38,7 @@ class IconHelperTest extends HelperTestCase
 
         //Missing `icon` option
         $options = optionsParser(['class' => 'my-class', 'icon-align' => 'right']);
-        list($result, $options) = $this->Helper->addIconToText($text, $options);
+        [$result, $options] = $this->Helper->addIconToText($text, $options);
         $this->assertEquals($text, $result);
         $this->assertInstanceOf(OptionsParser::class, $options);
         $this->assertFalse($options->exists('icon'));
@@ -46,7 +47,7 @@ class IconHelperTest extends HelperTestCase
 
         //Empty text
         $options = optionsParser(['icon' => 'home']);
-        list($result, $options) = $this->Helper->addIconToText(null, $options);
+        [$result, $options] = $this->Helper->addIconToText(null, $options);
         $this->assertEquals('<i class="fas fa-home"> </i>', $result);
         $this->assertInstanceOf(OptionsParser::class, $options);
         $this->assertFalse($options->exists('icon'));
@@ -54,7 +55,7 @@ class IconHelperTest extends HelperTestCase
 
         //Using `icon-align` option
         $options = optionsParser(['icon' => 'home', 'icon-align' => 'right']);
-        list($result, $options) = $this->Helper->addIconToText($text, $options);
+        [$result, $options] = $this->Helper->addIconToText($text, $options);
         $this->assertEquals($text . ' <i class="fas fa-home"> </i>', $result);
         $this->assertInstanceOf(OptionsParser::class, $options);
         $this->assertFalse($options->exists('icon'));
@@ -62,7 +63,7 @@ class IconHelperTest extends HelperTestCase
 
         //Invalid `icon-align` option
         $options = optionsParser(['icon' => 'home', 'icon-align' => 'left']);
-        list($result, $options) = $this->Helper->addIconToText($text, $options);
+        [$result, $options] = $this->Helper->addIconToText($text, $options);
         $this->assertEquals('<i class="fas fa-home"> </i> ' . $text, $result);
         $this->assertInstanceOf(OptionsParser::class, $options);
         $this->assertFalse($options->exists('icon'));

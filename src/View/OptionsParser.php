@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * This file is part of me-tools.
  *
@@ -22,7 +23,7 @@ class OptionsParser
 {
     /**
      * Instance of `OptionsParser` for default values
-     * @var MeTools\View\OptionsParser
+     * @var \MeTools\View\OptionsParser
      */
     public $Default;
 
@@ -66,7 +67,7 @@ class OptionsParser
      * @return mixed
      * @uses $toBeExploded
      */
-    protected function buildValue(&$value, $key)
+    protected function buildValue(&$value, string $key)
     {
         if (in_array($key, $this->toBeExploded)) {
             //Collapses multi-dimensional arrays into a single dimension
@@ -141,10 +142,10 @@ class OptionsParser
         }
 
         $classes = collection($classes)
-            ->filter(function ($class) use ($allClasses) {
+            ->filter(function (string $class) use ($allClasses) {
                 return preg_match('/^(btn\-)?(' . implode('|', $allClasses) . ')$/', $class);
             })
-            ->map(function ($class) {
+            ->map(function (string $class) {
                 return string_starts_with($class, 'btn-') ? $class : 'btn-' . $class;
             });
 
@@ -175,7 +176,7 @@ class OptionsParser
         $existing = $this->get($key);
 
         if (in_array($key, $this->toBeExploded)) {
-            $existing = explode(' ', $existing);
+            $existing = is_string($existing) ? explode(' ', $existing) : $existing;
             $value = is_array($value) ? $value : explode(' ', $value);
         }
 
@@ -198,7 +199,7 @@ class OptionsParser
      * @uses delete()
      * @uses get()
      */
-    public function consume($key)
+    public function consume(string $key)
     {
         $value = $this->get($key);
         $this->delete($key);
@@ -223,7 +224,7 @@ class OptionsParser
      * @uses get()
      * @uses $toBeExploded
      */
-    public function contains($key, $value)
+    public function contains(string $key, $value): bool
     {
         if (!$this->exists($key)) {
             return false;
@@ -271,7 +272,7 @@ class OptionsParser
      * @uses $Default
      * @uses $options
      */
-    public function exists($key)
+    public function exists(string $key): bool
     {
         return isset($this->options[$key]) || isset($this->Default->options[$key]);
     }
@@ -283,7 +284,7 @@ class OptionsParser
      * @uses $Default
      * @uses $options
      */
-    public function get($key)
+    public function get(string $key)
     {
         $default = $this->Default ? $this->Default->get($key) : null;
 
@@ -296,7 +297,7 @@ class OptionsParser
      * @uses $Default
      * @uses $options
      */
-    public function toArray()
+    public function toArray(): array
     {
         $options = $this->options;
 
@@ -314,12 +315,12 @@ class OptionsParser
      * @return string
      * @uses toArray()
      */
-    public function toString()
+    public function toString(): string
     {
         $options = $this->toArray();
 
         //Transforms values as strings
-        array_walk($options, function (&$value, $key) {
+        array_walk($options, function (&$value, string $key) {
             if (is_array($value)) {
                 $value = implode(' ', $value);
             } elseif (is_bool($value)) {

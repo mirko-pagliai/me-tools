@@ -1,4 +1,5 @@
 <?php
+ declare(strict_types=1);
 /**
  * This file is part of MeTools.
  *
@@ -20,17 +21,17 @@
  * @license     http://www.gnu.org/licenses/agpl.txt AGPL License
  * @link        http://git.novatlantis.it Nova Atlantis Ltd
  */
-namespace TestPlugin\Utility;
+namespace TestPlugin\Utility\Children;
 
 use TestPlugin\Utility\ParentTestClass;
 
 class ChildTestClass extends ParentTestClass
 {
-    public function firstChildTestMethod()
+    public function firstChildTestMethod(): void
     {
     }
 
-    public function secondChildTestMethod()
+    public function secondChildTestMethod(): void
     {
     }
 }

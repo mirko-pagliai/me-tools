@@ -1,4 +1,9 @@
 # 2.x branch
+## 2.19 branch
+### 2.19.0
+* updated for `cakephp` 4 and `phpunit` 8;
+* the `BBCodeHelper` have been removed.
+
 ## 2.18 branch
 ### 2.18.16
 * little code fixes;
@@ -47,6 +52,8 @@
 ### 2.18.7
 * `TestCase::tearDown()` method no longer empties temporary files. This should
     be done as appropriate;
+* `UploaderComponent::getError()` method returns `null` with no errors;
+* `Youtube::getId()` method returns `null` on failure;
 * `Plugin::path()` takes only a string or `null` as first argument, and no more
     arrays. It always returns a string and if you ask for the path of a file
     that does not exist, it throws an exception;
