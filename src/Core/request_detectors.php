@@ -1,4 +1,5 @@
 <?php
+ declare(strict_types=1);
 /**
  * This file is part of me-tools.
  *
@@ -10,6 +11,7 @@
  * @link        https://github.com/mirko-pagliai/me-tools
  * @license     https://opensource.org/licenses/mit-license.php MIT License
  */
+
 use Cake\Http\ServerRequest;
 use Cake\Routing\Router;
 
@@ -98,7 +100,7 @@ ServerRequest::addDetector('prefix', function (ServerRequest $request, $prefix) 
  *  string. The second argument allows you to not remove the query string from
  *  the current url.
  */
-ServerRequest::addDetector('url', function (ServerRequest $request, $url, $removeQueryString = true) {
+ServerRequest::addDetector('url', function (ServerRequest $request, $url, bool $removeQueryString = true) {
     $current = rtrim($request->getEnv('REQUEST_URI'), '/');
     $current = $removeQueryString ? explode('?', $current, 2)[0] : $current;
 

@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * This file is part of me-tools.
  *
@@ -81,11 +82,11 @@ class DropdownHelper extends Helper
      *  element
      * @return string|void
      */
-    public function menu($title, array $menu, array $titleOptions = [], array $divOptions = [])
+    public function menu(string $title, array $menu, array $titleOptions = [], array $divOptions = []): ?string
     {
         $this->start($title, $titleOptions);
 
-        array_walk($menu, function ($item) {
+        array_walk($menu, function (string $item) {
             echo $item;
         });
 
@@ -104,7 +105,7 @@ class DropdownHelper extends Helper
      * @return void
      * @uses $_start
      */
-    public function start($title, array $titleOptions = [])
+    public function start(string $title, array $titleOptions = []): void
     {
         $titleOptions = optionsParser($titleOptions, ['aria-expanded' => 'false', 'aria-haspopup' => 'true'])
             ->append(['class' => 'dropdown-toggle', 'data-toggle' => 'dropdown']);
@@ -120,26 +121,28 @@ class DropdownHelper extends Helper
      * Arguments and options regarding the list of the dropdown menu.
      * @param array $divOptions HTML attributes and options for the wrapper
      *  element
-     * @return string|void
+     * @return string|null
      * @uses $_start
      */
-    public function end(array $divOptions = [])
+    public function end(array $divOptions = []): ?string
     {
         $buffer = ob_get_contents();
 
         if (empty($buffer)) {
-            return;
+            return null;
         }
 
         ob_end_clean();
 
         //Split all links
         if (preg_match_all('/(<a[^>]*>.*?<\/a[^>]*>)/', $buffer, $matches) === 0) {
-            return;
+            return null;
         }
 
         $divOptions = optionsParser($divOptions)->append('class', 'dropdown-menu');
+        $links = implode(PHP_EOL, (array)$matches[0]);
 
-        return $this->_start . PHP_EOL . $this->Html->div($divOptions->get('class'), $matches[0], $divOptions->toArray());
+        return $this->_start . PHP_EOL .
+            $this->Html->div($divOptions->get('class'), $links, $divOptions->toArray());
     }
 }

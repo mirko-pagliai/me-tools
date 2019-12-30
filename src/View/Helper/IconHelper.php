@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * This file is part of me-tools.
  *
@@ -29,7 +30,7 @@ class IconHelper extends CakeHtmlHelper
      * @since 2.16.2-beta
      * @uses icon()
      */
-    public function addIconToText($text, OptionsParser $options)
+    public function addIconToText($text, OptionsParser $options): array
     {
         $icon = $options->consume('icon');
         $align = $options->consume('icon-align');
@@ -55,7 +56,7 @@ class IconHelper extends CakeHtmlHelper
      * @return string
      * @since 2.16.2-beta
      */
-    protected function buildIconClasses($icon)
+    protected function buildIconClasses($icon): string
     {
         //Prepends the string "fa-" to any other class
         $icon = preg_replace('/(?<![^ ])(?=[^ ])(?!fa)/', 'fa-', $icon);
@@ -94,7 +95,7 @@ class IconHelper extends CakeHtmlHelper
      * @see http://fortawesome.github.io/Font-Awesome Font Awesome icons
      * @uses buildIconClasses()
      */
-    public function icon($icon)
+    public function icon($icon): string
     {
         $icon = func_num_args() > 1 ? func_get_args() : $icon;
 

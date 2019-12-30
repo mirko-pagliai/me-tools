@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * This file is part of me-tools.
  *
@@ -47,7 +48,7 @@ class LibraryHelper extends Helper
      * @return void
      * @since 2.18.0
      */
-    public function initialize(array $config)
+    public function initialize(array $config): void
     {
         parent::initialize($config);
 
@@ -68,7 +69,7 @@ class LibraryHelper extends Helper
      * @uses Assets\View\Helper\AssetHelper::css()
      * @uses Assets\View\Helper\AssetHelper::script()
      */
-    protected function buildDatetimepicker($input, array $options = [])
+    protected function buildDatetimepicker(string $input, array $options = []): string
     {
         $this->Asset->script([
             '/vendor/moment/moment-with-locales.min',
@@ -105,9 +106,9 @@ class LibraryHelper extends Helper
      *  rendered
      * @return void
      * @uses MeTools\View\Helper\HtmlHelper::scriptBlock()
-     * @uses output
+     * @uses $output
      */
-    public function beforeLayout()
+    public function beforeLayout(): void
     {
         if (!$this->output) {
             return;
@@ -131,9 +132,9 @@ class LibraryHelper extends Helper
      * Create a script block for Google Analytics
      * @param string $id Analytics ID
      * @uses MeTools\View\Helper\HtmlHelper::scriptBlock()
-     * @return mixed A script tag or `null`
+     * @return string|null A script tag or `null`
      */
-    public function analytics($id)
+    public function analytics(string $id): ?string
     {
         return $this->getView()->getRequest()->is('localhost') ? null : $this->Html->scriptBlock(
             sprintf('!function(e,a,t,n,c,o,s){e.GoogleAnalyticsObject=c,e[c]=e[c]||function(){(e[c].q=e[c].q||[]).push(arguments)},e[c].l=1*new Date,o=a.createElement(t),s=a.getElementsByTagName(t)[0],o.async=1,o.src=n,s.parentNode.insertBefore(o,s)}(window,document,"script","//www.google-analytics.com/analytics.js","ga"),ga("create","%s","auto"),ga("send","pageview");', $id),
@@ -157,7 +158,7 @@ class LibraryHelper extends Helper
      * @see http://docs.cksource.com CKEditor documentation
      * @uses MeTools\View\Helper\Html::script()
      */
-    public function ckeditor($jquery = false)
+    public function ckeditor(bool $jquery = false): void
     {
         is_readable_or_fail(WWW_ROOT . 'ckeditor' . DS . 'ckeditor.js');
 
@@ -193,10 +194,10 @@ class LibraryHelper extends Helper
      * @return void
      * @see MeTools\View\Helper\FormHelper::datepicker()
      * @see http://eonasdan.github.io/bootstrap-datetimepicker Bootstrap 3 Datepicker v4 documentation
-     * @uses output
      * @uses buildDatetimepicker()
+     * @uses $output
      */
-    public function datepicker($input = null, array $options = [])
+    public function datepicker(?string $input = null, array $options = []): void
     {
         $options = optionsParser($options, ['format' => 'YYYY/MM/DD']);
 
@@ -214,10 +215,10 @@ class LibraryHelper extends Helper
      * @return void
      * @see MeTools\View\Helper\FormHelper::datetimepicker()
      * @see http://eonasdan.github.io/bootstrap-datetimepicker Bootstrap 3 Datepicker v4 documentation
-     * @uses output
      * @uses buildDatetimepicker()
+     * @uses $output
      */
-    public function datetimepicker($input = null, array $options = [])
+    public function datetimepicker(?string $input = null, array $options = []): void
     {
         $this->output[] = self::buildDatetimepicker($input ?: '.datetimepicker', $options);
     }
@@ -230,7 +231,7 @@ class LibraryHelper extends Helper
      * @see http://fancyapps.com/fancybox/#docs FancyBox documentation
      * @uses Assets\View\Helper\AssetHelper::script()
      */
-    public function fancybox()
+    public function fancybox(): void
     {
         $this->Html->css([
             '/vendor/fancybox/jquery.fancybox',
@@ -260,11 +261,11 @@ class LibraryHelper extends Helper
      * Note that this code only adds the Shareaholic "setup code".
      * To render the "share buttons", you have to use the `HtmlHelper`.
      * @param string $siteId Shareaholic site ID
-     * @return mixed Html code
+     * @return string|null Html code
      * @uses Assets\View\Helper\AssetHelper::script()
      * @see MeTools\View\Helper\HtmlHelper::shareaholic()
      */
-    public function shareaholic($siteId)
+    public function shareaholic(string $siteId): ?string
     {
         return $this->Html->script('//dsms0mj1bbhn4.cloudfront.net/assets/pub/shareaholic.js', [
             'async' => 'async',
@@ -283,9 +284,9 @@ class LibraryHelper extends Helper
      * @param string $targetField Target field
      * @return void
      * @uses Assets\View\Helper\AssetHelper::script()
-     * @uses output
+     * @uses $output
      */
-    public function slugify($sourceField = 'form #title', $targetField = 'form #slug')
+    public function slugify(string $sourceField = 'form #title', string $targetField = 'form #slug'): void
     {
         $this->Asset->script('MeTools.slugify', ['block' => 'script_bottom']);
 
@@ -304,10 +305,10 @@ class LibraryHelper extends Helper
      * @return void
      * @see MeTools\View\Helper\FormHelper::timepicker()
      * @see https://github.com/Eonasdan/bootstrap-datetimepicker Bootstrap v3 datetimepicker widget documentation
-     * @uses output
      * @uses buildDatetimepicker()
+     * @uses $output
      */
-    public function timepicker($input = null, array $options = [])
+    public function timepicker(?string $input = null, array $options = []): void
     {
         $options = optionsParser($options, ['pickTime' => false]);
 

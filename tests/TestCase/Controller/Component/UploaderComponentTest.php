@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * This file is part of me-tools.
  *
@@ -14,6 +15,7 @@ namespace MeTools\Test\TestCase\Controller\Component;
 
 use MeTools\Controller\Component\UploaderComponent;
 use MeTools\TestSuite\ComponentTestCase;
+use RuntimeException;
 use stdClass;
 
 /**
@@ -25,7 +27,7 @@ class UploaderComponentTest extends ComponentTestCase
      * Internal method to create a file and get a valid array for upload
      * @return array
      */
-    protected function createFile()
+    protected function createFile(): array
     {
         $file = create_tmp_file('string');
 
@@ -42,7 +44,7 @@ class UploaderComponentTest extends ComponentTestCase
      * Called after every test method
      * @return void
      */
-    public function tearDown()
+    public function tearDown(): void
     {
         unlink_recursive(UPLOADS);
         rmdir_recursive(TMP . 'upload_test');
@@ -56,7 +58,7 @@ class UploaderComponentTest extends ComponentTestCase
      */
     public function testGetErrorAndSetError()
     {
-        $this->assertFalse($this->Component->getError());
+        $this->assertEmpty($this->Component->getError());
 
         $this->invokeMethod($this->Component, 'setError', ['first']);
         $this->assertEquals('first', $this->Component->getError());
@@ -144,17 +146,11 @@ class UploaderComponentTest extends ComponentTestCase
             //Resets error
             $this->setProperty($this->Component, 'error', null);
         }
-    }
 
-    /**
-     * Test for `mimetype()` method, with no file
-     * @expectedException RuntimeException
-     * @expectedExceptionMessage There are no uploaded file information
-     * @test
-     */
-    public function testMimetypeNoFile()
-    {
-        $this->Component->mimetype('text/plain');
+        //With no file
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('There are no uploaded file information');
+        $this->getMockForComponent(UploaderComponent::class, null)->mimetype('text/plain');
     }
 
     /**
@@ -165,7 +161,7 @@ class UploaderComponentTest extends ComponentTestCase
     {
         $Uploader = $this->getMockForComponent(UploaderComponent::class, ['move_uploaded_file']);
         $Uploader->method('move_uploaded_file')
-            ->will($this->returnCallback(function ($filename, $destination) {
+            ->will($this->returnCallback(function (string $filename, string $destination) {
                 return rename($filename, $destination);
             }));
 
@@ -174,7 +170,7 @@ class UploaderComponentTest extends ComponentTestCase
             $Uploader->set($file);
             $result = $Uploader->save($targetDirectory);
             $this->assertStringStartsWith(UPLOADS, $result);
-            $this->assertFalse($Uploader->getError());
+            $this->assertEmpty($Uploader->getError());
             $this->assertFileExists($result);
             $this->assertFileNotExists($file['tmp_name']);
         }
@@ -184,10 +180,15 @@ class UploaderComponentTest extends ComponentTestCase
             $Uploader->set($file);
             $result = $Uploader->save(UPLOADS, $targetFilename);
             $this->assertEquals(UPLOADS . basename($targetFilename), $result);
-            $this->assertFalse($Uploader->getError());
+            $this->assertEmpty($Uploader->getError());
             $this->assertFileExists($result);
             $this->assertFileNotExists($file['tmp_name']);
         }
+
+        //With no file
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('There are no uploaded file information');
+        $this->getMockForComponent(UploaderComponent::class, null)->save('');
     }
 
     /**
@@ -199,17 +200,6 @@ class UploaderComponentTest extends ComponentTestCase
         $this->Component->set($this->createFile());
         $this->assertFalse($this->Component->save(DS));
         $this->assertEquals('The file was not successfully moved to the target directory', $this->Component->getError());
-    }
-
-    /**
-     * Test for `save()` method, with no file
-     * @expectedException RuntimeException
-     * @expectedExceptionMessage There are no uploaded file information
-     * @test
-     */
-    public function testSaveNoFile()
-    {
-        $this->Component->save(null);
     }
 
     /**

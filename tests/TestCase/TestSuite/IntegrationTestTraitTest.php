@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * This file is part of me-tools.
  *
@@ -15,8 +16,8 @@ namespace MeTools\Test\TestCase\TestSuite;
 use Cake\Controller\Controller;
 use Cake\Event\Event;
 use Cake\Http\Cookie\Cookie;
+use Cake\Http\Response;
 use Cake\Http\Session;
-use Cake\TestSuite\Stub\Response;
 use MeTools\TestSuite\IntegrationTestTrait;
 use MeTools\TestSuite\TestCase;
 use PHPUnit\Framework\AssertionFailedError;
@@ -33,7 +34,7 @@ class IntegrationTestTraitTest extends TestCase
      * Called before every test method
      * @return void
      */
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -50,7 +51,6 @@ class IntegrationTestTraitTest extends TestCase
         $this->_controller->loadComponent('MeTools.Uploader');
         $this->controllerSpy(new Event('myEvent'), $this->_controller);
         $this->assertEquals('with_flash', $this->_controller->viewBuilder()->getLayout());
-        $this->assertEquals('somerandomhaskeysomerandomhaskey', $this->_controller->Cookie->getConfig('key'));
 
         $this->assertInstanceOf(MockObject::class, $this->_controller->Uploader);
         $source = create_tmp_file();
@@ -95,7 +95,6 @@ class IntegrationTestTraitTest extends TestCase
         foreach ($messages as $key => $expectedMessage) {
             $this->_requestSession->write('Flash.flash.' . $key . '.message', $expectedMessage);
             $this->assertFlashMessage($expectedMessage, (int)$key);
-            $this->assertFlashMessage($expectedMessage, (string)$key);
         }
 
         //Call without key

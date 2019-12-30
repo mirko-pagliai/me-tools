@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * This file is part of me-tools.
  *
@@ -10,6 +11,7 @@
  * @link        https://github.com/mirko-pagliai/me-tools
  * @license     https://opensource.org/licenses/mit-license.php MIT License
  */
+
 use Cake\Cache\Cache;
 use Cake\Core\Configure;
 use Cake\Datasource\ConnectionManager;
@@ -94,7 +96,3 @@ ConnectionManager::setConfig('test', ['url' => 'sqlite:///' . TMP . 'test.sq3'])
 ini_set('intl.default_locale', 'en_US');
 
 $_SERVER['PHP_SELF'] = '/';
-
-if (!class_exists('PHPUnit\Runner\Version')) {
-    class_alias('PHPUnit_Framework_MockObject_MockObject', 'PHPUnit\Framework\MockObject\MockObject');
-}

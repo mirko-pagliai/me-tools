@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * This file is part of me-tools.
  *
@@ -9,7 +10,7 @@
  * @copyright   Copyright (c) Mirko Pagliai
  * @link        https://github.com/mirko-pagliai/me-tools
  * @license     https://opensource.org/licenses/mit-license.php MIT License
- * @see         http://api.cakephp.org/3.4/class-Cake.View.Helper.FormHelper.html FormHelper
+ * @see         http://api.cakephp.org/3.7/class-Cake.View.Helper.FormHelper.html
  */
 namespace MeTools\View\Helper;
 
@@ -43,12 +44,12 @@ class FormHelper extends CakeFormHelper
      * Construct the widgets and binds the default context providers.
      *
      * This method only rewrites the default templates config.
-     * @param Cake\View\View $view The View this helper is being attached to
+     * @param \Cake\View\View $view The View this helper is being attached to
      * @param array $config Configuration settings for the helper
      * @return void
      * @uses $_defaultConfig
      */
-    public function __construct(View $view, $config = [])
+    public function __construct(View $view, array $config = [])
     {
         //Rewrites default templates config
         $this->_defaultConfig = Hash::merge($this->_defaultConfig, ['templates' => [
@@ -97,13 +98,13 @@ class FormHelper extends CakeFormHelper
      * @return string
      * @see postButton(), MeTools\View\Helper\HtmlHelper::button()
      */
-    public function button($title = null, array $options = [])
+    public function button(?string $title = null, array $options = []): string
     {
-        $options = optionsParser($options, ['type' => 'button']);
+        $options = optionsParser($options, ['escapeTitle' => false, 'type' => 'button']);
         $options->addButtonClasses($options->contains('type', 'submit') ? 'success' : 'primary');
-        list($title, $options) = $this->Icon->addIconToText($title, $options);
+        [$title, $options] = $this->Icon->addIconToText($title, $options);
 
-        return parent::button($title, $options->toArray());
+        return parent::button($title ?? '', $options->toArray());
     }
 
     /**
@@ -112,7 +113,7 @@ class FormHelper extends CakeFormHelper
      * @param array $options HTML attributes and options
      * @return string
      */
-    public function checkbox($fieldName, array $options = [])
+    public function checkbox(string $fieldName, array $options = []): string
     {
         $options = optionsParser($options);
 
@@ -133,7 +134,7 @@ class FormHelper extends CakeFormHelper
      * @see MeTools\View\Helper\LibraryHelper::ckeditor()
      * @uses control()
      */
-    public function ckeditor($fieldName, array $options = [])
+    public function ckeditor(string $fieldName, array $options = []): string
     {
         $options = optionsParser($options, ['label' => false, 'type' => 'textarea'])
             ->append('templates', [
@@ -150,7 +151,7 @@ class FormHelper extends CakeFormHelper
      * @return string
      * @uses $inline
      */
-    public function control($fieldName, array $options = [])
+    public function control(string $fieldName, array $options = []): string
     {
         //Resets templates
         $this->resetTemplates();
@@ -172,7 +173,7 @@ class FormHelper extends CakeFormHelper
         //Help text
         //See https://getbootstrap.com/docs/4.0/components/forms/#help-text
         if ($options->exists('help')) {
-            $help = array_map(function ($help) {
+            $help = array_map(function (string $help) {
                 return $this->Html->para('form-text text-muted', trim($help));
             }, (array)$options->consume('help'));
             $options->append('templateVars', ['help' => implode(null, $help)]);
@@ -213,7 +214,7 @@ class FormHelper extends CakeFormHelper
      * @return string An formatted opening `<form>` tag
      * @uses createInline()
      */
-    public function create($model = null, array $options = [])
+    public function create($model = null, array $options = []): string
     {
         $options = optionsParser($options);
 
@@ -239,7 +240,7 @@ class FormHelper extends CakeFormHelper
      * @return string An formatted opening `<form>` tag
      * @uses $inline
      */
-    public function createInline($model = null, array $options = [])
+    public function createInline($model = null, array $options = []): string
     {
         $this->inline = true;
         $options = optionsParser($options)->delete('inline')->append('class', 'form-inline');
@@ -258,7 +259,7 @@ class FormHelper extends CakeFormHelper
      * @uses __datetimepickerOptions()
      * @uses control()
      */
-    public function datepicker($fieldName, array $options = [])
+    public function datepicker(string $fieldName, array $options = []): string
     {
         $options = $this->__datetimepickerOptions($options, 'datepicker', 'YYYY-MM-DD');
 
@@ -276,7 +277,7 @@ class FormHelper extends CakeFormHelper
      * @uses __datetimepickerOptions()
      * @uses control()
      */
-    public function datetimepicker($fieldName, array $options = [])
+    public function datetimepicker(string $fieldName, array $options = []): string
     {
         $options = $this->__datetimepickerOptions($options, 'datetimepicker', 'YYYY-MM-DD HH:mm');
 
@@ -292,7 +293,7 @@ class FormHelper extends CakeFormHelper
      * @return string
      * @uses $inline
      */
-    public function end(array $secureAttributes = [])
+    public function end(array $secureAttributes = []): string
     {
         $this->inline = false;
 
@@ -303,7 +304,7 @@ class FormHelper extends CakeFormHelper
      * Checks if the current opened form is an inline form
      * @return bool
      */
-    public function isInline()
+    public function isInline(): bool
     {
         return !empty($this->inline);
     }
@@ -312,16 +313,16 @@ class FormHelper extends CakeFormHelper
      * Returns a formatted `<label>` element.
      * Will automatically generate a `for` attribute if one is not provided.
      * @param string $fieldName Field name, should be "Modelname.fieldname"
-     * @param string $text Text that will appear in the label field. If is
+     * @param string|null $text Text that will appear in the label field. If is
      *  left undefined the text will be inflected from the fieldName
      * @param array|string $options HTML attributes, or a string to be used
      *  as a class name
      * @return string
      */
-    public function label($fieldName, $text = null, array $options = [])
+    public function label(string $fieldName, ?string $text = null, array $options = []): string
     {
         $options = optionsParser($options, ['escape' => false]);
-        list($text, $options) = $this->Icon->addIconToText($text, $options);
+        [$text, $options] = $this->Icon->addIconToText($text, $options);
 
         return parent::label($fieldName, $text, $options->toArray());
     }
@@ -342,7 +343,7 @@ class FormHelper extends CakeFormHelper
      * @return string Html code
      * @uses postLink()
      */
-    public function postButton($title = null, $url = null, array $options = [])
+    public function postButton(?string $title = null, $url = null, array $options = []): string
     {
         $options = optionsParser($options)->add('role', 'button')->addButtonClasses();
 
@@ -363,24 +364,24 @@ class FormHelper extends CakeFormHelper
      * @param array $options Array of options and HTML attributes
      * @return string
      */
-    public function postLink($title = null, $url = null, array $options = [])
+    public function postLink(?string $title = null, $url = null, array $options = []): string
     {
         $options = optionsParser($options, ['escape' => false, 'title' => $title]);
-        $options->add('title', trim(h(strip_tags($options->get('title')))))->tooltip();
-        list($title, $options) = $this->Icon->addIconToText($title, $options);
+        $options->add('title', trim(h(strip_tags($options->get('title') ?? ''))))->tooltip();
+        [$title, $options] = $this->Icon->addIconToText($title, $options);
 
-        return parent::postLink($title, $url, $options->toArray());
+        return parent::postLink($title ?? '', $url, $options->toArray());
     }
 
     /**
      * Returns a formatted SELECT element
      * @param string $fieldName Name attribute of the SELECT
-     * @param array|\Traversable $options Array of the OPTION elements
+     * @param iterable|null $options Array of the OPTION elements
      *  (as 'value'=>'Text' pairs) to be used in the SELECT element
      * @param array $attributes The HTML attributes of the select element
      * @return string
      */
-    public function select($fieldName, $options = [], array $attributes = [])
+    public function select(string $fieldName, ?iterable $options = [], array $attributes = []): string
     {
         $attributes = optionsParser($attributes);
 
@@ -393,13 +394,13 @@ class FormHelper extends CakeFormHelper
 
     /**
      * Creates a submit button
-     * @param string $caption The label appearing on the submit button or an
-     *  image
+     * @param string|null $caption The label appearing on the submit button or
+     *  an image
      * @param array $options HTML attributes and options
      * @return string
      * @uses button()
      */
-    public function submit($caption = null, array $options = [])
+    public function submit(?string $caption = null, array $options = []): string
     {
         $options = optionsParser($options)->add('type', 'submit');
 
@@ -412,7 +413,7 @@ class FormHelper extends CakeFormHelper
      * @param array $options HTML attributes and options
      * @return string
      */
-    public function textarea($fieldName, array $options = [])
+    public function textarea(string $fieldName, array $options = []): string
     {
         $options = optionsParser($options, ['cols' => null, 'rows' => null]);
 
@@ -430,7 +431,7 @@ class FormHelper extends CakeFormHelper
      * @uses __datetimepickerOptions()
      * @uses control()
      */
-    public function timepicker($fieldName, array $options = [])
+    public function timepicker(string $fieldName, array $options = []): string
     {
         $options = $this->__datetimepickerOptions($options, 'timepicker', 'HH:mm');
 

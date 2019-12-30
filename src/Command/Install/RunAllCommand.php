@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * This file is part of me-tools.
  *
@@ -38,10 +39,10 @@ class RunAllCommand extends Command
 
     /**
      * Hook method for defining this command's option parser
-     * @param ConsoleOptionParser $parser The parser to be defined
-     * @return ConsoleOptionParser
+     * @param \Cake\Console\ConsoleOptionParser $parser The parser to be defined
+     * @return \Cake\Console\ConsoleOptionParser
      */
-    protected function buildOptionParser(ConsoleOptionParser $parser)
+    protected function buildOptionParser(ConsoleOptionParser $parser): ConsoleOptionParser
     {
         return $parser->setDescription(__d('me_tools', 'Executes all available commands'))
             ->addOption('force', [
@@ -96,18 +97,18 @@ class RunAllCommand extends Command
 
     /**
      * Executes all available commands
-     * @param Arguments $args The command arguments
-     * @param ConsoleIo $io The console io
-     * @return null|int The exit code or null for success
+     * @param \Cake\Console\Arguments $args The command arguments
+     * @param \Cake\Console\ConsoleIo $io The console io
+     * @return int|null The exit code or null for success
      * @uses $questions
      */
-    public function execute(Arguments $args, ConsoleIo $io)
+    public function execute(Arguments $args, ConsoleIo $io): ?int
     {
         $questions = $args->getOption('force') ? Hash::extract($this->questions, '{n}[default=Y]') : $this->questions;
 
         foreach ($questions as $question) {
-            is_true_or_fail(['question', 'default', 'command'] === array_keys($question), 'Invalid question keys');
-            list($question, $default, $command) = array_values($question);
+            is_true_or_fail(!array_diff(array_keys($question), ['question', 'default', 'command']), 'Invalid question keys');
+            [$question, $default, $command] = array_values($question);
 
             //The method must be executed if the `force` mode is set or if the
             //  user answers yes to the question

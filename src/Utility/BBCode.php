@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * This file is part of me-tools.
  *
@@ -43,7 +44,7 @@ class BBCode
      * Constructor
      * @param \MeTools\View\Helper\HtmlHelper|null $HtmlHelper An `HtmlHelper` instance
      */
-    public function __construct(HtmlHelper $HtmlHelper = null)
+    public function __construct(?HtmlHelper $HtmlHelper = null)
     {
         $this->Html = $HtmlHelper ?: new HtmlHelper(new View());
     }
@@ -53,7 +54,7 @@ class BBCode
      * @param string $text Text
      * @return string
      */
-    public function parser($text)
+    public function parser(string $text): string
     {
         //Gets all class methods, except for `parser()` and `remove()`
         $methods = array_diff(get_class_methods(__CLASS__), ['__construct', 'parser', 'remove']);
@@ -72,7 +73,7 @@ class BBCode
      * @return string
      * @uses $pattern
      */
-    public function remove($text)
+    public function remove(string $text): string
     {
         return trim(preg_replace($this->pattern, null, $text));
     }
@@ -87,7 +88,7 @@ class BBCode
      * @uses $Html
      * @uses $pattern
      */
-    public function image($text)
+    public function image(string $text): string
     {
         return preg_replace_callback($this->pattern['image'], function ($matches) {
             return $this->Html->image($matches[1]);
@@ -103,7 +104,7 @@ class BBCode
      * @return string
      * @uses $pattern
      */
-    public function readMore($text)
+    public function readMore(string $text): string
     {
         return preg_replace($this->pattern['readmore'], '<!-- read-more -->', $text);
     }
@@ -118,7 +119,7 @@ class BBCode
      * @uses $Html
      * @uses $pattern
      */
-    public function url($text)
+    public function url(string $text): string
     {
         return preg_replace_callback($this->pattern['url'], function ($matches) {
             return $this->Html->link($matches[2], $matches[1]);
@@ -143,7 +144,7 @@ class BBCode
      * @uses $Html
      * @uses $pattern
      */
-    public function youtube($text)
+    public function youtube(string $text): string
     {
         return preg_replace_callback($this->pattern['youtube'], function ($matches) {
             $id = is_url($matches[1]) ? Youtube::getId($matches[1]) : $matches[1];
