@@ -16,6 +16,8 @@ use Cake\Cache\Cache;
 use Cake\Core\Configure;
 use Cake\Datasource\ConnectionManager;
 
+ini_set('intl.default_locale', 'en_US');
+
 if (!defined('DS')) {
     define('DS', DIRECTORY_SEPARATOR);
 }
@@ -90,9 +92,6 @@ Cache::setConfig([
     ],
 ]);
 
-// Ensure default test connection is defined
 ConnectionManager::setConfig('test', ['url' => 'sqlite:///' . TMP . 'test.sq3']);
-
-ini_set('intl.default_locale', 'en_US');
 
 $_SERVER['PHP_SELF'] = '/';
