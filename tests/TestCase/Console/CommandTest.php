@@ -31,11 +31,6 @@ class CommandTest extends TestCase
     protected $_err;
 
     /**
-     * @var \Cake\TestSuite\Stub\ConsoleOutput
-     */
-    protected $_out;
-
-    /**
      * @var \Cake\Console\ConsoleIo
      */
     protected $io;

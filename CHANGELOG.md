@@ -1,5 +1,8 @@
 # 2.x branch
 ## 2.19 branch
+### 2.19.1
+* fixed I18n translations.
+
 ### 2.19.0
 * updated for `cakephp` 4 and `phpunit` 8;
 * the `BBCodeHelper` have been removed.

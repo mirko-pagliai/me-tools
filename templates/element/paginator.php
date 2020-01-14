@@ -20,19 +20,19 @@ if (!$this->Paginator->hasPage(2, null)) {
 
 <nav>
     <ul class="pagination d-none d-lg-flex justify-content-center">
-        <?= $this->Paginator->prev(null, ['icon' => 'caret-left']) ?>
+        <?= $this->Paginator->prev('', ['icon' => 'caret-left']) ?>
         <?= $this->Paginator->numbers() ?>
-        <?= $this->Paginator->next(null, ['icon' => 'caret-right']) ?>
+        <?= $this->Paginator->next('', ['icon' => 'caret-right']) ?>
     </ul>
     <ul class="pagination d-lg-none justify-content-center">
         <?php
         if ($this->Paginator->hasPrev() && $this->Paginator->hasNext()) {
-            echo $this->Paginator->prev(null, ['icon' => 'caret-left']);
+            echo $this->Paginator->prev('', ['icon' => 'caret-left']);
             echo $this->Html->li(
                 $this->Html->span(__d('me_tools', 'Page {0}', $this->Paginator->current()), ['class' => 'page-link']),
                 ['class' => 'page-item']
             );
-            echo $this->Paginator->next(null, ['icon' => 'caret-right']);
+            echo $this->Paginator->next('', ['icon' => 'caret-right']);
         } elseif (!$this->Paginator->hasPrev()) {
             echo $this->Paginator->next(__d('me_tools', 'Next'), ['icon' => 'caret-right', 'icon-align' => 'right']);
         } else {
