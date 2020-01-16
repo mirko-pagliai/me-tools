@@ -1,5 +1,9 @@
 # 2.x branch
 ## 2.19 branch
+### 2.19.2
+* changed `npm-asset/fortawesome--fontawesome-free` package with
+    `fortawesome/font-awesome`.
+
 ### 2.19.1
 * fixed I18n translations.
 

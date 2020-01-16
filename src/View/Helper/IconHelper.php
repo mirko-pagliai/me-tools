@@ -92,7 +92,7 @@ class IconHelper extends CakeHtmlHelper
      * </code>
      * @param string|array $icon Icons. You can also pass multiple arguments
      * @return string
-     * @see http://fortawesome.github.io/Font-Awesome Font Awesome icons
+     * @see http://fontawesome.com Font Awesome icons
      * @uses buildIconClasses()
      */
     public function icon($icon): string
