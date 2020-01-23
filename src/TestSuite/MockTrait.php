@@ -1,5 +1,6 @@
 <?php
 declare(strict_types=1);
+
 /**
  * This file is part of me-tools.
  *
@@ -95,6 +96,22 @@ trait MockTrait
     {
         $testClass = is_string($testClass) ? $testClass : get_class($testClass);
 
-        return preg_replace('/^(.+)Test\\\\TestCase\\\\(.+)Test$/', '\1\2', $testClass);
+        return preg_replace('/^\\\\?(.+)Test\\\\TestCase\\\\(.+)Test$/', '\1\2', $testClass);
+    }
+
+    /**
+     * Gets the classname for which a test is being performed, starting from the
+     *  test class name. It fails if the class does not exist
+     * @param object|string $testClass A test class as object or string
+     * @return string The class name for which a test is being performed
+     * @since 2.19.2
+     * @uses getOriginClassName()
+     */
+    public function getOriginClassNameOrFail($testClass): string
+    {
+        $className = $this->getOriginClassName($testClass);
+        class_exists($className) ?: $this->fail(sprintf('Class `\\%s` does not exist', $className));
+
+        return $className;
     }
 }

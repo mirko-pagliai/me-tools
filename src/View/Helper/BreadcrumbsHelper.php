@@ -10,7 +10,6 @@ declare(strict_types=1);
  * @copyright   Copyright (c) Mirko Pagliai
  * @link        https://github.com/mirko-pagliai/me-tools
  * @license     https://opensource.org/licenses/mit-license.php MIT License
- * @see         https://api.cakephp.org/3.4/class-Cake.View.Helper.BreadcrumbsHelper.html BreadcrumbsHelper
  * @see         http://getbootstrap.com/components/#breadcrumbs Bootstrap documentation
  */
 namespace MeTools\View\Helper;

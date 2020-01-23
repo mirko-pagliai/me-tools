@@ -1,5 +1,11 @@
 # 2.x branch
 ## 2.19 branch
+### 2.19.2
+* added `MockTrait::getOriginClassNameOrFail()` method;
+* fixed little bug for `MockTrait::getOriginClassName()` method;
+* changed `npm-asset/fortawesome--fontawesome-free` package with
+    `fortawesome/font-awesome`.
+
 ### 2.19.1
 * fixed I18n translations.
 

@@ -1,5 +1,6 @@
 <?php
 declare(strict_types=1);
+
 /**
  * This file is part of me-tools.
  *
@@ -70,5 +71,28 @@ class MockTraitTest extends TestCase
         $this->expectException(AssertionFailedError::class);
         $this->expectExceptionMessage('Class `App\Controller\NoExistingController` does not exist');
         $this->getMockForController('App\Controller\NoExistingController');
+    }
+
+    /**
+     * Tests for `getOriginClassName()` method
+     * @test
+     */
+    public function testGetOriginClassName()
+    {
+        $this->assertSame(TestCase::class, $this->getOriginClassName('MeTools\Test\TestCase\TestSuite\TestCaseTest'));
+        $this->assertSame(TestCase::class, $this->getOriginClassName('\MeTools\Test\TestCase\TestSuite\TestCaseTest'));
+    }
+
+    /**
+     * Tests for `getOriginClassNameOrFail()` method
+     * @test
+     */
+    public function testGetOriginClassNameOrFail()
+    {
+        $this->assertSame(TestCase::class, $this->getOriginClassNameOrFail('MeTools\Test\TestCase\TestSuite\TestCaseTest'));
+
+        $this->expectException(AssertionFailedError::class);
+        $this->expectExceptionMessage('Class `\MeTools\TestSuite\NoExistingClass` does not exist');
+        $this->getOriginClassNameOrFail('\MeTools\Test\TestCase\TestSuite\NoExistingClassTest');
     }
 }

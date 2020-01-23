@@ -1,5 +1,6 @@
 <?php
 declare(strict_types=1);
+
 /**
  * This file is part of me-tools.
  *
@@ -40,10 +41,8 @@ trait ConsoleIntegrationTestTrait
     {
         parent::setUp();
 
-        $className = $this->getOriginClassName($this);
         if (!$this->Command && !empty($this->autoInitializeClass)) {
-            class_exists($className) ?: $this->fail(sprintf('Class `%s` does not exist', $className));
-
+            $className = $this->getOriginClassNameOrFail($this);
             $this->Command = $this->getMockBuilder($className)
                 ->setMethods(null)
                 ->getMock();
@@ -53,7 +52,7 @@ trait ConsoleIntegrationTestTrait
             }
         }
 
-        if (string_ends_with($className, 'Command')) {
+        if (string_ends_with($className ?? $this->getOriginClassName($this), 'Command')) {
             $this->useCommandRunner();
         }
     }
