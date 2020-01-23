@@ -1,5 +1,6 @@
 <?php
 declare(strict_types=1);
+
 /**
  * This file is part of me-tools.
  *
@@ -44,10 +45,7 @@ abstract class HelperTestCase extends TestCase
         parent::setUp();
 
         if (!$this->Helper && $this->autoInitializeClass) {
-            $className = $this->getOriginClassName($this);
-            class_exists($className) ?: $this->fail(sprintf('Class `%s` does not exist', $className));
-
-            $this->Helper = $this->getMockForHelper($className, null);
+            $this->Helper = $this->getMockForHelper($this->getOriginClassNameOrFail($this), null);
 
             if (method_exists($this->Helper, 'initialize')) {
                 $this->Helper->initialize([]);

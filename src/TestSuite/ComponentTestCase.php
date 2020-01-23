@@ -1,5 +1,6 @@
 <?php
 declare(strict_types=1);
+
 /**
  * This file is part of me-tools.
  *
@@ -45,10 +46,7 @@ abstract class ComponentTestCase extends TestCase
 
         //Tries to retrieve the component
         if (!$this->Component && $this->autoInitializeClass) {
-            $className = $this->getOriginClassName($this);
-            class_exists($className) ?: $this->fail(sprintf('Class `%s` does not exist', $className));
-
-            $this->Component = $this->getMockForComponent($className, null);
+            $this->Component = $this->getMockForComponent($this->getOriginClassNameOrFail($this), null);
 
             if (method_exists($this->Component, 'initialize')) {
                 $this->Component->initialize([]);
