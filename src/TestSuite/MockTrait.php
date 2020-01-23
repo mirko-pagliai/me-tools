@@ -96,7 +96,7 @@ trait MockTrait
     {
         $testClass = is_string($testClass) ? $testClass : get_class($testClass);
 
-        return preg_replace('/^(.+)Test\\\\TestCase\\\\(.+)Test$/', '\1\2', $testClass);
+        return preg_replace('/^\\\\?(.+)Test\\\\TestCase\\\\(.+)Test$/', '\1\2', $testClass);
     }
 
     /**
@@ -110,7 +110,7 @@ trait MockTrait
     public function getOriginClassNameOrFail($testClass): string
     {
         $className = $this->getOriginClassName($testClass);
-        class_exists($className) ?: $this->fail(sprintf('Class `%s` does not exist', $className));
+        class_exists($className) ?: $this->fail(sprintf('Class `\\%s` does not exist', $className));
 
         return $className;
     }

@@ -74,6 +74,16 @@ class MockTraitTest extends TestCase
     }
 
     /**
+     * Tests for `getOriginClassName()` method
+     * @test
+     */
+    public function testGetOriginClassName()
+    {
+        $this->assertSame(TestCase::class, $this->getOriginClassName('MeTools\Test\TestCase\TestSuite\TestCaseTest'));
+        $this->assertSame(TestCase::class, $this->getOriginClassName('\MeTools\Test\TestCase\TestSuite\TestCaseTest'));
+    }
+
+    /**
      * Tests for `getOriginClassNameOrFail()` method
      * @test
      */
