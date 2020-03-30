@@ -52,12 +52,14 @@ class FixComposerJsonCommandTest extends TestCase
             'require' => ['php' => '>=5.5.9'],
             'autoload' => ['psr-4' => ['App' => 'src']],
         ], JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
+        $this->_in = $this->_err = null;
         $this->exec($command . ' -p ' . $file);
         $this->assertExitWithSuccess();
         $this->assertOutputContains('The file ' . rtr($file) . ' has been fixed');
         $this->assertErrorEmpty();
 
         //The file no longer needs to be fixed
+        $this->_in = $this->_err = null;
         $this->exec($command . ' -p ' . $file);
         $this->assertExitWithSuccess();
         $this->assertOutputContains('The file ' . rtr($file) . ' doesn\'t need to be fixed');

@@ -1,5 +1,8 @@
 # 2.x branch
 ## 2.19 branch
+### 2.19.3
+* updated `Command` tests for `cakephp` 4.0.5.
+
 ### 2.19.2
 * added `MockTrait::getOriginClassNameOrFail()` method;
 * fixed little bug for `MockTrait::getOriginClassName()` method;
