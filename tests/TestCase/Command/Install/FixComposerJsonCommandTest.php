@@ -24,26 +24,16 @@ class FixComposerJsonCommandTest extends TestCase
     use ConsoleIntegrationTestTrait;
 
     /**
+     * @var string
+     */
+    protected $command = 'me_tools.fix_composer_json -v';
+
+    /**
      * Tests for `execute()` method
      * @test
      */
     public function testExecute()
     {
-        $command = 'me_tools.fix_composer_json -v';
-
-        //Tries to fix a no existing file
-        $this->exec($command . ' -p noExisting');
-        $this->assertExitWithError();
-        $this->assertErrorContains('File or directory `noExisting` is not writable');
-
-        //Tries to fix an invalid composer.json file
-        $file = TMP . 'invalid.json';
-        create_file($file, 'String');
-        $this->exec($command . ' -p ' . $file);
-        $this->assertExitWithError();
-        $this->assertErrorContains('The file ' . $file . ' does not seem a valid composer.json file');
-
-        //Fixes a valid composer.json file
         $file = APP . 'composer.json';
         create_file($file, json_encode([
             'name' => 'example',
@@ -52,19 +42,47 @@ class FixComposerJsonCommandTest extends TestCase
             'require' => ['php' => '>=5.5.9'],
             'autoload' => ['psr-4' => ['App' => 'src']],
         ], JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
-        $this->_in = $this->_err = null;
-        $this->exec($command . ' -p ' . $file);
+        $this->exec($this->command . ' -p ' . $file);
         $this->assertExitWithSuccess();
         $this->assertOutputContains('The file ' . rtr($file) . ' has been fixed');
         $this->assertErrorEmpty();
+    }
 
-        //The file no longer needs to be fixed
-        $this->_in = $this->_err = null;
-        $this->exec($command . ' -p ' . $file);
+    /**
+     * Tests for `execute()` method, with an already fixed file
+     * @test
+     */
+    public function testExecuteAlreadyFixedFile()
+    {
+        $file = APP . 'composer.json';
+        $this->exec($this->command . ' -p ' . $file);
         $this->assertExitWithSuccess();
         $this->assertOutputContains('The file ' . rtr($file) . ' doesn\'t need to be fixed');
         $this->assertErrorEmpty();
-
         unlink(APP . 'composer.json');
+    }
+
+    /**
+     * Tests for `execute()` method, with an invalid file
+     * @test
+     */
+    public function testExecuteInvalidFile()
+    {
+        $file = TMP . 'invalid.json';
+        create_file($file, 'String');
+        $this->exec($this->command . ' -p ' . $file);
+        $this->assertExitWithError();
+        $this->assertErrorContains('The file ' . $file . ' does not seem a valid composer.json file');
+    }
+
+    /**
+     * Tests for `execute()` method, with a no existing file
+     * @test
+     */
+    public function testExecuteNoExistingFile()
+    {
+        $this->exec($this->command . ' -p noExisting');
+        $this->assertExitWithError();
+        $this->assertErrorContains('File or directory `noExisting` is not writable');
     }
 }
