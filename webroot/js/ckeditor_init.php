@@ -99,8 +99,10 @@ $(function () {
             ],
 
             <?php
-            //Checks if the KCFinder files exist
-            if (is_readable(WEBROOT . 'vendor' . DS . 'kcfinder' . DS . 'browse.php')) {
+            //Checks if ElFinder/KCFinder exists
+            if (is_readable(WEBROOT . 'vendor' . DS . 'elfinder' . DS . 'elfinder-cke.html')) {
+                echo 'filebrowserBrowseUrl: \'' . BASEDIR . '/vendor/elfinder/elfinder-cke.html\',';
+            } elseif (is_readable(WEBROOT . 'vendor' . DS . 'kcfinder' . DS . 'browse.php')) {
                 echo 'filebrowserBrowseUrl: \'' . BASEDIR . '/vendor/kcfinder/browse.php?type=files\',';
                 echo 'filebrowserImageBrowseUrl: \'' . BASEDIR . '/vendor/kcfinder/browse.php?type=images\',';
                 echo 'filebrowserUploadUrl: \'' . BASEDIR . '/vendor/kcfinder/upload.php?type=files\',';

@@ -1,5 +1,10 @@
 # 2.x branch
 ## 2.19 branch
+### 2.19.3
+* the `ckeditor` init file automatically integrates `elfinder` as long as
+    [the `elfinder-cke.html` file exists](//github.com/Studio-42/elFinder/wiki/Integration-with-CKEditor-4);
+* updated `Command` tests for `cakephp` 4.0.5.
+
 ### 2.19.2
 * added `MockTrait::getOriginClassNameOrFail()` method;
 * fixed little bug for `MockTrait::getOriginClassName()` method;
