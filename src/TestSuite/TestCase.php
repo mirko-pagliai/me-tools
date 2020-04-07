@@ -56,7 +56,6 @@ abstract class TestCase extends CakeTestCase
             if (LOGS !== TMP) {
                 unlink_recursive(LOGS, 'empty');
             }
-            unlink_recursive(WWW_ROOT . 'vendor', 'empty');
             unlink(WWW_ROOT . 'me_tools');
             unlink(WWW_ROOT . 'robots.txt');
         } catch (Exception $e) {
