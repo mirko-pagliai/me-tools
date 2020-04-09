@@ -1,5 +1,6 @@
 <?php
 declare(strict_types=1);
+
 /**
  * This file is part of me-tools.
  *
@@ -14,6 +15,9 @@ declare(strict_types=1);
 namespace MeTools\Controller\Component;
 
 use Cake\Controller\Component;
+use Laminas\Diactoros\Exception\UploadedFileErrorException;
+use Laminas\Diactoros\UploadedFile;
+use Psr\Http\Message\UploadedFileInterface;
 use RuntimeException;
 
 /**
@@ -28,8 +32,8 @@ class UploaderComponent extends Component
     protected $error;
 
     /**
-     * Uploaded file information
-     * @var object
+     * Uploaded file instance
+     * @var \Psr\Http\Message\UploadedFileInterface
      */
     protected $file;
 
@@ -77,18 +81,6 @@ class UploaderComponent extends Component
     }
 
     /**
-     * This allows you to override the `move_uploaded_file()` function, for
-     *  example with the `rename()` function
-     * @param string $filename The filename of the uploaded file
-     * @param string $destination The destination of the moved file
-     * @return bool
-     */
-    protected function move_uploaded_file(string $filename, string $destination): bool
-    {
-        return move_uploaded_file($filename, $destination);
-    }
-
-    /**
      * Returns the first error
      * @return string|null First error or `null` with no errors
      * @uses $error
@@ -110,7 +102,7 @@ class UploaderComponent extends Component
     public function mimetype($acceptedMimetype)
     {
         is_true_or_fail(
-            $this->file,
+            $this->file instanceof UploadedFileInterface,
             __d('me_tools', 'There are no uploaded file information'),
             RuntimeException::class
         );
@@ -125,10 +117,8 @@ class UploaderComponent extends Component
                 break;
         }
 
-        $currentMimetype = mime_content_type($this->file->tmp_name);
-
-        if (!in_array($currentMimetype, (array)$acceptedMimetype)) {
-            $this->setError(__d('me_tools', 'The mimetype {0} is not accepted', $currentMimetype));
+        if (!in_array($this->file->getClientMediaType(), (array)$acceptedMimetype)) {
+            $this->setError(__d('me_tools', 'The mimetype {0} is not accepted', $this->file->getClientMediaType()));
         }
 
         return $this;
@@ -146,13 +136,12 @@ class UploaderComponent extends Component
      * @uses findTargetFilename()
      * @uses getError()
      * @uses setError()
-     * @uses move_uploaded_file()
      * @uses $file
      */
     public function save(string $directory, ?string $filename = null)
     {
         is_true_or_fail(
-            $this->file,
+            $this->file instanceof UploadedFileInterface,
             __d('me_tools', 'There are no uploaded file information'),
             RuntimeException::class
         );
@@ -164,55 +153,39 @@ class UploaderComponent extends Component
 
         is_dir_or_fail($directory);
 
-        $filename = $filename ? basename($filename) : $this->findTargetFilename($this->file->name);
-        $file = add_slash_term($directory) . $filename;
+        $filename = $filename ? basename($filename) : $this->findTargetFilename($this->file->getClientFilename());
+        $target = add_slash_term($directory) . $filename;
 
-        if (!$this->move_uploaded_file($this->file->tmp_name, $file)) {
+        try {
+            $this->file->moveTo($target);
+        } catch (UploadedFileErrorException $e) {
             $this->setError(__d('me_tools', 'The file was not successfully moved to the target directory'));
 
             return false;
         }
 
-        return $file;
+        return $target;
     }
 
     /**
      * Sets uploaded file information (`$_FILES` array, better as
      *  `$this->getRequest()->getData('file')`)
-     * @param array $file Uploaded file information
+     * @param \Psr\Http\Message\UploadedFileInterface|array $file Uploaded file information
      * @return $this
      * @uses setError()
      * @uses $error
      * @uses $file
      */
-    public function set(array $file)
+    public function set($file)
     {
         //Resets `$error`
         unset($this->error);
 
-        $this->file = (object)$file;
-
-        //Errors messages
-        $errors = [
-            UPLOAD_ERR_INI_SIZE => 'The uploaded file exceeds the maximum size that was specified in php.ini',
-            UPLOAD_ERR_FORM_SIZE => 'The uploaded file exceeds the maximum size that was specified in the HTML form',
-            UPLOAD_ERR_PARTIAL => 'The uploaded file was partially uploaded',
-            UPLOAD_ERR_NO_FILE => 'No file was uploaded',
-            UPLOAD_ERR_NO_TMP_DIR => 'Missing a temporary folder',
-            UPLOAD_ERR_CANT_WRITE => 'Failed to write file to disk',
-            UPLOAD_ERR_EXTENSION => 'File upload stopped by extension',
-            'default' => 'Unknown upload error',
-        ];
+        $this->file = $file instanceof UploadedFileInterface ? $file : new UploadedFile($file['tmp_name'], $file['size'], $file['error'], $file['name'], $file['type']);
 
         //Checks errors during upload
-        if (!isset($file['error']) || $file['error'] !== UPLOAD_ERR_OK) {
-            //Gets the default error message, if the error can not be
-            //  identified or if the key is not present
-            if (!isset($file['error']) || !array_key_exists($file['error'], $errors)) {
-                $file['error'] = 'default';
-            }
-
-            $this->setError($errors[$file['error']]);
+        if ($this->file->getError() !== UPLOAD_ERR_OK) {
+            $this->setError(UploadedFile::ERROR_MESSAGES[$this->file->getError()]);
         }
 
         return $this;
