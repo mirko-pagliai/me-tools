@@ -115,6 +115,10 @@ class UploaderComponentTest extends ComponentTestCase
         $this->assertNotEmpty($this->Component->getError());
     }
 
+    /**
+     * Tests for `set()` method, with file as array
+     * @test
+     */
     public function testSetWithFileAsArray()
     {
         $file = create_tmp_file('string');
