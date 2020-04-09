@@ -1,5 +1,6 @@
 <?php
 declare(strict_types=1);
+
 /**
  * This file is part of me-tools.
  *
@@ -13,10 +14,12 @@ declare(strict_types=1);
  */
 namespace MeTools\Test\TestCase\Controller\Component;
 
+use Laminas\Diactoros\Exception\UploadedFileErrorException;
+use Laminas\Diactoros\UploadedFile;
 use MeTools\Controller\Component\UploaderComponent;
 use MeTools\TestSuite\ComponentTestCase;
+use Psr\Http\Message\UploadedFileInterface;
 use RuntimeException;
-use stdClass;
 
 /**
  * UploaderComponentTest class
@@ -24,20 +27,15 @@ use stdClass;
 class UploaderComponentTest extends ComponentTestCase
 {
     /**
-     * Internal method to create a file and get a valid array for upload
-     * @return array
+     * Internal method to create a file and get a `UploadedFile` instance
+     * @param int $error Error for this file
+     * @return UploadedFileInterface
      */
-    protected function createFile(): array
+    protected function createFile(int $error = UPLOAD_ERR_OK): UploadedFileInterface
     {
         $file = create_tmp_file('string');
 
-        return [
-            'name' => basename($file),
-            'type' => mime_content_type($file),
-            'tmp_name' => $file,
-            'error' => UPLOAD_ERR_OK,
-            'size' => filesize($file),
-        ];
+        return new UploadedFile($file, filesize($file), $error, basename($file), 'text/plain');
     }
 
     /**
@@ -108,19 +106,27 @@ class UploaderComponentTest extends ComponentTestCase
      */
     public function testSet()
     {
-        $file = $this->createFile();
-        $this->Component->set($file);
+        $result = $this->Component->set($this->createFile());
+        $this->assertInstanceOf(UploaderComponent::class, $result);
+        $this->assertInstanceOf(UploadedFileInterface::class, $this->Component->file);
         $this->assertEmpty($this->Component->getError());
-        $this->assertInstanceOf(stdClass::class, $this->Component->file);
-        $this->assertObjectPropertiesEqual(['name', 'type', 'tmp_name', 'error', 'size'], $this->Component->file);
 
-        $this->Component->set(array_merge($file, ['error' => UPLOAD_ERR_INI_SIZE]));
-        $this->assertInstanceOf(stdClass::class, $this->Component->file);
+        $this->Component->set($this->createFile(UPLOAD_ERR_INI_SIZE));
         $this->assertNotEmpty($this->Component->getError());
+    }
 
-        $this->Component->set(array_merge($file, ['error' => 'noExistingErrorCode']));
-        $this->assertInstanceOf(stdClass::class, $this->Component->file);
-        $this->assertEquals('Unknown upload error', $this->Component->getError());
+    public function testSetWithFileAsArray()
+    {
+        $file = create_tmp_file('string');
+        $this->Component->set([
+            'name' => basename($file),
+            'type' => mime_content_type($file),
+            'tmp_name' => $file,
+            'error' => UPLOAD_ERR_OK,
+            'size' => filesize($file),
+        ]);
+        $this->assertInstanceOf(UploadedFileInterface::class, $this->Component->file);
+        $this->assertEmpty($this->Component->getError());
     }
 
     /**
@@ -159,47 +165,39 @@ class UploaderComponentTest extends ComponentTestCase
      */
     public function testSave()
     {
-        $Uploader = $this->getMockForComponent(UploaderComponent::class, ['move_uploaded_file']);
-        $Uploader->method('move_uploaded_file')
-            ->will($this->returnCallback(function (string $filename, string $destination) {
-                return rename($filename, $destination);
-            }));
-
         foreach ([UPLOADS, rtrim(UPLOADS, DS)] as $targetDirectory) {
-            $file = $this->createFile();
-            $Uploader->set($file);
-            $result = $Uploader->save($targetDirectory);
+            $this->Component->set($this->createFile());
+            $result = $this->Component->save($targetDirectory);
             $this->assertStringStartsWith(UPLOADS, $result);
-            $this->assertEmpty($Uploader->getError());
+            $this->assertEmpty($this->Component->getError());
             $this->assertFileExists($result);
-            $this->assertFileNotExists($file['tmp_name']);
         }
 
         foreach (['customFilename', 'customFilename.txt', TMP . 'customFilename.txt'] as $targetFilename) {
-            $file = $this->createFile();
-            $Uploader->set($file);
-            $result = $Uploader->save(UPLOADS, $targetFilename);
+            $this->Component->set($this->createFile());
+            $result = $this->Component->save(UPLOADS, $targetFilename);
             $this->assertEquals(UPLOADS . basename($targetFilename), $result);
-            $this->assertEmpty($Uploader->getError());
+            $this->assertEmpty($this->Component->getError());
             $this->assertFileExists($result);
-            $this->assertFileNotExists($file['tmp_name']);
         }
+
+        //With file not successfully moved to the target directory
+        $file = create_tmp_file('string');
+        $UploadedFile = $this->getMockBuilder(UploadedFile::class)
+            ->setConstructorArgs([$file, filesize($file), UPLOAD_ERR_OK, basename($file), 'text/plain'])
+            ->setMethods(['moveTo'])
+            ->getMock();
+
+        $UploadedFile->method('moveTo')
+            ->willThrowException(new UploadedFileErrorException());
+
+        $this->assertFalse($this->Component->set($UploadedFile)->save(UPLOADS));
+        $this->assertSame('The file was not successfully moved to the target directory', $this->Component->getError());
 
         //With no file
         $this->expectException(RuntimeException::class);
         $this->expectExceptionMessage('There are no uploaded file information');
         $this->getMockForComponent(UploaderComponent::class, null)->save('');
-    }
-
-    /**
-     * Test for `save()` method, with a not writable directory
-     * @test
-     */
-    public function testSaveNoWritableDir()
-    {
-        $this->Component->set($this->createFile());
-        $this->assertFalse($this->Component->save(DS));
-        $this->assertEquals('The file was not successfully moved to the target directory', $this->Component->getError());
     }
 
     /**

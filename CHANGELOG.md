@@ -1,6 +1,8 @@
 # 2.x branch
 ## 2.19 branch
 ### 2.19.3
+* the `UploaderComponent` can now handle files as `Laminas\Diactoros\UploadedFile`
+    instance. This allowed to simplify the component;
 * the `ckeditor` init file automatically integrates `elfinder` as long as
     [the `elfinder-cke.html` file exists](//github.com/Studio-42/elFinder/wiki/Integration-with-CKEditor-4);
 * updated `Command` tests for `cakephp` 4.0.5.
