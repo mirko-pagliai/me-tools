@@ -14,6 +14,7 @@ declare(strict_types=1);
  */
 namespace MeTools\Test\TestCase\Controller\Component;
 
+use Laminas\Diactoros\Exception\UploadedFileErrorException;
 use Laminas\Diactoros\UploadedFile;
 use MeTools\Controller\Component\UploaderComponent;
 use MeTools\TestSuite\ComponentTestCase;
@@ -179,6 +180,19 @@ class UploaderComponentTest extends ComponentTestCase
             $this->assertEmpty($this->Component->getError());
             $this->assertFileExists($result);
         }
+
+        //With file not successfully moved to the target directory
+        $file = create_tmp_file('string');
+        $UploadedFile = $this->getMockBuilder(UploadedFile::class)
+            ->setConstructorArgs([$file, filesize($file), UPLOAD_ERR_OK, basename($file), 'text/plain'])
+            ->setMethods(['moveTo'])
+            ->getMock();
+
+        $UploadedFile->method('moveTo')
+            ->willThrowException(new UploadedFileErrorException());
+
+        $this->assertFalse($this->Component->set($UploadedFile)->save(UPLOADS));
+        $this->assertSame('The file was not successfully moved to the target directory', $this->Component->getError());
 
         //With no file
         $this->expectException(RuntimeException::class);
