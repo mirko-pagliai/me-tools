@@ -1,5 +1,6 @@
 <?php
 declare(strict_types=1);
+
 /**
  * This file is part of me-tools.
  *
@@ -183,17 +184,6 @@ class UploaderComponentTest extends ComponentTestCase
         $this->expectException(RuntimeException::class);
         $this->expectExceptionMessage('There are no uploaded file information');
         $this->getMockForComponent(UploaderComponent::class, null)->save('');
-    }
-
-    /**
-     * Test for `save()` method, with a not writable directory
-     * @test
-     */
-    public function testSaveNoWritableDir()
-    {
-        $this->Component->set($this->createFile());
-        $this->assertFalse($this->Component->save(DS));
-        $this->assertEquals('The file was not successfully moved to the target directory', $this->Component->getError());
     }
 
     /**
