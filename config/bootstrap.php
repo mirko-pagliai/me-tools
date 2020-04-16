@@ -12,6 +12,7 @@ declare(strict_types=1);
  * @link        https://github.com/mirko-pagliai/me-tools
  * @license     https://opensource.org/licenses/mit-license.php MIT License
  */
+
 use Cake\Core\Configure;
 
 //Sets directories to be created and must be writable
