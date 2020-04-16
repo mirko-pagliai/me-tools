@@ -1,5 +1,6 @@
 <?php
 declare(strict_types=1);
+
 /**
  * This file is part of me-tools.
  *
@@ -17,7 +18,6 @@ namespace MeTools;
 use Assets\Plugin as Assets;
 use Cake\Console\CommandCollection;
 use Cake\Core\BasePlugin;
-use Cake\Core\Configure;
 use Cake\Core\PluginApplicationInterface;
 use MeTools\Command\Install\CreateDirectoriesCommand;
 use MeTools\Command\Install\CreatePluginsLinksCommand;
@@ -42,33 +42,10 @@ class Plugin extends BasePlugin
     {
         parent::bootstrap($app);
 
-        //Sets directories to be created and must be writable
-        Configure::write('WRITABLE_DIRS', [
-            LOGS,
-            TMP,
-            CACHE,
-            CACHE . 'models',
-            CACHE . 'persistent',
-            CACHE . 'views',
-            TMP . 'sessions',
-            TMP . 'tests',
-            WWW_ROOT . 'files',
-            WWW_ROOT . 'vendor',
-        ]);
-
-        //Sets symbolic links for vendor assets to be created
-        Configure::write('VENDOR_LINKS', [
-            'eonasdan' . DS . 'bootstrap-datetimepicker' . DS . 'build' => 'bootstrap-datetimepicker',
-            'components' . DS . 'jquery' => 'jquery',
-            'components' . DS . 'moment' . DS . 'min' => 'moment',
-            'fortawesome' . DS . 'font-awesome' => 'font-awesome',
-            'newerton' . DS . 'fancy-box' . DS . 'source' => 'fancybox',
-            'twbs' . DS . 'bootstrap' . DS . 'dist' => 'bootstrap',
-        ]);
-
         if (class_exists(Assets::class) && !$app->getPlugins()->has('Assets')) {
             $plugin = new Assets();
             $plugin->bootstrap($app);
+            $plugin->disable('bootstrap');
             $app->addPlugin($plugin);
         }
     }
