@@ -35,6 +35,6 @@ Configure::write('VENDOR_LINKS', [
     'components' . DS . 'jquery' => 'jquery',
     'components' . DS . 'moment' . DS . 'min' => 'moment',
     'fortawesome' . DS . 'font-awesome' => 'font-awesome',
-    'newerton' . DS . 'fancy-box' . DS . 'source' => 'fancybox',
+    'npm-asset' . DS . 'fancyapps-fancybox' . DS . 'dist' => 'fancyapps-fancybox',
     'twbs' . DS . 'bootstrap' . DS . 'dist' => 'bootstrap',
 ]);
