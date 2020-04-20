@@ -1,5 +1,6 @@
 <?php
 declare(strict_types=1);
+
 /**
  * This file is part of me-tools.
  *
@@ -272,50 +273,17 @@ class LibraryHelperTest extends HelperTestCase
      */
     public function testFancybox()
     {
-        @symlink(VENDOR . 'newerton' . DS . 'fancy-box' . DS . 'source', WWW_ROOT . 'vendor' . DS . 'fancybox');
-
-        $expected = [
-            ['link' => ['rel' => 'stylesheet', 'href' => '/vendor/fancybox/jquery.fancybox.css']],
-            ['link' => ['rel' => 'stylesheet', 'href' => '/vendor/fancybox/helpers/jquery.fancybox-buttons.css']],
-            ['link' => ['rel' => 'stylesheet', 'href' => '/vendor/fancybox/helpers/jquery.fancybox-thumbs.css']],
-        ];
+        $expectedCss = '<link rel="stylesheet" href="/vendor/fancyapps-fancybox/jquery.fancybox.min.css"/>';
+        $expectedJs = '<script src="/vendor/fancyapps-fancybox/jquery.fancybox.min.js"></script>';
         $this->Helper->fancybox();
-        $this->assertHtml($expected, $this->Helper->getView()->fetch('css_bottom'));
+        $this->assertSame($expectedCss, $this->Helper->getView()->fetch('css_bottom'));
+        $this->assertSame($expectedJs, $this->Helper->getView()->fetch('script_bottom'));
 
-        $expected = [
-            ['script' => ['src' => '/vendor/fancybox/jquery.fancybox.pack.js']],
-            '/script',
-            ['script' => ['src' => '/vendor/fancybox/helpers/jquery.fancybox-buttons.js']],
-            '/script',
-            ['script' => ['src' => '/vendor/fancybox/helpers/jquery.fancybox-thumbs.js']],
-            '/script',
-            ['script' => ['src' => '/me_tools/fancybox/fancybox_init.js']],
-            '/script',
-        ];
-        $this->assertHtml($expected, $this->Helper->getView()->fetch('script_bottom'));
-    }
-
-    /**
-     * Tests for `fancybox()` method, with a js config file from app
-     * @test
-     */
-    public function testFancyboxWithJsFromApp()
-    {
-        @symlink(VENDOR . 'newerton' . DS . 'fancy-box' . DS . 'source', WWW_ROOT . 'vendor' . DS . 'fancybox');
+        //With che init file
         @create_file(WWW_ROOT . 'js' . DS . 'fancybox_init.js');
-
-        $expected = [
-            ['script' => ['src' => '/vendor/fancybox/jquery.fancybox.pack.js']],
-            '/script',
-            ['script' => ['src' => '/vendor/fancybox/helpers/jquery.fancybox-buttons.js']],
-            '/script',
-            ['script' => ['src' => '/vendor/fancybox/helpers/jquery.fancybox-thumbs.js']],
-            '/script',
-            ['script' => ['src' => '/js/fancybox_init.js']],
-            '/script',
-        ];
+        $expectedJs .= '<script src="/js/fancybox_init.js"></script>';
         $this->Helper->fancybox();
-        $this->assertHtml($expected, $this->Helper->getView()->fetch('script_bottom'));
+        $this->assertSame($expectedJs, $this->Helper->getView()->fetch('script_bottom'));
     }
 
     /**

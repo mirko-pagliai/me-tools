@@ -224,35 +224,22 @@ class LibraryHelper extends Helper
     }
 
     /**
-     * Loads all FancyBox scripts.
-     *
-     * FancyBox must be installed via Composer.
+     * Loads all fancybox files
      * @return void
-     * @see http://fancyapps.com/fancybox/#docs FancyBox documentation
+     * @see https://fancyapps.com/fancybox/3 fancybox documentation
      * @uses Assets\View\Helper\AssetHelper::script()
      */
     public function fancybox(): void
     {
-        $this->Html->css([
-            '/vendor/fancybox/jquery.fancybox',
-            '/vendor/fancybox/helpers/jquery.fancybox-buttons',
-            '/vendor/fancybox/helpers/jquery.fancybox-thumbs',
-        ], ['block' => 'css_bottom']);
+        $this->Html->css('/vendor/fancyapps-fancybox/jquery.fancybox.min', ['block' => 'css_bottom']);
 
-        $scripts = [
-            '/vendor/fancybox/jquery.fancybox.pack',
-            '/vendor/fancybox/helpers/jquery.fancybox-buttons',
-            '/vendor/fancybox/helpers/jquery.fancybox-thumbs',
-        ];
-
+        $scripts = ['/vendor/fancyapps-fancybox/jquery.fancybox.min'];
         //Checks the init file inside `APP/webroot/js/`.
-        //Otherwise uses the init file inside `APP/plugin/MeTools/webroot/fancybox/`
-        $init = 'fancybox_init';
-        if (!is_readable(WWW_ROOT . 'js' . DS . 'fancybox_init.js')) {
-            $init = 'MeTools./fancybox/fancybox_init';
+        if (is_readable(WWW_ROOT . 'js' . DS . 'fancybox_init.js')) {
+            $scripts[] = 'fancybox_init';
         }
 
-        $this->Asset->script(array_merge($scripts, [$init]), ['block' => 'script_bottom']);
+        $this->Asset->script($scripts, ['block' => 'script_bottom']);
     }
 
     /**

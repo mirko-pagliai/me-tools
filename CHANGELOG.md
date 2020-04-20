@@ -1,5 +1,9 @@
 # 2.x branch
 ## 2.19 branch
+### 2.19.4
+* uses and suggests `npm-asset/fancyapps-fancybox` [github](https://github.com/fancyapps/fancybox)
+    instead of `newerton/fancy-box`.
+
 ### 2.19.3
 * the `UploaderComponent` can now handle files as `Laminas\Diactoros\UploadedFile`
     instance. This allowed to simplify the component;
