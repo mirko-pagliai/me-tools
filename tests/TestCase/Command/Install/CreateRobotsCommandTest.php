@@ -1,5 +1,6 @@
 <?php
 declare(strict_types=1);
+
 /**
  * This file is part of me-tools.
  *
@@ -29,7 +30,6 @@ class CreateRobotsCommandTest extends TestCase
      */
     public function testExecute()
     {
-        @unlink(WWW_ROOT . 'robots.txt');
         $this->exec('me_tools.create_robots -v');
         $this->assertExitWithSuccess();
         $this->assertOutputContains('Creating file ' . WWW_ROOT . 'robots.txt');
@@ -41,5 +41,6 @@ class CreateRobotsCommandTest extends TestCase
             'Disallow: /ckeditor/' . PHP_EOL . 'Disallow: /css/' . PHP_EOL .
             'Disallow: /js/' . PHP_EOL . 'Disallow: /vendor/'
         );
+        @unlink(WWW_ROOT . 'robots.txt');
     }
 }

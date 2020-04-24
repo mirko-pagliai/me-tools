@@ -1,5 +1,8 @@
 # 2.x branch
 ## 2.19 branch
+### 2.19.5
+* fixed little bug for `TestCase` class.
+
 ### 2.19.4
 * uses and suggests `npm-asset/fancyapps-fancybox` [github](https://github.com/fancyapps/fancybox)
     instead of `newerton/fancy-box`.
