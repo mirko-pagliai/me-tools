@@ -14,7 +14,7 @@ declare(strict_types=1);
  */
 namespace MeTools\Console;
 
-use Cake\Console\Command as CakeCommand;
+use Cake\Command\Command as CakeCommand;
 use Cake\Console\ConsoleIo;
 use Exception;
 use Symfony\Component\Filesystem\Exception\IOException;
