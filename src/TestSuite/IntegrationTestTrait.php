@@ -15,6 +15,7 @@ declare(strict_types=1);
 namespace MeTools\TestSuite;
 
 use Cake\Controller\Controller;
+use Cake\Core\Configure;
 use Cake\Event\EventInterface;
 use Cake\TestSuite\Constraint\Session\SessionEquals;
 use Cake\TestSuite\IntegrationTestTrait as CakeIntegrationTestTrait;
@@ -100,6 +101,7 @@ trait IntegrationTestTrait
     public function assertSessionEmpty(string $path, string $message = ''): void
     {
         $verboseMessage = $this->extractVerboseMessage($message);
-        $this->assertThat(null, new SessionEquals($this->_requestSession, $path), $verboseMessage);
+        $sessionEquals = version_compare(Configure::version(), '4.1', '>=') ? new SessionEquals($path) : new SessionEquals($this->_requestSession, $path);
+        $this->assertThat(null, $sessionEquals, $verboseMessage);
     }
 }
