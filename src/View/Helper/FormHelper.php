@@ -1,5 +1,6 @@
 <?php
 declare(strict_types=1);
+
 /**
  * This file is part of me-tools.
  *
@@ -95,7 +96,8 @@ class FormHelper extends CakeFormHelper
      * @param string|null $title The button label or an image
      * @param array $options HTML attributes and options
      * @return string
-     * @see postButton(), MeTools\View\Helper\HtmlHelper::button()
+     * @see postButton()
+     * @see MeTools\View\Helper\HtmlHelper::button()
      */
     public function button(?string $title = null, array $options = []): string
     {
@@ -195,7 +197,7 @@ class FormHelper extends CakeFormHelper
             ]);
 
             //If it is not a checkbox
-            if ($type !== "checkbox" && (!$options->exists('label') || $options->get('label') !== false)) {
+            if ($type !== 'checkbox' && (!$options->exists('label') || $options->get('label') !== false)) {
                 $label = $options->get('label') ? ['text' => $options->get('label')] : [];
                 $label = optionsParser($label)->append('class', 'sr-only');
                 $options->add('label', $label->toArray());

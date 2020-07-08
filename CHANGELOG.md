@@ -1,6 +1,7 @@
 # 2.x branch
 ## 2.19 branch
 ### 2.19.5
+* updated for `cakephp` 4.1.
 * fixed little bug for `TestCase` class.
 
 ### 2.19.4

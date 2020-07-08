@@ -115,8 +115,8 @@ class LibraryHelper extends Helper
         }
 
         //Writes the output
-        $output = array_map(function ($output) {
-            return "    " . $output;
+        $output = array_map(function (string $output) {
+            return '    ' . $output;
         }, $this->output);
 
         $this->Html->scriptBlock(
