@@ -197,7 +197,7 @@ class FormHelper extends CakeFormHelper
             ]);
 
             //If it is not a checkbox
-            if ($type !== "checkbox" && (!$options->exists('label') || $options->get('label') !== false)) {
+            if ($type !== 'checkbox' && (!$options->exists('label') || $options->get('label') !== false)) {
                 $label = $options->get('label') ? ['text' => $options->get('label')] : [];
                 $label = optionsParser($label)->append('class', 'sr-only');
                 $options->add('label', $label->toArray());
