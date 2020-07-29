@@ -40,9 +40,9 @@ abstract class TestCase extends CakeTestCase
      */
     public function setUp(): void
     {
-        $this->loadPlugins(Configure::read('pluginsToLoad') ?: ['MeTools']);
-
         parent::setUp();
+
+        $this->loadPlugins(Configure::read('pluginsToLoad') ?: ['MeTools']);
     }
 
     /**
