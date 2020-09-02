@@ -19,6 +19,7 @@ use Cake\Console\ConsoleIo;
 use Exception;
 use Symfony\Component\Filesystem\Exception\IOException;
 use Symfony\Component\Filesystem\Filesystem;
+use Tools\Exceptionist;
 
 /**
  * Base class for console commands
@@ -59,8 +60,8 @@ abstract class Command extends CakeCommand
 
         //Checks if the source is readable and the destination is writable
         try {
-            is_readable_or_fail($source);
-            is_writable_or_fail(dirname($dest));
+            Exceptionist::isReadable($source);
+            Exceptionist::isWritable(dirname($dest));
             (new Filesystem())->copy($source, $dest);
         } catch (Exception $e) {
             $io->error($e->getMessage());
@@ -129,8 +130,8 @@ abstract class Command extends CakeCommand
 
         //Checks if the source is readable and the destination directory is writable
         try {
-            is_readable_or_fail($source);
-            is_writable_or_fail(dirname($dest));
+            Exceptionist::isReadable($source);
+            Exceptionist::isWritable(dirname($dest));
             (new Filesystem())->symlink($source, $dest, true);
         } catch (Exception $e) {
             $io->error($e->getMessage());

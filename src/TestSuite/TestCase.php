@@ -22,6 +22,7 @@ use Cake\TestSuite\TestCase as CakeTestCase;
 use Exception;
 use MeTools\TestSuite\MockTrait;
 use Symfony\Component\Filesystem\Filesystem;
+use Tools\Exceptionist;
 use Tools\ReflectionTrait;
 use Tools\TestSuite\TestTrait;
 
@@ -105,7 +106,7 @@ abstract class TestCase extends CakeTestCase
         $filename = $this->getLogFullPath($filename);
 
         try {
-            is_readable_or_fail($filename);
+            Exceptionist::isReadable($filename);
             $content = file_get_contents($filename);
         } catch (Exception $e) {
             $this->fail($e->getMessage());

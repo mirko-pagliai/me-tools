@@ -19,6 +19,7 @@ use Laminas\Diactoros\Exception\UploadedFileErrorException;
 use Laminas\Diactoros\UploadedFile;
 use Psr\Http\Message\UploadedFileInterface;
 use RuntimeException;
+use Tools\Exceptionist;
 
 /**
  * A component to upload files
@@ -101,7 +102,7 @@ class UploaderComponent extends Component
      */
     public function mimetype($acceptedMimetype)
     {
-        is_true_or_fail(
+        Exceptionist::isTrue(
             $this->file instanceof UploadedFileInterface,
             __d('me_tools', 'There are no uploaded file information'),
             RuntimeException::class
@@ -140,7 +141,7 @@ class UploaderComponent extends Component
      */
     public function save(string $directory, ?string $filename = null)
     {
-        is_true_or_fail(
+        Exceptionist::isTrue(
             $this->file instanceof UploadedFileInterface,
             __d('me_tools', 'There are no uploaded file information'),
             RuntimeException::class
@@ -151,7 +152,7 @@ class UploaderComponent extends Component
             return false;
         }
 
-        is_dir_or_fail($directory);
+        Exceptionist::isDir($directory, RuntimeException::class);
 
         $filename = $filename ? basename($filename) : $this->findTargetFilename($this->file->getClientFilename());
         $target = add_slash_term($directory) . $filename;
