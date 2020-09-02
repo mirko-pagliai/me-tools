@@ -19,6 +19,7 @@ use Cake\Console\ConsoleIo;
 use Cake\Console\ConsoleOptionParser;
 use Exception;
 use MeTools\Console\Command;
+use Tools\Exceptionist;
 
 /**
  * Creates symbolic links for vendor assets
@@ -52,7 +53,7 @@ class FixComposerJsonCommand extends Command
         $path = $args->getOption('path') ?: add_slash_term(ROOT) . 'composer.json';
 
         try {
-            is_writable_or_fail($path);
+            Exceptionist::isWritable($path);
         } catch (Exception $e) {
             $io->err($e->getMessage());
             $this->abort();

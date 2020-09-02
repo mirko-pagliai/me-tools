@@ -16,6 +16,7 @@ namespace MeTools\View\Helper;
 use Cake\Core\Plugin;
 use Cake\I18n\I18n;
 use Cake\View\Helper;
+use Tools\Exceptionist;
 
 /**
  * Library helper
@@ -156,11 +157,13 @@ class LibraryHelper extends Helper
      * @return void
      * @see MeTools\View\Helper\FormHelper::ckeditor()
      * @see http://docs.cksource.com CKEditor documentation
+     * @throws \Tools\Exception\FileNotExistsException
+     * @throws \Tools\Exception\NotReadableException
      * @uses MeTools\View\Helper\Html::script()
      */
     public function ckeditor(bool $jquery = false): void
     {
-        is_readable_or_fail(WWW_ROOT . 'ckeditor' . DS . 'ckeditor.js');
+        Exceptionist::isReadable(WWW_ROOT . 'ckeditor' . DS . 'ckeditor.js');
 
         $scripts = ['/ckeditor/ckeditor'];
 

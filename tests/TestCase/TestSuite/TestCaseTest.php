@@ -69,7 +69,7 @@ class TestCaseTest extends TestCase
 
         //With a no existing log
         $this->expectException(AssertionFailedError::class);
-        $this->expectExceptionMessage('File or directory `' . $this->getLogFullPath('noExisting') . '` is not readable');
+        $this->expectExceptionMessage('File or directory `' . $this->getLogFullPath('noExisting') . '` does not exist');
         $this->assertLogContains('content', 'noExisting');
     }
 

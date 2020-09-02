@@ -1,5 +1,8 @@
 # 2.x branch
 ## 2.19 branch
+### 2.19.7
+* updated for `php-tools` 1.4.1.
+
 ### 2.19.6
 * come back. Fixed little bug for `TestCase` class.
 

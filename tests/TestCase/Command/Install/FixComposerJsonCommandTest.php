@@ -83,6 +83,6 @@ class FixComposerJsonCommandTest extends TestCase
     {
         $this->exec($this->command . ' -p noExisting');
         $this->assertExitWithError();
-        $this->assertErrorContains('File or directory `noExisting` is not writable');
+        $this->assertErrorContains('File or directory `noExisting` does not exist');
     }
 }

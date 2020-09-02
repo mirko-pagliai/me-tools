@@ -15,6 +15,7 @@ namespace MeTools\View\Helper;
 
 use Cake\Core\Exception\Exception;
 use Cake\View\Helper\HtmlHelper as CakeHtmlHelper;
+use Tools\Exceptionist;
 
 /**
  * Provides functionalities for HTML code
@@ -35,11 +36,12 @@ class HtmlHelper extends CakeHtmlHelper
      * @param string $method Name of the tag
      * @param array $params Params for the method
      * @return string
+     * @throws \Exception
      * @uses tag()
      */
     public function __call(string $method, array $params): string
     {
-        is_true_or_fail(count($params) < 3, sprintf('Method `%s::%s()` does not exist', __CLASS__, $method), Exception::class);
+        Exceptionist::isTrue(count($params) < 3, sprintf('Method `%s::%s()` does not exist', __CLASS__, $method), Exception::class);
 
         return self::tag($method, $params[0], $params[1] ?? []);
     }

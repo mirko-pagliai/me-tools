@@ -25,6 +25,7 @@ use MeTools\Command\Install\CreateVendorsLinksCommand;
 use MeTools\Command\Install\FixComposerJsonCommand;
 use MeTools\Command\Install\SetPermissionsCommand;
 use MeTools\Console\Command;
+use Tools\Exceptionist;
 
 /**
  * Executes all available commands
@@ -107,7 +108,7 @@ class RunAllCommand extends Command
         $questions = $args->getOption('force') ? Hash::extract($this->questions, '{n}[default=Y]') : $this->questions;
 
         foreach ($questions as $question) {
-            is_true_or_fail(!array_diff(array_keys($question), ['question', 'default', 'command']), 'Invalid question keys');
+            Exceptionist::isTrue(!array_diff(array_keys($question), ['question', 'default', 'command']), 'Invalid question keys');
             [$question, $default, $command] = array_values($question);
 
             //The method must be executed if the `force` mode is set or if the
