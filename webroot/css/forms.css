@@ -113,7 +113,7 @@ form.form-inline fieldset > :not(legend):last-child {
 /* -------------------------------- */
 /* Float form */
 form .float-form {
-    background: #F7F5FA;
+    background: #f7f5fa;
     border-radius: .3rem;
     margin-bottom: 1.5rem;
     padding: .75rem;
