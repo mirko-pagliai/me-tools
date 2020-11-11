@@ -18,6 +18,7 @@ use Cake\Console\ConsoleIo;
 use Cake\TestSuite\Stub\ConsoleOutput;
 use MeTools\TestSuite\ConsoleIntegrationTestTrait;
 use MeTools\TestSuite\TestCase;
+use Tools\Filesystem;
 
 /**
  * CommandTest class
@@ -45,8 +46,8 @@ class CommandTest extends TestCase
         parent::setUp();
 
         $this->Command = $this->getMockBuilder($this->getOriginClassName($this))
-                ->setMethods(null)
-                ->getMock();
+            ->setMethods(null)
+            ->getMock();
         $this->_out = new ConsoleOutput();
         $this->_err = new ConsoleOutput();
         $this->io = $this->getMockBuilder(ConsoleIo::class)
@@ -64,7 +65,7 @@ class CommandTest extends TestCase
     {
         parent::tearDown();
 
-        rmdir_recursive(TMP . 'exampleDir');
+        (new Filesystem())->rmdirRecursive(TMP . 'exampleDir');
     }
 
     /**
@@ -75,7 +76,7 @@ class CommandTest extends TestCase
     {
         $source = TMP . 'exampleDir' . DS . 'source';
         $dest = TMP . 'exampleDir' . DS . 'dest';
-        create_file($source);
+        (new Filesystem())->createFile($source);
 
         //Tries to copy. Source doesn't exist, then destination is not writable
         $this->assertFalse($this->Command->copyFile($this->io, TMP . 'noExistingFile', $dest));
@@ -101,7 +102,7 @@ class CommandTest extends TestCase
     {
         //Tries to create. Directory already exists
         $this->assertFalse($this->Command->createDir($this->io, TMP));
-        $this->assertOutputContains('File or directory `' . rtr(TMP) . '` already exists');
+        $this->assertOutputContains('File or directory `' . (new Filesystem())->rtr(TMP) . '` already exists');
 
         //Creates the directory
         $dir = TMP . 'exampleDir' . DS . 'firstDir' . DS . 'secondDir';
@@ -156,7 +157,7 @@ class CommandTest extends TestCase
     {
         $source = TMP . 'exampleDir' . DS . 'source';
         $dest = TMP . 'exampleDir' . DS . 'dest';
-        create_file($source);
+        (new Filesystem())->createFile($source);
 
         //Creates the link
         $this->assertTrue($this->Command->createLink($this->io, $source, $dest));

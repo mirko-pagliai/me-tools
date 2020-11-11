@@ -22,6 +22,7 @@ use MeTools\TestSuite\IntegrationTestTrait;
 use MeTools\TestSuite\TestCase;
 use PHPUnit\Framework\AssertionFailedError;
 use PHPUnit\Framework\MockObject\MockObject;
+use Tools\Filesystem;
 
 /**
  * IntegrationTestTraitTest class
@@ -53,7 +54,7 @@ class IntegrationTestTraitTest extends TestCase
         $this->assertEquals('with_flash', $this->_controller->viewBuilder()->getLayout());
 
         $this->assertInstanceOf(MockObject::class, $this->_controller->Uploader);
-        $source = create_tmp_file();
+        $source = (new Filesystem())->createTmpFile();
         $destination = TMP . 'example2';
         $this->assertFileNotExists($destination);
         $this->invokeMethod($this->_controller->Uploader, 'move_uploaded_file', [$source, $destination]);

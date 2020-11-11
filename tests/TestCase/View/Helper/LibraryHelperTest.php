@@ -21,6 +21,7 @@ use Cake\Http\ServerRequest;
 use Cake\View\View;
 use MeTools\TestSuite\HelperTestCase;
 use MeTools\View\Helper\HtmlHelper;
+use Tools\Filesystem;
 
 /**
  * LibraryHelperTest class
@@ -135,7 +136,7 @@ class LibraryHelperTest extends HelperTestCase
      */
     public function testCkeditor()
     {
-        create_file(WWW_ROOT . 'ckeditor' . DS . 'ckeditor.js');
+        (new Filesystem())->createFile(WWW_ROOT . 'ckeditor' . DS . 'ckeditor.js');
 
         $expected = [
             ['script' => ['src' => '/ckeditor/ckeditor.js']],
@@ -153,8 +154,8 @@ class LibraryHelperTest extends HelperTestCase
      */
     public function testCkeditorWithJqueryAdapter()
     {
-        create_file(WWW_ROOT . 'ckeditor' . DS . 'ckeditor.js');
-        create_file(WWW_ROOT . 'ckeditor' . DS . 'adapters' . DS . 'jquery.js');
+        (new Filesystem())->createFile(WWW_ROOT . 'ckeditor' . DS . 'ckeditor.js');
+        (new Filesystem())->createFile(WWW_ROOT . 'ckeditor' . DS . 'adapters' . DS . 'jquery.js');
 
         $expected = [
             ['script' => ['src' => '/ckeditor/ckeditor.js']],
@@ -174,8 +175,8 @@ class LibraryHelperTest extends HelperTestCase
      */
     public function testCkeditorWithJsFromApp()
     {
-        create_file(WWW_ROOT . 'ckeditor' . DS . 'ckeditor.js');
-        create_file(WWW_ROOT . 'js' . DS . 'ckeditor_init.js');
+        (new Filesystem())->createFile(WWW_ROOT . 'ckeditor' . DS . 'ckeditor.js');
+        (new Filesystem())->createFile(WWW_ROOT . 'js' . DS . 'ckeditor_init.js');
 
         $expected = [
             ['script' => ['src' => '/ckeditor/ckeditor.js']],
@@ -193,8 +194,8 @@ class LibraryHelperTest extends HelperTestCase
      */
     public function testCkeditorWithPhpFromApp()
     {
-        create_file(WWW_ROOT . 'ckeditor' . DS . 'ckeditor.js');
-        create_file(WWW_ROOT . 'js' . DS . 'ckeditor_init.php');
+        (new Filesystem())->createFile(WWW_ROOT . 'ckeditor' . DS . 'ckeditor.js');
+        (new Filesystem())->createFile(WWW_ROOT . 'js' . DS . 'ckeditor_init.php');
 
         $expected = [
             ['script' => ['src' => '/ckeditor/ckeditor.js']],
@@ -280,7 +281,7 @@ class LibraryHelperTest extends HelperTestCase
         $this->assertSame($expectedJs, $this->Helper->getView()->fetch('script_bottom'));
 
         //With che init file
-        @create_file(WWW_ROOT . 'js' . DS . 'fancybox_init.js');
+        (new Filesystem())->createFile(WWW_ROOT . 'js' . DS . 'fancybox_init.js');
         $expectedJs .= '<script src="/js/fancybox_init.js"></script>';
         $this->Helper->fancybox();
         $this->assertSame($expectedJs, $this->Helper->getView()->fetch('script_bottom'));

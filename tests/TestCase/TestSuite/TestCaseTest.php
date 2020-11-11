@@ -17,6 +17,7 @@ namespace MeTools\Test\TestCase\TestSuite;
 use Cake\ORM\Table;
 use MeTools\TestSuite\TestCase;
 use PHPUnit\Framework\AssertionFailedError;
+use Tools\Filesystem;
 use Tools\ReflectionTrait;
 
 /**
@@ -61,7 +62,7 @@ class TestCaseTest extends TestCase
     {
         $string = 'cat dog bird';
         $file = LOGS . 'debug.log';
-        create_file($file, $string);
+        (new Filesystem())->createFile($file, $string);
 
         foreach (explode(' ', $string) as $word) {
             $this->assertLogContains($word, $file);
@@ -79,8 +80,8 @@ class TestCaseTest extends TestCase
      */
     public function testDeleteLog()
     {
-        create_file(LOGS . 'first.log');
-        create_file(LOGS . 'second.log');
+        (new Filesystem())->createFile(LOGS . 'first.log');
+        (new Filesystem())->createFile(LOGS . 'second.log');
         $this->deleteLog('first');
         $this->deleteLog('second');
         $this->assertFileNotExists(LOGS . 'first.log');

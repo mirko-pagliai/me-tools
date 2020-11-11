@@ -20,6 +20,7 @@ use Cake\Console\ConsoleIo;
 use Cake\Console\ConsoleOptionParser;
 use Cake\Core\Configure;
 use MeTools\Console\Command;
+use Tools\Filesystem;
 
 /**
  * Creates symbolic links for vendor assets
@@ -44,12 +45,11 @@ class CreateVendorsLinksCommand extends Command
      */
     public function execute(Arguments $args, ConsoleIo $io): ?int
     {
+        $root = (new Filesystem())->addSlashTerm(ROOT) . 'vendor' . DS;
+        $wwwRoot = (new Filesystem())->addSlashTerm(WWW_ROOT) . 'vendor' . DS;
+
         foreach (Configure::read('VENDOR_LINKS') as $origin => $target) {
-            $this->createLink(
-                $io,
-                add_slash_term(ROOT) . 'vendor' . DS . $origin,
-                add_slash_term(WWW_ROOT) . 'vendor' . DS . $target
-            );
+            $this->createLink($io, $root . $origin, $wwwRoot . $target);
         }
 
         return null;

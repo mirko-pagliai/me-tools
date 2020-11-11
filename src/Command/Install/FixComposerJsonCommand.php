@@ -21,6 +21,7 @@ use Cake\Console\ConsoleOptionParser;
 use Exception;
 use MeTools\Console\Command;
 use Tools\Exceptionist;
+use Tools\Filesystem;
 
 /**
  * Creates symbolic links for vendor assets
@@ -49,7 +50,8 @@ class FixComposerJsonCommand extends Command
      */
     public function execute(Arguments $args, ConsoleIo $io): ?int
     {
-        $path = $args->getOption('path') ?: add_slash_term(ROOT) . 'composer.json';
+        $Filesystem = new Filesystem();
+        $path = $args->getOption('path') ?: $Filesystem->addSlashTerm(ROOT) . 'composer.json';
 
         try {
             Exceptionist::isWritable($path);
@@ -62,16 +64,16 @@ class FixComposerJsonCommand extends Command
         $contents = json_decode(file_get_contents($path), true);
 
         if (empty($contents)) {
-            $io->err(__d('me_tools', 'The file {0} does not seem a valid {1} file', rtr($path), 'composer.json'));
+            $io->err(__d('me_tools', 'File `{0}` does not seem a valid {1} file', $Filesystem->rtr($path), 'composer.json'));
             $this->abort();
         }
 
         //Checks if the file has been fixed
-        $message = __d('me_tools', 'The file {0} doesn\'t need to be fixed', rtr($path));
+        $message = __d('me_tools', 'File `{0}` doesn\'t need to be fixed', (new Filesystem())->rtr($path));
         if (empty($contents['config']['component-dir']) || $contents['config']['component-dir'] !== 'vendor/components') {
             $contents += ['config' => ['component-dir' => 'vendor/components']];
-            create_file($path, json_encode($contents, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
-            $message = __d('me_tools', 'The file {0} has been fixed', rtr($path));
+            $Filesystem->createFile($path, json_encode($contents, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
+            $message = __d('me_tools', 'File `{0}` has been fixed', $Filesystem->rtr($path));
         }
         $io->verbose($message);
 

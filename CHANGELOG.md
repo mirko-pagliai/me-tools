@@ -1,5 +1,8 @@
 # 2.x branch
 ## 2.19 branch
+### 2.19.8
+* updated for `php-tools` 1.4.4.
+
 ### 2.19.7
 * updated for `php-tools` 1.4.1.
 

@@ -16,6 +16,7 @@ namespace MeTools\Core;
 
 use Cake\Core\Exception\MissingPluginException;
 use Cake\Core\Plugin as CakePlugin;
+use Tools\Filesystem;
 
 /**
  * An utility to handle plugins
@@ -73,7 +74,7 @@ class Plugin extends CakePlugin
         $path = $plugin . $file;
 
         if ($check && !is_readable($path)) {
-            throw new MissingPluginException(__d('me_tools', 'File or directory `{0}` does not exist', rtr($path)));
+            throw new MissingPluginException(__d('me_tools', 'File or directory `{0}` does not exist', (new Filesystem())->rtr($path)));
         }
 
         return $path;

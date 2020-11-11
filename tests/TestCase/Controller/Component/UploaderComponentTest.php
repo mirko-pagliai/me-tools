@@ -20,6 +20,7 @@ use MeTools\Controller\Component\UploaderComponent;
 use MeTools\TestSuite\ComponentTestCase;
 use Psr\Http\Message\UploadedFileInterface;
 use RuntimeException;
+use Tools\Filesystem;
 
 /**
  * UploaderComponentTest class
@@ -33,7 +34,7 @@ class UploaderComponentTest extends ComponentTestCase
      */
     protected function createFile(int $error = UPLOAD_ERR_OK): UploadedFileInterface
     {
-        $file = create_tmp_file('string');
+        $file = (new Filesystem())->createTmpFile();
 
         return new UploadedFile($file, filesize($file), $error, basename($file), 'text/plain');
     }
@@ -44,8 +45,8 @@ class UploaderComponentTest extends ComponentTestCase
      */
     public function tearDown(): void
     {
-        unlink_recursive(UPLOADS);
-        rmdir_recursive(TMP . 'upload_test');
+        (new Filesystem())->unlinkRecursive(UPLOADS);
+        (new Filesystem())->rmdirRecursive(TMP . 'upload_test');
 
         parent::tearDown();
     }
@@ -72,6 +73,7 @@ class UploaderComponentTest extends ComponentTestCase
      */
     public function testFindTargetFilename()
     {
+        $Filesystem = new Filesystem();
         $findTargetFilenameMethod = function () {
             return $this->invokeMethod($this->Component, 'findTargetFilename', func_get_args());
         };
@@ -83,11 +85,11 @@ class UploaderComponentTest extends ComponentTestCase
         $this->assertEquals($file1, $findTargetFilenameMethod($file1));
 
         //Creates the first file
-        create_file($file1);
+        $Filesystem->createFile($file1);
         $this->assertEquals($file2, $findTargetFilenameMethod($file1));
 
         //Creates the second file
-        create_file($file2);
+        $Filesystem->createFile($file2);
         $this->assertEquals($file3, $findTargetFilenameMethod($file1));
 
         //Files without extension
@@ -96,7 +98,7 @@ class UploaderComponentTest extends ComponentTestCase
         $this->assertEquals($file1, $findTargetFilenameMethod($file1));
 
         //Creates the first file
-        create_file($file1);
+        $Filesystem->createFile($file1);
         $this->assertEquals($file2, $findTargetFilenameMethod($file1));
     }
 
@@ -121,7 +123,7 @@ class UploaderComponentTest extends ComponentTestCase
      */
     public function testSetWithFileAsArray()
     {
-        $file = create_tmp_file('string');
+        $file = (new Filesystem())->createTmpFile();
         $this->Component->set([
             'name' => basename($file),
             'type' => mime_content_type($file),
@@ -186,7 +188,7 @@ class UploaderComponentTest extends ComponentTestCase
         }
 
         //With file not successfully moved to the target directory
-        $file = create_tmp_file('string');
+        $file = (new Filesystem())->createTmpFile();
         $UploadedFile = $this->getMockBuilder(UploadedFile::class)
             ->setConstructorArgs([$file, filesize($file), UPLOAD_ERR_OK, basename($file), 'text/plain'])
             ->setMethods(['moveTo'])

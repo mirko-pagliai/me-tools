@@ -20,6 +20,7 @@ use Laminas\Diactoros\UploadedFile;
 use Psr\Http\Message\UploadedFileInterface;
 use RuntimeException;
 use Tools\Exceptionist;
+use Tools\Filesystem;
 
 /**
  * A component to upload files
@@ -147,7 +148,7 @@ class UploaderComponent extends Component
         Exceptionist::isDir($directory, RuntimeException::class);
 
         $filename = $filename ? basename($filename) : $this->findTargetFilename($this->file->getClientFilename());
-        $target = add_slash_term($directory) . $filename;
+        $target = (new Filesystem())->addSlashTerm($directory) . $filename;
 
         try {
             $this->file->moveTo($target);

@@ -19,6 +19,7 @@ use Cake\Console\Arguments;
 use Cake\Console\ConsoleIo;
 use Cake\Console\ConsoleOptionParser;
 use MeTools\Console\Command;
+use Tools\Filesystem;
 
 /**
  * Creates the `robots.txt` file
@@ -43,7 +44,7 @@ class CreateRobotsCommand extends Command
      */
     public function execute(Arguments $args, ConsoleIo $io): ?int
     {
-        $this->createFile($io, add_slash_term(WWW_ROOT) . 'robots.txt', 'User-agent: *' . PHP_EOL .
+        $this->createFile($io, (new Filesystem())->addSlashTerm(WWW_ROOT) . 'robots.txt', 'User-agent: *' . PHP_EOL .
             'Disallow: /admin/' . PHP_EOL . 'Disallow: /ckeditor/' . PHP_EOL .
             'Disallow: /css/' . PHP_EOL . 'Disallow: /js/' . PHP_EOL .
             'Disallow: /vendor/');
