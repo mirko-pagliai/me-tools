@@ -1,5 +1,6 @@
 <?php
 declare(strict_types=1);
+
 /**
  * This file is part of me-tools.
  *
@@ -30,7 +31,7 @@ class Plugin extends CakePlugin
      *  - `order`, if `true` the plugins will be sorted.
      * @param array $options Options
      * @return array Plugins
-     * @uses Cake\Core\Plugin::loaded()
+     * @uses \Cake\Core\Plugin::loaded()
      */
     public static function all(array $options = []): array
     {

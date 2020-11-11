@@ -1,5 +1,6 @@
 <?php
 declare(strict_types=1);
+
 /**
  * This file is part of me-tools.
  *
@@ -44,9 +45,6 @@ class OptionsParser
      * @param array $options Existing options
      * @param array|null $defaults Default values
      * @return $this
-     * @uses buildValue()
-     * @uses $Default
-     * @uses $options
      */
     public function __construct(array $options = [], $defaults = [])
     {
@@ -65,7 +63,6 @@ class OptionsParser
      * @param mixed $value Option value
      * @param string $key Option key
      * @return mixed
-     * @uses $toBeExploded
      */
     protected function buildValue(&$value, string $key)
     {
@@ -86,8 +83,6 @@ class OptionsParser
      * @param string|array $key Key or array with keys and values
      * @param mixed|null $value Value
      * @return $this
-     * @uses buildValue()
-     * @uses $options
      */
     public function add($key, $value = null)
     {
@@ -116,8 +111,6 @@ class OptionsParser
      * </code>
      * @param string|array $classes Classes string, array or multiple arguments
      * @return $this
-     * @uses append()
-     * @uses get()
      */
     public function addButtonClasses($classes = 'btn-light')
     {
@@ -163,7 +156,6 @@ class OptionsParser
      * @param string|array $key Key or array with keys and values
      * @param mixed|null $value Value
      * @return $this
-     * @uses add()
      */
     public function append($key, $value = null)
     {
@@ -196,8 +188,6 @@ class OptionsParser
      * @param string $key Key
      * @return mixed
      * @since 2.16.10
-     * @uses delete()
-     * @uses get()
      */
     public function consume(string $key)
     {
@@ -220,9 +210,6 @@ class OptionsParser
      * @param string $key Key
      * @param mixed $value Value
      * @return bool
-     * @uses exists()
-     * @uses get()
-     * @uses $toBeExploded
      */
     public function contains(string $key, $value): bool
     {
@@ -248,7 +235,6 @@ class OptionsParser
      * Delete a key
      * @param string|array $key Key or array of keys
      * @return $this
-     * @uses $options
      */
     public function delete($key)
     {
@@ -269,8 +255,6 @@ class OptionsParser
      * Checks if a key exists
      * @param string $key Key
      * @return bool
-     * @uses $Default
-     * @uses $options
      */
     public function exists(string $key): bool
     {
@@ -281,8 +265,6 @@ class OptionsParser
      * Gets the value for a key
      * @param string $key Key
      * @return mixed
-     * @uses $Default
-     * @uses $options
      */
     public function get(string $key)
     {
@@ -294,8 +276,6 @@ class OptionsParser
     /**
      * Returns options as array
      * @return array
-     * @uses $Default
-     * @uses $options
      */
     public function toArray(): array
     {
@@ -313,7 +293,6 @@ class OptionsParser
     /**
      * Returns options as string
      * @return string
-     * @uses toArray()
      */
     public function toString(): string
     {
@@ -342,11 +321,6 @@ class OptionsParser
      *  `data-placement` keys, as required by Bootstrap tooltips.
      * @return $this
      * @see http://getbootstrap.com/docs/4.0/components/tooltips
-     * @uses add()
-     * @uses append()
-     * @uses delete()
-     * @uses exists()
-     * @uses get()
      */
     public function tooltip()
     {

@@ -55,7 +55,6 @@ trait MockTrait
      * @param array|null $methods The list of methods to mock
      * @param string|null $alias Controller alias
      * @return \Cake\Controller\Controller|\PHPUnit_Framework_MockObject_MockObject
-     * @uses getControllerAlias()
      */
     protected function getMockForController(string $className, ?array $methods = [], ?string $alias = null): object
     {
@@ -105,7 +104,6 @@ trait MockTrait
      * @param object|string $testClass A test class as object or string
      * @return string The class name for which a test is being performed
      * @since 2.19.2
-     * @uses getOriginClassName()
      */
     public function getOriginClassNameOrFail($testClass): string
     {

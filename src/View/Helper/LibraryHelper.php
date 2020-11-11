@@ -1,5 +1,6 @@
 <?php
 declare(strict_types=1);
+
 /**
  * This file is part of me-tools.
  *
@@ -67,8 +68,6 @@ class LibraryHelper extends Helper
      * @param array $options Options for the datepicker
      * @return string jQuery code
      * @see http://eonasdan.github.io/bootstrap-datetimepicker Bootstrap 3 Datepicker v4 documentation
-     * @uses Assets\View\Helper\AssetHelper::css()
-     * @uses Assets\View\Helper\AssetHelper::script()
      */
     protected function buildDatetimepicker(string $input, array $options = []): string
     {
@@ -106,8 +105,6 @@ class LibraryHelper extends Helper
      * Before layout callback. beforeLayout is called before the layout is
      *  rendered
      * @return void
-     * @uses MeTools\View\Helper\HtmlHelper::scriptBlock()
-     * @uses $output
      */
     public function beforeLayout(): void
     {
@@ -132,7 +129,6 @@ class LibraryHelper extends Helper
     /**
      * Create a script block for Google Analytics
      * @param string $id Analytics ID
-     * @uses MeTools\View\Helper\HtmlHelper::scriptBlock()
      * @return string|null A script tag or `null`
      */
     public function analytics(string $id): ?string
@@ -159,7 +155,6 @@ class LibraryHelper extends Helper
      * @see http://docs.cksource.com CKEditor documentation
      * @throws \Tools\Exception\FileNotExistsException
      * @throws \Tools\Exception\NotReadableException
-     * @uses MeTools\View\Helper\Html::script()
      */
     public function ckeditor(bool $jquery = false): void
     {
@@ -195,10 +190,8 @@ class LibraryHelper extends Helper
      * @param string|null $input Target field. Default is `.datepicker`
      * @param array $options Options for the datepicker
      * @return void
-     * @see MeTools\View\Helper\FormHelper::datepicker()
-     * @see http://eonasdan.github.io/bootstrap-datetimepicker Bootstrap 3 Datepicker v4 documentation
-     * @uses buildDatetimepicker()
-     * @uses $output
+     * @link http://eonasdan.github.io/bootstrap-datetimepicker Bootstrap 3 Datepicker v4 documentation
+     * @see \MeTools\View\Helper\FormHelper::datepicker()
      */
     public function datepicker(?string $input = null, array $options = []): void
     {
@@ -216,10 +209,8 @@ class LibraryHelper extends Helper
      * @param string|null $input Target field. Default is `.datetimepicker`
      * @param array $options Options for the datetimepicker
      * @return void
-     * @see MeTools\View\Helper\FormHelper::datetimepicker()
-     * @see http://eonasdan.github.io/bootstrap-datetimepicker Bootstrap 3 Datepicker v4 documentation
-     * @uses buildDatetimepicker()
-     * @uses $output
+     * @link http://eonasdan.github.io/bootstrap-datetimepicker Bootstrap 3 Datepicker v4 documentation
+     * @see \MeTools\View\Helper\FormHelper::datetimepicker()
      */
     public function datetimepicker(?string $input = null, array $options = []): void
     {
@@ -229,8 +220,7 @@ class LibraryHelper extends Helper
     /**
      * Loads all fancybox files
      * @return void
-     * @see https://fancyapps.com/fancybox/3 fancybox documentation
-     * @uses Assets\View\Helper\AssetHelper::script()
+     * @link https://fancyapps.com/fancybox/3 fancybox documentation
      */
     public function fancybox(): void
     {
@@ -252,8 +242,7 @@ class LibraryHelper extends Helper
      * To render the "share buttons", you have to use the `HtmlHelper`.
      * @param string $siteId Shareaholic site ID
      * @return string|null Html code
-     * @uses Assets\View\Helper\AssetHelper::script()
-     * @see MeTools\View\Helper\HtmlHelper::shareaholic()
+     * @see \MeTools\View\Helper\HtmlHelper::shareaholic()
      */
     public function shareaholic(string $siteId): ?string
     {
@@ -273,8 +262,6 @@ class LibraryHelper extends Helper
      * @param string $sourceField Source field
      * @param string $targetField Target field
      * @return void
-     * @uses Assets\View\Helper\AssetHelper::script()
-     * @uses $output
      */
     public function slugify(string $sourceField = 'form #title', string $targetField = 'form #slug'): void
     {
@@ -293,10 +280,8 @@ class LibraryHelper extends Helper
      * @param string|null $input Target field. Default is `.timepicker`
      * @param array $options Options for the timepicker
      * @return void
-     * @see MeTools\View\Helper\FormHelper::timepicker()
-     * @see https://github.com/Eonasdan/bootstrap-datetimepicker Bootstrap v3 datetimepicker widget documentation
-     * @uses buildDatetimepicker()
-     * @uses $output
+     * @link https://github.com/Eonasdan/bootstrap-datetimepicker Bootstrap v3 datetimepicker widget documentation
+     * @see \MeTools\View\Helper\FormHelper::timepicker()
      */
     public function timepicker(?string $input = null, array $options = []): void
     {

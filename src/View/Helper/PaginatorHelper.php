@@ -1,5 +1,6 @@
 <?php
 declare(strict_types=1);
+
 /**
  * This file is part of me-tools.
  *
@@ -41,7 +42,6 @@ class PaginatorHelper extends CakePaginatorHelper
      * @param \Cake\View\View $View The View this helper is being attached to
      * @param array $config Configuration settings for the helper
      * @return void
-     * @uses $_defaultConfig
      */
     public function __construct(View $View, array $config = [])
     {

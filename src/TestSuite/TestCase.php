@@ -99,7 +99,6 @@ abstract class TestCase extends CakeTestCase
      * @param string $message The failure message that will be appended to the
      *  generated message
      * @return void
-     * @uses getLogFullPath()
      */
     public function assertLogContains(string $expectedContent, string $filename, string $message = ''): void
     {
@@ -119,7 +118,6 @@ abstract class TestCase extends CakeTestCase
      * Deletes a log file
      * @param string $filename Log filename
      * @return void
-     * @uses getLogFullPath()
      */
     public function deleteLog(string $filename): void
     {

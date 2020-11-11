@@ -34,8 +34,6 @@ trait ConsoleIntegrationTestTrait
     /**
      * Called before every test method
      * @return void
-     * @uses $Command
-     * @uses $autoInitializeClass
      */
     public function setUp(): void
     {

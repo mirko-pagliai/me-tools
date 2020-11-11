@@ -42,7 +42,6 @@ class UploaderComponent extends Component
      * Internal method to set an error
      * @param string $error Error
      * @return void
-     * @uses $error
      */
     protected function setError(string $error): void
     {
@@ -84,7 +83,6 @@ class UploaderComponent extends Component
     /**
      * Returns the first error
      * @return string|null First error or `null` with no errors
-     * @uses $error
      */
     public function getError(): ?string
     {
@@ -97,8 +95,6 @@ class UploaderComponent extends Component
      *  array or a magic word (`images` or `text`)
      * @return $this
      * @throws \RuntimeException
-     * @uses setError()
-     * @uses $file
      */
     public function mimetype($acceptedMimetype)
     {
@@ -134,10 +130,6 @@ class UploaderComponent extends Component
      * @return string|bool Final full path of the uploaded file or `false` on
      *  failure
      * @throws \RuntimeException
-     * @uses findTargetFilename()
-     * @uses getError()
-     * @uses setError()
-     * @uses $file
      */
     public function save(string $directory, ?string $filename = null)
     {
@@ -173,9 +165,6 @@ class UploaderComponent extends Component
      *  `$this->getRequest()->getData('file')`)
      * @param \Psr\Http\Message\UploadedFileInterface|array $file Uploaded file information
      * @return $this
-     * @uses setError()
-     * @uses $error
-     * @uses $file
      */
     public function set($file)
     {

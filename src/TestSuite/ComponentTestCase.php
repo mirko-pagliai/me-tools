@@ -37,8 +37,6 @@ abstract class ComponentTestCase extends TestCase
     /**
      * Called before every test method
      * @return void
-     * @uses $Component
-     * @uses $autoInitializeClass
      */
     public function setUp(): void
     {

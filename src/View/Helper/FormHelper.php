@@ -47,7 +47,6 @@ class FormHelper extends CakeFormHelper
      * @param \Cake\View\View $view The View this helper is being attached to
      * @param array $config Configuration settings for the helper
      * @return void
-     * @uses $_defaultConfig
      */
     public function __construct(View $view, array $config = [])
     {
@@ -133,7 +132,6 @@ class FormHelper extends CakeFormHelper
      * @param array $options HTML attributes and options
      * @return string
      * @see MeTools\View\Helper\LibraryHelper::ckeditor()
-     * @uses control()
      */
     public function ckeditor(string $fieldName, array $options = []): string
     {
@@ -150,7 +148,6 @@ class FormHelper extends CakeFormHelper
      * @param string $fieldName Field name, should be "Modelname.fieldname"
      * @param array $options HTML attributes and options
      * @return string
-     * @uses $inline
      */
     public function control(string $fieldName, array $options = []): string
     {
@@ -213,7 +210,6 @@ class FormHelper extends CakeFormHelper
      *  If `false` no model is used
      * @param array $options HTML attributes and options
      * @return string An formatted opening `<form>` tag
-     * @uses createInline()
      */
     public function create($model = null, array $options = []): string
     {
@@ -239,7 +235,6 @@ class FormHelper extends CakeFormHelper
      *  If `false` no model is used
      * @param array $options HTML attributes and options
      * @return string An formatted opening `<form>` tag
-     * @uses $inline
      */
     public function createInline($model = null, array $options = []): string
     {
@@ -256,9 +251,7 @@ class FormHelper extends CakeFormHelper
      * @param string $fieldName Field name, should be "Modelname.fieldname"
      * @param array $options HTML attributes and options
      * @return string
-     * @see MeTools\View\Helper\LibraryHelper::datepicker()
-     * @uses __datetimepickerOptions()
-     * @uses control()
+     * @see \MeTools\View\Helper\LibraryHelper::datepicker()
      */
     public function datepicker(string $fieldName, array $options = []): string
     {
@@ -274,9 +267,7 @@ class FormHelper extends CakeFormHelper
      * @param string $fieldName Field name, should be "Modelname.fieldname"
      * @param array $options HTML attributes and options
      * @return string
-     * @see MeTools\View\Helper\LibraryHelper::datetimepicker()
-     * @uses __datetimepickerOptions()
-     * @uses control()
+     * @see \MeTools\View\Helper\LibraryHelper::datetimepicker()
      */
     public function datetimepicker(string $fieldName, array $options = []): string
     {
@@ -292,7 +283,6 @@ class FormHelper extends CakeFormHelper
      *  as HTML attributes into the hidden input elements generated for the
      *  Security Component.
      * @return string
-     * @uses $inline
      */
     public function end(array $secureAttributes = []): string
     {
@@ -342,7 +332,6 @@ class FormHelper extends CakeFormHelper
      *  parameters or external URL
      * @param array $options Array of options and HTML attributes
      * @return string Html code
-     * @uses postLink()
      */
     public function postButton(?string $title = null, $url = null, array $options = []): string
     {
@@ -399,7 +388,6 @@ class FormHelper extends CakeFormHelper
      *  an image
      * @param array $options HTML attributes and options
      * @return string
-     * @uses button()
      */
     public function submit(?string $caption = null, array $options = []): string
     {
@@ -428,9 +416,7 @@ class FormHelper extends CakeFormHelper
      * @param string $fieldName Field name, should be "Modelname.fieldname"
      * @param array $options HTML attributes and options
      * @return string
-     * @see MeTools\View\Helper\LibraryHelper::timepicker()
-     * @uses __datetimepickerOptions()
-     * @uses control()
+     * @see \MeTools\View\Helper\LibraryHelper::timepicker()
      */
     public function timepicker(string $fieldName, array $options = []): string
     {

@@ -1,5 +1,6 @@
 <?php
 declare(strict_types=1);
+
 /**
  * This file is part of me-tools.
  *
@@ -50,7 +51,6 @@ abstract class Command extends CakeCommand
      * @param string $source Source file
      * @param string $dest Destination file
      * @return bool
-     * @uses verboseIfFileExists()
      */
     public function copyFile(ConsoleIo $io, string $source, string $dest): bool
     {
@@ -81,8 +81,6 @@ abstract class Command extends CakeCommand
      * @param \Cake\Console\ConsoleIo $io The console io
      * @param string $path Directory path
      * @return bool
-     * @uses folderChmod()
-     * @uses verboseIfFileExists()
      */
     public function createDir(ConsoleIo $io, string $path): bool
     {
@@ -108,7 +106,6 @@ abstract class Command extends CakeCommand
      * @param string $path Where to put the file
      * @param string $contents Content to put in the file
      * @return bool
-     * @uses verboseIfFileExists()
      */
     public function createFile(ConsoleIo $io, string $path, string $contents): bool
     {

@@ -37,8 +37,6 @@ abstract class HelperTestCase extends TestCase
     /**
      * Called before every test method
      * @return void
-     * @uses $Helper
-     * @uses $autoInitializeClass
      */
     public function setUp(): void
     {

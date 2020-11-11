@@ -1,5 +1,6 @@
 <?php
 declare(strict_types=1);
+
 /**
  * This file is part of me-tools.
  *
@@ -37,7 +38,6 @@ class HtmlHelper extends CakeHtmlHelper
      * @param array $params Params for the method
      * @return string
      * @throws \Exception
-     * @uses tag()
      */
     public function __call(string $method, array $params): string
     {
@@ -52,7 +52,6 @@ class HtmlHelper extends CakeHtmlHelper
      * @param array $options Array of options and HTML attributes
      * @return string
      * @see http://getbootstrap.com/components/#badges Bootstrap documentation
-     * @uses tag()
      */
     public function badge(string $text, array $options = []): string
     {
@@ -71,8 +70,6 @@ class HtmlHelper extends CakeHtmlHelper
      *  parameters or external URL
      * @param array $options Array of options and HTML attributes
      * @return string
-     * @uses link()
-     * @uses tag()
      */
     public function button(?string $title = null, $url = null, array $options = []): string
     {
@@ -177,8 +174,6 @@ class HtmlHelper extends CakeHtmlHelper
      * @param array $smallOptions Array of options and HTML attributes
      * @return string
      * @see http://getbootstrap.com/css/#type-headings Bootstrap documentation
-     * @uses small()
-     * @uses tag()
      */
     public function heading(string $text, array $options = [], ?string $small = null, array $smallOptions = []): string
     {
@@ -195,7 +190,6 @@ class HtmlHelper extends CakeHtmlHelper
      * Creates an horizontal rule (`<hr>` tag)
      * @param array $options Array of options and HTML attributes
      * @return string
-     * @uses tag()
      */
     public function hr(array $options = []): string
     {
@@ -211,8 +205,6 @@ class HtmlHelper extends CakeHtmlHelper
      * @param array $options Array of options and HTML attributes
      * @return string
      * @see http://getbootstrap.com/components/#responsive-embed Responsive embed
-     * @uses div()
-     * @uses tag()
      */
     public function iframe(string $url, array $options = []): string
     {
@@ -274,7 +266,6 @@ class HtmlHelper extends CakeHtmlHelper
      * @param array $options HTML attributes of the list tag
      * @return string
      * @see http://getbootstrap.com/components/#labels Bootstrap documentation
-     * @uses tag()
      */
     public function label(string $text, array $options = []): string
     {
@@ -292,7 +283,6 @@ class HtmlHelper extends CakeHtmlHelper
      * @param string|array $element Element or elements
      * @param array $options HTML attributes of the list tag
      * @return string
-     * @uses tag()
      */
     public function li($element, array $options = []): string
     {
@@ -378,7 +368,6 @@ class HtmlHelper extends CakeHtmlHelper
      * @param array $options HTML attributes of the list tag
      * @param array $itemOptions HTML attributes of the list items
      * @return string
-     * @uses nestedList()
      */
     public function ol(array $list, array $options = [], array $itemOptions = []): string
     {
@@ -454,8 +443,7 @@ class HtmlHelper extends CakeHtmlHelper
      * To add the "setup code", you have to use the `LayoutHelper`.
      * @param string $appId Shareaholic app ID
      * @return string
-     * @see MeTools\View\Helper\LayoutHelper::shareaholic()
-     * @uses div()
+     * @see \MeTools\View\Helper\LayoutHelper::shareaholic()
      */
     public function shareaholic(string $appId): string
     {
@@ -487,7 +475,6 @@ class HtmlHelper extends CakeHtmlHelper
      * @param array $options HTML attributes of the list tag
      * @param array $itemOptions HTML attributes of the list items
      * @return string
-     * @uses nestedList()
      */
     public function ul(array $list, array $options = [], array $itemOptions = []): string
     {
@@ -501,7 +488,6 @@ class HtmlHelper extends CakeHtmlHelper
      *  attribute is html, rss, atom, or icon, the mime-type is returned
      * @return string|null
      * @see http://getbootstrap.com/css/#overview-mobile Bootstrap documentation
-     * @uses meta()
      */
     public function viewport(array $options = []): ?string
     {
@@ -522,7 +508,6 @@ class HtmlHelper extends CakeHtmlHelper
      * @param string $id YouTube video ID
      * @param array $options Array of options and HTML attributes
      * @return string
-     * @uses iframe()
      */
     public function youtube(string $id, array $options = []): string
     {

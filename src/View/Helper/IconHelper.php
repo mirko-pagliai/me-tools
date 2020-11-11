@@ -1,5 +1,6 @@
 <?php
 declare(strict_types=1);
+
 /**
  * This file is part of me-tools.
  *
@@ -28,7 +29,6 @@ class IconHelper extends CakeHtmlHelper
      * @param \MeTools\View\OptionsParser $options Instance of `OptionsParser`
      * @return array Text with icons and instance of `OptionsParser`
      * @since 2.16.2-beta
-     * @uses icon()
      */
     public function addIconToText($text, OptionsParser $options): array
     {
@@ -93,7 +93,6 @@ class IconHelper extends CakeHtmlHelper
      * @param string|array $icon Icons. You can also pass multiple arguments
      * @return string
      * @see http://fontawesome.com Font Awesome icons
-     * @uses buildIconClasses()
      */
     public function icon($icon): string
     {
