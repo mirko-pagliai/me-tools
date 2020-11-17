@@ -16,6 +16,7 @@ namespace MeTools\Core;
 
 use Cake\Core\Exception\MissingPluginException;
 use Cake\Core\Plugin as CakePlugin;
+use Tools\Exceptionist;
 use Tools\Filesystem;
 
 /**
@@ -42,13 +43,10 @@ class Plugin extends CakePlugin
         $plugins = $options['core'] ? $plugins : array_diff($plugins, ['DebugKit', 'Migrations', 'Bake']);
         $plugins = !$options['exclude'] ? $plugins : array_diff($plugins, (array)$options['exclude']);
 
-        if ($options['order']) {
-            $key = array_search('MeTools', $plugins);
-
-            if ($key) {
-                unset($plugins[$key]);
-                array_unshift($plugins, 'MeTools');
-            }
+        $key = array_search('MeTools', $plugins);
+        if ($options['order'] && $key) {
+            unset($plugins[$key]);
+            array_unshift($plugins, 'MeTools');
         }
 
         return $plugins;
@@ -66,16 +64,12 @@ class Plugin extends CakePlugin
     public static function path(string $name, ?string $file = null, bool $check = false): string
     {
         $plugin = parent::path($name);
-
         if (!$file) {
             return $plugin;
         }
 
         $path = $plugin . $file;
-
-        if ($check && !is_readable($path)) {
-            throw new MissingPluginException(__d('me_tools', 'File or directory `{0}` does not exist', (new Filesystem())->rtr($path)));
-        }
+        Exceptionist::isTrue(is_readable($path) || !$check, __d('me_tools', 'File or directory `{0}` does not exist', (new Filesystem())->rtr($path)), MissingPluginException::class);
 
         return $path;
     }

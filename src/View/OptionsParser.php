@@ -46,7 +46,7 @@ class OptionsParser
      * @param array|null $defaults Default values
      * @return $this
      */
-    public function __construct(array $options = [], $defaults = [])
+    public function __construct(array $options = [], ?array $defaults = [])
     {
         array_walk($options, [$this, 'buildValue']);
         $this->options = $options;
@@ -280,7 +280,6 @@ class OptionsParser
     public function toArray(): array
     {
         $options = $this->options;
-
         if ($this->Default) {
             $options = array_merge($this->Default->options, $options);
         }
@@ -325,7 +324,6 @@ class OptionsParser
     public function tooltip()
     {
         $tooltip = $this->consume('tooltip');
-
         if (!$tooltip) {
             return $this;
         }

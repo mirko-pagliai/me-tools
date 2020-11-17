@@ -1,5 +1,6 @@
 <?php
 declare(strict_types=1);
+
 /**
  * This file is part of me-tools.
  *
@@ -13,7 +14,7 @@ declare(strict_types=1);
  */
 namespace MeTools\Test\TestCase\View\Helper;
 
-use Cake\Core\Exception\Exception;
+use ErrorException;
 use MeTools\TestSuite\HelperTestCase;
 use MeTools\View\Helper\HtmlHelper;
 
@@ -46,7 +47,7 @@ class HtmlHelperTest extends HelperTestCase
         $this->assertEquals($expected, $result);
 
         //With a no existing method
-        $this->expectException(Exception::class);
+        $this->expectException(ErrorException::class);
         $this->expectExceptionMessage('Method `' . HtmlHelper::class . '::noExistingMethod()` does not exist');
         $this->Helper->noExistingMethod(null, null, null);
     }

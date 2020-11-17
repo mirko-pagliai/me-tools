@@ -18,7 +18,6 @@ use Cake\Controller\Component;
 use Laminas\Diactoros\Exception\UploadedFileErrorException;
 use Laminas\Diactoros\UploadedFile;
 use Psr\Http\Message\UploadedFileInterface;
-use RuntimeException;
 use Tools\Exceptionist;
 use Tools\Filesystem;
 
@@ -58,12 +57,11 @@ class UploaderComponent extends Component
     {
         //If the file already exists, adds a numeric suffix
         if (file_exists($target)) {
-            $dirname = dirname($target) . DS;
             $filename = pathinfo($target, PATHINFO_FILENAME);
             $extension = pathinfo($target, PATHINFO_EXTENSION);
 
             //Initial tmp name
-            $tmp = $dirname . $filename;
+            $tmp = dirname($target) . DS . $filename;
 
             for ($i = 1;; $i++) {
                 $target = $tmp . '_' . $i;
@@ -95,14 +93,13 @@ class UploaderComponent extends Component
      * @param string|array $acceptedMimetype Accepted mimetypes as string or
      *  array or a magic word (`images` or `text`)
      * @return $this
-     * @throws \RuntimeException
+     * @throws \ErrorException
      */
     public function mimetype($acceptedMimetype)
     {
         Exceptionist::isTrue(
             $this->file instanceof UploadedFileInterface,
-            __d('me_tools', 'There are no uploaded file information'),
-            RuntimeException::class
+            __d('me_tools', 'There are no uploaded file information')
         );
 
         //Changes magic words
@@ -130,14 +127,13 @@ class UploaderComponent extends Component
      *  generated automatically
      * @return string|bool Final full path of the uploaded file or `false` on
      *  failure
-     * @throws \RuntimeException
+     * @throws \ErrorException
      */
     public function save(string $directory, ?string $filename = null)
     {
         Exceptionist::isTrue(
             $this->file instanceof UploadedFileInterface,
-            __d('me_tools', 'There are no uploaded file information'),
-            RuntimeException::class
+            __d('me_tools', 'There are no uploaded file information')
         );
 
         //Checks for previous errors
@@ -145,10 +141,9 @@ class UploaderComponent extends Component
             return false;
         }
 
-        Exceptionist::isDir($directory, RuntimeException::class);
-
+        Exceptionist::isDir($directory);
         $filename = $filename ? basename($filename) : $this->findTargetFilename($this->file->getClientFilename());
-        $target = (new Filesystem())->addSlashTerm($directory) . $filename;
+        $target = (new Filesystem())->concatenate($directory, $filename);
 
         try {
             $this->file->moveTo($target);

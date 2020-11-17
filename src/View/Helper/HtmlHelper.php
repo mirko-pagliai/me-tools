@@ -14,7 +14,6 @@ declare(strict_types=1);
  */
 namespace MeTools\View\Helper;
 
-use Cake\Core\Exception\Exception;
 use Cake\View\Helper\HtmlHelper as CakeHtmlHelper;
 use Tools\Exceptionist;
 
@@ -37,11 +36,11 @@ class HtmlHelper extends CakeHtmlHelper
      * @param string $method Name of the tag
      * @param array $params Params for the method
      * @return string
-     * @throws \Exception
+     * @throws \ErrorException
      */
     public function __call(string $method, array $params): string
     {
-        Exceptionist::isTrue(count($params) < 3, sprintf('Method `%s::%s()` does not exist', __CLASS__, $method), Exception::class);
+        Exceptionist::isTrue(count($params) < 3, sprintf('Method `%s::%s()` does not exist', __CLASS__, $method));
 
         return self::tag($method, $params[0], $params[1] ?? []);
     }
@@ -216,10 +215,7 @@ class HtmlHelper extends CakeHtmlHelper
             if (in_array($ratio, ['16by9', '4by3'])) {
                 $options->append('class', 'embed-responsive-item');
 
-                return self::div(
-                    sprintf('embed-responsive embed-responsive-%s', $ratio),
-                    self::tag('iframe', null, $options->toArray())
-                );
+                return self::div('embed-responsive embed-responsive-' . $ratio, self::tag('iframe', null, $options->toArray()));
             }
         }
 
@@ -290,11 +286,9 @@ class HtmlHelper extends CakeHtmlHelper
             return self::tag('li', $element, $options);
         }
 
-        $element = array_map(function (string $element) use ($options) {
+        return implode(PHP_EOL, array_map(function (string $element) use ($options) {
             return self::tag('li', $element, $options);
-        }, $element);
-
-        return implode(PHP_EOL, $element);
+        }, $element));
     }
 
     /**
@@ -400,9 +394,7 @@ class HtmlHelper extends CakeHtmlHelper
      */
     public function script($url, array $options = []): ?string
     {
-        $options = optionsParser($options, ['block' => true]);
-
-        return parent::script($url, $options->toArray());
+        return parent::script($url, optionsParser($options, ['block' => true])->toArray());
     }
 
     /**
@@ -413,9 +405,7 @@ class HtmlHelper extends CakeHtmlHelper
      */
     public function scriptBlock(string $script, array $options = []): ?string
     {
-        $options = optionsParser($options, ['block' => true]);
-
-        return parent::scriptBlock($script, $options->toArray());
+        return parent::scriptBlock($script, optionsParser($options, ['block' => true])->toArray());
     }
 
     /**
@@ -431,9 +421,7 @@ class HtmlHelper extends CakeHtmlHelper
      */
     public function scriptStart(array $options = []): void
     {
-        $options = optionsParser($options, ['block' => 'script_bottom']);
-
-        parent::scriptStart($options->toArray());
+        parent::scriptStart(optionsParser($options, ['block' => 'script_bottom'])->toArray());
     }
 
     /**
@@ -466,7 +454,7 @@ class HtmlHelper extends CakeHtmlHelper
         $options = optionsParser($options);
         [$text, $options] = $this->Icon->addIconToText($text, $options->tooltip());
 
-        return parent::tag($name, is_null($text) ? '' : $text, $options->toArray());
+        return parent::tag($name, $text ?? '', $options->toArray());
     }
 
     /**

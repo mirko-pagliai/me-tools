@@ -34,7 +34,6 @@ class IconHelper extends CakeHtmlHelper
     {
         $icon = $options->consume('icon');
         $align = $options->consume('icon-align');
-
         if (!$icon) {
             return [$text, $options];
         }

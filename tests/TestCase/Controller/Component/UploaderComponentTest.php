@@ -14,12 +14,12 @@ declare(strict_types=1);
  */
 namespace MeTools\Test\TestCase\Controller\Component;
 
+use ErrorException;
 use Laminas\Diactoros\Exception\UploadedFileErrorException;
 use Laminas\Diactoros\UploadedFile;
 use MeTools\Controller\Component\UploaderComponent;
 use MeTools\TestSuite\ComponentTestCase;
 use Psr\Http\Message\UploadedFileInterface;
-use RuntimeException;
 use Tools\Filesystem;
 
 /**
@@ -160,7 +160,7 @@ class UploaderComponentTest extends ComponentTestCase
         }
 
         //With no file
-        $this->expectException(RuntimeException::class);
+        $this->expectException(ErrorException::class);
         $this->expectExceptionMessage('There are no uploaded file information');
         $this->getMockForComponent(UploaderComponent::class, null)->mimetype('text/plain');
     }
@@ -201,7 +201,7 @@ class UploaderComponentTest extends ComponentTestCase
         $this->assertSame('The file was not successfully moved to the target directory', $this->Component->getError());
 
         //With no file
-        $this->expectException(RuntimeException::class);
+        $this->expectException(ErrorException::class);
         $this->expectExceptionMessage('There are no uploaded file information');
         $this->getMockForComponent(UploaderComponent::class, null)->save('');
     }

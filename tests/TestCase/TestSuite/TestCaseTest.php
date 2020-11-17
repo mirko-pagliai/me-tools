@@ -80,11 +80,9 @@ class TestCaseTest extends TestCase
      */
     public function testDeleteLog()
     {
-        (new Filesystem())->createFile(LOGS . 'first.log');
-        (new Filesystem())->createFile(LOGS . 'second.log');
-        $this->deleteLog('first');
-        $this->deleteLog('second');
-        $this->assertFileNotExists(LOGS . 'first.log');
-        $this->assertFileNotExists(LOGS . 'second.log');
+        $logs = [LOGS . 'first.log', LOGS . 'second.log'];
+        array_map([new Filesystem(), 'createFile'], $logs);
+        array_map([$this, 'deleteLog'], ['first', 'second']);
+        array_map([$this, 'assertFileDoesNotExist'], $logs);
     }
 }

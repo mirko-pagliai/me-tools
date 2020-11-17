@@ -21,9 +21,10 @@ use Cake\ORM\TableRegistry;
 use Cake\TestSuite\TestCase as CakeTestCase;
 use Exception;
 use MeTools\TestSuite\MockTrait;
-use Symfony\Component\Filesystem\Filesystem;
 use Tools\Exceptionist;
+use Tools\Filesystem;
 use Tools\ReflectionTrait;
+use Tools\TestSuite\BackwardCompatibilityTrait;
 use Tools\TestSuite\TestTrait;
 
 /**
@@ -31,6 +32,7 @@ use Tools\TestSuite\TestTrait;
  */
 abstract class TestCase extends CakeTestCase
 {
+    use BackwardCompatibilityTrait;
     use MockTrait;
     use ReflectionTrait;
     use TestTrait;
@@ -55,7 +57,7 @@ abstract class TestCase extends CakeTestCase
         parent::tearDown();
 
         if (LOGS !== TMP) {
-            @unlink_recursive(LOGS, ['.gitkeep', 'empty']);
+            (new Filesystem())->unlinkRecursive(LOGS, ['.gitkeep', 'empty']);
         }
     }
 
@@ -71,7 +73,7 @@ abstract class TestCase extends CakeTestCase
             $filename .= '.log';
         }
 
-        return (new Filesystem())->isAbsolutePath($filename) ? $filename : LOGS . $filename;
+        return (new Filesystem())->makePathAbsolute($filename, LOGS);
     }
 
     /**
@@ -102,9 +104,8 @@ abstract class TestCase extends CakeTestCase
      */
     public function assertLogContains(string $expectedContent, string $filename, string $message = ''): void
     {
-        $filename = $this->getLogFullPath($filename);
-
         try {
+            $filename = $this->getLogFullPath($filename);
             Exceptionist::isReadable($filename);
             $content = file_get_contents($filename);
         } catch (Exception $e) {

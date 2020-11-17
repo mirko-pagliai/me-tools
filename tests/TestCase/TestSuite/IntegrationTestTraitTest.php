@@ -1,5 +1,6 @@
 <?php
 declare(strict_types=1);
+
 /**
  * This file is part of me-tools.
  *
@@ -46,7 +47,7 @@ class IntegrationTestTraitTest extends TestCase
      * Test for `controllerSpy()` method
      * @test
      */
-    public function testcontrollerSpy()
+    public function testControllerSpy()
     {
         $this->_controller = new Controller();
         $this->_controller->loadComponent('MeTools.Uploader');
@@ -56,9 +57,9 @@ class IntegrationTestTraitTest extends TestCase
         $this->assertInstanceOf(MockObject::class, $this->_controller->Uploader);
         $source = (new Filesystem())->createTmpFile();
         $destination = TMP . 'example2';
-        $this->assertFileNotExists($destination);
+        $this->assertFileDoesNotExist($destination);
         $this->invokeMethod($this->_controller->Uploader, 'move_uploaded_file', [$source, $destination]);
-        $this->assertFileNotExists($source);
+        $this->assertFileDoesNotExist($source);
         $this->assertFileExists($destination);
         unlink($destination);
     }

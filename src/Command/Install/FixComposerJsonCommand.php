@@ -51,7 +51,7 @@ class FixComposerJsonCommand extends Command
     public function execute(Arguments $args, ConsoleIo $io): ?int
     {
         $Filesystem = new Filesystem();
-        $path = $args->getOption('path') ?: $Filesystem->addSlashTerm(ROOT) . 'composer.json';
+        $path = $args->getOption('path') ?: $Filesystem->concatenate(ROOT, 'composer.json');
 
         try {
             Exceptionist::isWritable($path);

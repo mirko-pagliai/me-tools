@@ -45,8 +45,9 @@ class CreateVendorsLinksCommand extends Command
      */
     public function execute(Arguments $args, ConsoleIo $io): ?int
     {
-        $root = (new Filesystem())->addSlashTerm(ROOT) . 'vendor' . DS;
-        $wwwRoot = (new Filesystem())->addSlashTerm(WWW_ROOT) . 'vendor' . DS;
+        $Filesystem = new Filesystem();
+        $root = $Filesystem->concatenate(ROOT, 'vendor') . DS;
+        $wwwRoot = $Filesystem->concatenate(WWW_ROOT, 'vendor') . DS;
 
         foreach (Configure::read('VENDOR_LINKS') as $origin => $target) {
             $this->createLink($io, $root . $origin, $wwwRoot . $target);

@@ -1,5 +1,6 @@
 <?php
 declare(strict_types=1);
+
 /**
  * This file is part of me-tools.
  *
@@ -39,14 +40,17 @@ define('LOGS', TMP . 'cakephp_log' . DS);
 define('SESSIONS', TMP . 'sessions' . DS);
 define('UPLOADS', TMP . 'uploads' . DS);
 
-@mkdir(TMP . 'tests', 0777, true);
-@mkdir(LOGS, 0777, true);
-@mkdir(SESSIONS, 0777, true);
-@mkdir(CACHE, 0777, true);
-@mkdir(CACHE . 'models', 0777, true);
-@mkdir(CACHE . 'persistent', 0777, true);
-@mkdir(CACHE . 'views', 0777, true);
-@mkdir(UPLOADS, 0777, true);
+foreach ([
+    TMP . 'tests',
+    LOGS,
+    SESSIONS,
+    CACHE . 'models',
+    CACHE . 'persistent',
+    CACHE . 'views',
+    UPLOADS,
+] as $dir) {
+    @mkdir($dir, 0777, true);
+}
 
 require_once dirname(__DIR__) . '/vendor/autoload.php';
 require_once CORE_PATH . 'config' . DS . 'bootstrap.php';

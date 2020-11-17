@@ -126,8 +126,7 @@ class DropdownHelper extends Helper
     public function end(array $divOptions = []): ?string
     {
         $buffer = ob_get_contents();
-
-        if (empty($buffer)) {
+        if (!$buffer) {
             return null;
         }
 

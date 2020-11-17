@@ -1,5 +1,6 @@
 <?php
 declare(strict_types=1);
+
 /**
  * This file is part of me-tools.
  *
@@ -34,24 +35,26 @@ class OptionsParserTest extends TestCase
     {
         parent::setUp();
 
-        $options = [
-            'array' => ['second', 'first'],
-            'alt' => 'this is a string',
-            'false' => false,
-            'class' => 'first second third fourth',
-            'true' => true,
-            'null' => null,
-            'zero' => 0,
-            'zeroAsString' => '0',
-            'zeroDotOne' => 0.1,
-            'negative' => -1,
-        ];
-        $defaults = [
-            'alt' => 'this value will not be used',
-            'defaultKey' => 'defaultValue',
-        ];
+        if (!$this->OptionsParser) {
+            $options = [
+                'array' => ['second', 'first'],
+                'alt' => 'this is a string',
+                'false' => false,
+                'class' => 'first second third fourth',
+                'true' => true,
+                'null' => null,
+                'zero' => 0,
+                'zeroAsString' => '0',
+                'zeroDotOne' => 0.1,
+                'negative' => -1,
+            ];
+            $defaults = [
+                'alt' => 'this value will not be used',
+                'defaultKey' => 'defaultValue',
+            ];
 
-        $this->OptionsParser = new OptionsParser($options, $defaults);
+            $this->OptionsParser = new OptionsParser($options, $defaults);
+        }
     }
 
     /**
