@@ -44,7 +44,6 @@ class OptionsParser
      * Constructor
      * @param array $options Existing options
      * @param array|null $defaults Default values
-     * @return $this
      */
     public function __construct(array $options = [], ?array $defaults = [])
     {
@@ -54,8 +53,6 @@ class OptionsParser
         if (!is_null($defaults)) {
             $this->Default = new OptionsParser($defaults, null);
         }
-
-        return $this;
     }
 
     /**

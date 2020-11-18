@@ -39,7 +39,7 @@ trait MockTrait
      * Mocks a component
      * @param string $className Component class name
      * @param array|null $methods The list of methods to mock
-     * @return \Cake\Controller\Component|\PHPUnit_Framework_MockObject_MockObject
+     * @return \Cake\Controller\Component|\PHPUnit\Framework\MockObject\MockObject
      */
     protected function getMockForComponent(string $className, ?array $methods = []): object
     {
@@ -54,7 +54,7 @@ trait MockTrait
      * @param string $className Controller class name
      * @param array|null $methods The list of methods to mock
      * @param string|null $alias Controller alias
-     * @return \Cake\Controller\Controller|\PHPUnit_Framework_MockObject_MockObject
+     * @return \Cake\Controller\Controller|\PHPUnit\Framework\MockObject\MockObject
      */
     protected function getMockForController(string $className, ?array $methods = [], ?string $alias = null): object
     {
@@ -71,7 +71,7 @@ trait MockTrait
      * Mocks an helper
      * @param string $className Helper class name
      * @param array|null $methods The list of methods to mock
-     * @return \Cake\View\Helper|\PHPUnit_Framework_MockObject_MockObject
+     * @return \Cake\View\Helper|\PHPUnit\Framework\MockObject\MockObject
      */
     protected function getMockForHelper(string $className, ?array $methods = []): object
     {

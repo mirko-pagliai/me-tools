@@ -2,7 +2,8 @@
 ## 2.19 branch
 ### 2.19.8
 * updated for `php-tools` 1.4.5;
-* ready for `phpunit` 10.
+* ready for `phpunit` 10;
+* added `phpstan`, so fixed some code.
 
 ### 2.19.7
 * updated for `php-tools` 1.4.1.

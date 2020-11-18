@@ -81,7 +81,7 @@ class DropdownHelper extends Helper
      *  link
      * @param array $divOptions HTML attributes and options for the wrapper
      *  element
-     * @return string|void
+     * @return string|null
      */
     public function menu(string $title, array $menu, array $titleOptions = [], array $divOptions = []): ?string
     {

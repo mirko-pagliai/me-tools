@@ -27,7 +27,7 @@ trait ConsoleIntegrationTestTrait
 
     /**
      * Command instance
-     * @var \MeTools\Console\Command|\PHPUnit_Framework_MockObject_MockObject
+     * @var \MeTools\Console\Command|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $Command;
 

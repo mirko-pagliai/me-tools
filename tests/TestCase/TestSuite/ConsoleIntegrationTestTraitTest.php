@@ -27,7 +27,7 @@ class ConsoleIntegrationTestTraitTest extends TestCase
     use ConsoleIntegrationTestTrait;
 
     /**
-     * @var Cake\TestSuite\Stub\ConsoleOutput
+     * @var \Cake\TestSuite\Stub\ConsoleOutput
      */
     protected $_out;
 

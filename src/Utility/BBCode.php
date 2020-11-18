@@ -75,7 +75,7 @@ class BBCode
      */
     public function remove(string $text): string
     {
-        return trim(preg_replace($this->pattern, null, $text));
+        return trim(preg_replace($this->pattern, '', $text));
     }
 
     /**

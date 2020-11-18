@@ -74,8 +74,8 @@ class UploaderComponentTest extends ComponentTestCase
     public function testFindTargetFilename()
     {
         $Filesystem = new Filesystem();
-        $findTargetFilenameMethod = function () {
-            return $this->invokeMethod($this->Component, 'findTargetFilename', func_get_args());
+        $findTargetFilenameMethod = function (string $filename) {
+            return $this->invokeMethod($this->Component, 'findTargetFilename', [$filename]);
         };
 
         $file1 = UPLOADS . 'target.txt';

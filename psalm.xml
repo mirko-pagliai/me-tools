@@ -1,0 +1,69 @@
+<?xml version="1.0"?>
+<psalm
+    errorLevel="4"
+    resolveFromConfigFile="true"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="https://getpsalm.org/schema/config"
+    xsi:schemaLocation="https://getpsalm.org/schema/config vendor/vimeo/psalm/config.xsd"
+    autoloader="tests/bootstrap.php"
+>
+    <projectFiles>
+        <directory name="src" />
+        <ignoreFiles>
+            <directory name="vendor" />
+        </ignoreFiles>
+    </projectFiles>
+
+    <issueHandlers>
+        <UndefinedInterfaceMethod>
+            <errorLevel type="suppress">
+                <file name="src/Plugin.php" />
+            </errorLevel>
+        </UndefinedInterfaceMethod>
+
+        <RedundantCondition>
+            <errorLevel type="suppress">
+                <file name="src/TestSuite/TestCase.php" />
+                <file name="src/View/Helper/IconHelper.php" />
+            </errorLevel>
+        </RedundantCondition>
+
+        <LessSpecificImplementedReturnType>
+            <errorLevel type="suppress">
+                <file name="src/View/Helper/BreadcrumbsHelper.php" />
+            </errorLevel>
+        </LessSpecificImplementedReturnType>
+
+        <UndefinedThisPropertyFetch>
+            <errorLevel type="suppress">
+                <file name="src/View/Helper/FormHelper.php" />
+                <file name="src/View/Helper/HtmlHelper.php" />
+                <file name="src/View/Helper/PaginatorHelper.php" />
+            </errorLevel>
+        </UndefinedThisPropertyFetch>
+
+        <UndefinedMethod>
+            <errorLevel type="suppress">
+                <file name="src/View/Helper/HtmlHelper.php" />
+            </errorLevel>
+        </UndefinedMethod>
+
+        <TypeDoesNotContainType>
+            <errorLevel type="suppress">
+                <file name="src/View/Helper/IconHelper.php" />
+            </errorLevel>
+        </TypeDoesNotContainType>
+
+        <UndefinedThisPropertyAssignment>
+            <errorLevel type="suppress">
+                <file name="src/View/Helper/LibraryHelper.php" />
+            </errorLevel>
+        </UndefinedThisPropertyAssignment>
+
+        <InvalidArgument>
+            <errorLevel type="suppress">
+                <file name="src/View/OptionsParser.php" />
+            </errorLevel>
+        </InvalidArgument>
+    </issueHandlers>
+</psalm>

@@ -23,6 +23,11 @@ use Tools\Exceptionist;
 class HtmlHelper extends CakeHtmlHelper
 {
     /**
+     * @var array
+     */
+    protected $_cssBlockOptions;
+
+    /**
      * Helpers
      * @var array
      */
@@ -133,7 +138,7 @@ class HtmlHelper extends CakeHtmlHelper
      * Begin a CSS block that captures output until `cssEnd()` is called. This
      *  capturing block will capture all output between the methods and create
      *  a cssBlock from it
-     * @param array $options Options for the code block.
+     * @param array $options Options for the code block
      * @return void
      */
     public function cssStart(array $options = []): void

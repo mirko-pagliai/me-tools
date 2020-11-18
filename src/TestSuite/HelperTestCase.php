@@ -24,7 +24,7 @@ abstract class HelperTestCase extends TestCase
 {
     /**
      * Helper instance
-     * @var \Cake\View\Helper|\PHPUnit_Framework_MockObject_MockObject
+     * @var \Cake\View\Helper|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $Helper;
 

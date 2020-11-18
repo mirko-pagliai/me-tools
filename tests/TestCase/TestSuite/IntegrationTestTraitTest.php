@@ -72,16 +72,13 @@ class IntegrationTestTraitTest extends TestCase
     {
         $this->assertCookieIsEmpty('test-cookie');
 
-        $this->_response = $this->_response->withCookie(new Cookie('test-cookie', null));
-        $this->assertCookieIsEmpty('test-cookie');
-
-        $this->_response = $this->_response->withCookie(new Cookie('test-cookie', false));
+        $this->_response = $this->_response->withCookie(new Cookie('test-cookie', ''));
         $this->assertCookieIsEmpty('test-cookie');
 
         //With no response
         $this->expectException(AssertionFailedError::class);
         $this->expectExceptionMessage('Not response set, cannot assert cookies');
-        $this->_response = false;
+        $this->_response = null;
         $this->assertCookieIsEmpty('test-cookie');
     }
 

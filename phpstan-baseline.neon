@@ -1,0 +1,257 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Negated boolean expression is always false\\.$#"
+			count: 1
+			path: src/TestSuite/ComponentTestCase.php
+
+		-
+			message: "#^Result of && is always false\\.$#"
+			count: 1
+			path: src/TestSuite/ComponentTestCase.php
+
+		-
+			message: "#^Negated boolean expression is always false\\.$#"
+			count: 1
+			path: tests/TestCase/Command/Install/CreateDirectoriesCommandTest.php
+
+		-
+			message: "#^Result of && is always false\\.$#"
+			count: 1
+			path: tests/TestCase/Command/Install/CreateDirectoriesCommandTest.php
+
+		-
+			message: "#^Negated boolean expression is always false\\.$#"
+			count: 1
+			path: tests/TestCase/Command/Install/CreatePluginsLinksCommandTest.php
+
+		-
+			message: "#^Result of && is always false\\.$#"
+			count: 1
+			path: tests/TestCase/Command/Install/CreatePluginsLinksCommandTest.php
+
+		-
+			message: "#^Ternary operator condition is always false\\.$#"
+			count: 1
+			path: tests/TestCase/Command/Install/CreatePluginsLinksCommandTest.php
+
+		-
+			message: "#^Negated boolean expression is always false\\.$#"
+			count: 1
+			path: tests/TestCase/Command/Install/CreateRobotsCommandTest.php
+
+		-
+			message: "#^Result of && is always false\\.$#"
+			count: 1
+			path: tests/TestCase/Command/Install/CreateRobotsCommandTest.php
+
+		-
+			message: "#^Negated boolean expression is always false\\.$#"
+			count: 1
+			path: tests/TestCase/Command/Install/CreateVendorsLinksCommandTest.php
+
+		-
+			message: "#^Result of && is always false\\.$#"
+			count: 1
+			path: tests/TestCase/Command/Install/CreateVendorsLinksCommandTest.php
+
+		-
+			message: "#^Negated boolean expression is always false\\.$#"
+			count: 1
+			path: tests/TestCase/Command/Install/FixComposerJsonCommandTest.php
+
+		-
+			message: "#^Result of && is always false\\.$#"
+			count: 1
+			path: tests/TestCase/Command/Install/FixComposerJsonCommandTest.php
+
+		-
+			message: "#^Negated boolean expression is always false\\.$#"
+			count: 1
+			path: tests/TestCase/Command/Install/RunAllCommandTest.php
+
+		-
+			message: "#^Result of && is always false\\.$#"
+			count: 1
+			path: tests/TestCase/Command/Install/RunAllCommandTest.php
+
+		-
+			message: "#^Negated boolean expression is always false\\.$#"
+			count: 1
+			path: tests/TestCase/Command/Install/SetPermissionsCommandTest.php
+
+		-
+			message: "#^Result of && is always false\\.$#"
+			count: 1
+			path: tests/TestCase/Command/Install/SetPermissionsCommandTest.php
+
+		-
+			message: "#^Negated boolean expression is always false\\.$#"
+			count: 1
+			path: tests/TestCase/TestSuite/ConsoleIntegrationTestTraitTest.php
+
+		-
+			message: "#^Result of && is always false\\.$#"
+			count: 1
+			path: tests/TestCase/TestSuite/ConsoleIntegrationTestTraitTest.php
+
+		-
+			message: "#^Call to method messages\\(\\) on an unknown class MeTools\\\\Test\\\\TestCase\\\\TestSuite\\\\Cake\\\\TestSuite\\\\Stub\\\\ConsoleOutput\\.$#"
+			count: 1
+			path: tests/TestCase/TestSuite/ConsoleIntegrationTestTraitTest.php
+
+		-
+			message: "#^Property MeTools\\\\Test\\\\TestCase\\\\TestSuite\\\\ConsoleIntegrationTestTraitTest\\:\\:\\$_out has unknown class MeTools\\\\Test\\\\TestCase\\\\TestSuite\\\\Cake\\\\TestSuite\\\\Stub\\\\ConsoleOutput as its type\\.$#"
+			count: 1
+			path: tests/TestCase/TestSuite/ConsoleIntegrationTestTraitTest.php
+
+		-
+			message: "#^Property MeTools\\\\Test\\\\TestCase\\\\TestSuite\\\\ConsoleIntegrationTestTraitTest\\:\\:\\$_out \\(MeTools\\\\Test\\\\TestCase\\\\TestSuite\\\\Cake\\\\TestSuite\\\\Stub\\\\ConsoleOutput\\) does not accept Cake\\\\TestSuite\\\\Stub\\\\ConsoleOutput\\.$#"
+			count: 2
+			path: tests/TestCase/TestSuite/ConsoleIntegrationTestTraitTest.php
+
+		-
+			message: "#^Negated boolean expression is always false\\.$#"
+			count: 1
+			path: src/TestSuite/HelperTestCase.php
+
+		-
+			message: "#^Result of && is always false\\.$#"
+			count: 1
+			path: src/TestSuite/HelperTestCase.php
+
+		-
+			message: "#^Ternary operator condition is always true\\.$#"
+			count: 1
+			path: tests/TestCase/TestSuite/IntegrationTestTraitTest.php
+
+		-
+			message: "#^Left side of && is always false\\.$#"
+			count: 1
+			path: tests/TestCase/TestSuite/IntegrationTestTraitTest.php
+
+		-
+			message: "#^Result of method MeTools\\\\Test\\\\TestCase\\\\TestSuite\\\\IntegrationTestTraitTest\\:\\:assertResponseOk\\(\\) \\(void\\) is used\\.$#"
+			count: 1
+			path: tests/TestCase/TestSuite/IntegrationTestTraitTest.php
+
+		-
+			message: "#^Right side of && is always false\\.$#"
+			count: 1
+			path: tests/TestCase/TestSuite/IntegrationTestTraitTest.php
+
+		-
+			message: "#^Class Cake\\\\TestSuite\\\\Constraint\\\\Session\\\\SessionEquals constructor invoked with 2 parameters, 1 required\\.$#"
+			count: 1
+			path: tests/TestCase/TestSuite/IntegrationTestTraitTest.php
+
+		-
+			message: "#^Parameter \\#1 \\$path of class Cake\\\\TestSuite\\\\Constraint\\\\Session\\\\SessionEquals constructor expects string, Cake\\\\Http\\\\Session given\\.$#"
+			count: 1
+			path: tests/TestCase/TestSuite/IntegrationTestTraitTest.php
+
+		-
+			message: "#^Parameter \\#2 \\$value of class Cake\\\\Http\\\\Cookie\\\\Cookie constructor expects array\\|string, null given\\.$#"
+			count: 1
+			path: tests/TestCase/TestSuite/IntegrationTestTraitTest.php
+
+		-
+			message: "#^Parameter \\#2 \\$value of class Cake\\\\Http\\\\Cookie\\\\Cookie constructor expects array\\|string, false given\\.$#"
+			count: 1
+			path: tests/TestCase/TestSuite/IntegrationTestTraitTest.php
+
+		-
+			message: "#^Property MeTools\\\\Test\\\\TestCase\\\\TestSuite\\\\IntegrationTestTraitTest\\:\\:\\$_response \\(Psr\\\\Http\\\\Message\\\\ResponseInterface\\) does not accept false\\.$#"
+			count: 1
+			path: tests/TestCase/TestSuite/IntegrationTestTraitTest.php
+
+		-
+			message: "#^Unable to resolve the template type RealInstanceType in call to method PHPUnit\\\\Framework\\\\TestCase\\:\\:getMockBuilder\\(\\)$#"
+			count: 3
+			path: src/TestSuite/TestCase.php
+
+		-
+			message: "#^Parameter \\#2 \\$replace of function preg_replace expects array\\|string, null given\\.$#"
+			count: 1
+			path: src/Utility/BBCode.php
+
+		-
+			message: "#^PHPDoc tag @return with type string\\|void is not subtype of native type string\\|null\\.$#"
+			count: 1
+			path: src/View/Helper/DropdownHelper.php
+
+		-
+			message: "#^Parameter \\#1 \\$glue\\|pieces of function implode expects array\\|string, null given\\.$#"
+			count: 1
+			path: src/View/Helper/FormHelper.php
+
+		-
+			message: "#^PHPDoc tag @param for parameter \\$options with type array\\|string is not subtype of native type array\\.$#"
+			count: 1
+			path: src/View/Helper/FormHelper.php
+
+		-
+			message: "#^Call to an undefined static method MeTools\\\\View\\\\Helper\\\\HtmlHelper\\:\\:small\\(\\)\\.$#"
+			count: 1
+			path: src/View/Helper/HtmlHelper.php
+
+		-
+			message: "#^Method MeTools\\\\View\\\\OptionsParser\\:\\:__construct\\(\\) with return type void returns \\$this\\(MeTools\\\\View\\\\OptionsParser\\) but should not return anything\\.$#"
+			count: 1
+			path: src/View/OptionsParser.php
+
+		-
+			message: "#^Ternary operator condition is always true\\.$#"
+			count: 1
+			path: src/View/OptionsParser.php
+
+		-
+			message: "#^If condition is always true\\.$#"
+			count: 1
+			path: src/View/OptionsParser.php
+
+		-
+			message: "#^Closure invoked with 1 parameter, 0 required\\.$#"
+			count: 5
+			path: tests/TestCase/Controller/Component/UploaderComponentTest.php
+
+		-
+			message: "#^Parameter \\#2 \\.\\.\\.\\$args of method Cake\\\\Http\\\\ServerRequest\\:\\:is\\(\\) expects string, array\\<string, string\\> given\\.$#"
+			count: 2
+			path: tests/TestCase/Core/RequestDetectorsTest.php
+
+		-
+			message: "#^Parameter \\#2 \\.\\.\\.\\$args of method Cake\\\\Http\\\\ServerRequest\\:\\:is\\(\\) expects string, array\\<int\\|string, string\\> given\\.$#"
+			count: 3
+			path: tests/TestCase/Core/RequestDetectorsTest.php
+
+		-
+			message: "#^Ternary operator condition is always true\\.$#"
+			count: 2
+			path: tests/TestCase/Utility/BBCodeTest.php
+
+		-
+			message: "#^Parameter \\#1 \\$HtmlHelper of class MeTools\\\\Utility\\\\BBCode constructor expects MeTools\\\\View\\\\Helper\\\\HtmlHelper\\|null, PHPUnit\\\\Framework\\\\MockObject\\\\MockObject given\\.$#"
+			count: 1
+			path: tests/TestCase/Utility/BBCodeTest.php
+
+		-
+			message: "#^Ternary operator condition is always true\\.$#"
+			count: 1
+			path: tests/TestCase/View/Helper/DropdownHelperTest.php
+
+		-
+			message: "#^Ternary operator condition is always true\\.$#"
+			count: 1
+			path: tests/TestCase/View/Helper/FormHelperTest.php
+
+		-
+			message: "#^Negated boolean expression is always false\\.$#"
+			count: 1
+			path: tests/TestCase/View/OptionsParserTest.php
+
+		-
+			message: "#^Ternary operator condition is always true\\.$#"
+			count: 1
+			path: tests/TestCase/View/Widget/HiddenWidgetTest.php
+

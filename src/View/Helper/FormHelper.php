@@ -111,9 +111,9 @@ class FormHelper extends CakeFormHelper
      * Creates a checkbox element
      * @param string $fieldName Field name, should be "Modelname.fieldname"
      * @param array $options HTML attributes and options
-     * @return string
+     * @return string[]|string
      */
-    public function checkbox(string $fieldName, array $options = []): string
+    public function checkbox(string $fieldName, array $options = [])
     {
         $options = optionsParser($options);
 
@@ -174,7 +174,7 @@ class FormHelper extends CakeFormHelper
             $help = array_map(function (string $help) {
                 return $this->Html->para('form-text text-muted', trim($help));
             }, (array)$options->consume('help'));
-            $options->append('templateVars', ['help' => implode(null, $help)]);
+            $options->append('templateVars', ['help' => implode('', $help)]);
         }
 
         //Input group. Fixes templates
@@ -206,21 +206,22 @@ class FormHelper extends CakeFormHelper
 
     /**
      * Returns a `<form>` element.
-     * @param mixed $model The model name for which the form is being defined.
-     *  If `false` no model is used
+     * @param mixed $context The context for which the form is being defined.
+     *   Can be a ContextInterface instance, ORM entity, ORM resultset, or an
+     *   array of meta data. You can use `null` to make a context-less form
      * @param array $options HTML attributes and options
      * @return string An formatted opening `<form>` tag
      */
-    public function create($model = null, array $options = []): string
+    public function create($context = null, array $options = []): string
     {
         $options = optionsParser($options);
 
         //It's a form inline with the `inline` option or the `form-inline` class
         if ($options->exists('inline') || $options->contains('class', 'form-inline')) {
-            return self::createInline($model, $options->toArray());
+            return self::createInline($context, $options->toArray());
         }
 
-        return parent::create($model, $options->toArray());
+        return parent::create($context, $options->toArray());
     }
 
     /**
@@ -306,8 +307,7 @@ class FormHelper extends CakeFormHelper
      * @param string $fieldName Field name, should be "Modelname.fieldname"
      * @param string|null $text Text that will appear in the label field. If is
      *  left undefined the text will be inflected from the fieldName
-     * @param array|string $options HTML attributes, or a string to be used
-     *  as a class name
+     * @param array $options HTML attributes
      * @return string
      */
     public function label(string $fieldName, ?string $text = null, array $options = []): string
