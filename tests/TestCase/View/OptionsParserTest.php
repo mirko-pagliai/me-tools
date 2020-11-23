@@ -152,8 +152,6 @@ class OptionsParserTest extends TestCase
             'primary lg',
             'primary lg lg',
             'btn btn primary primary lg',
-            ['btn', 'primary', 'lg'],
-            ['btn', 'btn-primary', 'lg'],
         ] as $classes) {
             $OptionsParser = new OptionsParser();
             $OptionsParser->addButtonClasses($classes);
@@ -161,9 +159,18 @@ class OptionsParserTest extends TestCase
         }
 
         //As multiple arguments
+        $expected = 'btn btn-lg btn-primary';
         $OptionsParser = new OptionsParser();
         $OptionsParser->addButtonClasses('btn', 'btn-primary', 'lg');
-        $this->assertEquals('btn btn-lg btn-primary', $OptionsParser->get('class'));
+        $this->assertEquals($expected, $OptionsParser->get('class'));
+
+        $OptionsParser = new OptionsParser();
+        $OptionsParser->addButtonClasses('btn', 'btn-primary', 'btn-primary', 'lg');
+        $this->assertEquals($expected, $OptionsParser->get('class'));
+
+        $OptionsParser = new OptionsParser();
+        $OptionsParser->addButtonClasses('btn-primary', 'lg');
+        $this->assertEquals($expected, $OptionsParser->get('class'));
 
         $OptionsParser = new OptionsParser();
         $OptionsParser->addButtonClasses('lg');
@@ -289,11 +296,6 @@ class OptionsParserTest extends TestCase
         $result->delete('alt');
         $this->assertTrue($result->exists('alt'));
         $this->assertEquals('this value will not be used', $result->get('alt'));
-
-        //Array of arguments
-        $result->delete(['zero', 'zeroAsString']);
-        $this->assertFalse($result->exists('zero'));
-        $this->assertFalse($result->exists('zeroAsString'));
 
         //Multiple arguments
         $result->delete('true', 'false');

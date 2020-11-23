@@ -1,6 +1,8 @@
 # 2.x branch
 ## 2.19 branch
 ### 2.19.8
+* `addButtonClasses()` and `delete()` methods provided by `OptionsParser` take
+    now a variable-length argument lists;
 * updated for `php-tools` 1.4.5;
 * ready for `phpunit` 10;
 * added `phpstan`, so fixed some code.

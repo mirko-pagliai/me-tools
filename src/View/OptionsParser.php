@@ -104,39 +104,33 @@ class OptionsParser
      * <code>
      * $options->addButtonClasses('primary lg');
      * $options->addButtonClasses('primary', 'lg');
-     * $options->addButtonClasses(['btn-primary', 'lg']);
      * </code>
-     * @param string|array $classes Classes string, array or multiple arguments
+     * @param string $classes Classes string, array or multiple arguments
      * @return $this
      */
-    public function addButtonClasses($classes = 'btn-light')
+    public function addButtonClasses(string ...$classes)
     {
-        $baseClasses = [ 'primary', 'secondary', 'success', 'danger', 'warning',
+        $baseClasses = ['primary', 'secondary', 'success', 'danger', 'warning',
             'info', 'light', 'dark', 'link'];
         $allClasses = array_merge($baseClasses, ['outline-primary',
             'outline-secondary', 'outline-success', 'outline-danger',
             'outline-warning', 'outline-info', 'outline-light', 'outline-dark',
             'lg', 'sm', 'block']);
 
-        $existing = $this->get('class');
-
         //If a base class already exists, it just appends the `btn` class
+        $existing = $this->get('class');
         if ($existing && preg_match('/btn\-(' . implode('|', $baseClasses) . ')/', $existing)) {
             return $this->append('class', 'btn');
         }
 
-        if (func_num_args() > 1) {
-            $classes = func_get_args();
-        } elseif (is_string($classes)) {
-            $classes = preg_split('/\s+/', $classes, -1, PREG_SPLIT_NO_EMPTY);
-        }
+        $classes = preg_split('/\s+/', $classes ? implode(' ', $classes) : 'btn-light', -1, PREG_SPLIT_NO_EMPTY);
 
         $classes = collection($classes)
-            ->filter(function (string $class) use ($allClasses) {
-                return preg_match('/^(btn\-)?(' . implode('|', $allClasses) . ')$/', $class);
-            })
             ->map(function (string $class) {
                 return string_starts_with($class, 'btn-') ? $class : 'btn-' . $class;
+            })
+            ->filter(function (string $class) use ($allClasses) {
+                return preg_match('/^btn\-(' . implode('|', $allClasses) . ')$/', $class);
             });
 
         return $this->append('class', array_merge(['btn'], $classes->toList()));
@@ -230,20 +224,14 @@ class OptionsParser
 
     /**
      * Delete a key
-     * @param string|array $key Key or array of keys
+     * @param string $keys Key
      * @return $this
      */
-    public function delete($key)
+    public function delete(string ...$key)
     {
-        $key = func_num_args() > 1 ? func_get_args() : $key;
-
-        if (is_array($key)) {
-            array_map([$this, __METHOD__], $key);
-
-            return $this;
+        foreach ($key as $k) {
+            unset($this->options[$k]);
         }
-
-        unset($this->options[$key]);
 
         return $this;
     }
