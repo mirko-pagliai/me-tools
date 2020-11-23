@@ -85,7 +85,7 @@ class BreadcrumbsHelper extends CakeBreadcrumbsHelper
      */
     public function render(array $attributes = [], array $separator = []): string
     {
-        if (empty($this->crumbs)) {
+        if (!$this->crumbs) {
             return parent::render($attributes, $separator);
         }
 

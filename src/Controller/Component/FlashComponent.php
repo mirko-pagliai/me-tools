@@ -1,5 +1,6 @@
 <?php
 declare(strict_types=1);
+
 /**
  * This file is part of me-tools.
  *
@@ -50,7 +51,7 @@ class FlashComponent extends CakeFlashComponent
                         $class = 'alert-info';
                         break;
                     default:
-                        $class = sprintf('alert-%s', $name);
+                        $class = 'alert-' . $name;
                         break;
                 }
 

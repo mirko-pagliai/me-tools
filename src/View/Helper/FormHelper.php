@@ -17,6 +17,7 @@ namespace MeTools\View\Helper;
 use Cake\Utility\Hash;
 use Cake\View\Helper\FormHelper as CakeFormHelper;
 use Cake\View\View;
+use MeTools\View\Widget\HiddenWidget;
 
 /**
  * Provides functionalities for forms
@@ -63,7 +64,7 @@ class FormHelper extends CakeFormHelper
             'selectMultiple' => '<select name="{{name}}[]" multiple="multiple" class="form-control"{{attrs}}>{{content}}</select>',
             'textarea' => '<textarea name="{{name}}" class="form-control"{{attrs}}>{{value}}</textarea>',
         ]]);
-        $this->_defaultWidgets['hidden'] = ['MeTools\View\Widget\HiddenWidget'];
+        $this->_defaultWidgets['hidden'] = [HiddenWidget::class];
 
         parent::__construct($view, $config);
     }
@@ -80,8 +81,8 @@ class FormHelper extends CakeFormHelper
     {
         return optionsParser($options, ['data-date-format' => $dateFormat, 'type' => 'text'])
             ->append('templates', [
-                'input' => sprintf('<input type="{{type}}" name="{{name}}" class="form-control %s"{{attrs}}/>', $class),
-                'inputError' => sprintf('<input type="{{type}}" name="{{name}}" class="form-control %s is-invalid"{{attrs}}/>', $class),
+                'input' => '<input type="{{type}}" name="{{name}}" class="form-control ' . $class . '"{{attrs}}/>',
+                'inputError' => '<input type="{{type}}" name="{{name}}" class="form-control ' . $class . ' is-invalid"{{attrs}}/>',
             ]);
     }
 
@@ -151,19 +152,17 @@ class FormHelper extends CakeFormHelper
      */
     public function control(string $fieldName, array $options = []): string
     {
-        //Resets templates
         $this->resetTemplates();
 
         $options = optionsParser($options);
 
         //If the name contains the "password" word, then the type is `password`
-        if (strpos($fieldName, 'password') !== false) {
+        if (string_contains($fieldName, 'password')) {
             $options->Default->add(['type' => 'password']);
         }
 
         //Gets the input type
-        $type = $options->get('type') ?: self::_inputType($fieldName, $options->toArray());
-
+        $type = $options->get('type') ?: $this->_inputType($fieldName, $options->toArray());
         if ($type === 'select' && !$options->exists('default') && !$options->exists('value')) {
             $options->Default->add(['empty' => true]);
         }
@@ -218,7 +217,7 @@ class FormHelper extends CakeFormHelper
 
         //It's a form inline with the `inline` option or the `form-inline` class
         if ($options->exists('inline') || $options->contains('class', 'form-inline')) {
-            return self::createInline($context, $options->toArray());
+            return $this->createInline($context, $options->toArray());
         }
 
         return parent::create($context, $options->toArray());
@@ -337,7 +336,7 @@ class FormHelper extends CakeFormHelper
     {
         $options = optionsParser($options)->add('role', 'button')->addButtonClasses();
 
-        return self::postLink($title, $url, $options->toArray());
+        return $this->postLink($title, $url, $options->toArray());
     }
 
     /**
@@ -391,9 +390,7 @@ class FormHelper extends CakeFormHelper
      */
     public function submit(?string $caption = null, array $options = []): string
     {
-        $options = optionsParser($options)->add('type', 'submit');
-
-        return self::button($caption, $options->toArray());
+        return $this->button($caption, optionsParser($options)->add('type', 'submit')->toArray());
     }
 
     /**

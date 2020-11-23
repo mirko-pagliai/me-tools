@@ -69,11 +69,10 @@ abstract class TestCase extends CakeTestCase
      */
     protected function getLogFullPath(string $filename): string
     {
-        if (!pathinfo($filename, PATHINFO_EXTENSION)) {
-            $filename .= '.log';
-        }
+        $Filesystem = new Filesystem();
+        $filename .= $Filesystem->getExtension($filename) ? '' : '.log';
 
-        return (new Filesystem())->makePathAbsolute($filename, LOGS);
+        return $Filesystem->makePathAbsolute($filename, LOGS);
     }
 
     /**

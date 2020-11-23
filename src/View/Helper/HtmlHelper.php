@@ -47,7 +47,7 @@ class HtmlHelper extends CakeHtmlHelper
     {
         Exceptionist::isTrue(count($params) < 3, sprintf('Method `%s::%s()` does not exist', __CLASS__, $method));
 
-        return self::tag($method, $params[0], $params[1] ?? []);
+        return $this->tag($method, $params[0], $params[1] ?? []);
     }
 
     /**
@@ -59,9 +59,7 @@ class HtmlHelper extends CakeHtmlHelper
      */
     public function badge(string $text, array $options = []): string
     {
-        $options = optionsParser($options)->append('class', 'badge');
-
-        return self::tag('span', $text, $options->toArray());
+        return $this->tag('span', $text, optionsParser($options)->append('class', 'badge')->toArray());
     }
 
     /**
@@ -80,13 +78,13 @@ class HtmlHelper extends CakeHtmlHelper
         $options = optionsParser($options, ['role' => 'button'])->addButtonClasses();
 
         if ($url) {
-            return self::link($title, $url, $options->toArray());
+            return $this->link($title, $url, $options->toArray());
         }
 
         $options->Default->add('title', $title);
         $options->add('title', strip_tags($options->get('title') ?? ''));
 
-        return self::tag('button', $title, $options->toArray());
+        return $this->tag('button', $title, $options->toArray());
     }
 
     /**
@@ -99,9 +97,7 @@ class HtmlHelper extends CakeHtmlHelper
      */
     public function css($path, array $options = []): ?string
     {
-        $options = optionsParser($options, ['block' => true]);
-
-        return parent::css($path, $options->toArray());
+        return parent::css($path, optionsParser($options, ['block' => true])->toArray());
     }
 
     /**
@@ -185,9 +181,9 @@ class HtmlHelper extends CakeHtmlHelper
         $type = $options->consume('type');
         $type = is_string($type) && preg_match('/^h[1-6]$/', $type) ? $type : 'h2';
 
-        $text = $small ? sprintf('%s %s', $text, self::small($small, $smallOptions)) : $text;
+        $text .= $small ? ' ' . $this->small($small, $smallOptions) : '';
 
-        return self::tag($type, $text, $options->toArray());
+        return $this->tag($type, $text, $options->toArray());
     }
 
     /**
@@ -197,7 +193,7 @@ class HtmlHelper extends CakeHtmlHelper
      */
     public function hr(array $options = []): string
     {
-        return self::tag('hr', null, $options);
+        return $this->tag('hr', null, $options);
     }
 
     /**
@@ -219,12 +215,13 @@ class HtmlHelper extends CakeHtmlHelper
 
             if (in_array($ratio, ['16by9', '4by3'])) {
                 $options->append('class', 'embed-responsive-item');
+                $frame = $this->tag('iframe', null, $options->toArray());
 
-                return self::div('embed-responsive embed-responsive-' . $ratio, self::tag('iframe', null, $options->toArray()));
+                return $this->div('embed-responsive embed-responsive-' . $ratio, $frame);
             }
         }
 
-        return self::tag('iframe', null, $options->toArray());
+        return $this->tag('iframe', '', $options->toArray());
     }
 
     /**
@@ -273,7 +270,7 @@ class HtmlHelper extends CakeHtmlHelper
         $options = optionsParser($options);
         $options->append('class', sprintf('label label-%s', $options->consume('type') ?: 'default'));
 
-        return self::tag('span', $text, $options->toArray());
+        return $this->tag('span', $text, $options->toArray());
     }
 
     /**
@@ -287,13 +284,9 @@ class HtmlHelper extends CakeHtmlHelper
      */
     public function li($element, array $options = []): string
     {
-        if (!is_array($element)) {
-            return self::tag('li', $element, $options);
-        }
-
         return implode(PHP_EOL, array_map(function (string $element) use ($options) {
-            return self::tag('li', $element, $options);
-        }, $element));
+            return $this->tag('li', $element, $options);
+        }, (array)$element));
     }
 
     /**
@@ -370,7 +363,7 @@ class HtmlHelper extends CakeHtmlHelper
      */
     public function ol(array $list, array $options = [], array $itemOptions = []): string
     {
-        return self::nestedList($list, ['tag' => 'ol'] + $options, $itemOptions);
+        return $this->nestedList($list, ['tag' => 'ol'] + $options, $itemOptions);
     }
 
     /**
@@ -440,7 +433,7 @@ class HtmlHelper extends CakeHtmlHelper
      */
     public function shareaholic(string $appId): string
     {
-        return self::div('shareaholic-canvas', null, [
+        return $this->div('shareaholic-canvas', '', [
             'data-app' => 'share_buttons',
             'data-app-id' => $appId,
         ]);
@@ -471,7 +464,7 @@ class HtmlHelper extends CakeHtmlHelper
      */
     public function ul(array $list, array $options = [], array $itemOptions = []): string
     {
-        return self::nestedList($list, ['tag' => 'ul'] + $options, $itemOptions);
+        return $this->nestedList($list, ['tag' => 'ul'] + $options, $itemOptions);
     }
 
     /**
@@ -490,7 +483,7 @@ class HtmlHelper extends CakeHtmlHelper
             'width' => 'device-width',
         ], '', ', ');
 
-        return self::meta(['name' => 'viewport'] + compact('content'), null, $options);
+        return $this->meta(['name' => 'viewport'] + compact('content'), '', $options);
     }
 
     /**
@@ -511,6 +504,6 @@ class HtmlHelper extends CakeHtmlHelper
             'width' => 640,
         ]);
 
-        return self::iframe(sprintf('https://www.youtube.com/embed/%s', $id), $options->toArray());
+        return $this->iframe(sprintf('https://www.youtube.com/embed/%s', $id), $options->toArray());
     }
 }

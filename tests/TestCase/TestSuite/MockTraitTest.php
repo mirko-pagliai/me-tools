@@ -79,8 +79,7 @@ class MockTraitTest extends TestCase
      */
     public function testGetOriginClassName()
     {
-        $this->assertSame(TestCase::class, $this->getOriginClassName('MeTools\Test\TestCase\TestSuite\TestCaseTest'));
-        $this->assertSame(TestCase::class, $this->getOriginClassName('\MeTools\Test\TestCase\TestSuite\TestCaseTest'));
+        $this->assertSame(TestCase::class, $this->getOriginClassName(new TestCaseTest()));
     }
 
     /**
@@ -89,10 +88,10 @@ class MockTraitTest extends TestCase
      */
     public function testGetOriginClassNameOrFail()
     {
-        $this->assertSame(TestCase::class, $this->getOriginClassNameOrFail('MeTools\Test\TestCase\TestSuite\TestCaseTest'));
+        $this->assertSame(TestCase::class, $this->getOriginClassNameOrFail(new TestCaseTest()));
 
         $this->expectException(AssertionFailedError::class);
-        $this->expectExceptionMessage('Class `\MeTools\TestSuite\NoExistingClass` does not exist');
-        $this->getOriginClassNameOrFail('\MeTools\Test\TestCase\TestSuite\NoExistingClassTest');
+        $this->expectExceptionMessage('Unable to get the classname for the `stdClass` class');
+        $this->getOriginClassNameOrFail(new \stdClass());
     }
 }

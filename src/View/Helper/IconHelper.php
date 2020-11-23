@@ -39,11 +39,11 @@ class IconHelper extends CakeHtmlHelper
         }
 
         $icon = $this->icon($icon);
-        $result = sprintf('%s %s', $icon, $text);
+        $result = $icon . ' ' . $text;
         if (empty($text)) {
             $result = $icon;
         } elseif ($align === 'right') {
-            $result = sprintf('%s %s', $text, $icon);
+            $result = $text . ' ' . $icon;
         }
 
         return [$result, $options];
@@ -89,16 +89,20 @@ class IconHelper extends CakeHtmlHelper
      * <code>
      * <i class="fas fa-hand-o-right fa-2x"> </i>
      * </code>
-     * @param string|array $icon Icons. You can also pass multiple arguments
+     * @param string|array $icons Icons. You can also pass multiple arguments
      * @return string
      * @see http://fontawesome.com Font Awesome icons
      */
-    public function icon($icon): string
+    public function icon(...$icons): string
     {
-        $icon = func_num_args() > 1 ? func_get_args() : $icon;
+        $toString = function ($value): string {
+            return implode(' ', (array)$value);
+        };
+
+        $class = $this->buildIconClasses($toString(array_map($toString, $icons)));
 
         return $this->formatTemplate('tag', [
-            'attrs' => $this->templater()->formatAttributes(['class' => $this->buildIconClasses($icon)]),
+            'attrs' => $this->templater()->formatAttributes(compact('class')),
             'content' => ' ',
             'tag' => 'i',
         ]);

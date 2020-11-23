@@ -113,7 +113,7 @@ class LibraryHelper extends Helper
         }
 
         //Writes the output
-        $output = array_map(function (string $output) {
+        $output = array_map(function (string $output): string {
             return '    ' . $output;
         }, $this->output);
 
@@ -197,7 +197,7 @@ class LibraryHelper extends Helper
     {
         $options = optionsParser($options, ['format' => 'YYYY/MM/DD']);
 
-        $this->output[] = self::buildDatetimepicker($input ?: '.datepicker', $options->toArray());
+        $this->output[] = $this->buildDatetimepicker($input ?: '.datepicker', $options->toArray());
     }
 
     /**
@@ -214,7 +214,7 @@ class LibraryHelper extends Helper
      */
     public function datetimepicker(?string $input = null, array $options = []): void
     {
-        $this->output[] = self::buildDatetimepicker($input ?: '.datetimepicker', $options);
+        $this->output[] = $this->buildDatetimepicker($input ?: '.datetimepicker', $options);
     }
 
     /**
@@ -287,6 +287,6 @@ class LibraryHelper extends Helper
     {
         $options = optionsParser($options, ['pickTime' => false]);
 
-        $this->output[] = self::buildDatetimepicker($input ?: '.timepicker', $options->toArray());
+        $this->output[] = $this->buildDatetimepicker($input ?: '.timepicker', $options->toArray());
     }
 }

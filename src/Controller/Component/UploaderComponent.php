@@ -93,14 +93,11 @@ class UploaderComponent extends Component
      * @param string|array $acceptedMimetype Accepted mimetypes as string or
      *  array or a magic word (`images` or `text`)
      * @return $this
-     * @throws \ErrorException
+     * @throws \Tools\Exception\ObjectWrongInstanceException
      */
     public function mimetype($acceptedMimetype)
     {
-        Exceptionist::isTrue(
-            $this->file instanceof UploadedFileInterface,
-            __d('me_tools', 'There are no uploaded file information')
-        );
+        Exceptionist::instanceOf($this->file, UploadedFileInterface::class, __d('me_tools', 'There are no uploaded file information'));
 
         //Changes magic words
         switch ($acceptedMimetype) {
@@ -127,14 +124,11 @@ class UploaderComponent extends Component
      *  generated automatically
      * @return string|bool Final full path of the uploaded file or `false` on
      *  failure
-     * @throws \ErrorException
+     * @throws \Tools\Exception\ObjectWrongInstanceException
      */
     public function save(string $directory, ?string $filename = null)
     {
-        Exceptionist::isTrue(
-            $this->file instanceof UploadedFileInterface,
-            __d('me_tools', 'There are no uploaded file information')
-        );
+        Exceptionist::instanceOf($this->file, UploadedFileInterface::class, __d('me_tools', 'There are no uploaded file information'));
 
         //Checks for previous errors
         if ($this->getError()) {
@@ -167,7 +161,10 @@ class UploaderComponent extends Component
         //Resets `$error`
         unset($this->error);
 
-        $this->file = $file instanceof UploadedFileInterface ? $file : new UploadedFile($file['tmp_name'], $file['size'], $file['error'], $file['name'], $file['type']);
+        if (!$file instanceof UploadedFileInterface) {
+            $file = new UploadedFile($file['tmp_name'], $file['size'], $file['error'], $file['name'], $file['type']);
+        }
+        $this->file = $file;
 
         //Checks errors during upload
         if ($this->file->getError() !== UPLOAD_ERR_OK) {

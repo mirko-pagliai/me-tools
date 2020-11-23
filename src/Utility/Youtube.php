@@ -26,7 +26,7 @@ class Youtube
      */
     public static function getId(string $url): ?string
     {
-        if (strpos($url, 'youtube.com') !== false) {
+        if (string_contains($url, 'youtube.com')) {
             $url = parse_url($url);
 
             if (empty($url['query'])) {
