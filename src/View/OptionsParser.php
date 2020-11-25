@@ -224,7 +224,7 @@ class OptionsParser
 
     /**
      * Delete a key
-     * @param string $keys Key
+     * @param string $key Key
      * @return $this
      */
     public function delete(string ...$key)

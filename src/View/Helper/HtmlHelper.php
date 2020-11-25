@@ -181,7 +181,7 @@ class HtmlHelper extends CakeHtmlHelper
         $type = $options->consume('type');
         $type = is_string($type) && preg_match('/^h[1-6]$/', $type) ? $type : 'h2';
 
-        $text .= $small ? ' ' . $this->small($small, $smallOptions) : '';
+        $text .= $small ? ' ' . $this->tag('small', $small, $smallOptions) : '';
 
         return $this->tag($type, $text, $options->toArray());
     }

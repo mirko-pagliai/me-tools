@@ -21,6 +21,12 @@
             </errorLevel>
         </UndefinedInterfaceMethod>
 
+        <InvalidNullableReturnType>
+            <errorLevel type="suppress">
+                <file name="src/TestSuite/MockTrait.php" />
+            </errorLevel>
+        </InvalidNullableReturnType>
+
         <RedundantCondition>
             <errorLevel type="suppress">
                 <file name="src/TestSuite/TestCase.php" />

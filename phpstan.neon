@@ -44,11 +44,7 @@ parameters:
             path: tests/TestCase
 
         -
-            message: '#^Access to an undefined property#'
-            path: tests/TestCase
-
-        -
-            message: '#^Call to an undefined method#'
+            message: '#^(Access|Call) to an undefined (property|method)#'
             path: tests/TestCase
 
         -

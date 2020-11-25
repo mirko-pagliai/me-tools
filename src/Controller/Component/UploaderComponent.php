@@ -18,6 +18,7 @@ use Cake\Controller\Component;
 use Laminas\Diactoros\Exception\UploadedFileErrorException;
 use Laminas\Diactoros\UploadedFile;
 use Psr\Http\Message\UploadedFileInterface;
+use Tools\Exception\ObjectWrongInstanceException;
 use Tools\Exceptionist;
 use Tools\Filesystem;
 
@@ -55,28 +56,23 @@ class UploaderComponent extends Component
      */
     protected function findTargetFilename(string $target): string
     {
-        //If the file already exists, adds a numeric suffix
-        if (file_exists($target)) {
-            $filename = pathinfo($target, PATHINFO_FILENAME);
-            $extension = pathinfo($target, PATHINFO_EXTENSION);
-
-            //Initial tmp name
-            $tmp = dirname($target) . DS . $filename;
-
-            for ($i = 1;; $i++) {
-                $target = $tmp . '_' . $i;
-
-                if ($extension) {
-                    $target .= '.' . $extension;
-                }
-
-                if (!file_exists($target)) {
-                    break;
-                }
-            }
+        if (!file_exists($target)) {
+            return $target;
         }
 
-        return $target;
+         //Initial tmp name
+        $tmp = dirname($target) . DS . pathinfo($target, PATHINFO_FILENAME);
+
+        //If the file already exists, adds a numeric suffix
+        $extension = pathinfo($target, PATHINFO_EXTENSION);
+        for ($i = 1;; $i++) {
+            $target = $tmp . '_' . $i;
+            $target .= $extension ? '.' . $extension : '';
+
+            if (!file_exists($target)) {
+                return $target;
+            }
+        }
     }
 
     /**
@@ -89,6 +85,18 @@ class UploaderComponent extends Component
     }
 
     /**
+     * Internal method to check for uploaded file information (`$file` property)
+     * @return void
+     * @throws \Tools\Exception\ObjectWrongInstanceException
+     */
+    protected function _checkUploadedFileInformation(): void
+    {
+        $message = __d('me_tools', 'There are no uploaded file information');
+        Exceptionist::isTrue($this->file, $message, ObjectWrongInstanceException::class);
+        Exceptionist::isInstanceOf($this->file, UploadedFileInterface::class, $message);
+    }
+
+    /**
      * Checks if the mimetype is correct
      * @param string|array $acceptedMimetype Accepted mimetypes as string or
      *  array or a magic word (`images` or `text`)
@@ -97,7 +105,7 @@ class UploaderComponent extends Component
      */
     public function mimetype($acceptedMimetype)
     {
-        Exceptionist::instanceOf($this->file, UploadedFileInterface::class, __d('me_tools', 'There are no uploaded file information'));
+        $this->_checkUploadedFileInformation();
 
         //Changes magic words
         switch ($acceptedMimetype) {
@@ -128,7 +136,7 @@ class UploaderComponent extends Component
      */
     public function save(string $directory, ?string $filename = null)
     {
-        Exceptionist::instanceOf($this->file, UploadedFileInterface::class, __d('me_tools', 'There are no uploaded file information'));
+        $this->_checkUploadedFileInformation();
 
         //Checks for previous errors
         if ($this->getError()) {
