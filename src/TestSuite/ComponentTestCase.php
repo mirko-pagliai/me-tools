@@ -24,7 +24,7 @@ abstract class ComponentTestCase extends TestCase
 {
     /**
      * Component instance
-     * @var \Cake\Controller\Component|\PHPUnit_Framework_MockObject_MockObject
+     * @var \Cake\Controller\Component|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $Component;
 
@@ -37,8 +37,6 @@ abstract class ComponentTestCase extends TestCase
     /**
      * Called before every test method
      * @return void
-     * @uses $Component
-     * @uses $autoInitializeClass
      */
     public function setUp(): void
     {

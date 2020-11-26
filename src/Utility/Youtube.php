@@ -1,5 +1,6 @@
 <?php
 declare(strict_types=1);
+
 /**
  * This file is part of me-tools.
  *
@@ -25,7 +26,7 @@ class Youtube
      */
     public static function getId(string $url): ?string
     {
-        if (strpos($url, 'youtube.com') !== false) {
+        if (string_contains($url, 'youtube.com')) {
             $url = parse_url($url);
 
             if (empty($url['query'])) {
@@ -48,7 +49,6 @@ class Youtube
      * Gets the preview for a video
      * @param string $id YouTube ID or url
      * @return string
-     * @uses getId()
      */
     public static function getPreview(string $id): string
     {

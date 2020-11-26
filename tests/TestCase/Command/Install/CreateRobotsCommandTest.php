@@ -35,12 +35,9 @@ class CreateRobotsCommandTest extends TestCase
         $this->assertOutputContains('Creating file ' . WWW_ROOT . 'robots.txt');
         $this->assertOutputContains('<success>Wrote</success> `' . WWW_ROOT . 'robots.txt`');
         $this->assertErrorEmpty();
-        $this->assertStringEqualsFile(
-            WWW_ROOT . 'robots.txt',
-            'User-agent: *' . PHP_EOL . 'Disallow: /admin/' . PHP_EOL .
+        $this->assertStringEqualsFile(WWW_ROOT . 'robots.txt', 'User-agent: *' . PHP_EOL . 'Disallow: /admin/' . PHP_EOL .
             'Disallow: /ckeditor/' . PHP_EOL . 'Disallow: /css/' . PHP_EOL .
-            'Disallow: /js/' . PHP_EOL . 'Disallow: /vendor/'
-        );
+            'Disallow: /js/' . PHP_EOL . 'Disallow: /vendor/');
         @unlink(WWW_ROOT . 'robots.txt');
     }
 }

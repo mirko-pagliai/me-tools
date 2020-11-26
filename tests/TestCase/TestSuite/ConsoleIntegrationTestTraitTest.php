@@ -1,5 +1,6 @@
 <?php
 declare(strict_types=1);
+
 /**
  * This file is part of me-tools.
  *
@@ -26,7 +27,7 @@ class ConsoleIntegrationTestTraitTest extends TestCase
     use ConsoleIntegrationTestTrait;
 
     /**
-     * @var Cake\TestSuite\Stub\ConsoleOutput
+     * @var \Cake\TestSuite\Stub\ConsoleOutput
      */
     protected $_out;
 

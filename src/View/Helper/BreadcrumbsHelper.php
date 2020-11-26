@@ -1,5 +1,6 @@
 <?php
 declare(strict_types=1);
+
 /**
  * This file is part of me-tools.
  *
@@ -84,7 +85,7 @@ class BreadcrumbsHelper extends CakeBreadcrumbsHelper
      */
     public function render(array $attributes = [], array $separator = []): string
     {
-        if (empty($this->crumbs)) {
+        if (!$this->crumbs) {
             return parent::render($attributes, $separator);
         }
 

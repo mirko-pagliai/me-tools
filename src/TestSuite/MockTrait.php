@@ -39,7 +39,7 @@ trait MockTrait
      * Mocks a component
      * @param string $className Component class name
      * @param array|null $methods The list of methods to mock
-     * @return \Cake\Controller\Component|\PHPUnit_Framework_MockObject_MockObject
+     * @return \Cake\Controller\Component|\PHPUnit\Framework\MockObject\MockObject
      */
     protected function getMockForComponent(string $className, ?array $methods = []): object
     {
@@ -54,8 +54,7 @@ trait MockTrait
      * @param string $className Controller class name
      * @param array|null $methods The list of methods to mock
      * @param string|null $alias Controller alias
-     * @return \Cake\Controller\Controller|\PHPUnit_Framework_MockObject_MockObject
-     * @uses getControllerAlias()
+     * @return \Cake\Controller\Controller|\PHPUnit\Framework\MockObject\MockObject
      */
     protected function getMockForController(string $className, ?array $methods = [], ?string $alias = null): object
     {
@@ -72,7 +71,7 @@ trait MockTrait
      * Mocks an helper
      * @param string $className Helper class name
      * @param array|null $methods The list of methods to mock
-     * @return \Cake\View\Helper|\PHPUnit_Framework_MockObject_MockObject
+     * @return \Cake\View\Helper|\PHPUnit\Framework\MockObject\MockObject
      */
     protected function getMockForHelper(string $className, ?array $methods = []): object
     {
@@ -88,29 +87,29 @@ trait MockTrait
      *
      * Example: class `MyPlugin\Test\TestCase\Controller\PagesControllerTest`
      *  will return the string `MyPlugin\Controller\PagesController`.
-     * @param object|string $testClass A test class as object or string
-     * @return string The class name for which a test is being performed
+     * @param object $testClass A test class as object or string
+     * @return string|null The class name for which a test is being performed or
+     *  `null` on failure
      * @since 2.18.0
      */
-    public function getOriginClassName($testClass): string
+    public function getOriginClassName(object $testClass): ?string
     {
-        $testClass = is_string($testClass) ? $testClass : get_class($testClass);
+        $className = preg_replace('/^\\\\?(.+)Test\\\\TestCase\\\\(.+)Test$/', '\1\2', get_class($testClass), -1, $count);
 
-        return preg_replace('/^\\\\?(.+)Test\\\\TestCase\\\\(.+)Test$/', '\1\2', $testClass);
+        return $count ? $className : null;
     }
 
     /**
      * Gets the classname for which a test is being performed, starting from the
      *  test class name. It fails if the class does not exist
-     * @param object|string $testClass A test class as object or string
+     * @param object $testClass A test class as object or string
      * @return string The class name for which a test is being performed
      * @since 2.19.2
-     * @uses getOriginClassName()
      */
-    public function getOriginClassNameOrFail($testClass): string
+    public function getOriginClassNameOrFail(object $testClass): string
     {
         $className = $this->getOriginClassName($testClass);
-        class_exists($className) ?: $this->fail(sprintf('Class `\\%s` does not exist', $className));
+        $className ?: $this->fail(sprintf('Unable to get the classname for the `%s` class', get_class($testClass)));
 
         return $className;
     }

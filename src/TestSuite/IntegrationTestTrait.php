@@ -46,7 +46,7 @@ trait IntegrationTestTrait
             $this->_controller->Uploader = $this->getMockForComponent(UploaderComponent::class, ['move_uploaded_file']);
 
             $this->_controller->Uploader->method('move_uploaded_file')
-                ->will($this->returnCallback(function ($filename, $destination) {
+                ->will($this->returnCallback(function (string $filename, string $destination) {
                     return rename($filename, $destination);
                 }));
         }

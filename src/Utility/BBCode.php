@@ -1,5 +1,6 @@
 <?php
 declare(strict_types=1);
+
 /**
  * This file is part of me-tools.
  *
@@ -71,11 +72,10 @@ class BBCode
      * Removes all BBCode
      * @param string $text Text
      * @return string
-     * @uses $pattern
      */
     public function remove(string $text): string
     {
-        return trim(preg_replace($this->pattern, null, $text));
+        return trim(preg_replace($this->pattern, '', $text));
     }
 
     /**
@@ -85,8 +85,6 @@ class BBCode
      * </code>
      * @param string $text Text
      * @return string
-     * @uses $Html
-     * @uses $pattern
      */
     public function image(string $text): string
     {
@@ -102,7 +100,6 @@ class BBCode
      * </code>
      * @param string $text Text
      * @return string
-     * @uses $pattern
      */
     public function readMore(string $text): string
     {
@@ -116,8 +113,6 @@ class BBCode
      * </code>
      * @param string $text Text
      * @return string
-     * @uses $Html
-     * @uses $pattern
      */
     public function url(string $text): string
     {
@@ -140,9 +135,6 @@ class BBCode
      * </code>
      * @param string $text Text
      * @return string
-     * @uses \MeTools\Utility\Youtube::getId()
-     * @uses $Html
-     * @uses $pattern
      */
     public function youtube(string $text): string
     {

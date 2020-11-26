@@ -1,5 +1,6 @@
 <?php
 declare(strict_types=1);
+
 /**
  * This file is part of me-tools.
  *
@@ -34,7 +35,7 @@ class DropdownHelperTest extends HelperTestCase
     {
         parent::setUp();
 
-        $this->Html = $this->getMockForHelper(HtmlHelper::class, null);
+        $this->Html = $this->Html ?: $this->getMockForHelper(HtmlHelper::class, null);
     }
 
     /**

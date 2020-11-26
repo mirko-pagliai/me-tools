@@ -1,5 +1,6 @@
 <?php
 declare(strict_types=1);
+
 /**
  * This file is part of me-tools.
  *
@@ -37,15 +38,12 @@ class CreateDirectoriesCommandTest extends TestCase
             ->setMethods(['createDir'])
             ->getMock();
 
-        $count = 0;
-        foreach (Configure::read('WRITABLE_DIRS') as $path) {
-            $Command->expects($this->at($count++))
-                ->method('createDir')
-                ->with($io, $path);
-        }
-
-        $Command->expects($this->exactly(count(Configure::read('WRITABLE_DIRS'))))
-            ->method('createDir');
+        $dirs = Configure::read('WRITABLE_DIRS');
+        $method = $Command->expects($this->exactly(count($dirs)))->method('createDir');
+        $consecutiveCalls = array_map(function (string $path) use ($io) {
+            return [$io, $path];
+        }, $dirs);
+        call_user_func_array([$method, 'withConsecutive'], $consecutiveCalls);
 
         $this->assertNull($Command->run([], $io));
     }

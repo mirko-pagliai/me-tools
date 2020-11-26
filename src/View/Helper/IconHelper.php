@@ -1,5 +1,6 @@
 <?php
 declare(strict_types=1);
+
 /**
  * This file is part of me-tools.
  *
@@ -28,23 +29,21 @@ class IconHelper extends CakeHtmlHelper
      * @param \MeTools\View\OptionsParser $options Instance of `OptionsParser`
      * @return array Text with icons and instance of `OptionsParser`
      * @since 2.16.2-beta
-     * @uses icon()
      */
     public function addIconToText($text, OptionsParser $options): array
     {
         $icon = $options->consume('icon');
         $align = $options->consume('icon-align');
-
         if (!$icon) {
             return [$text, $options];
         }
 
         $icon = $this->icon($icon);
-        $result = sprintf('%s %s', $icon, $text);
+        $result = $icon . ' ' . $text;
         if (empty($text)) {
             $result = $icon;
         } elseif ($align === 'right') {
-            $result = sprintf('%s %s', $text, $icon);
+            $result = $text . ' ' . $icon;
         }
 
         return [$result, $options];
@@ -90,17 +89,20 @@ class IconHelper extends CakeHtmlHelper
      * <code>
      * <i class="fas fa-hand-o-right fa-2x"> </i>
      * </code>
-     * @param string|array $icon Icons. You can also pass multiple arguments
+     * @param string|array $icons Icons. You can also pass multiple arguments
      * @return string
      * @see http://fontawesome.com Font Awesome icons
-     * @uses buildIconClasses()
      */
-    public function icon($icon): string
+    public function icon(...$icons): string
     {
-        $icon = func_num_args() > 1 ? func_get_args() : $icon;
+        $toString = function ($value): string {
+            return implode(' ', (array)$value);
+        };
+
+        $class = $this->buildIconClasses($toString(array_map($toString, $icons)));
 
         return $this->formatTemplate('tag', [
-            'attrs' => $this->templater()->formatAttributes(['class' => $this->buildIconClasses($icon)]),
+            'attrs' => $this->templater()->formatAttributes(compact('class')),
             'content' => ' ',
             'tag' => 'i',
         ]);

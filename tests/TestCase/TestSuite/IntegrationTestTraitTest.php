@@ -1,5 +1,6 @@
 <?php
 declare(strict_types=1);
+
 /**
  * This file is part of me-tools.
  *
@@ -22,6 +23,7 @@ use MeTools\TestSuite\IntegrationTestTrait;
 use MeTools\TestSuite\TestCase;
 use PHPUnit\Framework\AssertionFailedError;
 use PHPUnit\Framework\MockObject\MockObject;
+use Tools\Filesystem;
 
 /**
  * IntegrationTestTraitTest class
@@ -45,7 +47,7 @@ class IntegrationTestTraitTest extends TestCase
      * Test for `controllerSpy()` method
      * @test
      */
-    public function testcontrollerSpy()
+    public function testControllerSpy()
     {
         $this->_controller = new Controller();
         $this->_controller->loadComponent('MeTools.Uploader');
@@ -53,11 +55,11 @@ class IntegrationTestTraitTest extends TestCase
         $this->assertEquals('with_flash', $this->_controller->viewBuilder()->getLayout());
 
         $this->assertInstanceOf(MockObject::class, $this->_controller->Uploader);
-        $source = create_tmp_file();
+        $source = (new Filesystem())->createTmpFile();
         $destination = TMP . 'example2';
-        $this->assertFileNotExists($destination);
+        $this->assertFileDoesNotExist($destination);
         $this->invokeMethod($this->_controller->Uploader, 'move_uploaded_file', [$source, $destination]);
-        $this->assertFileNotExists($source);
+        $this->assertFileDoesNotExist($source);
         $this->assertFileExists($destination);
         unlink($destination);
     }
@@ -70,16 +72,13 @@ class IntegrationTestTraitTest extends TestCase
     {
         $this->assertCookieIsEmpty('test-cookie');
 
-        $this->_response = $this->_response->withCookie(new Cookie('test-cookie', null));
-        $this->assertCookieIsEmpty('test-cookie');
-
-        $this->_response = $this->_response->withCookie(new Cookie('test-cookie', false));
+        $this->_response = $this->_response->withCookie(new Cookie('test-cookie', ''));
         $this->assertCookieIsEmpty('test-cookie');
 
         //With no response
         $this->expectException(AssertionFailedError::class);
         $this->expectExceptionMessage('Not response set, cannot assert cookies');
-        $this->_response = false;
+        $this->_response = null;
         $this->assertCookieIsEmpty('test-cookie');
     }
 

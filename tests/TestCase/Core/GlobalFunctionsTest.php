@@ -1,5 +1,6 @@
 <?php
 declare(strict_types=1);
+
 /**
  * This file is part of me-tools.
  *
@@ -28,17 +29,7 @@ class GlobalFunctionsTest extends TestCase
     public function testOptionsParser()
     {
         $result = optionsParser();
-        $expected = new OptionsParser();
         $this->assertInstanceOf(OptionsParser::class, $result);
-        $this->assertEquals($expected, $result);
-        $this->assertEquals(get_object_vars($expected), get_object_vars($result));
-
-        $first = ['f' => 'first', 's' => 'second'];
-        $second = ['t' => 'third'];
-        $result = optionsParser($first, $second);
-        $expected = new OptionsParser($first, $second);
-        $this->assertInstanceOf(OptionsParser::class, $result);
-        $this->assertEquals($expected, $result);
-        $this->assertEquals(get_object_vars($expected), get_object_vars($result));
+        $this->assertEquals(new OptionsParser(), $result);
     }
 }

@@ -1,5 +1,6 @@
 <?php
 declare(strict_types=1);
+
 /**
  * This file is part of me-tools.
  *
@@ -15,6 +16,7 @@ namespace MeTools\Test\TestCase\Command\Install;
 
 use MeTools\TestSuite\ConsoleIntegrationTestTrait;
 use MeTools\TestSuite\TestCase;
+use Tools\Filesystem;
 
 /**
  * FixComposerJsonCommandTest class
@@ -34,8 +36,9 @@ class FixComposerJsonCommandTest extends TestCase
      */
     public function testExecute()
     {
+        $Filesystem = new Filesystem();
         $file = APP . 'composer.json';
-        create_file($file, json_encode([
+        $Filesystem->createFile($file, json_encode([
             'name' => 'example',
             'description' => 'example of composer.json',
             'type' => 'project',
@@ -44,7 +47,7 @@ class FixComposerJsonCommandTest extends TestCase
         ], JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
         $this->exec($this->command . ' -p ' . $file);
         $this->assertExitWithSuccess();
-        $this->assertOutputContains('The file ' . rtr($file) . ' has been fixed');
+        $this->assertOutputContains('File `' . $Filesystem->rtr($file) . '` has been fixed');
         $this->assertErrorEmpty();
     }
 
@@ -57,7 +60,7 @@ class FixComposerJsonCommandTest extends TestCase
         $file = APP . 'composer.json';
         $this->exec($this->command . ' -p ' . $file);
         $this->assertExitWithSuccess();
-        $this->assertOutputContains('The file ' . rtr($file) . ' doesn\'t need to be fixed');
+        $this->assertOutputContains('File `' . (new Filesystem())->rtr($file) . '` doesn\'t need to be fixed');
         $this->assertErrorEmpty();
         unlink(APP . 'composer.json');
     }
@@ -69,10 +72,10 @@ class FixComposerJsonCommandTest extends TestCase
     public function testExecuteInvalidFile()
     {
         $file = TMP . 'invalid.json';
-        create_file($file, 'String');
+        (new Filesystem())->createFile($file);
         $this->exec($this->command . ' -p ' . $file);
         $this->assertExitWithError();
-        $this->assertErrorContains('The file ' . $file . ' does not seem a valid composer.json file');
+        $this->assertErrorContains('File `' . $file . '` does not seem a valid composer.json file');
     }
 
     /**

@@ -1,5 +1,6 @@
 <?php
 declare(strict_types=1);
+
 /**
  * This file is part of me-tools.
  *
@@ -22,7 +23,7 @@ use MeTools\View\Helper\FormHelper;
 class HiddenWidgetTest extends TestCase
 {
     /**
-     * @var \Cake\View\Helper|\PHPUnit_Framework_MockObject_MockObject
+     * @var \Cake\View\Helper|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $Helper;
 
@@ -34,7 +35,7 @@ class HiddenWidgetTest extends TestCase
     {
         parent::setUp();
 
-        $this->Helper = $this->getMockForHelper(FormHelper::class, null);
+        $this->Helper = $this->Helper ?: $this->getMockForHelper(FormHelper::class, null);
     }
 
     /**

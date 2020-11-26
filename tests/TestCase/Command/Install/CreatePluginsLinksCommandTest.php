@@ -1,5 +1,6 @@
 <?php
 declare(strict_types=1);
+
 /**
  * This file is part of me-tools.
  *
@@ -15,6 +16,7 @@ namespace MeTools\Test\TestCase\Command\Install;
 
 use MeTools\TestSuite\ConsoleIntegrationTestTrait;
 use MeTools\TestSuite\TestCase;
+use Tools\Filesystem;
 
 /**
  * CreatePluginsLinksCommandTest class
@@ -29,21 +31,27 @@ class CreatePluginsLinksCommandTest extends TestCase
      */
     public function testExecute()
     {
+        $Filesystem = new Filesystem();
+        $clear = function () use ($Filesystem) {
+            $method = IS_WIN ? [$Filesystem, 'rmdirRecursive'] : 'unlink';
+            @array_map($method, [WWW_ROOT . 'me_tools', WWW_ROOT . 'test_plugin']);
+        };
+
         $this->loadPlugins(['TestPlugin']);
 
-        @array_map(IS_WIN ? 'rmdir_recursive' : 'unlink', [WWW_ROOT . 'me_tools', WWW_ROOT . 'test_plugin']);
+        $clear();
         $this->exec('me_tools.create_plugins_links -v');
         $this->assertExitWithSuccess();
         $this->assertOutputContains('Skipping plugin `Assets`. It does not have webroot folder');
         $this->assertOutputContains('For plugin: MeTools');
-        $this->assertOutputContains('Link `' . rtr(WWW_ROOT . 'me_tools') . '` has been created');
+        $this->assertOutputContains('Link `' . $Filesystem->rtr(WWW_ROOT . 'me_tools') . '` has been created');
         $this->assertOutputContains('For plugin: TestPlugin');
-        $this->assertOutputContains('Link `' . rtr(WWW_ROOT . 'test_plugin') . '` has been created');
+        $this->assertOutputContains('Link `' . $Filesystem->rtr(WWW_ROOT . 'test_plugin') . '` has been created');
         $this->assertErrorEmpty();
         $this->assertFileExists(WWW_ROOT . 'me_tools');
         $this->assertFileExists(WWW_ROOT . 'test_plugin');
 
-        @array_map(IS_WIN ? 'rmdir_recursive' : 'unlink', [WWW_ROOT . 'me_tools', WWW_ROOT . 'test_plugin']);
+        $clear();
         $this->removePlugins(['TestPlugin']);
     }
 }

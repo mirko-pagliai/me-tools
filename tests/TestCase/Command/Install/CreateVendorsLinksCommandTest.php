@@ -1,5 +1,6 @@
 <?php
 declare(strict_types=1);
+
 /**
  * This file is part of me-tools.
  *
@@ -37,15 +38,12 @@ class CreateVendorsLinksCommandTest extends TestCase
             ->setMethods(['createLink'])
             ->getMock();
 
-        $count = 0;
-        foreach (Configure::read('VENDOR_LINKS') as $origin => $target) {
-            $Command->expects($this->at($count++))
-                ->method('createLink')
-                ->with($io, ROOT . 'vendor' . DS . $origin, WWW_ROOT . 'vendor' . DS . $target);
-        }
-
-        $Command->expects($this->exactly(count(Configure::read('VENDOR_LINKS'))))
-            ->method('createLink');
+        $links = Configure::read('VENDOR_LINKS');
+        $method = $Command->expects($this->exactly(count($links)))->method('createLink');
+        $consecutiveCalls = array_map(function (string $origin, string $target) use ($io) {
+            return [$io, ROOT . 'vendor' . DS . $origin, WWW_ROOT . 'vendor' . DS . $target];
+        }, array_keys($links), $links);
+        call_user_func_array([$method, 'withConsecutive'], $consecutiveCalls);
 
         $this->assertNull($Command->run([], $io));
     }

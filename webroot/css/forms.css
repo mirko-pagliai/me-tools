@@ -59,7 +59,7 @@ form input + .input-group-prepend .btn {
 /* -------------------------------- */
 /* Help texts */
 form .form-text {
-    font-family: sans-serif,Arial;
+    font-family: sans-serif, Arial;
     font-size: .6875rem;
     font-weight: normal;
     margin-bottom: 0;
@@ -113,7 +113,7 @@ form.form-inline fieldset > :not(legend):last-child {
 /* -------------------------------- */
 /* Float form */
 form .float-form {
-    background: #F7F5FA;
+    background: #f7f5fa;
     border-radius: .3rem;
     margin-bottom: 1.5rem;
     padding: .75rem;

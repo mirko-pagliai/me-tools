@@ -27,15 +27,13 @@ trait ConsoleIntegrationTestTrait
 
     /**
      * Command instance
-     * @var \MeTools\Console\Command|\PHPUnit_Framework_MockObject_MockObject
+     * @var \MeTools\Console\Command|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $Command;
 
     /**
      * Called before every test method
      * @return void
-     * @uses $Command
-     * @uses $autoInitializeClass
      */
     public function setUp(): void
     {

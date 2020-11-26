@@ -1,5 +1,6 @@
 <?php
 declare(strict_types=1);
+
 /**
  * This file is part of me-tools.
  *
@@ -43,12 +44,8 @@ class OptionsParser
      * Constructor
      * @param array $options Existing options
      * @param array|null $defaults Default values
-     * @return $this
-     * @uses buildValue()
-     * @uses $Default
-     * @uses $options
      */
-    public function __construct(array $options = [], $defaults = [])
+    public function __construct(array $options = [], ?array $defaults = [])
     {
         array_walk($options, [$this, 'buildValue']);
         $this->options = $options;
@@ -56,8 +53,6 @@ class OptionsParser
         if (!is_null($defaults)) {
             $this->Default = new OptionsParser($defaults, null);
         }
-
-        return $this;
     }
 
     /**
@@ -65,7 +60,6 @@ class OptionsParser
      * @param mixed $value Option value
      * @param string $key Option key
      * @return mixed
-     * @uses $toBeExploded
      */
     protected function buildValue(&$value, string $key)
     {
@@ -86,8 +80,6 @@ class OptionsParser
      * @param string|array $key Key or array with keys and values
      * @param mixed|null $value Value
      * @return $this
-     * @uses buildValue()
-     * @uses $options
      */
     public function add($key, $value = null)
     {
@@ -112,41 +104,33 @@ class OptionsParser
      * <code>
      * $options->addButtonClasses('primary lg');
      * $options->addButtonClasses('primary', 'lg');
-     * $options->addButtonClasses(['btn-primary', 'lg']);
      * </code>
-     * @param string|array $classes Classes string, array or multiple arguments
+     * @param string $classes Classes string, array or multiple arguments
      * @return $this
-     * @uses append()
-     * @uses get()
      */
-    public function addButtonClasses($classes = 'btn-light')
+    public function addButtonClasses(string ...$classes)
     {
-        $baseClasses = [ 'primary', 'secondary', 'success', 'danger', 'warning',
+        $baseClasses = ['primary', 'secondary', 'success', 'danger', 'warning',
             'info', 'light', 'dark', 'link'];
         $allClasses = array_merge($baseClasses, ['outline-primary',
             'outline-secondary', 'outline-success', 'outline-danger',
             'outline-warning', 'outline-info', 'outline-light', 'outline-dark',
             'lg', 'sm', 'block']);
 
-        $existing = $this->get('class');
-
         //If a base class already exists, it just appends the `btn` class
+        $existing = $this->get('class');
         if ($existing && preg_match('/btn\-(' . implode('|', $baseClasses) . ')/', $existing)) {
             return $this->append('class', 'btn');
         }
 
-        if (func_num_args() > 1) {
-            $classes = func_get_args();
-        } elseif (is_string($classes)) {
-            $classes = preg_split('/\s+/', $classes, -1, PREG_SPLIT_NO_EMPTY);
-        }
+        $classes = preg_split('/\s+/', $classes ? implode(' ', $classes) : 'btn-light', -1, PREG_SPLIT_NO_EMPTY);
 
         $classes = collection($classes)
-            ->filter(function (string $class) use ($allClasses) {
-                return preg_match('/^(btn\-)?(' . implode('|', $allClasses) . ')$/', $class);
-            })
             ->map(function (string $class) {
                 return string_starts_with($class, 'btn-') ? $class : 'btn-' . $class;
+            })
+            ->filter(function (string $class) use ($allClasses) {
+                return preg_match('/^btn\-(' . implode('|', $allClasses) . ')$/', $class);
             });
 
         return $this->append('class', array_merge(['btn'], $classes->toList()));
@@ -163,7 +147,6 @@ class OptionsParser
      * @param string|array $key Key or array with keys and values
      * @param mixed|null $value Value
      * @return $this
-     * @uses add()
      */
     public function append($key, $value = null)
     {
@@ -196,8 +179,6 @@ class OptionsParser
      * @param string $key Key
      * @return mixed
      * @since 2.16.10
-     * @uses delete()
-     * @uses get()
      */
     public function consume(string $key)
     {
@@ -220,9 +201,6 @@ class OptionsParser
      * @param string $key Key
      * @param mixed $value Value
      * @return bool
-     * @uses exists()
-     * @uses get()
-     * @uses $toBeExploded
      */
     public function contains(string $key, $value): bool
     {
@@ -246,21 +224,14 @@ class OptionsParser
 
     /**
      * Delete a key
-     * @param string|array $key Key or array of keys
+     * @param string $key Key
      * @return $this
-     * @uses $options
      */
-    public function delete($key)
+    public function delete(string ...$key)
     {
-        $key = func_num_args() > 1 ? func_get_args() : $key;
-
-        if (is_array($key)) {
-            array_map([$this, __METHOD__], $key);
-
-            return $this;
+        foreach ($key as $k) {
+            unset($this->options[$k]);
         }
-
-        unset($this->options[$key]);
 
         return $this;
     }
@@ -269,8 +240,6 @@ class OptionsParser
      * Checks if a key exists
      * @param string $key Key
      * @return bool
-     * @uses $Default
-     * @uses $options
      */
     public function exists(string $key): bool
     {
@@ -281,8 +250,6 @@ class OptionsParser
      * Gets the value for a key
      * @param string $key Key
      * @return mixed
-     * @uses $Default
-     * @uses $options
      */
     public function get(string $key)
     {
@@ -294,13 +261,10 @@ class OptionsParser
     /**
      * Returns options as array
      * @return array
-     * @uses $Default
-     * @uses $options
      */
     public function toArray(): array
     {
         $options = $this->options;
-
         if ($this->Default) {
             $options = array_merge($this->Default->options, $options);
         }
@@ -313,7 +277,6 @@ class OptionsParser
     /**
      * Returns options as string
      * @return string
-     * @uses toArray()
      */
     public function toString(): string
     {
@@ -342,16 +305,10 @@ class OptionsParser
      *  `data-placement` keys, as required by Bootstrap tooltips.
      * @return $this
      * @see http://getbootstrap.com/docs/4.0/components/tooltips
-     * @uses add()
-     * @uses append()
-     * @uses delete()
-     * @uses exists()
-     * @uses get()
      */
     public function tooltip()
     {
         $tooltip = $this->consume('tooltip');
-
         if (!$tooltip) {
             return $this;
         }

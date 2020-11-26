@@ -1,5 +1,6 @@
 <?php
 declare(strict_types=1);
+
 /**
  * This file is part of me-tools.
  *
@@ -80,7 +81,7 @@ class DropdownHelper extends Helper
      *  link
      * @param array $divOptions HTML attributes and options for the wrapper
      *  element
-     * @return string|void
+     * @return string|null
      */
     public function menu(string $title, array $menu, array $titleOptions = [], array $divOptions = []): ?string
     {
@@ -103,7 +104,6 @@ class DropdownHelper extends Helper
      * @param array $titleOptions HTML attributes and options for the opening
      *  link
      * @return void
-     * @uses $_start
      */
     public function start(string $title, array $titleOptions = []): void
     {
@@ -122,13 +122,11 @@ class DropdownHelper extends Helper
      * @param array $divOptions HTML attributes and options for the wrapper
      *  element
      * @return string|null
-     * @uses $_start
      */
     public function end(array $divOptions = []): ?string
     {
         $buffer = ob_get_contents();
-
-        if (empty($buffer)) {
+        if (!$buffer) {
             return null;
         }
 

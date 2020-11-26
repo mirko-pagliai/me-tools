@@ -1,5 +1,6 @@
 <?php
 declare(strict_types=1);
+
 /**
  * This file is part of me-tools.
  *
@@ -13,7 +14,6 @@ declare(strict_types=1);
  */
 namespace MeTools\View\Helper;
 
-use Cake\Core\Exception\Exception;
 use Cake\View\Helper\HtmlHelper as CakeHtmlHelper;
 use Tools\Exceptionist;
 
@@ -22,6 +22,11 @@ use Tools\Exceptionist;
  */
 class HtmlHelper extends CakeHtmlHelper
 {
+    /**
+     * @var array
+     */
+    protected $_cssBlockOptions;
+
     /**
      * Helpers
      * @var array
@@ -36,14 +41,13 @@ class HtmlHelper extends CakeHtmlHelper
      * @param string $method Name of the tag
      * @param array $params Params for the method
      * @return string
-     * @throws \Exception
-     * @uses tag()
+     * @throws \ErrorException
      */
     public function __call(string $method, array $params): string
     {
-        Exceptionist::isTrue(count($params) < 3, sprintf('Method `%s::%s()` does not exist', __CLASS__, $method), Exception::class);
+        Exceptionist::isTrue(count($params) < 3, sprintf('Method `%s::%s()` does not exist', __CLASS__, $method));
 
-        return self::tag($method, $params[0], $params[1] ?? []);
+        return $this->tag($method, $params[0], $params[1] ?? []);
     }
 
     /**
@@ -52,13 +56,10 @@ class HtmlHelper extends CakeHtmlHelper
      * @param array $options Array of options and HTML attributes
      * @return string
      * @see http://getbootstrap.com/components/#badges Bootstrap documentation
-     * @uses tag()
      */
     public function badge(string $text, array $options = []): string
     {
-        $options = optionsParser($options)->append('class', 'badge');
-
-        return self::tag('span', $text, $options->toArray());
+        return $this->tag('span', $text, optionsParser($options)->append('class', 'badge')->toArray());
     }
 
     /**
@@ -71,21 +72,19 @@ class HtmlHelper extends CakeHtmlHelper
      *  parameters or external URL
      * @param array $options Array of options and HTML attributes
      * @return string
-     * @uses link()
-     * @uses tag()
      */
     public function button(?string $title = null, $url = null, array $options = []): string
     {
         $options = optionsParser($options, ['role' => 'button'])->addButtonClasses();
 
         if ($url) {
-            return self::link($title, $url, $options->toArray());
+            return $this->link($title, $url, $options->toArray());
         }
 
         $options->Default->add('title', $title);
         $options->add('title', strip_tags($options->get('title') ?? ''));
 
-        return self::tag('button', $title, $options->toArray());
+        return $this->tag('button', $title, $options->toArray());
     }
 
     /**
@@ -98,9 +97,7 @@ class HtmlHelper extends CakeHtmlHelper
      */
     public function css($path, array $options = []): ?string
     {
-        $options = optionsParser($options, ['block' => true]);
-
-        return parent::css($path, $options->toArray());
+        return parent::css($path, optionsParser($options, ['block' => true])->toArray());
     }
 
     /**
@@ -137,7 +134,7 @@ class HtmlHelper extends CakeHtmlHelper
      * Begin a CSS block that captures output until `cssEnd()` is called. This
      *  capturing block will capture all output between the methods and create
      *  a cssBlock from it
-     * @param array $options Options for the code block.
+     * @param array $options Options for the code block
      * @return void
      */
     public function cssStart(array $options = []): void
@@ -177,8 +174,6 @@ class HtmlHelper extends CakeHtmlHelper
      * @param array $smallOptions Array of options and HTML attributes
      * @return string
      * @see http://getbootstrap.com/css/#type-headings Bootstrap documentation
-     * @uses small()
-     * @uses tag()
      */
     public function heading(string $text, array $options = [], ?string $small = null, array $smallOptions = []): string
     {
@@ -186,20 +181,19 @@ class HtmlHelper extends CakeHtmlHelper
         $type = $options->consume('type');
         $type = is_string($type) && preg_match('/^h[1-6]$/', $type) ? $type : 'h2';
 
-        $text = $small ? sprintf('%s %s', $text, self::small($small, $smallOptions)) : $text;
+        $text .= $small ? ' ' . $this->tag('small', $small, $smallOptions) : '';
 
-        return self::tag($type, $text, $options->toArray());
+        return $this->tag($type, $text, $options->toArray());
     }
 
     /**
      * Creates an horizontal rule (`<hr>` tag)
      * @param array $options Array of options and HTML attributes
      * @return string
-     * @uses tag()
      */
     public function hr(array $options = []): string
     {
-        return self::tag('hr', null, $options);
+        return $this->tag('hr', null, $options);
     }
 
     /**
@@ -211,8 +205,6 @@ class HtmlHelper extends CakeHtmlHelper
      * @param array $options Array of options and HTML attributes
      * @return string
      * @see http://getbootstrap.com/components/#responsive-embed Responsive embed
-     * @uses div()
-     * @uses tag()
      */
     public function iframe(string $url, array $options = []): string
     {
@@ -223,15 +215,13 @@ class HtmlHelper extends CakeHtmlHelper
 
             if (in_array($ratio, ['16by9', '4by3'])) {
                 $options->append('class', 'embed-responsive-item');
+                $frame = $this->tag('iframe', null, $options->toArray());
 
-                return self::div(
-                    sprintf('embed-responsive embed-responsive-%s', $ratio),
-                    self::tag('iframe', null, $options->toArray())
-                );
+                return $this->div('embed-responsive embed-responsive-' . $ratio, $frame);
             }
         }
 
-        return self::tag('iframe', null, $options->toArray());
+        return $this->tag('iframe', '', $options->toArray());
     }
 
     /**
@@ -274,14 +264,13 @@ class HtmlHelper extends CakeHtmlHelper
      * @param array $options HTML attributes of the list tag
      * @return string
      * @see http://getbootstrap.com/components/#labels Bootstrap documentation
-     * @uses tag()
      */
     public function label(string $text, array $options = []): string
     {
         $options = optionsParser($options);
         $options->append('class', sprintf('label label-%s', $options->consume('type') ?: 'default'));
 
-        return self::tag('span', $text, $options->toArray());
+        return $this->tag('span', $text, $options->toArray());
     }
 
     /**
@@ -292,19 +281,12 @@ class HtmlHelper extends CakeHtmlHelper
      * @param string|array $element Element or elements
      * @param array $options HTML attributes of the list tag
      * @return string
-     * @uses tag()
      */
     public function li($element, array $options = []): string
     {
-        if (!is_array($element)) {
-            return self::tag('li', $element, $options);
-        }
-
-        $element = array_map(function (string $element) use ($options) {
-            return self::tag('li', $element, $options);
-        }, $element);
-
-        return implode(PHP_EOL, $element);
+        return implode(PHP_EOL, array_map(function (string $element) use ($options) {
+            return $this->tag('li', $element, $options);
+        }, (array)$element));
     }
 
     /**
@@ -378,11 +360,10 @@ class HtmlHelper extends CakeHtmlHelper
      * @param array $options HTML attributes of the list tag
      * @param array $itemOptions HTML attributes of the list items
      * @return string
-     * @uses nestedList()
      */
     public function ol(array $list, array $options = [], array $itemOptions = []): string
     {
-        return self::nestedList($list, ['tag' => 'ol'] + $options, $itemOptions);
+        return $this->nestedList($list, ['tag' => 'ol'] + $options, $itemOptions);
     }
 
     /**
@@ -411,9 +392,7 @@ class HtmlHelper extends CakeHtmlHelper
      */
     public function script($url, array $options = []): ?string
     {
-        $options = optionsParser($options, ['block' => true]);
-
-        return parent::script($url, $options->toArray());
+        return parent::script($url, optionsParser($options, ['block' => true])->toArray());
     }
 
     /**
@@ -424,9 +403,7 @@ class HtmlHelper extends CakeHtmlHelper
      */
     public function scriptBlock(string $script, array $options = []): ?string
     {
-        $options = optionsParser($options, ['block' => true]);
-
-        return parent::scriptBlock($script, $options->toArray());
+        return parent::scriptBlock($script, optionsParser($options, ['block' => true])->toArray());
     }
 
     /**
@@ -442,9 +419,7 @@ class HtmlHelper extends CakeHtmlHelper
      */
     public function scriptStart(array $options = []): void
     {
-        $options = optionsParser($options, ['block' => 'script_bottom']);
-
-        parent::scriptStart($options->toArray());
+        parent::scriptStart(optionsParser($options, ['block' => 'script_bottom'])->toArray());
     }
 
     /**
@@ -454,12 +429,11 @@ class HtmlHelper extends CakeHtmlHelper
      * To add the "setup code", you have to use the `LayoutHelper`.
      * @param string $appId Shareaholic app ID
      * @return string
-     * @see MeTools\View\Helper\LayoutHelper::shareaholic()
-     * @uses div()
+     * @see \MeTools\View\Helper\LayoutHelper::shareaholic()
      */
     public function shareaholic(string $appId): string
     {
-        return self::div('shareaholic-canvas', null, [
+        return $this->div('shareaholic-canvas', '', [
             'data-app' => 'share_buttons',
             'data-app-id' => $appId,
         ]);
@@ -478,7 +452,7 @@ class HtmlHelper extends CakeHtmlHelper
         $options = optionsParser($options);
         [$text, $options] = $this->Icon->addIconToText($text, $options->tooltip());
 
-        return parent::tag($name, is_null($text) ? '' : $text, $options->toArray());
+        return parent::tag($name, $text ?? '', $options->toArray());
     }
 
     /**
@@ -487,11 +461,10 @@ class HtmlHelper extends CakeHtmlHelper
      * @param array $options HTML attributes of the list tag
      * @param array $itemOptions HTML attributes of the list items
      * @return string
-     * @uses nestedList()
      */
     public function ul(array $list, array $options = [], array $itemOptions = []): string
     {
-        return self::nestedList($list, ['tag' => 'ul'] + $options, $itemOptions);
+        return $this->nestedList($list, ['tag' => 'ul'] + $options, $itemOptions);
     }
 
     /**
@@ -501,7 +474,6 @@ class HtmlHelper extends CakeHtmlHelper
      *  attribute is html, rss, atom, or icon, the mime-type is returned
      * @return string|null
      * @see http://getbootstrap.com/css/#overview-mobile Bootstrap documentation
-     * @uses meta()
      */
     public function viewport(array $options = []): ?string
     {
@@ -511,7 +483,7 @@ class HtmlHelper extends CakeHtmlHelper
             'width' => 'device-width',
         ], '', ', ');
 
-        return self::meta(['name' => 'viewport'] + compact('content'), null, $options);
+        return $this->meta(['name' => 'viewport'] + compact('content'), '', $options);
     }
 
     /**
@@ -522,7 +494,6 @@ class HtmlHelper extends CakeHtmlHelper
      * @param string $id YouTube video ID
      * @param array $options Array of options and HTML attributes
      * @return string
-     * @uses iframe()
      */
     public function youtube(string $id, array $options = []): string
     {
@@ -533,6 +504,6 @@ class HtmlHelper extends CakeHtmlHelper
             'width' => 640,
         ]);
 
-        return self::iframe(sprintf('https://www.youtube.com/embed/%s', $id), $options->toArray());
+        return $this->iframe(sprintf('https://www.youtube.com/embed/%s', $id), $options->toArray());
     }
 }

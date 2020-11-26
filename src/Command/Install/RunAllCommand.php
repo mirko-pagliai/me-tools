@@ -1,5 +1,6 @@
 <?php
 declare(strict_types=1);
+
 /**
  * This file is part of me-tools.
  *
@@ -56,7 +57,6 @@ class RunAllCommand extends Command
 
     /**
      * Constructor
-     * @uses $questions
      */
     public function __construct()
     {
@@ -101,7 +101,6 @@ class RunAllCommand extends Command
      * @param \Cake\Console\Arguments $args The command arguments
      * @param \Cake\Console\ConsoleIo $io The console io
      * @return int|null The exit code or null for success
-     * @uses $questions
      */
     public function execute(Arguments $args, ConsoleIo $io): ?int
     {

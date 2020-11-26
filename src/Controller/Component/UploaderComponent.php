@@ -18,8 +18,9 @@ use Cake\Controller\Component;
 use Laminas\Diactoros\Exception\UploadedFileErrorException;
 use Laminas\Diactoros\UploadedFile;
 use Psr\Http\Message\UploadedFileInterface;
-use RuntimeException;
+use Tools\Exception\ObjectWrongInstanceException;
 use Tools\Exceptionist;
+use Tools\Filesystem;
 
 /**
  * A component to upload files
@@ -42,7 +43,6 @@ class UploaderComponent extends Component
      * Internal method to set an error
      * @param string $error Error
      * @return void
-     * @uses $error
      */
     protected function setError(string $error): void
     {
@@ -56,35 +56,28 @@ class UploaderComponent extends Component
      */
     protected function findTargetFilename(string $target): string
     {
-        //If the file already exists, adds a numeric suffix
-        if (file_exists($target)) {
-            $dirname = dirname($target) . DS;
-            $filename = pathinfo($target, PATHINFO_FILENAME);
-            $extension = pathinfo($target, PATHINFO_EXTENSION);
-
-            //Initial tmp name
-            $tmp = $dirname . $filename;
-
-            for ($i = 1;; $i++) {
-                $target = $tmp . '_' . $i;
-
-                if ($extension) {
-                    $target .= '.' . $extension;
-                }
-
-                if (!file_exists($target)) {
-                    break;
-                }
-            }
+        if (!file_exists($target)) {
+            return $target;
         }
 
-        return $target;
+         //Initial tmp name
+        $tmp = dirname($target) . DS . pathinfo($target, PATHINFO_FILENAME);
+
+        //If the file already exists, adds a numeric suffix
+        $extension = pathinfo($target, PATHINFO_EXTENSION);
+        for ($i = 1;; $i++) {
+            $target = $tmp . '_' . $i;
+            $target .= $extension ? '.' . $extension : '';
+
+            if (!file_exists($target)) {
+                return $target;
+            }
+        }
     }
 
     /**
      * Returns the first error
      * @return string|null First error or `null` with no errors
-     * @uses $error
      */
     public function getError(): ?string
     {
@@ -92,21 +85,27 @@ class UploaderComponent extends Component
     }
 
     /**
+     * Internal method to check for uploaded file information (`$file` property)
+     * @return void
+     * @throws \Tools\Exception\ObjectWrongInstanceException
+     */
+    protected function _checkUploadedFileInformation(): void
+    {
+        $message = __d('me_tools', 'There are no uploaded file information');
+        Exceptionist::isTrue($this->file, $message, ObjectWrongInstanceException::class);
+        Exceptionist::isInstanceOf($this->file, UploadedFileInterface::class, $message);
+    }
+
+    /**
      * Checks if the mimetype is correct
      * @param string|array $acceptedMimetype Accepted mimetypes as string or
      *  array or a magic word (`images` or `text`)
      * @return $this
-     * @throws \RuntimeException
-     * @uses setError()
-     * @uses $file
+     * @throws \Tools\Exception\ObjectWrongInstanceException
      */
     public function mimetype($acceptedMimetype)
     {
-        Exceptionist::isTrue(
-            $this->file instanceof UploadedFileInterface,
-            __d('me_tools', 'There are no uploaded file information'),
-            RuntimeException::class
-        );
+        $this->_checkUploadedFileInformation();
 
         //Changes magic words
         switch ($acceptedMimetype) {
@@ -133,29 +132,20 @@ class UploaderComponent extends Component
      *  generated automatically
      * @return string|bool Final full path of the uploaded file or `false` on
      *  failure
-     * @throws \RuntimeException
-     * @uses findTargetFilename()
-     * @uses getError()
-     * @uses setError()
-     * @uses $file
+     * @throws \Tools\Exception\ObjectWrongInstanceException
      */
     public function save(string $directory, ?string $filename = null)
     {
-        Exceptionist::isTrue(
-            $this->file instanceof UploadedFileInterface,
-            __d('me_tools', 'There are no uploaded file information'),
-            RuntimeException::class
-        );
+        $this->_checkUploadedFileInformation();
 
         //Checks for previous errors
         if ($this->getError()) {
             return false;
         }
 
-        Exceptionist::isDir($directory, RuntimeException::class);
-
+        Exceptionist::isDir($directory);
         $filename = $filename ? basename($filename) : $this->findTargetFilename($this->file->getClientFilename());
-        $target = add_slash_term($directory) . $filename;
+        $target = (new Filesystem())->concatenate($directory, $filename);
 
         try {
             $this->file->moveTo($target);
@@ -173,16 +163,16 @@ class UploaderComponent extends Component
      *  `$this->getRequest()->getData('file')`)
      * @param \Psr\Http\Message\UploadedFileInterface|array $file Uploaded file information
      * @return $this
-     * @uses setError()
-     * @uses $error
-     * @uses $file
      */
     public function set($file)
     {
         //Resets `$error`
         unset($this->error);
 
-        $this->file = $file instanceof UploadedFileInterface ? $file : new UploadedFile($file['tmp_name'], $file['size'], $file['error'], $file['name'], $file['type']);
+        if (!$file instanceof UploadedFileInterface) {
+            $file = new UploadedFile($file['tmp_name'], $file['size'], $file['error'], $file['name'], $file['type']);
+        }
+        $this->file = $file;
 
         //Checks errors during upload
         if ($this->file->getError() !== UPLOAD_ERR_OK) {

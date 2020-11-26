@@ -9,6 +9,7 @@
  * @link        https://github.com/mirko-pagliai/me-tools
  * @license     https://opensource.org/licenses/mit-license.php MIT License
  */
+
 /* -------------------------------- */
 /*        HTML and general          */
 /* -------------------------------- */
@@ -46,8 +47,7 @@ pre {
 .text-secondary a,
 .text-success a,
 .text-warning a,
-.text-white a
-{
+.text-white a {
     color: inherit;
     text-decoration: underline !important;
 }
@@ -61,8 +61,7 @@ pre {
 .bg-secondary code,
 .bg-success code,
 .bg-warning code,
-.bg-white code
-{
+.bg-white code {
     background: inherit;
     color: inherit;
 }
@@ -79,8 +78,9 @@ pre {
 /*      Ascending/descending sort   */
 /* -------------------------------- */
 /* Ascending and descending sort */
-th a.asc:after, th a.desc:after {
-    font-family: "Font Awesome 5 Free";
+th a.asc:after,
+th a.desc:after {
+    font-family: "Font Awesome 5 Free", sans-serif, Arial;
     display: inline-block;
     font-style: normal;
     font-variant: normal;

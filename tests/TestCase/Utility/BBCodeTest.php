@@ -1,5 +1,6 @@
 <?php
 declare(strict_types=1);
+
 /**
  * This file is part of me-tools.
  *
@@ -40,8 +41,8 @@ class BBCodeTest extends TestCase
     {
         parent::setUp();
 
-        $this->Html = $this->getMockForHelper(HtmlHelper::class, null);
-        $this->BBCode = new BBCode($this->Html);
+        $this->Html = $this->Html ?: $this->getMockForHelper(HtmlHelper::class, null);
+        $this->BBCode = $this->BBCode ?: new BBCode($this->Html);
     }
 
     /**

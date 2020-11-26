@@ -21,9 +21,10 @@ use Cake\ORM\TableRegistry;
 use Cake\TestSuite\TestCase as CakeTestCase;
 use Exception;
 use MeTools\TestSuite\MockTrait;
-use Symfony\Component\Filesystem\Filesystem;
 use Tools\Exceptionist;
+use Tools\Filesystem;
 use Tools\ReflectionTrait;
+use Tools\TestSuite\BackwardCompatibilityTrait;
 use Tools\TestSuite\TestTrait;
 
 /**
@@ -31,6 +32,7 @@ use Tools\TestSuite\TestTrait;
  */
 abstract class TestCase extends CakeTestCase
 {
+    use BackwardCompatibilityTrait;
     use MockTrait;
     use ReflectionTrait;
     use TestTrait;
@@ -55,7 +57,7 @@ abstract class TestCase extends CakeTestCase
         parent::tearDown();
 
         if (LOGS !== TMP) {
-            @unlink_recursive(LOGS, ['.gitkeep', 'empty']);
+            (new Filesystem())->unlinkRecursive(LOGS, ['.gitkeep', 'empty']);
         }
     }
 
@@ -67,11 +69,10 @@ abstract class TestCase extends CakeTestCase
      */
     protected function getLogFullPath(string $filename): string
     {
-        if (!pathinfo($filename, PATHINFO_EXTENSION)) {
-            $filename .= '.log';
-        }
+        $Filesystem = new Filesystem();
+        $filename .= $Filesystem->getExtension($filename) ? '' : '.log';
 
-        return (new Filesystem())->isAbsolutePath($filename) ? $filename : LOGS . $filename;
+        return $Filesystem->makePathAbsolute($filename, LOGS);
     }
 
     /**
@@ -99,13 +100,11 @@ abstract class TestCase extends CakeTestCase
      * @param string $message The failure message that will be appended to the
      *  generated message
      * @return void
-     * @uses getLogFullPath()
      */
     public function assertLogContains(string $expectedContent, string $filename, string $message = ''): void
     {
-        $filename = $this->getLogFullPath($filename);
-
         try {
+            $filename = $this->getLogFullPath($filename);
             Exceptionist::isReadable($filename);
             $content = file_get_contents($filename);
         } catch (Exception $e) {
@@ -119,7 +118,6 @@ abstract class TestCase extends CakeTestCase
      * Deletes a log file
      * @param string $filename Log filename
      * @return void
-     * @uses getLogFullPath()
      */
     public function deleteLog(string $filename): void
     {

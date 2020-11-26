@@ -1,0 +1,60 @@
+parameters:
+    level: 6
+
+    paths:
+        - config
+        - src
+        - tests
+
+    bootstrapFiles:
+        - tests/bootstrap.php
+
+    checkGenericClassInNonGenericObjectType: false
+    checkMissingIterableValueType: false
+    treatPhpDocTypesAsCertain: false
+
+    excludes_analyse:
+        -  tests/test_app/
+
+    ignoreErrors:
+        - '#^(Ternary operator condition|If condition|Negated boolean expression|Result of &&|(Left|Right) side of &&) is always (true|false)\.$#'
+        - '#^Static call to instance method Tools\\Exceptionist#'
+        - '#^Unable to resolve the template type RealInstanceType in call to method PHPUnit\\Framework\\TestCase\:\:getMockBuilder\(\)$#'
+
+        -
+            message: '#^Call to an undefined method Cake\\Core\\PluginApplicationInterface\:\:getPlugins\(\)\.$#'
+            count: 1
+            path: src/Plugin.php
+
+        -
+            message: '#Result of method MeTools\\Test\\TestCase\\TestSuite\\IntegrationTestTraitTest\:\:assertResponseOk\(\) \(void\) is used\.$#'
+            path: src/TestSuite/IntegrationTestTrait.php
+
+        -
+            message: '#Cake\\TestSuite\\Constraint\\Session\\SessionEquals#'
+            count: 2
+            path: src/TestSuite/IntegrationTestTrait.php
+
+        -
+            message: '#undefined (property|static method) MeTools\\View\\Helper#'
+            path: src/View/Helper
+
+        -
+            message: '#PHPUnit\\Framework\\MockObject\\MockObject given\.$#'
+            path: tests/TestCase
+
+        -
+            message: '#^(Access|Call) to an undefined (property|method)#'
+            path: tests/TestCase
+
+        -
+            message: '#^Method [\w\\]+Test::test\w+\(\) has no return typehint specified\.$#'
+            path:  tests/TestCase
+
+        -
+            message: '#^Parameter \#2 \.\.\.\$args of method Cake\\Http\\ServerRequest::is\(\) expects string#'
+            path: tests/TestCase/Core/RequestDetectorsTest.php
+
+        -
+            message: '#^Property MeTools\\Test\\TestCase\\TestSuite\\IntegrationTestTraitTest::\$_response \(Psr\\Http\\Message\\ResponseInterface\) does not accept null\.#'
+            path: tests/TestCase/TestSuite/IntegrationTestTraitTest.php

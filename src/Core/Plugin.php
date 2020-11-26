@@ -1,5 +1,6 @@
 <?php
 declare(strict_types=1);
+
 /**
  * This file is part of me-tools.
  *
@@ -15,6 +16,8 @@ namespace MeTools\Core;
 
 use Cake\Core\Exception\MissingPluginException;
 use Cake\Core\Plugin as CakePlugin;
+use Tools\Exceptionist;
+use Tools\Filesystem;
 
 /**
  * An utility to handle plugins
@@ -30,7 +33,7 @@ class Plugin extends CakePlugin
      *  - `order`, if `true` the plugins will be sorted.
      * @param array $options Options
      * @return array Plugins
-     * @uses Cake\Core\Plugin::loaded()
+     * @uses \Cake\Core\Plugin::loaded()
      */
     public static function all(array $options = []): array
     {
@@ -40,13 +43,10 @@ class Plugin extends CakePlugin
         $plugins = $options['core'] ? $plugins : array_diff($plugins, ['DebugKit', 'Migrations', 'Bake']);
         $plugins = !$options['exclude'] ? $plugins : array_diff($plugins, (array)$options['exclude']);
 
-        if ($options['order']) {
-            $key = array_search('MeTools', $plugins);
-
-            if ($key) {
-                unset($plugins[$key]);
-                array_unshift($plugins, 'MeTools');
-            }
+        $key = array_search('MeTools', $plugins);
+        if ($options['order'] && $key) {
+            unset($plugins[$key]);
+            array_unshift($plugins, 'MeTools');
         }
 
         return $plugins;
@@ -64,16 +64,12 @@ class Plugin extends CakePlugin
     public static function path(string $name, ?string $file = null, bool $check = false): string
     {
         $plugin = parent::path($name);
-
         if (!$file) {
             return $plugin;
         }
 
         $path = $plugin . $file;
-
-        if ($check && !is_readable($path)) {
-            throw new MissingPluginException(__d('me_tools', 'File or directory `{0}` does not exist', rtr($path)));
-        }
+        Exceptionist::isTrue(is_readable($path) || !$check, __d('me_tools', 'File or directory `{0}` does not exist', (new Filesystem())->rtr($path)), MissingPluginException::class);
 
         return $path;
     }
