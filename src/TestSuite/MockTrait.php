@@ -18,6 +18,7 @@ namespace MeTools\TestSuite;
 use Cake\Controller\ComponentRegistry;
 use Cake\Controller\Controller;
 use Cake\View\View;
+use PHPUnit\Framework\TestCase;
 
 /**
  * A mock trait
@@ -82,35 +83,56 @@ trait MockTrait
     }
 
     /**
-     * Gets the classname for which a test is being performed, starting from the
-     *  test class name.
+     * Gets the classname for which a test is being performed, starting from a
+     *  `TestCase` class
      *
      * Example: class `MyPlugin\Test\TestCase\Controller\PagesControllerTest`
      *  will return the string `MyPlugin\Controller\PagesController`.
-     * @param object $testClass A test class as object or string
+     * @param \PHPUnit\Framework\TestCase $testClass A `TestCase` class
      * @return string|null The class name for which a test is being performed or
      *  `null` on failure
      * @since 2.18.0
      */
-    public function getOriginClassName(object $testClass): ?string
+    public function getOriginClassName(TestCase $testClass): ?string
     {
-        $className = preg_replace('/^\\\\?(.+)Test\\\\TestCase\\\\(.+)Test$/', '\1\2', get_class($testClass), -1, $count);
+        $className = preg_replace('/^([\w\\\\]+)Test\\\\TestCase\\\\([\w\\\\]+)Test$/', '$1$2', get_class($testClass), -1, $count);
 
         return $count ? $className : null;
     }
 
     /**
-     * Gets the classname for which a test is being performed, starting from the
-     *  test class name. It fails if the class does not exist
-     * @param object $testClass A test class as object or string
+     * Gets the classname for which a test is being performed, starting from a
+     *  `TestCase` class.
+     *
+     * It fails if the class cannot be determined or it does not exist
+     * @param \PHPUnit\Framework\TestCase $testClass A `TestCase` class
      * @return string The class name for which a test is being performed
      * @since 2.19.2
      */
-    public function getOriginClassNameOrFail(object $testClass): string
+    public function getOriginClassNameOrFail(TestCase $testClass): string
     {
         $className = $this->getOriginClassName($testClass);
-        $className ?: $this->fail(sprintf('Unable to get the classname for the `%s` class', get_class($testClass)));
+
+        $className ?: $this->fail('Unable to get the classname for the `' . get_class($testClass) . '` class');
+        class_exists($className) ?: $this->fail('Class `' . $className . '` does not exist');
 
         return $className;
+    }
+
+    /**
+     * Gets the classname for which a test is being performed, starting from a
+     *  `TestCase` class.
+     *
+     * Example: class `MyPlugin\MySubNamespace\Test\TestCase\MyExampleTest`
+     *  will return the string `MyPlugin/MySubNamespace`.     *
+     * @param \PHPUnit\Framework\TestCase $testClass A `TestCase` class
+     * @return string
+     * @since 2.19.9
+     */
+    public function getPluginName(TestCase $testClass): string
+    {
+        $className = get_class($testClass);
+
+        return str_replace('/', '\\', substr($className, 0, strpos($className, '\\Test\\TestCase')));
     }
 }

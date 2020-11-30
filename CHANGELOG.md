@@ -1,6 +1,8 @@
 # 2.x branch
 ## 2.19 branch
 ### 2.19.9
+* added `MockTrait::getPluginName()` method. Fixed `getOriginClassName()` and
+    `getOriginClassNameOrFail()` methods;
 * little fixes for test suite files.
 
 ### 2.19.8

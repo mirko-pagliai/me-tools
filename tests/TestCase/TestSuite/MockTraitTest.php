@@ -14,6 +14,7 @@ declare(strict_types=1);
  */
 namespace MeTools\Test\TestCase\TestSuite;
 
+use AnotherTestPlugin\MyPlugin\Test\TestCase\MyExampleTest;
 use MeTools\TestSuite\TestCase;
 use PHPUnit\Framework\AssertionFailedError;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -91,7 +92,17 @@ class MockTraitTest extends TestCase
         $this->assertSame(TestCase::class, $this->getOriginClassNameOrFail(new TestCaseTest()));
 
         $this->expectException(AssertionFailedError::class);
-        $this->expectExceptionMessage('Unable to get the classname for the `stdClass` class');
-        $this->getOriginClassNameOrFail(new \stdClass());
+        $this->expectExceptionMessage('Class `AnotherTestPlugin\MyPlugin\MyExample` does not exist');
+        $this->getOriginClassNameOrFail(new MyExampleTest());
+    }
+
+    /**
+     * Tests for `getPluginName()` method
+     * @test
+     */
+    public function testGetPluginName()
+    {
+        $this->assertSame('MeTools', $this->getPluginName(new TestCaseTest()));
+        $this->assertSame('AnotherTestPlugin\MyPlugin', $this->getPluginName(new MyExampleTest()));
     }
 }
