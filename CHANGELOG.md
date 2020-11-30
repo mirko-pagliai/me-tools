@@ -1,5 +1,8 @@
 # 2.x branch
 ## 2.19 branch
+### 2.19.9
+* little fixes for test suite files.
+
 ### 2.19.8
 * `addButtonClasses()` and `delete()` methods provided by `OptionsParser` take
     now a variable-length argument lists;

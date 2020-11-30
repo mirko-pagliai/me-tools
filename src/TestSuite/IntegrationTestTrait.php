@@ -32,6 +32,21 @@ trait IntegrationTestTrait
     }
 
     /**
+     * @var \Cake\Controller\Controller
+     */
+    protected $_controller;
+
+    /**
+     * @var \Cake\Http\Session
+     */
+    protected $_requestSession;
+
+    /**
+     * @var \Psr\Http\Message\ResponseInterface
+     */
+    protected $_response;
+
+    /**
      * Adds additional event spies to the controller/view event manager
      * @param \Cake\Event\EventInterface $event A dispatcher event
      * @param \Cake\Controller\Controller|null $controller Controller instance
