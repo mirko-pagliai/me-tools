@@ -83,7 +83,7 @@ trait MockTrait
     }
 
     /**
-     * Gets the classname for which a test is being performed, starting from a
+     * Gets the class name for which a test is being performed, starting from a
      *  `TestCase` class
      *
      * Example: class `MyPlugin\Test\TestCase\Controller\PagesControllerTest`
@@ -101,7 +101,7 @@ trait MockTrait
     }
 
     /**
-     * Gets the classname for which a test is being performed, starting from a
+     * Gets the class name for which a test is being performed, starting from a
      *  `TestCase` class.
      *
      * It fails if the class cannot be determined or it does not exist
