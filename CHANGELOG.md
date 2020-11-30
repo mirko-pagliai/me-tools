@@ -2,8 +2,7 @@
 ## 2.19 branch
 ### 2.19.9
 * added `MockTrait::getPluginName()` method. Fixed `getOriginClassName()` and
-    `getOriginClassNameOrFail()` methods;
-* little fixes for test suite files.
+    `getOriginClassNameOrFail()` methods.
 
 ### 2.19.8
 * `addButtonClasses()` and `delete()` methods provided by `OptionsParser` take

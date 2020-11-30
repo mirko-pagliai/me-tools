@@ -20,7 +20,6 @@ use Cake\ORM\Table;
 use Cake\ORM\TableRegistry;
 use Cake\TestSuite\TestCase as CakeTestCase;
 use Exception;
-use MeTools\Core\Plugin;
 use MeTools\TestSuite\MockTrait;
 use Tools\Exceptionist;
 use Tools\Filesystem;
@@ -46,15 +45,7 @@ abstract class TestCase extends CakeTestCase
     {
         parent::setUp();
 
-        $pluginCollection = Plugin::getCollection();
-        $plugins = Configure::read('pluginsToLoad') ?: ['MeTools'];
-        foreach ($plugins as $k => $plugin) {
-            if ($pluginCollection->has($plugin)) {
-                unset($plugins[$k]);
-            }
-        }
-
-        $this->loadPlugins($plugins);
+        $this->loadPlugins(Configure::read('pluginsToLoad') ?: ['MeTools']);
     }
 
     /**
