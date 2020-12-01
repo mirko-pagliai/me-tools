@@ -135,4 +135,14 @@ class MockTraitTest extends TestCase
         $this->assertSame('MeTools', $this->getPluginName(new TestCaseTest()));
         $this->assertSame('AnotherTestPlugin/MyPlugin', $this->getPluginName(new MyExampleControllerTest()));
     }
+
+    /**
+     * Tests for `getTableClassNameFromAlias()` method
+     * @test
+     */
+    public function testGetTableClassNameFromAlias()
+    {
+        $this->assertSame('MeTools\Model\Table\PostsTable', $this->getTableClassNameFromAlias('Posts'));
+        $this->assertSame('MyPlugin\SubNamespace\Model\Table\PostsTable', $this->getTableClassNameFromAlias('Posts', 'MyPlugin/SubNamespace'));
+    }
 }

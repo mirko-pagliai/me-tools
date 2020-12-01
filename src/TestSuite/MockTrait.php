@@ -156,6 +156,20 @@ trait MockTrait
     }
 
     /**
+     * Gets the table class name from an alias
+     * @param string $alias Alias name
+     * @param string $plugin Plugin name. If left blank, it will be self-determined
+     * @return string
+     * @since 2.19.9
+     */
+    protected function getTableClassNameFromAlias(string $alias, string $plugin = ''): string
+    {
+        $plugin = str_replace('/', '\\',  $plugin ?: $this->getPluginName($this));
+
+        return $plugin . '\\Model\\Table\\' . $alias . 'Table';
+    }
+
+    /**
      * Gets the classname for which a test is being performed, starting from a
      *  `TestCase` class.
      *
