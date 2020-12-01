@@ -103,6 +103,6 @@ class MockTraitTest extends TestCase
     public function testGetPluginName()
     {
         $this->assertSame('MeTools', $this->getPluginName(new TestCaseTest()));
-        $this->assertSame('AnotherTestPlugin\MyPlugin', $this->getPluginName(new MyExampleTest()));
+        $this->assertSame('AnotherTestPlugin/MyPlugin', $this->getPluginName(new MyExampleTest()));
     }
 }
