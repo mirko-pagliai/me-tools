@@ -164,7 +164,7 @@ trait MockTrait
      */
     protected function getTableClassNameFromAlias(string $alias, string $plugin = ''): string
     {
-        $plugin = str_replace('/', '\\',  $plugin ?: $this->getPluginName($this));
+        $plugin = str_replace('/', '\\', $plugin ?: $this->getPluginName($this));
 
         return $plugin . '\\Model\\Table\\' . $alias . 'Table';
     }
