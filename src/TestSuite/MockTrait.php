@@ -133,6 +133,6 @@ trait MockTrait
     {
         $className = get_class($testClass);
 
-        return str_replace('/', '\\', substr($className, 0, strpos($className, '\\Test\\TestCase')));
+        return str_replace('\\', '/', substr($className, 0, strpos($className, '\\Test\\TestCase')));
     }
 }
