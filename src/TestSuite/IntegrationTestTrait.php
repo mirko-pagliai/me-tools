@@ -1,5 +1,6 @@
 <?php
 declare(strict_types=1);
+
 /**
  * This file is part of me-tools.
  *
@@ -29,6 +30,21 @@ trait IntegrationTestTrait
     use CakeIntegrationTestTrait {
         CakeIntegrationTestTrait::controllerSpy as cakeControllerSpy;
     }
+
+    /**
+     * @var \Cake\Controller\Controller
+     */
+    protected $_controller;
+
+    /**
+     * @var \Cake\Http\Session
+     */
+    protected $_requestSession;
+
+    /**
+     * @var \Psr\Http\Message\ResponseInterface
+     */
+    protected $_response;
 
     /**
      * Adds additional event spies to the controller/view event manager

@@ -1,5 +1,11 @@
 # 2.x branch
 ## 2.19 branch
+### 2.19.9
+* added `getAlias()`, `getPluginName()` and `getTableClassNameFromAlias()`
+    methods for the `MockTrait`. Fixed `getOriginClassName()` and
+    `getOriginClassNameOrFail()` methods;
+* `MockTrait::getControllerAlias()` method is now deprecated. Use instead `getAlias()`.
+
 ### 2.19.8
 * `addButtonClasses()` and `delete()` methods provided by `OptionsParser` take
     now a variable-length argument lists;

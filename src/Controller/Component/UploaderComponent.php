@@ -56,23 +56,20 @@ class UploaderComponent extends Component
      */
     protected function findTargetFilename(string $target): string
     {
-        if (!file_exists($target)) {
-            return $target;
-        }
-
-         //Initial tmp name
-        $tmp = dirname($target) . DS . pathinfo($target, PATHINFO_FILENAME);
-
-        //If the file already exists, adds a numeric suffix
-        $extension = pathinfo($target, PATHINFO_EXTENSION);
-        for ($i = 1;; $i++) {
-            $target = $tmp . '_' . $i;
-            $target .= $extension ? '.' . $extension : '';
-
-            if (!file_exists($target)) {
-                return $target;
+        if (file_exists($target)) {
+            //Initial tmp name. If the file already exists, adds a numeric suffix
+            $tmp = dirname($target) . DS . pathinfo($target, PATHINFO_FILENAME);
+            $extension = pathinfo($target, PATHINFO_EXTENSION);
+            $extension = $extension ? '.' . $extension : '';
+            for ($i = 1;; $i++) {
+                $target = $tmp . '_' . $i . $extension;
+                if (!file_exists($target)) {
+                    break;
+                }
             }
         }
+
+        return $target;
     }
 
     /**
