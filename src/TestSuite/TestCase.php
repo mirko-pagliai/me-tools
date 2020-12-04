@@ -57,7 +57,7 @@ abstract class TestCase extends CakeTestCase
         parent::tearDown();
 
         if (LOGS !== TMP) {
-            (new Filesystem())->unlinkRecursive(LOGS, ['.gitkeep', 'empty']);
+            (new Filesystem())->unlinkRecursive(LOGS, ['.gitkeep', 'empty'], true);
         }
     }
 
