@@ -33,7 +33,7 @@ Configure::write('WRITABLE_DIRS', [
 Configure::write('VENDOR_LINKS', [
     'eonasdan' . DS . 'bootstrap-datetimepicker' . DS . 'build' => 'bootstrap-datetimepicker',
     'components' . DS . 'jquery' => 'jquery',
-    'components' . DS . 'moment' . DS . 'min' => 'moment',
+    'moment' . DS . 'moment' . DS . 'min' => 'moment',
     'fortawesome' . DS . 'font-awesome' => 'font-awesome',
     'npm-asset' . DS . 'fancyapps-fancybox' . DS . 'dist' => 'fancyapps-fancybox',
     'twbs' . DS . 'bootstrap' . DS . 'dist' => 'bootstrap',
