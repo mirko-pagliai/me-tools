@@ -187,6 +187,9 @@ class UploaderComponentTest extends ComponentTestCase
             $this->assertFileExists($result);
         }
 
+        $this->assertFalse($this->Component->set($this->createFile())->save(DS . 'noExisting'));
+        $this->assertSame('File or directory `' . DS . 'noExisting` is not writable', $this->Component->getError());
+
         //With file not successfully moved to the target directory
         $file = (new Filesystem())->createTmpFile();
         $UploadedFile = $this->getMockBuilder(UploadedFile::class)
