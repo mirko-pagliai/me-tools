@@ -18,7 +18,6 @@ parameters:
 
     ignoreErrors:
         - '#^(Ternary operator condition|If condition|Negated boolean expression|Result of &&|(Left|Right) side of &&) is always (true|false)\.$#'
-        - '#^Static call to instance method Tools\\Exceptionist#'
         - '#^Unable to resolve the template type RealInstanceType in call to method PHPUnit\\Framework\\TestCase\:\:getMockBuilder\(\)$#'
 
         -
