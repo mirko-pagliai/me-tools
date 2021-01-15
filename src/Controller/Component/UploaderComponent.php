@@ -140,7 +140,12 @@ class UploaderComponent extends Component
             return false;
         }
 
-        Exceptionist::isDir($directory);
+        if (!is_writable($directory)) {
+            $this->setError(__d('me_tools', 'File or directory `{0}` is not writable', (new Filesystem())->rtr($directory)));
+
+            return false;
+        }
+
         $filename = $filename ? basename($filename) : $this->findTargetFilename($this->file->getClientFilename());
         $target = (new Filesystem())->concatenate($directory, $filename);
 
