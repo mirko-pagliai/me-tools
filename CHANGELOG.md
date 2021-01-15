@@ -1,5 +1,9 @@
 # 2.x branch
 ## 2.19 branch
+### 2.19.10
+* fixed bug for `WRITABLE_DIRS` and `VENDOR_LINKS` configuration values. They no
+    longer override the values set by other plugins.
+
 ### 2.19.9
 * added `getAlias()`, `getPluginName()` and `getTableClassNameFromAlias()`
     methods for the `MockTrait`. Fixed `getOriginClassName()` and
