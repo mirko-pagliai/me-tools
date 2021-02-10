@@ -62,7 +62,7 @@ class TestCaseTest extends TestCase
     {
         $string = 'cat dog bird';
         $file = LOGS . 'debug.log';
-        (new Filesystem())->createFile($file, $string);
+        Filesystem::instance()->createFile($file, $string);
 
         foreach (explode(' ', $string) as $word) {
             $this->assertLogContains($word, $file);
@@ -81,7 +81,7 @@ class TestCaseTest extends TestCase
     public function testDeleteLog()
     {
         $logs = [LOGS . 'first.log', LOGS . 'second.log'];
-        array_map([new Filesystem(), 'createFile'], $logs);
+        array_map([Filesystem::instance(), 'createFile'], $logs);
         array_map([$this, 'deleteLog'], ['first', 'second']);
         array_map([$this, 'assertFileDoesNotExist'], $logs);
     }

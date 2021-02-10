@@ -36,9 +36,8 @@ class FixComposerJsonCommandTest extends TestCase
      */
     public function testExecute()
     {
-        $Filesystem = new Filesystem();
         $file = APP . 'composer.json';
-        $Filesystem->createFile($file, json_encode([
+        Filesystem::instance()->createFile($file, json_encode([
             'name' => 'example',
             'description' => 'example of composer.json',
             'type' => 'project',
@@ -47,7 +46,7 @@ class FixComposerJsonCommandTest extends TestCase
         ], JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
         $this->exec($this->command . ' -p ' . $file);
         $this->assertExitWithSuccess();
-        $this->assertOutputContains('File `' . $Filesystem->rtr($file) . '` has been fixed');
+        $this->assertOutputContains('File `' . Filesystem::instance()->rtr($file) . '` has been fixed');
         $this->assertErrorEmpty();
     }
 
@@ -60,7 +59,7 @@ class FixComposerJsonCommandTest extends TestCase
         $file = APP . 'composer.json';
         $this->exec($this->command . ' -p ' . $file);
         $this->assertExitWithSuccess();
-        $this->assertOutputContains('File `' . (new Filesystem())->rtr($file) . '` doesn\'t need to be fixed');
+        $this->assertOutputContains('File `' . Filesystem::instance()->rtr($file) . '` doesn\'t need to be fixed');
         $this->assertErrorEmpty();
         unlink(APP . 'composer.json');
     }
@@ -72,7 +71,7 @@ class FixComposerJsonCommandTest extends TestCase
     public function testExecuteInvalidFile()
     {
         $file = TMP . 'invalid.json';
-        (new Filesystem())->createFile($file);
+        Filesystem::instance()->createFile($file);
         $this->exec($this->command . ' -p ' . $file);
         $this->assertExitWithError();
         $this->assertErrorContains('File `' . $file . '` does not seem a valid composer.json file');

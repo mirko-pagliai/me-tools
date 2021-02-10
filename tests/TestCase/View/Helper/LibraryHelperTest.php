@@ -136,7 +136,7 @@ class LibraryHelperTest extends HelperTestCase
      */
     public function testCkeditor()
     {
-        (new Filesystem())->createFile(WWW_ROOT . 'ckeditor' . DS . 'ckeditor.js');
+        Filesystem::instance()->createFile(WWW_ROOT . 'ckeditor' . DS . 'ckeditor.js');
 
         $expected = [
             ['script' => ['src' => '/ckeditor/ckeditor.js']],
@@ -154,8 +154,8 @@ class LibraryHelperTest extends HelperTestCase
      */
     public function testCkeditorWithJqueryAdapter()
     {
-        (new Filesystem())->createFile(WWW_ROOT . 'ckeditor' . DS . 'ckeditor.js');
-        (new Filesystem())->createFile(WWW_ROOT . 'ckeditor' . DS . 'adapters' . DS . 'jquery.js');
+        Filesystem::instance()->createFile(WWW_ROOT . 'ckeditor' . DS . 'ckeditor.js');
+        Filesystem::instance()->createFile(WWW_ROOT . 'ckeditor' . DS . 'adapters' . DS . 'jquery.js');
 
         $expected = [
             ['script' => ['src' => '/ckeditor/ckeditor.js']],
@@ -175,8 +175,8 @@ class LibraryHelperTest extends HelperTestCase
      */
     public function testCkeditorWithJsFromApp()
     {
-        (new Filesystem())->createFile(WWW_ROOT . 'ckeditor' . DS . 'ckeditor.js');
-        (new Filesystem())->createFile(WWW_ROOT . 'js' . DS . 'ckeditor_init.js');
+        Filesystem::instance()->createFile(WWW_ROOT . 'ckeditor' . DS . 'ckeditor.js');
+        Filesystem::instance()->createFile(WWW_ROOT . 'js' . DS . 'ckeditor_init.js');
 
         $expected = [
             ['script' => ['src' => '/ckeditor/ckeditor.js']],
@@ -194,8 +194,8 @@ class LibraryHelperTest extends HelperTestCase
      */
     public function testCkeditorWithPhpFromApp()
     {
-        (new Filesystem())->createFile(WWW_ROOT . 'ckeditor' . DS . 'ckeditor.js');
-        (new Filesystem())->createFile(WWW_ROOT . 'js' . DS . 'ckeditor_init.php');
+        Filesystem::instance()->createFile(WWW_ROOT . 'ckeditor' . DS . 'ckeditor.js');
+        Filesystem::instance()->createFile(WWW_ROOT . 'js' . DS . 'ckeditor_init.php');
 
         $expected = [
             ['script' => ['src' => '/ckeditor/ckeditor.js']],
@@ -281,7 +281,7 @@ class LibraryHelperTest extends HelperTestCase
         $this->assertSame($expectedJs, $this->Helper->getView()->fetch('script_bottom'));
 
         //With che init file
-        (new Filesystem())->createFile(WWW_ROOT . 'js' . DS . 'fancybox_init.js');
+        Filesystem::instance()->createFile(WWW_ROOT . 'js' . DS . 'fancybox_init.js');
         $expectedJs .= '<script src="/js/fancybox_init.js"></script>';
         $this->Helper->fancybox();
         $this->assertSame($expectedJs, $this->Helper->getView()->fetch('script_bottom'));

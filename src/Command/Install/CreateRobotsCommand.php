@@ -44,7 +44,7 @@ class CreateRobotsCommand extends Command
      */
     public function execute(Arguments $args, ConsoleIo $io): ?int
     {
-        $filename = (new Filesystem())->concatenate(WWW_ROOT, 'robots.txt');
+        $filename = Filesystem::instance()->concatenate(WWW_ROOT, 'robots.txt');
         $this->createFile($io, $filename, 'User-agent: *' . PHP_EOL .
             'Disallow: /admin/' . PHP_EOL . 'Disallow: /ckeditor/' . PHP_EOL .
             'Disallow: /css/' . PHP_EOL . 'Disallow: /js/' . PHP_EOL .

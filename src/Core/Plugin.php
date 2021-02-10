@@ -69,7 +69,7 @@ class Plugin extends CakePlugin
         }
 
         $path = $plugin . $file;
-        Exceptionist::isTrue(is_readable($path) || !$check, __d('me_tools', 'File or directory `{0}` does not exist', (new Filesystem())->rtr($path)), MissingPluginException::class);
+        Exceptionist::isTrue(is_readable($path) || !$check, __d('me_tools', 'File or directory `{0}` does not exist', Filesystem::instance()->rtr($path)), MissingPluginException::class);
 
         return $path;
     }
