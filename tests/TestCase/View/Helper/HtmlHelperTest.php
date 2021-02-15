@@ -335,6 +335,9 @@ class HtmlHelperTest extends HelperTestCase
 
         $expected = ['img' => ['src' => 'http://fullurl/image.gif', 'alt' => $image, 'class' => 'img-fluid']];
         $this->assertHtml($expected, $this->Helper->image('http://fullurl/image.gif'));
+
+        $this->loadPlugins(['TestPlugin']);
+        $this->assertNotEmpty($this->Helper->image(['controller' => 'Pages', 'plugin' => 'TestPlugin']));
     }
 
     /**

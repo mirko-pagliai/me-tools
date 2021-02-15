@@ -1,6 +1,7 @@
 # 2.x branch
 ## 2.19 branch
 ### 2.19.11
+* fixed little bug for `HtmlHelper::image()` method with `$path` as array;
 * updated for `php-tools` 1.4.7.
 
 ### 2.19.10

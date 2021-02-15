@@ -233,6 +233,8 @@ class HtmlHelper extends CakeHtmlHelper
      */
     public function image($path, array $options = []): string
     {
+        $path = is_string($path) ? $this->Url->image($path, $options) : $this->Url->build($path, $options);
+
         $options = optionsParser($options, ['alt' => pathinfo($path, PATHINFO_BASENAME)])
             ->append('class', 'img-fluid')
             ->tooltip();

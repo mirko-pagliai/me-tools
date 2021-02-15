@@ -18,4 +18,8 @@ use Cake\Controller\Controller;
 
 class PagesController extends Controller
 {
+    public function index()
+    {
+
+    }
 }
