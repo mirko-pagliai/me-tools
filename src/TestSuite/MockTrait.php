@@ -28,12 +28,12 @@ trait MockTrait
     /**
      * Internal method to set off a test failure if a class does not exist
      * @param string $className Class name
-     * @return void
+     * @return string
      * @throw \PHPUnit\Framework\AssertionFailedError
      */
-    protected function _classExistsOrFail(string $className): void
+    protected function _classExistsOrFail(string $className): string
     {
-        class_exists($className) ?: $this->fail('Class `' . $className . '` does not exist');
+        return class_exists($className) ? $className : $this->fail('Class `' . $className . '` does not exist');
     }
 
     /**
@@ -149,10 +149,8 @@ trait MockTrait
     protected function getOriginClassNameOrFail(TestCase $testClass): string
     {
         $className = $this->getOriginClassName($testClass);
-        $className ?: $this->fail('Unable to get the classname for the `' . get_class($testClass) . '` class');
-        $this->_classExistsOrFail($className);
 
-        return $className;
+        return $this->_classExistsOrFail($className);
     }
 
     /**
