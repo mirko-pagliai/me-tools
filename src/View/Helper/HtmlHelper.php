@@ -153,7 +153,7 @@ class HtmlHelper extends CakeHtmlHelper
      */
     public function cssEnd(): ?string
     {
-        $buffer = ob_get_clean();
+        $buffer = ob_get_clean() ?: '';
         $options = $this->_cssBlockOptions;
         $this->_cssBlockOptions = [];
 
@@ -303,9 +303,18 @@ class HtmlHelper extends CakeHtmlHelper
      */
     public function link($title = null, $url = null, array $options = []): string
     {
+        if (is_array($title) && is_null($url)) {
+            [$url, $title] = [$title, null];
+        }
+
+        $url = $this->Url->build($url, $options);
+        if (!$title && $url) {
+            $title = $url;
+        }
+
         $options = optionsParser($options, ['escape' => false, 'title' => $title]);
         $options->add('title', trim(h(strip_tags($options->get('title') ?? ''))))->tooltip();
-        [$title, $options] = $this->Icon->addIconToText((string)$title, $options);
+        [$title, $options] = $this->Icon->addIconToText($title, $options);
 
         return parent::link($title, $url, $options->toArray());
     }
