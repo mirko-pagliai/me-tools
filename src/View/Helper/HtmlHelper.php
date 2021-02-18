@@ -308,7 +308,7 @@ class HtmlHelper extends CakeHtmlHelper
         }
 
         $url = $this->Url->build($url, $options);
-        if (!$title && $url) {
+        if (!$title && $url && $url != '#') {
             $title = $url;
         }
 
