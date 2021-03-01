@@ -1,6 +1,7 @@
 # 2.x branch
 ## 2.19 branch
 ### 2.19.11
+* fixed bug for `HtmlHelper::iframe()`, now the `$url` can be an array of parameters;
 * fixed little bug for `HtmlHelper::image()` method with `$path` as array;
 * fixed little bug for `HtmlHelper::link()` method with `$title` as array;
 * updated for `php-tools` 1.4.7;

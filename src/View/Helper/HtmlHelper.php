@@ -201,13 +201,14 @@ class HtmlHelper extends CakeHtmlHelper
      *
      * You can use the `$ratio` option (valid values: `16by9` or `4by3`) to
      *  create a responsive embed.
-     * @param string $url Url for the iframe
+     * @param string|array $url Url for the iframe
      * @param array $options Array of options and HTML attributes
      * @return string
      * @see http://getbootstrap.com/components/#responsive-embed Responsive embed
      */
-    public function iframe(string $url, array $options = []): string
+    public function iframe($url, array $options = []): string
     {
+        $url = $this->Url->build($url, $options);
         $options = optionsParser($options)->add('src', $url);
 
         if ($options->exists('ratio')) {

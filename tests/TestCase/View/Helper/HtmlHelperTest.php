@@ -305,6 +305,9 @@ class HtmlHelperTest extends HelperTestCase
             '/div',
         ];
         $this->assertHtml($expected, $this->Helper->iframe($url, ['class' => 'my-class', 'ratio' => '16by9']));
+
+        $this->loadPlugins(['TestPlugin']);
+        $this->assertSame('<iframe src="/pages"></iframe>', $this->Helper->iframe(['controller' => 'Pages', 'plugin' => 'TestPlugin']));
     }
 
     /**
