@@ -100,9 +100,9 @@ class RunAllCommand extends Command
      * Executes all available commands
      * @param \Cake\Console\Arguments $args The command arguments
      * @param \Cake\Console\ConsoleIo $io The console io
-     * @return int|null The exit code or null for success
+     * @return void
      */
-    public function execute(Arguments $args, ConsoleIo $io): ?int
+    public function execute(Arguments $args, ConsoleIo $io): void
     {
         $questions = $args->getOption('force') ? Hash::extract($this->questions, '{n}[default=Y]') : $this->questions;
 
@@ -123,7 +123,5 @@ class RunAllCommand extends Command
                 $command->run($args->getOption('verbose') ? ['--verbose'] : [], $io);
             }
         }
-
-        return null;
     }
 }

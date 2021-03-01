@@ -40,7 +40,7 @@ use Cake\Routing\Router;
  * returns `true` if the current action is `edit` or `delete` and if the
  * current controller is `Pages`, otherwise `false`.
  */
-ServerRequest::addDetector('action', function (ServerRequest $request, $action, $controller = null) {
+ServerRequest::addDetector('action', function (ServerRequest $request, $action, $controller = null): bool {
     $action = in_array($request->getParam('action'), (array)$action);
 
     //Checks action and controller
@@ -59,7 +59,7 @@ ServerRequest::addDetector('action', function (ServerRequest $request, $action, 
  * </code>
  * returns `true` if the current controller is `Pages`, otherwise `false`.
  */
-ServerRequest::addDetector('controller', function (ServerRequest $request, $controller) {
+ServerRequest::addDetector('controller', function (ServerRequest $request, $controller): bool {
     return in_array($request->getParam('controller'), (array)$controller);
 });
 
@@ -68,7 +68,7 @@ ServerRequest::addDetector('controller', function (ServerRequest $request, $cont
  *
  * It checks if the host is the localhost.
  */
-ServerRequest::addDetector('localhost', function (ServerRequest $request) {
+ServerRequest::addDetector('localhost', function (ServerRequest $request): bool {
     return in_array($request->clientIp(), ['127.0.0.1', '::1']);
 });
 
@@ -83,7 +83,7 @@ ServerRequest::addDetector('localhost', function (ServerRequest $request) {
  * $this->getRequest()->isPrefix(['admin', 'manager']);
  * </code>
  */
-ServerRequest::addDetector('prefix', function (ServerRequest $request, $prefix) {
+ServerRequest::addDetector('prefix', function (ServerRequest $request, $prefix): bool {
     return in_array($request->getParam('prefix'), (array)$prefix);
 });
 
@@ -101,7 +101,7 @@ ServerRequest::addDetector('prefix', function (ServerRequest $request, $prefix) 
  *  string. The second argument allows you to not remove the query string from
  *  the current url.
  */
-ServerRequest::addDetector('url', function (ServerRequest $request, $url, bool $removeQueryString = true) {
+ServerRequest::addDetector('url', function (ServerRequest $request, $url, bool $removeQueryString = true): bool {
     $current = rtrim($request->getEnv('REQUEST_URI'), '/');
     $current = $removeQueryString ? explode('?', $current, 2)[0] : $current;
 

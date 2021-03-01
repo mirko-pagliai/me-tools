@@ -45,7 +45,6 @@ abstract class HelperTestCase extends TestCase
         if (!$this->Helper && $this->autoInitializeClass) {
             $this->Helper = $this->getMockForHelper($this->getOriginClassNameOrFail($this), null);
         }
-
         if ($this->Helper && method_exists($this->Helper, 'initialize')) {
             $this->Helper->initialize([]);
         }

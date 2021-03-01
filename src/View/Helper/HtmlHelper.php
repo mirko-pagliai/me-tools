@@ -43,7 +43,7 @@ class HtmlHelper extends CakeHtmlHelper
      * @return string
      * @throws \ErrorException
      */
-    public function __call(string $method, array $params): string
+    public function __call(string $method, array $params = []): string
     {
         Exceptionist::isTrue(count($params) < 3, sprintf('Method `%s::%s()` does not exist', __CLASS__, $method));
 
@@ -91,7 +91,10 @@ class HtmlHelper extends CakeHtmlHelper
      * Adds a css file to the layout.
      *
      * If it's used in the layout, you should set the `inline` option to `true`.
-     * @param mixed $path CSS filename or an array of CSS filenames
+     * @param string|array<string> $path The name of a CSS style sheet or an array
+     *  containing names of CSS stylesheets. If `$path` is prefixed with '/', the
+     *  path will be relative to the webroot of your application. Otherwise, the
+     *  path will be relative to your CSS path, usually webroot/css
      * @param array $options Array of options and HTML attributes
      * @return string Html, `<link>` or `<style>` tag
      */
@@ -287,7 +290,7 @@ class HtmlHelper extends CakeHtmlHelper
      */
     public function li($element, array $options = []): string
     {
-        return implode(PHP_EOL, array_map(function (string $element) use ($options) {
+        return implode(PHP_EOL, array_map(function (string $element) use ($options): string {
             return $this->tag('li', $element, $options);
         }, (array)$element));
     }
@@ -356,7 +359,7 @@ class HtmlHelper extends CakeHtmlHelper
             $options->append('class', 'fa-ul');
             $itemOptions->append('icon', 'li');
 
-            $list = array_map(function (string $element) use ($itemOptions) {
+            $list = array_map(function (string $element) use ($itemOptions): string {
                 return array_value_first($this->Icon->addIconToText($element, clone $itemOptions));
             }, $list);
         }

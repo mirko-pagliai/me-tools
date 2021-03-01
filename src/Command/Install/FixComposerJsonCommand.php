@@ -46,9 +46,10 @@ class FixComposerJsonCommand extends Command
      * Creates symbolic links for vendor assets
      * @param \Cake\Console\Arguments $args The command arguments
      * @param \Cake\Console\ConsoleIo $io The console io
-     * @return int|null The exit code or null for success
+     * @return void
+     * @throws \Cake\Console\Exception\StopException
      */
-    public function execute(Arguments $args, ConsoleIo $io): ?int
+    public function execute(Arguments $args, ConsoleIo $io): void
     {
         $Filesystem = new Filesystem();
         $path = (string)$args->getOption('path') ?: $Filesystem->concatenate(ROOT, 'composer.json');
@@ -76,7 +77,5 @@ class FixComposerJsonCommand extends Command
             $message = __d('me_tools', 'File `{0}` has been fixed', $Filesystem->rtr($path));
         }
         $io->verbose($message);
-
-        return null;
     }
 }

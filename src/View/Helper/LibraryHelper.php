@@ -36,9 +36,7 @@ class LibraryHelper extends Helper
      *  `Assets` plugin doesn't exist, it will be a copy of the `Html` helper.
      * @var array
      */
-    public $helpers = [
-        'Html' => ['className' => 'MeTools.Html'],
-    ];
+    public $helpers = ['Html' => ['className' => 'MeTools.Html']];
 
     /**
      * It will contain the output code
