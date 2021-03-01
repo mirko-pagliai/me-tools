@@ -3,7 +3,9 @@
 ### 2.19.11
 * fixed little bug for `HtmlHelper::image()` method with `$path` as array;
 * fixed little bug for `HtmlHelper::link()` method with `$title` as array;
-* updated for `php-tools` 1.4.7.
+* updated for `php-tools` 1.4.7;
+* extensive improvement of function descriptions and tags. The level of `phpstan`
+    has been raised.
 
 ### 2.19.10
 * `UploaderComponent::save()` method no longer throws an exception if the

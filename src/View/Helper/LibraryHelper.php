@@ -25,6 +25,11 @@ use Tools\Exceptionist;
 class LibraryHelper extends Helper
 {
     /**
+     * @var \Assets\View\Helper\AssetHelper|\MeTools\View\Helper\HtmlHelper
+     */
+    protected $Assets;
+
+    /**
      * Helpers.
      *
      * The `Asset` helper will be loaded by the `initialize()` method. If the

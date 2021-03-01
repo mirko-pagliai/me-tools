@@ -51,7 +51,7 @@ class FixComposerJsonCommand extends Command
     public function execute(Arguments $args, ConsoleIo $io): ?int
     {
         $Filesystem = new Filesystem();
-        $path = $args->getOption('path') ?: $Filesystem->concatenate(ROOT, 'composer.json');
+        $path = (string)$args->getOption('path') ?: $Filesystem->concatenate(ROOT, 'composer.json');
 
         try {
             Exceptionist::isWritable($path);
@@ -61,7 +61,7 @@ class FixComposerJsonCommand extends Command
         }
 
         //Gets and decodes the file
-        $contents = json_decode(file_get_contents($path), true);
+        $contents = json_decode(file_get_contents($path) ?: '', true);
 
         if (empty($contents)) {
             $io->err(__d('me_tools', 'File `{0}` does not seem a valid {1} file', $Filesystem->rtr($path), 'composer.json'));

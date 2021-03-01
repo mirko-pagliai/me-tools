@@ -106,7 +106,7 @@ class RunAllCommand extends Command
     {
         $questions = $args->getOption('force') ? Hash::extract($this->questions, '{n}[default=Y]') : $this->questions;
 
-        foreach ($questions as $question) {
+        foreach ((array)$questions as $question) {
             Exceptionist::isTrue(!array_diff(array_keys($question), ['question', 'default', 'command']), 'Invalid question keys');
             [$question, $default, $command] = array_values($question);
 

@@ -105,7 +105,7 @@ abstract class TestCase extends CakeTestCase
         try {
             $filename = $this->getLogFullPath($filename);
             Exceptionist::isReadable($filename);
-            $content = file_get_contents($filename);
+            $content = file_get_contents($filename) ?: '';
         } catch (Exception $e) {
             $this->fail($e->getMessage());
         }

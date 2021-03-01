@@ -104,7 +104,8 @@ trait IntegrationTestTrait
      */
     public function assertResponseOkAndNotEmpty(string $message = ''): void
     {
-        $this->assertResponseOk($message) && $this->assertResponseNotEmpty($message);
+        $this->assertResponseOk($message);
+        $this->assertResponseNotEmpty($message);
     }
 
     /**

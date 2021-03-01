@@ -78,6 +78,7 @@ class IntegrationTestTraitTest extends TestCase
         //With no response
         $this->expectException(AssertionFailedError::class);
         $this->expectExceptionMessage('Not response set, cannot assert cookies');
+        /** @phpstan-ignore-next-line */
         $this->_response = null;
         $this->assertCookieIsEmpty('test-cookie');
     }
@@ -106,6 +107,7 @@ class IntegrationTestTraitTest extends TestCase
      */
     public function testAssertResponseOkAndNotEmpty()
     {
+        $this->_response = new Response(['body' => 'string']);
         $this->assertResponseOkAndNotEmpty();
     }
 

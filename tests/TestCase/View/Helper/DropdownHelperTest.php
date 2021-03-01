@@ -23,7 +23,7 @@ use MeTools\View\Helper\HtmlHelper;
 class DropdownHelperTest extends HelperTestCase
 {
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
+     * @var \MeTools\View\Helper\HtmlHelper
      */
     protected $Html;
 

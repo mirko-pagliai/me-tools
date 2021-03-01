@@ -127,7 +127,7 @@ class UploaderComponent extends Component
      *  file
      * @param string|null $filename Optional filename. Otherwise, it will be
      *  generated automatically
-     * @return string|bool Final full path of the uploaded file or `false` on
+     * @return string|false Final full path of the uploaded file or `false` on
      *  failure
      * @throws \Tools\Exception\ObjectWrongInstanceException
      */

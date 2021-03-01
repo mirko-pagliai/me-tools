@@ -29,7 +29,7 @@ class BBCodeTest extends TestCase
     public $BBCode;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
+     * @var \MeTools\View\Helper\HtmlHelper
      */
     protected $Html;
 
@@ -79,7 +79,7 @@ class BBCodeTest extends TestCase
         echo '<span>Some span text</span>' . PHP_EOL;
         echo '[youtube]bL_CJKq9rIw[/youtube]' . PHP_EOL;
         echo '<div>Some div text</div>' . PHP_EOL;
-        $this->assertHtml($expected, $this->BBCode->parser(ob_get_clean()));
+        $this->assertHtml($expected, $this->BBCode->parser(ob_get_clean() ?: ''));
     }
 
     /**
@@ -105,7 +105,7 @@ class BBCodeTest extends TestCase
         echo '<span>Some span text</span>' . PHP_EOL;
         echo '[youtube]bL_CJKq9rIw[/youtube]' . PHP_EOL;
         echo '<div>Some div text</div>' . PHP_EOL;
-        $this->assertHtml($expected, $this->BBCode->remove(ob_get_clean()));
+        $this->assertHtml($expected, $this->BBCode->remove(ob_get_clean() ?: ''));
     }
 
     /**

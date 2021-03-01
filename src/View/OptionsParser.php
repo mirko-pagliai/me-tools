@@ -123,7 +123,7 @@ class OptionsParser
             return $this->append('class', 'btn');
         }
 
-        $classes = preg_split('/\s+/', $classes ? implode(' ', $classes) : 'btn-light', -1, PREG_SPLIT_NO_EMPTY);
+        $classes = preg_split('/\s+/', $classes ? implode(' ', $classes) : 'btn-light', -1, PREG_SPLIT_NO_EMPTY) ?: [];
 
         $classes = collection($classes)
             ->map(function (string $class) {

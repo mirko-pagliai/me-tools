@@ -16,7 +16,6 @@ namespace MeTools\Test\TestCase\View\Helper;
 
 use Assets\View\Helper\AssetHelper;
 use Cake\Core\Plugin;
-use Cake\Event\Event;
 use Cake\Http\ServerRequest;
 use Cake\View\View;
 use MeTools\TestSuite\HelperTestCase;
@@ -28,6 +27,11 @@ use Tools\Filesystem;
  */
 class LibraryHelperTest extends HelperTestCase
 {
+    /**
+     * @var \MeTools\View\Helper\LibraryHelper
+     */
+    protected $Helper;
+
     protected const EXPECTED_DATEPICKER_ICONS = [
         'time' => 'fas fa-clock',
         'date' => 'fas fa-calendar',
@@ -82,7 +86,7 @@ class LibraryHelperTest extends HelperTestCase
      */
     public function testBeforeLayout()
     {
-        $this->Helper->beforeLayout(new Event('myEvent'), null);
+        $this->Helper->beforeLayout();
         $this->assertEmpty($this->getProperty($this->Helper, 'output'));
         $this->assertEmpty($this->Helper->getView()->fetch('script_bottom'));
 
@@ -93,7 +97,7 @@ class LibraryHelperTest extends HelperTestCase
             '});</script>',
         ];
         $this->setProperty($this->Helper, 'output', ['//first', '//second']);
-        $this->Helper->beforeLayout(new Event('myEvent'), null);
+        $this->Helper->beforeLayout();
         $this->assertEmpty($this->getProperty($this->Helper, 'output'));
         $this->assertEquals($expected, preg_split('/' . PHP_EOL . '/', $this->Helper->getView()->fetch('script_bottom')));
     }

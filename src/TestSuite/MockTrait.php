@@ -27,9 +27,10 @@ trait MockTrait
 {
     /**
      * Internal method to set off a test failure if a class does not exist
-     * @param string $className Class name
-     * @return string
+     * @param class-string|string $className Class name
+     * @return class-string
      * @throw \PHPUnit\Framework\AssertionFailedError
+     * @psalm-suppress NoValue
      */
     protected function _classExistsOrFail(string $className): string
     {
@@ -42,26 +43,24 @@ trait MockTrait
      *
      * Example: class `MyPlugin\Test\TestCase\Controller\PagesControllerTest`
      *  will return the string `Pages`.
-     * @param string|object $class Class name as string or object
+     * @param class-string|object $class Class name or object
      * @return string
      * @since 2.19.9
      * @throw \PHPUnit\Framework\AssertionFailedError If the class does not
      *  exist or if it is impossible to get its alias
+     * @psalm-suppress NoValue
      */
     protected function getAlias($class): string
     {
-        $class = is_object($class) ? get_class($class) : $class;
-        $this->_classExistsOrFail($class);
-
+        $class = is_object($class) ? get_class($class) : $this->_classExistsOrFail($class);
         $alias = preg_replace('/^(\w+)(Cell|Controller|Table|Validator)(Test)?$/', '$1', get_class_short_name($class), -1, $count);
-        $count ?: $this->fail('Unable to get the alias for the `' . $class . '` class');
 
-        return $alias;
+        return $count ? $alias : $this->fail('Unable to get the alias for the `' . $class . '` class');
     }
 
     /**
      * Gets the alias for a controller
-     * @param string $className Controller class name
+     * @param class-string<\Cake\Controller\Controller> $className Controller class name
      * @return string
      * @deprecated Use instead `getAlias()`
      */
@@ -74,8 +73,8 @@ trait MockTrait
 
     /**
      * Mocks a component
-     * @param string $className Component class name
-     * @param array|null $methods The list of methods to mock
+     * @param class-string $className Component class name
+     * @param array<string>|null $methods The list of methods to mock
      * @return \Cake\Controller\Component|\PHPUnit\Framework\MockObject\MockObject
      */
     protected function getMockForComponent(string $className, ?array $methods = []): object
@@ -88,8 +87,8 @@ trait MockTrait
 
     /**
      * Mocks a controller
-     * @param string $className Controller class name
-     * @param array|null $methods The list of methods to mock
+     * @param class-string<\Cake\Controller\Controller> $className Controller class name
+     * @param array<string>|null $methods The list of methods to mock
      * @param string|null $alias Controller alias
      * @return \Cake\Controller\Controller|\PHPUnit\Framework\MockObject\MockObject
      */
@@ -105,8 +104,8 @@ trait MockTrait
 
     /**
      * Mocks an helper
-     * @param string $className Helper class name
-     * @param array|null $methods The list of methods to mock
+     * @param class-string $className Helper class name
+     * @param array<string>|null $methods The list of methods to mock
      * @return \Cake\View\Helper|\PHPUnit\Framework\MockObject\MockObject
      */
     protected function getMockForHelper(string $className, ?array $methods = []): object
@@ -123,16 +122,16 @@ trait MockTrait
      *
      * Example: class `MyPlugin\Test\TestCase\Controller\PagesControllerTest`
      *  will return the string `MyPlugin\Controller\PagesController`.
-     * @param \PHPUnit\Framework\TestCase $testClass A `TestCase` class
-     * @return string|null The class name for which a test is being performed or
-     *  `null` on failure
+     * @param \PHPUnit\Framework\TestCase $className A `TestCase` class
+     * @return class-string|string The class name for which a test is
+     *  being performed. Empty string on failure
      * @since 2.18.0
      */
-    protected function getOriginClassName(TestCase $testClass): ?string
+    protected function getOriginClassName(TestCase $className): string
     {
-        $className = preg_replace('/^([\w\\\\]+)Test\\\\TestCase\\\\([\w\\\\]+)Test$/', '$1$2', get_class($testClass), -1, $count);
+        $className = preg_replace('/^([\w\\\\]+)Test\\\\TestCase\\\\([\w\\\\]+)Test$/', '$1$2', get_class($className), -1, $count);
 
-        return $count ? $className : null;
+        return $count ? $className : '';
     }
 
     /**
@@ -140,17 +139,15 @@ trait MockTrait
      *  `TestCase` class.
      *
      * It fails if the class cannot be determined or it does not exist.
-     * @param \PHPUnit\Framework\TestCase $testClass A `TestCase` class
-     * @return string The class name for which a test is being performed
+     * @param \PHPUnit\Framework\TestCase $className A `TestCase` class
+     * @return class-string The class name for which a test is being performed
      * @since 2.19.2
      * @throw \PHPUnit\Framework\AssertionFailedError If the class does not
      *  exist or if it is impossible to get its origin class name
      */
-    protected function getOriginClassNameOrFail(TestCase $testClass): string
+    protected function getOriginClassNameOrFail(TestCase $className): string
     {
-        $className = $this->getOriginClassName($testClass);
-
-        return $this->_classExistsOrFail($className);
+        return $this->_classExistsOrFail($this->getOriginClassName($className));
     }
 
     /**
@@ -181,6 +178,6 @@ trait MockTrait
     {
         $className = get_class($testClass);
 
-        return str_replace('\\', '/', substr($className, 0, strpos($className, '\\Test\\TestCase')));
+        return str_replace('\\', '/', substr($className, 0, strpos($className, '\\Test\\TestCase') ?: 0));
     }
 }

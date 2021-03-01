@@ -38,7 +38,6 @@ class MockTraitTest extends TestCase
         $this->assertSame('Posts', $this->getAlias(PostsTable::class));
         $this->assertSame('Post', $this->getAlias(PostValidator::class));
         $this->assertSame('MyExample', $this->getAlias(MyExampleCell::class));
-
         $this->assertSame('MyExample', $this->getAlias(new MyExampleControllerTest()));
 
         //Class with no alias
@@ -49,6 +48,7 @@ class MockTraitTest extends TestCase
         //No existing class
         $this->expectException(AssertionFailedError::class);
         $this->expectExceptionMessage('Class `No\Existing\Class` does not exist');
+        /** @phpstan-ignore-next-line */
         $this->getAlias('No\Existing\Class');
     }
 
@@ -90,10 +90,12 @@ class MockTraitTest extends TestCase
      */
     public function testGetMockForController()
     {
+        /** @var \App\Controller\PagesController $Mock **/
         $Mock = $this->getMockForController('App\Controller\PagesController', null);
         $this->assertInstanceOf(MockObject::class, $Mock);
         $this->assertEquals('Pages', $Mock->getName());
 
+        /** @var \App\Controller\PagesController $Mock **/
         $Mock = $this->getMockForController('App\Controller\PagesController', null, 'MyController');
         $this->assertInstanceOf(MockObject::class, $Mock);
         $this->assertEquals('MyController', $Mock->getName());
@@ -101,6 +103,7 @@ class MockTraitTest extends TestCase
         //With a no existing class
         $this->expectException(AssertionFailedError::class);
         $this->expectExceptionMessage('Class `App\Controller\NoExistingController` does not exist');
+        /** @phpstan-ignore-next-line */
         $this->getMockForController('App\Controller\NoExistingController');
     }
 

@@ -59,7 +59,7 @@ class IconHelper extends CakeHtmlHelper
     {
         //Prepends the string "fa-" to any other class
         $icon = preg_replace('/(?<![^ ])(?=[^ ])(?!fa)/', 'fa-', $icon);
-        $icon = !is_array($icon) ? preg_split('/\s+/', $icon, -1, PREG_SPLIT_NO_EMPTY) : $icon;
+        $icon = is_array($icon) ? $icon : (preg_split('/\s+/', $icon, -1, PREG_SPLIT_NO_EMPTY) ?: []);
 
         //Adds the "fa" class, if no other "basic" class is present
         if (!count(array_intersect(['fa', 'fab', 'fal', 'far', 'fas'], $icon))) {

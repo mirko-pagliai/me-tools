@@ -15,17 +15,17 @@
     </projectFiles>
 
     <issueHandlers>
-        <UndefinedInterfaceMethod>
+        <InvalidArgument>
             <errorLevel type="suppress">
-                <file name="src/Plugin.php" />
+                <file name="src/View/OptionsParser.php" />
             </errorLevel>
-        </UndefinedInterfaceMethod>
+        </InvalidArgument>
 
-        <InvalidNullableReturnType>
+        <LessSpecificImplementedReturnType>
             <errorLevel type="suppress">
-                <file name="src/TestSuite/MockTrait.php" />
+                <file name="src/View/Helper/BreadcrumbsHelper.php" />
             </errorLevel>
-        </InvalidNullableReturnType>
+        </LessSpecificImplementedReturnType>
 
         <RedundantCondition>
             <errorLevel type="suppress">
@@ -34,11 +34,11 @@
             </errorLevel>
         </RedundantCondition>
 
-        <LessSpecificImplementedReturnType>
+        <TypeDoesNotContainType>
             <errorLevel type="suppress">
-                <file name="src/View/Helper/BreadcrumbsHelper.php" />
+                <file name="src/View/Helper/IconHelper.php" />
             </errorLevel>
-        </LessSpecificImplementedReturnType>
+        </TypeDoesNotContainType>
 
         <UndefinedThisPropertyFetch>
             <errorLevel type="suppress">
@@ -48,28 +48,16 @@
             </errorLevel>
         </UndefinedThisPropertyFetch>
 
-        <UndefinedMethod>
+        <UndefinedInterfaceMethod>
             <errorLevel type="suppress">
-                <file name="src/View/Helper/HtmlHelper.php" />
+                <file name="src/Plugin.php" />
             </errorLevel>
-        </UndefinedMethod>
-
-        <TypeDoesNotContainType>
-            <errorLevel type="suppress">
-                <file name="src/View/Helper/IconHelper.php" />
-            </errorLevel>
-        </TypeDoesNotContainType>
+        </UndefinedInterfaceMethod>
 
         <UndefinedThisPropertyAssignment>
             <errorLevel type="suppress">
                 <file name="src/View/Helper/LibraryHelper.php" />
             </errorLevel>
         </UndefinedThisPropertyAssignment>
-
-        <InvalidArgument>
-            <errorLevel type="suppress">
-                <file name="src/View/OptionsParser.php" />
-            </errorLevel>
-        </InvalidArgument>
     </issueHandlers>
 </psalm>
