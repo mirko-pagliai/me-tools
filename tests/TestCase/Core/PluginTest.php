@@ -40,6 +40,7 @@ class PluginTest extends TestCase
         $this->loadPlugins(['TestPlugin']);
         $this->assertEquals(array_merge($expected, ['TestPlugin']), Plugin::all());
         $this->assertEquals($expected, Plugin::all(['exclude' => 'TestPlugin']));
+        $this->assertEquals($expected, Plugin::all(['exclude' => ['TestPlugin', 'noExistingPlugin']]));
 
         $expected = ['MeTools', 'AnotherTestPlugin'];
         if (Plugin::getCollection()->has('Assets')) {

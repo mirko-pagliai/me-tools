@@ -57,7 +57,7 @@ abstract class TestCase extends CakeTestCase
         parent::tearDown();
 
         if (LOGS !== TMP) {
-            (new Filesystem())->unlinkRecursive(LOGS, ['.gitkeep', 'empty'], true);
+            Filesystem::instance()->unlinkRecursive(LOGS, ['.gitkeep', 'empty'], true);
         }
     }
 
@@ -69,10 +69,9 @@ abstract class TestCase extends CakeTestCase
      */
     protected function getLogFullPath(string $filename): string
     {
-        $Filesystem = new Filesystem();
-        $filename .= $Filesystem->getExtension($filename) ? '' : '.log';
+        $filename .= Filesystem::instance()->getExtension($filename) ? '' : '.log';
 
-        return $Filesystem->makePathAbsolute($filename, LOGS);
+        return Filesystem::instance()->makePathAbsolute($filename, LOGS);
     }
 
     /**
@@ -106,7 +105,7 @@ abstract class TestCase extends CakeTestCase
         try {
             $filename = $this->getLogFullPath($filename);
             Exceptionist::isReadable($filename);
-            $content = file_get_contents($filename);
+            $content = file_get_contents($filename) ?: '';
         } catch (Exception $e) {
             $this->fail($e->getMessage());
         }

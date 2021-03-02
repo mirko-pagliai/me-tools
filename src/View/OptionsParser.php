@@ -123,7 +123,7 @@ class OptionsParser
             return $this->append('class', 'btn');
         }
 
-        $classes = preg_split('/\s+/', $classes ? implode(' ', $classes) : 'btn-light', -1, PREG_SPLIT_NO_EMPTY);
+        $classes = preg_split('/\s+/', $classes ? implode(' ', $classes) : 'btn-light', -1, PREG_SPLIT_NO_EMPTY) ?: [];
 
         $classes = collection($classes)
             ->map(function (string $class) {
@@ -282,8 +282,7 @@ class OptionsParser
     {
         $options = $this->toArray();
 
-        //Transforms values as strings
-        array_walk($options, function (&$value, string $key) {
+        return implode(' ', array_map(function ($value, string $key): string {
             if (is_array($value)) {
                 $value = implode(' ', $value);
             } elseif (is_bool($value)) {
@@ -292,10 +291,8 @@ class OptionsParser
                 $value = 'null';
             }
 
-            $value = $key . '="' . $value . '"';
-        });
-
-        return implode(' ', $options);
+            return $key . '="' . $value . '"';
+        }, $options, array_keys($options)));
     }
 
     /**

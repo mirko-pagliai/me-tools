@@ -28,15 +28,20 @@ use Tools\Filesystem;
 class UploaderComponentTest extends ComponentTestCase
 {
     /**
+     * @var \MeTools\Controller\Component\UploaderComponent
+     */
+    protected $Component;
+
+    /**
      * Internal method to create a file and get a `UploadedFile` instance
      * @param int $error Error for this file
      * @return UploadedFileInterface
      */
     protected function createFile(int $error = UPLOAD_ERR_OK): UploadedFileInterface
     {
-        $file = (new Filesystem())->createTmpFile();
+        $file = Filesystem::instance()->createTmpFile();
 
-        return new UploadedFile($file, filesize($file), $error, basename($file), 'text/plain');
+        return new UploadedFile($file, filesize($file) ?: 0, $error, basename($file), 'text/plain');
     }
 
     /**
@@ -45,8 +50,8 @@ class UploaderComponentTest extends ComponentTestCase
      */
     public function tearDown(): void
     {
-        (new Filesystem())->unlinkRecursive(UPLOADS);
-        (new Filesystem())->rmdirRecursive(TMP . 'upload_test');
+        Filesystem::instance()->unlinkRecursive(UPLOADS);
+        Filesystem::instance()->rmdirRecursive(TMP . 'upload_test');
 
         parent::tearDown();
     }
@@ -74,7 +79,7 @@ class UploaderComponentTest extends ComponentTestCase
     public function testFindTargetFilename()
     {
         $Filesystem = new Filesystem();
-        $findTargetFilenameMethod = function (string $filename) {
+        $findTargetFilenameMethod = function (string $filename): string {
             return $this->invokeMethod($this->Component, 'findTargetFilename', [$filename]);
         };
 
@@ -123,7 +128,7 @@ class UploaderComponentTest extends ComponentTestCase
      */
     public function testSetWithFileAsArray()
     {
-        $file = (new Filesystem())->createTmpFile();
+        $file = Filesystem::instance()->createTmpFile();
         $this->Component->set([
             'name' => basename($file),
             'type' => mime_content_type($file),
@@ -162,6 +167,7 @@ class UploaderComponentTest extends ComponentTestCase
         //With no file
         $this->expectException(ObjectWrongInstanceException::class);
         $this->expectExceptionMessage('There are no uploaded file information');
+        /** @phpstan-ignore-next-line */
         $this->getMockForComponent(UploaderComponent::class, null)->mimetype('text/plain');
     }
 
@@ -173,7 +179,7 @@ class UploaderComponentTest extends ComponentTestCase
     {
         foreach ([UPLOADS, rtrim(UPLOADS, DS)] as $targetDirectory) {
             $this->Component->set($this->createFile());
-            $result = $this->Component->save($targetDirectory);
+            $result = $this->Component->save($targetDirectory) ?: '';
             $this->assertStringStartsWith(UPLOADS, $result);
             $this->assertEmpty($this->Component->getError());
             $this->assertFileExists($result);
@@ -181,7 +187,7 @@ class UploaderComponentTest extends ComponentTestCase
 
         foreach (['customFilename', 'customFilename.txt', TMP . 'customFilename.txt'] as $targetFilename) {
             $this->Component->set($this->createFile());
-            $result = $this->Component->save(UPLOADS, $targetFilename);
+            $result = $this->Component->save(UPLOADS, $targetFilename) ?: '';
             $this->assertEquals(UPLOADS . basename($targetFilename), $result);
             $this->assertEmpty($this->Component->getError());
             $this->assertFileExists($result);
@@ -206,6 +212,7 @@ class UploaderComponentTest extends ComponentTestCase
         //With no file
         $this->expectException(ObjectWrongInstanceException::class);
         $this->expectExceptionMessage('There are no uploaded file information');
+        /** @phpstan-ignore-next-line */
         $this->getMockForComponent(UploaderComponent::class, null)->save('');
     }
 

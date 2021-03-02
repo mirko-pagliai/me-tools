@@ -41,18 +41,15 @@ class CreateVendorsLinksCommand extends Command
      * Creates symbolic links for vendor assets
      * @param \Cake\Console\Arguments $args The command arguments
      * @param \Cake\Console\ConsoleIo $io The console io
-     * @return int|null The exit code or null for success
+     * @return void
      */
-    public function execute(Arguments $args, ConsoleIo $io): ?int
+    public function execute(Arguments $args, ConsoleIo $io): void
     {
-        $Filesystem = new Filesystem();
-        $root = $Filesystem->concatenate(ROOT, 'vendor') . DS;
-        $wwwRoot = $Filesystem->concatenate(WWW_ROOT, 'vendor') . DS;
+        $root = Filesystem::instance()->concatenate(ROOT, 'vendor') . DS;
+        $wwwRoot = Filesystem::instance()->concatenate(WWW_ROOT, 'vendor') . DS;
 
         foreach (Configure::read('VENDOR_LINKS') as $origin => $target) {
             $this->createLink($io, $root . $origin, $wwwRoot . $target);
         }
-
-        return null;
     }
 }

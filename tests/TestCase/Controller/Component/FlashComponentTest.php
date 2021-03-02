@@ -22,6 +22,11 @@ use MeTools\TestSuite\ComponentTestCase;
 class FlashComponentTest extends ComponentTestCase
 {
     /**
+     * @var \MeTools\Controller\Component\FlashComponent
+     */
+    protected $Component;
+
+    /**
      * Tests for `__call()` method
      * @test
      */
@@ -65,6 +70,7 @@ class FlashComponentTest extends ComponentTestCase
             'element' => 'flash/other_name',
             'params' => [],
         ]];
+        /** @phpstan-ignore-next-line */
         $this->Component->otherName($text);
         $this->assertEquals($expected, $session->read('Flash.flash'));
         $session->delete('Flash.flash');

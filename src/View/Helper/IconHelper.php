@@ -25,7 +25,7 @@ class IconHelper extends CakeHtmlHelper
 {
     /**
      * Adds icons to text
-     * @param string $text Text
+     * @param string|null $text Text
      * @param \MeTools\View\OptionsParser $options Instance of `OptionsParser`
      * @return array Text with icons and instance of `OptionsParser`
      * @since 2.16.2-beta
@@ -51,7 +51,7 @@ class IconHelper extends CakeHtmlHelper
 
     /**
      * Internal method to build icon classes
-     * @param string|array $icon Icons
+     * @param string|array<string> $icon Icons
      * @return string
      * @since 2.16.2-beta
      */
@@ -59,7 +59,7 @@ class IconHelper extends CakeHtmlHelper
     {
         //Prepends the string "fa-" to any other class
         $icon = preg_replace('/(?<![^ ])(?=[^ ])(?!fa)/', 'fa-', $icon);
-        $icon = !is_array($icon) ? preg_split('/\s+/', $icon, -1, PREG_SPLIT_NO_EMPTY) : $icon;
+        $icon = is_array($icon) ? $icon : (preg_split('/\s+/', $icon, -1, PREG_SPLIT_NO_EMPTY) ?: []);
 
         //Adds the "fa" class, if no other "basic" class is present
         if (!count(array_intersect(['fa', 'fab', 'fal', 'far', 'fas'], $icon))) {
@@ -89,7 +89,7 @@ class IconHelper extends CakeHtmlHelper
      * <code>
      * <i class="fas fa-hand-o-right fa-2x"> </i>
      * </code>
-     * @param string|array $icons Icons. You can also pass multiple arguments
+     * @param string|array<string> $icons Icons. You can also pass multiple arguments
      * @return string
      * @see http://fontawesome.com Font Awesome icons
      */

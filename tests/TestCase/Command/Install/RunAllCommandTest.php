@@ -27,6 +27,12 @@ class RunAllCommandTest extends TestCase
     use ConsoleIntegrationTestTrait;
 
     /**
+     * Command instance
+     * @var \MeTools\Command\Install\RunAllCommand|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $Command;
+
+    /**
      * If `true`, a mock instance of the shell will be created
      * @var bool
      */

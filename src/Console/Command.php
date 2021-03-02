@@ -40,7 +40,7 @@ abstract class Command extends CakeCommand
             return false;
         }
 
-        $io->verbose(__d('me_tools', 'File or directory `{0}` already exists', (new Filesystem())->rtr($path)));
+        $io->verbose(__d('me_tools', 'File or directory `{0}` already exists', Filesystem::instance()->rtr($path)));
 
         return true;
     }
@@ -58,20 +58,18 @@ abstract class Command extends CakeCommand
             return false;
         }
 
-        $Filesystem = new Filesystem();
-
         //Checks if the source is readable and the destination is writable
         try {
             Exceptionist::isReadable($source);
             Exceptionist::isWritable(dirname($dest));
-            $Filesystem->copy($source, $dest);
+            Filesystem::instance()->copy($source, $dest);
         } catch (Exception $e) {
             $io->error($e->getMessage());
 
             return false;
         }
 
-        $io->verbose(__d('me_tools', 'File `{0}` has been copied', $Filesystem->rtr($dest)));
+        $io->verbose(__d('me_tools', 'File `{0}` has been copied', Filesystem::instance()->rtr($dest)));
 
         return true;
     }
@@ -90,15 +88,15 @@ abstract class Command extends CakeCommand
             return false;
         }
 
-        $Filesystem = new Filesystem();
+        $rpath = Filesystem::instance()->rtr($path);
 
         if (!@mkdir($path, 0777, true)) {
-            $io->error(__d('me_tools', 'Failed to create file or directory `{0}`', $Filesystem->rtr($path)));
+            $io->error(__d('me_tools', 'Failed to create file or directory `{0}`', $rpath));
 
             return false;
         }
 
-        $io->verbose(__d('me_tools', 'Created `{0}` directory', $Filesystem->rtr($path)));
+        $io->verbose(__d('me_tools', 'Created `{0}` directory', $rpath));
         $this->folderChmod($io, $path);
 
         return true;
@@ -129,20 +127,18 @@ abstract class Command extends CakeCommand
             return false;
         }
 
-        $Filesystem = new Filesystem();
-
         //Checks if the source is readable and the destination directory is writable
         try {
             Exceptionist::isReadable($source);
             Exceptionist::isWritable(dirname($dest));
-            $Filesystem->symlink($source, $dest, true);
+            Filesystem::instance()->symlink($source, $dest, true);
         } catch (Exception $e) {
             $io->error($e->getMessage());
 
             return false;
         }
 
-        $io->verbose(__d('me_tools', 'Link `{0}` has been created', $Filesystem->rtr($dest)));
+        $io->verbose(__d('me_tools', 'Link `{0}` has been created', Filesystem::instance()->rtr($dest)));
 
         return true;
     }
@@ -158,17 +154,17 @@ abstract class Command extends CakeCommand
      */
     public function folderChmod(ConsoleIo $io, string $path, int $chmod = 0777): bool
     {
-        $Filesystem = new Filesystem();
+        $rpath = Filesystem::instance()->rtr($path);
 
         try {
-            $Filesystem->chmod($path, $chmod, 0000, true);
+            Filesystem::instance()->chmod($path, $chmod, 0000, true);
         } catch (IOException $e) {
-            $io->error(__d('me_tools', 'Failed to set permissions on `{0}`', $Filesystem->rtr($path)));
+            $io->error(__d('me_tools', 'Failed to set permissions on `{0}`', $rpath));
 
             return false;
         }
 
-        $io->verbose(__d('me_tools', 'Setted permissions on `{0}`', $Filesystem->rtr($path)));
+        $io->verbose(__d('me_tools', 'Setted permissions on `{0}`', $rpath));
 
         return true;
     }

@@ -71,6 +71,7 @@ class RequestDetectorsTest extends TestCase
 
         //Multiple actions + controller
         $this->assertTrue($this->Request->isAction(['myAction', 'notMyAction'], 'myController'));
+        $this->assertTrue($this->Request->isAction(['myAction', 'notMyAction'], ['myController', 'notMyController']));
         $this->assertFalse($this->Request->isAction(['notMyAction', 'againNotMyAction'], 'myController'));
         $this->assertFalse($this->Request->isAction(['myAction', 'notMyAction'], 'notMyController'));
         $this->assertFalse($this->Request->isAction(['notMyAction', 'againNotMyAction'], 'notMyController'));
@@ -115,6 +116,7 @@ class RequestDetectorsTest extends TestCase
     public function testIsPrefix()
     {
         $this->assertTrue($this->Request->is('prefix', 'myPrefix'));
+        $this->assertTrue($this->Request->is('prefix', ['myPrefix', 'notMyPrefix']));
         $this->assertFalse($this->Request->is('prefix', 'notMyPrefix'));
         $this->assertTrue($this->Request->isPrefix('myPrefix'));
         $this->assertFalse($this->Request->isPrefix('notMyPrefix'));

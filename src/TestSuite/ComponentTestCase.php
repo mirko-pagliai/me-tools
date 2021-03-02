@@ -42,13 +42,11 @@ abstract class ComponentTestCase extends TestCase
     {
         parent::setUp();
 
-        //Tries to retrieve the component
         if (!$this->Component && $this->autoInitializeClass) {
             $this->Component = $this->getMockForComponent($this->getOriginClassNameOrFail($this), null);
-
-            if (method_exists($this->Component, 'initialize')) {
-                $this->Component->initialize([]);
-            }
+        }
+        if ($this->Component && method_exists($this->Component, 'initialize')) {
+            $this->Component->initialize([]);
         }
     }
 }

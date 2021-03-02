@@ -65,7 +65,7 @@ class CommandTest extends TestCase
     {
         parent::tearDown();
 
-        (new Filesystem())->rmdirRecursive(TMP . 'exampleDir');
+        Filesystem::instance()->rmdirRecursive(TMP . 'exampleDir');
     }
 
     /**
@@ -76,7 +76,7 @@ class CommandTest extends TestCase
     {
         $source = TMP . 'exampleDir' . DS . 'source';
         $dest = TMP . 'exampleDir' . DS . 'dest';
-        (new Filesystem())->createFile($source);
+        Filesystem::instance()->createFile($source);
 
         //Tries to copy. Source doesn't exist, then destination is not writable
         $this->assertFalse($this->Command->copyFile($this->io, TMP . 'noExistingFile', $dest));
@@ -102,7 +102,7 @@ class CommandTest extends TestCase
     {
         //Tries to create. Directory already exists
         $this->assertFalse($this->Command->createDir($this->io, TMP));
-        $this->assertOutputContains('File or directory `' . (new Filesystem())->rtr(TMP) . '` already exists');
+        $this->assertOutputContains('File or directory `' . Filesystem::instance()->rtr(TMP) . '` already exists');
 
         //Creates the directory
         $dir = TMP . 'exampleDir' . DS . 'firstDir' . DS . 'secondDir';
@@ -157,7 +157,7 @@ class CommandTest extends TestCase
     {
         $source = TMP . 'exampleDir' . DS . 'source';
         $dest = TMP . 'exampleDir' . DS . 'dest';
-        (new Filesystem())->createFile($source);
+        Filesystem::instance()->createFile($source);
 
         //Creates the link
         $this->assertTrue($this->Command->createLink($this->io, $source, $dest));

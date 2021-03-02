@@ -31,8 +31,8 @@ class Plugin extends CakePlugin
      *  - `core`, if `false` exclude the core plugins;
      *  - `exclude`, a plugin as string or an array of plugins to be excluded;
      *  - `order`, if `true` the plugins will be sorted.
-     * @param array $options Options
-     * @return array Plugins
+     * @param array<string, string|bool|array> $options Options
+     * @return array<string> Plugins
      * @uses \Cake\Core\Plugin::loaded()
      */
     public static function all(array $options = []): array
@@ -69,7 +69,7 @@ class Plugin extends CakePlugin
         }
 
         $path = $plugin . $file;
-        Exceptionist::isTrue(is_readable($path) || !$check, __d('me_tools', 'File or directory `{0}` does not exist', (new Filesystem())->rtr($path)), MissingPluginException::class);
+        Exceptionist::isTrue(is_readable($path) || !$check, __d('me_tools', 'File or directory `{0}` does not exist', Filesystem::instance()->rtr($path)), MissingPluginException::class);
 
         return $path;
     }

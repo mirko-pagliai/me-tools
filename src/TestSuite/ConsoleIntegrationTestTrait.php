@@ -39,18 +39,20 @@ trait ConsoleIntegrationTestTrait
     {
         parent::setUp();
 
-        if (!$this->Command && !empty($this->autoInitializeClass)) {
-            $className = $this->getOriginClassNameOrFail($this);
-            $this->Command = $this->getMockBuilder($className)
-                ->setMethods(null)
-                ->getMock();
-
-            if (method_exists($this->Command, 'initialize')) {
-                $this->Command->initialize();
-            }
+        if (preg_match('/TraitTest$/', get_class($this))) {
+            return;
         }
 
-        if (string_ends_with($className ?? $this->getOriginClassName($this), 'Command')) {
+        $className = $this->getOriginClassNameOrFail($this);
+
+        if (!$this->Command && !empty($this->autoInitializeClass)) {
+            $this->Command = $this->getMockBuilder($className)->setMethods(null)->getMock();
+        }
+        if ($this->Command && method_exists($this->Command, 'initialize')) {
+            $this->Command->initialize();
+        }
+
+        if (string_ends_with($className, 'Command')) {
             $this->useCommandRunner();
         }
     }

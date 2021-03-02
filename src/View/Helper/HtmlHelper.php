@@ -43,7 +43,7 @@ class HtmlHelper extends CakeHtmlHelper
      * @return string
      * @throws \ErrorException
      */
-    public function __call(string $method, array $params): string
+    public function __call(string $method, array $params = []): string
     {
         Exceptionist::isTrue(count($params) < 3, sprintf('Method `%s::%s()` does not exist', __CLASS__, $method));
 
@@ -91,7 +91,10 @@ class HtmlHelper extends CakeHtmlHelper
      * Adds a css file to the layout.
      *
      * If it's used in the layout, you should set the `inline` option to `true`.
-     * @param mixed $path CSS filename or an array of CSS filenames
+     * @param string|array<string> $path The name of a CSS style sheet or an array
+     *  containing names of CSS stylesheets. If `$path` is prefixed with '/', the
+     *  path will be relative to the webroot of your application. Otherwise, the
+     *  path will be relative to your CSS path, usually webroot/css
      * @param array $options Array of options and HTML attributes
      * @return string Html, `<link>` or `<style>` tag
      */
@@ -153,7 +156,7 @@ class HtmlHelper extends CakeHtmlHelper
      */
     public function cssEnd(): ?string
     {
-        $buffer = ob_get_clean();
+        $buffer = ob_get_clean() ?: '';
         $options = $this->_cssBlockOptions;
         $this->_cssBlockOptions = [];
 
@@ -201,13 +204,14 @@ class HtmlHelper extends CakeHtmlHelper
      *
      * You can use the `$ratio` option (valid values: `16by9` or `4by3`) to
      *  create a responsive embed.
-     * @param string $url Url for the iframe
+     * @param string|array $url Url for the iframe
      * @param array $options Array of options and HTML attributes
      * @return string
      * @see http://getbootstrap.com/components/#responsive-embed Responsive embed
      */
-    public function iframe(string $url, array $options = []): string
+    public function iframe($url, array $options = []): string
     {
+        $url = $this->Url->build($url, $options);
         $options = optionsParser($options)->add('src', $url);
 
         if ($options->exists('ratio')) {
@@ -233,6 +237,8 @@ class HtmlHelper extends CakeHtmlHelper
      */
     public function image($path, array $options = []): string
     {
+        $path = is_string($path) ? $this->Url->image($path, $options) : $this->Url->build($path, $options);
+
         $options = optionsParser($options, ['alt' => pathinfo($path, PATHINFO_BASENAME)])
             ->append('class', 'img-fluid')
             ->tooltip();
@@ -284,7 +290,7 @@ class HtmlHelper extends CakeHtmlHelper
      */
     public function li($element, array $options = []): string
     {
-        return implode(PHP_EOL, array_map(function (string $element) use ($options) {
+        return implode(PHP_EOL, array_map(function (string $element) use ($options): string {
             return $this->tag('li', $element, $options);
         }, (array)$element));
     }
@@ -301,9 +307,18 @@ class HtmlHelper extends CakeHtmlHelper
      */
     public function link($title = null, $url = null, array $options = []): string
     {
+        if (is_array($title) && is_null($url)) {
+            [$url, $title] = [$title, null];
+        }
+
+        $url = $this->Url->build($url, $options);
+        if (!$title && $url && $url != '#') {
+            $title = $url;
+        }
+
         $options = optionsParser($options, ['escape' => false, 'title' => $title]);
         $options->add('title', trim(h(strip_tags($options->get('title') ?? ''))))->tooltip();
-        [$title, $options] = $this->Icon->addIconToText((string)$title, $options);
+        [$title, $options] = $this->Icon->addIconToText($title, $options);
 
         return parent::link($title, $url, $options->toArray());
     }
@@ -344,7 +359,7 @@ class HtmlHelper extends CakeHtmlHelper
             $options->append('class', 'fa-ul');
             $itemOptions->append('icon', 'li');
 
-            $list = array_map(function (string $element) use ($itemOptions) {
+            $list = array_map(function (string $element) use ($itemOptions): string {
                 return array_value_first($this->Icon->addIconToText($element, clone $itemOptions));
             }, $list);
         }

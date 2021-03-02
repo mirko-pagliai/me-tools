@@ -17,6 +17,7 @@ namespace MeTools\View\Helper;
 use Cake\Utility\Hash;
 use Cake\View\Helper\FormHelper as CakeFormHelper;
 use Cake\View\View;
+use MeTools\View\OptionsParser;
 use MeTools\View\Widget\HiddenWidget;
 
 /**
@@ -77,7 +78,7 @@ class FormHelper extends CakeFormHelper
      * @return \MeTools\View\OptionsParser
      * @since 2.18.12
      */
-    protected function __datetimepickerOptions(array $options, $class, $dateFormat)
+    protected function __datetimepickerOptions(array $options, string $class, string $dateFormat): OptionsParser
     {
         return optionsParser($options, ['data-date-format' => $dateFormat, 'type' => 'text'])
             ->append('templates', [
@@ -112,7 +113,7 @@ class FormHelper extends CakeFormHelper
      * Creates a checkbox element
      * @param string $fieldName Field name, should be "Modelname.fieldname"
      * @param array $options HTML attributes and options
-     * @return string[]|string
+     * @return string|array<string> An HTML text input element
      */
     public function checkbox(string $fieldName, array $options = [])
     {
@@ -170,7 +171,7 @@ class FormHelper extends CakeFormHelper
         //Help text
         //See https://getbootstrap.com/docs/4.0/components/forms/#help-text
         if ($options->exists('help')) {
-            $help = array_map(function (string $help) {
+            $help = array_map(function (string $help): string {
                 return $this->Html->para('form-text text-muted', trim($help));
             }, (array)$options->consume('help'));
             $options->append('templateVars', ['help' => implode('', $help)]);
@@ -231,17 +232,18 @@ class FormHelper extends CakeFormHelper
      *
      * Note that by default `createInline` doesn't display help blocks and
      *  errors.
-     * @param mixed $model The model name for which the form is being defined.
-     *  If `false` no model is used
+     * @param mixed $context The context for which the form is being defined.
+     *   Can be a ContextInterface instance, ORM entity, ORM resultset, or an
+     *   array of meta data. You can use `null` to make a context-less form
      * @param array $options HTML attributes and options
      * @return string An formatted opening `<form>` tag
      */
-    public function createInline($model = null, array $options = []): string
+    public function createInline($context = null, array $options = []): string
     {
         $this->inline = true;
         $options = optionsParser($options)->delete('inline')->append('class', 'form-inline');
 
-        return parent::create($model, $options->toArray());
+        return parent::create($context, $options->toArray());
     }
 
     /**

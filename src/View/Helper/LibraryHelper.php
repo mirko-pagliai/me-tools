@@ -25,15 +25,18 @@ use Tools\Exceptionist;
 class LibraryHelper extends Helper
 {
     /**
+     * @var \Assets\View\Helper\AssetHelper|\MeTools\View\Helper\HtmlHelper
+     */
+    protected $Assets;
+
+    /**
      * Helpers.
      *
      * The `Asset` helper will be loaded by the `initialize()` method. If the
      *  `Assets` plugin doesn't exist, it will be a copy of the `Html` helper.
      * @var array
      */
-    public $helpers = [
-        'Html' => ['className' => 'MeTools.Html'],
-    ];
+    public $helpers = ['Html' => ['className' => 'MeTools.Html']];
 
     /**
      * It will contain the output code
