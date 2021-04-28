@@ -41,9 +41,9 @@ class MockTraitTest extends TestCase
         $this->assertSame('MyExample', $this->getAlias(new MyExampleControllerTest()));
 
         //Class with no alias
-        $this->assertException(AssertionFailedError::class, function () {
+        $this->assertException(function () {
             $this->getAlias(\stdClass::class);
-        }, 'Unable to get the alias for the `stdClass` class');
+        }, AssertionFailedError::class, 'Unable to get the alias for the `stdClass` class');
 
         //No existing class
         $this->expectException(AssertionFailedError::class);
