@@ -59,19 +59,6 @@ trait MockTrait
     }
 
     /**
-     * Gets the alias for a controller
-     * @param class-string<\Cake\Controller\Controller> $className Controller class name
-     * @return string
-     * @deprecated Use instead `getAlias()`
-     */
-    protected function getControllerAlias(string $className): string
-    {
-        deprecationWarning('Deprecated. Use instead `getAlias()`');
-
-        return $this->getAlias($className);
-    }
-
-    /**
      * Mocks a component
      * @param class-string $className Component class name
      * @param array<string>|null $methods The list of methods to mock

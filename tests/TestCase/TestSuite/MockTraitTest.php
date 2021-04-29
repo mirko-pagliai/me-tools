@@ -41,37 +41,15 @@ class MockTraitTest extends TestCase
         $this->assertSame('MyExample', $this->getAlias(new MyExampleControllerTest()));
 
         //Class with no alias
-        $this->assertException(AssertionFailedError::class, function () {
+        $this->assertException(function () {
             $this->getAlias(\stdClass::class);
-        }, 'Unable to get the alias for the `stdClass` class');
+        }, AssertionFailedError::class, 'Unable to get the alias for the `stdClass` class');
 
         //No existing class
         $this->expectException(AssertionFailedError::class);
         $this->expectExceptionMessage('Class `No\Existing\Class` does not exist');
         /** @phpstan-ignore-next-line */
         $this->getAlias('No\Existing\Class');
-    }
-
-    /**
-     * Tests for `getControllerAlias()` method
-     * @test
-     */
-    public function testGetControllerAlias()
-    {
-        $current = error_reporting(E_ALL & ~E_USER_DEPRECATED);
-        foreach ([
-            'App\Controller\PagesController',
-            'App\Controller\Admin\PagesController',
-            'TestPlugin\Controller\PagesController',
-            'TestPlugin\Controller\Admin\PagesController',
-        ] as $class) {
-            $this->assertEquals('Pages', $this->getControllerAlias($class));
-        }
-        error_reporting($current);
-
-        $this->expectDeprecation();
-        $this->expectExceptionMessageMatches('/^Deprecated\. Use instead `getAlias\(\)`/');
-        $this->getControllerAlias('App\Controller\PagesController');
     }
 
     /**

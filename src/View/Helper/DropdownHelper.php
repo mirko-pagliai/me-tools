@@ -138,7 +138,7 @@ class DropdownHelper extends Helper
         }
 
         $divOptions = optionsParser($divOptions)->append('class', 'dropdown-menu');
-        $links = implode(PHP_EOL, (array)$matches[0]);
+        $links = implode(PHP_EOL, $matches[0]);
 
         return $this->_start . PHP_EOL .
             $this->Html->div($divOptions->get('class'), $links, $divOptions->toArray());
