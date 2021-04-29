@@ -53,28 +53,6 @@ class MockTraitTest extends TestCase
     }
 
     /**
-     * Tests for `getControllerAlias()` method
-     * @test
-     */
-    public function testGetControllerAlias()
-    {
-        $current = error_reporting(E_ALL & ~E_USER_DEPRECATED);
-        foreach ([
-            'App\Controller\PagesController',
-            'App\Controller\Admin\PagesController',
-            'TestPlugin\Controller\PagesController',
-            'TestPlugin\Controller\Admin\PagesController',
-        ] as $class) {
-            $this->assertEquals('Pages', $this->getControllerAlias($class));
-        }
-        error_reporting($current);
-
-        $this->expectDeprecation();
-        $this->expectExceptionMessageMatches('/^Deprecated\. Use instead `getAlias\(\)`/');
-        $this->getControllerAlias('App\Controller\PagesController');
-    }
-
-    /**
      * Tests for `getMockForComponent()` method
      * @test
      */

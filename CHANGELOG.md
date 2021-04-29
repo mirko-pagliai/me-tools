@@ -1,9 +1,11 @@
 # 2.x branch
-## 2.19 branch
-### 2.19.12
+## 2.20 branch
+### 2.20.0
+* `MockTrait::getControllerAlias()` was deprecated and has been removed;
 * updated for php-tools 1.5;
 * ready for `php` 8.
 
+## 2.19 branch
 ### 2.19.11
 * fixed bug for `HtmlHelper::iframe()`, now the `$url` can be an array of parameters;
 * fixed little bug for `HtmlHelper::image()` method with `$path` as array;
