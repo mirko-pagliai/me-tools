@@ -1,5 +1,8 @@
 # 2.x branch
 ## 2.20 branch
+### 2.20.1
+* fixed little bug for the `ConsoleIntegrationTestTrait`.
+
 ### 2.20.0
 * `MockTrait::getControllerAlias()` was deprecated and has been removed;
 * updated for php-tools 1.5;
