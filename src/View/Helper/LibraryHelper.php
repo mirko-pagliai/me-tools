@@ -27,7 +27,7 @@ class LibraryHelper extends Helper
     /**
      * @var \Assets\View\Helper\AssetHelper|\MeTools\View\Helper\HtmlHelper
      */
-    protected $Assets;
+    protected $Asset;
 
     /**
      * Helpers.
