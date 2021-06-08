@@ -34,7 +34,7 @@ class FixComposerJsonCommandTest extends TestCase
      * Tests for `execute()` method
      * @test
      */
-    public function testExecute()
+    public function testExecute(): void
     {
         $file = APP . 'composer.json';
         Filesystem::instance()->createFile($file, json_encode([
@@ -54,7 +54,7 @@ class FixComposerJsonCommandTest extends TestCase
      * Tests for `execute()` method, with an already fixed file
      * @test
      */
-    public function testExecuteAlreadyFixedFile()
+    public function testExecuteAlreadyFixedFile(): void
     {
         $file = APP . 'composer.json';
         $this->exec($this->command . ' -p ' . $file);
@@ -68,7 +68,7 @@ class FixComposerJsonCommandTest extends TestCase
      * Tests for `execute()` method, with an invalid file
      * @test
      */
-    public function testExecuteInvalidFile()
+    public function testExecuteInvalidFile(): void
     {
         $file = TMP . 'invalid.json';
         Filesystem::instance()->createFile($file);
@@ -81,7 +81,7 @@ class FixComposerJsonCommandTest extends TestCase
      * Tests for `execute()` method, with a no existing file
      * @test
      */
-    public function testExecuteNoExistingFile()
+    public function testExecuteNoExistingFile(): void
     {
         $this->exec($this->command . ' -p noExisting');
         $this->assertExitWithError();

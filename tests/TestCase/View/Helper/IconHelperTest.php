@@ -26,7 +26,7 @@ class IconHelperTest extends HelperTestCase
      * Tests for `addIconToText()` method
      * @test
      */
-    public function testAddIconToText()
+    public function testAddIconToText(): void
     {
         $text = 'My text';
 
@@ -75,7 +75,7 @@ class IconHelperTest extends HelperTestCase
      * Test for `icon()` method
      * @test
      */
-    public function testIcons()
+    public function testIcons(): void
     {
         $expected = ['i' => ['class' => 'preg:/(fa|fab|fal|far|fas) fa\-home/'], ' ', '/i'];
         foreach ([

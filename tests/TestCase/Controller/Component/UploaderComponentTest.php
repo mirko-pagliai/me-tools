@@ -60,7 +60,7 @@ class UploaderComponentTest extends ComponentTestCase
      * Tests for `getError()` and `setError()` methods
      * @test
      */
-    public function testGetErrorAndSetError()
+    public function testGetErrorAndSetError(): void
     {
         $this->assertEmpty($this->Component->getError());
 
@@ -76,7 +76,7 @@ class UploaderComponentTest extends ComponentTestCase
      * Tests for `findTargetFilename()` method
      * @test
      */
-    public function testFindTargetFilename()
+    public function testFindTargetFilename(): void
     {
         $Filesystem = new Filesystem();
         $findTargetFilenameMethod = function (string $filename): string {
@@ -111,7 +111,7 @@ class UploaderComponentTest extends ComponentTestCase
      * Tests for `set()` method
      * @test
      */
-    public function testSet()
+    public function testSet(): void
     {
         $result = $this->Component->set($this->createFile());
         $this->assertInstanceOf(UploaderComponent::class, $result);
@@ -126,7 +126,7 @@ class UploaderComponentTest extends ComponentTestCase
      * Tests for `set()` method, with file as array
      * @test
      */
-    public function testSetWithFileAsArray()
+    public function testSetWithFileAsArray(): void
     {
         $file = Filesystem::instance()->createTmpFile();
         $this->Component->set([
@@ -144,7 +144,7 @@ class UploaderComponentTest extends ComponentTestCase
      * Test for `mimetype()` method
      * @test
      */
-    public function testMimetype()
+    public function testMimetype(): void
     {
         $this->Component->set($this->createFile());
 
@@ -175,7 +175,7 @@ class UploaderComponentTest extends ComponentTestCase
      * Test for `save()` method
      * @test
      */
-    public function testSave()
+    public function testSave(): void
     {
         foreach ([UPLOADS, rtrim(UPLOADS, DS)] as $targetDirectory) {
             $this->Component->set($this->createFile());
@@ -220,7 +220,7 @@ class UploaderComponentTest extends ComponentTestCase
      * Test for `save()` method, with an error
      * @test
      */
-    public function testSaveWithError()
+    public function testSaveWithError(): void
     {
         $this->Component->set($this->createFile());
 

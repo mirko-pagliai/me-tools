@@ -26,7 +26,7 @@ class GlobalFunctionsTest extends TestCase
      * Test for `optionsParser()` global function
      * @test
      */
-    public function testOptionsParser()
+    public function testOptionsParser(): void
     {
         $result = optionsParser();
         $this->assertInstanceOf(OptionsParser::class, $result);

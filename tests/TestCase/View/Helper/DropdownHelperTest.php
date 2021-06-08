@@ -42,7 +42,7 @@ class DropdownHelperTest extends HelperTestCase
      * Tests for `menu()`, `start()` and `end()` methods
      * @test
      */
-    public function testMenuAndStartAndEnd()
+    public function testMenuAndStartAndEnd(): void
     {
         //No dropdown menu again...
         $this->assertNull($this->Helper->end());

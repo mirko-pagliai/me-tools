@@ -42,7 +42,7 @@ class HiddenWidgetTest extends TestCase
      * Tests for `render()` method
      * @test
      */
-    public function testRender()
+    public function testRender(): void
     {
         $field = 'My field';
 

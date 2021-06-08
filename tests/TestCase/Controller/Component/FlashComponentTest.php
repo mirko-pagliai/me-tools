@@ -30,7 +30,7 @@ class FlashComponentTest extends ComponentTestCase
      * Tests for `__call()` method
      * @test
      */
-    public function testMagicCall()
+    public function testMagicCall(): void
     {
         $session = $this->Component->getController()->getRequest()->getSession();
         $text = 'My message';

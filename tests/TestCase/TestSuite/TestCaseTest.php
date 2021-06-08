@@ -31,7 +31,7 @@ class TestCaseTest extends TestCase
      * Tests for `getLogFullPath()` method
      * @test
      */
-    public function testGetLogFullPath()
+    public function testGetLogFullPath(): void
     {
         $expected = LOGS . 'debug.log';
 
@@ -44,7 +44,7 @@ class TestCaseTest extends TestCase
      * Tests for `getTable()` method
      * @test
      */
-    public function testGetTable()
+    public function testGetTable(): void
     {
         $table = $this->getTable('Articles');
         $this->assertSame('Articles', $table->getAlias());
@@ -58,7 +58,7 @@ class TestCaseTest extends TestCase
      * Tests for `assertLogContains()` method
      * @test
      */
-    public function testAssertLogContains()
+    public function testAssertLogContains(): void
     {
         $string = 'cat dog bird';
         $file = LOGS . 'debug.log';
@@ -78,7 +78,7 @@ class TestCaseTest extends TestCase
      * Tests for `deleteLog()` method
      * @test
      */
-    public function testDeleteLog()
+    public function testDeleteLog(): void
     {
         $logs = [LOGS . 'first.log', LOGS . 'second.log'];
         array_map([Filesystem::instance(), 'createFile'], $logs);

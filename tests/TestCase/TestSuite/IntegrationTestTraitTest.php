@@ -47,7 +47,7 @@ class IntegrationTestTraitTest extends TestCase
      * Test for `controllerSpy()` method
      * @test
      */
-    public function testControllerSpy()
+    public function testControllerSpy(): void
     {
         $this->_controller = new Controller();
         $this->_controller->loadComponent('MeTools.Uploader');
@@ -68,7 +68,7 @@ class IntegrationTestTraitTest extends TestCase
      * Test for `assertCookieIsEmpty()` method
      * @test
      */
-    public function testAssertCookieIsEmpty()
+    public function testAssertCookieIsEmpty(): void
     {
         $this->assertCookieIsEmpty('test-cookie');
 
@@ -87,7 +87,7 @@ class IntegrationTestTraitTest extends TestCase
      * Test for `assertFlashMessage()` method
      * @test
      */
-    public function testAssertFlashMessage()
+    public function testAssertFlashMessage(): void
     {
         $messages = ['first flash', 'second flash'];
         $this->_requestSession = new Session();
@@ -105,7 +105,7 @@ class IntegrationTestTraitTest extends TestCase
      * Test for `assertResponseOkAndNotEmpty()` method
      * @test
      */
-    public function testAssertResponseOkAndNotEmpty()
+    public function testAssertResponseOkAndNotEmpty(): void
     {
         $this->_response = new Response(['body' => 'string']);
         $this->assertResponseOkAndNotEmpty();
@@ -115,7 +115,7 @@ class IntegrationTestTraitTest extends TestCase
      * Test for `assertSessionEmpty()` method
      * @test
      */
-    public function testSessionEmpty()
+    public function testSessionEmpty(): void
     {
         $this->_requestSession = new Session();
         $this->_requestSession->write('first.second', 'value');

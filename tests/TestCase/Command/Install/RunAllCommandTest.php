@@ -47,7 +47,7 @@ class RunAllCommandTest extends TestCase
      * Tests for `execute()` method
      * @test
      */
-    public function testExecute()
+    public function testExecute(): void
     {
         $io = $this->getMockBuilder(ConsoleIo::class)
             ->setMethods(['askChoice'])

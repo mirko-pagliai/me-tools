@@ -29,7 +29,7 @@ class CreatePluginsLinksCommandTest extends TestCase
      * Tests for `execute()` method
      * @test
      */
-    public function testExecute()
+    public function testExecute(): void
     {
         $clear = function (): void {
             $method = IS_WIN ? [Filesystem::instance(), 'rmdirRecursive'] : 'unlink';

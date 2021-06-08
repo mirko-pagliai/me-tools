@@ -32,7 +32,7 @@ class MockTraitTest extends TestCase
      * Tests for `getAlias()` method
      * @test
      */
-    public function testGetAlias()
+    public function testGetAlias(): void
     {
         $this->assertSame('Pages', $this->getAlias(new PagesController()));
         $this->assertSame('Posts', $this->getAlias(PostsTable::class));
@@ -56,7 +56,7 @@ class MockTraitTest extends TestCase
      * Tests for `getMockForComponent()` method
      * @test
      */
-    public function testGetMockForComponent()
+    public function testGetMockForComponent(): void
     {
         $Mock = $this->getMockForComponent('Cake\Controller\Component\FlashComponent', null);
         $this->assertInstanceOf(MockObject::class, $Mock);
@@ -66,7 +66,7 @@ class MockTraitTest extends TestCase
      * Tests for `getMockForComponent()` method
      * @test
      */
-    public function testGetMockForController()
+    public function testGetMockForController(): void
     {
         /** @var \App\Controller\PagesController $Mock **/
         $Mock = $this->getMockForController('App\Controller\PagesController', null);
@@ -89,7 +89,7 @@ class MockTraitTest extends TestCase
      * Tests for `getOriginClassName()` method
      * @test
      */
-    public function testGetOriginClassName()
+    public function testGetOriginClassName(): void
     {
         $this->assertSame(TestCase::class, $this->getOriginClassName(new TestCaseTest()));
     }
@@ -98,7 +98,7 @@ class MockTraitTest extends TestCase
      * Tests for `getOriginClassNameOrFail()` method
      * @test
      */
-    public function testGetOriginClassNameOrFail()
+    public function testGetOriginClassNameOrFail(): void
     {
         $this->assertSame(TestCase::class, $this->getOriginClassNameOrFail(new TestCaseTest()));
 
@@ -111,7 +111,7 @@ class MockTraitTest extends TestCase
      * Tests for `getPluginName()` method
      * @test
      */
-    public function testGetPluginName()
+    public function testGetPluginName(): void
     {
         $this->assertSame('MeTools', $this->getPluginName(new TestCaseTest()));
         $this->assertSame('AnotherTestPlugin/MyPlugin', $this->getPluginName(new MyExampleControllerTest()));
@@ -121,7 +121,7 @@ class MockTraitTest extends TestCase
      * Tests for `getTableClassNameFromAlias()` method
      * @test
      */
-    public function testGetTableClassNameFromAlias()
+    public function testGetTableClassNameFromAlias(): void
     {
         $this->assertSame('MeTools\Model\Table\PostsTable', $this->getTableClassNameFromAlias('Posts'));
         $this->assertSame('MyPlugin\SubNamespace\Model\Table\PostsTable', $this->getTableClassNameFromAlias('Posts', 'MyPlugin/SubNamespace'));

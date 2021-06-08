@@ -52,7 +52,7 @@ class RequestDetectorsTest extends TestCase
      * Tests for `is('action')` detector
      * @test
      */
-    public function testIsAction()
+    public function testIsAction(): void
     {
         $this->assertTrue($this->Request->is('action', 'myAction'));
         $this->assertFalse($this->Request->is('action', 'notMyAction'));
@@ -81,7 +81,7 @@ class RequestDetectorsTest extends TestCase
      * Tests for `is('controller')` detector
      * @test
      */
-    public function testIsController()
+    public function testIsController(): void
     {
         $this->assertTrue($this->Request->is('controller', 'myController'));
         $this->assertFalse($this->Request->is('controller', 'notMyController'));
@@ -97,7 +97,7 @@ class RequestDetectorsTest extends TestCase
      * Tests for `is('localhost')` detector
      * @test
      */
-    public function testIsLocalhost()
+    public function testIsLocalhost(): void
     {
         $this->assertFalse($this->Request->is('localhost'));
         $this->assertFalse($this->Request->isLocalhost());
@@ -113,7 +113,7 @@ class RequestDetectorsTest extends TestCase
      * Tests for `is('prefix')` detector
      * @test
      */
-    public function testIsPrefix()
+    public function testIsPrefix(): void
     {
         $this->assertTrue($this->Request->is('prefix', 'myPrefix'));
         $this->assertTrue($this->Request->is('prefix', ['myPrefix', 'notMyPrefix']));
@@ -126,7 +126,7 @@ class RequestDetectorsTest extends TestCase
      * Tests for `is('url')` detector
      * @test
      */
-    public function testIsUrl()
+    public function testIsUrl(): void
     {
         $this->Request = $this->Request->withEnv('REQUEST_URI', '/some_alias');
 
@@ -165,7 +165,7 @@ class RequestDetectorsTest extends TestCase
      * Tests for `is('url')` detector, with query strings
      * @test
      */
-    public function testIsUrlQueryString()
+    public function testIsUrlQueryString(): void
     {
         $this->Request = $this->Request->withEnv('REQUEST_URI', '/some_alias');
         $this->assertTrue($this->Request->isUrl('/some_alias'));

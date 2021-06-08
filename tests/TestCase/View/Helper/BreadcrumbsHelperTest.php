@@ -25,7 +25,7 @@ class BreadcrumbsHelperTest extends HelperTestCase
      * Tests for `add()` method
      * @test
      */
-    public function testAdd()
+    public function testAdd(): void
     {
         $expected = [
             'ul' => ['class' => 'breadcrumb'],
@@ -50,7 +50,7 @@ class BreadcrumbsHelperTest extends HelperTestCase
      * Tests for `prepend()` method
      * @test
      */
-    public function testPrepend()
+    public function testPrepend(): void
     {
         $expected = [
             'ul' => ['class' => 'breadcrumb'],
@@ -75,7 +75,7 @@ class BreadcrumbsHelperTest extends HelperTestCase
      * Tests for `render()` method
      * @test
      */
-    public function testRender()
+    public function testRender(): void
     {
         $this->assertSame('', $this->Helper->render());
 

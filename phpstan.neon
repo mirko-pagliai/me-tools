@@ -37,7 +37,3 @@ parameters:
         -
             message: '#^(Access|Call) to (an undefined|protected) (property|method) (Cake|MeTools|Psr)#'
             path: tests/TestCase
-
-        -
-            message: '#^Method [\w\\]+Test::test\w+\(\) has no return typehint specified\.$#'
-            path: tests/TestCase
