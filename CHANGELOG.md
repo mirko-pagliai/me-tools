@@ -1,6 +1,8 @@
 # 2.x branch
 ## 2.20 branch
 ### 2.20.1
+* added `UploaderComponent::getFile()` and `UploaderComponent::setFile()` methods.
+    `UploaderComponent::set()` method is deprecated, use instead `setFile()`;
 * fixed little bug for the `ConsoleIntegrationTestTrait`.
 
 ### 2.20.0

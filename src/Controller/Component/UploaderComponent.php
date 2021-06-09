@@ -161,12 +161,23 @@ class UploaderComponent extends Component
     }
 
     /**
+     * Returns the uploaded file instance
+     * @return \Psr\Http\Message\UploadedFileInterface
+     * @since 2.20.1
+     */
+    public function getFile()
+    {
+        return $this->file;
+    }
+
+    /**
      * Sets uploaded file information (`$_FILES` array, better as
      *  `$this->getRequest()->getData('file')`)
      * @param \Psr\Http\Message\UploadedFileInterface|array $file Uploaded file information
      * @return $this
+     * @since 2.20.1
      */
-    public function set($file)
+    public function setFile($file)
     {
         //Resets `$error`
         unset($this->error);
@@ -182,5 +193,19 @@ class UploaderComponent extends Component
         }
 
         return $this;
+    }
+
+    /**
+     * Sets uploaded file information (`$_FILES` array, better as
+     *  `$this->getRequest()->getData('file')`)
+     * @param \Psr\Http\Message\UploadedFileInterface|array $file Uploaded file information
+     * @return $this
+     * @deprecated Use instead `setFile()`
+     */
+    public function set($file)
+    {
+        deprecationWarning('Deprecated. Use instead `setFile()`');
+
+        return $this->setFile($file);
     }
 }
