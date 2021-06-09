@@ -40,6 +40,15 @@ class UploaderComponent extends Component
     protected $file;
 
     /**
+     * Returns the first error
+     * @return string|null First error or `null` with no errors
+     */
+    public function getError(): ?string
+    {
+        return $this->error ?: null;
+    }
+
+    /**
      * Internal method to set an error
      * @param string $error Error
      * @return void
@@ -70,15 +79,6 @@ class UploaderComponent extends Component
         }
 
         return $target;
-    }
-
-    /**
-     * Returns the first error
-     * @return string|null First error or `null` with no errors
-     */
-    public function getError(): ?string
-    {
-        return $this->error ?: null;
     }
 
     /**
