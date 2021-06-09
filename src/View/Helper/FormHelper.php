@@ -22,6 +22,7 @@ use MeTools\View\Widget\HiddenWidget;
 
 /**
  * Provides functionalities for forms
+ * @property \MeTools\View\Helper\IconHelper $Icon
  */
 class FormHelper extends CakeFormHelper
 {

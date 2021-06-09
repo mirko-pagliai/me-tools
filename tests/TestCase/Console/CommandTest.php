@@ -16,6 +16,7 @@ namespace MeTools\Test\TestCase\Console;
 
 use Cake\Console\ConsoleIo;
 use Cake\TestSuite\Stub\ConsoleOutput;
+use MeTools\Console\Command;
 use MeTools\TestSuite\ConsoleIntegrationTestTrait;
 use MeTools\TestSuite\TestCase;
 use Tools\Filesystem;
@@ -26,6 +27,11 @@ use Tools\Filesystem;
 class CommandTest extends TestCase
 {
     use ConsoleIntegrationTestTrait;
+
+    /**
+     * @var \MeTools\Console\Command
+     */
+    protected $Command;
 
     /**
      * @var \Cake\TestSuite\Stub\ConsoleOutput
@@ -43,11 +49,10 @@ class CommandTest extends TestCase
      */
     public function setUp(): void
     {
+        $this->Command = $this->getMockForAbstractClass(Command::class);
+
         parent::setUp();
 
-        $this->Command = $this->getMockBuilder($this->getOriginClassNameOrFail($this))
-            ->setMethods(null)
-            ->getMock();
         $this->_out = new ConsoleOutput();
         $this->_err = new ConsoleOutput();
         $this->io = $this->getMockBuilder(ConsoleIo::class)

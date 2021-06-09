@@ -47,6 +47,7 @@ trait ConsoleIntegrationTestTrait
             $className = $this->getOriginClassNameOrFail($this);
             $this->Command = $this->getMockBuilder($className)->setMethods(null)->getMock();
         }
+
         if ($this->Command && method_exists($this->Command, 'initialize')) {
             $this->Command->initialize();
         }

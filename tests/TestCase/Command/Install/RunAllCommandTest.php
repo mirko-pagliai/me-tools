@@ -15,6 +15,7 @@ declare(strict_types=1);
 namespace MeTools\Test\TestCase\Command\Install;
 
 use Cake\Console\ConsoleIo;
+use MeTools\Command\Install\RunAllCommand;
 use MeTools\Console\Command;
 use MeTools\TestSuite\ConsoleIntegrationTestTrait;
 use MeTools\TestSuite\TestCase;
@@ -28,20 +29,25 @@ class RunAllCommandTest extends TestCase
 
     /**
      * Command instance
-     * @var \MeTools\Command\Install\RunAllCommand|\PHPUnit\Framework\MockObject\MockObject
+     * @var \MeTools\Command\Install\RunAllCommand
      */
     protected $Command;
-
-    /**
-     * If `true`, a mock instance of the shell will be created
-     * @var bool
-     */
-    protected $autoInitializeClass = true;
 
     /**
      * @var array
      */
     protected $debug = [];
+
+    /**
+     * Called before every test method
+     * @return void
+     */
+    public function setUp(): void
+    {
+        $this->Command = $this->getMockBuilder(RunAllCommand::class)->setMethods(null)->getMock();
+
+        parent::setUp();
+    }
 
     /**
      * Tests for `execute()` method
@@ -62,9 +68,8 @@ class RunAllCommandTest extends TestCase
             $command->method('execute')->will($this->returnCallback(function () use ($question) {
                 $this->debug[] = $question['command'];
             }));
-            $question['command'] = $command;
 
-            return $question;
+            return array_merge($question, compact('command'));
         }, $this->Command->questions);
 
         $expected = [

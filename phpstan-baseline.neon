@@ -1,0 +1,17 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Call to an undefined method Cake\\\\Core\\\\PluginApplicationInterface\\:\\:getPlugins\\(\\)\\.$#"
+			count: 1
+			path: src/Plugin.php
+
+		-
+			message: "#^Class Cake\\\\TestSuite\\\\Constraint\\\\Session\\\\SessionEquals constructor invoked with 2 parameters, 1 required\\.$#"
+			count: 1
+			path: tests/TestCase/TestSuite/IntegrationTestTraitTest.php
+
+		-
+			message: "#^Parameter \\#1 \\$path of class Cake\\\\TestSuite\\\\Constraint\\\\Session\\\\SessionEquals constructor expects string, Cake\\\\Http\\\\Session given\\.$#"
+			count: 1
+			path: tests/TestCase/TestSuite/IntegrationTestTraitTest.php
+

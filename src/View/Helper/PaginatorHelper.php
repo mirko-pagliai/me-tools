@@ -20,6 +20,7 @@ use Cake\View\View;
 
 /**
  * Provides functionalities to the generation of pagers
+ * @property \MeTools\View\Helper\IconHelper $Icon
  */
 class PaginatorHelper extends CakePaginatorHelper
 {
