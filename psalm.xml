@@ -40,14 +40,6 @@
             </errorLevel>
         </TypeDoesNotContainType>
 
-        <UndefinedThisPropertyFetch>
-            <errorLevel type="suppress">
-                <file name="src/View/Helper/FormHelper.php" />
-                <file name="src/View/Helper/HtmlHelper.php" />
-                <file name="src/View/Helper/PaginatorHelper.php" />
-            </errorLevel>
-        </UndefinedThisPropertyFetch>
-
         <UndefinedInterfaceMethod>
             <errorLevel type="suppress">
                 <file name="src/Plugin.php" />
