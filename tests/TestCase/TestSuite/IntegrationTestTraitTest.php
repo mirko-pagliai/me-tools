@@ -54,10 +54,12 @@ class IntegrationTestTraitTest extends TestCase
         $this->controllerSpy(new Event('myEvent'), $this->_controller);
         $this->assertEquals('with_flash', $this->_controller->viewBuilder()->getLayout());
 
+        /** @phpstan-ignore-next-line */
         $this->assertInstanceOf(MockObject::class, $this->_controller->Uploader);
         $source = (new Filesystem())->createTmpFile();
         $destination = TMP . 'example2';
         $this->assertFileDoesNotExist($destination);
+        /** @phpstan-ignore-next-line */
         $this->invokeMethod($this->_controller->Uploader, 'move_uploaded_file', [$source, $destination]);
         $this->assertFileDoesNotExist($source);
         $this->assertFileExists($destination);

@@ -19,6 +19,7 @@ use MeTools\View\Helper\HtmlHelper;
 
 /**
  * FormHelperTest class
+ * @property \MeTools\View\Helper\FormHelper $Helper
  */
 class FormHelperTest extends HelperTestCase
 {
@@ -79,7 +80,7 @@ class FormHelperTest extends HelperTestCase
             ['input' => ['type' => 'hidden', 'name' => 'my-field', 'value' => '0']],
             ['input' => ['type' => 'checkbox', 'name' => 'my-field', 'value' => '1']],
         ];
-        $this->assertHtml($expected, $this->Helper->checkbox('my-field'));
+        $this->assertHtml($expected, array_value_first((array)$this->Helper->checkbox('my-field')));
     }
 
     /**

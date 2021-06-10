@@ -62,7 +62,10 @@ class BBCode
 
         //Calls dynamically each method
         foreach ($methods as $method) {
-            $text = call_user_func([$this, $method], $text);
+            $callable = [$this, $method];
+            if (is_callable($callable)) {
+                $text = call_user_func($callable, $text);
+            }
         }
 
         return $text;
@@ -75,7 +78,7 @@ class BBCode
      */
     public function remove(string $text): string
     {
-        return trim(preg_replace($this->pattern, '', $text));
+        return trim(preg_replace($this->pattern, '', $text) ?: '');
     }
 
     /**
@@ -90,7 +93,7 @@ class BBCode
     {
         return preg_replace_callback($this->pattern['image'], function ($matches): string {
             return $this->Html->image($matches[1]);
-        }, $text);
+        }, $text) ?: '';
     }
 
     /**
@@ -103,7 +106,7 @@ class BBCode
      */
     public function readMore(string $text): string
     {
-        return preg_replace($this->pattern['readmore'], '<!-- read-more -->', $text);
+        return preg_replace($this->pattern['readmore'], '<!-- read-more -->', $text) ?: '';
     }
 
     /**
@@ -118,7 +121,7 @@ class BBCode
     {
         return preg_replace_callback($this->pattern['url'], function ($matches): string {
             return $this->Html->link($matches[2], $matches[1]);
-        }, $text);
+        }, $text) ?: '';
     }
 
     /**
@@ -142,6 +145,6 @@ class BBCode
             $id = is_url($matches[1]) ? Youtube::getId($matches[1]) : $matches[1];
 
             return $this->Html->youtube($id);
-        }, $text);
+        }, $text) ?: '';
     }
 }

@@ -2,7 +2,7 @@ includes:
     - phpstan-baseline.neon
 
 parameters:
-    level: 7
+    level: 8
 
     paths:
         - config
@@ -21,8 +21,3 @@ parameters:
 
     ignoreErrors:
         - '#^(Ternary operator condition|If condition|Negated boolean expression|Result of &&|(Left|Right) side of &&) is always (true|false)\.$#'
-        - '#^Parameter \#1 \$(callback|function) of function (array_map|call_user_func) expects#'
-
-        -
-            message: '#^(Access|Call) to (an undefined|protected) (property|method) (Cake|Psr)#'
-            path: tests/TestCase

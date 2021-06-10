@@ -89,8 +89,8 @@ class UploaderComponent extends Component
     protected function _checkUploadedFileInformation(): void
     {
         $message = __d('me_tools', 'There are no uploaded file information');
-        Exceptionist::isTrue($this->file, $message, ObjectWrongInstanceException::class);
-        Exceptionist::isInstanceOf($this->file, UploadedFileInterface::class, $message);
+        Exceptionist::isTrue($this->getFile(), $message, ObjectWrongInstanceException::class);
+        Exceptionist::isInstanceOf($this->getFile(), UploadedFileInterface::class, $message);
     }
 
     /**
@@ -146,11 +146,11 @@ class UploaderComponent extends Component
             return false;
         }
 
-        $filename = $filename ? basename($filename) : $this->findTargetFilename($this->file->getClientFilename());
+        $filename = $filename ? basename($filename) : $this->findTargetFilename($this->getFile()->getClientFilename());
         $target = Filesystem::instance()->concatenate($directory, $filename);
 
         try {
-            $this->file->moveTo($target);
+            $this->getFile()->moveTo($target);
         } catch (UploadedFileErrorException $e) {
             $this->setError(__d('me_tools', 'The file was not successfully moved to the target directory'));
 

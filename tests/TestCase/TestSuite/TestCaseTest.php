@@ -46,9 +46,10 @@ class TestCaseTest extends TestCase
      */
     public function testGetTable(): void
     {
-        $table = $this->getTable('Articles');
-        $this->assertSame('Articles', $table->getAlias());
-        $this->assertInstanceOf(Table::class, $table);
+        /** @var \Cake\ORM\Table $Table */
+        $Table = $this->getTable('Articles');
+        $this->assertSame('Articles', $Table->getAlias());
+        $this->assertInstanceOf(Table::class, $Table);
 
         //With a no-existing table
         $this->assertNull($this->getTable('NoExistingTable', ['className' => '\Cake\ORM\NoExistingTable']));

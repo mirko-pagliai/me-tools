@@ -3,7 +3,9 @@
 ### 2.20.1
 * added `UploaderComponent::getFile()` and `UploaderComponent::setFile()` methods.
     `UploaderComponent::set()` method is deprecated, use instead `setFile()`;
-* fixed little bug for the `ConsoleIntegrationTestTrait`.
+* fixed little bug for the `ConsoleIntegrationTestTrait`;
+* extensive improvement of function descriptions and tags. The level of `phpstan`
+    has been raised.
 
 ### 2.20.0
 * `MockTrait::getControllerAlias()` was deprecated and has been removed;

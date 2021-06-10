@@ -19,6 +19,7 @@ use MeTools\View\OptionsParser;
 
 /**
  * IconHelperTest class
+ * @property \MeTools\View\Helper\IconHelper $Helper
  */
 class IconHelperTest extends HelperTestCase
 {

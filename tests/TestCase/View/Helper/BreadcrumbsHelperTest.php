@@ -17,7 +17,8 @@ namespace MeTools\Test\TestCase\View\Helper;
 use MeTools\TestSuite\HelperTestCase;
 
 /**
- * MeTools\View\Helper\BreadcrumbsHelper Test Case
+ * BreadcrumbsHelperTest class
+ * @property \MeTools\View\Helper\BreadcrumbsHelper $Helper
  */
 class BreadcrumbsHelperTest extends HelperTestCase
 {

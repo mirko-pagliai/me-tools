@@ -102,7 +102,7 @@ ServerRequest::addDetector('prefix', function (ServerRequest $request, $prefix):
  *  the current url.
  */
 ServerRequest::addDetector('url', function (ServerRequest $request, $url, bool $removeQueryString = true): bool {
-    $current = rtrim($request->getEnv('REQUEST_URI'), '/');
+    $current = rtrim($request->getEnv('REQUEST_URI') ?: '', '/');
     $current = $removeQueryString ? explode('?', $current, 2)[0] : $current;
 
     return rtrim(Router::url($url), '/') === $current;

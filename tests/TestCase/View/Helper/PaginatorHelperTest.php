@@ -18,6 +18,7 @@ use MeTools\TestSuite\HelperTestCase;
 
 /**
  * PaginatorHelperTest class
+ * @property \MeTools\View\Helper\PaginatorHelper $Helper
  */
 class PaginatorHelperTest extends HelperTestCase
 {

@@ -368,12 +368,12 @@ class FormHelper extends CakeFormHelper
     /**
      * Returns a formatted SELECT element
      * @param string $fieldName Name attribute of the SELECT
-     * @param iterable|null $options Array of the OPTION elements
+     * @param iterable $options Array of the OPTION elements
      *  (as 'value'=>'Text' pairs) to be used in the SELECT element
      * @param array $attributes The HTML attributes of the select element
      * @return string
      */
-    public function select(string $fieldName, ?iterable $options = [], array $attributes = []): string
+    public function select(string $fieldName, iterable $options = [], array $attributes = []): string
     {
         $attributes = optionsParser($attributes);
 
