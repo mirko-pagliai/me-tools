@@ -60,7 +60,7 @@ class UploaderComponentTest extends ComponentTestCase
      * Tests for `getError()` and `setError()` methods
      * @test
      */
-    public function testGetErrorAndSetError()
+    public function testGetErrorAndSetError(): void
     {
         $this->assertEmpty($this->Component->getError());
 
@@ -76,7 +76,7 @@ class UploaderComponentTest extends ComponentTestCase
      * Tests for `findTargetFilename()` method
      * @test
      */
-    public function testFindTargetFilename()
+    public function testFindTargetFilename(): void
     {
         $Filesystem = new Filesystem();
         $findTargetFilenameMethod = function (string $filename): string {
@@ -111,14 +111,31 @@ class UploaderComponentTest extends ComponentTestCase
      * Tests for `set()` method
      * @test
      */
-    public function testSet()
+    public function testSet(): void
     {
-        $result = $this->Component->set($this->createFile());
+        $file = $this->createFile();
+
+        $current = error_reporting(E_ALL & ~E_USER_DEPRECATED);
+        $this->Component->set($file);
+        error_reporting($current);
+
+        $this->expectDeprecation();
+        $this->expectExceptionMessage('Deprecated. Use instead `setFile()');
+        $this->Component->set($file);
+    }
+
+    /**
+     * Tests for `getFile()` and `setFile()` methods
+     * @test
+     */
+    public function testGetAndSetFile(): void
+    {
+        $result = $this->Component->setFile($this->createFile());
         $this->assertInstanceOf(UploaderComponent::class, $result);
-        $this->assertInstanceOf(UploadedFileInterface::class, $this->Component->file);
+        $this->assertInstanceOf(UploadedFileInterface::class, $this->Component->getFile());
         $this->assertEmpty($this->Component->getError());
 
-        $this->Component->set($this->createFile(UPLOAD_ERR_INI_SIZE));
+        $this->Component->setFile($this->createFile(UPLOAD_ERR_INI_SIZE));
         $this->assertNotEmpty($this->Component->getError());
     }
 
@@ -126,17 +143,17 @@ class UploaderComponentTest extends ComponentTestCase
      * Tests for `set()` method, with file as array
      * @test
      */
-    public function testSetWithFileAsArray()
+    public function testSetWithFileAsArray(): void
     {
         $file = Filesystem::instance()->createTmpFile();
-        $this->Component->set([
+        $this->Component->setFile([
             'name' => basename($file),
             'type' => mime_content_type($file),
             'tmp_name' => $file,
             'error' => UPLOAD_ERR_OK,
             'size' => filesize($file),
         ]);
-        $this->assertInstanceOf(UploadedFileInterface::class, $this->Component->file);
+        $this->assertInstanceOf(UploadedFileInterface::class, $this->Component->getFile());
         $this->assertEmpty($this->Component->getError());
     }
 
@@ -144,9 +161,9 @@ class UploaderComponentTest extends ComponentTestCase
      * Test for `mimetype()` method
      * @test
      */
-    public function testMimetype()
+    public function testMimetype(): void
     {
-        $this->Component->set($this->createFile());
+        $this->Component->setFile($this->createFile());
 
         foreach (['text/plain', 'text', ['text/plain', 'image/gif']] as $mimetype) {
             $this->Component->mimetype($mimetype);
@@ -175,10 +192,10 @@ class UploaderComponentTest extends ComponentTestCase
      * Test for `save()` method
      * @test
      */
-    public function testSave()
+    public function testSave(): void
     {
         foreach ([UPLOADS, rtrim(UPLOADS, DS)] as $targetDirectory) {
-            $this->Component->set($this->createFile());
+            $this->Component->setFile($this->createFile());
             $result = $this->Component->save($targetDirectory) ?: '';
             $this->assertStringStartsWith(UPLOADS, $result);
             $this->assertEmpty($this->Component->getError());
@@ -186,14 +203,14 @@ class UploaderComponentTest extends ComponentTestCase
         }
 
         foreach (['customFilename', 'customFilename.txt', TMP . 'customFilename.txt'] as $targetFilename) {
-            $this->Component->set($this->createFile());
+            $this->Component->setFile($this->createFile());
             $result = $this->Component->save(UPLOADS, $targetFilename) ?: '';
             $this->assertEquals(UPLOADS . basename($targetFilename), $result);
             $this->assertEmpty($this->Component->getError());
             $this->assertFileExists($result);
         }
 
-        $this->assertFalse($this->Component->set($this->createFile())->save(DS . 'noExisting'));
+        $this->assertFalse($this->Component->setFile($this->createFile())->save(DS . 'noExisting'));
         $this->assertSame('File or directory `' . DS . 'noExisting` is not writable', $this->Component->getError());
 
         //With file not successfully moved to the target directory
@@ -206,7 +223,7 @@ class UploaderComponentTest extends ComponentTestCase
         $UploadedFile->method('moveTo')
             ->willThrowException(new UploadedFileErrorException());
 
-        $this->assertFalse($this->Component->set($UploadedFile)->save(UPLOADS));
+        $this->assertFalse($this->Component->setFile($UploadedFile)->save(UPLOADS));
         $this->assertSame('The file was not successfully moved to the target directory', $this->Component->getError());
 
         //With no file
@@ -220,9 +237,9 @@ class UploaderComponentTest extends ComponentTestCase
      * Test for `save()` method, with an error
      * @test
      */
-    public function testSaveWithError()
+    public function testSaveWithError(): void
     {
-        $this->Component->set($this->createFile());
+        $this->Component->setFile($this->createFile());
 
         //Sets an error
         $error = 'error before save';

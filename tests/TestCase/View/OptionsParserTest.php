@@ -61,7 +61,7 @@ class OptionsParserTest extends TestCase
      * Tests for `$Default` property
      * @test
      */
-    public function testDefaultProperty()
+    public function testDefaultProperty(): void
     {
         $this->assertInstanceOf(OptionsParser::class, $this->OptionsParser->Default);
         $this->assertSameMethods($this->OptionsParser, $this->OptionsParser->Default);
@@ -75,7 +75,7 @@ class OptionsParserTest extends TestCase
      * Tests for `buildValue()` method
      * @test
      */
-    public function testBuildValue()
+    public function testBuildValue(): void
     {
         $buildValueMethod = function ($value, $key) {
             return $this->invokeMethod($this->OptionsParser, 'buildValue', [&$value, $key]);
@@ -107,7 +107,7 @@ class OptionsParserTest extends TestCase
      * Tests for `add()` method
      * @test
      */
-    public function testAdd()
+    public function testAdd(): void
     {
         $result = $this->OptionsParser->add('newKey', 'newValue');
         $this->assertInstanceOf(OptionsParser::class, $result);
@@ -137,7 +137,7 @@ class OptionsParserTest extends TestCase
      * Tests for `addButtonClasses()` method
      * @test
      */
-    public function testAddButtonClasses()
+    public function testAddButtonClasses(): void
     {
         $OptionsParser = new OptionsParser();
         $result = $OptionsParser->addButtonClasses();
@@ -209,7 +209,7 @@ class OptionsParserTest extends TestCase
      * Tests for `append()` method
      * @test
      */
-    public function testAppend()
+    public function testAppend(): void
     {
         $result = $this->OptionsParser->append('newKey', 'newValue');
         $this->assertInstanceOf(OptionsParser::class, $result);
@@ -245,7 +245,7 @@ class OptionsParserTest extends TestCase
      * Tests for `consume()` method
      * @test
      */
-    public function testConsume()
+    public function testConsume(): void
     {
         $this->assertEquals('first fourth second third', $this->OptionsParser->consume('class'));
         $this->assertNull($this->OptionsParser->get('class'));
@@ -264,7 +264,7 @@ class OptionsParserTest extends TestCase
      * Tests for `contains()` method
      * @test
      */
-    public function testContains()
+    public function testContains(): void
     {
         $this->assertFalse($this->OptionsParser->contains('alt', 'a string'));
         $this->assertTrue($this->OptionsParser->contains('alt', 'this is a string'));
@@ -286,7 +286,7 @@ class OptionsParserTest extends TestCase
      * Tests for `delete()` method
      * @test
      */
-    public function testDelete()
+    public function testDelete(): void
     {
         $result = $this->OptionsParser->delete('class');
         $this->assertInstanceOf(OptionsParser::class, $result);
@@ -307,7 +307,7 @@ class OptionsParserTest extends TestCase
      * Tests for `exists()` method
      * @test
      */
-    public function testExists()
+    public function testExists(): void
     {
         $this->assertTrue($this->OptionsParser->exists('alt'));
 
@@ -324,7 +324,7 @@ class OptionsParserTest extends TestCase
      * Tests for `get()` method
      * @test
      */
-    public function testGet()
+    public function testGet(): void
     {
         $this->assertEquals('this is a string', $this->OptionsParser->get('alt'));
         $this->assertEquals('first fourth second third', $this->OptionsParser->get('class'));
@@ -339,7 +339,7 @@ class OptionsParserTest extends TestCase
      * Tests for `toArray()` method
      * @test
      */
-    public function testToArray()
+    public function testToArray(): void
     {
         $this->assertEquals([
             'alt' => 'this is a string',
@@ -360,7 +360,7 @@ class OptionsParserTest extends TestCase
      * Tests for `toArray()` method
      * @test
      */
-    public function testToString()
+    public function testToString(): void
     {
         $this->assertEquals(
             'alt="this is a string" array="second first" ' .
@@ -375,7 +375,7 @@ class OptionsParserTest extends TestCase
      * Tests for `tooltip()` method
      * @test
      */
-    public function testTooltip()
+    public function testTooltip(): void
     {
         $this->OptionsParser->add('title', 'a title');
         $this->assertEquals('a title', $this->OptionsParser->get('title'));

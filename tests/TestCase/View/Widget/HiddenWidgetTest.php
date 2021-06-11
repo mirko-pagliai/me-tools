@@ -23,7 +23,7 @@ use MeTools\View\Helper\FormHelper;
 class HiddenWidgetTest extends TestCase
 {
     /**
-     * @var \Cake\View\Helper|\PHPUnit\Framework\MockObject\MockObject
+     * @var \MeTools\View\Helper\FormHelper
      */
     protected $Helper;
 
@@ -42,7 +42,7 @@ class HiddenWidgetTest extends TestCase
      * Tests for `render()` method
      * @test
      */
-    public function testRender()
+    public function testRender(): void
     {
         $field = 'My field';
 

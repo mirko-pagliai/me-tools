@@ -40,6 +40,15 @@ class UploaderComponent extends Component
     protected $file;
 
     /**
+     * Returns the first error
+     * @return string|null First error or `null` with no errors
+     */
+    public function getError(): ?string
+    {
+        return $this->error ?: null;
+    }
+
+    /**
      * Internal method to set an error
      * @param string $error Error
      * @return void
@@ -73,15 +82,6 @@ class UploaderComponent extends Component
     }
 
     /**
-     * Returns the first error
-     * @return string|null First error or `null` with no errors
-     */
-    public function getError(): ?string
-    {
-        return $this->error ?: null;
-    }
-
-    /**
      * Internal method to check for uploaded file information (`$file` property)
      * @return void
      * @throws \Tools\Exception\ObjectWrongInstanceException
@@ -89,8 +89,8 @@ class UploaderComponent extends Component
     protected function _checkUploadedFileInformation(): void
     {
         $message = __d('me_tools', 'There are no uploaded file information');
-        Exceptionist::isTrue($this->file, $message, ObjectWrongInstanceException::class);
-        Exceptionist::isInstanceOf($this->file, UploadedFileInterface::class, $message);
+        Exceptionist::isTrue($this->getFile(), $message, ObjectWrongInstanceException::class);
+        Exceptionist::isInstanceOf($this->getFile(), UploadedFileInterface::class, $message);
     }
 
     /**
@@ -146,11 +146,11 @@ class UploaderComponent extends Component
             return false;
         }
 
-        $filename = $filename ? basename($filename) : $this->findTargetFilename($this->file->getClientFilename());
+        $filename = $filename ? basename($filename) : $this->findTargetFilename($this->getFile()->getClientFilename());
         $target = Filesystem::instance()->concatenate($directory, $filename);
 
         try {
-            $this->file->moveTo($target);
+            $this->getFile()->moveTo($target);
         } catch (UploadedFileErrorException $e) {
             $this->setError(__d('me_tools', 'The file was not successfully moved to the target directory'));
 
@@ -161,12 +161,23 @@ class UploaderComponent extends Component
     }
 
     /**
+     * Returns the uploaded file instance
+     * @return \Psr\Http\Message\UploadedFileInterface
+     * @since 2.20.1
+     */
+    public function getFile()
+    {
+        return $this->file;
+    }
+
+    /**
      * Sets uploaded file information (`$_FILES` array, better as
      *  `$this->getRequest()->getData('file')`)
      * @param \Psr\Http\Message\UploadedFileInterface|array $file Uploaded file information
      * @return $this
+     * @since 2.20.1
      */
-    public function set($file)
+    public function setFile($file)
     {
         //Resets `$error`
         unset($this->error);
@@ -182,5 +193,19 @@ class UploaderComponent extends Component
         }
 
         return $this;
+    }
+
+    /**
+     * Sets uploaded file information (`$_FILES` array, better as
+     *  `$this->getRequest()->getData('file')`)
+     * @param \Psr\Http\Message\UploadedFileInterface|array $file Uploaded file information
+     * @return $this
+     * @deprecated Use instead `setFile()`
+     */
+    public function set($file)
+    {
+        deprecationWarning('Deprecated. Use instead `setFile()`');
+
+        return $this->setFile($file);
     }
 }

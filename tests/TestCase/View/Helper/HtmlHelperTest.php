@@ -20,6 +20,7 @@ use MeTools\View\Helper\HtmlHelper;
 
 /**
  * HtmlHelperTest class
+ * @property \MeTools\View\Helper\HtmlHelper $Helper
  */
 class HtmlHelperTest extends HelperTestCase
 {
@@ -27,7 +28,7 @@ class HtmlHelperTest extends HelperTestCase
      * Tests for `__call()` method
      * @test
      */
-    public function testCall()
+    public function testCall(): void
     {
         $text = 'my h3 text';
         $class = 'my-class';
@@ -37,18 +38,22 @@ class HtmlHelperTest extends HelperTestCase
         $this->assertFalse(method_exists($this->Helper, 'h3'));
 
         $expected = $this->Helper->tag('h3', $text, compact('class'));
+        /** @phpstan-ignore-next-line */
         $this->assertEquals($expected, $this->Helper->h3($text, compact('class')));
 
         $expected = $this->Helper->tag('h3', $text, compact('class') + ['icon' => 'home']);
+        /** @phpstan-ignore-next-line */
         $this->assertEquals($expected, $this->Helper->h3($text, ['class' => $class, 'icon' => 'home']));
 
         $expected = $this->Helper->tag('h3', $text, compact('class') + ['icon' => 'home', 'icon-align' => 'right']);
+        /** @phpstan-ignore-next-line */
         $result = $this->Helper->h3($text, compact('class') + ['icon' => 'home', 'icon-align' => 'right']);
         $this->assertEquals($expected, $result);
 
         //With a no existing method
         $this->expectException(ErrorException::class);
         $this->expectExceptionMessage('Method `' . HtmlHelper::class . '::noExistingMethod()` does not exist');
+        /** @phpstan-ignore-next-line */
         $this->Helper->noExistingMethod(null, null, null);
     }
 
@@ -56,7 +61,7 @@ class HtmlHelperTest extends HelperTestCase
      * Tests for `badge()` method
      * @test
      */
-    public function testBadge()
+    public function testBadge(): void
     {
         $expected = ['span' => ['class' => 'badge my-class'], 'My text', '/span'];
         $this->assertHtml($expected, $this->Helper->badge('My text', ['class' => 'my-class']));
@@ -66,7 +71,7 @@ class HtmlHelperTest extends HelperTestCase
      * Test for `button()` method
      * @test
      */
-    public function testButton()
+    public function testButton(): void
     {
         $text = 'My text';
 
@@ -132,7 +137,7 @@ class HtmlHelperTest extends HelperTestCase
      * Test for `button()` method, with buttons as links
      * @test
      */
-    public function testButtonAsLink()
+    public function testButtonAsLink(): void
     {
         $text = 'My text';
 
@@ -170,25 +175,25 @@ class HtmlHelperTest extends HelperTestCase
      * Test for `css()` method
      * @test
      */
-    public function testCss()
+    public function testCss(): void
     {
         //By default, `block` is `true`
         $this->assertNull($this->Helper->css('my-file'));
         $this->assertNull($this->Helper->css('my-file2', ['block' => true]));
 
         $expected = ['link' => ['rel' => 'stylesheet', 'href' => '/css/my-file3.css']];
-        $this->assertHtml($expected, $this->Helper->css('my-file3', ['block' => false]));
+        $this->assertHtml($expected, $this->Helper->css('my-file3', ['block' => false]) ?: '');
 
         $expected = ['link' => ['rel' => 'alternate', 'href' => '/css/my-file4.css']];
         $result = $this->Helper->css('my-file4', ['block' => false, 'rel' => 'alternate']);
-        $this->assertHtml($expected, $result);
+        $this->assertHtml($expected, $result ?: '');
     }
 
     /**
      * Test for `cssBlock()` method
      * @test
      */
-    public function testCssBlock()
+    public function testCssBlock(): void
     {
         $css = 'body { color: red; }';
 
@@ -197,14 +202,14 @@ class HtmlHelperTest extends HelperTestCase
         $this->assertNull($this->Helper->cssBlock($css, ['block' => true]));
 
         $expected = ['style' => true, $css, '/style'];
-        $this->assertHtml($expected, $this->Helper->cssBlock($css, ['block' => false]));
+        $this->assertHtml($expected, $this->Helper->cssBlock($css, ['block' => false]) ?: '');
     }
 
     /**
      * Test for `cssStart()` and `cssEnd()` methods
      * @test
      */
-    public function testCssStartAndCssEnd()
+    public function testCssStartAndCssEnd(): void
     {
         $css = 'body { color: red; }';
 
@@ -222,7 +227,7 @@ class HtmlHelperTest extends HelperTestCase
         $this->Helper->cssStart(['block' => false]);
         echo $css;
         $result = $this->Helper->cssEnd();
-        $this->assertHtml($expected, $result);
+        $this->assertHtml($expected, $result ?: '');
     }
 
     /**
@@ -230,7 +235,7 @@ class HtmlHelperTest extends HelperTestCase
 
      * @test
      */
-    public function testHeading()
+    public function testHeading(): void
     {
         $text = 'My header';
         $smallText = 'My small text';
@@ -261,7 +266,7 @@ class HtmlHelperTest extends HelperTestCase
      * Test for `hr()` method
      * @test
      */
-    public function testHr()
+    public function testHr(): void
     {
         $expected = $this->Helper->tag('hr', null, ['class' => 'my-hr-class']);
         $this->assertEquals($expected, $this->Helper->hr(['class' => 'my-hr-class']));
@@ -271,7 +276,7 @@ class HtmlHelperTest extends HelperTestCase
      * Test for `iframe()` method
      * @test
      */
-    public function testIframe()
+    public function testIframe(): void
     {
         $url = 'http://frame';
 
@@ -314,7 +319,7 @@ class HtmlHelperTest extends HelperTestCase
      * Test for `image()` and `img()` methods
      * @test
      */
-    public function testImage()
+    public function testImage(): void
     {
         $image = 'image.gif';
 
@@ -347,7 +352,7 @@ class HtmlHelperTest extends HelperTestCase
      * Tests for `label()` method
      * @test
      */
-    public function testLabel()
+    public function testLabel(): void
     {
         $text = 'My text';
 
@@ -362,7 +367,7 @@ class HtmlHelperTest extends HelperTestCase
      * Test for `li()` method
      * @test
      */
-    public function testLi()
+    public function testLi(): void
     {
         $expected = [
             'li' => true,
@@ -398,7 +403,7 @@ class HtmlHelperTest extends HelperTestCase
      * Test for `link()` method
      * @test
      */
-    public function testLink()
+    public function testLink(): void
     {
         $title = 'My title';
 
@@ -474,21 +479,21 @@ class HtmlHelperTest extends HelperTestCase
      * Test for `meta()` method
      * @test
      */
-    public function testMeta()
+    public function testMeta(): void
     {
         //By default, `block` is `true`
         $this->assertNull($this->Helper->meta('viewport', 'width=device-width'));
         $this->assertNull($this->Helper->meta('viewport', 'width=device-width', ['block' => true]));
 
         $expected = ['meta' => ['name' => 'viewport', 'content' => 'width=device-width']];
-        $this->assertHtml($expected, $this->Helper->meta('viewport', 'width=device-width', ['block' => false]));
+        $this->assertHtml($expected, $this->Helper->meta('viewport', 'width=device-width', ['block' => false]) ?: '');
     }
 
     /**
      * Test for `nestedList`, `ol()` and `ul()` methods
      * @test
      */
-    public function testNestedListAndOlAndUl()
+    public function testNestedListAndOlAndUl(): void
     {
         $list = ['first', 'second'];
 
@@ -545,7 +550,7 @@ class HtmlHelperTest extends HelperTestCase
      * Test for `para()` method
      * @test
      */
-    public function testPara()
+    public function testPara(): void
     {
         $expected = ['p' => true, '/p'];
         $this->assertHtml($expected, $this->Helper->para());
@@ -580,21 +585,21 @@ class HtmlHelperTest extends HelperTestCase
      * Test for `script()` method
      * @test
      */
-    public function testScript()
+    public function testScript(): void
     {
         //By default, `block` is `true`
         $this->assertNull($this->Helper->script('my-file'));
         $this->assertNull($this->Helper->script('my-file2', ['block' => true]));
 
         $expected = ['script' => ['src' => '/js/my-file3.js']];
-        $this->assertHtml($expected, $this->Helper->script('my-file3', ['block' => false]));
+        $this->assertHtml($expected, $this->Helper->script('my-file3', ['block' => false]) ?: '');
     }
 
     /**
      * Test for `scriptBlock()` method
      * @test
      */
-    public function testScriptBlock()
+    public function testScriptBlock(): void
     {
         $code = 'window.foo = 2;';
 
@@ -603,35 +608,35 @@ class HtmlHelperTest extends HelperTestCase
         $this->assertNull($this->Helper->scriptBlock($code, ['block' => true, 'safe' => false]));
 
         $expected = ['<script', $code, '/script'];
-        $this->assertHtml($expected, $this->Helper->scriptBlock($code, ['block' => false, 'safe' => false]));
+        $this->assertHtml($expected, $this->Helper->scriptBlock($code, ['block' => false, 'safe' => false]) ?: '');
     }
 
     /**
      * Test for `scriptStart()` and `scriptEnd()` methods
      * @test
      */
-    public function testScriptStartAndScriptEnd()
+    public function testScriptStartAndScriptEnd(): void
     {
         //By default, `block` is `true`
-        $this->assertNull($this->Helper->scriptStart(['safe' => false]));
+        $this->Helper->scriptStart(['safe' => false]);
         echo 'this is some javascript';
         $this->assertNull($this->Helper->scriptEnd());
-        $this->assertNull($this->Helper->scriptStart(['block' => true, 'safe' => false]));
+        $this->Helper->scriptStart(['block' => true, 'safe' => false]);
 
         echo 'this is some javascript';
         $this->assertNull($this->Helper->scriptEnd());
-        $this->assertNull($this->Helper->scriptStart(['block' => false, 'safe' => false]));
+        $this->Helper->scriptStart(['block' => false, 'safe' => false]);
 
         echo 'this is some javascript';
         $expected = ['<script', 'this is some javascript', '/script'];
-        $this->assertHtml($expected, $this->Helper->scriptEnd());
+        $this->assertHtml($expected, $this->Helper->scriptEnd() ?: '');
     }
 
     /**
      * Tests for `shareaholic()` method
      * @test
      */
-    public function testShareaholic()
+    public function testShareaholic(): void
     {
         $expected = ['div' => [
             'data-app' => 'share_buttons',
@@ -645,7 +650,7 @@ class HtmlHelperTest extends HelperTestCase
      * Test for `tag()` method
      * @test
      */
-    public function testTag()
+    public function testTag(): void
     {
         $text = 'My text';
         $class = 'my-class';
@@ -686,7 +691,7 @@ class HtmlHelperTest extends HelperTestCase
      * Tests for `viewport()` method
      * @test
      */
-    public function testViewport()
+    public function testViewport(): void
     {
         //By default, `block` is `true`
         $this->assertNull($this->Helper->viewport());
@@ -697,14 +702,14 @@ class HtmlHelperTest extends HelperTestCase
             'name' => 'viewport',
             'content' => 'initial-scale=1, shrink-to-fit=no, width=device-width',
         ]];
-        $this->assertHtml($expected, $this->Helper->viewport(['block' => false, 'option' => 'value']));
+        $this->assertHtml($expected, $this->Helper->viewport(['block' => false, 'option' => 'value']) ?: '');
     }
 
     /**
      * Tests for `youtube()` method
      * @test
      */
-    public function testYoutube()
+    public function testYoutube(): void
     {
         $id = 'my-id';
         $url = sprintf('https://www.youtube.com/embed/%s', $id);

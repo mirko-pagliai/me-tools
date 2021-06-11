@@ -27,7 +27,7 @@ class PluginTest extends TestCase
      * Tests for `all()` method
      * @test
      */
-    public function testAll()
+    public function testAll(): void
     {
         $this->removePlugins(['TestPlugin']);
 
@@ -58,7 +58,7 @@ class PluginTest extends TestCase
      * Tests for `path()` method
      * @test
      */
-    public function testPath()
+    public function testPath(): void
     {
         $this->assertSame(ROOT, Plugin::path('MeTools'));
 

@@ -27,13 +27,6 @@ class RunAllCommandTest extends TestCase
     use ConsoleIntegrationTestTrait;
 
     /**
-     * Command instance
-     * @var \MeTools\Command\Install\RunAllCommand|\PHPUnit\Framework\MockObject\MockObject
-     */
-    protected $Command;
-
-    /**
-     * If `true`, a mock instance of the shell will be created
      * @var bool
      */
     protected $autoInitializeClass = true;
@@ -47,25 +40,27 @@ class RunAllCommandTest extends TestCase
      * Tests for `execute()` method
      * @test
      */
-    public function testExecute()
+    public function testExecute(): void
     {
+        /** @var \MeTools\Command\Install\RunAllCommand $Command */
+        $Command = $this->Command;
+
         $io = $this->getMockBuilder(ConsoleIo::class)
             ->setMethods(['askChoice'])
             ->getMock();
 
         $io->method('askChoice')->will($this->returnValue('y'));
 
-        $this->Command->questions = array_map(function ($question) {
+        $Command->questions = array_map(function ($question) {
             $command = $this->getMockBuilder(Command::class)
                 ->setMethods(['execute'])
                 ->getMock();
             $command->method('execute')->will($this->returnCallback(function () use ($question) {
                 $this->debug[] = $question['command'];
             }));
-            $question['command'] = $command;
 
-            return $question;
-        }, $this->Command->questions);
+            return array_merge($question, compact('command'));
+        }, $Command->questions);
 
         $expected = [
             'MeTools\Command\Install\CreateDirectoriesCommand',
@@ -75,7 +70,7 @@ class RunAllCommandTest extends TestCase
             'MeTools\Command\Install\CreatePluginsLinksCommand',
             'MeTools\Command\Install\CreateVendorsLinksCommand',
         ];
-        $this->assertNull($this->Command->run([], $io));
+        $this->assertNull($Command->run([], $io));
         $this->assertEquals($expected, $this->debug);
     }
 }

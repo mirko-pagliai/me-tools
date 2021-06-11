@@ -18,6 +18,7 @@ use MeTools\TestSuite\HelperTestCase;
 
 /**
  * PaginatorHelperTest class
+ * @property \MeTools\View\Helper\PaginatorHelper $Helper
  */
 class PaginatorHelperTest extends HelperTestCase
 {
@@ -25,7 +26,7 @@ class PaginatorHelperTest extends HelperTestCase
      * Tests for `next()` method
      * @test
      */
-    public function testNext()
+    public function testNext(): void
     {
         $expected = [
             'li' => ['class' => 'next page-item disabled'],
@@ -55,7 +56,7 @@ class PaginatorHelperTest extends HelperTestCase
      * Tests for `prev()` method
      * @test
      */
-    public function testPrev()
+    public function testPrev(): void
     {
         $expected = [
             'li' => ['class' => 'prev page-item disabled'],

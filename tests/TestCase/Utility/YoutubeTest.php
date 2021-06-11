@@ -26,7 +26,7 @@ class YoutubeTest extends TestCase
      * Tests for `getId()` method
      * @test
      */
-    public function testGetId()
+    public function testGetId(): void
     {
         foreach ([
             'http://youtube.com/watch?v=bL_CJKq9rIw',
@@ -50,7 +50,7 @@ class YoutubeTest extends TestCase
      * Tests for `getPreview()` method
      * @test
      */
-    public function testGetPreview()
+    public function testGetPreview(): void
     {
         foreach ([
             'bL_CJKq9rIw',
@@ -65,7 +65,7 @@ class YoutubeTest extends TestCase
      * Tests for `getUrl()` method
      * @test
      */
-    public function testGetUrl()
+    public function testGetUrl(): void
     {
         $this->assertEquals('http://youtu.be/bL_CJKq9rIw', Youtube::getUrl('bL_CJKq9rIw'));
     }

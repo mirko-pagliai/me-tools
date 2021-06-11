@@ -66,7 +66,7 @@ class LibraryHelperTest extends HelperTestCase
      * Tests for `initialize()` method
      * @test
      */
-    public function testInitialize()
+    public function testInitialize(): void
     {
         //Checks that, when the `Assets` plugin is not present, the
         //  `AssetHelper` matches the `HtmlHelper`
@@ -84,7 +84,7 @@ class LibraryHelperTest extends HelperTestCase
      * Tests for `beforeLayout()` method
      * @test
      */
-    public function testBeforeLayout()
+    public function testBeforeLayout(): void
     {
         $this->Helper->beforeLayout();
         $this->assertEmpty($this->getProperty($this->Helper, 'output'));
@@ -106,7 +106,7 @@ class LibraryHelperTest extends HelperTestCase
      * Tests for `analytics()` method
      * @test
      */
-    public function testAnalytics()
+    public function testAnalytics(): void
     {
         $expected = '<script>!function(e,a,t,n,c,o,s){e.GoogleAnalyticsObject=c,e[c]=e[c]||function(){(e[c].q=e[c].q||[]).push(arguments)},e[c].l=1*new Date,o=a.createElement(t),s=a.getElementsByTagName(t)[0],o.async=1,o.src=n,s.parentNode.insertBefore(o,s)}(window,document,"script","//www.google-analytics.com/analytics.js","ga"),ga("create","my-id","auto"),ga("send","pageview");</script>';
         $this->Helper->analytics('my-id');
@@ -117,7 +117,7 @@ class LibraryHelperTest extends HelperTestCase
      * Tests for `analytics()` method, on localhost
      * @test
      */
-    public function testAnalyticsOnLocalhost()
+    public function testAnalyticsOnLocalhost(): void
     {
         $request = $this->getMockBuilder(ServerRequest::class)
             ->setMethods(['is'])
@@ -138,7 +138,7 @@ class LibraryHelperTest extends HelperTestCase
      * Tests for `ckeditor()` method
      * @test
      */
-    public function testCkeditor()
+    public function testCkeditor(): void
     {
         Filesystem::instance()->createFile(WWW_ROOT . 'ckeditor' . DS . 'ckeditor.js');
 
@@ -156,7 +156,7 @@ class LibraryHelperTest extends HelperTestCase
      * Tests for `ckeditor()` method, with the jQuery adapter
      * @test
      */
-    public function testCkeditorWithJqueryAdapter()
+    public function testCkeditorWithJqueryAdapter(): void
     {
         Filesystem::instance()->createFile(WWW_ROOT . 'ckeditor' . DS . 'ckeditor.js');
         Filesystem::instance()->createFile(WWW_ROOT . 'ckeditor' . DS . 'adapters' . DS . 'jquery.js');
@@ -177,7 +177,7 @@ class LibraryHelperTest extends HelperTestCase
      * Tests for `ckeditor()` method, with a js config file from app
      * @test
      */
-    public function testCkeditorWithJsFromApp()
+    public function testCkeditorWithJsFromApp(): void
     {
         Filesystem::instance()->createFile(WWW_ROOT . 'ckeditor' . DS . 'ckeditor.js');
         Filesystem::instance()->createFile(WWW_ROOT . 'js' . DS . 'ckeditor_init.js');
@@ -196,7 +196,7 @@ class LibraryHelperTest extends HelperTestCase
      * Tests for `ckeditor()` method, with a php config file from app
      * @test
      */
-    public function testCkeditorWithPhpFromApp()
+    public function testCkeditorWithPhpFromApp(): void
     {
         Filesystem::instance()->createFile(WWW_ROOT . 'ckeditor' . DS . 'ckeditor.js');
         Filesystem::instance()->createFile(WWW_ROOT . 'js' . DS . 'ckeditor_init.php');
@@ -215,7 +215,7 @@ class LibraryHelperTest extends HelperTestCase
      * Tests for `datepicker()` method
      * @test
      */
-    public function testDatepicker()
+    public function testDatepicker(): void
     {
         $expected = [
             'format' => 'YYYY/MM/DD',
@@ -254,7 +254,7 @@ class LibraryHelperTest extends HelperTestCase
      * Note: assets have already been tested in the `testDatepicker()` method.
      * @test
      */
-    public function testDatetimepicker()
+    public function testDatetimepicker(): void
     {
         $expected = [
             'icons' => self::EXPECTED_DATEPICKER_ICONS,
@@ -276,7 +276,7 @@ class LibraryHelperTest extends HelperTestCase
      * Tests for `fancybox()` method
      * @test
      */
-    public function testFancybox()
+    public function testFancybox(): void
     {
         $expectedCss = '<link rel="stylesheet" href="/vendor/fancyapps-fancybox/jquery.fancybox.min.css"/>';
         $expectedJs = '<script src="/vendor/fancyapps-fancybox/jquery.fancybox.min.js"></script>';
@@ -295,7 +295,7 @@ class LibraryHelperTest extends HelperTestCase
      * Tests for `shareaholic()` method
      * @test
      */
-    public function testShareaholic()
+    public function testShareaholic(): void
     {
         $expected = [
             'script' => [
@@ -314,7 +314,7 @@ class LibraryHelperTest extends HelperTestCase
      * Tests for `slugify()` method
      * @test
      */
-    public function testSlugify()
+    public function testSlugify(): void
     {
         $expected = ['script' => ['src' => '/me_tools/js/slugify.js'], '/script'];
         $this->Helper->slugify();
@@ -330,7 +330,7 @@ class LibraryHelperTest extends HelperTestCase
      * Note: assets have already been tested in the `testDatepicker()` method.
      * @test
      */
-    public function testTimepicker()
+    public function testTimepicker(): void
     {
         $expected = [
             'icons' => self::EXPECTED_DATEPICKER_ICONS,

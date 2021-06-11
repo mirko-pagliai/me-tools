@@ -16,6 +16,7 @@ namespace MeTools\Test\TestCase\Console;
 
 use Cake\Console\ConsoleIo;
 use Cake\TestSuite\Stub\ConsoleOutput;
+use MeTools\Console\Command;
 use MeTools\TestSuite\ConsoleIntegrationTestTrait;
 use MeTools\TestSuite\TestCase;
 use Tools\Filesystem;
@@ -26,6 +27,11 @@ use Tools\Filesystem;
 class CommandTest extends TestCase
 {
     use ConsoleIntegrationTestTrait;
+
+    /**
+     * @var \MeTools\Console\Command
+     */
+    protected $Command;
 
     /**
      * @var \Cake\TestSuite\Stub\ConsoleOutput
@@ -43,11 +49,10 @@ class CommandTest extends TestCase
      */
     public function setUp(): void
     {
+        $this->Command = $this->getMockForAbstractClass(Command::class);
+
         parent::setUp();
 
-        $this->Command = $this->getMockBuilder($this->getOriginClassNameOrFail($this))
-            ->setMethods(null)
-            ->getMock();
         $this->_out = new ConsoleOutput();
         $this->_err = new ConsoleOutput();
         $this->io = $this->getMockBuilder(ConsoleIo::class)
@@ -72,7 +77,7 @@ class CommandTest extends TestCase
      * Tests for `copyFile()` method
      * @test
      */
-    public function testCopyFile()
+    public function testCopyFile(): void
     {
         $source = TMP . 'exampleDir' . DS . 'source';
         $dest = TMP . 'exampleDir' . DS . 'dest';
@@ -98,7 +103,7 @@ class CommandTest extends TestCase
      * Tests for `createDir()` method
      * @test
      */
-    public function testCreateDir()
+    public function testCreateDir(): void
     {
         //Tries to create. Directory already exists
         $this->assertFalse($this->Command->createDir($this->io, TMP));
@@ -120,7 +125,7 @@ class CommandTest extends TestCase
      * @requires OS Linux
      * @test
      */
-    public function testCreateDirNotWritableDir()
+    public function testCreateDirNotWritableDir(): void
     {
         $this->assertFalse($this->Command->createDir($this->io, DS . 'notWritable'));
         $this->assertOutputEmpty();
@@ -131,7 +136,7 @@ class CommandTest extends TestCase
      * Tests for `createFile()` method
      * @test
      */
-    public function testCreateFile()
+    public function testCreateFile(): void
     {
         $source = TMP . 'exampleDir' . DS . 'example';
         @mkdir(dirname($source), 0777, true);
@@ -153,7 +158,7 @@ class CommandTest extends TestCase
      * @requires OS Linux
      * @test
      */
-    public function testCreateLink()
+    public function testCreateLink(): void
     {
         $source = TMP . 'exampleDir' . DS . 'source';
         $dest = TMP . 'exampleDir' . DS . 'dest';
@@ -177,7 +182,7 @@ class CommandTest extends TestCase
      * Tests for `folderChmod()` method
      * @test
      */
-    public function testFolderChmod()
+    public function testFolderChmod(): void
     {
         $dir = TMP . 'exampleDir';
         @mkdir($dir, 0777, true);

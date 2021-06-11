@@ -17,7 +17,8 @@ namespace MeTools\Test\TestCase\View\Helper;
 use MeTools\TestSuite\HelperTestCase;
 
 /**
- * MeTools\View\Helper\BreadcrumbsHelper Test Case
+ * BreadcrumbsHelperTest class
+ * @property \MeTools\View\Helper\BreadcrumbsHelper $Helper
  */
 class BreadcrumbsHelperTest extends HelperTestCase
 {
@@ -25,7 +26,7 @@ class BreadcrumbsHelperTest extends HelperTestCase
      * Tests for `add()` method
      * @test
      */
-    public function testAdd()
+    public function testAdd(): void
     {
         $expected = [
             'ul' => ['class' => 'breadcrumb'],
@@ -50,7 +51,7 @@ class BreadcrumbsHelperTest extends HelperTestCase
      * Tests for `prepend()` method
      * @test
      */
-    public function testPrepend()
+    public function testPrepend(): void
     {
         $expected = [
             'ul' => ['class' => 'breadcrumb'],
@@ -75,7 +76,7 @@ class BreadcrumbsHelperTest extends HelperTestCase
      * Tests for `render()` method
      * @test
      */
-    public function testRender()
+    public function testRender(): void
     {
         $this->assertSame('', $this->Helper->render());
 

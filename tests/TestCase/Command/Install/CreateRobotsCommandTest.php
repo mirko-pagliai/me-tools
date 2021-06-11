@@ -28,7 +28,7 @@ class CreateRobotsCommandTest extends TestCase
      * Tests for `execute()` method
      * @test
      */
-    public function testExecute()
+    public function testExecute(): void
     {
         $this->exec('me_tools.create_robots -v');
         $this->assertExitWithSuccess();

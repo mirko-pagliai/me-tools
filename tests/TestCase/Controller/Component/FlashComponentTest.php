@@ -30,7 +30,7 @@ class FlashComponentTest extends ComponentTestCase
      * Tests for `__call()` method
      * @test
      */
-    public function testMagicCall()
+    public function testMagicCall(): void
     {
         $session = $this->Component->getController()->getRequest()->getSession();
         $text = 'My message';
@@ -40,14 +40,14 @@ class FlashComponentTest extends ComponentTestCase
             'error' => 'alert-danger',
             'notice' => 'alert-info',
             'success' => 'alert-success',
-        ] as $methodToCall => $expectedClass) {
+        ] as $method => $expectedClass) {
             $expected = [[
                 'message' => $text,
                 'key' => 'flash',
                 'element' => 'MeTools.flash/flash',
                 'params' => ['class' => $expectedClass],
             ]];
-            call_user_func([$this->Component, $methodToCall], $text);
+            $this->Component->$method($text);
             $this->assertEquals($expected, $session->read('Flash.flash'));
             $session->delete('Flash.flash');
         }

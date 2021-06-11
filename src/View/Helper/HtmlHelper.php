@@ -19,6 +19,7 @@ use Tools\Exceptionist;
 
 /**
  * Provides functionalities for HTML code
+ * @property \MeTools\View\Helper\IconHelper $Icon
  */
 class HtmlHelper extends CakeHtmlHelper
 {
@@ -307,7 +308,7 @@ class HtmlHelper extends CakeHtmlHelper
      */
     public function link($title = null, $url = null, array $options = []): string
     {
-        if (is_array($title) && is_null($url)) {
+        if (is_array($title)) {
             [$url, $title] = [$title, null];
         }
 

@@ -1,5 +1,8 @@
+includes:
+    - phpstan-baseline.neon
+
 parameters:
-    level: 7
+    level: 8
 
     paths:
         - config
@@ -18,26 +21,3 @@ parameters:
 
     ignoreErrors:
         - '#^(Ternary operator condition|If condition|Negated boolean expression|Result of &&|(Left|Right) side of &&) is always (true|false)\.$#'
-        - '#^Parameter \#1 \$(callback|function) of function (array_map|call_user_func) expects#'
-
-        -
-            message: '#^Call to an undefined method Cake\\Core\\PluginApplicationInterface\:\:getPlugins\(\)\.$#'
-            count: 1
-            path: src/Plugin.php
-
-        -
-            message: '#Cake\\TestSuite\\Constraint\\Session\\SessionEquals#'
-            count: 2
-            path: src/TestSuite/IntegrationTestTrait.php
-
-        -
-            message: '#^Access to an undefined property MeTools\\View\\Helper\\\w+Helper::\$\w+\.$#'
-            path: src/View/Helper
-
-        -
-            message: '#^(Access|Call) to (an undefined|protected) (property|method) (Cake|MeTools|Psr)#'
-            path: tests/TestCase
-
-        -
-            message: '#^Method [\w\\]+Test::test\w+\(\) has no return typehint specified\.$#'
-            path: tests/TestCase

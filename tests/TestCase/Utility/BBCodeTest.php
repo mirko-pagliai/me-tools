@@ -49,7 +49,7 @@ class BBCodeTest extends TestCase
      * Tests for `parser()` method
      * @test
      */
-    public function testParser()
+    public function testParser(): void
     {
         $expected = [
             'p' => true,
@@ -86,7 +86,7 @@ class BBCodeTest extends TestCase
      * Tests for `remove()` method
      * @test
      */
-    public function testRemove()
+    public function testRemove(): void
     {
         $expected = [
             'p' => true,
@@ -112,7 +112,7 @@ class BBCodeTest extends TestCase
      * Tests for `image()` method
      * @test
      */
-    public function testImage()
+    public function testImage(): void
     {
         $this->assertEquals($this->Html->image('mypic.gif'), $this->BBCode->image('[img]mypic.gif[/img]'));
     }
@@ -121,7 +121,7 @@ class BBCodeTest extends TestCase
      * Tests for `readMore()` method
      * @test
      */
-    public function testReadMore()
+    public function testReadMore(): void
     {
         foreach ([
             '[readmore]',
@@ -141,7 +141,7 @@ class BBCodeTest extends TestCase
      * Tests for `url()` method
      * @test
      */
-    public function testUrl()
+    public function testUrl(): void
     {
         $expected = $this->Html->link('my link', 'http://example');
         $this->assertEquals($expected, $this->BBCode->url('[url="http://example"]my link[/url]'));
@@ -151,7 +151,7 @@ class BBCodeTest extends TestCase
      * Tests for `youtube()` method
      * @test
      */
-    public function testYoutube()
+    public function testYoutube(): void
     {
         $expected = $this->Html->youtube('bL_CJKq9rIw');
         foreach ([

@@ -55,7 +55,7 @@ trait MockTrait
         $class = is_object($class) ? get_class($class) : $this->_classExistsOrFail($class);
         $alias = preg_replace('/^(\w+)(Cell|Controller|Table|Validator)(Test)?$/', '$1', get_class_short_name($class), -1, $count);
 
-        return $count ? $alias : $this->fail('Unable to get the alias for the `' . $class . '` class');
+        return $alias && $count ? $alias : $this->fail('Unable to get the alias for the `' . $class . '` class');
     }
 
     /**
@@ -118,7 +118,7 @@ trait MockTrait
     {
         $className = preg_replace('/^([\w\\\\]+)Test\\\\TestCase\\\\([\w\\\\]+)Test$/', '$1$2', get_class($className), -1, $count);
 
-        return $count ? $className : '';
+        return $className && $count ? $className : '';
     }
 
     /**

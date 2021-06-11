@@ -35,7 +35,7 @@ class ConsoleIntegrationTestTraitTest extends TestCase
      * Test for `assertOutputNotEmpty()` method
      * @test
      */
-    public function testAssertOutputNotEmpty()
+    public function testAssertOutputNotEmpty(): void
     {
         $this->_out = new ConsoleOutput();
         $this->_out->write('message');

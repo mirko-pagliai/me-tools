@@ -31,7 +31,7 @@ class CreateDirectoriesCommandTest extends TestCase
      * Tests for `execute()` method
      * @test
      */
-    public function testExecute()
+    public function testExecute(): void
     {
         $io = new ConsoleIo();
         $Command = $this->getMockBuilder(CreateDirectoriesCommand::class)

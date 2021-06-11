@@ -43,16 +43,16 @@ trait ConsoleIntegrationTestTrait
             return;
         }
 
-        $className = $this->getOriginClassNameOrFail($this);
-
         if (!$this->Command && !empty($this->autoInitializeClass)) {
+            $className = $this->getOriginClassNameOrFail($this);
             $this->Command = $this->getMockBuilder($className)->setMethods(null)->getMock();
         }
+
         if ($this->Command && method_exists($this->Command, 'initialize')) {
             $this->Command->initialize();
         }
 
-        if (string_ends_with($className, 'Command')) {
+        if (string_ends_with($className ?? $this->getOriginClassName($this), 'Command')) {
             $this->useCommandRunner();
         }
     }

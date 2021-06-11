@@ -19,6 +19,7 @@ use MeTools\View\Helper\HtmlHelper;
 
 /**
  * DropdownHelperTest class
+ * @property \MeTools\View\Helper\DropdownHelper $Helper
  */
 class DropdownHelperTest extends HelperTestCase
 {
@@ -42,7 +43,7 @@ class DropdownHelperTest extends HelperTestCase
      * Tests for `menu()`, `start()` and `end()` methods
      * @test
      */
-    public function testMenuAndStartAndEnd()
+    public function testMenuAndStartAndEnd(): void
     {
         //No dropdown menu again...
         $this->assertNull($this->Helper->end());
@@ -77,14 +78,14 @@ class DropdownHelperTest extends HelperTestCase
         $this->Helper->start($text);
         echo $this->Html->link('First link', '/first', ['class' => 'dropdown-item']);
         echo $this->Html->link('Second link', '/second', ['class' => 'dropdown-item']);
-        $this->assertHtml($expected, $this->Helper->end());
+        $this->assertHtml($expected, $this->Helper->end() ?: '');
 
         //With `menu()` method
         $result = $this->Helper->menu($text, [
             $this->Html->link('First link', '/first', ['class' => 'dropdown-item']),
             $this->Html->link('Second link', '/second', ['class' => 'dropdown-item']),
         ]);
-        $this->assertHtml($expected, $result);
+        $this->assertHtml($expected, $result ?: '');
 
         //With callback
         $result = call_user_func(function () use ($text) {
@@ -127,7 +128,7 @@ class DropdownHelperTest extends HelperTestCase
         echo $this->Html->link('Second link', '/second', ['class' => 'dropdown-item']);
         //Div wrapper with custom class and attribute
         $result = $this->Helper->end(['class' => 'div-custom-class', 'attr' => 'value']);
-        $this->assertHtml($expected, $result);
+        $this->assertHtml($expected, $result ?: '');
 
         //With `menu()` method
         $links = [
@@ -140,7 +141,7 @@ class DropdownHelperTest extends HelperTestCase
             ['class' => 'my-start-class', 'icon' => 'home'],
             ['class' => 'div-custom-class', 'attr' => 'value']
         );
-        $this->assertHtml($expected, $result);
+        $this->assertHtml($expected, $result ?: '');
 
         $expected = [
             ['ul' => true],

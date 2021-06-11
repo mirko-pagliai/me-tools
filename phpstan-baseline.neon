@@ -1,0 +1,62 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Parameter \\#1 \\$target of method MeTools\\\\Controller\\\\Component\\\\UploaderComponent\\:\\:findTargetFilename\\(\\) expects string, string\\|null given\\.$#"
+			count: 1
+			path: src/Controller/Component/UploaderComponent.php
+
+		-
+			message: "#^Call to an undefined method Cake\\\\Core\\\\PluginApplicationInterface\\:\\:getPlugins\\(\\)\\.$#"
+			count: 1
+			path: src/Plugin.php
+
+		-
+			message: "#^Parameter \\#1 \\$callback of function array_map expects \\(callable\\(\\)\\: mixed\\)\\|null, array\\(\\$this\\(MeTools\\\\View\\\\OptionsParser\\), 'MeTools\\\\\\\\View…'\\) given\\.$#"
+			count: 2
+			path: src/View/OptionsParser.php
+
+		-
+			message: "#^Call to an undefined method Cake\\\\Http\\\\ServerRequest\\:\\:isAction\\(\\)\\.$#"
+			count: 11
+			path: tests/TestCase/Core/RequestDetectorsTest.php
+
+		-
+			message: "#^Call to an undefined method Cake\\\\Http\\\\ServerRequest\\:\\:isController\\(\\)\\.$#"
+			count: 4
+			path: tests/TestCase/Core/RequestDetectorsTest.php
+
+		-
+			message: "#^Call to an undefined method Cake\\\\Http\\\\ServerRequest\\:\\:isLocalhost\\(\\)\\.$#"
+			count: 2
+			path: tests/TestCase/Core/RequestDetectorsTest.php
+
+		-
+			message: "#^Call to an undefined method Cake\\\\Http\\\\ServerRequest\\:\\:isPrefix\\(\\)\\.$#"
+			count: 2
+			path: tests/TestCase/Core/RequestDetectorsTest.php
+
+		-
+			message: "#^Call to an undefined method Cake\\\\Http\\\\ServerRequest\\:\\:isUrl\\(\\)\\.$#"
+			count: 14
+			path: tests/TestCase/Core/RequestDetectorsTest.php
+
+		-
+			message: "#^Call to an undefined method Psr\\\\Http\\\\Message\\\\ResponseInterface\\:\\:getCookie\\(\\)\\.$#"
+			count: 1
+			path: tests/TestCase/TestSuite/IntegrationTestTraitTest.php
+
+		-
+			message: "#^Call to an undefined method Psr\\\\Http\\\\Message\\\\ResponseInterface\\:\\:withCookie\\(\\)\\.$#"
+			count: 1
+			path: tests/TestCase/TestSuite/IntegrationTestTraitTest.php
+
+		-
+			message: "#^Class Cake\\\\TestSuite\\\\Constraint\\\\Session\\\\SessionEquals constructor invoked with 2 parameters, 1 required\\.$#"
+			count: 1
+			path: tests/TestCase/TestSuite/IntegrationTestTraitTest.php
+
+		-
+			message: "#^Parameter \\#1 \\$path of class Cake\\\\TestSuite\\\\Constraint\\\\Session\\\\SessionEquals constructor expects string, Cake\\\\Http\\\\Session given\\.$#"
+			count: 1
+			path: tests/TestCase/TestSuite/IntegrationTestTraitTest.php
+

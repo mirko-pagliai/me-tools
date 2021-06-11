@@ -21,14 +21,11 @@ use Tools\Exceptionist;
 
 /**
  * Library helper
+ * @property \Assets\View\Helper\AssetHelper|\MeTools\View\Helper\HtmlHelper $Asset
+ * @property \MeTools\View\Helper\HtmlHelper $Html
  */
 class LibraryHelper extends Helper
 {
-    /**
-     * @var \Assets\View\Helper\AssetHelper|\MeTools\View\Helper\HtmlHelper
-     */
-    protected $Assets;
-
     /**
      * Helpers.
      *
@@ -57,10 +54,11 @@ class LibraryHelper extends Helper
     {
         parent::initialize($config);
 
-        $this->Asset = clone $this->Html;
         if (Plugin::getCollection()->has('Assets')) {
-            $this->Asset = $this->getView()->loadHelper('Assets.Asset');
+            /** @var \Assets\View\Helper\AssetHelper $asset */
+            $asset = $this->_View->loadHelper('Assets.Asset');
         }
+        $this->Asset = $asset ?? clone $this->Html;
     }
 
     /**

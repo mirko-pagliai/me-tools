@@ -19,6 +19,7 @@ use MeTools\View\Helper\HtmlHelper;
 
 /**
  * FormHelperTest class
+ * @property \MeTools\View\Helper\FormHelper $Helper
  */
 class FormHelperTest extends HelperTestCase
 {
@@ -42,7 +43,7 @@ class FormHelperTest extends HelperTestCase
      * Tests for `button()` method
      * @test
      */
-    public function testButton()
+    public function testButton(): void
     {
         $title = 'My button';
 
@@ -73,20 +74,20 @@ class FormHelperTest extends HelperTestCase
      * Tests for `checkbox()` method
      * @test
      */
-    public function testCheckbox()
+    public function testCheckbox(): void
     {
         $expected = [
             ['input' => ['type' => 'hidden', 'name' => 'my-field', 'value' => '0']],
             ['input' => ['type' => 'checkbox', 'name' => 'my-field', 'value' => '1']],
         ];
-        $this->assertHtml($expected, $this->Helper->checkbox('my-field'));
+        $this->assertHtml($expected, array_value_first((array)$this->Helper->checkbox('my-field')));
     }
 
     /**
      * Tests for `ckeditor()` method
      * @test
      */
-    public function testCkeditor()
+    public function testCkeditor(): void
     {
         $field = 'my-field';
 
@@ -115,7 +116,7 @@ class FormHelperTest extends HelperTestCase
      * Tests for `control()` method
      * @test
      */
-    public function testControl()
+    public function testControl(): void
     {
         $field = 'my-field';
 
@@ -181,7 +182,7 @@ class FormHelperTest extends HelperTestCase
      * Tests for `control()` method with checkboxes
      * @test
      */
-    public function testControlCheckbox()
+    public function testControlCheckbox(): void
     {
         $field = 'my-field';
         $expected = [
@@ -200,7 +201,7 @@ class FormHelperTest extends HelperTestCase
      * Tests for `control()` method with password inputs
      * @test
      */
-    public function testControlPassword()
+    public function testControlPassword(): void
     {
         $expected = [
             'div' => ['class' => 'form-group input password'],
@@ -217,7 +218,7 @@ class FormHelperTest extends HelperTestCase
      * Tests for `control()` method with selects
      * @test
      */
-    public function testControlSelect()
+    public function testControlSelect(): void
     {
         $field = 'my-field';
         $options = ['1' => 'First value', '2' => 'Second value'];
@@ -338,7 +339,7 @@ class FormHelperTest extends HelperTestCase
      * Tests for `control()` method with textareas
      * @test
      */
-    public function testControlTextarea()
+    public function testControlTextarea(): void
     {
         $field = 'my-field';
         $expected = [
@@ -357,7 +358,7 @@ class FormHelperTest extends HelperTestCase
      * Tests for `control()` method, into an inline form
      * @test
      */
-    public function testControlInline()
+    public function testControlInline(): void
     {
         $field = 'my-field';
 
@@ -408,7 +409,7 @@ class FormHelperTest extends HelperTestCase
      * Tests for `create()` method
      * @test
      */
-    public function testCreate()
+    public function testCreate(): void
     {
         $expected = [
             'form' => ['method' => 'post', 'accept-charset' => 'utf-8', 'action' => '/'],
@@ -421,7 +422,7 @@ class FormHelperTest extends HelperTestCase
      * Tests for `createInline()` and `isInline()` methods
      * @test
      */
-    public function testCreateInlineAndIsInline()
+    public function testCreateInlineAndIsInline(): void
     {
         $expected = [
             'form' => ['method' => 'post', 'accept-charset' => 'utf-8', 'class' => 'form-inline', 'action' => '/'],
@@ -456,7 +457,7 @@ class FormHelperTest extends HelperTestCase
      * Tests for `datepicker()`, `datetimepicker()` and `timepicker()` methods
      * @test
      */
-    public function testDatetimepicker()
+    public function testDatetimepicker(): void
     {
         $field = 'my-field';
 
@@ -482,7 +483,7 @@ class FormHelperTest extends HelperTestCase
      * Tests for `label()` method
      * @test
      */
-    public function testLabel()
+    public function testLabel(): void
     {
         $expected = [
             'label' => ['for' => 'my-fieldname'],
@@ -503,7 +504,7 @@ class FormHelperTest extends HelperTestCase
      * Tests for `postButton()` method
      * @test
      */
-    public function testPostButton()
+    public function testPostButton(): void
     {
         $title = 'My title';
         $url = 'http://link';
@@ -546,7 +547,7 @@ class FormHelperTest extends HelperTestCase
      * Tests for `postLink()` method
      * @test
      */
-    public function testPostLink()
+    public function testPostLink(): void
     {
         $title = 'My title';
         $url = 'http://link';
@@ -599,7 +600,7 @@ class FormHelperTest extends HelperTestCase
      * Tests for `select()` method
      * @test
      */
-    public function testSelect()
+    public function testSelect(): void
     {
         $field = 'my-field';
         $options = ['1' => 'First value', '2' => 'Second value'];
@@ -678,7 +679,7 @@ class FormHelperTest extends HelperTestCase
      * Tests for `submit()` method
      * @test
      */
-    public function testSubmit()
+    public function testSubmit(): void
     {
         $title = 'My title';
 
@@ -702,7 +703,7 @@ class FormHelperTest extends HelperTestCase
      * Tests for `textarea()` method
      * @test
      */
-    public function testTextarea()
+    public function testTextarea(): void
     {
         $expected = ['textarea' => ['name' => 'my-field', 'class' => 'form-control'], '/textarea'];
         $this->assertHtml($expected, $this->Helper->textarea('my-field'));

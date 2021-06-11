@@ -19,7 +19,9 @@
     "require-dev": {
         "cakephp/cakephp-codesniffer": "^4.0",
         "mirko-pagliai/cakephp-assets": "^1.5.4",
-        "phpunit/phpunit": "^8.5|^9.0"
+        "phpunit/phpunit": "^8.5|^9.0",
+        "phpstan/phpstan": "^0.12",
+        "psalm/phar": "^3.18|^4"
     },
     "conflict": {
         "newerton/fancy-box": "*"
@@ -63,7 +65,7 @@
         ],
         "cs-check": "phpcs --standard=phpcs.xml.dist",
         "cs-fix": "phpcbf --standard=phpcs.xml.dist",
-        "test": "phpunit",
+        "test": "rm -f -r /tmp/cake* && phpunit",
         "coverage": "XDEBUG_MODE=coverage phpunit --coverage-html=coverage",
         "phpstan": "phpstan.phar analyse",
         "psalm": "psalm.phar",

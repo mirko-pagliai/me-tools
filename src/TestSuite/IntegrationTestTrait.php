@@ -59,12 +59,14 @@ trait IntegrationTestTrait
         $this->_controller->viewBuilder()->setLayout('with_flash');
 
         if ($this->_controller->components()->has('Uploader')) {
-            $this->_controller->Uploader = $this->getMockForComponent(UploaderComponent::class, ['move_uploaded_file']);
-
-            $this->_controller->Uploader->method('move_uploaded_file')
+            /** @var \PHPUnit\Framework\MockObject\MockObject $Uploader */
+            $Uploader = $this->getMockForComponent(UploaderComponent::class, ['move_uploaded_file']);
+            $Uploader->method('move_uploaded_file')
                 ->will($this->returnCallback(function (string $filename, string $destination): bool {
                     return rename($filename, $destination);
                 }));
+            /** @phpstan-ignore-next-line */
+            $this->_controller->Uploader = $Uploader;
         }
     }
 
