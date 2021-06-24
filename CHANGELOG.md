@@ -1,6 +1,8 @@
 # 2.x branch
 ## 2.20 branch
 ### 2.20.2
+* `ComponentTestCase`, `ConsoleIntegrationTestTrait` and `HelperTestCase` create
+    real instances of the objects to be tested, and no more mock objects;
 * further improvement of function descriptions and tags.
 
 ### 2.20.1

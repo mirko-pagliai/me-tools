@@ -15,6 +15,8 @@ declare(strict_types=1);
  */
 namespace MeTools\TestSuite;
 
+use Cake\Controller\ComponentRegistry;
+use Cake\Controller\Controller;
 use MeTools\TestSuite\TestCase;
 
 /**
@@ -24,7 +26,7 @@ abstract class ComponentTestCase extends TestCase
 {
     /**
      * Component instance
-     * @var \Cake\Controller\Component&\PHPUnit\Framework\MockObject\MockObject
+     * @var \Cake\Controller\Component
      */
     protected $Component;
 
@@ -45,7 +47,7 @@ abstract class ComponentTestCase extends TestCase
         if (!$this->Component && $this->autoInitializeClass) {
             /** @var class-string<\Cake\Controller\Component> $className */
             $className = $this->getOriginClassNameOrFail($this);
-            $this->Component = $this->getMockForComponent($className, null);
+            $this->Component = new $className(new ComponentRegistry(new Controller()));
         }
         if ($this->Component && method_exists($this->Component, 'initialize')) {
             $this->Component->initialize([]);

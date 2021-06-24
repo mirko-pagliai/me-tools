@@ -15,6 +15,7 @@ declare(strict_types=1);
  */
 namespace MeTools\TestSuite;
 
+use Cake\View\View;
 use MeTools\TestSuite\TestCase;
 
 /**
@@ -24,7 +25,7 @@ abstract class HelperTestCase extends TestCase
 {
     /**
      * Helper instance
-     * @var \Cake\View\Helper&\PHPUnit\Framework\MockObject\MockObject
+     * @var \Cake\View\Helper
      */
     protected $Helper;
 
@@ -45,7 +46,7 @@ abstract class HelperTestCase extends TestCase
         if (!$this->Helper && $this->autoInitializeClass) {
             /** @var class-string<\Cake\View\Helper> $className */
             $className = $this->getOriginClassNameOrFail($this);
-            $this->Helper = $this->getMockForHelper($className, null);
+            $this->Helper = new $className(new View());
         }
         if ($this->Helper && method_exists($this->Helper, 'initialize')) {
             $this->Helper->initialize([]);
