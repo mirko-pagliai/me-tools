@@ -56,6 +56,20 @@ class TestCaseTest extends TestCase
     }
 
     /**
+     * Tests for `assertIsMock()` method
+     * @test
+     */
+    public function testAssertIsMock(): void
+    {
+        $mock = $this->getMockBuilder(\stdClass::class)->getMock();
+        $this->assertIsMock($mock);
+
+        $this->expectException(AssertionFailedError::class);
+        $this->expectExceptionMessage('Failed asserting that a `stdClass` object is a mock');
+        $this->assertIsMock(new \stdClass());
+    }
+
+    /**
      * Tests for `assertLogContains()` method
      * @test
      */

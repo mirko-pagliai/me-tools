@@ -21,6 +21,7 @@ use Cake\ORM\TableRegistry;
 use Cake\TestSuite\TestCase as CakeTestCase;
 use Exception;
 use MeTools\TestSuite\MockTrait;
+use PHPUnit\Framework\MockObject\MockObject;
 use Tools\Exceptionist;
 use Tools\Filesystem;
 use Tools\ReflectionTrait;
@@ -90,6 +91,20 @@ abstract class TestCase extends CakeTestCase
         TableRegistry::getTableLocator()->clear();
 
         return TableRegistry::getTableLocator()->get($alias, $options);
+    }
+
+    /**
+     * Asserts an object is a mock (instance of `MockObject`)
+     * @param object $object Object
+     * @param string $message The failure message that will be appended to the
+     *  generated message
+     * @return void
+     * @since 2.20.2
+     */
+    public function assertIsMock(object $object, string $message = ''): void
+    {
+        $message = $message ?: 'Failed asserting that a `' . get_class($object) . '` object is a mock';
+        $this->assertInstanceOf(MockObject::class, $object, $message);
     }
 
     /**

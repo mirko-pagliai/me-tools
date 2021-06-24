@@ -21,7 +21,6 @@ use App\Model\Validation\PostValidator;
 use App\View\Cell\MyExampleCell;
 use MeTools\TestSuite\TestCase;
 use PHPUnit\Framework\AssertionFailedError;
-use PHPUnit\Framework\MockObject\MockObject;
 
 /**
  * MockTraitTest class
@@ -58,8 +57,7 @@ class MockTraitTest extends TestCase
      */
     public function testGetMockForComponent(): void
     {
-        $Mock = $this->getMockForComponent('Cake\Controller\Component\FlashComponent', null);
-        $this->assertInstanceOf(MockObject::class, $Mock);
+        $this->assertIsMock($this->getMockForComponent('Cake\Controller\Component\FlashComponent'));
     }
 
     /**
@@ -70,12 +68,12 @@ class MockTraitTest extends TestCase
     {
         /** @var \App\Controller\PagesController $Mock **/
         $Mock = $this->getMockForController('App\Controller\PagesController', null);
-        $this->assertInstanceOf(MockObject::class, $Mock);
+        $this->assertIsMock($Mock);
         $this->assertEquals('Pages', $Mock->getName());
 
         /** @var \App\Controller\PagesController $Mock **/
         $Mock = $this->getMockForController('App\Controller\PagesController', null, 'MyController');
-        $this->assertInstanceOf(MockObject::class, $Mock);
+        $this->assertIsMock($Mock);
         $this->assertEquals('MyController', $Mock->getName());
 
         //With a no existing class

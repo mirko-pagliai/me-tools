@@ -22,7 +22,6 @@ use Cake\Http\Session;
 use MeTools\TestSuite\IntegrationTestTrait;
 use MeTools\TestSuite\TestCase;
 use PHPUnit\Framework\AssertionFailedError;
-use PHPUnit\Framework\MockObject\MockObject;
 use Tools\Filesystem;
 
 /**
@@ -55,7 +54,7 @@ class IntegrationTestTraitTest extends TestCase
         $this->assertEquals('with_flash', $this->_controller->viewBuilder()->getLayout());
 
         /** @phpstan-ignore-next-line */
-        $this->assertInstanceOf(MockObject::class, $this->_controller->Uploader);
+        $this->assertIsMock($this->_controller->Uploader);
         $source = (new Filesystem())->createTmpFile();
         $destination = TMP . 'example2';
         $this->assertFileDoesNotExist($destination);
