@@ -1,5 +1,8 @@
 # 2.x branch
 ## 2.20 branch
+### 2.20.2
+* further improvement of function descriptions and tags.
+
 ### 2.20.1
 * added `UploaderComponent::getFile()` and `UploaderComponent::setFile()` methods.
     `UploaderComponent::set()` method is deprecated, use instead `setFile()`;

@@ -27,7 +27,7 @@ trait ConsoleIntegrationTestTrait
 
     /**
      * Command instance
-     * @var \MeTools\Console\Command|\PHPUnit\Framework\MockObject\MockObject
+     * @var \MeTools\Console\Command&\PHPUnit\Framework\MockObject\MockObject
      */
     protected $Command;
 
@@ -44,6 +44,7 @@ trait ConsoleIntegrationTestTrait
         }
 
         if (!$this->Command && !empty($this->autoInitializeClass)) {
+            /** @var class-string<\MeTools\Console\Command> $className */
             $className = $this->getOriginClassNameOrFail($this);
             $this->Command = $this->getMockBuilder($className)->setMethods(null)->getMock();
         }

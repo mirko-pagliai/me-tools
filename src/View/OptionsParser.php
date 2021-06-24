@@ -84,7 +84,10 @@ class OptionsParser
     public function add($key, $value = null)
     {
         if (is_array($key)) {
-            array_map([$this, __METHOD__], array_keys($key), $key);
+            $callable = [$this, __METHOD__];
+            if (is_callable($callable)) {
+                array_map($callable, array_keys($key), $key);
+            }
 
             return $this;
         }
@@ -151,7 +154,10 @@ class OptionsParser
     public function append($key, $value = null)
     {
         if (is_array($key)) {
-            array_map([$this, __METHOD__], array_keys($key), $key);
+            $callable = [$this, __METHOD__];
+            if (is_callable($callable)) {
+                array_map($callable, array_keys($key), $key);
+            }
 
             return $this;
         }

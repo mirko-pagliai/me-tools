@@ -40,6 +40,7 @@ class Plugin extends BasePlugin
      */
     public function bootstrap(PluginApplicationInterface $app): void
     {
+        /** @var \Cake\Http\BaseApplication $app */
         parent::bootstrap($app);
 
         if (class_exists(Assets::class) && !$app->getPlugins()->has('Assets')) {

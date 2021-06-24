@@ -60,9 +60,9 @@ trait MockTrait
 
     /**
      * Mocks a component
-     * @param class-string $className Component class name
+     * @param class-string<\Cake\Controller\Component> $className Component class name
      * @param array<string>|null $methods The list of methods to mock
-     * @return \Cake\Controller\Component|\PHPUnit\Framework\MockObject\MockObject
+     * @return \Cake\Controller\Component&\PHPUnit\Framework\MockObject\MockObject
      */
     protected function getMockForComponent(string $className, ?array $methods = []): object
     {
@@ -77,7 +77,7 @@ trait MockTrait
      * @param class-string<\Cake\Controller\Controller> $className Controller class name
      * @param array<string>|null $methods The list of methods to mock
      * @param string|null $alias Controller alias
-     * @return \Cake\Controller\Controller|\PHPUnit\Framework\MockObject\MockObject
+     * @return \Cake\Controller\Controller&\PHPUnit\Framework\MockObject\MockObject
      */
     protected function getMockForController(string $className, ?array $methods = [], ?string $alias = null): object
     {
@@ -91,9 +91,9 @@ trait MockTrait
 
     /**
      * Mocks an helper
-     * @param class-string $className Helper class name
+     * @param class-string<\Cake\View\Helper> $className Helper class name
      * @param array<string>|null $methods The list of methods to mock
-     * @return \Cake\View\Helper|\PHPUnit\Framework\MockObject\MockObject
+     * @return \Cake\View\Helper&\PHPUnit\Framework\MockObject\MockObject
      */
     protected function getMockForHelper(string $className, ?array $methods = []): object
     {
@@ -110,8 +110,8 @@ trait MockTrait
      * Example: class `MyPlugin\Test\TestCase\Controller\PagesControllerTest`
      *  will return the string `MyPlugin\Controller\PagesController`.
      * @param \PHPUnit\Framework\TestCase $className A `TestCase` class
-     * @return class-string|string The class name for which a test is
-     *  being performed. Empty string on failure
+     * @return class-string<\PHPUnit\Framework\TestCase>|string The class name for
+     *  which a test is being performed. Empty string on failure
      * @since 2.18.0
      */
     protected function getOriginClassName(TestCase $className): string

@@ -24,7 +24,7 @@ abstract class HelperTestCase extends TestCase
 {
     /**
      * Helper instance
-     * @var \Cake\View\Helper|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Cake\View\Helper&\PHPUnit\Framework\MockObject\MockObject
      */
     protected $Helper;
 
@@ -43,7 +43,9 @@ abstract class HelperTestCase extends TestCase
         parent::setUp();
 
         if (!$this->Helper && $this->autoInitializeClass) {
-            $this->Helper = $this->getMockForHelper($this->getOriginClassNameOrFail($this), null);
+            /** @var class-string<\Cake\View\Helper> $className */
+            $className = $this->getOriginClassNameOrFail($this);
+            $this->Helper = $this->getMockForHelper($className, null);
         }
         if ($this->Helper && method_exists($this->Helper, 'initialize')) {
             $this->Helper->initialize([]);

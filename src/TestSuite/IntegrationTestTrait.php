@@ -42,7 +42,7 @@ trait IntegrationTestTrait
     protected $_requestSession;
 
     /**
-     * @var \Psr\Http\Message\ResponseInterface
+     * @var \Cake\Http\Response
      */
     protected $_response;
 
@@ -59,7 +59,7 @@ trait IntegrationTestTrait
         $this->_controller->viewBuilder()->setLayout('with_flash');
 
         if ($this->_controller->components()->has('Uploader')) {
-            /** @var \PHPUnit\Framework\MockObject\MockObject $Uploader */
+            /** @var \MeTools\Controller\Component\UploaderComponent&\PHPUnit\Framework\MockObject\MockObject $Uploader */
             $Uploader = $this->getMockForComponent(UploaderComponent::class, ['move_uploaded_file']);
             $Uploader->method('move_uploaded_file')
                 ->will($this->returnCallback(function (string $filename, string $destination): bool {
@@ -120,6 +120,7 @@ trait IntegrationTestTrait
     public function assertSessionEmpty(string $path, string $message = ''): void
     {
         $verboseMessage = $this->extractVerboseMessage($message);
+        /** @phpstan-ignore-next-line */
         $sessionEquals = version_compare(Configure::version(), '4.1', '>=') ? new SessionEquals($path) : new SessionEquals($this->_requestSession, $path);
         $this->assertThat(null, $sessionEquals, $verboseMessage);
     }

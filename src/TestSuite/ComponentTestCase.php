@@ -24,7 +24,7 @@ abstract class ComponentTestCase extends TestCase
 {
     /**
      * Component instance
-     * @var \Cake\Controller\Component|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Cake\Controller\Component&\PHPUnit\Framework\MockObject\MockObject
      */
     protected $Component;
 
@@ -43,7 +43,9 @@ abstract class ComponentTestCase extends TestCase
         parent::setUp();
 
         if (!$this->Component && $this->autoInitializeClass) {
-            $this->Component = $this->getMockForComponent($this->getOriginClassNameOrFail($this), null);
+            /** @var class-string<\Cake\Controller\Component> $className */
+            $className = $this->getOriginClassNameOrFail($this);
+            $this->Component = $this->getMockForComponent($className, null);
         }
         if ($this->Component && method_exists($this->Component, 'initialize')) {
             $this->Component->initialize([]);
