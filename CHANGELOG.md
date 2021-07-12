@@ -3,6 +3,7 @@
 ### 2.20.2
 * `ComponentTestCase`, `ConsoleIntegrationTestTrait` and `HelperTestCase` create
     real instances of the objects to be tested, and no more mock objects;
+* updated for php-tools 1.5.2;
 * further improvement of function descriptions and tags.
 
 ### 2.20.1
