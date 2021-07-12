@@ -21,7 +21,6 @@ use Cake\Http\Response;
 use Cake\Http\Session;
 use MeTools\TestSuite\IntegrationTestTrait;
 use MeTools\TestSuite\TestCase;
-use PHPUnit\Framework\AssertionFailedError;
 use Tools\Filesystem;
 
 /**
@@ -77,8 +76,7 @@ class IntegrationTestTraitTest extends TestCase
         $this->assertCookieIsEmpty('test-cookie');
 
         //With no response
-        $this->expectException(AssertionFailedError::class);
-        $this->expectExceptionMessage('Not response set, cannot assert cookies');
+        $this->expectAssertionFailed('Not response set, cannot assert cookies');
         /** @phpstan-ignore-next-line */
         $this->_response = null;
         $this->assertCookieIsEmpty('test-cookie');
@@ -126,7 +124,7 @@ class IntegrationTestTraitTest extends TestCase
         $this->_requestSession->delete('first.third');
         $this->assertSessionEmpty('first.third');
 
-        $this->expectException(AssertionFailedError::class);
+        $this->expectAssertionFailed();
         $this->assertSessionEmpty('first.second');
     }
 }

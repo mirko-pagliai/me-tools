@@ -39,16 +39,15 @@ class MockTraitTest extends TestCase
         $this->assertSame('MyExample', $this->getAlias(MyExampleCell::class));
         $this->assertSame('MyExample', $this->getAlias(new MyExampleControllerTest()));
 
-        //Class with no alias
-        $this->assertException(function () {
-            $this->getAlias(\stdClass::class);
-        }, AssertionFailedError::class, 'Unable to get the alias for the `stdClass` class');
-
-        //No existing class
-        $this->expectException(AssertionFailedError::class);
-        $this->expectExceptionMessage('Class `No\Existing\Class` does not exist');
-        /** @phpstan-ignore-next-line */
-        $this->getAlias('No\Existing\Class');
+        //Class with no alias or no existing class
+        foreach ([
+            \stdClass::class => 'Unable to get the alias for the `stdClass` class',
+            'No\Existing\Class' => 'Class `No\Existing\Class` does not exist',
+        ] as $className => $expectedMessage) {
+            $this->assertException(function () use ($className) {
+                $this->getAlias($className);
+            }, AssertionFailedError::class, $expectedMessage);
+        }
     }
 
     /**
@@ -77,8 +76,7 @@ class MockTraitTest extends TestCase
         $this->assertEquals('MyController', $Mock->getName());
 
         //With a no existing class
-        $this->expectException(AssertionFailedError::class);
-        $this->expectExceptionMessage('Class `App\Controller\NoExistingController` does not exist');
+        $this->expectAssertionFailed('Class `App\Controller\NoExistingController` does not exist');
         /** @phpstan-ignore-next-line */
         $this->getMockForController('App\Controller\NoExistingController');
     }
@@ -100,8 +98,7 @@ class MockTraitTest extends TestCase
     {
         $this->assertSame(TestCase::class, $this->getOriginClassNameOrFail(new TestCaseTest()));
 
-        $this->expectException(AssertionFailedError::class);
-        $this->expectExceptionMessage('Class `AnotherTestPlugin\MyPlugin\Controller\MyExampleController` does not exist');
+        $this->expectAssertionFailed('Class `AnotherTestPlugin\MyPlugin\Controller\MyExampleController` does not exist');
         $this->getOriginClassNameOrFail(new MyExampleControllerTest());
     }
 
