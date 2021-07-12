@@ -21,6 +21,7 @@ use Cake\Console\ConsoleOptionParser;
 use Cake\Utility\Inflector;
 use MeTools\Console\Command;
 use MeTools\Core\Plugin;
+use Tools\Filesystem;
 
 /**
  * 'Creates symbolic links for plugins assets'
@@ -45,22 +46,15 @@ class CreatePluginsLinksCommand extends Command
      */
     public function execute(Arguments $args, ConsoleIo $io): void
     {
-        $plugins = [];
-
         foreach (Plugin::loaded() as $plugin) {
-            $srcPath = Plugin::path($plugin) . 'webroot';
+            $srcPath = Plugin::path($plugin, 'webroot');
             if (!is_dir($srcPath)) {
                 $io->verbose(__d('me_tools', 'Skipping plugin `{0}`. It does not have webroot folder', $plugin), 1);
                 continue;
             }
 
-            [$link, $destDir, $namespaced] = [Inflector::underscore($plugin), WWW_ROOT, false];
-            $plugins[$plugin] = compact('destDir', 'link', 'namespaced', 'srcPath');
-        }
-
-        foreach ($plugins as $plugin => $config) {
             $io->verbose('For plugin: ' . $plugin);
-            $this->createLink($io, $config['srcPath'], $config['destDir'] . $config['link']);
+            $this->createLink($io, $srcPath, Filesystem::instance()->concatenate(WWW_ROOT, Inflector::underscore($plugin)));
         }
     }
 }
