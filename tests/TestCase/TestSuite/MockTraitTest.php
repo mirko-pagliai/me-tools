@@ -45,6 +45,7 @@ class MockTraitTest extends TestCase
             'No\Existing\Class' => 'Class `No\Existing\Class` does not exist',
         ] as $className => $expectedMessage) {
             $this->assertException(function () use ($className) {
+                /** @phpstan-ignore-next-line */
                 $this->getAlias($className);
             }, AssertionFailedError::class, $expectedMessage);
         }
