@@ -95,19 +95,19 @@ class FormHelper extends CakeFormHelper
      *  the `postButton()` method.
      * Instead, to create a link with the appearance of a button, you should
      *  use the `button()` method provided by `HtmlHelper`.
-     * @param string|null $title The button label or an image
+     * @param string $title The button label or an image
      * @param array $options HTML attributes and options
      * @return string
      * @see postButton()
      * @see MeTools\View\Helper\HtmlHelper::button()
      */
-    public function button(?string $title = null, array $options = []): string
+    public function button(string $title = '', array $options = []): string
     {
         $options = optionsParser($options, ['escapeTitle' => false, 'type' => 'button']);
         $options->addButtonClasses($options->contains('type', 'submit') ? 'success' : 'primary');
         [$title, $options] = $this->Icon->addIconToText($title, $options);
 
-        return parent::button($title ?? '', $options->toArray());
+        return parent::button($title, $options->toArray());
     }
 
     /**
@@ -329,13 +329,13 @@ class FormHelper extends CakeFormHelper
      * To create a normal button, you should use the `button()` method.
      * To create a button with the appearance of a link, you should use the
      *  `button()` method provided by the `HtmlHelper`.
-     * @param string|null $title Button title
+     * @param string $title Button title
      * @param string|array|null $url Cake-relative URL or array of URL
      *  parameters or external URL
      * @param array $options Array of options and HTML attributes
      * @return string Html code
      */
-    public function postButton(?string $title = null, $url = null, array $options = []): string
+    public function postButton(string $title = '', $url = null, array $options = []): string
     {
         $options = optionsParser($options)->add('role', 'button')->addButtonClasses();
 
@@ -350,13 +350,13 @@ class FormHelper extends CakeFormHelper
      *
      * To create a normal link, you should use the `link()` method of the
      *  `HtmlHelper`.
-     * @param string|null $title The content to be wrapped by <a> tags
+     * @param string $title The content to be wrapped by <a> tags
      * @param string|array|null $url Cake-relative URL or array of URL
      *  parameters or external URL
      * @param array $options Array of options and HTML attributes
      * @return string
      */
-    public function postLink(?string $title = null, $url = null, array $options = []): string
+    public function postLink(string $title = '', $url = null, array $options = []): string
     {
         $options = optionsParser($options, ['escape' => false, 'title' => $title]);
         $options->add('title', trim(h(strip_tags($options->get('title') ?? ''))))->tooltip();
@@ -393,7 +393,7 @@ class FormHelper extends CakeFormHelper
      */
     public function submit(?string $caption = null, array $options = []): string
     {
-        return $this->button($caption, optionsParser($options)->add('type', 'submit')->toArray());
+        return $this->button($caption ?: '', optionsParser($options)->add('type', 'submit')->toArray());
     }
 
     /**

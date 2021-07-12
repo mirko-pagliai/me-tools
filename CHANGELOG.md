@@ -1,5 +1,12 @@
 # 2.x branch
 ## 2.20 branch
+### 2.20.2
+* `ComponentTestCase`, `ConsoleIntegrationTestTrait` and `HelperTestCase` create
+    real instances of the objects to be tested, and no more mock objects;
+* `CreatePluginsLinksCommand` has been simplified;
+* updated for php-tools 1.5.2;
+* further improvement of function descriptions and tags.
+
 ### 2.20.1
 * added `UploaderComponent::getFile()` and `UploaderComponent::setFile()` methods.
     `UploaderComponent::set()` method is deprecated, use instead `setFile()`;

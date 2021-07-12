@@ -17,9 +17,9 @@ use Cake\Http\ServerRequest;
 use Cake\Routing\Router;
 
 /**
- * Adds `is('action')` detector.
+ * `isAction()` detector.
  *
- * It checks if the specified action is the current action.
+ * Checks if the specified action is the current action.
  * The action name can be passed as string or array.
  *
  * Optionally, you can also check if the specified controller is the
@@ -43,14 +43,13 @@ use Cake\Routing\Router;
 ServerRequest::addDetector('action', function (ServerRequest $request, $action, $controller = null): bool {
     $action = in_array($request->getParam('action'), (array)$action);
 
-    //Checks action and controller
     return $controller ? $action && $request->is('controller', $controller) : $action;
 });
 
 /**
- * Adds `is('controller')` detector.
+ * Adds `isController()` detector.
  *
- * It checks if the specified controller is the current controller.
+ * Checks if the specified controller is the current controller.
  * The controller name can be passed as string or array.
  *
  * Example:
@@ -64,18 +63,18 @@ ServerRequest::addDetector('controller', function (ServerRequest $request, $cont
 });
 
 /**
- * Adds `is('localhost')` detector.
+ * `isLocalhost()` detector.
  *
- * It checks if the host is the localhost.
+ * Checks if the host is the localhost.
  */
 ServerRequest::addDetector('localhost', function (ServerRequest $request): bool {
     return in_array($request->clientIp(), ['127.0.0.1', '::1']);
 });
 
 /**
- * Adds `is('prefix')` detector.
+ * `isPrefix()` detector.
  *
- * It checks if the specified prefix is the current prefix.
+ * Checks if the specified prefix is the current prefix.
  * The prefix name can be passed as string or array.
  *
  * Example:
@@ -88,18 +87,18 @@ ServerRequest::addDetector('prefix', function (ServerRequest $request, $prefix):
 });
 
 /**
- * Adds `is('url')` detector.
+ * `isUrl()` detector.
  *
- * It checks if the specified url is the current url.
+ * Checks if the specified url is the current url.
+ *
+ * The first argument is the url to be verified as an array of parameters or a
+ *  string. The second argument allows you to not remove the query string from
+ *  the current url.
  *
  * Example:
  * <code>
  * $this->getRequest()->isUrl(['_name' => 'posts']);
  * </code>
- *
- * The first argument is the url to be verified as an array of parameters or a
- *  string. The second argument allows you to not remove the query string from
- *  the current url.
  */
 ServerRequest::addDetector('url', function (ServerRequest $request, $url, bool $removeQueryString = true): bool {
     $current = rtrim($request->getEnv('REQUEST_URI') ?: '', '/');

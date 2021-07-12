@@ -146,7 +146,7 @@ class UploaderComponent extends Component
             return false;
         }
 
-        $filename = $filename ? basename($filename) : $this->findTargetFilename($this->getFile()->getClientFilename());
+        $filename = $filename ? basename($filename) : $this->findTargetFilename($this->getFile()->getClientFilename() ?: '');
         $target = Filesystem::instance()->concatenate($directory, $filename);
 
         try {

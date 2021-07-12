@@ -88,15 +88,13 @@ abstract class Command extends CakeCommand
             return false;
         }
 
-        $rpath = Filesystem::instance()->rtr($path);
-
         if (!@mkdir($path, 0777, true)) {
-            $io->error(__d('me_tools', 'Failed to create file or directory `{0}`', $rpath));
+            $io->error(__d('me_tools', 'Failed to create file or directory `{0}`', Filesystem::instance()->rtr($path)));
 
             return false;
         }
 
-        $io->verbose(__d('me_tools', 'Created `{0}` directory', $rpath));
+        $io->verbose(__d('me_tools', 'Created `{0}` directory', Filesystem::instance()->rtr($path)));
         $this->folderChmod($io, $path);
 
         return true;
@@ -154,17 +152,15 @@ abstract class Command extends CakeCommand
      */
     public function folderChmod(ConsoleIo $io, string $path, int $chmod = 0777): bool
     {
-        $rpath = Filesystem::instance()->rtr($path);
-
         try {
             Filesystem::instance()->chmod($path, $chmod, 0000, true);
         } catch (IOException $e) {
-            $io->error(__d('me_tools', 'Failed to set permissions on `{0}`', $rpath));
+            $io->error(__d('me_tools', 'Failed to set permissions on `{0}`', Filesystem::instance()->rtr($path)));
 
             return false;
         }
 
-        $io->verbose(__d('me_tools', 'Setted permissions on `{0}`', $rpath));
+        $io->verbose(__d('me_tools', 'Setted permissions on `{0}`', Filesystem::instance()->rtr($path)));
 
         return true;
     }

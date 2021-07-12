@@ -16,7 +16,6 @@ namespace MeTools\Test\TestCase\TestSuite;
 
 use Cake\ORM\Table;
 use MeTools\TestSuite\TestCase;
-use PHPUnit\Framework\AssertionFailedError;
 use Tools\Filesystem;
 use Tools\ReflectionTrait;
 
@@ -70,8 +69,7 @@ class TestCaseTest extends TestCase
         }
 
         //With a no existing log
-        $this->expectException(AssertionFailedError::class);
-        $this->expectExceptionMessage('File or directory `' . $this->getLogFullPath('noExisting') . '` does not exist');
+        $this->expectAssertionFailed('File or directory `' . $this->getLogFullPath('noExisting') . '` does not exist');
         $this->assertLogContains('content', 'noExisting');
     }
 
@@ -81,9 +79,10 @@ class TestCaseTest extends TestCase
      */
     public function testDeleteLog(): void
     {
-        $logs = [LOGS . 'first.log', LOGS . 'second.log'];
-        array_map([Filesystem::instance(), 'createFile'], $logs);
-        array_map([$this, 'deleteLog'], ['first', 'second']);
-        array_map([$this, 'assertFileDoesNotExist'], $logs);
+        foreach ([LOGS . 'first.log', LOGS . 'second.log'] as $log) {
+            Filesystem::instance()->createFile($log);
+            $this->deleteLog($log);
+            $this->assertFileDoesNotExist($log);
+        }
     }
 }

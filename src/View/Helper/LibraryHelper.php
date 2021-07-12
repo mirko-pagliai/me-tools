@@ -188,13 +188,13 @@ class LibraryHelper extends Helper
      *  `datepicker()` method provided by the `FormHelper`.
      *
      * Bootstrap Datepicker and Moment.js should be installed via Composer.
-     * @param string|null $input Target field. Default is `.datepicker`
+     * @param string $input Target field. Default is `.datepicker`
      * @param array $options Options for the datepicker
      * @return void
      * @link http://eonasdan.github.io/bootstrap-datetimepicker Bootstrap 3 Datepicker v4 documentation
      * @see \MeTools\View\Helper\FormHelper::datepicker()
      */
-    public function datepicker(?string $input = null, array $options = []): void
+    public function datepicker(string $input = '', array $options = []): void
     {
         $options = optionsParser($options, ['format' => 'YYYY/MM/DD']);
 
@@ -207,13 +207,13 @@ class LibraryHelper extends Helper
      * To create an input field compatible with datetimepicker, you should use
      *  the `datetimepicker()` method provided by the `FormHelper`.
      * Bootstrap Datepicker and Moment.js should be installed via Composer.
-     * @param string|null $input Target field. Default is `.datetimepicker`
+     * @param string $input Target field. Default is `.datetimepicker`
      * @param array $options Options for the datetimepicker
      * @return void
      * @link http://eonasdan.github.io/bootstrap-datetimepicker Bootstrap 3 Datepicker v4 documentation
      * @see \MeTools\View\Helper\FormHelper::datetimepicker()
      */
-    public function datetimepicker(?string $input = null, array $options = []): void
+    public function datetimepicker(string $input = '', array $options = []): void
     {
         $this->output[] = $this->buildDatetimepicker($input ?: '.datetimepicker', $options);
     }
@@ -278,13 +278,13 @@ class LibraryHelper extends Helper
      *  `timepicker()` method provided by the `FormHelper`.
      *
      * Bootstrap Datepicker and Moment.js should be installed via Composer.
-     * @param string|null $input Target field. Default is `.timepicker`
+     * @param string $input Target field. Default is `.timepicker`
      * @param array $options Options for the timepicker
      * @return void
      * @link https://github.com/Eonasdan/bootstrap-datetimepicker Bootstrap v3 datetimepicker widget documentation
      * @see \MeTools\View\Helper\FormHelper::timepicker()
      */
-    public function timepicker(?string $input = null, array $options = []): void
+    public function timepicker(string $input = '', array $options = []): void
     {
         $options = optionsParser($options, ['pickTime' => false]);
 

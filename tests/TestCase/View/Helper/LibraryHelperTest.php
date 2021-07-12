@@ -225,7 +225,7 @@ class LibraryHelperTest extends HelperTestCase
             'showClear' => true,
         ];
 
-        foreach (['#my-id', null] as $input) {
+        foreach (['#my-id', ''] as $input) {
             $this->Helper->datepicker($input);
             $output = $this->getProperty($this->Helper, 'output');
             $this->assertEquals(1, preg_match('/\$\("#my-id"\)\.datetimepicker\(({\n(\s+.+\n)+})\);/', $output[0], $matches));
@@ -263,7 +263,7 @@ class LibraryHelperTest extends HelperTestCase
             'showClear' => true,
         ];
 
-        foreach (['#my-id', null] as $input) {
+        foreach (['#my-id', ''] as $input) {
             $this->Helper->datetimepicker($input);
             $output = $this->getProperty($this->Helper, 'output');
             $this->assertEquals(1, preg_match('/\$\("#my-id"\)\.datetimepicker\(({\n(\s+.+\n)+})\);/', $output[0], $matches));
@@ -340,7 +340,7 @@ class LibraryHelperTest extends HelperTestCase
             'showClear' => true,
         ];
 
-        foreach (['#my-id', null] as $input) {
+        foreach (['#my-id', ''] as $input) {
             $this->Helper->timepicker($input);
             $output = $this->getProperty($this->Helper, 'output');
             $this->assertEquals(1, preg_match('/\$\("#my-id"\)\.datetimepicker\(({\n(\s+.+\n)+})\);/', $output[0], $matches));

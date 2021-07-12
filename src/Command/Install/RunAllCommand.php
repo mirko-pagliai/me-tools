@@ -35,7 +35,7 @@ class RunAllCommand extends Command
 {
     /**
      * Questions
-     * @var array
+     * @var array<array<string, (\MeTools\Console\Command&\PHPUnit\Framework\MockObject\MockObject)|string>>
      */
     public $questions = [];
 

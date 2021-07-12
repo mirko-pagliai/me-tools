@@ -30,7 +30,7 @@ class IconHelper extends CakeHtmlHelper
      * @return array Text with icons and instance of `OptionsParser`
      * @since 2.16.2-beta
      */
-    public function addIconToText($text, OptionsParser $options): array
+    public function addIconToText(?string $text, OptionsParser $options): array
     {
         $icon = $options->consume('icon');
         $align = $options->consume('icon-align');

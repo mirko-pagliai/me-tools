@@ -36,7 +36,7 @@ class OptionsParser
 
     /**
      * Keys of options to be exploded
-     * @var array
+     * @var array<string>
      */
     protected $toBeExploded = ['class', 'data-toggle'];
 
@@ -77,14 +77,17 @@ class OptionsParser
      * Adds a value.
      *
      * You can also pass an array with the keys and values as the only argument.
-     * @param string|array $key Key or array with keys and values
+     * @param string|array<string, mixed> $key Key or array with keys and values
      * @param mixed|null $value Value
      * @return $this
      */
     public function add($key, $value = null)
     {
         if (is_array($key)) {
-            array_map([$this, __METHOD__], array_keys($key), $key);
+            $callable = [$this, __METHOD__];
+            if (is_callable($callable)) {
+                array_map($callable, array_keys($key), $key);
+            }
 
             return $this;
         }
@@ -126,11 +129,11 @@ class OptionsParser
         $classes = preg_split('/\s+/', $classes ? implode(' ', $classes) : 'btn-light', -1, PREG_SPLIT_NO_EMPTY) ?: [];
 
         $classes = collection($classes)
-            ->map(function (string $class) {
+            ->map(function (string $class): string {
                 return string_starts_with($class, 'btn-') ? $class : 'btn-' . $class;
             })
-            ->filter(function (string $class) use ($allClasses) {
-                return preg_match('/^btn\-(' . implode('|', $allClasses) . ')$/', $class);
+            ->filter(function (string $class) use ($allClasses): bool {
+                return preg_match('/^btn\-(' . implode('|', $allClasses) . ')$/', $class) !== 0;
             });
 
         return $this->append('class', array_merge(['btn'], $classes->toList()));
@@ -144,14 +147,17 @@ class OptionsParser
      *  will be created.
      *
      * You can also pass an array with the keys and values as the only argument.
-     * @param string|array $key Key or array with keys and values
+     * @param string|array<string, mixed> $key Key or array with keys and values
      * @param mixed|null $value Value
      * @return $this
      */
     public function append($key, $value = null)
     {
         if (is_array($key)) {
-            array_map([$this, __METHOD__], array_keys($key), $key);
+            $callable = [$this, __METHOD__];
+            if (is_callable($callable)) {
+                array_map($callable, array_keys($key), $key);
+            }
 
             return $this;
         }

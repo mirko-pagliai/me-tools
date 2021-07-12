@@ -31,7 +31,7 @@ class Plugin extends CakePlugin
      *  - `core`, if `false` exclude the core plugins;
      *  - `exclude`, a plugin as string or an array of plugins to be excluded;
      *  - `order`, if `true` the plugins will be sorted.
-     * @param array<string, string|bool|array> $options Options
+     * @param array<string, mixed> $options Options
      * @return array<string> Plugins
      * @uses \Cake\Core\Plugin::loaded()
      */
