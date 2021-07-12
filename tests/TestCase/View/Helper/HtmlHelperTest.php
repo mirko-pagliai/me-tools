@@ -554,19 +554,18 @@ class HtmlHelperTest extends HelperTestCase
     {
         $expected = ['p' => true, '/p'];
         $this->assertHtml($expected, $this->Helper->para());
-        $this->assertHtml($expected, $this->Helper->para(null));
-        $this->assertHtml($expected, $this->Helper->para(null, null));
-        $this->assertHtml($expected, $this->Helper->para(null, ''));
+        $this->assertHtml($expected, $this->Helper->para(''));
+        $this->assertHtml($expected, $this->Helper->para('', ''));
 
         $expected = ['p' => ['class' => 'my-class']];
         $this->assertHtml($expected, $this->Helper->para('my-class'));
-        $this->assertHtml($expected, $this->Helper->para('my-class', null));
+        $this->assertHtml($expected, $this->Helper->para('my-class', ''));
 
         $expected = ['p' => true, ' ', '/p'];
-        $this->assertHtml($expected, $this->Helper->para(null, ' '));
+        $this->assertHtml($expected, $this->Helper->para('', ' '));
 
         $expected = ['p' => ['data-toggle' => 'tooltip', 'title' => 'my tooltip'], 'my text', '/p'];
-        $result = $this->Helper->para(null, 'my text', ['tooltip' => 'my tooltip']);
+        $result = $this->Helper->para('', 'my text', ['tooltip' => 'my tooltip']);
         $this->assertHtml($expected, $result);
 
         $expected = [

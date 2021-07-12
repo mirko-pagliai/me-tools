@@ -81,10 +81,8 @@ trait MockTrait
      */
     protected function getMockForController(string $className, ?array $methods = [], ?string $alias = null): object
     {
-        $alias = $alias ?: $this->getAlias($className);
-
         return $this->getMockBuilder($className)
-            ->setConstructorArgs([null, null, $alias])
+            ->setConstructorArgs([null, null, $alias ?: $this->getAlias($className)])
             ->setMethods($methods)
             ->getMock();
     }

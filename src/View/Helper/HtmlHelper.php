@@ -68,13 +68,13 @@ class HtmlHelper extends CakeHtmlHelper
      *
      * If `$url` is not null, creates a link (`<a>` tag) with the appearance
      *  of a button.
-     * @param string|null $title Button title
+     * @param string $title Button title
      * @param string|array|null $url Cake-relative URL or array of URL
      *  parameters or external URL
      * @param array $options Array of options and HTML attributes
      * @return string
      */
-    public function button(?string $title = null, $url = null, array $options = []): string
+    public function button(string $title = '', $url = null, array $options = []): string
     {
         $options = optionsParser($options, ['role' => 'button'])->addButtonClasses();
 
@@ -153,15 +153,14 @@ class HtmlHelper extends CakeHtmlHelper
      * Generates a style tag inline or appends to specified view block
      *  depending on the settings used when the cssBlock was started.
      * @return string|null Depending on the settings of `cssStart()`, either a
-     *  style tag or null
+     *  style tag or `null`
      */
     public function cssEnd(): ?string
     {
-        $buffer = ob_get_clean() ?: '';
         $options = $this->_cssBlockOptions;
         $this->_cssBlockOptions = [];
 
-        return $this->cssBlock($buffer, $options);
+        return $this->cssBlock(ob_get_clean() ?: '', $options);
     }
 
     /**
@@ -174,12 +173,12 @@ class HtmlHelper extends CakeHtmlHelper
      *  tag, you have to use the `type` option.
      * @param string $text Heading text
      * @param array $options Array of options and HTML attributes
-     * @param string|null $small Small text
+     * @param string $small Small text
      * @param array $smallOptions Array of options and HTML attributes
      * @return string
      * @see http://getbootstrap.com/css/#type-headings Bootstrap documentation
      */
-    public function heading(string $text, array $options = [], ?string $small = null, array $smallOptions = []): string
+    public function heading(string $text, array $options = [], string $small = '', array $smallOptions = []): string
     {
         $options = optionsParser($options);
         $type = $options->consume('type');
@@ -285,7 +284,7 @@ class HtmlHelper extends CakeHtmlHelper
      *
      * If `$element` is an array, the same `$options` will be applied to all
      *  elements
-     * @param string|array $element Element or elements
+     * @param string|array<string> $element Element or elements
      * @param array $options HTML attributes of the list tag
      * @return string
      */
@@ -372,7 +371,7 @@ class HtmlHelper extends CakeHtmlHelper
 
     /**
      * Returns an unordered list (`<ol>` tag)
-     * @param array $list Elements list
+     * @param array<string> $list Elements list
      * @param array $options HTML attributes of the list tag
      * @param array $itemOptions HTML attributes of the list items
      * @return string
@@ -394,14 +393,14 @@ class HtmlHelper extends CakeHtmlHelper
         $options = optionsParser($options)->tooltip();
         [$text, $options] = $this->Icon->addIconToText($text, $options);
 
-        return parent::para($class ?? '', (string)$text, $options->toArray());
+        return parent::para($class ?? '', $text ?: '', $options->toArray());
     }
 
     /**
      * Adds a js file to the layout.
      *
      * If it's used in the layout, you should set the `inline` option to `true`.
-     * @param string|array $url Javascript files as string or array
+     * @param string|array<string> $url Javascript files as string or array
      * @param array $options Array of options and HTML attributes
      * @return string|null String of `<script />` tags or `null` if `$inline` is false
      *  or if `$once` is true and the file has been included before
@@ -473,7 +472,7 @@ class HtmlHelper extends CakeHtmlHelper
 
     /**
      * Returns an unordered list (`<ul>` tag)
-     * @param array $list Elements list
+     * @param array<string> $list Elements list
      * @param array $options HTML attributes of the list tag
      * @param array $itemOptions HTML attributes of the list items
      * @return string

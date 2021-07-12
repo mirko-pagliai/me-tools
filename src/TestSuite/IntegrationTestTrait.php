@@ -24,27 +24,14 @@ use MeTools\Controller\Component\UploaderComponent;
 
 /**
  * A trait intended to make integration tests of your controllers easier
+ * @property \Cake\Controller\Controller $_controller
+ * @property \Cake\Http\Response $_response
  */
 trait IntegrationTestTrait
 {
     use CakeIntegrationTestTrait {
         CakeIntegrationTestTrait::controllerSpy as cakeControllerSpy;
     }
-
-    /**
-     * @var \Cake\Controller\Controller
-     */
-    protected $_controller;
-
-    /**
-     * @var \Cake\Http\Session
-     */
-    protected $_requestSession;
-
-    /**
-     * @var \Cake\Http\Response
-     */
-    protected $_response;
 
     /**
      * Adds additional event spies to the controller/view event manager
