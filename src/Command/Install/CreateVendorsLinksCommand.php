@@ -45,11 +45,11 @@ class CreateVendorsLinksCommand extends Command
      */
     public function execute(Arguments $args, ConsoleIo $io): void
     {
-        $root = Filesystem::instance()->concatenate(ROOT, 'vendor') . DS;
-        $wwwRoot = Filesystem::instance()->concatenate(WWW_ROOT, 'vendor') . DS;
+        $root = Filesystem::instance()->concatenate(ROOT, 'vendor');
+        $wwwRoot = Filesystem::instance()->concatenate(WWW_ROOT, 'vendor');
 
         foreach (Configure::read('VENDOR_LINKS') as $origin => $target) {
-            $this->createLink($io, $root . $origin, $wwwRoot . $target);
+            $this->createLink($io, $root . DS . $origin, $wwwRoot . DS . $target);
         }
     }
 }
