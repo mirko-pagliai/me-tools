@@ -311,9 +311,8 @@ class HtmlHelper extends CakeHtmlHelper
             [$url, $title] = [$title, null];
         }
 
-        $url = $this->Url->build($url, $options);
-        if (!$title && $url && $url != '#') {
-            $title = $url;
+        if (!$title && $url !== '#') {
+            $title = $this->Url->build($url, $options);
         }
 
         $options = optionsParser($options, ['escape' => false, 'title' => $title]);
