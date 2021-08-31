@@ -153,6 +153,6 @@ class RequestDetectorsTest extends TestCase
 
         $this->Request = $this->Request->withEnv('REQUEST_URI', '/some_alias?key=value');
         $this->assertTrue($this->Request->is('url', '/some_alias'));
-        $this->assertTrue($this->Request->is('url', '/some_alias', false));
+        $this->assertFalse($this->Request->is('url', '/some_alias', false));
     }
 }
