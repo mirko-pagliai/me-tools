@@ -211,7 +211,10 @@ class HtmlHelper extends CakeHtmlHelper
      */
     public function iframe($url, array $options = []): string
     {
-        $url = $this->Url->build($url, $options);
+        if (is_array($url)) {
+            $url = $this->Url->build($url, $options);
+        }
+
         $options = optionsParser($options)->add('src', $url);
 
         if ($options->exists('ratio')) {
@@ -237,7 +240,9 @@ class HtmlHelper extends CakeHtmlHelper
      */
     public function image($path, array $options = []): string
     {
-        $path = is_string($path) ? $this->Url->image($path, $options) : $this->Url->build($path, $options);
+        if (is_array($path)) {
+            $path = $this->Url->build($path, $options);
+        }
 
         $options = optionsParser($options, ['alt' => pathinfo($path, PATHINFO_BASENAME)])
             ->append('class', 'img-fluid')
