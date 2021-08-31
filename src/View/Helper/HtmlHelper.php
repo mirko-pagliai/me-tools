@@ -214,7 +214,7 @@ class HtmlHelper extends CakeHtmlHelper
         if (is_array($url)) {
             $url = $this->Url->build($url, $options);
         }
-        
+
         $options = optionsParser($options)->add('src', $url);
 
         if ($options->exists('ratio')) {
@@ -241,7 +241,7 @@ class HtmlHelper extends CakeHtmlHelper
     public function image($path, array $options = []): string
     {
         if (is_array($path)) {
-            $path =  $this->Url->build($path, $options);
+            $path = $this->Url->build($path, $options);
         }
 
         $options = optionsParser($options, ['alt' => pathinfo($path, PATHINFO_BASENAME)])
