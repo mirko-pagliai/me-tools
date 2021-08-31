@@ -1,7 +1,9 @@
 # 2.x branch
 ## 2.20 branch
 ### 2.20.3
-* fixed a serious bug in URL generation for `HtmlHelper::link()` method.
+* fixed a serious bug in URL generation for `HtmlHelper::iframe()`,
+    `HtmlHelper::image()` and `HtmlHelper::link()` methods, introduced since
+    2.19.11 version.
 
 ### 2.20.2
 * `ComponentTestCase`, `ConsoleIntegrationTestTrait` and `HelperTestCase` create
