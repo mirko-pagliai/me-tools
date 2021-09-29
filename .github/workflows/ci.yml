@@ -109,7 +109,7 @@ jobs:
     name: Windows - PHP 7.4
 
     env:
-      EXTENSIONS: mbstring, intl, gd
+      EXTENSIONS: mbstring, intl, sqlite
       PHP_VERSION: '7.4'
 
     steps:
