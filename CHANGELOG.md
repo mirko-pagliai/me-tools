@@ -1,7 +1,8 @@
 # 2.x branch
 ## 2.20 branch
 ### 2.20.4
-* fixed for `phpunit` 9.5.10.
+* fixed for `phpunit` 9.5.10;
+* migration to github actions.
 
 ### 2.20.3
 * fixed a serious bug in URL generation for `HtmlHelper::iframe()`,
