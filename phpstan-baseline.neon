@@ -151,31 +151,6 @@ parameters:
 			path: tests/TestCase/Command/Install/SetPermissionsCommandTest.php
 
 		-
-			message: "#^Call to an undefined method Cake\\\\Http\\\\ServerRequest\\:\\:isAction\\(\\)\\.$#"
-			count: 11
-			path: tests/TestCase/Core/RequestDetectorsTest.php
-
-		-
-			message: "#^Call to an undefined method Cake\\\\Http\\\\ServerRequest\\:\\:isController\\(\\)\\.$#"
-			count: 4
-			path: tests/TestCase/Core/RequestDetectorsTest.php
-
-		-
-			message: "#^Call to an undefined method Cake\\\\Http\\\\ServerRequest\\:\\:isLocalhost\\(\\)\\.$#"
-			count: 2
-			path: tests/TestCase/Core/RequestDetectorsTest.php
-
-		-
-			message: "#^Call to an undefined method Cake\\\\Http\\\\ServerRequest\\:\\:isPrefix\\(\\)\\.$#"
-			count: 2
-			path: tests/TestCase/Core/RequestDetectorsTest.php
-
-		-
-			message: "#^Call to an undefined method Cake\\\\Http\\\\ServerRequest\\:\\:isUrl\\(\\)\\.$#"
-			count: 14
-			path: tests/TestCase/Core/RequestDetectorsTest.php
-
-		-
 			message: "#^Left side of && is always true\\.$#"
 			count: 1
 			path: tests/TestCase/TestSuite/ConsoleIntegrationTestTraitTest.php
