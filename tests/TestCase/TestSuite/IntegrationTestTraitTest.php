@@ -54,7 +54,7 @@ class IntegrationTestTraitTest extends TestCase
 
         /** @phpstan-ignore-next-line */
         $this->assertIsMock($this->_controller->Uploader);
-        $source = (new Filesystem())->createTmpFile();
+        $source = Filesystem::instance()->createTmpFile();
         $destination = TMP . 'example2';
         $this->assertFileDoesNotExist($destination);
         /** @phpstan-ignore-next-line */

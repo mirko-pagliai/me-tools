@@ -1,5 +1,9 @@
 # 2.x branch
 ## 2.20 branch
+### 2.20.5
+* `CreateDirectoriesCommand`, `CreateVendorsLinksCommand` and `SetPermissionsCommand`
+    now ignore duplicate values.
+
 ### 2.20.4
 * fixed for `phpunit` 9.5.10;
 * migration to github actions.
