@@ -1,5 +1,8 @@
 # 2.x branch
 ## 2.20 branch
+### 2.20.6
+* ready for `cakephp` 4.3.
+
 ### 2.20.5
 * `CreateDirectoriesCommand`, `CreateVendorsLinksCommand` and `SetPermissionsCommand`
     now ignore duplicate values.

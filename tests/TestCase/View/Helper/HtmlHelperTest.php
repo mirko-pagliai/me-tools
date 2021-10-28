@@ -311,7 +311,7 @@ class HtmlHelperTest extends HelperTestCase
         ];
         $this->assertHtml($expected, $this->Helper->iframe($url, ['class' => 'my-class', 'ratio' => '16by9']));
 
-        $this->loadPlugins(['TestPlugin']);
+        $this->loadPlugins(['TestPlugin' => []]);
         $this->assertSame('<iframe src="/pages"></iframe>', $this->Helper->iframe(['controller' => 'Pages', 'plugin' => 'TestPlugin']));
     }
 
@@ -344,7 +344,7 @@ class HtmlHelperTest extends HelperTestCase
         $expected = ['img' => ['src' => 'http://fullurl/image.gif', 'alt' => $image, 'class' => 'img-fluid']];
         $this->assertHtml($expected, $this->Helper->image('http://fullurl/image.gif'));
 
-        $this->loadPlugins(['TestPlugin']);
+        $this->loadPlugins(['TestPlugin' => []]);
         $this->assertNotEmpty($this->Helper->image(['controller' => 'Pages', 'plugin' => 'TestPlugin']));
     }
 
@@ -471,7 +471,7 @@ class HtmlHelperTest extends HelperTestCase
 
         $this->assertSame('<a href="/" title="/">/</a>', $this->Helper->link());
 
-        $this->loadPlugins(['TestPlugin']);
+        $this->loadPlugins(['TestPlugin' => []]);
         $this->assertSame('<a href="/pages" title="/pages">/pages</a>', $this->Helper->link(['controller' => 'Pages', 'plugin' => 'TestPlugin']));
     }
 
