@@ -36,7 +36,7 @@ class CreatePluginsLinksCommandTest extends TestCase
             @array_map($method, [WWW_ROOT . 'me_tools', WWW_ROOT . 'test_plugin']);
         };
 
-        $this->loadPlugins(['TestPlugin']);
+        $this->loadPlugins(['TestPlugin' => []]);
 
         $clear();
         $this->exec('me_tools.create_plugins_links -v');
