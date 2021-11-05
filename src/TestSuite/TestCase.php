@@ -127,7 +127,7 @@ abstract class TestCase extends CakeTestCase
      */
     protected function assertSqlEndsWith(string $suffix, string $sql, string $message = ''): void
     {
-        $this->assertStringEndsWith(str_replace('`', '', $suffix), str_replace('`', '', $sql), $sql, $message);
+        $this->assertStringEndsWith(str_replace('`', '', $suffix), str_replace('`', '', $sql), $message);
     }
 
     /**
