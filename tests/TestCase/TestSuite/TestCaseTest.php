@@ -27,40 +27,22 @@ class TestCaseTest extends TestCase
     use ReflectionTrait;
 
     /**
-     * Tests for `getLogFullPath()` method
+     * Tests for `assertLogContains()` method
      * @test
      */
-    public function testGetLogFullPath(): void
+    public function testAssertLogContains(): void
     {
-        $expected = LOGS . 'debug.log';
+        $string = 'cat dog bird';
+        $file = LOGS . 'debug.log';
+        Filesystem::instance()->createFile($file, $string);
 
-        foreach (['debug', 'debug.log', LOGS . 'debug', $expected] as $filename) {
-            $this->assertEquals($expected, $this->invokeMethod($this, 'getLogFullPath', [$filename]));
+        foreach (explode(' ', $string) as $word) {
+            $this->assertLogContains($word, $file);
         }
-    }
 
-    /**
-     * Tests for `getTable()` method
-     * @test
-     */
-    public function testGetTable(): void
-    {
-        /** @var \Cake\ORM\Table $Table */
-        $Table = $this->getTable('Articles');
-        $this->assertSame('Articles', $Table->getAlias());
-        $this->assertInstanceOf(Table::class, $Table);
-
-        //With a no-existing table
-        $this->assertNull($this->getTable('NoExistingTable', ['className' => '\Cake\ORM\NoExistingTable']));
-    }
-
-    /**
-     * Tests for `isMySql()` method
-     * @test
-     */
-    public function testIsMySql(): void
-    {
-        $this->assertFalse($this->isMySql());
+        //With a no existing log
+        $this->expectAssertionFailed('File or directory `' . $this->getLogFullPath('noExisting') . '` does not exist');
+        $this->assertLogContains('content', 'noExisting');
     }
 
     /**
@@ -92,25 +74,6 @@ class TestCaseTest extends TestCase
     }
 
     /**
-     * Tests for `assertLogContains()` method
-     * @test
-     */
-    public function testAssertLogContains(): void
-    {
-        $string = 'cat dog bird';
-        $file = LOGS . 'debug.log';
-        Filesystem::instance()->createFile($file, $string);
-
-        foreach (explode(' ', $string) as $word) {
-            $this->assertLogContains($word, $file);
-        }
-
-        //With a no existing log
-        $this->expectAssertionFailed('File or directory `' . $this->getLogFullPath('noExisting') . '` does not exist');
-        $this->assertLogContains('content', 'noExisting');
-    }
-
-    /**
      * Tests for `deleteLog()` method
      * @test
      */
@@ -121,5 +84,29 @@ class TestCaseTest extends TestCase
             $this->deleteLog($log);
             $this->assertFileDoesNotExist($log);
         }
+    }
+
+    /**
+     * Tests for `getTable()` method
+     * @test
+     */
+    public function testGetTable(): void
+    {
+        /** @var \Cake\ORM\Table $Table */
+        $Table = $this->getTable('Articles');
+        $this->assertSame('Articles', $Table->getAlias());
+        $this->assertInstanceOf(Table::class, $Table);
+
+        //With a no-existing table
+        $this->assertNull($this->getTable('NoExistingTable', ['className' => '\Cake\ORM\NoExistingTable']));
+    }
+
+    /**
+     * Tests for `isMySql()` method
+     * @test
+     */
+    public function testIsMySql(): void
+    {
+        $this->assertFalse($this->isMySql());
     }
 }

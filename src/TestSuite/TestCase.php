@@ -63,6 +63,64 @@ abstract class TestCase extends CakeTestCase
     }
 
     /**
+     * Asserts log file contents
+     * @param string $expectedContent The expected contents
+     * @param string $filename Log filename
+     * @param string $message The failure message that will be appended to the
+     *  generated message
+     * @return void
+     */
+    public function assertLogContains(string $expectedContent, string $filename, string $message = ''): void
+    {
+        try {
+            $filename = $this->getLogFullPath($filename);
+            $content = file_get_contents(Exceptionist::isReadable($filename)) ?: '';
+        } catch (Exception $e) {
+            $this->fail($e->getMessage());
+        }
+
+        $this->assertStringContainsString($expectedContent, $content, $message);
+    }
+
+    /**
+     * Asserts a sql query string ends not with `$suffix`
+     * @param string $suffix Suffix
+     * @param string $sql Sql query string
+     * @param string $message The failure message that will be appended to the
+     *  generated message
+     * @return void
+     * @since 2.20.7
+     */
+    protected function assertSqlEndsNotWith(string $suffix, string $sql, string $message = ''): void
+    {
+        $this->assertStringEndsNotWith($this->isMySql() ? $suffix : str_replace('`', '', $suffix), $sql, $message);
+    }
+
+    /**
+     * Asserts a sql query string ends with `$suffix`
+     * @param string $suffix Suffix
+     * @param string $sql Sql query string
+     * @param string $message The failure message that will be appended to the
+     *  generated message
+     * @return void
+     * @since 2.20.7
+     */
+    protected function assertSqlEndsWith(string $suffix, string $sql, string $message = ''): void
+    {
+        $this->assertStringEndsWith($this->isMySql() ? $suffix : str_replace('`', '', $suffix), $sql, $message);
+    }
+
+    /**
+     * Deletes a log file
+     * @param string $filename Log filename
+     * @return void
+     */
+    public function deleteLog(string $filename): void
+    {
+        unlink($this->getLogFullPath($filename));
+    }
+
+    /**
      * Internal method to get a log full path
      * @param string $filename Log filename
      * @return string
@@ -101,63 +159,5 @@ abstract class TestCase extends CakeTestCase
     protected function isMySql(): bool
     {
         return ConnectionManager::get('test')->config()['scheme'] == 'mysql';
-    }
-
-    /**
-     * Asserts a sql query string ends not with `$suffix`
-     * @param string $suffix Suffix
-     * @param string $sql Sql query string
-     * @param string $message The failure message that will be appended to the
-     *  generated message
-     * @return void
-     * @since 2.20.7
-     */
-    protected function assertSqlEndsNotWith(string $suffix, string $sql, string $message = ''): void
-    {
-        $this->assertStringEndsNotWith($this->isMySql() ? $suffix : str_replace('`', '', $suffix), $sql, $message);
-    }
-
-    /**
-     * Asserts a sql query string ends with `$suffix`
-     * @param string $suffix Suffix
-     * @param string $sql Sql query string
-     * @param string $message The failure message that will be appended to the
-     *  generated message
-     * @return void
-     * @since 2.20.7
-     */
-    protected function assertSqlEndsWith(string $suffix, string $sql, string $message = ''): void
-    {
-        $this->assertStringEndsWith($this->isMySql() ? $suffix : str_replace('`', '', $suffix), $sql, $message);
-    }
-
-    /**
-     * Asserts log file contents
-     * @param string $expectedContent The expected contents
-     * @param string $filename Log filename
-     * @param string $message The failure message that will be appended to the
-     *  generated message
-     * @return void
-     */
-    public function assertLogContains(string $expectedContent, string $filename, string $message = ''): void
-    {
-        try {
-            $filename = $this->getLogFullPath($filename);
-            $content = file_get_contents(Exceptionist::isReadable($filename)) ?: '';
-        } catch (Exception $e) {
-            $this->fail($e->getMessage());
-        }
-
-        $this->assertStringContainsString($expectedContent, $content, $message);
-    }
-
-    /**
-     * Deletes a log file
-     * @param string $filename Log filename
-     * @return void
-     */
-    public function deleteLog(string $filename): void
-    {
-        unlink($this->getLogFullPath($filename));
     }
 }
