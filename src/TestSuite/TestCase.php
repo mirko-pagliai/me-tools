@@ -113,7 +113,7 @@ abstract class TestCase extends CakeTestCase
      */
     protected function assertSqlEndsNotWith(string $suffix, string $sql, string $message = ''): void
     {
-        $this->assertStringEndsNotWith($this->isMySql() ? $suffix : str_replace('`', '', $suffix), $sql, $message);
+        $this->assertStringEndsNotWith(str_replace('`', '', $suffix), str_replace('`', '', $sql), $message);
     }
 
     /**
@@ -127,7 +127,7 @@ abstract class TestCase extends CakeTestCase
      */
     protected function assertSqlEndsWith(string $suffix, string $sql, string $message = ''): void
     {
-        $this->assertStringEndsWith($this->isMySql() ? $suffix : str_replace('`', '', $suffix), $sql, $message);
+        $this->assertStringEndsWith(str_replace('`', '', $suffix), str_replace('`', '', $sql), $message);
     }
 
     /**
