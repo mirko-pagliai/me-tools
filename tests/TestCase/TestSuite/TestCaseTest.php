@@ -55,6 +55,43 @@ class TestCaseTest extends TestCase
     }
 
     /**
+     * Tests for `isMySql()` method
+     * @test
+     */
+    public function testIsMySql(): void
+    {
+        $this->assertFalse($this->isMySql());
+    }
+
+    /**
+     * Tests for `assertSqlEndsNotWith()` method
+     * @test
+     */
+    public function testAssertSqlEndsNotWith(): void
+    {
+        $sql = 'SELECT Posts.id AS Posts__id FROM posts Posts';
+        $this->assertSqlEndsNotWith('FROM `posts` `Posts` ORDER BY rand() LIMIT 1', $sql);
+        $this->assertSqlEndsNotWith('FROM posts Posts ORDER BY rand() LIMIT 1', $sql);
+
+        $this->expectAssertionFailed();
+        $this->assertSqlEndsNotWith('FROM `posts` `Posts`', $sql);
+    }
+
+    /**
+     * Tests for `assertSqlEndsWith()` method
+     * @test
+     */
+    public function testAssertSqlEndsWith(): void
+    {
+        $sql = 'SELECT Posts.id AS Posts__id FROM posts Posts ORDER BY rand() LIMIT 1';
+        $this->assertSqlEndsWith('FROM `posts` `Posts` ORDER BY rand() LIMIT 1', $sql);
+        $this->assertSqlEndsWith('FROM posts Posts ORDER BY rand() LIMIT 1', $sql);
+
+        $this->expectAssertionFailed();
+        $this->assertSqlEndsWith('FROM `posts` `Posts`', $sql);
+    }
+
+    /**
      * Tests for `assertLogContains()` method
      * @test
      */

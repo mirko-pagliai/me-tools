@@ -1,5 +1,9 @@
 # 2.x branch
 ## 2.20 branch
+### 2.20.7
+* added `isMySql()`, `assertSqlEndsNotWith()` and `assertSqlEndsWith()` methods
+    for `TestCase` class.
+
 ### 2.20.6
 * ready for `cakephp` 4.3.
 

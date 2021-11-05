@@ -16,6 +16,7 @@ declare(strict_types=1);
 namespace MeTools\TestSuite;
 
 use Cake\Core\Configure;
+use Cake\Datasource\ConnectionManager;
 use Cake\ORM\Table;
 use Cake\ORM\TableRegistry;
 use Cake\TestSuite\TestCase as CakeTestCase;
@@ -90,6 +91,44 @@ abstract class TestCase extends CakeTestCase
         TableRegistry::getTableLocator()->clear();
 
         return TableRegistry::getTableLocator()->get($alias, $options);
+    }
+
+    /**
+     * Checks if the current `test` scheme is `mysql`
+     * @return bool
+     * @since 2.20.7
+     */
+    protected function isMySql(): bool
+    {
+        return ConnectionManager::get('test')->config()['scheme'] == 'mysql';
+    }
+
+    /**
+     * Asserts a sql query string ends not with `$suffix`
+     * @param string $suffix Suffix
+     * @param string $sql Sql query string
+     * @param string $message The failure message that will be appended to the
+     *  generated message
+     * @return void
+     * @since 2.20.7
+     */
+    protected function assertSqlEndsNotWith(string $suffix, string $sql, string $message = ''): void
+    {
+        $this->assertStringEndsNotWith($this->isMySql() ? $suffix : str_replace('`', '', $suffix), $sql, $message);
+    }
+
+    /**
+     * Asserts a sql query string ends with `$suffix`
+     * @param string $suffix Suffix
+     * @param string $sql Sql query string
+     * @param string $message The failure message that will be appended to the
+     *  generated message
+     * @return void
+     * @since 2.20.7
+     */
+    protected function assertSqlEndsWith(string $suffix, string $sql, string $message = ''): void
+    {
+        $this->assertStringEndsWith($this->isMySql() ? $suffix : str_replace('`', '', $suffix), $sql, $message);
     }
 
     /**
