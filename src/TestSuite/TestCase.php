@@ -30,6 +30,9 @@ use Tools\TestSuite\TestTrait;
 
 /**
  * TestCase class
+ * @method bool isMySql() Returns `true` if the current db scheme is `mysql`
+ * @method bool isPostgres() Returns `true` if the current db scheme is `postgres`
+ * @method bool isSqlite() Returns `true` if the current db scheme is `sqlite`
  */
 abstract class TestCase extends CakeTestCase
 {
@@ -37,6 +40,23 @@ abstract class TestCase extends CakeTestCase
     use MockTrait;
     use ReflectionTrait;
     use TestTrait;
+
+    /**
+     * Magic method to provide `isMySql()`, `isPostgres()` and `isSqlite()` methods.
+     * @param string $name Name of the method being called
+     * @param array $arguments Array containing the parameters passed to the method
+     * @return mixed
+     * @since 2.20.7
+     */
+    public function __call(string $name, array $arguments)
+    {
+        $driver = strtolower(array_value_last(explode('is', $name)));
+        if (in_array($driver, ['mysql', 'postgres', 'sqlite'])) {
+            return ConnectionManager::get('test')->config()['scheme'] == $driver;
+        }
+
+        trigger_error(sprintf('Method `%s::%s()` does not exist', get_class($this), $name));
+    }
 
     /**
      * Called before every test method
@@ -149,15 +169,5 @@ abstract class TestCase extends CakeTestCase
         TableRegistry::getTableLocator()->clear();
 
         return TableRegistry::getTableLocator()->get($alias, $options);
-    }
-
-    /**
-     * Checks if the current `test` scheme is `mysql`
-     * @return bool
-     * @since 2.20.7
-     */
-    protected function isMySql(): bool
-    {
-        return ConnectionManager::get('test')->config()['scheme'] == 'mysql';
     }
 }
