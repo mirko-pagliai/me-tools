@@ -27,31 +27,18 @@ class TestCaseTest extends TestCase
     use ReflectionTrait;
 
     /**
-     * Tests for `getLogFullPath()` method
+     * Tests for `__call()` magic method
      * @test
      */
-    public function testGetLogFullPath(): void
+    public function testCallMagicMethod(): void
     {
-        $expected = LOGS . 'debug.log';
+        $this->assertFalse($this->isPostgres());
+        $this->assertFalse($this->isMySql());
+        $this->assertTrue($this->isSqlite());
 
-        foreach (['debug', 'debug.log', LOGS . 'debug', $expected] as $filename) {
-            $this->assertEquals($expected, $this->invokeMethod($this, 'getLogFullPath', [$filename]));
-        }
-    }
-
-    /**
-     * Tests for `getTable()` method
-     * @test
-     */
-    public function testGetTable(): void
-    {
-        /** @var \Cake\ORM\Table $Table */
-        $Table = $this->getTable('Articles');
-        $this->assertSame('Articles', $Table->getAlias());
-        $this->assertInstanceOf(Table::class, $Table);
-
-        //With a no-existing table
-        $this->assertNull($this->getTable('NoExistingTable', ['className' => '\Cake\ORM\NoExistingTable']));
+        $this->expectError();
+        $this->expectErrorMessage('Method `MeTools\Test\TestCase\TestSuite\TestCaseTest::noExistingMethod()` does not exist');
+        $this->noExistingMethod();
     }
 
     /**
@@ -74,6 +61,34 @@ class TestCaseTest extends TestCase
     }
 
     /**
+     * Tests for `assertSqlEndsNotWith()` method
+     * @test
+     */
+    public function testAssertSqlEndsNotWith(): void
+    {
+        $sql = 'SELECT Posts.id AS Posts__id FROM posts Posts';
+        $this->assertSqlEndsNotWith('FROM `posts` `Posts` ORDER BY rand() LIMIT 1', $sql);
+        $this->assertSqlEndsNotWith('FROM posts Posts ORDER BY rand() LIMIT 1', $sql);
+
+        $this->expectAssertionFailed();
+        $this->assertSqlEndsNotWith('FROM `posts` `Posts`', $sql);
+    }
+
+    /**
+     * Tests for `assertSqlEndsWith()` method
+     * @test
+     */
+    public function testAssertSqlEndsWith(): void
+    {
+        $sql = 'SELECT Posts.id AS Posts__id FROM posts Posts ORDER BY rand() LIMIT 1';
+        $this->assertSqlEndsWith('FROM `posts` `Posts` ORDER BY rand() LIMIT 1', $sql);
+        $this->assertSqlEndsWith('FROM posts Posts ORDER BY rand() LIMIT 1', $sql);
+
+        $this->expectAssertionFailed();
+        $this->assertSqlEndsWith('FROM `posts` `Posts`', $sql);
+    }
+
+    /**
      * Tests for `deleteLog()` method
      * @test
      */
@@ -84,5 +99,20 @@ class TestCaseTest extends TestCase
             $this->deleteLog($log);
             $this->assertFileDoesNotExist($log);
         }
+    }
+
+    /**
+     * Tests for `getTable()` method
+     * @test
+     */
+    public function testGetTable(): void
+    {
+        /** @var \Cake\ORM\Table $Table */
+        $Table = $this->getTable('Articles');
+        $this->assertSame('Articles', $Table->getAlias());
+        $this->assertInstanceOf(Table::class, $Table);
+
+        //With a no-existing table
+        $this->assertNull($this->getTable('NoExistingTable', ['className' => '\Cake\ORM\NoExistingTable']));
     }
 }

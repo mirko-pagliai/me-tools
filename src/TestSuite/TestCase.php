@@ -16,6 +16,7 @@ declare(strict_types=1);
 namespace MeTools\TestSuite;
 
 use Cake\Core\Configure;
+use Cake\Datasource\ConnectionManager;
 use Cake\ORM\Table;
 use Cake\ORM\TableRegistry;
 use Cake\TestSuite\TestCase as CakeTestCase;
@@ -29,6 +30,9 @@ use Tools\TestSuite\TestTrait;
 
 /**
  * TestCase class
+ * @method bool isMySql() Returns `true` if the current db scheme is `mysql`
+ * @method bool isPostgres() Returns `true` if the current db scheme is `postgres`
+ * @method bool isSqlite() Returns `true` if the current db scheme is `sqlite`
  */
 abstract class TestCase extends CakeTestCase
 {
@@ -36,6 +40,23 @@ abstract class TestCase extends CakeTestCase
     use MockTrait;
     use ReflectionTrait;
     use TestTrait;
+
+    /**
+     * Magic method to provide `isMySql()`, `isPostgres()` and `isSqlite()` methods.
+     * @param string $name Name of the method being called
+     * @param array $arguments Array containing the parameters passed to the method
+     * @return mixed
+     * @since 2.20.7
+     */
+    public function __call(string $name, array $arguments)
+    {
+        $driver = strtolower(array_value_last(explode('is', $name)));
+        if (in_array($driver, ['mysql', 'postgres', 'sqlite'])) {
+            return ConnectionManager::get('test')->config()['scheme'] == $driver;
+        }
+
+        trigger_error(sprintf('Method `%s::%s()` does not exist', get_class($this), $name));
+    }
 
     /**
      * Called before every test method
@@ -59,6 +80,64 @@ abstract class TestCase extends CakeTestCase
         if (LOGS !== TMP) {
             Filesystem::instance()->unlinkRecursive(LOGS, ['.gitkeep', 'empty'], true);
         }
+    }
+
+    /**
+     * Asserts log file contents
+     * @param string $expectedContent The expected contents
+     * @param string $filename Log filename
+     * @param string $message The failure message that will be appended to the
+     *  generated message
+     * @return void
+     */
+    public function assertLogContains(string $expectedContent, string $filename, string $message = ''): void
+    {
+        try {
+            $filename = $this->getLogFullPath($filename);
+            $content = file_get_contents(Exceptionist::isReadable($filename)) ?: '';
+        } catch (Exception $e) {
+            $this->fail($e->getMessage());
+        }
+
+        $this->assertStringContainsString($expectedContent, $content, $message);
+    }
+
+    /**
+     * Asserts a sql query string ends not with `$suffix`
+     * @param string $suffix Suffix
+     * @param string $sql Sql query string
+     * @param string $message The failure message that will be appended to the
+     *  generated message
+     * @return void
+     * @since 2.20.7
+     */
+    protected function assertSqlEndsNotWith(string $suffix, string $sql, string $message = ''): void
+    {
+        $this->assertStringEndsNotWith($this->isMySql() ? $suffix : str_replace('`', '', $suffix), $sql, $message);
+    }
+
+    /**
+     * Asserts a sql query string ends with `$suffix`
+     * @param string $suffix Suffix
+     * @param string $sql Sql query string
+     * @param string $message The failure message that will be appended to the
+     *  generated message
+     * @return void
+     * @since 2.20.7
+     */
+    protected function assertSqlEndsWith(string $suffix, string $sql, string $message = ''): void
+    {
+        $this->assertStringEndsWith($this->isMySql() ? $suffix : str_replace('`', '', $suffix), $sql, $message);
+    }
+
+    /**
+     * Deletes a log file
+     * @param string $filename Log filename
+     * @return void
+     */
+    public function deleteLog(string $filename): void
+    {
+        unlink($this->getLogFullPath($filename));
     }
 
     /**
@@ -90,35 +169,5 @@ abstract class TestCase extends CakeTestCase
         TableRegistry::getTableLocator()->clear();
 
         return TableRegistry::getTableLocator()->get($alias, $options);
-    }
-
-    /**
-     * Asserts log file contents
-     * @param string $expectedContent The expected contents
-     * @param string $filename Log filename
-     * @param string $message The failure message that will be appended to the
-     *  generated message
-     * @return void
-     */
-    public function assertLogContains(string $expectedContent, string $filename, string $message = ''): void
-    {
-        try {
-            $filename = $this->getLogFullPath($filename);
-            $content = file_get_contents(Exceptionist::isReadable($filename)) ?: '';
-        } catch (Exception $e) {
-            $this->fail($e->getMessage());
-        }
-
-        $this->assertStringContainsString($expectedContent, $content, $message);
-    }
-
-    /**
-     * Deletes a log file
-     * @param string $filename Log filename
-     * @return void
-     */
-    public function deleteLog(string $filename): void
-    {
-        unlink($this->getLogFullPath($filename));
     }
 }

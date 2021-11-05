@@ -24,6 +24,7 @@ use MeTools\Controller\Component\UploaderComponent;
 
 /**
  * A trait intended to make integration tests of your controllers easier
+ * @method string _getBodyAsString() Get the response body as string
  * @method void disableErrorHandlerMiddleware() Disable the error handler middleware
  * @property \Cake\Controller\Controller $_controller
  * @property \Cake\Http\Response $_response
