@@ -27,21 +27,6 @@ class TestCaseTest extends TestCase
     use ReflectionTrait;
 
     /**
-     * Tests for `__call()` magic method
-     * @test
-     */
-    public function testCallMagicMethod(): void
-    {
-        $this->assertFalse($this->isPostgres());
-        $this->assertFalse($this->isMySql());
-        $this->assertTrue($this->isSqlite());
-
-        $this->expectError();
-        $this->expectErrorMessage('Method `MeTools\Test\TestCase\TestSuite\TestCaseTest::noExistingMethod()` does not exist');
-        $this->noExistingMethod();
-    }
-
-    /**
      * Tests for `assertLogContains()` method
      * @test
      */

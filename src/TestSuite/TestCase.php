@@ -16,7 +16,6 @@ declare(strict_types=1);
 namespace MeTools\TestSuite;
 
 use Cake\Core\Configure;
-use Cake\Datasource\ConnectionManager;
 use Cake\ORM\Table;
 use Cake\ORM\TableRegistry;
 use Cake\TestSuite\TestCase as CakeTestCase;
@@ -30,9 +29,6 @@ use Tools\TestSuite\TestTrait;
 
 /**
  * TestCase class
- * @method bool isMySql() Returns `true` if the current db scheme is `mysql`
- * @method bool isPostgres() Returns `true` if the current db scheme is `postgres`
- * @method bool isSqlite() Returns `true` if the current db scheme is `sqlite`
  */
 abstract class TestCase extends CakeTestCase
 {
@@ -40,23 +36,6 @@ abstract class TestCase extends CakeTestCase
     use MockTrait;
     use ReflectionTrait;
     use TestTrait;
-
-    /**
-     * Magic method to provide `isMySql()`, `isPostgres()` and `isSqlite()` methods.
-     * @param string $name Name of the method being called
-     * @param array $arguments Array containing the parameters passed to the method
-     * @return mixed
-     * @since 2.20.7
-     */
-    public function __call(string $name, array $arguments)
-    {
-        $driver = strtolower(array_value_last(explode('is', $name)));
-        if (in_array($driver, ['mysql', 'postgres', 'sqlite'])) {
-            return ConnectionManager::get('test')->config()['scheme'] == $driver;
-        }
-
-        trigger_error(sprintf('Method `%s::%s()` does not exist', get_class($this), $name));
-    }
 
     /**
      * Called before every test method
