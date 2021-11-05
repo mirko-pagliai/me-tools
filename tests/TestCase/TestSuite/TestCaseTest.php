@@ -84,6 +84,10 @@ class TestCaseTest extends TestCase
         $this->assertSqlEndsWith('FROM `posts` `Posts` ORDER BY rand() LIMIT 1', $sql);
         $this->assertSqlEndsWith('FROM posts Posts ORDER BY rand() LIMIT 1', $sql);
 
+        $sql = 'SELECT `Posts`.`id` AS `Posts__id` FROM `posts` `Posts` ORDER BY rand() LIMIT 1';
+        $this->assertSqlEndsWith('FROM `posts` `Posts` ORDER BY rand() LIMIT 1', $sql);
+        $this->assertSqlEndsWith('FROM posts Posts ORDER BY rand() LIMIT 1', $sql);
+
         $this->expectAssertionFailed();
         $this->assertSqlEndsWith('FROM `posts` `Posts`', $sql);
     }
