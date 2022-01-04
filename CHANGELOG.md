@@ -1,5 +1,8 @@
 # 2.x branch
 ## 2.20 branch
+### 2.20.8
+* removed useless method `IntegrationTestTrait::assertFlashMessage()`.
+
 ### 2.20.7
 * added `TestCase::assertSqlEndsNotWith()` and `TestCase::assertSqlEndsWith()` methods.
 

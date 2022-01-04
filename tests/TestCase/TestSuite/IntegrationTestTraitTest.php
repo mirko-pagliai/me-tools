@@ -83,24 +83,6 @@ class IntegrationTestTraitTest extends TestCase
     }
 
     /**
-     * Test for `assertFlashMessage()` method
-     * @test
-     */
-    public function testAssertFlashMessage(): void
-    {
-        $messages = ['first flash', 'second flash'];
-        $this->_requestSession = new Session();
-
-        foreach ($messages as $key => $expectedMessage) {
-            $this->_requestSession->write('Flash.flash.' . $key . '.message', $expectedMessage);
-            $this->assertFlashMessage($expectedMessage, (int)$key);
-        }
-
-        //Call without key
-        $this->assertFlashMessage($messages[0]);
-    }
-
-    /**
      * Test for `assertResponseOkAndNotEmpty()` method
      * @test
      */
