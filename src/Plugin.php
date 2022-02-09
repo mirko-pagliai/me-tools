@@ -46,7 +46,6 @@ class Plugin extends BasePlugin
         if (class_exists(Assets::class) && !$app->getPlugins()->has('Assets')) {
             $plugin = new Assets();
             $plugin->bootstrap($app);
-            $plugin->disable('bootstrap');
             $app->addPlugin($plugin);
         }
     }

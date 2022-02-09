@@ -74,19 +74,6 @@ trait IntegrationTestTrait
     }
 
     /**
-     * Asserts flash message contents
-     * @param string $expected The expected contents
-     * @param int $key Flash message key
-     * @param string $message The failure message that will be appended to the
-     *  generated message
-     * @return void
-     */
-    public function assertFlashMessage(string $expected, int $key = 0, string $message = ''): void
-    {
-        $this->assertSession($expected, sprintf('Flash.flash.%d.message', $key), $message);
-    }
-
-    /**
      * Asserts that the response status code is in the 2xx range and the
      *  response content is not empty.
      * @param string $message The failure message that will be appended to the
@@ -109,6 +96,9 @@ trait IntegrationTestTrait
     public function assertSessionEmpty(string $path, string $message = ''): void
     {
         $verboseMessage = $this->extractVerboseMessage($message);
+        /**
+         * @todo to be removed when a CakePHP version greater than `4.1` is required
+         */
         /** @phpstan-ignore-next-line */
         $sessionEquals = version_compare(Configure::version(), '4.1', '>=') ? new SessionEquals($path) : new SessionEquals($this->_requestSession, $path);
         $this->assertThat(null, $sessionEquals, $verboseMessage);
