@@ -53,7 +53,7 @@ trait ConsoleIntegrationTestTrait
             $this->Command->initialize();
         }
 
-        if (string_ends_with($className ?? $this->getOriginClassName($this), 'Command')) {
+        if (str_ends_with($className ?? $this->getOriginClassName($this), 'Command')) {
             $this->useCommandRunner();
         }
     }

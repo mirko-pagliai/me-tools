@@ -159,7 +159,7 @@ class FormHelper extends CakeFormHelper
         $options = optionsParser($options);
 
         //If the name contains the "password" word, then the type is `password`
-        if (string_contains($fieldName, 'password')) {
+        if (str_contains($fieldName, 'password')) {
             $options->Default->add(['type' => 'password']);
         }
 
