@@ -24,7 +24,6 @@ use MeTools\TestSuite\MockTrait;
 use Tools\Exceptionist;
 use Tools\Filesystem;
 use Tools\ReflectionTrait;
-use Tools\TestSuite\BackwardCompatibilityTrait;
 use Tools\TestSuite\TestTrait;
 
 /**
@@ -32,7 +31,6 @@ use Tools\TestSuite\TestTrait;
  */
 abstract class TestCase extends CakeTestCase
 {
-    use BackwardCompatibilityTrait;
     use MockTrait;
     use ReflectionTrait;
     use TestTrait;
