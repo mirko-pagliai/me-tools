@@ -1,7 +1,8 @@
 # 2.x branch
 ## 2.20 branch
 ### 2.20.9
-* added tests for PHP 8.1.
+* added tests for PHP 8.1;
+* little fixes.
 
 ### 2.20.8
 * removed useless method `IntegrationTestTrait::assertFlashMessage()`.
