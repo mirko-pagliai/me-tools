@@ -130,7 +130,7 @@ class OptionsParser
 
         $classes = collection($classes)
             ->map(function (string $class): string {
-                return string_starts_with($class, 'btn-') ? $class : 'btn-' . $class;
+                return str_starts_with($class, 'btn-') ? $class : 'btn-' . $class;
             })
             ->filter(function (string $class) use ($allClasses): bool {
                 return preg_match('/^btn\-(' . implode('|', $allClasses) . ')$/', $class) !== 0;
