@@ -113,12 +113,8 @@ class OptionsParser
      */
     public function addButtonClasses(string ...$classes)
     {
-        $baseClasses = ['primary', 'secondary', 'success', 'danger', 'warning',
-            'info', 'light', 'dark', 'link'];
-        $allClasses = array_merge($baseClasses, ['outline-primary',
-            'outline-secondary', 'outline-success', 'outline-danger',
-            'outline-warning', 'outline-info', 'outline-light', 'outline-dark',
-            'lg', 'sm', 'block']);
+        $baseClasses = ['primary', 'secondary', 'success', 'danger', 'warning', 'info', 'light', 'dark', 'link'];
+        $allClasses = [...$baseClasses, 'outline-primary', 'outline-secondary', 'outline-success', 'outline-danger', 'outline-warning', 'outline-info', 'outline-light', 'outline-dark', 'lg', 'sm', 'block'];
 
         //If a base class already exists, it just appends the `btn` class
         $existing = $this->get('class');
@@ -136,7 +132,7 @@ class OptionsParser
                 return preg_match('/^btn\-(' . implode('|', $allClasses) . ')$/', $class) !== 0;
             });
 
-        return $this->append('class', array_merge(['btn'], $classes->toList()));
+        return $this->append('class', ['btn', ...$classes->toList()]);
     }
 
     /**
@@ -172,7 +168,7 @@ class OptionsParser
         if (is_string($existing) && is_string($value)) {
             $value = $existing . ' ' . trim($value);
         } elseif (!is_null($existing)) {
-            $value = array_merge((array)$existing, (array)$value);
+            $value = [...(array)$existing, ...(array)$value];
         }
 
         $this->add($key, $value);
@@ -272,7 +268,7 @@ class OptionsParser
     {
         $options = $this->options;
         if ($this->Default) {
-            $options = array_merge($this->Default->options, $options);
+            $options = $options + $this->Default->options;
         }
 
         ksort($options);

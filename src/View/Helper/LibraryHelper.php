@@ -178,7 +178,7 @@ class LibraryHelper extends Helper
             $init = 'ckeditor_init';
         }
 
-        $this->Html->script(array_merge($scripts, [$init]), ['block' => 'script_bottom']);
+        $this->Html->script([...$scripts, $init], ['block' => 'script_bottom']);
     }
 
     /**
