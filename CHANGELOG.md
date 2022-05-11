@@ -1,4 +1,8 @@
 # 2.x branch
+## 2.21 branch
+### 2.21.0
+* requires at least PHP 7.4.
+
 ## 2.20 branch
 ### 2.20.9
 * added tests for PHP 8.1;
