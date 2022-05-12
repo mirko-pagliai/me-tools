@@ -28,7 +28,7 @@ class FixComposerJsonCommandTest extends TestCase
     /**
      * @var string
      */
-    protected $command = 'me_tools.fix_composer_json -v';
+    protected string $command = 'me_tools.fix_composer_json -v';
 
     /**
      * Tests for `execute()` method

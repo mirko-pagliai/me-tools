@@ -26,19 +26,19 @@ class OptionsParser
      * Instance of `OptionsParser` for default values
      * @var \MeTools\View\OptionsParser
      */
-    public $Default;
+    public OptionsParser $Default;
 
     /**
      * Existing options
      * @var array
      */
-    protected $options = [];
+    protected array $options = [];
 
     /**
      * Keys of options to be exploded
      * @var array<string>
      */
-    protected $toBeExploded = ['class', 'data-toggle'];
+    protected array $toBeExploded = ['class', 'data-toggle'];
 
     /**
      * Constructor
@@ -125,12 +125,8 @@ class OptionsParser
         $classes = preg_split('/\s+/', $classes ? implode(' ', $classes) : 'btn-light', -1, PREG_SPLIT_NO_EMPTY) ?: [];
 
         $classes = collection($classes)
-            ->map(function (string $class): string {
-                return str_starts_with($class, 'btn-') ? $class : 'btn-' . $class;
-            })
-            ->filter(function (string $class) use ($allClasses): bool {
-                return preg_match('/^btn\-(' . implode('|', $allClasses) . ')$/', $class) !== 0;
-            });
+            ->map(fn(string $class): string => str_starts_with($class, 'btn-') ? $class : 'btn-' . $class)
+            ->filter(fn(string $class): bool => preg_match('/^btn\-(' . implode('|', $allClasses) . ')$/', $class) !== 0);
 
         return $this->append('class', ['btn', ...$classes->toList()]);
     }
@@ -255,7 +251,7 @@ class OptionsParser
      */
     public function get(string $key)
     {
-        $default = $this->Default ? $this->Default->get($key) : null;
+        $default = !empty($this->Default) ? $this->Default->get($key) : null;
 
         return Hash::get($this->options, $key, $default);
     }
@@ -267,7 +263,7 @@ class OptionsParser
     public function toArray(): array
     {
         $options = $this->options;
-        if ($this->Default) {
+        if (!empty($this->Default)) {
             $options = $options + $this->Default->options;
         }
 

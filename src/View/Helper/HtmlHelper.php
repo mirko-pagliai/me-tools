@@ -26,7 +26,7 @@ class HtmlHelper extends CakeHtmlHelper
     /**
      * @var array
      */
-    protected $_cssBlockOptions;
+    protected array $_cssBlockOptions;
 
     /**
      * Helpers
@@ -295,9 +295,7 @@ class HtmlHelper extends CakeHtmlHelper
      */
     public function li($element, array $options = []): string
     {
-        return implode(PHP_EOL, array_map(function (string $element) use ($options): string {
-            return $this->tag('li', $element, $options);
-        }, (array)$element));
+        return implode(PHP_EOL, array_map(fn(string $element): string => $this->tag('li', $element, $options), (array)$element));
     }
 
     /**
@@ -363,9 +361,7 @@ class HtmlHelper extends CakeHtmlHelper
             $options->append('class', 'fa-ul');
             $itemOptions->append('icon', 'li');
 
-            $list = array_map(function (string $element) use ($itemOptions): string {
-                return array_value_first($this->Icon->addIconToText($element, clone $itemOptions));
-            }, $list);
+            $list = array_map(fn(string $element): string => array_value_first($this->Icon->addIconToText($element, clone $itemOptions)), $list);
         }
         $options->delete('icon', 'icon-align');
         $itemOptions->delete('icon', 'icon-align');

@@ -20,18 +20,15 @@ use Cake\Http\ServerRequest;
 use Cake\View\View;
 use MeTools\TestSuite\HelperTestCase;
 use MeTools\View\Helper\HtmlHelper;
+use MeTools\View\Helper\LibraryHelper;
 use Tools\Filesystem;
 
 /**
  * LibraryHelperTest class
+ * @property \MeTools\View\Helper\LibraryHelper $Helper
  */
 class LibraryHelperTest extends HelperTestCase
 {
-    /**
-     * @var \MeTools\View\Helper\LibraryHelper
-     */
-    protected $Helper;
-
     protected const EXPECTED_DATEPICKER_ICONS = [
         'time' => 'fas fa-clock',
         'date' => 'fas fa-calendar',
@@ -45,6 +42,17 @@ class LibraryHelperTest extends HelperTestCase
     ];
 
     /**
+     * Called before every test method
+     * @return void
+     */
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        Filesystem::instance()->createFile(WWW_ROOT . 'ckeditor' . DS . 'ckeditor.js');
+    }
+
+    /**
      * Called after every test method
      * @return void
      */
@@ -52,14 +60,7 @@ class LibraryHelperTest extends HelperTestCase
     {
         parent::tearDown();
 
-        @array_map('unlink', [
-            WWW_ROOT . 'ckeditor' . DS . 'adapters' . DS . 'jquery.js',
-            WWW_ROOT . 'ckeditor' . DS . 'ckeditor.js',
-            WWW_ROOT . 'js' . DS . 'ckeditor_init.js',
-            WWW_ROOT . 'js' . DS . 'ckeditor_init.php',
-            WWW_ROOT . 'js' . DS . 'fancybox_init.js',
-            WWW_ROOT . 'vendor' . DS . 'fancybox',
-        ]);
+        array_map(fn($dir) => Filesystem::instance()->unlinkRecursive(WWW_ROOT . $dir, '.gitkeep'), ['ckeditor', 'js', 'vendor']);
     }
 
     /**
@@ -119,19 +120,16 @@ class LibraryHelperTest extends HelperTestCase
      */
     public function testAnalyticsOnLocalhost(): void
     {
-        $request = $this->getMockBuilder(ServerRequest::class)
-            ->setMethods(['is'])
-            ->getMock();
-
+        $request = $this->createMock(ServerRequest::class);
         $request->expects($this->any())->method('is')->willReturn(true);
 
-        $helper = $this->getMockBuilder(get_class($this->Helper))
+        $Helper = $this->getMockBuilder(LibraryHelper::class)
             ->setMethods(null)
             ->setConstructorArgs([new View($request)])
             ->getMock();
 
-        $helper->analytics('my-id');
-        $this->assertEmpty($helper->getView()->fetch('script_bottom'));
+        $Helper->analytics('my-id');
+        $this->assertEmpty($Helper->getView()->fetch('script_bottom'));
     }
 
     /**
@@ -140,8 +138,6 @@ class LibraryHelperTest extends HelperTestCase
      */
     public function testCkeditor(): void
     {
-        Filesystem::instance()->createFile(WWW_ROOT . 'ckeditor' . DS . 'ckeditor.js');
-
         $expected = [
             ['script' => ['src' => '/ckeditor/ckeditor.js']],
             '/script',
@@ -150,25 +146,10 @@ class LibraryHelperTest extends HelperTestCase
         ];
         $this->Helper->ckeditor();
         $this->assertHtml($expected, $this->Helper->getView()->fetch('script_bottom'));
-    }
 
-    /**
-     * Tests for `ckeditor()` method, with the jQuery adapter
-     * @test
-     */
-    public function testCkeditorWithJqueryAdapter(): void
-    {
-        Filesystem::instance()->createFile(WWW_ROOT . 'ckeditor' . DS . 'ckeditor.js');
+        //With the jQuery adapter
         Filesystem::instance()->createFile(WWW_ROOT . 'ckeditor' . DS . 'adapters' . DS . 'jquery.js');
-
-        $expected = [
-            ['script' => ['src' => '/ckeditor/ckeditor.js']],
-            '/script',
-            ['script' => ['src' => '/ckeditor/adapters/jquery.js']],
-            '/script',
-            ['script' => ['src' => '/me_tools/js/ckeditor_init.php?type=js']],
-            '/script',
-        ];
+        $expected = [...$expected, ['script' => ['src' => '/ckeditor/adapters/jquery.js']], '/script'];
         $this->Helper->ckeditor(true);
         $this->assertHtml($expected, $this->Helper->getView()->fetch('script_bottom'));
     }
@@ -179,7 +160,6 @@ class LibraryHelperTest extends HelperTestCase
      */
     public function testCkeditorWithJsFromApp(): void
     {
-        Filesystem::instance()->createFile(WWW_ROOT . 'ckeditor' . DS . 'ckeditor.js');
         Filesystem::instance()->createFile(WWW_ROOT . 'js' . DS . 'ckeditor_init.js');
 
         $expected = [
@@ -198,7 +178,6 @@ class LibraryHelperTest extends HelperTestCase
      */
     public function testCkeditorWithPhpFromApp(): void
     {
-        Filesystem::instance()->createFile(WWW_ROOT . 'ckeditor' . DS . 'ckeditor.js');
         Filesystem::instance()->createFile(WWW_ROOT . 'js' . DS . 'ckeditor_init.php');
 
         $expected = [

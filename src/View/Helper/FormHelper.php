@@ -41,7 +41,7 @@ class FormHelper extends CakeFormHelper
      * It's changed by `createInline()` method.
      * @var bool
      */
-    protected $inline = false;
+    protected bool $inline = false;
 
     /**
      * Construct the widgets and binds the default context providers.
@@ -81,11 +81,10 @@ class FormHelper extends CakeFormHelper
      */
     protected function __datetimepickerOptions(array $options, string $class, string $dateFormat): OptionsParser
     {
-        return optionsParser($options, ['data-date-format' => $dateFormat, 'type' => 'text'])
-            ->append('templates', [
-                'input' => '<input type="{{type}}" name="{{name}}" class="form-control ' . $class . '"{{attrs}}/>',
-                'inputError' => '<input type="{{type}}" name="{{name}}" class="form-control ' . $class . ' is-invalid"{{attrs}}/>',
-            ]);
+        return optionsParser($options, ['data-date-format' => $dateFormat, 'type' => 'text'])->append('templates', [
+            'input' => '<input type="{{type}}" name="{{name}}" class="form-control ' . $class . '"{{attrs}}/>',
+            'inputError' => '<input type="{{type}}" name="{{name}}" class="form-control ' . $class . ' is-invalid"{{attrs}}/>',
+        ]);
     }
 
     /**
@@ -138,10 +137,9 @@ class FormHelper extends CakeFormHelper
      */
     public function ckeditor(string $fieldName, array $options = []): string
     {
-        $options = optionsParser($options, ['label' => false, 'type' => 'textarea'])
-            ->append('templates', [
-                'textarea' => '<textarea name="{{name}}" class="form-control wysiwyg editor"{{attrs}}>{{value}}</textarea>',
-            ]);
+        $options = optionsParser($options, ['label' => false, 'type' => 'textarea'])->append('templates', [
+            'textarea' => '<textarea name="{{name}}" class="form-control wysiwyg editor"{{attrs}}>{{value}}</textarea>',
+        ]);
 
         return $this->control($fieldName, $options->toArray());
     }
@@ -172,9 +170,7 @@ class FormHelper extends CakeFormHelper
         //Help text
         //See https://getbootstrap.com/docs/4.0/components/forms/#help-text
         if ($options->exists('help')) {
-            $help = array_map(function (string $help): string {
-                return $this->Html->para('form-text text-muted', trim($help));
-            }, (array)$options->consume('help'));
+            $help = array_map(fn(string $help): string => $this->Html->para('form-text text-muted', trim($help)), (array)$options->consume('help'));
             $options->append('templateVars', ['help' => implode('', $help)]);
         }
 

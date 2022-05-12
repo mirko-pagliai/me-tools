@@ -25,7 +25,7 @@ class OptionsParserTest extends TestCase
     /**
      * @var \MeTools\View\OptionsParser
      */
-    public $OptionsParser;
+    public OptionsParser $OptionsParser;
 
     /**
      * Called before every test method
@@ -35,7 +35,7 @@ class OptionsParserTest extends TestCase
     {
         parent::setUp();
 
-        if (!$this->OptionsParser) {
+        if (empty($this->OptionsParser)) {
             $options = [
                 'array' => ['second', 'first'],
                 'alt' => 'this is a string',
@@ -65,7 +65,6 @@ class OptionsParserTest extends TestCase
     {
         $this->assertInstanceOf(OptionsParser::class, $this->OptionsParser->Default);
         $this->assertSameMethods($this->OptionsParser, $this->OptionsParser->Default);
-        $this->assertNull($this->OptionsParser->Default->Default);
 
         $this->assertEquals('this value will not be used', $this->OptionsParser->Default->get('alt'));
         $this->assertNull($this->OptionsParser->Default->delete('alt')->get('alt'));
@@ -77,9 +76,7 @@ class OptionsParserTest extends TestCase
      */
     public function testBuildValue(): void
     {
-        $buildValueMethod = function ($value, $key) {
-            return $this->invokeMethod($this->OptionsParser, 'buildValue', [&$value, $key]);
-        };
+        $buildValueMethod = fn($value, $key) => $this->invokeMethod($this->OptionsParser, 'buildValue', [&$value, $key]);
 
         //Always returns the same string
         foreach (['aaa', ' aaa', ' aaa  '] as $value) {

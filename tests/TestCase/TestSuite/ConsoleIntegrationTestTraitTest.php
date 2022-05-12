@@ -24,27 +24,34 @@ use PHPUnit\Framework\ExpectationFailedException;
  */
 class ConsoleIntegrationTestTraitTest extends TestCase
 {
-    use ConsoleIntegrationTestTrait;
-
-    /**
-     * @var \Cake\TestSuite\Stub\ConsoleOutput
-     */
-    protected $_out;
-
     /**
      * Test for `assertOutputNotEmpty()` method
      * @test
      */
     public function testAssertOutputNotEmpty(): void
     {
-        $this->_out = new ConsoleOutput();
-        $this->_out->write('message');
-        $this->assertOutputNotEmpty();
+        $classWithTrait = new class extends TestCase {
+            use ConsoleIntegrationTestTrait;
+
+            public function resetMessages(): void
+            {
+                $this->_out = new ConsoleOutput();
+            }
+
+            public function writeMessage(): void
+            {
+                $this->_out = new ConsoleOutput();
+                $this->_out->write('message');
+            }
+        };
+
+        $classWithTrait->writeMessage();
+        $classWithTrait->assertOutputNotEmpty();
 
         //On failure
         $this->expectException(ExpectationFailedException::class);
         $this->expectExceptionMessage('stdout was empty');
-        $this->_out = new ConsoleOutput();
-        $this->assertOutputNotEmpty();
+        $classWithTrait->resetMessages();
+        $classWithTrait->assertOutputNotEmpty();
     }
 }

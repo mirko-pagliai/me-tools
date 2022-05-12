@@ -30,7 +30,7 @@ trait ConsoleIntegrationTestTrait
     /**
      * @var \MeTools\Console\Command
      */
-    protected $Command;
+    protected Command $Command;
 
     /**
      * Called before every test method
@@ -44,13 +44,13 @@ trait ConsoleIntegrationTestTrait
             return;
         }
 
-        if (!$this->Command && !empty($this->autoInitializeClass)) {
+        if (empty($this->Command) && !empty($this->autoInitializeClass)) {
             /** @var class-string<\MeTools\Console\Command> $className */
             $className = $this->getOriginClassNameOrFail($this);
             $this->Command = new $className();
         }
 
-        if ($this->Command && method_exists($this->Command, 'initialize')) {
+        if (!empty($this->Command) && method_exists($this->Command, 'initialize')) {
             $this->Command->initialize();
         }
 

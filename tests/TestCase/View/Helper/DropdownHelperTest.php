@@ -26,7 +26,7 @@ class DropdownHelperTest extends HelperTestCase
     /**
      * @var \MeTools\View\Helper\HtmlHelper
      */
-    protected $Html;
+    protected HtmlHelper $Html;
 
     /**
      * Called before every test method
@@ -36,7 +36,11 @@ class DropdownHelperTest extends HelperTestCase
     {
         parent::setUp();
 
-        $this->Html = $this->Html ?: $this->getMockForHelper(HtmlHelper::class, null);
+        if (empty($this->Html)) {
+            /** @var \MeTools\View\Helper\HtmlHelper&\PHPUnit\Framework\MockObject\MockObject $Html */
+            $Html = $this->getMockForHelper(HtmlHelper::class, null);
+            $this->Html = $Html;
+        }
     }
 
     /**
@@ -88,7 +92,7 @@ class DropdownHelperTest extends HelperTestCase
         $this->assertHtml($expected, $result ?: '');
 
         //With callback
-        $result = call_user_func(function () use ($text) {
+        $result = call_user_func(function () use ($text): ?string {
             $this->Helper->start($text);
             echo $this->Html->link('First link', '/first', ['class' => 'dropdown-item']);
             echo $this->Html->link('Second link', '/second', ['class' => 'dropdown-item']);
@@ -182,7 +186,7 @@ class DropdownHelperTest extends HelperTestCase
         $result = $this->Html->ul([
             $this->Html->link('Home', '/'),
             //This is the dropdown menu
-            call_user_func(function () use ($links) {
+            call_user_func(function () use ($links): ?string {
                 $this->Helper->start('My dropdown');
                 echo $links[0];
                 echo $links[1];

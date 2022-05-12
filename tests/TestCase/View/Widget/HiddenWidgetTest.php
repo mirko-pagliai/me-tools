@@ -23,9 +23,9 @@ use MeTools\View\Helper\FormHelper;
 class HiddenWidgetTest extends TestCase
 {
     /**
-     * @var \MeTools\View\Helper\FormHelper
+     * @var \MeTools\View\Helper\FormHelper&\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $Helper;
+    protected FormHelper $Helper;
 
     /**
      * Called before every test method
@@ -35,7 +35,11 @@ class HiddenWidgetTest extends TestCase
     {
         parent::setUp();
 
-        $this->Helper = $this->Helper ?: $this->getMockForHelper(FormHelper::class, null);
+        if (empty($this->Helper)) {
+            /** @var \MeTools\View\Helper\FormHelper&\PHPUnit\Framework\MockObject\MockObject $Helper */
+            $Helper = $this->getMockForHelper(FormHelper::class, null);
+            $this->Helper = $Helper;
+        }
     }
 
     /**

@@ -1,6 +1,7 @@
 # 2.x branch
 ## 2.21 branch
 ### 2.21.0
+* numerous code adjustments for improvement and adaptation to PHP 7.4 new features;
 * requires at least PHP 7.4.
 
 ## 2.20 branch

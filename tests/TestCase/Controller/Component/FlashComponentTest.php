@@ -18,14 +18,10 @@ use MeTools\TestSuite\ComponentTestCase;
 
 /**
  * FlashComponentTest class
+ * @property \MeTools\Controller\Component\FlashComponent $Component
  */
 class FlashComponentTest extends ComponentTestCase
 {
-    /**
-     * @var \MeTools\Controller\Component\FlashComponent
-     */
-    protected $Component;
-
     /**
      * Tests for `__call()` method
      * @test

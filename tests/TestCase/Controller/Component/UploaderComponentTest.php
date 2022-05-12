@@ -24,14 +24,10 @@ use Tools\Filesystem;
 
 /**
  * UploaderComponentTest class
+ * @property \MeTools\Controller\Component\UploaderComponent $Component
  */
 class UploaderComponentTest extends ComponentTestCase
 {
-    /**
-     * @var \MeTools\Controller\Component\UploaderComponent
-     */
-    protected $Component;
-
     /**
      * Internal method to create a file and get a `UploadedFile` instance
      * @param int $error Error for this file
@@ -79,9 +75,7 @@ class UploaderComponentTest extends ComponentTestCase
     public function testFindTargetFilename(): void
     {
         $Filesystem = new Filesystem();
-        $findTargetFilenameMethod = function (string $filename): string {
-            return $this->invokeMethod($this->Component, 'findTargetFilename', [$filename]);
-        };
+        $findTargetFilenameMethod = fn(string $filename): string => $this->invokeMethod($this->Component, 'findTargetFilename', [$filename]);
 
         $file1 = UPLOADS . 'target.txt';
         $file2 = UPLOADS . 'target_1.txt';
@@ -220,8 +214,7 @@ class UploaderComponentTest extends ComponentTestCase
             ->setMethods(['moveTo'])
             ->getMock();
 
-        $UploadedFile->method('moveTo')
-            ->willThrowException(new UploadedFileErrorException());
+        $UploadedFile->method('moveTo')->willThrowException(new UploadedFileErrorException());
 
         $this->assertFalse($this->Component->setFile($UploadedFile)->save(UPLOADS));
         $this->assertSame('The file was not successfully moved to the target directory', $this->Component->getError());
