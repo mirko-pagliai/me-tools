@@ -158,13 +158,13 @@ class FormHelper extends CakeFormHelper
 
         //If the name contains the "password" word, then the type is `password`
         if (str_contains($fieldName, 'password')) {
-            $options->Default->add(['type' => 'password']);
+            $options->addDefault(['type' => 'password']);
         }
 
         //Gets the input type
         $type = $options->get('type') ?: $this->_inputType($fieldName, $options->toArray());
         if ($type === 'select' && !$options->exists('default') && !$options->exists('value')) {
-            $options->Default->add(['empty' => true]);
+            $options->addDefault(['empty' => true]);
         }
 
         //Help text
@@ -296,7 +296,7 @@ class FormHelper extends CakeFormHelper
      */
     public function isInline(): bool
     {
-        return !empty($this->inline);
+        return $this->inline;
     }
 
     /**
@@ -374,7 +374,7 @@ class FormHelper extends CakeFormHelper
         $attributes = optionsParser($attributes);
 
         if (!$attributes->exists('default') && !$attributes->exists('value')) {
-            $attributes->Default->add('empty', true);
+            $attributes->addDefault('empty', true);
         }
 
         return parent::select($fieldName, $options, $attributes->toArray());

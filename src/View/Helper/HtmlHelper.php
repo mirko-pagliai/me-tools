@@ -82,7 +82,7 @@ class HtmlHelper extends CakeHtmlHelper
             return $this->link($title, $url, $options->toArray());
         }
 
-        $options->Default->add('title', $title);
+        $options->addDefault('title', $title);
         $options->add('title', strip_tags($options->get('title') ?? ''));
 
         return $this->tag('button', $title, $options->toArray());

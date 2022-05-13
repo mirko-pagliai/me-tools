@@ -23,10 +23,10 @@ use Cake\Utility\Hash;
 class OptionsParser
 {
     /**
-     * Instance of `OptionsParser` for default values
-     * @var \MeTools\View\OptionsParser
+     * Default values
+     * @var array
      */
-    public OptionsParser $Default;
+    protected array $defaults = [];
 
     /**
      * Existing options
@@ -49,10 +49,7 @@ class OptionsParser
     {
         array_walk($options, [$this, 'buildValue']);
         $this->options = $options;
-
-        if (!is_null($defaults)) {
-            $this->Default = new OptionsParser($defaults, null);
-        }
+        $this->defaults = is_null($defaults) ? [] : $defaults;
     }
 
     /**
@@ -129,6 +126,30 @@ class OptionsParser
             ->filter(fn(string $class): bool => preg_match('/^btn\-(' . implode('|', $allClasses) . ')$/', $class) !== 0);
 
         return $this->append('class', ['btn', ...$classes->toList()]);
+    }
+
+    /**
+     * Adds a default value.
+     *
+     * You can also pass an array with the keys and values as the only argument.
+     * @param string|array<string, mixed> $key Key or array with keys and values
+     * @param mixed|null $value Value
+     * @return $this
+     */
+    public function addDefault($key, $value = null)
+    {
+        if (is_array($key)) {
+            $callable = [$this, __METHOD__];
+            if (is_callable($callable)) {
+                array_map($callable, array_keys($key), $key);
+            }
+
+            return $this;
+        }
+
+        $this->defaults[$key] = $this->buildValue($value, $key);
+
+        return $this;
     }
 
     /**
@@ -241,7 +262,7 @@ class OptionsParser
      */
     public function exists(string $key): bool
     {
-        return isset($this->options[$key]) || isset($this->Default->options[$key]);
+        return isset($this->options[$key]) || isset($this->defaults[$key]);
     }
 
     /**
@@ -251,7 +272,7 @@ class OptionsParser
      */
     public function get(string $key)
     {
-        $default = !empty($this->Default) ? $this->Default->get($key) : null;
+        $default = $this->defaults[$key] ?? null;
 
         return Hash::get($this->options, $key, $default);
     }
@@ -263,8 +284,8 @@ class OptionsParser
     public function toArray(): array
     {
         $options = $this->options;
-        if (!empty($this->Default)) {
-            $options = $options + $this->Default->options;
+        if ($this->defaults) {
+            $options = $options + $this->defaults;
         }
 
         ksort($options);
