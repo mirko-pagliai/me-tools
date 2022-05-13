@@ -4,6 +4,7 @@
 * numerous code adjustments for improvement and adaptation to PHP 7.4 new features;
 * `OptionsParser` now uses the `$defaults` array property to store default values.
     Added `addDefault()` method;
+* `UploaderComponent::set()` method was deprecated and has now been removed;
 * requires at least PHP 7.4.
 
 ## 2.20 branch

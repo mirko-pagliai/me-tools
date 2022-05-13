@@ -201,18 +201,4 @@ class UploaderComponent extends Component
 
         return $this;
     }
-
-    /**
-     * Sets uploaded file information (`$_FILES` array, better as
-     *  `$this->getRequest()->getData('file')`)
-     * @param \Psr\Http\Message\UploadedFileInterface|array $file Uploaded file information
-     * @return $this
-     * @deprecated Use instead `setFile()`
-     */
-    public function set($file)
-    {
-        deprecationWarning('Deprecated. Use instead `setFile()`');
-
-        return $this->setFile($file);
-    }
 }

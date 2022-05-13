@@ -102,23 +102,6 @@ class UploaderComponentTest extends ComponentTestCase
     }
 
     /**
-     * Tests for `set()` method
-     * @test
-     */
-    public function testSet(): void
-    {
-        $file = $this->createFile();
-
-        $current = error_reporting(E_ALL & ~E_USER_DEPRECATED);
-        $this->Component->set($file);
-        error_reporting($current);
-
-        $this->expectDeprecation();
-        $this->expectExceptionMessage('Deprecated. Use instead `setFile()');
-        $this->Component->set($file);
-    }
-
-    /**
      * Tests for `getFile()` and `setFile()` methods
      * @test
      */
