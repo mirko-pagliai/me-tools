@@ -16,7 +16,6 @@ declare(strict_types=1);
 namespace MeTools\TestSuite;
 
 use Cake\Controller\Controller;
-use Cake\Core\Configure;
 use Cake\Event\EventInterface;
 use Cake\TestSuite\Constraint\Session\SessionEquals;
 use Cake\TestSuite\IntegrationTestTrait as CakeIntegrationTestTrait;
