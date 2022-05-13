@@ -40,10 +40,6 @@ trait ConsoleIntegrationTestTrait
     {
         parent::setUp();
 
-        if (preg_match('/TraitTest$/', get_class($this))) {
-            return;
-        }
-
         if (empty($this->Command) && !empty($this->autoInitializeClass)) {
             /** @var class-string<\MeTools\Console\Command> $className */
             $className = $this->getOriginClassNameOrFail($this);
