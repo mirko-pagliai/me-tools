@@ -5,7 +5,7 @@
 * `OptionsParser` now uses the `$defaults` array property to store default values.
     Added `addDefault()` method;
 * `UploaderComponent::set()` method was deprecated and has now been removed;
-* requires at least PHP 7.4.
+* requires at least PHP 7.4 and CakePHP 4.1.
 
 ## 2.20 branch
 ### 2.20.9

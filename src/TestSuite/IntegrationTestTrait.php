@@ -92,12 +92,6 @@ trait IntegrationTestTrait
      */
     public function assertSessionEmpty(string $path, string $message = ''): void
     {
-        $verboseMessage = $this->extractVerboseMessage($message);
-        /**
-         * @todo to be removed when a CakePHP version greater than `4.1` is required
-         */
-        /** @phpstan-ignore-next-line */
-        $sessionEquals = version_compare(Configure::version(), '4.1', '>=') ? new SessionEquals($path) : new SessionEquals($this->_requestSession, $path);
-        $this->assertThat(null, $sessionEquals, $verboseMessage);
+        $this->assertThat(null, new SessionEquals($path), $this->extractVerboseMessage($message));
     }
 }
