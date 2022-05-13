@@ -173,7 +173,7 @@ class OptionsParser
         if (is_string($existing) && is_string($value)) {
             $value = $existing . ' ' . trim($value);
         } elseif (!is_null($existing)) {
-            $value = [...(array)$existing, ...(array)$value];
+            $value = array_merge((array)$existing, (array)$value);
         }
 
         $this->add($key, $value);
