@@ -20,13 +20,14 @@ use MeTools\Console\Command;
 
 /**
  * A trait intended to make integration tests of cake console commands easier
+ * @property \Cake\TestSuite\Stub\ConsoleOutput|null $_err Console error output stub
+ * @property \Cake\Console\ConsoleInput|null $_in Console input mock
  */
 trait ConsoleIntegrationTestTrait
 {
     use BaseConsoleIntegrationTestTrait;
 
     /**
-     * Command instance
      * @var \MeTools\Console\Command
      */
     protected $Command;
