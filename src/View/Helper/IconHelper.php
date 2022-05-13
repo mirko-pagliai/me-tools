@@ -95,9 +95,7 @@ class IconHelper extends CakeHtmlHelper
      */
     public function icon(...$icons): string
     {
-        $toString = function ($value): string {
-            return implode(' ', (array)$value);
-        };
+        $toString = fn($value): string => implode(' ', (array)$value);
 
         $class = $this->buildIconClasses($toString(array_map($toString, $icons)));
 

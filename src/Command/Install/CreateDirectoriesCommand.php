@@ -44,8 +44,6 @@ class CreateDirectoriesCommand extends Command
      */
     public function execute(Arguments $args, ConsoleIo $io): void
     {
-        foreach (array_unique(Configure::read('WRITABLE_DIRS')) as $path) {
-            $this->createDir($io, $path);
-        }
+        array_map(fn($path) => $this->createDir($io, $path), array_unique(Configure::read('WRITABLE_DIRS')));
     }
 }

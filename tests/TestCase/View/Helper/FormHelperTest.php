@@ -26,7 +26,7 @@ class FormHelperTest extends HelperTestCase
     /**
      * @var \MeTools\View\Helper\HtmlHelper
      */
-    protected $Html;
+    protected HtmlHelper $Html;
 
     /**
      * Called before every test method
@@ -36,7 +36,11 @@ class FormHelperTest extends HelperTestCase
     {
         parent::setUp();
 
-        $this->Html = $this->Html ?: $this->getMockForHelper(HtmlHelper::class, null);
+        if (empty($this->Html)) {
+            /** @var \MeTools\View\Helper\HtmlHelper&\PHPUnit\Framework\MockObject\MockObject $Html */
+            $Html = $this->getMockForHelper(HtmlHelper::class, null);
+            $this->Html = $Html;
+        }
     }
 
     /**

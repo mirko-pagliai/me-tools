@@ -23,48 +23,45 @@ use Cake\Utility\Hash;
 class OptionsParser
 {
     /**
-     * Instance of `OptionsParser` for default values
-     * @var \MeTools\View\OptionsParser
+     * Default values
+     * @var array
      */
-    public $Default;
+    protected array $defaults = [];
 
     /**
      * Existing options
      * @var array
      */
-    protected $options = [];
+    protected array $options = [];
 
     /**
      * Keys of options to be exploded
-     * @var array<string>
      */
-    protected $toBeExploded = ['class', 'data-toggle'];
+    protected const TO_BE_EXPLODED = ['class', 'data-toggle'];
 
     /**
      * Constructor
      * @param array $options Existing options
-     * @param array|null $defaults Default values
+     * @param array $defaults Default values
      */
-    public function __construct(array $options = [], ?array $defaults = [])
+    public function __construct(array $options = [], array $defaults = [])
     {
+        array_walk($defaults, [$this, 'buildValue']);
         array_walk($options, [$this, 'buildValue']);
+        $this->defaults = $defaults;
         $this->options = $options;
-
-        if (!is_null($defaults)) {
-            $this->Default = new OptionsParser($defaults, null);
-        }
     }
 
     /**
-     * Internal method to build a value
+     * Internal method to build values
      * @param mixed $value Option value
      * @param string $key Option key
      * @return mixed
      */
     protected function buildValue(&$value, string $key)
     {
-        if (in_array($key, $this->toBeExploded)) {
-            //Collapses multi-dimensional arrays into a single dimension
+        //Collapses multi-dimensional arrays into a single dimension
+        if (in_array($key, self::TO_BE_EXPLODED)) {
             $value = array_clean(is_array($value) ? Hash::flatten($value) : explode(' ', $value));
             sort($value);
             $value = implode(' ', $value);
@@ -77,17 +74,14 @@ class OptionsParser
      * Adds a value.
      *
      * You can also pass an array with the keys and values as the only argument.
-     * @param string|array<string, mixed> $key Key or array with keys and values
+     * @param string|array<string, mixed> $key Key as string or array with keys and values
      * @param mixed|null $value Value
      * @return $this
      */
     public function add($key, $value = null)
     {
         if (is_array($key)) {
-            $callable = [$this, __METHOD__];
-            if (is_callable($callable)) {
-                array_map($callable, array_keys($key), $key);
-            }
+            array_map([$this, 'add'], array_keys($key), $key);
 
             return $this;
         }
@@ -108,17 +102,13 @@ class OptionsParser
      * $options->addButtonClasses('primary lg');
      * $options->addButtonClasses('primary', 'lg');
      * </code>
-     * @param string $classes Classes string, array or multiple arguments
+     * @param string $classes Classes as string, or multiple arguments
      * @return $this
      */
     public function addButtonClasses(string ...$classes)
     {
-        $baseClasses = ['primary', 'secondary', 'success', 'danger', 'warning',
-            'info', 'light', 'dark', 'link'];
-        $allClasses = array_merge($baseClasses, ['outline-primary',
-            'outline-secondary', 'outline-success', 'outline-danger',
-            'outline-warning', 'outline-info', 'outline-light', 'outline-dark',
-            'lg', 'sm', 'block']);
+        $baseClasses = ['primary', 'secondary', 'success', 'danger', 'warning', 'info', 'light', 'dark', 'link'];
+        $allClasses = [...$baseClasses, 'outline-primary', 'outline-secondary', 'outline-success', 'outline-danger', 'outline-warning', 'outline-info', 'outline-light', 'outline-dark', 'lg', 'sm', 'block'];
 
         //If a base class already exists, it just appends the `btn` class
         $existing = $this->get('class');
@@ -126,17 +116,31 @@ class OptionsParser
             return $this->append('class', 'btn');
         }
 
-        $classes = preg_split('/\s+/', $classes ? implode(' ', $classes) : 'btn-light', -1, PREG_SPLIT_NO_EMPTY) ?: [];
+        $classes = preg_split('/\s+/', implode(' ', $classes) ?: 'btn-light', -1, PREG_SPLIT_NO_EMPTY) ?: [];
+        $classes = array_map(fn(string $class): string => 'btn-' . ltrim($class, 'btn-'), $classes);
 
-        $classes = collection($classes)
-            ->map(function (string $class): string {
-                return str_starts_with($class, 'btn-') ? $class : 'btn-' . $class;
-            })
-            ->filter(function (string $class) use ($allClasses): bool {
-                return preg_match('/^btn\-(' . implode('|', $allClasses) . ')$/', $class) !== 0;
-            });
+        return $this->append('class', ['btn', ...preg_grep('/^btn\-(' . implode('|', $allClasses) . ')$/', $classes) ?: []]);
+    }
 
-        return $this->append('class', array_merge(['btn'], $classes->toList()));
+    /**
+     * Adds a default value.
+     *
+     * You can also pass an array with the keys and values as the only argument.
+     * @param string|array<string, mixed> $key Key or array with keys and values
+     * @param mixed|null $value Value
+     * @return $this
+     */
+    public function addDefault($key, $value = null)
+    {
+        if (is_array($key)) {
+            array_map([$this, 'addDefault'], array_keys($key), $key);
+
+            return $this;
+        }
+
+        $this->defaults[$key] = $this->buildValue($value, $key);
+
+        return $this;
     }
 
     /**
@@ -154,17 +158,14 @@ class OptionsParser
     public function append($key, $value = null)
     {
         if (is_array($key)) {
-            $callable = [$this, __METHOD__];
-            if (is_callable($callable)) {
-                array_map($callable, array_keys($key), $key);
-            }
+            array_map([$this, 'append'], array_keys($key), $key);
 
             return $this;
         }
 
         $existing = $this->get($key);
 
-        if (in_array($key, $this->toBeExploded)) {
+        if (in_array($key, self::TO_BE_EXPLODED)) {
             $existing = is_string($existing) ? explode(' ', $existing) : $existing;
             $value = is_array($value) ? $value : explode(' ', $value);
         }
@@ -172,7 +173,7 @@ class OptionsParser
         if (is_string($existing) && is_string($value)) {
             $value = $existing . ' ' . trim($value);
         } elseif (!is_null($existing)) {
-            $value = array_merge((array)$existing, (array)$value);
+            $value = [...(array)$existing, ...(array)$value];
         }
 
         $this->add($key, $value);
@@ -215,7 +216,7 @@ class OptionsParser
         }
 
         $existing = $this->get($key);
-        $existing = in_array($key, $this->toBeExploded) ? explode(' ', $existing) : $existing;
+        $existing = in_array($key, self::TO_BE_EXPLODED) ? explode(' ', $existing) : $existing;
 
         if (is_array($existing)) {
             if (is_array($value)) {
@@ -230,7 +231,7 @@ class OptionsParser
 
     /**
      * Delete a key
-     * @param string $key Key
+     * @param string $key Key as string, or multiple arguments
      * @return $this
      */
     public function delete(string ...$key)
@@ -249,7 +250,7 @@ class OptionsParser
      */
     public function exists(string $key): bool
     {
-        return isset($this->options[$key]) || isset($this->Default->options[$key]);
+        return isset($this->options[$key]) || isset($this->defaults[$key]);
     }
 
     /**
@@ -259,7 +260,7 @@ class OptionsParser
      */
     public function get(string $key)
     {
-        $default = $this->Default ? $this->Default->get($key) : null;
+        $default = $this->defaults[$key] ?? null;
 
         return Hash::get($this->options, $key, $default);
     }
@@ -270,10 +271,7 @@ class OptionsParser
      */
     public function toArray(): array
     {
-        $options = $this->options;
-        if ($this->Default) {
-            $options = array_merge($this->Default->options, $options);
-        }
+        $options = $this->options + $this->defaults ?: [];
 
         ksort($options);
 

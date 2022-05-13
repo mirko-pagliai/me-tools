@@ -38,7 +38,7 @@ class PluginTest extends TestCase
         $this->assertEquals($expected, Plugin::all());
 
         $this->loadPlugins(['TestPlugin' => []]);
-        $this->assertEquals(array_merge($expected, ['TestPlugin']), Plugin::all());
+        $this->assertEquals([...$expected, 'TestPlugin'], Plugin::all());
         $this->assertEquals($expected, Plugin::all(['exclude' => 'TestPlugin']));
         $this->assertEquals($expected, Plugin::all(['exclude' => ['TestPlugin', 'noExistingPlugin']]));
 

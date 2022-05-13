@@ -15,6 +15,7 @@ declare(strict_types=1);
  */
 namespace MeTools\TestSuite;
 
+use Cake\Controller\Component;
 use Cake\Controller\ComponentRegistry;
 use Cake\Controller\Controller;
 use MeTools\TestSuite\TestCase;
@@ -25,16 +26,15 @@ use MeTools\TestSuite\TestCase;
 abstract class ComponentTestCase extends TestCase
 {
     /**
-     * Component instance
      * @var \Cake\Controller\Component
      */
-    protected $Component;
+    protected Component $Component;
 
     /**
      * If `true`, a mock instance of the component will be created
      * @var bool
      */
-    protected $autoInitializeClass = true;
+    protected bool $autoInitializeClass = true;
 
     /**
      * Called before every test method
@@ -44,7 +44,7 @@ abstract class ComponentTestCase extends TestCase
     {
         parent::setUp();
 
-        if (!$this->Component && $this->autoInitializeClass) {
+        if (empty($this->Component) && $this->autoInitializeClass) {
             /** @var class-string<\Cake\Controller\Component> $className */
             $className = $this->getOriginClassNameOrFail($this);
             $this->Component = new $className(new ComponentRegistry(new Controller()));

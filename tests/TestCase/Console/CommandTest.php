@@ -29,16 +29,6 @@ class CommandTest extends TestCase
     use ConsoleIntegrationTestTrait;
 
     /**
-     * @var \MeTools\Console\Command
-     */
-    protected $Command;
-
-    /**
-     * @var \Cake\TestSuite\Stub\ConsoleOutput
-     */
-    protected $_err;
-
-    /**
      * @var \Cake\Console\ConsoleIo
      */
     protected $io;

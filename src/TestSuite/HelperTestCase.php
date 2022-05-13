@@ -15,6 +15,7 @@ declare(strict_types=1);
  */
 namespace MeTools\TestSuite;
 
+use Cake\View\Helper;
 use Cake\View\View;
 use MeTools\TestSuite\TestCase;
 
@@ -24,16 +25,15 @@ use MeTools\TestSuite\TestCase;
 abstract class HelperTestCase extends TestCase
 {
     /**
-     * Helper instance
      * @var \Cake\View\Helper
      */
-    protected $Helper;
+    protected Helper $Helper;
 
     /**
      * If `true`, a mock instance of the helper will be created
      * @var bool
      */
-    protected $autoInitializeClass = true;
+    protected bool $autoInitializeClass = true;
 
     /**
      * Called before every test method
@@ -43,7 +43,7 @@ abstract class HelperTestCase extends TestCase
     {
         parent::setUp();
 
-        if (!$this->Helper && $this->autoInitializeClass) {
+        if (empty($this->Helper) && $this->autoInitializeClass) {
             /** @var class-string<\Cake\View\Helper> $className */
             $className = $this->getOriginClassNameOrFail($this);
             $this->Helper = new $className(new View());

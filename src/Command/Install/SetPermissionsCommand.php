@@ -44,8 +44,6 @@ class SetPermissionsCommand extends Command
      */
     public function execute(Arguments $args, ConsoleIo $io): void
     {
-        foreach (array_unique(Configure::read('WRITABLE_DIRS')) as $path) {
-            $this->folderChmod($io, $path);
-        }
+        array_map(fn($path) => $this->folderChmod($io, $path), array_unique(Configure::read('WRITABLE_DIRS')));
     }
 }
