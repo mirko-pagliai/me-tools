@@ -1,4 +1,13 @@
 # 2.x branch
+## 2.21 branch
+### 2.21.0
+* numerous code adjustments for improvement and adaptation to PHP 7.4 new features;
+* `OptionsParser` now uses the `$defaults` array property to store default values.
+    Added `addDefault()` method;
+* fixed a wrong reference to the `ReflectionTrait`;
+* `UploaderComponent::set()` method was deprecated and has now been removed;
+* requires at least PHP 7.4 and CakePHP 4.1.
+
 ## 2.20 branch
 ### 2.20.9
 * added tests for PHP 8.1;

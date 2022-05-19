@@ -38,7 +38,7 @@ class RequestDetectorsTest extends TestCase
         parent::setUp();
 
         $router = Router::createRouteBuilder('/');
-        $router->scope('/', function (RouteBuilder $routes) {
+        $router->scope('/', function (RouteBuilder $routes): void {
             $routes->connect('/', ['controller' => 'pages', 'action' => 'display', 'home']);
             $routes->connect('/some_alias', ['controller' => 'tests_apps', 'action' => 'some_method']);
             $routes->fallbacks();

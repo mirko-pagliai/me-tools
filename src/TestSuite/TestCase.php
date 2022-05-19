@@ -23,7 +23,7 @@ use Exception;
 use MeTools\TestSuite\MockTrait;
 use Tools\Exceptionist;
 use Tools\Filesystem;
-use Tools\ReflectionTrait;
+use Tools\TestSuite\ReflectionTrait;
 use Tools\TestSuite\TestTrait;
 
 /**
@@ -43,7 +43,7 @@ abstract class TestCase extends CakeTestCase
     {
         parent::setUp();
 
-        @$this->loadPlugins(Configure::read('pluginsToLoad') ?: ['MeTools' => []]);
+        $this->loadPlugins(Configure::read('pluginsToLoad') ?: ['MeTools' => []]);
     }
 
     /**

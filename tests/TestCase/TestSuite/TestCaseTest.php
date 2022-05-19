@@ -17,7 +17,7 @@ namespace MeTools\Test\TestCase\TestSuite;
 use Cake\ORM\Table;
 use MeTools\TestSuite\TestCase;
 use Tools\Filesystem;
-use Tools\ReflectionTrait;
+use Tools\TestSuite\ReflectionTrait;
 
 /**
  * TestCaseTest class

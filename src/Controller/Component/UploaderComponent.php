@@ -29,15 +29,15 @@ class UploaderComponent extends Component
 {
     /**
      * Last error
-     * @var string
+     * @var string|null
      */
-    protected $error;
+    protected ?string $error = null;
 
     /**
      * Uploaded file instance
-     * @var \Psr\Http\Message\UploadedFileInterface
+     * @var \Psr\Http\Message\UploadedFileInterface|null
      */
-    protected $file;
+    protected ?UploadedFileInterface $file = null;
 
     /**
      * Returns the first error
@@ -45,7 +45,7 @@ class UploaderComponent extends Component
      */
     public function getError(): ?string
     {
-        return $this->error ?: null;
+        return $this->error;
     }
 
     /**
@@ -55,7 +55,7 @@ class UploaderComponent extends Component
      */
     protected function setError(string $error): void
     {
-        $this->error = $this->error ?: $error;
+        $this->error ??= $error;
     }
 
     /**
@@ -89,8 +89,11 @@ class UploaderComponent extends Component
     protected function _checkUploadedFileInformation(): void
     {
         $message = __d('me_tools', 'There are no uploaded file information');
-        Exceptionist::isTrue($this->getFile(), $message, ObjectWrongInstanceException::class);
-        Exceptionist::isInstanceOf($this->getFile(), UploadedFileInterface::class, $message);
+
+        /** @var \Psr\Http\Message\UploadedFileInterface $file */
+        $file = $this->getFile();
+        Exceptionist::isTrue($file, $message, ObjectWrongInstanceException::class);
+        Exceptionist::isInstanceOf($file, UploadedFileInterface::class, $message);
     }
 
     /**
@@ -114,8 +117,10 @@ class UploaderComponent extends Component
                 break;
         }
 
-        if (!in_array($this->file->getClientMediaType(), (array)$acceptedMimetype)) {
-            $this->setError(__d('me_tools', 'The mimetype {0} is not accepted', $this->file->getClientMediaType()));
+        /** @var \Psr\Http\Message\UploadedFileInterface $file */
+        $file = $this->getFile();
+        if (!in_array($file->getClientMediaType(), (array)$acceptedMimetype)) {
+            $this->setError(__d('me_tools', 'The mimetype {0} is not accepted', $file->getClientMediaType()));
         }
 
         return $this;
@@ -146,11 +151,13 @@ class UploaderComponent extends Component
             return false;
         }
 
-        $filename = $filename ? basename($filename) : $this->findTargetFilename($this->getFile()->getClientFilename() ?: '');
+        /** @var \Psr\Http\Message\UploadedFileInterface $file */
+        $file = $this->getFile();
+        $filename = $filename ? basename($filename) : $this->findTargetFilename($file->getClientFilename() ?: '');
         $target = Filesystem::instance()->concatenate($directory, $filename);
 
         try {
-            $this->getFile()->moveTo($target);
+            $file->moveTo($target);
         } catch (UploadedFileErrorException $e) {
             $this->setError(__d('me_tools', 'The file was not successfully moved to the target directory'));
 
@@ -162,10 +169,10 @@ class UploaderComponent extends Component
 
     /**
      * Returns the uploaded file instance
-     * @return \Psr\Http\Message\UploadedFileInterface
+     * @return \Psr\Http\Message\UploadedFileInterface|null
      * @since 2.20.1
      */
-    public function getFile()
+    public function getFile(): ?UploadedFileInterface
     {
         return $this->file;
     }
@@ -193,19 +200,5 @@ class UploaderComponent extends Component
         }
 
         return $this;
-    }
-
-    /**
-     * Sets uploaded file information (`$_FILES` array, better as
-     *  `$this->getRequest()->getData('file')`)
-     * @param \Psr\Http\Message\UploadedFileInterface|array $file Uploaded file information
-     * @return $this
-     * @deprecated Use instead `setFile()`
-     */
-    public function set($file)
-    {
-        deprecationWarning('Deprecated. Use instead `setFile()`');
-
-        return $this->setFile($file);
     }
 }

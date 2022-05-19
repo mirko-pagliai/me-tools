@@ -25,16 +25,15 @@ use MeTools\View\Helper\HtmlHelper;
 class BBCode
 {
     /**
-     * An `HtmlHelper` instance
      * @var \MeTools\View\Helper\HtmlHelper
      */
-    public $Html;
+    public HtmlHelper $Html;
 
     /**
      * Pattern
      * @var array
      */
-    protected $pattern = [
+    protected array $pattern = [
         'image' => '/\[img](.+?)\[\/img]/',
         'readmore' => '/(<p(>|.*?[^?]>))?\[read\-?more\s*\/?\s*\](<\/p>)?/',
         'url' => '/\[url=[\'"](.+?)[\'"]](.+?)\[\/url]/',
@@ -91,9 +90,7 @@ class BBCode
      */
     public function image(string $text): string
     {
-        return preg_replace_callback($this->pattern['image'], function ($matches): string {
-            return $this->Html->image($matches[1]);
-        }, $text) ?: '';
+        return preg_replace_callback($this->pattern['image'], fn($matches): string => $this->Html->image($matches[1]), $text) ?: '';
     }
 
     /**
@@ -119,9 +116,7 @@ class BBCode
      */
     public function url(string $text): string
     {
-        return preg_replace_callback($this->pattern['url'], function ($matches): string {
-            return $this->Html->link($matches[2], $matches[1]);
-        }, $text) ?: '';
+        return preg_replace_callback($this->pattern['url'], fn($matches): string => $this->Html->link($matches[2], $matches[1]), $text) ?: '';
     }
 
     /**
@@ -141,10 +136,6 @@ class BBCode
      */
     public function youtube(string $text): string
     {
-        return preg_replace_callback($this->pattern['youtube'], function ($matches): string {
-            $id = is_url($matches[1]) ? Youtube::getId($matches[1]) : $matches[1];
-
-            return $this->Html->youtube($id);
-        }, $text) ?: '';
+        return preg_replace_callback($this->pattern['youtube'], fn($matches): string => $this->Html->youtube(is_url($matches[1]) ? Youtube::getId($matches[1]) : $matches[1]), $text) ?: '';
     }
 }

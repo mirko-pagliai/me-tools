@@ -29,12 +29,12 @@ class RunAllCommandTest extends TestCase
     /**
      * @var bool
      */
-    protected $autoInitializeClass = true;
+    protected bool $autoInitializeClass = true;
 
     /**
      * @var array
      */
-    protected $debug = [];
+    protected array $debug = [];
 
     /**
      * Tests for `execute()` method

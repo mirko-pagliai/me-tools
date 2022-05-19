@@ -114,14 +114,9 @@ class LibraryHelper extends Helper
         }
 
         //Writes the output
-        $output = array_map(function (string $output): string {
-            return '    ' . $output;
-        }, $this->output);
+        $output = array_map(fn(string $output): string => '    ' . $output, $this->output);
 
-        $this->Html->scriptBlock(
-            sprintf('$(function() {%s});', PHP_EOL . implode(PHP_EOL, $output) . PHP_EOL),
-            ['block' => 'script_bottom']
-        );
+        $this->Html->scriptBlock('$(function() {' . PHP_EOL . implode(PHP_EOL, $output) . PHP_EOL . '});', ['block' => 'script_bottom']);
 
         //Resets the output
         $this->output = [];
@@ -134,10 +129,7 @@ class LibraryHelper extends Helper
      */
     public function analytics(string $id): ?string
     {
-        return $this->getView()->getRequest()->is('localhost') ? null : $this->Html->scriptBlock(
-            sprintf('!function(e,a,t,n,c,o,s){e.GoogleAnalyticsObject=c,e[c]=e[c]||function(){(e[c].q=e[c].q||[]).push(arguments)},e[c].l=1*new Date,o=a.createElement(t),s=a.getElementsByTagName(t)[0],o.async=1,o.src=n,s.parentNode.insertBefore(o,s)}(window,document,"script","//www.google-analytics.com/analytics.js","ga"),ga("create","%s","auto"),ga("send","pageview");', $id),
-            ['block' => 'script_bottom']
-        );
+        return $this->getView()->getRequest()->is('localhost') ? null : $this->Html->scriptBlock('!function(e,a,t,n,c,o,s){e.GoogleAnalyticsObject=c,e[c]=e[c]||function(){(e[c].q=e[c].q||[]).push(arguments)},e[c].l=1*new Date,o=a.createElement(t),s=a.getElementsByTagName(t)[0],o.async=1,o.src=n,s.parentNode.insertBefore(o,s)}(window,document,"script","//www.google-analytics.com/analytics.js","ga"),ga("create","' . $id . '","auto"),ga("send","pageview");', ['block' => 'script_bottom']);
     }
 
     /**
@@ -178,7 +170,7 @@ class LibraryHelper extends Helper
             $init = 'ckeditor_init';
         }
 
-        $this->Html->script(array_merge($scripts, [$init]), ['block' => 'script_bottom']);
+        $this->Html->script([...$scripts, $init], ['block' => 'script_bottom']);
     }
 
     /**

@@ -16,7 +16,6 @@ declare(strict_types=1);
 namespace MeTools\TestSuite;
 
 use Cake\Controller\Controller;
-use Cake\Core\Configure;
 use Cake\Event\EventInterface;
 use Cake\TestSuite\Constraint\Session\SessionEquals;
 use Cake\TestSuite\IntegrationTestTrait as CakeIntegrationTestTrait;
@@ -50,10 +49,7 @@ trait IntegrationTestTrait
         if ($this->_controller->components()->has('Uploader')) {
             /** @var \MeTools\Controller\Component\UploaderComponent&\PHPUnit\Framework\MockObject\MockObject $Uploader */
             $Uploader = $this->getMockForComponent(UploaderComponent::class, ['move_uploaded_file']);
-            $Uploader->method('move_uploaded_file')
-                ->will($this->returnCallback(function (string $filename, string $destination): bool {
-                    return rename($filename, $destination);
-                }));
+            $Uploader->method('move_uploaded_file')->will($this->returnCallback(fn(string $filename, string $destination): bool => rename($filename, $destination)));
             /** @phpstan-ignore-next-line */
             $this->_controller->Uploader = $Uploader;
         }
@@ -95,12 +91,6 @@ trait IntegrationTestTrait
      */
     public function assertSessionEmpty(string $path, string $message = ''): void
     {
-        $verboseMessage = $this->extractVerboseMessage($message);
-        /**
-         * @todo to be removed when a CakePHP version greater than `4.1` is required
-         */
-        /** @phpstan-ignore-next-line */
-        $sessionEquals = version_compare(Configure::version(), '4.1', '>=') ? new SessionEquals($path) : new SessionEquals($this->_requestSession, $path);
-        $this->assertThat(null, $sessionEquals, $verboseMessage);
+        $this->assertThat(null, new SessionEquals($path), $this->extractVerboseMessage($message));
     }
 }

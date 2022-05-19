@@ -26,12 +26,12 @@ class BBCodeTest extends TestCase
     /**
      * @var \MeTools\Utility\BBCode
      */
-    public $BBCode;
+    public BBCode $BBCode;
 
     /**
-     * @var \MeTools\View\Helper\HtmlHelper
+     * @var \MeTools\View\Helper\HtmlHelper&\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $Html;
+    protected HtmlHelper $Html;
 
     /**
      * Called before every test method
@@ -41,8 +41,13 @@ class BBCodeTest extends TestCase
     {
         parent::setUp();
 
-        $this->Html = $this->Html ?: $this->getMockForHelper(HtmlHelper::class, null);
-        $this->BBCode = $this->BBCode ?: new BBCode($this->Html);
+        if (empty($this->Html)) {
+            /** @var \MeTools\View\Helper\HtmlHelper&\PHPUnit\Framework\MockObject\MockObject $Html */
+            $Html = $this->getMockForHelper(HtmlHelper::class, null);
+            $this->Html = $Html;
+        }
+
+        $this->BBCode ??= new BBCode($this->Html);
     }
 
     /**

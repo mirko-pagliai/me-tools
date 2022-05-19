@@ -41,7 +41,7 @@ class FormHelper extends CakeFormHelper
      * It's changed by `createInline()` method.
      * @var bool
      */
-    protected $inline = false;
+    protected bool $inline = false;
 
     /**
      * Construct the widgets and binds the default context providers.
@@ -81,11 +81,10 @@ class FormHelper extends CakeFormHelper
      */
     protected function __datetimepickerOptions(array $options, string $class, string $dateFormat): OptionsParser
     {
-        return optionsParser($options, ['data-date-format' => $dateFormat, 'type' => 'text'])
-            ->append('templates', [
-                'input' => '<input type="{{type}}" name="{{name}}" class="form-control ' . $class . '"{{attrs}}/>',
-                'inputError' => '<input type="{{type}}" name="{{name}}" class="form-control ' . $class . ' is-invalid"{{attrs}}/>',
-            ]);
+        return optionsParser($options, ['data-date-format' => $dateFormat, 'type' => 'text'])->append('templates', [
+            'input' => '<input type="{{type}}" name="{{name}}" class="form-control ' . $class . '"{{attrs}}/>',
+            'inputError' => '<input type="{{type}}" name="{{name}}" class="form-control ' . $class . ' is-invalid"{{attrs}}/>',
+        ]);
     }
 
     /**
@@ -138,10 +137,9 @@ class FormHelper extends CakeFormHelper
      */
     public function ckeditor(string $fieldName, array $options = []): string
     {
-        $options = optionsParser($options, ['label' => false, 'type' => 'textarea'])
-            ->append('templates', [
-                'textarea' => '<textarea name="{{name}}" class="form-control wysiwyg editor"{{attrs}}>{{value}}</textarea>',
-            ]);
+        $options = optionsParser($options, ['label' => false, 'type' => 'textarea'])->append('templates', [
+            'textarea' => '<textarea name="{{name}}" class="form-control wysiwyg editor"{{attrs}}>{{value}}</textarea>',
+        ]);
 
         return $this->control($fieldName, $options->toArray());
     }
@@ -160,21 +158,19 @@ class FormHelper extends CakeFormHelper
 
         //If the name contains the "password" word, then the type is `password`
         if (str_contains($fieldName, 'password')) {
-            $options->Default->add(['type' => 'password']);
+            $options->addDefault(['type' => 'password']);
         }
 
         //Gets the input type
         $type = $options->get('type') ?: $this->_inputType($fieldName, $options->toArray());
         if ($type === 'select' && !$options->exists('default') && !$options->exists('value')) {
-            $options->Default->add(['empty' => true]);
+            $options->addDefault(['empty' => true]);
         }
 
         //Help text
         //See https://getbootstrap.com/docs/4.0/components/forms/#help-text
         if ($options->exists('help')) {
-            $help = array_map(function (string $help): string {
-                return $this->Html->para('form-text text-muted', trim($help));
-            }, (array)$options->consume('help'));
+            $help = array_map(fn(string $help): string => $this->Html->para('form-text text-muted', trim($help)), (array)$options->consume('help'));
             $options->append('templateVars', ['help' => implode('', $help)]);
         }
 
@@ -300,7 +296,7 @@ class FormHelper extends CakeFormHelper
      */
     public function isInline(): bool
     {
-        return !empty($this->inline);
+        return $this->inline;
     }
 
     /**
@@ -378,7 +374,7 @@ class FormHelper extends CakeFormHelper
         $attributes = optionsParser($attributes);
 
         if (!$attributes->exists('default') && !$attributes->exists('value')) {
-            $attributes->Default->add('empty', true);
+            $attributes->addDefault('empty', true);
         }
 
         return parent::select($fieldName, $options, $attributes->toArray());

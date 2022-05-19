@@ -58,18 +58,14 @@ ServerRequest::addDetector('action', function (ServerRequest $request, $action, 
  * </code>
  * returns `true` if the current controller is `Pages`, otherwise `false`.
  */
-ServerRequest::addDetector('controller', function (ServerRequest $request, $controller): bool {
-    return in_array($request->getParam('controller'), (array)$controller);
-});
+ServerRequest::addDetector('controller', fn(ServerRequest $request, $controller): bool => in_array($request->getParam('controller'), (array)$controller));
 
 /**
  * `isLocalhost()` detector.
  *
  * Checks if the host is the localhost.
  */
-ServerRequest::addDetector('localhost', function (ServerRequest $request): bool {
-    return in_array($request->clientIp(), ['127.0.0.1', '::1']);
-});
+ServerRequest::addDetector('localhost', fn(ServerRequest $request): bool => in_array($request->clientIp(), ['127.0.0.1', '::1']));
 
 /**
  * `isPrefix()` detector.
@@ -82,9 +78,7 @@ ServerRequest::addDetector('localhost', function (ServerRequest $request): bool 
  * $this->getRequest()->isPrefix(['admin', 'manager']);
  * </code>
  */
-ServerRequest::addDetector('prefix', function (ServerRequest $request, $prefix): bool {
-    return in_array($request->getParam('prefix'), (array)$prefix);
-});
+ServerRequest::addDetector('prefix', fn(ServerRequest $request, $prefix): bool => in_array($request->getParam('prefix'), (array)$prefix));
 
 /**
  * `isUrl()` detector.

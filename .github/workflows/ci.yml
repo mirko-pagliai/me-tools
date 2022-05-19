@@ -12,13 +12,9 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        php-version: ['7.2', '7.3', '7.4', '8.0', '8.1']
+        php-version: ['7.4', '8.0', '8.1']
         prefer-lowest: ['']
         include:
-          - php-version: '7.2'
-            prefer-lowest: 'prefer-lowest'
-          - php-version: '7.3'
-            prefer-lowest: 'prefer-lowest'
           - php-version: '7.4'
             prefer-lowest: 'prefer-lowest'
           - php-version: '8.0'
@@ -68,13 +64,16 @@ jobs:
     name: Coding Standard & Static Analysis
     runs-on: ubuntu-latest
 
+    env:
+      PHP_VERSION: '8.0'
+
     steps:
         - uses: actions/checkout@v2
 
         - name: Setup PHP
           uses: shivammathur/setup-php@v2
           with:
-            php-version: '8.0'
+            php-version: ${{ env.PHP_VERSION }}
             coverage: none
             tools: cs2pr
 
@@ -99,7 +98,7 @@ jobs:
 
         - name: Run psalm
           if: success() || failure()
-          run: vendor/bin/psalm.phar --output-format=github
+          run: vendor/bin/psalm.phar --output-format=github --php-version=${{ env.PHP_VERSION }}
 
         - name: Run phpstan
           if: success() || failure()
