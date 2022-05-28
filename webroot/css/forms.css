@@ -13,8 +13,9 @@
 /*              General             */
 /* -------------------------------- */
 /* Form control (input wrapper) */
-form .form-control {
+form .form-group, form .form-check {
     font-size: inherit;
+    margin-bottom: 1rem;
 }
 
 /* -------------------------------- */
@@ -28,7 +29,7 @@ form label {
 form label.required:after,
 form div.required > label:after {
     color: #e32;
-    content: '*';
+    content: ' *';
     display: inline;
 }
 
@@ -36,13 +37,8 @@ form div.required > label:after {
 /*          Checkboxes              */
 /* -------------------------------- */
 /* Checkboxes wrappers, labels */
-.form-check.checkbox label {
+form .checkbox label {
     margin-bottom: 0;
-}
-
-/* Checkboxes wrappers, labels, inputs */
-.form-check.checkbox label > input {
-    margin-right: .2rem;
 }
 
 /* -------------------------------- */
