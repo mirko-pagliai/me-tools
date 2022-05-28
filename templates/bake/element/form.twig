@@ -2,15 +2,15 @@
 <div class="row">
     <aside class="col-2">
         <h4 class="heading"><?= I18N_ACTIONS ?></h4>
+        <?=
+            $this->Html->ul([
 {% if 'add' not in action %}
-        <?= $this->Form->postLink(
-            __('Delete'),
-            ['action' => 'delete', ${{ singularVar }}->{{ primaryKey[0] }}],
-            ['confirm' => I18N_SURE_TO_DELETE, 'class' => 'side-nav-item']
-        ) ?>
+                $this->Form->postLink(I18N_DELETE, ['action' => 'delete', ${{ singularVar }}->{{ primaryKey[0] }}], ['confirm' => I18N_SURE_TO_DELETE, 'class' => 'nav-link']),
 {% endif %}
-        <?= $this->Html->link(__('List {{ pluralHumanName }}'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
+                $this->Html->link(__('List {{ pluralHumanName }}'), ['action' => 'index'], ['class' => 'nav-link']),
         {{- "\n" }}
+            ], ['class' => 'nav flex-column'], ['class' => 'nav-item'])
+        ?>
 {%- set done = [] %}
     </aside>
     <div class="col">
