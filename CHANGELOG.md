@@ -1,5 +1,8 @@
 # 2.x branch
 ## 2.21 branch
+### 2.21.1
+* fixed a little bug for `HtmlHelper::link()`.
+
 ### 2.21.0
 * numerous code adjustments for improvement and adaptation to PHP 7.4 new features;
 * `OptionsParser` now uses the `$defaults` array property to store default values.

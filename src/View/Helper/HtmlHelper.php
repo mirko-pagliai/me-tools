@@ -315,11 +315,11 @@ class HtmlHelper extends CakeHtmlHelper
         }
 
         if (!$title && $url !== '#') {
-            $title = $this->Url->build($url, $options);
+            $buildedUrl = $this->Url->build($url, $options);
         }
 
         $options = optionsParser($options, ['escape' => false, 'title' => $title]);
-        $options->add('title', trim(h(strip_tags($options->get('title') ?? ''))))->tooltip();
+        $options->add('title', trim(h(strip_tags($options->get('title') ?? $buildedUrl))))->tooltip();
         [$title, $options] = $this->Icon->addIconToText($title, $options);
 
         return parent::link($title, $url, $options->toArray());
