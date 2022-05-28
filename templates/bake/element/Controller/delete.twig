@@ -1,0 +1,19 @@
+    /**
+     * Delete method
+     * @param string|null $id {{ singularHumanName }} id
+     * @return \Cake\Http\Response|null|void
+     * @throws \Cake\Datasource\Exception\RecordNotFoundException
+     */
+    public function delete($id = null)
+    {
+        $this->request->allowMethod(['post', 'delete']);
+
+        ${{ singularName }} = $this->{{ currentModelName }}->get($id);
+        if ($this->{{ currentModelName }}->delete(${{ singularName }})) {
+            $this->Flash->success(I18N_OPERATION_OK);
+        } else {
+            $this->Flash->error(I18N_OPERATION_NOT_OK);
+        }
+
+        return $this->redirect(['action' => 'index']);
+    }
