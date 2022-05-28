@@ -4,6 +4,7 @@
 * fixed a little bug for `HtmlHelper::link()`;
 * little fixes for `FormHelper`, to make the output more consistent with what
     Bootstrap requires;
+* added some i18n constants (`config/i18n_constants.php`), in order to be used universally;
 * fixed the `flash` template element.
 
 ### 2.21.0

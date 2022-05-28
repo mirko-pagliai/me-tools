@@ -39,3 +39,5 @@ Configure::write('VENDOR_LINKS', [
     'npm-asset' . DS . 'fancyapps-fancybox' . DS . 'dist' => 'fancyapps-fancybox',
     'twbs' . DS . 'bootstrap' . DS . 'dist' => 'bootstrap',
 ] + (array)(Configure::read('VENDOR_LINKS', [])));
+
+require_once 'i18n_constants.php';
