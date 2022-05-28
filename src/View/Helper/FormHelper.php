@@ -55,6 +55,7 @@ class FormHelper extends CakeFormHelper
     {
         //Rewrites default templates config
         $this->_defaultConfig = Hash::merge($this->_defaultConfig, ['templates' => [
+            'checkbox' => '<input class="form-check-input" type="checkbox" name="{{name}}" value="{{value}}"{{attrs}}>',
             'checkboxContainer' => '<div class="form-check input {{type}}{{required}}">{{content}}</div>',
             'nestingLabel' => '{{hidden}}<label{{attrs}}>{{input}} {{text}}{{help}}</label>',
             'hidden' => '<input type="{{type}}" name="{{name}}"{{attrs}}/>',
@@ -311,6 +312,7 @@ class FormHelper extends CakeFormHelper
     public function label(string $fieldName, ?string $text = null, array $options = []): string
     {
         $options = optionsParser($options, ['escape' => false]);
+        $options->add('class', 'form-label' . ($this->isInline() ? ' sr-only' : ''));
         [$text, $options] = $this->Icon->addIconToText($text, $options);
 
         return parent::label($fieldName, $text, $options->toArray());

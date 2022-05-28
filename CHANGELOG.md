@@ -1,7 +1,9 @@
 # 2.x branch
 ## 2.21 branch
 ### 2.21.1
-* fixed a little bug for `HtmlHelper::link()`.
+* fixed a little bug for `HtmlHelper::link()`;
+* little fixes for `FormHelper`, to make the output more consistent with what
+    Bootstrap requires.
 
 ### 2.21.0
 * numerous code adjustments for improvement and adaptation to PHP 7.4 new features;

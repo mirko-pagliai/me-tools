@@ -82,7 +82,7 @@ class FormHelperTest extends HelperTestCase
     {
         $expected = [
             ['input' => ['type' => 'hidden', 'name' => 'my-field', 'value' => '0']],
-            ['input' => ['type' => 'checkbox', 'name' => 'my-field', 'value' => '1']],
+            ['input' => ['class' => 'form-check-input', 'type' => 'checkbox', 'name' => 'my-field', 'value' => '1']],
         ];
         $this->assertHtml($expected, array_value_first((array)$this->Helper->checkbox('my-field')));
     }
@@ -106,7 +106,7 @@ class FormHelperTest extends HelperTestCase
 
         $expected = [
             'div' => ['class' => 'form-group input textarea'],
-            'label' => ['for' => $field],
+            'label' => ['class' => 'form-label', 'for' => $field],
             'my label',
             '/label',
             'textarea' => ['name' => $field, 'class' => 'form-control wysiwyg editor', 'id' => $field],
@@ -126,7 +126,7 @@ class FormHelperTest extends HelperTestCase
 
         $expected = [
             'div' => ['class' => 'form-group input text'],
-            'label' => ['for' => $field],
+            'label' => ['class' => 'form-label', 'for' => $field],
             'My Field',
             '/label',
             'input' => ['type' => 'text', 'name' => $field, 'class' => 'form-control', 'id' => $field],
@@ -136,7 +136,7 @@ class FormHelperTest extends HelperTestCase
 
         $expected = [
             'div' => ['class' => 'form-group input text'],
-            'label' => ['for' => $field],
+            'label' => ['class' => 'form-label', 'for' => $field],
             'My Field',
             '/label',
             'input' => ['type' => 'text', 'name' => $field, 'class' => 'form-control', 'id' => $field],
@@ -149,7 +149,7 @@ class FormHelperTest extends HelperTestCase
 
         $expected = [
             'div' => ['class' => 'form-group input text'],
-            'label' => ['for' => $field],
+            'label' => ['class' => 'form-label', 'for' => $field],
             'My Field',
             '/label',
             'input' => ['type' => 'text', 'name' => $field, 'class' => 'form-control', 'id' => $field],
@@ -166,7 +166,7 @@ class FormHelperTest extends HelperTestCase
 
         $expected = [
             ['div' => ['class' => 'form-group input text']],
-            'label' => ['for' => $field],
+            'label' => ['class' => 'form-label', 'for' => $field],
             'My Field',
             '/label',
             ['div' => ['class' => 'input-group']],
@@ -191,9 +191,9 @@ class FormHelperTest extends HelperTestCase
         $field = 'my-field';
         $expected = [
             'div' => ['class' => 'form-check input checkbox'],
-            'label' => ['for' => $field],
+            'label' => ['class' => 'form-label', 'for' => $field],
             ['input' => ['type' => 'hidden', 'name' => $field, 'value' => '0']],
-            ['input' => ['type' => 'checkbox', 'name' => $field, 'value' => '1', 'id' => $field]],
+            ['input' => ['class' => 'form-check-input', 'type' => 'checkbox', 'name' => $field, 'value' => '1', 'id' => $field]],
             ' My Field',
             '/label',
             '/div',
@@ -209,7 +209,7 @@ class FormHelperTest extends HelperTestCase
     {
         $expected = [
             'div' => ['class' => 'form-group input password'],
-            'label' => ['for' => 'old-password'],
+            'label' => ['class' => 'form-label', 'for' => 'old-password'],
             'Old Password',
             '/label',
             'input' => ['type' => 'password', 'name' => 'old-password', 'class' => 'form-control', 'id' => 'old-password'],
@@ -229,7 +229,7 @@ class FormHelperTest extends HelperTestCase
 
         $expected = [
             'div' => ['class' => 'form-group input select'],
-            'label' => ['for' => $field],
+            'label' => ['class' => 'form-label', 'for' => $field],
             'My Field',
             '/label',
             'select' => ['name' => $field, 'class' => 'form-control', 'id' => $field],
@@ -250,7 +250,7 @@ class FormHelperTest extends HelperTestCase
         //With default value
         $expected = [
             'div' => ['class' => 'form-group input select'],
-            'label' => ['for' => $field],
+            'label' => ['class' => 'form-label', 'for' => $field],
             'My Field',
             '/label',
             'select' => ['name' => $field, 'class' => 'form-control', 'id' => $field],
@@ -273,7 +273,7 @@ class FormHelperTest extends HelperTestCase
         //With selected value
         $expected = [
             'div' => ['class' => 'form-group input select'],
-            'label' => ['for' => $field],
+            'label' => ['class' => 'form-label', 'for' => $field],
             'My Field',
             '/label',
             'select' => ['name' => $field, 'class' => 'form-control', 'id' => $field],
@@ -296,7 +296,7 @@ class FormHelperTest extends HelperTestCase
         //Custom `empty` value
         $expected = [
             'div' => ['class' => 'form-group input select'],
-            'label' => ['for' => $field],
+            'label' => ['class' => 'form-label', 'for' => $field],
             'My Field',
             '/label',
             'select' => ['name' => $field, 'class' => 'form-control', 'id' => $field],
@@ -322,7 +322,7 @@ class FormHelperTest extends HelperTestCase
         // `empty` disabled
         $expected = [
             'div' => ['class' => 'form-group input select'],
-            'label' => ['for' => $field],
+            'label' => ['class' => 'form-label', 'for' => $field],
             'My Field',
             '/label',
             'select' => ['name' => $field, 'class' => 'form-control', 'id' => $field],
@@ -348,7 +348,7 @@ class FormHelperTest extends HelperTestCase
         $field = 'my-field';
         $expected = [
             'div' => ['class' => 'form-group input textarea'],
-            'label' => ['for' => $field],
+            'label' => ['class' => 'form-label', 'for' => $field],
             'My Field',
             '/label',
             'textarea' => ['name' => $field, 'class' => 'form-control', 'id' => $field],
@@ -368,7 +368,7 @@ class FormHelperTest extends HelperTestCase
 
         $expected = [
             'div' => ['class' => 'form-group input text'],
-            'label' => ['class' => 'sr-only', 'for' => $field],
+            'label' => ['class' => 'form-label sr-only', 'for' => $field],
             'My Field',
             '/label',
             'input' => ['type' => 'text', 'name' => $field, 'class' => 'form-control', 'id' => $field],
@@ -380,9 +380,9 @@ class FormHelperTest extends HelperTestCase
         //Tries with a checkbox
         $expected = [
             'div' => ['class' => 'form-check input checkbox'],
-            'label' => ['for' => $field],
+            'label' => ['class' => 'form-label sr-only', 'for' => $field],
             ['input' => ['type' => 'hidden', 'name' => $field, 'value' => '0']],
-            ['input' => ['type' => 'checkbox', 'name' => $field, 'value' => '1', 'id' => $field]],
+            ['input' => ['class' => 'form-check-input', 'type' => 'checkbox', 'name' => $field, 'value' => '1', 'id' => $field]],
             ' My Field',
             '/label',
             '/div',
@@ -392,7 +392,7 @@ class FormHelperTest extends HelperTestCase
         //Using `label` option
         $expected = [
             'div' => ['class' => 'form-group input text'],
-            'label' => ['class' => 'sr-only', 'for' => $field],
+            'label' => ['class' => 'form-label sr-only', 'for' => $field],
             'My label',
             '/label',
             'input' => ['type' => 'text', 'name' => $field, 'class' => 'form-control', 'id' => $field],
@@ -468,7 +468,7 @@ class FormHelperTest extends HelperTestCase
         foreach (['datepicker', 'datetimepicker', 'timepicker'] as $method) {
             $expected = [
                 'div' => ['class' => 'form-group input text'],
-                'label' => ['for' => $field],
+                'label' => ['class' => 'form-label', 'for' => $field],
                 'My Field',
                 '/label',
                 'input' => [
@@ -490,7 +490,7 @@ class FormHelperTest extends HelperTestCase
     public function testLabel(): void
     {
         $expected = [
-            'label' => ['for' => 'my-fieldname'],
+            'label' => ['class' => 'form-label', 'for' => 'my-fieldname'],
             'i' => ['class' => 'fas fa-home'],
             ' ',
             '/i',
@@ -500,7 +500,7 @@ class FormHelperTest extends HelperTestCase
         ];
         $this->assertHtml($expected, $this->Helper->label('my-fieldname', 'My label', ['icon' => 'home']));
 
-        $expected = ['label' => ['for' => 'my-fieldname'], '" \'', '/label'];
+        $expected = ['label' => ['class' => 'form-label', 'for' => 'my-fieldname'], '" \'', '/label'];
         $this->assertHtml($expected, $this->Helper->label('my-fieldname', '" \''));
     }
 
