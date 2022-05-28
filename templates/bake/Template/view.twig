@@ -11,7 +11,7 @@
 {% set pK = '$' ~ singularVar ~ '->' ~ primaryKey[0] %}
 <div class="row">
     <aside class="col-2">
-        <h4 class="heading"><?= I18N_ACTIONS ?></h4>
+        <h4><?= I18N_ACTIONS ?></h4>
         <?=
             $this->Html->ul([
                 $this->Html->link(I18N_EDIT, ['action' => 'edit', {{ pK|raw }}], ['class' => 'nav-link']),

@@ -1,7 +1,7 @@
 {% set fields = Bake.filterFields(fields, schema, modelObject) %}
 <div class="row">
     <aside class="col-2">
-        <h4 class="heading"><?= I18N_ACTIONS ?></h4>
+        <h4><?= I18N_ACTIONS ?></h4>
         <?=
             $this->Html->ul([
 {% if 'add' not in action %}
