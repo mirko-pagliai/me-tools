@@ -9,118 +9,113 @@
 {% set associationFields = fieldsData.associationFields %}
 {% set groupedFields = fieldsData.groupedFields %}
 {% set pK = '$' ~ singularVar ~ '->' ~ primaryKey[0] %}
-<div class="row">
-    <aside class="col-2">
-        <h4><?= I18N_ACTIONS ?></h4>
-        <?=
-            $this->Html->ul([
-                $this->Html->link(I18N_EDIT, ['action' => 'edit', {{ pK|raw }}], ['class' => 'nav-link']),
-                $this->Form->postLink(I18N_DELETE, ['action' => 'delete', {{ pK|raw }}], ['confirm' => I18N_SURE_TO_DELETE, 'class' => 'nav-link']),
-                $this->Html->link(__('List {{ pluralHumanName }}'), ['action' => 'index'], ['class' => 'nav-link']),
-            ], ['class' => 'nav flex-column'], ['class' => 'nav-item'])
-        ?>
-{% set done = [] %}
-    </aside>
-    
-    <div class="{{ pluralVar }} view content col-10">
-        <h3><?= h(${{ singularVar }}->{{ displayField }}) ?></h3>
-        <table>
+
+<?php
+$this->set('sidebarLinks', [
+    $this->Html->link(I18N_EDIT, ['action' => 'edit', {{ pK|raw }}], ['class' => 'nav-link']),
+    $this->Form->postLink(I18N_DELETE, ['action' => 'delete', {{ pK|raw }}], ['confirm' => I18N_SURE_TO_DELETE, 'class' => 'nav-link']),
+    $this->Html->link(__('List {{ pluralHumanName }}'), ['action' => 'index'], ['class' => 'nav-link']),
+]);
+?>
+
+<div class="{{ pluralVar }} view content">
+    <h3><?= h(${{ singularVar }}->{{ displayField }}) ?></h3>
+    <table>
 {% if groupedFields['string'] %}
 {% for field in groupedFields['string'] %}
 {% if associationFields[field] is defined %}
 {% set details = associationFields[field] %}
-            <tr>
-                <th><?= __('{{ details.property|humanize }}') ?></th>
-                <td><?= ${{ singularVar }}->has('{{ details.property }}') ? $this->Html->link(${{ singularVar }}->{{ details.property }}->{{ details.displayField }}, ['controller' => '{{ details.controller }}', 'action' => 'view', ${{ singularVar }}->{{ details.property }}->{{ details.primaryKey[0] }}]) : '' ?></td>
-            </tr>
+        <tr>
+            <th><?= __('{{ details.property|humanize }}') ?></th>
+            <td><?= ${{ singularVar }}->has('{{ details.property }}') ? $this->Html->link(${{ singularVar }}->{{ details.property }}->{{ details.displayField }}, ['controller' => '{{ details.controller }}', 'action' => 'view', ${{ singularVar }}->{{ details.property }}->{{ details.primaryKey[0] }}]) : '' ?></td>
+        </tr>
 {% else %}
-            <tr>
-                <th><?= __('{{ field|humanize }}') ?></th>
-                <td><?= h(${{ singularVar }}->{{ field }}) ?></td>
-            </tr>
+        <tr>
+            <th><?= __('{{ field|humanize }}') ?></th>
+            <td><?= h(${{ singularVar }}->{{ field }}) ?></td>
+        </tr>
 {% endif %}
 {% endfor %}
 {% endif %}
 {% if associations.HasOne %}
 {% for alias, details in associations.HasOne %}
-            <tr>
-                <th><?= __('{{ alias|underscore|singularize|humanize }}') ?></th>
-                <td><?= ${{ singularVar }}->has('{{ details.property }}') ? $this->Html->link(${{ singularVar }}->{{ details.property }}->{{ details.displayField }}, ['controller' => '{{ details.controller }}', 'action' => 'view', ${{ singularVar }}->{{ details.property }}->{{ details.primaryKey[0] }}]) : '' ?></td>
-            </tr>
+        <tr>
+            <th><?= __('{{ alias|underscore|singularize|humanize }}') ?></th>
+            <td><?= ${{ singularVar }}->has('{{ details.property }}') ? $this->Html->link(${{ singularVar }}->{{ details.property }}->{{ details.displayField }}, ['controller' => '{{ details.controller }}', 'action' => 'view', ${{ singularVar }}->{{ details.property }}->{{ details.primaryKey[0] }}]) : '' ?></td>
+        </tr>
 {% endfor %}
 {% endif %}
 {% if groupedFields.number %}
 {% for field in groupedFields.number %}
-            <tr>
-                <th><?= __('{{ field|humanize }}') ?></th>
+        <tr>
+            <th><?= __('{{ field|humanize }}') ?></th>
 {% set columnData = Bake.columnData(field, schema) %}
 {% if columnData.null %}
-                <td><?= ${{ singularVar }}->{{ field }} === null ? '' : $this->Number->format(${{ singularVar }}->{{ field }}) ?></td>
+            <td><?= ${{ singularVar }}->{{ field }} === null ? '' : $this->Number->format(${{ singularVar }}->{{ field }}) ?></td>
 {% else %}
-                <td><?= $this->Number->format(${{ singularVar }}->{{ field }}) ?></td>
+            <td><?= $this->Number->format(${{ singularVar }}->{{ field }}) ?></td>
 {% endif %}
-            </tr>
+        </tr>
 {% endfor %}
 {% endif %}
 {% if groupedFields.date %}
 {% for field in groupedFields.date %}
-            <tr>
-                <th><?= __('{{ field|humanize }}') ?></th>
-                <td><?= h(${{ singularVar }}->{{ field }}) ?></td>
-            </tr>
+        <tr>
+            <th><?= __('{{ field|humanize }}') ?></th>
+            <td><?= h(${{ singularVar }}->{{ field }}) ?></td>
+        </tr>
 {% endfor %}
 {% endif %}
 {% if groupedFields.boolean %}
 {% for field in groupedFields.boolean %}
-            <tr>
-                <th><?= __('{{ field|humanize }}') ?></th>
-                <td><?= ${{ singularVar }}->{{ field }} ? I18N_YES : I18N_NO; ?></td>
-            </tr>
+        <tr>
+            <th><?= __('{{ field|humanize }}') ?></th>
+            <td><?= ${{ singularVar }}->{{ field }} ? I18N_YES : I18N_NO; ?></td>
+        </tr>
 {% endfor %}
 {% endif %}
-        </table>
+    </table>
 {% if groupedFields.text %}
 {% for field in groupedFields.text %}
-        <div class="text">
-            <strong><?= __('{{ field|humanize }}') ?></strong>
-            <blockquote>
-                <?= $this->Text->autoParagraph(h(${{ singularVar }}->{{ field }})); ?>
-            </blockquote>
-        </div>
+    <div class="text">
+        <strong><?= __('{{ field|humanize }}') ?></strong>
+        <blockquote>
+            <?= $this->Text->autoParagraph(h(${{ singularVar }}->{{ field }})); ?>
+        </blockquote>
+    </div>
 {% endfor %}
 {% endif %}
 {% set relations = associations.BelongsToMany|merge(associations.HasMany) %}
 {% for alias, details in relations %}
 {% set otherSingularVar = alias|variable %}
 {% set otherPluralHumanName = details.controller|underscore|humanize %}
-        <div class="related">
-            <h4><?= __('Related {{ otherPluralHumanName }}') ?></h4>
-            <?php if (!empty(${{ singularVar }}->{{ details.property }})) : ?>
-            <div class="table-responsive">
-                <table>
-                    <tr>
+    <div class="related mt-4">
+        <h4><?= __('Related {{ otherPluralHumanName }}') ?></h4>
+        <?php if (!empty(${{ singularVar }}->{{ details.property }})) : ?>
+        <div class="table-responsive">
+            <table>
+                <tr>
 {% for field in details.fields %}
-                        <th><?= __('{{ field|humanize }}') ?></th>
+                    <th><?= __('{{ field|humanize }}') ?></th>
 {% endfor %}
-                        <th class="actions"><?= I18N_ACTIONS ?></th>
-                    </tr>
-                    <?php foreach (${{ singularVar }}->{{ details.property }} as ${{ otherSingularVar }}) : ?>
-                    <tr>
+                    <th class="actions"><?= I18N_ACTIONS ?></th>
+                </tr>
+                <?php foreach (${{ singularVar }}->{{ details.property }} as ${{ otherSingularVar }}) : ?>
+                <tr>
 {% for field in details.fields %}
-                        <td><?= h(${{ otherSingularVar }}->{{ field }}) ?></td>
+                    <td><?= h(${{ otherSingularVar }}->{{ field }}) ?></td>
 {% endfor %}
 {% set otherPk = '$' ~ otherSingularVar ~ '->' ~ details.primaryKey[0] %}
-                        <td class="actions">
-                            <?= $this->Html->link(I18N_VIEW, ['controller' => '{{ details.controller }}', 'action' => 'view', {{ otherPk|raw }}]) ?>
-                            <?= $this->Html->link(I18N_EDIT, ['controller' => '{{ details.controller }}', 'action' => 'edit', {{ otherPk|raw }}]) ?>
-                            <?= $this->Form->postLink(I18N_DELETE, ['controller' => '{{ details.controller }}', 'action' => 'delete', {{ otherPk|raw }}], ['confirm' => I18N_SURE_TO_DELETE]) ?>
-                        </td>
-                    </tr>
-                    <?php endforeach; ?>
-                </table>
-            </div>
-            <?php endif; ?>
+                    <td class="actions">
+                        <?= $this->Html->link(I18N_VIEW, ['controller' => '{{ details.controller }}', 'action' => 'view', {{ otherPk|raw }}]) ?>
+                        <?= $this->Html->link(I18N_EDIT, ['controller' => '{{ details.controller }}', 'action' => 'edit', {{ otherPk|raw }}]) ?>
+                        <?= $this->Form->postLink(I18N_DELETE, ['controller' => '{{ details.controller }}', 'action' => 'delete', {{ otherPk|raw }}], ['confirm' => I18N_SURE_TO_DELETE]) ?>
+                    </td>
+                </tr>
+                <?php endforeach; ?>
+            </table>
         </div>
-{% endfor %}
+        <?php endif; ?>
     </div>
+{% endfor %}
 </div>
