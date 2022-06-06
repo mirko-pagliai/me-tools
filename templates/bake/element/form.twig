@@ -1,58 +1,51 @@
 {% set fields = Bake.filterFields(fields, schema, modelObject) %}
-<div class="row">
-    <aside class="col-2">
-        <h4><?= I18N_ACTIONS ?></h4>
-        <?=
-            $this->Html->ul([
+
+<?php
+$this->set('sidebarLinks', [
 {% if 'add' not in action %}
-                $this->Form->postLink(I18N_DELETE, ['action' => 'delete', ${{ singularVar }}->{{ primaryKey[0] }}], ['confirm' => I18N_SURE_TO_DELETE, 'class' => 'nav-link']),
+    $this->Form->postLink(I18N_DELETE, ['action' => 'delete', ${{ singularVar }}->{{ primaryKey[0] }}], ['confirm' => I18N_SURE_TO_DELETE, 'class' => 'nav-link']),
 {% endif %}
-                $this->Html->link(__('List {{ pluralHumanName }}'), ['action' => 'index'], ['class' => 'nav-link']),
-        {{- "\n" }}
-            ], ['class' => 'nav flex-column'], ['class' => 'nav-item'])
-        ?>
-{%- set done = [] %}
-    </aside>
-    <div class="col-10">
-        <div class="{{ pluralVar }} form content">
-            <?= $this->Form->create(${{ singularVar }}) ?>
-            <fieldset>
-                <legend><?= __('{{ action|humanize }} {{ singularHumanName }}') ?></legend>
-                <?php
+    $this->Html->link(__('List {{ pluralHumanName }}'), ['action' => 'index'], ['class' => 'nav-link']),
+]);
+?>
+
+<div class="{{ pluralVar }} form content">
+    <?= $this->Form->create(${{ singularVar }}) ?>
+    <fieldset>
+        <legend><?= __('{{ action|humanize }} {{ singularHumanName }}') ?></legend>
+        <?php
 {% for field in fields %}
 {%- if field not in primaryKey %}
-    {%- if keyFields[field] is defined %}
-        {%- set fieldData = Bake.columnData(field, schema) %}
-        {%- if fieldData.null %}
-                    echo $this->Form->control('{{ field }}', ['options' => ${{ keyFields[field] }}, 'empty' => true]);
-                    {{- "\n" }}
-        {%- else %}
-                    echo $this->Form->control('{{ field }}', ['options' => ${{ keyFields[field] }}]);
-                    {{- "\n" }}
-        {%- endif %}
-    {%- elseif field not in ['created', 'modified', 'updated'] %}
-        {%- set fieldData = Bake.columnData(field, schema) %}
-        {%- if fieldData.type in ['date', 'datetime', 'time'] and fieldData.null %}
-                    echo $this->Form->control('{{ field }}', ['empty' => true]);
-                    {{- "\n" }}
-        {%- else %}
-                    echo $this->Form->control('{{ field }}');
-                    {{- "\n" }}
-        {%- endif %}
-    {%- endif %}
+{%- if keyFields[field] is defined %}
+{%- set fieldData = Bake.columnData(field, schema) %}
+{%- if fieldData.null %}
+            echo $this->Form->control('{{ field }}', ['options' => ${{ keyFields[field] }}, 'empty' => true]);
+            {{- "\n" }}
+{%- else %}
+            echo $this->Form->control('{{ field }}', ['options' => ${{ keyFields[field] }}]);
+            {{- "\n" }}
+{%- endif %}
+{%- elseif field not in ['created', 'modified', 'updated'] %}
+{%- set fieldData = Bake.columnData(field, schema) %}
+{%- if fieldData.type in ['date', 'datetime', 'time'] and fieldData.null %}
+            echo $this->Form->control('{{ field }}', ['empty' => true]);
+            {{- "\n" }}
+{%- else %}
+            echo $this->Form->control('{{ field }}');
+            {{- "\n" }}
+{%- endif %}
+{%- endif %}
 {%- endif %}
 {%- endfor %}
 
 {%- if associations.BelongsToMany is defined %}
 {%- for assocName, assocData in associations.BelongsToMany %}
-                    echo $this->Form->control('{{ assocData.property }}._ids', ['options' => ${{ assocData.variable }}]);
-                    {{- "\n" }}
+            echo $this->Form->control('{{ assocData.property }}._ids', ['options' => ${{ assocData.variable }}]);
+            {{- "\n" }}
 {%- endfor %}
 {% endif %}
-                ?>
-            </fieldset>
-            <?= $this->Form->button(I18N_SUBMIT, ['type' => 'submit']) ?>
-            <?= $this->Form->end() ?>
-        </div>
-    </div>
+        ?>
+    </fieldset>
+    <?= $this->Form->button(I18N_SUBMIT, ['type' => 'submit']) ?>
+    <?= $this->Form->end() ?>
 </div>
