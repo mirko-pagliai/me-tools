@@ -67,11 +67,17 @@ form .form-text {
 /* Error messages */
 form .error-message {
     background: #f2dede;
-    border-radius: .2rem;
+    border-radius: .3rem;
     color: #b94a48;
     font-size: .8rem;
     margin-top: .2rem;
     padding: .2rem .4rem;
+}
+
+/* Error messages, errors as list */
+form .error-message ul {
+    margin: 0;
+    padding-left: 1rem;
 }
 
 /* -------------------------------- */
