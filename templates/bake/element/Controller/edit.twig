@@ -12,7 +12,7 @@
         ${{ singularName }} = $this->{{ currentModelName }}->get($id, [
             'contain' => {{ Bake.exportArray(belongsToMany)|raw }},
         ]);
-        
+
         if ($this->request->is(['patch', 'post', 'put'])) {
             ${{ singularName }} = $this->{{ currentModelName }}->patchEntity(${{ singularName }}, $this->request->getData());
             if ($this->{{ currentModelName }}->save(${{ singularName }})) {
@@ -20,7 +20,7 @@
 
                 return $this->redirect(['action' => 'index']);
             }
-            
+
             $this->Flash->error(I18N_OPERATION_NOT_OK);
         }
 {% for assoc in belongsTo|merge(belongsToMany) %}

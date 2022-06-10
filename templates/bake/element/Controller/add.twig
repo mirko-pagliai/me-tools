@@ -14,7 +14,7 @@
 
                 return $this->redirect(['action' => 'index']);
             }
-            
+
             $this->Flash->error(I18N_OPERATION_NOT_OK);
         }
 {% set associations = Bake.aliasExtractor(modelObj, 'BelongsTo') %}
