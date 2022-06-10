@@ -140,9 +140,9 @@ class FormHelperTest extends HelperTestCase
             'My Field',
             '/label',
             'input' => ['type' => 'text', 'name' => $field, 'class' => 'form-control', 'id' => $field],
-            'p' => ['class' => 'form-text text-muted'],
+            ['div' => ['class' => 'form-text text-muted']],
             'My tip',
-            '/p',
+            '/div',
             '/div',
         ];
         $this->assertHtml($expected, $this->Helper->control($field, ['help' => 'My tip']));
@@ -153,12 +153,12 @@ class FormHelperTest extends HelperTestCase
             'My Field',
             '/label',
             'input' => ['type' => 'text', 'name' => $field, 'class' => 'form-control', 'id' => $field],
-            ['p' => ['class' => 'form-text text-muted']],
+            ['div' => ['class' => 'form-text text-muted']],
             'Tip first line',
-            '/p',
-            ['p' => ['class' => 'form-text text-muted']],
+            '/div',
+            ['div' => ['class' => 'form-text text-muted']],
             'Tip second line',
-            '/p',
+            '/div',
             '/div',
         ];
         $result = $this->Helper->control($field, ['help' => ['Tip first line', 'Tip second line']]);

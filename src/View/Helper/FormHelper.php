@@ -23,6 +23,7 @@ use MeTools\View\Widget\HiddenWidget;
 /**
  * Provides functionalities for forms
  * @property \MeTools\View\Helper\IconHelper $Icon
+ * @property \MeTools\View\Helper\HtmlHelper $Html
  */
 class FormHelper extends CakeFormHelper
 {
@@ -168,15 +169,15 @@ class FormHelper extends CakeFormHelper
             $options->addDefault(['empty' => true]);
         }
 
-        //Help text
-        //See https://getbootstrap.com/docs/4.0/components/forms/#help-text
+        //Help text (form text)
+        //See https://getbootstrap.com/docs/5.2/forms/overview/#form-text
         if ($options->exists('help')) {
-            $help = array_map(fn(string $help): string => $this->Html->para('form-text text-muted', trim($help)), (array)$options->consume('help'));
+            $help = array_map(fn(string $help): string => $this->Html->div('form-text text-muted', trim($help)), (array)$options->consume('help'));
             $options->append('templateVars', ['help' => implode('', $help)]);
         }
 
         //Input group. Fixes templates
-        //See https://getbootstrap.com/docs/4.0/components/input-group/
+        //See https://getbootstrap.com/docs/5.2/forms/input-group
         if ($options->exists('button')) {
             $options->append([
                 'templates' => ['formGroup' => '{{label}}<div class="input-group">{{input}}{{button}}</div>'],
