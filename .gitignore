@@ -5,4 +5,5 @@
 *.old.*
 composer.lock
 coverage/
+src/View/Helper/Bootstrap*Helper.php
 vendor/*
