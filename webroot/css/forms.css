@@ -51,17 +51,6 @@ form input + .input-group-prepend .btn {
 }
 
 /* -------------------------------- */
-/*          Help texts (tips)       */
-/* -------------------------------- */
-/* Help texts */
-form .form-text {
-    font-family: sans-serif, Arial;
-    font-size: .6875rem;
-    font-weight: normal;
-    margin-bottom: 0;
-}
-
-/* -------------------------------- */
 /*              Errors              */
 /* -------------------------------- */
 /* Error messages */
