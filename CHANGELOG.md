@@ -1,10 +1,12 @@
 # 2.x branch
 ## 2.21 branch
 ### 2.21.1
-* added a theme for Bake. See the README file;
+* added a theme for Bake. See the `README` file;
 * fixed a little bug for `HtmlHelper::link()`;
 * little fixes for `FormHelper`, to make the output more consistent with what
     Bootstrap requires;
+* updated some css file, to make the output more consistent with what Bootstrap
+    requires;
 * added some i18n constants (`config/i18n_constants.php`), in order to be used universally;
 * fixed the `flash` template element.
 
