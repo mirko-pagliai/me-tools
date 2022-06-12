@@ -78,36 +78,38 @@ $this->set('sidebarLinks', [
 {% set otherSingularVar = alias|variable %}
 {% set otherPluralHumanName = details.controller|underscore|humanize %}
     <div class="related mt-4">
-        <h4><?= __('Related {{ otherPluralHumanName }}') ?></h4>
-        <?php if (!empty(${{ singularVar }}->{{ details.property }})) : ?>
-        <div class="table-responsive">
+                <h4><?= __('Related {{ otherPluralHumanName }}') ?></h4>
+                <?php if (!empty(${{ singularVar }}->{{ details.property }})) : ?>
+                <div class="table-responsive">
             <table class="table align-middle">
-                <tr>
-                    <th></th>
+                        <tr>
+                            <th></th>
 {% for field in details.fields %}
-                    <th><?= __('{{ field|humanize }}') ?></th>
+                            <th><?= __('{{ field|humanize }}') ?></th>
 {% endfor %}
-                </tr>
-                <?php foreach (${{ singularVar }}->{{ details.property }} as ${{ otherSingularVar }}) : ?>
-                <tr>
-                    <td class="actions">
-                        <div class="btn-group">
-                            <?php
+                        </tr>
+                        <?php foreach (${{ singularVar }}->{{ details.property }} as ${{ otherSingularVar }}) : ?>
+                        <tr>
+{% set otherPk = '$' ~ otherSingularVar ~ '->' ~ details.primaryKey[0] %}
+                            <td class="actions">
+                                <div class="btn-group">
+                                <?php
                                 echo $this->Html->button('', ['controller' => '{{ details.controller }}', 'action' => 'view', {{ otherPk|raw }}], ['class' => 'btn-link text-primary', 'icon' => 'eye', 'title' => I18N_VIEW]);
                                 echo $this->Html->button('', ['controller' => '{{ details.controller }}', 'action' => 'edit', {{ otherPk|raw }}], ['class' => 'btn-link text-primary', 'icon' => 'pencil-alt', 'title' => I18N_EDIT]);
                                 echo $this->Form->postButton('', ['controller' => '{{ details.controller }}', 'action' => 'delete', {{ otherPk|raw }}], ['confirm' => I18N_SURE_TO_DELETE, 'class' => 'btn-link text-danger', 'icon' => 'trash-alt', 'title' => I18N_DELETE]);
                             ?>
-                        </div>
-                    </td>
+                                </div>
+                            </td>
 {% for field in details.fields %}
-                    <td><?= h(${{ otherSingularVar }}->{{ field }}) ?></td>
+                            <td><?= h(${{ otherSingularVar }}->{{ field }}) ?></td>
 {% endfor %}
-{% set otherPk = '$' ~ otherSingularVar ~ '->' ~ details.primaryKey[0] %}
-                </tr>
-                <?php endforeach; ?>
-            </table>
+                        </tr>
+                        <?php endforeach; ?>
+                    </table>
+                </div>
+                <?php endif; ?>
+            </div>
+{% endfor %}
         </div>
-        <?php endif; ?>
     </div>
-{% endfor %}
 </div>
