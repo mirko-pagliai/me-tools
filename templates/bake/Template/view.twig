@@ -94,10 +94,10 @@ $this->set('sidebarLinks', [
                             <td class="actions">
                                 <div class="btn-group">
                                 <?php
-                                echo $this->Html->button('', ['controller' => '{{ details.controller }}', 'action' => 'view', {{ otherPk|raw }}], ['class' => 'btn-link text-primary', 'icon' => 'eye', 'title' => I18N_VIEW]);
-                                echo $this->Html->button('', ['controller' => '{{ details.controller }}', 'action' => 'edit', {{ otherPk|raw }}], ['class' => 'btn-link text-primary', 'icon' => 'pencil-alt', 'title' => I18N_EDIT]);
-                                echo $this->Form->postButton('', ['controller' => '{{ details.controller }}', 'action' => 'delete', {{ otherPk|raw }}], ['confirm' => I18N_SURE_TO_DELETE, 'class' => 'btn-link text-danger', 'icon' => 'trash-alt', 'title' => I18N_DELETE]);
-                            ?>
+                                    echo $this->Html->button('', ['controller' => '{{ details.controller }}', 'action' => 'view', {{ otherPk|raw }}], ['class' => 'btn-link text-primary', 'icon' => 'eye', 'title' => I18N_VIEW]);
+                                    echo $this->Html->button('', ['controller' => '{{ details.controller }}', 'action' => 'edit', {{ otherPk|raw }}], ['class' => 'btn-link text-primary', 'icon' => 'pencil-alt', 'title' => I18N_EDIT]);
+                                    echo $this->Form->postButton('', ['controller' => '{{ details.controller }}', 'action' => 'delete', {{ otherPk|raw }}], ['confirm' => I18N_SURE_TO_DELETE, 'class' => 'btn-link text-danger', 'icon' => 'trash-alt', 'title' => I18N_DELETE]);
+                                ?>
                                 </div>
                             </td>
 {% for field in details.fields %}
