@@ -70,7 +70,7 @@ class {{ className }}Test extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        
+
 {% if preConstruct %}
         {{ preConstruct|raw }}
 {% endif %}
