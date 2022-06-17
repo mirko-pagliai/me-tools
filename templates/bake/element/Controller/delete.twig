@@ -9,11 +9,8 @@
         $this->request->allowMethod(['post', 'delete']);
 
         ${{ singularName }} = $this->{{ currentModelName }}->get($id);
-        if ($this->{{ currentModelName }}->delete(${{ singularName }})) {
-            $this->Flash->success(I18N_OPERATION_OK);
-        } else {
-            $this->Flash->error(I18N_OPERATION_NOT_OK);
-        }
+        $success = $this->{{ currentModelName }}->delete(${{ singularName }});
+        $success ? $this->Flash->success(I18N_OPERATION_OK) : $this->Flash->error(I18N_OPERATION_NOT_OK);
 
         return $this->redirect(['action' => 'index']);
     }
