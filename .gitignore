@@ -5,5 +5,7 @@
 *.old.*
 composer.lock
 coverage/
-src/View/Helper/Bootstrap*Helper.php
 vendor/*
+
+/* @to-do remove */
+**/View/Helper/Bootstrap*Helper*.php
