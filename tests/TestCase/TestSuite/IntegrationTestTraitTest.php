@@ -108,4 +108,19 @@ class IntegrationTestTraitTest extends TestCase
         $this->expectAssertionFailed();
         $this->assertSessionEmpty('first.second');
     }
+
+    /**
+     * Test for `getStatusCode()` method
+     * @test
+     * @uses \MeTools\TestSuite\IntegrationTestTrait::getStatusCode()
+     */
+    public function testGetStatusCode(): void
+    {
+        $this->_response = new Response(['status' => 302]);
+        $this->assertSame(302, $this->getStatusCode());
+
+        $this->expectAssertionFailed();
+        $this->_response = null;
+        $this->getStatusCode();
+    }
 }

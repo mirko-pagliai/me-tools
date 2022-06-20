@@ -2,6 +2,7 @@
 ## 2.21 branch
 ### 2.21.1
 * added a theme for Bake. See the `README` file;
+* added `IntegrationTestTrait::getStatusCode()` method;
 * fixed a little bug for `HtmlHelper::link()`;
 * little fixes for `FormHelper`, to make the output more consistent with what
     Bootstrap requires;
