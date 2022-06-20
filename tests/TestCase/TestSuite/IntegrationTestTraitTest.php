@@ -50,7 +50,6 @@ class IntegrationTestTraitTest extends TestCase
         $this->_controller = new Controller();
         $this->_controller->loadComponent('MeTools.Uploader');
         $this->controllerSpy(new Event('myEvent'), $this->_controller);
-        $this->assertEquals('with_flash', $this->_controller->viewBuilder()->getLayout());
 
         /** @phpstan-ignore-next-line */
         $this->assertIsMock($this->_controller->Uploader);
@@ -96,7 +95,7 @@ class IntegrationTestTraitTest extends TestCase
      * Test for `assertSessionEmpty()` method
      * @test
      */
-    public function testSessionEmpty(): void
+    public function testAssertSessionEmpty(): void
     {
         $this->_requestSession = new Session();
         $this->_requestSession->write('first.second', 'value');
