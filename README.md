@@ -26,7 +26,7 @@ bin/cake plugin load MeTools
 This would update your application's bootstrap method.
 
 ### Installation on older CakePHP and PHP versions
-Recent packages and the master branch require at least CakePHP 4.1 and PHP 7.4 and the current development of the code is based on these and later versions of CakePHP and PHP.
+Recent packages and the master branch require at least CakePHP 4.2 and PHP 7.4 and the current development of the code is based on these and later versions of CakePHP and PHP.
 However, there are still some branches compatible with previous versions of CakePHP and PHP.
 
 #### For PHP 7.2 or later
