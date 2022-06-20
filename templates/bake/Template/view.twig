@@ -20,6 +20,7 @@ $this->set('sidebarLinks', [
 
 <div class="{{ pluralVar }} view content">
     <h3><?= h(${{ singularVar }}->{{ displayField }}) ?></h3>
+
     <dl class="row">
 {% if groupedFields['string'] %}
 {% for field in groupedFields['string'] %}
@@ -77,39 +78,39 @@ $this->set('sidebarLinks', [
 {% for alias, details in relations %}
 {% set otherSingularVar = alias|variable %}
 {% set otherPluralHumanName = details.controller|underscore|humanize %}
+
     <div class="related mt-4">
-                <h4><?= __('Related {{ otherPluralHumanName }}') ?></h4>
-                <?php if (!empty(${{ singularVar }}->{{ details.property }})) : ?>
-                <div class="table-responsive">
+        <h4><?= __('Related {{ otherPluralHumanName }}') ?></h4>
+        
+        <?php if (!empty(${{ singularVar }}->{{ details.property }})) : ?>
+        <div class="table-responsive">
             <table class="table align-middle">
-                        <tr>
-                            <th></th>
+                <tr>
+                    <th></th>
 {% for field in details.fields %}
-                            <th><?= __('{{ field|humanize }}') ?></th>
+                    <th><?= __('{{ field|humanize }}') ?></th>
 {% endfor %}
-                        </tr>
-                        <?php foreach (${{ singularVar }}->{{ details.property }} as ${{ otherSingularVar }}) : ?>
-                        <tr>
+                </tr>
+                <?php foreach (${{ singularVar }}->{{ details.property }} as ${{ otherSingularVar }}) : ?>
+                <tr>
 {% set otherPk = '$' ~ otherSingularVar ~ '->' ~ details.primaryKey[0] %}
-                            <td class="actions">
-                                <div class="btn-group">
-                                <?php
-                                    echo $this->Html->button('', ['controller' => '{{ details.controller }}', 'action' => 'view', {{ otherPk|raw }}], ['class' => 'btn-link text-primary', 'icon' => 'eye', 'title' => I18N_VIEW]);
-                                    echo $this->Html->button('', ['controller' => '{{ details.controller }}', 'action' => 'edit', {{ otherPk|raw }}], ['class' => 'btn-link text-primary', 'icon' => 'pencil-alt', 'title' => I18N_EDIT]);
-                                    echo $this->Form->postButton('', ['controller' => '{{ details.controller }}', 'action' => 'delete', {{ otherPk|raw }}], ['confirm' => I18N_SURE_TO_DELETE, 'class' => 'btn-link text-danger', 'icon' => 'trash-alt', 'title' => I18N_DELETE]);
-                                ?>
-                                </div>
-                            </td>
+                    <td class="actions">
+                        <div class="btn-group">
+                        <?php
+                            echo $this->Html->button('', ['controller' => '{{ details.controller }}', 'action' => 'view', {{ otherPk|raw }}], ['class' => 'btn-link text-primary', 'icon' => 'eye', 'title' => I18N_VIEW]);
+                            echo $this->Html->button('', ['controller' => '{{ details.controller }}', 'action' => 'edit', {{ otherPk|raw }}], ['class' => 'btn-link text-primary', 'icon' => 'pencil-alt', 'title' => I18N_EDIT]);
+                            echo $this->Form->postButton('', ['controller' => '{{ details.controller }}', 'action' => 'delete', {{ otherPk|raw }}], ['confirm' => I18N_SURE_TO_DELETE, 'class' => 'btn-link text-danger', 'icon' => 'trash-alt', 'title' => I18N_DELETE]);
+                        ?>
+                        </div>
+                    </td>
 {% for field in details.fields %}
-                            <td><?= h(${{ otherSingularVar }}->{{ field }}) ?></td>
+                    <td><?= h(${{ otherSingularVar }}->{{ field }}) ?></td>
 {% endfor %}
-                        </tr>
-                        <?php endforeach; ?>
-                    </table>
-                </div>
-                <?php endif; ?>
-            </div>
-{% endfor %}
+                </tr>
+                <?php endforeach; ?>
+            </table>
         </div>
+        <?php endif; ?>
     </div>
+{% endfor %}
 </div>
