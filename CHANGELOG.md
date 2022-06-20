@@ -9,7 +9,8 @@
 * updated some css file, to make the output more consistent with what Bootstrap
     requires;
 * added some i18n constants (`config/i18n_constants.php`), in order to be used universally;
-* fixed the `flash` template element.
+* fixed the `flash` template element;
+* requires at least CakePHP 4.2.
 
 ### 2.21.0
 * numerous code adjustments for improvement and adaptation to PHP 7.4 new features;
