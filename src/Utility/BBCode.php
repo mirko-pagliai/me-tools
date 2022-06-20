@@ -136,6 +136,6 @@ class BBCode
      */
     public function youtube(string $text): string
     {
-        return preg_replace_callback($this->pattern['youtube'], fn($matches): string => $this->Html->youtube(is_url($matches[1]) ? Youtube::getId($matches[1]) : $matches[1]), $text) ?: '';
+        return preg_replace_callback($this->pattern['youtube'], fn($matches): string => $this->Html->youtube(is_url($matches[1]) ? (Youtube::getId($matches[1]) ?: '') : $matches[1]), $text) ?: '';
     }
 }

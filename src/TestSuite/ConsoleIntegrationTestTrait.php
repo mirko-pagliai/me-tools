@@ -15,12 +15,12 @@ declare(strict_types=1);
  */
 namespace MeTools\TestSuite;
 
-use Cake\TestSuite\ConsoleIntegrationTestTrait as BaseConsoleIntegrationTestTrait;
+use Cake\Console\TestSuite\ConsoleIntegrationTestTrait as BaseConsoleIntegrationTestTrait;
 use MeTools\Console\Command;
 
 /**
  * A trait intended to make integration tests of cake console commands easier
- * @property \Cake\TestSuite\Stub\ConsoleOutput|null $_err Console error output stub
+ * @property \Cake\Console\TestSuite\StubConsoleOutput|null $_err Console error output stub
  * @property \Cake\Console\ConsoleInput|null $_in Console input mock
  */
 trait ConsoleIntegrationTestTrait

@@ -20,6 +20,7 @@ use Tools\Exceptionist;
 /**
  * Provides functionalities for HTML code
  * @property \MeTools\View\Helper\IconHelper $Icon
+ * @method string span(string $text, array $options = [])
  */
 class HtmlHelper extends CakeHtmlHelper
 {

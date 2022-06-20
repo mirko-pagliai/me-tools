@@ -14,7 +14,7 @@ declare(strict_types=1);
  */
 namespace MeTools\Test\TestCase\TestSuite;
 
-use Cake\TestSuite\Stub\ConsoleOutput;
+use Cake\Console\TestSuite\StubConsoleOutput;
 use MeTools\TestSuite\ConsoleIntegrationTestTrait;
 use MeTools\TestSuite\TestCase;
 use PHPUnit\Framework\ExpectationFailedException;
@@ -35,12 +35,12 @@ class ConsoleIntegrationTestTraitTest extends TestCase
 
             public function resetMessages(): void
             {
-                $this->_out = new ConsoleOutput();
+                $this->_out = new StubConsoleOutput();
             }
 
             public function writeMessage(): void
             {
-                $this->_out = new ConsoleOutput();
+                $this->_out = new StubConsoleOutput();
                 $this->_out->write('message');
             }
         };

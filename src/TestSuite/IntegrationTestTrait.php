@@ -48,7 +48,6 @@ trait IntegrationTestTrait
             /** @var \MeTools\Controller\Component\UploaderComponent&\PHPUnit\Framework\MockObject\MockObject $Uploader */
             $Uploader = $this->getMockForComponent(UploaderComponent::class, ['move_uploaded_file']);
             $Uploader->method('move_uploaded_file')->will($this->returnCallback(fn(string $filename, string $destination): bool => rename($filename, $destination)));
-            /** @phpstan-ignore-next-line */
             $this->_controller->Uploader = $Uploader;
         }
     }
