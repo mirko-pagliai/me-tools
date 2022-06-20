@@ -120,6 +120,7 @@ class IntegrationTestTraitTest extends TestCase
         $this->assertSame(302, $this->getStatusCode());
 
         $this->expectAssertionFailed();
+        /** @phpstan-ignore-next-line */
         $this->_response = null;
         $this->getStatusCode();
     }
