@@ -5,8 +5,9 @@
 * added `IntegrationTestTrait::getStatusCode()` method;
 * fixed a little bug for `HtmlHelper::link()`;
 * `datepicker()`, `datetimepicker()` and `timepicker()` methods provided by
-    `FormHelper` are now deprecated. Use instead the normal `control()` method,
-    which will generate `date`/`datetime-local`/`time` inputs, recognized by the browser;
+    `FormHelper` are now deprecated and they will be removed in a later version.
+    Use instead the normal `control()` method, which will generate
+    `date`/`datetime-local`/`time` inputs, recognized by the browser;
 * little fixes for `FormHelper`, to make the output more consistent with what
     Bootstrap requires;
 * updated some css file, to make the output more consistent with what Bootstrap
