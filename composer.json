@@ -20,7 +20,8 @@
         "mirko-pagliai/cakephp-assets": "^1.5.4",
         "phpstan/phpstan": "~1.7.0",
         "phpunit/phpunit": "^9.1|^9.5",
-        "psalm/phar": "~4.23.0"
+        "psalm/phar": "~4.23.0",
+        "symfony/polyfill-php81": "^1.26"
     },
     "conflict": {
         "newerton/fancy-box": "*"
