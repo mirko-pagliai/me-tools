@@ -29,18 +29,6 @@ use Tools\Filesystem;
  */
 class LibraryHelperTest extends HelperTestCase
 {
-    protected const EXPECTED_DATEPICKER_ICONS = [
-        'time' => 'fas fa-clock',
-        'date' => 'fas fa-calendar',
-        'up' => 'fas fa-chevron-up',
-        'down' => 'fas fa-chevron-down',
-        'previous' => 'fas fa-chevron-left',
-        'next' => 'fas fa-chevron-right',
-        'today' => 'fas fa-dot-circle',
-        'clear' => 'fas fa-trash',
-        'close' => 'fas fa-times',
-    ];
-
     /**
      * Called before every test method
      * @return void
