@@ -8,6 +8,8 @@
     `FormHelper` are now deprecated and they will be removed in a later version.
     Use instead the normal `control()` method, which will generate
     `date`/`datetime-local`/`time` inputs, recognized by the browser;
+* `datepicker()` and `datetimepicker()` methods provided by `LibraryHelper` are
+    now deprecated and they will be removed in a later version;
 * little fixes for `FormHelper`, to make the output more consistent with what
     Bootstrap requires;
 * updated some css file, to make the output more consistent with what Bootstrap

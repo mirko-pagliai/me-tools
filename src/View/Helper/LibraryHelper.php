@@ -183,11 +183,13 @@ class LibraryHelper extends Helper
      * @param string $input Target field. Default is `.datepicker`
      * @param array $options Options for the datepicker
      * @return void
-     * @link http://eonasdan.github.io/bootstrap-datetimepicker Bootstrap 3 Datepicker v4 documentation
-     * @see \MeTools\View\Helper\FormHelper::datepicker()
+     * @deprecated 2.21.1 Use instead the normal functions provided by the most
+     *  modern browsers
      */
     public function datepicker(string $input = '', array $options = []): void
     {
+        deprecationWarning('Deprecated. Use instead the normal functions provided by the most modern browsers');
+
         $options = optionsParser($options, ['format' => 'YYYY/MM/DD']);
 
         $this->output[] = $this->buildDatetimepicker($input ?: '.datepicker', $options->toArray());
@@ -202,11 +204,13 @@ class LibraryHelper extends Helper
      * @param string $input Target field. Default is `.datetimepicker`
      * @param array $options Options for the datetimepicker
      * @return void
-     * @link http://eonasdan.github.io/bootstrap-datetimepicker Bootstrap 3 Datepicker v4 documentation
-     * @see \MeTools\View\Helper\FormHelper::datetimepicker()
+     * @deprecated 2.21.1 Use instead the normal functions provided by the most
+     *  modern browsers
      */
     public function datetimepicker(string $input = '', array $options = []): void
     {
+        deprecationWarning('Deprecated. Use instead the normal functions provided by the most modern browsers');
+
         $this->output[] = $this->buildDatetimepicker($input ?: '.datetimepicker', $options);
     }
 

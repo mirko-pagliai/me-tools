@@ -196,6 +196,7 @@ class LibraryHelperTest extends HelperTestCase
      */
     public function testDatepicker(): void
     {
+        $current = error_reporting(E_ALL & ~E_USER_DEPRECATED);
         $expected = [
             'format' => 'YYYY/MM/DD',
             'icons' => self::EXPECTED_DATEPICKER_ICONS,
@@ -225,6 +226,11 @@ class LibraryHelperTest extends HelperTestCase
             'href' => '/vendor/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css',
         ]];
         $this->assertHtml($expected, $this->Helper->getView()->fetch('css_bottom'));
+        error_reporting($current);
+
+        $this->expectDeprecation();
+        $this->expectExceptionMessage('Deprecated. Use instead the normal functions provided by the most modern browsers');
+        $this->Helper->datepicker('my-field');
     }
 
     /**
@@ -235,6 +241,7 @@ class LibraryHelperTest extends HelperTestCase
      */
     public function testDatetimepicker(): void
     {
+        $current = error_reporting(E_ALL & ~E_USER_DEPRECATED);
         $expected = [
             'icons' => self::EXPECTED_DATEPICKER_ICONS,
             'locale' => 'en',
@@ -249,6 +256,11 @@ class LibraryHelperTest extends HelperTestCase
             $this->assertNotEmpty($matches[1]);
             $this->assertEquals($expected, json_decode($matches[1], true));
         }
+        error_reporting($current);
+
+        $this->expectDeprecation();
+        $this->expectExceptionMessage('Deprecated. Use instead the normal functions provided by the most modern browsers');
+        $this->Helper->datetimepicker('my-field');
     }
 
     /**
