@@ -13,15 +13,14 @@
     "require": {
         "php": ">=7.4",
         "cakephp/cakephp": "^4.2",
-        "mirko-pagliai/php-tools": "^1.5.7"
+        "mirko-pagliai/php-tools": "^1.6"
     },
     "require-dev": {
         "cakephp/cakephp-codesniffer": "^4.5",
         "mirko-pagliai/cakephp-assets": "^1.5.4",
         "phpstan/phpstan": "~1.7.0",
         "phpunit/phpunit": "^9.1|^9.5",
-        "psalm/phar": "~4.23.0",
-        "symfony/polyfill-php81": "^1.26"
+        "psalm/phar": "~4.23.0"
     },
     "conflict": {
         "newerton/fancy-box": "*"
@@ -29,7 +28,6 @@
     "suggest": {
         "components/jquery": "To use jQuery, the JavaScript library",
         "fortawesome/font-awesome": "To use Font Awesome's icons",
-        "eonasdan/bootstrap-datetimepicker": "To create Bootstrap's datetime pickers",
         "mirko-pagliai/cakephp-assets": "A CakePHP plugin to allows you to generate assets",
         "npm-asset/fancyapps-fancybox": "To show photos with fancybox",
         "twbs/bootstrap": "To use Bootstrap, the world's most popular framework for building responsive, mobile-first sites"
