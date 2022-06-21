@@ -1,4 +1,9 @@
 # 2.x branch
+## 2.22 branch
+### 2.22.0
+*  `datepicker()`, `datetimepicker()` and `timepicker()` methods provided by
+    `FormHelper` were deprecated and have now been removed.
+
 ## 2.21 branch
 ### 2.21.1
 * added a theme for Bake. See the `README` file;
