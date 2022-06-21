@@ -465,22 +465,93 @@ class FormHelperTest extends HelperTestCase
     {
         $field = 'my-field';
 
-        foreach (['datepicker', 'datetimepicker', 'timepicker'] as $method) {
-            $expected = [
-                'div' => ['class' => 'form-group input text'],
-                'label' => ['class' => 'form-label', 'for' => $field],
-                'My Field',
-                '/label',
-                'input' => [
-                    'type' => 'text',
-                    'name' => $field,
-                    'class' => 'form-control ' . $method,
-                    'data-date-format' => 'preg:/(YYYY\-MM\-DD)?\s?(HH:mm)?/',
-                    'id' => $field],
-                '/div',
-            ];
-            $this->assertHtml($expected, $this->Helper->{$method}($field));
-        }
+        $current = error_reporting(E_ALL & ~E_USER_DEPRECATED);
+
+        $expected = [
+            'div' => ['class' => 'form-group input date'],
+            'label' => ['class' => 'form-label', 'for' => $field],
+            'My Field',
+            '/label',
+            'input' => [
+                'type' => 'date',
+                'name' => $field,
+                'class' => 'form-control',
+                'id' => $field,
+                'value' => '',
+            ],
+            '/div',
+        ];
+        $result = $this->Helper->datepicker($field);
+        $this->assertHtml($expected, $result);
+
+        $expected = [
+            'div' => ['class' => 'form-group input datetime-local'],
+            'label' => ['class' => 'form-label', 'for' => $field],
+            'My Field',
+            '/label',
+            'input' => [
+                'type' => 'datetime-local',
+                'name' => $field,
+                'class' => 'form-control',
+                'id' => $field,
+            ],
+            '/div',
+        ];
+        $result = $this->Helper->datetimepicker($field);
+        $this->assertHtml($expected, $result);
+
+        $expected = [
+            'div' => ['class' => 'form-group input time'],
+            'label' => ['class' => 'form-label', 'for' => $field],
+            'My Field',
+            '/label',
+            'input' => [
+                'type' => 'time',
+                'name' => $field,
+                'class' => 'form-control',
+                'id' => $field,
+                'step' => '1',
+                'value' => '',
+            ],
+            '/div',
+        ];
+        $result = $this->Helper->timepicker($field);
+        $this->assertHtml($expected, $result);
+
+        error_reporting($current);
+    }
+
+    /**
+     * Tests for `datepicker()` method that is deprecated
+     * @test
+     */
+    public function testDatepickerDeprecation(): void
+    {
+        $this->expectDeprecation();
+        $this->expectExceptionMessage('Deprecated. Use instead the normal `control()` method, which will generate a `date` input, recognized by the browser');
+        $this->Helper->datepicker('my-field');
+    }
+
+    /**
+     * Tests for `datetimepicker()` method that is deprecated
+     * @test
+     */
+    public function testDatetimepickerDeprecation(): void
+    {
+        $this->expectDeprecation();
+        $this->expectExceptionMessage('Deprecated. Use instead the normal `control()` method, which will generate a `datetime-local` input, recognized by the browser');
+        $this->Helper->datetimepicker('my-field');
+    }
+
+    /**
+     * Tests for `timepicker()` method that is deprecated
+     * @test
+     */
+    public function testTimepickerDeprecation(): void
+    {
+        $this->expectDeprecation();
+        $this->expectExceptionMessage('Deprecated. Use instead the normal `control()` method, which will generate a `time` input, recognized by the browser');
+        $this->Helper->timepicker('my-field');
     }
 
     /**

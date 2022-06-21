@@ -252,13 +252,14 @@ class FormHelper extends CakeFormHelper
      * @param string $fieldName Field name, should be "Modelname.fieldname"
      * @param array $options HTML attributes and options
      * @return string
-     * @see \MeTools\View\Helper\LibraryHelper::datepicker()
+     * @deprecated 2.21.1 Use instead the normal `control()` method, which will
+     *  generate a `date` input, recognized by the browser
      */
     public function datepicker(string $fieldName, array $options = []): string
     {
-        $options = $this->__datetimepickerOptions($options, 'datepicker', 'YYYY-MM-DD');
+        deprecationWarning('Deprecated. Use instead the normal `control()` method, which will generate a `date` input, recognized by the browser');
 
-        return $this->control($fieldName, $options->toArray());
+        return $this->control($fieldName, ['type' => 'date'] + $options);
     }
 
     /**
@@ -268,13 +269,14 @@ class FormHelper extends CakeFormHelper
      * @param string $fieldName Field name, should be "Modelname.fieldname"
      * @param array $options HTML attributes and options
      * @return string
-     * @see \MeTools\View\Helper\LibraryHelper::datetimepicker()
+     * @deprecated 2.21.1 Use instead the normal `control()` method, which will
+     *  generate a `datetime-local` input, recognized by the browser
      */
     public function datetimepicker(string $fieldName, array $options = []): string
     {
-        $options = $this->__datetimepickerOptions($options, 'datetimepicker', 'YYYY-MM-DD HH:mm');
+        deprecationWarning('Deprecated. Use instead the normal `control()` method, which will generate a `datetime-local` input, recognized by the browser');
 
-        return $this->control($fieldName, $options->toArray());
+        return $this->control($fieldName,  ['type' => 'datetime-local'] + $options);
     }
 
     /**
@@ -415,12 +417,13 @@ class FormHelper extends CakeFormHelper
      * @param string $fieldName Field name, should be "Modelname.fieldname"
      * @param array $options HTML attributes and options
      * @return string
-     * @see \MeTools\View\Helper\LibraryHelper::timepicker()
+     * @deprecated 2.21.1 Use instead the normal `control()` method, which will
+     *  generate a `time` input, recognized by the browser
      */
     public function timepicker(string $fieldName, array $options = []): string
     {
-        $options = $this->__datetimepickerOptions($options, 'timepicker', 'HH:mm');
+        deprecationWarning('Deprecated. Use instead the normal `control()` method, which will generate a `time` input, recognized by the browser');
 
-        return $this->control($fieldName, $options->toArray());
+        return $this->control($fieldName, ['type' => 'time'] + $options);
     }
 }
