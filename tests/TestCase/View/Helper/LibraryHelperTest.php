@@ -323,6 +323,7 @@ class LibraryHelperTest extends HelperTestCase
      */
     public function testTimepicker(): void
     {
+        $current = error_reporting(E_ALL & ~E_USER_DEPRECATED);
         $expected = [
             'icons' => self::EXPECTED_DATEPICKER_ICONS,
             'locale' => 'en',
@@ -338,5 +339,10 @@ class LibraryHelperTest extends HelperTestCase
             $this->assertNotEmpty($matches[1]);
             $this->assertEquals($expected, json_decode($matches[1], true));
         }
+        error_reporting($current);
+
+        $this->expectDeprecation();
+        $this->expectExceptionMessage('Deprecated. Use instead the normal functions provided by the most modern browsers');
+        $this->Helper->timepicker('my-field');
     }
 }
