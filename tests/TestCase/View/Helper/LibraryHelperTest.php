@@ -191,79 +191,6 @@ class LibraryHelperTest extends HelperTestCase
     }
 
     /**
-     * Tests for `datepicker()` method
-     * @test
-     */
-    public function testDatepicker(): void
-    {
-        $current = error_reporting(E_ALL & ~E_USER_DEPRECATED);
-        $expected = [
-            'format' => 'YYYY/MM/DD',
-            'icons' => self::EXPECTED_DATEPICKER_ICONS,
-            'locale' => 'en',
-            'showTodayButton' => true,
-            'showClear' => true,
-        ];
-
-        foreach (['#my-id', ''] as $input) {
-            $this->Helper->datepicker($input);
-            $output = $this->getProperty($this->Helper, 'output');
-            $this->assertEquals(1, preg_match('/\$\("#my-id"\)\.datetimepicker\(({\n(\s+.+\n)+})\);/', $output[0], $matches));
-            $this->assertNotEmpty($matches[1]);
-            $this->assertEquals($expected, json_decode($matches[1], true));
-        }
-
-        $expected = [
-            ['script' => ['src' => '/vendor/moment/moment-with-locales.min.js']],
-            '/script',
-            ['script' => ['src' => '/me_tools/js/bootstrap-datetimepicker.min.js']],
-            '/script',
-        ];
-        $this->assertHtml($expected, $this->Helper->getView()->fetch('script_bottom'));
-
-        $expected = ['link' => [
-            'rel' => 'stylesheet',
-            'href' => '/vendor/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css',
-        ]];
-        $this->assertHtml($expected, $this->Helper->getView()->fetch('css_bottom'));
-        error_reporting($current);
-
-        $this->expectDeprecation();
-        $this->expectExceptionMessage('Deprecated. Use instead the normal functions provided by the most modern browsers');
-        $this->Helper->datepicker('my-field');
-    }
-
-    /**
-     * Tests for `datetimepicker()` method.
-     *
-     * Note: assets have already been tested in the `testDatepicker()` method.
-     * @test
-     */
-    public function testDatetimepicker(): void
-    {
-        $current = error_reporting(E_ALL & ~E_USER_DEPRECATED);
-        $expected = [
-            'icons' => self::EXPECTED_DATEPICKER_ICONS,
-            'locale' => 'en',
-            'showTodayButton' => true,
-            'showClear' => true,
-        ];
-
-        foreach (['#my-id', ''] as $input) {
-            $this->Helper->datetimepicker($input);
-            $output = $this->getProperty($this->Helper, 'output');
-            $this->assertEquals(1, preg_match('/\$\("#my-id"\)\.datetimepicker\(({\n(\s+.+\n)+})\);/', $output[0], $matches));
-            $this->assertNotEmpty($matches[1]);
-            $this->assertEquals($expected, json_decode($matches[1], true));
-        }
-        error_reporting($current);
-
-        $this->expectDeprecation();
-        $this->expectExceptionMessage('Deprecated. Use instead the normal functions provided by the most modern browsers');
-        $this->Helper->datetimepicker('my-field');
-    }
-
-    /**
      * Tests for `fancybox()` method
      * @test
      */
@@ -313,36 +240,5 @@ class LibraryHelperTest extends HelperTestCase
 
         $expected = ['$().slugify("form #title", "form #slug");'];
         $this->assertEquals($expected, $this->getProperty($this->Helper, 'output'));
-    }
-
-    /**
-     * Tests for `timepicker()` method.
-     *
-     * Note: assets have already been tested in the `testDatepicker()` method.
-     * @test
-     */
-    public function testTimepicker(): void
-    {
-        $current = error_reporting(E_ALL & ~E_USER_DEPRECATED);
-        $expected = [
-            'icons' => self::EXPECTED_DATEPICKER_ICONS,
-            'locale' => 'en',
-            'pickTime' => false,
-            'showTodayButton' => true,
-            'showClear' => true,
-        ];
-
-        foreach (['#my-id', ''] as $input) {
-            $this->Helper->timepicker($input);
-            $output = $this->getProperty($this->Helper, 'output');
-            $this->assertEquals(1, preg_match('/\$\("#my-id"\)\.datetimepicker\(({\n(\s+.+\n)+})\);/', $output[0], $matches));
-            $this->assertNotEmpty($matches[1]);
-            $this->assertEquals($expected, json_decode($matches[1], true));
-        }
-        error_reporting($current);
-
-        $this->expectDeprecation();
-        $this->expectExceptionMessage('Deprecated. Use instead the normal functions provided by the most modern browsers');
-        $this->Helper->timepicker('my-field');
     }
 }
