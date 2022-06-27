@@ -32,7 +32,6 @@ Configure::write('WRITABLE_DIRS', [
 
 //Sets symbolic links for vendor assets to be created
 Configure::write('VENDOR_LINKS', [
-    'eonasdan' . DS . 'bootstrap-datetimepicker' . DS . 'build' => 'bootstrap-datetimepicker',
     'components' . DS . 'jquery' => 'jquery',
     'moment' . DS . 'moment' . DS . 'min' => 'moment',
     'fortawesome' . DS . 'font-awesome' => 'font-awesome',
