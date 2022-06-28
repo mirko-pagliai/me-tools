@@ -3,6 +3,7 @@
 *.bkp.*
 *_old
 *.old.*
+bin/
 composer.lock
 coverage/
 vendor/*
