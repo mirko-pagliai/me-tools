@@ -80,13 +80,15 @@ pre {
 /* Ascending and descending sort */
 th a.asc:after,
 th a.desc:after {
-    font-family: "Font Awesome 5 Free", sans-serif, Arial;
-    display: inline-block;
+    --spacing-inline: var(--spacing-6xs);
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    -webkit-font-smoothing: antialiased;
+    display: var(--fa-display,inline-block);
     font-style: normal;
     font-variant: normal;
-    padding-left: .2em;
+    line-height: 1;
     text-rendering: auto;
-    -webkit-font-smoothing: antialiased;
 }
 
 /* Ascending sort */
