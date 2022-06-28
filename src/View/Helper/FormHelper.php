@@ -17,7 +17,6 @@ namespace MeTools\View\Helper;
 use Cake\Utility\Hash;
 use Cake\View\Helper\FormHelper as CakeFormHelper;
 use Cake\View\View;
-use MeTools\View\OptionsParser;
 use MeTools\View\Widget\HiddenWidget;
 
 /**
@@ -71,22 +70,6 @@ class FormHelper extends CakeFormHelper
         $this->_defaultWidgets['hidden'] = [HiddenWidget::class];
 
         parent::__construct($view, $config);
-    }
-
-    /**
-     * Internal method to get an `OptionParser` instance for datetime pickers
-     * @param array $options HTML attributes and options
-     * @param string $class Class name
-     * @param string $dateFormat Date time format
-     * @return \MeTools\View\OptionsParser
-     * @since 2.18.12
-     */
-    protected function __datetimepickerOptions(array $options, string $class, string $dateFormat): OptionsParser
-    {
-        return optionsParser($options, ['data-date-format' => $dateFormat, 'type' => 'text'])->append('templates', [
-            'input' => '<input type="{{type}}" name="{{name}}" class="form-control ' . $class . '"{{attrs}}/>',
-            'inputError' => '<input type="{{type}}" name="{{name}}" class="form-control ' . $class . ' is-invalid"{{attrs}}/>',
-        ]);
     }
 
     /**
