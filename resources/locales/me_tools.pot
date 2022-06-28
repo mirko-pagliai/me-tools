@@ -4,8 +4,7 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2020-04-17 12:05+0200\n"
+"POT-Creation-Date: 2022-06-28 16:07+0000\n"
 "PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
 "Last-Translator: NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
@@ -14,140 +13,183 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: Command/Install/CreateDirectoriesCommand.php:35
+#: .config/i18n_constants.php:16
+msgid "Actions"
+msgstr ""
+
+#: .config/i18n_constants.php:17
+msgid "Delete"
+msgstr ""
+
+#: .config/i18n_constants.php:18
+msgid "Edit"
+msgstr ""
+
+#: .config/i18n_constants.php:19
+msgid "no"
+msgstr ""
+
+#: .config/i18n_constants.php:20
+msgid "The operation has been performed correctly"
+msgstr ""
+
+#: .config/i18n_constants.php:21
+msgid "The operation has not been performed correctly"
+msgstr ""
+
+#: .config/i18n_constants.php:22
+msgid "Submit"
+msgstr ""
+
+#: .config/i18n_constants.php:23
+msgid "Are you sure you want to delete this?"
+msgstr ""
+
+#: .config/i18n_constants.php:24
+msgid "View"
+msgstr ""
+
+#: .config/i18n_constants.php:25
+msgid "yes"
+msgstr ""
+
+#: .src/Command/Install/CreateDirectoriesCommand.php:36
 msgid "Creates default directories"
 msgstr ""
 
-#: Command/Install/CreatePluginsLinksCommand.php:36
+#: .src/Command/Install/CreatePluginsLinksCommand.php:38
 msgid "Creates symbolic links for plugins assets"
 msgstr ""
 
-#: Command/Install/CreatePluginsLinksCommand.php:52
+#: .src/Command/Install/CreatePluginsLinksCommand.php:52
 msgid "Skipping plugin `{0}`. It does not have webroot folder"
 msgstr ""
 
-#: Command/Install/CreateRobotsCommand.php:34
+#: .src/Command/Install/CreateRobotsCommand.php:36
 msgid "Creates the {0} file"
 msgstr ""
 
-#: Command/Install/CreateVendorsLinksCommand.php:35
+#: .src/Command/Install/CreateVendorsLinksCommand.php:37
 msgid "Creates symbolic links for vendor assets"
 msgstr ""
 
-#: Command/Install/FixComposerJsonCommand.php:35
+#: .src/Command/Install/FixComposerJsonCommand.php:38
 msgid "Fixes {0}"
 msgstr ""
 
-#: Command/Install/FixComposerJsonCommand.php:37
+#: .src/Command/Install/FixComposerJsonCommand.php:40
 msgid "Path of the `{0}` file"
 msgstr ""
 
-#: Command/Install/FixComposerJsonCommand.php:65
-msgid "The file {0} does not seem a valid {1} file"
+#: .src/Command/Install/FixComposerJsonCommand.php:68
+msgid "File `{0}` does not seem a valid {1} file"
 msgstr ""
 
-#: Command/Install/FixComposerJsonCommand.php:70
-msgid "The file {0} doesn't need to be fixed"
+#: .src/Command/Install/FixComposerJsonCommand.php:73
+msgid "File `{0}` doesn't need to be fixed"
 msgstr ""
 
-#: Command/Install/FixComposerJsonCommand.php:74
-msgid "The file {0} has been fixed"
+#: .src/Command/Install/FixComposerJsonCommand.php:77
+msgid "File `{0}` has been fixed"
 msgstr ""
 
-#: Command/Install/RunAllCommand.php:47
+#: .src/Command/Install/RunAllCommand.php:49
 msgid "Executes all available commands"
 msgstr ""
 
-#: Command/Install/RunAllCommand.php:51
+#: .src/Command/Install/RunAllCommand.php:53
 msgid "Executes tasks without prompting"
 msgstr ""
 
-#: Command/Install/RunAllCommand.php:66
+#: .src/Command/Install/RunAllCommand.php:67
 msgid "Create default directories?"
 msgstr ""
 
-#: Command/Install/RunAllCommand.php:71
+#: .src/Command/Install/RunAllCommand.php:72
 msgid "Set directories permissions?"
 msgstr ""
 
-#: Command/Install/RunAllCommand.php:76
+#: .src/Command/Install/RunAllCommand.php:77
 msgid "Create {0}?"
 msgstr ""
 
-#: Command/Install/RunAllCommand.php:81
+#: .src/Command/Install/RunAllCommand.php:82
 msgid "Fix {0}?"
 msgstr ""
 
-#: Command/Install/RunAllCommand.php:86
+#: .src/Command/Install/RunAllCommand.php:87
 msgid "Create symbolic links for plugins assets?"
 msgstr ""
 
-#: Command/Install/RunAllCommand.php:91
+#: .src/Command/Install/RunAllCommand.php:92
 msgid "Create symbolic links for vendor assets?"
 msgstr ""
 
-#: Command/Install/SetPermissionsCommand.php:35
+#: .src/Command/Install/SetPermissionsCommand.php:36
 msgid "Sets directories permissions"
 msgstr ""
 
-#: Console/Command.php:41
+#: .src/Console/Command.php:43
 msgid "File or directory `{0}` already exists"
 msgstr ""
 
-#: Console/Command.php:71
+#: .src/Console/Command.php:72
 msgid "File `{0}` has been copied"
 msgstr ""
 
-#: Console/Command.php:93
+#: .src/Console/Command.php:92
 msgid "Failed to create file or directory `{0}`"
 msgstr ""
 
-#: Console/Command.php:98
+#: .src/Console/Command.php:97
 msgid "Created `{0}` directory"
 msgstr ""
 
-#: Console/Command.php:141
+#: .src/Console/Command.php:139
 msgid "Link `{0}` has been created"
 msgstr ""
 
-#: Console/Command.php:160
+#: .src/Console/Command.php:158
 msgid "Failed to set permissions on `{0}`"
 msgstr ""
 
-#: Console/Command.php:165
+#: .src/Console/Command.php:163
 msgid "Setted permissions on `{0}`"
 msgstr ""
 
-#: Controller/Component/UploaderComponent.php:106
-#: Controller/Component/UploaderComponent.php:145
+#: .src/Controller/Component/UploaderComponent.php:91
 msgid "There are no uploaded file information"
 msgstr ""
 
-#: Controller/Component/UploaderComponent.php:121
+#: .src/Controller/Component/UploaderComponent.php:123
 msgid "The mimetype {0} is not accepted"
 msgstr ""
 
-#: Controller/Component/UploaderComponent.php:162
+#: .src/Controller/Component/UploaderComponent.php:149
+msgid "File or directory `{0}` is not writable"
+msgstr ""
+
+#: .src/Controller/Component/UploaderComponent.php:162
 msgid "The file was not successfully moved to the target directory"
 msgstr ""
 
-#: Core/Plugin.php:75
+#: .src/Core/Plugin.php:72
 msgid "File or directory `{0}` does not exist"
 msgstr ""
 
-#: element/flash/flash.php:17
+#: .templates/element/flash/flash.php:18
 msgid "Close"
 msgstr ""
 
-#: element/paginator.php:32
+#: .templates/element/paginator.php:33
 msgid "Page {0}"
 msgstr ""
 
-#: element/paginator.php:37
+#: .templates/element/paginator.php:38
 msgid "Next"
 msgstr ""
 
-#: element/paginator.php:39
+#: .templates/element/paginator.php:40
 msgid "Previous"
 msgstr ""
 
