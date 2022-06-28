@@ -1,6 +1,5 @@
 .directory
 .phpunit.result.cache
-*.bkp.*
 *_old
 *.old.*
 bin/
