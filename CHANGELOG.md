@@ -1,9 +1,9 @@
 # 2.x branch
 ## 2.22 branch
 ### 2.22.0
-*  `datepicker()`, `datetimepicker()` and `timepicker()` methods provided by
+* `datepicker()`, `datetimepicker()` and `timepicker()` methods provided by
     `FormHelper` were deprecated and have now been removed;
-*  `datepicker()`, `datetimepicker()` and `timepicker()` methods provided by
+* `datepicker()`, `datetimepicker()` and `timepicker()` methods provided by
     `LibraryHelper` were deprecated and have now been removed.
 
 ## 2.21 branch
