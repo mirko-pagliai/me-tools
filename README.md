@@ -41,13 +41,41 @@ Note that the `php7.2` branch will no longer be updated as of May 13, 2022,
 except for security patches, and it matches the [2.20.9](//github.com/mirko-pagliai/me-tools/releases/tag/2.20.9) version.
 
 ### Use the theme for Bake
-MeTools includes a theme for Bake. For information on Bake's themes, refer to the [CookBook](https://book.cakephp.org/bake/2/en/development.html#creating-a-bake-theme).
+MeTools includes a theme for Bake. For information on Bake's themes, refer to the [CookBook](//book.cakephp.org/bake/2/en/development.html#creating-a-bake-theme).
 
 If you want to use this theme, don't forget to use the `--theme MeTools` option when you Bake, or to set the theme as default:
 ```php
 <?php
 // in src/Application::bootstrapCli() before loading the 'Bake' plugin.
 Configure::write('Bake.theme', 'MeTools');
+```
+
+## How to extract POT files
+First, copy the [CakePHP binaries](//github.com/cakephp/app/tree/4.x/bin), adapting them to the plugin.
+
+For example, the `bin/cake.php` file might look like this:
+```php
+#!/usr/bin/php -q
+<?php
+if (!defined('DS')) {
+    define('DS', DIRECTORY_SEPARATOR);
+}
+
+ob_start();
+require_once dirname(__DIR__) . DS . 'tests' . DS . 'bootstrap.php';
+ob_end_clean();
+
+use App\Application;
+use Cake\Console\CommandRunner;
+
+// Build the runner with an application and root executable name.
+$runner = new CommandRunner(new Application(APP . 'config'), 'cake');
+exit($runner->run($argv));
+```
+
+Then run the extract command in the console:
+```bash
+$ bin/cake i18n extract --paths config,src,templates
 ```
 
 ## Versioning
