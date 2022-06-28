@@ -276,7 +276,7 @@ class FormHelper extends CakeFormHelper
     {
         deprecationWarning('Deprecated. Use instead the normal `control()` method, which will generate a `datetime-local` input, recognized by the browser');
 
-        return $this->control($fieldName,  ['type' => 'datetime-local'] + $options);
+        return $this->control($fieldName, ['type' => 'datetime-local'] + $options);
     }
 
     /**
