@@ -18,9 +18,9 @@
     "require-dev": {
         "cakephp/cakephp-codesniffer": "^4.5",
         "mirko-pagliai/cakephp-assets": "^1.5.4",
-        "phpstan/phpstan": "~1.7.0",
         "phpunit/phpunit": "^9.1|^9.5",
-        "psalm/phar": "~4.23.0"
+        "phpstan/phpstan": "^1.7",
+        "psalm/phar": "^4.24"
     },
     "conflict": {
         "newerton/fancy-box": "*"
