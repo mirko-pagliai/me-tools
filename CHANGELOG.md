@@ -4,6 +4,10 @@
 * added a theme for Bake. See the `README` file;
 * added `IntegrationTestTrait::getStatusCode()` method;
 * fixed a little bug for `HtmlHelper::link()`;
+* added `BootstrapFormHelper`. For now this class is temporary, but in the future
+    it will replace `FormHelper`, assuming the same name. Some methods of the
+    `FormHelperTest` test class have been marked as deprecated, to indicate that
+    code is already covered by the new code;
 * `datepicker()`, `datetimepicker()` and `timepicker()` methods provided by
     `FormHelper` are now deprecated and they will be removed in a later version.
     Use instead the normal `control()` method, which will generate

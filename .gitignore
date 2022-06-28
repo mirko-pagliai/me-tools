@@ -6,6 +6,3 @@
 composer.lock
 coverage/
 vendor/*
-
-/* @to-do remove */
-**/View/Helper/Bootstrap*Helper*.php
