@@ -79,7 +79,7 @@ $this->set('sidebarLinks', [
 {% set otherSingularVar = alias|variable %}
 {% set otherPluralHumanName = details.controller|underscore|humanize %}
 
-    <div class="related mt-4">
+    <div class="related mt-5">
         <h4><?= __('Related {{ otherPluralHumanName }}') ?></h4>
         
         <?php if (!empty(${{ singularVar }}->{{ details.property }})) : ?>
