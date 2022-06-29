@@ -77,14 +77,11 @@ jobs:
             coverage: none
             tools: cs2pr
 
-        - name: Cache Composer packages
-          id: composer-cache
-          uses: actions/cache@v2
-          with:
-            path: vendor
-            key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
-            restore-keys: |
-              ${{ runner.os }}-php-
+        - name: Composer install
+          run: composer update
+
+        - name: Composer show
+          run: composer show
 
         - name: Run PHP CodeSniffer
           continue-on-error: true
