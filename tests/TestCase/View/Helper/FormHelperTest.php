@@ -373,6 +373,7 @@ class FormHelperTest extends HelperTestCase
 
     /**
      * Tests for `control()` method, into an inline form
+     * @deprecated
      * @test
      */
     public function testControlInline(): void
@@ -438,6 +439,7 @@ class FormHelperTest extends HelperTestCase
 
     /**
      * Tests for `createInline()` and `isInline()` methods
+     * @deprecated
      * @test
      */
     public function testCreateInlineAndIsInline(): void

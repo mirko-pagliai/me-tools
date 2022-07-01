@@ -37,6 +37,11 @@ class BootstrapFormHelper extends FormHelper
     ];
 
     /**
+     * @var bool
+     */
+    protected bool $isInline = false;
+
+    /**
      * Construct the widgets and binds the default context providers.
      *
      * This method only rewrites the default templates config.
@@ -88,40 +93,135 @@ class BootstrapFormHelper extends FormHelper
     public function control(string $fieldName, array $options = []): string
     {
         $this->resetTemplates();
-        $options = optionsParser($options);
+        $options = optionsParser($options, ['label' => []]);
+        $label = optionsParser(is_string($options->get('label')) ? ['text' => $options->get('label')] : $options->get('label'));
 
-        //If the name contains the "password" word, then the type is `password`
+        /**
+         * Forces type before getting type.
+         *
+         * If the name contains the "password" word, then the type is `password`.
+         */
         if (str_contains($fieldName, 'password')) {
             $options->addDefault(['type' => 'password']);
         }
 
         $type = $options->get('type') ?? $this->_inputType($fieldName, $options->toArray());
 
+        /**
+         * Input class.
+         *
+         * Checkboxes have their own class.
+         */
         $options->append('class', $type == 'checkbox' ? 'form-check-input' : 'form-control');
 
+        /**
+         * Label class.
+         *
+         * Checkbox labels have their own class.
+         * The other fields only when the form is not inline.
+         */
+        if ($type === 'checkbox') {
+            $label->append('class', 'form-check-label');
+        } elseif (!$this->isInline()) {
+            $label->append('class', 'form-label');
+        }
+
+        //@todo Fix code
         if ($this->isFieldError($fieldName)) {
             $options->append('class', 'is-invalid');
         } elseif ($this->getView()->getRequest()->is('post')) {
             $options->append('class', 'is-valid');
         }
 
-        //Help text (form text)
-        //See https://getbootstrap.com/docs/5.2/forms/overview/#form-text
+        /**
+         * Inline forms
+         * @see https://getbootstrap.com/docs/5.2/forms/layout/#inline-forms
+         */
+        if ($this->isInline()) {
+            /**
+             * By default, no help blocks.
+             * Checkboxes require an additional container.
+             */
+            $options->append('templates', [
+                'checkboxContainer' => '<div class="col-12><div class="form-check{{required}}">{{content}}</div></div>',
+                'inputContainer' => '<div class="col-12 {{type}}{{required}}">{{content}}</div>',
+                'inputContainerError' => '<div class="col-12 {{type}}{{required}} error">{{content}{{error}}</div>',
+            ]);
+
+            /**
+             * Label class form inline forms, except for checkboxes
+             */
+            if ($type !== 'checkbox') {
+                $label->append('class', 'visually-hidden')->delete('icon', 'icon-align');
+            }
+        }
+
+        /**
+         * Help text (form text)
+         * @see https://getbootstrap.com/docs/5.2/forms/overview/#form-text
+         */
         if ($options->exists('help')) {
             $help = implode('', array_map(fn(string $help): string => $this->Html->div('form-text text-muted', trim($help)), (array)$options->consume('help')));
             $options->append('templateVars', compact('help'));
         }
 
-        //Input group
-        //See https://getbootstrap.com/docs/5.2/forms/input-group
+        /**
+         * Input group
+         * @see https://getbootstrap.com/docs/5.2/forms/input-group
+         */
         if ($options->exists('append-text') || $options->exists('prepend-text')) {
+            //@todo Fix. Use `$options->append()`
             $this->setTemplates(['formGroup' => '{{label}}<div class="input-group">{{prependText}}{{input}}{{appendText}}</div>']);
             $appendText = $options->exists('append-text') ? $this->Html->span($options->consume('append-text'), ['class' => 'input-group-text']) : '';
             $prependText = $options->exists('prepend-text') ? $this->Html->span($options->consume('prepend-text'), ['class' => 'input-group-text']) : '';
             $options->append('templateVars', compact('appendText', 'prependText'));
         }
 
+        $options->add('label', $label->toArray());
+
         return parent::control($fieldName, $options->toArray());
+    }
+
+    /**
+     * Returns an inline HTML form element.
+     *
+     * See the parent method for all available options.
+     * @param mixed $context The context for which the form is being defined.
+     *   Can be a ContextInterface instance, ORM entity, ORM resultset, or an
+     *   array of meta data. You can use `null` to make a context-less form.
+     * @param array<string, mixed> $options An array of html attributes and options
+     * @return string An formatted opening FORM tag
+     * @see https://getbootstrap.com/docs/5.2/forms/layout/#inline-forms
+     */
+    public function createInline($context = null, array $options = []): string
+    {
+        $this->isInline = true;
+        $options = optionsParser($options)->append('class', 'row row-cols-lg-auto g-3 mb-3 align-items-center');
+
+        return parent::create($context, $options->toArray());
+    }
+
+    /**
+     * Closes an HTML form.
+     *
+     * See the parent method for all available options.
+     * @param array<string, mixed> $secureAttributes Secure attributes
+     * @return string A closing FORM tag
+     */
+    public function end(array $secureAttributes = []): string
+    {
+        $this->isInline = false;
+
+        return parent::end($secureAttributes);
+    }
+
+    /**
+     * Checks if the currently created form is an inline form
+     * @return bool
+     */
+    public function isInline(): bool
+    {
+        return $this->isInline;
     }
 
     /**
@@ -140,8 +240,11 @@ class BootstrapFormHelper extends FormHelper
     public function label(string $fieldName, ?string $text = null, array $options = []): string
     {
         $options = optionsParser($options, ['escape' => false]);
-        $options->append('class', 'form-label fw-bolder');
-        [$text, $options] = $this->Icon->addIconToText($text, $options);
+
+        if (!$this->isInline()) {
+            $options->append('class', 'fw-bolder');
+            [$text, $options] = $this->Icon->addIconToText($text, $options);
+        }
 
         return parent::label($fieldName, $text, $options->toArray());
     }

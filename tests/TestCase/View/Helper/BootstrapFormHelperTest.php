@@ -100,16 +100,40 @@ class BootstrapFormHelperTest extends HelperTestCase
      */
     public function testControlCheckboxType(): void
     {
-        $expected = '<div class="input mb-3 form-check"><input type="hidden" name="my-checkbox" value="0"/><label class="form-label fw-bolder" for="my-checkbox"><input type="checkbox" name="my-checkbox" value="1" class="form-check-input" id="my-checkbox">My Checkbox</label></div>';
+        $expected = '<div class="input mb-3 form-check"><input type="hidden" name="my-checkbox" value="0"/><label class="form-check-label fw-bolder" for="my-checkbox"><input type="checkbox" name="my-checkbox" value="1" class="form-check-input" id="my-checkbox">My Checkbox</label></div>';
         $result = $this->Helper->control('my-checkbox', ['type' => 'checkbox']);
         $this->assertSame($expected, $result);
 
         //With `required` option
-        $expectedStart = '<div class="input mb-3 form-check required"><input type="hidden" name="my-checkbox" value="0"/><label class="form-label fw-bolder" for="my-checkbox"><input type="checkbox" name="my-checkbox" value="1" class="form-check-input" required="required" id="my-checkbox"';
+        $expectedStart = '<div class="input mb-3 form-check required"><input type="hidden" name="my-checkbox" value="0"/><label class="form-check-label fw-bolder" for="my-checkbox"><input type="checkbox" name="my-checkbox" value="1" class="form-check-input" required="required" id="my-checkbox"';
         $expectedEnd = '>My Checkbox</label></div>';
         $result = $this->Helper->control('my-checkbox', ['type' => 'checkbox', 'required' => true]);
         $this->assertStringStartsWith($expectedStart, $result);
         $this->assertStringEndsWith($expectedEnd, $result);
+    }
+
+    /**
+     * Test for `control()` method, with an inline form
+     * @return void
+     * @uses \MeTools\View\Helper\BootstrapFormHelper::control()
+     */
+    public function testControlWithInlineForm(): void
+    {
+        $this->Helper->createInline();
+
+        $expected = '<div class="col-12 text"><label class="visually-hidden" for="my-inline-field">My Inline Field</label><input type="text" name="my-inline-field" class="form-control" id="my-inline-field"/></div>';
+        $result = $this->Helper->control('my-inline-field');
+        $this->assertSame($expected, $result);
+
+        //With a checkbox
+        $expected = '<div class="col-12><div class="form-check"><input type="hidden" name="my-inline-field" value="0"/><label class="form-check-label" for="my-inline-field"><input type="checkbox" name="my-inline-field" value="1" class="form-check-input" id="my-inline-field">My Inline Field</label></div></div>';
+        $result = $this->Helper->control('my-inline-field', ['type' => 'checkbox']);
+        $this->assertSame($expected, $result);
+
+        //With a custom label text
+        $expected = '<div class="col-12 text"><label class="visually-hidden" for="my-inline-field">My label</label><input type="text" name="my-inline-field" class="form-control" id="my-inline-field"/></div>';
+        $result = $this->Helper->control('my-inline-field', ['label' => 'My label']);
+        $this->assertSame($expected, $result);
     }
 
     /**
@@ -125,14 +149,35 @@ class BootstrapFormHelperTest extends HelperTestCase
     }
 
     /**
+     * Test for `createInline()` method
+     * @uses \MeTools\View\Helper\BootstrapFormHelper::createInline()
+     * @uses \MeTools\View\Helper\BootstrapFormHelper::end()
+     * @uses \MeTools\View\Helper\BootstrapFormHelper::isInline()
+     */
+    public function testCreateInline(): void
+    {
+        $this->assertFalse($this->Helper->isInline());
+
+        $expected = '<form method="post" accept-charset="utf-8" class="align-items-center g-3 mb-3 my-class row row-cols-lg-auto" action="/">';
+        $result = $this->Helper->createInline(null, ['class' => 'my-class']);
+        $this->assertSame($expected, $result);
+
+        $this->assertTrue($this->Helper->isInline());
+
+        $this->assertSame('</form>', $this->Helper->end());
+
+        $this->assertFalse($this->Helper->isInline());
+    }
+
+    /**
      * Test for `label()` method
      * @return void
      * @uses \MeTools\View\Helper\BootstrapFormHelper::label()
      */
     public function testLabel(): void
     {
-        $expected = '<label class="form-label fw-bolder" for="my-fieldname"><i class="fas fa-home"> </i> My label</label>';
-        $result = $this->Helper->label('my-fieldname', 'My label', ['icon' => 'home']);
+        $expected = '<label class="fw-bolder my-class" for="my-fieldname"><i class="fas fa-home"> </i> My label</label>';
+        $result = $this->Helper->label('my-fieldname', 'My label', ['class' => 'my-class', 'icon' => 'home']);
         $this->assertSame($expected, $result);
     }
 
