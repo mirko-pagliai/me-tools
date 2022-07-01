@@ -17,7 +17,6 @@ form label.required:after,
 form div.required > label:after {
     color: #e32;
     content: ' *';
-    display: inline;
 }
 
 /* -------------------------------- */
