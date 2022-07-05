@@ -21,7 +21,7 @@ $this->set('sidebarLinks', [
 <div class="{{ pluralVar }} view content">
     <h3><?= h(${{ singularVar }}->{{ displayField }}) ?></h3>
 
-    <dl class="row">
+    <dl class="row mt-4">
 {% if groupedFields['string'] %}
 {% for field in groupedFields['string'] %}
 {% if associationFields[field] is defined %}
