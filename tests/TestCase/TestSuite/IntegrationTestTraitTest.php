@@ -50,14 +50,11 @@ class IntegrationTestTraitTest extends TestCase
         $this->_controller = new Controller();
         $this->_controller->loadComponent('MeTools.Uploader');
         $this->controllerSpy(new Event('myEvent'), $this->_controller);
-        $this->assertEquals('with_flash', $this->_controller->viewBuilder()->getLayout());
 
-        /** @phpstan-ignore-next-line */
         $this->assertIsMock($this->_controller->Uploader);
         $source = Filesystem::instance()->createTmpFile();
         $destination = TMP . 'example2';
         $this->assertFileDoesNotExist($destination);
-        /** @phpstan-ignore-next-line */
         $this->invokeMethod($this->_controller->Uploader, 'move_uploaded_file', [$source, $destination]);
         $this->assertFileDoesNotExist($source);
         $this->assertFileExists($destination);
@@ -77,7 +74,6 @@ class IntegrationTestTraitTest extends TestCase
 
         //With no response
         $this->expectAssertionFailed('Not response set, cannot assert cookies');
-        /** @phpstan-ignore-next-line */
         $this->_response = null;
         $this->assertCookieIsEmpty('test-cookie');
     }
@@ -96,7 +92,7 @@ class IntegrationTestTraitTest extends TestCase
      * Test for `assertSessionEmpty()` method
      * @test
      */
-    public function testSessionEmpty(): void
+    public function testAssertSessionEmpty(): void
     {
         $this->_requestSession = new Session();
         $this->_requestSession->write('first.second', 'value');
@@ -108,5 +104,20 @@ class IntegrationTestTraitTest extends TestCase
 
         $this->expectAssertionFailed();
         $this->assertSessionEmpty('first.second');
+    }
+
+    /**
+     * Test for `getStatusCode()` method
+     * @test
+     * @uses \MeTools\TestSuite\IntegrationTestTrait::getStatusCode()
+     */
+    public function testGetStatusCode(): void
+    {
+        $this->_response = new Response(['status' => 302]);
+        $this->assertSame(302, $this->getStatusCode());
+
+        $this->expectAssertionFailed();
+        $this->_response = null;
+        $this->getStatusCode();
     }
 }

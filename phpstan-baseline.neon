@@ -16,7 +16,22 @@ parameters:
 			path: tests/TestCase/Command/Install/CreatePluginsLinksCommandTest.php
 
 		-
-			message: "#^Ternary operator condition is always true\\.$#"
+			message: "#^Call to an undefined method Psr\\\\Http\\\\Message\\\\ResponseInterface\\:\\:getCookie\\(\\)\\.$#"
+			count: 1
+			path: tests/TestCase/TestSuite/IntegrationTestTraitTest.php
+
+		-
+			message: "#^Cannot access property \\$Uploader on Cake\\\\Controller\\\\Controller\\|null\\.$#"
+			count: 3
+			path: tests/TestCase/TestSuite/IntegrationTestTraitTest.php
+
+		-
+			message: "#^Cannot call method components\\(\\) on Cake\\\\Controller\\\\Controller\\|null\\.$#"
+			count: 1
+			path: tests/TestCase/TestSuite/IntegrationTestTraitTest.php
+
+		-
+			message: "#^Cannot call method withCookie\\(\\) on Psr\\\\Http\\\\Message\\\\ResponseInterface\\|null\\.$#"
 			count: 1
 			path: tests/TestCase/TestSuite/IntegrationTestTraitTest.php
 

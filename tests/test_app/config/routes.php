@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 
 /**
  * This file is part of me-tools.
@@ -12,10 +11,3 @@ declare(strict_types=1);
  * @link        https://github.com/mirko-pagliai/me-tools
  * @license     https://opensource.org/licenses/mit-license.php MIT License
  */
-?>
-
-<div class="alert alert-dismissible <?= $params['class'] ?? null ?> p-3 fade show" role="alert">
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="<?= __d('me_tools', 'Close') ?>"></button>
-
-    <?= $message ?>
-</div>

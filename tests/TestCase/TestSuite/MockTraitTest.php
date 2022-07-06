@@ -19,6 +19,7 @@ use App\Controller\PagesController;
 use App\Model\Table\PostsTable;
 use App\Model\Validation\PostValidator;
 use App\View\Cell\MyExampleCell;
+use Cake\View\Helper;
 use MeTools\TestSuite\TestCase;
 use PHPUnit\Framework\AssertionFailedError;
 
@@ -80,6 +81,18 @@ class MockTraitTest extends TestCase
         $this->expectAssertionFailed('Class `App\Controller\NoExistingController` does not exist');
         /** @phpstan-ignore-next-line */
         $this->getMockForController('App\Controller\NoExistingController');
+    }
+
+    /**
+     * Tests for `getMockForHelper()` method
+     * @test
+     * @uses \MeTools\TestSuite\MockTrait::getMockForHelper()
+     */
+    public function testGetMockForHelper(): void
+    {
+        $result = $this->getMockForHelper('Cake\View\Helper\HtmlHelper');
+        $this->assertIsMock($result);
+        $this->assertInstanceOf(Helper::class, $result);
     }
 
     /**

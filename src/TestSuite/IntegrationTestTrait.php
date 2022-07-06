@@ -25,8 +25,8 @@ use MeTools\Controller\Component\UploaderComponent;
  * A trait intended to make integration tests of your controllers easier
  * @method string _getBodyAsString() Get the response body as string
  * @method void disableErrorHandlerMiddleware() Disable the error handler middleware
- * @property \Cake\Controller\Controller $_controller
- * @property \Cake\Http\Response $_response
+ * @property \Cake\Controller\Controller|null $_controller The controller used in the last request
+ * @property \Psr\Http\Message\ResponseInterface|null $_response The response for the most recent request
  */
 trait IntegrationTestTrait
 {
@@ -44,13 +44,10 @@ trait IntegrationTestTrait
     {
         $this->cakeControllerSpy($event, $controller);
 
-        $this->_controller->viewBuilder()->setLayout('with_flash');
-
         if ($this->_controller->components()->has('Uploader')) {
             /** @var \MeTools\Controller\Component\UploaderComponent&\PHPUnit\Framework\MockObject\MockObject $Uploader */
             $Uploader = $this->getMockForComponent(UploaderComponent::class, ['move_uploaded_file']);
             $Uploader->method('move_uploaded_file')->will($this->returnCallback(fn(string $filename, string $destination): bool => rename($filename, $destination)));
-            /** @phpstan-ignore-next-line */
             $this->_controller->Uploader = $Uploader;
         }
     }
@@ -92,5 +89,22 @@ trait IntegrationTestTrait
     public function assertSessionEmpty(string $path, string $message = ''): void
     {
         $this->assertThat(null, new SessionEquals($path), $this->extractVerboseMessage($message));
+    }
+
+    /**
+     * Gets the status code from the last response.
+     *
+     * The status code is a 3-digit integer result code of the server's attempt
+     * to understand and satisfy the request.
+     * @return int Status code
+     * @since 2.21.1
+     */
+    protected function getStatusCode(): int
+    {
+        if (!$this->_response) {
+            $this->fail('No response set, cannot get status code');
+        }
+
+        return $this->_response->getStatusCode();
     }
 }

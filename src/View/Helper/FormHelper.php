@@ -17,12 +17,12 @@ namespace MeTools\View\Helper;
 use Cake\Utility\Hash;
 use Cake\View\Helper\FormHelper as CakeFormHelper;
 use Cake\View\View;
-use MeTools\View\OptionsParser;
 use MeTools\View\Widget\HiddenWidget;
 
 /**
  * Provides functionalities for forms
  * @property \MeTools\View\Helper\IconHelper $Icon
+ * @property \MeTools\View\Helper\HtmlHelper $Html
  */
 class FormHelper extends CakeFormHelper
 {
@@ -55,6 +55,7 @@ class FormHelper extends CakeFormHelper
     {
         //Rewrites default templates config
         $this->_defaultConfig = Hash::merge($this->_defaultConfig, ['templates' => [
+            'checkbox' => '<input class="form-check-input" type="checkbox" name="{{name}}" value="{{value}}"{{attrs}}>',
             'checkboxContainer' => '<div class="form-check input {{type}}{{required}}">{{content}}</div>',
             'nestingLabel' => '{{hidden}}<label{{attrs}}>{{input}} {{text}}{{help}}</label>',
             'hidden' => '<input type="{{type}}" name="{{name}}"{{attrs}}/>',
@@ -69,22 +70,6 @@ class FormHelper extends CakeFormHelper
         $this->_defaultWidgets['hidden'] = [HiddenWidget::class];
 
         parent::__construct($view, $config);
-    }
-
-    /**
-     * Internal method to get an `OptionParser` instance for datetime pickers
-     * @param array $options HTML attributes and options
-     * @param string $class Class name
-     * @param string $dateFormat Date time format
-     * @return \MeTools\View\OptionsParser
-     * @since 2.18.12
-     */
-    protected function __datetimepickerOptions(array $options, string $class, string $dateFormat): OptionsParser
-    {
-        return optionsParser($options, ['data-date-format' => $dateFormat, 'type' => 'text'])->append('templates', [
-            'input' => '<input type="{{type}}" name="{{name}}" class="form-control ' . $class . '"{{attrs}}/>',
-            'inputError' => '<input type="{{type}}" name="{{name}}" class="form-control ' . $class . ' is-invalid"{{attrs}}/>',
-        ]);
     }
 
     /**
@@ -167,15 +152,15 @@ class FormHelper extends CakeFormHelper
             $options->addDefault(['empty' => true]);
         }
 
-        //Help text
-        //See https://getbootstrap.com/docs/4.0/components/forms/#help-text
+        //Help text (form text)
+        //See https://getbootstrap.com/docs/5.2/forms/overview/#form-text
         if ($options->exists('help')) {
-            $help = array_map(fn(string $help): string => $this->Html->para('form-text text-muted', trim($help)), (array)$options->consume('help'));
+            $help = array_map(fn(string $help): string => $this->Html->div('form-text text-muted', trim($help)), (array)$options->consume('help'));
             $options->append('templateVars', ['help' => implode('', $help)]);
         }
 
         //Input group. Fixes templates
-        //See https://getbootstrap.com/docs/4.0/components/input-group/
+        //See https://getbootstrap.com/docs/5.2/forms/input-group
         if ($options->exists('button')) {
             $options->append([
                 'templates' => ['formGroup' => '{{label}}<div class="input-group">{{input}}{{button}}</div>'],
@@ -250,13 +235,14 @@ class FormHelper extends CakeFormHelper
      * @param string $fieldName Field name, should be "Modelname.fieldname"
      * @param array $options HTML attributes and options
      * @return string
-     * @see \MeTools\View\Helper\LibraryHelper::datepicker()
+     * @deprecated 2.21.1 Use instead the normal `control()` method, which will
+     *  generate a `date` input, recognized by the browser
      */
     public function datepicker(string $fieldName, array $options = []): string
     {
-        $options = $this->__datetimepickerOptions($options, 'datepicker', 'YYYY-MM-DD');
+        deprecationWarning('Deprecated. Use instead the normal `control()` method, which will generate a `date` input, recognized by the browser');
 
-        return $this->control($fieldName, $options->toArray());
+        return $this->control($fieldName, ['type' => 'date'] + $options);
     }
 
     /**
@@ -266,13 +252,14 @@ class FormHelper extends CakeFormHelper
      * @param string $fieldName Field name, should be "Modelname.fieldname"
      * @param array $options HTML attributes and options
      * @return string
-     * @see \MeTools\View\Helper\LibraryHelper::datetimepicker()
+     * @deprecated 2.21.1 Use instead the normal `control()` method, which will
+     *  generate a `datetime-local` input, recognized by the browser
      */
     public function datetimepicker(string $fieldName, array $options = []): string
     {
-        $options = $this->__datetimepickerOptions($options, 'datetimepicker', 'YYYY-MM-DD HH:mm');
+        deprecationWarning('Deprecated. Use instead the normal `control()` method, which will generate a `datetime-local` input, recognized by the browser');
 
-        return $this->control($fieldName, $options->toArray());
+        return $this->control($fieldName, ['type' => 'datetime-local'] + $options);
     }
 
     /**
@@ -311,6 +298,7 @@ class FormHelper extends CakeFormHelper
     public function label(string $fieldName, ?string $text = null, array $options = []): string
     {
         $options = optionsParser($options, ['escape' => false]);
+        $options->add('class', 'form-label' . ($this->isInline() ? ' sr-only' : ''));
         [$text, $options] = $this->Icon->addIconToText($text, $options);
 
         return parent::label($fieldName, $text, $options->toArray());
@@ -412,12 +400,13 @@ class FormHelper extends CakeFormHelper
      * @param string $fieldName Field name, should be "Modelname.fieldname"
      * @param array $options HTML attributes and options
      * @return string
-     * @see \MeTools\View\Helper\LibraryHelper::timepicker()
+     * @deprecated 2.21.1 Use instead the normal `control()` method, which will
+     *  generate a `time` input, recognized by the browser
      */
     public function timepicker(string $fieldName, array $options = []): string
     {
-        $options = $this->__datetimepickerOptions($options, 'timepicker', 'HH:mm');
+        deprecationWarning('Deprecated. Use instead the normal `control()` method, which will generate a `time` input, recognized by the browser');
 
-        return $this->control($fieldName, $options->toArray());
+        return $this->control($fieldName, ['type' => 'time'] + $options);
     }
 }

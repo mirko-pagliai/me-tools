@@ -45,6 +45,7 @@ class FormHelperTest extends HelperTestCase
 
     /**
      * Tests for `button()` method
+     * @deprecated
      * @test
      */
     public function testButton(): void
@@ -82,7 +83,7 @@ class FormHelperTest extends HelperTestCase
     {
         $expected = [
             ['input' => ['type' => 'hidden', 'name' => 'my-field', 'value' => '0']],
-            ['input' => ['type' => 'checkbox', 'name' => 'my-field', 'value' => '1']],
+            ['input' => ['class' => 'form-check-input', 'type' => 'checkbox', 'name' => 'my-field', 'value' => '1']],
         ];
         $this->assertHtml($expected, array_value_first((array)$this->Helper->checkbox('my-field')));
     }
@@ -106,7 +107,7 @@ class FormHelperTest extends HelperTestCase
 
         $expected = [
             'div' => ['class' => 'form-group input textarea'],
-            'label' => ['for' => $field],
+            'label' => ['class' => 'form-label', 'for' => $field],
             'my label',
             '/label',
             'textarea' => ['name' => $field, 'class' => 'form-control wysiwyg editor', 'id' => $field],
@@ -126,7 +127,7 @@ class FormHelperTest extends HelperTestCase
 
         $expected = [
             'div' => ['class' => 'form-group input text'],
-            'label' => ['for' => $field],
+            'label' => ['class' => 'form-label', 'for' => $field],
             'My Field',
             '/label',
             'input' => ['type' => 'text', 'name' => $field, 'class' => 'form-control', 'id' => $field],
@@ -135,38 +136,8 @@ class FormHelperTest extends HelperTestCase
         $this->assertHtml($expected, $this->Helper->control($field));
 
         $expected = [
-            'div' => ['class' => 'form-group input text'],
-            'label' => ['for' => $field],
-            'My Field',
-            '/label',
-            'input' => ['type' => 'text', 'name' => $field, 'class' => 'form-control', 'id' => $field],
-            'p' => ['class' => 'form-text text-muted'],
-            'My tip',
-            '/p',
-            '/div',
-        ];
-        $this->assertHtml($expected, $this->Helper->control($field, ['help' => 'My tip']));
-
-        $expected = [
-            'div' => ['class' => 'form-group input text'],
-            'label' => ['for' => $field],
-            'My Field',
-            '/label',
-            'input' => ['type' => 'text', 'name' => $field, 'class' => 'form-control', 'id' => $field],
-            ['p' => ['class' => 'form-text text-muted']],
-            'Tip first line',
-            '/p',
-            ['p' => ['class' => 'form-text text-muted']],
-            'Tip second line',
-            '/p',
-            '/div',
-        ];
-        $result = $this->Helper->control($field, ['help' => ['Tip first line', 'Tip second line']]);
-        $this->assertHtml($expected, $result);
-
-        $expected = [
             ['div' => ['class' => 'form-group input text']],
-            'label' => ['for' => $field],
+            'label' => ['class' => 'form-label', 'for' => $field],
             'My Field',
             '/label',
             ['div' => ['class' => 'input-group']],
@@ -183,7 +154,48 @@ class FormHelperTest extends HelperTestCase
     }
 
     /**
+     * Tests for `control()` method, with `help` option
+     * @deprecated
+     * @test
+     */
+    public function testControlWithHelp(): void
+    {
+        $field = 'my-field';
+
+        $expected = [
+            'div' => ['class' => 'form-group input text'],
+            'label' => ['class' => 'form-label', 'for' => $field],
+            'My Field',
+            '/label',
+            'input' => ['type' => 'text', 'name' => $field, 'class' => 'form-control', 'id' => $field],
+            ['div' => ['class' => 'form-text text-muted']],
+            'My tip',
+            '/div',
+            '/div',
+        ];
+        $this->assertHtml($expected, $this->Helper->control($field, ['help' => 'My tip']));
+
+        $expected = [
+            'div' => ['class' => 'form-group input text'],
+            'label' => ['class' => 'form-label', 'for' => $field],
+            'My Field',
+            '/label',
+            'input' => ['type' => 'text', 'name' => $field, 'class' => 'form-control', 'id' => $field],
+            ['div' => ['class' => 'form-text text-muted']],
+            'Tip first line',
+            '/div',
+            ['div' => ['class' => 'form-text text-muted']],
+            'Tip second line',
+            '/div',
+            '/div',
+        ];
+        $result = $this->Helper->control($field, ['help' => ['Tip first line', 'Tip second line']]);
+        $this->assertHtml($expected, $result);
+    }
+
+    /**
      * Tests for `control()` method with checkboxes
+     * @deprecated
      * @test
      */
     public function testControlCheckbox(): void
@@ -191,9 +203,9 @@ class FormHelperTest extends HelperTestCase
         $field = 'my-field';
         $expected = [
             'div' => ['class' => 'form-check input checkbox'],
-            'label' => ['for' => $field],
+            'label' => ['class' => 'form-label', 'for' => $field],
             ['input' => ['type' => 'hidden', 'name' => $field, 'value' => '0']],
-            ['input' => ['type' => 'checkbox', 'name' => $field, 'value' => '1', 'id' => $field]],
+            ['input' => ['class' => 'form-check-input', 'type' => 'checkbox', 'name' => $field, 'value' => '1', 'id' => $field]],
             ' My Field',
             '/label',
             '/div',
@@ -203,13 +215,14 @@ class FormHelperTest extends HelperTestCase
 
     /**
      * Tests for `control()` method with password inputs
+     * @deprecated
      * @test
      */
     public function testControlPassword(): void
     {
         $expected = [
             'div' => ['class' => 'form-group input password'],
-            'label' => ['for' => 'old-password'],
+            'label' => ['class' => 'form-label', 'for' => 'old-password'],
             'Old Password',
             '/label',
             'input' => ['type' => 'password', 'name' => 'old-password', 'class' => 'form-control', 'id' => 'old-password'],
@@ -229,7 +242,7 @@ class FormHelperTest extends HelperTestCase
 
         $expected = [
             'div' => ['class' => 'form-group input select'],
-            'label' => ['for' => $field],
+            'label' => ['class' => 'form-label', 'for' => $field],
             'My Field',
             '/label',
             'select' => ['name' => $field, 'class' => 'form-control', 'id' => $field],
@@ -250,7 +263,7 @@ class FormHelperTest extends HelperTestCase
         //With default value
         $expected = [
             'div' => ['class' => 'form-group input select'],
-            'label' => ['for' => $field],
+            'label' => ['class' => 'form-label', 'for' => $field],
             'My Field',
             '/label',
             'select' => ['name' => $field, 'class' => 'form-control', 'id' => $field],
@@ -273,7 +286,7 @@ class FormHelperTest extends HelperTestCase
         //With selected value
         $expected = [
             'div' => ['class' => 'form-group input select'],
-            'label' => ['for' => $field],
+            'label' => ['class' => 'form-label', 'for' => $field],
             'My Field',
             '/label',
             'select' => ['name' => $field, 'class' => 'form-control', 'id' => $field],
@@ -296,7 +309,7 @@ class FormHelperTest extends HelperTestCase
         //Custom `empty` value
         $expected = [
             'div' => ['class' => 'form-group input select'],
-            'label' => ['for' => $field],
+            'label' => ['class' => 'form-label', 'for' => $field],
             'My Field',
             '/label',
             'select' => ['name' => $field, 'class' => 'form-control', 'id' => $field],
@@ -322,7 +335,7 @@ class FormHelperTest extends HelperTestCase
         // `empty` disabled
         $expected = [
             'div' => ['class' => 'form-group input select'],
-            'label' => ['for' => $field],
+            'label' => ['class' => 'form-label', 'for' => $field],
             'My Field',
             '/label',
             'select' => ['name' => $field, 'class' => 'form-control', 'id' => $field],
@@ -348,7 +361,7 @@ class FormHelperTest extends HelperTestCase
         $field = 'my-field';
         $expected = [
             'div' => ['class' => 'form-group input textarea'],
-            'label' => ['for' => $field],
+            'label' => ['class' => 'form-label', 'for' => $field],
             'My Field',
             '/label',
             'textarea' => ['name' => $field, 'class' => 'form-control', 'id' => $field],
@@ -360,6 +373,7 @@ class FormHelperTest extends HelperTestCase
 
     /**
      * Tests for `control()` method, into an inline form
+     * @deprecated
      * @test
      */
     public function testControlInline(): void
@@ -368,7 +382,7 @@ class FormHelperTest extends HelperTestCase
 
         $expected = [
             'div' => ['class' => 'form-group input text'],
-            'label' => ['class' => 'sr-only', 'for' => $field],
+            'label' => ['class' => 'form-label sr-only', 'for' => $field],
             'My Field',
             '/label',
             'input' => ['type' => 'text', 'name' => $field, 'class' => 'form-control', 'id' => $field],
@@ -380,9 +394,9 @@ class FormHelperTest extends HelperTestCase
         //Tries with a checkbox
         $expected = [
             'div' => ['class' => 'form-check input checkbox'],
-            'label' => ['for' => $field],
+            'label' => ['class' => 'form-label sr-only', 'for' => $field],
             ['input' => ['type' => 'hidden', 'name' => $field, 'value' => '0']],
-            ['input' => ['type' => 'checkbox', 'name' => $field, 'value' => '1', 'id' => $field]],
+            ['input' => ['class' => 'form-check-input', 'type' => 'checkbox', 'name' => $field, 'value' => '1', 'id' => $field]],
             ' My Field',
             '/label',
             '/div',
@@ -392,7 +406,7 @@ class FormHelperTest extends HelperTestCase
         //Using `label` option
         $expected = [
             'div' => ['class' => 'form-group input text'],
-            'label' => ['class' => 'sr-only', 'for' => $field],
+            'label' => ['class' => 'form-label sr-only', 'for' => $field],
             'My label',
             '/label',
             'input' => ['type' => 'text', 'name' => $field, 'class' => 'form-control', 'id' => $field],
@@ -411,6 +425,7 @@ class FormHelperTest extends HelperTestCase
 
     /**
      * Tests for `create()` method
+     * @deprecated
      * @test
      */
     public function testCreate(): void
@@ -424,6 +439,7 @@ class FormHelperTest extends HelperTestCase
 
     /**
      * Tests for `createInline()` and `isInline()` methods
+     * @deprecated
      * @test
      */
     public function testCreateInlineAndIsInline(): void
@@ -458,39 +474,14 @@ class FormHelperTest extends HelperTestCase
     }
 
     /**
-     * Tests for `datepicker()`, `datetimepicker()` and `timepicker()` methods
-     * @test
-     */
-    public function testDatetimepicker(): void
-    {
-        $field = 'my-field';
-
-        foreach (['datepicker', 'datetimepicker', 'timepicker'] as $method) {
-            $expected = [
-                'div' => ['class' => 'form-group input text'],
-                'label' => ['for' => $field],
-                'My Field',
-                '/label',
-                'input' => [
-                    'type' => 'text',
-                    'name' => $field,
-                    'class' => 'form-control ' . $method,
-                    'data-date-format' => 'preg:/(YYYY\-MM\-DD)?\s?(HH:mm)?/',
-                    'id' => $field],
-                '/div',
-            ];
-            $this->assertHtml($expected, $this->Helper->{$method}($field));
-        }
-    }
-
-    /**
      * Tests for `label()` method
+     * @deprecated
      * @test
      */
     public function testLabel(): void
     {
         $expected = [
-            'label' => ['for' => 'my-fieldname'],
+            'label' => ['class' => 'form-label', 'for' => 'my-fieldname'],
             'i' => ['class' => 'fas fa-home'],
             ' ',
             '/i',
@@ -500,12 +491,13 @@ class FormHelperTest extends HelperTestCase
         ];
         $this->assertHtml($expected, $this->Helper->label('my-fieldname', 'My label', ['icon' => 'home']));
 
-        $expected = ['label' => ['for' => 'my-fieldname'], '" \'', '/label'];
+        $expected = ['label' => ['class' => 'form-label', 'for' => 'my-fieldname'], '" \'', '/label'];
         $this->assertHtml($expected, $this->Helper->label('my-fieldname', '" \''));
     }
 
     /**
      * Tests for `postButton()` method
+     * @deprecated
      * @test
      */
     public function testPostButton(): void
@@ -549,6 +541,7 @@ class FormHelperTest extends HelperTestCase
 
     /**
      * Tests for `postLink()` method
+     * @deprecated
      * @test
      */
     public function testPostLink(): void
@@ -681,6 +674,7 @@ class FormHelperTest extends HelperTestCase
 
     /**
      * Tests for `submit()` method
+     * @deprecated
      * @test
      */
     public function testSubmit(): void

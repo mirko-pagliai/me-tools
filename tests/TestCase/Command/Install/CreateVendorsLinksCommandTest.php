@@ -40,7 +40,7 @@ class CreateVendorsLinksCommandTest extends TestCase
 
         $links = Configure::read('VENDOR_LINKS');
         $method = $Command->expects($this->exactly(count($links)))->method('createLink');
-        $consecutiveCalls = array_map(fn(string $origin, string $target): array => [$io, ROOT . 'vendor' . DS . $origin, WWW_ROOT . 'vendor' . DS . $target], array_keys($links), $links);
+        $consecutiveCalls = array_map(fn($origin, string $target): array => [$io, ROOT . 'vendor' . DS . $origin, WWW_ROOT . 'vendor' . DS . $target], array_keys($links), $links);
         call_user_func_array([$method, 'withConsecutive'], $consecutiveCalls);
 
         $this->assertNull($Command->run([], $io));

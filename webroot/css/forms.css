@@ -10,39 +10,13 @@
  * @license     https://opensource.org/licenses/mit-license.php MIT License
  */
 /* -------------------------------- */
-/*              General             */
-/* -------------------------------- */
-/* Form control (input wrapper) */
-form .form-control {
-    font-size: inherit;
-}
-
-/* -------------------------------- */
 /*            Labels                */
 /* -------------------------------- */
-form label {
-    font-weight: bold;
-}
-
 /* Labels for required inputs */
 form label.required:after,
 form div.required > label:after {
     color: #e32;
-    content: '*';
-    display: inline;
-}
-
-/* -------------------------------- */
-/*          Checkboxes              */
-/* -------------------------------- */
-/* Checkboxes wrappers, labels */
-.form-check.checkbox label {
-    margin-bottom: 0;
-}
-
-/* Checkboxes wrappers, labels, inputs */
-.form-check.checkbox label > input {
-    margin-right: .2rem;
+    content: ' *';
 }
 
 /* -------------------------------- */
@@ -52,60 +26,6 @@ form div.required > label:after {
 form input + .input-group-append .btn,
 form input + .input-group-prepend .btn {
     border: 1px solid #ced4da;
-}
-
-/* -------------------------------- */
-/*          Help texts (tips)       */
-/* -------------------------------- */
-/* Help texts */
-form .form-text {
-    font-family: sans-serif, Arial;
-    font-size: .6875rem;
-    font-weight: normal;
-    margin-bottom: 0;
-}
-
-/* -------------------------------- */
-/*              Errors              */
-/* -------------------------------- */
-/* Error messages */
-form .error-message {
-    background: #f2dede;
-    border-radius: .2rem;
-    color: #b94a48;
-    font-size: .8rem;
-    margin-top: .2rem;
-    padding: .2rem .4rem;
-}
-
-/* -------------------------------- */
-/*          Inline forms            */
-/* -------------------------------- */
-/* Inline forms, labels */
-form.form-inline label {
-    line-height: calc(2.25rem + 2px);
-    margin-right: 1rem;
-}
-
-/* Inline forms, checkboxes wrappers, labels */
-form.form-inline .checkbox label {
-    margin-right: 0;
-}
-
-/* Inline forms, buttons */
-form.form-inline .btn {
-    height: calc(2.25rem + 2px);
-}
-
-/* Inline forms, fieldset, all children except legend */
-form.form-inline fieldset > :not(legend) {
-    float: left;
-    margin-right: .4rem;
-}
-
-/* Inline forms, fieldset, all children except legend, last child */
-form.form-inline fieldset > :not(legend):last-child {
-    margin-right: 0;
 }
 
 /* -------------------------------- */

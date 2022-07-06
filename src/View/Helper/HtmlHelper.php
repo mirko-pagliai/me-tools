@@ -20,6 +20,7 @@ use Tools\Exceptionist;
 /**
  * Provides functionalities for HTML code
  * @property \MeTools\View\Helper\IconHelper $Icon
+ * @method string span(string $text, array $options = [])
  */
 class HtmlHelper extends CakeHtmlHelper
 {
@@ -314,12 +315,10 @@ class HtmlHelper extends CakeHtmlHelper
             [$url, $title] = [$title, null];
         }
 
-        if (!$title && $url !== '#') {
-            $title = $this->Url->build($url, $options);
-        }
+        $buildedUrl = !$title && $url !== '#' ? $this->Url->build($url, $options) : '';
 
         $options = optionsParser($options, ['escape' => false, 'title' => $title]);
-        $options->add('title', trim(h(strip_tags($options->get('title') ?? ''))))->tooltip();
+        $options->add('title', trim(h(strip_tags(($options->get('title') ?: $buildedUrl)))))->tooltip();
         [$title, $options] = $this->Icon->addIconToText($title, $options);
 
         return parent::link($title, $url, $options->toArray());

@@ -472,7 +472,7 @@ class HtmlHelperTest extends HelperTestCase
         $this->assertSame('<a href="/" title="/">/</a>', $this->Helper->link());
 
         $this->loadPlugins(['TestPlugin' => []]);
-        $this->assertSame('<a href="/pages" title="/pages">/pages</a>', $this->Helper->link(['controller' => 'Pages', 'plugin' => 'TestPlugin']));
+        $this->assertSame('<a href="/pages" title="/pages"></a>', $this->Helper->link(['controller' => 'Pages', 'plugin' => 'TestPlugin']));
     }
 
     /**

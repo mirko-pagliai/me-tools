@@ -15,7 +15,7 @@ declare(strict_types=1);
 namespace MeTools\Test\TestCase\Console;
 
 use Cake\Console\ConsoleIo;
-use Cake\TestSuite\Stub\ConsoleOutput;
+use Cake\Console\TestSuite\StubConsoleOutput;
 use MeTools\Console\Command;
 use MeTools\TestSuite\ConsoleIntegrationTestTrait;
 use MeTools\TestSuite\TestCase;
@@ -43,8 +43,8 @@ class CommandTest extends TestCase
 
         parent::setUp();
 
-        $this->_out = new ConsoleOutput();
-        $this->_err = new ConsoleOutput();
+        $this->_out = new StubConsoleOutput();
+        $this->_err = new StubConsoleOutput();
         $this->io = $this->getMockBuilder(ConsoleIo::class)
             ->setConstructorArgs([$this->_out, $this->_err, null, null])
             ->setMethods(['in'])
