@@ -31,7 +31,7 @@ class BootstrapFormHelper extends FormHelper
      * @var array
      */
     public $helpers = [
-        'Html' => ['className' => 'MeTools.Html'],
+        'Html' => ['className' => 'MeTools.BootstrapHtml'],
         'MeTools.Icon',
         'Url',
     ];

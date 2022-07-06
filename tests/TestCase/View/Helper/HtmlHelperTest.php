@@ -26,6 +26,7 @@ class HtmlHelperTest extends HelperTestCase
 {
     /**
      * Tests for `__call()` method
+     * @deprecated
      * @test
      */
     public function testCall(): void
@@ -401,6 +402,7 @@ class HtmlHelperTest extends HelperTestCase
 
     /**
      * Test for `link()` method
+     * @deprecated
      * @test
      */
     public function testLink(): void
@@ -647,6 +649,7 @@ class HtmlHelperTest extends HelperTestCase
 
     /**
      * Test for `tag()` method
+     * @deprecated
      * @test
      */
     public function testTag(): void

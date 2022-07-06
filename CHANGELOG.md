@@ -1,6 +1,10 @@
 # 2.x branch
 ## 2.21 branch
 ### 2.21.2
+* added `BootstrapHtmlHelper`. For now this class is temporary, but in the future
+    it will replace `HtmlHelper`, assuming the same name. Some methods of the
+    `HtmlHelperTest` test class have been marked as deprecated, to indicate that
+    code is already covered by the new code;
 * small improvements for some `MockTrait` methods.
 
 ### 2.21.1
