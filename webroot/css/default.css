@@ -49,7 +49,6 @@ pre {
 .text-warning a,
 .text-white a {
     color: inherit;
-    text-decoration: underline !important;
 }
 
 /* Contextual backgrounds, code blocks */
