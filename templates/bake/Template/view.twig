@@ -95,7 +95,7 @@ $this->set('sidebarLinks', [
                 <tr>
 {% set otherPk = '$' ~ otherSingularVar ~ '->' ~ details.primaryKey[0] %}
                     <td class="actions">
-                        <div class="btn-group">
+                        <div class="btn-group d-print-none">
                         <?php
                             echo $this->Html->button('', ['controller' => '{{ details.controller }}', 'action' => 'view', {{ otherPk|raw }}], ['class' => 'btn-link text-primary', 'icon' => 'eye', 'title' => I18N_VIEW]);
                             echo $this->Html->button('', ['controller' => '{{ details.controller }}', 'action' => 'edit', {{ otherPk|raw }}], ['class' => 'btn-link text-primary', 'icon' => 'pencil-alt', 'title' => I18N_EDIT]);
