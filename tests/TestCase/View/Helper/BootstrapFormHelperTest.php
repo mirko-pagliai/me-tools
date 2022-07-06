@@ -158,7 +158,7 @@ class BootstrapFormHelperTest extends HelperTestCase
     {
         $this->assertFalse($this->Helper->isInline());
 
-        $expected = '<form method="post" accept-charset="utf-8" class="align-items-center g-3 mb-3 my-class row row-cols-lg-auto" action="/">';
+        $expected = '<form method="post" accept-charset="utf-8" class="align-items-center g-3 my-class row row-cols-lg-auto" action="/">';
         $result = $this->Helper->createInline(null, ['class' => 'my-class']);
         $this->assertSame($expected, $result);
 
