@@ -15,6 +15,7 @@ declare(strict_types=1);
  */
 namespace MeTools\TestSuite;
 
+use Cake\Controller\Component;
 use Cake\Controller\ComponentRegistry;
 use Cake\Controller\Controller;
 use Cake\View\Helper;
@@ -65,7 +66,7 @@ trait MockTrait
      * @param array<string>|null $methods The list of methods to mock
      * @return \Cake\Controller\Component&\PHPUnit\Framework\MockObject\MockObject
      */
-    protected function getMockForComponent(string $className, ?array $methods = []): object
+    protected function getMockForComponent(string $className, ?array $methods = []): Component
     {
         return $this->getMockBuilder($className)
             ->setConstructorArgs([new ComponentRegistry(new Controller())])
@@ -80,7 +81,7 @@ trait MockTrait
      * @param string|null $alias Controller alias
      * @return \Cake\Controller\Controller&\PHPUnit\Framework\MockObject\MockObject
      */
-    protected function getMockForController(string $className, ?array $methods = [], ?string $alias = null): object
+    protected function getMockForController(string $className, ?array $methods = [], ?string $alias = null): Controller
     {
         return $this->getMockBuilder($className)
             ->setConstructorArgs([null, null, $alias ?: $this->getAlias($className)])

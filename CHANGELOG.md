@@ -1,5 +1,8 @@
 # 2.x branch
 ## 2.21 branch
+### 2.21.2
+* small improvements for some `MockTrait` methods.
+
 ### 2.21.1
 * added a theme for Bake. See the `README` file;
 * added `IntegrationTestTrait::getStatusCode()` method;
