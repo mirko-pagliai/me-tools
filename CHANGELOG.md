@@ -16,6 +16,7 @@
     LibraryHelper` are now deprecated and they will be removed in a later version;
 * little fixes for `FormHelper`, to make the output more consistent with what
     Bootstrap requires;
+* `MockTrait::getMockForHelper()` method has `$view` argument;
 * updated some css file, to make the output more consistent with what Bootstrap
     requires;
 * added some i18n constants (`config/i18n_constants.php`), in order to be used universally;
