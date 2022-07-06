@@ -61,27 +61,6 @@ class BootstrapFormHelperTest extends HelperTestCase
         $result = $this->Helper->control('my-field', ['required' => true]);
         $this->assertStringStartsWith($expected, $result);
 
-        //Input is invalid and has an error
-        $expectedStart = '<div class="input mb-3 text error"><label class="form-label fw-bolder" for="my-field">My Field</label><input type="text" name="my-field" class="form-control is-invalid" id="my-field"';
-        $expectedEnd = '/>My error</div>';
-        /** @var \MeTools\View\Helper\BootstrapFormHelper&\PHPUnit\Framework\MockObject\MockObject $Helper */
-        $Helper = $this->getMockForHelper(BootstrapFormHelper::class, ['error', 'isFieldError']);
-        $Helper->method('error')->willReturn('My error');
-        $Helper->method('isFieldError')->willReturn(true);
-        $result = $Helper->control('my-field');
-        $this->assertStringStartsWith($expectedStart, $result);
-        $this->assertStringEndsWith($expectedEnd, $result);
-
-        //Input is valid (request is "post")
-        $Request = $this->getMockBuilder(ServerRequest::class)
-            ->setMethods(['is'])
-            ->getMock();
-        $Request->method('is')->willReturn(true);
-        $Helper = new BootstrapFormHelper(new View($Request));
-        $expected = '<div class="input mb-3 text"><label class="form-label fw-bolder" for="my-field">My Field</label><input type="text" name="my-field" class="form-control is-valid" id="my-field"/></div>';
-        $result = $Helper->control('my-field');
-        $this->assertSame($expected, $result);
-
         //Help text (form text)
         $expected = '<div class="input mb-3 text"><label class="form-label fw-bolder" for="my-field">My Field</label><input type="text" name="my-field" class="form-control" id="my-field"/><div class="form-text text-muted">first text</div><div class="form-text text-muted">second text</div></div>';
         $result = $this->Helper->control('my-field', ['help' => ['first text', 'second text']]);
@@ -93,18 +72,18 @@ class BootstrapFormHelperTest extends HelperTestCase
         $this->assertSame($expected, $result);
 
         //With a custom label
-        $expected = '<div class="input mb-3 text"><label class="form-label fw-bolder" for="my-field">A custom label</label><input type="text" name="my-field" class="form-control is-valid" id="my-field"/></div>';
-        $result = $Helper->control('my-field', ['label' => 'A custom label']);
+        $expected = '<div class="input mb-3 text"><label class="form-label fw-bolder" for="my-field">A custom label</label><input type="text" name="my-field" class="form-control" id="my-field"/></div>';
+        $result = $this->Helper->control('my-field', ['label' => 'A custom label']);
         $this->assertSame($expected, $result);
 
         //With a label with some options
-        $expected = '<div class="input mb-3 text"><label class="form-label fw-bolder my-label-class" for="my-field">A custom label</label><input type="text" name="my-field" class="form-control is-valid" id="my-field"/></div>';
-        $result = $Helper->control('my-field', ['label' => ['text' => 'A custom label', 'class' => 'my-label-class']]);
+        $expected = '<div class="input mb-3 text"><label class="form-label fw-bolder my-label-class" for="my-field">A custom label</label><input type="text" name="my-field" class="form-control" id="my-field"/></div>';
+        $result = $this->Helper->control('my-field', ['label' => ['text' => 'A custom label', 'class' => 'my-label-class']]);
         $this->assertSame($expected, $result);
 
         //With a disabled label
-        $expected = '<div class="input mb-3 text"><input type="text" name="my-field" class="form-control is-valid" id="my-field"/></div>';
-        $result = $Helper->control('my-field', ['label' => false]);
+        $expected = '<div class="input mb-3 text"><input type="text" name="my-field" class="form-control" id="my-field"/></div>';
+        $result = $this->Helper->control('my-field', ['label' => false]);
         $this->assertSame($expected, $result);
     }
 
@@ -149,6 +128,37 @@ class BootstrapFormHelperTest extends HelperTestCase
         $expected = '<div class="col-12 text"><label class="visually-hidden" for="my-inline-field">My label</label><input type="text" name="my-inline-field" class="form-control" id="my-inline-field"/></div>';
         $result = $this->Helper->control('my-inline-field', ['label' => 'My label']);
         $this->assertSame($expected, $result);
+    }
+
+    /**
+     * Test for `control()` method, on `post` request
+     * @return void
+     * @uses \MeTools\View\Helper\BootstrapFormHelper::control()
+     */
+    public function testControlOnPostRequest(): void
+    {
+        $Request = $this->getMockBuilder(ServerRequest::class)
+            ->setMethods(['is'])
+            ->getMock();
+        $Request->method('is')->willReturn(true);
+        $View = new View($Request);
+
+        //Input is valid
+        $Helper = new BootstrapFormHelper($View);
+        $expected = '<div class="input mb-3 text"><label class="form-label fw-bolder" for="my-field">My Field</label><input type="text" name="my-field" class="form-control is-valid" id="my-field"/></div>';
+        $result = $Helper->control('my-field');
+        $this->assertSame($expected, $result);
+
+        //Input is invalid and has an error
+        $expectedStart = '<div class="input mb-3 text error"><label class="form-label fw-bolder" for="my-field">My Field</label><input type="text" name="my-field" class="form-control is-invalid" id="my-field"';
+        $expectedEnd = '/>My error</div>';
+        /** @var \MeTools\View\Helper\BootstrapFormHelper&\PHPUnit\Framework\MockObject\MockObject $Helper */
+        $Helper = $this->getMockForHelper(BootstrapFormHelper::class, ['error', 'isFieldError'], $View);
+        $Helper->method('error')->willReturn('My error');
+        $Helper->method('isFieldError')->willReturn(true);
+        $result = $Helper->control('my-field');
+        $this->assertStringStartsWith($expectedStart, $result);
+        $this->assertStringEndsWith($expectedEnd, $result);
     }
 
     /**

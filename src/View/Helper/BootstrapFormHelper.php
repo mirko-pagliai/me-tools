@@ -134,12 +134,11 @@ class BootstrapFormHelper extends FormHelper
         }
 
         /**
-         * @todo Fix code
+         * Add class on `post` request (the form has been filled out)
+         * @see https://getbootstrap.com/docs/5.2/forms/validation/#server-side
          */
-        if ($this->isFieldError($fieldName)) {
-            $options->append('class', 'is-invalid');
-        } elseif ($this->getView()->getRequest()->is('post')) {
-            $options->append('class', 'is-valid');
+        if ($this->getView()->getRequest()->is('post')) {
+            $options->append('class', $this->isFieldError($fieldName) ? 'is-invalid' : 'is-valid');
         }
 
         /**
