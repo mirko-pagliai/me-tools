@@ -213,22 +213,19 @@ class BootstrapFormHelperTest extends HelperTestCase
      */
     public function testPostButton(): void
     {
-        $title = 'My title';
-        $url = 'http://link';
-
         $expected = [
-            'form' => ['name' => 'preg:/post_[a-z0-9]+/', 'style' => 'display:none;', 'method' => 'post', 'action' => $url],
+            'form' => ['name' => 'preg:/post_[a-z0-9]+/', 'style' => 'display:none;', 'method' => 'post', 'action' => 'http://link'],
             'input' => ['type' => 'hidden', 'name' => '_method', 'value' => 'POST'],
             '/form',
-            'a' => ['href' => '#', 'class' => 'btn btn-light', 'onclick', 'role' => 'button', 'title' => $title],
+            'a' => ['href' => '#', 'class' => 'btn btn-light', 'onclick', 'role' => 'button', 'title' => 'My title'],
             'i' => ['class' => 'fas fa-home'],
             ' ',
             '/i',
             ' ',
-            $title,
+            'My title',
             '/a',
         ];
-        $result = $this->Helper->postButton($title, $url, ['icon' => 'home']);
+        $result = $this->Helper->postButton('My title', 'http://link', ['icon' => 'home']);
         $this->assertHtml($expected, $result);
     }
 
