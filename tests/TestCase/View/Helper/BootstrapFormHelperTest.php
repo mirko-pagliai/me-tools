@@ -91,6 +91,21 @@ class BootstrapFormHelperTest extends HelperTestCase
         $expected = '<div class="input mb-3 text"><label class="form-label fw-bolder" for="my-field">My Field</label><div class="input-group"><span class="input-group-text">first text</span><input type="text" name="my-field" class="form-control" id="my-field"/><span class="input-group-text">second text</span></div></div>';
         $result = $this->Helper->control('my-field', ['prepend-text' => 'first text', 'append-text' => 'second text']);
         $this->assertSame($expected, $result);
+
+        //With a custom label
+        $expected = '<div class="input mb-3 text"><label class="form-label fw-bolder" for="my-field">A custom label</label><input type="text" name="my-field" class="form-control is-valid" id="my-field"/></div>';
+        $result = $Helper->control('my-field', ['label' => 'A custom label']);
+        $this->assertSame($expected, $result);
+
+        //With a label with some options
+        $expected = '<div class="input mb-3 text"><label class="form-label fw-bolder my-label-class" for="my-field">A custom label</label><input type="text" name="my-field" class="form-control is-valid" id="my-field"/></div>';
+        $result = $Helper->control('my-field', ['label' => ['text' => 'A custom label', 'class' => 'my-label-class']]);
+        $this->assertSame($expected, $result);
+
+        //With a disabled label
+        $expected = '<div class="input mb-3 text"><input type="text" name="my-field" class="form-control is-valid" id="my-field"/></div>';
+        $result = $Helper->control('my-field', ['label' => false]);
+        $this->assertSame($expected, $result);
     }
 
     /**

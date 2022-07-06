@@ -94,8 +94,13 @@ class BootstrapFormHelper extends FormHelper
     {
         $this->resetTemplates();
         $options = optionsParser($options, ['label' => []]);
-        $label = optionsParser(is_string($options->get('label')) ? ['text' => $options->get('label')] : $options->get('label'));
 
+        /**
+         * Sets label as `optionsParser` instance, with `text` option
+         */
+        if ($options->get('label') !== false) {
+            $label = optionsParser(is_string($options->get('label')) ? ['text' => $options->get('label')] : $options->get('label'));
+        }
         /**
          * Forces type before getting type.
          *
@@ -120,13 +125,17 @@ class BootstrapFormHelper extends FormHelper
          * Checkbox labels have their own class.
          * The other fields only when the form is not inline.
          */
-        if ($type === 'checkbox') {
-            $label->append('class', 'form-check-label');
-        } elseif (!$this->isInline()) {
-            $label->append('class', 'form-label');
+        if (isset($label)) {
+            if ($type === 'checkbox') {
+                $label->append('class', 'form-check-label');
+            } elseif (!$this->isInline()) {
+                $label->append('class', 'form-label');
+            }
         }
 
-        //@todo Fix code
+        /**
+         * @todo Fix code
+         */
         if ($this->isFieldError($fieldName)) {
             $options->append('class', 'is-invalid');
         } elseif ($this->getView()->getRequest()->is('post')) {
@@ -151,7 +160,7 @@ class BootstrapFormHelper extends FormHelper
             /**
              * Label class form inline forms, except for checkboxes
              */
-            if ($type !== 'checkbox') {
+            if (isset($label) && $type !== 'checkbox') {
                 $label->append('class', 'visually-hidden')->delete('icon', 'icon-align');
             }
         }
@@ -177,7 +186,7 @@ class BootstrapFormHelper extends FormHelper
             $options->append('templateVars', compact('appendText', 'prependText'));
         }
 
-        $options->add('label', $label->toArray());
+        $options->add('label', isset($label) ? $label->toArray() : false);
 
         return parent::control($fieldName, $options->toArray());
     }
@@ -196,7 +205,7 @@ class BootstrapFormHelper extends FormHelper
     public function createInline($context = null, array $options = []): string
     {
         $this->isInline = true;
-        $options = optionsParser($options)->append('class', 'row row-cols-lg-auto g-3 mb-3 align-items-center');
+        $options = optionsParser($options)->append('class', 'row row-cols-lg-auto g-3 align-items-center');
 
         return parent::create($context, $options->toArray());
     }
