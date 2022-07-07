@@ -112,9 +112,12 @@ class HtmlHelper extends CakeHtmlHelper
      *  be treated as HTML attributes
      * @return string|null String or `null`, depending on the value of
      *  $options['block']`
+     * @deprecated 2.21.2
      */
     public function cssBlock(string $css, array $options = []): ?string
     {
+        deprecationWarning('Deprecated');
+        
         $options = optionsParser($options, ['block' => true]);
 
         $out = $this->formatTemplate('style', [

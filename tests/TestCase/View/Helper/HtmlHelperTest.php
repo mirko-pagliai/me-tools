@@ -193,10 +193,13 @@ class HtmlHelperTest extends HelperTestCase
 
     /**
      * Test for `cssBlock()` method
+     * @deprecated
      * @test
      */
     public function testCssBlock(): void
     {
+        $current = error_reporting(E_ALL & ~E_USER_DEPRECATED);
+
         $css = 'body { color: red; }';
 
         //By default, `block` is `true`
@@ -205,6 +208,11 @@ class HtmlHelperTest extends HelperTestCase
 
         $expected = ['style' => true, $css, '/style'];
         $this->assertHtml($expected, $this->Helper->cssBlock($css, ['block' => false]) ?: '');
+
+        error_reporting($current);
+
+        $this->expectDeprecation();
+        $this->Helper->cssBlock($css);
     }
 
     /**
