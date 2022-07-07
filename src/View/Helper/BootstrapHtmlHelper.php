@@ -54,6 +54,32 @@ class BootstrapHtmlHelper extends HtmlHelper
     }
 
     /**
+     * Creates a formatted IMG element.
+     *
+     * See the parent method for all available options.
+     * @param array|string $path Path to the image file, relative to the webroot/img/ directory
+     * @param array<string, mixed> $options Array of HTML attributes. See above for special options
+     * @return string completed img tag
+     */
+    public function image($path, array $options = []): string
+    {
+        $alt = pathinfo(is_array($path) ? $this->Url->build($path, $options) : $path, PATHINFO_BASENAME);
+        $options = optionsParser($options, compact('alt'))->append('class', 'img-fluid');
+
+        return parent::image($path, $options->toArray());
+    }
+
+    /**
+     * Alias for `image()` method
+     * @return string
+     * @see image()
+     */
+    public function img(): string
+    {
+        return call_user_func_array([get_class(), 'image'], func_get_args());
+    }
+
+    /**
      * Creates an HTML link.
      *
      * See the parent method for all available options.

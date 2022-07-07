@@ -318,6 +318,7 @@ class HtmlHelperTest extends HelperTestCase
 
     /**
      * Test for `image()` and `img()` methods
+     * @deprecated
      * @test
      */
     public function testImage(): void
