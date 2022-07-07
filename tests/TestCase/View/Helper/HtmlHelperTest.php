@@ -71,6 +71,7 @@ class HtmlHelperTest extends HelperTestCase
 
     /**
      * Test for `button()` method
+     * @deprecated
      * @test
      */
     public function testButton(): void
@@ -137,6 +138,7 @@ class HtmlHelperTest extends HelperTestCase
 
     /**
      * Test for `button()` method, with buttons as links
+     * @deprecated
      * @test
      */
     public function testButtonAsLink(): void

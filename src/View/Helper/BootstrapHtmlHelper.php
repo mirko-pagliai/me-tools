@@ -72,6 +72,24 @@ class BootstrapHtmlHelper extends HtmlHelper
     }
 
     /**
+     * Creates a link with the appearance of a button.
+     *
+     * See the parent method for all available options.
+     * @param array|string $title The content to be wrapped by `<a>` tags
+     *   Can be an array if $url is null. If $url is null, $title will be used as both the URL and title.
+     * @param array|string|null $url Cake-relative URL or array of URL parameters, or
+     *   external URL (starts with http://)
+     * @param array<string, mixed> $options Array of options and HTML attributes
+     * @return string An `<a />` element
+     */
+    public function button($title, $url = null, array $options = []): string
+    {
+        $options = optionsParser($options, ['role' => 'button'])->addButtonClasses();
+
+        return $this->link($title, $url, $options->toArray());
+    }
+
+    /**
      * Creates a formatted IMG element.
      *
      * See the parent method for all available options.

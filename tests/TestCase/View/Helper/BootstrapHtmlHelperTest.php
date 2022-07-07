@@ -88,6 +88,49 @@ class BootstrapHtmlHelperTest extends HelperTestCase
     }
 
     /**
+     * Test for `button()` method
+     * @test
+     * @uses \MeTools\View\Helper\BootstrapHtmlHelper::button()
+     */
+    public function testButton(): void
+    {
+        $title = 'My title';
+
+        $expected = '<a href="http://link" class="btn btn-light" role="button" title="my-title">My title</a>';
+        $result = $this->Helper->button($title, 'http://link', ['title' => 'my-title']);
+        $this->assertSame($expected, $result);
+
+        $expected = '<a href="#" class="btn btn-light" role="button" title="My title">My title <i class="fas fa-home"> </i></a>';
+        $result = $this->Helper->button($title, '#', ['icon' => 'home', 'icon-align' => 'right']);
+        $this->assertSame($expected, $result);
+
+        //Code on text
+        $expected = '<a href="#" class="btn btn-light" role="button" title="Code"><u>Code</u> </a>';
+        $result = $this->Helper->button('<u>Code</u> ', '#');
+        $this->assertSame($expected, $result);
+
+        //Code on custom title
+        $expected = '<a href="#" class="btn btn-light" role="button" title="Code">My title</a>';
+        $result = $this->Helper->button($title, '#', ['title' => '<u>Code</u>']);
+        $this->assertSame($expected, $result);
+
+        $expected = '<a href="/" class="btn btn-light" role="button" title="/">/</a>';
+        $result = $this->Helper->button('/');
+        $this->assertSame($expected, $result);
+
+        //With a button class
+        $expected = '<a href="http://link" class="btn btn-success" role="button" title="my-title">My title</a>';
+        $result = $this->Helper->button($title, 'http://link', ['class' => 'btn-success', 'title' => 'my-title']);
+        $this->assertSame($expected, $result);
+
+        $this->loadPlugins(['TestPlugin' => []]);
+        $expected = '<a href="/pages" class="btn btn-light" role="button"></a>';
+        $result = $this->Helper->button(['controller' => 'Pages', 'plugin' => 'TestPlugin']);
+        $this->assertSame($expected, $result);
+
+    }
+
+    /**
      * Test for `link()` method
      * @test
      * @uses \MeTools\View\Helper\BootstrapHtmlHelper::link()
