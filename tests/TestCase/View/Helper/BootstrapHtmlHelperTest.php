@@ -125,7 +125,6 @@ class BootstrapHtmlHelperTest extends HelperTestCase
         $expected = '<a href="/pages" class="btn btn-light" role="button"></a>';
         $result = $this->Helper->button(['controller' => 'Pages', 'plugin' => 'TestPlugin']);
         $this->assertSame($expected, $result);
-
     }
 
     /**

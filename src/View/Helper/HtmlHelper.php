@@ -117,7 +117,7 @@ class HtmlHelper extends CakeHtmlHelper
     public function cssBlock(string $css, array $options = []): ?string
     {
         deprecationWarning('Deprecated');
-        
+
         $options = optionsParser($options, ['block' => true]);
 
         $out = $this->formatTemplate('style', [
