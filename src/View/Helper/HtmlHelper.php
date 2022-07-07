@@ -141,9 +141,12 @@ class HtmlHelper extends CakeHtmlHelper
      *  a cssBlock from it
      * @param array $options Options for the code block
      * @return void
+     * @deprecated 2.21.2
      */
     public function cssStart(array $options = []): void
     {
+        deprecationWarning('Deprecated');
+
         $options += ['block' => null];
         $this->_cssBlockOptions = $options;
         ob_start();
@@ -155,9 +158,12 @@ class HtmlHelper extends CakeHtmlHelper
      *  depending on the settings used when the cssBlock was started.
      * @return string|null Depending on the settings of `cssStart()`, either a
      *  style tag or `null`
+     * @deprecated 2.21.2
      */
     public function cssEnd(): ?string
     {
+        deprecationWarning('Deprecated');
+
         $options = $this->_cssBlockOptions;
         $this->_cssBlockOptions = [];
 

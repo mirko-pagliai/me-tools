@@ -17,6 +17,7 @@ namespace MeTools\Test\TestCase\View\Helper;
 use ErrorException;
 use MeTools\TestSuite\HelperTestCase;
 use MeTools\View\Helper\HtmlHelper;
+use PHPUnit\Framework\Error\Deprecated;
 
 /**
  * HtmlHelperTest class
@@ -208,10 +209,13 @@ class HtmlHelperTest extends HelperTestCase
 
     /**
      * Test for `cssStart()` and `cssEnd()` methods
+     * @deprecated
      * @test
      */
     public function testCssStartAndCssEnd(): void
     {
+        $current = error_reporting(E_ALL & ~E_USER_DEPRECATED);
+
         $css = 'body { color: red; }';
 
         //By default, `block` is `true`
@@ -229,6 +233,11 @@ class HtmlHelperTest extends HelperTestCase
         echo $css;
         $result = $this->Helper->cssEnd();
         $this->assertHtml($expected, $result ?: '');
+
+        error_reporting($current);
+
+        $this->assertException(fn() => $this->Helper->cssStart(), Deprecated::class);
+        $this->assertException(fn() => $this->Helper->cssEnd(), Deprecated::class);
     }
 
     /**

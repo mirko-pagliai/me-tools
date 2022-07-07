@@ -5,6 +5,8 @@
     it will replace `HtmlHelper`, assuming the same name. Some methods of the
     `HtmlHelperTest` test class have been marked as deprecated, to indicate that
     code is already covered by the new code;
+* `cssStart()` and `cssEnd()` methods provided by `HtmlHelper` are now deprecated
+    and they will be removed in a later version. No replacement will be provided;
 * small improvements for some `MockTrait` methods.
 
 ### 2.21.1
