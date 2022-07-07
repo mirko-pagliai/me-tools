@@ -511,6 +511,7 @@ class HtmlHelperTest extends HelperTestCase
 
     /**
      * Test for `nestedList`, `ol()` and `ul()` methods
+     * @deprecated
      * @test
      */
     public function testNestedListAndOlAndUl(): void

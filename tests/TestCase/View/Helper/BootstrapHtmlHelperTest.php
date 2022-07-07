@@ -123,8 +123,40 @@ class BootstrapHtmlHelperTest extends HelperTestCase
     }
 
     /**
+     * Test for `ol()` and `ul()` methods
+     * @test
+     * @uses \MeTools\View\Helper\BootstrapHtmlHelper::ol()
+     * @uses \MeTools\View\Helper\BootstrapHtmlHelper::ul()
+     */
+    public function testOlAndUl(): void
+    {
+        $expected = [
+            'ul' => ['class' => 'parent-class'],
+            ['li' => ['class' => 'li-class']],
+            ['i' => ['class' => 'fas fa-home']],
+            '/i',
+            'First',
+            '/li',
+            ['li' => ['class' => 'li-class']],
+            ['i' => ['class' => 'fas fa-home']],
+            '/i',
+            'Second',
+            '/li',
+            '/ul',
+        ];
+        $result = $this->Helper->ul(['First', 'Second'], ['class' => 'parent-class'], ['class' => 'li-class', 'icon' => 'home']);
+        $this->assertHtml($expected, $result);
+
+        array_shift($expected) && array_pop($expected);
+        $expected = ['ol' => ['class' => 'parent-class'], ...$expected, '/ol'];
+        $result = $this->Helper->ol(['First', 'Second'], ['class' => 'parent-class'], ['class' => 'li-class', 'icon' => 'home']);
+        $this->assertHtml($expected, $result);
+    }
+
+    /**
      * Test for `tag()` method
      * @test
+     * @uses \MeTools\View\Helper\BootstrapHtmlHelper::tag()
      */
     public function testTag(): void
     {
