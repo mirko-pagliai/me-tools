@@ -94,14 +94,12 @@ class BootstrapHtmlHelperTest extends HelperTestCase
      */
     public function testButton(): void
     {
-        $title = 'My title';
-
         $expected = '<a href="http://link" class="btn btn-light" role="button" title="my-title">My title</a>';
-        $result = $this->Helper->button($title, 'http://link', ['title' => 'my-title']);
+        $result = $this->Helper->button('My title', 'http://link', ['title' => 'my-title']);
         $this->assertSame($expected, $result);
 
         $expected = '<a href="#" class="btn btn-light" role="button" title="My title">My title <i class="fas fa-home"> </i></a>';
-        $result = $this->Helper->button($title, '#', ['icon' => 'home', 'icon-align' => 'right']);
+        $result = $this->Helper->button('My title', '#', ['icon' => 'home', 'icon-align' => 'right']);
         $this->assertSame($expected, $result);
 
         //Code on text
@@ -111,7 +109,7 @@ class BootstrapHtmlHelperTest extends HelperTestCase
 
         //Code on custom title
         $expected = '<a href="#" class="btn btn-light" role="button" title="Code">My title</a>';
-        $result = $this->Helper->button($title, '#', ['title' => '<u>Code</u>']);
+        $result = $this->Helper->button('My title', '#', ['title' => '<u>Code</u>']);
         $this->assertSame($expected, $result);
 
         $expected = '<a href="/" class="btn btn-light" role="button" title="/">/</a>';
@@ -120,7 +118,7 @@ class BootstrapHtmlHelperTest extends HelperTestCase
 
         //With a button class
         $expected = '<a href="http://link" class="btn btn-success" role="button" title="my-title">My title</a>';
-        $result = $this->Helper->button($title, 'http://link', ['class' => 'btn-success', 'title' => 'my-title']);
+        $result = $this->Helper->button('My title', 'http://link', ['class' => 'btn-success', 'title' => 'my-title']);
         $this->assertSame($expected, $result);
 
         $this->loadPlugins(['TestPlugin' => []]);
@@ -137,14 +135,12 @@ class BootstrapHtmlHelperTest extends HelperTestCase
      */
     public function testLink(): void
     {
-        $title = 'My title';
-
         $expected = '<a href="http://link" title="my-title">My title</a>';
-        $result = $this->Helper->link($title, 'http://link', ['title' => 'my-title']);
+        $result = $this->Helper->link('My title', 'http://link', ['title' => 'my-title']);
         $this->assertSame($expected, $result);
 
         $expected = '<a href="#" title="My title">My title <i class="fas fa-home"> </i></a>';
-        $result = $this->Helper->link($title, '#', ['icon' => 'home', 'icon-align' => 'right']);
+        $result = $this->Helper->link('My title', '#', ['icon' => 'home', 'icon-align' => 'right']);
         $this->assertSame($expected, $result);
 
         //Code on text
@@ -154,7 +150,7 @@ class BootstrapHtmlHelperTest extends HelperTestCase
 
         //Code on custom title
         $expected = '<a href="#" title="Code">My title</a>';
-        $result = $this->Helper->link($title, '#', ['title' => '<u>Code</u>']);
+        $result = $this->Helper->link('My title', '#', ['title' => '<u>Code</u>']);
         $this->assertSame($expected, $result);
 
         $this->assertSame('<a href="/" title="/">/</a>', $this->Helper->link('/'));
