@@ -17,6 +17,7 @@ namespace MeTools\Test\TestCase\View\Helper;
 use ErrorException;
 use MeTools\TestSuite\HelperTestCase;
 use MeTools\View\Helper\HtmlHelper;
+use PHPUnit\Framework\Error\Deprecated;
 
 /**
  * HtmlHelperTest class
@@ -26,6 +27,7 @@ class HtmlHelperTest extends HelperTestCase
 {
     /**
      * Tests for `__call()` method
+     * @deprecated
      * @test
      */
     public function testCall(): void
@@ -69,6 +71,7 @@ class HtmlHelperTest extends HelperTestCase
 
     /**
      * Test for `button()` method
+     * @deprecated
      * @test
      */
     public function testButton(): void
@@ -135,6 +138,7 @@ class HtmlHelperTest extends HelperTestCase
 
     /**
      * Test for `button()` method, with buttons as links
+     * @deprecated
      * @test
      */
     public function testButtonAsLink(): void
@@ -191,10 +195,13 @@ class HtmlHelperTest extends HelperTestCase
 
     /**
      * Test for `cssBlock()` method
+     * @deprecated
      * @test
      */
     public function testCssBlock(): void
     {
+        $current = error_reporting(E_ALL & ~E_USER_DEPRECATED);
+
         $css = 'body { color: red; }';
 
         //By default, `block` is `true`
@@ -203,14 +210,22 @@ class HtmlHelperTest extends HelperTestCase
 
         $expected = ['style' => true, $css, '/style'];
         $this->assertHtml($expected, $this->Helper->cssBlock($css, ['block' => false]) ?: '');
+
+        error_reporting($current);
+
+        $this->expectDeprecation();
+        $this->Helper->cssBlock($css);
     }
 
     /**
      * Test for `cssStart()` and `cssEnd()` methods
+     * @deprecated
      * @test
      */
     public function testCssStartAndCssEnd(): void
     {
+        $current = error_reporting(E_ALL & ~E_USER_DEPRECATED);
+
         $css = 'body { color: red; }';
 
         //By default, `block` is `true`
@@ -228,15 +243,22 @@ class HtmlHelperTest extends HelperTestCase
         echo $css;
         $result = $this->Helper->cssEnd();
         $this->assertHtml($expected, $result ?: '');
+
+        error_reporting($current);
+
+        $this->assertException(fn() => $this->Helper->cssStart(), Deprecated::class);
+        $this->assertException(fn() => $this->Helper->cssEnd(), Deprecated::class);
     }
 
     /**
      * Tests for `heading()` method
-
+     * @deprecated
      * @test
      */
     public function testHeading(): void
     {
+        $current = error_reporting(E_ALL & ~E_USER_DEPRECATED);
+
         $text = 'My header';
         $smallText = 'My small text';
 
@@ -260,16 +282,29 @@ class HtmlHelperTest extends HelperTestCase
         ];
         $result = $this->Helper->heading($text, ['class' => 'header-class', 'type' => 'h4'], $smallText, ['class' => 'small-class']);
         $this->assertHtml($expected, $result);
+
+        error_reporting($current);
+
+        $this->expectDeprecation();
+        $this->Helper->heading($text);
     }
 
     /**
      * Test for `hr()` method
+     * @deprecated
      * @test
      */
     public function testHr(): void
     {
+        $current = error_reporting(E_ALL & ~E_USER_DEPRECATED);
+
         $expected = $this->Helper->tag('hr', null, ['class' => 'my-hr-class']);
         $this->assertEquals($expected, $this->Helper->hr(['class' => 'my-hr-class']));
+
+        error_reporting($current);
+
+        $this->expectDeprecation();
+        $this->Helper->hr();
     }
 
     /**
@@ -317,6 +352,7 @@ class HtmlHelperTest extends HelperTestCase
 
     /**
      * Test for `image()` and `img()` methods
+     * @deprecated
      * @test
      */
     public function testImage(): void
@@ -401,6 +437,7 @@ class HtmlHelperTest extends HelperTestCase
 
     /**
      * Test for `link()` method
+     * @deprecated
      * @test
      */
     public function testLink(): void
@@ -491,6 +528,7 @@ class HtmlHelperTest extends HelperTestCase
 
     /**
      * Test for `nestedList`, `ol()` and `ul()` methods
+     * @deprecated
      * @test
      */
     public function testNestedListAndOlAndUl(): void
@@ -596,6 +634,7 @@ class HtmlHelperTest extends HelperTestCase
 
     /**
      * Test for `scriptBlock()` method
+     * @deprecated
      * @test
      */
     public function testScriptBlock(): void
@@ -647,6 +686,7 @@ class HtmlHelperTest extends HelperTestCase
 
     /**
      * Test for `tag()` method
+     * @deprecated
      * @test
      */
     public function testTag(): void
@@ -688,6 +728,7 @@ class HtmlHelperTest extends HelperTestCase
 
     /**
      * Tests for `viewport()` method
+     * @deprecated
      * @test
      */
     public function testViewport(): void

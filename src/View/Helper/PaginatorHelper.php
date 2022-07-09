@@ -20,6 +20,8 @@ use Cake\View\View;
 
 /**
  * Provides functionalities to the generation of pagers
+ * @property \MeTools\View\Helper\BootstrapFormHelper $Form
+ * @property \MeTools\View\Helper\BootstrapHtmlHelper $Html
  * @property \MeTools\View\Helper\IconHelper $Icon
  */
 class PaginatorHelper extends CakePaginatorHelper
@@ -29,8 +31,8 @@ class PaginatorHelper extends CakePaginatorHelper
      * @var array
      */
     public $helpers = [
-        'Form' => ['className' => 'MeTools.Form'],
-        'Html' => ['className' => 'MeTools.Html'],
+        'Form' => ['className' => 'MeTools.BootstrapForm'],
+        'Html' => ['className' => 'MeTools.BootstrapHtml'],
         'MeTools.Icon',
         'Number',
         'Url',

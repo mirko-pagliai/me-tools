@@ -35,3 +35,8 @@ parameters:
 			count: 1
 			path: tests/TestCase/TestSuite/IntegrationTestTraitTest.php
 
+		-
+			message: "#^Left side of && is always true\\.$#"
+			count: 1
+			path: tests/TestCase/View/Helper/BootstrapHtmlHelperTest.php
+

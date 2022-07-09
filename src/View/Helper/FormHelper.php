@@ -17,7 +17,6 @@ namespace MeTools\View\Helper;
 use Cake\Utility\Hash;
 use Cake\View\Helper\FormHelper as CakeFormHelper;
 use Cake\View\View;
-use MeTools\View\OptionsParser;
 use MeTools\View\Widget\HiddenWidget;
 
 /**

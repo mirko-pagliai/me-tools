@@ -21,7 +21,7 @@ $this->set('sidebarLinks', [
 <div class="{{ pluralVar }} view content">
     <h3><?= h(${{ singularVar }}->{{ displayField }}) ?></h3>
 
-    <dl class="row">
+    <dl class="row mt-4">
 {% if groupedFields['string'] %}
 {% for field in groupedFields['string'] %}
 {% if associationFields[field] is defined %}
@@ -79,7 +79,7 @@ $this->set('sidebarLinks', [
 {% set otherSingularVar = alias|variable %}
 {% set otherPluralHumanName = details.controller|underscore|humanize %}
 
-    <div class="related mt-4">
+    <div class="related mt-5">
         <h4><?= __('Related {{ otherPluralHumanName }}') ?></h4>
         
         <?php if (!empty(${{ singularVar }}->{{ details.property }})) : ?>
@@ -95,7 +95,7 @@ $this->set('sidebarLinks', [
                 <tr>
 {% set otherPk = '$' ~ otherSingularVar ~ '->' ~ details.primaryKey[0] %}
                     <td class="actions">
-                        <div class="btn-group">
+                        <div class="btn-group d-print-none">
                         <?php
                             echo $this->Html->button('', ['controller' => '{{ details.controller }}', 'action' => 'view', {{ otherPk|raw }}], ['class' => 'btn-link text-primary', 'icon' => 'eye', 'title' => I18N_VIEW]);
                             echo $this->Html->button('', ['controller' => '{{ details.controller }}', 'action' => 'edit', {{ otherPk|raw }}], ['class' => 'btn-link text-primary', 'icon' => 'pencil-alt', 'title' => I18N_EDIT]);

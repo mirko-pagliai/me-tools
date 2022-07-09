@@ -7,10 +7,26 @@
     `LibraryHelper` were deprecated and have now been removed.
 
 ## 2.21 branch
+### 2.21.2
+* added `BootstrapHtmlHelper`. For now this class is temporary, but in the future
+    it will replace `HtmlHelper`, assuming the same name. Some methods of the
+    `HtmlHelperTest` test class have been marked as deprecated, to indicate that
+    code is already covered by the new code;
+* `cssBlock()`, `cssStart()`, `cssEnd()`, `heading()` and `hr()` methods provided
+    by the `HtmlHelper` are now deprecated and they will be removed in a later
+    version. No replacement will be provided;
+* `HtmlHelper::scriptBlock()` is now deprecated and will be removed in a later
+    version. Use instead the parent method, with the `block` option;
+* small improvements for some `MockTrait` methods.
+
 ### 2.21.1
 * added a theme for Bake. See the `README` file;
 * added `IntegrationTestTrait::getStatusCode()` method;
 * fixed a little bug for `HtmlHelper::link()`;
+* added `BootstrapFormHelper`. For now this class is temporary, but in the future
+    it will replace `FormHelper`, assuming the same name. Some methods of the
+    `FormHelperTest` test class have been marked as deprecated, to indicate that
+    code is already covered by the new code;
 * `datepicker()`, `datetimepicker()` and `timepicker()` methods provided by
     `FormHelper` are now deprecated and they will be removed in a later version.
     Use instead the normal `control()` method, which will generate
@@ -19,6 +35,7 @@
     LibraryHelper` are now deprecated and they will be removed in a later version;
 * little fixes for `FormHelper`, to make the output more consistent with what
     Bootstrap requires;
+* `MockTrait::getMockForHelper()` method has `$view` argument;
 * updated some css file, to make the output more consistent with what Bootstrap
     requires;
 * added some i18n constants (`config/i18n_constants.php`), in order to be used universally;

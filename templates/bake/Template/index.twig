@@ -7,7 +7,7 @@
 
 <?php
 $this->set('sidebarLinks', [
-    $this->Html->link(__('New {{ singularHumanName }}'), ['action' => 'add'], ['class' => 'nav-link']),
+    $this->Html->link(__('Add {{ singularHumanName }}'), ['action' => 'add'], ['class' => 'nav-link']),
 ]);
 ?>
 
@@ -28,7 +28,7 @@ $this->set('sidebarLinks', [
             <tr>
 {% set pk = '$' ~ singularVar ~ '->' ~ primaryKey[0] %}
                 <td class="actions">
-                    <div class="btn-group">
+                    <div class="btn-group d-print-none">
                     <?php
                         echo $this->Html->button('', ['action' => 'view', {{ pk|raw }}], ['class' => 'btn-link text-primary', 'icon' => 'eye', 'title' => I18N_VIEW]);
                         echo $this->Html->button('', ['action' => 'edit', {{ pk|raw }}], ['class' => 'btn-link text-primary', 'icon' => 'pencil-alt', 'title' => I18N_EDIT]);

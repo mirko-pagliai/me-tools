@@ -17,7 +17,6 @@ form label.required:after,
 form div.required > label:after {
     color: #e32;
     content: ' *';
-    display: inline;
 }
 
 /* -------------------------------- */
@@ -27,36 +26,6 @@ form div.required > label:after {
 form input + .input-group-append .btn,
 form input + .input-group-prepend .btn {
     border: 1px solid #ced4da;
-}
-
-/* -------------------------------- */
-/*          Inline forms            */
-/* -------------------------------- */
-/* Inline forms, labels */
-form.form-inline label {
-    line-height: calc(2.25rem + 2px);
-    margin-right: 1rem;
-}
-
-/* Inline forms, checkboxes wrappers, labels */
-form.form-inline .checkbox label {
-    margin-right: 0;
-}
-
-/* Inline forms, buttons */
-form.form-inline .btn {
-    height: calc(2.25rem + 2px);
-}
-
-/* Inline forms, fieldset, all children except legend */
-form.form-inline fieldset > :not(legend) {
-    float: left;
-    margin-right: .4rem;
-}
-
-/* Inline forms, fieldset, all children except legend, last child */
-form.form-inline fieldset > :not(legend):last-child {
-    margin-right: 0;
 }
 
 /* -------------------------------- */

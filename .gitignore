@@ -1,11 +1,8 @@
 .directory
 .phpunit.result.cache
-*.bkp.*
 *_old
 *.old.*
+bin/
 composer.lock
 coverage/
 vendor/*
-
-/* @to-do remove */
-**/View/Helper/Bootstrap*Helper*.php

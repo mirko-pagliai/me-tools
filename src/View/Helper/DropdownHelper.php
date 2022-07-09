@@ -56,7 +56,7 @@ use Cake\View\Helper;
  *      $this->Html->link('Other main link', '#'),
  * ]);
  * </code>
- * @property \MeTools\View\Helper\HtmlHelper $Html
+ * @property \MeTools\View\Helper\BootstrapHtmlHelper $Html
  */
 class DropdownHelper extends Helper
 {
@@ -64,7 +64,7 @@ class DropdownHelper extends Helper
      * Helpers
      * @var array
      */
-    public $helpers = ['Html' => ['className' => 'MeTools.Html']];
+    public $helpers = ['Html' => ['className' => 'MeTools.BootstrapHtml']];
 
     /**
      * Start link. This link allows the opening of the dropdown menu

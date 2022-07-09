@@ -40,7 +40,7 @@ class IconHelper extends CakeHtmlHelper
 
         $icon = $this->icon($icon);
         $result = $icon . ' ' . $text;
-        if (empty($text)) {
+        if (!$text) {
             $result = $icon;
         } elseif ($align === 'right') {
             $result = $text . ' ' . $icon;

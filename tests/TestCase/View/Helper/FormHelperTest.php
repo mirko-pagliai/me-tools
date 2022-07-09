@@ -45,6 +45,7 @@ class FormHelperTest extends HelperTestCase
 
     /**
      * Tests for `button()` method
+     * @deprecated
      * @test
      */
     public function testButton(): void
@@ -135,6 +136,33 @@ class FormHelperTest extends HelperTestCase
         $this->assertHtml($expected, $this->Helper->control($field));
 
         $expected = [
+            ['div' => ['class' => 'form-group input text']],
+            'label' => ['class' => 'form-label', 'for' => $field],
+            'My Field',
+            '/label',
+            ['div' => ['class' => 'input-group']],
+            'input' => ['type' => 'text', 'name' => $field, 'class' => 'form-control', 'id' => $field],
+            ['div' => ['class' => 'input-group-append']],
+            'button' => ['role' => 'button', 'class' => 'btn btn-light', 'title' => 'My button'],
+            'My button',
+            '/button',
+            '/div',
+            '/div',
+        ];
+        $result = $this->Helper->control($field, ['button' => $this->Html->button('My button')]);
+        $this->assertHtml($expected, $result);
+    }
+
+    /**
+     * Tests for `control()` method, with `help` option
+     * @deprecated
+     * @test
+     */
+    public function testControlWithHelp(): void
+    {
+        $field = 'my-field';
+
+        $expected = [
             'div' => ['class' => 'form-group input text'],
             'label' => ['class' => 'form-label', 'for' => $field],
             'My Field',
@@ -163,27 +191,11 @@ class FormHelperTest extends HelperTestCase
         ];
         $result = $this->Helper->control($field, ['help' => ['Tip first line', 'Tip second line']]);
         $this->assertHtml($expected, $result);
-
-        $expected = [
-            ['div' => ['class' => 'form-group input text']],
-            'label' => ['class' => 'form-label', 'for' => $field],
-            'My Field',
-            '/label',
-            ['div' => ['class' => 'input-group']],
-            'input' => ['type' => 'text', 'name' => $field, 'class' => 'form-control', 'id' => $field],
-            ['div' => ['class' => 'input-group-append']],
-            'button' => ['role' => 'button', 'class' => 'btn btn-light', 'title' => 'My button'],
-            'My button',
-            '/button',
-            '/div',
-            '/div',
-        ];
-        $result = $this->Helper->control($field, ['button' => $this->Html->button('My button')]);
-        $this->assertHtml($expected, $result);
     }
 
     /**
      * Tests for `control()` method with checkboxes
+     * @deprecated
      * @test
      */
     public function testControlCheckbox(): void
@@ -203,6 +215,7 @@ class FormHelperTest extends HelperTestCase
 
     /**
      * Tests for `control()` method with password inputs
+     * @deprecated
      * @test
      */
     public function testControlPassword(): void
@@ -360,6 +373,7 @@ class FormHelperTest extends HelperTestCase
 
     /**
      * Tests for `control()` method, into an inline form
+     * @deprecated
      * @test
      */
     public function testControlInline(): void
@@ -411,6 +425,7 @@ class FormHelperTest extends HelperTestCase
 
     /**
      * Tests for `create()` method
+     * @deprecated
      * @test
      */
     public function testCreate(): void
@@ -424,6 +439,7 @@ class FormHelperTest extends HelperTestCase
 
     /**
      * Tests for `createInline()` and `isInline()` methods
+     * @deprecated
      * @test
      */
     public function testCreateInlineAndIsInline(): void
@@ -459,6 +475,7 @@ class FormHelperTest extends HelperTestCase
 
     /**
      * Tests for `label()` method
+     * @deprecated
      * @test
      */
     public function testLabel(): void
@@ -480,6 +497,7 @@ class FormHelperTest extends HelperTestCase
 
     /**
      * Tests for `postButton()` method
+     * @deprecated
      * @test
      */
     public function testPostButton(): void
@@ -523,6 +541,7 @@ class FormHelperTest extends HelperTestCase
 
     /**
      * Tests for `postLink()` method
+     * @deprecated
      * @test
      */
     public function testPostLink(): void
@@ -655,6 +674,7 @@ class FormHelperTest extends HelperTestCase
 
     /**
      * Tests for `submit()` method
+     * @deprecated
      * @test
      */
     public function testSubmit(): void

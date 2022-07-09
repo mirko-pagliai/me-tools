@@ -15,8 +15,10 @@ declare(strict_types=1);
  */
 namespace MeTools\TestSuite;
 
+use Cake\Controller\Component;
 use Cake\Controller\ComponentRegistry;
 use Cake\Controller\Controller;
+use Cake\View\Helper;
 use Cake\View\View;
 use PHPUnit\Framework\TestCase;
 
@@ -64,7 +66,7 @@ trait MockTrait
      * @param array<string>|null $methods The list of methods to mock
      * @return \Cake\Controller\Component&\PHPUnit\Framework\MockObject\MockObject
      */
-    protected function getMockForComponent(string $className, ?array $methods = []): object
+    protected function getMockForComponent(string $className, ?array $methods = []): Component
     {
         return $this->getMockBuilder($className)
             ->setConstructorArgs([new ComponentRegistry(new Controller())])
@@ -79,7 +81,7 @@ trait MockTrait
      * @param string|null $alias Controller alias
      * @return \Cake\Controller\Controller&\PHPUnit\Framework\MockObject\MockObject
      */
-    protected function getMockForController(string $className, ?array $methods = [], ?string $alias = null): object
+    protected function getMockForController(string $className, ?array $methods = [], ?string $alias = null): Controller
     {
         return $this->getMockBuilder($className)
             ->setConstructorArgs([null, null, $alias ?: $this->getAlias($className)])
@@ -91,13 +93,14 @@ trait MockTrait
      * Mocks an helper
      * @param class-string<\Cake\View\Helper> $className Helper class name
      * @param array<string>|null $methods The list of methods to mock
+     * @param \Cake\View\View|null $View A `View` instance
      * @return \Cake\View\Helper&\PHPUnit\Framework\MockObject\MockObject
      */
-    protected function getMockForHelper(string $className, ?array $methods = []): object
+    protected function getMockForHelper(string $className, ?array $methods = [], ?View $View = null): Helper
     {
         return $this->getMockBuilder($className)
             ->setMethods($methods)
-            ->setConstructorArgs([new View()])
+            ->setConstructorArgs([$View ?: new View()])
             ->getMock();
     }
 
