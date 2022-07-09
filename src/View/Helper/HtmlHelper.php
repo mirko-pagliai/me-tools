@@ -504,6 +504,8 @@ class HtmlHelper extends CakeHtmlHelper
      */
     public function viewport(array $options = []): ?string
     {
+        // <meta name="viewport" content="width=device-width, initial-scale=1">
+
         $content = http_build_query([
             'initial-scale' => '1',
             'shrink-to-fit' => 'no',

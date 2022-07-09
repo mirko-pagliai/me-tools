@@ -192,4 +192,23 @@ class BootstrapHtmlHelper extends HtmlHelper
     {
         return $this->nestedList($list, ['tag' => 'ul'] + $options, $itemOptions);
     }
+
+    /**
+     * Adds the `viewport` meta tag. By default, it uses options as required
+     *  by Bootstrap
+     * @param array $content Additional content values
+     * @param array<string, mixed> $options Other attributes for the generated tag. If the type attribute is html,
+     *    rss, atom, or icon, the mime-type is returned.
+     * @return string|null
+     * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Viewport_meta_tag
+     */
+    public function viewport(array $content = [], array $options = []): ?string
+    {
+        $content = http_build_query($content + [
+            'initial-scale' => '1',
+            'width' => 'device-width',
+        ], '', ', ');
+
+        return $this->meta('viewport', $content, $options);
+    }
 }

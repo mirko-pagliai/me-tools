@@ -297,7 +297,7 @@ class HtmlHelperTest extends HelperTestCase
     public function testHr(): void
     {
         $current = error_reporting(E_ALL & ~E_USER_DEPRECATED);
-        
+
         $expected = $this->Helper->tag('hr', null, ['class' => 'my-hr-class']);
         $this->assertEquals($expected, $this->Helper->hr(['class' => 'my-hr-class']));
 
@@ -728,6 +728,7 @@ class HtmlHelperTest extends HelperTestCase
 
     /**
      * Tests for `viewport()` method
+     * @deprecated
      * @test
      */
     public function testViewport(): void

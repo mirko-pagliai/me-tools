@@ -208,4 +208,20 @@ class BootstrapHtmlHelperTest extends HelperTestCase
         $result = $this->Helper->tag('h3', 'My text', ['class' => 'my-class', 'icon' => 'home', 'icon-align' => 'right']);
         $this->assertSame($expected, $result);
     }
+
+    /**
+     * Test for `viewport()` method
+     * @test
+     * @uses \MeTools\View\Helper\BootstrapHtmlHelper::viewport()
+     */
+    public function testViewport(): void
+    {
+        $expected = '<meta name="viewport" content="initial-scale=1, width=device-width"/>';
+        $result = $this->Helper->viewport();
+        $this->assertSame($expected, $result);
+
+        $expected = '<meta title="my title" name="viewport" content="width=500, initial-scale=1"/>';
+        $result = $this->Helper->viewport(['width' => 500], ['title' => 'my title']);
+        $this->assertSame($expected, $result);
+    }
 }
