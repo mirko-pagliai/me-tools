@@ -519,6 +519,7 @@ class HtmlHelperTest extends HelperTestCase
 
     /**
      * Test for `scriptStart()` and `scriptEnd()` methods
+     * @deprecated
      * @test
      */
     public function testScriptStartAndScriptEnd(): void

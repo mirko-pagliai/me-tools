@@ -320,7 +320,7 @@ class HtmlHelper extends CakeHtmlHelper
      * To end capturing output, you can use the `scriptEnd()` method
      * @param array $options Options for the code block
      * @return void
-     * @see scriptBlock()
+     * @deprecated 2.21.2 Use instead the parent method, with the `block` option
      */
     public function scriptStart(array $options = []): void
     {
