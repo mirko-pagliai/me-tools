@@ -426,6 +426,7 @@ class HtmlHelper extends CakeHtmlHelper
      * @param string $script Javascript code
      * @param array $options Array of options and HTML attributes
      * @return string|null A script tag or `null`
+     * @deprecated 2.21.2 Use instead the parent method, with the `block` option
      */
     public function scriptBlock(string $script, array $options = []): ?string
     {
@@ -435,10 +436,7 @@ class HtmlHelper extends CakeHtmlHelper
     /**
      * Starts capturing output for Javascript code.
      *
-     * To end capturing output, you can use the `scriptEnd()` method.
-     *
-     * To capture output with a single method, you can also use the
-     *  `scriptBlock()` method.
+     * To end capturing output, you can use the `scriptEnd()` method
      * @param array $options Options for the code block
      * @return void
      * @see scriptBlock()

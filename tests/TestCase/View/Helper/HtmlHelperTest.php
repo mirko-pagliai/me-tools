@@ -626,6 +626,7 @@ class HtmlHelperTest extends HelperTestCase
 
     /**
      * Test for `scriptBlock()` method
+     * @deprecated
      * @test
      */
     public function testScriptBlock(): void

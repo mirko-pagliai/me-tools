@@ -8,6 +8,8 @@
 * `cssBlock()`, `cssStart()`, `cssEnd()` and `heading()` methods provided by the
     `HtmlHelper` are now deprecated and they will be removed in a later version.
     No replacement will be provided;
+* `HtmlHelper::scriptBlock()` is now deprecated and will be removed in a later
+    version. Use instead the parent method, with the `block` option;
 * small improvements for some `MockTrait` methods.
 
 ### 2.21.1
