@@ -54,24 +54,6 @@ class BootstrapHtmlHelper extends HtmlHelper
     }
 
     /**
-     * Internal function to build a nested list (UL/OL) out of an associative array
-     * @param array $items Set of elements to list
-     * @param array<string, mixed> $options Additional HTML attributes of the list (ol/ul) tag
-     * @param array<string, mixed> $itemOptions Options and additional HTML attributes of the list item (LI) tag
-     * @return string The nested list element
-     */
-    protected function _nestedListItem(array $items, array $options, array $itemOptions): string
-    {
-        $itemOptions = optionsParser($itemOptions);
-        $icon = $this->Icon->icon($itemOptions->consume('icon'));
-        foreach ($items as &$item) {
-            $item = $icon . ' ' . $item;
-        }
-
-        return parent::_nestedListItem($items, $options, $itemOptions->toArray());
-    }
-
-    /**
      * Creates a link with the appearance of a button.
      *
      * See the parent method for all available options.
@@ -145,6 +127,29 @@ class BootstrapHtmlHelper extends HtmlHelper
         [$title, $options] = $this->Icon->addIconToText($title, $options);
 
         return parent::link($title, $url, $options->toArray());
+    }
+
+    /**
+     * Build a nested list (UL/OL) out of an associative array.
+     *
+     * See the parent method for all available options.
+     * @param array $list Set of elements to list
+     * @param array<string, mixed> $options Options and additional HTML attributes of the list (ol/ul) tag.
+     * @param array<string, mixed> $itemOptions Options and additional HTML attributes of the list item (LI) tag.
+     * @return string The nested list
+     */
+    public function nestedList(array $list, array $options = [], array $itemOptions = []): string
+    {
+        $itemOptions = optionsParser($itemOptions);
+
+        if ($itemOptions->exists('icon')) {
+            $itemOptions->append('icon', 'li');
+
+            $list = array_map(fn(string $element): string => array_value_first($this->Icon->addIconToText($element, clone $itemOptions)), $list);
+        }
+        $itemOptions->delete('icon', 'icon-align');
+
+        return parent::nestedList($list, $options, $itemOptions->toArray());
     }
 
     /**
