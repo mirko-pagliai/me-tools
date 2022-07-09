@@ -252,11 +252,13 @@ class HtmlHelperTest extends HelperTestCase
 
     /**
      * Tests for `heading()` method
-
+     * @deprecated
      * @test
      */
     public function testHeading(): void
     {
+        $current = error_reporting(E_ALL & ~E_USER_DEPRECATED);
+
         $text = 'My header';
         $smallText = 'My small text';
 
@@ -280,6 +282,11 @@ class HtmlHelperTest extends HelperTestCase
         ];
         $result = $this->Helper->heading($text, ['class' => 'header-class', 'type' => 'h4'], $smallText, ['class' => 'small-class']);
         $this->assertHtml($expected, $result);
+
+        error_reporting($current);
+
+        $this->expectDeprecation();
+        $this->Helper->heading($text);
     }
 
     /**

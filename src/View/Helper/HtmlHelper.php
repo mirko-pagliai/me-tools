@@ -187,9 +187,12 @@ class HtmlHelper extends CakeHtmlHelper
      * @param array $smallOptions Array of options and HTML attributes
      * @return string
      * @see http://getbootstrap.com/css/#type-headings Bootstrap documentation
+     * @deprecated 2.21.2
      */
     public function heading(string $text, array $options = [], string $small = '', array $smallOptions = []): string
     {
+        deprecationWarning('Deprecated');
+
         $options = optionsParser($options);
         $type = $options->consume('type');
         $type = is_string($type) && preg_match('/^h[1-6]$/', $type) ? $type : 'h2';
