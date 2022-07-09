@@ -169,7 +169,7 @@ class BootstrapHtmlHelperTest extends HelperTestCase
     public function testOlAndUl(): void
     {
         $expected = [
-            'ul' => ['class' => 'parent-class'],
+            'ul' => ['class' => 'fa-ul parent-class'],
             ['li' => ['class' => 'li-class']],
             ['i' => ['class' => 'fas fa-home fa-li']],
             '/i',
@@ -186,7 +186,7 @@ class BootstrapHtmlHelperTest extends HelperTestCase
         $this->assertHtml($expected, $result);
 
         array_shift($expected) && array_pop($expected);
-        $expected = ['ol' => ['class' => 'parent-class'], ...$expected, '/ol'];
+        $expected = ['ol' => ['class' => 'fa-ul parent-class'], ...$expected, '/ol'];
         $result = $this->Helper->ol(['First', 'Second'], ['class' => 'parent-class'], ['class' => 'li-class', 'icon' => 'home']);
         $this->assertHtml($expected, $result);
     }

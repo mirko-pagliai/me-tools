@@ -140,16 +140,23 @@ class BootstrapHtmlHelper extends HtmlHelper
      */
     public function nestedList(array $list, array $options = [], array $itemOptions = []): string
     {
+        $options = optionsParser($options);
         $itemOptions = optionsParser($itemOptions);
 
+        if ($options->exists('icon')) {
+            $itemOptions->add('icon', $options->get('icon'));
+        }
+        
         if ($itemOptions->exists('icon')) {
+            $options->append('class', 'fa-ul');
             $itemOptions->append('icon', 'li');
-
             $list = array_map(fn(string $element): string => array_value_first($this->Icon->addIconToText($element, clone $itemOptions)), $list);
         }
+
+        $options->delete('icon', 'icon-align');
         $itemOptions->delete('icon', 'icon-align');
 
-        return parent::nestedList($list, $options, $itemOptions->toArray());
+        return parent::nestedList($list, $options->toArray(), $itemOptions->toArray());
     }
 
     /**
