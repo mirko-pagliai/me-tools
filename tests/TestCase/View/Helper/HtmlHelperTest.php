@@ -61,6 +61,7 @@ class HtmlHelperTest extends HelperTestCase
 
     /**
      * Tests for `badge()` method
+     * @deprecated
      * @test
      */
     public function testBadge(): void

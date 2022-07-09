@@ -94,6 +94,18 @@ class BootstrapHtmlHelperTest extends HelperTestCase
     }
 
     /**
+     * Test for `badge()` method
+     * @test
+     * @uses \MeTools\View\Helper\BootstrapHtmlHelper::badge()
+     */
+    public function testBadge(): void
+    {
+        $expected = '<span class="badge my-class"><i class="fas fa-home"> </i> 1</span>';
+        $result = $this->Helper->badge('1', ['class' => 'my-class', 'icon' => 'home']);
+        $this->assertSame($expected, $result);
+    }
+
+    /**
      * Test for `image()` and `img()` methods
      * @test
      * @uses \MeTools\View\Helper\BootstrapHtmlHelper::image()

@@ -54,6 +54,20 @@ class BootstrapHtmlHelper extends HtmlHelper
     }
 
     /**
+     * Creates a "badge"
+     * @param string $text Badge text
+     * @param array<string, mixed> $options Array of options and HTML attributes
+     * @return string
+     * @see https://getbootstrap.com/docs/5.2/components/badge/
+     */
+    public function badge(string $text, array $options = []): string
+    {
+        $options = optionsParser($options)->append('class', 'badge');
+
+        return $this->tag('span', $text, $options->toArray());
+    }
+
+    /**
      * Creates a link with the appearance of a button.
      *
      * See the parent method for all available options.
@@ -146,7 +160,7 @@ class BootstrapHtmlHelper extends HtmlHelper
         if ($options->exists('icon')) {
             $itemOptions->add('icon', $options->get('icon'));
         }
-        
+
         if ($itemOptions->exists('icon')) {
             $options->append('class', 'fa-ul');
             $itemOptions->append('icon', 'li');
