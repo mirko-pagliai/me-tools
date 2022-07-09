@@ -206,9 +206,12 @@ class HtmlHelper extends CakeHtmlHelper
      * Creates an horizontal rule (`<hr>` tag)
      * @param array $options Array of options and HTML attributes
      * @return string
+     * @deprecated 2.21.2
      */
     public function hr(array $options = []): string
     {
+        deprecationWarning('Deprecated');
+
         return $this->tag('hr', null, $options);
     }
 

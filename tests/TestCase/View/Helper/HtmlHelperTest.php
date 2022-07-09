@@ -291,12 +291,20 @@ class HtmlHelperTest extends HelperTestCase
 
     /**
      * Test for `hr()` method
+     * @deprecated
      * @test
      */
     public function testHr(): void
     {
+        $current = error_reporting(E_ALL & ~E_USER_DEPRECATED);
+        
         $expected = $this->Helper->tag('hr', null, ['class' => 'my-hr-class']);
         $this->assertEquals($expected, $this->Helper->hr(['class' => 'my-hr-class']));
+
+        error_reporting($current);
+
+        $this->expectDeprecation();
+        $this->Helper->hr();
     }
 
     /**

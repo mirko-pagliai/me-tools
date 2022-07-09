@@ -5,9 +5,9 @@
     it will replace `HtmlHelper`, assuming the same name. Some methods of the
     `HtmlHelperTest` test class have been marked as deprecated, to indicate that
     code is already covered by the new code;
-* `cssBlock()`, `cssStart()`, `cssEnd()` and `heading()` methods provided by the
-    `HtmlHelper` are now deprecated and they will be removed in a later version.
-    No replacement will be provided;
+* `cssBlock()`, `cssStart()`, `cssEnd()`, `heading()` and `hr()` methods provided
+    by the `HtmlHelper` are now deprecated and they will be removed in a later
+    version. No replacement will be provided;
 * `HtmlHelper::scriptBlock()` is now deprecated and will be removed in a later
     version. Use instead the parent method, with the `block` option;
 * small improvements for some `MockTrait` methods.
