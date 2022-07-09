@@ -17,7 +17,6 @@ namespace MeTools\Test\TestCase\View\Helper;
 use ErrorException;
 use MeTools\TestSuite\HelperTestCase;
 use MeTools\View\Helper\HtmlHelper;
-use PHPUnit\Framework\Error\Deprecated;
 
 /**
  * HtmlHelperTest class
@@ -191,120 +190,6 @@ class HtmlHelperTest extends HelperTestCase
         $expected = ['link' => ['rel' => 'alternate', 'href' => '/css/my-file4.css']];
         $result = $this->Helper->css('my-file4', ['block' => false, 'rel' => 'alternate']);
         $this->assertHtml($expected, $result ?: '');
-    }
-
-    /**
-     * Test for `cssBlock()` method
-     * @deprecated
-     * @test
-     */
-    public function testCssBlock(): void
-    {
-        $current = error_reporting(E_ALL & ~E_USER_DEPRECATED);
-
-        $css = 'body { color: red; }';
-
-        //By default, `block` is `true`
-        $this->assertNull($this->Helper->cssBlock($css));
-        $this->assertNull($this->Helper->cssBlock($css, ['block' => true]));
-
-        $expected = ['style' => true, $css, '/style'];
-        $this->assertHtml($expected, $this->Helper->cssBlock($css, ['block' => false]) ?: '');
-
-        error_reporting($current);
-
-        $this->expectDeprecation();
-        $this->Helper->cssBlock($css);
-    }
-
-    /**
-     * Test for `cssStart()` and `cssEnd()` methods
-     * @deprecated
-     * @test
-     */
-    public function testCssStartAndCssEnd(): void
-    {
-        $current = error_reporting(E_ALL & ~E_USER_DEPRECATED);
-
-        $css = 'body { color: red; }';
-
-        //By default, `block` is `true`
-        $this->Helper->cssStart();
-        echo $css;
-        $result = $this->Helper->cssEnd();
-        $this->assertNull($result);
-        $this->Helper->cssStart(['block' => true]);
-        echo $css;
-        $result = $this->Helper->cssEnd();
-        $this->assertNull($result);
-
-        $expected = ['<style', $css, '/style'];
-        $this->Helper->cssStart(['block' => false]);
-        echo $css;
-        $result = $this->Helper->cssEnd();
-        $this->assertHtml($expected, $result ?: '');
-
-        error_reporting($current);
-
-        $this->assertException(fn() => $this->Helper->cssStart(), Deprecated::class);
-        $this->assertException(fn() => $this->Helper->cssEnd(), Deprecated::class);
-    }
-
-    /**
-     * Tests for `heading()` method
-     * @deprecated
-     * @test
-     */
-    public function testHeading(): void
-    {
-        $current = error_reporting(E_ALL & ~E_USER_DEPRECATED);
-
-        $text = 'My header';
-        $smallText = 'My small text';
-
-        $expected = ['h2' => true, $text, '/h2'];
-        $this->assertHtml($expected, $this->Helper->heading($text));
-
-        //It still creates a h2 tag
-        $this->assertHtml($expected, $this->Helper->heading($text, ['type' => 'strong']));
-
-        $expected = ['h4' => true, $text, '/h4'];
-        $this->assertHtml($expected, $this->Helper->heading($text, ['type' => 'h4']));
-
-        $expected = [
-            'h4' => ['class' => 'header-class'],
-            $text,
-            ' ',
-            'small' => ['class' => 'small-class'],
-            $smallText,
-            '/small',
-            '/h4',
-        ];
-        $result = $this->Helper->heading($text, ['class' => 'header-class', 'type' => 'h4'], $smallText, ['class' => 'small-class']);
-        $this->assertHtml($expected, $result);
-
-        error_reporting($current);
-
-        $this->expectDeprecation();
-        $this->Helper->heading($text);
-    }
-
-    /**
-     * Test for `hr()` method
-     * @deprecated
-     * @test
-     */
-    public function testHr(): void
-    {
-        $current = error_reporting(E_ALL & ~E_USER_DEPRECATED);
-
-        $expected = $this->Helper->tag('hr', null, ['class' => 'my-hr-class']);
-        $this->assertEquals($expected, $this->Helper->hr(['class' => 'my-hr-class']));
-
-        error_reporting($current);
-
-        $this->expectDeprecation();
-        $this->Helper->hr();
     }
 
     /**
@@ -630,23 +515,6 @@ class HtmlHelperTest extends HelperTestCase
 
         $expected = ['script' => ['src' => '/js/my-file3.js']];
         $this->assertHtml($expected, $this->Helper->script('my-file3', ['block' => false]) ?: '');
-    }
-
-    /**
-     * Test for `scriptBlock()` method
-     * @deprecated
-     * @test
-     */
-    public function testScriptBlock(): void
-    {
-        $code = 'window.foo = 2;';
-
-        //By default, `block` is `true`
-        $this->assertNull($this->Helper->scriptBlock($code, ['safe' => false]));
-        $this->assertNull($this->Helper->scriptBlock($code, ['block' => true, 'safe' => false]));
-
-        $expected = ['<script', $code, '/script'];
-        $this->assertHtml($expected, $this->Helper->scriptBlock($code, ['block' => false, 'safe' => false]) ?: '');
     }
 
     /**

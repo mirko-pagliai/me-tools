@@ -1,6 +1,8 @@
 # 2.x branch
 ## 2.22 branch
 ### 2.22.0
+* `cssBlock()`, `cssStart()`, `cssEnd()`, `heading()`, `hr()` and `scriptBlock()`
+    methods provided by the `HtmlHelper` were deprecated and have now been removed;
 * `datepicker()`, `datetimepicker()` and `timepicker()` methods provided by
     `FormHelper` were deprecated and have now been removed;
 * `datepicker()`, `datetimepicker()` and `timepicker()` methods provided by

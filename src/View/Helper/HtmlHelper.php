@@ -106,116 +106,6 @@ class HtmlHelper extends CakeHtmlHelper
     }
 
     /**
-     * Wrap `$css` in a style tag
-     * @param string $css The CSS code to wrap
-     * @param array $options The options to use. Options not listed above will
-     *  be treated as HTML attributes
-     * @return string|null String or `null`, depending on the value of
-     *  $options['block']`
-     * @deprecated 2.21.2
-     */
-    public function cssBlock(string $css, array $options = []): ?string
-    {
-        deprecationWarning('Deprecated');
-
-        $options = optionsParser($options, ['block' => true]);
-
-        $out = $this->formatTemplate('style', [
-            'attrs' => $this->templater()->formatAttributes($options->toArray(), ['block']),
-            'content' => $css,
-        ]);
-
-        if (!$options->get('block')) {
-            return $out;
-        }
-
-        if ($options->contains('block', true)) {
-            $options->add('block', 'css');
-        }
-
-        $this->_View->append($options->get('block'), $out);
-
-        return null;
-    }
-
-    /**
-     * Begin a CSS block that captures output until `cssEnd()` is called. This
-     *  capturing block will capture all output between the methods and create
-     *  a cssBlock from it
-     * @param array $options Options for the code block
-     * @return void
-     * @deprecated 2.21.2
-     */
-    public function cssStart(array $options = []): void
-    {
-        deprecationWarning('Deprecated');
-
-        $options += ['block' => null];
-        $this->_cssBlockOptions = $options;
-        ob_start();
-    }
-
-    /**
-     * End a buffered section of css capturing.
-     * Generates a style tag inline or appends to specified view block
-     *  depending on the settings used when the cssBlock was started.
-     * @return string|null Depending on the settings of `cssStart()`, either a
-     *  style tag or `null`
-     * @deprecated 2.21.2
-     */
-    public function cssEnd(): ?string
-    {
-        deprecationWarning('Deprecated');
-
-        $options = $this->_cssBlockOptions;
-        $this->_cssBlockOptions = [];
-
-        return $this->cssBlock(ob_get_clean() ?: '', $options);
-    }
-
-    /**
-     * Creates an heading, according to Bootstrap.
-     *
-     * This method is useful if you want to create an heading with a secondary
-     *  text. In this case you have to use the `small` option.
-     *
-     * By default, this method creates an `<h2>` tag. To create a different
-     *  tag, you have to use the `type` option.
-     * @param string $text Heading text
-     * @param array $options Array of options and HTML attributes
-     * @param string $small Small text
-     * @param array $smallOptions Array of options and HTML attributes
-     * @return string
-     * @see http://getbootstrap.com/css/#type-headings Bootstrap documentation
-     * @deprecated 2.21.2
-     */
-    public function heading(string $text, array $options = [], string $small = '', array $smallOptions = []): string
-    {
-        deprecationWarning('Deprecated');
-
-        $options = optionsParser($options);
-        $type = $options->consume('type');
-        $type = is_string($type) && preg_match('/^h[1-6]$/', $type) ? $type : 'h2';
-
-        $text .= $small ? ' ' . $this->tag('small', $small, $smallOptions) : '';
-
-        return $this->tag($type, $text, $options->toArray());
-    }
-
-    /**
-     * Creates an horizontal rule (`<hr>` tag)
-     * @param array $options Array of options and HTML attributes
-     * @return string
-     * @deprecated 2.21.2
-     */
-    public function hr(array $options = []): string
-    {
-        deprecationWarning('Deprecated');
-
-        return $this->tag('hr', null, $options);
-    }
-
-    /**
      * Create an `<iframe>` element.
      *
      * You can use the `$ratio` option (valid values: `16by9` or `4by3`) to
@@ -422,18 +312,6 @@ class HtmlHelper extends CakeHtmlHelper
     public function script($url, array $options = []): ?string
     {
         return parent::script($url, optionsParser($options, ['block' => true])->toArray());
-    }
-
-    /**
-     * Returns a Javascript code block
-     * @param string $script Javascript code
-     * @param array $options Array of options and HTML attributes
-     * @return string|null A script tag or `null`
-     * @deprecated 2.21.2 Use instead the parent method, with the `block` option
-     */
-    public function scriptBlock(string $script, array $options = []): ?string
-    {
-        return parent::scriptBlock($script, optionsParser($options, ['block' => true])->toArray());
     }
 
     /**
