@@ -46,6 +46,18 @@ class BootstrapFormHelperTest extends HelperTestCase
     }
 
     /**
+     * Test for `ckeditor()` method
+     * @return void
+     * @uses \MeTools\View\Helper\BootstrapFormHelper::ckeditor()
+     */
+    public function testCkeditor(): void
+    {
+        $expected = '<div class="input mb-3 textarea"><textarea name="my-field" class="editor form-control my-class wysiwyg" id="my-field" rows="5"></textarea></div>';
+        $result = $this->Helper->ckeditor('my-field', ['class' => 'my-class']);
+        $this->assertSame($expected, $result);
+    }
+
+    /**
      * Test for `control()` method
      * @return void
      * @uses \MeTools\View\Helper\BootstrapFormHelper::control()

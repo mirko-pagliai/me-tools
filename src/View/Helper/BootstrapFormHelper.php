@@ -83,6 +83,23 @@ class BootstrapFormHelper extends FormHelper
     }
 
     /**
+     * Creates a CKEditor textarea.
+     *
+     * To add the scripts for CKEditor, you should use the `LibraryHelper`.
+     * @param string $fieldName This should be "modelname.fieldname"
+     * @param array<string, mixed> $options Each type of input takes different options
+     * @return string
+     * @see MeTools\View\Helper\LibraryHelper::ckeditor()
+     */
+    public function ckeditor(string $fieldName, array $options = []): string
+    {
+        $options = optionsParser($options, ['label' => false, 'type' => 'textarea']);
+        $options->append('class', 'wysiwyg editor');
+
+        return $this->control($fieldName, $options->toArray());
+    }
+
+    /**
      * Generates a form control element complete with label and wrapper div.
      *
      * See the parent method for all available options.
