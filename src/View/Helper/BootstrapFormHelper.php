@@ -31,7 +31,7 @@ class BootstrapFormHelper extends FormHelper
      * @var array
      */
     public $helpers = [
-        'Html' => ['className' => 'MeTools.Html'],
+        'Html' => ['className' => 'MeTools.BootstrapHtml'],
         'MeTools.Icon',
         'Url',
     ];
@@ -80,6 +80,23 @@ class BootstrapFormHelper extends FormHelper
         [$title, $options] = $this->Icon->addIconToText($title, $options);
 
         return parent::button($title, $options->toArray());
+    }
+
+    /**
+     * Creates a CKEditor textarea.
+     *
+     * To add the scripts for CKEditor, you should use the `LibraryHelper`.
+     * @param string $fieldName This should be "modelname.fieldname"
+     * @param array<string, mixed> $options Each type of input takes different options
+     * @return string
+     * @see MeTools\View\Helper\LibraryHelper::ckeditor()
+     */
+    public function ckeditor(string $fieldName, array $options = []): string
+    {
+        $options = optionsParser($options, ['label' => false, 'type' => 'textarea']);
+        $options->append('class', 'wysiwyg editor');
+
+        return $this->control($fieldName, $options->toArray());
     }
 
     /**

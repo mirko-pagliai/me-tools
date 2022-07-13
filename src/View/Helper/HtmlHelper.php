@@ -112,9 +112,12 @@ class HtmlHelper extends CakeHtmlHelper
      *  be treated as HTML attributes
      * @return string|null String or `null`, depending on the value of
      *  $options['block']`
+     * @deprecated 2.21.2
      */
     public function cssBlock(string $css, array $options = []): ?string
     {
+        deprecationWarning('Deprecated');
+
         $options = optionsParser($options, ['block' => true]);
 
         $out = $this->formatTemplate('style', [
@@ -141,9 +144,12 @@ class HtmlHelper extends CakeHtmlHelper
      *  a cssBlock from it
      * @param array $options Options for the code block
      * @return void
+     * @deprecated 2.21.2
      */
     public function cssStart(array $options = []): void
     {
+        deprecationWarning('Deprecated');
+
         $options += ['block' => null];
         $this->_cssBlockOptions = $options;
         ob_start();
@@ -155,9 +161,12 @@ class HtmlHelper extends CakeHtmlHelper
      *  depending on the settings used when the cssBlock was started.
      * @return string|null Depending on the settings of `cssStart()`, either a
      *  style tag or `null`
+     * @deprecated 2.21.2
      */
     public function cssEnd(): ?string
     {
+        deprecationWarning('Deprecated');
+
         $options = $this->_cssBlockOptions;
         $this->_cssBlockOptions = [];
 
@@ -178,9 +187,12 @@ class HtmlHelper extends CakeHtmlHelper
      * @param array $smallOptions Array of options and HTML attributes
      * @return string
      * @see http://getbootstrap.com/css/#type-headings Bootstrap documentation
+     * @deprecated 2.21.2
      */
     public function heading(string $text, array $options = [], string $small = '', array $smallOptions = []): string
     {
+        deprecationWarning('Deprecated');
+
         $options = optionsParser($options);
         $type = $options->consume('type');
         $type = is_string($type) && preg_match('/^h[1-6]$/', $type) ? $type : 'h2';
@@ -194,9 +206,12 @@ class HtmlHelper extends CakeHtmlHelper
      * Creates an horizontal rule (`<hr>` tag)
      * @param array $options Array of options and HTML attributes
      * @return string
+     * @deprecated 2.21.2
      */
     public function hr(array $options = []): string
     {
+        deprecationWarning('Deprecated');
+
         return $this->tag('hr', null, $options);
     }
 
@@ -414,6 +429,7 @@ class HtmlHelper extends CakeHtmlHelper
      * @param string $script Javascript code
      * @param array $options Array of options and HTML attributes
      * @return string|null A script tag or `null`
+     * @deprecated 2.21.2 Use instead the parent method, with the `block` option
      */
     public function scriptBlock(string $script, array $options = []): ?string
     {
@@ -423,13 +439,10 @@ class HtmlHelper extends CakeHtmlHelper
     /**
      * Starts capturing output for Javascript code.
      *
-     * To end capturing output, you can use the `scriptEnd()` method.
-     *
-     * To capture output with a single method, you can also use the
-     *  `scriptBlock()` method.
+     * To end capturing output, you can use the `scriptEnd()` method
      * @param array $options Options for the code block
      * @return void
-     * @see scriptBlock()
+     * @deprecated 2.21.2 Use instead the parent method, with the `block` option
      */
     public function scriptStart(array $options = []): void
     {
@@ -491,6 +504,8 @@ class HtmlHelper extends CakeHtmlHelper
      */
     public function viewport(array $options = []): ?string
     {
+        // <meta name="viewport" content="width=device-width, initial-scale=1">
+
         $content = http_build_query([
             'initial-scale' => '1',
             'shrink-to-fit' => 'no',

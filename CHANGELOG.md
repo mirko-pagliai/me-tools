@@ -1,5 +1,20 @@
 # 2.x branch
 ## 2.21 branch
+### 2.21.2
+* added `BootstrapHtmlHelper`. For now this class is temporary, but in the future
+    it will replace `HtmlHelper`, assuming the same name. Some methods of the
+    `HtmlHelperTest` test class have been marked as deprecated, to indicate that
+    code is already covered by the new code;
+* added `BootstrapDropdownHelper`. For now this class is temporary, but in the future
+    it will replace `DropdownHelper`, assuming the same name;
+* `cssBlock()`, `cssStart()`, `cssEnd()`, `heading()` and `hr()` methods provided
+    by the `HtmlHelper` are now deprecated and they will be removed in a later
+    version. No replacement will be provided;
+* `scriptBlock()` and `scriptStart()` provided by the `HtmlHelper` are now deprecated
+    and will be removed in a later version. Use instead the parent method, with
+    the `block` option. These methods do not generate a deprecation message for now;
+* small improvements for some `MockTrait` methods.
+
 ### 2.21.1
 * added a theme for Bake. See the `README` file;
 * added `IntegrationTestTrait::getStatusCode()` method;

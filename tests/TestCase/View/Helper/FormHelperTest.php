@@ -90,6 +90,7 @@ class FormHelperTest extends HelperTestCase
 
     /**
      * Tests for `ckeditor()` method
+     * @deprecated
      * @test
      */
     public function testCkeditor(): void

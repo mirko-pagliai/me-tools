@@ -19,7 +19,6 @@ use Cake\Core\Plugin;
 use Cake\Http\ServerRequest;
 use Cake\View\View;
 use MeTools\TestSuite\HelperTestCase;
-use MeTools\View\Helper\HtmlHelper;
 use MeTools\View\Helper\LibraryHelper;
 use Tools\Filesystem;
 
@@ -78,7 +77,7 @@ class LibraryHelperTest extends HelperTestCase
         }
 
         $this->Helper->initialize([]);
-        $this->assertInstanceof(HtmlHelper::class, $this->Helper->Asset);
+        $this->assertNotSame(AssetHelper::class, get_class($this->Helper->Asset));
     }
 
     /**
