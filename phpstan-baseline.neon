@@ -16,11 +16,6 @@ parameters:
 			path: tests/TestCase/Command/Install/CreatePluginsLinksCommandTest.php
 
 		-
-			message: "#^Call to an undefined method Psr\\\\Http\\\\Message\\\\ResponseInterface\\:\\:getCookie\\(\\)\\.$#"
-			count: 1
-			path: tests/TestCase/TestSuite/IntegrationTestTraitTest.php
-
-		-
 			message: "#^Cannot access property \\$Uploader on Cake\\\\Controller\\\\Controller\\|null\\.$#"
 			count: 3
 			path: tests/TestCase/TestSuite/IntegrationTestTraitTest.php
@@ -31,7 +26,7 @@ parameters:
 			path: tests/TestCase/TestSuite/IntegrationTestTraitTest.php
 
 		-
-			message: "#^Cannot call method withCookie\\(\\) on Psr\\\\Http\\\\Message\\\\ResponseInterface\\|null\\.$#"
+			message: "#^Cannot call method withCookie\\(\\) on Cake\\\\Http\\\\Response\\|null\\.$#"
 			count: 1
 			path: tests/TestCase/TestSuite/IntegrationTestTraitTest.php
 

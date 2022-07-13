@@ -54,40 +54,6 @@ class BootstrapHtmlHelperTest extends HelperTestCase
     }
 
     /**
-     * Test for `image()` and `img()` methods
-     * @test
-     * @uses \MeTools\View\Helper\BootstrapHtmlHelper::image()
-     * @uses \MeTools\View\Helper\BootstrapHtmlHelper::img()
-     */
-    public function testImage(): void
-    {
-        $expected = '<img src="/img/image.gif" alt="image.gif" class="img-fluid my-class"/>';
-        $result = $this->Helper->image('image.gif', ['class' => 'my-class']);
-        $this->assertSame($expected, $result);
-
-        //With `img()` method
-        $result = $this->Helper->img('image.gif', ['class' => 'my-class']);
-        $this->assertSame($expected, $result);
-
-        $expected = '<img src="/img/image.gif" alt="my-alt" class="img-fluid"/>';
-        $result = $this->Helper->image('image.gif', ['alt' => 'my-alt']);
-        $this->assertSame($expected, $result);
-
-        $expected = '<img src="http://url/image.gif" alt="image.gif" class="img-fluid"/>';
-        $result = $this->Helper->image('http://url/image.gif');
-        $this->assertSame($expected, $result);
-
-        $this->loadPlugins(['TestPlugin' => []]);
-        $expected = '<img src="/pages" alt="pages" class="img-fluid"/>';
-        $result = $this->Helper->image(['controller' => 'Pages', 'plugin' => 'TestPlugin']);
-        $this->assertSame($expected, $result);
-
-        $expected = '<a href="/pages"><img src="/img/image.gif" alt="image.gif" class="img-fluid"/></a>';
-        $result = $this->Helper->image('image.gif', ['url' => ['controller' => 'Pages', 'plugin' => 'TestPlugin']]);
-        $this->assertSame($expected, $result);
-    }
-
-    /**
      * Test for `button()` method
      * @test
      * @uses \MeTools\View\Helper\BootstrapHtmlHelper::button()
@@ -124,6 +90,52 @@ class BootstrapHtmlHelperTest extends HelperTestCase
         $this->loadPlugins(['TestPlugin' => []]);
         $expected = '<a href="/pages" class="btn btn-light" role="button"></a>';
         $result = $this->Helper->button(['controller' => 'Pages', 'plugin' => 'TestPlugin']);
+        $this->assertSame($expected, $result);
+    }
+
+    /**
+     * Test for `badge()` method
+     * @test
+     * @uses \MeTools\View\Helper\BootstrapHtmlHelper::badge()
+     */
+    public function testBadge(): void
+    {
+        $expected = '<span class="badge my-class"><i class="fas fa-home"> </i> 1</span>';
+        $result = $this->Helper->badge('1', ['class' => 'my-class', 'icon' => 'home']);
+        $this->assertSame($expected, $result);
+    }
+
+    /**
+     * Test for `image()` and `img()` methods
+     * @test
+     * @uses \MeTools\View\Helper\BootstrapHtmlHelper::image()
+     * @uses \MeTools\View\Helper\BootstrapHtmlHelper::img()
+     */
+    public function testImage(): void
+    {
+        $expected = '<img src="/img/image.gif" alt="image.gif" class="img-fluid my-class"/>';
+        $result = $this->Helper->image('image.gif', ['class' => 'my-class']);
+        $this->assertSame($expected, $result);
+
+        //With `img()` method
+        $result = $this->Helper->img('image.gif', ['class' => 'my-class']);
+        $this->assertSame($expected, $result);
+
+        $expected = '<img src="/img/image.gif" alt="my-alt" class="img-fluid"/>';
+        $result = $this->Helper->image('image.gif', ['alt' => 'my-alt']);
+        $this->assertSame($expected, $result);
+
+        $expected = '<img src="http://url/image.gif" alt="image.gif" class="img-fluid"/>';
+        $result = $this->Helper->image('http://url/image.gif');
+        $this->assertSame($expected, $result);
+
+        $this->loadPlugins(['TestPlugin' => []]);
+        $expected = '<img src="/pages" alt="pages" class="img-fluid"/>';
+        $result = $this->Helper->image(['controller' => 'Pages', 'plugin' => 'TestPlugin']);
+        $this->assertSame($expected, $result);
+
+        $expected = '<a href="/pages"><img src="/img/image.gif" alt="image.gif" class="img-fluid"/></a>';
+        $result = $this->Helper->image('image.gif', ['url' => ['controller' => 'Pages', 'plugin' => 'TestPlugin']]);
         $this->assertSame($expected, $result);
     }
 
@@ -169,14 +181,14 @@ class BootstrapHtmlHelperTest extends HelperTestCase
     public function testOlAndUl(): void
     {
         $expected = [
-            'ul' => ['class' => 'parent-class'],
+            'ul' => ['class' => 'fa-ul parent-class'],
             ['li' => ['class' => 'li-class']],
-            ['i' => ['class' => 'fas fa-home']],
+            ['i' => ['class' => 'fas fa-home fa-li']],
             '/i',
             'First',
             '/li',
             ['li' => ['class' => 'li-class']],
-            ['i' => ['class' => 'fas fa-home']],
+            ['i' => ['class' => 'fas fa-home fa-li']],
             '/i',
             'Second',
             '/li',
@@ -186,7 +198,7 @@ class BootstrapHtmlHelperTest extends HelperTestCase
         $this->assertHtml($expected, $result);
 
         array_shift($expected) && array_pop($expected);
-        $expected = ['ol' => ['class' => 'parent-class'], ...$expected, '/ol'];
+        $expected = ['ol' => ['class' => 'fa-ul parent-class'], ...$expected, '/ol'];
         $result = $this->Helper->ol(['First', 'Second'], ['class' => 'parent-class'], ['class' => 'li-class', 'icon' => 'home']);
         $this->assertHtml($expected, $result);
     }

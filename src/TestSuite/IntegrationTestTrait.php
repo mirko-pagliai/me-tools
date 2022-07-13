@@ -26,7 +26,7 @@ use MeTools\Controller\Component\UploaderComponent;
  * @method string _getBodyAsString() Get the response body as string
  * @method void disableErrorHandlerMiddleware() Disable the error handler middleware
  * @property \Cake\Controller\Controller|null $_controller The controller used in the last request
- * @property \Psr\Http\Message\ResponseInterface|null $_response The response for the most recent request
+ * @property \Cake\Http\Response|null $_response The response for the most recent request
  */
 trait IntegrationTestTrait
 {

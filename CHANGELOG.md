@@ -14,6 +14,8 @@
     it will replace `HtmlHelper`, assuming the same name. Some methods of the
     `HtmlHelperTest` test class have been marked as deprecated, to indicate that
     code is already covered by the new code;
+* added `BootstrapDropdownHelper`. For now this class is temporary, but in the future
+    it will replace `DropdownHelper`, assuming the same name;
 * `cssBlock()`, `cssStart()`, `cssEnd()`, `heading()` and `hr()` methods provided
     by the `HtmlHelper` are now deprecated and they will be removed in a later
     version. No replacement will be provided;

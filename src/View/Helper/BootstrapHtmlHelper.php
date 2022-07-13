@@ -54,21 +54,17 @@ class BootstrapHtmlHelper extends HtmlHelper
     }
 
     /**
-     * Internal function to build a nested list (UL/OL) out of an associative array
-     * @param array $items Set of elements to list
-     * @param array<string, mixed> $options Additional HTML attributes of the list (ol/ul) tag
-     * @param array<string, mixed> $itemOptions Options and additional HTML attributes of the list item (LI) tag
-     * @return string The nested list element
+     * Creates a "badge"
+     * @param string $text Badge text
+     * @param array<string, mixed> $options Array of options and HTML attributes
+     * @return string
+     * @see https://getbootstrap.com/docs/5.2/components/badge/
      */
-    protected function _nestedListItem(array $items, array $options, array $itemOptions): string
+    public function badge(string $text, array $options = []): string
     {
-        $itemOptions = optionsParser($itemOptions);
-        $icon = $this->Icon->icon($itemOptions->consume('icon'));
-        foreach ($items as &$item) {
-            $item = $icon . ' ' . $item;
-        }
+        $options = optionsParser($options)->append('class', 'badge');
 
-        return parent::_nestedListItem($items, $options, $itemOptions->toArray());
+        return $this->tag('span', $text, $options->toArray());
     }
 
     /**
@@ -145,6 +141,36 @@ class BootstrapHtmlHelper extends HtmlHelper
         [$title, $options] = $this->Icon->addIconToText($title, $options);
 
         return parent::link($title, $url, $options->toArray());
+    }
+
+    /**
+     * Build a nested list (UL/OL) out of an associative array.
+     *
+     * See the parent method for all available options.
+     * @param array $list Set of elements to list
+     * @param array<string, mixed> $options Options and additional HTML attributes of the list (ol/ul) tag.
+     * @param array<string, mixed> $itemOptions Options and additional HTML attributes of the list item (LI) tag.
+     * @return string The nested list
+     */
+    public function nestedList(array $list, array $options = [], array $itemOptions = []): string
+    {
+        $options = optionsParser($options);
+        $itemOptions = optionsParser($itemOptions);
+
+        if ($options->exists('icon')) {
+            $itemOptions->add('icon', $options->get('icon'));
+        }
+
+        if ($itemOptions->exists('icon')) {
+            $options->append('class', 'fa-ul');
+            $itemOptions->append('icon', 'li');
+            $list = array_map(fn(string $element): string => array_value_first($this->Icon->addIconToText($element, clone $itemOptions)), $list);
+        }
+
+        $options->delete('icon', 'icon-align');
+        $itemOptions->delete('icon', 'icon-align');
+
+        return parent::nestedList($list, $options->toArray(), $itemOptions->toArray());
     }
 
     /**
