@@ -308,7 +308,7 @@ class BootstrapFormHelper extends FormHelper
         $options = optionsParser($options, ['escape' => false, 'type' => 'submit']);
         $options->addButtonClasses($options->contains('type', 'submit') ? 'success' : 'primary');
         [$text, $options] = $this->Icon->addIconToText($caption, $options);
-        $options->append('templateVars', compact('text'));
+        $options->append('templateVars', ['text' => $text ?? __d('cake', 'Submit')]);
 
         return parent::submit($caption, $options->toArray());
     }

@@ -256,5 +256,10 @@ class BootstrapFormHelperTest extends HelperTestCase
         $expected = '<div class="submit"><button class="btn btn-primary" value="My reset caption"><i class="fas fa-home"> </i> My reset caption</button></div>';
         $result = $this->Helper->submit('My reset caption', ['icon' => 'home', 'type' => 'reset']);
         $this->assertSame($expected, $result);
+
+        //With empty `$caption`
+        $expected = '<div class="submit"><button class="btn btn-success" value="Submit">Submit</button></div>';
+        $result = $this->Helper->submit();
+        $this->assertSame($expected, $result);
     }
 }
