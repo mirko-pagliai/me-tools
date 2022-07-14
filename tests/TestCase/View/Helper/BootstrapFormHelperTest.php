@@ -143,11 +143,11 @@ class BootstrapFormHelperTest extends HelperTestCase
     }
 
     /**
-     * Test for `control()` method, on `post` request
+     * Test for `control()` method, with validation
      * @return void
      * @uses \MeTools\View\Helper\BootstrapFormHelper::control()
      */
-    public function testControlOnPostRequest(): void
+    public function testControlWithValidation(): void
     {
         $Request = $this->getMockBuilder(ServerRequest::class)
             ->setMethods(['is'])
@@ -157,9 +157,9 @@ class BootstrapFormHelperTest extends HelperTestCase
 
         //Input is valid
         $Helper = new BootstrapFormHelper($View);
-        $expected = '<div class="input mb-3 text"><label class="form-label fw-bolder" for="my-field">My Field</label><input type="text" name="my-field" class="form-control is-valid" id="my-field"/></div>';
+        $expected = '<input type="text" name="my-field" class="form-control is-valid" id="my-field"/>';
         $result = $Helper->control('my-field');
-        $this->assertSame($expected, $result);
+        $this->assertStringContainsString($expected, $result);
 
         //Input is invalid and has an error
         $expectedStart = '<div class="input mb-3 text error"><label class="form-label fw-bolder" for="my-field">My Field</label><input type="text" name="my-field" class="form-control is-invalid" id="my-field"';
