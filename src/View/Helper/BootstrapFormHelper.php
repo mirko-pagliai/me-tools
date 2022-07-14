@@ -54,6 +54,8 @@ class BootstrapFormHelper extends FormHelper
         $this->_defaultConfig = Hash::merge($this->_defaultConfig, ['templates' => [
             //Container element user for checkboxes
             'checkboxContainer' => '<div class="input mb-3 form-check{{required}}">{{content}}{{help}}</div>',
+            //Error message wrapper elements
+            'error' => '<div class="invalid-feedback" id="{{id}}">{{content}}</div>',
             //Container element used by `control()`
             'inputContainer' => '<div class="input mb-3 {{type}}{{required}}">{{content}}{{help}}</div>',
             //Container element used by `control()` when a field has an error
@@ -191,7 +193,7 @@ class BootstrapFormHelper extends FormHelper
         }
 
         /**
-         * Input group
+         * Input group (`append-text` and `prepend-text` options)
          * @see https://getbootstrap.com/docs/5.2/forms/input-group
          */
         if ($options->exists('append-text') || $options->exists('prepend-text')) {
