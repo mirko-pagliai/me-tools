@@ -122,10 +122,8 @@ class BootstrapFormHelper extends FormHelper
             $class = 'form-check-label';
         } elseif ($this->isInline()) {
             $class = 'visually-hidden';
-        } else {
-            $class = 'form-label';
         }
-        $label->append(compact('class'));
+        $label->append('class', $class ?? 'form-label');
 
 
         return parent::_getLabel($fieldName, ['label' => $label->toArray()] + $options);
