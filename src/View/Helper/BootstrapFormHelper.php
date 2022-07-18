@@ -203,7 +203,7 @@ class BootstrapFormHelper extends FormHelper
              * By default, no help blocks.
              * Checkboxes require an additional container.
              */
-            $options->append('templates', [
+            $this->setTemplates([
                 'inputContainer' => '<div class="col-12 {{type}}{{required}}">{{content}}</div>',
                 'inputContainerError' => '<div class="col-12 {{type}}{{required}} error">{{content}{{error}}</div>',
             ]);
@@ -230,7 +230,7 @@ class BootstrapFormHelper extends FormHelper
          * @see https://getbootstrap.com/docs/5.2/forms/input-group
          */
         if ($options->exists('append-text') || $options->exists('prepend-text')) {
-            $options->append('templates', [
+            $this->setTemplates([
                 'formGroup' => '{{label}}<div class="input-group' . ($this->isPost ? ' has-validation' : '') . '">{{prependText}}{{input}}{{appendText}}{{error}}</div>',
                 'inputContainer' => '<div class="input mb-3 {{type}}{{required}}">{{content}}{{help}}</div>',
                 'inputContainerError' => '<div class="input mb-3 {{type}}{{required}} error">{{content}}{{help}}</div>',
