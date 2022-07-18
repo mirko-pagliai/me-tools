@@ -318,6 +318,7 @@ class BootstrapFormHelper extends FormHelper
         if (!$attributes->exists('default') && !$attributes->exists('value')) {
             $attributes->addDefault('empty', true);
         }
+        $attributes->append('class', 'form-select');
 
         return parent::select($fieldName, $options, $attributes->toArray());
     }

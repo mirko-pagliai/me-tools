@@ -227,11 +227,11 @@ class BootstrapFormHelperTest extends HelperTestCase
     {
         $options = ['a' => 'A', 'b' => 'B', 'c' => 'C'];
 
-        $expected = '<select name="my-fielname"><option value=""></option><optgroup label="options"><option value="a">A</option><option value="b">B</option><option value="c">C</option></optgroup></select>';
+        $expected = '<select name="my-fielname" class="form-select"><option value=""></option><optgroup label="options"><option value="a">A</option><option value="b">B</option><option value="c">C</option></optgroup></select>';
         $result = $this->Helper->select('my-fielname', compact('options'));
         $this->assertSame($expected, $result);
 
-        $expected = '<select name="my-fielname"><optgroup label="options"><option value="a">A</option><option value="b" selected="selected">B</option><option value="c">C</option></optgroup></select>';
+        $expected = '<select name="my-fielname" class="form-select"><optgroup label="options"><option value="a">A</option><option value="b" selected="selected">B</option><option value="c">C</option></optgroup></select>';
         $result = $this->Helper->select('my-fielname', compact('options'), ['default' => 'b']);
         $this->assertSame($expected, $result);
 
@@ -239,7 +239,7 @@ class BootstrapFormHelperTest extends HelperTestCase
         $result = $this->Helper->select('my-fielname', compact('options'), ['value' => 'b']);
         $this->assertSame($expected, $result);
 
-        $expected = '<select name="my-fielname"><option value="">-- empty --</option><optgroup label="options"><option value="a">A</option><option value="b">B</option><option value="c">C</option></optgroup></select>';
+        $expected = '<select name="my-fielname" class="form-select"><option value="">-- empty --</option><optgroup label="options"><option value="a">A</option><option value="b">B</option><option value="c">C</option></optgroup></select>';
         $result = $this->Helper->select('my-fielname', compact('options'), ['empty' => '-- empty --']);
         $this->assertSame($expected, $result);
     }
