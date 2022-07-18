@@ -77,6 +77,34 @@ class BootstrapFormHelper extends FormHelper
     }
 
     /**
+     * Generate label for input
+     * @param string $fieldName The name of the field to generate label for
+     * @param array<string, mixed> $options Options list
+     * @return string|false Generated label element or false
+     */
+    protected function _getLabel(string $fieldName, array $options)
+    {
+        if ($options['label'] === false) {
+            return false;
+        }
+
+        $label = optionsParser(is_string($options['label']) ? ['text' => $options['label']] : $options['label']);
+
+        //Checkbox and inline form fields have their own label class
+        if ($options['type'] === 'checkbox') {
+            $class = 'form-check-label';
+        } elseif ($this->isInline()) {
+            $class = 'visually-hidden';
+        } else {
+            $class = 'form-label';
+        }
+        $label->append(compact('class'));
+
+
+        return parent::_getLabel($fieldName, ['label' => $label->toArray()] + $options);
+    }
+
+    /**
      * Returns the input type that was guessed for the provided fieldName,
      * based on the internal type it is associated too, its name and the
      * variables that can be found in the view template
@@ -148,34 +176,6 @@ class BootstrapFormHelper extends FormHelper
         }
 
         return parent::checkbox($fieldName, $options->toArray());
-    }
-
-    /**
-     * Generate label for input
-     * @param string $fieldName The name of the field to generate label for
-     * @param array<string, mixed> $options Options list
-     * @return string|false Generated label element or false
-     */
-    protected function _getLabel(string $fieldName, array $options)
-    {
-        if ($options['label'] === false) {
-            return false;
-        }
-
-        $label = optionsParser(is_string($options['label']) ? ['text' => $options['label']] : $options['label']);
-
-        //Checkbox and inline form fields have their own label class
-        if ($options['type'] === 'checkbox') {
-            $class = 'form-check-label';
-        } elseif ($this->isInline()) {
-            $class = 'visually-hidden';
-        } else {
-            $class = 'form-label';
-        }
-        $label->append(compact('class'));
-
-
-        return parent::_getLabel($fieldName, ['label' => $label->toArray()] + $options);
     }
 
     /**
