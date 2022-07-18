@@ -170,7 +170,7 @@ class BootstrapFormHelper extends FormHelper
         } elseif ($this->isInline()) {
             $class = 'visually-hidden';
         } else {
-            $class = $this->isInline() ? 'visually-hidden' : 'form-label';
+            $class = 'form-label';
         }
         $label->append(compact('class'));
 
