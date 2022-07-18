@@ -77,6 +77,7 @@ class FormHelperTest extends HelperTestCase
 
     /**
      * Tests for `checkbox()` method
+     * @deprecated
      * @test
      */
     public function testCheckbox(): void
