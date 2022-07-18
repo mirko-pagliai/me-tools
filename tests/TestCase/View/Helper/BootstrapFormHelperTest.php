@@ -219,6 +219,28 @@ class BootstrapFormHelperTest extends HelperTestCase
     }
 
     /**
+     * Test for `select()` method
+     * @return void
+     * @uses \MeTools\View\Helper\BootstrapFormHelper::select()
+     */
+    public function testSelect(): void
+    {
+        $options = ['a' => 'A', 'b' => 'B', 'c' => 'C'];
+
+        $expected = '<select name="my-fielname"><option value=""></option><optgroup label="options"><option value="a">A</option><option value="b">B</option><option value="c">C</option></optgroup></select>';
+        $result = $this->Helper->select('my-fielname', compact('options'));
+        $this->assertSame($expected, $result);
+
+        $expected = '<select name="my-fielname"><optgroup label="options"><option value="a">A</option><option value="b" selected="selected">B</option><option value="c">C</option></optgroup></select>';
+        $result = $this->Helper->select('my-fielname', compact('options'), ['default' => 'b']);
+        $this->assertSame($expected, $result);
+
+        //As for the previous one
+        $result = $this->Helper->select('my-fielname', compact('options'), ['value' => 'b']);
+        $this->assertSame($expected, $result);
+    }
+
+    /**
      * Test for `postButton()` method
      * @return void
      * @uses \MeTools\View\Helper\BootstrapFormHelper::postButton()

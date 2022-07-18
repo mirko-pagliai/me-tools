@@ -1,6 +1,7 @@
 # 2.x branch
 ## 2.21 branch
 ### 2.21.3
+* added `BootstrapFormHelper::select()` method;
 * fixed templates for `BootstrapFormHelper` with input groups;
 * fixed little bug for `BootstrapFormHelper::submit()` method.
 

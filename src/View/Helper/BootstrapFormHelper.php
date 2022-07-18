@@ -303,6 +303,26 @@ class BootstrapFormHelper extends FormHelper
     }
 
     /**
+     * Returns a formatted SELECT element.
+     *
+     * See the parent method for all available options and attributes.
+     * @param string $fieldName Name attribute of the SELECT
+     * @param iterable $options Array of the OPTION elements (as 'value'=>'Text' pairs) to be used in the
+     *   SELECT element
+     * @param array<string, mixed> $attributes The HTML attributes of the select element.
+     * @return string Formatted SELECT element
+     */
+    public function select(string $fieldName, iterable $options = [], array $attributes = []): string
+    {
+        $attributes = optionsParser($attributes);
+        if (!$attributes->exists('default') && !$attributes->exists('value')) {
+            $attributes->addDefault('empty', true);
+        }
+
+        return parent::select($fieldName, $options, $attributes->toArray());
+    }
+
+    /**
      * Creates a submit button element. This method will generate `<input />`
      *  elements that can be used to submit, and reset forms by using $options.
      *  Image submits can be created by supplying an image path for $caption.
