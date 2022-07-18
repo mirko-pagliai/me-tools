@@ -151,6 +151,34 @@ class BootstrapFormHelper extends FormHelper
     }
 
     /**
+     * Generate label for input
+     * @param string $fieldName The name of the field to generate label for
+     * @param array<string, mixed> $options Options list
+     * @return string|false Generated label element or false
+     */
+    protected function _getLabel(string $fieldName, array $options)
+    {
+        if ($options['label'] === false) {
+            return false;
+        }
+
+        $label = optionsParser(is_string($options['label']) ? ['text' => $options['label']] : $options['label']);
+
+        //Checkbox and inline form fields have their own label class
+        if ($options['type'] === 'checkbox') {
+            $class = 'form-check-label';
+        } elseif ($this->isInline()) {
+            $class = 'visually-hidden';
+        } else {
+            $class = $this->isInline() ? 'visually-hidden' : 'form-label';
+        }
+        $label->append(compact('class'));
+
+
+        return parent::_getLabel($fieldName, ['label' => $label->toArray()] + $options);
+    }
+
+    /**
      * Generates a form control element complete with label and wrapper div.
      *
      * See the parent method for all available options.
@@ -162,14 +190,6 @@ class BootstrapFormHelper extends FormHelper
     {
         $this->resetTemplates();
         $options = optionsParser($options, ['label' => []]);
-
-        /**
-         * Sets label as `optionsParser` instance, with `text` option
-         */
-        if ($options->get('label') !== false) {
-            $label = optionsParser(is_string($options->get('label')) ? ['text' => $options->get('label')] : $options->get('label'));
-        }
-
         $type = $options->get('type') ?? $this->_inputType($fieldName, $options->toArray());
 
         /**
@@ -179,20 +199,6 @@ class BootstrapFormHelper extends FormHelper
          */
         if ($type !== 'checkbox') {
             $options->append('class', 'form-control');
-        }
-
-        /**
-         * Label class.
-         *
-         * Checkbox labels have their own class.
-         * The other fields only when the form is not inline.
-         */
-        if (isset($label)) {
-            if ($type === 'checkbox') {
-                $label->append('class', 'form-check-label');
-            } elseif (!$this->isInline()) {
-                $label->append('class', 'form-label');
-            }
         }
 
         /**
@@ -216,13 +222,6 @@ class BootstrapFormHelper extends FormHelper
                 'inputContainer' => '<div class="col-12 {{type}}{{required}}">{{content}}</div>',
                 'inputContainerError' => '<div class="col-12 {{type}}{{required}} error">{{content}{{error}}</div>',
             ]);
-
-            /**
-             * Label class form inline forms, except for checkboxes
-             */
-            if (isset($label) && $type !== 'checkbox') {
-                $label->append('class', 'visually-hidden')->delete('icon', 'icon-align');
-            }
         }
 
         /**
@@ -248,8 +247,6 @@ class BootstrapFormHelper extends FormHelper
             $prependText = $options->exists('prepend-text') ? $this->Html->span($options->consume('prepend-text'), ['class' => 'input-group-text']) : '';
             $options->append('templateVars', compact('appendText', 'prependText'));
         }
-
-        $options->add('label', isset($label) ? $label->toArray() : false);
 
         return parent::control($fieldName, $options->toArray());
     }
