@@ -77,6 +77,24 @@ class BootstrapFormHelper extends FormHelper
     }
 
     /**
+     * Returns the input type that was guessed for the provided fieldName,
+     * based on the internal type it is associated too, its name and the
+     * variables that can be found in the view template
+     * @param string $fieldName the name of the field to guess a type for
+     * @param array<string, mixed> $options the options passed to the input method
+     * @return string
+     */
+    protected function _inputType(string $fieldName, array $options): string
+    {
+        //Forces the `password` type if `$fieldName` contains "password" or "pwd" words
+        if (str_contains($fieldName, 'password') || str_contains($fieldName, 'pwd')) {
+            return 'password';
+        }
+
+        return parent::_inputType($fieldName, $options);
+    }
+
+    /**
      * Creates a `<button>` tag.
      *
      * See the parent method for all available options.
@@ -150,15 +168,6 @@ class BootstrapFormHelper extends FormHelper
          */
         if ($options->get('label') !== false) {
             $label = optionsParser(is_string($options->get('label')) ? ['text' => $options->get('label')] : $options->get('label'));
-        }
-
-        /**
-         * Forces type before getting type.
-         *
-         * If the name contains the "password" word, then the type is `password`.
-         */
-        if (str_contains($fieldName, 'password')) {
-            $options->addDefault(['type' => 'password']);
         }
 
         $type = $options->get('type') ?? $this->_inputType($fieldName, $options->toArray());

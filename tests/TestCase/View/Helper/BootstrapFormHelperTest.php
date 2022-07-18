@@ -151,6 +151,7 @@ class BootstrapFormHelperTest extends HelperTestCase
     /**
      * Test for `control()` method, with a fields that contains the "password" word
      * @return void
+     * @uses \MeTools\View\Helper\BootstrapFormHelper::_inputType()
      * @uses \MeTools\View\Helper\BootstrapFormHelper::control()
      */
     public function testControlPasswordField(): void
