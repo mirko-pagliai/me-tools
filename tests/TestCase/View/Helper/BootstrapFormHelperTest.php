@@ -119,6 +119,18 @@ class BootstrapFormHelperTest extends HelperTestCase
     }
 
     /**
+     * Test for `control()` method, with a fields that contains the "password" word
+     * @return void
+     * @uses \MeTools\View\Helper\BootstrapFormHelper::control()
+     */
+    public function testControlPasswordField(): void
+    {
+        $expected = '<div class="input mb-3 password"><label class="form-label fw-bolder" for="my-password">My Password</label><input type="password" name="my-password" class="form-control" id="my-password"/></div>';
+        $result = $this->Helper->control('my-password');
+        $this->assertSame($expected, $result);
+    }
+
+    /**
      * Test for `control()` method, with an inline form
      * @return void
      * @uses \MeTools\View\Helper\BootstrapFormHelper::control()
@@ -171,18 +183,6 @@ class BootstrapFormHelperTest extends HelperTestCase
         $result = $Helper->control('my-field', ['append-text' => 'Append text', 'help' => 'My help text']);
         $this->assertStringStartsWith($expectedStart, $result);
         $this->assertStringEndsWith($expectedEnd, $result);
-    }
-
-    /**
-     * Test for `control()` method, with a fields that contains the "password" word
-     * @return void
-     * @uses \MeTools\View\Helper\BootstrapFormHelper::control()
-     */
-    public function testControlPasswordField(): void
-    {
-        $expected = '<div class="input mb-3 password"><label class="form-label fw-bolder" for="my-password">My Password</label><input type="password" name="my-password" class="form-control" id="my-password"/></div>';
-        $result = $this->Helper->control('my-password');
-        $this->assertSame($expected, $result);
     }
 
     /**
