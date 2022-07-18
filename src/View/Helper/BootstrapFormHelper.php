@@ -88,7 +88,7 @@ class BootstrapFormHelper extends FormHelper
         $options = optionsParser($options);
 
         //Class (checkboxes have their own class
-        if ($options['type'] !== 'checkbox') {
+        if ($options->get('type') !== 'checkbox') {
             $options->append('class', 'form-control');
         }
 
@@ -219,14 +219,11 @@ class BootstrapFormHelper extends FormHelper
         $options = optionsParser($options, ['label' => []]);
 
         /**
-         * Inline forms
+         * Inline forms.
+         * By default, no help blocks.
          * @see https://getbootstrap.com/docs/5.2/forms/layout/#inline-forms
          */
         if ($this->isInline()) {
-            /**
-             * By default, no help blocks.
-             * Checkboxes require an additional container.
-             */
             $this->setTemplates([
                 'inputContainer' => '<div class="col-12 {{type}}{{required}}">{{content}}</div>',
                 'inputContainerError' => '<div class="col-12 {{type}}{{required}} error">{{content}{{error}}</div>',
@@ -234,10 +231,11 @@ class BootstrapFormHelper extends FormHelper
         }
 
         /**
-         * Help text (form text)
+         * Help text (form text).
+         * These are ignored in inline forms.
          * @see https://getbootstrap.com/docs/5.2/forms/overview/#form-text
          */
-        if ($options->exists('help')) {
+        if ($options->exists('help') && !$this->isInline()) {
             $help = implode('', array_map(fn(string $help): string => $this->Html->div('form-text text-muted', trim($help)), (array)$options->consume('help')));
             $options->append('templateVars', compact('help'));
         }
