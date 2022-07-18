@@ -109,6 +109,21 @@ class BootstrapFormHelper extends FormHelper
     }
 
     /**
+     * Creates a checkbox input widget.
+     *
+     * See the parent method for all available options.
+     * @param string $fieldName Name of a field, like this "modelname.fieldname"
+     * @param array<string, mixed> $options Array of HTML attributes
+     * @return array<string>|string An HTML text input element
+     */
+    public function checkbox(string $fieldName, array $options = [])
+    {
+        $options = optionsParser($options)->append('class', 'form-check-input');
+
+        return parent::checkbox($fieldName, $options->toArray());
+    }
+
+    /**
      * Generates a form control element complete with label and wrapper div.
      *
      * See the parent method for all available options.
@@ -144,7 +159,9 @@ class BootstrapFormHelper extends FormHelper
          *
          * Checkboxes have their own class.
          */
-        $options->append('class', $type == 'checkbox' ? 'form-check-input' : 'form-control');
+        if ($type !== 'checkbox') {
+            $options->append('class', 'form-control');
+        }
 
         /**
          * Label class.

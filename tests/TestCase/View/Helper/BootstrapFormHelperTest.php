@@ -102,18 +102,19 @@ class BootstrapFormHelperTest extends HelperTestCase
     /**
      * Test for `control()` method, with a "checkbox" type
      * @return void
+     * @uses \MeTools\View\Helper\BootstrapFormHelper::checkbox()
      * @uses \MeTools\View\Helper\BootstrapFormHelper::control()
      */
     public function testControlCheckboxType(): void
     {
         $expected = '<div class="input mb-3 form-check"><input type="hidden" name="my-checkbox" value="0"/><label class="form-check-label fw-bolder" for="my-checkbox"><input type="checkbox" name="my-checkbox" value="1" class="form-check-input" id="my-checkbox">My Checkbox</label></div>';
-        $result = $this->Helper->control('my-checkbox', ['type' => 'checkbox']);
+        $result = $this->Helper->checkbox('my-checkbox', ['type' => 'checkbox']);
         $this->assertSame($expected, $result);
 
         //With `required` option
-        $expectedStart = '<div class="input mb-3 form-check required"><input type="hidden" name="my-checkbox" value="0"/><label class="form-check-label fw-bolder" for="my-checkbox"><input type="checkbox" name="my-checkbox" value="1" class="form-check-input" required="required" id="my-checkbox"';
-        $expectedEnd = '>My Checkbox</label></div>';
-        $result = $this->Helper->control('my-checkbox', ['type' => 'checkbox', 'required' => true]);
+        $expectedStart = '<div class="input mb-3 form-check required"><input type="hidden" name="my-checkbox" value="0"/><label class="form-check-label fw-bolder" for="my-checkbox"><input type="checkbox" name="my-checkbox" value="1"';
+        $expectedEnd = 'class="form-check-input" id="my-checkbox" required="required">My Checkbox</label></div>';
+        $result = $this->Helper->checkbox('my-checkbox', ['type' => 'checkbox', 'required' => true]);
         $this->assertStringStartsWith($expectedStart, $result);
         $this->assertStringEndsWith($expectedEnd, $result);
     }
