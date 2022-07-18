@@ -234,6 +234,7 @@ class FormHelperTest extends HelperTestCase
 
     /**
      * Tests for `control()` method with selects
+     * @deprecated
      * @test
      */
     public function testControlSelect(): void

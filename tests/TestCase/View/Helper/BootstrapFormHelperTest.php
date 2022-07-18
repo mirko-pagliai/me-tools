@@ -238,6 +238,10 @@ class BootstrapFormHelperTest extends HelperTestCase
         //As for the previous one
         $result = $this->Helper->select('my-fielname', compact('options'), ['value' => 'b']);
         $this->assertSame($expected, $result);
+
+        $expected = '<select name="my-fielname"><option value="">-- empty --</option><optgroup label="options"><option value="a">A</option><option value="b">B</option><option value="c">C</option></optgroup></select>';
+        $result = $this->Helper->select('my-fielname', compact('options'), ['empty' => '-- empty --']);
+        $this->assertSame($expected, $result);
     }
 
     /**
