@@ -127,6 +127,7 @@ class BootstrapFormHelper extends FormHelper
         if ($options->get('label') !== false) {
             $label = optionsParser(is_string($options->get('label')) ? ['text' => $options->get('label')] : $options->get('label'));
         }
+
         /**
          * Forces type before getting type.
          *
