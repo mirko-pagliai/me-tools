@@ -77,6 +77,33 @@ class BootstrapFormHelper extends FormHelper
     }
 
     /**
+     * Generates an input element
+     * @param string $fieldName the field name
+     * @param array<string, mixed> $options The options for the input element
+     * @return array|string The generated input element string
+     *  or array if checkbox() is called with option 'hiddenField' set to '_split'
+     */
+    protected function _getInput(string $fieldName, array $options)
+    {
+        $options = optionsParser($options);
+
+        //Class (checkboxes have their own class
+        if ($options['type'] !== 'checkbox') {
+            $options->append('class', 'form-control');
+        }
+
+        /**
+         * Add class on `post` request (the form has been filled out)
+         * @see https://getbootstrap.com/docs/5.2/forms/validation/#server-side
+         */
+        if ($this->isPost) {
+            $options->append('class', $this->isFieldError($fieldName) ? 'is-invalid' : 'is-valid');
+        }
+
+        return parent::_getInput($fieldName, $options->toArray());
+    }
+
+    /**
      * Generate label for input
      * @param string $fieldName The name of the field to generate label for
      * @param array<string, mixed> $options Options list
@@ -190,24 +217,6 @@ class BootstrapFormHelper extends FormHelper
     {
         $this->resetTemplates();
         $options = optionsParser($options, ['label' => []]);
-        $type = $options->get('type') ?? $this->_inputType($fieldName, $options->toArray());
-
-        /**
-         * Input class.
-         *
-         * Checkboxes have their own class.
-         */
-        if ($type !== 'checkbox') {
-            $options->append('class', 'form-control');
-        }
-
-        /**
-         * Add class on `post` request (the form has been filled out)
-         * @see https://getbootstrap.com/docs/5.2/forms/validation/#server-side
-         */
-        if ($this->isPost) {
-            $options->append('class', $this->isFieldError($fieldName) ? 'is-invalid' : 'is-valid');
-        }
 
         /**
          * Inline forms
