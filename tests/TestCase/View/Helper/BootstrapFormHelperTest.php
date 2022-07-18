@@ -117,6 +117,35 @@ class BootstrapFormHelperTest extends HelperTestCase
         $result = $this->Helper->control('my-checkbox', ['type' => 'checkbox', 'required' => true]);
         $this->assertStringStartsWith($expectedStart, $result);
         $this->assertStringEndsWith($expectedEnd, $result);
+
+        //On "inline" form
+        $this->Helper->createInline();
+        $expected = '<div class="col-12"><div class="form-check"><input type="hidden" name="my-inline-field" value="0"/><label class="form-check-label" for="my-inline-field"><input type="checkbox" name="my-inline-field" value="1" class="form-check-input" id="my-inline-field">My Inline Field</label></div></div>';
+        $result = $this->Helper->control('my-inline-field', ['type' => 'checkbox']);
+        $this->assertSame($expected, $result);
+
+        //With error
+        $expectedStart = '<div class="input mb-3 form-check required"><input type="hidden" name="my-checkbox" value="0"/><label class="form-check-label fw-bolder" for="my-checkbox"><input type="checkbox" name="my-checkbox" value="1"';
+        $expectedEnd = 'class="form-check-input is-invalid" id="my-checkbox" required="required">My Checkbox</label>My error</div>';
+        /** @var \MeTools\View\Helper\BootstrapFormHelper&\PHPUnit\Framework\MockObject\MockObject $Helper */
+        $Request = $this->getMockBuilder(ServerRequest::class)
+            ->setMethods(['is'])
+            ->getMock();
+        $Request->method('is')->willReturn(true);
+        $Helper = $this->getMockForHelper(BootstrapFormHelper::class, ['error', 'isFieldError'], new View($Request));
+        $Helper->method('error')->willReturn('My error');
+        $Helper->method('isFieldError')->willReturn(true);
+        $result = $Helper->control('my-checkbox', ['type' => 'checkbox', 'required' => true]);
+        $this->assertStringStartsWith($expectedStart, $result);
+        $this->assertStringEndsWith($expectedEnd, $result);
+
+        //With error on "inline" form
+        $Helper->createInline();
+        $expectedStart = '<div class="col-12"><div class="form-check required error"><input type="hidden" name="my-checkbox" value="0"/><label class="form-check-label" for="my-checkbox"><input type="checkbox" name="my-checkbox" value="1"';
+        $expectedEnd = 'class="form-check-input is-invalid" id="my-checkbox" required="required">My Checkbox</label>My error</div></div>';
+        $result = $Helper->control('my-checkbox', ['type' => 'checkbox', 'required' => true]);
+        $this->assertStringStartsWith($expectedStart, $result);
+        $this->assertStringEndsWith($expectedEnd, $result);
     }
 
     /**
@@ -142,11 +171,6 @@ class BootstrapFormHelperTest extends HelperTestCase
 
         $expected = '<div class="col-12 text"><label class="visually-hidden" for="my-inline-field">My Inline Field</label><input type="text" name="my-inline-field" class="form-control" id="my-inline-field"/></div>';
         $result = $this->Helper->control('my-inline-field');
-        $this->assertSame($expected, $result);
-
-        //With a checkbox
-        $expected = '<div class="col-12><div class="form-check"><input type="hidden" name="my-inline-field" value="0"/><label class="form-check-label" for="my-inline-field"><input type="checkbox" name="my-inline-field" value="1" class="form-check-input" id="my-inline-field">My Inline Field</label></div></div>';
-        $result = $this->Helper->control('my-inline-field', ['type' => 'checkbox']);
         $this->assertSame($expected, $result);
 
         //With a custom label text

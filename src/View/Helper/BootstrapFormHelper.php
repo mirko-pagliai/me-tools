@@ -59,6 +59,8 @@ class BootstrapFormHelper extends FormHelper
         $this->_defaultConfig = Hash::merge($this->_defaultConfig, ['templates' => [
             //Container element user for checkboxes
             'checkboxContainer' => '<div class="input mb-3 form-check{{required}}">{{content}}{{help}}</div>',
+            //Container element user for checkboxes when has an error
+            'checkboxContainerError' => '<div class="input mb-3 form-check{{required}}">{{content}}{{error}}{{help}}</div>',
             //Error message wrapper elements
             'error' => '<div class="invalid-feedback" id="{{id}}">{{content}}</div>',
             //Container element used by `control()`
@@ -119,6 +121,13 @@ class BootstrapFormHelper extends FormHelper
     public function checkbox(string $fieldName, array $options = [])
     {
         $options = optionsParser($options)->append('class', 'form-check-input');
+
+        if ($this->isInline()) {
+            $this->setTemplates([
+                'checkboxContainer' => '<div class="col-12"><div class="form-check{{required}}">{{content}}</div></div>',
+                'checkboxContainerError' => '<div class="col-12"><div class="form-check{{required}} error">{{content}}{{error}}</div></div>',
+            ]);
+        }
 
         return parent::checkbox($fieldName, $options->toArray());
     }
@@ -195,7 +204,6 @@ class BootstrapFormHelper extends FormHelper
              * Checkboxes require an additional container.
              */
             $options->append('templates', [
-                'checkboxContainer' => '<div class="col-12><div class="form-check{{required}}">{{content}}</div></div>',
                 'inputContainer' => '<div class="col-12 {{type}}{{required}}">{{content}}</div>',
                 'inputContainerError' => '<div class="col-12 {{type}}{{required}} error">{{content}{{error}}</div>',
             ]);
