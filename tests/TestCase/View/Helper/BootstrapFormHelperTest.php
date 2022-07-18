@@ -108,13 +108,13 @@ class BootstrapFormHelperTest extends HelperTestCase
     public function testControlCheckboxType(): void
     {
         $expected = '<div class="input mb-3 form-check"><input type="hidden" name="my-checkbox" value="0"/><label class="form-check-label fw-bolder" for="my-checkbox"><input type="checkbox" name="my-checkbox" value="1" class="form-check-input" id="my-checkbox">My Checkbox</label></div>';
-        $result = $this->Helper->checkbox('my-checkbox', ['type' => 'checkbox']);
+        $result = $this->Helper->control('my-checkbox', ['type' => 'checkbox']);
         $this->assertSame($expected, $result);
 
         //With `required` option
         $expectedStart = '<div class="input mb-3 form-check required"><input type="hidden" name="my-checkbox" value="0"/><label class="form-check-label fw-bolder" for="my-checkbox"><input type="checkbox" name="my-checkbox" value="1"';
         $expectedEnd = 'class="form-check-input" id="my-checkbox" required="required">My Checkbox</label></div>';
-        $result = $this->Helper->checkbox('my-checkbox', ['type' => 'checkbox', 'required' => true]);
+        $result = $this->Helper->control('my-checkbox', ['type' => 'checkbox', 'required' => true]);
         $this->assertStringStartsWith($expectedStart, $result);
         $this->assertStringEndsWith($expectedEnd, $result);
     }
