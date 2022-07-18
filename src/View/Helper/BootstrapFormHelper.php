@@ -115,7 +115,7 @@ class BootstrapFormHelper extends FormHelper
             return false;
         }
 
-        $label = optionsParser(is_string($options['label']) ? ['text' => $options['label']] : $options['label']);
+        $label = optionsParser(is_string($options['label']) ? ['text' => $options['label']] : ($options['label'] ?? []));
 
         //Checkbox and inline form fields have their own label class
         if ($options['type'] === 'checkbox') {
@@ -216,7 +216,7 @@ class BootstrapFormHelper extends FormHelper
     public function control(string $fieldName, array $options = []): string
     {
         $this->resetTemplates();
-        $options = optionsParser($options, ['label' => []]);
+        $options = optionsParser($options);
 
         /**
          * Inline forms.
@@ -250,9 +250,13 @@ class BootstrapFormHelper extends FormHelper
                 'inputContainer' => '<div class="input mb-3 {{type}}{{required}}">{{content}}{{help}}</div>',
                 'inputContainerError' => '<div class="input mb-3 {{type}}{{required}} error">{{content}}{{help}}</div>',
             ]);
-            $appendText = $options->exists('append-text') ? $this->Html->span($options->consume('append-text'), ['class' => 'input-group-text']) : '';
-            $prependText = $options->exists('prepend-text') ? $this->Html->span($options->consume('prepend-text'), ['class' => 'input-group-text']) : '';
-            $options->append('templateVars', compact('appendText', 'prependText'));
+
+            if ($options->exists('append-text')) {
+                $options->append('templateVars', ['appendText' => $this->Html->span($options->consume('append-text'), ['class' => 'input-group-text'])]);
+            }
+            if ($options->exists('prepend-text')) {
+                $options->append('templateVars', ['prependText' => $this->Html->span($options->consume('prepend-text'), ['class' => 'input-group-text'])]);
+            }
         }
 
         return parent::control($fieldName, $options->toArray());
