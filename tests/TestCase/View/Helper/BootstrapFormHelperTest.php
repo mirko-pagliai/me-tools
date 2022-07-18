@@ -78,7 +78,7 @@ class BootstrapFormHelperTest extends HelperTestCase
         $result = $this->Helper->control('my-field', ['help' => ['first text', 'second text']]);
         $this->assertSame($expected, $result);
 
-        //Input group
+        //With input group
         $expected = '<div class="input mb-3 text"><label class="form-label fw-bolder" for="my-field">My Field</label><div class="input-group"><span class="input-group-text">first text</span><input type="text" name="my-field" class="form-control" id="my-field"/><span class="input-group-text">second text</span></div></div>';
         $result = $this->Helper->control('my-field', ['prepend-text' => 'first text', 'append-text' => 'second text']);
         $this->assertSame($expected, $result);
@@ -157,18 +157,18 @@ class BootstrapFormHelperTest extends HelperTestCase
 
         //Input is valid
         $Helper = new BootstrapFormHelper($View);
-        $expected = '<input type="text" name="my-field" class="form-control is-valid" id="my-field"/>';
-        $result = $Helper->control('my-field');
-        $this->assertStringContainsString($expected, $result);
+        $expected = '<div class="input mb-3 text"><label class="form-label fw-bolder" for="my-field">My Field</label><div class="input-group has-validation"><input type="text" name="my-field" class="form-control is-valid" id="my-field"/><span class="input-group-text">Append text</span></div><div class="form-text text-muted">My help text</div></div>';
+        $result = $Helper->control('my-field', ['append-text' => 'Append text', 'help' => 'My help text']);
+        $this->assertSame($expected, $result);
 
         //Input is invalid and has an error
-        $expectedStart = '<div class="input mb-3 text error"><label class="form-label fw-bolder" for="my-field">My Field</label><input type="text" name="my-field" class="form-control is-invalid" id="my-field"';
-        $expectedEnd = '/>My error</div>';
+        $expectedStart = '<div class="input mb-3 text error"><label class="form-label fw-bolder" for="my-field">My Field</label><div class="input-group has-validation"><input type="text" name="my-field" class="form-control is-invalid" id="my-field"';
+        $expectedEnd = '<span class="input-group-text">Append text</span>My error</div><div class="form-text text-muted">My help text</div></div>';
         /** @var \MeTools\View\Helper\BootstrapFormHelper&\PHPUnit\Framework\MockObject\MockObject $Helper */
         $Helper = $this->getMockForHelper(BootstrapFormHelper::class, ['error', 'isFieldError'], $View);
         $Helper->method('error')->willReturn('My error');
         $Helper->method('isFieldError')->willReturn(true);
-        $result = $Helper->control('my-field');
+        $result = $Helper->control('my-field', ['append-text' => 'Append text', 'help' => 'My help text']);
         $this->assertStringStartsWith($expectedStart, $result);
         $this->assertStringEndsWith($expectedEnd, $result);
     }

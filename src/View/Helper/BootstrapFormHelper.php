@@ -42,6 +42,11 @@ class BootstrapFormHelper extends FormHelper
     protected bool $isInline = false;
 
     /**
+     * @var bool
+     */
+    protected bool $isPost;
+
+    /**
      * Construct the widgets and binds the default context providers.
      *
      * This method only rewrites the default templates config.
@@ -59,12 +64,14 @@ class BootstrapFormHelper extends FormHelper
             //Container element used by `control()`
             'inputContainer' => '<div class="input mb-3 {{type}}{{required}}">{{content}}{{help}}</div>',
             //Container element used by `control()` when a field has an error
-            'inputContainerError' => '<div class="input mb-3 {{type}}{{required}} error">{{content}}{{help}}{{error}}</div>',
+            'inputContainerError' => '<div class="input mb-3 {{type}}{{required}} error">{{content}}{{error}}{{help}}</div>',
             // Submit/reset button
             'inputSubmit' => '<button{{attrs}}>{{text}}</button>',
         ]]);
 
         parent::__construct($view, $config);
+
+        $this->isPost = $this->getView()->getRequest()->is('post');
     }
 
     /**
@@ -156,7 +163,7 @@ class BootstrapFormHelper extends FormHelper
          * Add class on `post` request (the form has been filled out)
          * @see https://getbootstrap.com/docs/5.2/forms/validation/#server-side
          */
-        if ($this->getView()->getRequest()->is('post')) {
+        if ($this->isPost) {
             $options->append('class', $this->isFieldError($fieldName) ? 'is-invalid' : 'is-valid');
         }
 
@@ -197,8 +204,11 @@ class BootstrapFormHelper extends FormHelper
          * @see https://getbootstrap.com/docs/5.2/forms/input-group
          */
         if ($options->exists('append-text') || $options->exists('prepend-text')) {
-            //@todo Fix. Use `$options->append()`
-            $this->setTemplates(['formGroup' => '{{label}}<div class="input-group">{{prependText}}{{input}}{{appendText}}</div>']);
+            $options->append('templates', [
+                'formGroup' => '{{label}}<div class="input-group' . ($this->isPost ? ' has-validation' : '') . '">{{prependText}}{{input}}{{appendText}}{{error}}</div>',
+                'inputContainer' => '<div class="input mb-3 {{type}}{{required}}">{{content}}{{help}}</div>',
+                'inputContainerError' => '<div class="input mb-3 {{type}}{{required}} error">{{content}}{{help}}</div>',
+            ]);
             $appendText = $options->exists('append-text') ? $this->Html->span($options->consume('append-text'), ['class' => 'input-group-text']) : '';
             $prependText = $options->exists('prepend-text') ? $this->Html->span($options->consume('prepend-text'), ['class' => 'input-group-text']) : '';
             $options->append('templateVars', compact('appendText', 'prependText'));
