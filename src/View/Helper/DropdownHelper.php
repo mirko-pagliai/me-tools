@@ -56,7 +56,7 @@ use Cake\View\Helper;
  *      $this->Html->link('Other main link', '#'),
  * ]);
  * </code>
- * @property \MeTools\View\Helper\BootstrapHtmlHelper $Html
+ * @property \MeTools\View\Helper\HtmlHelper $Html
  */
 class DropdownHelper extends Helper
 {

@@ -14,6 +14,7 @@ declare(strict_types=1);
  */
 namespace MeTools\Test\TestCase\View\Helper;
 
+use Cake\Core\Configure;
 use Cake\Http\ServerRequest;
 use Cake\View\View;
 use MeTools\TestSuite\HelperTestCase;
@@ -69,16 +70,16 @@ class BootstrapFormHelperTest extends HelperTestCase
         $this->assertSame($expected, $result);
 
         //With `required` option
-        $expected = '<div class="input mb-3 text required"><label class="form-label fw-bolder" for="my-field">My Field</label><input type="text" name="my-field" class="form-control" required="required" id="my-field"';
+        $expected = '<div class="input mb-3 text required"><label class="form-label fw-bolder" for="my-field">My Field</label><input type="text" name="my-field" aria-required="true" class="form-control" id="my-field" required="required"/></div>';
         $result = $this->Helper->control('my-field', ['required' => true]);
-        $this->assertStringStartsWith($expected, $result);
+        $this->assertSame($expected, $result);
 
         //Help text (form text)
         $expected = '<div class="input mb-3 text"><label class="form-label fw-bolder" for="my-field">My Field</label><input type="text" name="my-field" class="form-control" id="my-field"/><div class="form-text text-muted">first text</div><div class="form-text text-muted">second text</div></div>';
         $result = $this->Helper->control('my-field', ['help' => ['first text', 'second text']]);
         $this->assertSame($expected, $result);
 
-        //Input group
+        //With input group
         $expected = '<div class="input mb-3 text"><label class="form-label fw-bolder" for="my-field">My Field</label><div class="input-group"><span class="input-group-text">first text</span><input type="text" name="my-field" class="form-control" id="my-field"/><span class="input-group-text">second text</span></div></div>';
         $result = $this->Helper->control('my-field', ['prepend-text' => 'first text', 'append-text' => 'second text']);
         $this->assertSame($expected, $result);
@@ -100,8 +101,59 @@ class BootstrapFormHelperTest extends HelperTestCase
     }
 
     /**
+     * Test for `radio()` method
+     * @return void
+     * @uses \MeTools\View\Helper\BootstrapFormHelper::radio()
+     */
+    public function testRadio(): void
+    {
+        $expected = '<input type="hidden" name="my-field" value=""/>' .
+            '<input type="radio" name="my-field" value="1" id="my-field-1" class="form-check-input">' .
+            '<label class="form-check-label" for="my-field-1">A</label>' .
+            '<input type="radio" name="my-field" value="2" id="my-field-2" class="form-check-input">' .
+            '<label class="form-check-label" for="my-field-2">B</label>';
+        if (version_compare(Configure::version(), '4.4', '>=')) {
+            $expected = '<input type="hidden" name="my-field" id="my-field" value=""/>' .
+                '<input type="radio" name="my-field" value="1" id="my-field-1" class="form-check-input">' .
+                '<label class="form-check-label" for="my-field-1">A</label>' .
+                '<input type="radio" name="my-field" value="2" id="my-field-2" class="form-check-input">' .
+                '<label class="form-check-label" for="my-field-2">B</label>';
+        }
+        $result = $this->Helper->radio('my-field', ['1' => 'A', '2' => 'B']);
+        $this->assertSame($expected, $result);
+
+        $expected = '<div class="input mb-3 radio">' .
+            '<input type="hidden" name="my-field" value=""/>' .
+            '<div class="form-check">' .
+            '<input type="radio" name="my-field" value="1" id="my-field-1" class="form-check-input">' .
+            '<label class="form-check-label" for="my-field-1">A</label>' .
+            '</div>' .
+            '<div class="form-check">' .
+            '<input type="radio" name="my-field" value="2" id="my-field-2" class="form-check-input">' .
+            '<label class="form-check-label" for="my-field-2">B</label>' .
+            '</div>' .
+            '</div>';
+        if (version_compare(Configure::version(), '4.4', '>=')) {
+            $expected = '<div class="input mb-3 radio">' .
+                '<input type="hidden" name="my-field" id="my-field" value=""/>' .
+                '<div class="form-check">' .
+                '<input type="radio" name="my-field" value="1" id="my-field-1" class="form-check-input">' .
+                '<label class="form-check-label" for="my-field-1">A</label>' .
+                '</div>' .
+                '<div class="form-check">' .
+                '<input type="radio" name="my-field" value="2" id="my-field-2" class="form-check-input">' .
+                '<label class="form-check-label" for="my-field-2">B</label>' .
+                '</div>' .
+                '</div>';
+        }
+        $result = $this->Helper->control('my-field', ['options' => ['1' => 'A', '2' => 'B'], 'type' => 'radio']);
+        $this->assertSame($expected, $result);
+    }
+
+    /**
      * Test for `control()` method, with a "checkbox" type
      * @return void
+     * @uses \MeTools\View\Helper\BootstrapFormHelper::checkbox()
      * @uses \MeTools\View\Helper\BootstrapFormHelper::control()
      */
     public function testControlCheckboxType(): void
@@ -111,11 +163,53 @@ class BootstrapFormHelperTest extends HelperTestCase
         $this->assertSame($expected, $result);
 
         //With `required` option
-        $expectedStart = '<div class="input mb-3 form-check required"><input type="hidden" name="my-checkbox" value="0"/><label class="form-check-label fw-bolder" for="my-checkbox"><input type="checkbox" name="my-checkbox" value="1" class="form-check-input" required="required" id="my-checkbox"';
-        $expectedEnd = '>My Checkbox</label></div>';
+        $expectedStart = '<div class="input mb-3 form-check required"><input type="hidden" name="my-checkbox" value="0"/><label class="form-check-label fw-bolder" for="my-checkbox"><input type="checkbox" name="my-checkbox" value="1"';
+        $expectedEnd = 'class="form-check-input" id="my-checkbox" required="required">My Checkbox</label></div>';
         $result = $this->Helper->control('my-checkbox', ['type' => 'checkbox', 'required' => true]);
         $this->assertStringStartsWith($expectedStart, $result);
         $this->assertStringEndsWith($expectedEnd, $result);
+
+        //On "inline" form
+        $this->Helper->createInline();
+        $expected = '<div class="col-12"><div class="form-check"><input type="hidden" name="my-inline-field" value="0"/><label class="form-check-label" for="my-inline-field"><input type="checkbox" name="my-inline-field" value="1" class="form-check-input" id="my-inline-field">My Inline Field</label></div></div>';
+        $result = $this->Helper->control('my-inline-field', ['type' => 'checkbox']);
+        $this->assertSame($expected, $result);
+
+        //With error
+        $expectedStart = '<div class="input mb-3 form-check required"><input type="hidden" name="my-checkbox" value="0"/><label class="form-check-label fw-bolder" for="my-checkbox"><input type="checkbox" name="my-checkbox" value="1"';
+        $expectedEnd = 'class="form-check-input is-invalid" id="my-checkbox" required="required">My Checkbox</label>My error</div>';
+        $Request = $this->getMockBuilder(ServerRequest::class)
+            ->setMethods(['is'])
+            ->getMock();
+        $Request->method('is')->willReturn(true);
+        /** @var \MeTools\View\Helper\BootstrapFormHelper&\PHPUnit\Framework\MockObject\MockObject $Helper */
+        $Helper = $this->getMockForHelper(BootstrapFormHelper::class, ['error', 'isFieldError'], new View($Request));
+        $Helper->method('error')->willReturn('My error');
+        $Helper->method('isFieldError')->willReturn(true);
+        $result = $Helper->control('my-checkbox', ['type' => 'checkbox', 'required' => true]);
+        $this->assertStringStartsWith($expectedStart, $result);
+        $this->assertStringEndsWith($expectedEnd, $result);
+
+        //With error on "inline" form
+        $Helper->createInline();
+        $expectedStart = '<div class="col-12"><div class="form-check required error"><input type="hidden" name="my-checkbox" value="0"/><label class="form-check-label" for="my-checkbox"><input type="checkbox" name="my-checkbox" value="1"';
+        $expectedEnd = 'class="form-check-input is-invalid" id="my-checkbox" required="required">My Checkbox</label>My error</div></div>';
+        $result = $Helper->control('my-checkbox', ['type' => 'checkbox', 'required' => true]);
+        $this->assertStringStartsWith($expectedStart, $result);
+        $this->assertStringEndsWith($expectedEnd, $result);
+    }
+
+    /**
+     * Test for `control()` method, with a fields that contains the "password" word
+     * @return void
+     * @uses \MeTools\View\Helper\BootstrapFormHelper::_inputType()
+     * @uses \MeTools\View\Helper\BootstrapFormHelper::control()
+     */
+    public function testControlPasswordField(): void
+    {
+        $expected = '<div class="input mb-3 password"><label class="form-label fw-bolder" for="my-password">My Password</label><input type="password" name="my-password" class="form-control" id="my-password"/></div>';
+        $result = $this->Helper->control('my-password');
+        $this->assertSame($expected, $result);
     }
 
     /**
@@ -131,11 +225,6 @@ class BootstrapFormHelperTest extends HelperTestCase
         $result = $this->Helper->control('my-inline-field');
         $this->assertSame($expected, $result);
 
-        //With a checkbox
-        $expected = '<div class="col-12><div class="form-check"><input type="hidden" name="my-inline-field" value="0"/><label class="form-check-label" for="my-inline-field"><input type="checkbox" name="my-inline-field" value="1" class="form-check-input" id="my-inline-field">My Inline Field</label></div></div>';
-        $result = $this->Helper->control('my-inline-field', ['type' => 'checkbox']);
-        $this->assertSame($expected, $result);
-
         //With a custom label text
         $expected = '<div class="col-12 text"><label class="visually-hidden" for="my-inline-field">My label</label><input type="text" name="my-inline-field" class="form-control" id="my-inline-field"/></div>';
         $result = $this->Helper->control('my-inline-field', ['label' => 'My label']);
@@ -143,11 +232,11 @@ class BootstrapFormHelperTest extends HelperTestCase
     }
 
     /**
-     * Test for `control()` method, on `post` request
+     * Test for `control()` method, with validation
      * @return void
      * @uses \MeTools\View\Helper\BootstrapFormHelper::control()
      */
-    public function testControlOnPostRequest(): void
+    public function testControlWithValidation(): void
     {
         $Request = $this->getMockBuilder(ServerRequest::class)
             ->setMethods(['is'])
@@ -157,31 +246,17 @@ class BootstrapFormHelperTest extends HelperTestCase
 
         //Input is valid
         $Helper = new BootstrapFormHelper($View);
-        $expected = '<div class="input mb-3 text"><label class="form-label fw-bolder" for="my-field">My Field</label><input type="text" name="my-field" class="form-control is-valid" id="my-field"/></div>';
-        $result = $Helper->control('my-field');
+        $expected = '<div class="input mb-3 text"><label class="form-label fw-bolder" for="my-field">My Field</label><div class="input-group has-validation"><input type="text" name="my-field" class="form-control is-valid" id="my-field"/><span class="input-group-text">Append text</span></div><div class="form-text text-muted">My help text</div></div>';
+        $result = $Helper->control('my-field', ['append-text' => 'Append text', 'help' => 'My help text']);
         $this->assertSame($expected, $result);
 
         //Input is invalid and has an error
-        $expectedStart = '<div class="input mb-3 text error"><label class="form-label fw-bolder" for="my-field">My Field</label><input type="text" name="my-field" class="form-control is-invalid" id="my-field"';
-        $expectedEnd = '/>My error</div>';
+        $expected = '<div class="input mb-3 text error"><label class="form-label fw-bolder" for="my-field">My Field</label><div class="input-group has-validation"><input type="text" name="my-field" aria-invalid="true" class="form-control is-invalid" id="my-field"/><span class="input-group-text">Append text</span>My error</div><div class="form-text text-muted">My help text</div></div>';
         /** @var \MeTools\View\Helper\BootstrapFormHelper&\PHPUnit\Framework\MockObject\MockObject $Helper */
         $Helper = $this->getMockForHelper(BootstrapFormHelper::class, ['error', 'isFieldError'], $View);
         $Helper->method('error')->willReturn('My error');
         $Helper->method('isFieldError')->willReturn(true);
-        $result = $Helper->control('my-field');
-        $this->assertStringStartsWith($expectedStart, $result);
-        $this->assertStringEndsWith($expectedEnd, $result);
-    }
-
-    /**
-     * Test for `control()` method, with a fields that contains the "password" word
-     * @return void
-     * @uses \MeTools\View\Helper\BootstrapFormHelper::control()
-     */
-    public function testControlPasswordField(): void
-    {
-        $expected = '<div class="input mb-3 password"><label class="form-label fw-bolder" for="my-password">My Password</label><input type="password" name="my-password" class="form-control" id="my-password"/></div>';
-        $result = $this->Helper->control('my-password');
+        $result = $Helper->control('my-field', ['append-text' => 'Append text', 'help' => 'My help text']);
         $this->assertSame($expected, $result);
     }
 
@@ -215,6 +290,32 @@ class BootstrapFormHelperTest extends HelperTestCase
     {
         $expected = '<label class="fw-bolder my-class" for="my-fieldname"><i class="fas fa-home"> </i> My label</label>';
         $result = $this->Helper->label('my-fieldname', 'My label', ['class' => 'my-class', 'icon' => 'home']);
+        $this->assertSame($expected, $result);
+    }
+
+    /**
+     * Test for `select()` method
+     * @return void
+     * @uses \MeTools\View\Helper\BootstrapFormHelper::select()
+     */
+    public function testSelect(): void
+    {
+        $options = ['a' => 'A', 'b' => 'B', 'c' => 'C'];
+
+        $expected = '<select name="my-fieldname" class="form-select"><option value=""></option><optgroup label="options"><option value="a">A</option><option value="b">B</option><option value="c">C</option></optgroup></select>';
+        $result = $this->Helper->select('my-fieldname', compact('options'));
+        $this->assertSame($expected, $result);
+
+        $expected = '<select name="my-fieldname" class="form-select"><optgroup label="options"><option value="a">A</option><option value="b" selected="selected">B</option><option value="c">C</option></optgroup></select>';
+        $result = $this->Helper->select('my-fieldname', compact('options'), ['default' => 'b']);
+        $this->assertSame($expected, $result);
+
+        //As for the previous one
+        $result = $this->Helper->select('my-fieldname', compact('options'), ['value' => 'b']);
+        $this->assertSame($expected, $result);
+
+        $expected = '<select name="my-fieldname" class="form-select"><option value="">-- empty --</option><optgroup label="options"><option value="a">A</option><option value="b">B</option><option value="c">C</option></optgroup></select>';
+        $result = $this->Helper->select('my-fieldname', compact('options'), ['empty' => '-- empty --']);
         $this->assertSame($expected, $result);
     }
 
@@ -255,6 +356,11 @@ class BootstrapFormHelperTest extends HelperTestCase
         //Reset type
         $expected = '<div class="submit"><button class="btn btn-primary" value="My reset caption"><i class="fas fa-home"> </i> My reset caption</button></div>';
         $result = $this->Helper->submit('My reset caption', ['icon' => 'home', 'type' => 'reset']);
+        $this->assertSame($expected, $result);
+
+        //With empty `$caption`
+        $expected = '<div class="submit"><button class="btn btn-success" value="Submit">Submit</button></div>';
+        $result = $this->Helper->submit();
         $this->assertSame($expected, $result);
     }
 }

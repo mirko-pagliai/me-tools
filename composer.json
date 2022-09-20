@@ -12,12 +12,12 @@
     ],
     "require": {
         "php": ">=7.4",
-        "cakephp/cakephp": "^4.2",
+        "cakephp/cakephp": "^4.3",
         "mirko-pagliai/php-tools": "^1.6"
     },
     "require-dev": {
         "cakephp/cakephp-codesniffer": "^4.5",
-        "mirko-pagliai/cakephp-assets": "^1.5.4",
+        "mirko-pagliai/cakephp-assets": "^1.5.7",
         "phpunit/phpunit": "^9.1|^9.5",
         "phpstan/phpstan": "^1.7",
         "psalm/phar": "^4.24"
