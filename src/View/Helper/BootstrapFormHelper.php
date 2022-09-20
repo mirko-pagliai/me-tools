@@ -42,6 +42,11 @@ class BootstrapFormHelper extends FormHelper
     protected bool $isInline = false;
 
     /**
+     * @var bool
+     */
+    protected bool $isPost;
+
+    /**
      * Construct the widgets and binds the default context providers.
      *
      * This method only rewrites the default templates config.
@@ -54,15 +59,91 @@ class BootstrapFormHelper extends FormHelper
         $this->_defaultConfig = Hash::merge($this->_defaultConfig, ['templates' => [
             //Container element user for checkboxes
             'checkboxContainer' => '<div class="input mb-3 form-check{{required}}">{{content}}{{help}}</div>',
+            //Container element user for checkboxes when has an error
+            'checkboxContainerError' => '<div class="input mb-3 form-check{{required}}">{{content}}{{error}}{{help}}</div>',
+            //Error message wrapper elements
+            'error' => '<div class="invalid-feedback" id="{{id}}">{{content}}</div>',
             //Container element used by `control()`
             'inputContainer' => '<div class="input mb-3 {{type}}{{required}}">{{content}}{{help}}</div>',
             //Container element used by `control()` when a field has an error
-            'inputContainerError' => '<div class="input mb-3 {{type}}{{required}} error">{{content}}{{help}}{{error}}</div>',
+            'inputContainerError' => '<div class="input mb-3 {{type}}{{required}} error">{{content}}{{error}}{{help}}</div>',
             // Submit/reset button
             'inputSubmit' => '<button{{attrs}}>{{text}}</button>',
         ]]);
 
         parent::__construct($view, $config);
+
+        $this->isPost = $this->getView()->getRequest()->is('post');
+    }
+
+    /**
+     * Generates an input element
+     * @param string $fieldName the field name
+     * @param array<string, mixed> $options The options for the input element
+     * @return array|string The generated input element string
+     *  or array if checkbox() is called with option 'hiddenField' set to '_split'
+     */
+    protected function _getInput(string $fieldName, array $options)
+    {
+        $options = optionsParser($options);
+
+        //Class (checkboxes and radios have their own class)
+        if (!in_array($options->get('type'), ['checkbox', 'radio'])) {
+            $options->append('class', 'form-control');
+        }
+
+        /**
+         * Add class on `post` request (the form has been filled out)
+         * @see https://getbootstrap.com/docs/5.2/forms/validation/#server-side
+         */
+        if ($this->isPost) {
+            $options->append('class', $this->isFieldError($fieldName) ? 'is-invalid' : 'is-valid');
+        }
+
+        return parent::_getInput($fieldName, $options->toArray());
+    }
+
+    /**
+     * Generate label for input
+     * @param string $fieldName The name of the field to generate label for
+     * @param array<string, mixed> $options Options list
+     * @return string|false Generated label element or false
+     */
+    protected function _getLabel(string $fieldName, array $options)
+    {
+        if ($options['label'] === false) {
+            return false;
+        }
+
+        $label = optionsParser(is_string($options['label']) ? ['text' => $options['label']] : ($options['label'] ?? []));
+
+        //Checkbox and inline form fields have their own label class
+        if ($options['type'] === 'checkbox') {
+            $class = 'form-check-label';
+        } elseif ($this->isInline()) {
+            $class = 'visually-hidden';
+        }
+        $label->append('class', $class ?? 'form-label');
+
+        return parent::_getLabel($fieldName, ['label' => $label->toArray()] + $options);
+    }
+
+    /**
+     * Returns the input type that was guessed for the provided fieldName,
+     * based on the internal type it is associated too, its name and the
+     * variables that can be found in the view template
+     * @param string $fieldName the name of the field to guess a type for
+     * @param array<string, mixed> $options the options passed to the input method
+     * @return string
+     */
+    protected function _inputType(string $fieldName, array $options): string
+    {
+        //Forces the `password` type if `$fieldName` contains "password" or "pwd" words
+        if (str_contains($fieldName, 'password') || str_contains($fieldName, 'pwd')) {
+            return 'password';
+        }
+
+        return parent::_inputType($fieldName, $options);
     }
 
     /**
@@ -100,6 +181,28 @@ class BootstrapFormHelper extends FormHelper
     }
 
     /**
+     * Creates a checkbox input widget.
+     *
+     * See the parent method for all available options.
+     * @param string $fieldName Name of a field, like this "modelname.fieldname"
+     * @param array<string, mixed> $options Array of HTML attributes
+     * @return array<string>|string An HTML text input element
+     */
+    public function checkbox(string $fieldName, array $options = [])
+    {
+        $options = optionsParser($options)->append('class', 'form-check-input');
+
+        if ($this->isInline()) {
+            $this->setTemplates([
+                'checkboxContainer' => '<div class="col-12"><div class="form-check{{required}}">{{content}}</div></div>',
+                'checkboxContainerError' => '<div class="col-12"><div class="form-check{{required}} error">{{content}}{{error}}</div></div>',
+            ]);
+        }
+
+        return parent::checkbox($fieldName, $options->toArray());
+    }
+
+    /**
      * Generates a form control element complete with label and wrapper div.
      *
      * See the parent method for all available options.
@@ -110,99 +213,52 @@ class BootstrapFormHelper extends FormHelper
     public function control(string $fieldName, array $options = []): string
     {
         $this->resetTemplates();
-        $options = optionsParser($options, ['label' => []]);
+        $options = optionsParser($options);
 
         /**
-         * Sets label as `optionsParser` instance, with `text` option
-         */
-        if ($options->get('label') !== false) {
-            $label = optionsParser(is_string($options->get('label')) ? ['text' => $options->get('label')] : $options->get('label'));
-        }
-        /**
-         * Forces type before getting type.
-         *
-         * If the name contains the "password" word, then the type is `password`.
-         */
-        if (str_contains($fieldName, 'password')) {
-            $options->addDefault(['type' => 'password']);
-        }
-
-        $type = $options->get('type') ?? $this->_inputType($fieldName, $options->toArray());
-
-        /**
-         * Input class.
-         *
-         * Checkboxes have their own class.
-         */
-        $options->append('class', $type == 'checkbox' ? 'form-check-input' : 'form-control');
-
-        /**
-         * Label class.
-         *
-         * Checkbox labels have their own class.
-         * The other fields only when the form is not inline.
-         */
-        if (isset($label)) {
-            if ($type === 'checkbox') {
-                $label->append('class', 'form-check-label');
-            } elseif (!$this->isInline()) {
-                $label->append('class', 'form-label');
-            }
-        }
-
-        /**
-         * Add class on `post` request (the form has been filled out)
-         * @see https://getbootstrap.com/docs/5.2/forms/validation/#server-side
-         */
-        if ($this->getView()->getRequest()->is('post')) {
-            $options->append('class', $this->isFieldError($fieldName) ? 'is-invalid' : 'is-valid');
-        }
-
-        /**
-         * Inline forms
+         * Inline forms.
+         * By default, no help blocks.
          * @see https://getbootstrap.com/docs/5.2/forms/layout/#inline-forms
          */
         if ($this->isInline()) {
-            /**
-             * By default, no help blocks.
-             * Checkboxes require an additional container.
-             */
-            $options->append('templates', [
-                'checkboxContainer' => '<div class="col-12><div class="form-check{{required}}">{{content}}</div></div>',
+            $this->setTemplates([
                 'inputContainer' => '<div class="col-12 {{type}}{{required}}">{{content}}</div>',
                 'inputContainerError' => '<div class="col-12 {{type}}{{required}} error">{{content}{{error}}</div>',
             ]);
+        }
 
-            /**
-             * Label class form inline forms, except for checkboxes
-             */
-            if (isset($label) && $type !== 'checkbox') {
-                $label->append('class', 'visually-hidden')->delete('icon', 'icon-align');
-            }
+        if ($options->get('type') === 'radio') {
+            $this->setTemplates(['nestingLabel' => '<div class="form-check">{{hidden}}{{input}}<label{{attrs}}>{{text}}</label></div>']);
         }
 
         /**
-         * Help text (form text)
+         * Help text (form text).
+         * These are ignored in inline forms.
          * @see https://getbootstrap.com/docs/5.2/forms/overview/#form-text
          */
-        if ($options->exists('help')) {
+        if ($options->exists('help') && !$this->isInline()) {
             $help = implode('', array_map(fn(string $help): string => $this->Html->div('form-text text-muted', trim($help)), (array)$options->consume('help')));
             $options->append('templateVars', compact('help'));
         }
 
         /**
-         * Input group
+         * Input group (`append-text` and `prepend-text` options)
          * @see https://getbootstrap.com/docs/5.2/forms/input-group
          */
         if ($options->exists('append-text') || $options->exists('prepend-text')) {
-            //@todo Fix. Use `$options->append()`
-            $this->setTemplates(['formGroup' => '{{label}}<div class="input-group">{{prependText}}{{input}}{{appendText}}</div>']);
-            $appendText = $options->exists('append-text') ? $this->Html->span($options->consume('append-text'), ['class' => 'input-group-text']) : '';
-            $prependText = $options->exists('prepend-text') ? $this->Html->span($options->consume('prepend-text'), ['class' => 'input-group-text']) : '';
-            $options->append('templateVars', compact('appendText', 'prependText'));
-        }
+            $this->setTemplates([
+                'formGroup' => '{{label}}<div class="input-group' . ($this->isPost ? ' has-validation' : '') . '">{{prependText}}{{input}}{{appendText}}{{error}}</div>',
+                'inputContainer' => '<div class="input mb-3 {{type}}{{required}}">{{content}}{{help}}</div>',
+                'inputContainerError' => '<div class="input mb-3 {{type}}{{required}} error">{{content}}{{help}}</div>',
+            ]);
 
-        $options->add('label', isset($label) ? $label->toArray() : false);
+            if ($options->exists('append-text')) {
+                $options->append('templateVars', ['appendText' => $this->Html->span($options->consume('append-text'), ['class' => 'input-group-text'])]);
+            }
+            if ($options->exists('prepend-text')) {
+                $options->append('templateVars', ['prependText' => $this->Html->span($options->consume('prepend-text'), ['class' => 'input-group-text'])]);
+            }
+        }
 
         return parent::control($fieldName, $options->toArray());
     }
@@ -291,6 +347,53 @@ class BootstrapFormHelper extends FormHelper
     }
 
     /**
+     * Creates a set of radio widgets.
+     *
+     * See the parent method for all available options and attributes.
+     * @param string $fieldName Name of a field, like this "modelname.fieldname"
+     * @param iterable $options Radio button options array
+     * @param array<string, mixed> $attributes Array of attributes
+     * @return string Completed radio widget set
+     */
+    public function radio(string $fieldName, iterable $options = [], array $attributes = []): string
+    {
+        $attributes = optionsParser($attributes)
+            ->append('class', 'form-check-input')
+            ->add('label', ['class' => 'form-check-label']);
+
+        //Sets the `nestingLabel` templates only if it is still the default one,
+        //  therefore not already modified by other methods
+        if ($this->getTemplates('nestingLabel') == $this->_defaultConfig['templates']['nestingLabel']) {
+            $this->setTemplates(['nestingLabel' => '{{hidden}}{{input}}<label{{attrs}}>{{text}}</label>']);
+        }
+
+        $this->setTemplates(['label' => '']);
+
+        return parent::radio($fieldName, $options, $attributes->toArray());
+    }
+
+    /**
+     * Returns a formatted SELECT element.
+     *
+     * See the parent method for all available options and attributes.
+     * @param string $fieldName Name attribute of the SELECT
+     * @param iterable $options Array of the OPTION elements (as 'value'=>'Text' pairs) to be used in the
+     *   SELECT element
+     * @param array<string, mixed> $attributes The HTML attributes of the select element.
+     * @return string Formatted SELECT element
+     */
+    public function select(string $fieldName, iterable $options = [], array $attributes = []): string
+    {
+        $attributes = optionsParser($attributes);
+        if (!$attributes->exists('default') && !$attributes->exists('value')) {
+            $attributes->addDefault('empty', true);
+        }
+        $attributes->append('class', 'form-select');
+
+        return parent::select($fieldName, $options, $attributes->toArray());
+    }
+
+    /**
      * Creates a submit button element. This method will generate `<input />`
      *  elements that can be used to submit, and reset forms by using $options.
      *  Image submits can be created by supplying an image path for $caption.
@@ -308,7 +411,7 @@ class BootstrapFormHelper extends FormHelper
         $options = optionsParser($options, ['escape' => false, 'type' => 'submit']);
         $options->addButtonClasses($options->contains('type', 'submit') ? 'success' : 'primary');
         [$text, $options] = $this->Icon->addIconToText($caption, $options);
-        $options->append('templateVars', compact('text'));
+        $options->append('templateVars', ['text' => $text ?? __d('cake', 'Submit')]);
 
         return parent::submit($caption, $options->toArray());
     }

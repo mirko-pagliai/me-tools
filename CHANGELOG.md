@@ -1,5 +1,10 @@
 # 2.x branch
 ## 2.21 branch
+### 2.21.3
+* added `checkbox()`, `radio()` and `select()` methods for `BootstrapFormHelper`;
+* fixed templates for `BootstrapFormHelper` with input groups;
+* fixed little bug for `BootstrapFormHelper::submit()` method.
+
 ### 2.21.2
 * added `BootstrapHtmlHelper`. For now this class is temporary, but in the future
     it will replace `HtmlHelper`, assuming the same name. Some methods of the

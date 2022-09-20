@@ -77,6 +77,7 @@ class FormHelperTest extends HelperTestCase
 
     /**
      * Tests for `checkbox()` method
+     * @deprecated
      * @test
      */
     public function testCheckbox(): void
@@ -234,6 +235,7 @@ class FormHelperTest extends HelperTestCase
 
     /**
      * Tests for `control()` method with selects
+     * @deprecated
      * @test
      */
     public function testControlSelect(): void
@@ -596,6 +598,7 @@ class FormHelperTest extends HelperTestCase
 
     /**
      * Tests for `select()` method
+     * @deprecated
      * @test
      */
     public function testSelect(): void
