@@ -87,8 +87,8 @@ class BootstrapFormHelper extends FormHelper
     {
         $options = optionsParser($options);
 
-        //Class (checkboxes have their own class
-        if ($options->get('type') !== 'checkbox') {
+        //Class (checkboxes and radios have their own class)
+        if (!in_array($options->get('type'), ['checkbox', 'radio'])) {
             $options->append('class', 'form-control');
         }
 
@@ -124,7 +124,6 @@ class BootstrapFormHelper extends FormHelper
             $class = 'visually-hidden';
         }
         $label->append('class', $class ?? 'form-label');
-
 
         return parent::_getLabel($fieldName, ['label' => $label->toArray()] + $options);
     }
@@ -226,6 +225,10 @@ class BootstrapFormHelper extends FormHelper
                 'inputContainer' => '<div class="col-12 {{type}}{{required}}">{{content}}</div>',
                 'inputContainerError' => '<div class="col-12 {{type}}{{required}} error">{{content}{{error}}</div>',
             ]);
+        }
+
+        if ($options->get('type') === 'radio') {
+            $this->setTemplates(['nestingLabel' => '<div class="form-check">{{hidden}}{{input}}<label{{attrs}}>{{text}}</label></div>']);
         }
 
         /**
@@ -341,6 +344,32 @@ class BootstrapFormHelper extends FormHelper
         $options = optionsParser($options)->add('role', 'button')->addButtonClasses();
 
         return $this->postLink($title, $url, $options->toArray());
+    }
+
+    /**
+     * Creates a set of radio widgets.
+     *
+     * See the parent method for all available options and attributes.
+     * @param string $fieldName Name of a field, like this "modelname.fieldname"
+     * @param iterable $options Radio button options array
+     * @param array<string, mixed> $attributes Array of attributes
+     * @return string Completed radio widget set
+     */
+    public function radio(string $fieldName, iterable $options = [], array $attributes = []): string
+    {
+        $attributes = optionsParser($attributes)
+            ->append('class', 'form-check-input')
+            ->add('label', ['class' => 'form-check-label']);
+
+        //Sets the `nestingLabel` templates only if it is still the default one,
+        //  therefore not already modified by other methods
+        if ($this->getTemplates('nestingLabel') == $this->_defaultConfig['templates']['nestingLabel']) {
+            $this->setTemplates(['nestingLabel' => '{{hidden}}{{input}}<label{{attrs}}>{{text}}</label>']);
+        }
+
+        $this->setTemplates(['label' => '']);
+
+        return parent::radio($fieldName, $options, $attributes->toArray());
     }
 
     /**

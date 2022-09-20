@@ -14,6 +14,7 @@ declare(strict_types=1);
  */
 namespace MeTools\Test\TestCase\View\Helper;
 
+use Cake\Core\Configure;
 use Cake\Http\ServerRequest;
 use Cake\View\View;
 use MeTools\TestSuite\HelperTestCase;
@@ -100,6 +101,56 @@ class BootstrapFormHelperTest extends HelperTestCase
     }
 
     /**
+     * Test for `radio()` method
+     * @return void
+     * @uses \MeTools\View\Helper\BootstrapFormHelper::radio()
+     */
+    public function testRadio(): void
+    {
+        $expected = '<input type="hidden" name="my-field" value=""/>' .
+            '<input type="radio" name="my-field" value="1" id="my-field-1" class="form-check-input">' .
+            '<label class="form-check-label" for="my-field-1">A</label>' .
+            '<input type="radio" name="my-field" value="2" id="my-field-2" class="form-check-input">' .
+            '<label class="form-check-label" for="my-field-2">B</label>';
+        if (version_compare(Configure::version(), '4.4', '>=')) {
+            $expected = '<input type="hidden" name="my-field" id="my-field" value=""/>' .
+                '<input type="radio" name="my-field" value="1" id="my-field-1" class="form-check-input">' .
+                '<label class="form-check-label" for="my-field-1">A</label>' .
+                '<input type="radio" name="my-field" value="2" id="my-field-2" class="form-check-input">' .
+                '<label class="form-check-label" for="my-field-2">B</label>';
+        }
+        $result = $this->Helper->radio('my-field', ['1' => 'A', '2' => 'B']);
+        $this->assertSame($expected, $result);
+
+        $expected = '<div class="input mb-3 radio">' .
+            '<input type="hidden" name="my-field" value=""/>' .
+            '<div class="form-check">' .
+            '<input type="radio" name="my-field" value="1" id="my-field-1" class="form-check-input">' .
+            '<label class="form-check-label" for="my-field-1">A</label>' .
+            '</div>' .
+            '<div class="form-check">' .
+            '<input type="radio" name="my-field" value="2" id="my-field-2" class="form-check-input">' .
+            '<label class="form-check-label" for="my-field-2">B</label>' .
+            '</div>' .
+            '</div>';
+        if (version_compare(Configure::version(), '4.4', '>=')) {
+            $expected = '<div class="input mb-3 radio">' .
+                '<input type="hidden" name="my-field" id="my-field" value=""/>' .
+                '<div class="form-check">' .
+                '<input type="radio" name="my-field" value="1" id="my-field-1" class="form-check-input">' .
+                '<label class="form-check-label" for="my-field-1">A</label>' .
+                '</div>' .
+                '<div class="form-check">' .
+                '<input type="radio" name="my-field" value="2" id="my-field-2" class="form-check-input">' .
+                '<label class="form-check-label" for="my-field-2">B</label>' .
+                '</div>' .
+                '</div>';
+        }
+        $result = $this->Helper->control('my-field', ['options' => ['1' => 'A', '2' => 'B'], 'type' => 'radio']);
+        $this->assertSame($expected, $result);
+    }
+
+    /**
      * Test for `control()` method, with a "checkbox" type
      * @return void
      * @uses \MeTools\View\Helper\BootstrapFormHelper::checkbox()
@@ -127,11 +178,11 @@ class BootstrapFormHelperTest extends HelperTestCase
         //With error
         $expectedStart = '<div class="input mb-3 form-check required"><input type="hidden" name="my-checkbox" value="0"/><label class="form-check-label fw-bolder" for="my-checkbox"><input type="checkbox" name="my-checkbox" value="1"';
         $expectedEnd = 'class="form-check-input is-invalid" id="my-checkbox" required="required">My Checkbox</label>My error</div>';
-        /** @var \MeTools\View\Helper\BootstrapFormHelper&\PHPUnit\Framework\MockObject\MockObject $Helper */
         $Request = $this->getMockBuilder(ServerRequest::class)
             ->setMethods(['is'])
             ->getMock();
         $Request->method('is')->willReturn(true);
+        /** @var \MeTools\View\Helper\BootstrapFormHelper&\PHPUnit\Framework\MockObject\MockObject $Helper */
         $Helper = $this->getMockForHelper(BootstrapFormHelper::class, ['error', 'isFieldError'], new View($Request));
         $Helper->method('error')->willReturn('My error');
         $Helper->method('isFieldError')->willReturn(true);
