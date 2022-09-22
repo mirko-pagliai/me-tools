@@ -158,6 +158,22 @@ class BootstrapHtmlHelper extends HtmlHelper
     }
 
     /**
+     * Creates a link to an external resource and handles basic meta tags
+     * @param array<string, mixed>|string $type The title of the external resource,
+     *  or an array of attributes for a custom meta tag
+     * @param array|string|null $content The address of the external resource or string
+     *  for content attribute
+     * @param array<string, mixed> $options Other attributes for the generated tag. If
+     *  the type attribute is html, rss, atom, or icon, the mime-type is returned
+     * @return string|null A completed `<link />` element, or null if the element was
+     *  sent to a block
+     */
+    public function meta($type, $content = null, array $options = []): ?string
+    {
+        return parent::meta($type, $content, $options + ['block' => true]);
+    }
+
+    /**
      * Build a nested list (UL/OL) out of an associative array.
      *
      * See the parent method for all available options.
