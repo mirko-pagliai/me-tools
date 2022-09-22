@@ -112,6 +112,20 @@ class BootstrapHtmlHelper extends HtmlHelper
     }
 
     /**
+     * Returns an element list (`<li>`).
+     *
+     * If `$element` is an array, the same `$options` will be applied to all
+     *  elements.
+     * @param string|array<string> $element Element or elements
+     * @param array $options HTML attributes of the list tag
+     * @return string
+     */
+    public function li($element, array $options = []): string
+    {        
+        return implode(PHP_EOL, array_map(fn(string $element): string => $this->tag('li', $element, $options), (array)$element));
+    }
+
+    /**
      * Creates an HTML link.
      *
      * See the parent method for all available options.
