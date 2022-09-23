@@ -79,9 +79,49 @@ class BootstrapFormHelperTest extends HelperTestCase
         $result = $this->Helper->control('my-field', ['help' => ['first text', 'second text']]);
         $this->assertSame($expected, $result);
 
-        //With input group
+        //With input group (`prepend-text`)
+        $expected = '<div class="input mb-3 text"><label class="form-label fw-bolder" for="my-field">My Field</label><div class="input-group"><span class="input-group-text">first text</span><input type="text" name="my-field" class="form-control" id="my-field"/></div></div>';
+        $result = $this->Helper->control('my-field', ['prepend-text' => 'first text']);
+        $this->assertSame($expected, $result);
+
+        //With input group (`append-text` and `prepend-text`)
         $expected = '<div class="input mb-3 text"><label class="form-label fw-bolder" for="my-field">My Field</label><div class="input-group"><span class="input-group-text">first text</span><input type="text" name="my-field" class="form-control" id="my-field"/><span class="input-group-text">second text</span></div></div>';
         $result = $this->Helper->control('my-field', ['prepend-text' => 'first text', 'append-text' => 'second text']);
+        $this->assertSame($expected, $result);
+
+        //With input group as button (`append-text`)
+        $expected = '<div class="input mb-3 text">' . 
+            '<label class="form-label fw-bolder" for="my-field">My Field</label>' . 
+            '<div class="input-group">' .
+            '<input type="text" name="my-field" class="form-control" id="my-field"/>' .
+            '<button class="btn btn-primary" type="button"><i class="fas fa-home"> </i> My button</button>' .
+            '</div>' . 
+            '</div>';
+        $result = $this->Helper->control('my-field', ['append-text' => $this->Helper->button('My button', ['icon' => 'home'])]);
+        $this->assertSame($expected, $result);
+
+        //With input group as button (`prepend-text`)
+        $expected = '<div class="input mb-3 text">' . 
+            '<label class="form-label fw-bolder" for="my-field">My Field</label>' . 
+            '<div class="input-group">' .
+            '<button class="btn btn-primary" type="button"><i class="fas fa-home"> </i> My button</button>' .
+            '<input type="text" name="my-field" class="form-control" id="my-field"/>' .
+            '</div>' . 
+            '</div>';
+        $result = $this->Helper->control('my-field', ['prepend-text' => $this->Helper->button('My button', ['icon' => 'home'])]);
+        $this->assertSame($expected, $result);
+
+        //With input group as submit button (`prepend-text`)
+        $expected = '<div class="input mb-3 text">' . 
+            '<label class="form-label fw-bolder" for="my-field">My Field</label>' . 
+            '<div class="input-group">' .
+            '<div class="submit">' .
+            '<button class="btn btn-success" value="My submit"><i class="fas fa-home"> </i> My submit</button>' .
+            '</div>' .
+            '<input type="text" name="my-field" class="form-control" id="my-field"/>' .
+            '</div>' . 
+            '</div>';
+        $result = $this->Helper->control('my-field', ['prepend-text' => $this->Helper->submit('My submit', ['icon' => 'home'])]);
         $this->assertSame($expected, $result);
 
         //With a custom label

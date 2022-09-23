@@ -1,6 +1,8 @@
 # 2.x branch
 ## 2.21 branch
 ### 2.21.4
+* `append-text` and `prepend-text` options for `BootstrapFormHelper`
+    can handle buttons;
 * added `li()` and `meta()` methods for `BootstrapHtmlHelper`.
 
 ### 2.21.3
