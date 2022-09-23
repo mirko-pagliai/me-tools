@@ -178,8 +178,9 @@ class BootstrapFormHelperTest extends HelperTestCase
         //With error
         $expectedStart = '<div class="input mb-3 form-check required"><input type="hidden" name="my-checkbox" value="0"/><label class="form-check-label fw-bolder" for="my-checkbox"><input type="checkbox" name="my-checkbox" value="1"';
         $expectedEnd = 'class="form-check-input is-invalid" id="my-checkbox" required="required">My Checkbox</label>My error</div>';
+        /** @var \Cake\Http\ServerRequest&\PHPUnit\Framework\MockObject\MockObject $Request */
         $Request = $this->getMockBuilder(ServerRequest::class)
-            ->setMethods(['is'])
+            ->onlyMethods(['is'])
             ->getMock();
         $Request->method('is')->willReturn(true);
         /** @var \MeTools\View\Helper\BootstrapFormHelper&\PHPUnit\Framework\MockObject\MockObject $Helper */
@@ -238,8 +239,9 @@ class BootstrapFormHelperTest extends HelperTestCase
      */
     public function testControlWithValidation(): void
     {
+        /** @var \Cake\Http\ServerRequest&\PHPUnit\Framework\MockObject\MockObject $Request */
         $Request = $this->getMockBuilder(ServerRequest::class)
-            ->setMethods(['is'])
+            ->onlyMethods(['is'])
             ->getMock();
         $Request->method('is')->willReturn(true);
         $View = new View($Request);
