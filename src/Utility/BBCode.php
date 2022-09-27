@@ -83,7 +83,7 @@ class BBCode
     /**
      * Parses image code.
      * <code>
-     * [img]mypic.gif[/img]
+     * [img]my_pic.gif[/img]
      * </code>
      * @param string $text Text
      * @return string

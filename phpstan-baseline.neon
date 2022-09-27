@@ -11,11 +11,6 @@ parameters:
 			path: src/TestSuite/HelperTestCase.php
 
 		-
-			message: "#^Ternary operator condition is always false\\.$#"
-			count: 1
-			path: tests/TestCase/Command/Install/CreatePluginsLinksCommandTest.php
-
-		-
 			message: "#^Cannot access property \\$Uploader on Cake\\\\Controller\\\\Controller\\|null\\.$#"
 			count: 3
 			path: tests/TestCase/TestSuite/IntegrationTestTraitTest.php

@@ -289,7 +289,7 @@ class LibraryHelperTest extends HelperTestCase
     {
         $expected = [
             'script' => [
-                'src' => '//dsms0mj1bbhn4.cloudfront.net/assets/pub/shareaholic.js',
+                'src' => 'http://dsms0mj1bbhn4.cloudfront.net/assets/pub/shareaholic.js',
                 'async' => 'async',
                 'data-cfasync' => 'false',
                 'data-shr-siteid' => 'my-id',

@@ -84,7 +84,7 @@ class UploaderComponent extends Component
     /**
      * Internal method to check for uploaded file information (`$file` property)
      * @return void
-     * @throws \Tools\Exception\ObjectWrongInstanceException
+     * @throws \Exception|\Tools\Exception\ObjectWrongInstanceException
      */
     protected function _checkUploadedFileInformation(): void
     {

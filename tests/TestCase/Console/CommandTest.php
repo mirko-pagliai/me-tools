@@ -37,7 +37,7 @@ class CommandTest extends TestCase
      * Called before every test method
      * @return void
      */
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->Command = $this->getMockForAbstractClass(Command::class);
 
@@ -56,7 +56,7 @@ class CommandTest extends TestCase
      * Called after every test method
      * @return void
      */
-    public function tearDown(): void
+    protected function tearDown(): void
     {
         parent::tearDown();
 
@@ -91,6 +91,7 @@ class CommandTest extends TestCase
 
     /**
      * Tests for `createDir()` method
+     * @uses \MeTools\Console\Command::createDir()
      * @test
      */
     public function testCreateDir(): void
@@ -105,7 +106,7 @@ class CommandTest extends TestCase
         $this->assertFileExists($dir);
         $this->assertDirectoryIsWritable($dir);
         $this->assertOutputContains('Created `' . $dir . '` directory');
-        $this->assertOutputContains('Setted permissions on `' . $dir . '`');
+        $this->assertOutputContains('Set permissions on `' . $dir . '`');
 
         $this->assertErrorEmpty();
     }
@@ -180,7 +181,7 @@ class CommandTest extends TestCase
         //Set chmod
         $this->assertTrue($this->Command->folderChmod($this->io, $dir, 0777));
         $this->assertDirectoryIsWritable($dir);
-        $this->assertOutputContains('Setted permissions on `' . $dir . '`');
+        $this->assertOutputContains('Set permissions on `' . $dir . '`');
 
         //Tries to set chmod for a no existing directory
         $this->assertFalse($this->Command->folderChmod($this->io, DS . 'noExistingDir', 0777));

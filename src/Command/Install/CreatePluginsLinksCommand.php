@@ -43,13 +43,14 @@ class CreatePluginsLinksCommand extends Command
      * @param \Cake\Console\Arguments $args The command arguments
      * @param \Cake\Console\ConsoleIo $io The console io
      * @return void
+     * @throws \Exception
      */
     public function execute(Arguments $args, ConsoleIo $io): void
     {
         foreach (Plugin::loaded() as $plugin) {
             $srcPath = Plugin::path($plugin, 'webroot');
             if (!is_dir($srcPath)) {
-                $io->verbose(__d('me_tools', 'Skipping plugin `{0}`. It does not have webroot folder', $plugin), 1);
+                $io->verbose(__d('me_tools', 'Skipping plugin `{0}`. It does not have webroot folder', $plugin));
                 continue;
             }
 

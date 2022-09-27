@@ -17,7 +17,6 @@ namespace MeTools\TestSuite;
 
 use Cake\View\Helper;
 use Cake\View\View;
-use MeTools\TestSuite\TestCase;
 
 /**
  * Abstract class for test helpers
@@ -39,7 +38,7 @@ abstract class HelperTestCase extends TestCase
      * Called before every test method
      * @return void
      */
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
 

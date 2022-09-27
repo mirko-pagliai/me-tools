@@ -1,4 +1,5 @@
 <?php
+/** @noinspection PhpUnused */
 declare(strict_types=1);
 
 /**
@@ -170,7 +171,7 @@ class BootstrapFormHelper extends FormHelper
      * @param string $fieldName This should be "modelname.fieldname"
      * @param array<string, mixed> $options Each type of input takes different options
      * @return string
-     * @see MeTools\View\Helper\LibraryHelper::ckeditor()
+     * @see \MeTools\View\Helper\LibraryHelper::ckeditor()
      */
     public function ckeditor(string $fieldName, array $options = []): string
     {
@@ -269,9 +270,9 @@ class BootstrapFormHelper extends FormHelper
      * See the parent method for all available options.
      * @param mixed $context The context for which the form is being defined.
      *   Can be a ContextInterface instance, ORM entity, ORM resultset, or an
-     *   array of meta data. You can use `null` to make a context-less form.
+     *   array of metadata. You can use `null` to make a context-less form.
      * @param array<string, mixed> $options An array of html attributes and options
-     * @return string An formatted opening FORM tag
+     * @return string A formatted opening FORM tag
      * @see https://getbootstrap.com/docs/5.2/forms/layout/#inline-forms
      */
     public function createInline($context = null, array $options = []): string
@@ -404,7 +405,7 @@ class BootstrapFormHelper extends FormHelper
      *  exists, AND the first character is /, image is relative to webroot,
      *  OR if the first character is not /, image is relative to webroot/img
      * @param array<string, mixed> $options Array of options
-     * @return string A HTML submit button
+     * @return string An HTML submit button
      */
     public function submit(?string $caption = null, array $options = []): string
     {

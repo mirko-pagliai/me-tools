@@ -109,7 +109,7 @@ abstract class Command extends CakeCommand
      */
     public function createFile(ConsoleIo $io, string $path, string $contents): bool
     {
-        return $this->verboseIfFileExists($io, $path) ? false : $io->createFile($path, $contents);
+        return !$this->verboseIfFileExists($io, $path) && $io->createFile($path, $contents);
     }
 
     /**
@@ -142,7 +142,7 @@ abstract class Command extends CakeCommand
     }
 
     /**
-     * Sets folder chmods.
+     * Sets folder permissions.
      *
      * This method applies permissions recursively.
      * @param \Cake\Console\ConsoleIo $io The console io
@@ -160,7 +160,7 @@ abstract class Command extends CakeCommand
             return false;
         }
 
-        $io->verbose(__d('me_tools', 'Setted permissions on `{0}`', Filesystem::instance()->rtr($path)));
+        $io->verbose(__d('me_tools', 'Set permissions on `{0}`', Filesystem::instance()->rtr($path)));
 
         return true;
     }

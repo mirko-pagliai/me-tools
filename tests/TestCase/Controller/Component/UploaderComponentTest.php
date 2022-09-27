@@ -162,7 +162,7 @@ class UploaderComponentTest extends ComponentTestCase
         $this->expectException(ObjectWrongInstanceException::class);
         $this->expectExceptionMessage('There are no uploaded file information');
         /** @phpstan-ignore-next-line */
-        $this->getMockForComponent(UploaderComponent::class, null)->mimetype('text/plain');
+        $this->getMockForComponent(UploaderComponent::class, [])->mimetype('text/plain');
     }
 
     /**
@@ -194,7 +194,7 @@ class UploaderComponentTest extends ComponentTestCase
         $file = Filesystem::instance()->createTmpFile();
         $UploadedFile = $this->getMockBuilder(UploadedFile::class)
             ->setConstructorArgs([$file, filesize($file), UPLOAD_ERR_OK, basename($file), 'text/plain'])
-            ->setMethods(['moveTo'])
+            ->onlyMethods(['moveTo'])
             ->getMock();
 
         $UploadedFile->method('moveTo')->willThrowException(new UploadedFileErrorException());
@@ -206,7 +206,7 @@ class UploaderComponentTest extends ComponentTestCase
         $this->expectException(ObjectWrongInstanceException::class);
         $this->expectExceptionMessage('There are no uploaded file information');
         /** @phpstan-ignore-next-line */
-        $this->getMockForComponent(UploaderComponent::class, null)->save('');
+        $this->getMockForComponent(UploaderComponent::class, [])->save('');
     }
 
     /**

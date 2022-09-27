@@ -72,13 +72,13 @@ class MockTraitTest extends TestCase
     public function testGetMockForController(): void
     {
         /** @var \App\Controller\PagesController $Controller **/
-        $Controller = $this->getMockForController('App\Controller\PagesController', null);
+        $Controller = $this->getMockForController('App\Controller\PagesController', []);
         $this->assertIsMock($Controller);
         $this->assertInstanceOf(Controller::class, $Controller);
         $this->assertEquals('Pages', $Controller->getName());
 
         /** @var \App\Controller\PagesController $Controller **/
-        $Controller = $this->getMockForController('App\Controller\PagesController', null, 'MyController');
+        $Controller = $this->getMockForController('App\Controller\PagesController', [], 'MyController');
         $this->assertIsMock($Controller);
         $this->assertInstanceOf(Controller::class, $Controller);
         $this->assertEquals('MyController', $Controller->getName());

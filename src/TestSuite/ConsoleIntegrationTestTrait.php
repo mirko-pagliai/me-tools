@@ -15,6 +15,7 @@ declare(strict_types=1);
  */
 namespace MeTools\TestSuite;
 
+use Cake\Console\CommandInterface;
 use Cake\Console\TestSuite\ConsoleIntegrationTestTrait as BaseConsoleIntegrationTestTrait;
 use MeTools\Console\Command;
 
@@ -63,7 +64,7 @@ trait ConsoleIntegrationTestTrait
      */
     public function assertExitWithError(string $message = ''): void
     {
-        $this->assertExitCode(Command::CODE_ERROR, $message);
+        $this->assertExitCode(CommandInterface::CODE_ERROR, $message);
     }
 
     /**
@@ -74,7 +75,7 @@ trait ConsoleIntegrationTestTrait
      */
     public function assertExitWithSuccess(string $message = ''): void
     {
-        $this->assertExitCode(Command::CODE_SUCCESS, $message);
+        $this->assertExitCode(CommandInterface::CODE_SUCCESS, $message);
     }
 
     /**

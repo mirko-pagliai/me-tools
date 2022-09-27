@@ -37,7 +37,7 @@ class HiddenWidgetTest extends TestCase
 
         if (empty($this->Helper)) {
             /** @var \MeTools\View\Helper\FormHelper&\PHPUnit\Framework\MockObject\MockObject $Helper */
-            $Helper = $this->getMockForHelper(FormHelper::class, null);
+            $Helper = $this->getMockForHelper(FormHelper::class, []);
             $this->Helper = $Helper;
         }
     }

@@ -20,7 +20,6 @@ use Cake\ORM\Table;
 use Cake\ORM\TableRegistry;
 use Cake\TestSuite\TestCase as CakeTestCase;
 use Exception;
-use MeTools\TestSuite\MockTrait;
 use Tools\Exceptionist;
 use Tools\Filesystem;
 use Tools\TestSuite\ReflectionTrait;

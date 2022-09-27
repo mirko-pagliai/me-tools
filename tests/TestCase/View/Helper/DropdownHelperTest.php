@@ -38,7 +38,7 @@ class DropdownHelperTest extends HelperTestCase
 
         if (empty($this->Html)) {
             /** @var \MeTools\View\Helper\HtmlHelper&\PHPUnit\Framework\MockObject\MockObject $Html */
-            $Html = $this->getMockForHelper(HtmlHelper::class, null);
+            $Html = $this->getMockForHelper(HtmlHelper::class, []);
             $this->Html = $Html;
         }
     }

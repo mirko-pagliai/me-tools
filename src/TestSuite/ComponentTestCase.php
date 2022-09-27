@@ -18,7 +18,6 @@ namespace MeTools\TestSuite;
 use Cake\Controller\Component;
 use Cake\Controller\ComponentRegistry;
 use Cake\Controller\Controller;
-use MeTools\TestSuite\TestCase;
 
 /**
  * Abstract class for test components
@@ -40,7 +39,7 @@ abstract class ComponentTestCase extends TestCase
      * Called before every test method
      * @return void
      */
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
 
