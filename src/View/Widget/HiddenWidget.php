@@ -27,7 +27,6 @@ class HiddenWidget extends BasicWidget
      * @param array $data The data to build an input with
      * @param \Cake\View\Form\ContextInterface $context The current form context
      * @return string
-     * @noinspection PhpUnused
      */
     public function render(array $data, ContextInterface $context): string
     {
