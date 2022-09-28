@@ -140,6 +140,23 @@ class BootstrapHtmlHelperTest extends HelperTestCase
     }
 
     /**
+     * Test for `li()` method
+     * @test
+     * @uses \MeTools\View\Helper\BootstrapHtmlHelper::li()
+     */
+    public function testLi(): void
+    {
+        $expected = '<li><i class="fas fa-home"> </i> My li</li>';
+        $result = $this->Helper->li('My li', ['icon' => 'home']);
+        $this->assertSame($expected, $result);
+
+        $expected = '<li class="my-class"><i class="fas fa-home"> </i> first-value</li>' . PHP_EOL .
+            '<li class="my-class"><i class="fas fa-home"> </i> second-value</li>';
+        $result = $this->Helper->li(['first-value', 'second-value'], ['class' => 'my-class', 'icon' => 'home']);
+        $this->assertSame($expected, $result);
+    }
+
+    /**
      * Test for `link()` method
      * @test
      * @uses \MeTools\View\Helper\BootstrapHtmlHelper::link()

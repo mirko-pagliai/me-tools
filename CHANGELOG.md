@@ -9,6 +9,9 @@
     `LibraryHelper` were deprecated and have now been removed.
 
 ## 2.21 branch
+### 2.21.4
+* added `li()` method for `BootstrapHtmlHelper`.
+
 ### 2.21.3
 * added `checkbox()`, `radio()` and `select()` methods for `BootstrapFormHelper`;
 * fixed templates for `BootstrapFormHelper` with input groups;
