@@ -90,12 +90,12 @@ class BootstrapFormHelperTest extends HelperTestCase
         $this->assertSame($expected, $result);
 
         //With input group as button (`append-text`)
-        $expected = '<div class="input mb-3 text">' . 
-            '<label class="form-label fw-bolder" for="my-field">My Field</label>' . 
+        $expected = '<div class="input mb-3 text">' .
+            '<label class="form-label fw-bolder" for="my-field">My Field</label>' .
             '<div class="input-group">' .
             '<input type="text" name="my-field" class="form-control" id="my-field"/>' .
             '<button class="btn btn-primary" type="button"><i class="fas fa-home"> </i> My button</button>' .
-            '</div>' . 
+            '</div>' .
             '</div>';
         $result = $this->Helper->control('my-field', ['append-text' => $this->Helper->button('My button', ['icon' => 'home'])]);
         $this->assertSame($expected, $result);
