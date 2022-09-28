@@ -5,9 +5,6 @@
 
     <rule ref="./vendor/mirko-pagliai/php-tools/sniffer-ruleset.xml"/>
 
-    <rule ref="Squiz.ControlStructures.ForLoopDeclaration.SpacingBeforeSecond">
-        <severity>0</severity>
-    </rule>
     <rule ref="SlevomatCodingStandard.Classes.ModernClassNameReference.ClassNameReferencedViaFunctionCall">
         <severity>0</severity>
     </rule>
