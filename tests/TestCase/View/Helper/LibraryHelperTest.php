@@ -122,7 +122,7 @@ class LibraryHelperTest extends HelperTestCase
     {
         $request = $this->createMock(ServerRequest::class);
         $request->expects($this->any())->method('is')->willReturn(true);
-        $Helper = new LibraryHelper(new View(($request)));
+        $Helper = new LibraryHelper(new View($request));
         $Helper->analytics('my-id');
         $this->assertEmpty($Helper->getView()->fetch('script_bottom'));
     }
