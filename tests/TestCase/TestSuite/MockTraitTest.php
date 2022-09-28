@@ -24,7 +24,6 @@ use Cake\Controller\Controller;
 use Cake\View\Helper;
 use MeTools\TestSuite\TestCase;
 use PHPUnit\Framework\AssertionFailedError;
-use stdClass;
 
 /**
  * MockTraitTest class
