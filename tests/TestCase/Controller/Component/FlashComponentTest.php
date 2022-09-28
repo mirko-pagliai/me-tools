@@ -12,7 +12,6 @@ declare(strict_types=1);
  * @link        https://github.com/mirko-pagliai/me-tools
  * @license     https://opensource.org/licenses/mit-license.php MIT License
  */
-
 namespace MeTools\Test\TestCase\Controller\Component;
 
 use MeTools\TestSuite\ComponentTestCase;
@@ -34,11 +33,11 @@ class FlashComponentTest extends ComponentTestCase
         $text = 'My message';
 
         foreach ([
-                     'alert' => 'alert-warning',
-                     'error' => 'alert-danger',
-                     'notice' => 'alert-info',
-                     'success' => 'alert-success',
-                 ] as $method => $expectedClass) {
+            'alert' => 'alert-warning',
+            'error' => 'alert-danger',
+            'notice' => 'alert-info',
+            'success' => 'alert-success',
+        ] as $method => $expectedClass) {
             $expected = [[
                 'message' => $text,
                 'key' => 'flash',

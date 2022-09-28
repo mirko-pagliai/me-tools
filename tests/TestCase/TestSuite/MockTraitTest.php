@@ -12,7 +12,6 @@ declare(strict_types=1);
  * @link        https://github.com/mirko-pagliai/me-tools
  * @license     https://opensource.org/licenses/mit-license.php MIT License
  */
-
 namespace MeTools\Test\TestCase\TestSuite;
 
 use AnotherTestPlugin\Test\TestCase\Controller\MyExampleControllerTest;
@@ -46,9 +45,9 @@ class MockTraitTest extends TestCase
 
         //Class with no alias or no existing class
         foreach ([
-                     stdClass::class => 'Unable to get the alias for the `stdClass` class',
-                     'No\Existing\Class' => 'Class `No\Existing\Class` does not exist',
-                 ] as $className => $expectedMessage) {
+            stdClass::class => 'Unable to get the alias for the `stdClass` class',
+            'No\Existing\Class' => 'Class `No\Existing\Class` does not exist',
+        ] as $className => $expectedMessage) {
             /** @phpstan-ignore-next-line */
             $this->assertException(fn() => $this->getAlias($className), AssertionFailedError::class, $expectedMessage);
         }

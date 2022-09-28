@@ -41,14 +41,14 @@ define('SESSIONS', TMP . 'sessions' . DS);
 define('UPLOADS', TMP . 'uploads' . DS);
 
 foreach ([
-             TMP . 'tests',
-             LOGS,
-             SESSIONS,
-             CACHE . 'models',
-             CACHE . 'persistent',
-             CACHE . 'views',
-             UPLOADS,
-         ] as $dir) {
+    TMP . 'tests',
+    LOGS,
+    SESSIONS,
+    CACHE . 'models',
+    CACHE . 'persistent',
+    CACHE . 'views',
+    UPLOADS,
+] as $dir) {
     @mkdir($dir, 0777, true);
 }
 
