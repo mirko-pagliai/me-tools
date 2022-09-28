@@ -121,7 +121,7 @@ class BootstrapHtmlHelper extends HtmlHelper
      * @return string
      */
     public function li($element, array $options = []): string
-    {        
+    {
         return implode(PHP_EOL, array_map(fn(string $element): string => $this->tag('li', $element, $options), (array)$element));
     }
 
