@@ -1,16 +1,6 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Left side of && is always true\\.$#"
-			count: 1
-			path: src/TestSuite/ComponentTestCase.php
-
-		-
-			message: "#^Left side of && is always true\\.$#"
-			count: 1
-			path: src/TestSuite/HelperTestCase.php
-
-		-
 			message: "#^Cannot access property \\$Uploader on Cake\\\\Controller\\\\Controller\\|null\\.$#"
 			count: 3
 			path: tests/TestCase/TestSuite/IntegrationTestTraitTest.php
