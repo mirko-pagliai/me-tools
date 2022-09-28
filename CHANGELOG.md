@@ -1,6 +1,9 @@
 # 2.x branch
 ## 2.22 branch
 ### 2.22.0
+* `append-text` and `prepend-text` options for `BootstrapFormHelper`
+    can handle buttons;
+* added `li()` and `meta()` methods for `BootstrapHtmlHelper`;
 * `cssBlock()`, `cssStart()`, `cssEnd()`, `heading()`, `hr()` and `scriptBlock()`
     methods provided by the `HtmlHelper` were deprecated and have now been removed;
 * `datepicker()`, `datetimepicker()` and `timepicker()` methods provided by
@@ -9,11 +12,6 @@
     `LibraryHelper` were deprecated and have now been removed.
 
 ## 2.21 branch
-### 2.21.4
-* `append-text` and `prepend-text` options for `BootstrapFormHelper`
-    can handle buttons;
-* added `li()` and `meta()` methods for `BootstrapHtmlHelper`.
-
 ### 2.21.3
 * added `checkbox()`, `radio()` and `select()` methods for `BootstrapFormHelper`;
 * fixed templates for `BootstrapFormHelper` with input groups;
