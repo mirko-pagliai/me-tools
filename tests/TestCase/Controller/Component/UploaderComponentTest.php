@@ -44,7 +44,7 @@ class UploaderComponentTest extends ComponentTestCase
      * Called after every test method
      * @return void
      */
-    public function tearDown(): void
+    protected function tearDown(): void
     {
         Filesystem::instance()->unlinkRecursive(UPLOADS);
         Filesystem::instance()->rmdirRecursive(TMP . 'upload_test');
