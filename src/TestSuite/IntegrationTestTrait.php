@@ -54,7 +54,6 @@ trait IntegrationTestTrait
                 ->getMock();
 
             $Uploader->method('move_uploaded_file')->willReturnCallback(fn(string $filename, string $destination): bool => rename($filename, $destination));
-            /** @phpstan-ignore-line */
             /** @noinspection PhpPossiblePolymorphicInvocationInspection */
             $this->_controller->Uploader = $Uploader;
         }
