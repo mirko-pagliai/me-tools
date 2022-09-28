@@ -10,7 +10,9 @@
 
 ## 2.21 branch
 ### 2.21.4
-* added `li()` method for `BootstrapHtmlHelper`.
+* `append-text` and `prepend-text` options for `BootstrapFormHelper`
+    can handle buttons;
+* added `li()` and `meta()` methods for `BootstrapHtmlHelper`.
 
 ### 2.21.3
 * added `checkbox()`, `radio()` and `select()` methods for `BootstrapFormHelper`;

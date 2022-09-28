@@ -190,6 +190,20 @@ class BootstrapHtmlHelperTest extends HelperTestCase
     }
 
     /**
+     * Test for `meta()` method
+     * @test
+     * @uses \MeTools\View\Helper\BootstrapHtmlHelper::meta()
+     */
+    public function testMeta(): void
+    {
+        $this->assertNull($this->Helper->meta('viewport', 'width=device-width'));
+
+        $expected = '<meta name="viewport" content="width=device-width"/>';
+        $result = $this->Helper->meta('viewport', 'width=device-width', ['block' => false]);        $this->assertSame($expected, $result);
+        $this->assertSame($expected, $result);
+    }
+
+    /**
      * Test for `ol()` and `ul()` methods
      * @test
      * @uses \MeTools\View\Helper\BootstrapHtmlHelper::ol()

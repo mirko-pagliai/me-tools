@@ -242,22 +242,25 @@ class BootstrapFormHelper extends FormHelper
         }
 
         /**
-         * Input group (`append-text` and `prepend-text` options)
+         * Input group (`append-text` and `prepend-text` options).
+         * It can also handle buttons.
          * @see https://getbootstrap.com/docs/5.2/forms/input-group
          */
         if ($options->exists('append-text') || $options->exists('prepend-text')) {
             $this->setTemplates([
-                'formGroup' => '{{label}}<div class="input-group' . ($this->isPost ? ' has-validation' : '') . '">{{prependText}}{{input}}{{appendText}}{{error}}</div>',
+                'formGroup' => '{{label}}<div class="input-group' . ($this->isPost ? ' has-validation' : '') . '">{{prepend}}{{input}}{{append}}{{error}}</div>',
                 'inputContainer' => '<div class="input mb-3 {{type}}{{required}}">{{content}}{{help}}</div>',
                 'inputContainerError' => '<div class="input mb-3 {{type}}{{required}} error">{{content}}{{help}}</div>',
             ]);
 
-            if ($options->exists('append-text')) {
-                $options->append('templateVars', ['appendText' => $this->Html->span($options->consume('append-text'), ['class' => 'input-group-text'])]);
+            foreach (['append', 'prepend'] as $name) {
+                $value = $options->consume($name . '-text') ?: '';
+                if ($value && !str_starts_with($value, '<button') && !str_starts_with($value, '<div class="submit')) {
+                    $value = $this->Html->span($value, ['class' => 'input-group-text']);
+                }
+                $templateVars[$name] = $value;
             }
-            if ($options->exists('prepend-text')) {
-                $options->append('templateVars', ['prependText' => $this->Html->span($options->consume('prepend-text'), ['class' => 'input-group-text'])]);
-            }
+            $options->append('templateVars', $templateVars);
         }
 
         return parent::control($fieldName, $options->toArray());
