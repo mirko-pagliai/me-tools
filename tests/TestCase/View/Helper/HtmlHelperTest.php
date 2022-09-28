@@ -30,7 +30,6 @@ class HtmlHelperTest extends HelperTestCase
      * Tests for `__call()` method
      * @deprecated
      * @test
-     * @noinspection PhpUndefinedMethodInspection
      */
     public function testCall(): void
     {
@@ -54,6 +53,7 @@ class HtmlHelperTest extends HelperTestCase
         //With a no existing method
         $this->expectException(ErrorException::class);
         $this->expectExceptionMessage('Method `' . HtmlHelper::class . '::noExistingMethod()` does not exist');
+        /** @noinspection PhpUndefinedMethodInspection */
         $this->Helper->noExistingMethod(null, null, null);
     }
 
