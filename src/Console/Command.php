@@ -13,6 +13,7 @@ declare(strict_types=1);
  * @license     https://opensource.org/licenses/mit-license.php MIT License
  * @since       2.17.6
  */
+
 namespace MeTools\Console;
 
 use Cake\Command\Command as CakeCommand;
@@ -154,7 +155,7 @@ abstract class Command extends CakeCommand
     {
         try {
             Filesystem::instance()->chmod($path, $chmod, 0000, true);
-        } catch (IOException) {
+        } catch (IOException $e) {
             $io->error(__d('me_tools', 'Failed to set permissions on `{0}`', Filesystem::instance()->rtr($path)));
 
             return false;

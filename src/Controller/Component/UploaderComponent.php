@@ -12,6 +12,7 @@ declare(strict_types=1);
  * @link        https://github.com/mirko-pagliai/me-tools
  * @license     https://opensource.org/licenses/mit-license.php MIT License
  */
+
 namespace MeTools\Controller\Component;
 
 use Cake\Controller\Component;
@@ -70,7 +71,7 @@ class UploaderComponent extends Component
             $tmp = dirname($target) . DS . pathinfo($target, PATHINFO_FILENAME);
             $extension = pathinfo($target, PATHINFO_EXTENSION);
             $extension = $extension ? '.' . $extension : '';
-            for ($i = 1;; $i++) {
+            for ($i = 1; ; $i++) {
                 $target = $tmp . '_' . $i . $extension;
                 if (!file_exists($target)) {
                     break;
@@ -158,7 +159,7 @@ class UploaderComponent extends Component
 
         try {
             $file->moveTo($target);
-        } catch (UploadedFileErrorException) {
+        } catch (UploadedFileErrorException $e) {
             $this->setError(__d('me_tools', 'The file was not successfully moved to the target directory'));
 
             return false;
