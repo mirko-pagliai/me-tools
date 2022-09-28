@@ -12,6 +12,7 @@ declare(strict_types=1);
  * @link        https://github.com/mirko-pagliai/me-tools
  * @license     https://opensource.org/licenses/mit-license.php MIT License
  */
+
 namespace MeTools\View\Helper;
 
 use Cake\Utility\Hash;
@@ -265,7 +266,7 @@ class FormHelper extends CakeFormHelper
     /**
      * Closes an HTML form, cleans up values set by `FormHelper::create()`,
      *  and writes hidden input fields where appropriate
-     * @param array $secureAttributes Secure attibutes which will be passed
+     * @param array $secureAttributes Secure attributes which will be passed
      *  as HTML attributes into the hidden input elements generated for the
      *  Security Component.
      * @return string

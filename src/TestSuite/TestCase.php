@@ -13,6 +13,7 @@ declare(strict_types=1);
  * @license     https://opensource.org/licenses/mit-license.php MIT License
  * @since       2.14.0
  */
+
 namespace MeTools\TestSuite;
 
 use Cake\Core\Configure;
