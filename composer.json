@@ -17,6 +17,7 @@
         "mirko-pagliai/php-tools": "^1.6"
     },
     "require-dev": {
+        "ext-fileinfo": "*",
         "cakephp/cakephp-codesniffer": "^4.5",
         "mirko-pagliai/cakephp-assets": "^1.5.7",
         "phpunit/phpunit": "^9.1|^9.5",
