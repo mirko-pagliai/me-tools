@@ -1,8 +1,8 @@
 # 2.x branch
 ## 2.22 branch
 ### 2.22.0
-* `append-text` and `prepend-text` options for `BootstrapFormHelper`
-    can handle buttons;
+* `append-text` and `prepend-text` options for `BootstrapFormHelper::control()`
+	method can handle buttons;
 * added `li()` and `meta()` methods for `BootstrapHtmlHelper`;
 * `cssBlock()`, `cssStart()`, `cssEnd()`, `heading()`, `hr()` and `scriptBlock()`
     methods provided by the `HtmlHelper` were deprecated and have now been removed;
