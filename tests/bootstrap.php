@@ -41,14 +41,14 @@ define('SESSIONS', TMP . 'sessions' . DS);
 define('UPLOADS', TMP . 'uploads' . DS);
 
 foreach ([
-    TMP . 'tests',
-    LOGS,
-    SESSIONS,
-    CACHE . 'models',
-    CACHE . 'persistent',
-    CACHE . 'views',
-    UPLOADS,
-] as $dir) {
+             TMP . 'tests',
+             LOGS,
+             SESSIONS,
+             CACHE . 'models',
+             CACHE . 'persistent',
+             CACHE . 'views',
+             UPLOADS,
+         ] as $dir) {
     @mkdir($dir, 0777, true);
 }
 
@@ -106,7 +106,7 @@ ConnectionManager::setConfig('test', ['url' => 'sqlite:///' . TMP . 'test.sq3'])
 $_SERVER['PHP_SELF'] = '/';
 
 /**
- * @to-do To be removed in a later version
+ * @todo To be removed in a later version
  */
 if (!class_exists('Cake\Console\TestSuite\StubConsoleOutput')) {
     class_alias('Cake\TestSuite\Stub\ConsoleOutput', 'Cake\Console\TestSuite\StubConsoleOutput');

@@ -12,6 +12,7 @@ declare(strict_types=1);
  * @link        https://github.com/mirko-pagliai/me-tools
  * @license     https://opensource.org/licenses/mit-license.php MIT License
  */
+
 namespace MeTools\Test\TestCase\View\Helper;
 
 use ErrorException;
@@ -49,7 +50,7 @@ class BootstrapHtmlHelperTest extends HelperTestCase
         //With a no existing method
         $this->expectException(ErrorException::class);
         $this->expectExceptionMessage('Method `' . get_class($this->Helper) . '::noExistingMethod()` does not exist');
-        /** @phpstan-ignore-next-line */
+        /** @noinspection PhpUndefinedMethodInspection */
         $this->Helper->noExistingMethod(null, null, null);
     }
 

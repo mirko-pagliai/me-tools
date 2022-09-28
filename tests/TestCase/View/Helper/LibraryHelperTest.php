@@ -12,6 +12,7 @@ declare(strict_types=1);
  * @link        https://github.com/mirko-pagliai/me-tools
  * @license     https://opensource.org/licenses/mit-license.php MIT License
  */
+
 namespace MeTools\Test\TestCase\View\Helper;
 
 use Assets\View\Helper\AssetHelper;
@@ -25,6 +26,7 @@ use Tools\Filesystem;
 /**
  * LibraryHelperTest class
  * @property \MeTools\View\Helper\LibraryHelper $Helper
+ * @noinspection PhpDeprecationInspection
  */
 class LibraryHelperTest extends HelperTestCase
 {

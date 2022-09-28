@@ -12,6 +12,7 @@ declare(strict_types=1);
  * @link        https://github.com/mirko-pagliai/me-tools
  * @license     https://opensource.org/licenses/mit-license.php MIT License
  */
+
 namespace MeTools\Test\TestCase\View\Helper;
 
 use ErrorException;
@@ -22,6 +23,7 @@ use PHPUnit\Framework\Error\Deprecated;
 /**
  * HtmlHelperTest class
  * @property \MeTools\View\Helper\HtmlHelper $Helper
+ * @noinspection PhpDeprecationInspection
  */
 class HtmlHelperTest extends HelperTestCase
 {
@@ -29,6 +31,7 @@ class HtmlHelperTest extends HelperTestCase
      * Tests for `__call()` method
      * @deprecated
      * @test
+     * @noinspection PhpUndefinedMethodInspection
      */
     public function testCall(): void
     {
@@ -40,22 +43,18 @@ class HtmlHelperTest extends HelperTestCase
         $this->assertFalse(method_exists($this->Helper, 'h3'));
 
         $expected = $this->Helper->tag('h3', $text, compact('class'));
-        /** @phpstan-ignore-next-line */
         $this->assertEquals($expected, $this->Helper->h3($text, compact('class')));
 
         $expected = $this->Helper->tag('h3', $text, compact('class') + ['icon' => 'home']);
-        /** @phpstan-ignore-next-line */
         $this->assertEquals($expected, $this->Helper->h3($text, ['class' => $class, 'icon' => 'home']));
 
         $expected = $this->Helper->tag('h3', $text, compact('class') + ['icon' => 'home', 'icon-align' => 'right']);
-        /** @phpstan-ignore-next-line */
         $result = $this->Helper->h3($text, compact('class') + ['icon' => 'home', 'icon-align' => 'right']);
         $this->assertEquals($expected, $result);
 
         //With a no existing method
         $this->expectException(ErrorException::class);
         $this->expectExceptionMessage('Method `' . HtmlHelper::class . '::noExistingMethod()` does not exist');
-        /** @phpstan-ignore-next-line */
         $this->Helper->noExistingMethod(null, null, null);
     }
 
