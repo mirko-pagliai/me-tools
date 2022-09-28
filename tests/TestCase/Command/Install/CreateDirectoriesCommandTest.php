@@ -35,7 +35,7 @@ class CreateDirectoriesCommandTest extends TestCase
     {
         $io = new ConsoleIo();
         $Command = $this->getMockBuilder(CreateDirectoriesCommand::class)
-            ->setMethods(['createDir'])
+            ->onlyMethods(['createDir'])
             ->getMock();
 
         $dirs = Configure::read('WRITABLE_DIRS');

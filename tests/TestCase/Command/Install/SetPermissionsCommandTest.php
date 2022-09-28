@@ -35,7 +35,7 @@ class SetPermissionsCommandTest extends TestCase
     {
         $io = new ConsoleIo();
         $Command = $this->getMockBuilder(SetPermissionsCommand::class)
-            ->setMethods(['folderChmod'])
+            ->onlyMethods(['folderChmod'])
             ->getMock();
 
         $dirs = Configure::read('WRITABLE_DIRS');

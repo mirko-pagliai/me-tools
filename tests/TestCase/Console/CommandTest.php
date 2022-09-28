@@ -47,7 +47,7 @@ class CommandTest extends TestCase
         $this->_err = new StubConsoleOutput();
         $this->io = $this->getMockBuilder(ConsoleIo::class)
             ->setConstructorArgs([$this->_out, $this->_err, null, null])
-            ->setMethods(['in'])
+            ->addMethods(['in'])
             ->getMock();
         $this->io->level(ConsoleIo::VERBOSE);
     }
@@ -179,12 +179,12 @@ class CommandTest extends TestCase
         @mkdir($dir, 0777, true);
 
         //Set chmod
-        $this->assertTrue($this->Command->folderChmod($this->io, $dir, 0777));
+        $this->assertTrue($this->Command->folderChmod($this->io, $dir));
         $this->assertDirectoryIsWritable($dir);
         $this->assertOutputContains('Set permissions on `' . $dir . '`');
 
         //Tries to set chmod for a no existing directory
-        $this->assertFalse($this->Command->folderChmod($this->io, DS . 'noExistingDir', 0777));
+        $this->assertFalse($this->Command->folderChmod($this->io, DS . 'noExistingDir'));
         $this->assertErrorContains('Failed to set permissions on `' . DS . 'noExistingDir`');
     }
 }

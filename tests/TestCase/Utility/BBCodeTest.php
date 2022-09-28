@@ -119,7 +119,7 @@ class BBCodeTest extends TestCase
      */
     public function testImage(): void
     {
-        $this->assertEquals($this->Html->image('mypic.gif'), $this->BBCode->image('[img]mypic.gif[/img]'));
+        $this->assertEquals($this->Html->image('my_pic.gif'), $this->BBCode->image('[img]my_pic.gif[/img]'));
     }
 
     /**
@@ -138,7 +138,7 @@ class BBCodeTest extends TestCase
             '<p>[readmore /]</p>',
             '<p class="my-class">[readmore /]</p>',
         ] as $text) {
-            $this->assertEquals('<!-- read-more -->', $this->BBCode->readmore($text));
+            $this->assertEquals('<!-- read-more -->', $this->BBCode->readMore($text));
         }
     }
 

@@ -27,7 +27,7 @@ class RequestDetectorsTest extends TestCase
     /**
      * @var \Cake\Http\ServerRequest
      */
-    public $Request;
+    public ServerRequest $Request;
 
     /**
      * Called before every test method

@@ -72,7 +72,7 @@ class LibraryHelperTest extends HelperTestCase
         //  `AssetHelper` matches the `HtmlHelper`
         if (Plugin::getCollection()->has('Assets')) {
             $this->Helper->initialize([]);
-            $this->assertInstanceof(AssetHelper::class, $this->Helper->Asset);
+            $this->assertInstanceOf(AssetHelper::class, $this->Helper->Asset);
             $this->removePlugins(['Assets']);
         }
 
@@ -123,7 +123,6 @@ class LibraryHelperTest extends HelperTestCase
         $request->expects($this->any())->method('is')->willReturn(true);
 
         $Helper = $this->getMockBuilder(LibraryHelper::class)
-            ->setMethods(null)
             ->setConstructorArgs([new View($request)])
             ->getMock();
 
