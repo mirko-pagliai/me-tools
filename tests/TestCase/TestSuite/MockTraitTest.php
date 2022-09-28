@@ -15,7 +15,7 @@ declare(strict_types=1);
 
 namespace MeTools\Test\TestCase\TestSuite;
 
-use AnotherTestPlugin\MyPlugin\Test\TestCase\Controller\MyExampleControllerTest;
+use AnotherTestPlugin\Test\TestCase\Controller\MyExampleControllerTest;
 use App\Controller\PagesController;
 use App\Model\Table\PostsTable;
 use App\Model\Validation\PostValidator;
@@ -120,7 +120,7 @@ class MockTraitTest extends TestCase
     {
         $this->assertSame(TestCase::class, $this->getOriginClassNameOrFail(new TestCaseTest()));
 
-        $this->expectAssertionFailed('Class `AnotherTestPlugin\MyPlugin\Controller\MyExampleController` does not exist');
+        $this->expectAssertionFailed('Class `AnotherTestPlugin\Controller\MyExampleController` does not exist');
         $this->getOriginClassNameOrFail(new MyExampleControllerTest());
     }
 
@@ -131,7 +131,7 @@ class MockTraitTest extends TestCase
     public function testGetPluginName(): void
     {
         $this->assertSame('MeTools', $this->getPluginName(new TestCaseTest()));
-        $this->assertSame('AnotherTestPlugin/MyPlugin', $this->getPluginName(new MyExampleControllerTest()));
+        $this->assertSame('AnotherTestPlugin', $this->getPluginName(new MyExampleControllerTest()));
     }
 
     /**

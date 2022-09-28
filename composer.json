@@ -1,81 +1,81 @@
 {
-    "name": "mirko-pagliai/me-tools",
-    "description": "MeTools plugin for CakePHP",
-    "homepage": "https://github.com/mirko-pagliai/me-tools",
-    "type": "cakephp-plugin",
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "Mirko Pagliai",
-            "email": "mirko.pagliai@gmail.com"
-        }
-    ],
-    "require": {
-        "php": ">=7.4",
-        "ext-json": "*",
-        "cakephp/cakephp": "^4.3",
-        "mirko-pagliai/php-tools": "^1.6"
-    },
-    "require-dev": {
-        "ext-fileinfo": "*",
-        "cakephp/cakephp-codesniffer": "^4.5",
-        "mirko-pagliai/cakephp-assets": "^1.5.7",
-        "phpunit/phpunit": "^9.1|^9.5",
-        "phpstan/phpstan": "^1.7",
-        "psalm/phar": "^4.24"
-    },
-    "conflict": {
-        "newerton/fancy-box": "*"
-    },
-    "suggest": {
-        "components/jquery": "To use jQuery, the JavaScript library",
-        "fortawesome/font-awesome": "To use Font Awesome's icons",
-        "mirko-pagliai/cakephp-assets": "A CakePHP plugin to allows you to generate assets",
-        "npm-asset/fancyapps-fancybox": "To show photos with fancybox",
-        "twbs/bootstrap": "To use Bootstrap, the world's most popular framework for building responsive, mobile-first sites"
-    },
-    "autoload": {
-        "psr-4": {
-            "MeTools\\": "src"
-        },
-        "files": [
-            "src/Core/global_functions.php",
-            "src/Core/request_detectors.php"
-        ]
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "App\\": "tests/test_app/TestApp/",
-            "Cake\\Test\\": "vendor/cakephp/cakephp/tests",
-            "MeTools\\Test\\": "tests",
-            "TestPlugin\\": "tests/test_app/Plugin/TestPlugin/src",
-            "AnotherTestPlugin\\": "tests/test_app/Plugin/AnotherTestPlugin/src",
-            "AnotherTestPlugin\\MyPlugin\\Test\\": "tests/test_app/Plugin/AnotherTestPlugin/tests"
-        }
-    },
-    "scripts": {
-        "check": [
-            "@cs-check",
-            "@update-lowest",
-            "phpunit",
-            "@composer update",
-            "phpunit",
-            "@stan"
-        ],
-        "cs-check": "phpcs --standard=phpcs.xml.dist",
-        "cs-fix": "phpcbf --standard=phpcs.xml.dist",
-        "coverage": "XDEBUG_MODE=coverage phpunit --coverage-html=coverage",
-        "phpstan": "phpstan.phar analyse",
-        "psalm": "psalm.phar --php-version=8.0",
-        "stan": [
-            "@phpstan",
-            "@psalm"
-        ],
-        "update-lowest": "@composer update --prefer-lowest"
-    },
-    "config": {
-        "allow-plugins": {
-            "dealerdirect/phpcodesniffer-composer-installer": true
-        }
+  "name": "mirko-pagliai/me-tools",
+  "description": "MeTools plugin for CakePHP",
+  "homepage": "https://github.com/mirko-pagliai/me-tools",
+  "type": "cakephp-plugin",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Mirko Pagliai",
+      "email": "mirko.pagliai@gmail.com"
     }
+  ],
+  "require": {
+    "php": ">=7.4",
+    "ext-json": "*",
+    "cakephp/cakephp": "^4.3",
+    "mirko-pagliai/php-tools": "^1.6"
+  },
+  "require-dev": {
+    "ext-fileinfo": "*",
+    "cakephp/cakephp-codesniffer": "^4.5",
+    "mirko-pagliai/cakephp-assets": "^1.5.7",
+    "phpunit/phpunit": "^9.1|^9.5",
+    "phpstan/phpstan": "^1.7",
+    "psalm/phar": "^4.24"
+  },
+  "conflict": {
+    "newerton/fancy-box": "*"
+  },
+  "suggest": {
+    "components/jquery": "To use jQuery, the JavaScript library",
+    "fortawesome/font-awesome": "To use Font Awesome's icons",
+    "mirko-pagliai/cakephp-assets": "A CakePHP plugin to allows you to generate assets",
+    "npm-asset/fancyapps-fancybox": "To show photos with fancybox",
+    "twbs/bootstrap": "To use Bootstrap, the world's most popular framework for building responsive, mobile-first sites"
+  },
+  "autoload": {
+    "psr-4": {
+      "MeTools\\": "src"
+    },
+    "files": [
+      "src/Core/global_functions.php",
+      "src/Core/request_detectors.php"
+    ]
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "App\\": "tests/test_app/TestApp/",
+      "Cake\\Test\\": "vendor/cakephp/cakephp/tests",
+      "MeTools\\Test\\": "tests",
+      "TestPlugin\\": "tests/test_app/Plugin/TestPlugin/src",
+      "AnotherTestPlugin\\": "tests/test_app/Plugin/AnotherTestPlugin/src",
+      "AnotherTestPlugin\\Test\\": "tests/test_app/Plugin/AnotherTestPlugin/tests"
+    }
+  },
+  "scripts": {
+    "check": [
+      "@cs-check",
+      "@update-lowest",
+      "phpunit",
+      "@composer update",
+      "phpunit",
+      "@stan"
+    ],
+    "cs-check": "phpcs --standard=phpcs.xml.dist",
+    "cs-fix": "phpcbf --standard=phpcs.xml.dist",
+    "coverage": "XDEBUG_MODE=coverage phpunit --coverage-html=coverage",
+    "phpstan": "phpstan.phar analyse",
+    "psalm": "psalm.phar --php-version=8.0",
+    "stan": [
+      "@phpstan",
+      "@psalm"
+    ],
+    "update-lowest": "@composer update --prefer-lowest"
+  },
+  "config": {
+    "allow-plugins": {
+      "dealerdirect/phpcodesniffer-composer-installer": true
+    }
+  }
 }

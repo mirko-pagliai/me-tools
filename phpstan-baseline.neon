@@ -1,6 +1,11 @@
 parameters:
 	ignoreErrors:
 		-
+			message: "#^Call to an undefined method MeTools\\\\Controller\\\\Component\\\\FlashComponent\\:\\:otherName\\(\\)\\.$#"
+			count: 1
+			path: tests/TestCase/Controller/Component/FlashComponentTest.php
+
+		-
 			message: "#^Cannot access property \\$Uploader on Cake\\\\Controller\\\\Controller\\|null\\.$#"
 			count: 3
 			path: tests/TestCase/TestSuite/IntegrationTestTraitTest.php

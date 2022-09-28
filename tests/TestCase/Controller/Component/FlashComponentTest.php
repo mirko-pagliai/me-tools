@@ -68,7 +68,7 @@ class FlashComponentTest extends ComponentTestCase
             'element' => 'flash/other_name',
             'params' => [],
         ]];
-        /** @phpstan-ignore-next-line */
+        /** @noinspection PhpUndefinedMethodInspection */
         $this->Component->otherName($text);
         $this->assertEquals($expected, $session->read('Flash.flash'));
         $session->delete('Flash.flash');

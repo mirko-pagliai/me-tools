@@ -13,6 +13,7 @@ declare(strict_types=1);
  * @license     https://opensource.org/licenses/mit-license.php MIT License
  * @since       2.18.0
  */
+
 namespace MeTools\TestSuite;
 
 use Cake\Controller\ComponentRegistry;
@@ -53,7 +54,8 @@ trait IntegrationTestTrait
                 ->getMock();
 
             $Uploader->method('move_uploaded_file')->willReturnCallback(fn(string $filename, string $destination): bool => rename($filename, $destination));
-            //@phpstan-ignore-line
+            /** @phpstan-ignore-line */
+            /** @noinspection PhpPossiblePolymorphicInvocationInspection */
             $this->_controller->Uploader = $Uploader;
         }
     }
