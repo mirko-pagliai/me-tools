@@ -35,7 +35,7 @@ class BBCode
      */
     protected array $pattern = [
         'image' => '/\[img](.+?)\[\/img]/',
-        'readmore' => '/(<p(>|.*?[^?]>))?\[read\-?more\s*\/?\s*\](<\/p>)?/',
+        'readmore' => '/(<p(>|.*?[^?]>))?\[read-?more\s*\/?\s*](<\/p>)?/',
         'url' => '/\[url=[\'"](.+?)[\'"]](.+?)\[\/url]/',
         'youtube' => '/\[youtube](.+?)\[\/youtube]/',
     ];

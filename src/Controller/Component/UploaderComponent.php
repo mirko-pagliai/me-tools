@@ -158,7 +158,7 @@ class UploaderComponent extends Component
 
         try {
             $file->moveTo($target);
-        } catch (UploadedFileErrorException $e) {
+        } catch (UploadedFileErrorException) {
             $this->setError(__d('me_tools', 'The file was not successfully moved to the target directory'));
 
             return false;

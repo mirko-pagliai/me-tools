@@ -154,7 +154,7 @@ abstract class Command extends CakeCommand
     {
         try {
             Filesystem::instance()->chmod($path, $chmod, 0000, true);
-        } catch (IOException $e) {
+        } catch (IOException) {
             $io->error(__d('me_tools', 'Failed to set permissions on `{0}`', Filesystem::instance()->rtr($path)));
 
             return false;
