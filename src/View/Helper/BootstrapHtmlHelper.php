@@ -44,7 +44,7 @@ class BootstrapHtmlHelper extends HtmlHelper
      * @param string $method Name of the tag
      * @param array $params Params for the method
      * @return string
-     * @throws \ErrorException
+     * @throws \Throwable
      */
     public function __call(string $method, array $params = []): string
     {
@@ -112,6 +112,20 @@ class BootstrapHtmlHelper extends HtmlHelper
     }
 
     /**
+     * Returns an element list (`<li>`).
+     *
+     * If `$element` is an array, the same `$options` will be applied to all
+     *  elements.
+     * @param string|array<string> $element Element or elements
+     * @param array $options HTML attributes of the list tag
+     * @return string
+     */
+    public function li($element, array $options = []): string
+    {
+        return implode(PHP_EOL, array_map(fn(string $element): string => $this->tag('li', $element, $options), (array)$element));
+    }
+
+    /**
      * Creates an HTML link.
      *
      * See the parent method for all available options.
@@ -141,6 +155,22 @@ class BootstrapHtmlHelper extends HtmlHelper
         [$title, $options] = $this->Icon->addIconToText($title, $options);
 
         return parent::link($title, $url, $options->toArray());
+    }
+
+    /**
+     * Creates a link to an external resource and handles basic meta tags
+     * @param array<string, mixed>|string $type The title of the external resource,
+     *  or an array of attributes for a custom meta tag
+     * @param array|string|null $content The address of the external resource or string
+     *  for content attribute
+     * @param array<string, mixed> $options Other attributes for the generated tag. If
+     *  the type attribute is html, rss, atom, or icon, the mime-type is returned
+     * @return string|null A completed `<link />` element, or null if the element was
+     *  sent to a block
+     */
+    public function meta($type, $content = null, array $options = []): ?string
+    {
+        return parent::meta($type, $content, $options + ['block' => true]);
     }
 
     /**

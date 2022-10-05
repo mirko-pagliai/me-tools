@@ -79,9 +79,49 @@ class BootstrapFormHelperTest extends HelperTestCase
         $result = $this->Helper->control('my-field', ['help' => ['first text', 'second text']]);
         $this->assertSame($expected, $result);
 
-        //With input group
+        //With input group (`prepend-text`)
+        $expected = '<div class="input mb-3 text"><label class="form-label fw-bolder" for="my-field">My Field</label><div class="input-group"><span class="input-group-text">first text</span><input type="text" name="my-field" class="form-control" id="my-field"/></div></div>';
+        $result = $this->Helper->control('my-field', ['prepend-text' => 'first text']);
+        $this->assertSame($expected, $result);
+
+        //With input group (`append-text` and `prepend-text`)
         $expected = '<div class="input mb-3 text"><label class="form-label fw-bolder" for="my-field">My Field</label><div class="input-group"><span class="input-group-text">first text</span><input type="text" name="my-field" class="form-control" id="my-field"/><span class="input-group-text">second text</span></div></div>';
         $result = $this->Helper->control('my-field', ['prepend-text' => 'first text', 'append-text' => 'second text']);
+        $this->assertSame($expected, $result);
+
+        //With input group as button (`append-text`)
+        $expected = '<div class="input mb-3 text">' .
+            '<label class="form-label fw-bolder" for="my-field">My Field</label>' .
+            '<div class="input-group">' .
+            '<input type="text" name="my-field" class="form-control" id="my-field"/>' .
+            '<button class="btn btn-primary" type="button"><i class="fas fa-home"> </i> My button</button>' .
+            '</div>' .
+            '</div>';
+        $result = $this->Helper->control('my-field', ['append-text' => $this->Helper->button('My button', ['icon' => 'home'])]);
+        $this->assertSame($expected, $result);
+
+        //With input group as button (`prepend-text`)
+        $expected = '<div class="input mb-3 text">' .
+            '<label class="form-label fw-bolder" for="my-field">My Field</label>' .
+            '<div class="input-group">' .
+            '<button class="btn btn-primary" type="button"><i class="fas fa-home"> </i> My button</button>' .
+            '<input type="text" name="my-field" class="form-control" id="my-field"/>' .
+            '</div>' .
+            '</div>';
+        $result = $this->Helper->control('my-field', ['prepend-text' => $this->Helper->button('My button', ['icon' => 'home'])]);
+        $this->assertSame($expected, $result);
+
+        //With input group as submit button (`prepend-text`)
+        $expected = '<div class="input mb-3 text">' .
+            '<label class="form-label fw-bolder" for="my-field">My Field</label>' .
+            '<div class="input-group">' .
+            '<div class="submit">' .
+            '<button class="btn btn-success" value="My submit"><i class="fas fa-home"> </i> My submit</button>' .
+            '</div>' .
+            '<input type="text" name="my-field" class="form-control" id="my-field"/>' .
+            '</div>' .
+            '</div>';
+        $result = $this->Helper->control('my-field', ['prepend-text' => $this->Helper->submit('My submit', ['icon' => 'home'])]);
         $this->assertSame($expected, $result);
 
         //With a custom label
@@ -175,11 +215,11 @@ class BootstrapFormHelperTest extends HelperTestCase
         $result = $this->Helper->control('my-inline-field', ['type' => 'checkbox']);
         $this->assertSame($expected, $result);
 
-        //With error
-        $expectedStart = '<div class="input mb-3 form-check required"><input type="hidden" name="my-checkbox" value="0"/><label class="form-check-label fw-bolder" for="my-checkbox"><input type="checkbox" name="my-checkbox" value="1"';
+        //With error (same `$expectedStart` value)
         $expectedEnd = 'class="form-check-input is-invalid" id="my-checkbox" required="required">My Checkbox</label>My error</div>';
+        /** @var \Cake\Http\ServerRequest&\PHPUnit\Framework\MockObject\MockObject $Request */
         $Request = $this->getMockBuilder(ServerRequest::class)
-            ->setMethods(['is'])
+            ->onlyMethods(['is'])
             ->getMock();
         $Request->method('is')->willReturn(true);
         /** @var \MeTools\View\Helper\BootstrapFormHelper&\PHPUnit\Framework\MockObject\MockObject $Helper */
@@ -238,8 +278,9 @@ class BootstrapFormHelperTest extends HelperTestCase
      */
     public function testControlWithValidation(): void
     {
+        /** @var \Cake\Http\ServerRequest&\PHPUnit\Framework\MockObject\MockObject $Request */
         $Request = $this->getMockBuilder(ServerRequest::class)
-            ->setMethods(['is'])
+            ->onlyMethods(['is'])
             ->getMock();
         $Request->method('is')->willReturn(true);
         $View = new View($Request);
@@ -327,7 +368,7 @@ class BootstrapFormHelperTest extends HelperTestCase
     public function testPostButton(): void
     {
         $expected = [
-            'form' => ['name' => 'preg:/post_[a-z0-9]+/', 'style' => 'display:none;', 'method' => 'post', 'action' => 'http://link'],
+            'form' => ['name' => 'preg:/post_[a-z0-9]+/', 'style' => 'display:none;', 'method' => 'post', 'action' => 'https://link'],
             'input' => ['type' => 'hidden', 'name' => '_method', 'value' => 'POST'],
             '/form',
             'a' => ['href' => '#', 'class' => 'btn btn-light', 'onclick', 'role' => 'button', 'title' => 'My title'],
@@ -338,7 +379,7 @@ class BootstrapFormHelperTest extends HelperTestCase
             'My title',
             '/a',
         ];
-        $result = $this->Helper->postButton('My title', 'http://link', ['icon' => 'home']);
+        $result = $this->Helper->postButton('My title', 'https://link', ['icon' => 'home']);
         $this->assertHtml($expected, $result);
     }
 

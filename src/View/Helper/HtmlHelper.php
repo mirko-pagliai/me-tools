@@ -43,7 +43,7 @@ class HtmlHelper extends CakeHtmlHelper
      * @param string $method Name of the tag
      * @param array $params Params for the method
      * @return string
-     * @throws \ErrorException
+     * @throws \Throwable
      */
     public function __call(string $method, array $params = []): string
     {
@@ -98,7 +98,7 @@ class HtmlHelper extends CakeHtmlHelper
      *  path will be relative to the webroot of your application. Otherwise, the
      *  path will be relative to your CSS path, usually webroot/css
      * @param array $options Array of options and HTML attributes
-     * @return string Html, `<link>` or `<style>` tag
+     * @return string|null CSS `<link />` or `<style />` tag, depending on the type of link
      */
     public function css($path, array $options = []): ?string
     {
@@ -174,9 +174,9 @@ class HtmlHelper extends CakeHtmlHelper
     }
 
     /**
-     * Creates an heading, according to Bootstrap.
+     * Creates a heading, according to Bootstrap.
      *
-     * This method is useful if you want to create an heading with a secondary
+     * This method is useful if you want to create a heading with a secondary
      *  text. In this case you have to use the `small` option.
      *
      * By default, this method creates an `<h2>` tag. To create a different
@@ -281,7 +281,7 @@ class HtmlHelper extends CakeHtmlHelper
      * Create a label, according to the Bootstrap component.
      *
      * This method creates only a label element. Not to be confused with the
-     *  `label()` method provided by `Formhelper`, which creates a label
+     *  `label()` method provided by `FormHelper`, which creates a label
      *  for a form input.
      *
      * You can set the type of label using the `type` option.
@@ -330,10 +330,10 @@ class HtmlHelper extends CakeHtmlHelper
             [$url, $title] = [$title, null];
         }
 
-        $buildedUrl = !$title && $url !== '#' ? $this->Url->build($url, $options) : '';
+        $buildUrl = !$title && $url !== '#' ? $this->Url->build($url, $options) : '';
 
         $options = optionsParser($options, ['escape' => false, 'title' => $title]);
-        $options->add('title', trim(h(strip_tags(($options->get('title') ?: $buildedUrl)))))->tooltip();
+        $options->add('title', trim(h(strip_tags(($options->get('title') ?: $buildUrl)))))->tooltip();
         [$title, $options] = $this->Icon->addIconToText($title, $options);
 
         return parent::link($title, $url, $options->toArray());
@@ -346,7 +346,7 @@ class HtmlHelper extends CakeHtmlHelper
      *  or string for content attribute
      * @param array $options Other attributes for the generated tag. If the
      *  type attribute is html, rss, atom, or icon, the mime-type is returned
-     * @return string A completed `<link />` element
+     * @return string|null A completed `<link />` element, or null if the element was sent to a block
      */
     public function meta($type, $content = null, array $options = []): ?string
     {

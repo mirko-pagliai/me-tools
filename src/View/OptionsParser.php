@@ -102,7 +102,7 @@ class OptionsParser
      * $options->addButtonClasses('primary lg');
      * $options->addButtonClasses('primary', 'lg');
      * </code>
-     * @param string $classes Classes as string, or multiple arguments
+     * @param string ...$classes Classes as string, or multiple arguments
      * @return $this
      */
     public function addButtonClasses(string ...$classes)
@@ -112,14 +112,14 @@ class OptionsParser
 
         //If a base class already exists, it just appends the `btn` class
         $existing = $this->get('class');
-        if ($existing && preg_match('/btn\-(' . implode('|', $baseClasses) . ')/', $existing)) {
+        if ($existing && preg_match('/btn-(' . implode('|', $baseClasses) . ')/', $existing)) {
             return $this->append('class', 'btn');
         }
 
         $classes = preg_split('/\s+/', implode(' ', $classes) ?: 'btn-light', -1, PREG_SPLIT_NO_EMPTY) ?: [];
         $classes = array_map(fn(string $class): string => 'btn-' . ltrim($class, 'btn-'), $classes);
 
-        return $this->append('class', ['btn', ...preg_grep('/^btn\-(' . implode('|', $allClasses) . ')$/', $classes) ?: []]);
+        return $this->append('class', ['btn', ...preg_grep('/^btn-(' . implode('|', $allClasses) . ')$/', $classes) ?: []]);
     }
 
     /**
@@ -231,7 +231,7 @@ class OptionsParser
 
     /**
      * Delete a key
-     * @param string $key Key as string, or multiple arguments
+     * @param string ...$key Key as string, or multiple arguments
      * @return $this
      */
     public function delete(string ...$key)

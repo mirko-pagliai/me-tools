@@ -70,7 +70,7 @@ class UploaderComponent extends Component
             $tmp = dirname($target) . DS . pathinfo($target, PATHINFO_FILENAME);
             $extension = pathinfo($target, PATHINFO_EXTENSION);
             $extension = $extension ? '.' . $extension : '';
-            for ($i = 1;; $i++) {
+            for ($i = 1; ; $i++) {
                 $target = $tmp . '_' . $i . $extension;
                 if (!file_exists($target)) {
                     break;
@@ -84,7 +84,7 @@ class UploaderComponent extends Component
     /**
      * Internal method to check for uploaded file information (`$file` property)
      * @return void
-     * @throws \Tools\Exception\ObjectWrongInstanceException
+     * @throws \Tools\Exception\ObjectWrongInstanceException|\Throwable
      */
     protected function _checkUploadedFileInformation(): void
     {
@@ -101,7 +101,7 @@ class UploaderComponent extends Component
      * @param string|array $acceptedMimetype Accepted mimetypes as string or
      *  array or a magic word (`images` or `text`)
      * @return $this
-     * @throws \Tools\Exception\ObjectWrongInstanceException
+     * @throws \Tools\Exception\ObjectWrongInstanceException|\Throwable
      */
     public function mimetype($acceptedMimetype)
     {
@@ -134,7 +134,7 @@ class UploaderComponent extends Component
      *  generated automatically
      * @return string|false Final full path of the uploaded file or `false` on
      *  failure
-     * @throws \Tools\Exception\ObjectWrongInstanceException
+     * @throws \Tools\Exception\ObjectWrongInstanceException|\Throwable
      */
     public function save(string $directory, ?string $filename = null)
     {

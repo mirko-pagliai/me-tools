@@ -29,13 +29,14 @@ class CreateDirectoriesCommandTest extends TestCase
 
     /**
      * Tests for `execute()` method
+     * @uses \MeTools\Command\Install\CreateDirectoriesCommand::execute()
      * @test
      */
     public function testExecute(): void
     {
         $io = new ConsoleIo();
         $Command = $this->getMockBuilder(CreateDirectoriesCommand::class)
-            ->setMethods(['createDir'])
+            ->onlyMethods(['createDir'])
             ->getMock();
 
         $dirs = Configure::read('WRITABLE_DIRS');

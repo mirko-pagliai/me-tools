@@ -15,7 +15,7 @@ declare(strict_types=1);
 namespace MeTools\Utility;
 
 /**
- * An utility to get information about YouTube videos
+ * A utility to get information about YouTube videos
  */
 class Youtube
 {
@@ -51,7 +51,7 @@ class Youtube
      */
     public static function getPreview(string $id): string
     {
-        return sprintf('http://img.youtube.com/vi/%s/0.jpg', is_url($id) ? self::getId($id) : $id);
+        return sprintf('https://img.youtube.com/vi/%s/0.jpg', is_url($id) ? self::getId($id) : $id);
     }
 
     /**
@@ -61,6 +61,6 @@ class Youtube
      */
     public static function getUrl(string $id): string
     {
-        return sprintf('http://youtu.be/%s', $id);
+        return sprintf('https://youtu.be/%s', $id);
     }
 }

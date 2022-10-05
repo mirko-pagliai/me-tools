@@ -1,19 +1,19 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Left side of && is always true\\.$#"
+			message: "#^Call to an undefined method MeTools\\\\Controller\\\\Component\\\\FlashComponent\\:\\:otherName\\(\\)\\.$#"
 			count: 1
-			path: src/TestSuite/ComponentTestCase.php
+			path: tests/TestCase/Controller/Component/FlashComponentTest.php
 
 		-
-			message: "#^Left side of && is always true\\.$#"
+			message: "#^Call to an undefined method Cake\\\\Controller\\\\Component&PHPUnit\\\\Framework\\\\MockObject\\\\MockObject\\:\\:mimetype\\(\\)\\.$#"
 			count: 1
-			path: src/TestSuite/HelperTestCase.php
+			path: tests/TestCase/Controller/Component/UploaderComponentTest.php
 
 		-
-			message: "#^Ternary operator condition is always false\\.$#"
+			message: "#^Call to an undefined method Cake\\\\Controller\\\\Component&PHPUnit\\\\Framework\\\\MockObject\\\\MockObject\\:\\:save\\(\\)\\.$#"
 			count: 1
-			path: tests/TestCase/Command/Install/CreatePluginsLinksCommandTest.php
+			path: tests/TestCase/Controller/Component/UploaderComponentTest.php
 
 		-
 			message: "#^Cannot access property \\$Uploader on Cake\\\\Controller\\\\Controller\\|null\\.$#"
@@ -31,7 +31,22 @@ parameters:
 			path: tests/TestCase/TestSuite/IntegrationTestTraitTest.php
 
 		-
+			message: "#^Call to an undefined method MeTools\\\\View\\\\Helper\\\\BootstrapHtmlHelper\\:\\:noExistingMethod\\(\\)\\.$#"
+			count: 1
+			path: tests/TestCase/View/Helper/BootstrapHtmlHelperTest.php
+
+		-
 			message: "#^Left side of && is always true\\.$#"
 			count: 1
 			path: tests/TestCase/View/Helper/BootstrapHtmlHelperTest.php
+
+		-
+			message: "#^Call to an undefined method MeTools\\\\View\\\\Helper\\\\HtmlHelper\\:\\:h3\\(\\)\\.$#"
+			count: 3
+			path: tests/TestCase/View/Helper/HtmlHelperTest.php
+
+		-
+			message: "#^Call to an undefined method MeTools\\\\View\\\\Helper\\\\HtmlHelper\\:\\:noExistingMethod\\(\\)\\.$#"
+			count: 1
+			path: tests/TestCase/View/Helper/HtmlHelperTest.php
 

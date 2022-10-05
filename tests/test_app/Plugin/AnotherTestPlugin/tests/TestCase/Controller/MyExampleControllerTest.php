@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace AnotherTestPlugin\MyPlugin\Test\TestCase\Controller;
+namespace AnotherTestPlugin\Test\TestCase\Controller;
 
 use PHPUnit\Framework\TestCase;
 

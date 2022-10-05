@@ -27,13 +27,13 @@ class RequestDetectorsTest extends TestCase
     /**
      * @var \Cake\Http\ServerRequest
      */
-    public $Request;
+    public ServerRequest $Request;
 
     /**
      * Called before every test method
      * @return void
      */
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
 

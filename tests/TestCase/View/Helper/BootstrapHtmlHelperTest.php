@@ -49,7 +49,7 @@ class BootstrapHtmlHelperTest extends HelperTestCase
         //With a no existing method
         $this->expectException(ErrorException::class);
         $this->expectExceptionMessage('Method `' . get_class($this->Helper) . '::noExistingMethod()` does not exist');
-        /** @phpstan-ignore-next-line */
+        /** @noinspection PhpUndefinedMethodInspection */
         $this->Helper->noExistingMethod(null, null, null);
     }
 
@@ -60,8 +60,8 @@ class BootstrapHtmlHelperTest extends HelperTestCase
      */
     public function testButton(): void
     {
-        $expected = '<a href="http://link" class="btn btn-light" role="button" title="my-title">My title</a>';
-        $result = $this->Helper->button('My title', 'http://link', ['title' => 'my-title']);
+        $expected = '<a href="https://link" class="btn btn-light" role="button" title="my-title">My title</a>';
+        $result = $this->Helper->button('My title', 'https://link', ['title' => 'my-title']);
         $this->assertSame($expected, $result);
 
         $expected = '<a href="#" class="btn btn-light" role="button" title="My title">My title <i class="fas fa-home"> </i></a>';
@@ -83,8 +83,8 @@ class BootstrapHtmlHelperTest extends HelperTestCase
         $this->assertSame($expected, $result);
 
         //With a button class
-        $expected = '<a href="http://link" class="btn btn-success" role="button" title="my-title">My title</a>';
-        $result = $this->Helper->button('My title', 'http://link', ['class' => 'btn-success', 'title' => 'my-title']);
+        $expected = '<a href="https://link" class="btn btn-success" role="button" title="my-title">My title</a>';
+        $result = $this->Helper->button('My title', 'https://link', ['class' => 'btn-success', 'title' => 'my-title']);
         $this->assertSame($expected, $result);
 
         $this->loadPlugins(['TestPlugin' => []]);
@@ -140,14 +140,31 @@ class BootstrapHtmlHelperTest extends HelperTestCase
     }
 
     /**
+     * Test for `li()` method
+     * @test
+     * @uses \MeTools\View\Helper\BootstrapHtmlHelper::li()
+     */
+    public function testLi(): void
+    {
+        $expected = '<li><i class="fas fa-home"> </i> My li</li>';
+        $result = $this->Helper->li('My li', ['icon' => 'home']);
+        $this->assertSame($expected, $result);
+
+        $expected = '<li class="my-class"><i class="fas fa-home"> </i> first-value</li>' . PHP_EOL .
+            '<li class="my-class"><i class="fas fa-home"> </i> second-value</li>';
+        $result = $this->Helper->li(['first-value', 'second-value'], ['class' => 'my-class', 'icon' => 'home']);
+        $this->assertSame($expected, $result);
+    }
+
+    /**
      * Test for `link()` method
      * @test
      * @uses \MeTools\View\Helper\BootstrapHtmlHelper::link()
      */
     public function testLink(): void
     {
-        $expected = '<a href="http://link" title="my-title">My title</a>';
-        $result = $this->Helper->link('My title', 'http://link', ['title' => 'my-title']);
+        $expected = '<a href="https://link" title="my-title">My title</a>';
+        $result = $this->Helper->link('My title', 'https://link', ['title' => 'my-title']);
         $this->assertSame($expected, $result);
 
         $expected = '<a href="#" title="My title">My title <i class="fas fa-home"> </i></a>';
@@ -169,6 +186,20 @@ class BootstrapHtmlHelperTest extends HelperTestCase
         $this->loadPlugins(['TestPlugin' => []]);
         $expected = '<a href="/pages"></a>';
         $result = $this->Helper->link(['controller' => 'Pages', 'plugin' => 'TestPlugin']);
+        $this->assertSame($expected, $result);
+    }
+
+    /**
+     * Test for `meta()` method
+     * @test
+     * @uses \MeTools\View\Helper\BootstrapHtmlHelper::meta()
+     */
+    public function testMeta(): void
+    {
+        $this->assertNull($this->Helper->meta('viewport', 'width=device-width'));
+
+        $expected = '<meta name="viewport" content="width=device-width"/>';
+        $result = $this->Helper->meta('viewport', 'width=device-width', ['block' => false]);
         $this->assertSame($expected, $result);
     }
 
@@ -229,11 +260,11 @@ class BootstrapHtmlHelperTest extends HelperTestCase
     public function testViewport(): void
     {
         $expected = '<meta name="viewport" content="initial-scale=1, width=device-width"/>';
-        $result = $this->Helper->viewport();
+        $result = $this->Helper->viewport([], ['block' => false]);
         $this->assertSame($expected, $result);
 
         $expected = '<meta title="my title" name="viewport" content="width=500, initial-scale=1"/>';
-        $result = $this->Helper->viewport(['width' => 500], ['title' => 'my title']);
+        $result = $this->Helper->viewport(['width' => 500], ['block' => false, 'title' => 'my title']);
         $this->assertSame($expected, $result);
     }
 }

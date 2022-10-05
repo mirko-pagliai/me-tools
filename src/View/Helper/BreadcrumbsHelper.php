@@ -26,7 +26,7 @@ class BreadcrumbsHelper extends CakeBreadcrumbsHelper
      * Add a crumb to the end of the trail
      * @param string|array $title If provided as a string, it represents the
      *  title of the crumb. Alternatively you can provide an array, with each
-     *  values being a single crumb. Arrays are expected to be of this form:
+     *  value being a single crumb. Arrays are expected to be of this form:
      *  - *title* The title of the crumb
      *  - *link* The link of the crumb
      *  - *options* Options of the crumb
@@ -53,7 +53,7 @@ class BreadcrumbsHelper extends CakeBreadcrumbsHelper
      * Prepend a crumb to the start of the queue
      * @param string|array $title If provided as a string, it represents the
      *  title of the crumb. Alternatively you can provide an array, with each
-     *  values being a single crumb. Arrays are expected to be of this form:
+     *  value being a single crumb. Arrays are expected to be of this form:
      *  - *title* The title of the crumb
      *  - *link* The link of the crumb
      *  - *options* Options of the crumb

@@ -170,7 +170,7 @@ class BootstrapFormHelper extends FormHelper
      * @param string $fieldName This should be "modelname.fieldname"
      * @param array<string, mixed> $options Each type of input takes different options
      * @return string
-     * @see MeTools\View\Helper\LibraryHelper::ckeditor()
+     * @see \MeTools\View\Helper\LibraryHelper::ckeditor()
      */
     public function ckeditor(string $fieldName, array $options = []): string
     {
@@ -242,22 +242,25 @@ class BootstrapFormHelper extends FormHelper
         }
 
         /**
-         * Input group (`append-text` and `prepend-text` options)
+         * Input group (`append-text` and `prepend-text` options).
+         * It can also handle buttons.
          * @see https://getbootstrap.com/docs/5.2/forms/input-group
          */
         if ($options->exists('append-text') || $options->exists('prepend-text')) {
             $this->setTemplates([
-                'formGroup' => '{{label}}<div class="input-group' . ($this->isPost ? ' has-validation' : '') . '">{{prependText}}{{input}}{{appendText}}{{error}}</div>',
+                'formGroup' => '{{label}}<div class="input-group' . ($this->isPost ? ' has-validation' : '') . '">{{prepend}}{{input}}{{append}}{{error}}</div>',
                 'inputContainer' => '<div class="input mb-3 {{type}}{{required}}">{{content}}{{help}}</div>',
                 'inputContainerError' => '<div class="input mb-3 {{type}}{{required}} error">{{content}}{{help}}</div>',
             ]);
 
-            if ($options->exists('append-text')) {
-                $options->append('templateVars', ['appendText' => $this->Html->span($options->consume('append-text'), ['class' => 'input-group-text'])]);
+            foreach (['append', 'prepend'] as $name) {
+                $value = $options->consume($name . '-text') ?: '';
+                if ($value && !str_starts_with($value, '<button') && !str_starts_with($value, '<div class="submit')) {
+                    $value = $this->Html->span($value, ['class' => 'input-group-text']);
+                }
+                $templateVars[$name] = $value;
             }
-            if ($options->exists('prepend-text')) {
-                $options->append('templateVars', ['prependText' => $this->Html->span($options->consume('prepend-text'), ['class' => 'input-group-text'])]);
-            }
+            $options->append('templateVars', $templateVars);
         }
 
         return parent::control($fieldName, $options->toArray());
@@ -269,9 +272,9 @@ class BootstrapFormHelper extends FormHelper
      * See the parent method for all available options.
      * @param mixed $context The context for which the form is being defined.
      *   Can be a ContextInterface instance, ORM entity, ORM resultset, or an
-     *   array of meta data. You can use `null` to make a context-less form.
+     *   array of metadata. You can use `null` to make a context-less form.
      * @param array<string, mixed> $options An array of html attributes and options
-     * @return string An formatted opening FORM tag
+     * @return string A formatted opening FORM tag
      * @see https://getbootstrap.com/docs/5.2/forms/layout/#inline-forms
      */
     public function createInline($context = null, array $options = []): string
@@ -404,7 +407,7 @@ class BootstrapFormHelper extends FormHelper
      *  exists, AND the first character is /, image is relative to webroot,
      *  OR if the first character is not /, image is relative to webroot/img
      * @param array<string, mixed> $options Array of options
-     * @return string A HTML submit button
+     * @return string An HTML submit button
      */
     public function submit(?string $caption = null, array $options = []): string
     {

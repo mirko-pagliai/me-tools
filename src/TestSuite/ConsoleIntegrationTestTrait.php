@@ -15,6 +15,7 @@ declare(strict_types=1);
  */
 namespace MeTools\TestSuite;
 
+use Cake\Console\CommandInterface;
 use Cake\Console\TestSuite\ConsoleIntegrationTestTrait as BaseConsoleIntegrationTestTrait;
 use MeTools\Console\Command;
 
@@ -35,9 +36,11 @@ trait ConsoleIntegrationTestTrait
     /**
      * Called before every test method
      * @return void
+     * @noinspection PhpRedundantVariableDocTypeInspection
      */
-    public function setUp(): void
+    protected function setUp(): void
     {
+        /** @noinspection PhpMultipleClassDeclarationsInspection */
         parent::setUp();
 
         if (empty($this->Command) && !empty($this->autoInitializeClass)) {
@@ -63,7 +66,7 @@ trait ConsoleIntegrationTestTrait
      */
     public function assertExitWithError(string $message = ''): void
     {
-        $this->assertExitCode(Command::CODE_ERROR, $message);
+        $this->assertExitCode(CommandInterface::CODE_ERROR, $message);
     }
 
     /**
@@ -74,7 +77,7 @@ trait ConsoleIntegrationTestTrait
      */
     public function assertExitWithSuccess(string $message = ''): void
     {
-        $this->assertExitCode(Command::CODE_SUCCESS, $message);
+        $this->assertExitCode(CommandInterface::CODE_SUCCESS, $message);
     }
 
     /**

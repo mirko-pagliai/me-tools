@@ -154,7 +154,7 @@ msgid "Failed to set permissions on `{0}`"
 msgstr ""
 
 #: .src/Console/Command.php:163
-msgid "Setted permissions on `{0}`"
+msgid "Set permissions on `{0}`"
 msgstr ""
 
 #: .src/Controller/Component/UploaderComponent.php:91

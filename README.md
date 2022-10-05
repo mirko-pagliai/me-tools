@@ -8,7 +8,7 @@
 
 MeTools is a CakePHP plugin to improve applications development.
 It provides some useful tools, such as components, helpers and javascript libraries.
-Refer to our [API](//mirko-pagliai.github.io/me-tools) to discover them all.
+Refer to our [API](http://mirko-pagliai.github.io/me-tools) to discover them all.
 
 ## Installation
 You can install the plugin via composer:
@@ -17,7 +17,7 @@ You can install the plugin via composer:
 $ composer require --prefer-dist mirko-pagliai/me-tools
 ```
 
-Then you have to load the plugin. For more information on how to load the plugin, please refer to the [Cookbook](//book.cakephp.org/4.0/en/plugins.html#loading-a-plugin).
+Then you have to load the plugin. For more information on how to load the plugin, please refer to the [Cookbook](http://book.cakephp.org/4.0/en/plugins.html#loading-a-plugin).
 
 Simply, you can execute the shell command to enable the plugin:
 ```bash
@@ -30,7 +30,7 @@ Recent packages and the master branch require at least CakePHP 4.2 and PHP 7.4 a
 However, there are still some branches compatible with previous versions of CakePHP and PHP.
 
 #### For PHP 7.2 or later
-The [php7.2](//github.com/mirko-pagliai/me-tools/tree/php7.2) branch requires at least PHP 7.2.
+The [php7.2](http://github.com/mirko-pagliai/me-tools/tree/php7.2) branch requires at least PHP 7.2.
 
 In this case, you can install the package as well:
 ```bash
@@ -38,10 +38,10 @@ $ composer require --prefer-dist mirko-pagliai/me-tools:dev-php7.2
 ```
 
 Note that the `php7.2` branch will no longer be updated as of May 13, 2022,
-except for security patches, and it matches the [2.20.9](//github.com/mirko-pagliai/me-tools/releases/tag/2.20.9) version.
+except for security patches, and it matches the [2.20.9](http://github.com/mirko-pagliai/me-tools/releases/tag/2.20.9) version.
 
 ### Use the theme for Bake
-MeTools includes a theme for Bake. For information on Bake's themes, refer to the [CookBook](//book.cakephp.org/bake/2/en/development.html#creating-a-bake-theme).
+MeTools includes a theme for Bake. For information on Bake's themes, refer to the [CookBook](http://book.cakephp.org/bake/2/en/development.html#creating-a-bake-theme).
 
 If you want to use this theme, don't forget to use the `--theme MeTools` option when you Bake, or to set the theme as default:
 ```php
@@ -51,7 +51,7 @@ Configure::write('Bake.theme', 'MeTools');
 ```
 
 ## How to extract POT files
-First, copy the [CakePHP binaries](//github.com/cakephp/app/tree/4.x/bin), adapting them to the plugin.
+First, copy the [CakePHP binaries](http://github.com/cakephp/app/tree/4.x/bin), adapting them to the plugin.
 
 For example, the `bin/cake.php` file might look like this:
 ```php

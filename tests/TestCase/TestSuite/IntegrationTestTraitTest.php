@@ -34,7 +34,7 @@ class IntegrationTestTraitTest extends TestCase
      * Called before every test method
      * @return void
      */
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -44,6 +44,7 @@ class IntegrationTestTraitTest extends TestCase
     /**
      * Test for `controllerSpy()` method
      * @test
+     * @noinspection PhpUndefinedFieldInspection
      */
     public function testControllerSpy(): void
     {

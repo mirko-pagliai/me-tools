@@ -19,12 +19,6 @@ use Cake\Console\Arguments;
 use Cake\Console\ConsoleIo;
 use Cake\Console\ConsoleOptionParser;
 use Cake\Utility\Hash;
-use MeTools\Command\Install\CreateDirectoriesCommand;
-use MeTools\Command\Install\CreatePluginsLinksCommand;
-use MeTools\Command\Install\CreateRobotsCommand;
-use MeTools\Command\Install\CreateVendorsLinksCommand;
-use MeTools\Command\Install\FixComposerJsonCommand;
-use MeTools\Command\Install\SetPermissionsCommand;
 use MeTools\Console\Command;
 use Tools\Exceptionist;
 
@@ -101,6 +95,7 @@ class RunAllCommand extends Command
      * @param \Cake\Console\Arguments $args The command arguments
      * @param \Cake\Console\ConsoleIo $io The console io
      * @return void
+     * @throws \Throwable
      */
     public function execute(Arguments $args, ConsoleIo $io): void
     {

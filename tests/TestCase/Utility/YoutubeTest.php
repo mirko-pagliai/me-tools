@@ -57,7 +57,7 @@ class YoutubeTest extends TestCase
             'https://www.youtube.com/watch?v=bL_CJKq9rIw',
             'http://youtu.be/bL_CJKq9rIw',
         ] as $value) {
-            $this->assertEquals('http://img.youtube.com/vi/bL_CJKq9rIw/0.jpg', Youtube::getPreview($value));
+            $this->assertEquals('https://img.youtube.com/vi/bL_CJKq9rIw/0.jpg', Youtube::getPreview($value));
         }
     }
 
@@ -67,6 +67,6 @@ class YoutubeTest extends TestCase
      */
     public function testGetUrl(): void
     {
-        $this->assertEquals('http://youtu.be/bL_CJKq9rIw', Youtube::getUrl('bL_CJKq9rIw'));
+        $this->assertEquals('https://youtu.be/bL_CJKq9rIw', Youtube::getUrl('bL_CJKq9rIw'));
     }
 }
