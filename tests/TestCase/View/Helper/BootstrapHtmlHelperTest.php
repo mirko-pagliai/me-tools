@@ -60,8 +60,8 @@ class BootstrapHtmlHelperTest extends HelperTestCase
      */
     public function testButton(): void
     {
-        $expected = '<a href="http://link" class="btn btn-light" role="button" title="my-title">My title</a>';
-        $result = $this->Helper->button('My title', 'http://link', ['title' => 'my-title']);
+        $expected = '<a href="https://link" class="btn btn-light" role="button" title="my-title">My title</a>';
+        $result = $this->Helper->button('My title', 'https://link', ['title' => 'my-title']);
         $this->assertSame($expected, $result);
 
         $expected = '<a href="#" class="btn btn-light" role="button" title="My title">My title <i class="fas fa-home"> </i></a>';
@@ -83,8 +83,8 @@ class BootstrapHtmlHelperTest extends HelperTestCase
         $this->assertSame($expected, $result);
 
         //With a button class
-        $expected = '<a href="http://link" class="btn btn-success" role="button" title="my-title">My title</a>';
-        $result = $this->Helper->button('My title', 'http://link', ['class' => 'btn-success', 'title' => 'my-title']);
+        $expected = '<a href="https://link" class="btn btn-success" role="button" title="my-title">My title</a>';
+        $result = $this->Helper->button('My title', 'https://link', ['class' => 'btn-success', 'title' => 'my-title']);
         $this->assertSame($expected, $result);
 
         $this->loadPlugins(['TestPlugin' => []]);
@@ -163,8 +163,8 @@ class BootstrapHtmlHelperTest extends HelperTestCase
      */
     public function testLink(): void
     {
-        $expected = '<a href="http://link" title="my-title">My title</a>';
-        $result = $this->Helper->link('My title', 'http://link', ['title' => 'my-title']);
+        $expected = '<a href="https://link" title="my-title">My title</a>';
+        $result = $this->Helper->link('My title', 'https://link', ['title' => 'my-title']);
         $this->assertSame($expected, $result);
 
         $expected = '<a href="#" title="My title">My title <i class="fas fa-home"> </i></a>';

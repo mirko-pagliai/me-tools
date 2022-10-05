@@ -44,6 +44,7 @@ class IntegrationTestTraitTest extends TestCase
     /**
      * Test for `controllerSpy()` method
      * @test
+     * @noinspection PhpUndefinedFieldInspection
      */
     public function testControllerSpy(): void
     {

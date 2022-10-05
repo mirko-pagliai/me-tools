@@ -481,7 +481,7 @@ class FormHelperTest extends HelperTestCase
     public function testPostButton(): void
     {
         $title = 'My title';
-        $url = 'http://link';
+        $url = 'https://link';
 
         $expected = [
             'form' => ['name', 'style' => 'display:none;', 'method' => 'post', 'action' => $url],
@@ -525,7 +525,7 @@ class FormHelperTest extends HelperTestCase
     public function testPostLink(): void
     {
         $title = 'My title';
-        $url = 'http://link';
+        $url = 'https://link';
 
         $expected = [
             'form' => ['name', 'style' => 'display:none;', 'method' => 'post', 'action' => $url],
