@@ -40,6 +40,7 @@ trait ConsoleIntegrationTestTrait
      */
     protected function setUp(): void
     {
+        /** @noinspection PhpMultipleClassDeclarationsInspection */
         parent::setUp();
 
         if (empty($this->Command) && !empty($this->autoInitializeClass)) {
