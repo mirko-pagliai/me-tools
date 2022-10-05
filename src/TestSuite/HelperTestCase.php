@@ -37,6 +37,7 @@ abstract class HelperTestCase extends TestCase
     /**
      * Called before every test method
      * @return void
+     * @noinspection PhpRedundantVariableDocTypeInspection
      */
     protected function setUp(): void
     {

@@ -50,9 +50,9 @@ trait MockTrait
      *  will return the string `Pages`.
      * @param class-string|object $class Class name or object
      * @return string
+     * @throws \PHPUnit\Framework\AssertionFailedError|\ReflectionException If the
+     *  class does not exist or if it is impossible to get its alias
      * @since 2.19.9
-     * @throw \PHPUnit\Framework\AssertionFailedError If the class does not
-     *  exist or if it is impossible to get its alias
      */
     protected function getAlias($class): string
     {
@@ -71,6 +71,7 @@ trait MockTrait
      * @param class-string<\Cake\Controller\Component> $className Component class name
      * @param array<string> $methods The list of methods to mock
      * @return \Cake\Controller\Component&\PHPUnit\Framework\MockObject\MockObject
+     * @noinspection PhpIncompatibleReturnTypeInspection
      */
     protected function getMockForComponent(string $className, array $methods = []): Component
     {
@@ -86,6 +87,8 @@ trait MockTrait
      * @param array<string> $methods The list of methods to mock
      * @param string|null $alias Controller alias
      * @return \Cake\Controller\Controller&\PHPUnit\Framework\MockObject\MockObject
+     * @throws \ReflectionException
+     * @noinspection PhpIncompatibleReturnTypeInspection
      */
     protected function getMockForController(string $className, array $methods = [], ?string $alias = null): Controller
     {
@@ -101,6 +104,7 @@ trait MockTrait
      * @param array<string> $methods The list of methods to mock
      * @param \Cake\View\View|null $View A `View` instance
      * @return \Cake\View\Helper&\PHPUnit\Framework\MockObject\MockObject
+     * @noinspection PhpIncompatibleReturnTypeInspection
      */
     protected function getMockForHelper(string $className, array $methods = [], ?View $View = null): Helper
     {

@@ -19,7 +19,7 @@ use Cake\Core\Configure;
 use Cake\ORM\Table;
 use Cake\ORM\TableRegistry;
 use Cake\TestSuite\TestCase as CakeTestCase;
-use Exception;
+use Throwable;
 use Tools\Exceptionist;
 use Tools\Filesystem;
 use Tools\TestSuite\ReflectionTrait;
@@ -48,6 +48,7 @@ abstract class TestCase extends CakeTestCase
     /**
      * Called after every test method
      * @return void
+     * @throws \Throwable
      */
     protected function tearDown(): void
     {
@@ -71,7 +72,7 @@ abstract class TestCase extends CakeTestCase
         try {
             $filename = $this->getLogFullPath($filename);
             $content = file_get_contents(Exceptionist::isReadable($filename)) ?: '';
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             $this->fail($e->getMessage());
         }
 

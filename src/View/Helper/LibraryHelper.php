@@ -68,6 +68,7 @@ class LibraryHelper extends Helper
      * @param string $input Target field
      * @param array $options Options for the datepicker
      * @return string jQuery code
+     * @throws \Throwable
      * @see http://eonasdan.github.io/bootstrap-datetimepicker Bootstrap 3 Datepicker v4 documentation
      */
     protected function buildDatetimepicker(string $input, array $options = []): string
@@ -144,10 +145,9 @@ class LibraryHelper extends Helper
      *  method provided by the `FormHelper`.
      * @param bool $jquery `true` if you want to use the jQuery adapter
      * @return void
+     * @throws \Throwable
      * @see \MeTools\View\Helper\FormHelper::ckeditor()
      * @see http://docs.cksource.com CKEditor documentation
-     * @throws \Tools\Exception\FileNotExistsException
-     * @throws \Tools\Exception\NotReadableException
      */
     public function ckeditor(bool $jquery = false): void
     {
@@ -184,6 +184,7 @@ class LibraryHelper extends Helper
      * @param string $input Target field. Default is `.datepicker`
      * @param array $options Options for the datepicker
      * @return void
+     * @throws \Throwable
      * @deprecated 2.21.1 Use instead the normal functions provided by the most
      *  modern browsers
      */
@@ -205,6 +206,7 @@ class LibraryHelper extends Helper
      * @param string $input Target field. Default is `.datetimepicker`
      * @param array $options Options for the datetimepicker
      * @return void
+     * @throws \Throwable
      * @deprecated 2.21.1 Use instead the normal functions provided by the most
      *  modern browsers
      */
@@ -218,6 +220,7 @@ class LibraryHelper extends Helper
     /**
      * Loads all fancybox files
      * @return void
+     * @throws \Throwable
      * @link https://fancyapps.com/fancybox/3 fancybox documentation
      */
     public function fancybox(): void
@@ -244,7 +247,7 @@ class LibraryHelper extends Helper
      */
     public function shareaholic(string $siteId): ?string
     {
-        return $this->Html->script('http://dsms0mj1bbhn4.cloudfront.net/assets/pub/shareaholic.js', [
+        return $this->Html->script('https://dsms0mj1bbhn4.cloudfront.net/assets/pub/shareaholic.js', [
             'async' => 'async',
             'block' => 'script_bottom',
             'data-cfasync' => 'false',
@@ -260,6 +263,7 @@ class LibraryHelper extends Helper
      * @param string $sourceField Source field
      * @param string $targetField Target field
      * @return void
+     * @throws \Throwable
      */
     public function slugify(string $sourceField = 'form #title', string $targetField = 'form #slug'): void
     {
@@ -278,6 +282,7 @@ class LibraryHelper extends Helper
      * @param string $input Target field. Default is `.timepicker`
      * @param array $options Options for the timepicker
      * @return void
+     * @throws \Throwable
      * @deprecated 2.21.1 Use instead the normal functions provided by the most
      *  modern browsers
      */

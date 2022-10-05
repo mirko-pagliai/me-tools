@@ -43,7 +43,7 @@ class HtmlHelper extends CakeHtmlHelper
      * @param string $method Name of the tag
      * @param array $params Params for the method
      * @return string
-     * @throws \ErrorException|\Exception
+     * @throws \Throwable
      */
     public function __call(string $method, array $params = []): string
     {

@@ -40,6 +40,7 @@ trait IntegrationTestTrait
      * @param \Cake\Event\EventInterface $event A dispatcher event
      * @param \Cake\Controller\Controller|null $controller Controller instance
      * @return void
+     * @noinspection PhpUndefinedFieldInspection
      */
     public function controllerSpy(EventInterface $event, ?Controller $controller = null): void
     {
@@ -53,7 +54,6 @@ trait IntegrationTestTrait
                 ->getMock();
 
             $Uploader->method('move_uploaded_file')->willReturnCallback(fn(string $filename, string $destination): bool => rename($filename, $destination));
-            /** @noinspection PhpPossiblePolymorphicInvocationInspection */
             $this->_controller->Uploader = $Uploader;
         }
     }

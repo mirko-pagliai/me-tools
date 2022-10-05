@@ -113,7 +113,7 @@ class BootstrapDropdownHelper extends Helper
      * @param array $ulOptions HTML attributes and options for the wrapper `<ul>`
      *  element
      * @return string
-     * @throws \Exception
+     * @throws \Throwable
      */
     public function end(array $ulOptions = []): string
     {
