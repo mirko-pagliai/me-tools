@@ -26,6 +26,7 @@ class CreateRobotsCommandTest extends TestCase
 
     /**
      * Tests for `execute()` method
+     * @uses \MeTools\Command\Install\CreateRobotsCommand::execute()
      * @test
      */
     public function testExecute(): void

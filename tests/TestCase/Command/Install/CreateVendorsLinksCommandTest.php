@@ -29,13 +29,14 @@ class CreateVendorsLinksCommandTest extends TestCase
 
     /**
      * Tests for `execute()` method
+     * @uses \MeTools\Command\Install\CreateVendorsLinksCommand::execute()
      * @test
      */
     public function testExecute(): void
     {
         $io = new ConsoleIo();
         $Command = $this->getMockBuilder(CreateVendorsLinksCommand::class)
-            ->setMethods(['createLink'])
+            ->onlyMethods(['createLink'])
             ->getMock();
 
         $links = Configure::read('VENDOR_LINKS');

@@ -38,6 +38,7 @@ class RunAllCommandTest extends TestCase
 
     /**
      * Tests for `execute()` method
+     * @uses \MeTools\Command\Install\RunAllCommand::execute()
      * @test
      */
     public function testExecute(): void
@@ -46,14 +47,14 @@ class RunAllCommandTest extends TestCase
         $Command = $this->Command;
 
         $io = $this->getMockBuilder(ConsoleIo::class)
-            ->setMethods(['askChoice'])
+            ->onlyMethods(['askChoice'])
             ->getMock();
 
         $io->method('askChoice')->will($this->returnValue('y'));
 
         $Command->questions = array_map(function ($question) {
             $command = $this->getMockBuilder(Command::class)
-                ->setMethods(['execute'])
+                ->onlyMethods(['execute'])
                 ->getMock();
             $command->method('execute')->will($this->returnCallback(function () use ($question) {
                 $this->debug[] = $question['command'];

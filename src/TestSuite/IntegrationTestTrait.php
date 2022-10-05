@@ -15,6 +15,7 @@ declare(strict_types=1);
  */
 namespace MeTools\TestSuite;
 
+use Cake\Controller\ComponentRegistry;
 use Cake\Controller\Controller;
 use Cake\Event\EventInterface;
 use Cake\TestSuite\Constraint\Session\SessionEquals;
@@ -46,8 +47,13 @@ trait IntegrationTestTrait
 
         if ($this->_controller->components()->has('Uploader')) {
             /** @var \MeTools\Controller\Component\UploaderComponent&\PHPUnit\Framework\MockObject\MockObject $Uploader */
-            $Uploader = $this->getMockForComponent(UploaderComponent::class, ['move_uploaded_file']);
-            $Uploader->method('move_uploaded_file')->will($this->returnCallback(fn(string $filename, string $destination): bool => rename($filename, $destination)));
+            $Uploader = $this->getMockBuilder(UploaderComponent::class)
+                ->setConstructorArgs([new ComponentRegistry(new Controller())])
+                ->addMethods(['move_uploaded_file'])
+                ->getMock();
+
+            $Uploader->method('move_uploaded_file')->willReturnCallback(fn(string $filename, string $destination): bool => rename($filename, $destination));
+            /** @noinspection PhpPossiblePolymorphicInvocationInspection */
             $this->_controller->Uploader = $Uploader;
         }
     }

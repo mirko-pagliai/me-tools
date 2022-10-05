@@ -25,6 +25,7 @@ use Tools\Filesystem;
 /**
  * LibraryHelperTest class
  * @property \MeTools\View\Helper\LibraryHelper $Helper
+ * @noinspection PhpDeprecationInspection
  */
 class LibraryHelperTest extends HelperTestCase
 {
@@ -44,7 +45,7 @@ class LibraryHelperTest extends HelperTestCase
      * Called before every test method
      * @return void
      */
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -55,7 +56,7 @@ class LibraryHelperTest extends HelperTestCase
      * Called after every test method
      * @return void
      */
-    public function tearDown(): void
+    protected function tearDown(): void
     {
         parent::tearDown();
 
@@ -72,7 +73,7 @@ class LibraryHelperTest extends HelperTestCase
         //  `AssetHelper` matches the `HtmlHelper`
         if (Plugin::getCollection()->has('Assets')) {
             $this->Helper->initialize([]);
-            $this->assertInstanceof(AssetHelper::class, $this->Helper->Asset);
+            $this->assertInstanceOf(AssetHelper::class, $this->Helper->Asset);
             $this->removePlugins(['Assets']);
         }
 
@@ -121,12 +122,7 @@ class LibraryHelperTest extends HelperTestCase
     {
         $request = $this->createMock(ServerRequest::class);
         $request->expects($this->any())->method('is')->willReturn(true);
-
-        $Helper = $this->getMockBuilder(LibraryHelper::class)
-            ->setMethods(null)
-            ->setConstructorArgs([new View($request)])
-            ->getMock();
-
+        $Helper = new LibraryHelper(new View($request));
         $Helper->analytics('my-id');
         $this->assertEmpty($Helper->getView()->fetch('script_bottom'));
     }
@@ -289,7 +285,7 @@ class LibraryHelperTest extends HelperTestCase
     {
         $expected = [
             'script' => [
-                'src' => '//dsms0mj1bbhn4.cloudfront.net/assets/pub/shareaholic.js',
+                'src' => 'http://dsms0mj1bbhn4.cloudfront.net/assets/pub/shareaholic.js',
                 'async' => 'async',
                 'data-cfasync' => 'false',
                 'data-shr-siteid' => 'my-id',

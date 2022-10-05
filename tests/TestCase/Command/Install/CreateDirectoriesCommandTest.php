@@ -12,6 +12,7 @@ declare(strict_types=1);
  * @link        https://github.com/mirko-pagliai/me-tools
  * @license     https://opensource.org/licenses/mit-license.php MIT License
  */
+
 namespace MeTools\Test\TestCase\Command\Install;
 
 use Cake\Console\ConsoleIo;
@@ -29,13 +30,14 @@ class CreateDirectoriesCommandTest extends TestCase
 
     /**
      * Tests for `execute()` method
+     * @uses \MeTools\Command\Install\CreateDirectoriesCommand::execute()
      * @test
      */
     public function testExecute(): void
     {
         $io = new ConsoleIo();
         $Command = $this->getMockBuilder(CreateDirectoriesCommand::class)
-            ->setMethods(['createDir'])
+            ->onlyMethods(['createDir'])
             ->getMock();
 
         $dirs = Configure::read('WRITABLE_DIRS');

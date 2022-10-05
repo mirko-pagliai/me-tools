@@ -15,7 +15,7 @@ declare(strict_types=1);
 namespace MeTools\Utility;
 
 /**
- * An utility to get information about YouTube videos
+ * A utility to get information about YouTube videos
  */
 class Youtube
 {

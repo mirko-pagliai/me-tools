@@ -215,8 +215,7 @@ class BootstrapFormHelperTest extends HelperTestCase
         $result = $this->Helper->control('my-inline-field', ['type' => 'checkbox']);
         $this->assertSame($expected, $result);
 
-        //With error
-        $expectedStart = '<div class="input mb-3 form-check required"><input type="hidden" name="my-checkbox" value="0"/><label class="form-check-label fw-bolder" for="my-checkbox"><input type="checkbox" name="my-checkbox" value="1"';
+        //With error (same `$expectedStart` value)
         $expectedEnd = 'class="form-check-input is-invalid" id="my-checkbox" required="required">My Checkbox</label>My error</div>';
         /** @var \Cake\Http\ServerRequest&\PHPUnit\Framework\MockObject\MockObject $Request */
         $Request = $this->getMockBuilder(ServerRequest::class)

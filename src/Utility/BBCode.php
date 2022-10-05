@@ -35,7 +35,7 @@ class BBCode
      */
     protected array $pattern = [
         'image' => '/\[img](.+?)\[\/img]/',
-        'readmore' => '/(<p(>|.*?[^?]>))?\[read\-?more\s*\/?\s*\](<\/p>)?/',
+        'readmore' => '/(<p(>|.*?[^?]>))?\[read-?more\s*\/?\s*](<\/p>)?/',
         'url' => '/\[url=[\'"](.+?)[\'"]](.+?)\[\/url]/',
         'youtube' => '/\[youtube](.+?)\[\/youtube]/',
     ];
@@ -83,7 +83,7 @@ class BBCode
     /**
      * Parses image code.
      * <code>
-     * [img]mypic.gif[/img]
+     * [img]my_pic.gif[/img]
      * </code>
      * @param string $text Text
      * @return string

@@ -13,6 +13,7 @@ declare(strict_types=1);
  * @license     https://opensource.org/licenses/mit-license.php MIT License
  * @since       2.14.0
  */
+
 namespace MeTools\TestSuite;
 
 use Cake\Core\Configure;
@@ -20,7 +21,6 @@ use Cake\ORM\Table;
 use Cake\ORM\TableRegistry;
 use Cake\TestSuite\TestCase as CakeTestCase;
 use Exception;
-use MeTools\TestSuite\MockTrait;
 use Tools\Exceptionist;
 use Tools\Filesystem;
 use Tools\TestSuite\ReflectionTrait;

@@ -12,10 +12,12 @@
     ],
     "require": {
         "php": ">=7.4",
+        "ext-json": "*",
         "cakephp/cakephp": "^4.3",
         "mirko-pagliai/php-tools": "^1.6"
     },
     "require-dev": {
+        "ext-fileinfo": "*",
         "cakephp/cakephp-codesniffer": "^4.5",
         "mirko-pagliai/cakephp-assets": "^1.5.7",
         "phpunit/phpunit": "^9.1|^9.5",
@@ -48,21 +50,20 @@
             "MeTools\\Test\\": "tests",
             "TestPlugin\\": "tests/test_app/Plugin/TestPlugin/src",
             "AnotherTestPlugin\\": "tests/test_app/Plugin/AnotherTestPlugin/src",
-            "AnotherTestPlugin\\MyPlugin\\Test\\": "tests/test_app/Plugin/AnotherTestPlugin/tests"
+            "AnotherTestPlugin\\Test\\": "tests/test_app/Plugin/AnotherTestPlugin/tests"
         }
     },
     "scripts": {
         "check": [
             "@cs-check",
             "@update-lowest",
-            "@test",
+            "phpunit",
             "@composer update",
-            "@test",
+            "phpunit",
             "@stan"
         ],
         "cs-check": "phpcs --standard=phpcs.xml.dist",
         "cs-fix": "phpcbf --standard=phpcs.xml.dist",
-        "test": "rm -f -r /tmp/cake* && phpunit",
         "coverage": "XDEBUG_MODE=coverage phpunit --coverage-html=coverage",
         "phpstan": "phpstan.phar analyse",
         "psalm": "psalm.phar --php-version=8.0",

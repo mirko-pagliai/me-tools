@@ -28,6 +28,6 @@ class Application extends BaseApplication
      */
     public function middleware(MiddlewareQueue $middlewareQueue): MiddlewareQueue
     {
-        return $middlewareQueue->add(new RoutingMiddleware());
+        return $middlewareQueue->add(new RoutingMiddleware($this));
     }
 }

@@ -13,11 +13,11 @@ declare(strict_types=1);
  * @license     https://opensource.org/licenses/mit-license.php MIT License
  * @since       2.17.5
  */
+
 namespace MeTools\TestSuite;
 
 use Cake\View\Helper;
 use Cake\View\View;
-use MeTools\TestSuite\TestCase;
 
 /**
  * Abstract class for test helpers
@@ -39,7 +39,7 @@ abstract class HelperTestCase extends TestCase
      * Called before every test method
      * @return void
      */
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -48,7 +48,7 @@ abstract class HelperTestCase extends TestCase
             $className = $this->getOriginClassNameOrFail($this);
             $this->Helper = new $className(new View());
         }
-        if ($this->Helper && method_exists($this->Helper, 'initialize')) {
+        if (method_exists($this->Helper, 'initialize')) {
             $this->Helper->initialize([]);
         }
     }

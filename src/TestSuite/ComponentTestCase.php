@@ -13,12 +13,12 @@ declare(strict_types=1);
  * @license     https://opensource.org/licenses/mit-license.php MIT License
  * @since       2.17.5
  */
+
 namespace MeTools\TestSuite;
 
 use Cake\Controller\Component;
 use Cake\Controller\ComponentRegistry;
 use Cake\Controller\Controller;
-use MeTools\TestSuite\TestCase;
 
 /**
  * Abstract class for test components
@@ -40,7 +40,7 @@ abstract class ComponentTestCase extends TestCase
      * Called before every test method
      * @return void
      */
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -49,7 +49,7 @@ abstract class ComponentTestCase extends TestCase
             $className = $this->getOriginClassNameOrFail($this);
             $this->Component = new $className(new ComponentRegistry(new Controller()));
         }
-        if ($this->Component && method_exists($this->Component, 'initialize')) {
+        if (method_exists($this->Component, 'initialize')) {
             $this->Component->initialize([]);
         }
     }

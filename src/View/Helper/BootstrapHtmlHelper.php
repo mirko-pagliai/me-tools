@@ -44,7 +44,7 @@ class BootstrapHtmlHelper extends HtmlHelper
      * @param string $method Name of the tag
      * @param array $params Params for the method
      * @return string
-     * @throws \ErrorException
+     * @throws \Exception
      */
     public function __call(string $method, array $params = []): string
     {
@@ -121,7 +121,7 @@ class BootstrapHtmlHelper extends HtmlHelper
      * @return string
      */
     public function li($element, array $options = []): string
-    {        
+    {
         return implode(PHP_EOL, array_map(fn(string $element): string => $this->tag('li', $element, $options), (array)$element));
     }
 

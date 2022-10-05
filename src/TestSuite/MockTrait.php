@@ -32,11 +32,14 @@ trait MockTrait
      * @param class-string|string $className Class name
      * @return class-string
      * @throw \PHPUnit\Framework\AssertionFailedError
-     * @psalm-suppress NoValue
      */
     protected function _classExistsOrFail(string $className): string
     {
-        return class_exists($className) ? $className : $this->fail('Class `' . $className . '` does not exist');
+        if (!class_exists($className)) {
+            $this->fail('Class `' . $className . '` does not exist');
+        }
+
+        return $className;
     }
 
     /**
@@ -50,56 +53,59 @@ trait MockTrait
      * @since 2.19.9
      * @throw \PHPUnit\Framework\AssertionFailedError If the class does not
      *  exist or if it is impossible to get its alias
-     * @psalm-suppress NoValue
      */
     protected function getAlias($class): string
     {
         $class = is_object($class) ? get_class($class) : $this->_classExistsOrFail($class);
         $alias = preg_replace('/^(\w+)(Cell|Controller|Table|Validator)(Test)?$/', '$1', get_class_short_name($class), -1, $count);
 
-        return $alias && $count ? $alias : $this->fail('Unable to get the alias for the `' . $class . '` class');
+        if (!$alias || !$count) {
+            $this->fail('Unable to get the alias for the `' . $class . '` class');
+        }
+
+        return $alias;
     }
 
     /**
      * Mocks a component
      * @param class-string<\Cake\Controller\Component> $className Component class name
-     * @param array<string>|null $methods The list of methods to mock
+     * @param array<string> $methods The list of methods to mock
      * @return \Cake\Controller\Component&\PHPUnit\Framework\MockObject\MockObject
      */
-    protected function getMockForComponent(string $className, ?array $methods = []): Component
+    protected function getMockForComponent(string $className, array $methods = []): Component
     {
         return $this->getMockBuilder($className)
             ->setConstructorArgs([new ComponentRegistry(new Controller())])
-            ->setMethods($methods)
+            ->onlyMethods($methods)
             ->getMock();
     }
 
     /**
      * Mocks a controller
      * @param class-string<\Cake\Controller\Controller> $className Controller class name
-     * @param array<string>|null $methods The list of methods to mock
+     * @param array<string> $methods The list of methods to mock
      * @param string|null $alias Controller alias
      * @return \Cake\Controller\Controller&\PHPUnit\Framework\MockObject\MockObject
      */
-    protected function getMockForController(string $className, ?array $methods = [], ?string $alias = null): Controller
+    protected function getMockForController(string $className, array $methods = [], ?string $alias = null): Controller
     {
         return $this->getMockBuilder($className)
             ->setConstructorArgs([null, null, $alias ?: $this->getAlias($className)])
-            ->setMethods($methods)
+            ->onlyMethods($methods)
             ->getMock();
     }
 
     /**
      * Mocks an helper
      * @param class-string<\Cake\View\Helper> $className Helper class name
-     * @param array<string>|null $methods The list of methods to mock
+     * @param array<string> $methods The list of methods to mock
      * @param \Cake\View\View|null $View A `View` instance
      * @return \Cake\View\Helper&\PHPUnit\Framework\MockObject\MockObject
      */
-    protected function getMockForHelper(string $className, ?array $methods = [], ?View $View = null): Helper
+    protected function getMockForHelper(string $className, array $methods = [], ?View $View = null): Helper
     {
         return $this->getMockBuilder($className)
-            ->setMethods($methods)
+            ->onlyMethods($methods)
             ->setConstructorArgs([$View ?: new View()])
             ->getMock();
     }
@@ -126,7 +132,7 @@ trait MockTrait
      * Gets the class name for which a test is being performed, starting from a
      *  `TestCase` class.
      *
-     * It fails if the class cannot be determined or it does not exist.
+     * It fails if the class cannot be determined or does not exist.
      * @param \PHPUnit\Framework\TestCase $className A `TestCase` class
      * @return class-string The class name for which a test is being performed
      * @since 2.19.2

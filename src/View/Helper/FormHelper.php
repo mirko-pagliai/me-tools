@@ -12,6 +12,7 @@ declare(strict_types=1);
  * @link        https://github.com/mirko-pagliai/me-tools
  * @license     https://opensource.org/licenses/mit-license.php MIT License
  */
+
 namespace MeTools\View\Helper;
 
 use Cake\Utility\Hash;
@@ -83,7 +84,7 @@ class FormHelper extends CakeFormHelper
      * @param array $options HTML attributes and options
      * @return string
      * @see postButton()
-     * @see MeTools\View\Helper\HtmlHelper::button()
+     * @see \MeTools\View\Helper\HtmlHelper::button()
      */
     public function button(string $title = '', array $options = []): string
     {
@@ -118,7 +119,7 @@ class FormHelper extends CakeFormHelper
      * @param string $fieldName Field name, should be "Modelname.fieldname"
      * @param array $options HTML attributes and options
      * @return string
-     * @see MeTools\View\Helper\LibraryHelper::ckeditor()
+     * @see \MeTools\View\Helper\LibraryHelper::ckeditor()
      */
     public function ckeditor(string $fieldName, array $options = []): string
     {
@@ -190,7 +191,7 @@ class FormHelper extends CakeFormHelper
      * Returns a `<form>` element.
      * @param mixed $context The context for which the form is being defined.
      *   Can be a ContextInterface instance, ORM entity, ORM resultset, or an
-     *   array of meta data. You can use `null` to make a context-less form
+     *   array of metadata. You can use `null` to make a context-less form
      * @param array $options HTML attributes and options
      * @return string An formatted opening `<form>` tag
      */
@@ -216,7 +217,7 @@ class FormHelper extends CakeFormHelper
      *  errors.
      * @param mixed $context The context for which the form is being defined.
      *   Can be a ContextInterface instance, ORM entity, ORM resultset, or an
-     *   array of meta data. You can use `null` to make a context-less form
+     *   array of metadata. You can use `null` to make a context-less form
      * @param array $options HTML attributes and options
      * @return string An formatted opening `<form>` tag
      */
@@ -265,7 +266,7 @@ class FormHelper extends CakeFormHelper
     /**
      * Closes an HTML form, cleans up values set by `FormHelper::create()`,
      *  and writes hidden input fields where appropriate
-     * @param array $secureAttributes Secure attibutes which will be passed
+     * @param array $secureAttributes Secure attributes which will be passed
      *  as HTML attributes into the hidden input elements generated for the
      *  Security Component.
      * @return string

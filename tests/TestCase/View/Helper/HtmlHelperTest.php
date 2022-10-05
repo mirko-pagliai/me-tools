@@ -22,6 +22,7 @@ use PHPUnit\Framework\Error\Deprecated;
 /**
  * HtmlHelperTest class
  * @property \MeTools\View\Helper\HtmlHelper $Helper
+ * @noinspection PhpDeprecationInspection
  */
 class HtmlHelperTest extends HelperTestCase
 {
@@ -29,6 +30,7 @@ class HtmlHelperTest extends HelperTestCase
      * Tests for `__call()` method
      * @deprecated
      * @test
+     * @noinspection PhpUndefinedMethodInspection
      */
     public function testCall(): void
     {
@@ -40,22 +42,18 @@ class HtmlHelperTest extends HelperTestCase
         $this->assertFalse(method_exists($this->Helper, 'h3'));
 
         $expected = $this->Helper->tag('h3', $text, compact('class'));
-        /** @phpstan-ignore-next-line */
         $this->assertEquals($expected, $this->Helper->h3($text, compact('class')));
 
         $expected = $this->Helper->tag('h3', $text, compact('class') + ['icon' => 'home']);
-        /** @phpstan-ignore-next-line */
         $this->assertEquals($expected, $this->Helper->h3($text, ['class' => $class, 'icon' => 'home']));
 
         $expected = $this->Helper->tag('h3', $text, compact('class') + ['icon' => 'home', 'icon-align' => 'right']);
-        /** @phpstan-ignore-next-line */
         $result = $this->Helper->h3($text, compact('class') + ['icon' => 'home', 'icon-align' => 'right']);
         $this->assertEquals($expected, $result);
 
         //With a no existing method
         $this->expectException(ErrorException::class);
         $this->expectExceptionMessage('Method `' . HtmlHelper::class . '::noExistingMethod()` does not exist');
-        /** @phpstan-ignore-next-line */
         $this->Helper->noExistingMethod(null, null, null);
     }
 
@@ -114,7 +112,7 @@ class HtmlHelperTest extends HelperTestCase
             '" \'',
             '/button',
         ];
-        $this->assertHtml($expected, $this->Helper->button('" \'', null));
+        $this->assertHtml($expected, $this->Helper->button('" \''));
 
         //Quotes on custom title
         $expected = ['button' => ['role' => 'button', 'class' => 'btn btn-light', 'title' => '&quot; &#039;'], $text, '/button'];
@@ -128,7 +126,7 @@ class HtmlHelperTest extends HelperTestCase
             '/u',
             '/button',
         ];
-        $this->assertHtml($expected, $this->Helper->button('<u>Code</u>', null));
+        $this->assertHtml($expected, $this->Helper->button('<u>Code</u>'));
 
         //Code on custom title
         $expected = ['button' => ['class' => 'btn btn-light', 'role' => 'button', 'title' => 'Code'], $text, '/button'];
@@ -698,7 +696,6 @@ class HtmlHelperTest extends HelperTestCase
 
         $expected = ['h3' => true, '/h3'];
         $this->assertHtml($expected, $this->Helper->tag('h3'));
-        $this->assertHtml($expected, $this->Helper->tag('h3', null));
         $this->assertHtml($expected, $this->Helper->tag('h3', ''));
 
         $expected = [

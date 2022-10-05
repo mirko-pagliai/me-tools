@@ -14,7 +14,7 @@ declare(strict_types=1);
  */
 namespace MeTools\Test\TestCase\TestSuite;
 
-use AnotherTestPlugin\MyPlugin\Test\TestCase\Controller\MyExampleControllerTest;
+use AnotherTestPlugin\Test\TestCase\Controller\MyExampleControllerTest;
 use App\Controller\PagesController;
 use App\Model\Table\PostsTable;
 use App\Model\Validation\PostValidator;
@@ -24,6 +24,7 @@ use Cake\Controller\Controller;
 use Cake\View\Helper;
 use MeTools\TestSuite\TestCase;
 use PHPUnit\Framework\AssertionFailedError;
+use stdClass;
 
 /**
  * MockTraitTest class
@@ -44,7 +45,7 @@ class MockTraitTest extends TestCase
 
         //Class with no alias or no existing class
         foreach ([
-            \stdClass::class => 'Unable to get the alias for the `stdClass` class',
+            stdClass::class => 'Unable to get the alias for the `stdClass` class',
             'No\Existing\Class' => 'Class `No\Existing\Class` does not exist',
         ] as $className => $expectedMessage) {
             /** @phpstan-ignore-next-line */
@@ -71,14 +72,14 @@ class MockTraitTest extends TestCase
      */
     public function testGetMockForController(): void
     {
-        /** @var \App\Controller\PagesController $Controller **/
-        $Controller = $this->getMockForController('App\Controller\PagesController', null);
+        /** @var \App\Controller\PagesController $Controller */
+        $Controller = $this->getMockForController('App\Controller\PagesController', []);
         $this->assertIsMock($Controller);
         $this->assertInstanceOf(Controller::class, $Controller);
         $this->assertEquals('Pages', $Controller->getName());
 
-        /** @var \App\Controller\PagesController $Controller **/
-        $Controller = $this->getMockForController('App\Controller\PagesController', null, 'MyController');
+        /** @var \App\Controller\PagesController $Controller */
+        $Controller = $this->getMockForController('App\Controller\PagesController', [], 'MyController');
         $this->assertIsMock($Controller);
         $this->assertInstanceOf(Controller::class, $Controller);
         $this->assertEquals('MyController', $Controller->getName());
@@ -118,7 +119,7 @@ class MockTraitTest extends TestCase
     {
         $this->assertSame(TestCase::class, $this->getOriginClassNameOrFail(new TestCaseTest()));
 
-        $this->expectAssertionFailed('Class `AnotherTestPlugin\MyPlugin\Controller\MyExampleController` does not exist');
+        $this->expectAssertionFailed('Class `AnotherTestPlugin\Controller\MyExampleController` does not exist');
         $this->getOriginClassNameOrFail(new MyExampleControllerTest());
     }
 
@@ -129,7 +130,7 @@ class MockTraitTest extends TestCase
     public function testGetPluginName(): void
     {
         $this->assertSame('MeTools', $this->getPluginName(new TestCaseTest()));
-        $this->assertSame('AnotherTestPlugin/MyPlugin', $this->getPluginName(new MyExampleControllerTest()));
+        $this->assertSame('AnotherTestPlugin', $this->getPluginName(new MyExampleControllerTest()));
     }
 
     /**

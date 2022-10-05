@@ -24,6 +24,7 @@ class FlashComponentTest extends ComponentTestCase
 {
     /**
      * Tests for `__call()` method
+     * @uses \MeTools\Controller\Component\FlashComponent::__call()
      * @test
      */
     public function testMagicCall(): void
@@ -66,7 +67,7 @@ class FlashComponentTest extends ComponentTestCase
             'element' => 'flash/other_name',
             'params' => [],
         ]];
-        /** @phpstan-ignore-next-line */
+        /** @noinspection PhpUndefinedMethodInspection */
         $this->Component->otherName($text);
         $this->assertEquals($expected, $session->read('Flash.flash'));
         $session->delete('Flash.flash');

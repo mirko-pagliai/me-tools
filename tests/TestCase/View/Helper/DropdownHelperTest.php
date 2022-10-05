@@ -32,13 +32,13 @@ class DropdownHelperTest extends HelperTestCase
      * Called before every test method
      * @return void
      */
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
 
         if (empty($this->Html)) {
             /** @var \MeTools\View\Helper\HtmlHelper&\PHPUnit\Framework\MockObject\MockObject $Html */
-            $Html = $this->getMockForHelper(HtmlHelper::class, null);
+            $Html = $this->getMockForHelper(HtmlHelper::class, []);
             $this->Html = $Html;
         }
     }

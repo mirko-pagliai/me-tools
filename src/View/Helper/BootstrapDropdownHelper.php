@@ -90,7 +90,7 @@ class BootstrapDropdownHelper extends Helper
      *  link
      * @return void
      */
-    public function start($title, array $titleOptions = []): void
+    public function start(string $title, array $titleOptions = []): void
     {
         $titleOptions = optionsParser($titleOptions)->append([
             'class' => 'dropdown-toggle',
