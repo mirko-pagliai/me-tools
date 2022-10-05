@@ -17,7 +17,6 @@
 * small and numerous improvements of descriptions, tags and code suggested by
     PhpStorm.
 
-
 ### 2.21.3
 * added `checkbox()`, `radio()` and `select()` methods for `BootstrapFormHelper`;
 * fixed templates for `BootstrapFormHelper` with input groups;
