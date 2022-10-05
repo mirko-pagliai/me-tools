@@ -44,7 +44,7 @@ class UploaderComponentTest extends ComponentTestCase
      * Called after every test method
      * @return void
      */
-    public function tearDown(): void
+    protected function tearDown(): void
     {
         Filesystem::instance()->unlinkRecursive(UPLOADS);
         Filesystem::instance()->rmdirRecursive(TMP . 'upload_test');
@@ -103,6 +103,8 @@ class UploaderComponentTest extends ComponentTestCase
 
     /**
      * Tests for `getFile()` and `setFile()` methods
+     * @uses \MeTools\Controller\Component\UploaderComponent::getFile()
+     * @uses \MeTools\Controller\Component\UploaderComponent::setFile()
      * @test
      */
     public function testGetAndSetFile(): void
@@ -136,6 +138,7 @@ class UploaderComponentTest extends ComponentTestCase
 
     /**
      * Test for `mimetype()` method
+     * @uses \MeTools\Controller\Component\UploaderComponent::mimetype()
      * @test
      */
     public function testMimetype(): void
@@ -161,12 +164,13 @@ class UploaderComponentTest extends ComponentTestCase
         //With no file
         $this->expectException(ObjectWrongInstanceException::class);
         $this->expectExceptionMessage('There are no uploaded file information');
-        /** @phpstan-ignore-next-line */
-        $this->getMockForComponent(UploaderComponent::class, null)->mimetype('text/plain');
+        /** @noinspection PhpPossiblePolymorphicInvocationInspection */
+        $this->getMockForComponent(UploaderComponent::class, [])->mimetype('text/plain');
     }
 
     /**
      * Test for `save()` method
+     * @uses \MeTools\Controller\Component\UploaderComponent::save()
      * @test
      */
     public function testSave(): void
@@ -194,7 +198,7 @@ class UploaderComponentTest extends ComponentTestCase
         $file = Filesystem::instance()->createTmpFile();
         $UploadedFile = $this->getMockBuilder(UploadedFile::class)
             ->setConstructorArgs([$file, filesize($file), UPLOAD_ERR_OK, basename($file), 'text/plain'])
-            ->setMethods(['moveTo'])
+            ->onlyMethods(['moveTo'])
             ->getMock();
 
         $UploadedFile->method('moveTo')->willThrowException(new UploadedFileErrorException());
@@ -205,12 +209,13 @@ class UploaderComponentTest extends ComponentTestCase
         //With no file
         $this->expectException(ObjectWrongInstanceException::class);
         $this->expectExceptionMessage('There are no uploaded file information');
-        /** @phpstan-ignore-next-line */
-        $this->getMockForComponent(UploaderComponent::class, null)->save('');
+        /** @noinspection PhpPossiblePolymorphicInvocationInspection */
+        $this->getMockForComponent(UploaderComponent::class, [])->save('');
     }
 
     /**
      * Test for `save()` method, with an error
+     * @uses \MeTools\Controller\Component\UploaderComponent::save()
      * @test
      */
     public function testSaveWithError(): void

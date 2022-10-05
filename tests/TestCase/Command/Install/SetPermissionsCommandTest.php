@@ -29,13 +29,14 @@ class SetPermissionsCommandTest extends TestCase
 
     /**
      * Tests for `execute()` method
+     * @uses \MeTools\Command\Install\SetPermissionsCommand::execute()
      * @test
      */
     public function testExecute(): void
     {
         $io = new ConsoleIo();
         $Command = $this->getMockBuilder(SetPermissionsCommand::class)
-            ->setMethods(['folderChmod'])
+            ->onlyMethods(['folderChmod'])
             ->getMock();
 
         $dirs = Configure::read('WRITABLE_DIRS');

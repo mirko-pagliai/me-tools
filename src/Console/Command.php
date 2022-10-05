@@ -33,6 +33,7 @@ abstract class Command extends CakeCommand
      * @param \Cake\Console\ConsoleIo $io The console io
      * @param string $path Path
      * @return bool
+     * @throws \Throwable
      */
     protected function verboseIfFileExists(ConsoleIo $io, string $path): bool
     {
@@ -51,6 +52,7 @@ abstract class Command extends CakeCommand
      * @param string $source Source file
      * @param string $dest Destination file
      * @return bool
+     * @throws \Throwable
      */
     public function copyFile(ConsoleIo $io, string $source, string $dest): bool
     {
@@ -81,6 +83,7 @@ abstract class Command extends CakeCommand
      * @param \Cake\Console\ConsoleIo $io The console io
      * @param string $path Directory path
      * @return bool
+     * @throws \Throwable
      */
     public function createDir(ConsoleIo $io, string $path): bool
     {
@@ -88,8 +91,11 @@ abstract class Command extends CakeCommand
             return false;
         }
 
-        if (!@mkdir($path, 0777, true)) {
-            $io->error(__d('me_tools', 'Failed to create file or directory `{0}`', Filesystem::instance()->rtr($path)));
+        try {
+            Filesystem::instance()->mkdir($path);
+        } catch (IOException $e) {
+            preg_match('/mkdir\(\): (.+)$/', $e->getMessage(), $matches);
+            $io->error(__d('me_tools', 'Failed to create file or directory `{0}` with message: {1}', Filesystem::instance()->rtr($path), lcfirst($matches[1])));
 
             return false;
         }
@@ -106,10 +112,11 @@ abstract class Command extends CakeCommand
      * @param string $path Where to put the file
      * @param string $contents Content to put in the file
      * @return bool
+     * @throws \Throwable
      */
     public function createFile(ConsoleIo $io, string $path, string $contents): bool
     {
-        return $this->verboseIfFileExists($io, $path) ? false : $io->createFile($path, $contents);
+        return !$this->verboseIfFileExists($io, $path) && $io->createFile($path, $contents);
     }
 
     /**
@@ -118,6 +125,7 @@ abstract class Command extends CakeCommand
      * @param string $source Source file or directory
      * @param string $dest Destination file or directory
      * @return bool
+     * @throws \Throwable
      */
     public function createLink(ConsoleIo $io, string $source, string $dest): bool
     {
@@ -142,13 +150,14 @@ abstract class Command extends CakeCommand
     }
 
     /**
-     * Sets folder chmods.
+     * Sets folder permissions.
      *
      * This method applies permissions recursively.
      * @param \Cake\Console\ConsoleIo $io The console io
      * @param string $path Folder path
      * @param int $chmod Chmod
      * @return bool
+     * @throws \Throwable
      */
     public function folderChmod(ConsoleIo $io, string $path, int $chmod = 0777): bool
     {
@@ -160,7 +169,7 @@ abstract class Command extends CakeCommand
             return false;
         }
 
-        $io->verbose(__d('me_tools', 'Setted permissions on `{0}`', Filesystem::instance()->rtr($path)));
+        $io->verbose(__d('me_tools', 'Set permissions on `{0}`', Filesystem::instance()->rtr($path)));
 
         return true;
     }

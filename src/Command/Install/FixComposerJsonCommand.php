@@ -47,7 +47,7 @@ class FixComposerJsonCommand extends Command
      * @param \Cake\Console\Arguments $args The command arguments
      * @param \Cake\Console\ConsoleIo $io The console io
      * @return void
-     * @throws \Cake\Console\Exception\StopException
+     * @throws \Throwable
      */
     public function execute(Arguments $args, ConsoleIo $io): void
     {
@@ -70,7 +70,7 @@ class FixComposerJsonCommand extends Command
         }
 
         //Checks if the file has been fixed
-        $message = __d('me_tools', 'File `{0}` doesn\'t need to be fixed', $Filesystem->rtr($path));
+        $message = __d('me_tools', "File `{0}` doesn't need to be fixed", $Filesystem->rtr($path));
         if (empty($contents['config']['component-dir']) || $contents['config']['component-dir'] !== 'vendor/components') {
             $contents += ['config' => ['component-dir' => 'vendor/components']];
             $Filesystem->createFile($path, json_encode($contents, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));

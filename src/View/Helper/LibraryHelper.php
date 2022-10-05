@@ -38,7 +38,7 @@ class LibraryHelper extends Helper
      * It will contain the output code
      * @var array
      */
-    protected $output = [];
+    protected array $output = [];
 
     /**
      * Constructor hook method.
@@ -102,10 +102,9 @@ class LibraryHelper extends Helper
      *  method provided by the `FormHelper`.
      * @param bool $jquery `true` if you want to use the jQuery adapter
      * @return void
-     * @see MeTools\View\Helper\FormHelper::ckeditor()
+     * @throws \Throwable
+     * @see \MeTools\View\Helper\FormHelper::ckeditor()
      * @see http://docs.cksource.com CKEditor documentation
-     * @throws \Tools\Exception\FileNotExistsException
-     * @throws \Tools\Exception\NotReadableException
      */
     public function ckeditor(bool $jquery = false): void
     {
@@ -118,9 +117,10 @@ class LibraryHelper extends Helper
             $scripts[] = '/ckeditor/adapters/jquery';
         }
 
-        //Checks the init file `APP/webroot/js/ckeditor_init.php` or
-        //  `APP/webroot/js/ckeditor_init.js`.
-        //Otherwise uses the init file `APP/plugin/MeTools/webroot/js/ckeditor_init.js`
+        /**
+         * Checks the init file `APP/webroot/js/ckeditor_init.php` or `APP/webroot/js/ckeditor_init.js`.
+         * Otherwise, it uses the init file `APP/plugin/MeTools/webroot/js/ckeditor_init.js`.
+         */
         $init = 'MeTools.ckeditor_init.php?type=js';
         if (is_readable(WWW_ROOT . 'js' . DS . 'ckeditor_init.php')) {
             $init = 'ckeditor_init.php?type=js';
@@ -134,6 +134,7 @@ class LibraryHelper extends Helper
     /**
      * Loads all fancybox files
      * @return void
+     * @throws \Throwable
      * @link https://fancyapps.com/fancybox/3 fancybox documentation
      */
     public function fancybox(): void
@@ -160,7 +161,7 @@ class LibraryHelper extends Helper
      */
     public function shareaholic(string $siteId): ?string
     {
-        return $this->Html->script('//dsms0mj1bbhn4.cloudfront.net/assets/pub/shareaholic.js', [
+        return $this->Html->script('https://dsms0mj1bbhn4.cloudfront.net/assets/pub/shareaholic.js', [
             'async' => 'async',
             'block' => 'script_bottom',
             'data-cfasync' => 'false',
@@ -171,11 +172,12 @@ class LibraryHelper extends Helper
     /**
      * Through `slugify.js`, it provides the slug of a field.
      *
-     * It reads the value of the `$sourceField` field and it sets its slug in
+     * It reads the value of the `$sourceField` field and sets its slug in
      *  the `$targetField`.
      * @param string $sourceField Source field
      * @param string $targetField Target field
      * @return void
+     * @throws \Throwable
      */
     public function slugify(string $sourceField = 'form #title', string $targetField = 'form #slug'): void
     {

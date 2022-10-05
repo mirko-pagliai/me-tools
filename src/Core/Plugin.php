@@ -20,7 +20,7 @@ use Tools\Exceptionist;
 use Tools\Filesystem;
 
 /**
- * An utility to handle plugins
+ * A utility to handle plugins
  */
 class Plugin extends CakePlugin
 {
@@ -59,7 +59,7 @@ class Plugin extends CakePlugin
      * @param string|null $file File
      * @param bool $check Checks if the file exists
      * @return string Path of the plugin or path of the path of a plugin file
-     * @throws \Cake\Core\Exception\MissingPluginException
+     * @throws \Throwable
      */
     public static function path(string $name, ?string $file = null, bool $check = false): string
     {

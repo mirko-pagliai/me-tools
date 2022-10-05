@@ -32,13 +32,13 @@ class FormHelperTest extends HelperTestCase
      * Called before every test method
      * @return void
      */
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
 
         if (empty($this->Html)) {
             /** @var \MeTools\View\Helper\HtmlHelper&\PHPUnit\Framework\MockObject\MockObject $Html */
-            $Html = $this->getMockForHelper(HtmlHelper::class, null);
+            $Html = $this->getMockForHelper(HtmlHelper::class, []);
             $this->Html = $Html;
         }
     }
@@ -263,7 +263,7 @@ class FormHelperTest extends HelperTestCase
         $result = $this->Helper->control($field, ['options' => $options, 'type' => 'select']);
         $this->assertHtml($expected, $result);
 
-        //With default value
+        //With `default` and `value`
         $expected = [
             'div' => ['class' => 'form-group input select'],
             'label' => ['class' => 'form-label', 'for' => $field],
@@ -279,34 +279,9 @@ class FormHelperTest extends HelperTestCase
             '/select',
             '/div',
         ];
-        $result = $this->Helper->control($field, [
-            'default' => '2',
-            'options' => $options,
-            'type' => 'select',
-        ]);
+        $result = $this->Helper->control($field, ['default' => '2', 'options' => $options,'type' => 'select']);
         $this->assertHtml($expected, $result);
-
-        //With selected value
-        $expected = [
-            'div' => ['class' => 'form-group input select'],
-            'label' => ['class' => 'form-label', 'for' => $field],
-            'My Field',
-            '/label',
-            'select' => ['name' => $field, 'class' => 'form-control', 'id' => $field],
-            ['option' => ['value' => '1']],
-            $options['1'],
-            '/option',
-            ['option' => ['value' => '2', 'selected' => 'selected']],
-            $options['2'],
-            '/option',
-            '/select',
-            '/div',
-        ];
-        $result = $this->Helper->control($field, [
-            'options' => $options,
-            'type' => 'select',
-            'value' => '2',
-        ]);
+        $result = $this->Helper->control($field, ['options' => $options, 'type' => 'select', 'value' => '2']);
         $this->assertHtml($expected, $result);
 
         //Custom `empty` value
@@ -356,7 +331,7 @@ class FormHelperTest extends HelperTestCase
     }
 
     /**
-     * Tests for `control()` method with textareas
+     * Tests for `control()` method with textarea
      * @test
      */
     public function testControlTextarea(): void
@@ -437,7 +412,7 @@ class FormHelperTest extends HelperTestCase
             'form' => ['method' => 'post', 'accept-charset' => 'utf-8', 'action' => '/'],
             '/form',
         ];
-        $this->assertHtml($expected, $this->Helper->create(null) . $this->Helper->end());
+        $this->assertHtml($expected, $this->Helper->create() . $this->Helper->end());
     }
 
     /**
@@ -453,7 +428,7 @@ class FormHelperTest extends HelperTestCase
         ];
 
         $this->assertFalse($this->Helper->isInline());
-        $result = $this->Helper->createInline(null);
+        $result = $this->Helper->createInline();
         $inline = $this->Helper->isInline();
         $result .= $this->Helper->end();
         $this->assertTrue($inline);
@@ -620,7 +595,7 @@ class FormHelperTest extends HelperTestCase
         ];
         $this->assertHtml($expected, $this->Helper->select($field, $options));
 
-        //With `default` value
+        //With `default` and `value`
         $expected = [
             'select' => ['name' => $field, 'class' => 'form-control'],
             ['option' => ['value' => '1']],
@@ -632,18 +607,6 @@ class FormHelperTest extends HelperTestCase
             '/select',
         ];
         $this->assertHtml($expected, $this->Helper->select($field, $options, ['default' => '2']));
-
-        //With `selected` value
-        $expected = [
-            'select' => ['name' => $field, 'class' => 'form-control'],
-            ['option' => ['value' => '1']],
-            $options['1'],
-            '/option',
-            ['option' => ['value' => '2', 'selected' => 'selected']],
-            $options['2'],
-            '/option',
-            '/select',
-        ];
         $this->assertHtml($expected, $this->Helper->select($field, $options, ['value' => '2']));
 
         //Custom `empty` value

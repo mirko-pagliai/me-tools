@@ -12,7 +12,11 @@
 ### 2.21.4
 * `append-text` and `prepend-text` options for `BootstrapFormHelper`
     can handle buttons;
-* added `li()` and `meta()` methods for `BootstrapHtmlHelper`.
+* added `li()` and `meta()` methods for `BootstrapHtmlHelper`;
+* improved `Command::createDir()` method and message in case of `mkdir` error;
+* small and numerous improvements of descriptions, tags and code suggested by
+    PhpStorm.
+
 
 ### 2.21.3
 * added `checkbox()`, `radio()` and `select()` methods for `BootstrapFormHelper`;
@@ -27,7 +31,7 @@
 * added `BootstrapDropdownHelper`. For now this class is temporary, but in the future
     it will replace `DropdownHelper`, assuming the same name;
 * `cssBlock()`, `cssStart()`, `cssEnd()`, `heading()` and `hr()` methods provided
-    by the `HtmlHelper` are now deprecated and they will be removed in a later
+    by the `HtmlHelper` are now deprecated and will be removed in a later
     version. No replacement will be provided;
 * `scriptBlock()` and `scriptStart()` provided by the `HtmlHelper` are now deprecated
     and will be removed in a later version. Use instead the parent method, with
@@ -43,11 +47,11 @@
     `FormHelperTest` test class have been marked as deprecated, to indicate that
     code is already covered by the new code;
 * `datepicker()`, `datetimepicker()` and `timepicker()` methods provided by
-    `FormHelper` are now deprecated and they will be removed in a later version.
+    `FormHelper` are now deprecated and will be removed in a later version.
     Use instead the normal `control()` method, which will generate
     `date`/`datetime-local`/`time` inputs, recognized by the browser;
 * `datepicker()`, `datetimepicker()` and `timepicker()` methods provided by
-    LibraryHelper` are now deprecated and they will be removed in a later version;
+    LibraryHelper` are now deprecated and will be removed in a later version;
 * little fixes for `FormHelper`, to make the output more consistent with what
     Bootstrap requires;
 * `MockTrait::getMockForHelper()` method has `$view` argument;
@@ -150,7 +154,7 @@
 * fixed little bug for `TestCase` class.
 
 ### 2.19.4
-* uses and suggests `npm-asset/fancyapps-fancybox` [github](https://github.com/fancyapps/fancybox)
+* uses and suggests `npm-asset/fancyapps-fancybox` [GitHub](https://github.com/fancyapps/fancybox)
     instead of `newerton/fancy-box`.
 
 ### 2.19.3
@@ -158,7 +162,7 @@
     instance. This allowed to simplify the component;
 * prevents the plugins bootstrap from loading multiple times;
 * the `ckeditor` init file automatically integrates `elfinder` as long as
-    [the `elfinder-cke.html` file exists](//github.com/Studio-42/elFinder/wiki/Integration-with-CKEditor-4);
+    [the `elfinder-cke.html` file exists](httè://github.com/Studio-42/elFinder/wiki/Integration-with-CKEditor-4);
 * updated `Command` tests for `cakephp` 4.0.5.
 
 ### 2.19.2
@@ -239,7 +243,7 @@
 
 ### 2.18.4
 * fixed bug for `ConsoleIntegrationTestTrait`;
-* added [API](//mirko-pagliai.github.io/me-tools).
+* added [API](http://mirko-pagliai.github.io/me-tools).
 
 ### 2.18.3
 * updated for `php-tools` 1.1.12.
@@ -329,7 +333,7 @@
     Now they are provided by the `mirko-pagliai/php-tools` package.
 
 ### 2.16.7
-* full compability with Windows;
+* full compatibility with Windows;
 * now the `UploaderComponent::save()` method takes the `$filename` parameter
     instead of the `$basename` parameter;
 * updated for jQuery 3.3;
@@ -520,7 +524,7 @@
 * added `implodeRecursive()` global function;
 * `FlashComponent` renders all `alert()`, `error()`, `notice()` and `success()`
     class using the `src/Template/Element/Flash/flash.ctp` template;
-* global functions splitted into `config/functions/global.php` and
+* global functions have been divided into `config/functions/global.php` and
     `config/functions/html.php`;
 * added `HtmlHelper::addTooltip()` method;
 * added support for tooltips for some methods;
@@ -647,7 +651,7 @@
 * improved the code for shells.
 
 ### 2.2.2
-* the Install shield now copies configuration files;
+* the `Install` shield now copies configuration files;
 * fixed a lot of strings and translations.
 
 ### 2.2.1

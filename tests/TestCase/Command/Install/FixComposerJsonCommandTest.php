@@ -32,6 +32,7 @@ class FixComposerJsonCommandTest extends TestCase
 
     /**
      * Tests for `execute()` method
+     * @uses \MeTools\Command\Install\FixComposerJsonCommand::execute()
      * @test
      */
     public function testExecute(): void
@@ -59,7 +60,7 @@ class FixComposerJsonCommandTest extends TestCase
         $file = APP . 'composer.json';
         $this->exec($this->command . ' -p ' . $file);
         $this->assertExitWithSuccess();
-        $this->assertOutputContains('File `' . Filesystem::instance()->rtr($file) . '` doesn\'t need to be fixed');
+        $this->assertOutputContains('File `' . Filesystem::instance()->rtr($file) . "` doesn't need to be fixed");
         $this->assertErrorEmpty();
         unlink(APP . 'composer.json');
     }
