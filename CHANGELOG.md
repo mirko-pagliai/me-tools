@@ -3,7 +3,10 @@
 ### 2.21.4
 * `append-text` and `prepend-text` options for `BootstrapFormHelper`
     can handle buttons;
-* added `li()` and `meta()` methods for `BootstrapHtmlHelper`.
+* added `li()` and `meta()` methods for `BootstrapHtmlHelper`;
+* small and numerous improvements of descriptions, tags and code suggested by
+    PhpStorm.
+
 
 ### 2.21.3
 * added `checkbox()`, `radio()` and `select()` methods for `BootstrapFormHelper`;

@@ -13,7 +13,6 @@ declare(strict_types=1);
  * @license     https://opensource.org/licenses/mit-license.php MIT License
  * @since       2.17.6
  */
-
 namespace MeTools\Console;
 
 use Cake\Command\Command as CakeCommand;
