@@ -91,8 +91,11 @@ abstract class Command extends CakeCommand
             return false;
         }
 
-        if (!@mkdir($path, 0777, true)) {
-            $io->error(__d('me_tools', 'Failed to create file or directory `{0}`', Filesystem::instance()->rtr($path)));
+        try {
+            Filesystem::instance()->mkdir($path);
+        } catch (IOException $e) {
+            preg_match('/mkdir\(\): (.+)$/', $e->getMessage(), $matches);
+            $io->error(__d('me_tools', 'Failed to create file or directory `{0}` with message: {1}', Filesystem::instance()->rtr($path), lcfirst($matches[1])));
 
             return false;
         }

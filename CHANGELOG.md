@@ -4,6 +4,7 @@
 * `append-text` and `prepend-text` options for `BootstrapFormHelper`
     can handle buttons;
 * added `li()` and `meta()` methods for `BootstrapHtmlHelper`;
+* improved `Command::createDir()` method and message in case of `mkdir` error;
 * small and numerous improvements of descriptions, tags and code suggested by
     PhpStorm.
 

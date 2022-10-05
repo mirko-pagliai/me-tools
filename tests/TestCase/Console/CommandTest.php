@@ -114,17 +114,19 @@ class CommandTest extends TestCase
     /**
      * Tests for `createDir()` method, with a not writable directory
      * @requires OS Linux
+     * @uses \MeTools\Console\Command::createDir()
      * @test
      */
     public function testCreateDirNotWritableDir(): void
     {
         $this->assertFalse($this->Command->createDir($this->io, DS . 'notWritable'));
         $this->assertOutputEmpty();
-        $this->assertErrorContains('Failed to create file or directory `/notWritable`');
+        $this->assertErrorContains('Failed to create file or directory `/notWritable` with message: permission denied');
     }
 
     /**
      * Tests for `createFile()` method
+     * @uses \MeTools\Console\Command::createDir()
      * @test
      */
     public function testCreateFile(): void
