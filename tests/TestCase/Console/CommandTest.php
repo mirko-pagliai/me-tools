@@ -132,7 +132,9 @@ class CommandTest extends TestCase
     public function testCreateFile(): void
     {
         $source = TMP . 'exampleDir' . DS . 'example';
-        @mkdir(dirname($source), 0777, true);
+        if (!file_exists(dirname($source))) {
+            mkdir(dirname($source), 0777, true);
+        }
 
         //Creates the file
         $this->assertTrue($this->Command->createFile($this->io, $source, 'test'));
@@ -178,7 +180,9 @@ class CommandTest extends TestCase
     public function testFolderChmod(): void
     {
         $dir = TMP . 'exampleDir';
-        @mkdir($dir, 0777, true);
+        if (!file_exists($dir)) {
+            mkdir($dir, 0777, true);
+        }
 
         //Set chmod
         $this->assertTrue($this->Command->folderChmod($this->io, $dir));

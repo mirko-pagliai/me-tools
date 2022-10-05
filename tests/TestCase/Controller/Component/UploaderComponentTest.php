@@ -164,7 +164,7 @@ class UploaderComponentTest extends ComponentTestCase
         //With no file
         $this->expectException(ObjectWrongInstanceException::class);
         $this->expectExceptionMessage('There are no uploaded file information');
-        /** @phpstan-ignore-next-line */
+        /** @noinspection PhpPossiblePolymorphicInvocationInspection */
         $this->getMockForComponent(UploaderComponent::class, [])->mimetype('text/plain');
     }
 
@@ -209,7 +209,7 @@ class UploaderComponentTest extends ComponentTestCase
         //With no file
         $this->expectException(ObjectWrongInstanceException::class);
         $this->expectExceptionMessage('There are no uploaded file information');
-        /** @phpstan-ignore-next-line */
+        /** @noinspection PhpPossiblePolymorphicInvocationInspection */
         $this->getMockForComponent(UploaderComponent::class, [])->save('');
     }
 

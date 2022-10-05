@@ -39,6 +39,6 @@ class CreateRobotsCommandTest extends TestCase
         $this->assertStringEqualsFile(WWW_ROOT . 'robots.txt', 'User-agent: *' . PHP_EOL . 'Disallow: /admin/' . PHP_EOL .
             'Disallow: /ckeditor/' . PHP_EOL . 'Disallow: /css/' . PHP_EOL .
             'Disallow: /js/' . PHP_EOL . 'Disallow: /vendor/');
-        @unlink(WWW_ROOT . 'robots.txt');
+        unlink(WWW_ROOT . 'robots.txt');
     }
 }
