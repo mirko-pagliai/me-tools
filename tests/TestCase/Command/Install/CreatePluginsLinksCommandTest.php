@@ -32,12 +32,9 @@ class CreatePluginsLinksCommandTest extends TestCase
      */
     public function testExecute(): void
     {
-        $clear = fn() => array_map(function (string $path) {
-            if (!file_exists($path)) {
-                return;
-            }
-
-            Filesystem::instance()->rmdirRecursive($path);
+        //@todo it can be simplified
+        $clear = fn() => array_map(function (string $path): bool {
+            return file_exists($path) && Filesystem::instance()->rmdirRecursive($path);
         }, [WWW_ROOT . 'me_tools', WWW_ROOT . 'test_plugin']);
 
         $this->loadPlugins(['TestPlugin' => []]);
