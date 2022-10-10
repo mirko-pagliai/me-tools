@@ -4,7 +4,7 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"POT-Creation-Date: 2022-06-28 16:07+0000\n"
+"POT-Creation-Date: 2022-10-10 17:31+0000\n"
 "PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
 "Last-Translator: NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
@@ -61,7 +61,7 @@ msgstr ""
 msgid "Creates symbolic links for plugins assets"
 msgstr ""
 
-#: .src/Command/Install/CreatePluginsLinksCommand.php:52
+#: .src/Command/Install/CreatePluginsLinksCommand.php:53
 msgid "Skipping plugin `{0}`. It does not have webroot folder"
 msgstr ""
 
@@ -93,35 +93,35 @@ msgstr ""
 msgid "File `{0}` has been fixed"
 msgstr ""
 
-#: .src/Command/Install/RunAllCommand.php:49
+#: .src/Command/Install/RunAllCommand.php:43
 msgid "Executes all available commands"
 msgstr ""
 
-#: .src/Command/Install/RunAllCommand.php:53
+#: .src/Command/Install/RunAllCommand.php:47
 msgid "Executes tasks without prompting"
 msgstr ""
 
-#: .src/Command/Install/RunAllCommand.php:67
+#: .src/Command/Install/RunAllCommand.php:61
 msgid "Create default directories?"
 msgstr ""
 
-#: .src/Command/Install/RunAllCommand.php:72
+#: .src/Command/Install/RunAllCommand.php:66
 msgid "Set directories permissions?"
 msgstr ""
 
-#: .src/Command/Install/RunAllCommand.php:77
+#: .src/Command/Install/RunAllCommand.php:71
 msgid "Create {0}?"
 msgstr ""
 
-#: .src/Command/Install/RunAllCommand.php:82
+#: .src/Command/Install/RunAllCommand.php:76
 msgid "Fix {0}?"
 msgstr ""
 
-#: .src/Command/Install/RunAllCommand.php:87
+#: .src/Command/Install/RunAllCommand.php:81
 msgid "Create symbolic links for plugins assets?"
 msgstr ""
 
-#: .src/Command/Install/RunAllCommand.php:92
+#: .src/Command/Install/RunAllCommand.php:86
 msgid "Create symbolic links for vendor assets?"
 msgstr ""
 
@@ -129,31 +129,31 @@ msgstr ""
 msgid "Sets directories permissions"
 msgstr ""
 
-#: .src/Console/Command.php:43
+#: .src/Console/Command.php:44
 msgid "File or directory `{0}` already exists"
 msgstr ""
 
-#: .src/Console/Command.php:72
+#: .src/Console/Command.php:74
 msgid "File `{0}` has been copied"
 msgstr ""
 
-#: .src/Console/Command.php:92
-msgid "Failed to create file or directory `{0}`"
+#: .src/Console/Command.php:98
+msgid "Failed to create file or directory `{0}` with message: {1}"
 msgstr ""
 
-#: .src/Console/Command.php:97
+#: .src/Console/Command.php:103
 msgid "Created `{0}` directory"
 msgstr ""
 
-#: .src/Console/Command.php:139
+#: .src/Console/Command.php:147
 msgid "Link `{0}` has been created"
 msgstr ""
 
-#: .src/Console/Command.php:158
+#: .src/Console/Command.php:167
 msgid "Failed to set permissions on `{0}`"
 msgstr ""
 
-#: .src/Console/Command.php:163
+#: .src/Console/Command.php:172
 msgid "Set permissions on `{0}`"
 msgstr ""
 
@@ -177,7 +177,7 @@ msgstr ""
 msgid "File or directory `{0}` does not exist"
 msgstr ""
 
-#: .templates/element/flash/flash.php:18
+#: .templates/element/flash/flash.php:19
 msgid "Close"
 msgstr ""
 
