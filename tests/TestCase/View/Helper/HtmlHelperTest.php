@@ -17,7 +17,6 @@ namespace MeTools\Test\TestCase\View\Helper;
 use ErrorException;
 use MeTools\TestSuite\HelperTestCase;
 use MeTools\View\Helper\HtmlHelper;
-use PHPUnit\Framework\Error\Deprecated;
 
 /**
  * HtmlHelperTest class
@@ -245,8 +244,8 @@ class HtmlHelperTest extends HelperTestCase
 
         error_reporting($current);
 
-        $this->assertException(fn() => $this->Helper->cssStart(), Deprecated::class);
-        $this->assertException(fn() => $this->Helper->cssEnd(), Deprecated::class);
+        $this->assertDeprecated(fn() => $this->Helper->cssStart());
+        $this->assertDeprecated(fn() => $this->Helper->cssEnd());
     }
 
     /**
