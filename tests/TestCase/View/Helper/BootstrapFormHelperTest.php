@@ -368,7 +368,7 @@ class BootstrapFormHelperTest extends HelperTestCase
     public function testPostButton(): void
     {
         $expected = [
-            'form' => ['name' => 'preg:/post_[a-z0-9]+/', 'style' => 'display:none;', 'method' => 'post', 'action' => 'http://link'],
+            'form' => ['name' => 'preg:/post_[a-z0-9]+/', 'style' => 'display:none;', 'method' => 'post', 'action' => 'https://link'],
             'input' => ['type' => 'hidden', 'name' => '_method', 'value' => 'POST'],
             '/form',
             'a' => ['href' => '#', 'class' => 'btn btn-light', 'onclick', 'role' => 'button', 'title' => 'My title'],
@@ -379,7 +379,7 @@ class BootstrapFormHelperTest extends HelperTestCase
             'My title',
             '/a',
         ];
-        $result = $this->Helper->postButton('My title', 'http://link', ['icon' => 'home']);
+        $result = $this->Helper->postButton('My title', 'https://link', ['icon' => 'home']);
         $this->assertHtml($expected, $result);
     }
 

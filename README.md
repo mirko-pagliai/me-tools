@@ -51,25 +51,22 @@ Configure::write('Bake.theme', 'MeTools');
 ```
 
 ## How to extract POT files
-First, copy the [CakePHP binaries](http://github.com/cakephp/app/tree/4.x/bin), adapting them to the plugin.
+First, copy the [CakePHP binaries](http://github.com/cakephp/app/tree/4.x/bin) (at least `bin/cake` and `bin/cake.php`),
+adapting `bin/cake.php` to the plugin.
 
-For example, the `bin/cake.php` file might look like this:
+For example, it might look like this:
 ```php
 #!/usr/bin/php -q
 <?php
-if (!defined('DS')) {
-    define('DS', DIRECTORY_SEPARATOR);
-}
+declare(strict_types=1);
 
-ob_start();
-require_once dirname(__DIR__) . DS . 'tests' . DS . 'bootstrap.php';
-ob_end_clean();
+require_once dirname(__DIR__) . '/tests/bootstrap.php';
 
 use App\Application;
 use Cake\Console\CommandRunner;
 
 // Build the runner with an application and root executable name.
-$runner = new CommandRunner(new Application(APP . 'config'), 'cake');
+$runner = new CommandRunner(new Application(APP . '/config'), 'cake');
 exit($runner->run($argv));
 ```
 

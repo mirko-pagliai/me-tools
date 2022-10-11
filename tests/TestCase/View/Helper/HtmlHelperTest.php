@@ -328,8 +328,8 @@ class HtmlHelperTest extends HelperTestCase
     {
         $title = 'My title';
 
-        $expected = ['a' => ['href' => 'http://link', 'title' => 'my-title'], $title, '/a'];
-        $this->assertHtml($expected, $this->Helper->link($title, 'http://link', ['title' => 'my-title']));
+        $expected = ['a' => ['href' => 'https://link', 'title' => 'my-title'], $title, '/a'];
+        $this->assertHtml($expected, $this->Helper->link($title, 'https://link', ['title' => 'my-title']));
 
         $expected = [
             'a' => ['href' => '#', 'title' => $title],

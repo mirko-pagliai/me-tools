@@ -32,7 +32,7 @@ class CreatePluginsLinksCommandTest extends TestCase
      */
     public function testExecute(): void
     {
-        $clear = fn() => @array_map(IS_WIN ? [Filesystem::instance(), 'rmdirRecursive'] : 'unlink', [WWW_ROOT . 'me_tools', WWW_ROOT . 'test_plugin']);
+        $clear = fn() => array_map(fn(string $path): bool => file_exists($path) && Filesystem::instance()->rmdirRecursive($path), [WWW_ROOT . 'me_tools', WWW_ROOT . 'test_plugin']);
 
         $this->loadPlugins(['TestPlugin' => []]);
 

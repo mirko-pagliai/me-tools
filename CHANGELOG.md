@@ -9,9 +9,12 @@
     `LibraryHelper` were deprecated and have now been removed.
 
 ## 2.21 branch
+### 2.21.5
+* updated for php-tools 1.6.5.
+
 ### 2.21.4
-* `append-text` and `prepend-text` options for `BootstrapFormHelper`
-    can handle buttons;
+* `append-text` and `prepend-text` options for `BootstrapFormHelper::control()`
+    method can handle buttons;
 * added `li()` and `meta()` methods for `BootstrapHtmlHelper`;
 * improved `Command::createDir()` method and message in case of `mkdir` error;
 * small and numerous improvements of descriptions, tags and code suggested by
