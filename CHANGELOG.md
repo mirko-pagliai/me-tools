@@ -1,7 +1,7 @@
 # 2.x branch
 ## 2.21 branch
 ### 2.21.5
-* updated for php-tools 1.6.5.
+* updated for php-tools 1.6.5 and 1.7.0.
 
 ### 2.21.4
 * `append-text` and `prepend-text` options for `BootstrapFormHelper::control()`
