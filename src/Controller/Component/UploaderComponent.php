@@ -85,16 +85,13 @@ class UploaderComponent extends Component
     /**
      * Internal method to check for uploaded file information (`$file` property)
      * @return void
-     * @throws \Tools\Exception\ObjectWrongInstanceException|\Throwable
+     * @throws \Tools\Exception\ObjectWrongInstanceException
      */
     protected function _checkUploadedFileInformation(): void
     {
-        $message = __d('me_tools', 'There are no uploaded file information');
-
-        /** @var \Psr\Http\Message\UploadedFileInterface $file */
-        $file = $this->getFile();
-        Exceptionist::isTrue($file, $message, ObjectWrongInstanceException::class);
-        Exceptionist::isInstanceOf($file, UploadedFileInterface::class, $message);
+        if (!$this->getFile() instanceof UploadedFileInterface) {
+            throw new ObjectWrongInstanceException(__d('me_tools', 'There are no uploaded file information'));
+        }
     }
 
     /**
@@ -102,7 +99,7 @@ class UploaderComponent extends Component
      * @param string|array $acceptedMimetype Accepted mimetypes as string or
      *  array or a magic word (`images` or `text`)
      * @return $this
-     * @throws \Tools\Exception\ObjectWrongInstanceException|\Throwable
+     * @throws \Tools\Exception\ObjectWrongInstanceException
      */
     public function mimetype($acceptedMimetype)
     {
@@ -135,7 +132,8 @@ class UploaderComponent extends Component
      *  generated automatically
      * @return string|false Final full path of the uploaded file or `false` on
      *  failure
-     * @throws \Tools\Exception\ObjectWrongInstanceException|\Throwable
+     * @throws \Tools\Exception\ObjectWrongInstanceException
+     * @throws \ErrorException
      */
     public function save(string $directory, ?string $filename = null)
     {
