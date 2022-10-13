@@ -23,6 +23,7 @@ use MeTools\View\Widget\HiddenWidget;
  * Provides functionalities for forms
  * @property \MeTools\View\Helper\IconHelper $Icon
  * @property \MeTools\View\Helper\HtmlHelper $Html
+ * @deprecated 2.21.5 Use instead `BootstrapFormHelper`
  */
 class FormHelper extends CakeFormHelper
 {
@@ -53,6 +54,8 @@ class FormHelper extends CakeFormHelper
      */
     public function __construct(View $view, array $config = [])
     {
+        deprecationWarning('`FormHelper` is deprecated. Use instead `BootstrapFormHelper`');
+
         //Rewrites default templates config
         $this->_defaultConfig = Hash::merge($this->_defaultConfig, ['templates' => [
             'checkbox' => '<input class="form-check-input" type="checkbox" name="{{name}}" value="{{value}}"{{attrs}}>',
@@ -229,6 +232,41 @@ class FormHelper extends CakeFormHelper
     }
 
     /**
+<<<<<<< HEAD
+=======
+     * Creates a datepicker.
+     *
+     * To add the scripts for datepicker, you should use the `LibraryHelper`.
+     * @param string $fieldName Field name, should be "Modelname.fieldname"
+     * @param array $options HTML attributes and options
+     * @return string
+     * @deprecated 2.21.1 Use instead the `control()` method, which will generate a `date` input
+     */
+    public function datepicker(string $fieldName, array $options = []): string
+    {
+        deprecationWarning('Deprecated. Use instead the `control()` method, which will generate a `date` input');
+
+        return $this->control($fieldName, ['type' => 'date'] + $options);
+    }
+
+    /**
+     * Creates a datetimepicker.
+     *
+     * To add the scripts for datetimepicker, you should use the `LibraryHelper`.
+     * @param string $fieldName Field name, should be "Modelname.fieldname"
+     * @param array $options HTML attributes and options
+     * @return string
+     * @deprecated 2.21.1 Use instead the `control()` method, which will generate a `datetime-local` input
+     */
+    public function datetimepicker(string $fieldName, array $options = []): string
+    {
+        deprecationWarning('Deprecated. Use instead the `control()` method, which will generate a `datetime-local` input');
+
+        return $this->control($fieldName, ['type' => 'datetime-local'] + $options);
+    }
+
+    /**
+>>>>>>> develop
      * Closes an HTML form, cleans up values set by `FormHelper::create()`,
      *  and writes hidden input fields where appropriate
      * @param array $secureAttributes Secure attributes which will be passed

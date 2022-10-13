@@ -26,8 +26,30 @@ use MeTools\View\Helper\HtmlHelper;
 class HtmlHelperTest extends HelperTestCase
 {
     /**
+     * @var int
+     */
+    protected static int $current;
+
+    /**
+     * This method is called before the first test of this test class is run
+     * @return void
+     */
+    public static function setUpBeforeClass(): void
+    {
+        self::$current = error_reporting(E_ALL & ~E_USER_DEPRECATED);
+    }
+
+    /**
+     * This method is called after the last test of this test class is run
+     * @return void
+     */
+    public static function tearDownAfterClass(): void
+    {
+        error_reporting(self::$current);
+    }
+
+    /**
      * Tests for `__call()` method
-     * @deprecated
      * @test
      * @noinspection PhpUndefinedMethodInspection
      */
@@ -58,7 +80,6 @@ class HtmlHelperTest extends HelperTestCase
 
     /**
      * Tests for `badge()` method
-     * @deprecated
      * @test
      */
     public function testBadge(): void
@@ -69,7 +90,6 @@ class HtmlHelperTest extends HelperTestCase
 
     /**
      * Test for `button()` method
-     * @deprecated
      * @test
      */
     public function testButton(): void
@@ -136,7 +156,6 @@ class HtmlHelperTest extends HelperTestCase
 
     /**
      * Test for `button()` method, with buttons as links
-     * @deprecated
      * @test
      */
     public function testButtonAsLink(): void
@@ -236,7 +255,6 @@ class HtmlHelperTest extends HelperTestCase
 
     /**
      * Test for `image()` and `img()` methods
-     * @deprecated
      * @test
      */
     public function testImage(): void
@@ -321,7 +339,6 @@ class HtmlHelperTest extends HelperTestCase
 
     /**
      * Test for `link()` method
-     * @deprecated
      * @test
      */
     public function testLink(): void
@@ -412,7 +429,6 @@ class HtmlHelperTest extends HelperTestCase
 
     /**
      * Test for `nestedList`, `ol()` and `ul()` methods
-     * @deprecated
      * @test
      */
     public function testNestedListAndOlAndUl(): void
@@ -518,7 +534,6 @@ class HtmlHelperTest extends HelperTestCase
 
     /**
      * Test for `scriptStart()` and `scriptEnd()` methods
-     * @deprecated
      * @test
      */
     public function testScriptStartAndScriptEnd(): void
@@ -554,7 +569,6 @@ class HtmlHelperTest extends HelperTestCase
 
     /**
      * Test for `tag()` method
-     * @deprecated
      * @test
      */
     public function testTag(): void
@@ -595,7 +609,6 @@ class HtmlHelperTest extends HelperTestCase
 
     /**
      * Tests for `viewport()` method
-     * @deprecated
      * @test
      */
     public function testViewport(): void

@@ -14,9 +14,10 @@ declare(strict_types=1);
  */
 namespace MeTools\Test\TestCase\Utility;
 
+use Cake\View\View;
 use MeTools\TestSuite\TestCase;
 use MeTools\Utility\BBCode;
-use MeTools\View\Helper\HtmlHelper;
+use MeTools\View\Helper\BootstrapHtmlHelper;
 
 /**
  * BBCodeTest class
@@ -29,9 +30,9 @@ class BBCodeTest extends TestCase
     public BBCode $BBCode;
 
     /**
-     * @var \MeTools\View\Helper\HtmlHelper&\PHPUnit\Framework\MockObject\MockObject
+     * @var \MeTools\View\Helper\BootstrapHtmlHelper
      */
-    protected HtmlHelper $Html;
+    protected BootstrapHtmlHelper $Html;
 
     /**
      * Called before every test method
@@ -41,89 +42,68 @@ class BBCodeTest extends TestCase
     {
         parent::setUp();
 
-        if (empty($this->Html)) {
-            /** @var \MeTools\View\Helper\HtmlHelper&\PHPUnit\Framework\MockObject\MockObject $Html */
-            $Html = $this->getMockForHelper(HtmlHelper::class, []);
-            $this->Html = $Html;
-        }
-
+        $this->Html ??= new BootstrapHtmlHelper(new View());
         $this->BBCode ??= new BBCode($this->Html);
     }
 
     /**
      * Tests for `parser()` method
+     * @uses \MeTools\Utility\BBCode::parser()
      * @test
      */
     public function testParser(): void
     {
-        $expected = [
-            'p' => true,
-            'Some para text',
-            '/p',
-            '<!-- read-more --',
-            'span' => true,
-            'Some span text',
-            '/span',
-            ['div' => ['class' => 'embed-responsive embed-responsive-16by9']],
-            'iframe' => [
-                'allowfullscreen' => 'allowfullscreen',
-                'height' => '480',
-                'width' => '640',
-                'class' => 'embed-responsive-item',
-                'src' => 'https://www.youtube.com/embed/bL_CJKq9rIw',
-            ],
-            '/iframe',
-            '/div',
-            ['div' => true],
-            'Some div text',
-            '/div',
-        ];
+        $expected = '<p>Some para text</p>
+<!-- read-more -->
+<span>Some span text</span>
+<div class="ratio ratio-16x9"><iframe allowfullscreen="allowfullscreen" height="480" src="https://www.youtube.com/embed/bL_CJKq9rIw" width="640"></iframe></div>
+<div>Some div text</div>';
+
         ob_start();
         echo '<p>Some para text</p>' . PHP_EOL;
         echo '[readmore /]' . PHP_EOL;
         echo '<span>Some span text</span>' . PHP_EOL;
         echo '[youtube]bL_CJKq9rIw[/youtube]' . PHP_EOL;
         echo '<div>Some div text</div>' . PHP_EOL;
-        $this->assertHtml($expected, $this->BBCode->parser(ob_get_clean() ?: ''));
+        $result = $this->BBCode->parser(ob_get_clean() ?: '');
+        $this->assertStringStartsWith($expected, $result);
     }
 
     /**
      * Tests for `remove()` method
+     * @uses \MeTools\Utility\BBCode::remove()
      * @test
      */
     public function testRemove(): void
     {
-        $expected = [
-            'p' => true,
-            'Some para text',
-            '/p',
-            'span' => true,
-            'Some span text',
-            '/span',
-            'div' => true,
-            'Some div text',
-            '/div',
-        ];
+        $expected = '<p>Some para text</p>
+
+<span>Some span text</span>
+
+<div>Some div text</div>';
         ob_start();
         echo '<p>Some para text</p>' . PHP_EOL;
         echo '[readmore /]' . PHP_EOL;
         echo '<span>Some span text</span>' . PHP_EOL;
         echo '[youtube]bL_CJKq9rIw[/youtube]' . PHP_EOL;
         echo '<div>Some div text</div>' . PHP_EOL;
-        $this->assertHtml($expected, $this->BBCode->remove(ob_get_clean() ?: ''));
+        $result = $this->BBCode->remove(ob_get_clean() ?: '');
+        $this->assertSame($expected, $result);
     }
 
     /**
      * Tests for `image()` method
+     * @uses \MeTools\Utility\BBCode::image()
      * @test
      */
     public function testImage(): void
     {
-        $this->assertEquals($this->Html->image('my_pic.gif'), $this->BBCode->image('[img]my_pic.gif[/img]'));
+        $this->assertSame($this->Html->image('my_pic.gif'), $this->BBCode->image('[img]my_pic.gif[/img]'));
     }
 
     /**
      * Tests for `readMore()` method
+     * @uses \MeTools\Utility\BBCode::readMore()
      * @test
      */
     public function testReadMore(): void
@@ -138,22 +118,24 @@ class BBCodeTest extends TestCase
             '<p>[readmore /]</p>',
             '<p class="my-class">[readmore /]</p>',
         ] as $text) {
-            $this->assertEquals('<!-- read-more -->', $this->BBCode->readMore($text));
+            $this->assertSame('<!-- read-more -->', $this->BBCode->readMore($text));
         }
     }
 
     /**
      * Tests for `url()` method
+     * @uses \MeTools\Utility\BBCode::url()
      * @test
      */
     public function testUrl(): void
     {
         $expected = $this->Html->link('my link', 'http://example');
-        $this->assertEquals($expected, $this->BBCode->url('[url="http://example"]my link[/url]'));
+        $this->assertSame($expected, $this->BBCode->url('[url="http://example"]my link[/url]'));
     }
 
     /**
      * Tests for `youtube()` method
+     * @uses \MeTools\Utility\BBCode::youtube()
      * @test
      */
     public function testYoutube(): void
@@ -165,7 +147,7 @@ class BBCodeTest extends TestCase
             '[youtube]https://www.youtube.com/watch?v=bL_CJKq9rIw[/youtube]',
             '[youtube]https://youtu.be/bL_CJKq9rIw[/youtube]',
         ] as $text) {
-            $this->assertEquals($expected, $this->BBCode->youtube($text));
+            $this->assertSame($expected, $this->BBCode->youtube($text));
         }
     }
 }
