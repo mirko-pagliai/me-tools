@@ -23,6 +23,7 @@ use MeTools\View\Widget\HiddenWidget;
  * Provides functionalities for forms
  * @property \MeTools\View\Helper\IconHelper $Icon
  * @property \MeTools\View\Helper\HtmlHelper $Html
+ * @deprecated 2.21.5 Use instead `BootstrapFormHelper`
  */
 class FormHelper extends CakeFormHelper
 {
@@ -53,6 +54,8 @@ class FormHelper extends CakeFormHelper
      */
     public function __construct(View $view, array $config = [])
     {
+        deprecationWarning('`FormHelper` is deprecated. Use instead `BootstrapFormHelper`');
+
         //Rewrites default templates config
         $this->_defaultConfig = Hash::merge($this->_defaultConfig, ['templates' => [
             'checkbox' => '<input class="form-check-input" type="checkbox" name="{{name}}" value="{{value}}"{{attrs}}>',
@@ -235,12 +238,11 @@ class FormHelper extends CakeFormHelper
      * @param string $fieldName Field name, should be "Modelname.fieldname"
      * @param array $options HTML attributes and options
      * @return string
-     * @deprecated 2.21.1 Use instead the normal `control()` method, which will
-     *  generate a `date` input, recognized by the browser
+     * @deprecated 2.21.1 Use instead the `control()` method, which will generate a `date` input
      */
     public function datepicker(string $fieldName, array $options = []): string
     {
-        deprecationWarning('Deprecated. Use instead the normal `control()` method, which will generate a `date` input, recognized by the browser');
+        deprecationWarning('Deprecated. Use instead the `control()` method, which will generate a `date` input');
 
         return $this->control($fieldName, ['type' => 'date'] + $options);
     }
@@ -252,12 +254,11 @@ class FormHelper extends CakeFormHelper
      * @param string $fieldName Field name, should be "Modelname.fieldname"
      * @param array $options HTML attributes and options
      * @return string
-     * @deprecated 2.21.1 Use instead the normal `control()` method, which will
-     *  generate a `datetime-local` input, recognized by the browser
+     * @deprecated 2.21.1 Use instead the `control()` method, which will generate a `datetime-local` input
      */
     public function datetimepicker(string $fieldName, array $options = []): string
     {
-        deprecationWarning('Deprecated. Use instead the normal `control()` method, which will generate a `datetime-local` input, recognized by the browser');
+        deprecationWarning('Deprecated. Use instead the `control()` method, which will generate a `datetime-local` input');
 
         return $this->control($fieldName, ['type' => 'datetime-local'] + $options);
     }
@@ -400,12 +401,11 @@ class FormHelper extends CakeFormHelper
      * @param string $fieldName Field name, should be "Modelname.fieldname"
      * @param array $options HTML attributes and options
      * @return string
-     * @deprecated 2.21.1 Use instead the normal `control()` method, which will
-     *  generate a `time` input, recognized by the browser
+     * @deprecated 2.21.1 Use instead the `control()` method, which will generate a `time` input
      */
     public function timepicker(string $fieldName, array $options = []): string
     {
-        deprecationWarning('Deprecated. Use instead the normal `control()` method, which will generate a `time` input, recognized by the browser');
+        deprecationWarning('Deprecated. Use instead the `control()` method, which will generate a `time` input');
 
         return $this->control($fieldName, ['type' => 'time'] + $options);
     }

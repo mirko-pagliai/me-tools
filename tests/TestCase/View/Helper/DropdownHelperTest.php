@@ -15,6 +15,7 @@ declare(strict_types=1);
 namespace MeTools\Test\TestCase\View\Helper;
 
 use MeTools\TestSuite\HelperTestCase;
+use MeTools\View\Helper\DropdownHelper;
 use MeTools\View\Helper\HtmlHelper;
 
 /**
@@ -24,9 +25,32 @@ use MeTools\View\Helper\HtmlHelper;
 class DropdownHelperTest extends HelperTestCase
 {
     /**
+     * @var int
+     */
+    protected static int $current;
+
+    /**
      * @var \MeTools\View\Helper\HtmlHelper
      */
     protected HtmlHelper $Html;
+
+    /**
+     * This method is called before the first test of this test class is run
+     * @return void
+     */
+    public static function setUpBeforeClass(): void
+    {
+        self::$current = error_reporting(E_ALL & ~E_USER_DEPRECATED);
+    }
+
+    /**
+     * This method is called after the last test of this test class is run
+     * @return void
+     */
+    public static function tearDownAfterClass(): void
+    {
+        error_reporting(self::$current);
+    }
 
     /**
      * Called before every test method
@@ -36,11 +60,18 @@ class DropdownHelperTest extends HelperTestCase
     {
         parent::setUp();
 
-        if (empty($this->Html)) {
-            /** @var \MeTools\View\Helper\HtmlHelper&\PHPUnit\Framework\MockObject\MockObject $Html */
-            $Html = $this->getMockForHelper(HtmlHelper::class, []);
-            $this->Html = $Html;
-        }
+        $this->Html ??= new HtmlHelper($this->Helper->getView());
+    }
+
+    /**
+     * Tests the entire class is deprecated
+     * @return void
+     */
+    public function testClassIsDeprecated(): void
+    {
+        error_reporting(self::$current);
+        $this->assertDeprecated(fn() => new DropdownHelper($this->Helper->getView()), '`DropdownHelper` is deprecated. Use instead `BootstrapDropdownHelper`');
+        self::$current = error_reporting(E_ALL & ~E_USER_DEPRECATED);
     }
 
     /**

@@ -15,12 +15,14 @@ declare(strict_types=1);
 namespace MeTools\View\Helper;
 
 use Cake\View\Helper\HtmlHelper as CakeHtmlHelper;
+use Cake\View\View;
 use Tools\Exceptionist;
 
 /**
  * Provides functionalities for HTML code
  * @property \MeTools\View\Helper\IconHelper $Icon
  * @method string span(string $text, array $options = [])
+ * @deprecated 2.21.5 Use instead `BootstrapHtmlHelper`
  */
 class HtmlHelper extends CakeHtmlHelper
 {
@@ -34,6 +36,18 @@ class HtmlHelper extends CakeHtmlHelper
      * @var array
      */
     public $helpers = ['MeTools.Icon', 'Url'];
+
+    /**
+     * Default Constructor
+     * @param \Cake\View\View $view The View this helper is being attached to
+     * @param array<string, mixed> $config Configuration settings for the helper
+     */
+    public function __construct(View $view, array $config = [])
+    {
+        deprecationWarning('`HtmlHelper` is deprecated. Use instead `BootstrapHtmlHelper`');
+
+        parent::__construct($view, $config);
+    }
 
     /**
      * Missing method handler.

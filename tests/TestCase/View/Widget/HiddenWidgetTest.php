@@ -14,8 +14,9 @@ declare(strict_types=1);
  */
 namespace MeTools\Test\TestCase\View\Widget;
 
+use Cake\View\View;
 use MeTools\TestSuite\TestCase;
-use MeTools\View\Helper\FormHelper;
+use MeTools\View\Helper\BootstrapFormHelper;
 
 /**
  * HiddenWidgetTest class
@@ -23,9 +24,9 @@ use MeTools\View\Helper\FormHelper;
 class HiddenWidgetTest extends TestCase
 {
     /**
-     * @var \MeTools\View\Helper\FormHelper&\PHPUnit\Framework\MockObject\MockObject
+     * @var \MeTools\View\Helper\BootstrapFormHelper
      */
-    protected FormHelper $Helper;
+    protected BootstrapFormHelper $Helper;
 
     /**
      * Called before every test method
@@ -35,25 +36,22 @@ class HiddenWidgetTest extends TestCase
     {
         parent::setUp();
 
-        if (empty($this->Helper)) {
-            /** @var \MeTools\View\Helper\FormHelper&\PHPUnit\Framework\MockObject\MockObject $Helper */
-            $Helper = $this->getMockForHelper(FormHelper::class, []);
-            $this->Helper = $Helper;
-        }
+        $this->Helper ??= new BootstrapFormHelper(new View());
     }
 
     /**
      * Tests for `render()` method
+     * @uses \MeTools\View\Widget\HiddenWidget::render()
      * @test
      */
     public function testRender(): void
     {
-        $field = 'My field';
+        $expected = '<input type="hidden" name="My field"/>';
+        $result = $this->Helper->hidden('My field');
+        $this->assertSame($expected, $result);
 
-        $expected = ['input' => ['type' => 'hidden', 'name' => $field]];
-        $this->assertHtml($expected, $this->Helper->hidden($field));
-
-        $expected = ['input' => ['type' => 'hidden', 'name' => $field, 'id' => 'my-field']];
-        $this->assertHtml($expected, $this->Helper->control($field, ['type' => 'hidden']));
+        $expected = '<input type="hidden" name="My field" class="form-control" id="my-field"/>';
+        $result = $this->Helper->control('My field', ['type' => 'hidden']);
+        $this->assertSame($expected, $result);
     }
 }
