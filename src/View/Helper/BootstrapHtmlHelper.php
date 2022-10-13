@@ -86,6 +86,28 @@ class BootstrapHtmlHelper extends HtmlHelper
     }
 
     /**
+     * Create an `<iframe>` element.
+     *
+     * You can use the `$ratio` option (valid values: '1x1', '4x3', '16x9', '21x9') to create a responsive embed.
+     * @param string|array $url Url for the iframe
+     * @param array $options Array of options and HTML attributes
+     * @return string
+     * @see https://getbootstrap.com/docs/5.2/helpers/ratio/#aspect-ratios
+     */
+    public function iframe($url, array $options = []): string
+    {
+        $options = optionsParser($options)->add('src', is_array($url) ? $this->Url->build($url, $options) : $url);
+        $ratio = $options->consume('ratio');
+        $iframe = $this->tag('iframe', '', $options->toArray());
+
+        if (in_array($ratio, ['1x1', '4x3', '16x9', '21x9'])) {
+            return $this->div('ratio ratio-' . $ratio, $iframe);
+        }
+
+        return $iframe;
+    }
+
+    /**
      * Creates a formatted IMG element.
      *
      * See the parent method for all available options.
@@ -266,5 +288,25 @@ class BootstrapHtmlHelper extends HtmlHelper
         ], '', ', ');
 
         return $this->meta('viewport', $content, $options);
+    }
+
+    /**
+     * Returns a YouTube video code.
+     *
+     * You can use the `$ratio` option (valid values: '1x1', '4x3', '16x9', '21x9') to create a responsive embed.
+     * @param string $id YouTube video ID
+     * @param array $options Array of options and HTML attributes
+     * @return string
+     */
+    public function youtube(string $id, array $options = []): string
+    {
+        $options = optionsParser($options, [
+            'allowfullscreen' => 'allowfullscreen',
+            'height' => 480,
+            'ratio' => '16x9',
+            'width' => 640,
+        ]);
+
+        return $this->iframe('https://www.youtube.com/embed/' . $id, $options->toArray());
     }
 }

@@ -106,6 +106,43 @@ class BootstrapHtmlHelperTest extends HelperTestCase
     }
 
     /**
+     * Test for `iframe()` method
+     * @uses \MeTools\View\Helper\BootstrapHtmlHelper::iframe()
+     * @test
+     */
+    public function testIframe(): void
+    {
+        $url = 'https://frame';
+
+        $expected = '<iframe src="https://frame"></iframe>';
+        $result = $this->Helper->iframe($url);
+        $this->assertSame($expected, $result);
+
+        //No existing ratio
+        $result = $this->Helper->iframe($url, ['ratio' => 'noExisting']);
+        $this->assertSame($expected, $result);
+
+        //The `src` option doesn't overwrite
+        $result = $this->Helper->iframe($url, ['src' => 'https://anotherframe']);
+        $this->assertSame($expected, $result);
+
+        $expected = '<iframe class="my-class" src="https://frame"></iframe>';
+        $result = $this->Helper->iframe($url, ['class' => 'my-class']);
+        $this->assertSame($expected, $result);
+
+        foreach (['1x1', '4x3', '16x9', '21x9'] as $ratio) {
+            $expected = '<div class="ratio ratio-' . $ratio . '"><iframe src="https://frame"></iframe></div>';
+            $result = $this->Helper->iframe($url, compact('ratio'));
+            $this->assertSame($expected, $result);
+        }
+
+        $this->loadPlugins(['TestPlugin' => []]);
+        $expected = '<iframe src="/pages"></iframe>';
+        $result = $this->Helper->iframe(['controller' => 'Pages', 'plugin' => 'TestPlugin']);
+        $this->assertSame($expected, $result);
+    }
+
+    /**
      * Test for `image()` and `img()` methods
      * @test
      * @uses \MeTools\View\Helper\BootstrapHtmlHelper::image()
@@ -265,6 +302,30 @@ class BootstrapHtmlHelperTest extends HelperTestCase
 
         $expected = '<meta title="my title" name="viewport" content="width=500, initial-scale=1"/>';
         $result = $this->Helper->viewport(['width' => 500], ['block' => false, 'title' => 'my title']);
+        $this->assertSame($expected, $result);
+    }
+
+    /**
+     * Tests for `youtube()` method
+     * @uses \MeTools\View\Helper\BootstrapHtmlHelper::youtube()
+     * @test
+     */
+    public function testYoutube(): void
+    {
+        $expected = '<div class="ratio ratio-16x9"><iframe allowfullscreen="allowfullscreen" height="480" src="https://www.youtube.com/embed/my-id" width="640"></iframe></div>';
+        $result = $this->Helper->youtube('my-id');
+        $this->assertSame($expected, $result);
+
+        $expected = '<div class="ratio ratio-4x3"><iframe allowfullscreen="allowfullscreen" height="480" src="https://www.youtube.com/embed/my-id" width="640"></iframe></div>';
+        $result = $this->Helper->youtube('my-id', ['ratio' => '4x3']);
+        $this->assertSame($expected, $result);
+
+        $expected = '<iframe allowfullscreen="allowfullscreen" height="480" src="https://www.youtube.com/embed/my-id" width="640"></iframe>';
+        $result = $this->Helper->youtube('my-id', ['ratio' => false]);
+        $this->assertSame($expected, $result);
+
+        $expected = '<div class="ratio ratio-16x9"><iframe allowfullscreen="allowfullscreen" class="my-class" height="100" src="https://www.youtube.com/embed/my-id" width="200"></iframe></div>';
+        $result = $this->Helper->youtube('my-id', ['class' => 'my-class', 'height' => 100, 'width' => 200]);
         $this->assertSame($expected, $result);
     }
 }
