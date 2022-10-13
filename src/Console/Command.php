@@ -33,7 +33,7 @@ abstract class Command extends CakeCommand
      * @param \Cake\Console\ConsoleIo $io The console io
      * @param string $path Path
      * @return bool
-     * @throws \Throwable
+     * @throws \ErrorException
      */
     protected function verboseIfFileExists(ConsoleIo $io, string $path): bool
     {
@@ -52,7 +52,7 @@ abstract class Command extends CakeCommand
      * @param string $source Source file
      * @param string $dest Destination file
      * @return bool
-     * @throws \Throwable
+     * @throws \ErrorException
      */
     public function copyFile(ConsoleIo $io, string $source, string $dest): bool
     {
@@ -83,7 +83,7 @@ abstract class Command extends CakeCommand
      * @param \Cake\Console\ConsoleIo $io The console io
      * @param string $path Directory path
      * @return bool
-     * @throws \Throwable
+     * @throws \ErrorException
      */
     public function createDir(ConsoleIo $io, string $path): bool
     {
@@ -112,7 +112,7 @@ abstract class Command extends CakeCommand
      * @param string $path Where to put the file
      * @param string $contents Content to put in the file
      * @return bool
-     * @throws \Throwable
+     * @throws \ErrorException
      */
     public function createFile(ConsoleIo $io, string $path, string $contents): bool
     {
@@ -125,7 +125,7 @@ abstract class Command extends CakeCommand
      * @param string $source Source file or directory
      * @param string $dest Destination file or directory
      * @return bool
-     * @throws \Throwable
+     * @throws \ErrorException
      */
     public function createLink(ConsoleIo $io, string $source, string $dest): bool
     {
@@ -157,7 +157,7 @@ abstract class Command extends CakeCommand
      * @param string $path Folder path
      * @param int $chmod Chmod
      * @return bool
-     * @throws \Throwable
+     * @throws \ErrorException
      */
     public function folderChmod(ConsoleIo $io, string $path, int $chmod = 0777): bool
     {
