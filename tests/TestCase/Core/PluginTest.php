@@ -15,9 +15,9 @@ declare(strict_types=1);
  */
 namespace MeTools\Test\TestCase\Core;
 
-use Cake\Core\Exception\MissingPluginException;
 use MeTools\Core\Plugin;
 use MeTools\TestSuite\TestCase;
+use Tools\Exception\FileNotExistsException;
 
 /**
  * PluginTest class.
@@ -26,6 +26,7 @@ class PluginTest extends TestCase
 {
     /**
      * Tests for `all()` method
+     * @uses \MeTools\Core\Plugin::all()
      * @test
      */
     public function testAll(): void
@@ -57,6 +58,7 @@ class PluginTest extends TestCase
 
     /**
      * Tests for `path()` method
+     * @uses \MeTools\Core\Plugin::path()
      * @test
      */
     public function testPath(): void
@@ -64,13 +66,9 @@ class PluginTest extends TestCase
         $this->assertSame(ROOT, Plugin::path('MeTools'));
 
         $file = 'src' . DS . 'Console' . DS . 'Command.php';
+        $this->assertSame(ROOT . $file, Plugin::path('MeTools', $file));
+        $this->assertSame(ROOT . $file, Plugin::path('MeTools', $file, true));
 
-        $this->assertEquals(ROOT . $file, Plugin::path('MeTools', $file));
-        $this->assertEquals(ROOT . $file, Plugin::path('MeTools', $file, true));
-
-        //No existing file
-        $this->expectException(MissingPluginException::class);
-        $this->expectExceptionMessage('File or directory `no_existing.php` does not exist');
-        Plugin::path('MeTools', 'no_existing.php', true);
+        $this->assertException(fn() => Plugin::path('MeTools', 'no_existing.php', true), FileNotExistsException::class, 'File or directory `MeTools.no_existing.php` does not exist');
     }
 }

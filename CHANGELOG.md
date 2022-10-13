@@ -1,6 +1,7 @@
 # 2.x branch
 ## 2.21 branch
 ### 2.21.5
+* improved \MeTools\Core\Plugin::path()` method;
 * updated for php-tools 1.6.5 and 1.7.0.
 
 ### 2.21.4
