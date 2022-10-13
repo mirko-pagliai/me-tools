@@ -14,9 +14,11 @@ declare(strict_types=1);
  */
 namespace MeTools\Test\TestCase\View\Helper;
 
+use Cake\Core\Configure;
+use Cake\Http\ServerRequest;
+use Cake\View\View;
 use MeTools\TestSuite\HelperTestCase;
 use MeTools\View\Helper\FormHelper;
-use MeTools\View\Helper\HtmlHelper;
 
 /**
  * FormHelperTest class
@@ -25,668 +27,381 @@ use MeTools\View\Helper\HtmlHelper;
 class FormHelperTest extends HelperTestCase
 {
     /**
-     * @var int
-     */
-    protected static int $current;
-
-    /**
-     * @var \MeTools\View\Helper\HtmlHelper
-     */
-    protected HtmlHelper $Html;
-
-    /**
-     * This method is called before the first test of this test class is run
+     * Test for `button()` method
      * @return void
-     */
-    public static function setUpBeforeClass(): void
-    {
-        self::$current = error_reporting(E_ALL & ~E_USER_DEPRECATED);
-    }
-
-    /**
-     * This method is called after the last test of this test class is run
-     * @return void
-     */
-    public static function tearDownAfterClass(): void
-    {
-        error_reporting(self::$current);
-    }
-
-    /**
-     * Called before every test method
-     * @return void
-     */
-    protected function setUp(): void
-    {
-        parent::setUp();
-
-        $this->Html ??= new HtmlHelper($this->Helper->getView());
-    }
-
-    /**
-     * Tests the entire class is deprecated
-     * @return void
-     */
-    public function testClassIsDeprecated(): void
-    {
-        error_reporting(self::$current);
-        $this->assertDeprecated(fn() => new FormHelper($this->Helper->getView()), '`FormHelper` is deprecated. Use instead `BootstrapFormHelper`');
-        self::$current = error_reporting(E_ALL & ~E_USER_DEPRECATED);
-    }
-
-    /**
-     * Tests for `button()` method
-     * @test
+     * @uses \MeTools\View\Helper\FormHelper::button()
      */
     public function testButton(): void
     {
-        $title = 'My button';
+        $expected = '<button class="btn btn-link" type="button"><i class="fas fa-trash-alt"> </i> My button</button>';
+        $result = $this->Helper->button('My button', ['class' => 'btn-link', 'icon' => 'trash-alt']);
+        $this->assertSame($expected, $result);
 
-        $expected = [
-            'button' => ['type' => 'button', 'class' => 'btn btn-primary'],
-            'i' => ['class' => 'fas fa-home'],
-            ' ',
-            '/i',
-            ' ',
-            $title,
-            '/button',
-        ];
-        $this->assertHtml($expected, $this->Helper->button($title, ['icon' => 'home']));
+        $expected = '<button class="btn btn-primary" type="reset">My button</button>';
+        $result = $this->Helper->button('My button', ['type' => 'reset']);
+        $this->assertSame($expected, $result);
 
-        $expected = ['button' => ['type' => 'reset', 'class' => 'btn btn-primary'], $title, '/button'];
-        $this->assertHtml($expected, $this->Helper->button($title, ['type' => 'reset']));
-
-        $expected = ['button' => ['type' => 'submit', 'class' => 'btn btn-success'], $title, '/button'];
-        $this->assertHtml($expected, $this->Helper->button($title, ['type' => 'submit']));
-
-        $expected = ['button' => ['type' => 'button', 'class' => 'btn btn-danger'], $title, '/button'];
-        $this->assertHtml($expected, $this->Helper->button($title, ['class' => 'btn-danger']));
-
-        $this->assertSame('<button class="btn btn-primary" type="button"></button>', $this->Helper->button());
+        $expected = '<button class="btn btn-success" type="submit">My button</button>';
+        $result = $this->Helper->button('My button', ['type' => 'submit']);
+        $this->assertSame($expected, $result);
     }
 
     /**
-     * Tests for `checkbox()` method
-     * @test
-     */
-    public function testCheckbox(): void
-    {
-        $expected = [
-            ['input' => ['type' => 'hidden', 'name' => 'my-field', 'value' => '0']],
-            ['input' => ['class' => 'form-check-input', 'type' => 'checkbox', 'name' => 'my-field', 'value' => '1']],
-        ];
-        $this->assertHtml($expected, array_value_first((array)$this->Helper->checkbox('my-field')));
-    }
-
-    /**
-     * Tests for `ckeditor()` method
-     * @test
+     * Test for `ckeditor()` method
+     * @return void
+     * @uses \MeTools\View\Helper\FormHelper::ckeditor()
      */
     public function testCkeditor(): void
     {
-        $field = 'my-field';
-
-        $expected = [
-            'div' => ['class' => 'form-group input textarea'],
-            'textarea' => ['name' => $field, 'class' => 'form-control wysiwyg editor', 'id' => $field],
-            '/textarea',
-            '/div',
-        ];
-        $this->assertHtml($expected, $this->Helper->ckeditor($field));
-        $this->assertHtml($expected, $this->Helper->ckeditor($field, ['label' => false]));
-
-        $expected = [
-            'div' => ['class' => 'form-group input textarea'],
-            'label' => ['class' => 'form-label', 'for' => $field],
-            'my label',
-            '/label',
-            'textarea' => ['name' => $field, 'class' => 'form-control wysiwyg editor', 'id' => $field],
-            '/textarea',
-            '/div',
-        ];
-        $this->assertHtml($expected, $this->Helper->ckeditor($field, ['label' => 'my label']));
+        $expected = '<div class="input mb-3 textarea"><textarea name="my-field" class="editor form-control my-class wysiwyg" id="my-field" rows="5"></textarea></div>';
+        $result = $this->Helper->ckeditor('my-field', ['class' => 'my-class']);
+        $this->assertSame($expected, $result);
     }
 
     /**
-     * Tests for `control()` method
-     * @test
+     * Test for `control()` method
+     * @return void
+     * @uses \MeTools\View\Helper\FormHelper::control()
      */
     public function testControl(): void
     {
-        $field = 'my-field';
+        $expected = '<div class="input mb-3 text"><label class="form-label fw-bolder" for="my-field">My Field</label><input type="text" name="my-field" class="form-control" id="my-field"/></div>';
+        $result = $this->Helper->control('my-field');
+        $this->assertSame($expected, $result);
 
-        $expected = [
-            'div' => ['class' => 'form-group input text'],
-            'label' => ['class' => 'form-label', 'for' => $field],
-            'My Field',
-            '/label',
-            'input' => ['type' => 'text', 'name' => $field, 'class' => 'form-control', 'id' => $field],
-            '/div',
-        ];
-        $this->assertHtml($expected, $this->Helper->control($field));
+        //With `required` option
+        $expected = '<div class="input mb-3 text required"><label class="form-label fw-bolder" for="my-field">My Field</label><input type="text" name="my-field" aria-required="true" class="form-control" id="my-field" required="required"/></div>';
+        $result = $this->Helper->control('my-field', ['required' => true]);
+        $this->assertSame($expected, $result);
 
-        $expected = [
-            ['div' => ['class' => 'form-group input text']],
-            'label' => ['class' => 'form-label', 'for' => $field],
-            'My Field',
-            '/label',
-            ['div' => ['class' => 'input-group']],
-            'input' => ['type' => 'text', 'name' => $field, 'class' => 'form-control', 'id' => $field],
-            ['div' => ['class' => 'input-group-append']],
-            'button' => ['role' => 'button', 'class' => 'btn btn-light', 'title' => 'My button'],
-            'My button',
-            '/button',
-            '/div',
-            '/div',
-        ];
-        $result = $this->Helper->control($field, ['button' => $this->Html->button('My button')]);
-        $this->assertHtml($expected, $result);
+        //Help text (form text)
+        $expected = '<div class="input mb-3 text"><label class="form-label fw-bolder" for="my-field">My Field</label><input type="text" name="my-field" class="form-control" id="my-field"/><div class="form-text text-muted">first text</div><div class="form-text text-muted">second text</div></div>';
+        $result = $this->Helper->control('my-field', ['help' => ['first text', 'second text']]);
+        $this->assertSame($expected, $result);
+
+        //With input group (`prepend-text`)
+        $expected = '<div class="input mb-3 text"><label class="form-label fw-bolder" for="my-field">My Field</label><div class="input-group"><span class="input-group-text">first text</span><input type="text" name="my-field" class="form-control" id="my-field"/></div></div>';
+        $result = $this->Helper->control('my-field', ['prepend-text' => 'first text']);
+        $this->assertSame($expected, $result);
+
+        //With input group (`append-text` and `prepend-text`)
+        $expected = '<div class="input mb-3 text"><label class="form-label fw-bolder" for="my-field">My Field</label><div class="input-group"><span class="input-group-text">first text</span><input type="text" name="my-field" class="form-control" id="my-field"/><span class="input-group-text">second text</span></div></div>';
+        $result = $this->Helper->control('my-field', ['prepend-text' => 'first text', 'append-text' => 'second text']);
+        $this->assertSame($expected, $result);
+
+        //With input group as button (`append-text`)
+        $expected = '<div class="input mb-3 text">' .
+            '<label class="form-label fw-bolder" for="my-field">My Field</label>' .
+            '<div class="input-group">' .
+            '<input type="text" name="my-field" class="form-control" id="my-field"/>' .
+            '<button class="btn btn-primary" type="button"><i class="fas fa-home"> </i> My button</button>' .
+            '</div>' .
+            '</div>';
+        $result = $this->Helper->control('my-field', ['append-text' => $this->Helper->button('My button', ['icon' => 'home'])]);
+        $this->assertSame($expected, $result);
+
+        //With input group as button (`prepend-text`)
+        $expected = '<div class="input mb-3 text">' .
+            '<label class="form-label fw-bolder" for="my-field">My Field</label>' .
+            '<div class="input-group">' .
+            '<button class="btn btn-primary" type="button"><i class="fas fa-home"> </i> My button</button>' .
+            '<input type="text" name="my-field" class="form-control" id="my-field"/>' .
+            '</div>' .
+            '</div>';
+        $result = $this->Helper->control('my-field', ['prepend-text' => $this->Helper->button('My button', ['icon' => 'home'])]);
+        $this->assertSame($expected, $result);
+
+        //With input group as submit button (`prepend-text`)
+        $expected = '<div class="input mb-3 text">' .
+            '<label class="form-label fw-bolder" for="my-field">My Field</label>' .
+            '<div class="input-group">' .
+            '<div class="submit">' .
+            '<button class="btn btn-success" value="My submit"><i class="fas fa-home"> </i> My submit</button>' .
+            '</div>' .
+            '<input type="text" name="my-field" class="form-control" id="my-field"/>' .
+            '</div>' .
+            '</div>';
+        $result = $this->Helper->control('my-field', ['prepend-text' => $this->Helper->submit('My submit', ['icon' => 'home'])]);
+        $this->assertSame($expected, $result);
+
+        //With a custom label
+        $expected = '<div class="input mb-3 text"><label class="form-label fw-bolder" for="my-field">A custom label</label><input type="text" name="my-field" class="form-control" id="my-field"/></div>';
+        $result = $this->Helper->control('my-field', ['label' => 'A custom label']);
+        $this->assertSame($expected, $result);
+
+        //With a label with some options
+        $expected = '<div class="input mb-3 text"><label class="form-label fw-bolder my-label-class" for="my-field">A custom label</label><input type="text" name="my-field" class="form-control" id="my-field"/></div>';
+        $result = $this->Helper->control('my-field', ['label' => ['text' => 'A custom label', 'class' => 'my-label-class']]);
+        $this->assertSame($expected, $result);
+
+        //With a disabled label
+        $expected = '<div class="input mb-3 text"><input type="text" name="my-field" class="form-control" id="my-field"/></div>';
+        $result = $this->Helper->control('my-field', ['label' => false]);
+        $this->assertSame($expected, $result);
     }
 
     /**
-     * Tests for `control()` method, with `help` option
-     * @test
+     * Test for `radio()` method
+     * @return void
+     * @uses \MeTools\View\Helper\FormHelper::radio()
      */
-    public function testControlWithHelp(): void
+    public function testRadio(): void
     {
-        $field = 'my-field';
+        $expected = '<input type="hidden" name="my-field" value=""/>' .
+            '<input type="radio" name="my-field" value="1" id="my-field-1" class="form-check-input">' .
+            '<label class="form-check-label" for="my-field-1">A</label>' .
+            '<input type="radio" name="my-field" value="2" id="my-field-2" class="form-check-input">' .
+            '<label class="form-check-label" for="my-field-2">B</label>';
+        if (version_compare(Configure::version(), '4.4', '>=')) {
+            $expected = '<input type="hidden" name="my-field" id="my-field" value=""/>' .
+                '<input type="radio" name="my-field" value="1" id="my-field-1" class="form-check-input">' .
+                '<label class="form-check-label" for="my-field-1">A</label>' .
+                '<input type="radio" name="my-field" value="2" id="my-field-2" class="form-check-input">' .
+                '<label class="form-check-label" for="my-field-2">B</label>';
+        }
+        $result = $this->Helper->radio('my-field', ['1' => 'A', '2' => 'B']);
+        $this->assertSame($expected, $result);
 
-        $expected = [
-            'div' => ['class' => 'form-group input text'],
-            'label' => ['class' => 'form-label', 'for' => $field],
-            'My Field',
-            '/label',
-            'input' => ['type' => 'text', 'name' => $field, 'class' => 'form-control', 'id' => $field],
-            ['div' => ['class' => 'form-text text-muted']],
-            'My tip',
-            '/div',
-            '/div',
-        ];
-        $this->assertHtml($expected, $this->Helper->control($field, ['help' => 'My tip']));
-
-        $expected = [
-            'div' => ['class' => 'form-group input text'],
-            'label' => ['class' => 'form-label', 'for' => $field],
-            'My Field',
-            '/label',
-            'input' => ['type' => 'text', 'name' => $field, 'class' => 'form-control', 'id' => $field],
-            ['div' => ['class' => 'form-text text-muted']],
-            'Tip first line',
-            '/div',
-            ['div' => ['class' => 'form-text text-muted']],
-            'Tip second line',
-            '/div',
-            '/div',
-        ];
-        $result = $this->Helper->control($field, ['help' => ['Tip first line', 'Tip second line']]);
-        $this->assertHtml($expected, $result);
+        $expected = '<div class="input mb-3 radio">' .
+            '<input type="hidden" name="my-field" value=""/>' .
+            '<div class="form-check">' .
+            '<input type="radio" name="my-field" value="1" id="my-field-1" class="form-check-input">' .
+            '<label class="form-check-label" for="my-field-1">A</label>' .
+            '</div>' .
+            '<div class="form-check">' .
+            '<input type="radio" name="my-field" value="2" id="my-field-2" class="form-check-input">' .
+            '<label class="form-check-label" for="my-field-2">B</label>' .
+            '</div>' .
+            '</div>';
+        if (version_compare(Configure::version(), '4.4', '>=')) {
+            $expected = '<div class="input mb-3 radio">' .
+                '<input type="hidden" name="my-field" id="my-field" value=""/>' .
+                '<div class="form-check">' .
+                '<input type="radio" name="my-field" value="1" id="my-field-1" class="form-check-input">' .
+                '<label class="form-check-label" for="my-field-1">A</label>' .
+                '</div>' .
+                '<div class="form-check">' .
+                '<input type="radio" name="my-field" value="2" id="my-field-2" class="form-check-input">' .
+                '<label class="form-check-label" for="my-field-2">B</label>' .
+                '</div>' .
+                '</div>';
+        }
+        $result = $this->Helper->control('my-field', ['options' => ['1' => 'A', '2' => 'B'], 'type' => 'radio']);
+        $this->assertSame($expected, $result);
     }
 
     /**
-     * Tests for `control()` method with checkboxes
-     * @test
+     * Test for `control()` method, with a "checkbox" type
+     * @return void
+     * @uses \MeTools\View\Helper\FormHelper::checkbox()
+     * @uses \MeTools\View\Helper\FormHelper::control()
      */
-    public function testControlCheckbox(): void
+    public function testControlCheckboxType(): void
     {
-        $field = 'my-field';
-        $expected = [
-            'div' => ['class' => 'form-check input checkbox'],
-            'label' => ['class' => 'form-label', 'for' => $field],
-            ['input' => ['type' => 'hidden', 'name' => $field, 'value' => '0']],
-            ['input' => ['class' => 'form-check-input', 'type' => 'checkbox', 'name' => $field, 'value' => '1', 'id' => $field]],
-            ' My Field',
-            '/label',
-            '/div',
-        ];
-        $this->assertHtml($expected, $this->Helper->control($field, ['type' => 'checkbox']));
-    }
+        $expected = '<div class="input mb-3 form-check"><input type="hidden" name="my-checkbox" value="0"/><label class="form-check-label fw-bolder" for="my-checkbox"><input type="checkbox" name="my-checkbox" value="1" class="form-check-input" id="my-checkbox">My Checkbox</label></div>';
+        $result = $this->Helper->control('my-checkbox', ['type' => 'checkbox']);
+        $this->assertSame($expected, $result);
 
-    /**
-     * Tests for `control()` method with password inputs
-     * @test
-     */
-    public function testControlPassword(): void
-    {
-        $expected = [
-            'div' => ['class' => 'form-group input password'],
-            'label' => ['class' => 'form-label', 'for' => 'old-password'],
-            'Old Password',
-            '/label',
-            'input' => ['type' => 'password', 'name' => 'old-password', 'class' => 'form-control', 'id' => 'old-password'],
-            '/div',
-        ];
-        $this->assertHtml($expected, $this->Helper->control('old-password'));
-    }
+        //With `required` option
+        $expectedStart = '<div class="input mb-3 form-check required"><input type="hidden" name="my-checkbox" value="0"/><label class="form-check-label fw-bolder" for="my-checkbox"><input type="checkbox" name="my-checkbox" value="1"';
+        $expectedEnd = 'class="form-check-input" id="my-checkbox" required="required">My Checkbox</label></div>';
+        $result = $this->Helper->control('my-checkbox', ['type' => 'checkbox', 'required' => true]);
+        $this->assertStringStartsWith($expectedStart, $result);
+        $this->assertStringEndsWith($expectedEnd, $result);
 
-    /**
-     * Tests for `control()` method with selects
-     * @test
-     */
-    public function testControlSelect(): void
-    {
-        $field = 'my-field';
-        $options = ['1' => 'First value', '2' => 'Second value'];
-
-        $expected = [
-            'div' => ['class' => 'form-group input select'],
-            'label' => ['class' => 'form-label', 'for' => $field],
-            'My Field',
-            '/label',
-            'select' => ['name' => $field, 'class' => 'form-control', 'id' => $field],
-            ['option' => ['value' => '']],
-            '/option',
-            ['option' => ['value' => '1']],
-            $options['1'],
-            '/option',
-            ['option' => ['value' => '2']],
-            $options['2'],
-            '/option',
-            '/select',
-            '/div',
-        ];
-        $result = $this->Helper->control($field, ['options' => $options, 'type' => 'select']);
-        $this->assertHtml($expected, $result);
-
-        //With `default` and `value`
-        $expected = [
-            'div' => ['class' => 'form-group input select'],
-            'label' => ['class' => 'form-label', 'for' => $field],
-            'My Field',
-            '/label',
-            'select' => ['name' => $field, 'class' => 'form-control', 'id' => $field],
-            ['option' => ['value' => '1']],
-            $options['1'],
-            '/option',
-            ['option' => ['value' => '2', 'selected' => 'selected']],
-            $options['2'],
-            '/option',
-            '/select',
-            '/div',
-        ];
-        $result = $this->Helper->control($field, ['default' => '2', 'options' => $options,'type' => 'select']);
-        $this->assertHtml($expected, $result);
-        $result = $this->Helper->control($field, ['options' => $options, 'type' => 'select', 'value' => '2']);
-        $this->assertHtml($expected, $result);
-
-        //Custom `empty` value
-        $expected = [
-            'div' => ['class' => 'form-group input select'],
-            'label' => ['class' => 'form-label', 'for' => $field],
-            'My Field',
-            '/label',
-            'select' => ['name' => $field, 'class' => 'form-control', 'id' => $field],
-            ['option' => ['value' => '']],
-            '(choose one)',
-            '/option',
-            ['option' => ['value' => '1']],
-            $options['1'],
-            '/option',
-            ['option' => ['value' => '2']],
-            $options['2'],
-            '/option',
-            '/select',
-            '/div',
-        ];
-        $result = $this->Helper->control($field, [
-            'empty' => '(choose one)',
-            'options' => $options,
-            'type' => 'select',
-        ]);
-        $this->assertHtml($expected, $result);
-
-        // `empty` disabled
-        $expected = [
-            'div' => ['class' => 'form-group input select'],
-            'label' => ['class' => 'form-label', 'for' => $field],
-            'My Field',
-            '/label',
-            'select' => ['name' => $field, 'class' => 'form-control', 'id' => $field],
-            ['option' => ['value' => '1']],
-            $options['1'],
-            '/option',
-            ['option' => ['value' => '2']],
-            $options['2'],
-            '/option',
-            '/select',
-            '/div',
-        ];
-        $result = $this->Helper->control($field, compact('options') + ['empty' => false, 'type' => 'select']);
-        $this->assertHtml($expected, $result);
-    }
-
-    /**
-     * Tests for `control()` method with textarea
-     * @test
-     */
-    public function testControlTextarea(): void
-    {
-        $field = 'my-field';
-        $expected = [
-            'div' => ['class' => 'form-group input textarea'],
-            'label' => ['class' => 'form-label', 'for' => $field],
-            'My Field',
-            '/label',
-            'textarea' => ['name' => $field, 'class' => 'form-control', 'id' => $field],
-            '/textarea',
-            '/div',
-        ];
-        $this->assertHtml($expected, $this->Helper->control($field, ['type' => 'textarea']));
-    }
-
-    /**
-     * Tests for `control()` method, into an inline form
-     * @test
-     */
-    public function testControlInline(): void
-    {
-        $field = 'my-field';
-
-        $expected = [
-            'div' => ['class' => 'form-group input text'],
-            'label' => ['class' => 'form-label sr-only', 'for' => $field],
-            'My Field',
-            '/label',
-            'input' => ['type' => 'text', 'name' => $field, 'class' => 'form-control', 'id' => $field],
-            '/div',
-        ];
+        //On "inline" form
         $this->Helper->createInline();
-        $this->assertHtml($expected, $this->Helper->control($field));
+        $expected = '<div class="col-12"><div class="form-check"><input type="hidden" name="my-inline-field" value="0"/><label class="form-check-label" for="my-inline-field"><input type="checkbox" name="my-inline-field" value="1" class="form-check-input" id="my-inline-field">My Inline Field</label></div></div>';
+        $result = $this->Helper->control('my-inline-field', ['type' => 'checkbox']);
+        $this->assertSame($expected, $result);
 
-        //Tries with a checkbox
-        $expected = [
-            'div' => ['class' => 'form-check input checkbox'],
-            'label' => ['class' => 'form-label sr-only', 'for' => $field],
-            ['input' => ['type' => 'hidden', 'name' => $field, 'value' => '0']],
-            ['input' => ['class' => 'form-check-input', 'type' => 'checkbox', 'name' => $field, 'value' => '1', 'id' => $field]],
-            ' My Field',
-            '/label',
-            '/div',
-        ];
-        $this->assertHtml($expected, $this->Helper->control($field, ['type' => 'checkbox']));
+        //With error (same `$expectedStart` value)
+        $expectedEnd = 'class="form-check-input is-invalid" id="my-checkbox" required="required">My Checkbox</label>My error</div>';
+        /** @var \Cake\Http\ServerRequest&\PHPUnit\Framework\MockObject\MockObject $Request */
+        $Request = $this->getMockBuilder(ServerRequest::class)
+            ->onlyMethods(['is'])
+            ->getMock();
+        $Request->method('is')->willReturn(true);
+        /** @var \MeTools\View\Helper\FormHelper&\PHPUnit\Framework\MockObject\MockObject $Helper */
+        $Helper = $this->getMockForHelper(FormHelper::class, ['error', 'isFieldError'], new View($Request));
+        $Helper->method('error')->willReturn('My error');
+        $Helper->method('isFieldError')->willReturn(true);
+        $result = $Helper->control('my-checkbox', ['type' => 'checkbox', 'required' => true]);
+        $this->assertStringStartsWith($expectedStart, $result);
+        $this->assertStringEndsWith($expectedEnd, $result);
 
-        //Using `label` option
-        $expected = [
-            'div' => ['class' => 'form-group input text'],
-            'label' => ['class' => 'form-label sr-only', 'for' => $field],
-            'My label',
-            '/label',
-            'input' => ['type' => 'text', 'name' => $field, 'class' => 'form-control', 'id' => $field],
-            '/div',
-        ];
-        $this->assertHtml($expected, $this->Helper->control($field, ['label' => 'My label']));
-
-        //`label` option `false`
-        $expected = [
-            'div' => ['class' => 'form-group input text'],
-            'input' => ['type' => 'text', 'name' => $field, 'class' => 'form-control', 'id' => $field],
-            '/div',
-        ];
-        $this->assertHtml($expected, $this->Helper->control($field, ['label' => false]));
+        //With error on "inline" form
+        $Helper->createInline();
+        $expectedStart = '<div class="col-12"><div class="form-check required error"><input type="hidden" name="my-checkbox" value="0"/><label class="form-check-label" for="my-checkbox"><input type="checkbox" name="my-checkbox" value="1"';
+        $expectedEnd = 'class="form-check-input is-invalid" id="my-checkbox" required="required">My Checkbox</label>My error</div></div>';
+        $result = $Helper->control('my-checkbox', ['type' => 'checkbox', 'required' => true]);
+        $this->assertStringStartsWith($expectedStart, $result);
+        $this->assertStringEndsWith($expectedEnd, $result);
     }
 
     /**
-     * Tests for `create()` method
-     * @test
+     * Test for `control()` method, with a fields that contains the "password" word
+     * @return void
+     * @uses \MeTools\View\Helper\FormHelper::_inputType()
+     * @uses \MeTools\View\Helper\FormHelper::control()
      */
-    public function testCreate(): void
+    public function testControlPasswordField(): void
     {
-        $expected = [
-            'form' => ['method' => 'post', 'accept-charset' => 'utf-8', 'action' => '/'],
-            '/form',
-        ];
-        $this->assertHtml($expected, $this->Helper->create() . $this->Helper->end());
+        $expected = '<div class="input mb-3 password"><label class="form-label fw-bolder" for="my-password">My Password</label><input type="password" name="my-password" class="form-control" id="my-password"/></div>';
+        $result = $this->Helper->control('my-password');
+        $this->assertSame($expected, $result);
     }
 
     /**
-     * Tests for `createInline()` and `isInline()` methods
-     * @test
+     * Test for `control()` method, with an inline form
+     * @return void
+     * @uses \MeTools\View\Helper\FormHelper::control()
      */
-    public function testCreateInlineAndIsInline(): void
+    public function testControlWithInlineForm(): void
     {
-        $expected = [
-            'form' => ['method' => 'post', 'accept-charset' => 'utf-8', 'class' => 'form-inline', 'action' => '/'],
-            '/form',
-        ];
+        $this->Helper->createInline();
 
-        $this->assertFalse($this->Helper->isInline());
-        $result = $this->Helper->createInline();
-        $inline = $this->Helper->isInline();
-        $result .= $this->Helper->end();
-        $this->assertTrue($inline);
-        $this->assertHtml($expected, $result);
-        $this->assertFalse($this->Helper->isInline());
+        $expected = '<div class="col-12 text"><label class="visually-hidden" for="my-inline-field">My Inline Field</label><input type="text" name="my-inline-field" class="form-control" id="my-inline-field"/></div>';
+        $result = $this->Helper->control('my-inline-field');
+        $this->assertSame($expected, $result);
 
-        //Tests `create()` method, with `inline` option
-        $result = $this->Helper->create(null, ['inline' => true]);
-        $inline = $this->Helper->isInline();
-        $result .= $this->Helper->end();
-        $this->assertTrue($inline);
-        $this->assertHtml($expected, $result);
-        $this->assertFalse($this->Helper->isInline());
-
-        //Tests `create()` method, with `form-inline` class
-        $result = $this->Helper->create(null, ['class' => 'form-inline']);
-        $inline = $this->Helper->isInline();
-        $result .= $this->Helper->end();
-        $this->assertTrue($inline);
-        $this->assertHtml($expected, $result);
+        //With a custom label text
+        $expected = '<div class="col-12 text"><label class="visually-hidden" for="my-inline-field">My label</label><input type="text" name="my-inline-field" class="form-control" id="my-inline-field"/></div>';
+        $result = $this->Helper->control('my-inline-field', ['label' => 'My label']);
+        $this->assertSame($expected, $result);
     }
 
     /**
-     * Tests for `label()` method
-     * @test
+     * Test for `control()` method, with validation
+     * @return void
+     * @uses \MeTools\View\Helper\FormHelper::control()
+     */
+    public function testControlWithValidation(): void
+    {
+        /** @var \Cake\Http\ServerRequest&\PHPUnit\Framework\MockObject\MockObject $Request */
+        $Request = $this->getMockBuilder(ServerRequest::class)
+            ->onlyMethods(['is'])
+            ->getMock();
+        $Request->method('is')->willReturn(true);
+        $View = new View($Request);
+
+        //Input is valid
+        $Helper = new FormHelper($View);
+        $expected = '<div class="input mb-3 text"><label class="form-label fw-bolder" for="my-field">My Field</label><div class="input-group has-validation"><input type="text" name="my-field" class="form-control is-valid" id="my-field"/><span class="input-group-text">Append text</span></div><div class="form-text text-muted">My help text</div></div>';
+        $result = $Helper->control('my-field', ['append-text' => 'Append text', 'help' => 'My help text']);
+        $this->assertSame($expected, $result);
+
+        //Input is invalid and has an error
+        $expected = '<div class="input mb-3 text error"><label class="form-label fw-bolder" for="my-field">My Field</label><div class="input-group has-validation"><input type="text" name="my-field" aria-invalid="true" class="form-control is-invalid" id="my-field"/><span class="input-group-text">Append text</span>My error</div><div class="form-text text-muted">My help text</div></div>';
+        /** @var \MeTools\View\Helper\FormHelper&\PHPUnit\Framework\MockObject\MockObject $Helper */
+        $Helper = $this->getMockForHelper(FormHelper::class, ['error', 'isFieldError'], $View);
+        $Helper->method('error')->willReturn('My error');
+        $Helper->method('isFieldError')->willReturn(true);
+        $result = $Helper->control('my-field', ['append-text' => 'Append text', 'help' => 'My help text']);
+        $this->assertSame($expected, $result);
+    }
+
+    /**
+     * Test for `createInline()` method
+     * @uses \MeTools\View\Helper\FormHelper::createInline()
+     * @uses \MeTools\View\Helper\FormHelper::end()
+     * @uses \MeTools\View\Helper\FormHelper::isInline()
+     */
+    public function testCreateInline(): void
+    {
+        $this->assertFalse($this->Helper->isInline());
+
+        $expected = '<form method="post" accept-charset="utf-8" class="align-items-center g-3 my-class row row-cols-lg-auto" action="/">';
+        $result = $this->Helper->createInline(null, ['class' => 'my-class']);
+        $this->assertSame($expected, $result);
+
+        $this->assertTrue($this->Helper->isInline());
+
+        $this->assertSame('</form>', $this->Helper->end());
+
+        $this->assertFalse($this->Helper->isInline());
+    }
+
+    /**
+     * Test for `label()` method
+     * @return void
+     * @uses \MeTools\View\Helper\FormHelper::label()
      */
     public function testLabel(): void
     {
-        $expected = [
-            'label' => ['class' => 'form-label', 'for' => 'my-fieldname'],
-            'i' => ['class' => 'fas fa-home'],
-            ' ',
-            '/i',
-            ' ',
-            'My label',
-            '/label',
-        ];
-        $this->assertHtml($expected, $this->Helper->label('my-fieldname', 'My label', ['icon' => 'home']));
-
-        $expected = ['label' => ['class' => 'form-label', 'for' => 'my-fieldname'], '" \'', '/label'];
-        $this->assertHtml($expected, $this->Helper->label('my-fieldname', '" \''));
+        $expected = '<label class="fw-bolder my-class" for="my-fieldname"><i class="fas fa-home"> </i> My label</label>';
+        $result = $this->Helper->label('my-fieldname', 'My label', ['class' => 'my-class', 'icon' => 'home']);
+        $this->assertSame($expected, $result);
     }
 
     /**
-     * Tests for `postButton()` method
-     * @test
-     */
-    public function testPostButton(): void
-    {
-        $title = 'My title';
-        $url = 'https://link';
-
-        $expected = [
-            'form' => ['name', 'style' => 'display:none;', 'method' => 'post', 'action' => $url],
-            'input' => ['type' => 'hidden', 'name' => '_method', 'value' => 'POST'],
-            '/form',
-            'a' => ['href' => '#', 'role' => 'button', 'class' => 'btn btn-light', 'title' => $title, 'onclick'],
-            'i' => ['class' => 'fas fa-home'],
-            ' ',
-            '/i',
-            ' ',
-            $title,
-            '/a',
-        ];
-        $this->assertHtml($expected, $this->Helper->postButton($title, $url, ['icon' => 'home']));
-
-        $expected = [
-            'form' => ['name', 'style' => 'display:none;', 'method' => 'post', 'action' => $url],
-            'input' => ['type' => 'hidden', 'name' => '_method', 'value' => 'POST'],
-            '/form',
-            'a' => ['href' => '#', 'class' => 'btn btn-danger', 'onclick', 'role' => 'button', 'title' => $title],
-            $title,
-            '/a',
-        ];
-        $this->assertHtml($expected, $this->Helper->postButton($title, $url, ['class' => 'btn-danger']));
-
-        $expected = [
-            'form' => ['name', 'style' => 'display:none;', 'method' => 'post', 'action' => '/'],
-            'input' => ['type' => 'hidden', 'name' => '_method', 'value' => 'POST'],
-            '/form',
-            'a' => ['href' => '#', 'class' => 'btn btn-light', 'onclick', 'role' => 'button', 'title' => ''],
-            '/a',
-        ];
-        $this->assertHtml($expected, $this->Helper->postButton());
-    }
-
-    /**
-     * Tests for `postLink()` method
-     * @test
-     */
-    public function testPostLink(): void
-    {
-        $title = 'My title';
-        $url = 'https://link';
-
-        $expected = [
-            'form' => ['name', 'style' => 'display:none;', 'method' => 'post', 'action' => $url],
-            'input' => ['type' => 'hidden', 'name' => '_method', 'value' => 'POST'],
-            '/form',
-            'a' => ['href' => '#', 'title' => $title, 'onclick'],
-            'i' => ['class' => 'fas fa-home'],
-            ' ',
-            '/i',
-            ' ',
-            $title,
-            '/a',
-        ];
-        $this->assertHtml($expected, $this->Helper->postLink($title, $url, ['icon' => 'home']));
-
-        $expected = [
-            'form' => ['name', 'style' => 'display:none;', 'method' => 'post', 'action' => $url],
-            'input' => ['type' => 'hidden', 'name' => '_method', 'value' => 'POST'],
-            '/form',
-            'a' => ['href' => '#', 'title' => 'My tooltip', 'data-toggle' => 'tooltip', 'onclick'],
-            $title,
-            '/a',
-        ];
-        $this->assertHtml($expected, $this->Helper->postLink($title, $url, ['tooltip' => 'My tooltip']));
-
-        $expected = [
-            'form' => ['name', 'style' => 'display:none;', 'method' => 'post', 'action' => $url],
-            'input' => ['type' => 'hidden', 'name' => '_method', 'value' => 'POST'],
-            '/form',
-            'a' => ['href' => '#', 'title' => '&amp;quot; &amp;#039;', 'onclick'],
-            '" \'',
-            '/a',
-        ];
-        $this->assertHtml($expected, $this->Helper->postLink('" \'', $url));
-
-        $expected = [
-            'form' => ['name', 'style' => 'display:none;', 'method' => 'post', 'action' => '/'],
-            'input' => ['type' => 'hidden', 'name' => '_method', 'value' => 'POST'],
-            '/form',
-            'a' => ['href' => '#', 'title' => '', 'onclick'],
-            '/a',
-        ];
-        $this->assertHtml($expected, $this->Helper->postLink());
-    }
-
-    /**
-     * Tests for `select()` method
-     * @test
+     * Test for `select()` method
+     * @return void
+     * @uses \MeTools\View\Helper\FormHelper::select()
      */
     public function testSelect(): void
     {
-        $field = 'my-field';
-        $options = ['1' => 'First value', '2' => 'Second value'];
+        $options = ['a' => 'A', 'b' => 'B', 'c' => 'C'];
 
-        $expected = [
-            'select' => ['name' => $field, 'class' => 'form-control'],
-            ['option' => ['value' => '']],
-            '/option',
-            ['option' => ['value' => '1']],
-            $options['1'],
-            '/option',
-            ['option' => ['value' => '2']],
-            $options['2'],
-            '/option',
-            '/select',
-        ];
-        $this->assertHtml($expected, $this->Helper->select($field, $options));
+        $expected = '<select name="my-fieldname" class="form-select"><option value=""></option><optgroup label="options"><option value="a">A</option><option value="b">B</option><option value="c">C</option></optgroup></select>';
+        $result = $this->Helper->select('my-fieldname', compact('options'));
+        $this->assertSame($expected, $result);
 
-        //With `default` and `value`
-        $expected = [
-            'select' => ['name' => $field, 'class' => 'form-control'],
-            ['option' => ['value' => '1']],
-            $options['1'],
-            '/option',
-            ['option' => ['value' => '2', 'selected' => 'selected']],
-            $options['2'],
-            '/option',
-            '/select',
-        ];
-        $this->assertHtml($expected, $this->Helper->select($field, $options, ['default' => '2']));
-        $this->assertHtml($expected, $this->Helper->select($field, $options, ['value' => '2']));
+        $expected = '<select name="my-fieldname" class="form-select"><optgroup label="options"><option value="a">A</option><option value="b" selected="selected">B</option><option value="c">C</option></optgroup></select>';
+        $result = $this->Helper->select('my-fieldname', compact('options'), ['default' => 'b']);
+        $this->assertSame($expected, $result);
 
-        //Custom `empty` value
-        $expected = [
-            'select' => ['name' => $field, 'class' => 'form-control'],
-            ['option' => ['value' => '']],
-            '(choose one)',
-            '/option',
-            ['option' => ['value' => '1']],
-            $options['1'],
-            '/option',
-            ['option' => ['value' => '2']],
-            $options['2'],
-            '/option',
-            '/select',
-        ];
-        $this->assertHtml($expected, $this->Helper->select($field, $options, ['empty' => '(choose one)']));
+        //As for the previous one
+        $result = $this->Helper->select('my-fieldname', compact('options'), ['value' => 'b']);
+        $this->assertSame($expected, $result);
 
-        //With `empty` disabled
-        $expected = [
-            'select' => ['name' => $field, 'class' => 'form-control'],
-            ['option' => ['value' => '1']],
-            $options['1'],
-            '/option',
-            ['option' => ['value' => '2']],
-            $options['2'],
-            '/option',
-            '/select',
-        ];
-        $this->assertHtml($expected, $this->Helper->select($field, $options, ['empty' => false]));
+        $expected = '<select name="my-fieldname" class="form-select"><option value="">-- empty --</option><optgroup label="options"><option value="a">A</option><option value="b">B</option><option value="c">C</option></optgroup></select>';
+        $result = $this->Helper->select('my-fieldname', compact('options'), ['empty' => '-- empty --']);
+        $this->assertSame($expected, $result);
     }
 
     /**
-     * Tests for `submit()` method
-     * @test
+     * Test for `postButton()` method
+     * @return void
+     * @uses \MeTools\View\Helper\FormHelper::postButton()
      */
-    public function testSubmit(): void
+    public function testPostButton(): void
     {
-        $title = 'My title';
-
-        //The `type` option will be overwritten
-        $expected = ['button' => ['type' => 'submit', 'class' => 'btn btn-success'], $title, '/button'];
-        $this->assertHtml($expected, $this->Helper->submit($title, ['type' => 'reset']));
-
         $expected = [
-            'button' => ['type' => 'submit', 'class' => 'btn btn-danger'],
+            'form' => ['name' => 'preg:/post_[a-z0-9]+/', 'style' => 'display:none;', 'method' => 'post', 'action' => 'https://link'],
+            'input' => ['type' => 'hidden', 'name' => '_method', 'value' => 'POST'],
+            '/form',
+            'a' => ['href' => '#', 'class' => 'btn btn-light', 'onclick', 'role' => 'button', 'title' => 'My title'],
             'i' => ['class' => 'fas fa-home'],
             ' ',
             '/i',
             ' ',
-            $title,
-            '/button',
+            'My title',
+            '/a',
         ];
-        $this->assertHtml($expected, $this->Helper->submit($title, ['class' => 'btn-danger', 'icon' => 'home']));
+        $result = $this->Helper->postButton('My title', 'https://link', ['icon' => 'home']);
+        $this->assertHtml($expected, $result);
     }
 
     /**
-     * Tests for `textarea()` method
-     * @test
+     * Test for `submit()` method
+     * @return void
+     * @uses \MeTools\View\Helper\FormHelper::submit()
      */
-    public function testTextarea(): void
+    public function testSubmit(): void
     {
-        $expected = ['textarea' => ['name' => 'my-field', 'class' => 'form-control'], '/textarea'];
-        $this->assertHtml($expected, $this->Helper->textarea('my-field'));
+        $expected = '<div class="submit"><button class="btn btn-success" value="My caption"><i class="fas fa-home"> </i> My caption</button></div>';
+        $result = $this->Helper->submit('My caption', ['icon' => 'home']);
+        $this->assertSame($expected, $result);
+
+        //Reset type
+        $expected = '<div class="submit"><button class="btn btn-primary" value="My reset caption"><i class="fas fa-home"> </i> My reset caption</button></div>';
+        $result = $this->Helper->submit('My reset caption', ['icon' => 'home', 'type' => 'reset']);
+        $this->assertSame($expected, $result);
+
+        //With empty `$caption`
+        $expected = '<div class="submit"><button class="btn btn-success" value="Submit">Submit</button></div>';
+        $result = $this->Helper->submit();
+        $this->assertSame($expected, $result);
     }
 }
