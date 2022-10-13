@@ -1,4 +1,5 @@
 <?php
+/** @noinspection HttpUrlsUsage */
 declare(strict_types=1);
 
 /**
