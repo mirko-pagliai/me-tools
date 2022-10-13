@@ -53,11 +53,11 @@ class BBCodeTest extends TestCase
      */
     public function testParser(): void
     {
-        $expected = '<p>Some para text</p>
-<!-- read-more -->
-<span>Some span text</span>
-<div class="ratio ratio-16x9"><iframe allowfullscreen="allowfullscreen" height="480" src="https://www.youtube.com/embed/bL_CJKq9rIw" width="640"></iframe></div>
-<div>Some div text</div>';
+        $expected = '<p>Some para text</p>' . PHP_EOL .
+            '<!-- read-more -->' . PHP_EOL .
+            '<span>Some span text</span>' . PHP_EOL .
+            '<div class="ratio ratio-16x9"><iframe allowfullscreen="allowfullscreen" height="480" src="https://www.youtube.com/embed/bL_CJKq9rIw" width="640"></iframe></div>' . PHP_EOL .
+            '<div>Some div text</div>' . PHP_EOL;
 
         ob_start();
         echo '<p>Some para text</p>' . PHP_EOL;
@@ -66,7 +66,7 @@ class BBCodeTest extends TestCase
         echo '[youtube]bL_CJKq9rIw[/youtube]' . PHP_EOL;
         echo '<div>Some div text</div>' . PHP_EOL;
         $result = $this->BBCode->parser(ob_get_clean() ?: '');
-        $this->assertStringStartsWith($expected, $result);
+        $this->assertSame($expected, $result);
     }
 
     /**
@@ -76,11 +76,11 @@ class BBCodeTest extends TestCase
      */
     public function testRemove(): void
     {
-        $expected = '<p>Some para text</p>
-
-<span>Some span text</span>
-
-<div>Some div text</div>';
+        $expected = '<p>Some para text</p>' . PHP_EOL .
+            PHP_EOL .
+            '<span>Some span text</span>' . PHP_EOL .
+            PHP_EOL .
+            '<div>Some div text</div>';
         ob_start();
         echo '<p>Some para text</p>' . PHP_EOL;
         echo '[readmore /]' . PHP_EOL;
@@ -143,7 +143,7 @@ class BBCodeTest extends TestCase
         $expected = $this->Html->youtube('bL_CJKq9rIw');
         foreach ([
             '[youtube]bL_CJKq9rIw[/youtube]',
-            '[youtube]http://youtube.com/watch?v=bL_CJKq9rIw[/youtube]',
+            '[youtube]https://youtube.com/watch?v=bL_CJKq9rIw[/youtube]',
             '[youtube]https://www.youtube.com/watch?v=bL_CJKq9rIw[/youtube]',
             '[youtube]https://youtu.be/bL_CJKq9rIw[/youtube]',
         ] as $text) {
