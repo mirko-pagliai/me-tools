@@ -266,7 +266,8 @@ class HtmlHelperTest extends HelperTestCase
         $result = $this->Helper->ul(['First', 'Second'], ['class' => 'parent-class'], ['class' => 'li-class', 'icon' => 'home']);
         $this->assertHtml($expected, $result);
 
-        array_shift($expected) && array_pop($expected);
+        array_shift($expected);
+        array_pop($expected);
         $expected = ['ol' => ['class' => 'fa-ul parent-class'], ...$expected, '/ol'];
         $result = $this->Helper->ol(['First', 'Second'], ['class' => 'parent-class'], ['class' => 'li-class', 'icon' => 'home']);
         $this->assertHtml($expected, $result);

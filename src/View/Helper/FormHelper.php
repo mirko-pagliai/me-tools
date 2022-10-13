@@ -256,7 +256,7 @@ class FormHelper extends CakeFormHelper
             foreach (['append', 'prepend'] as $name) {
                 $value = $options->consume($name . '-text') ?: '';
                 if ($value && !str_starts_with($value, '<button') && !str_starts_with($value, '<div class="submit')) {
-                    $value = $this->Html->span($value, ['class' => 'input-group-text']);
+                    $value = $this->Html->tag('span', $value, ['class' => 'input-group-text']);
                 }
                 $templateVars[$name] = $value;
             }

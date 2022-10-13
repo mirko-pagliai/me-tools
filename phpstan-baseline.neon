@@ -31,21 +31,6 @@ parameters:
 			path: tests/TestCase/TestSuite/IntegrationTestTraitTest.php
 
 		-
-			message: "#^Call to an undefined method MeTools\\\\View\\\\Helper\\\\BootstrapHtmlHelper\\:\\:noExistingMethod\\(\\)\\.$#"
-			count: 1
-			path: tests/TestCase/View/Helper/BootstrapHtmlHelperTest.php
-
-		-
-			message: "#^Left side of && is always true\\.$#"
-			count: 1
-			path: tests/TestCase/View/Helper/BootstrapHtmlHelperTest.php
-
-		-
-			message: "#^Call to an undefined method MeTools\\\\View\\\\Helper\\\\HtmlHelper\\:\\:h3\\(\\)\\.$#"
-			count: 3
-			path: tests/TestCase/View/Helper/HtmlHelperTest.php
-
-		-
 			message: "#^Call to an undefined method MeTools\\\\View\\\\Helper\\\\HtmlHelper\\:\\:noExistingMethod\\(\\)\\.$#"
 			count: 1
 			path: tests/TestCase/View/Helper/HtmlHelperTest.php
