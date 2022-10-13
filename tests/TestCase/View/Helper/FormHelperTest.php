@@ -15,6 +15,7 @@ declare(strict_types=1);
 namespace MeTools\Test\TestCase\View\Helper;
 
 use MeTools\TestSuite\HelperTestCase;
+use MeTools\View\Helper\FormHelper;
 use MeTools\View\Helper\HtmlHelper;
 
 /**
@@ -24,9 +25,32 @@ use MeTools\View\Helper\HtmlHelper;
 class FormHelperTest extends HelperTestCase
 {
     /**
+     * @var int
+     */
+    protected static int $current;
+
+    /**
      * @var \MeTools\View\Helper\HtmlHelper
      */
     protected HtmlHelper $Html;
+
+    /**
+     * This method is called before the first test of this test class is run
+     * @return void
+     */
+    public static function setUpBeforeClass(): void
+    {
+        self::$current = error_reporting(E_ALL & ~E_USER_DEPRECATED);
+    }
+
+    /**
+     * This method is called after the last test of this test class is run
+     * @return void
+     */
+    public static function tearDownAfterClass(): void
+    {
+        error_reporting(self::$current);
+    }
 
     /**
      * Called before every test method
@@ -36,16 +60,22 @@ class FormHelperTest extends HelperTestCase
     {
         parent::setUp();
 
-        if (empty($this->Html)) {
-            /** @var \MeTools\View\Helper\HtmlHelper&\PHPUnit\Framework\MockObject\MockObject $Html */
-            $Html = $this->getMockForHelper(HtmlHelper::class, []);
-            $this->Html = $Html;
-        }
+        $this->Html ??= new HtmlHelper($this->Helper->getView());
+    }
+
+    /**
+     * Tests the entire class is deprecated
+     * @return void
+     */
+    public function testClassIsDeprecated(): void
+    {
+        error_reporting(self::$current);
+        $this->assertDeprecated(fn() => new FormHelper($this->Helper->getView()), '`FormHelper` is deprecated. Use instead `BootstrapFormHelper`');
+        self::$current = error_reporting(E_ALL & ~E_USER_DEPRECATED);
     }
 
     /**
      * Tests for `button()` method
-     * @deprecated
      * @test
      */
     public function testButton(): void
@@ -77,7 +107,6 @@ class FormHelperTest extends HelperTestCase
 
     /**
      * Tests for `checkbox()` method
-     * @deprecated
      * @test
      */
     public function testCheckbox(): void
@@ -91,7 +120,6 @@ class FormHelperTest extends HelperTestCase
 
     /**
      * Tests for `ckeditor()` method
-     * @deprecated
      * @test
      */
     public function testCkeditor(): void
@@ -157,7 +185,6 @@ class FormHelperTest extends HelperTestCase
 
     /**
      * Tests for `control()` method, with `help` option
-     * @deprecated
      * @test
      */
     public function testControlWithHelp(): void
@@ -197,7 +224,6 @@ class FormHelperTest extends HelperTestCase
 
     /**
      * Tests for `control()` method with checkboxes
-     * @deprecated
      * @test
      */
     public function testControlCheckbox(): void
@@ -217,7 +243,6 @@ class FormHelperTest extends HelperTestCase
 
     /**
      * Tests for `control()` method with password inputs
-     * @deprecated
      * @test
      */
     public function testControlPassword(): void
@@ -235,7 +260,6 @@ class FormHelperTest extends HelperTestCase
 
     /**
      * Tests for `control()` method with selects
-     * @deprecated
      * @test
      */
     public function testControlSelect(): void
@@ -351,7 +375,6 @@ class FormHelperTest extends HelperTestCase
 
     /**
      * Tests for `control()` method, into an inline form
-     * @deprecated
      * @test
      */
     public function testControlInline(): void
@@ -403,7 +426,6 @@ class FormHelperTest extends HelperTestCase
 
     /**
      * Tests for `create()` method
-     * @deprecated
      * @test
      */
     public function testCreate(): void
@@ -417,7 +439,6 @@ class FormHelperTest extends HelperTestCase
 
     /**
      * Tests for `createInline()` and `isInline()` methods
-     * @deprecated
      * @test
      */
     public function testCreateInlineAndIsInline(): void
@@ -453,7 +474,6 @@ class FormHelperTest extends HelperTestCase
 
     /**
      * Tests for `label()` method
-     * @deprecated
      * @test
      */
     public function testLabel(): void
@@ -475,7 +495,6 @@ class FormHelperTest extends HelperTestCase
 
     /**
      * Tests for `postButton()` method
-     * @deprecated
      * @test
      */
     public function testPostButton(): void
@@ -519,7 +538,6 @@ class FormHelperTest extends HelperTestCase
 
     /**
      * Tests for `postLink()` method
-     * @deprecated
      * @test
      */
     public function testPostLink(): void
@@ -573,7 +591,6 @@ class FormHelperTest extends HelperTestCase
 
     /**
      * Tests for `select()` method
-     * @deprecated
      * @test
      */
     public function testSelect(): void
@@ -641,7 +658,6 @@ class FormHelperTest extends HelperTestCase
 
     /**
      * Tests for `submit()` method
-     * @deprecated
      * @test
      */
     public function testSubmit(): void

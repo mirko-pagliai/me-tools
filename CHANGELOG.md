@@ -1,6 +1,8 @@
 # 2.x branch
 ## 2.21 branch
 ### 2.21.5
+* the `FormHelper` is now totally deprecated, use `BootstrapFormHelper` instead. In a later version, the latter will
+  take the place of the former, assuming its name;
 * improved \MeTools\Core\Plugin::path()` method;
 * updated for php-tools 1.6.5 and 1.7.0.
 
@@ -285,7 +287,7 @@
 * added `TestCaseTrait::assertIsMock()` assert method.
 
 ### 2.17.4
-* fixed bug in the integration with CKeditor when uploading images (see
+* fixed bug in the integration with CKEditor when uploading images (see
     [this issue](https://github.com/sunhater/kcfinder/issues/171)).
 
 ### 2.17.3
@@ -667,7 +669,7 @@
 * added support for Shareaholic;
 * jQuery, Bootstrap, Bootstrap Date/Time Picker, Moment.js and Font Awesome
 	are installed via Composer;
-* improved the logs management;
+* improved the log management;
 * fixed little bugs.
 
 ## 2.0 branch
