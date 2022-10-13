@@ -61,6 +61,50 @@ class LibraryHelper extends Helper
     }
 
     /**
+<<<<<<< HEAD
+=======
+     * Internal function to generate datepicker and timepicker.
+     *
+     * Bootstrap Datepicker and Moment.js should be installed via Composer.
+     * @param string $input Target field
+     * @param array $options Options for the datepicker
+     * @return string jQuery code
+     * @see http://eonasdan.github.io/bootstrap-datetimepicker Bootstrap 3 Datepicker v4 documentation
+     */
+    protected function buildDatetimepicker(string $input, array $options = []): string
+    {
+        $this->Asset->script([
+            '/vendor/moment/moment-with-locales.min',
+            'MeTools.bootstrap-datetimepicker.min',
+        ], ['block' => 'script_bottom']);
+
+        $this->Asset->css(
+            '/vendor/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min',
+            ['block' => 'css_bottom']
+        );
+
+        $options = optionsParser($options, [
+            'icons' => [
+                'time' => 'fas fa-clock',
+                'date' => 'fas fa-calendar',
+                'up' => 'fas fa-chevron-up',
+                'down' => 'fas fa-chevron-down',
+                'previous' => 'fas fa-chevron-left',
+                'next' => 'fas fa-chevron-right',
+                'today' => 'fas fa-dot-circle',
+                'clear' => 'fas fa-trash',
+                'close' => 'fas fa-times',
+            ],
+            'locale' => substr(I18n::getLocale(), 0, 2) ?: 'en-gb',
+            'showTodayButton' => true,
+            'showClear' => true,
+        ]);
+
+        return sprintf('$("%s").datetimepicker(%s);', $input, json_encode($options->toArray(), JSON_PRETTY_PRINT));
+    }
+
+    /**
+>>>>>>> develop
      * Before layout callback. beforeLayout is called before the layout is
      *  rendered
      * @return void
@@ -102,7 +146,6 @@ class LibraryHelper extends Helper
      *  method provided by the `FormHelper`.
      * @param bool $jquery `true` if you want to use the jQuery adapter
      * @return void
-     * @throws \Throwable
      * @see \MeTools\View\Helper\FormHelper::ckeditor()
      * @see http://docs.cksource.com CKEditor documentation
      */
@@ -134,7 +177,6 @@ class LibraryHelper extends Helper
     /**
      * Loads all fancybox files
      * @return void
-     * @throws \Throwable
      * @link https://fancyapps.com/fancybox/3 fancybox documentation
      */
     public function fancybox(): void
@@ -177,7 +219,6 @@ class LibraryHelper extends Helper
      * @param string $sourceField Source field
      * @param string $targetField Target field
      * @return void
-     * @throws \Throwable
      */
     public function slugify(string $sourceField = 'form #title', string $targetField = 'form #slug'): void
     {
