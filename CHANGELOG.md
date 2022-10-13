@@ -1,6 +1,8 @@
 # 2.x branch
 ## 2.21 branch
 ### 2.21.5
+* the `DropdownHelper` is now totally deprecated, use `BootstrapDropdownHelper` instead. In a later version, the latter
+  will take the place of the former, assuming its name;
 * the `FormHelper` is now totally deprecated, use `BootstrapFormHelper` instead. In a later version, the latter will
   take the place of the former, assuming its name;
 * improved \MeTools\Core\Plugin::path()` method;

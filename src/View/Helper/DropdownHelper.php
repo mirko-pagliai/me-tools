@@ -16,13 +16,13 @@ declare(strict_types=1);
 namespace MeTools\View\Helper;
 
 use Cake\View\Helper;
+use Cake\View\View;
 
 /**
  * Provides functionalities for creating dropdown menus, according to Bootstrap.
  *
- * Dropdowns are built on a third party library, Popper.js, which provides
- *  dynamic positioning and viewport detection. Be sure to include popper.min.js
- *  before Bootstrap’s JavaScript.
+ * Dropdowns are built on a third party library, Popper.js, which provides dynamic positioning and viewport detection.
+ *  Be sure to include `popper.min.js` before Bootstrap’s JavaScript.
  *
  * Example:
  * <code>
@@ -57,6 +57,7 @@ use Cake\View\Helper;
  * ]);
  * </code>
  * @property \MeTools\View\Helper\HtmlHelper $Html
+ * @deprecated 2.21.5 Use instead `BootstrapDropdownHelper`
  */
 class DropdownHelper extends Helper
 {
@@ -73,15 +74,24 @@ class DropdownHelper extends Helper
     protected string $_start;
 
     /**
+     * Default Constructor
+     * @param \Cake\View\View $view The View this helper is being attached to
+     * @param array<string, mixed> $config Configuration settings for the helper
+     */
+    public function __construct(View $view, array $config = [])
+    {
+        deprecationWarning('`DropdownHelper` is deprecated. Use instead `BootstrapDropdownHelper`');
+
+        parent::__construct($view, $config);
+    }
+
+    /**
      * Wrap method about `start()` and `end()` methods, which are called
      *  consecutively
      * @param string $title Title for the opening link
-     * @param array $menu Content for the dropdown menu, for example an array
-     *  of links
-     * @param array $titleOptions HTML attributes and options for the opening
-     *  link
-     * @param array $divOptions HTML attributes and options for the wrapper
-     *  element
+     * @param array $menu Content for the dropdown menu, for example an array of links
+     * @param array $titleOptions HTML attributes and options for the opening link
+     * @param array $divOptions HTML attributes and options for the wrapper element
      * @return string|null
      */
     public function menu(string $title, array $menu, array $titleOptions = [], array $divOptions = []): ?string
@@ -96,14 +106,11 @@ class DropdownHelper extends Helper
     }
 
     /**
-     * Starts a dropdown. It captures links for the dropdown menu output until
-     *  `DropdownHelper::end()` is called.
+     * Starts a dropdown. It captures links for the dropdown menu output until `DropdownHelper::end()` is called.
      *
-     * Arguments and options regarding the link that allows the opening of the
-     *  dropdown menu.
+     * Arguments and options regarding the link that allows the opening of the dropdown menu.
      * @param string $title Title for the opening link
-     * @param array $titleOptions HTML attributes and options for the opening
-     *  link
+     * @param array $titleOptions HTML attributes and options for the opening link
      * @return void
      */
     public function start(string $title, array $titleOptions = []): void
@@ -120,8 +127,7 @@ class DropdownHelper extends Helper
      * End a buffered section of dropdown menu capturing.
      *
      * Arguments and options regarding the list of the dropdown menu.
-     * @param array $divOptions HTML attributes and options for the wrapper
-     *  element
+     * @param array $divOptions HTML attributes and options for the wrapper element
      * @return string|null
      */
     public function end(array $divOptions = []): ?string
