@@ -54,10 +54,10 @@ class BBCodeTest extends TestCase
     public function testParser(): void
     {
         $expected = '<p>Some para text</p>' . PHP_EOL .
-'<!-- read-more -->' . PHP_EOL .
-'<span>Some span text</span>' . PHP_EOL .
-'<div class="ratio ratio-16x9"><iframe allowfullscreen="allowfullscreen" height="480" src="https://www.youtube.com/embed/bL_CJKq9rIw" width="640"></iframe></div>' . PHP_EOL .
-'<div>Some div text</div>' . PHP_EOL;
+            '<!-- read-more -->' . PHP_EOL .
+            '<span>Some span text</span>' . PHP_EOL .
+            '<div class="ratio ratio-16x9"><iframe allowfullscreen="allowfullscreen" height="480" src="https://www.youtube.com/embed/bL_CJKq9rIw" width="640"></iframe></div>' . PHP_EOL .
+            '<div>Some div text</div>' . PHP_EOL;
 
         ob_start();
         echo '<p>Some para text</p>' . PHP_EOL;
@@ -77,10 +77,10 @@ class BBCodeTest extends TestCase
     public function testRemove(): void
     {
         $expected = '<p>Some para text</p>' . PHP_EOL .
-PHP_EOL .
-'<span>Some span text</span>' . PHP_EOL .
-PHP_EOL .
-'<div>Some div text</div>';
+            PHP_EOL .
+            '<span>Some span text</span>' . PHP_EOL .
+            PHP_EOL .
+            '<div>Some div text</div>';
         ob_start();
         echo '<p>Some para text</p>' . PHP_EOL;
         echo '[readmore /]' . PHP_EOL;
