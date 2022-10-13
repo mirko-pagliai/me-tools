@@ -24,10 +24,12 @@
             {
                 str = str.toLowerCase(); //Lowercase
                 //Removes accents, swap Ã± for n, etc
-                var from = "àáäâèéëêìíïîıòóöôùúüûñç·/_,:;";
-                var to = "aaaaeeeeiiiiioooouuuunc------";
+                const from = "àáäâèéëêìíïîıòóöôùúüûñç·/_,:;";
+                const to = "aaaaeeeeiiiiioooouuuunc------";
 
-                for (var i = 0, l = from.length; i < l; i++) {
+                let i = 0;
+                const l = from.length;
+                for (; i < l; i++) {
                     str = str.replace(new RegExp(from.charAt(i), "g"), to.charAt(i));
                 }
 
