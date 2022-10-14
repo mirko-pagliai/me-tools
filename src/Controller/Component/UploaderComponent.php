@@ -20,7 +20,6 @@ use Laminas\Diactoros\Exception\UploadedFileErrorException;
 use Laminas\Diactoros\UploadedFile;
 use Psr\Http\Message\UploadedFileInterface;
 use Tools\Exception\ObjectWrongInstanceException;
-use Tools\Exceptionist;
 use Tools\Filesystem;
 
 /**
@@ -29,7 +28,7 @@ use Tools\Filesystem;
 class UploaderComponent extends Component
 {
     /**
-     * Last error
+     * First error
      * @var string|null
      */
     protected ?string $error = null;
@@ -50,7 +49,9 @@ class UploaderComponent extends Component
     }
 
     /**
-     * Internal method to set an error
+     * Internal method to set an error.
+     *
+     * It does not override if an error has already been set.
      * @param string $error Error
      * @return void
      */
@@ -85,24 +86,20 @@ class UploaderComponent extends Component
     /**
      * Internal method to check for uploaded file information (`$file` property)
      * @return void
-     * @throws \Tools\Exception\ObjectWrongInstanceException|\Throwable
+     * @throws \Tools\Exception\ObjectWrongInstanceException
      */
     protected function _checkUploadedFileInformation(): void
     {
-        $message = __d('me_tools', 'There are no uploaded file information');
-
-        /** @var \Psr\Http\Message\UploadedFileInterface $file */
-        $file = $this->getFile();
-        Exceptionist::isTrue($file, $message, ObjectWrongInstanceException::class);
-        Exceptionist::isInstanceOf($file, UploadedFileInterface::class, $message);
+        if (!$this->getFile() instanceof UploadedFileInterface) {
+            throw new ObjectWrongInstanceException(__d('me_tools', 'There are no uploaded file information'));
+        }
     }
 
     /**
      * Checks if the mimetype is correct
-     * @param string|array $acceptedMimetype Accepted mimetypes as string or
-     *  array or a magic word (`images` or `text`)
+     * @param string|array $acceptedMimetype Accepted mimetypes as string or array or a magic word (`images` or `text`)
      * @return $this
-     * @throws \Tools\Exception\ObjectWrongInstanceException|\Throwable
+     * @throws \Tools\Exception\ObjectWrongInstanceException
      */
     public function mimetype($acceptedMimetype)
     {
@@ -129,13 +126,11 @@ class UploaderComponent extends Component
 
     /**
      * Saves the file
-     * @param string $directory Directory where you want to save the uploaded
-     *  file
-     * @param string|null $filename Optional filename. Otherwise, it will be
-     *  generated automatically
-     * @return string|false Final full path of the uploaded file or `false` on
-     *  failure
-     * @throws \Tools\Exception\ObjectWrongInstanceException|\Throwable
+     * @param string $directory Directory where you want to save the uploaded file
+     * @param string|null $filename Optional filename. Otherwise, it will be generated automatically
+     * @return string|false Final full path of the uploaded file or `false` on failure
+     * @throws \Tools\Exception\ObjectWrongInstanceException
+     * @throws \ErrorException
      */
     public function save(string $directory, ?string $filename = null)
     {
@@ -179,8 +174,7 @@ class UploaderComponent extends Component
     }
 
     /**
-     * Sets uploaded file information (`$_FILES` array, better as
-     *  `$this->getRequest()->getData('file')`)
+     * Sets uploaded file information (`$_FILES` array, better as `$this->getRequest()->getData('file')`)
      * @param \Psr\Http\Message\UploadedFileInterface|array $file Uploaded file information
      * @return $this
      * @since 2.20.1

@@ -44,7 +44,7 @@ class BootstrapHtmlHelper extends HtmlHelper
      * @param string $method Name of the tag
      * @param array $params Params for the method
      * @return string
-     * @throws \Throwable
+     * @throws \ErrorException
      */
     public function __call(string $method, array $params = []): string
     {

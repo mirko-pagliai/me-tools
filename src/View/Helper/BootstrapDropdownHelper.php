@@ -113,12 +113,12 @@ class BootstrapDropdownHelper extends Helper
      * @param array $ulOptions HTML attributes and options for the wrapper `<ul>`
      *  element
      * @return string
-     * @throws \Throwable
+     * @throws \ErrorException
      */
     public function end(array $ulOptions = []): string
     {
-        Exceptionist::isTrue(isset($this->_start), sprintf('The `%s()` method was not called before `%s()`', 'start', 'end'));
-        Exceptionist::isTrue($this->_links, sprintf('The dropdown has no content. Perhaps the `%s()` method was never called', 'link'));
+        Exceptionist::isTrue(isset($this->_start), 'The `start()` method was not called before `end()`');
+        Exceptionist::isTrue($this->_links, 'The dropdown has no content. Perhaps the `link()` method was never called');
 
         $ulOptions = optionsParser($ulOptions, ['aria-labelledby' => $this->_id])->append('class', 'dropdown-menu');
 

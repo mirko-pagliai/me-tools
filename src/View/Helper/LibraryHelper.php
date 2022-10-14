@@ -68,7 +68,6 @@ class LibraryHelper extends Helper
      * @param string $input Target field
      * @param array $options Options for the datepicker
      * @return string jQuery code
-     * @throws \Throwable
      * @see http://eonasdan.github.io/bootstrap-datetimepicker Bootstrap 3 Datepicker v4 documentation
      */
     protected function buildDatetimepicker(string $input, array $options = []): string
@@ -145,7 +144,6 @@ class LibraryHelper extends Helper
      *  method provided by the `FormHelper`.
      * @param bool $jquery `true` if you want to use the jQuery adapter
      * @return void
-     * @throws \Throwable
      * @see \MeTools\View\Helper\FormHelper::ckeditor()
      * @see http://docs.cksource.com CKEditor documentation
      */
@@ -184,7 +182,6 @@ class LibraryHelper extends Helper
      * @param string $input Target field. Default is `.datepicker`
      * @param array $options Options for the datepicker
      * @return void
-     * @throws \Throwable
      * @deprecated 2.21.1 Use instead the normal functions provided by the most
      *  modern browsers
      */
@@ -200,15 +197,13 @@ class LibraryHelper extends Helper
     /**
      * Adds a datetimepicker to the `$input` field.
      *
-     * To create an input field compatible with datetimepicker, you should use
-     *  the `datetimepicker()` method provided by the `FormHelper`.
+     * To create an input field compatible with datetimepicker, you should use the `datetimepicker()` method provided
+     *  by the `FormHelper`.
      * Bootstrap Datepicker and Moment.js should be installed via Composer.
      * @param string $input Target field. Default is `.datetimepicker`
      * @param array $options Options for the datetimepicker
      * @return void
-     * @throws \Throwable
-     * @deprecated 2.21.1 Use instead the normal functions provided by the most
-     *  modern browsers
+     * @deprecated 2.21.1 Use instead the normal functions provided by the most modern browsers
      */
     public function datetimepicker(string $input = '', array $options = []): void
     {
@@ -220,7 +215,6 @@ class LibraryHelper extends Helper
     /**
      * Loads all fancybox files
      * @return void
-     * @throws \Throwable
      * @link https://fancyapps.com/fancybox/3 fancybox documentation
      */
     public function fancybox(): void
@@ -263,7 +257,6 @@ class LibraryHelper extends Helper
      * @param string $sourceField Source field
      * @param string $targetField Target field
      * @return void
-     * @throws \Throwable
      */
     public function slugify(string $sourceField = 'form #title', string $targetField = 'form #slug'): void
     {
@@ -282,9 +275,7 @@ class LibraryHelper extends Helper
      * @param string $input Target field. Default is `.timepicker`
      * @param array $options Options for the timepicker
      * @return void
-     * @throws \Throwable
-     * @deprecated 2.21.1 Use instead the normal functions provided by the most
-     *  modern browsers
+     * @deprecated 2.21.1 Use instead the normal functions provided by the most modern browsers
      */
     public function timepicker(string $input = '', array $options = []): void
     {
