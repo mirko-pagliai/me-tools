@@ -241,34 +241,25 @@ class BootstrapHtmlHelperTest extends HelperTestCase
     }
 
     /**
-     * Test for `ol()` and `ul()` methods
+     * Test for `ol()` and `ul()` methods (and consequently `nestedList ()`)
      * @test
+     * @uses \MeTools\View\Helper\BootstrapHtmlHelper::nestedList()
      * @uses \MeTools\View\Helper\BootstrapHtmlHelper::ol()
      * @uses \MeTools\View\Helper\BootstrapHtmlHelper::ul()
      */
     public function testOlAndUl(): void
     {
-        $expected = [
-            'ul' => ['class' => 'fa-ul parent-class'],
-            ['li' => ['class' => 'li-class']],
-            ['i' => ['class' => 'fas fa-home fa-li']],
-            '/i',
-            'First',
-            '/li',
-            ['li' => ['class' => 'li-class']],
-            ['i' => ['class' => 'fas fa-home fa-li']],
-            '/i',
-            'Second',
-            '/li',
-            '/ul',
-        ];
+        $expected = '<ul class="fa-ul parent-class"><li class="li-class"><i class="fas fa-home fa-li"> </i> First</li><li class="li-class"><i class="fas fa-home fa-li"> </i> Second</li></ul>';
         $result = $this->Helper->ul(['First', 'Second'], ['class' => 'parent-class'], ['class' => 'li-class', 'icon' => 'home']);
-        $this->assertHtml($expected, $result);
+        $this->assertSame($expected, $result);
 
-        array_shift($expected) && array_pop($expected);
-        $expected = ['ol' => ['class' => 'fa-ul parent-class'], ...$expected, '/ol'];
+        $expected = str_replace(['<ul', '</ul'], ['<ol', '</ol'], $expected);
         $result = $this->Helper->ol(['First', 'Second'], ['class' => 'parent-class'], ['class' => 'li-class', 'icon' => 'home']);
-        $this->assertHtml($expected, $result);
+        $this->assertSame($expected, $result);
+
+        $expected = '<ul class="fa-ul"><li><i class="fas fa-home fa-li"> </i> First</li><li><i class="fas fa-home fa-li"> </i> Second</li></ul>';
+        $result = $this->Helper->ul(['First', 'Second'], ['icon' => 'home']);
+        $this->assertSame($expected, $result);
     }
 
     /**
