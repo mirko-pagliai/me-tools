@@ -1,6 +1,7 @@
 # 2.x branch
 ## 2.21 branch
 ### 2.21.6
+* improved and simplified plugin loading;
 * improved `@method` tags for `BootstrapHtmlHelper`.
 
 ### 2.21.5
