@@ -19,12 +19,13 @@ use Tools\Exceptionist;
 
 /**
  * Provides functionalities for forms
- * @method h1(?string $text = null, array $options = [])
- * @method h2(?string $text = null, array $options = [])
- * @method h3(?string $text = null, array $options = [])
- * @method h4(?string $text = null, array $options = [])
- * @method h5(?string $text = null, array $options = [])
- * @method h6(?string $text = null, array $options = [])
+ * @method string h1(?string $text = null, array $options = [])
+ * @method string h2(?string $text = null, array $options = [])
+ * @method string h3(?string $text = null, array $options = [])
+ * @method string h4(?string $text = null, array $options = [])
+ * @method string h5(?string $text = null, array $options = [])
+ * @method string h6(?string $text = null, array $options = [])
+ * @method string span(?string $text = null, array $options = [])
  * @property \MeTools\View\Helper\IconHelper $Icon
  * @property \Cake\View\Helper\UrlHelper $Url
  */

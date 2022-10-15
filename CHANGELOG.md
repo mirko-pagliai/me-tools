@@ -1,5 +1,8 @@
 # 2.x branch
 ## 2.21 branch
+### 2.21.6
+* improved `@method` tags for `BootstrapHtmlHelper`.
+
 ### 2.21.5
 * added `iframe()` and `youtube()` methods to the `BootstrapHtmlHelper`;
 * the `HtmlHelper` is now totally deprecated, use `BootstrapHtmlHelper` instead. In a later version, the latter
