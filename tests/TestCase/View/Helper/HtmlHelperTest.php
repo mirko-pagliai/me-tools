@@ -16,782 +16,307 @@ namespace MeTools\Test\TestCase\View\Helper;
 
 use ErrorException;
 use MeTools\TestSuite\HelperTestCase;
-use MeTools\View\Helper\HtmlHelper;
 
 /**
  * HtmlHelperTest class
  * @property \MeTools\View\Helper\HtmlHelper $Helper
- * @noinspection PhpDeprecationInspection
  */
 class HtmlHelperTest extends HelperTestCase
 {
     /**
-     * @var int
-     */
-    protected static int $current;
-
-    /**
-     * This method is called before the first test of this test class is run
-     * @return void
-     */
-    public static function setUpBeforeClass(): void
-    {
-        self::$current = error_reporting(E_ALL & ~E_USER_DEPRECATED);
-    }
-
-    /**
-     * This method is called after the last test of this test class is run
-     * @return void
-     */
-    public static function tearDownAfterClass(): void
-    {
-        error_reporting(self::$current);
-    }
-
-    /**
      * Tests for `__call()` method
      * @test
-     * @noinspection PhpUndefinedMethodInspection
+     * @uses \MeTools\View\Helper\HtmlHelper::__call()
      */
     public function testCall(): void
     {
-        $text = 'my h3 text';
-        $class = 'my-class';
-
         //The `h3()` method should not exist, otherwise the `__call()` method
         //  will not be called
         $this->assertFalse(method_exists($this->Helper, 'h3'));
 
-        $expected = $this->Helper->tag('h3', $text, compact('class'));
-        $this->assertEquals($expected, $this->Helper->h3($text, compact('class')));
+        $expected = '<h3 class="my-class">my h3 text</h3>';
+        $result = $this->Helper->h3('my h3 text', ['class' => 'my-class']);
+        $this->assertSame($expected, $result);
 
-        $expected = $this->Helper->tag('h3', $text, compact('class') + ['icon' => 'home']);
-        $this->assertEquals($expected, $this->Helper->h3($text, ['class' => $class, 'icon' => 'home']));
+        $expected = '<h3 class="my-class"><i class="fas fa-home"> </i> my h3 text</h3>';
+        $result = $this->Helper->h3('my h3 text', ['class' => 'my-class', 'icon' => 'home']);
+        $this->assertSame($expected, $result);
 
-        $expected = $this->Helper->tag('h3', $text, compact('class') + ['icon' => 'home', 'icon-align' => 'right']);
-        $result = $this->Helper->h3($text, compact('class') + ['icon' => 'home', 'icon-align' => 'right']);
-        $this->assertEquals($expected, $result);
+        $expected = '<h3 class="my-class">my h3 text <i class="fas fa-home"> </i></h3>';
+        $result = $this->Helper->h3('my h3 text', ['class' => 'my-class', 'icon' => 'home', 'icon-align' => 'right']);
+        $this->assertSame($expected, $result);
 
         //With a no existing method
         $this->expectException(ErrorException::class);
-        $this->expectExceptionMessage('Method `' . HtmlHelper::class . '::noExistingMethod()` does not exist');
+        $this->expectExceptionMessage('Method `' . get_class($this->Helper) . '::noExistingMethod()` does not exist');
+        /** @noinspection PhpUndefinedMethodInspection */
         $this->Helper->noExistingMethod(null, null, null);
-    }
-
-    /**
-     * Tests for `badge()` method
-     * @test
-     */
-    public function testBadge(): void
-    {
-        $expected = ['span' => ['class' => 'badge my-class'], 'My text', '/span'];
-        $this->assertHtml($expected, $this->Helper->badge('My text', ['class' => 'my-class']));
     }
 
     /**
      * Test for `button()` method
      * @test
+     * @uses \MeTools\View\Helper\HtmlHelper::button()
      */
     public function testButton(): void
     {
-        $text = 'My text';
+        $expected = '<a href="https://link" class="btn btn-light" role="button" title="my-title">My title</a>';
+        $result = $this->Helper->button('My title', 'https://link', ['title' => 'my-title']);
+        $this->assertSame($expected, $result);
 
-        $expected = ['button' => ['class' => 'btn btn-light', 'role' => 'button', 'title' => $text], $text, '/button'];
-        $this->assertHtml($expected, $this->Helper->button($text));
-
-        $expected = ['button' => ['class' => 'btn btn-light', 'role' => 'button', 'title' => 'my-custom-title'], $text, '/button'];
-        $this->assertHtml($expected, $this->Helper->button($text, null, ['title' => 'my-custom-title']));
-
-        $expected = ['button' => ['class' => 'btn btn-primary my-class', 'role' => 'button', 'title' => $text], $text, '/button'];
-        $this->assertHtml($expected, $this->Helper->button($text, null, ['class' => 'btn-primary my-class']));
-
-        // `tooltip` value rewrites `title` value
-        $expected = [
-            'button' => ['role' => 'button', 'class' => 'btn btn-light', 'data-toggle' => 'tooltip', 'title' => 'my tooltip'],
-            $text,
-            '/button',
-        ];
-        $result = $this->Helper->button($text, null, ['title' => 'my custom title', 'tooltip' => 'my tooltip']);
-        $this->assertHtml($expected, $result);
-
-        $expected = [
-            'button' => ['role' => 'button', 'class' => 'btn btn-light', 'title' => $text],
-            'i' => ['class' => 'fas fa-home'],
-            ' ',
-            '/i',
-            ' ',
-            $text,
-            '/button',
-        ];
-        $this->assertHtml($expected, $this->Helper->button($text, null, ['icon' => 'home']));
-
-        //Quotes on text
-        $expected = [
-            'button' => ['role' => 'button', 'class' => 'btn btn-light', 'title' => '&quot; &#039;'],
-            '" \'',
-            '/button',
-        ];
-        $this->assertHtml($expected, $this->Helper->button('" \''));
-
-        //Quotes on custom title
-        $expected = ['button' => ['role' => 'button', 'class' => 'btn btn-light', 'title' => '&quot; &#039;'], $text, '/button'];
-        $this->assertHtml($expected, $this->Helper->button($text, null, ['title' => '" \'']));
+        $expected = '<a href="#" class="btn btn-light" role="button" title="My title">My title <i class="fas fa-home"> </i></a>';
+        $result = $this->Helper->button('My title', '#', ['icon' => 'home', 'icon-align' => 'right']);
+        $this->assertSame($expected, $result);
 
         //Code on text
-        $expected = [
-            'button' => ['role' => 'button', 'class' => 'btn btn-light', 'title' => 'Code'],
-            'u' => true,
-            'Code',
-            '/u',
-            '/button',
-        ];
-        $this->assertHtml($expected, $this->Helper->button('<u>Code</u>'));
+        $expected = '<a href="#" class="btn btn-light" role="button" title="Code"><u>Code</u> </a>';
+        $result = $this->Helper->button('<u>Code</u> ', '#');
+        $this->assertSame($expected, $result);
 
         //Code on custom title
-        $expected = ['button' => ['class' => 'btn btn-light', 'role' => 'button', 'title' => 'Code'], $text, '/button'];
-        $this->assertHtml($expected, $this->Helper->button($text, null, ['title' => '<u>Code</u>']));
+        $expected = '<a href="#" class="btn btn-light" role="button" title="Code">My title</a>';
+        $result = $this->Helper->button('My title', '#', ['title' => '<u>Code</u>']);
+        $this->assertSame($expected, $result);
 
-        $this->assertSame('<button class="btn btn-light" role="button" title=""></button>', $this->Helper->button());
+        $expected = '<a href="/" class="btn btn-light" role="button" title="/">/</a>';
+        $result = $this->Helper->button('/');
+        $this->assertSame($expected, $result);
+
+        //With a button class
+        $expected = '<a href="https://link" class="btn btn-success" role="button" title="my-title">My title</a>';
+        $result = $this->Helper->button('My title', 'https://link', ['class' => 'btn-success', 'title' => 'my-title']);
+        $this->assertSame($expected, $result);
+
+        $this->loadPlugins(['TestPlugin' => []]);
+        $expected = '<a href="/pages" class="btn btn-light" role="button"></a>';
+        $result = $this->Helper->button(['controller' => 'Pages', 'plugin' => 'TestPlugin']);
+        $this->assertSame($expected, $result);
     }
 
     /**
-     * Test for `button()` method, with buttons as links
+     * Test for `badge()` method
      * @test
+     * @uses \MeTools\View\Helper\HtmlHelper::badge()
      */
-    public function testButtonAsLink(): void
+    public function testBadge(): void
     {
-        $text = 'My text';
-
-        $expected = ['a' => ['class' => 'btn btn-primary my-class', 'href' => '#', 'role' => 'button', 'title' => $text], $text, '/a'];
-        $this->assertHtml($expected, $this->Helper->button($text, '#', ['class' => 'btn-primary my-class']));
-
-        // `tooltip` value rewrites `title` value
-        $expected = [
-            'a' => [
-                'class' => 'btn btn-light',
-                'href' => '#',
-                'role' => 'button',
-                'data-toggle' => 'tooltip',
-                'title' => 'my tooltip',
-            ],
-            $text,
-            '/a',
-        ];
-        $result = $this->Helper->button($text, '#', ['title' => 'my custom title', 'tooltip' => 'my tooltip']);
-        $this->assertHtml($expected, $result);
-
-        $expected = [
-            'a' => ['class' => 'btn btn-light', 'href' => '#', 'role' => 'button', 'title' => $text],
-            'i' => ['class' => 'fas fa-home'],
-            ' ',
-            '/i',
-            ' ',
-            $text,
-            '/a',
-        ];
-        $this->assertHtml($expected, $this->Helper->button($text, '#', ['icon' => 'home']));
-    }
-
-    /**
-     * Test for `css()` method
-     * @test
-     */
-    public function testCss(): void
-    {
-        //By default, `block` is `true`
-        $this->assertNull($this->Helper->css('my-file'));
-        $this->assertNull($this->Helper->css('my-file2', ['block' => true]));
-
-        $expected = ['link' => ['rel' => 'stylesheet', 'href' => '/css/my-file3.css']];
-        $this->assertHtml($expected, $this->Helper->css('my-file3', ['block' => false]) ?: '');
-
-        $expected = ['link' => ['rel' => 'alternate', 'href' => '/css/my-file4.css']];
-        $result = $this->Helper->css('my-file4', ['block' => false, 'rel' => 'alternate']);
-        $this->assertHtml($expected, $result ?: '');
-    }
-
-    /**
-     * Test for `cssBlock()` method
-     * @test
-     */
-    public function testCssBlock(): void
-    {
-        $css = 'body { color: red; }';
-
-        //By default, `block` is `true`
-        $this->assertNull($this->Helper->cssBlock($css));
-        $this->assertNull($this->Helper->cssBlock($css, ['block' => true]));
-
-        $expected = ['style' => true, $css, '/style'];
-        $this->assertHtml($expected, $this->Helper->cssBlock($css, ['block' => false]) ?: '');
-
-        error_reporting(self::$current);
-        $this->assertDeprecated(fn() => $this->Helper->cssBlock($css));
-        error_reporting(E_ALL & ~E_USER_DEPRECATED);
-    }
-
-    /**
-     * Test for `cssStart()` and `cssEnd()` methods
-     * @test
-     */
-    public function testCssStartAndCssEnd(): void
-    {
-        $css = 'body { color: red; }';
-
-        //By default, `block` is `true`
-        $this->Helper->cssStart();
-        echo $css;
-        $result = $this->Helper->cssEnd();
-        $this->assertNull($result);
-        $this->Helper->cssStart(['block' => true]);
-        echo $css;
-        $result = $this->Helper->cssEnd();
-        $this->assertNull($result);
-
-        $expected = ['<style', $css, '/style'];
-        $this->Helper->cssStart(['block' => false]);
-        echo $css;
-        $result = $this->Helper->cssEnd();
-        $this->assertHtml($expected, $result ?: '');
-
-        error_reporting(self::$current);
-        $this->assertDeprecated(fn() => $this->Helper->cssStart());
-        $this->assertDeprecated(fn() => $this->Helper->cssEnd());
-        error_reporting(E_ALL & ~E_USER_DEPRECATED);
-    }
-
-    /**
-     * Tests for `heading()` method
-     * @test
-     */
-    public function testHeading(): void
-    {
-        $text = 'My header';
-        $smallText = 'My small text';
-
-        $expected = ['h2' => true, $text, '/h2'];
-        $this->assertHtml($expected, $this->Helper->heading($text));
-
-        //It still creates a h2 tag
-        $this->assertHtml($expected, $this->Helper->heading($text, ['type' => 'strong']));
-
-        $expected = ['h4' => true, $text, '/h4'];
-        $this->assertHtml($expected, $this->Helper->heading($text, ['type' => 'h4']));
-
-        $expected = [
-            'h4' => ['class' => 'header-class'],
-            $text,
-            ' ',
-            'small' => ['class' => 'small-class'],
-            $smallText,
-            '/small',
-            '/h4',
-        ];
-        $result = $this->Helper->heading($text, ['class' => 'header-class', 'type' => 'h4'], $smallText, ['class' => 'small-class']);
-        $this->assertHtml($expected, $result);
-
-        error_reporting(self::$current);
-        $this->assertDeprecated(fn() => $this->Helper->heading($text));
-        error_reporting(E_ALL & ~E_USER_DEPRECATED);
-    }
-
-    /**
-     * Test for `hr()` method
-     * @test
-     */
-    public function testHr(): void
-    {
-        $expected = $this->Helper->tag('hr', null, ['class' => 'my-hr-class']);
-        $this->assertEquals($expected, $this->Helper->hr(['class' => 'my-hr-class']));
-
-        error_reporting(self::$current);
-        $this->assertDeprecated(fn() => $this->Helper->hr());
-        error_reporting(E_ALL & ~E_USER_DEPRECATED);
+        $expected = '<span class="badge my-class"><i class="fas fa-home"> </i> 1</span>';
+        $result = $this->Helper->badge('1', ['class' => 'my-class', 'icon' => 'home']);
+        $this->assertSame($expected, $result);
     }
 
     /**
      * Test for `iframe()` method
+     * @uses \MeTools\View\Helper\HtmlHelper::iframe()
      * @test
      */
     public function testIframe(): void
     {
-        $url = 'http://frame';
+        $url = 'https://frame';
 
-        $expected = ['iframe' => ['src' => $url]];
+        $expected = '<iframe src="https://frame"></iframe>';
+        $result = $this->Helper->iframe($url);
+        $this->assertSame($expected, $result);
 
         //No existing ratio
-        $this->assertHtml($expected, $this->Helper->iframe($url, ['ratio' => 'noExisting']));
-
-        $expected = ['iframe' => ['class' => 'my-class', 'src' => $url]];
-        $this->assertHtml($expected, $this->Helper->iframe($url, ['class' => 'my-class']));
+        $result = $this->Helper->iframe($url, ['ratio' => 'noExisting']);
+        $this->assertSame($expected, $result);
 
         //The `src` option doesn't overwrite
-        $expected = ['iframe' => ['src' => $url]];
-        $this->assertHtml($expected, $this->Helper->iframe($url, ['src' => 'http://anotherframe']));
+        $result = $this->Helper->iframe($url, ['src' => 'https://anotherframe']);
+        $this->assertSame($expected, $result);
 
-        $expected = [
-            'div' => [],
-            'iframe' => ['class' => 'embed-responsive-item', 'src' => $url],
-            '/iframe',
-            '/div',
-        ];
-        foreach (['16by9', '4by3'] as $ratio) {
-            $expected['div']['class'] = 'embed-responsive embed-responsive-' . $ratio;
-            $this->assertHtml($expected, $this->Helper->iframe($url, compact('ratio')));
+        $expected = '<iframe class="my-class" src="https://frame"></iframe>';
+        $result = $this->Helper->iframe($url, ['class' => 'my-class']);
+        $this->assertSame($expected, $result);
+
+        foreach (['1x1', '4x3', '16x9', '21x9'] as $ratio) {
+            $expected = '<div class="ratio ratio-' . $ratio . '"><iframe src="https://frame"></iframe></div>';
+            $result = $this->Helper->iframe($url, compact('ratio'));
+            $this->assertSame($expected, $result);
         }
 
-        $expected = [
-            'div' => ['class' => 'embed-responsive embed-responsive-16by9'],
-            'iframe' => ['class' => 'embed-responsive-item my-class', 'src' => $url],
-            '/iframe',
-            '/div',
-        ];
-        $this->assertHtml($expected, $this->Helper->iframe($url, ['class' => 'my-class', 'ratio' => '16by9']));
-
         $this->loadPlugins(['TestPlugin' => []]);
-        $this->assertSame('<iframe src="/pages"></iframe>', $this->Helper->iframe(['controller' => 'Pages', 'plugin' => 'TestPlugin']));
+        $expected = '<iframe src="/pages"></iframe>';
+        $result = $this->Helper->iframe(['controller' => 'Pages', 'plugin' => 'TestPlugin']);
+        $this->assertSame($expected, $result);
     }
 
     /**
      * Test for `image()` and `img()` methods
      * @test
+     * @uses \MeTools\View\Helper\HtmlHelper::image()
+     * @uses \MeTools\View\Helper\HtmlHelper::img()
      */
     public function testImage(): void
     {
-        $image = 'image.gif';
+        $expected = '<img src="/img/image.gif" alt="image.gif" class="img-fluid my-class"/>';
+        $result = $this->Helper->image('image.gif', ['class' => 'my-class']);
+        $this->assertSame($expected, $result);
 
-        $expected = ['img' => ['src' => '/img/image.gif', 'alt' => $image, 'class' => 'img-fluid my-class']];
-        $this->assertHtml($expected, $this->Helper->image($image, ['class' => 'my-class']));
-        $this->assertHtml($expected, $this->Helper->img($image, ['class' => 'my-class']));
+        //With `img()` method
+        $result = $this->Helper->img('image.gif', ['class' => 'my-class']);
+        $this->assertSame($expected, $result);
 
-        $expected = ['img' => ['src' => '/img/image.gif', 'alt' => 'my-alt', 'class' => 'img-fluid']];
-        $this->assertHtml($expected, $this->Helper->image($image, ['alt' => 'my-alt']));
+        $expected = '<img src="/img/image.gif" alt="my-alt" class="img-fluid"/>';
+        $result = $this->Helper->image('image.gif', ['alt' => 'my-alt']);
+        $this->assertSame($expected, $result);
 
-        $expected = [
-            'img' => [
-                'src' => '/img/image.gif',
-                'alt' => $image,
-                'class' => 'img-fluid',
-                'data-toggle' => 'tooltip',
-                'title' => 'my tooltip',
-            ],
-        ];
-        $this->assertHtml($expected, $this->Helper->image($image, ['tooltip' => 'my tooltip']));
-
-        $expected = ['img' => ['src' => 'http://fullurl/image.gif', 'alt' => $image, 'class' => 'img-fluid']];
-        $this->assertHtml($expected, $this->Helper->image('http://fullurl/image.gif'));
+        $expected = '<img src="http://url/image.gif" alt="image.gif" class="img-fluid"/>';
+        $result = $this->Helper->image('http://url/image.gif');
+        $this->assertSame($expected, $result);
 
         $this->loadPlugins(['TestPlugin' => []]);
-        $this->assertNotEmpty($this->Helper->image(['controller' => 'Pages', 'plugin' => 'TestPlugin']));
-    }
+        $expected = '<img src="/pages" alt="pages" class="img-fluid"/>';
+        $result = $this->Helper->image(['controller' => 'Pages', 'plugin' => 'TestPlugin']);
+        $this->assertSame($expected, $result);
 
-    /**
-     * Tests for `label()` method
-     * @test
-     */
-    public function testLabel(): void
-    {
-        $text = 'My text';
-
-        $expected = ['span' => ['class' => 'label label-default my-class'], $text, '/span'];
-        $this->assertHtml($expected, $this->Helper->label($text, ['class' => 'my-class']));
-
-        $expected = ['span' => ['class' => 'another-class label label-success'], $text, '/span'];
-        $this->assertHtml($expected, $this->Helper->label($text, ['class' => 'another-class', 'type' => 'success']));
+        $expected = '<a href="/pages"><img src="/img/image.gif" alt="image.gif" class="img-fluid"/></a>';
+        $result = $this->Helper->image('image.gif', ['url' => ['controller' => 'Pages', 'plugin' => 'TestPlugin']]);
+        $this->assertSame($expected, $result);
     }
 
     /**
      * Test for `li()` method
      * @test
+     * @uses \MeTools\View\Helper\HtmlHelper::li()
      */
     public function testLi(): void
     {
-        $expected = [
-            'li' => true,
-            'i' => ['class' => 'fas fa-home'],
-            ' ',
-            '/i',
-            ' ',
-            'My text',
-            '/li',
-        ];
-        $this->assertHtml($expected, $this->Helper->li('My text', ['icon' => 'home']));
+        $expected = '<li><i class="fas fa-home"> </i> My li</li>';
+        $result = $this->Helper->li('My li', ['icon' => 'home']);
+        $this->assertSame($expected, $result);
 
-        $expected = [
-            ['li' => ['class' => 'my-class']],
-            ['i' => ['class' => 'fas fa-home']],
-            ' ',
-            '/i',
-            ' ',
-            'first-value',
-            '/li',
-            ['li' => ['class' => 'my-class']],
-            ['i' => ['class' => 'fas fa-home']],
-            ' ',
-            '/i',
-            ' ',
-            'second-value',
-            '/li',
-        ];
-        $this->assertHtml($expected, $this->Helper->li(['first-value', 'second-value'], ['class' => 'my-class', 'icon' => 'home']));
+        $expected = '<li class="my-class"><i class="fas fa-home"> </i> first-value</li>' . PHP_EOL .
+            '<li class="my-class"><i class="fas fa-home"> </i> second-value</li>';
+        $result = $this->Helper->li(['first-value', 'second-value'], ['class' => 'my-class', 'icon' => 'home']);
+        $this->assertSame($expected, $result);
     }
 
     /**
      * Test for `link()` method
      * @test
+     * @uses \MeTools\View\Helper\HtmlHelper::link()
      */
     public function testLink(): void
     {
-        $title = 'My title';
+        $expected = '<a href="https://link" title="my-title">My title</a>';
+        $result = $this->Helper->link('My title', 'https://link', ['title' => 'my-title']);
+        $this->assertSame($expected, $result);
 
-        $expected = ['a' => ['href' => 'https://link', 'title' => 'my-title'], $title, '/a'];
-        $this->assertHtml($expected, $this->Helper->link($title, 'https://link', ['title' => 'my-title']));
-
-        $expected = [
-            'a' => ['href' => '#', 'title' => $title],
-            $title,
-            ' ',
-            'i' => ['class' => 'fas fa-home'],
-            ' ',
-            '/i',
-            '/a',
-        ];
-        $this->assertHtml($expected, $this->Helper->link($title, '#', ['icon' => 'home', 'icon-align' => 'right']));
-
-        //Quotes on text
-        $expected = ['a' => ['href' => '#', 'title' => '&quot; &#039;'], '" \'', '/a'];
-        $this->assertHtml($expected, $this->Helper->link('" \'', '#'));
-
-        //Quotes on custom title
-        $expected = ['a' => ['href' => '#', 'title' => '&quot; &#039;'], $title, '/a'];
-        $this->assertHtml($expected, $this->Helper->link($title, '#', ['title' => '" \'']));
+        $expected = '<a href="#" title="My title">My title <i class="fas fa-home"> </i></a>';
+        $result = $this->Helper->link('My title', '#', ['icon' => 'home', 'icon-align' => 'right']);
+        $this->assertSame($expected, $result);
 
         //Code on text
-        $expected = [
-            'a' => ['href' => '#', 'title' => 'Code'],
-            'u' => true,
-            'Code',
-            '/u',
-            '/a',
-        ];
-        $this->assertHtml($expected, $this->Helper->link('<u>Code</u> ', '#'));
+        $expected = '<a href="#" title="Code"><u>Code</u> </a>';
+        $result = $this->Helper->link('<u>Code</u> ', '#');
+        $this->assertSame($expected, $result);
 
         //Code on custom title
-        $expected = ['a' => ['href' => '#', 'title' => 'Code'], $title, '/a'];
-        $this->assertHtml($expected, $this->Helper->link($title, '#', ['title' => '<u>Code</u>']));
+        $expected = '<a href="#" title="Code">My title</a>';
+        $result = $this->Helper->link('My title', '#', ['title' => '<u>Code</u>']);
+        $this->assertSame($expected, $result);
 
-        // `tooltip` value rewrites `title` value
-        $expected = ['a' => ['href' => '#', 'data-toggle' => 'tooltip', 'title' => 'my tooltip'], $title, '/a'];
-        $this->assertHtml($expected, $this->Helper->link($title, '#', ['title' => $title, 'tooltip' => 'my tooltip']));
-
-        //Tooltip with alignment
-        $expected = [
-            'a' => ['href' => '#', 'data-placement' => 'bottom', 'data-toggle' => 'tooltip', 'title' => 'my tooltip'],
-            $title,
-            '/a',
-        ];
-        $this->assertHtml($expected, $this->Helper->link($title, '#', ['tooltip' => 'my tooltip', 'tooltip-align' => 'bottom']));
-
-        $expected = [
-            'a' => ['href' => '#', 'title' => '&quot; &#039;', 'data-toggle' => 'tooltip'],
-            $title,
-            '/a',
-        ];
-        $this->assertHtml($expected, $this->Helper->link($title, '#', ['tooltip' => '" \'']));
-
-        $expected = [
-            'a' => ['href' => '#', 'title' => 'Code', 'data-toggle' => 'tooltip'],
-            $title,
-            '/a',
-        ];
-        $this->assertHtml($expected, $this->Helper->link($title, '#', ['tooltip' => '<u>Code</u>']));
-
-        $this->assertSame('<a href="/" title="/">/</a>', $this->Helper->link());
+        $this->assertSame('<a href="/" title="/">/</a>', $this->Helper->link('/'));
 
         $this->loadPlugins(['TestPlugin' => []]);
-        $this->assertSame('<a href="/pages" title="/pages"></a>', $this->Helper->link(['controller' => 'Pages', 'plugin' => 'TestPlugin']));
+        $expected = '<a href="/pages"></a>';
+        $result = $this->Helper->link(['controller' => 'Pages', 'plugin' => 'TestPlugin']);
+        $this->assertSame($expected, $result);
     }
 
     /**
      * Test for `meta()` method
      * @test
+     * @uses \MeTools\View\Helper\HtmlHelper::meta()
      */
     public function testMeta(): void
     {
-        //By default, `block` is `true`
         $this->assertNull($this->Helper->meta('viewport', 'width=device-width'));
-        $this->assertNull($this->Helper->meta('viewport', 'width=device-width', ['block' => true]));
 
-        $expected = ['meta' => ['name' => 'viewport', 'content' => 'width=device-width']];
-        $this->assertHtml($expected, $this->Helper->meta('viewport', 'width=device-width', ['block' => false]) ?: '');
+        $expected = '<meta name="viewport" content="width=device-width"/>';
+        $result = $this->Helper->meta('viewport', 'width=device-width', ['block' => false]);
+        $this->assertSame($expected, $result);
     }
 
     /**
-     * Test for `nestedList`, `ol()` and `ul()` methods
+     * Test for `ol()` and `ul()` methods (and consequently `nestedList ()`)
      * @test
+     * @uses \MeTools\View\Helper\HtmlHelper::nestedList()
+     * @uses \MeTools\View\Helper\HtmlHelper::ol()
+     * @uses \MeTools\View\Helper\HtmlHelper::ul()
      */
-    public function testNestedListAndOlAndUl(): void
+    public function testOlAndUl(): void
     {
-        $list = ['first', 'second'];
+        $expected = '<ul class="fa-ul parent-class"><li class="li-class"><i class="fas fa-home fa-li"> </i> First</li><li class="li-class"><i class="fas fa-home fa-li"> </i> Second</li></ul>';
+        $result = $this->Helper->ul(['First', 'Second'], ['class' => 'parent-class'], ['class' => 'li-class', 'icon' => 'home']);
+        $this->assertSame($expected, $result);
 
-        $expected = [
-            'ul' => ['class' => 'fa-ul'],
-            ['li' => true],
-            ['i' => ['class' => 'fas fa-home fa-li']],
-            ' ',
-            '/i',
-            ' ',
-            'first',
-            '/li',
-            ['li' => true],
-            ['i' => ['class' => 'fas fa-home fa-li']],
-            ' ',
-            '/i',
-            ' ',
-            'second',
-            '/li',
-            '/ul',
-        ];
-        $this->assertHtml($expected, $this->Helper->ul($list, [], ['icon' => 'home']));
-        $this->assertEquals($this->Helper->ul($list, [], ['icon' => 'home']), $this->Helper->ul($list, ['icon' => 'home']));
+        $expected = str_replace(['<ul', '</ul'], ['<ol', '</ol'], $expected);
+        $result = $this->Helper->ol(['First', 'Second'], ['class' => 'parent-class'], ['class' => 'li-class', 'icon' => 'home']);
+        $this->assertSame($expected, $result);
 
-        $expected = [
-            'ul' => ['class' => 'fa-ul list-class'],
-            ['li' => ['class' => 'item-class']],
-            ['i' => ['class' => 'fas fa-home fa-li']],
-            ' ',
-            '/i',
-            ' ',
-            'first',
-            '/li',
-            ['li' => ['class' => 'item-class']],
-            ['i' => ['class' => 'fas fa-home fa-li']],
-            ' ',
-            '/i',
-            ' ',
-            'second',
-            '/li',
-            '/ul',
-        ];
-        $result = $this->Helper->ul($list, ['class' => 'list-class'], ['class' => 'item-class', 'icon' => 'home']);
-        $this->assertHtml($expected, $result);
-
-        $expected = $this->Helper->nestedList($list, ['class' => 'my-class', 'tag' => 'ul']);
-        $this->assertEquals($expected, $this->Helper->ul($list, ['class' => 'my-class']));
-
-        $expected = $this->Helper->nestedList($list, ['class' => 'my-class', 'tag' => 'ol']);
-        $this->assertEquals($expected, $this->Helper->ol($list, ['class' => 'my-class']));
-    }
-
-    /**
-     * Test for `para()` method
-     * @test
-     */
-    public function testPara(): void
-    {
-        $expected = ['p' => true, '/p'];
-        $this->assertHtml($expected, $this->Helper->para());
-        $this->assertHtml($expected, $this->Helper->para(''));
-        $this->assertHtml($expected, $this->Helper->para('', ''));
-
-        $expected = ['p' => ['class' => 'my-class']];
-        $this->assertHtml($expected, $this->Helper->para('my-class'));
-        $this->assertHtml($expected, $this->Helper->para('my-class', ''));
-
-        $expected = ['p' => true, ' ', '/p'];
-        $this->assertHtml($expected, $this->Helper->para('', ' '));
-
-        $expected = ['p' => ['data-toggle' => 'tooltip', 'title' => 'my tooltip'], 'my text', '/p'];
-        $result = $this->Helper->para('', 'my text', ['tooltip' => 'my tooltip']);
-        $this->assertHtml($expected, $result);
-
-        $expected = [
-            'p' => ['class' => 'my-class', 'id' => 'my-id'],
-            'i' => ['class' => 'fas fa-home'],
-            ' ',
-            '/i',
-            ' ',
-            'text',
-            '/p',
-        ];
-        $this->assertHtml($expected, $this->Helper->para('my-class', 'text', ['id' => 'my-id', 'icon' => 'home']));
-    }
-
-    /**
-     * Test for `script()` method
-     * @test
-     */
-    public function testScript(): void
-    {
-        //By default, `block` is `true`
-        $this->assertNull($this->Helper->script('my-file'));
-        $this->assertNull($this->Helper->script('my-file2', ['block' => true]));
-
-        $expected = ['script' => ['src' => '/js/my-file3.js']];
-        $this->assertHtml($expected, $this->Helper->script('my-file3', ['block' => false]) ?: '');
-    }
-
-    /**
-     * Test for `scriptBlock()` method
-     * @test
-     */
-    public function testScriptBlock(): void
-    {
-        $code = 'window.foo = 2;';
-
-        //By default, `block` is `true`
-        $this->assertNull($this->Helper->scriptBlock($code, ['safe' => false]));
-        $this->assertNull($this->Helper->scriptBlock($code, ['block' => true, 'safe' => false]));
-
-        $expected = ['<script', $code, '/script'];
-        $this->assertHtml($expected, $this->Helper->scriptBlock($code, ['block' => false, 'safe' => false]) ?: '');
-    }
-
-    /**
-     * Test for `scriptStart()` and `scriptEnd()` methods
-     * @test
-     */
-    public function testScriptStartAndScriptEnd(): void
-    {
-        //By default, `block` is `true`
-        $this->Helper->scriptStart(['safe' => false]);
-        echo 'this is some javascript';
-        $this->assertNull($this->Helper->scriptEnd());
-        $this->Helper->scriptStart(['block' => true, 'safe' => false]);
-
-        echo 'this is some javascript';
-        $this->assertNull($this->Helper->scriptEnd());
-        $this->Helper->scriptStart(['block' => false, 'safe' => false]);
-
-        echo 'this is some javascript';
-        $expected = ['<script', 'this is some javascript', '/script'];
-        $this->assertHtml($expected, $this->Helper->scriptEnd() ?: '');
-    }
-
-    /**
-     * Tests for `shareaholic()` method
-     * @test
-     */
-    public function testShareaholic(): void
-    {
-        $expected = ['div' => [
-            'data-app' => 'share_buttons',
-            'data-app-id' => 'my-app-id',
-            'class' => 'shareaholic-canvas',
-        ]];
-        $this->assertHtml($expected, $this->Helper->shareaholic('my-app-id'));
+        $expected = '<ul class="fa-ul"><li><i class="fas fa-home fa-li"> </i> First</li><li><i class="fas fa-home fa-li"> </i> Second</li></ul>';
+        $result = $this->Helper->ul(['First', 'Second'], ['icon' => 'home']);
+        $this->assertSame($expected, $result);
     }
 
     /**
      * Test for `tag()` method
      * @test
+     * @uses \MeTools\View\Helper\HtmlHelper::tag()
      */
     public function testTag(): void
     {
-        $text = 'My text';
-        $class = 'my-class';
+        $this->assertSame('<h3>My header</h3>', $this->Helper->tag('h3', 'My header'));
 
-        $expected = ['h3' => true, '/h3'];
-        $this->assertHtml($expected, $this->Helper->tag('h3'));
-        $this->assertHtml($expected, $this->Helper->tag('h3', ''));
+        $expected = '<h3 class="my-class"><i class="fas fa-home"> </i> My text</h3>';
+        $result = $this->Helper->tag('h3', 'My text', ['class' => 'my-class', 'icon' => 'home']);
+        $this->assertSame($expected, $result);
 
-        $expected = [
-            'h3' => ['class' => $class],
-            'i' => ['class' => 'fas fa-home'],
-            ' ',
-            '/i',
-            ' ',
-            $text,
-            '/h3',
-        ];
-        $this->assertHtml($expected, $this->Helper->tag('h3', $text, ['class' => $class, 'icon' => 'home']));
-
-        // `tooltip` value rewrites `title` value
-        $expected = ['h3' => ['data-toggle' => 'tooltip', 'title' => 'my tooltip'], $text, '/h3'];
-        $this->assertHtml($expected, $this->Helper->tag('h3', $text, ['title' => 'my title', 'tooltip' => 'my tooltip']));
-
-        $expected = [
-            'h3' => ['class' => $class],
-            $text,
-            ' ',
-            'i' => ['class' => 'fas fa-home'],
-            ' ',
-            '/i',
-            '/h3',
-        ];
-        $this->assertHtml($expected, $this->Helper->tag('h3', $text, compact('class') + ['icon' => 'home', 'icon-align' => 'right']));
+        $expected = '<h3 class="my-class">My text <i class="fas fa-home"> </i></h3>';
+        $result = $this->Helper->tag('h3', 'My text', ['class' => 'my-class', 'icon' => 'home', 'icon-align' => 'right']);
+        $this->assertSame($expected, $result);
     }
 
     /**
-     * Tests for `viewport()` method
+     * Test for `viewport()` method
      * @test
+     * @uses \MeTools\View\Helper\HtmlHelper::viewport()
      */
     public function testViewport(): void
     {
-        //By default, `block` is `true`
-        $this->assertNull($this->Helper->viewport());
-        $this->assertNull($this->Helper->viewport(['block' => true]));
+        $expected = '<meta name="viewport" content="initial-scale=1, width=device-width"/>';
+        $result = $this->Helper->viewport([], ['block' => false]);
+        $this->assertSame($expected, $result);
 
-        $expected = ['meta' => [
-            'option' => 'value',
-            'name' => 'viewport',
-            'content' => 'initial-scale=1, shrink-to-fit=no, width=device-width',
-        ]];
-        $this->assertHtml($expected, $this->Helper->viewport(['block' => false, 'option' => 'value']) ?: '');
+        $expected = '<meta title="my title" name="viewport" content="width=500, initial-scale=1"/>';
+        $result = $this->Helper->viewport(['width' => 500], ['block' => false, 'title' => 'my title']);
+        $this->assertSame($expected, $result);
     }
 
     /**
      * Tests for `youtube()` method
+     * @uses \MeTools\View\Helper\HtmlHelper::youtube()
      * @test
      */
     public function testYoutube(): void
     {
-        $id = 'my-id';
-        $url = sprintf('https://www.youtube.com/embed/%s', $id);
+        $expected = '<div class="ratio ratio-16x9"><iframe allowfullscreen="allowfullscreen" height="480" src="https://www.youtube.com/embed/my-id" width="640"></iframe></div>';
+        $result = $this->Helper->youtube('my-id');
+        $this->assertSame($expected, $result);
 
-        $expected = [
-            'div' => ['class' => 'embed-responsive embed-responsive-16by9'],
-            'iframe' => [
-                'allowfullscreen' => 'allowfullscreen',
-                'height' => '480',
-                'width' => '640',
-                'class' => 'embed-responsive-item',
-                'src' => $url,
-            ],
-            '/iframe',
-            '/div',
-        ];
-        $this->assertHtml($expected, $this->Helper->youtube($id));
+        $expected = '<div class="ratio ratio-4x3"><iframe allowfullscreen="allowfullscreen" height="480" src="https://www.youtube.com/embed/my-id" width="640"></iframe></div>';
+        $result = $this->Helper->youtube('my-id', ['ratio' => '4x3']);
+        $this->assertSame($expected, $result);
 
-        $expected = [
-            'div' => ['class' => 'embed-responsive embed-responsive-4by3'],
-            'iframe' => [
-                'allowfullscreen' => 'allowfullscreen',
-                'height' => '480',
-                'width' => '640',
-                'class' => 'embed-responsive-item',
-                'src' => $url,
-            ],
-            '/iframe',
-            '/div',
-        ];
-        $this->assertHtml($expected, $this->Helper->youtube($id, ['ratio' => '4by3']));
+        $expected = '<iframe allowfullscreen="allowfullscreen" height="480" src="https://www.youtube.com/embed/my-id" width="640"></iframe>';
+        $result = $this->Helper->youtube('my-id', ['ratio' => false]);
+        $this->assertSame($expected, $result);
 
-        $expected = ['iframe' => ['allowfullscreen' => 'allowfullscreen', 'height' => '480', 'width' => '640', 'src' => $url]];
-        $this->assertHtml($expected, $this->Helper->youtube($id, ['ratio' => false]));
-
-        $expected = [
-            'div' => ['class' => 'embed-responsive embed-responsive-16by9'],
-            'iframe' => [
-                'allowfullscreen' => 'allowfullscreen',
-                'height' => '100',
-                'width' => '200',
-                'class' => 'embed-responsive-item my-class',
-                'src' => $url,
-            ],
-            '/iframe',
-            '/div',
-        ];
-        $this->assertHtml($expected, $this->Helper->youtube($id, ['class' => 'my-class', 'height' => 100, 'width' => 200]));
+        $expected = '<div class="ratio ratio-16x9"><iframe allowfullscreen="allowfullscreen" class="my-class" height="100" src="https://www.youtube.com/embed/my-id" width="200"></iframe></div>';
+        $result = $this->Helper->youtube('my-id', ['class' => 'my-class', 'height' => 100, 'width' => 200]);
+        $this->assertSame($expected, $result);
     }
 }

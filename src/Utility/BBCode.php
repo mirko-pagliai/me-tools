@@ -16,7 +16,7 @@ declare(strict_types=1);
 namespace MeTools\Utility;
 
 use Cake\View\View;
-use MeTools\View\Helper\BootstrapHtmlHelper;
+use MeTools\View\Helper\HtmlHelper;
 
 /**
  * This utility allows you to handle some BBCode.
@@ -25,9 +25,9 @@ use MeTools\View\Helper\BootstrapHtmlHelper;
 class BBCode
 {
     /**
-     * @var \MeTools\View\Helper\BootstrapHtmlHelper
+     * @var \MeTools\View\Helper\HtmlHelper
      */
-    public BootstrapHtmlHelper $Html;
+    public HtmlHelper $Html;
 
     /**
      * Pattern
@@ -42,11 +42,11 @@ class BBCode
 
     /**
      * Constructor
-     * @param \MeTools\View\Helper\BootstrapHtmlHelper|null $HtmlHelper An `HtmlHelper` instance
+     * @param \MeTools\View\Helper\HtmlHelper|null $HtmlHelper An `HtmlHelper` instance
      */
-    public function __construct(?BootstrapHtmlHelper $HtmlHelper = null)
+    public function __construct(?HtmlHelper $HtmlHelper = null)
     {
-        $this->Html = $HtmlHelper ?: new BootstrapHtmlHelper(new View());
+        $this->Html = $HtmlHelper ?: new HtmlHelper(new View());
     }
 
     /**

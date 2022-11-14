@@ -26,7 +26,6 @@ use Tools\Filesystem;
 /**
  * LibraryHelperTest class
  * @property \MeTools\View\Helper\LibraryHelper $Helper
- * @noinspection PhpDeprecationInspection
  */
 class LibraryHelperTest extends HelperTestCase
 {
@@ -66,6 +65,7 @@ class LibraryHelperTest extends HelperTestCase
 
     /**
      * Tests for `initialize()` method
+     * @uses \MeTools\View\Helper\LibraryHelper::initialize()
      * @test
      */
     public function testInitialize(): void
@@ -84,6 +84,7 @@ class LibraryHelperTest extends HelperTestCase
 
     /**
      * Tests for `beforeLayout()` method
+     * @uses \MeTools\View\Helper\LibraryHelper::beforeLayout()
      * @test
      */
     public function testBeforeLayout(): void
@@ -106,6 +107,7 @@ class LibraryHelperTest extends HelperTestCase
 
     /**
      * Tests for `analytics()` method
+     * @uses \MeTools\View\Helper\LibraryHelper::analytics()
      * @test
      */
     public function testAnalytics(): void
@@ -117,6 +119,7 @@ class LibraryHelperTest extends HelperTestCase
 
     /**
      * Tests for `analytics()` method, on localhost
+     * @uses \MeTools\View\Helper\LibraryHelper::analytics()
      * @test
      */
     public function testAnalyticsOnLocalhost(): void
@@ -130,6 +133,7 @@ class LibraryHelperTest extends HelperTestCase
 
     /**
      * Tests for `ckeditor()` method
+     * @uses \MeTools\View\Helper\LibraryHelper::ckeditor()
      * @test
      */
     public function testCkeditor(): void
@@ -152,6 +156,7 @@ class LibraryHelperTest extends HelperTestCase
 
     /**
      * Tests for `ckeditor()` method, with a js config file from app
+     * @uses \MeTools\View\Helper\LibraryHelper::ckeditor()
      * @test
      */
     public function testCkeditorWithJsFromApp(): void
@@ -170,6 +175,7 @@ class LibraryHelperTest extends HelperTestCase
 
     /**
      * Tests for `ckeditor()` method, with a php config file from app
+     * @uses \MeTools\View\Helper\LibraryHelper::ckeditor()
      * @test
      */
     public function testCkeditorWithPhpFromApp(): void
@@ -187,80 +193,8 @@ class LibraryHelperTest extends HelperTestCase
     }
 
     /**
-     * Tests for `datepicker()` method
-     * @test
-     */
-    public function testDatepicker(): void
-    {
-        $current = error_reporting(E_ALL & ~E_USER_DEPRECATED);
-        $expected = [
-            'format' => 'YYYY/MM/DD',
-            'icons' => self::EXPECTED_DATEPICKER_ICONS,
-            'locale' => 'en',
-            'showTodayButton' => true,
-            'showClear' => true,
-        ];
-
-        foreach (['#my-id', ''] as $input) {
-            $this->Helper->datepicker($input);
-            $output = $this->getProperty($this->Helper, 'output');
-            $this->assertEquals(1, preg_match('/\$\("#my-id"\)\.datetimepicker\(({\n(\s+.+\n)+})\);/', $output[0], $matches));
-            $this->assertNotEmpty($matches[1]);
-            $this->assertEquals($expected, json_decode($matches[1], true));
-        }
-
-        $expected = [
-            ['script' => ['src' => '/vendor/moment/moment-with-locales.min.js']],
-            '/script',
-            ['script' => ['src' => '/me_tools/js/bootstrap-datetimepicker.min.js']],
-            '/script',
-        ];
-        $this->assertHtml($expected, $this->Helper->getView()->fetch('script_bottom'));
-
-        $expected = ['link' => [
-            'rel' => 'stylesheet',
-            'href' => '/vendor/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css',
-        ]];
-        $this->assertHtml($expected, $this->Helper->getView()->fetch('css_bottom'));
-        error_reporting($current);
-
-        $this->expectDeprecation();
-        $this->expectExceptionMessage('Deprecated. Use instead the normal functions provided by the most modern browsers');
-        $this->Helper->datepicker('my-field');
-    }
-
-    /**
-     * Tests for `datetimepicker()` method.
-     *
-     * Note: assets have already been tested in the `testDatepicker()` method.
-     * @test
-     */
-    public function testDatetimepicker(): void
-    {
-        $current = error_reporting(E_ALL & ~E_USER_DEPRECATED);
-        $expected = [
-            'icons' => self::EXPECTED_DATEPICKER_ICONS,
-            'locale' => 'en',
-            'showTodayButton' => true,
-            'showClear' => true,
-        ];
-
-        foreach (['#my-id', ''] as $input) {
-            $this->Helper->datetimepicker($input);
-            $output = $this->getProperty($this->Helper, 'output');
-            $this->assertEquals(1, preg_match('/\$\("#my-id"\)\.datetimepicker\(({\n(\s+.+\n)+})\);/', $output[0], $matches));
-            $this->assertNotEmpty($matches[1]);
-            $this->assertEquals($expected, json_decode($matches[1], true));
-        }
-        error_reporting($current);
-
-        $this->expectDeprecation();
-        $this->expectExceptionMessage('Deprecated. Use instead the normal functions provided by the most modern browsers');
-        $this->Helper->datetimepicker('my-field');
-    }
-
-    /**
      * Tests for `fancybox()` method
+     * @uses \MeTools\View\Helper\LibraryHelper::fancybox()
      * @test
      */
     public function testFancybox(): void
@@ -280,6 +214,7 @@ class LibraryHelperTest extends HelperTestCase
 
     /**
      * Tests for `shareaholic()` method
+     * @uses \MeTools\View\Helper\LibraryHelper::shareaholic()
      * @test
      */
     public function testShareaholic(): void
@@ -299,6 +234,7 @@ class LibraryHelperTest extends HelperTestCase
 
     /**
      * Tests for `slugify()` method
+     * @uses \MeTools\View\Helper\LibraryHelper::slugify()
      * @test
      */
     public function testSlugify(): void
@@ -309,36 +245,5 @@ class LibraryHelperTest extends HelperTestCase
 
         $expected = ['$().slugify("form #title", "form #slug");'];
         $this->assertEquals($expected, $this->getProperty($this->Helper, 'output'));
-    }
-
-    /**
-     * Tests for `timepicker()` method.
-     *
-     * Note: assets have already been tested in the `testDatepicker()` method.
-     * @test
-     */
-    public function testTimepicker(): void
-    {
-        $current = error_reporting(E_ALL & ~E_USER_DEPRECATED);
-        $expected = [
-            'icons' => self::EXPECTED_DATEPICKER_ICONS,
-            'locale' => 'en',
-            'pickTime' => false,
-            'showTodayButton' => true,
-            'showClear' => true,
-        ];
-
-        foreach (['#my-id', ''] as $input) {
-            $this->Helper->timepicker($input);
-            $output = $this->getProperty($this->Helper, 'output');
-            $this->assertEquals(1, preg_match('/\$\("#my-id"\)\.datetimepicker\(({\n(\s+.+\n)+})\);/', $output[0], $matches));
-            $this->assertNotEmpty($matches[1]);
-            $this->assertEquals($expected, json_decode($matches[1], true));
-        }
-        error_reporting($current);
-
-        $this->expectDeprecation();
-        $this->expectExceptionMessage('Deprecated. Use instead the normal functions provided by the most modern browsers');
-        $this->Helper->timepicker('my-field');
     }
 }
