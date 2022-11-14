@@ -102,8 +102,9 @@ class LibraryHelper extends Helper
      *  method provided by the `FormHelper`.
      * @param bool $jquery `true` if you want to use the jQuery adapter
      * @return void
-     * @see \MeTools\View\Helper\FormHelper::ckeditor()
+     * @throws \Tools\Exception\NotReadableException
      * @see http://docs.cksource.com CKEditor documentation
+     * @see \MeTools\View\Helper\FormHelper::ckeditor()
      */
     public function ckeditor(bool $jquery = false): void
     {
@@ -133,6 +134,7 @@ class LibraryHelper extends Helper
     /**
      * Loads all fancybox files
      * @return void
+     * @throws \Throwable
      * @link https://fancyapps.com/fancybox/3 fancybox documentation
      */
     public function fancybox(): void
@@ -170,11 +172,11 @@ class LibraryHelper extends Helper
     /**
      * Through `slugify.js`, it provides the slug of a field.
      *
-     * It reads the value of the `$sourceField` field and sets its slug in
-     *  the `$targetField`.
+     * It reads the value of the `$sourceField` field and sets its slug to the `$targetField`.
      * @param string $sourceField Source field
      * @param string $targetField Target field
      * @return void
+     * @throws \Throwable
      */
     public function slugify(string $sourceField = 'form #title', string $targetField = 'form #slug'): void
     {
