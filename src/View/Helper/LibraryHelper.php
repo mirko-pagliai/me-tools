@@ -15,7 +15,6 @@ declare(strict_types=1);
 namespace MeTools\View\Helper;
 
 use Cake\Core\Plugin;
-use Cake\I18n\I18n;
 use Cake\View\Helper;
 use Tools\Exceptionist;
 
