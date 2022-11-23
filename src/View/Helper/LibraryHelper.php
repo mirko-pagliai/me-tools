@@ -15,7 +15,6 @@ declare(strict_types=1);
 namespace MeTools\View\Helper;
 
 use Cake\Core\Plugin;
-use Cake\I18n\I18n;
 use Cake\View\Helper;
 use Tools\Exceptionist;
 
@@ -33,7 +32,7 @@ class LibraryHelper extends Helper
      *  `Assets` plugin doesn't exist, it will be a copy of the `Html` helper.
      * @var array
      */
-    public $helpers = ['Html' => ['className' => 'MeTools.BootstrapHtml']];
+    public $helpers = ['MeTools.Html'];
 
     /**
      * It will contain the output code
@@ -59,47 +58,6 @@ class LibraryHelper extends Helper
             $asset = $this->_View->loadHelper('Assets.Asset');
         }
         $this->Asset = $asset ?? clone $this->Html;
-    }
-
-    /**
-     * Internal function to generate datepicker and timepicker.
-     *
-     * Bootstrap Datepicker and Moment.js should be installed via Composer.
-     * @param string $input Target field
-     * @param array $options Options for the datepicker
-     * @return string jQuery code
-     * @see http://eonasdan.github.io/bootstrap-datetimepicker Bootstrap 3 Datepicker v4 documentation
-     */
-    protected function buildDatetimepicker(string $input, array $options = []): string
-    {
-        $this->Asset->script([
-            '/vendor/moment/moment-with-locales.min',
-            'MeTools.bootstrap-datetimepicker.min',
-        ], ['block' => 'script_bottom']);
-
-        $this->Asset->css(
-            '/vendor/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min',
-            ['block' => 'css_bottom']
-        );
-
-        $options = optionsParser($options, [
-            'icons' => [
-                'time' => 'fas fa-clock',
-                'date' => 'fas fa-calendar',
-                'up' => 'fas fa-chevron-up',
-                'down' => 'fas fa-chevron-down',
-                'previous' => 'fas fa-chevron-left',
-                'next' => 'fas fa-chevron-right',
-                'today' => 'fas fa-dot-circle',
-                'clear' => 'fas fa-trash',
-                'close' => 'fas fa-times',
-            ],
-            'locale' => substr(I18n::getLocale(), 0, 2) ?: 'en-gb',
-            'showTodayButton' => true,
-            'showClear' => true,
-        ]);
-
-        return sprintf('$("%s").datetimepicker(%s);', $input, json_encode($options->toArray(), JSON_PRETTY_PRINT));
     }
 
     /**
@@ -144,8 +102,9 @@ class LibraryHelper extends Helper
      *  method provided by the `FormHelper`.
      * @param bool $jquery `true` if you want to use the jQuery adapter
      * @return void
-     * @see \MeTools\View\Helper\FormHelper::ckeditor()
+     * @throws \Tools\Exception\NotReadableException
      * @see http://docs.cksource.com CKEditor documentation
+     * @see \MeTools\View\Helper\FormHelper::ckeditor()
      */
     public function ckeditor(bool $jquery = false): void
     {
@@ -173,48 +132,9 @@ class LibraryHelper extends Helper
     }
 
     /**
-     * Adds a datepicker to the `$input` field.
-     *
-     * To create an input field compatible with datepicker, you should use the
-     *  `datepicker()` method provided by the `FormHelper`.
-     *
-     * Bootstrap Datepicker and Moment.js should be installed via Composer.
-     * @param string $input Target field. Default is `.datepicker`
-     * @param array $options Options for the datepicker
-     * @return void
-     * @deprecated 2.21.1 Use instead the normal functions provided by the most
-     *  modern browsers
-     */
-    public function datepicker(string $input = '', array $options = []): void
-    {
-        deprecationWarning('Deprecated. Use instead the normal functions provided by the most modern browsers');
-
-        $options = optionsParser($options, ['format' => 'YYYY/MM/DD']);
-
-        $this->output[] = $this->buildDatetimepicker($input ?: '.datepicker', $options->toArray());
-    }
-
-    /**
-     * Adds a datetimepicker to the `$input` field.
-     *
-     * To create an input field compatible with datetimepicker, you should use the `datetimepicker()` method provided
-     *  by the `FormHelper`.
-     * Bootstrap Datepicker and Moment.js should be installed via Composer.
-     * @param string $input Target field. Default is `.datetimepicker`
-     * @param array $options Options for the datetimepicker
-     * @return void
-     * @deprecated 2.21.1 Use instead the normal functions provided by the most modern browsers
-     */
-    public function datetimepicker(string $input = '', array $options = []): void
-    {
-        deprecationWarning('Deprecated. Use instead the normal functions provided by the most modern browsers');
-
-        $this->output[] = $this->buildDatetimepicker($input ?: '.datetimepicker', $options);
-    }
-
-    /**
      * Loads all fancybox files
      * @return void
+     * @throws \Throwable
      * @link https://fancyapps.com/fancybox/3 fancybox documentation
      */
     public function fancybox(): void
@@ -252,37 +172,16 @@ class LibraryHelper extends Helper
     /**
      * Through `slugify.js`, it provides the slug of a field.
      *
-     * It reads the value of the `$sourceField` field and sets its slug in
-     *  the `$targetField`.
+     * It reads the value of the `$sourceField` field and sets its slug to the `$targetField`.
      * @param string $sourceField Source field
      * @param string $targetField Target field
      * @return void
+     * @throws \Throwable
      */
     public function slugify(string $sourceField = 'form #title', string $targetField = 'form #slug'): void
     {
         $this->Asset->script('MeTools.slugify', ['block' => 'script_bottom']);
 
         $this->output[] = sprintf('$().slugify("%s", "%s");', $sourceField, $targetField);
-    }
-
-    /**
-     * Adds a timepicker to the `$input` field.
-     *
-     * To create an input field compatible with datepicker, you should use the
-     *  `timepicker()` method provided by the `FormHelper`.
-     *
-     * Bootstrap Datepicker and Moment.js should be installed via Composer.
-     * @param string $input Target field. Default is `.timepicker`
-     * @param array $options Options for the timepicker
-     * @return void
-     * @deprecated 2.21.1 Use instead the normal functions provided by the most modern browsers
-     */
-    public function timepicker(string $input = '', array $options = []): void
-    {
-        deprecationWarning('Deprecated. Use instead the normal functions provided by the most modern browsers');
-
-        $options = optionsParser($options, ['pickTime' => false]);
-
-        $this->output[] = $this->buildDatetimepicker($input ?: '.timepicker', $options->toArray());
     }
 }

@@ -16,7 +16,7 @@ namespace MeTools\Test\TestCase\View\Widget;
 
 use Cake\View\View;
 use MeTools\TestSuite\TestCase;
-use MeTools\View\Helper\BootstrapFormHelper;
+use MeTools\View\Helper\FormHelper;
 
 /**
  * HiddenWidgetTest class
@@ -24,9 +24,9 @@ use MeTools\View\Helper\BootstrapFormHelper;
 class HiddenWidgetTest extends TestCase
 {
     /**
-     * @var \MeTools\View\Helper\BootstrapFormHelper
+     * @var \MeTools\View\Helper\FormHelper
      */
-    protected BootstrapFormHelper $Helper;
+    protected FormHelper $Helper;
 
     /**
      * Called before every test method
@@ -36,7 +36,7 @@ class HiddenWidgetTest extends TestCase
     {
         parent::setUp();
 
-        $this->Helper ??= new BootstrapFormHelper(new View());
+        $this->Helper ??= new FormHelper(new View());
     }
 
     /**

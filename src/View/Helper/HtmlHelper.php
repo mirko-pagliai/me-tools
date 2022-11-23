@@ -14,40 +14,28 @@ declare(strict_types=1);
  */
 namespace MeTools\View\Helper;
 
-use Cake\View\Helper\HtmlHelper as CakeHtmlHelper;
-use Cake\View\View;
+use Cake\View\Helper\HtmlHelper as BaseHtmlHelper;
 use Tools\Exceptionist;
 
 /**
- * Provides functionalities for HTML code
+ * Provides functionalities for forms
+ * @method string h1(?string $text = null, array $options = [])
+ * @method string h2(?string $text = null, array $options = [])
+ * @method string h3(?string $text = null, array $options = [])
+ * @method string h4(?string $text = null, array $options = [])
+ * @method string h5(?string $text = null, array $options = [])
+ * @method string h6(?string $text = null, array $options = [])
+ * @method string span(?string $text = null, array $options = [])
  * @property \MeTools\View\Helper\IconHelper $Icon
- * @method string span(string $text, array $options = [])
- * @deprecated 2.21.5 Use instead `BootstrapHtmlHelper`
+ * @property \Cake\View\Helper\UrlHelper $Url
  */
-class HtmlHelper extends CakeHtmlHelper
+class HtmlHelper extends BaseHtmlHelper
 {
-    /**
-     * @var array
-     */
-    protected array $_cssBlockOptions;
-
     /**
      * Helpers
      * @var array
      */
     public $helpers = ['MeTools.Icon', 'Url'];
-
-    /**
-     * Default Constructor
-     * @param \Cake\View\View $view The View this helper is being attached to
-     * @param array<string, mixed> $config Configuration settings for the helper
-     */
-    public function __construct(View $view, array $config = [])
-    {
-        deprecationWarning('`HtmlHelper` is deprecated. Use instead `BootstrapHtmlHelper`');
-
-        parent::__construct($view, $config);
-    }
 
     /**
      * Missing method handler.
@@ -67,216 +55,71 @@ class HtmlHelper extends CakeHtmlHelper
     }
 
     /**
-     * Creates a badge, according to Bootstrap
+     * Creates a "badge"
      * @param string $text Badge text
-     * @param array $options Array of options and HTML attributes
+     * @param array<string, mixed> $options Array of options and HTML attributes
      * @return string
-     * @see http://getbootstrap.com/components/#badges Bootstrap documentation
+     * @see https://getbootstrap.com/docs/5.2/components/badge/
      */
     public function badge(string $text, array $options = []): string
     {
-        return $this->tag('span', $text, optionsParser($options)->append('class', 'badge')->toArray());
+        $options = optionsParser($options)->append('class', 'badge');
+
+        return $this->tag('span', $text, $options->toArray());
     }
 
     /**
-     * Creates a button (`<button>` tag).
+     * Creates a link with the appearance of a button.
      *
-     * If `$url` is not null, creates a link (`<a>` tag) with the appearance
-     *  of a button.
-     * @param string $title Button title
-     * @param string|array|null $url Cake-relative URL or array of URL
-     *  parameters or external URL
-     * @param array $options Array of options and HTML attributes
-     * @return string
+     * See the parent method for all available options.
+     * @param array|string $title The content to be wrapped by `<a>` tags
+     *   Can be an array if $url is null. If $url is null, $title will be used as both the URL and title.
+     * @param array|string|null $url Cake-relative URL or array of URL parameters, or
+     *   external URL (starts with http://)
+     * @param array<string, mixed> $options Array of options and HTML attributes
+     * @return string An `<a />` element
      */
-    public function button(string $title = '', $url = null, array $options = []): string
+    public function button($title, $url = null, array $options = []): string
     {
         $options = optionsParser($options, ['role' => 'button'])->addButtonClasses();
 
-        if ($url) {
-            return $this->link($title, $url, $options->toArray());
-        }
-
-        $options->addDefault('title', $title);
-        $options->add('title', strip_tags($options->get('title') ?? ''));
-
-        return $this->tag('button', $title, $options->toArray());
-    }
-
-    /**
-     * Adds a css file to the layout.
-     *
-     * If it's used in the layout, you should set the `inline` option to `true`.
-     * @param string|array<string> $path The name of a CSS style sheet or an array
-     *  containing names of CSS stylesheets. If `$path` is prefixed with '/', the
-     *  path will be relative to the webroot of your application. Otherwise, the
-     *  path will be relative to your CSS path, usually webroot/css
-     * @param array $options Array of options and HTML attributes
-     * @return string|null CSS `<link />` or `<style />` tag, depending on the type of link
-     */
-    public function css($path, array $options = []): ?string
-    {
-        return parent::css($path, optionsParser($options, ['block' => true])->toArray());
-    }
-
-    /**
-     * Wrap `$css` in a style tag
-     * @param string $css The CSS code to wrap
-     * @param array $options The options to use. Options not listed above will
-     *  be treated as HTML attributes
-     * @return string|null String or `null`, depending on the value of
-     *  $options['block']`
-     * @deprecated 2.21.2
-     */
-    public function cssBlock(string $css, array $options = []): ?string
-    {
-        deprecationWarning('Deprecated');
-
-        $options = optionsParser($options, ['block' => true]);
-
-        $out = $this->formatTemplate('style', [
-            'attrs' => $this->templater()->formatAttributes($options->toArray(), ['block']),
-            'content' => $css,
-        ]);
-
-        if (!$options->get('block')) {
-            return $out;
-        }
-
-        if ($options->contains('block', true)) {
-            $options->add('block', 'css');
-        }
-
-        $this->_View->append($options->get('block'), $out);
-
-        return null;
-    }
-
-    /**
-     * Begin a CSS block that captures output until `cssEnd()` is called. This
-     *  capturing block will capture all output between the methods and create
-     *  a cssBlock from it
-     * @param array $options Options for the code block
-     * @return void
-     * @deprecated 2.21.2
-     */
-    public function cssStart(array $options = []): void
-    {
-        deprecationWarning('Deprecated');
-
-        $options += ['block' => null];
-        $this->_cssBlockOptions = $options;
-        ob_start();
-    }
-
-    /**
-     * End a buffered section of css capturing.
-     * Generates a style tag inline or appends to specified view block
-     *  depending on the settings used when the cssBlock was started.
-     * @return string|null Depending on the settings of `cssStart()`, either a
-     *  style tag or `null`
-     * @deprecated 2.21.2
-     */
-    public function cssEnd(): ?string
-    {
-        deprecationWarning('Deprecated');
-
-        $options = $this->_cssBlockOptions;
-        $this->_cssBlockOptions = [];
-
-        return $this->cssBlock(ob_get_clean() ?: '', $options);
-    }
-
-    /**
-     * Creates a heading, according to Bootstrap.
-     *
-     * This method is useful if you want to create a heading with a secondary
-     *  text. In this case you have to use the `small` option.
-     *
-     * By default, this method creates an `<h2>` tag. To create a different
-     *  tag, you have to use the `type` option.
-     * @param string $text Heading text
-     * @param array $options Array of options and HTML attributes
-     * @param string $small Small text
-     * @param array $smallOptions Array of options and HTML attributes
-     * @return string
-     * @see http://getbootstrap.com/css/#type-headings Bootstrap documentation
-     * @deprecated 2.21.2
-     */
-    public function heading(string $text, array $options = [], string $small = '', array $smallOptions = []): string
-    {
-        deprecationWarning('Deprecated');
-
-        $options = optionsParser($options);
-        $type = $options->consume('type');
-        $type = is_string($type) && preg_match('/^h[1-6]$/', $type) ? $type : 'h2';
-
-        $text .= $small ? ' ' . $this->tag('small', $small, $smallOptions) : '';
-
-        return $this->tag($type, $text, $options->toArray());
-    }
-
-    /**
-     * Creates an horizontal rule (`<hr>` tag)
-     * @param array $options Array of options and HTML attributes
-     * @return string
-     * @deprecated 2.21.2
-     */
-    public function hr(array $options = []): string
-    {
-        deprecationWarning('Deprecated');
-
-        return $this->tag('hr', null, $options);
+        return $this->link($title, $url, $options->toArray());
     }
 
     /**
      * Create an `<iframe>` element.
      *
-     * You can use the `$ratio` option (valid values: `16by9` or `4by3`) to
-     *  create a responsive embed.
+     * You can use the `$ratio` option (valid values: '1x1', '4x3', '16x9', '21x9') to create a responsive embed.
      * @param string|array $url Url for the iframe
      * @param array $options Array of options and HTML attributes
      * @return string
-     * @see http://getbootstrap.com/components/#responsive-embed Responsive embed
+     * @see https://getbootstrap.com/docs/5.2/helpers/ratio/#aspect-ratios
      */
     public function iframe($url, array $options = []): string
     {
-        if (is_array($url)) {
-            $url = $this->Url->build($url, $options);
+        $options = optionsParser($options)->add('src', is_array($url) ? $this->Url->build($url, $options) : $url);
+        $ratio = $options->consume('ratio');
+        $iframe = $this->tag('iframe', '', $options->toArray());
+
+        if (in_array($ratio, ['1x1', '4x3', '16x9', '21x9'])) {
+            return $this->div('ratio ratio-' . $ratio, $iframe);
         }
 
-        $options = optionsParser($options)->add('src', $url);
-
-        if ($options->exists('ratio')) {
-            $ratio = $options->consume('ratio');
-
-            if (in_array($ratio, ['16by9', '4by3'])) {
-                $options->append('class', 'embed-responsive-item');
-                $frame = $this->tag('iframe', null, $options->toArray());
-
-                return $this->div('embed-responsive embed-responsive-' . $ratio, $frame);
-            }
-        }
-
-        return $this->tag('iframe', '', $options->toArray());
+        return $iframe;
     }
 
     /**
-     * Creates a formatted `<img>` element
-     * @param string|array $path Path to the image file, relative to the
-     *  `APP/webroot/img/` directory
-     * @param array $options Array of options and HTML attributes
-     * @return string
+     * Creates a formatted IMG element.
+     *
+     * See the parent method for all available options.
+     * @param array|string $path Path to the image file, relative to the webroot/img/ directory
+     * @param array<string, mixed> $options Array of HTML attributes. See above for special options
+     * @return string completed img tag
      */
     public function image($path, array $options = []): string
     {
-        if (is_array($path)) {
-            $path = $this->Url->build($path, $options);
-        }
-
-        $options = optionsParser($options, ['alt' => pathinfo($path, PATHINFO_BASENAME)])
-            ->append('class', 'img-fluid')
-            ->tooltip();
+        $alt = pathinfo(is_array($path) ? $this->Url->build($path, $options) : $path, PATHINFO_BASENAME);
+        $options = optionsParser($options, compact('alt'))->append('class', 'img-fluid');
 
         return parent::image($path, $options->toArray());
     }
@@ -292,33 +135,10 @@ class HtmlHelper extends CakeHtmlHelper
     }
 
     /**
-     * Create a label, according to the Bootstrap component.
-     *
-     * This method creates only a label element. Not to be confused with the
-     *  `label()` method provided by `FormHelper`, which creates a label
-     *  for a form input.
-     *
-     * You can set the type of label using the `type` option.
-     * The values supported by Bootstrap are: `default`, `primary`, `success`,
-     *  `info`, `warning` and `danger`.
-     * @param string $text Label text
-     * @param array $options HTML attributes of the list tag
-     * @return string
-     * @see http://getbootstrap.com/components/#labels Bootstrap documentation
-     */
-    public function label(string $text, array $options = []): string
-    {
-        $options = optionsParser($options);
-        $options->append('class', sprintf('label label-%s', $options->consume('type') ?: 'default'));
-
-        return $this->tag('span', $text, $options->toArray());
-    }
-
-    /**
      * Returns an element list (`<li>`).
      *
      * If `$element` is an array, the same `$options` will be applied to all
-     *  elements
+     *  elements.
      * @param string|array<string> $element Element or elements
      * @param array $options HTML attributes of the list tag
      * @return string
@@ -329,25 +149,32 @@ class HtmlHelper extends CakeHtmlHelper
     }
 
     /**
-     * Creates an HTML link
-     * @param string|array|null $title The content to be wrapped by `<a>` tags.
-     *  Can be an array if $url is null. If $url is null, $title will be used
-     *  as both the URL and title.
-     * @param string|array|null $url Cake-relative URL or array of URL
-     *  parameters or external URL
-     * @param array $options Array of options and HTML attributes
-     * @return string
+     * Creates an HTML link.
+     *
+     * See the parent method for all available options.
+     * @param array|string $title The content to be wrapped by `<a>` tags
+     *   Can be an array if $url is null. If $url is null, $title will be used as both the URL and title.
+     * @param array|string|null $url Cake-relative URL or array of URL parameters, or
+     *   external URL (starts with http://)
+     * @param array<string, mixed> $options Array of options and HTML attributes
+     * @return string An `<a />` element
      */
-    public function link($title = null, $url = null, array $options = []): string
+    public function link($title, $url = null, array $options = []): string
     {
         if (is_array($title)) {
-            [$url, $title] = [$title, null];
+            if (!$url) {
+                $url = $title;
+            }
+            $title = '';
         }
 
-        $buildUrl = !$title && $url !== '#' ? $this->Url->build($url, $options) : '';
+        $options = optionsParser($options, ['escape' => false]);
 
-        $options = optionsParser($options, ['escape' => false, 'title' => $title]);
-        $options->add('title', trim(h(strip_tags(($options->get('title') ?: $buildUrl)))))->tooltip();
+        $titleAsOption = $options->get('title') ?? $title;
+        if ($titleAsOption) {
+            $options->add('title', trim(strip_tags($titleAsOption)));
+        }
+
         [$title, $options] = $this->Icon->addIconToText($title, $options);
 
         return parent::link($title, $url, $options->toArray());
@@ -355,26 +182,28 @@ class HtmlHelper extends CakeHtmlHelper
 
     /**
      * Creates a link to an external resource and handles basic meta tags
-     * @param string|array $type The title of the external resource
-     * @param string|array|null $content The address of the external resource
-     *  or string for content attribute
-     * @param array $options Other attributes for the generated tag. If the
-     *  type attribute is html, rss, atom, or icon, the mime-type is returned
-     * @return string|null A completed `<link />` element, or null if the element was sent to a block
+     * @param array<string, mixed>|string $type The title of the external resource,
+     *  or an array of attributes for a custom meta tag
+     * @param array|string|null $content The address of the external resource or string
+     *  for content attribute
+     * @param array<string, mixed> $options Other attributes for the generated tag. If
+     *  the type attribute is html, rss, atom, or icon, the mime-type is returned
+     * @return string|null A completed `<link />` element, or null if the element was
+     *  sent to a block
      */
     public function meta($type, $content = null, array $options = []): ?string
     {
-        $options = optionsParser($options, ['block' => true]);
-
-        return parent::meta($type, $content, $options->toArray());
+        return parent::meta($type, $content, $options + ['block' => true]);
     }
 
     /**
-     * Returns a list (`<ol>` or `<ul>` tag)
-     * @param array $list Elements list
-     * @param array $options HTML attributes of the list tag
-     * @param array $itemOptions HTML attributes of the list items
-     * @return string
+     * Build a nested list (UL/OL) out of an associative array.
+     *
+     * See the parent method for all available options.
+     * @param array $list Set of elements to list
+     * @param array<string, mixed> $options Options and additional HTML attributes of the list (ol/ul) tag.
+     * @param array<string, mixed> $itemOptions Options and additional HTML attributes of the list item (LI) tag.
+     * @return string The nested list
      */
     public function nestedList(array $list, array $options = [], array $itemOptions = []): string
     {
@@ -388,9 +217,9 @@ class HtmlHelper extends CakeHtmlHelper
         if ($itemOptions->exists('icon')) {
             $options->append('class', 'fa-ul');
             $itemOptions->append('icon', 'li');
-
             $list = array_map(fn(string $element): string => array_value_first($this->Icon->addIconToText($element, clone $itemOptions)), $list);
         }
+
         $options->delete('icon', 'icon-align');
         $itemOptions->delete('icon', 'icon-align');
 
@@ -398,11 +227,13 @@ class HtmlHelper extends CakeHtmlHelper
     }
 
     /**
-     * Returns an unordered list (`<ol>` tag)
-     * @param array<string> $list Elements list
-     * @param array $options HTML attributes of the list tag
-     * @param array $itemOptions HTML attributes of the list items
-     * @return string
+     * Build an `<ol>` nested list out of an associative array.
+     *
+     * See the parent method for all available options.
+     * @param array $list Set of elements to list
+     * @param array<string, mixed> $options Options and additional HTML attributes of the list (ol/ul) tag.
+     * @param array<string, mixed> $itemOptions Options and additional HTML attributes of the list item (LI) tag.
+     * @return string The nested list
      */
     public function ol(array $list, array $options = [], array $itemOptions = []): string
     {
@@ -410,98 +241,31 @@ class HtmlHelper extends CakeHtmlHelper
     }
 
     /**
-     * Returns a formatted `<p>` tag.
-     * @param string|null $class Class name
-     * @param string|null $text Paragraph text
-     * @param array $options Array of options and HTML attributes
-     * @return string
-     */
-    public function para(?string $class = null, ?string $text = null, array $options = []): string
-    {
-        $options = optionsParser($options)->tooltip();
-        [$text, $options] = $this->Icon->addIconToText($text, $options);
-
-        return parent::para($class ?? '', $text ?: '', $options->toArray());
-    }
-
-    /**
-     * Adds a js file to the layout.
+     * Returns a formatted block tag, i.e DIV, SPAN, P.
      *
-     * If it's used in the layout, you should set the `inline` option to `true`.
-     * @param string|array<string> $url Javascript files as string or array
-     * @param array $options Array of options and HTML attributes
-     * @return string|null String of `<script />` tags or `null` if `$inline` is false
-     *  or if `$once` is true and the file has been included before
-     */
-    public function script($url, array $options = []): ?string
-    {
-        return parent::script($url, optionsParser($options, ['block' => true])->toArray());
-    }
-
-    /**
-     * Returns a Javascript code block
-     * @param string $script Javascript code
-     * @param array $options Array of options and HTML attributes
-     * @return string|null A script tag or `null`
-     * @deprecated 2.21.2 Use instead the parent method, with the `block` option
-     */
-    public function scriptBlock(string $script, array $options = []): ?string
-    {
-        return parent::scriptBlock($script, optionsParser($options, ['block' => true])->toArray());
-    }
-
-    /**
-     * Starts capturing output for Javascript code.
-     *
-     * To end capturing output, you can use the `scriptEnd()` method
-     * @param array $options Options for the code block
-     * @return void
-     * @deprecated 2.21.2 Use instead the parent method, with the `block` option
-     */
-    public function scriptStart(array $options = []): void
-    {
-        parent::scriptStart(optionsParser($options, ['block' => 'script_bottom'])->toArray());
-    }
-
-    /**
-     * Returns the Shareaholic "share buttons".
-     *
-     * Note that this code only renders the Shareaholic "share button".
-     * To add the "setup code", you have to use the `LayoutHelper`.
-     * @param string $appId Shareaholic app ID
-     * @return string
-     * @see \MeTools\View\Helper\LayoutHelper::shareaholic()
-     */
-    public function shareaholic(string $appId): string
-    {
-        return $this->div('shareaholic-canvas', '', [
-            'data-app' => 'share_buttons',
-            'data-app-id' => $appId,
-        ]);
-    }
-
-    /**
-     * Returns a formatted block tag
+     * See the parent method for all available options.
      * @param string $name Tag name
-     * @param string|null $text Tag content. If `null`, only a start tag will be
-     *  printed
-     * @param array $options Array of options and HTML attributes
-     * @return string
+     * @param string|null $text String content that will appear inside the div element.
+     *   If null, only a start tag will be printed
+     * @param array<string, mixed> $options Additional HTML attributes of the DIV tag, see above
+     * @return string The formatted tag element
      */
     public function tag(string $name, ?string $text = null, array $options = []): string
     {
         $options = optionsParser($options);
-        [$text, $options] = $this->Icon->addIconToText($text, $options->tooltip());
+        [$text, $options] = $this->Icon->addIconToText($text, $options);
 
-        return parent::tag($name, $text ?? '', $options->toArray());
+        return parent::tag($name, $text, $options->toArray());
     }
 
     /**
-     * Returns an unordered list (`<ul>` tag)
-     * @param array<string> $list Elements list
-     * @param array $options HTML attributes of the list tag
-     * @param array $itemOptions HTML attributes of the list items
-     * @return string
+     * Build an `<ul>` nested list out of an associative array.
+     *
+     * See the parent method for all available options.
+     * @param array $list Set of elements to list
+     * @param array<string, mixed> $options Options and additional HTML attributes of the list (ol/ul) tag.
+     * @param array<string, mixed> $itemOptions Options and additional HTML attributes of the list item (LI) tag.
+     * @return string The nested list
      */
     public function ul(array $list, array $options = [], array $itemOptions = []): string
     {
@@ -509,31 +273,27 @@ class HtmlHelper extends CakeHtmlHelper
     }
 
     /**
-     * Adds the `viewport` meta tag. By default, it uses options as required
-     *  by Bootstrap
-     * @param array $options Attributes for the generated tag. If the type
-     *  attribute is html, rss, atom, or icon, the mime-type is returned
+     * Adds the `viewport` meta tag. By default, it uses options as required by Bootstrap
+     * @param array $content Additional content values
+     * @param array<string, mixed> $options Other attributes for the generated tag. If the type attribute is html,
+     *    rss, atom, or icon, the mime-type is returned.
      * @return string|null
-     * @see http://getbootstrap.com/css/#overview-mobile Bootstrap documentation
+     * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Viewport_meta_tag
      */
-    public function viewport(array $options = []): ?string
+    public function viewport(array $content = [], array $options = []): ?string
     {
-        // <meta name="viewport" content="width=device-width, initial-scale=1">
-
-        $content = http_build_query([
+        $content = http_build_query($content + [
             'initial-scale' => '1',
-            'shrink-to-fit' => 'no',
             'width' => 'device-width',
         ], '', ', ');
 
-        return $this->meta(['name' => 'viewport'] + compact('content'), '', $options);
+        return $this->meta('viewport', $content, $options);
     }
 
     /**
-     * Adds a YouTube video.
+     * Returns a YouTube video code.
      *
-     * You can use the `$ratio` option (valid values: `16by9` or `4by3`) to
-     *  create a responsive embed.
+     * You can use the `$ratio` option (valid values: '1x1', '4x3', '16x9', '21x9') to create a responsive embed.
      * @param string $id YouTube video ID
      * @param array $options Array of options and HTML attributes
      * @return string
@@ -543,10 +303,10 @@ class HtmlHelper extends CakeHtmlHelper
         $options = optionsParser($options, [
             'allowfullscreen' => 'allowfullscreen',
             'height' => 480,
-            'ratio' => '16by9',
+            'ratio' => '16x9',
             'width' => 640,
         ]);
 
-        return $this->iframe(sprintf('https://www.youtube.com/embed/%s', $id), $options->toArray());
+        return $this->iframe('https://www.youtube.com/embed/' . $id, $options->toArray());
     }
 }

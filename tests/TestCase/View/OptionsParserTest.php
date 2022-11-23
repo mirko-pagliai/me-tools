@@ -60,6 +60,7 @@ class OptionsParserTest extends TestCase
 
     /**
      * Tests for `buildValue()` method
+     * @uses \MeTools\View\OptionsParser::buildValue()
      * @test
      */
     public function testBuildValue(): void
@@ -90,6 +91,7 @@ class OptionsParserTest extends TestCase
 
     /**
      * Tests for `add()` method
+     * @uses \MeTools\View\OptionsParser::add()
      * @test
      */
     public function testAdd(): void
@@ -120,6 +122,7 @@ class OptionsParserTest extends TestCase
 
     /**
      * Tests for `addButtonClasses()` method
+     * @uses \MeTools\View\OptionsParser::addButtonClasses()
      * @test
      */
     public function testAddButtonClasses(): void
@@ -192,6 +195,7 @@ class OptionsParserTest extends TestCase
 
     /**
      * Tests for `append()` method
+     * @uses \MeTools\View\OptionsParser::append()
      * @test
      */
     public function testAppend(): void
@@ -228,6 +232,7 @@ class OptionsParserTest extends TestCase
 
     /**
      * Tests for `consume()` method
+     * @uses \MeTools\View\OptionsParser::consume()
      * @test
      */
     public function testConsume(): void
@@ -247,6 +252,7 @@ class OptionsParserTest extends TestCase
 
     /**
      * Tests for `contains()` method
+     * @uses \MeTools\View\OptionsParser::contains()
      * @test
      */
     public function testContains(): void
@@ -269,6 +275,7 @@ class OptionsParserTest extends TestCase
 
     /**
      * Tests for `delete()` method
+     * @uses \MeTools\View\OptionsParser::delete()
      * @test
      */
     public function testDelete(): void
@@ -290,6 +297,7 @@ class OptionsParserTest extends TestCase
 
     /**
      * Tests for `exists()` method
+     * @uses \MeTools\View\OptionsParser::exists()
      * @test
      */
     public function testExists(): void
@@ -307,6 +315,7 @@ class OptionsParserTest extends TestCase
 
     /**
      * Tests for `get()` method
+     * @uses \MeTools\View\OptionsParser::get()
      * @test
      */
     public function testGet(): void
@@ -322,6 +331,7 @@ class OptionsParserTest extends TestCase
 
     /**
      * Tests for `toArray()` method
+     * @uses \MeTools\View\OptionsParser::toArray()
      * @test
      */
     public function testToArray(): void
@@ -342,7 +352,8 @@ class OptionsParserTest extends TestCase
     }
 
     /**
-     * Tests for `toArray()` method
+     * Tests for `toString()` method
+     * @uses \MeTools\View\OptionsParser::toString()
      * @test
      */
     public function testToString(): void
@@ -358,20 +369,21 @@ class OptionsParserTest extends TestCase
 
     /**
      * Tests for `tooltip()` method
+     * @uses \MeTools\View\OptionsParser::tooltip()
      * @test
      */
     public function testTooltip(): void
     {
-        $this->OptionsParser->add('title', 'a title');
-        $this->assertEquals('a title', $this->OptionsParser->get('title'));
+        $result = $this->OptionsParser->tooltip();
+        $this->assertNull($result->get('data-bs-title'));
 
         $result = $this->OptionsParser->add('tooltip', 'a tooltip')->tooltip();
         $this->assertInstanceOf(OptionsParser::class, $result);
-        $this->assertEquals('a tooltip', $result->get('title'));
-        $this->assertFalse($result->exists('data-placement'));
+        $this->assertEquals('a tooltip', $result->get('data-bs-title'));
+        $this->assertFalse($result->exists('data-bs-placement'));
 
         $result->add(['tooltip' => 'a tooltip', 'tooltip-align' => 'right'])->tooltip();
-        $this->assertEquals('a tooltip', $result->get('title'));
-        $this->assertEquals('right', $result->get('data-placement'));
+        $this->assertEquals('a tooltip', $result->get('data-bs-title'));
+        $this->assertEquals('right', $result->get('data-bs-placement'));
     }
 }

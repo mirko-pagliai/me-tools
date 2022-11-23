@@ -48,6 +48,7 @@ abstract class TestCase extends CakeTestCase
     /**
      * Called after every test method
      * @return void
+     * @throws \Throwable
      */
     protected function tearDown(): void
     {

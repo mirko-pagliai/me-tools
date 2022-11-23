@@ -17,7 +17,7 @@ namespace MeTools\Test\TestCase\Utility;
 use Cake\View\View;
 use MeTools\TestSuite\TestCase;
 use MeTools\Utility\BBCode;
-use MeTools\View\Helper\BootstrapHtmlHelper;
+use MeTools\View\Helper\HtmlHelper;
 
 /**
  * BBCodeTest class
@@ -30,9 +30,9 @@ class BBCodeTest extends TestCase
     public BBCode $BBCode;
 
     /**
-     * @var \MeTools\View\Helper\BootstrapHtmlHelper
+     * @var \MeTools\View\Helper\HtmlHelper
      */
-    protected BootstrapHtmlHelper $Html;
+    protected HtmlHelper $Html;
 
     /**
      * Called before every test method
@@ -42,7 +42,7 @@ class BBCodeTest extends TestCase
     {
         parent::setUp();
 
-        $this->Html ??= new BootstrapHtmlHelper(new View());
+        $this->Html ??= new HtmlHelper(new View());
         $this->BBCode ??= new BBCode($this->Html);
     }
 

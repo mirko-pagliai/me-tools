@@ -47,10 +47,8 @@ class OptionsParser
      */
     public function __construct(array $options = [], array $defaults = [])
     {
-        array_walk($defaults, [$this, 'buildValue']);
-        array_walk($options, [$this, 'buildValue']);
-        $this->defaults = $defaults;
-        $this->options = $options;
+        $this->addDefault($defaults);
+        $this->add($options);
     }
 
     /**
@@ -95,8 +93,7 @@ class OptionsParser
     /**
      * Adds button classes.
      *
-     * Classes can be passed as string, array or multiple arguments, with or
-     *  without the `btn-` prefix.
+     * Classes can be passed as string, array or multiple arguments, with or without the `btn-` prefix.
      *
      * Examples:
      * <code>
@@ -147,9 +144,8 @@ class OptionsParser
     /**
      * Appends a value.
      *
-     * If the existing value and the value to append are both strings, the
-     *  strings will be concatenated. In any other cases, an array of elements
-     *  will be created.
+     * If the existing value and the value to append are both strings, the strings will be concatenated. In any other
+     *  cases, an array of elements will be created.
      *
      * You can also pass an array with the keys and values as the only argument.
      * @param string|array<string, mixed> $key Key or array with keys and values
@@ -201,11 +197,9 @@ class OptionsParser
      *
      * If the existing value is an array:
      *  - if you pass an array, the elements of the two arrays will be compared;
-     *  - otherwise, it will be checked if the value you have passed is
-     *      contained in the array.
+     *  - otherwise, it will be checked if the value you have passed is contained in the array.
      *
-     * In all other cases, the value you have passed and your existing value
-     *  will be compared.
+     * In all other cases, the value you have passed and your existing value will be compared.
      * @param string $key Key
      * @param mixed $value Value
      * @return bool
@@ -303,10 +297,9 @@ class OptionsParser
     /**
      * Builds keys for tooltip.
      *
-     * Gets `tooltip` and `tooltip-align` keys and builds `data-tootle` and
-     *  `data-placement` keys, as required by Bootstrap tooltips.
+     * Gets `tooltip` and `tooltip-align` keys and builds `data-bs-toggle` and `data-bs-placement` keys.
      * @return $this
-     * @see http://getbootstrap.com/docs/4.0/components/tooltips
+     * @see https://getbootstrap.com/docs/5.2/components/tooltips
      */
     public function tooltip()
     {
@@ -315,11 +308,11 @@ class OptionsParser
             return $this;
         }
 
-        $this->append('data-toggle', 'tooltip');
-        $this->add('title', trim(h(strip_tags($tooltip))));
+        $this->append('data-bs-toggle', 'tooltip');
+        $this->add('data-bs-title', trim(h(strip_tags($tooltip))));
 
         if ($this->exists('tooltip-align')) {
-            $this->add('data-placement', $this->consume('tooltip-align'));
+            $this->add('data-bs-placement', $this->consume('tooltip-align'));
         }
 
         return $this;
