@@ -3,12 +3,12 @@
 ### 2.22.0
 * `BootstrapDropdownHelper`, `BootstrapFormHelper` and `BootstraptHtmlHelper` become the new `DropdownHelper`,
   `FormHelper` and `HtmlHelper`. The old helpers had been deprecated and completely replaced by the new ones;
+* fixed `OptionsParser::tooltip()` for the new bootstrap;
 * `datepicker()`, `datetimepicker()` and `timepicker()` methods provided by `LibraryHelper` were deprecated and have
   now been removed.
 
 ## 2.21 branch
 ### 2.21.6
-* fixed `OptionsParser::tooltip()` for the new bootstrap;
 * improved and simplified plugin loading;
 * improved `@method` tags for `BootstrapHtmlHelper`.
 
