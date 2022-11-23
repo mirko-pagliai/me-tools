@@ -1,6 +1,7 @@
 # 2.x branch
 ## 2.21 branch
 ### 2.21.6
+* fixed `OptionsParser::tooltip()` for the new bootstrap;
 * improved and simplified plugin loading;
 * improved `@method` tags for `BootstrapHtmlHelper`.
 

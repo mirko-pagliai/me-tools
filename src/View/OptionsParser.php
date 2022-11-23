@@ -303,10 +303,9 @@ class OptionsParser
     /**
      * Builds keys for tooltip.
      *
-     * Gets `tooltip` and `tooltip-align` keys and builds `data-tootle` and
-     *  `data-placement` keys, as required by Bootstrap tooltips.
+     * Gets `tooltip` and `tooltip-align` keys and builds `data-bs-toggle` and `data-bs-placement` keys.
      * @return $this
-     * @see http://getbootstrap.com/docs/4.0/components/tooltips
+     * @see https://getbootstrap.com/docs/5.2/components/tooltips
      */
     public function tooltip()
     {
@@ -315,11 +314,11 @@ class OptionsParser
             return $this;
         }
 
-        $this->append('data-toggle', 'tooltip');
-        $this->add('title', trim(h(strip_tags($tooltip))));
+        $this->append('data-bs-toggle', 'tooltip');
+        $this->add('data-bs-title', trim(h(strip_tags($tooltip))));
 
         if ($this->exists('tooltip-align')) {
-            $this->add('data-placement', $this->consume('tooltip-align'));
+            $this->add('data-bs-placement', $this->consume('tooltip-align'));
         }
 
         return $this;
