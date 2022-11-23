@@ -1,4 +1,5 @@
 <?php
+/** @noinspection PhpUnhandledExceptionInspection */
 declare(strict_types=1);
 
 /**
@@ -15,8 +16,6 @@ declare(strict_types=1);
 namespace MeTools\Test\TestCase\View\Helper;
 
 use MeTools\TestSuite\HelperTestCase;
-use MeTools\View\Helper\DropdownHelper;
-use MeTools\View\Helper\HtmlHelper;
 
 /**
  * DropdownHelperTest class
@@ -25,207 +24,71 @@ use MeTools\View\Helper\HtmlHelper;
 class DropdownHelperTest extends HelperTestCase
 {
     /**
-     * @var int
-     */
-    protected static int $current;
-
-    /**
-     * @var \MeTools\View\Helper\HtmlHelper
-     */
-    protected HtmlHelper $Html;
-
-    /**
-     * This method is called before the first test of this test class is run
+     * Test for `start()`, `link()` and `end()` methods
      * @return void
+     * @uses \MeTools\View\Helper\DropdownHelper::end()
+     * @uses \MeTools\View\Helper\DropdownHelper::link()
+     * @uses \MeTools\View\Helper\DropdownHelper::start()
      */
-    public static function setUpBeforeClass(): void
+    public function testStartLinkEndMethods(): void
     {
-        self::$current = error_reporting(E_ALL & ~E_USER_DEPRECATED);
-    }
-
-    /**
-     * This method is called after the last test of this test class is run
-     * @return void
-     */
-    public static function tearDownAfterClass(): void
-    {
-        error_reporting(self::$current);
-    }
-
-    /**
-     * Called before every test method
-     * @return void
-     */
-    protected function setUp(): void
-    {
-        parent::setUp();
-
-        $this->Html ??= new HtmlHelper($this->Helper->getView());
-    }
-
-    /**
-     * Tests the entire class is deprecated
-     * @return void
-     */
-    public function testClassIsDeprecated(): void
-    {
-        error_reporting(self::$current);
-        $this->assertDeprecated(fn() => new DropdownHelper($this->Helper->getView()), '`DropdownHelper` is deprecated. Use instead `BootstrapDropdownHelper`');
-        self::$current = error_reporting(E_ALL & ~E_USER_DEPRECATED);
-    }
-
-    /**
-     * Tests for `menu()`, `start()` and `end()` methods
-     * @test
-     */
-    public function testMenuAndStartAndEnd(): void
-    {
-        //No dropdown menu again...
-        $this->assertNull($this->Helper->end());
-
-        $text = 'My dropdown';
         $expected = [
-            ['a' => [
+            'a' => [
                 'href' => '#',
                 'aria-expanded' => 'false',
-                'aria-haspopup' => 'true',
-                'class' => 'dropdown-toggle',
-                'data-toggle' => 'dropdown',
-                'title' => $text,
-            ]],
-            $text,
-            '/a',
-            'div' => ['class' => 'dropdown-menu'],
-            ['a' => ['href' => '/first', 'class' => 'dropdown-item', 'title' => 'First link']],
-            'First link',
-            '/a',
-            ['a' => ['href' => '/second', 'class' => 'dropdown-item', 'title' => 'Second link']],
-            'Second link',
-            '/a',
-            '/div',
-        ];
-
-        //Empty dropdown
-        $this->Helper->start($text);
-        echo 'hello!';
-        $this->assertNull($this->Helper->end());
-
-        $this->Helper->start($text);
-        echo $this->Html->link('First link', '/first', ['class' => 'dropdown-item']);
-        echo $this->Html->link('Second link', '/second', ['class' => 'dropdown-item']);
-        $this->assertHtml($expected, $this->Helper->end() ?: '');
-
-        //With `menu()` method
-        $result = $this->Helper->menu($text, [
-            $this->Html->link('First link', '/first', ['class' => 'dropdown-item']),
-            $this->Html->link('Second link', '/second', ['class' => 'dropdown-item']),
-        ]);
-        $this->assertHtml($expected, $result ?: '');
-
-        //With callback
-        $result = call_user_func(function () use ($text): ?string {
-            $this->Helper->start($text);
-            echo $this->Html->link('First link', '/first', ['class' => 'dropdown-item']);
-            echo $this->Html->link('Second link', '/second', ['class' => 'dropdown-item']);
-
-            return $this->Helper->end();
-        });
-        $this->assertHtml($expected, $result);
-
-        $expected = [
-            ['a' => [
-                'href' => '#',
                 'class' => 'dropdown-toggle my-start-class',
-                'aria-expanded' => 'false',
-                'aria-haspopup' => 'true',
-                'data-toggle' => 'dropdown',
-                'title' => $text,
-            ]],
-            ['i' => ['class' => 'fas fa-home']],
-            ' ',
+                'data-bs-toggle' => 'dropdown',
+                'id' => 'preg:/dropdown_[a-z0-9]+/',
+                'title' => 'My title',
+            ],
+            'i' => ['class' => 'fas fa-home'],
             '/i',
-            ' ',
-            $text,
+            'My title',
             '/a',
-            'div' => ['class' => 'div-custom-class dropdown-menu', 'attr' => 'value'],
-            ['a' => ['href' => '/first', 'class' => 'dropdown-item', 'title' => 'First link']],
-            'First link',
-            '/a',
-            ['a' => ['href' => '/second', 'class' => 'dropdown-item', 'title' => 'Second link']],
-            'Second link',
-            '/a',
-            '/div',
-        ];
-
-        //Start link with custom class
-        $this->Helper->start($text, ['class' => 'my-start-class', 'icon' => 'home']);
-        echo $this->Html->link('First link', '/first', ['class' => 'dropdown-item']);
-        echo $this->Html->link('Second link', '/second', ['class' => 'dropdown-item']);
-        //Div wrapper with custom class and attribute
-        $result = $this->Helper->end(['class' => 'div-custom-class', 'attr' => 'value']);
-        $this->assertHtml($expected, $result ?: '');
-
-        //With `menu()` method
-        $links = [
-            $this->Html->link('First link', '/first', ['class' => 'dropdown-item']),
-            $this->Html->link('Second link', '/second', ['class' => 'dropdown-item']),
-        ];
-        $result = $this->Helper->menu(
-            $text,
-            $links,
-            ['class' => 'my-start-class', 'icon' => 'home'],
-            ['class' => 'div-custom-class', 'attr' => 'value']
-        );
-        $this->assertHtml($expected, $result ?: '');
-
-        $expected = [
-            ['ul' => true],
-            ['li' => true],
-            ['a' => ['href' => '/', 'title' => 'Home']],
-            'Home',
-            '/a',
-            '/li',
-            ['li' => true],
+            'ul' => [
+                'aria-labelledby' => 'preg:/dropdown_[a-z0-9]+/',
+                'class' => 'dropdown-menu my-div-class',
+                'style' => 'background:red',
+            ],
+            ['li' => []],
             ['a' => [
-                'href' => '#',
-                'aria-expanded' => 'false',
-                'aria-haspopup' => 'true',
-                'class' => 'dropdown-toggle',
-                'data-toggle' => 'dropdown',
-                'title' => $text,
+                'href' => '/first',
+                'class' => 'dropdown-item my-first-link-class',
+                'title' => 'First link',
             ]],
-            $text,
-            '/a',
-            'div' => ['class' => 'dropdown-menu'],
-            ['a' => ['href' => '/first', 'class' => 'dropdown-item', 'title' => 'First link']],
             'First link',
             '/a',
-            ['a' => ['href' => '/second', 'class' => 'dropdown-item', 'title' => 'Second link']],
-            'Second link',
-            '/a',
-            '/div',
             '/li',
-            ['li' => true],
-            ['a' => ['href' => '#', 'title' => 'Other main link']],
-            'Other main link',
+            ['li' => []],
+            ['a' => [
+                'href' => '/second',
+                'class' => 'dropdown-item my-second-link-class',
+                'title' => 'Second link',
+            ]],
+            'Second link',
             '/a',
             '/li',
             '/ul',
         ];
-
-        //Dropdown inside a list, with other links
-        $result = $this->Html->ul([
-            $this->Html->link('Home', '/'),
-            //This is the dropdown menu
-            call_user_func(function () use ($links): ?string {
-                $this->Helper->start('My dropdown');
-                echo $links[0];
-                echo $links[1];
-
-                return $this->Helper->end();
-            }),
-            $this->Html->link('Other main link', '#'),
-        ]);
+        $this->Helper->start('My title', ['class' => 'my-start-class', 'icon' => 'home']);
+        $this->Helper->link('First link', '/first', ['class' => 'my-first-link-class']);
+        $this->Helper->link('Second link', '/second', ['class' => 'my-second-link-class']);
+        $result = $this->Helper->end(['class' => 'my-div-class', 'style' => 'background:red']);
         $this->assertHtml($expected, $result);
+
+        $this->expectErrorMessage('The dropdown has no content. Perhaps the `link()` method was never called');
+        $this->Helper->start('My title');
+        $this->Helper->end();
+    }
+
+    /**
+     * Test for `end()` method, with the `start()` method not called
+     * @return void
+     * @uses \MeTools\View\Helper\DropdownHelper::end()
+     */
+    public function testEndWithNoStart(): void
+    {
+        $this->expectErrorMessage('The `start()` method was not called before `end()`');
+        $this->Helper->end();
     }
 }
