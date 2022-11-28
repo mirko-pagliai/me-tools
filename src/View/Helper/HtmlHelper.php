@@ -26,6 +26,8 @@ use Tools\Exceptionist;
  * @method string h5(?string $text = null, array $options = [])
  * @method string h6(?string $text = null, array $options = [])
  * @method string span(?string $text = null, array $options = [])
+ * @method string time(?string $text = null, array $options = [])
+ * @method string title(?string $text = null, array $options = [])
  * @property \MeTools\View\Helper\IconHelper $Icon
  * @property \Cake\View\Helper\UrlHelper $Url
  */
