@@ -55,6 +55,7 @@ class BBCodeTest extends TestCase
     {
         $expected = '<p>Some para text</p>' . PHP_EOL .
             '<!-- read-more -->' . PHP_EOL .
+            '<hr />' . PHP_EOL .
             '<span>Some span text</span>' . PHP_EOL .
             '<div class="ratio ratio-16x9"><iframe allowfullscreen="allowfullscreen" height="480" src="https://www.youtube.com/embed/bL_CJKq9rIw" width="640"></iframe></div>' . PHP_EOL .
             '<div>Some div text</div>' . PHP_EOL;
@@ -62,6 +63,7 @@ class BBCodeTest extends TestCase
         ob_start();
         echo '<p>Some para text</p>' . PHP_EOL;
         echo '[readmore /]' . PHP_EOL;
+        echo '[hr /]' . PHP_EOL;
         echo '<span>Some span text</span>' . PHP_EOL;
         echo '[youtube]bL_CJKq9rIw[/youtube]' . PHP_EOL;
         echo '<div>Some div text</div>' . PHP_EOL;
@@ -92,13 +94,25 @@ class BBCodeTest extends TestCase
     }
 
     /**
+     * Tests for `hr()` method
+     * @uses \MeTools\Utility\BBCode::hr()
+     * @test
+     */
+    public function testHr(): void
+    {
+        $this->assertSame('<hr />', $this->BBCode->hr('[hr]'));
+        $this->assertSame('<hr />', $this->BBCode->hr('[hr/]'));
+        $this->assertSame('<hr />', $this->BBCode->hr('[hr /]'));
+    }
+
+    /**
      * Tests for `image()` method
      * @uses \MeTools\Utility\BBCode::image()
      * @test
      */
     public function testImage(): void
     {
-        $this->assertSame($this->Html->image('my_pic.gif'), $this->BBCode->image('[img]my_pic.gif[/img]'));
+        $this->assertSame('', $this->BBCode->image('[img]my_pic.gif[/img]'));
     }
 
     /**

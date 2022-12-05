@@ -1,6 +1,7 @@
 # 2.x branch
 ## 2.22 branch
 ### 2.21.1
+* added `BBCode::hr()` method;
 * (re)added `HtmlHelper::shareaholic()` method.
 
 ### 2.22.0

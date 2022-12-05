@@ -30,10 +30,11 @@ class BBCode
     public HtmlHelper $Html;
 
     /**
-     * Pattern
-     * @var array
+     * Patterns
+     * @var array<string, string>
      */
     protected array $pattern = [
+        'hr' => '/\[hr\s*\/?]/',
         'image' => '/\[img](.+?)\[\/img]/',
         'readmore' => '/(<p(>|.*?[^?]>))?\[read-?more\s*\/?\s*](<\/p>)?/',
         'url' => '/\[url=[\'"](.+?)[\'"]](.+?)\[\/url]/',
@@ -78,6 +79,17 @@ class BBCode
     public function remove(string $text): string
     {
         return trim(preg_replace($this->pattern, '', $text) ?: '');
+    }
+
+    /**
+     * Parses horizontal rule code
+     * @param string $text Text
+     * @return string
+     * @since 2.21.1
+     */
+    public function hr(string $text): string
+    {
+        return preg_replace($this->pattern['hr'], '<hr />', $text);
     }
 
     /**
