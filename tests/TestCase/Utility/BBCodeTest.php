@@ -171,5 +171,8 @@ class BBCodeTest extends TestCase
         ] as $text) {
             $this->assertSame($expected, $this->BBCode->youtube($text));
         }
+
+        $expected = $this->Html->youtube('bL_CJKq9rIw');
+        $this->assertSame($expected, $this->BBCode->youtube('<p>[youtube]bL_CJKq9rIw[/youtube]</p>'));
     }
 }

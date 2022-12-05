@@ -38,7 +38,7 @@ class BBCode
         'image' => '/\[img](.+?)\[\/img]/',
         'readmore' => '/(<p(>|.*?[^?]>))?\[read-?more\s*\/?\s*](<\/p>)?/',
         'url' => '/\[url=[\'"](.+?)[\'"]](.+?)\[\/url]/',
-        'youtube' => '/\[youtube](.+?)\[\/youtube]/',
+        'youtube' => '/(<p(>|.*?[^?]>))?\[youtube](.+?)\[\/youtube](<\/p>)?/',
     ];
 
     /**
@@ -149,15 +149,16 @@ class BBCode
     public function youtube(string $text): string
     {
         return preg_replace_callback($this->pattern['youtube'], function (array $matches): string {
-            if (is_url($matches[1])) {
-                $id = Youtube::getId($matches[1]) ?: '';
-                parse_str(parse_url($matches[1], PHP_URL_QUERY) ?: '', $query);
+            if (is_url($matches[3])) {
+                $id = Youtube::getId($matches[3]) ?: '';
+                parse_str(parse_url($matches[3], PHP_URL_QUERY) ?: '', $query);
                 if (isset($query['t']) && is_string($query['t'])) {
                     $id .= '?start=' . $query['t'];
                 }
             } else {
-                $id = $matches[1];
+                $id = $matches[3];
             }
+
             return $this->Html->youtube($id);
         }, $text) ?: '';
     }
