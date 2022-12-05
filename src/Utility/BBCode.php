@@ -89,7 +89,7 @@ class BBCode
      */
     public function hr(string $text): string
     {
-        return preg_replace($this->pattern['hr'], '<hr />', $text);
+        return preg_replace($this->pattern['hr'], '<hr />', $text) ?: '';
     }
 
     /**
