@@ -112,7 +112,7 @@ class BBCodeTest extends TestCase
      */
     public function testImage(): void
     {
-        $this->assertSame('', $this->BBCode->image('[img]my_pic.gif[/img]'));
+        $this->assertSame($this->Html->image('my_pic.gif'), $this->BBCode->image('[img]my_pic.gif[/img]'));
     }
 
     /**
@@ -160,6 +160,14 @@ class BBCodeTest extends TestCase
             '[youtube]https://youtube.com/watch?v=bL_CJKq9rIw[/youtube]',
             '[youtube]https://www.youtube.com/watch?v=bL_CJKq9rIw[/youtube]',
             '[youtube]https://youtu.be/bL_CJKq9rIw[/youtube]',
+        ] as $text) {
+            $this->assertSame($expected, $this->BBCode->youtube($text));
+        }
+
+        $expected = $this->Html->youtube('-YcwR89cfao?t=62');
+        foreach ([
+            '[youtube]https://youtu.be/-YcwR89cfao?t=62[/youtube]',
+            '[youtube]-YcwR89cfao?t=62[/youtube]',
         ] as $text) {
             $this->assertSame($expected, $this->BBCode->youtube($text));
         }

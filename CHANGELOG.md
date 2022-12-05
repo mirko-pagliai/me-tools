@@ -1,7 +1,7 @@
 # 2.x branch
 ## 2.22 branch
 ### 2.21.1
-* `Html::youtube()` method can handle the starting second (`start` get parameter);
+* `Html::youtube()` and `BBCode::youtube()` methods can handle the starting second (`start` get parameter);
 * added `BBCode::hr()` method;
 * (re)added `HtmlHelper::shareaholic()` method.
 
