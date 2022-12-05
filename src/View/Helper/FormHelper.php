@@ -280,9 +280,8 @@ class FormHelper extends BaseFormHelper
     public function createInline($context = null, array $options = []): string
     {
         $this->isInline = true;
-        $options = optionsParser($options)->append('class', 'row row-cols-lg-auto g-3 align-items-center');
 
-        return parent::create($context, $options->toArray());
+        return parent::create($context, $options);
     }
 
     /**

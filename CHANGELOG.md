@@ -4,7 +4,8 @@
 * `Html::youtube()` and `BBCode::youtube()` methods can handle the starting second (`start` get parameter);
 * `BBCode::youtube()` method removes unnecessary `<p>` tags around the code;
 * added `BBCode::hr()` method;
-* (re)added `HtmlHelper::shareaholic()` method.
+* (re)added `HtmlHelper::shareaholic()` method;
+* fixed code for `FormHelper::createInline()` method.
 
 ### 2.22.0
 * `BootstrapDropdownHelper`, `BootstrapFormHelper` and `BootstraptHtmlHelper` become the new `DropdownHelper`,
