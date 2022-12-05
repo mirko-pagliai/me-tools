@@ -317,6 +317,7 @@ class HtmlHelper extends BaseHtmlHelper
      */
     public function youtube(string $id, array $options = []): string
     {
+        $id = str_replace('?t=', '?start=', $id);
         $options = optionsParser($options, [
             'allowfullscreen' => 'allowfullscreen',
             'height' => 480,
