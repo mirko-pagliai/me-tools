@@ -149,7 +149,6 @@ class BBCode
     public function youtube(string $text): string
     {
         return preg_replace_callback($this->pattern['youtube'], function (array $matches): string {
-            $id = $matches[3];
             if (is_url($matches[3])) {
                 $id = Youtube::getId($matches[3]) ?: '';
                 parse_str(parse_url($matches[3], PHP_URL_QUERY) ?: '', $query);
@@ -158,7 +157,7 @@ class BBCode
                 }
             }
 
-            return $this->Html->youtube($id);
+            return $this->Html->youtube($id ?? $matches[3]);
         }, $text) ?: '';
     }
 }
