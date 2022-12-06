@@ -85,7 +85,7 @@ class BBCode
      * Parses horizontal rule code
      * @param string $text Text
      * @return string
-     * @since 2.21.1
+     * @since 2.22.1
      */
     public function hr(string $text): string
     {
