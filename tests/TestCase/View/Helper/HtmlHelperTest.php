@@ -263,6 +263,17 @@ class HtmlHelperTest extends HelperTestCase
     }
 
     /**
+     * Test for `shareaholic()` method
+     * @test
+     * @uses \MeTools\View\Helper\HtmlHelper::shareaholic()
+     */
+    public function testShareaholic(): void
+    {
+        $expected = '<div class="shareaholic-canvas" data-app="share_buttons" data-app-id="myAppId"></div>';
+        $this->assertSame($expected, $this->Helper->shareaholic('myAppId'));
+    }
+
+    /**
      * Test for `tag()` method
      * @test
      * @uses \MeTools\View\Helper\HtmlHelper::tag()
@@ -303,20 +314,24 @@ class HtmlHelperTest extends HelperTestCase
      */
     public function testYoutube(): void
     {
-        $expected = '<div class="ratio ratio-16x9"><iframe allowfullscreen="allowfullscreen" height="480" src="https://www.youtube.com/embed/my-id" width="640"></iframe></div>';
-        $result = $this->Helper->youtube('my-id');
+        $expected = '<div class="ratio ratio-16x9"><iframe allowfullscreen="allowfullscreen" height="480" src="https://www.youtube.com/embed/-YcwR89cfao" width="640"></iframe></div>';
+        $result = $this->Helper->youtube('-YcwR89cfao');
         $this->assertSame($expected, $result);
 
-        $expected = '<div class="ratio ratio-4x3"><iframe allowfullscreen="allowfullscreen" height="480" src="https://www.youtube.com/embed/my-id" width="640"></iframe></div>';
-        $result = $this->Helper->youtube('my-id', ['ratio' => '4x3']);
+        $expected = '<div class="ratio ratio-4x3"><iframe allowfullscreen="allowfullscreen" height="480" src="https://www.youtube.com/embed/-YcwR89cfao" width="640"></iframe></div>';
+        $result = $this->Helper->youtube('-YcwR89cfao', ['ratio' => '4x3']);
         $this->assertSame($expected, $result);
 
-        $expected = '<iframe allowfullscreen="allowfullscreen" height="480" src="https://www.youtube.com/embed/my-id" width="640"></iframe>';
-        $result = $this->Helper->youtube('my-id', ['ratio' => false]);
+        $expected = '<iframe allowfullscreen="allowfullscreen" height="480" src="https://www.youtube.com/embed/-YcwR89cfao" width="640"></iframe>';
+        $result = $this->Helper->youtube('-YcwR89cfao', ['ratio' => false]);
         $this->assertSame($expected, $result);
 
-        $expected = '<div class="ratio ratio-16x9"><iframe allowfullscreen="allowfullscreen" class="my-class" height="100" src="https://www.youtube.com/embed/my-id" width="200"></iframe></div>';
-        $result = $this->Helper->youtube('my-id', ['class' => 'my-class', 'height' => 100, 'width' => 200]);
+        $expected = '<div class="ratio ratio-16x9"><iframe allowfullscreen="allowfullscreen" class="my-class" height="100" src="https://www.youtube.com/embed/-YcwR89cfao" width="200"></iframe></div>';
+        $result = $this->Helper->youtube('-YcwR89cfao', ['class' => 'my-class', 'height' => 100, 'width' => 200]);
+        $this->assertSame($expected, $result);
+
+        $expected = '<div class="ratio ratio-16x9"><iframe allowfullscreen="allowfullscreen" height="480" src="https://www.youtube.com/embed/-YcwR89cfao?start=80" width="640"></iframe></div>';
+        $result = $this->Helper->youtube('-YcwR89cfao?t=80');
         $this->assertSame($expected, $result);
     }
 }

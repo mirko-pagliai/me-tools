@@ -26,6 +26,8 @@ use Tools\Exceptionist;
  * @method string h5(?string $text = null, array $options = [])
  * @method string h6(?string $text = null, array $options = [])
  * @method string span(?string $text = null, array $options = [])
+ * @method string time(?string $text = null, array $options = [])
+ * @method string title(?string $text = null, array $options = [])
  * @property \MeTools\View\Helper\IconHelper $Icon
  * @property \Cake\View\Helper\UrlHelper $Url
  */
@@ -241,6 +243,21 @@ class HtmlHelper extends BaseHtmlHelper
     }
 
     /**
+     * Returns the Shareaholic "share buttons".
+     *
+     * Note that this code only renders the Shareaholic "share button".
+     * @param string $appId Shareaholic app ID
+     * @return string
+     */
+    public function shareaholic(string $appId): string
+    {
+        return $this->div('shareaholic-canvas', '', [
+            'data-app' => 'share_buttons',
+            'data-app-id' => $appId,
+        ]);
+    }
+
+    /**
      * Returns a formatted block tag, i.e DIV, SPAN, P.
      *
      * See the parent method for all available options.
@@ -300,6 +317,7 @@ class HtmlHelper extends BaseHtmlHelper
      */
     public function youtube(string $id, array $options = []): string
     {
+        $id = str_replace('?t=', '?start=', $id);
         $options = optionsParser($options, [
             'allowfullscreen' => 'allowfullscreen',
             'height' => 480,

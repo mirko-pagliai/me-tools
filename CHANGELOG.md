@@ -1,5 +1,12 @@
 # 2.x branch
 ## 2.22 branch
+### 2.21.1
+* `Html::youtube()` and `BBCode::youtube()` methods can handle the starting second (`start` get parameter);
+* `BBCode::youtube()` method removes unnecessary `<p>` tags around the code;
+* added `BBCode::hr()` method;
+* (re)added `HtmlHelper::shareaholic()` method;
+* fixed code for `FormHelper::createInline()` method.
+
 ### 2.22.0
 * `BootstrapDropdownHelper`, `BootstrapFormHelper` and `BootstraptHtmlHelper` become the new `DropdownHelper`,
   `FormHelper` and `HtmlHelper`. The old helpers had been deprecated and completely replaced by the new ones;

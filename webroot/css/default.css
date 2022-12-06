@@ -13,23 +13,6 @@
 /* -------------------------------- */
 /*        HTML and general          */
 /* -------------------------------- */
-/* Figure */
-figure {
-    display: inline-block;
-}
-
-/* Figure, figure caption */
-figure figcaption {
-    color: #868e96;
-    font-size: 90%;
-}
-
-/* Iframe */
-iframe {
-    border: 0;
-    max-width: 100%;
-}
-
 /* Pre */
 pre {
     overflow-y: scroll;
@@ -98,17 +81,4 @@ th a.asc:after {
 /* Descending sort */
 th a.desc:after {
     content: "\f161";
-}
-
-/* -------------------------------- */
-/*              Fancybox            */
-/* -------------------------------- */
-/* Fancybox's title */
-.fancybox-title {
-    text-align: justify;
-}
-
-/* Fancybox's title over wrap */
-.fancybox-title.fancybox-title-over-wrap {
-    width: 100%;
 }

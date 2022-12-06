@@ -30,14 +30,15 @@ class BBCode
     public HtmlHelper $Html;
 
     /**
-     * Pattern
-     * @var array
+     * Patterns
+     * @var array<string, string>
      */
     protected array $pattern = [
+        'hr' => '/\[hr\s*\/?]/',
         'image' => '/\[img](.+?)\[\/img]/',
         'readmore' => '/(<p(>|.*?[^?]>))?\[read-?more\s*\/?\s*](<\/p>)?/',
         'url' => '/\[url=[\'"](.+?)[\'"]](.+?)\[\/url]/',
-        'youtube' => '/\[youtube](.+?)\[\/youtube]/',
+        'youtube' => '/(<p(>|.*?[^?]>))?\[youtube](.+?)\[\/youtube](<\/p>)?/',
     ];
 
     /**
@@ -78,6 +79,17 @@ class BBCode
     public function remove(string $text): string
     {
         return trim(preg_replace($this->pattern, '', $text) ?: '');
+    }
+
+    /**
+     * Parses horizontal rule code
+     * @param string $text Text
+     * @return string
+     * @since 2.21.1
+     */
+    public function hr(string $text): string
+    {
+        return preg_replace($this->pattern['hr'], '<hr />', $text) ?: '';
     }
 
     /**
@@ -136,6 +148,16 @@ class BBCode
      */
     public function youtube(string $text): string
     {
-        return preg_replace_callback($this->pattern['youtube'], fn($matches): string => $this->Html->youtube(is_url($matches[1]) ? (Youtube::getId($matches[1]) ?: '') : $matches[1]), $text) ?: '';
+        return preg_replace_callback($this->pattern['youtube'], function (array $matches): string {
+            if (is_url($matches[3])) {
+                $id = Youtube::getId($matches[3]) ?: '';
+                parse_str(parse_url($matches[3], PHP_URL_QUERY) ?: '', $query);
+                if (isset($query['t']) && is_string($query['t'])) {
+                    $id .= '?start=' . $query['t'];
+                }
+            }
+
+            return $this->Html->youtube($id ?? $matches[3]);
+        }, $text) ?: '';
     }
 }
