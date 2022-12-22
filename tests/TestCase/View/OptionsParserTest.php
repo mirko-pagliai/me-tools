@@ -17,12 +17,15 @@ namespace MeTools\Test\TestCase\View;
 
 use MeTools\TestSuite\TestCase;
 use MeTools\View\OptionsParser;
+use Tools\TestSuite\ReflectionTrait;
 
 /**
  * MeTools\View\OptionsParser Test Case
  */
 class OptionsParserTest extends TestCase
 {
+    use ReflectionTrait;
+
     /**
      * @var \MeTools\View\OptionsParser
      */

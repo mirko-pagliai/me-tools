@@ -1,5 +1,8 @@
 # 2.x branch
 ## 2.22 branch
+### 2.22.2
+* many, small code improvements.
+
 ### 2.22.1
 * `Html::youtube()` and `BBCode::youtube()` methods can handle the starting second (`start` get parameter);
 * `BBCode::youtube()` method removes unnecessary `<p>` tags around the code;

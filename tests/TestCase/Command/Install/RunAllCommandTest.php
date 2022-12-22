@@ -15,6 +15,7 @@ declare(strict_types=1);
 namespace MeTools\Test\TestCase\Command\Install;
 
 use Cake\Console\ConsoleIo;
+use MeTools\Command\Install\RunAllCommand;
 use MeTools\Console\Command;
 use MeTools\TestSuite\ConsoleIntegrationTestTrait;
 use MeTools\TestSuite\TestCase;
@@ -25,11 +26,6 @@ use MeTools\TestSuite\TestCase;
 class RunAllCommandTest extends TestCase
 {
     use ConsoleIntegrationTestTrait;
-
-    /**
-     * @var bool
-     */
-    protected bool $autoInitializeClass = true;
 
     /**
      * @var array
@@ -43,22 +39,17 @@ class RunAllCommandTest extends TestCase
      */
     public function testExecute(): void
     {
-        /** @var \MeTools\Command\Install\RunAllCommand $Command */
-        $Command = $this->Command;
+        $Command = new RunAllCommand();
 
-        $io = $this->getMockBuilder(ConsoleIo::class)
-            ->onlyMethods(['askChoice'])
-            ->getMock();
+        $io = $this->createConfiguredMock(ConsoleIo::class, ['askChoice' => 'y']);
 
-        $io->method('askChoice')->will($this->returnValue('y'));
-
-        $Command->questions = array_map(function ($question) {
+        $Command->questions = array_map(function (array $question): array {
             $command = $this->getMockBuilder(Command::class)
                 ->onlyMethods(['execute'])
                 ->getMock();
-            $command->method('execute')->will($this->returnCallback(function () use ($question) {
+            $command->method('execute')->willReturnCallback(function () use ($question) {
                 $this->debug[] = $question['command'];
-            }));
+            });
 
             return array_merge($question, compact('command'));
         }, $Command->questions);

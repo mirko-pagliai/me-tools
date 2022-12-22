@@ -19,6 +19,7 @@ use Cake\Core\Configure;
 use MeTools\Command\Install\SetPermissionsCommand;
 use MeTools\TestSuite\ConsoleIntegrationTestTrait;
 use MeTools\TestSuite\TestCase;
+use Tools\Filesystem;
 
 /**
  * SetPermissionsCommandTest class
@@ -34,16 +35,11 @@ class SetPermissionsCommandTest extends TestCase
      */
     public function testExecute(): void
     {
-        $io = new ConsoleIo();
-        $Command = $this->getMockBuilder(SetPermissionsCommand::class)
-            ->onlyMethods(['folderChmod'])
-            ->getMock();
-
-        $dirs = Configure::read('WRITABLE_DIRS');
-        $method = $Command->expects($this->exactly(count($dirs)))->method('folderChmod');
-        $consecutiveCalls = array_map(fn(string $path): array => [$io, $path], $dirs);
-        call_user_func_array([$method, 'withConsecutive'], $consecutiveCalls);
-
-        $this->assertNull($Command->run([], $io));
+        $expectedDirs = array_unique(Configure::readOrFail('WRITABLE_DIRS'));
+        $this->exec('me_tools.set_permissions -v');
+        $this->assertExitSuccess();
+        foreach (array_map([Filesystem::instance(), 'rtr'], $expectedDirs) as $expectedDir) {
+            $this->assertOutputContains('Set permissions on `' . $expectedDir . '`');
+        }
     }
 }

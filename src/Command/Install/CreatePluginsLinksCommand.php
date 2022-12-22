@@ -48,14 +48,14 @@ class CreatePluginsLinksCommand extends Command
     public function execute(Arguments $args, ConsoleIo $io): void
     {
         foreach (Plugin::loaded() as $plugin) {
-            $srcPath = Plugin::path($plugin, 'webroot');
-            if (!is_dir($srcPath)) {
+            $webrootPath = Plugin::path($plugin, 'webroot');
+            if (!is_dir($webrootPath)) {
                 $io->verbose(__d('me_tools', 'Skipping plugin `{0}`. It does not have webroot folder', $plugin));
                 continue;
             }
 
             $io->verbose('For plugin: ' . $plugin);
-            $this->createLink($io, $srcPath, Filesystem::instance()->concatenate(WWW_ROOT, Inflector::underscore($plugin)));
+            $this->createLink($io, $webrootPath, Filesystem::instance()->concatenate(WWW_ROOT, Inflector::underscore($plugin)));
         }
     }
 }

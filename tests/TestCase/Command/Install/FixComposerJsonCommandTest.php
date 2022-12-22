@@ -47,20 +47,21 @@ class FixComposerJsonCommandTest extends TestCase
             'autoload' => ['psr-4' => ['App' => 'src']],
         ], JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
         $this->exec($this->command . ' -p ' . $file);
-        $this->assertExitWithSuccess();
+        $this->assertExitSuccess();
         $this->assertOutputContains('File `' . Filesystem::instance()->rtr($file) . '` has been fixed');
         $this->assertErrorEmpty();
     }
 
     /**
      * Tests for `execute()` method, with an already fixed file
+     * @uses \MeTools\Command\Install\FixComposerJsonCommand::execute()
      * @test
      */
     public function testExecuteAlreadyFixedFile(): void
     {
         $file = APP . 'composer.json';
         $this->exec($this->command . ' -p ' . $file);
-        $this->assertExitWithSuccess();
+        $this->assertExitSuccess();
         $this->assertOutputContains('File `' . Filesystem::instance()->rtr($file) . "` doesn't need to be fixed");
         $this->assertErrorEmpty();
         unlink(APP . 'composer.json');
@@ -68,6 +69,7 @@ class FixComposerJsonCommandTest extends TestCase
 
     /**
      * Tests for `execute()` method, with an invalid file
+     * @uses \MeTools\Command\Install\FixComposerJsonCommand::execute()
      * @test
      */
     public function testExecuteInvalidFile(): void
@@ -75,18 +77,19 @@ class FixComposerJsonCommandTest extends TestCase
         $file = TMP . 'invalid.json';
         Filesystem::instance()->createFile($file);
         $this->exec($this->command . ' -p ' . $file);
-        $this->assertExitWithError();
+        $this->assertExitError();
         $this->assertErrorContains('File `' . $file . '` does not seem a valid composer.json file');
     }
 
     /**
      * Tests for `execute()` method, with a no existing file
+     * @uses \MeTools\Command\Install\FixComposerJsonCommand::execute()
      * @test
      */
     public function testExecuteNoExistingFile(): void
     {
         $this->exec($this->command . ' -p noExisting');
-        $this->assertExitWithError();
+        $this->assertExitError();
         $this->assertErrorContains('File or directory `noExisting` is not writable');
     }
 }
