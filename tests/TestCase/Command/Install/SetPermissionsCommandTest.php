@@ -14,9 +14,7 @@ declare(strict_types=1);
  */
 namespace MeTools\Test\TestCase\Command\Install;
 
-use Cake\Console\ConsoleIo;
 use Cake\Core\Configure;
-use MeTools\Command\Install\SetPermissionsCommand;
 use MeTools\TestSuite\ConsoleIntegrationTestTrait;
 use MeTools\TestSuite\TestCase;
 use Tools\Filesystem;
@@ -35,10 +33,9 @@ class SetPermissionsCommandTest extends TestCase
      */
     public function testExecute(): void
     {
-        $expectedDirs = array_unique(Configure::readOrFail('WRITABLE_DIRS'));
         $this->exec('me_tools.set_permissions -v');
         $this->assertExitSuccess();
-        foreach (array_map([Filesystem::instance(), 'rtr'], $expectedDirs) as $expectedDir) {
+        foreach (array_map([Filesystem::instance(), 'rtr'], array_unique(Configure::readOrFail('WRITABLE_DIRS'))) as $expectedDir) {
             $this->assertOutputContains('Set permissions on `' . $expectedDir . '`');
         }
     }

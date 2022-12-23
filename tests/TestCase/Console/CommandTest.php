@@ -42,8 +42,6 @@ class CommandTest extends TestCase
     {
         $this->Command = $this->getMockForAbstractClass(Command::class);
 
-        parent::setUp();
-
         $this->_out = new StubConsoleOutput();
         $this->_err = new StubConsoleOutput();
         $this->io = $this->getMockBuilder(ConsoleIo::class)
@@ -51,6 +49,8 @@ class CommandTest extends TestCase
             ->addMethods(['in'])
             ->getMock();
         $this->io->level(ConsoleIo::VERBOSE);
+
+        parent::setUp();
     }
 
     /**
@@ -66,6 +66,7 @@ class CommandTest extends TestCase
 
     /**
      * Tests for `copyFile()` method
+     * @uses \MeTools\Console\Command::copyFile()
      * @test
      */
     public function testCopyFile(): void
@@ -152,6 +153,7 @@ class CommandTest extends TestCase
     /**
      * Tests for `createLink()` method
      * @requires OS Linux
+     * @uses \MeTools\Console\Command::createLink()
      * @test
      */
     public function testCreateLink(): void
@@ -176,6 +178,7 @@ class CommandTest extends TestCase
 
     /**
      * Tests for `folderChmod()` method
+     * @uses \MeTools\Console\Command::folderChmod()
      * @test
      */
     public function testFolderChmod(): void
