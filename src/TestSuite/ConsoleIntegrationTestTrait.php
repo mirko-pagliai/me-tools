@@ -30,31 +30,40 @@ trait ConsoleIntegrationTestTrait
     /**
      * @var \MeTools\Console\Command
      */
-    protected Command $Command;
+    protected Command $_Command;
+
+    /**
+     * Magic method
+     * @param string $name Property name
+     * @return \MeTools\Console\Command|void
+     * @noinspection PhpRedundantVariableDocTypeInspection
+     */
+    public function __get(string $name)
+    {
+        if ($name === 'Command') {
+            if (empty($this->_Command)) {
+                /** @var class-string<\MeTools\Console\Command> $className */
+                $className = $this->getOriginClassNameOrFail($this);
+                $this->_Command = new $className();
+
+                if (method_exists($this->_Command, 'initialize')) {
+                    $this->_Command->initialize();
+                }
+            }
+
+            return $this->_Command;
+        }
+    }
 
     /**
      * Called before every test method
      * @return void
-     * @noinspection PhpRedundantVariableDocTypeInspection
      */
     protected function setUp(): void
     {
-        /** @noinspection PhpMultipleClassDeclarationsInspection */
         parent::setUp();
 
-        if (empty($this->Command) && !empty($this->autoInitializeClass)) {
-            /** @var class-string<\MeTools\Console\Command> $className */
-            $className = $this->getOriginClassNameOrFail($this);
-            $this->Command = new $className();
-        }
-
-        if (!empty($this->Command) && method_exists($this->Command, 'initialize')) {
-            $this->Command->initialize();
-        }
-
-        if (str_ends_with($className ?? $this->getOriginClassName($this), 'Command')) {
-            $this->useCommandRunner();
-        }
+        $this->useCommandRunner();
     }
 
     /**
