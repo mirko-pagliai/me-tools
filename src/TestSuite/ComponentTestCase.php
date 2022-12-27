@@ -27,30 +27,28 @@ abstract class ComponentTestCase extends TestCase
     /**
      * @var \Cake\Controller\Component
      */
-    protected Component $Component;
+    private Component $_Component;
 
     /**
-     * If `true`, a mock instance of the component will be created
-     * @var bool
-     */
-    protected bool $autoInitializeClass = true;
-
-    /**
-     * Called before every test method
-     * @return void
+     * Magic method
+     * @param string $name Property name
+     * @return \Cake\Controller\Component|void
      * @noinspection PhpRedundantVariableDocTypeInspection
      */
-    protected function setUp(): void
+    public function __get(string $name)
     {
-        parent::setUp();
+        if ($name === 'Component') {
+            if (empty($this->_Component)) {
+                /** @var class-string<\Cake\Controller\Component> $className */
+                $className = $this->getOriginClassNameOrFail($this);
+                $this->_Component = new $className(new ComponentRegistry(new Controller()));
 
-        if (empty($this->Component) && $this->autoInitializeClass) {
-            /** @var class-string<\Cake\Controller\Component> $className */
-            $className = $this->getOriginClassNameOrFail($this);
-            $this->Component = new $className(new ComponentRegistry(new Controller()));
-        }
-        if (method_exists($this->Component, 'initialize')) {
-            $this->Component->initialize([]);
+                if (method_exists($this->_Component, 'initialize')) {
+                    $this->_Component->initialize([]);
+                }
+            }
+
+            return $this->_Component;
         }
     }
 }
