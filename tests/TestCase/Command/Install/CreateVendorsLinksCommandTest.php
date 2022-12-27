@@ -29,6 +29,7 @@ class CreateVendorsLinksCommandTest extends TestCase
     /**
      * Tests for `execute()` method
      * @uses \MeTools\Command\Install\CreateVendorsLinksCommand::execute()
+     * @requires OS Linux
      * @test
      */
     public function testExecute(): void

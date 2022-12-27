@@ -14,6 +14,8 @@
 ### 2.22.2
 * `assertExitWithError()` and `assertExitWithSuccess()` methods provided by `ConsoleIntegrationTestTrait` are now
   deprecated. Use instead `assertExitError()` and `assertExitSuccess()`;
+* `MockTrait::getMockForComponent()` is deprecated. Use instead `createPartialMock()`;
+* `MockTrait::getMockForController()` is deprecated. Create instead a new instance of `Controller`;
 * many, small code improvements.
 
 ### 2.22.1
