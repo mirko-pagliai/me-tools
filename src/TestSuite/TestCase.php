@@ -17,7 +17,6 @@ namespace MeTools\TestSuite;
 
 use Cake\Core\Configure;
 use Cake\ORM\Table;
-use Cake\ORM\TableRegistry;
 use Cake\TestSuite\TestCase as CakeTestCase;
 use Throwable;
 use Tools\Exceptionist;
@@ -83,8 +82,7 @@ abstract class TestCase extends CakeTestCase
      * Asserts a sql query string ends not with `$suffix`
      * @param string $suffix Suffix
      * @param string $sql Sql query string
-     * @param string $message The failure message that will be appended to the
-     *  generated message
+     * @param string $message The failure message that will be appended to the generated message
      * @return void
      * @since 2.20.7
      */
@@ -97,8 +95,7 @@ abstract class TestCase extends CakeTestCase
      * Asserts a sql query string ends with `$suffix`
      * @param string $suffix Suffix
      * @param string $sql Sql query string
-     * @param string $message The failure message that will be appended to the
-     *  generated message
+     * @param string $message The failure message that will be appended to the generated message
      * @return void
      * @since 2.20.7
      */
@@ -143,8 +140,8 @@ abstract class TestCase extends CakeTestCase
             return null;
         }
 
-        TableRegistry::getTableLocator()->clear();
+        $this->getTableLocator()->clear();
 
-        return TableRegistry::getTableLocator()->get($alias, $options);
+        return $this->getTableLocator()->get($alias, $options);
     }
 }
