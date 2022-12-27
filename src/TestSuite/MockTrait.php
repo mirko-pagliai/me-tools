@@ -45,7 +45,7 @@ trait MockTrait
      * Gets the alias name for which a test is being performed, starting from a class or a `TestCase` class.
      *
      * Example: class `MyPlugin\Test\TestCase\Controller\PagesControllerTest`  will return `Pages`.
-     * @param class-string<\PHPUnit\Framework\TestCase>|\PHPUnit\Framework\TestCase $class Class name or object
+     * @param class-string|object $class Class name or object
      * @return string
      * @throws \PHPUnit\Framework\AssertionFailedError|\ReflectionException
      * @since 2.19.9
