@@ -61,9 +61,11 @@ class MockTraitTest extends TestCase
      */
     public function testGetMockForComponent(): void
     {
+        $current = error_reporting(E_ALL & ~E_USER_DEPRECATED);
         $Component = $this->getMockForComponent('Cake\Controller\Component\FlashComponent');
         $this->assertIsMock($Component);
         $this->assertInstanceOf(Component::class, $Component);
+        error_reporting($current);
     }
 
     /**
@@ -73,6 +75,7 @@ class MockTraitTest extends TestCase
      */
     public function testGetMockForController(): void
     {
+        $current = error_reporting(E_ALL & ~E_USER_DEPRECATED);
         $Controller = $this->getMockForController(PagesController::class, []);
         $this->assertIsMock($Controller);
         $this->assertInstanceOf(Controller::class, $Controller);
@@ -87,6 +90,7 @@ class MockTraitTest extends TestCase
         $this->expectAssertionFailed('Class `App\Controller\NoExistingController` does not exist');
         /** @phpstan-ignore-next-line */
         $this->getMockForController('App\Controller\NoExistingController');
+        error_reporting($current);
     }
 
     /**
