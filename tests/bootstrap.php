@@ -78,10 +78,6 @@ Configure::write('App', [
     ],
 ]);
 
-/**
- * @todo Upgrade fixtures: https://book.cakephp.org/4/en/appendices/fixture-upgrade.html
- */
-Configure::write('Error.ignoredDeprecationPaths', ['*/cakephp/src/TestSuite/Fixture/FixtureInjector.php']);
 Configure::write('Session', ['defaults' => 'php']);
 Configure::write('Assets.target', TMP . 'assets');
 
