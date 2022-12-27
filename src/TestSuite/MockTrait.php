@@ -15,8 +15,6 @@ declare(strict_types=1);
  */
 namespace MeTools\TestSuite;
 
-use Cake\Controller\Component;
-use Cake\Controller\Controller;
 use Cake\View\Helper;
 use Cake\View\View;
 use PHPUnit\Framework\TestCase;
@@ -60,40 +58,6 @@ trait MockTrait
         }
 
         return $alias;
-    }
-
-    /**
-     * Mocks a component
-     * @param class-string<\Cake\Controller\Component> $className Component class name
-     * @param array<string> $methods The list of methods to mock
-     * @return \Cake\Controller\Component&\PHPUnit\Framework\MockObject\MockObject
-     * @deprecated 2.22.2 Use instead `createPartialMock()`
-     */
-    protected function getMockForComponent(string $className, array $methods = []): Component
-    {
-        deprecationWarning('Deprecated. Use instead `createPartialMock()`');
-
-        return $this->createPartialMock($className, $methods);
-    }
-
-    /**
-     * Mocks a controller
-     * @param class-string<\Cake\Controller\Controller> $className Controller class name
-     * @param array<string> $methods The list of methods to mock
-     * @param string|null $alias Controller alias
-     * @return \Cake\Controller\Controller&\PHPUnit\Framework\MockObject\MockObject
-     * @throws \ReflectionException
-     * @noinspection PhpIncompatibleReturnTypeInspection
-     * @deprecated 2.22.2 Create instead a new instance of `Controller`
-     */
-    protected function getMockForController(string $className, array $methods = [], ?string $alias = null): Controller
-    {
-        deprecationWarning('Deprecated. Create instead a new instance of `Controller`');
-
-        return $this->getMockBuilder($className)
-            ->setConstructorArgs([null, null, $alias ?: $this->getAlias($className)])
-            ->onlyMethods($methods)
-            ->getMock();
     }
 
     /**

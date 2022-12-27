@@ -20,8 +20,6 @@ use App\Controller\PagesController;
 use App\Model\Table\PostsTable;
 use App\Model\Validation\PostValidator;
 use App\View\Cell\MyExampleCell;
-use Cake\Controller\Component;
-use Cake\Controller\Controller;
 use Cake\View\Helper;
 use MeTools\TestSuite\TestCase;
 use PHPUnit\Framework\AssertionFailedError;
@@ -52,45 +50,6 @@ class MockTraitTest extends TestCase
             /** @phpstan-ignore-next-line */
             $this->assertException(fn() => $this->getAlias($className), AssertionFailedError::class, $expectedMessage);
         }
-    }
-
-    /**
-     * Tests for `getMockForComponent()` method
-     * @test
-     * @uses \MeTools\TestSuite\MockTrait::getMockForComponent()
-     */
-    public function testGetMockForComponent(): void
-    {
-        $current = error_reporting(E_ALL & ~E_USER_DEPRECATED);
-        $Component = $this->getMockForComponent('Cake\Controller\Component\FlashComponent');
-        $this->assertIsMock($Component);
-        $this->assertInstanceOf(Component::class, $Component);
-        error_reporting($current);
-    }
-
-    /**
-     * Tests for `getMockForComponent()` method
-     * @test
-     * @uses \MeTools\TestSuite\MockTrait::getMockForController()
-     */
-    public function testGetMockForController(): void
-    {
-        $current = error_reporting(E_ALL & ~E_USER_DEPRECATED);
-        $Controller = $this->getMockForController(PagesController::class, []);
-        $this->assertIsMock($Controller);
-        $this->assertInstanceOf(Controller::class, $Controller);
-        $this->assertEquals('Pages', $Controller->getName());
-
-        $Controller = $this->getMockForController(PagesController::class, [], 'MyController');
-        $this->assertIsMock($Controller);
-        $this->assertInstanceOf(Controller::class, $Controller);
-        $this->assertEquals('MyController', $Controller->getName());
-
-        //With a no existing class
-        $this->expectAssertionFailed('Class `App\Controller\NoExistingController` does not exist');
-        /** @phpstan-ignore-next-line */
-        $this->getMockForController('App\Controller\NoExistingController');
-        error_reporting($current);
     }
 
     /**
