@@ -22,6 +22,7 @@ use MeTools\Console\Command;
  * A trait intended to make integration tests of cake console commands easier
  * @property \Cake\Console\TestSuite\StubConsoleOutput|null $_err Console error output stub
  * @property \Cake\Console\ConsoleInput|null $_in Console input mock
+ * @property \MeTools\Console\Command $Command
  */
 trait ConsoleIntegrationTestTrait
 {
