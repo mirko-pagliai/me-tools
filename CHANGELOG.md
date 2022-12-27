@@ -6,7 +6,9 @@
 * the `ComponentTestCase` provides the `$Component` property through the `__get()` magic method, and no longer through
   the `setUp()` method.
 * the `HelperTestCase` provides the `$Helper` property through the `__get()` magic method, and no longer through the
-  `setUp()` method.
+  `setUp()` method;
+* `assertExitWithError()` and `assertExitWithSuccess()` methods provided by `ConsoleIntegrationTestTrait` had been
+  deprecated and have been removed.
 
 ## 2.22 branch
 ### 2.22.2

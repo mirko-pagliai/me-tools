@@ -67,30 +67,6 @@ trait ConsoleIntegrationTestTrait
     }
 
     /**
-     * Asserts shell exited with the error code
-     * @param string $message Failure message to be appended to the generated message
-     * @deprecated 2.22.2 Use instead `assertExitError()`
-     * @return void
-     */
-    public function assertExitWithError(string $message = ''): void
-    {
-        deprecationWarning('Deprecated. Use instead `assertExitError()`');
-        $this->assertExitError($message);
-    }
-
-    /**
-     * Asserts shell exited with the success code
-     * @param string $message Failure message to be appended to the generated message
-     * @deprecated 2.22.2 Use instead `assertExitSuccess()`
-     * @return void
-     */
-    public function assertExitWithSuccess(string $message = ''): void
-    {
-        deprecationWarning('Deprecated. Use instead `assertExitSuccess()`');
-        $this->assertExitSuccess($message);
-    }
-
-    /**
      * Asserts that `stdout` is not empty
      * @param string $message Failure message to be appended to the generated
      *  message
