@@ -26,30 +26,28 @@ abstract class HelperTestCase extends TestCase
     /**
      * @var \Cake\View\Helper
      */
-    protected Helper $Helper;
+    private Helper $_Helper;
 
     /**
-     * If `true`, a mock instance of the helper will be created
-     * @var bool
-     */
-    protected bool $autoInitializeClass = true;
-
-    /**
-     * Called before every test method
-     * @return void
+     * Magic method
+     * @param string $name Property name
+     * @return \Cake\View\Helper|void
      * @noinspection PhpRedundantVariableDocTypeInspection
      */
-    protected function setUp(): void
+    public function __get(string $name)
     {
-        parent::setUp();
+        if ($name === 'Helper') {
+            if (empty($this->_Helper)) {
+                /** @var class-string<\Cake\View\Helper> $className */
+                $className = $this->getOriginClassNameOrFail($this);
+                $this->_Helper = new $className(new View());
 
-        if (empty($this->Helper) && $this->autoInitializeClass) {
-            /** @var class-string<\Cake\View\Helper> $className */
-            $className = $this->getOriginClassNameOrFail($this);
-            $this->Helper = new $className(new View());
-        }
-        if (method_exists($this->Helper, 'initialize')) {
-            $this->Helper->initialize([]);
+                if (method_exists($this->_Helper, 'initialize')) {
+                    $this->_Helper->initialize([]);
+                }
+            }
+
+            return $this->_Helper;
         }
     }
 }

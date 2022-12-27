@@ -1,4 +1,9 @@
 # 2.x branch
+## 2.23 branch
+### 2.23.0
+* the `HelperTestCase` provides the `$Helper` property through the `__get()` magic method, and no longer through the
+  `setUp()` method.
+
 ## 2.22 branch
 ### 2.22.2
 * `assertExitWithError()` and `assertExitWithSuccess()` methods provided by `ConsoleIntegrationTestTrait` are now
