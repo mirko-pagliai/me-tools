@@ -1,6 +1,8 @@
 # 2.x branch
 ## 2.22 branch
 ### 2.22.2
+* `assertExitWithError()` and `assertExitWithSuccess()` methods provided by `ConsoleIntegrationTestTrait` are now
+  deprecated. Use instead `assertExitError()` and `assertExitSuccess()`;
 * many, small code improvements.
 
 ### 2.22.1

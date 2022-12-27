@@ -15,7 +15,6 @@ declare(strict_types=1);
  */
 namespace MeTools\TestSuite;
 
-use Cake\Console\CommandInterface;
 use Cake\Console\TestSuite\ConsoleIntegrationTestTrait as BaseConsoleIntegrationTestTrait;
 use MeTools\Console\Command;
 
@@ -60,24 +59,26 @@ trait ConsoleIntegrationTestTrait
 
     /**
      * Asserts shell exited with the error code
-     * @param string $message Failure message to be appended to the generated
-     *  message
+     * @param string $message Failure message to be appended to the generated message
+     * @deprecated 2.22.2 Use instead `assertExitError()`
      * @return void
      */
     public function assertExitWithError(string $message = ''): void
     {
-        $this->assertExitCode(CommandInterface::CODE_ERROR, $message);
+        deprecationWarning('Deprecated. Use instead `assertExitError()`');
+        $this->assertExitError($message);
     }
 
     /**
      * Asserts shell exited with the success code
-     * @param string $message Failure message to be appended to the generated
-     *  message
+     * @param string $message Failure message to be appended to the generated message
+     * @deprecated 2.22.2 Use instead `assertExitSuccess()`
      * @return void
      */
     public function assertExitWithSuccess(string $message = ''): void
     {
-        $this->assertExitCode(CommandInterface::CODE_SUCCESS, $message);
+        deprecationWarning('Deprecated. Use instead `assertExitSuccess()`');
+        $this->assertExitSuccess($message);
     }
 
     /**
