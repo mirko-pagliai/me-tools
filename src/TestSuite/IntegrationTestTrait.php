@@ -61,8 +61,7 @@ trait IntegrationTestTrait
     /**
      * Asserts that a cookie is empty
      * @param string $name The cookie name
-     * @param string $message The failure message that will be appended to the
-     *  generated message
+     * @param string $message The failure message that will be appended to the generated message
      * @return void
      */
     public function assertCookieIsEmpty(string $name, string $message = ''): void
@@ -73,10 +72,8 @@ trait IntegrationTestTrait
     }
 
     /**
-     * Asserts that the response status code is in the 2xx range and the
-     *  response content is not empty.
-     * @param string $message The failure message that will be appended to the
-     *  generated message
+     * Asserts that the response status code is in the 2xx range and the response content is not empty
+     * @param string $message The failure message that will be appended to the generated message
      * @return void
      */
     public function assertResponseOkAndNotEmpty(string $message = ''): void
@@ -100,8 +97,7 @@ trait IntegrationTestTrait
     /**
      * Gets the status code from the last response.
      *
-     * The status code is a 3-digit integer result code of the server's attempt
-     * to understand and satisfy the request.
+     * The status code is a 3-digit integer result code of the server's attempt to understand and satisfy the request.
      * @return int Status code
      * @since 2.21.1
      */

@@ -16,7 +16,6 @@ declare(strict_types=1);
 namespace MeTools\TestSuite;
 
 use Cake\Controller\Component;
-use Cake\Controller\ComponentRegistry;
 use Cake\Controller\Controller;
 use Cake\View\Helper;
 use Cake\View\View;
@@ -43,15 +42,12 @@ trait MockTrait
     }
 
     /**
-     * Gets the alias name for which a test is being performed, starting from a
-     *  class or a `TestCase` class.
+     * Gets the alias name for which a test is being performed, starting from a class or a `TestCase` class.
      *
-     * Example: class `MyPlugin\Test\TestCase\Controller\PagesControllerTest`
-     *  will return the string `Pages`.
+     * Example: class `MyPlugin\Test\TestCase\Controller\PagesControllerTest`  will return `Pages`.
      * @param class-string|object $class Class name or object
      * @return string
-     * @throws \PHPUnit\Framework\AssertionFailedError|\ReflectionException If the
-     *  class does not exist or if it is impossible to get its alias
+     * @throws \PHPUnit\Framework\AssertionFailedError|\ReflectionException
      * @since 2.19.9
      */
     protected function getAlias($class): string
@@ -71,14 +67,13 @@ trait MockTrait
      * @param class-string<\Cake\Controller\Component> $className Component class name
      * @param array<string> $methods The list of methods to mock
      * @return \Cake\Controller\Component&\PHPUnit\Framework\MockObject\MockObject
-     * @noinspection PhpIncompatibleReturnTypeInspection
+     * @deprecated 2.22.2 Use instead `createPartialMock()`
      */
     protected function getMockForComponent(string $className, array $methods = []): Component
     {
-        return $this->getMockBuilder($className)
-            ->setConstructorArgs([new ComponentRegistry(new Controller())])
-            ->onlyMethods($methods)
-            ->getMock();
+        deprecationWarning('Deprecated. Use instead `createPartialMock()`');
+
+        return $this->createPartialMock($className, $methods);
     }
 
     /**
@@ -89,9 +84,12 @@ trait MockTrait
      * @return \Cake\Controller\Controller&\PHPUnit\Framework\MockObject\MockObject
      * @throws \ReflectionException
      * @noinspection PhpIncompatibleReturnTypeInspection
+     * @deprecated 2.22.2 Create instead a new instance of `Controller`
      */
     protected function getMockForController(string $className, array $methods = [], ?string $alias = null): Controller
     {
+        deprecationWarning('Deprecated. Create instead a new instance of `Controller`');
+
         return $this->getMockBuilder($className)
             ->setConstructorArgs([null, null, $alias ?: $this->getAlias($className)])
             ->onlyMethods($methods)
@@ -115,14 +113,12 @@ trait MockTrait
     }
 
     /**
-     * Gets the class name for which a test is being performed, starting from a
-     *  `TestCase` class.
+     * Gets the class name for which a test is being performed, starting from a `TestCase` class.
      *
-     * Example: class `MyPlugin\Test\TestCase\Controller\PagesControllerTest`
-     *  will return the string `MyPlugin\Controller\PagesController`.
+     * Example: class `MyPlugin\Test\TestCase\Controller\PagesControllerTest` will return `MyPlugin\Controller\PagesController`.
      * @param \PHPUnit\Framework\TestCase $className A `TestCase` class
-     * @return class-string<\PHPUnit\Framework\TestCase>|string The class name for
-     *  which a test is being performed. Empty string on failure
+     * @return class-string<\PHPUnit\Framework\TestCase>|string The class name for which a test is being performed or
+     *  empty string on failure
      * @since 2.18.0
      */
     protected function getOriginClassName(TestCase $className): string
@@ -133,15 +129,13 @@ trait MockTrait
     }
 
     /**
-     * Gets the class name for which a test is being performed, starting from a
-     *  `TestCase` class.
+     * Gets the class name for which a test is being performed, starting from a `TestCase` class.
      *
      * It fails if the class cannot be determined or does not exist.
      * @param \PHPUnit\Framework\TestCase $className A `TestCase` class
      * @return class-string The class name for which a test is being performed
      * @since 2.19.2
-     * @throw \PHPUnit\Framework\AssertionFailedError If the class does not
-     *  exist or if it is impossible to get its origin class name
+     * @throw \PHPUnit\Framework\AssertionFailedError
      */
     protected function getOriginClassNameOrFail(TestCase $className): string
     {
@@ -163,11 +157,9 @@ trait MockTrait
     }
 
     /**
-     * Gets the classname for which a test is being performed, starting from a
-     *  `TestCase` class.
+     * Gets the classname for which a test is being performed, starting from a `TestCase` class.
      *
-     * Example: class `MyPlugin\MySubNamespace\Test\TestCase\MyExampleTest`
-     *  will return the string `MyPlugin/MySubNamespace`.
+     * Example: class `MyPlugin\MySubNamespace\Test\TestCase\MyExampleTest` will return `MyPlugin/MySubNamespace`.
      * @param \PHPUnit\Framework\TestCase $testClass A `TestCase` class
      * @return string
      * @since 2.19.9

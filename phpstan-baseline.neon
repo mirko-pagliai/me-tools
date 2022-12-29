@@ -6,16 +6,6 @@ parameters:
 			path: tests/TestCase/Controller/Component/FlashComponentTest.php
 
 		-
-			message: "#^Call to an undefined method Cake\\\\Controller\\\\Component&PHPUnit\\\\Framework\\\\MockObject\\\\MockObject\\:\\:mimetype\\(\\)\\.$#"
-			count: 1
-			path: tests/TestCase/Controller/Component/UploaderComponentTest.php
-
-		-
-			message: "#^Call to an undefined method Cake\\\\Controller\\\\Component&PHPUnit\\\\Framework\\\\MockObject\\\\MockObject\\:\\:save\\(\\)\\.$#"
-			count: 1
-			path: tests/TestCase/Controller/Component/UploaderComponentTest.php
-
-		-
 			message: "#^Cannot access property \\$Uploader on Cake\\\\Controller\\\\Controller\\|null\\.$#"
 			count: 3
 			path: tests/TestCase/TestSuite/IntegrationTestTraitTest.php

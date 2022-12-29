@@ -32,7 +32,7 @@ class CreateRobotsCommandTest extends TestCase
     public function testExecute(): void
     {
         $this->exec('me_tools.create_robots -v');
-        $this->assertExitWithSuccess();
+        $this->assertExitSuccess();
         $this->assertOutputContains('Creating file ' . WWW_ROOT . 'robots.txt');
         $this->assertOutputContains('<success>Wrote</success> `' . WWW_ROOT . 'robots.txt`');
         $this->assertErrorEmpty();

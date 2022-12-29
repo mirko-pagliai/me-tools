@@ -22,6 +22,7 @@ use Cake\View\View;
 use MeTools\TestSuite\HelperTestCase;
 use MeTools\View\Helper\LibraryHelper;
 use Tools\Filesystem;
+use Tools\TestSuite\ReflectionTrait;
 
 /**
  * LibraryHelperTest class
@@ -29,6 +30,8 @@ use Tools\Filesystem;
  */
 class LibraryHelperTest extends HelperTestCase
 {
+    use ReflectionTrait;
+
     protected const EXPECTED_DATEPICKER_ICONS = [
         'time' => 'fas fa-clock',
         'date' => 'fas fa-calendar',

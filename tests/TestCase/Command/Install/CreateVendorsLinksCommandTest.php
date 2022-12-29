@@ -14,11 +14,10 @@ declare(strict_types=1);
  */
 namespace MeTools\Test\TestCase\Command\Install;
 
-use Cake\Console\ConsoleIo;
 use Cake\Core\Configure;
-use MeTools\Command\Install\CreateVendorsLinksCommand;
 use MeTools\TestSuite\ConsoleIntegrationTestTrait;
 use MeTools\TestSuite\TestCase;
+use Tools\Filesystem;
 
 /**
  * CreateVendorsLinksCommandTest class
@@ -30,20 +29,27 @@ class CreateVendorsLinksCommandTest extends TestCase
     /**
      * Tests for `execute()` method
      * @uses \MeTools\Command\Install\CreateVendorsLinksCommand::execute()
+     * @requires OS Linux
      * @test
      */
     public function testExecute(): void
     {
-        $io = new ConsoleIo();
-        $Command = $this->getMockBuilder(CreateVendorsLinksCommand::class)
-            ->onlyMethods(['createLink'])
-            ->getMock();
+        $Filesystem = new Filesystem();
 
-        $links = Configure::read('VENDOR_LINKS');
-        $method = $Command->expects($this->exactly(count($links)))->method('createLink');
-        $consecutiveCalls = array_map(fn($origin, string $target): array => [$io, ROOT . 'vendor' . DS . $origin, WWW_ROOT . 'vendor' . DS . $target], array_keys($links), $links);
-        call_user_func_array([$method, 'withConsecutive'], $consecutiveCalls);
+        /** @var array<string, string> $expectedVendorLinks */
+        $expectedVendorLinks = Configure::readOrFail('VENDOR_LINKS');
 
-        $this->assertNull($Command->run([], $io));
+        $originFiles = array_map(fn(string $origin): string => ROOT . 'vendor' . DS . $origin, array_keys($expectedVendorLinks));
+        $targetFiles = array_map(fn(string $target): string => $Filesystem->rtr(WWW_ROOT . 'vendor' . DS . $target), $expectedVendorLinks);
+        array_map(fn(string $file) => file_exists($file) || $Filesystem->createFile($file), $originFiles);
+
+        $this->exec('me_tools.create_vendors_links -v');
+        $this->assertExitSuccess();
+        foreach ($targetFiles as $targetFile) {
+            $this->assertOutputContains('Link `' . $targetFile . '` has been created');
+        }
+
+        array_map('unlink', $originFiles);
+        $Filesystem->unlinkRecursive(WWW_ROOT . 'vendor', '.gitkeep');
     }
 }

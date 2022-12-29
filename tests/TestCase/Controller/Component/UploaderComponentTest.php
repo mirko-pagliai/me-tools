@@ -22,6 +22,7 @@ use MeTools\TestSuite\ComponentTestCase;
 use Psr\Http\Message\UploadedFileInterface;
 use Tools\Exception\ObjectWrongInstanceException;
 use Tools\Filesystem;
+use Tools\TestSuite\ReflectionTrait;
 
 /**
  * UploaderComponentTest class
@@ -29,6 +30,8 @@ use Tools\Filesystem;
  */
 class UploaderComponentTest extends ComponentTestCase
 {
+    use ReflectionTrait;
+
     /**
      * Internal method to create a file and get a `UploadedFile` instance
      * @param int $error Error for this file
@@ -55,6 +58,8 @@ class UploaderComponentTest extends ComponentTestCase
 
     /**
      * Tests for `getError()` and `setError()` methods
+     * @uses \MeTools\Controller\Component\UploaderComponent::getError()
+     * @uses \MeTools\Controller\Component\UploaderComponent::setError()
      * @test
      */
     public function testGetErrorAndSetError(): void
@@ -71,6 +76,7 @@ class UploaderComponentTest extends ComponentTestCase
 
     /**
      * Tests for `findTargetFilename()` method
+     * @uses \MeTools\Controller\Component\UploaderComponent::findTargetFilename()
      * @test
      */
     public function testFindTargetFilename(): void
@@ -120,10 +126,11 @@ class UploaderComponentTest extends ComponentTestCase
     }
 
     /**
-     * Tests for `set()` method, with file as array
+     * Tests for `setFile()` method, with file as array
+     * @uses \MeTools\Controller\Component\UploaderComponent::setFile()
      * @test
      */
-    public function testSetWithFileAsArray(): void
+    public function testSetFileAsArray(): void
     {
         $file = Filesystem::instance()->createTmpFile();
         $this->Component->setFile([
@@ -165,8 +172,7 @@ class UploaderComponentTest extends ComponentTestCase
         //With no file
         $this->expectException(ObjectWrongInstanceException::class);
         $this->expectExceptionMessage('There are no uploaded file information');
-        /** @noinspection PhpPossiblePolymorphicInvocationInspection */
-        $this->getMockForComponent(UploaderComponent::class, [])->mimetype('text/plain');
+        $this->createPartialMock(UploaderComponent::class, [])->mimetype('text/plain');
     }
 
     /**
@@ -210,8 +216,7 @@ class UploaderComponentTest extends ComponentTestCase
         //With no file
         $this->expectException(ObjectWrongInstanceException::class);
         $this->expectExceptionMessage('There are no uploaded file information');
-        /** @noinspection PhpPossiblePolymorphicInvocationInspection */
-        $this->getMockForComponent(UploaderComponent::class, [])->save('');
+        $this->createPartialMock(UploaderComponent::class, [])->save('');
     }
 
     /**
