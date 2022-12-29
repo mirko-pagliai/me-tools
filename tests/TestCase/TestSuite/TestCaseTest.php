@@ -14,7 +14,6 @@ declare(strict_types=1);
  */
 namespace MeTools\Test\TestCase\TestSuite;
 
-use Cake\ORM\Table;
 use MeTools\TestSuite\TestCase;
 use Tools\Filesystem;
 use Tools\TestSuite\ReflectionTrait;
@@ -28,6 +27,7 @@ class TestCaseTest extends TestCase
 
     /**
      * Tests for `assertLogContains()` method
+     * @uses \MeCms\TestSuite\TestCase::assertLogContains()
      * @test
      */
     public function testAssertLogContains(): void
@@ -47,6 +47,7 @@ class TestCaseTest extends TestCase
 
     /**
      * Tests for `assertSqlEndsNotWith()` method
+     * @uses \MeCms\TestSuite\TestCase::assertSqlEndsNotWith()
      * @test
      */
     public function testAssertSqlEndsNotWith(): void
@@ -61,6 +62,7 @@ class TestCaseTest extends TestCase
 
     /**
      * Tests for `assertSqlEndsWith()` method
+     * @uses \MeCms\TestSuite\TestCase::assertSqlEndsWith()
      * @test
      */
     public function testAssertSqlEndsWith(): void
@@ -79,6 +81,7 @@ class TestCaseTest extends TestCase
 
     /**
      * Tests for `deleteLog()` method
+     * @uses \MeCms\TestSuite\TestCase::deleteLog()
      * @test
      */
     public function testDeleteLog(): void
@@ -92,16 +95,12 @@ class TestCaseTest extends TestCase
 
     /**
      * Tests for `getTable()` method
+     * @uses \MeCms\TestSuite\TestCase::getTable()
      * @test
      */
     public function testGetTable(): void
     {
-        /** @var \Cake\ORM\Table $Table */
         $Table = $this->getTable('Articles');
         $this->assertSame('Articles', $Table->getAlias());
-        $this->assertInstanceOf(Table::class, $Table);
-
-        //With a no-existing table
-        $this->assertNull($this->getTable('NoExistingTable', ['className' => '\Cake\ORM\NoExistingTable']));
     }
 }
