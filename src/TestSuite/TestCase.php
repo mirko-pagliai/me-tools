@@ -131,15 +131,11 @@ abstract class TestCase extends CakeTestCase
      * Get a table instance from the registry
      * @param string $alias The alias name you want to get
      * @param array $options The options you want to build the table with
-     * @return \Cake\ORM\Table|null
+     * @return \Cake\ORM\Table
      * @since 2.18.11
      */
-    protected function getTable(string $alias, array $options = []): ?Table
+    protected function getTable(string $alias, array $options = []): Table
     {
-        if ($alias === 'App' || (isset($options['className']) && !class_exists($options['className']))) {
-            return null;
-        }
-
         $this->getTableLocator()->clear();
 
         return $this->getTableLocator()->get($alias, $options);
