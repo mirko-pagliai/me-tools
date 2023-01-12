@@ -397,5 +397,11 @@ class FormHelperTest extends HelperTestCase
         $expected = '<div class="submit"><button class="btn btn-success" value="Submit">Submit</button></div>';
         $result = $this->Helper->submit();
         $this->assertSame($expected, $result);
+
+        //On "inline" form
+        $this->Helper->createInline();
+        $expected = '<div class="col-12 submit"><button class="btn btn-success" value="My caption"><i class="fas fa-home"> </i> My caption</button></div>';
+        $result = $this->Helper->submit('My caption', ['icon' => 'home']);
+        $this->assertSame($expected, $result);
     }
 }

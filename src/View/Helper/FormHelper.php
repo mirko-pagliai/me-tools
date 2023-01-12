@@ -412,9 +412,14 @@ class FormHelper extends BaseFormHelper
     public function submit(?string $caption = null, array $options = []): string
     {
         $options = optionsParser($options, ['escape' => false, 'type' => 'submit']);
+
         $options->addButtonClasses($options->contains('type', 'submit') ? 'success' : 'primary');
         [$text, $options] = $this->Icon->addIconToText($caption, $options);
         $options->append('templateVars', ['text' => $text ?? __d('cake', 'Submit')]);
+
+        if ($this->isInline()) {
+            $this->setTemplates(['submitContainer' => '<div class="col-12 submit">{{content}}</div>']);
+        }
 
         return parent::submit($caption, $options->toArray());
     }
