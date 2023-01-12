@@ -45,13 +45,11 @@ abstract class TestCase extends CakeTestCase
     }
 
     /**
-     * Called after every test method
-     * @return void
-     * @throws \Throwable
+     * This method is called after the last test of this test class is run
      */
-    protected function tearDown(): void
+    public static function tearDownAfterClass(): void
     {
-        parent::tearDown();
+        parent::tearDownAfterClass();
 
         if (LOGS !== TMP) {
             Filesystem::instance()->unlinkRecursive(LOGS, ['.gitkeep', 'empty'], true);
@@ -62,8 +60,7 @@ abstract class TestCase extends CakeTestCase
      * Asserts log file contents
      * @param string $expectedContent The expected contents
      * @param string $filename Log filename
-     * @param string $message The failure message that will be appended to the
-     *  generated message
+     * @param string $message The failure message that will be appended to the generated message
      * @return void
      */
     public function assertLogContains(string $expectedContent, string $filename, string $message = ''): void
