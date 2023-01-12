@@ -293,6 +293,12 @@ class FormHelperTest extends HelperTestCase
         $Helper->method('isFieldError')->willReturn(true);
         $result = $Helper->control('my-field', ['append-text' => 'Append text', 'help' => 'My help text']);
         $this->assertSame($expected, $result);
+
+        //With `validation` option to `false`
+        $Helper->create(null, ['validation' => false]);
+        $result = $Helper->control('my-field', ['append-text' => 'Append text', 'help' => 'My help text']);
+        $this->assertStringNotContainsString('has-validation', $result);
+        $this->assertStringNotContainsString('is-invalid', $result);
     }
 
     /**
