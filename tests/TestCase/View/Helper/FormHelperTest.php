@@ -305,7 +305,7 @@ class FormHelperTest extends HelperTestCase
     {
         $this->assertFalse($this->Helper->isInline());
 
-        $expected = '<form method="post" accept-charset="utf-8" class="my-class" action="/">';
+        $expected = '<form method="post" accept-charset="utf-8" class="align-items-center g-1 my-class row row-cols-lg-auto" action="/">';
         $result = $this->Helper->createInline(null, ['class' => 'my-class']);
         $this->assertSame($expected, $result);
 
