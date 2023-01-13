@@ -48,7 +48,7 @@ abstract class HelperTestCase extends TestCase
             $className = $this->getOriginClassNameOrFail($this);
             $this->Helper = new $className(new View());
         }
-        if (method_exists($this->Helper, 'initialize')) {
+        if (!empty($this->Helper) && method_exists($this->Helper, 'initialize')) {
             $this->Helper->initialize([]);
         }
     }

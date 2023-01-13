@@ -18,14 +18,17 @@ use Cake\View\Helper\HtmlHelper as BaseHtmlHelper;
 use Tools\Exceptionist;
 
 /**
- * Provides functionalities for forms
+ * Provides functionalities for HTML
+ *
  * @method string h1(?string $text = null, array $options = [])
  * @method string h2(?string $text = null, array $options = [])
  * @method string h3(?string $text = null, array $options = [])
  * @method string h4(?string $text = null, array $options = [])
  * @method string h5(?string $text = null, array $options = [])
  * @method string h6(?string $text = null, array $options = [])
+ * @method string legend(?string $text = null, array $options = [])
  * @method string span(?string $text = null, array $options = [])
+ * @method string strong(?string $text = null, array $options = [])
  * @method string time(?string $text = null, array $options = [])
  * @method string title(?string $text = null, array $options = [])
  * @property \MeTools\View\Helper\IconHelper $Icon
