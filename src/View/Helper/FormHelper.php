@@ -23,7 +23,6 @@ use Cake\View\View;
  * @property \MeTools\View\Helper\IconHelper $Icon
  * @property \MeTools\View\Helper\HtmlHelper $Html
  * @property \Cake\View\Helper\UrlHelper $Url
- * @todo We should document the added options
  */
 class FormHelper extends BaseFormHelper
 {
@@ -99,7 +98,7 @@ class FormHelper extends BaseFormHelper
         }
 
         /**
-         * Add class on `post` request (the form has been filled out)
+         * Add class on `post` request and if validation is on (the form has been filled out)
          * @see https://getbootstrap.com/docs/5.2/forms/validation/#server-side
          */
         if ($this->isPost && $this->validation) {
@@ -122,14 +121,7 @@ class FormHelper extends BaseFormHelper
         }
 
         $label = optionsParser(is_string($options['label']) ? ['text' => $options['label']] : ($options['label'] ?? []));
-
-        //Checkbox and inline form fields have their own label class
-        if ($options['type'] === 'checkbox') {
-            $class = 'form-check-label';
-        } elseif ($this->isInline()) {
-            $class = 'visually-hidden';
-        }
-        $label->append('class', $class ?? 'form-label');
+        $label->append('class', $options['type'] === 'checkbox' ? 'form-check-label' : ($this->isInline() ? 'visually-hidden' : 'form-label'));
 
         return parent::_getLabel($fieldName, ['label' => $label->toArray()] + $options);
     }
@@ -210,6 +202,12 @@ class FormHelper extends BaseFormHelper
     /**
      * Generates a form control element complete with label and wrapper div.
      *
+     * ### Options:
+     *
+     *  - `append-text` to append a text
+     *  - `help` to add a help text
+     *  - `prepend-text` to prepend a text
+     *
      * See the parent method for all available options.
      * @param string $fieldName This should be "modelname.fieldname"
      * @param array<string, mixed> $options Each type of input takes different options
@@ -274,6 +272,10 @@ class FormHelper extends BaseFormHelper
 
     /**
      * Returns an HTML form element.
+     *
+     * ### Options:
+     *
+     *  - `validation`, if `false` it disables field validation
      *
      * See the parent method for all available options.
      * @param mixed $context The context for which the form is being defined. Can be a ContextInterface instance, ORM
