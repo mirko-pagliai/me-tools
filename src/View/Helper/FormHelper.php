@@ -47,6 +47,11 @@ class FormHelper extends BaseFormHelper
     protected bool $isPost;
 
     /**
+     * @var bool
+     */
+    protected bool $validation = true;
+
+    /**
      * Construct the widgets and binds the default context providers.
      *
      * This method only rewrites the default templates config.
@@ -80,8 +85,8 @@ class FormHelper extends BaseFormHelper
      * Generates an input element
      * @param string $fieldName the field name
      * @param array<string, mixed> $options The options for the input element
-     * @return array|string The generated input element string
-     *  or array if checkbox() is called with option 'hiddenField' set to '_split'
+     * @return array|string The generated input element string or array if checkbox() is called with option 'hiddenField'
+     *  set to '_split'
      */
     protected function _getInput(string $fieldName, array $options)
     {
@@ -93,10 +98,10 @@ class FormHelper extends BaseFormHelper
         }
 
         /**
-         * Add class on `post` request (the form has been filled out)
+         * Add class on `post` request and if validation is on (the form has been filled out)
          * @see https://getbootstrap.com/docs/5.2/forms/validation/#server-side
          */
-        if ($this->isPost) {
+        if ($this->isPost && $this->validation) {
             $options->append('class', $this->isFieldError($fieldName) ? 'is-invalid' : 'is-valid');
         }
 
@@ -116,22 +121,14 @@ class FormHelper extends BaseFormHelper
         }
 
         $label = optionsParser(is_string($options['label']) ? ['text' => $options['label']] : ($options['label'] ?? []));
-
-        //Checkbox and inline form fields have their own label class
-        if ($options['type'] === 'checkbox') {
-            $class = 'form-check-label';
-        } elseif ($this->isInline()) {
-            $class = 'visually-hidden';
-        }
-        $label->append('class', $class ?? 'form-label');
+        $label->append('class', $options['type'] === 'checkbox' ? 'form-check-label' : ($this->isInline() ? 'visually-hidden' : 'form-label'));
 
         return parent::_getLabel($fieldName, ['label' => $label->toArray()] + $options);
     }
 
     /**
-     * Returns the input type that was guessed for the provided fieldName,
-     * based on the internal type it is associated too, its name and the
-     * variables that can be found in the view template
+     * Returns the input type that was guessed for the provided fieldName, based on the internal type it is associated
+     *  too, its name and the variables that can be found in the view template
      * @param string $fieldName the name of the field to guess a type for
      * @param array<string, mixed> $options the options passed to the input method
      * @return string
@@ -205,6 +202,12 @@ class FormHelper extends BaseFormHelper
     /**
      * Generates a form control element complete with label and wrapper div.
      *
+     * ### Options:
+     *
+     *  - `append-text` to append a text
+     *  - `help` to add a help text
+     *  - `prepend-text` to prepend a text
+     *
      * See the parent method for all available options.
      * @param string $fieldName This should be "modelname.fieldname"
      * @param array<string, mixed> $options Each type of input takes different options
@@ -247,8 +250,9 @@ class FormHelper extends BaseFormHelper
          * @see https://getbootstrap.com/docs/5.2/forms/input-group
          */
         if ($options->exists('append-text') || $options->exists('prepend-text')) {
+            $validationClass = $this->isPost && $this->validation ? ' has-validation' : '';
             $this->setTemplates([
-                'formGroup' => '{{label}}<div class="input-group' . ($this->isPost ? ' has-validation' : '') . '">{{prepend}}{{input}}{{append}}{{error}}</div>',
+                'formGroup' => '{{label}}<div class="input-group' . $validationClass . '">{{prepend}}{{input}}{{append}}{{error}}</div>',
                 'inputContainer' => '<div class="input mb-3 {{type}}{{required}}">{{content}}{{help}}</div>',
                 'inputContainerError' => '<div class="input mb-3 {{type}}{{required}} error">{{content}}{{help}}</div>',
             ]);
@@ -267,12 +271,34 @@ class FormHelper extends BaseFormHelper
     }
 
     /**
+     * Returns an HTML form element.
+     *
+     * ### Options:
+     *
+     *  - `validation`, if `false` it disables field validation
+     *
+     * See the parent method for all available options.
+     * @param mixed $context The context for which the form is being defined. Can be a ContextInterface instance, ORM
+     *  entity, ORM resultset, or an array of meta data. You can use `null` to make a context-less form
+     * @param array<string, mixed> $options An array of html attributes and options
+     * @return string A formatted opening FORM tag
+     */
+    public function create($context = null, array $options = []): string
+    {
+        if (isset($options['validation'])) {
+            $this->validation = $options['validation'];
+            unset($options['validation']);
+        }
+
+        return parent::create($context, $options);
+    }
+
+    /**
      * Returns an inline HTML form element.
      *
      * See the parent method for all available options.
-     * @param mixed $context The context for which the form is being defined.
-     *   Can be a ContextInterface instance, ORM entity, ORM resultset, or an
-     *   array of metadata. You can use `null` to make a context-less form.
+     * @param mixed $context The context for which the form is being defined. Can be a ContextInterface instance, ORM
+     *  entity, ORM resultset, or an array of metadata. You can use `null` to make a context-less form.
      * @param array<string, mixed> $options An array of html attributes and options
      * @return string A formatted opening FORM tag
      * @see https://getbootstrap.com/docs/5.2/forms/layout/#inline-forms
@@ -280,8 +306,9 @@ class FormHelper extends BaseFormHelper
     public function createInline($context = null, array $options = []): string
     {
         $this->isInline = true;
+        $options = optionsParser($options)->append('class', 'row row-cols-lg-auto g-1 align-items-center');
 
-        return parent::create($context, $options);
+        return parent::create($context, $options->toArray());
     }
 
     /**
@@ -294,6 +321,7 @@ class FormHelper extends BaseFormHelper
     public function end(array $secureAttributes = []): string
     {
         $this->isInline = false;
+        $this->validation = true;
 
         return parent::end($secureAttributes);
     }
@@ -314,9 +342,8 @@ class FormHelper extends BaseFormHelper
      *
      * See the parent method for all available options.
      * @param string $fieldName This should be "modelname.fieldname"
-     * @param string|null $text Text that will appear in the label field. If
-     *   $text is left undefined the text will be inflected from the
-     *   fieldName
+     * @param string|null $text Text that will appear in the label field. If $text is left undefined the text will be
+     *  inflected from the fieldName
      * @param array<string, mixed> $options An array of HTML attributes
      * @return string The formatted LABEL element
      */
@@ -333,11 +360,9 @@ class FormHelper extends BaseFormHelper
     }
 
     /**
-     * Creates a "POST button", which is a "POST link" with all the appearance
-     *  of a button
+     * Creates a "POST button", which is a "POST link" with all the appearance of a button
      * @param string $title The content to be wrapped by <a> tags
-     * @param array|string|null $url Cake-relative URL or array of URL parameters, or
-     *   external URL (starts with http://)
+     * @param array|string|null $url Cake-relative URL or array of URL parameters, or external URL (starts with http://)
      * @param array<string, mixed> $options Array of HTML attributes
      * @return string An `<a />` element
      */
@@ -363,8 +388,7 @@ class FormHelper extends BaseFormHelper
             ->append('class', 'form-check-input')
             ->add('label', ['class' => 'form-check-label']);
 
-        //Sets the `nestingLabel` templates only if it is still the default one,
-        //  therefore not already modified by other methods
+        //Sets the `nestingLabel` templates only if it is still the default one, therefore not already modified by other methods
         if ($this->getTemplates('nestingLabel') == $this->_defaultConfig['templates']['nestingLabel']) {
             $this->setTemplates(['nestingLabel' => '{{hidden}}{{input}}<label{{attrs}}>{{text}}</label>']);
         }
@@ -379,8 +403,7 @@ class FormHelper extends BaseFormHelper
      *
      * See the parent method for all available options and attributes.
      * @param string $fieldName Name attribute of the SELECT
-     * @param iterable $options Array of the OPTION elements (as 'value'=>'Text' pairs) to be used in the
-     *   SELECT element
+     * @param iterable $options Array of the OPTION elements (as 'value'=>'Text' pairs) to be used in the SELECT element
      * @param array<string, mixed> $attributes The HTML attributes of the select element.
      * @return string Formatted SELECT element
      */
@@ -396,24 +419,27 @@ class FormHelper extends BaseFormHelper
     }
 
     /**
-     * Creates a submit button element. This method will generate `<input />`
-     *  elements that can be used to submit, and reset forms by using $options.
-     *  Image submits can be created by supplying an image path for $caption.
+     * Creates a submit button element. This method will generate `<input />` elements that can be used to submit, and
+     *  reset forms by using $options. Image submits can be created by supplying an image path for $caption.
      *
      * See the parent method for all available options.
-     * @param string|null $caption The label appearing on the button OR if string contains :// or the
-     *  extension .jpg, .jpe, .jpeg, .gif, .png use an image if the extension
-     *  exists, AND the first character is /, image is relative to webroot,
-     *  OR if the first character is not /, image is relative to webroot/img
+     * @param string|null $caption The label appearing on the button OR if string contains :// or the extension .jpg,
+     *  .jpe, .jpeg, .gif, .png use an image if the extension exists, AND the first character is /, image is relative to
+     *  webroot, OR if the first character is not /, image is relative to webroot/img
      * @param array<string, mixed> $options Array of options
      * @return string An HTML submit button
      */
     public function submit(?string $caption = null, array $options = []): string
     {
         $options = optionsParser($options, ['escape' => false, 'type' => 'submit']);
+
         $options->addButtonClasses($options->contains('type', 'submit') ? 'success' : 'primary');
         [$text, $options] = $this->Icon->addIconToText($caption, $options);
         $options->append('templateVars', ['text' => $text ?? __d('cake', 'Submit')]);
+
+        if ($this->isInline()) {
+            $this->setTemplates(['submitContainer' => '<div class="col-12 submit">{{content}}</div>']);
+        }
 
         return parent::submit($caption, $options->toArray());
     }

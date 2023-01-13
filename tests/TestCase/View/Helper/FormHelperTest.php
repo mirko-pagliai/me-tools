@@ -293,6 +293,12 @@ class FormHelperTest extends HelperTestCase
         $Helper->method('isFieldError')->willReturn(true);
         $result = $Helper->control('my-field', ['append-text' => 'Append text', 'help' => 'My help text']);
         $this->assertSame($expected, $result);
+
+        //With `validation` option to `false`
+        $Helper->create(null, ['validation' => false]);
+        $result = $Helper->control('my-field', ['append-text' => 'Append text', 'help' => 'My help text']);
+        $this->assertStringNotContainsString('has-validation', $result);
+        $this->assertStringNotContainsString('is-invalid', $result);
     }
 
     /**
@@ -305,7 +311,7 @@ class FormHelperTest extends HelperTestCase
     {
         $this->assertFalse($this->Helper->isInline());
 
-        $expected = '<form method="post" accept-charset="utf-8" class="my-class" action="/">';
+        $expected = '<form method="post" accept-charset="utf-8" class="align-items-center g-1 my-class row row-cols-lg-auto" action="/">';
         $result = $this->Helper->createInline(null, ['class' => 'my-class']);
         $this->assertSame($expected, $result);
 
@@ -396,6 +402,12 @@ class FormHelperTest extends HelperTestCase
         //With empty `$caption`
         $expected = '<div class="submit"><button class="btn btn-success" value="Submit">Submit</button></div>';
         $result = $this->Helper->submit();
+        $this->assertSame($expected, $result);
+
+        //On "inline" form
+        $this->Helper->createInline();
+        $expected = '<div class="col-12 submit"><button class="btn btn-success" value="My caption"><i class="fas fa-home"> </i> My caption</button></div>';
+        $result = $this->Helper->submit('My caption', ['icon' => 'home']);
         $this->assertSame($expected, $result);
     }
 }

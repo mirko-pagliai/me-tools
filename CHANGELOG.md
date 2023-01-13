@@ -11,6 +11,11 @@
   `assertExitWithSuccess()` methods provided by `ConsoleIntegrationTestTrait` had been deprecated and have been removed.
 
 ## 2.22 branch
+### 2.22.3
+* fixed a regression for `FormHelper::createInline()` introduced with the `2.22.2` version;
+* added `FormHelper::create()` method, with the `validation` option to disable Bootstrap's validation;
+* fixed the class of submit buttons in inline forms.
+
 ### 2.22.2
 * `assertExitWithError()` and `assertExitWithSuccess()` methods provided by `ConsoleIntegrationTestTrait` are now
   deprecated. Use instead `assertExitError()` and `assertExitSuccess()`;
