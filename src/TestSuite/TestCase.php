@@ -46,6 +46,7 @@ abstract class TestCase extends CakeTestCase
 
     /**
      * This method is called after the last test of this test class is run
+     * @return void
      */
     public static function tearDownAfterClass(): void
     {
