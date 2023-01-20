@@ -1,4 +1,5 @@
 <?php
+/** @noinspection PhpUnhandledExceptionInspection */
 declare(strict_types=1);
 
 /**
@@ -27,10 +28,9 @@ class CreateVendorsLinksCommandTest extends TestCase
     use ConsoleIntegrationTestTrait;
 
     /**
-     * Tests for `execute()` method
-     * @uses \MeTools\Command\Install\CreateVendorsLinksCommand::execute()
      * @requires OS Linux
      * @test
+     * @uses \MeTools\Command\Install\CreateVendorsLinksCommand::execute()
      */
     public function testExecute(): void
     {

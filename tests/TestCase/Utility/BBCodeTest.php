@@ -47,9 +47,8 @@ class BBCodeTest extends TestCase
     }
 
     /**
-     * Tests for `parser()` method
-     * @uses \MeTools\Utility\BBCode::parser()
      * @test
+     * @uses \MeTools\Utility\BBCode::parser()
      */
     public function testParser(): void
     {
@@ -72,9 +71,8 @@ class BBCodeTest extends TestCase
     }
 
     /**
-     * Tests for `remove()` method
-     * @uses \MeTools\Utility\BBCode::remove()
      * @test
+     * @uses \MeTools\Utility\BBCode::remove()
      */
     public function testRemove(): void
     {
@@ -94,9 +92,8 @@ class BBCodeTest extends TestCase
     }
 
     /**
-     * Tests for `hr()` method
-     * @uses \MeTools\Utility\BBCode::hr()
      * @test
+     * @uses \MeTools\Utility\BBCode::hr()
      */
     public function testHr(): void
     {
@@ -106,9 +103,8 @@ class BBCodeTest extends TestCase
     }
 
     /**
-     * Tests for `image()` method
-     * @uses \MeTools\Utility\BBCode::image()
      * @test
+     * @uses \MeTools\Utility\BBCode::image()
      */
     public function testImage(): void
     {
@@ -116,9 +112,8 @@ class BBCodeTest extends TestCase
     }
 
     /**
-     * Tests for `readMore()` method
-     * @uses \MeTools\Utility\BBCode::readMore()
      * @test
+     * @uses \MeTools\Utility\BBCode::readMore()
      */
     public function testReadMore(): void
     {
@@ -137,9 +132,8 @@ class BBCodeTest extends TestCase
     }
 
     /**
-     * Tests for `url()` method
-     * @uses \MeTools\Utility\BBCode::url()
      * @test
+     * @uses \MeTools\Utility\BBCode::url()
      */
     public function testUrl(): void
     {
@@ -148,9 +142,8 @@ class BBCodeTest extends TestCase
     }
 
     /**
-     * Tests for `youtube()` method
-     * @uses \MeTools\Utility\BBCode::youtube()
      * @test
+     * @uses \MeTools\Utility\BBCode::youtube()
      */
     public function testYoutube(): void
     {

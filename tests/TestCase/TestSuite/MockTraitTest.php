@@ -76,7 +76,7 @@ class MockTraitTest extends TestCase
     public function testGetMockForController(): void
     {
         $current = error_reporting(E_ALL & ~E_USER_DEPRECATED);
-        $Controller = $this->getMockForController(PagesController::class, []);
+        $Controller = $this->getMockForController(PagesController::class);
         $this->assertIsMock($Controller);
         $this->assertInstanceOf(Controller::class, $Controller);
         $this->assertEquals('Pages', $Controller->getName());

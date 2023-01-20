@@ -28,23 +28,31 @@ class LibraryHelper extends Helper
     /**
      * Helpers.
      *
-     * The `Asset` helper will be loaded by the `initialize()` method. If the
-     *  `Assets` plugin doesn't exist, it will be a copy of the `Html` helper.
+     * The `Asset` helper will be loaded by the `initialize()` method. If the `Assets` plugin doesn't exist, it will be
+     *  a copy of the `Html` helper.
      * @var array
      */
     public $helpers = ['MeTools.Html'];
 
     /**
-     * It will contain the output code
      * @var array
      */
     protected array $output = [];
 
     /**
+     * Gets the output
+     * @return array
+     * @since 2.22.4
+     */
+    public function getOutput(): array
+    {
+        return $this->output;
+    }
+
+    /**
      * Constructor hook method.
      *
-     * Implement this method to avoid having to overwrite the constructor and
-     *  call parent.
+     * Implement this method to avoid having to overwrite the constructor and call parent.
      * @param array $config The configuration settings provided to this helper
      * @return void
      * @since 2.18.0
@@ -61,8 +69,7 @@ class LibraryHelper extends Helper
     }
 
     /**
-     * Before layout callback. beforeLayout is called before the layout is
-     *  rendered
+     * Before layout callback. beforeLayout is called before the layout is rendered
      * @return void
      */
     public function beforeLayout(): void
@@ -93,13 +100,11 @@ class LibraryHelper extends Helper
     /**
      * Loads all CKEditor scripts.
      *
-     * To know how to install and configure CKEditor, please refer to the
-     *  `README.md` file.
+     * To know how to install and configure CKEditor, please refer to the `README.md` file.
      *
      * CKEditor must be located into `APP/webroot/ckeditor`.
      *
-     * To create an input field for CKEditor, you should use the `ckeditor()`
-     *  method provided by the `FormHelper`.
+     * To create an input field for CKEditor, you should use the `ckeditor()` method provided by the `FormHelper`.
      * @param bool $jquery `true` if you want to use the jQuery adapter
      * @return void
      * @throws \Tools\Exception\NotReadableException

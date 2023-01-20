@@ -24,14 +24,12 @@ use MeTools\TestSuite\HelperTestCase;
 class HtmlHelperTest extends HelperTestCase
 {
     /**
-     * Tests for `__call()` method
      * @test
      * @uses \MeTools\View\Helper\HtmlHelper::__call()
      */
     public function testCall(): void
     {
-        //The `h3()` method should not exist, otherwise the `__call()` method
-        //  will not be called
+        //The `h3()` method should not exist, otherwise the `__call()` method will not be called
         $this->assertFalse(method_exists($this->Helper, 'h3'));
 
         $expected = '<h3 class="my-class">my h3 text</h3>';
@@ -54,7 +52,6 @@ class HtmlHelperTest extends HelperTestCase
     }
 
     /**
-     * Test for `button()` method
      * @test
      * @uses \MeTools\View\Helper\HtmlHelper::button()
      */
@@ -94,7 +91,6 @@ class HtmlHelperTest extends HelperTestCase
     }
 
     /**
-     * Test for `badge()` method
      * @test
      * @uses \MeTools\View\Helper\HtmlHelper::badge()
      */
@@ -106,7 +102,6 @@ class HtmlHelperTest extends HelperTestCase
     }
 
     /**
-     * Test for `iframe()` method
      * @uses \MeTools\View\Helper\HtmlHelper::iframe()
      * @test
      */
@@ -143,7 +138,6 @@ class HtmlHelperTest extends HelperTestCase
     }
 
     /**
-     * Test for `image()` and `img()` methods
      * @test
      * @uses \MeTools\View\Helper\HtmlHelper::image()
      * @uses \MeTools\View\Helper\HtmlHelper::img()
@@ -177,7 +171,6 @@ class HtmlHelperTest extends HelperTestCase
     }
 
     /**
-     * Test for `li()` method
      * @test
      * @uses \MeTools\View\Helper\HtmlHelper::li()
      */
@@ -194,7 +187,6 @@ class HtmlHelperTest extends HelperTestCase
     }
 
     /**
-     * Test for `link()` method
      * @test
      * @uses \MeTools\View\Helper\HtmlHelper::link()
      */
@@ -227,7 +219,6 @@ class HtmlHelperTest extends HelperTestCase
     }
 
     /**
-     * Test for `meta()` method
      * @test
      * @uses \MeTools\View\Helper\HtmlHelper::meta()
      */
@@ -241,7 +232,6 @@ class HtmlHelperTest extends HelperTestCase
     }
 
     /**
-     * Test for `ol()` and `ul()` methods (and consequently `nestedList ()`)
      * @test
      * @uses \MeTools\View\Helper\HtmlHelper::nestedList()
      * @uses \MeTools\View\Helper\HtmlHelper::ol()
@@ -263,7 +253,6 @@ class HtmlHelperTest extends HelperTestCase
     }
 
     /**
-     * Test for `shareaholic()` method
      * @test
      * @uses \MeTools\View\Helper\HtmlHelper::shareaholic()
      */
@@ -274,7 +263,6 @@ class HtmlHelperTest extends HelperTestCase
     }
 
     /**
-     * Test for `tag()` method
      * @test
      * @uses \MeTools\View\Helper\HtmlHelper::tag()
      */
@@ -292,7 +280,6 @@ class HtmlHelperTest extends HelperTestCase
     }
 
     /**
-     * Test for `viewport()` method
      * @test
      * @uses \MeTools\View\Helper\HtmlHelper::viewport()
      */
@@ -308,9 +295,8 @@ class HtmlHelperTest extends HelperTestCase
     }
 
     /**
-     * Tests for `youtube()` method
-     * @uses \MeTools\View\Helper\HtmlHelper::youtube()
      * @test
+     * @uses \MeTools\View\Helper\HtmlHelper::youtube()
      */
     public function testYoutube(): void
     {
