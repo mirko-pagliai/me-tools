@@ -1,6 +1,7 @@
 # 2.x branch
 ## 2.22 branch
 ### 2.22.4
+* added `LibraryHelper::getOutput()` method;
 * updated for CakePHP 4.4.
 
 ### 2.22.3
