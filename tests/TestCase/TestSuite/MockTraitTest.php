@@ -31,8 +31,8 @@ use stdClass;
 class MockTraitTest extends TestCase
 {
     /**
-     * Tests for `getAlias()` method
      * @test
+     * @uses \MeTools\TestSuite\MockTrait::getAlias()
      */
     public function testGetAlias(): void
     {
@@ -53,7 +53,6 @@ class MockTraitTest extends TestCase
     }
 
     /**
-     * Tests for `getMockForHelper()` method
      * @test
      * @uses \MeTools\TestSuite\MockTrait::getMockForHelper()
      */
@@ -65,8 +64,8 @@ class MockTraitTest extends TestCase
     }
 
     /**
-     * Tests for `getOriginClassName()` method
      * @test
+     * @uses \MeTools\TestSuite\MockTrait::getOriginClassName()
      */
     public function testGetOriginClassName(): void
     {
@@ -74,8 +73,8 @@ class MockTraitTest extends TestCase
     }
 
     /**
-     * Tests for `getOriginClassNameOrFail()` method
      * @test
+     * @uses \MeTools\TestSuite\MockTrait::getOriginClassNameOrFail()
      */
     public function testGetOriginClassNameOrFail(): void
     {
@@ -86,8 +85,8 @@ class MockTraitTest extends TestCase
     }
 
     /**
-     * Tests for `getPluginName()` method
      * @test
+     * @uses \MeTools\TestSuite\MockTrait::getPluginName()
      */
     public function testGetPluginName(): void
     {
@@ -96,8 +95,8 @@ class MockTraitTest extends TestCase
     }
 
     /**
-     * Tests for `getTableClassNameFromAlias()` method
      * @test
+     * @uses \MeTools\TestSuite\MockTrait::getTableClassNameFromAlias()
      */
     public function testGetTableClassNameFromAlias(): void
     {

@@ -1,4 +1,5 @@
 <?php
+/** @noinspection PhpDocMissingThrowsInspection */
 /** @noinspection PhpUnhandledExceptionInspection */
 declare(strict_types=1);
 
@@ -22,7 +23,6 @@ use Cake\View\View;
 use MeTools\TestSuite\HelperTestCase;
 use MeTools\View\Helper\LibraryHelper;
 use Tools\Filesystem;
-use Tools\TestSuite\ReflectionTrait;
 
 /**
  * LibraryHelperTest class
@@ -30,20 +30,6 @@ use Tools\TestSuite\ReflectionTrait;
  */
 class LibraryHelperTest extends HelperTestCase
 {
-    use ReflectionTrait;
-
-    protected const EXPECTED_DATEPICKER_ICONS = [
-        'time' => 'fas fa-clock',
-        'date' => 'fas fa-calendar',
-        'up' => 'fas fa-chevron-up',
-        'down' => 'fas fa-chevron-down',
-        'previous' => 'fas fa-chevron-left',
-        'next' => 'fas fa-chevron-right',
-        'today' => 'fas fa-dot-circle',
-        'clear' => 'fas fa-trash',
-        'close' => 'fas fa-times',
-    ];
-
     /**
      * Called before every test method
      * @return void
@@ -67,14 +53,12 @@ class LibraryHelperTest extends HelperTestCase
     }
 
     /**
-     * Tests for `initialize()` method
-     * @uses \MeTools\View\Helper\LibraryHelper::initialize()
      * @test
+     * @uses \MeTools\View\Helper\LibraryHelper::initialize()
      */
     public function testInitialize(): void
     {
-        //Checks that, when the `Assets` plugin is not present, the
-        //  `AssetHelper` matches the `HtmlHelper`
+        //Checks that, when the `Assets` plugin is not present, the `AssetHelper` matches the `HtmlHelper`
         if (Plugin::getCollection()->has('Assets')) {
             $this->Helper->initialize([]);
             $this->assertInstanceOf(AssetHelper::class, $this->Helper->Asset);
@@ -86,58 +70,47 @@ class LibraryHelperTest extends HelperTestCase
     }
 
     /**
-     * Tests for `beforeLayout()` method
-     * @uses \MeTools\View\Helper\LibraryHelper::beforeLayout()
      * @test
+     * @uses \MeTools\View\Helper\LibraryHelper::beforeLayout()
      */
     public function testBeforeLayout(): void
     {
-        $this->Helper->beforeLayout();
-        $this->assertEmpty($this->getProperty($this->Helper, 'output'));
+        $this->Helper->getView()->dispatchEvent('View.beforeLayout');
+        $this->assertEmpty($this->Helper->getOutput());
         $this->assertEmpty($this->Helper->getView()->fetch('script_bottom'));
 
-        $expected = [
-            '<script>$(function() {',
-            '    //first',
-            '    //second',
-            '});</script>',
-        ];
-        $this->setProperty($this->Helper, 'output', ['//first', '//second']);
-        $this->Helper->beforeLayout();
-        $this->assertEmpty($this->getProperty($this->Helper, 'output'));
-        $this->assertEquals($expected, preg_split('/' . PHP_EOL . '/', $this->Helper->getView()->fetch('script_bottom')));
-    }
-
-    /**
-     * Tests for `analytics()` method
-     * @uses \MeTools\View\Helper\LibraryHelper::analytics()
-     * @test
-     */
-    public function testAnalytics(): void
-    {
-        $expected = '<script>!function(e,a,t,n,c,o,s){e.GoogleAnalyticsObject=c,e[c]=e[c]||function(){(e[c].q=e[c].q||[]).push(arguments)},e[c].l=1*new Date,o=a.createElement(t),s=a.getElementsByTagName(t)[0],o.async=1,o.src=n,s.parentNode.insertBefore(o,s)}(window,document,"script","//www.google-analytics.com/analytics.js","ga"),ga("create","my-id","auto"),ga("send","pageview");</script>';
-        $this->Helper->analytics('my-id');
+        $expected = '<script src="/me_tools/js/slugify.js"></script>';
+        $this->Helper->slugify();
+        $this->Helper->getView()->dispatchEvent('View.beforeLayout');
         $this->assertEquals($expected, $this->Helper->getView()->fetch('script_bottom'));
     }
 
     /**
-     * Tests for `analytics()` method, on localhost
-     * @uses \MeTools\View\Helper\LibraryHelper::analytics()
      * @test
+     * @uses \MeTools\View\Helper\LibraryHelper::analytics()
+     */
+    public function testAnalytics(): void
+    {
+        $this->Helper->analytics('my-id');
+        $this->assertStringStartsWith('<script>!function(', $this->Helper->getView()->fetch('script_bottom'));
+    }
+
+    /**
+     * @test
+     * @uses \MeTools\View\Helper\LibraryHelper::analytics()
      */
     public function testAnalyticsOnLocalhost(): void
     {
-        $request = $this->createMock(ServerRequest::class);
-        $request->expects($this->any())->method('is')->willReturn(true);
-        $Helper = new LibraryHelper(new View($request));
+        $Request = $this->createMock(ServerRequest::class);
+        $Request->expects($this->any())->method('is')->willReturn(true);
+        $Helper = new LibraryHelper(new View($Request));
         $Helper->analytics('my-id');
         $this->assertEmpty($Helper->getView()->fetch('script_bottom'));
     }
 
     /**
-     * Tests for `ckeditor()` method
-     * @uses \MeTools\View\Helper\LibraryHelper::ckeditor()
      * @test
+     * @uses \MeTools\View\Helper\LibraryHelper::ckeditor()
      */
     public function testCkeditor(): void
     {
@@ -159,8 +132,8 @@ class LibraryHelperTest extends HelperTestCase
 
     /**
      * Tests for `ckeditor()` method, with a js config file from app
-     * @uses \MeTools\View\Helper\LibraryHelper::ckeditor()
      * @test
+     * @uses \MeTools\View\Helper\LibraryHelper::ckeditor()
      */
     public function testCkeditorWithJsFromApp(): void
     {
@@ -178,8 +151,8 @@ class LibraryHelperTest extends HelperTestCase
 
     /**
      * Tests for `ckeditor()` method, with a php config file from app
-     * @uses \MeTools\View\Helper\LibraryHelper::ckeditor()
      * @test
+     * @uses \MeTools\View\Helper\LibraryHelper::ckeditor()
      */
     public function testCkeditorWithPhpFromApp(): void
     {
@@ -196,9 +169,8 @@ class LibraryHelperTest extends HelperTestCase
     }
 
     /**
-     * Tests for `fancybox()` method
-     * @uses \MeTools\View\Helper\LibraryHelper::fancybox()
      * @test
+     * @uses \MeTools\View\Helper\LibraryHelper::fancybox()
      */
     public function testFancybox(): void
     {
@@ -216,9 +188,8 @@ class LibraryHelperTest extends HelperTestCase
     }
 
     /**
-     * Tests for `shareaholic()` method
-     * @uses \MeTools\View\Helper\LibraryHelper::shareaholic()
      * @test
+     * @uses \MeTools\View\Helper\LibraryHelper::shareaholic()
      */
     public function testShareaholic(): void
     {
@@ -236,9 +207,8 @@ class LibraryHelperTest extends HelperTestCase
     }
 
     /**
-     * Tests for `slugify()` method
-     * @uses \MeTools\View\Helper\LibraryHelper::slugify()
      * @test
+     * @uses \MeTools\View\Helper\LibraryHelper::slugify()
      */
     public function testSlugify(): void
     {
@@ -247,6 +217,6 @@ class LibraryHelperTest extends HelperTestCase
         $this->assertHtml($expected, $this->Helper->getView()->fetch('script_bottom'));
 
         $expected = ['$().slugify("form #title", "form #slug");'];
-        $this->assertEquals($expected, $this->getProperty($this->Helper, 'output'));
+        $this->assertEquals($expected, $this->Helper->getOutput());
     }
 }

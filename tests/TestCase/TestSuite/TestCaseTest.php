@@ -26,9 +26,8 @@ class TestCaseTest extends TestCase
     use ReflectionTrait;
 
     /**
-     * Tests for `assertLogContains()` method
-     * @uses \MeCms\TestSuite\TestCase::assertLogContains()
      * @test
+     * @uses \MeTools\TestSuite\TestCase::assertLogContains()
      */
     public function testAssertLogContains(): void
     {
@@ -46,9 +45,8 @@ class TestCaseTest extends TestCase
     }
 
     /**
-     * Tests for `assertSqlEndsNotWith()` method
-     * @uses \MeCms\TestSuite\TestCase::assertSqlEndsNotWith()
      * @test
+     * @uses \MeTools\TestSuite\TestCase::assertSqlEndsNotWith()
      */
     public function testAssertSqlEndsNotWith(): void
     {
@@ -61,9 +59,8 @@ class TestCaseTest extends TestCase
     }
 
     /**
-     * Tests for `assertSqlEndsWith()` method
-     * @uses \MeCms\TestSuite\TestCase::assertSqlEndsWith()
      * @test
+     * @uses \MeTools\TestSuite\TestCase::assertSqlEndsWith()
      */
     public function testAssertSqlEndsWith(): void
     {
@@ -80,9 +77,8 @@ class TestCaseTest extends TestCase
     }
 
     /**
-     * Tests for `deleteLog()` method
-     * @uses \MeCms\TestSuite\TestCase::deleteLog()
      * @test
+     * @uses \MeTools\TestSuite\TestCase::deleteLog()
      */
     public function testDeleteLog(): void
     {
@@ -94,9 +90,8 @@ class TestCaseTest extends TestCase
     }
 
     /**
-     * Tests for `getTable()` method
-     * @uses \MeCms\TestSuite\TestCase::getTable()
      * @test
+     * @uses \MeTools\TestSuite\TestCase::getTable()
      */
     public function testGetTable(): void
     {
