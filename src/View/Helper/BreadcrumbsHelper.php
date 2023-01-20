@@ -25,21 +25,16 @@ class BreadcrumbsHelper extends CakeBreadcrumbsHelper
 {
     /**
      * Add a crumb to the end of the trail
-     * @param string|array $title If provided as a string, it represents the
-     *  title of the crumb. Alternatively you can provide an array, with each
-     *  value being a single crumb. Arrays are expected to be of this form:
+     * @param string|array $title If provided as a string, it represents the title of the crumb. Alternatively you can
+     *  provide an array, with each value being a single crumb. Arrays are expected to be of this form:
      *  - *title* The title of the crumb
      *  - *link* The link of the crumb
      *  - *options* Options of the crumb
-     * @param string|array|null $url URL of the crumb. Either a string, an array
-     *  of route params to pass to Url::build() or null/empty
-     * @param array $options Array of options. These options will be used as
-     *  attributes HTML attribute the crumb will be rendered in (a <li> tag by
-     *  default). It accepts two special keys:
-     *  - *innerAttrs*: An array that allows you to define attributes for the
-     *      inner element of the crumb (by default, to the link)
-     *  - *templateVars*: Specific template vars in case you override the
-     *  templates provided
+     * @param string|array|null $url URL of the crumb. Either a string, an array of route params to pass to Url::build() or null/empty
+     * @param array $options Array of options. These options will be used as attributes HTML attribute the crumb will be
+     *  rendered in (a <li> tag by default). It accepts two special keys:
+     *  - *innerAttrs*: An array that allows you to define attributes for the inner element of the crumb (by default, to the link)
+     *  - *templateVars*: Specific template vars in case you override the templates provided
      * @return \Cake\View\Helper\BreadcrumbsHelper
      * @since 2.16.0
      */
@@ -52,21 +47,16 @@ class BreadcrumbsHelper extends CakeBreadcrumbsHelper
 
     /**
      * Prepend a crumb to the start of the queue
-     * @param string|array $title If provided as a string, it represents the
-     *  title of the crumb. Alternatively you can provide an array, with each
-     *  value being a single crumb. Arrays are expected to be of this form:
+     * @param string|array $title If provided as a string, it represents the title of the crumb. Alternatively you can
+     *  provide an array, with each value being a single crumb. Arrays are expected to be of this form:
      *  - *title* The title of the crumb
      *  - *link* The link of the crumb
      *  - *options* Options of the crumb
-     * @param string|array|null $url URL of the crumb. Either a string, an array
-     *  of route params to pass to Url::build() or null/empty
-     * @param array $options Array of options. These options will be used as
-     *  attributes HTML attribute the crumb will be rendered in (a <li> tag by
-     *  default). It accepts two special keys:
-     *  - *innerAttrs*: An array that allows you to define attributes for the
-     *      inner element of the crumb (by default, to the link)
-     *  - *templateVars*: Specific template vars in case you override the
-     *  templates provided
+     * @param string|array|null $url URL of the crumb. Either a string, an array of route params to pass to Url::build() or null/empty
+     * @param array $options Array of options. These options will be used as attributes HTML attribute the crumb will be
+     *  rendered in (a <li> tag by default). It accepts two special keys:
+     *  - *innerAttrs*: An array that allows you to define attributes for the inner element of the crumb (by default, to the link)
+     *  - *templateVars*: Specific template vars in case you override the templates provided
      * @return \Cake\View\Helper\BreadcrumbsHelper
      * @since 2.16.0
      */
@@ -79,8 +69,7 @@ class BreadcrumbsHelper extends CakeBreadcrumbsHelper
 
     /**
      * Renders the breadcrumbs trail
-     * @param array $attributes Array of attributes applied to the `wrapper`
-     *  template
+     * @param array $attributes Array of attributes applied to the `wrapper` template
      * @param array $separator Array of attributes for the `separator` template
      * @return string The breadcrumbs trail
      */

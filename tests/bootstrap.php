@@ -102,11 +102,3 @@ Cache::setConfig([
 ConnectionManager::setConfig('test', ['url' => 'sqlite:///' . TMP . 'test.sq3']);
 
 $_SERVER['PHP_SELF'] = '/';
-
-/**
- * @todo To be removed in a later version
- */
-if (!class_exists('Cake\Console\TestSuite\StubConsoleOutput')) {
-    class_alias('Cake\TestSuite\Stub\ConsoleOutput', 'Cake\Console\TestSuite\StubConsoleOutput');
-    class_alias('Cake\TestSuite\ConsoleIntegrationTestTrait', 'Cake\Console\TestSuite\ConsoleIntegrationTestTrait');
-}
