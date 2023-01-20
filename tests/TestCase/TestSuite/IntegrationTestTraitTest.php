@@ -23,13 +23,16 @@ use Cake\Http\Session;
 use MeTools\TestSuite\IntegrationTestTrait;
 use MeTools\TestSuite\TestCase;
 use Tools\Filesystem;
+use Tools\TestSuite\ReflectionTrait;
 
 /**
  * IntegrationTestTraitTest class
+ * @property \Cake\Http\Response $_response
  */
 class IntegrationTestTraitTest extends TestCase
 {
     use IntegrationTestTrait;
+    use ReflectionTrait;
 
     /**
      * Called before every test method
@@ -43,8 +46,8 @@ class IntegrationTestTraitTest extends TestCase
     }
 
     /**
-     * Test for `controllerSpy()` method
      * @test
+     * @uses \MeTools\TestSuite\IntegrationTestTrait::controllerSpy()
      * @noinspection PhpUndefinedFieldInspection
      */
     public function testControllerSpy(): void
@@ -64,8 +67,8 @@ class IntegrationTestTraitTest extends TestCase
     }
 
     /**
-     * Test for `assertCookieIsEmpty()` method
      * @test
+     * @uses \MeTools\TestSuite\IntegrationTestTrait::assertCookieIsEmpty()
      */
     public function testAssertCookieIsEmpty(): void
     {
@@ -81,8 +84,8 @@ class IntegrationTestTraitTest extends TestCase
     }
 
     /**
-     * Test for `assertResponseOkAndNotEmpty()` method
      * @test
+     * @uses \MeTools\TestSuite\IntegrationTestTrait::assertResponseOkAndNotEmpty()
      */
     public function testAssertResponseOkAndNotEmpty(): void
     {
@@ -91,8 +94,8 @@ class IntegrationTestTraitTest extends TestCase
     }
 
     /**
-     * Test for `assertSessionEmpty()` method
      * @test
+     * @uses \MeTools\TestSuite\IntegrationTestTrait::assertSessionEmpty()
      */
     public function testAssertSessionEmpty(): void
     {
@@ -109,7 +112,6 @@ class IntegrationTestTraitTest extends TestCase
     }
 
     /**
-     * Test for `getStatusCode()` method
      * @test
      * @uses \MeTools\TestSuite\IntegrationTestTrait::getStatusCode()
      */

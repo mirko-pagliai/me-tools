@@ -21,7 +21,6 @@ use Cake\TestSuite\TestCase as CakeTestCase;
 use Throwable;
 use Tools\Exceptionist;
 use Tools\Filesystem;
-use Tools\TestSuite\ReflectionTrait;
 use Tools\TestSuite\TestTrait;
 
 /**
@@ -30,7 +29,6 @@ use Tools\TestSuite\TestTrait;
 abstract class TestCase extends CakeTestCase
 {
     use MockTrait;
-    use ReflectionTrait;
     use TestTrait;
 
     /**
