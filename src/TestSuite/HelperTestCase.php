@@ -15,19 +15,14 @@ declare(strict_types=1);
  */
 namespace MeTools\TestSuite;
 
-use Cake\View\Helper;
 use Cake\View\View;
 
 /**
  * Abstract class for test helpers
+ * @property \Cake\View\Helper $Helper
  */
 abstract class HelperTestCase extends TestCase
 {
-    /**
-     * @var \Cake\View\Helper
-     */
-    private Helper $_Helper;
-
     /**
      * Magic method
      * @param string $name Property name
@@ -37,17 +32,17 @@ abstract class HelperTestCase extends TestCase
     public function __get(string $name)
     {
         if ($name === 'Helper') {
-            if (empty($this->_Helper)) {
+            if (empty($this->_cache['Helper'])) {
                 /** @var class-string<\Cake\View\Helper> $className */
                 $className = $this->getOriginClassNameOrFail($this);
-                $this->_Helper = new $className(new View());
+                $this->_cache['Helper'] = new $className(new View());
 
-                if (method_exists($this->_Helper, 'initialize')) {
-                    $this->_Helper->initialize([]);
+                if (method_exists($this->_cache['Helper'], 'initialize')) {
+                    $this->_cache['Helper']->initialize([]);
                 }
             }
 
-            return $this->_Helper;
+            return $this->_cache['Helper'];
         }
     }
 }

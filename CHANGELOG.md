@@ -1,12 +1,8 @@
 # 2.x branch
 ## 2.23 branch
 ### 2.23.0
-* the `ConsoleIntegrationTestTrait` provides the `$Command` property through the `__get()` magic method, and no longer
-  through the `setUp()` method.
-* the `ComponentTestCase` provides the `$Component` property through the `__get()` magic method, and no longer through
-  the `setUp()` method.
-* the `HelperTestCase` provides the `$Helper` property through the `__get()` magic method, and no longer through the
-  `setUp()` method;
+* `ConsoleIntegrationTestTrait`, `ComponentTestCase` and `HelperTestCase` provide `$Command`, `$Component` and `$Helper` 
+  properties through the `__get()` magic method, and no longer through the `setUp()` method;
 * `TestCase` no longer always uses the `ReflectionTrait`;
 * `getMockForComponent()` and `getMockForController()` methods provided by `MockTrait` and `assertExitWithError()` and
   `assertExitWithSuccess()` methods provided by `ConsoleIntegrationTestTrait` had been deprecated and have been removed.

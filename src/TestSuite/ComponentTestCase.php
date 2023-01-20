@@ -15,20 +15,15 @@ declare(strict_types=1);
  */
 namespace MeTools\TestSuite;
 
-use Cake\Controller\Component;
 use Cake\Controller\ComponentRegistry;
 use Cake\Controller\Controller;
 
 /**
  * Abstract class for test components
+ * @property \Cake\Controller\Component $Component
  */
 abstract class ComponentTestCase extends TestCase
 {
-    /**
-     * @var \Cake\Controller\Component
-     */
-    private Component $_Component;
-
     /**
      * Magic method
      * @param string $name Property name
@@ -38,17 +33,17 @@ abstract class ComponentTestCase extends TestCase
     public function __get(string $name)
     {
         if ($name === 'Component') {
-            if (empty($this->_Component)) {
+            if (empty($this->_cache['Component'])) {
                 /** @var class-string<\Cake\Controller\Component> $className */
                 $className = $this->getOriginClassNameOrFail($this);
-                $this->_Component = new $className(new ComponentRegistry(new Controller()));
+                $this->_cache['Component'] = new $className(new ComponentRegistry(new Controller()));
 
-                if (method_exists($this->_Component, 'initialize')) {
-                    $this->_Component->initialize([]);
+                if (method_exists($this->_cache['Component'], 'initialize')) {
+                    $this->_cache['Component']->initialize([]);
                 }
             }
 
-            return $this->_Component;
+            return $this->_cache['Component'];
         }
     }
 }

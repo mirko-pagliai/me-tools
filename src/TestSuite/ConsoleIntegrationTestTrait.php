@@ -16,7 +16,6 @@ declare(strict_types=1);
 namespace MeTools\TestSuite;
 
 use Cake\Console\TestSuite\ConsoleIntegrationTestTrait as BaseConsoleIntegrationTestTrait;
-use MeTools\Console\Command;
 
 /**
  * A trait intended to make integration tests of cake console commands easier
@@ -29,11 +28,6 @@ trait ConsoleIntegrationTestTrait
     use BaseConsoleIntegrationTestTrait;
 
     /**
-     * @var \MeTools\Console\Command
-     */
-    protected Command $_Command;
-
-    /**
      * Magic method
      * @param string $name Property name
      * @return \MeTools\Console\Command|void
@@ -42,17 +36,17 @@ trait ConsoleIntegrationTestTrait
     public function __get(string $name)
     {
         if ($name === 'Command') {
-            if (empty($this->_Command)) {
+            if (empty($this->_cache['Command'])) {
                 /** @var class-string<\MeTools\Console\Command> $className */
                 $className = $this->getOriginClassNameOrFail($this);
-                $this->_Command = new $className();
+                $this->_cache['Command'] = new $className();
 
-                if (method_exists($this->_Command, 'initialize')) {
-                    $this->_Command->initialize();
+                if (method_exists($this->_cache['Command'], 'initialize')) {
+                    $this->_cache['Command']->initialize();
                 }
             }
 
-            return $this->_Command;
+            return $this->_cache['Command'];
         }
     }
 
@@ -69,8 +63,7 @@ trait ConsoleIntegrationTestTrait
 
     /**
      * Asserts that `stdout` is not empty
-     * @param string $message Failure message to be appended to the generated
-     *  message
+     * @param string $message Failure message to be appended to the generated message
      * @return void
      * @since 2.17.6
      */

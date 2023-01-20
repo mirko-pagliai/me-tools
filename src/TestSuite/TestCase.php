@@ -32,6 +32,11 @@ abstract class TestCase extends CakeTestCase
     use TestTrait;
 
     /**
+     * @var array
+     */
+    protected array $_cache = [];
+
+    /**
      * Called before every test method
      * @return void
      */
