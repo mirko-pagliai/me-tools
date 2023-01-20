@@ -24,8 +24,7 @@ use MeTools\TestSuite\HelperTestCase;
 class DropdownHelperTest extends HelperTestCase
 {
     /**
-     * Test for `start()`, `link()` and `end()` methods
-     * @return void
+     * @test
      * @uses \MeTools\View\Helper\DropdownHelper::end()
      * @uses \MeTools\View\Helper\DropdownHelper::link()
      * @uses \MeTools\View\Helper\DropdownHelper::start()
@@ -82,8 +81,7 @@ class DropdownHelperTest extends HelperTestCase
     }
 
     /**
-     * Test for `end()` method, with the `start()` method not called
-     * @return void
+     * @test
      * @uses \MeTools\View\Helper\DropdownHelper::end()
      */
     public function testEndWithNoStart(): void

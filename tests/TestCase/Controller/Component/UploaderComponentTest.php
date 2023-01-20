@@ -1,4 +1,5 @@
 <?php
+/** @noinspection PhpDocMissingThrowsInspection */
 /** @noinspection PhpUnhandledExceptionInspection */
 declare(strict_types=1);
 
@@ -57,10 +58,9 @@ class UploaderComponentTest extends ComponentTestCase
     }
 
     /**
-     * Tests for `getError()` and `setError()` methods
+     * @test
      * @uses \MeTools\Controller\Component\UploaderComponent::getError()
      * @uses \MeTools\Controller\Component\UploaderComponent::setError()
-     * @test
      */
     public function testGetErrorAndSetError(): void
     {
@@ -75,9 +75,8 @@ class UploaderComponentTest extends ComponentTestCase
     }
 
     /**
-     * Tests for `findTargetFilename()` method
-     * @uses \MeTools\Controller\Component\UploaderComponent::findTargetFilename()
      * @test
+     * @uses \MeTools\Controller\Component\UploaderComponent::findTargetFilename()
      */
     public function testFindTargetFilename(): void
     {
@@ -109,10 +108,9 @@ class UploaderComponentTest extends ComponentTestCase
     }
 
     /**
-     * Tests for `getFile()` and `setFile()` methods
+     * @test
      * @uses \MeTools\Controller\Component\UploaderComponent::getFile()
      * @uses \MeTools\Controller\Component\UploaderComponent::setFile()
-     * @test
      */
     public function testGetAndSetFile(): void
     {
@@ -123,15 +121,8 @@ class UploaderComponentTest extends ComponentTestCase
 
         $this->Component->setFile($this->createFile(UPLOAD_ERR_INI_SIZE));
         $this->assertNotEmpty($this->Component->getError());
-    }
 
-    /**
-     * Tests for `setFile()` method, with file as array
-     * @uses \MeTools\Controller\Component\UploaderComponent::setFile()
-     * @test
-     */
-    public function testSetFileAsArray(): void
-    {
+        //`setFile()` with array
         $file = Filesystem::instance()->createTmpFile();
         $this->Component->setFile([
             'name' => basename($file),
@@ -145,9 +136,8 @@ class UploaderComponentTest extends ComponentTestCase
     }
 
     /**
-     * Test for `mimetype()` method
-     * @uses \MeTools\Controller\Component\UploaderComponent::mimetype()
      * @test
+     * @uses \MeTools\Controller\Component\UploaderComponent::mimetype()
      */
     public function testMimetype(): void
     {
@@ -176,9 +166,8 @@ class UploaderComponentTest extends ComponentTestCase
     }
 
     /**
-     * Test for `save()` method
-     * @uses \MeTools\Controller\Component\UploaderComponent::save()
      * @test
+     * @uses \MeTools\Controller\Component\UploaderComponent::save()
      */
     public function testSave(): void
     {
@@ -221,8 +210,8 @@ class UploaderComponentTest extends ComponentTestCase
 
     /**
      * Test for `save()` method, with an error
-     * @uses \MeTools\Controller\Component\UploaderComponent::save()
      * @test
+     * @uses \MeTools\Controller\Component\UploaderComponent::save()
      */
     public function testSaveWithError(): void
     {
