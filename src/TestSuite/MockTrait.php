@@ -84,6 +84,7 @@ trait MockTrait
      * @return class-string<\PHPUnit\Framework\TestCase>|string The class name for which a test is being performed or
      *  empty string on failure
      * @since 2.18.0
+     * @todo remove?
      */
     protected function getOriginClassName(TestCase $className): string
     {
