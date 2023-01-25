@@ -19,30 +19,29 @@ use Cake\View\View;
 
 /**
  * Abstract class for test helpers
- * @property \Cake\View\Helper $Helper
+ * @property \Cake\View\Helper $Helper The helper instance for which a test is being performed
  */
 abstract class HelperTestCase extends TestCase
 {
     /**
-     * Magic method
+     * Get magic method.
+     *
+     * It provides access to the cached properties of the test.
      * @param string $name Property name
-     * @return \Cake\View\Helper|void
-     * @noinspection PhpRedundantVariableDocTypeInspection
+     * @return \Cake\View\Helper|mixed
+     * @throws \ReflectionException
      */
     public function __get(string $name)
     {
         if ($name === 'Helper') {
             if (empty($this->_cache['Helper'])) {
-                /** @var class-string<\Cake\View\Helper> $className */
-                $className = $this->getOriginClassNameOrFail($this);
-                $this->_cache['Helper'] = new $className(new View());
-
-                if (method_exists($this->_cache['Helper'], 'initialize')) {
-                    $this->_cache['Helper']->initialize([]);
-                }
+                $this->_cache['Helper'] = new $this->originClassName(new View());
+                $this->_cache['Helper']->initialize([]);
             }
 
             return $this->_cache['Helper'];
         }
+
+        return parent::__get($name);
     }
 }

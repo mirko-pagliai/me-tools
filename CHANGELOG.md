@@ -1,6 +1,7 @@
 # 2.x branch
 ## 2.23 branch
 ### 2.23.0
+* the `TestCase` class provides `$alias` and `$originClassName` properties through the `__get()` magic method;
 * `ConsoleIntegrationTestTrait`, `ComponentTestCase` and `HelperTestCase` provide `$Command`, `$Component` and `$Helper` 
   properties through the `__get()` magic method, and no longer through the `setUp()` method;
 * `TestCase` no longer always uses the `ReflectionTrait`;

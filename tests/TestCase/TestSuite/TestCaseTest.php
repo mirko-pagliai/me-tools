@@ -14,16 +14,45 @@ declare(strict_types=1);
  */
 namespace MeTools\Test\TestCase\TestSuite;
 
+use App\Test\TestCase\View\AppViewTest;
 use MeTools\TestSuite\TestCase;
+use PHPUnit\Framework\AssertionFailedError;
 use Tools\Filesystem;
-use Tools\TestSuite\ReflectionTrait;
 
 /**
  * TestCaseTest class
  */
 class TestCaseTest extends TestCase
 {
-    use ReflectionTrait;
+    /**
+     * @var \MeTools\TestSuite\TestCase&\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected TestCase $TestCase;
+
+    /**
+     * Called before every test method
+     * @return void
+     */
+    public function setUp(): void
+    {
+        $this->TestCase ??= $this->getMockForAbstractClass(TestCase::class);
+    }
+
+    /**
+     * @test
+     * @uses \MeTools\TestSuite\TestCase::__get()
+     */
+    public function testGetMagicMethod(): void
+    {
+        $AppViewTest = new AppViewTest();
+        $this->assertSame('App\View\AppView', $AppViewTest->originClassName);
+        $this->assertSame('App', $AppViewTest->alias);
+
+        //With a no existing property
+        $this->expectException(AssertionFailedError::class);
+        $this->expectExceptionMessage('Property `noExistingProperty` does not exist');
+        $AppViewTest->noExistingProperty;
+    }
 
     /**
      * @test
@@ -36,11 +65,11 @@ class TestCaseTest extends TestCase
         Filesystem::instance()->createFile($file, $string);
 
         foreach (explode(' ', $string) as $word) {
-            $this->assertLogContains($word, $file);
+            $this->TestCase->assertLogContains($word, $file);
         }
 
         //With a no existing log
-        $this->expectAssertionFailed('File or directory `' . $this->getLogFullPath('noExisting') . '` is not readable');
+        $this->expectAssertionFailed('File or directory `' . $this->TestCase->getLogFullPath('noExisting') . '` is not readable');
         $this->assertLogContains('content', 'noExisting');
     }
 
@@ -51,11 +80,11 @@ class TestCaseTest extends TestCase
     public function testAssertSqlEndsNotWith(): void
     {
         $sql = 'SELECT Posts.id AS Posts__id FROM posts Posts';
-        $this->assertSqlEndsNotWith('FROM `posts` `Posts` ORDER BY rand() LIMIT 1', $sql);
-        $this->assertSqlEndsNotWith('FROM posts Posts ORDER BY rand() LIMIT 1', $sql);
+        $this->TestCase->assertSqlEndsNotWith('FROM `posts` `Posts` ORDER BY rand() LIMIT 1', $sql);
+        $this->TestCase->assertSqlEndsNotWith('FROM posts Posts ORDER BY rand() LIMIT 1', $sql);
 
         $this->expectAssertionFailed();
-        $this->assertSqlEndsNotWith('FROM `posts` `Posts`', $sql);
+        $this->TestCase->assertSqlEndsNotWith('FROM `posts` `Posts`', $sql);
     }
 
     /**
@@ -65,15 +94,15 @@ class TestCaseTest extends TestCase
     public function testAssertSqlEndsWith(): void
     {
         $sql = 'SELECT Posts.id AS Posts__id FROM posts Posts ORDER BY rand() LIMIT 1';
-        $this->assertSqlEndsWith('FROM `posts` `Posts` ORDER BY rand() LIMIT 1', $sql);
-        $this->assertSqlEndsWith('FROM posts Posts ORDER BY rand() LIMIT 1', $sql);
+        $this->TestCase->assertSqlEndsWith('FROM `posts` `Posts` ORDER BY rand() LIMIT 1', $sql);
+        $this->TestCase->assertSqlEndsWith('FROM posts Posts ORDER BY rand() LIMIT 1', $sql);
 
         $sql = 'SELECT `Posts`.`id` AS `Posts__id` FROM `posts` `Posts` ORDER BY rand() LIMIT 1';
-        $this->assertSqlEndsWith('FROM `posts` `Posts` ORDER BY rand() LIMIT 1', $sql);
-        $this->assertSqlEndsWith('FROM posts Posts ORDER BY rand() LIMIT 1', $sql);
+        $this->TestCase->assertSqlEndsWith('FROM `posts` `Posts` ORDER BY rand() LIMIT 1', $sql);
+        $this->TestCase->assertSqlEndsWith('FROM posts Posts ORDER BY rand() LIMIT 1', $sql);
 
         $this->expectAssertionFailed();
-        $this->assertSqlEndsWith('FROM `posts` `Posts`', $sql);
+        $this->TestCase->assertSqlEndsWith('FROM `posts` `Posts`', $sql);
     }
 
     /**
@@ -84,7 +113,7 @@ class TestCaseTest extends TestCase
     {
         foreach ([LOGS . 'first.log', LOGS . 'second.log'] as $log) {
             Filesystem::instance()->createFile($log);
-            $this->deleteLog($log);
+            $this->TestCase->deleteLog($log);
             $this->assertFileDoesNotExist($log);
         }
     }
@@ -95,7 +124,7 @@ class TestCaseTest extends TestCase
      */
     public function testGetTable(): void
     {
-        $Table = $this->getTable('Articles');
+        $Table = $this->TestCase->getTable('Articles');
         $this->assertSame('Articles', $Table->getAlias());
     }
 }

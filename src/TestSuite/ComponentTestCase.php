@@ -20,30 +20,29 @@ use Cake\Controller\Controller;
 
 /**
  * Abstract class for test components
- * @property \Cake\Controller\Component $Component
+ * @property \Cake\Controller\Component $Component The component instance for which a test is being performed
  */
 abstract class ComponentTestCase extends TestCase
 {
     /**
-     * Magic method
+     * Get magic method.
+     *
+     * It provides access to the cached properties of the test.
      * @param string $name Property name
-     * @return \Cake\Controller\Component|void
-     * @noinspection PhpRedundantVariableDocTypeInspection
+     * @return \Cake\Controller\Component|mixed
+     * @throws \ReflectionException
      */
     public function __get(string $name)
     {
         if ($name === 'Component') {
             if (empty($this->_cache['Component'])) {
-                /** @var class-string<\Cake\Controller\Component> $className */
-                $className = $this->getOriginClassNameOrFail($this);
-                $this->_cache['Component'] = new $className(new ComponentRegistry(new Controller()));
-
-                if (method_exists($this->_cache['Component'], 'initialize')) {
-                    $this->_cache['Component']->initialize([]);
-                }
+                $this->_cache['Component'] = new $this->originClassName(new ComponentRegistry(new Controller()));
+                $this->_cache['Component']->initialize([]);
             }
 
             return $this->_cache['Component'];
         }
+
+        return parent::__get($name);
     }
 }
