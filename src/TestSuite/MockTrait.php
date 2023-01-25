@@ -51,7 +51,7 @@ trait MockTrait
     protected function getAlias($class): string
     {
         $class = is_object($class) ? get_class($class) : $this->_classExistsOrFail($class);
-        $alias = preg_replace('/^(\w+)(Cell|Controller|Table|Validator)(Test)?$/', '$1', get_class_short_name($class), -1, $count);
+        $alias = preg_replace('/^(\w+)(Cell|Controller|Helper|Table|Validator|View)(Test)?$/', '$1', get_class_short_name($class), -1, $count);
 
         if (!$alias || !$count) {
             $this->fail('Unable to get the alias for the `' . $class . '` class');
