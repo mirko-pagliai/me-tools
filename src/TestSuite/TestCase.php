@@ -88,6 +88,7 @@ abstract class TestCase extends CakeTestCase
         parent::tearDownAfterClass();
 
         if (LOGS !== TMP) {
+            /** @noinspection PhpUnhandledExceptionInspection */
             Filesystem::instance()->unlinkRecursive(LOGS, ['.gitkeep', 'empty'], true);
         }
     }

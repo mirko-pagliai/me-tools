@@ -51,6 +51,7 @@ class TestCaseTest extends TestCase
         //With a no existing property
         $this->expectException(AssertionFailedError::class);
         $this->expectExceptionMessage('Property `noExistingProperty` does not exist');
+        /** @noinspection PhpUndefinedFieldInspection */
         $AppViewTest->noExistingProperty;
     }
 
