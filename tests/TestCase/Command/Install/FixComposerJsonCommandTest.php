@@ -15,26 +15,22 @@ declare(strict_types=1);
  */
 namespace MeTools\Test\TestCase\Command\Install;
 
-use MeTools\TestSuite\ConsoleIntegrationTestTrait;
-use MeTools\TestSuite\TestCase;
+use MeTools\TestSuite\CommandTestCase;
 use Tools\Filesystem;
 
 /**
  * FixComposerJsonCommandTest class
  */
-class FixComposerJsonCommandTest extends TestCase
+class FixComposerJsonCommandTest extends CommandTestCase
 {
-    use ConsoleIntegrationTestTrait;
-
     /**
      * @var string
      */
     protected string $command = 'me_tools.fix_composer_json -v';
 
     /**
-     * Tests for `execute()` method
-     * @uses \MeTools\Command\Install\FixComposerJsonCommand::execute()
      * @test
+     * @uses \MeTools\Command\Install\FixComposerJsonCommand::execute()
      */
     public function testExecute(): void
     {
@@ -54,8 +50,8 @@ class FixComposerJsonCommandTest extends TestCase
 
     /**
      * Tests for `execute()` method, with an already fixed file
-     * @uses \MeTools\Command\Install\FixComposerJsonCommand::execute()
      * @test
+     * @uses \MeTools\Command\Install\FixComposerJsonCommand::execute()
      */
     public function testExecuteAlreadyFixedFile(): void
     {
@@ -69,8 +65,8 @@ class FixComposerJsonCommandTest extends TestCase
 
     /**
      * Tests for `execute()` method, with an invalid file
-     * @uses \MeTools\Command\Install\FixComposerJsonCommand::execute()
      * @test
+     * @uses \MeTools\Command\Install\FixComposerJsonCommand::execute()
      */
     public function testExecuteInvalidFile(): void
     {
@@ -83,8 +79,8 @@ class FixComposerJsonCommandTest extends TestCase
 
     /**
      * Tests for `execute()` method, with a no existing file
-     * @uses \MeTools\Command\Install\FixComposerJsonCommand::execute()
      * @test
+     * @uses \MeTools\Command\Install\FixComposerJsonCommand::execute()
      */
     public function testExecuteNoExistingFile(): void
     {

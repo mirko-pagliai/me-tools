@@ -19,46 +19,10 @@ use Cake\Console\TestSuite\ConsoleIntegrationTestTrait as BaseConsoleIntegration
 
 /**
  * A trait intended to make integration tests of cake console commands easier
- * @property \Cake\Console\TestSuite\StubConsoleOutput|null $_err Console error output stub
- * @property \Cake\Console\ConsoleInput|null $_in Console input mock
- * @property \MeTools\Console\Command $Command The command instance for which a test is being performed
  */
 trait ConsoleIntegrationTestTrait
 {
     use BaseConsoleIntegrationTestTrait;
-
-    /**
-     * Get magic method.
-     *
-     * It provides access to the cached properties of the test.
-     * @param string $name Property name
-     * @return \MeTools\Console\Command|void
-     * @throws \ReflectionException
-     */
-    public function __get(string $name)
-    {
-        if ($name === 'Command') {
-            if (empty($this->_cache['Command'])) {
-                $this->_cache['Command'] = new $this->originClassName();
-                $this->_cache['Command']->initialize();
-            }
-
-            return $this->_cache['Command'];
-        }
-
-        return parent::__get($name);
-    }
-
-    /**
-     * Called before every test method
-     * @return void
-     */
-    protected function setUp(): void
-    {
-        parent::setUp();
-
-        $this->useCommandRunner();
-    }
 
     /**
      * Asserts that `stdout` is not empty

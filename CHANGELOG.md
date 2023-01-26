@@ -4,6 +4,7 @@
 * the `TestCase` class provides `$alias` and `$originClassName` properties through the `__get()` magic method;
 * `ConsoleIntegrationTestTrait`, `ComponentTestCase` and `HelperTestCase` provide `$Command`, `$Component` and `$Helper` 
   properties through the `__get()` magic method, and no longer through the `setUp()` method;
+* added `CommandTestCase` to test commands. It provides `$Command` property through the `__get()` magic method;
 * `TestCase` no longer always uses the `ReflectionTrait`;
 * `getMockForComponent()` and `getMockForController()` methods provided by `MockTrait` and `assertExitWithError()` and
   `assertExitWithSuccess()` methods provided by `ConsoleIntegrationTestTrait` had been deprecated and have been removed.

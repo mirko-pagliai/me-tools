@@ -15,21 +15,17 @@ declare(strict_types=1);
  */
 namespace MeTools\Test\TestCase\Command\Install;
 
-use MeTools\TestSuite\ConsoleIntegrationTestTrait;
-use MeTools\TestSuite\TestCase;
+use MeTools\TestSuite\CommandTestCase;
 use Tools\Filesystem;
 
 /**
  * CreatePluginsLinksCommandTest class
  */
-class CreatePluginsLinksCommandTest extends TestCase
+class CreatePluginsLinksCommandTest extends CommandTestCase
 {
-    use ConsoleIntegrationTestTrait;
-
     /**
-     * Tests for `execute()` method
-     * @uses \MeTools\Command\Install\CreatePluginsLinksCommand::execute()
      * @test
+     * @uses \MeTools\Command\Install\CreatePluginsLinksCommand::execute()
      */
     public function testExecute(): void
     {

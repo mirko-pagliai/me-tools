@@ -17,41 +17,37 @@ namespace MeTools\Test\TestCase\Command\Install;
 use Cake\Console\ConsoleIo;
 use MeTools\Command\Install\RunAllCommand;
 use MeTools\Console\Command;
-use MeTools\TestSuite\ConsoleIntegrationTestTrait;
-use MeTools\TestSuite\TestCase;
+use MeTools\TestSuite\CommandTestCase;
 
 /**
  * RunAllCommandTest class
  */
-class RunAllCommandTest extends TestCase
+class RunAllCommandTest extends CommandTestCase
 {
-    use ConsoleIntegrationTestTrait;
-
     /**
-     * @var array
+     * @var class-string<\MeTools\Console\Command>[]
      */
     protected array $debug = [];
 
     /**
-     * Tests for `execute()` method
-     * @uses \MeTools\Command\Install\RunAllCommand::execute()
      * @test
+     * @uses \MeTools\Command\Install\RunAllCommand::execute()
      */
     public function testExecute(): void
     {
         $Command = new RunAllCommand();
-
         $io = $this->createConfiguredMock(ConsoleIo::class, ['askChoice' => 'y']);
 
         $Command->questions = array_map(function (array $question): array {
-            $command = $this->getMockBuilder(Command::class)
-                ->onlyMethods(['execute'])
-                ->getMock();
-            $command->method('execute')->willReturnCallback(function () use ($question) {
-                $this->debug[] = $question['command'];
+            /** @var \MeTools\Console\Command&\PHPUnit\Framework\MockObject\MockObject $Command */
+            $Command = $this->createPartialMock(Command::class, ['execute']);
+            $Command->method('execute')->willReturnCallback(function () use ($question) {
+                /** @var class-string<\MeTools\Console\Command> $commandClass */
+                $commandClass = $question['command'];
+                $this->debug[] = $commandClass;
             });
 
-            return array_merge($question, compact('command'));
+            return array_merge($question, ['command' => $Command]);
         }, $Command->questions);
 
         $expected = [
