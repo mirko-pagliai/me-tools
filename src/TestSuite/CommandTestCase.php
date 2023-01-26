@@ -15,6 +15,8 @@ declare(strict_types=1);
  */
 namespace MeTools\TestSuite;
 
+use Cake\TestSuite\ConsoleIntegrationTestTrait;
+
 /**
  * Abstract class for test commands
  * @property \MeTools\Console\Command $Command The command instance for which a test is being performed

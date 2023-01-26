@@ -9,7 +9,8 @@
 * added `CommandTestCase` to test commands. It provides `$Command` property through the `__get()` magic method;
 * `TestCase` no longer always uses the `ReflectionTrait`;
 * `getMockForComponent()` and `getMockForController()` methods provided by `MockTrait` and `assertExitWithError()` and
-  `assertExitWithSuccess()` methods provided by `ConsoleIntegrationTestTrait` had been deprecated and have been removed.
+  `assertExitWithSuccess()` methods provided by `ConsoleIntegrationTestTrait` had been deprecated and have been removed;
+* `ConsoleIntegrationTestTrait` (and its `assertOutputNotEmpty()` method) no longer exists.
 
 ## 2.22 branch
 ### 2.22.4
