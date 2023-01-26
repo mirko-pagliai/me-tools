@@ -17,6 +17,7 @@ namespace MeTools\TestSuite;
 
 use Cake\View\Helper;
 use Cake\View\View;
+use PHPUnit\Framework\AssertionFailedError;
 use PHPUnit\Framework\TestCase;
 
 /**

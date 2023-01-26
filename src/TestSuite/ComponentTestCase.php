@@ -36,8 +36,10 @@ abstract class ComponentTestCase extends TestCase
     {
         if ($name === 'Component') {
             if (empty($this->_cache['Component'])) {
-                $this->_cache['Component'] = new $this->originClassName(new ComponentRegistry(new Controller()));
-                $this->_cache['Component']->initialize([]);
+                /** @var \Cake\Controller\Component $Component */
+                $Component = new $this->originClassName(new ComponentRegistry(new Controller()));
+                $Component->initialize([]);
+                $this->_cache['Component'] = $Component;
             }
 
             return $this->_cache['Component'];

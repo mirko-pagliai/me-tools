@@ -35,8 +35,10 @@ abstract class HelperTestCase extends TestCase
     {
         if ($name === 'Helper') {
             if (empty($this->_cache['Helper'])) {
-                $this->_cache['Helper'] = new $this->originClassName(new View());
-                $this->_cache['Helper']->initialize([]);
+                /** @var \Cake\View\Helper $Helper */
+                $Helper = new $this->originClassName(new View());
+                $Helper->initialize([]);
+                $this->_cache['Helper'] = $Helper;
             }
 
             return $this->_cache['Helper'];
