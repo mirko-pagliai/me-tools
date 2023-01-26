@@ -103,7 +103,8 @@ class RunAllCommand extends Command
 
         foreach ((array)$questions as $question) {
             Exceptionist::isTrue(!array_diff(array_keys($question), ['question', 'default', 'command']), 'Invalid question keys');
-            [$question, $default, $command] = array_values($question);
+            /** @var \MeTools\Console\Command $Command */
+            [$question, $default, $Command] = array_values($question);
 
             //The method must be executed if the `force` mode is set or if the user answers yes to the question
             $toBeExecuted = true;
@@ -113,7 +114,7 @@ class RunAllCommand extends Command
             }
 
             if ($toBeExecuted) {
-                $command->run($args->getOption('verbose') ? ['--verbose'] : [], $io);
+                $Command->run($args->getOption('verbose') ? ['--verbose'] : [], $io);
             }
         }
     }

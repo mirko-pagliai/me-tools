@@ -24,16 +24,13 @@ use Tools\Filesystem;
 class FixComposerJsonCommandTest extends CommandTestCase
 {
     /**
-     * @var string
-     */
-    protected string $command = 'me_tools.fix_composer_json -v';
-
-    /**
      * @test
      * @uses \MeTools\Command\Install\FixComposerJsonCommand::execute()
      */
     public function testExecute(): void
     {
+        $command = 'me_tools.fix_composer_json -v';
+
         $file = APP . 'composer.json';
         Filesystem::instance()->createFile($file, json_encode([
             'name' => 'example',
@@ -42,49 +39,28 @@ class FixComposerJsonCommandTest extends CommandTestCase
             'require' => ['php' => '>=5.5.9'],
             'autoload' => ['psr-4' => ['App' => 'src']],
         ], JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
-        $this->exec($this->command . ' -p ' . $file);
+        $this->exec($command . ' -p ' . $file);
         $this->assertExitSuccess();
         $this->assertOutputContains('File `' . Filesystem::instance()->rtr($file) . '` has been fixed');
         $this->assertErrorEmpty();
-    }
 
-    /**
-     * Tests for `execute()` method, with an already fixed file
-     * @test
-     * @uses \MeTools\Command\Install\FixComposerJsonCommand::execute()
-     */
-    public function testExecuteAlreadyFixedFile(): void
-    {
-        $file = APP . 'composer.json';
-        $this->exec($this->command . ' -p ' . $file);
+        //With an already fixed file
+        $this->exec($command . ' -p ' . $file);
         $this->assertExitSuccess();
         $this->assertOutputContains('File `' . Filesystem::instance()->rtr($file) . "` doesn't need to be fixed");
         $this->assertErrorEmpty();
-        unlink(APP . 'composer.json');
-    }
+        unlink($file);
 
-    /**
-     * Tests for `execute()` method, with an invalid file
-     * @test
-     * @uses \MeTools\Command\Install\FixComposerJsonCommand::execute()
-     */
-    public function testExecuteInvalidFile(): void
-    {
+        //With an invalid file
         $file = TMP . 'invalid.json';
         Filesystem::instance()->createFile($file);
-        $this->exec($this->command . ' -p ' . $file);
+        $this->exec($command . ' -p ' . $file);
         $this->assertExitError();
         $this->assertErrorContains('File `' . $file . '` does not seem a valid composer.json file');
-    }
+        unlink($file);
 
-    /**
-     * Tests for `execute()` method, with a no existing file
-     * @test
-     * @uses \MeTools\Command\Install\FixComposerJsonCommand::execute()
-     */
-    public function testExecuteNoExistingFile(): void
-    {
-        $this->exec($this->command . ' -p noExisting');
+        //With a no existing file
+        $this->exec($command . ' -p noExisting');
         $this->assertExitError();
         $this->assertErrorContains('File or directory `noExisting` is not writable');
     }
