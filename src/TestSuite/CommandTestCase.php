@@ -15,11 +15,11 @@ declare(strict_types=1);
  */
 namespace MeTools\TestSuite;
 
-use Cake\TestSuite\ConsoleIntegrationTestTrait;
+use Cake\Console\TestSuite\ConsoleIntegrationTestTrait;
 
 /**
  * Abstract class for test commands
- * @property \MeTools\Console\Command $Command The command instance for which a test is being performed
+ * @property \MeTools\Command\Command $Command The command instance for which a test is being performed
  */
 abstract class CommandTestCase extends TestCase
 {
@@ -30,14 +30,14 @@ abstract class CommandTestCase extends TestCase
      *
      * It provides access to the cached properties of the test.
      * @param string $name Property name
-     * @return \MeTools\Console\Command|void
+     * @return \MeTools\Command\Command|void
      * @throws \ReflectionException
      */
     public function __get(string $name)
     {
         if ($name === 'Command') {
             if (empty($this->_cache['Command'])) {
-                /** @var \MeTools\Console\Command $Command */
+                /** @var \MeTools\Command\Command $Command */
                 $Command = new $this->originClassName();
                 $Command->initialize();
                 $this->_cache['Command'] = $Command;

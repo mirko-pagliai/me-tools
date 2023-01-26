@@ -18,7 +18,7 @@ namespace MeTools\Command\Install;
 use Cake\Console\Arguments;
 use Cake\Console\ConsoleIo;
 use Cake\Console\ConsoleOptionParser;
-use MeTools\Console\Command;
+use MeTools\Command\Command;
 use Tools\Filesystem;
 
 /**

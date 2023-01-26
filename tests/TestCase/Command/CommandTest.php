@@ -17,7 +17,7 @@ namespace MeTools\Test\TestCase\Console;
 
 use Cake\Console\ConsoleIo;
 use Cake\Console\TestSuite\StubConsoleOutput;
-use MeTools\Console\Command;
+use MeTools\Command\Command;
 use MeTools\TestSuite\CommandTestCase;
 use Tools\Filesystem;
 
@@ -65,7 +65,7 @@ class CommandTest extends CommandTestCase
 
     /**
      * @test
-     * @uses \MeTools\Console\Command::copyFile()
+     * @uses \MeTools\Command\Command::copyFile()
      */
     public function testCopyFile(): void
     {
@@ -91,7 +91,7 @@ class CommandTest extends CommandTestCase
 
     /**
      * @test
-     * @uses \MeTools\Console\Command::createDir()
+     * @uses \MeTools\Command\Command::createDir()
      */
     public function testCreateDir(): void
     {
@@ -114,7 +114,7 @@ class CommandTest extends CommandTestCase
      * Tests for `createDir()` method, with a not writable directory
      * @requires OS Linux
      * @test
-     * @uses \MeTools\Console\Command::createDir()
+     * @uses \MeTools\Command\Command::createDir()
      */
     public function testCreateDirNotWritableDir(): void
     {
@@ -125,7 +125,7 @@ class CommandTest extends CommandTestCase
 
     /**
      * @test
-     * @uses \MeTools\Console\Command::createDir()
+     * @uses \MeTools\Command\Command::createDir()
      */
     public function testCreateFile(): void
     {
@@ -150,7 +150,7 @@ class CommandTest extends CommandTestCase
      * Tests for `createLink()` method
      * @requires OS Linux
      * @test
-     * @uses \MeTools\Console\Command::createLink()
+     * @uses \MeTools\Command\Command::createLink()
      */
     public function testCreateLink(): void
     {
@@ -174,7 +174,7 @@ class CommandTest extends CommandTestCase
 
     /**
      * @test
-     * @uses \MeTools\Console\Command::folderChmod()
+     * @uses \MeTools\Command\Command::folderChmod()
      */
     public function testFolderChmod(): void
     {

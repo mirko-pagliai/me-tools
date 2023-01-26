@@ -19,7 +19,7 @@ use Cake\Console\Arguments;
 use Cake\Console\ConsoleIo;
 use Cake\Console\ConsoleOptionParser;
 use Cake\Utility\Hash;
-use MeTools\Console\Command;
+use MeTools\Command\Command;
 use Tools\Exceptionist;
 
 /**
@@ -29,7 +29,7 @@ class RunAllCommand extends Command
 {
     /**
      * Questions
-     * @var array{question: string, default: bool, command: \MeTools\Console\Command}[]
+     * @var array{question: string, default: bool, command: \MeTools\Command\Command}[]
      */
     public array $questions = [];
 
@@ -103,7 +103,7 @@ class RunAllCommand extends Command
 
         foreach ((array)$questions as $question) {
             Exceptionist::isTrue(!array_diff(array_keys($question), ['question', 'default', 'command']), 'Invalid question keys');
-            /** @var \MeTools\Console\Command $Command */
+            /** @var \MeTools\Command\Command $Command */
             [$question, $default, $Command] = array_values($question);
 
             //The method must be executed if the `force` mode is set or if the user answers yes to the question

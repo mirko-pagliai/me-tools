@@ -16,8 +16,8 @@ namespace MeTools\Test\TestCase\Command\Install;
 
 use Cake\Console\ConsoleIo;
 use Cake\Console\TestSuite\StubConsoleOutput;
+use MeTools\Command\Command;
 use MeTools\Command\Install\RunAllCommand;
-use MeTools\Console\Command;
 use MeTools\TestSuite\CommandTestCase;
 
 /**
@@ -40,7 +40,7 @@ class RunAllCommandTest extends CommandTestCase
 
         $Command = new RunAllCommand();
         $Command->questions = array_map(function (array $question) use ($io): array {
-            /** @var \MeTools\Console\Command&\PHPUnit\Framework\MockObject\MockObject $SubCommand */
+            /** @var \MeTools\Command\Command&\PHPUnit\Framework\MockObject\MockObject $SubCommand */
             $SubCommand = $this->createPartialMock(Command::class, ['execute']);
             $SubCommand->method('execute')->willReturnCallback(fn() => $io->out(get_class($question['command'])));
 
