@@ -42,9 +42,7 @@ class RunAllCommandTest extends CommandTestCase
             /** @var \MeTools\Console\Command&\PHPUnit\Framework\MockObject\MockObject $Command */
             $Command = $this->createPartialMock(Command::class, ['execute']);
             $Command->method('execute')->willReturnCallback(function () use ($question) {
-                /** @var class-string<\MeTools\Console\Command> $commandClass */
-                $commandClass = $question['command'];
-                $this->debug[] = $commandClass;
+                $this->debug[] = get_class($question['command']);
             });
 
             return array_merge($question, ['command' => $Command]);
