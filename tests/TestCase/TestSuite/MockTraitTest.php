@@ -44,7 +44,7 @@ class MockTraitTest extends TestCase
 
         //Class with no alias or no existing class
         foreach ([
-            BadTestClass::class => 'Unable to get the alias for the `App\Test\TestCase\BadTestClass` class',
+            BadTestClass::class => 'Unable to get the alias for `App\Test\TestCase\BadTestClass`',
             'No\Existing\Class' => 'Class `No\Existing\Class` does not exist',
         ] as $className => $expectedMessage) {
             /** @phpstan-ignore-next-line */

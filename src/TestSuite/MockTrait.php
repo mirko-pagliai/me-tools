@@ -25,21 +25,6 @@ use PHPUnit\Framework\TestCase;
 trait MockTrait
 {
     /**
-     * Internal method to set off a test failure if a class does not exist
-     * @param class-string|string $className Class name
-     * @return class-string
-     * @throw \PHPUnit\Framework\AssertionFailedError
-     */
-    protected function _classExistsOrFail(string $className): string
-    {
-        if (!class_exists($className)) {
-            $this->fail('Class `' . $className . '` does not exist');
-        }
-
-        return $className;
-    }
-
-    /**
      * Gets the alias name for which a test is being performed, starting from a class or a `TestCase` class.
      *
      * Example: class `MyPlugin\Test\TestCase\Controller\PagesControllerTest`  will return `Pages`.
@@ -50,11 +35,15 @@ trait MockTrait
      */
     protected function getAlias($class): string
     {
-        $class = is_object($class) ? get_class($class) : $this->_classExistsOrFail($class);
-        $alias = preg_replace('/^(\w+)(Cell|Controller|Helper|Table|Validator|View)(Test)?$/', '$1', get_class_short_name($class), -1, $count);
+        if (is_object($class)) {
+            $class = get_class($class);
+        } elseif (!class_exists($class)) {
+            $this->fail('Class `' . $class . '` does not exist');
+        }
 
+        $alias = preg_replace('/^(\w+)(Cell|Controller|Helper|Table|Validator|View)(Test)?$/', '$1', get_class_short_name($class), -1, $count);
         if (!$alias || !$count) {
-            $this->fail('Unable to get the alias for the `' . $class . '` class');
+            $this->fail('Unable to get the alias for `' . $class . '`');
         }
 
         return $alias;
@@ -93,9 +82,11 @@ trait MockTrait
 
         if (!$originClassName || !$count) {
             $this->fail('Unable to determine the origin class for `' . get_class($className) . '`');
+        } elseif (!class_exists($originClassName)) {
+            $this->fail('Class `' . $originClassName . '` does not exist');
         }
 
-        return $this->_classExistsOrFail($originClassName);
+        return $originClassName;
     }
 
     /**
