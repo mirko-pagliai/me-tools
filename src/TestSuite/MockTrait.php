@@ -17,7 +17,6 @@ namespace MeTools\TestSuite;
 
 use Cake\View\Helper;
 use Cake\View\View;
-use PHPUnit\Framework\TestCase;
 
 /**
  * A mock trait
@@ -25,25 +24,20 @@ use PHPUnit\Framework\TestCase;
 trait MockTrait
 {
     /**
-     * Gets the alias name for which a test is being performed, starting from a class or a `TestCase` class.
+     * Gets the alias name for which a test is being performed, starting from a `TestCase` instance.
      *
      * Example: class `MyPlugin\Test\TestCase\Controller\PagesControllerTest`  will return `Pages`.
-     * @param class-string|object $class Class name or object
-     * @return string
-     * @throws \PHPUnit\Framework\AssertionFailedError|\ReflectionException
+     * @param \MeTools\TestSuite\TestCase $class `TestCase` instance
+     * @return string The alias name for which a test is being performed
+     * @throws \PHPUnit\Framework\AssertionFailedError
+     * @throws \ReflectionException
      * @since 2.19.9
      */
-    protected function getAlias($class): string
+    protected function getAlias(TestCase $class): string
     {
-        if (is_object($class)) {
-            $class = get_class($class);
-        } elseif (!class_exists($class)) {
-            $this->fail('Class `' . $class . '` does not exist');
-        }
-
-        $alias = preg_replace('/^(\w+)(Cell|Controller|Helper|Table|Validator|View)(Test)?$/', '$1', get_class_short_name($class), -1, $count);
+        $alias = preg_replace('/^(\w+)(Cell|Controller|Helper|Table|Validator|View)Test$/', '$1', get_class_short_name($class), -1, $count);
         if (!$alias || !$count) {
-            $this->fail('Unable to get the alias for `' . $class . '`');
+            $this->fail('Unable to get the alias for `' . get_class($class) . '`');
         }
 
         return $alias;
@@ -69,9 +63,7 @@ trait MockTrait
      * Gets the class name for which a test is being performed, starting from a `TestCase` class.
      *
      * Example: class `MyPlugin\Test\TestCase\Controller\PagesControllerTest` will return `MyPlugin\Controller\PagesController`.
-     *
-     * It fails if the class cannot be determined or does not exist.
-     * @param \PHPUnit\Framework\TestCase $className A `TestCase` class
+     * @param \MeTools\TestSuite\TestCase $className A `TestCase` instance
      * @return class-string The class name for which a test is being performed
      * @since 2.19.2
      * @throw \PHPUnit\Framework\AssertionFailedError
@@ -104,11 +96,11 @@ trait MockTrait
     }
 
     /**
-     * Gets the classname for which a test is being performed, starting from a `TestCase` class.
+     * Gets the plugin name for which a test is being performed, starting from a `TestCase` class.
      *
      * Example: class `MyPlugin\MySubNamespace\Test\TestCase\MyExampleTest` will return `MyPlugin/MySubNamespace`.
-     * @param \PHPUnit\Framework\TestCase $testClass A `TestCase` class
-     * @return string
+     * @param \MeTools\TestSuite\TestCase $testClass A `TestCase` instance
+     * @return string The plugin name for which a test is being performed
      * @since 2.19.9
      */
     protected function getPluginName(TestCase $testClass): string

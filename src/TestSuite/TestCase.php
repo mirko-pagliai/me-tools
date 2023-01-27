@@ -53,7 +53,7 @@ abstract class TestCase extends CakeTestCase
         switch ($name) {
             case 'alias':
                 if (empty($this->_cache['alias'])) {
-                    $this->_cache['alias'] = $this->getAlias($this->originClassName);
+                    $this->_cache['alias'] = $this->getAlias($this);
                 }
 
                 return $this->_cache['alias'];
@@ -63,9 +63,9 @@ abstract class TestCase extends CakeTestCase
                 }
 
                 return $this->_cache['originClassName'];
-            default:
-                $this->fail('Property `' . $name . '` does not exist');
         }
+
+        $this->fail('Property `' . $name . '` does not exist');
     }
 
     /**

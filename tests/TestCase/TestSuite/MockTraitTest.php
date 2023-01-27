@@ -16,12 +16,12 @@ declare(strict_types=1);
 namespace MeTools\Test\TestCase\TestSuite;
 
 use AnotherTestPlugin\Test\TestCase\Controller\MyExampleControllerTest;
-use App\Controller\PagesController;
-use App\Model\Table\PostsTable;
-use App\Model\Validation\PostValidator;
 use App\Test\TestCase\BadTestClass;
-use App\View\Cell\MyExampleCell;
+use App\Test\TestCase\Controller\PagesControllerTest;
+use App\Test\TestCase\Model\Table\PostsTableTest;
+use App\Test\TestCase\Model\Validation\PostValidatorTest;
 use Cake\View\Helper;
+use MeTools\Test\TestCase\View\Helper\HtmlHelperTest;
 use MeTools\TestSuite\TestCase;
 use PHPUnit\Framework\AssertionFailedError;
 
@@ -36,20 +36,12 @@ class MockTraitTest extends TestCase
      */
     public function testGetAlias(): void
     {
-        $this->assertSame('Pages', $this->getAlias(new PagesController()));
-        $this->assertSame('Posts', $this->getAlias(PostsTable::class));
-        $this->assertSame('Post', $this->getAlias(PostValidator::class));
-        $this->assertSame('MyExample', $this->getAlias(MyExampleCell::class));
-        $this->assertSame('MyExample', $this->getAlias(new MyExampleControllerTest()));
+        $this->assertSame('Pages', $this->getAlias(new PagesControllerTest()));
+        $this->assertSame('Html', $this->getAlias(new HtmlHelperTest()));
+        $this->assertSame('Posts', $this->getAlias(new PostsTableTest()));
+        $this->assertSame('Post', $this->getAlias(new PostValidatorTest()));
 
-        //Class with no alias or no existing class
-        foreach ([
-            BadTestClass::class => 'Unable to get the alias for `App\Test\TestCase\BadTestClass`',
-            'No\Existing\Class' => 'Class `No\Existing\Class` does not exist',
-        ] as $className => $expectedMessage) {
-            /** @phpstan-ignore-next-line */
-            $this->assertException(fn() => $this->getAlias($className), AssertionFailedError::class, $expectedMessage);
-        }
+        $this->assertException(fn() => $this->getAlias(new BadTestClass()), AssertionFailedError::class, 'Unable to get the alias for `App\Test\TestCase\BadTestClass`');
     }
 
     /**

@@ -8,6 +8,7 @@
   `command` value requires an instantiated command (and no longer a class-string). This simplifies coding and testing;
 * `Command` class has been moved from `MeTools\Console` to `MeTools\Command`;
 * `MockTrait::getOriginClassNameOrFail()` become `getOriginClassName()`, replacing the latter;
+* `MockTrait::getAlias()` now only takes instances of `TestCase` as argument;
 * added `CommandTestCase` to test commands. It provides `$Command` property through the `__get()` magic method;
 * `TestCase` no longer always uses the `ReflectionTrait`;
 * `getMockForComponent()` and `getMockForController()` methods provided by `MockTrait` and `assertExitWithError()` and
