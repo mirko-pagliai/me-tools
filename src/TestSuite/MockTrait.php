@@ -80,21 +80,6 @@ trait MockTrait
      * Gets the class name for which a test is being performed, starting from a `TestCase` class.
      *
      * Example: class `MyPlugin\Test\TestCase\Controller\PagesControllerTest` will return `MyPlugin\Controller\PagesController`.
-     * @param \PHPUnit\Framework\TestCase $className A `TestCase` class
-     * @return class-string<\PHPUnit\Framework\TestCase>|string The class name for which a test is being performed or
-     *  empty string on failure
-     * @since 2.18.0
-     * @todo remove?
-     */
-    protected function getOriginClassName(TestCase $className): string
-    {
-        $className = preg_replace('/^([\w\\\\]+)Test\\\\TestCase\\\\([\w\\\\]+)Test$/', '$1$2', get_class($className), -1, $count);
-
-        return $className && $count ? $className : '';
-    }
-
-    /**
-     * Gets the class name for which a test is being performed, starting from a `TestCase` class.
      *
      * It fails if the class cannot be determined or does not exist.
      * @param \PHPUnit\Framework\TestCase $className A `TestCase` class
@@ -102,9 +87,15 @@ trait MockTrait
      * @since 2.19.2
      * @throw \PHPUnit\Framework\AssertionFailedError
      */
-    protected function getOriginClassNameOrFail(TestCase $className): string
+    protected function getOriginClassName(TestCase $className): string
     {
-        return $this->_classExistsOrFail($this->getOriginClassName($className));
+        $originClassName = preg_replace('/^([\w\\\\]+)Test\\\\TestCase\\\\([\w\\\\]+)Test$/', '$1$2', get_class($className), -1, $count);
+
+        if (!$originClassName || !$count) {
+            $this->fail('Unable to determine the origin class for `' . get_class($className) . '`');
+        }
+
+        return $this->_classExistsOrFail($originClassName);
     }
 
     /**

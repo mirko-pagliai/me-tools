@@ -59,7 +59,7 @@ abstract class TestCase extends CakeTestCase
                 return $this->_cache['alias'];
             case 'originClassName':
                 if (empty($this->_cache['originClassName'])) {
-                    $this->_cache['originClassName'] = $this->getOriginClassNameOrFail($this);
+                    $this->_cache['originClassName'] = $this->getOriginClassName($this);
                 }
 
                 return $this->_cache['originClassName'];

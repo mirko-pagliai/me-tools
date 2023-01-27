@@ -29,8 +29,8 @@ class CommandTestCaseTest extends TestCase
      */
     public function testGetMagicMethod(): void
     {
-        $CommandTestCase = $this->getMockForAbstractClass(CommandTestCase::class, [], '', true, true, true, ['getOriginClassNameOrFail']);
-        $CommandTestCase->method('getOriginClassNameOrFail')->willReturn(CreateDirectoriesCommand::class);
+        $CommandTestCase = $this->getMockForAbstractClass(CommandTestCase::class, [], '', true, true, true, ['getOriginClassName']);
+        $CommandTestCase->method('getOriginClassName')->willReturn(CreateDirectoriesCommand::class);
         $this->assertInstanceOf(CreateDirectoriesCommand::class, $CommandTestCase->Command);
     }
 }

@@ -19,11 +19,11 @@ use AnotherTestPlugin\Test\TestCase\Controller\MyExampleControllerTest;
 use App\Controller\PagesController;
 use App\Model\Table\PostsTable;
 use App\Model\Validation\PostValidator;
+use App\Test\TestCase\BadTestClass;
 use App\View\Cell\MyExampleCell;
 use Cake\View\Helper;
 use MeTools\TestSuite\TestCase;
 use PHPUnit\Framework\AssertionFailedError;
-use stdClass;
 
 /**
  * MockTraitTest class
@@ -44,7 +44,7 @@ class MockTraitTest extends TestCase
 
         //Class with no alias or no existing class
         foreach ([
-            stdClass::class => 'Unable to get the alias for the `stdClass` class',
+            BadTestClass::class => 'Unable to get the alias for the `App\Test\TestCase\BadTestClass` class',
             'No\Existing\Class' => 'Class `No\Existing\Class` does not exist',
         ] as $className => $expectedMessage) {
             /** @phpstan-ignore-next-line */
@@ -70,18 +70,11 @@ class MockTraitTest extends TestCase
     public function testGetOriginClassName(): void
     {
         $this->assertSame(TestCase::class, $this->getOriginClassName(new TestCaseTest()));
-    }
 
-    /**
-     * @test
-     * @uses \MeTools\TestSuite\MockTrait::getOriginClassNameOrFail()
-     */
-    public function testGetOriginClassNameOrFail(): void
-    {
-        $this->assertSame(TestCase::class, $this->getOriginClassNameOrFail(new TestCaseTest()));
+        $this->assertException(fn() => $this->getOriginClassName(new BadTestClass()), AssertionFailedError::class, 'Unable to determine the origin class for `App\Test\TestCase\BadTestClass`');
 
         $this->expectAssertionFailed('Class `AnotherTestPlugin\Controller\MyExampleController` does not exist');
-        $this->getOriginClassNameOrFail(new MyExampleControllerTest());
+        $this->getOriginClassName(new MyExampleControllerTest());
     }
 
     /**
