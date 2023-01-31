@@ -19,7 +19,7 @@ use Cake\Console\Arguments;
 use Cake\Console\ConsoleIo;
 use Cake\Console\ConsoleOptionParser;
 use Exception;
-use MeTools\Console\Command;
+use MeTools\Command\Command;
 use Tools\Exceptionist;
 use Tools\Filesystem;
 

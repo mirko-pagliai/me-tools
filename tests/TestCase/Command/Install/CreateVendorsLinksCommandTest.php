@@ -16,17 +16,14 @@ declare(strict_types=1);
 namespace MeTools\Test\TestCase\Command\Install;
 
 use Cake\Core\Configure;
-use MeTools\TestSuite\ConsoleIntegrationTestTrait;
-use MeTools\TestSuite\TestCase;
+use MeTools\TestSuite\CommandTestCase;
 use Tools\Filesystem;
 
 /**
  * CreateVendorsLinksCommandTest class
  */
-class CreateVendorsLinksCommandTest extends TestCase
+class CreateVendorsLinksCommandTest extends CommandTestCase
 {
-    use ConsoleIntegrationTestTrait;
-
     /**
      * @requires OS Linux
      * @test

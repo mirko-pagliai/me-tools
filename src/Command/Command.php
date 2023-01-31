@@ -13,7 +13,7 @@ declare(strict_types=1);
  * @license     https://opensource.org/licenses/mit-license.php MIT License
  * @since       2.17.6
  */
-namespace MeTools\Console;
+namespace MeTools\Command;
 
 use Cake\Command\Command as CakeCommand;
 use Cake\Console\ConsoleIo;
@@ -24,7 +24,6 @@ use Tools\Filesystem;
 
 /**
  * Base class for console commands
- * @todo should become `MeTools\Command\Command`
  */
 abstract class Command extends CakeCommand
 {

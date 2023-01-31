@@ -15,41 +15,35 @@ declare(strict_types=1);
  */
 namespace MeTools\TestSuite;
 
-use Cake\View\Helper;
 use Cake\View\View;
 
 /**
  * Abstract class for test helpers
+ * @property \Cake\View\Helper $Helper The helper instance for which a test is being performed
  */
 abstract class HelperTestCase extends TestCase
 {
     /**
-     * @var \Cake\View\Helper
+     * Get magic method.
+     *
+     * It provides access to the cached properties of the test.
+     * @param string $name Property name
+     * @return \Cake\View\Helper|mixed
+     * @throws \ReflectionException
      */
-    protected Helper $Helper;
-
-    /**
-     * If `true`, a mock instance of the helper will be created
-     * @var bool
-     */
-    protected bool $autoInitializeClass = true;
-
-    /**
-     * Called before every test method
-     * @return void
-     * @noinspection PhpRedundantVariableDocTypeInspection
-     */
-    protected function setUp(): void
+    public function __get(string $name)
     {
-        parent::setUp();
+        if ($name === 'Helper') {
+            if (empty($this->_cache['Helper'])) {
+                /** @var \Cake\View\Helper $Helper */
+                $Helper = new $this->originClassName(new View());
+                $Helper->initialize([]);
+                $this->_cache['Helper'] = $Helper;
+            }
 
-        if (empty($this->Helper) && $this->autoInitializeClass) {
-            /** @var class-string<\Cake\View\Helper> $className */
-            $className = $this->getOriginClassNameOrFail($this);
-            $this->Helper = new $className(new View());
+            return $this->_cache['Helper'];
         }
-        if (!empty($this->Helper) && method_exists($this->Helper, 'initialize')) {
-            $this->Helper->initialize([]);
-        }
+
+        return parent::__get($name);
     }
 }

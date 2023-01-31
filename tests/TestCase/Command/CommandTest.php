@@ -17,20 +17,17 @@ namespace MeTools\Test\TestCase\Console;
 
 use Cake\Console\ConsoleIo;
 use Cake\Console\TestSuite\StubConsoleOutput;
-use MeTools\Console\Command;
-use MeTools\TestSuite\ConsoleIntegrationTestTrait;
-use MeTools\TestSuite\TestCase;
+use MeTools\Command\Command;
+use MeTools\TestSuite\CommandTestCase;
 use Tools\Filesystem;
 
 /**
  * CommandTest class
  */
-class CommandTest extends TestCase
+class CommandTest extends CommandTestCase
 {
-    use ConsoleIntegrationTestTrait;
-
     /**
-     * @var \Cake\Console\ConsoleIo
+     * @var \Cake\Console\ConsoleIo&\PHPUnit\Framework\MockObject\MockObject
      */
     protected $io;
 
@@ -40,7 +37,9 @@ class CommandTest extends TestCase
      */
     protected function setUp(): void
     {
-        $this->Command = $this->getMockForAbstractClass(Command::class);
+        if (!isset($this->Command)) {
+            $this->Command = $this->getMockForAbstractClass(Command::class);
+        }
 
         $this->_out = new StubConsoleOutput();
         $this->_err = new StubConsoleOutput();
@@ -65,9 +64,8 @@ class CommandTest extends TestCase
     }
 
     /**
-     * Tests for `copyFile()` method
-     * @uses \MeTools\Console\Command::copyFile()
      * @test
+     * @uses \MeTools\Command\Command::copyFile()
      */
     public function testCopyFile(): void
     {
@@ -92,9 +90,8 @@ class CommandTest extends TestCase
     }
 
     /**
-     * Tests for `createDir()` method
-     * @uses \MeTools\Console\Command::createDir()
      * @test
+     * @uses \MeTools\Command\Command::createDir()
      */
     public function testCreateDir(): void
     {
@@ -116,8 +113,8 @@ class CommandTest extends TestCase
     /**
      * Tests for `createDir()` method, with a not writable directory
      * @requires OS Linux
-     * @uses \MeTools\Console\Command::createDir()
      * @test
+     * @uses \MeTools\Command\Command::createDir()
      */
     public function testCreateDirNotWritableDir(): void
     {
@@ -127,9 +124,8 @@ class CommandTest extends TestCase
     }
 
     /**
-     * Tests for `createFile()` method
-     * @uses \MeTools\Console\Command::createDir()
      * @test
+     * @uses \MeTools\Command\Command::createDir()
      */
     public function testCreateFile(): void
     {
@@ -153,8 +149,8 @@ class CommandTest extends TestCase
     /**
      * Tests for `createLink()` method
      * @requires OS Linux
-     * @uses \MeTools\Console\Command::createLink()
      * @test
+     * @uses \MeTools\Command\Command::createLink()
      */
     public function testCreateLink(): void
     {
@@ -177,9 +173,8 @@ class CommandTest extends TestCase
     }
 
     /**
-     * Tests for `folderChmod()` method
-     * @uses \MeTools\Console\Command::folderChmod()
      * @test
+     * @uses \MeTools\Command\Command::folderChmod()
      */
     public function testFolderChmod(): void
     {

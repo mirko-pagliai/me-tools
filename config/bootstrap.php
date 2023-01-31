@@ -39,3 +39,10 @@ Configure::write('VENDOR_LINKS', [
 ] + (array)(Configure::read('VENDOR_LINKS', [])));
 
 require_once 'i18n_constants.php';
+
+/**
+ * @todo to be removed in a later release
+ */
+if (!class_exists('MeTools\Console\Command')) {
+    class_alias('MeTools\Command\Command', 'MeTools\Console\Command');
+}

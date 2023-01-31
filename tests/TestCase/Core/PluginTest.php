@@ -25,9 +25,8 @@ use Tools\Exception\FileNotExistsException;
 class PluginTest extends TestCase
 {
     /**
-     * Tests for `all()` method
-     * @uses \MeTools\Core\Plugin::all()
      * @test
+     * @uses \MeTools\Core\Plugin::all()
      */
     public function testAll(): void
     {
@@ -57,15 +56,14 @@ class PluginTest extends TestCase
     }
 
     /**
-     * Tests for `path()` method
-     * @uses \MeTools\Core\Plugin::path()
      * @test
+     * @uses \MeTools\Core\Plugin::path()
      */
     public function testPath(): void
     {
         $this->assertSame(ROOT, Plugin::path('MeTools'));
 
-        $file = 'src' . DS . 'Console' . DS . 'Command.php';
+        $file = 'src' . DS . 'Command' . DS . 'Command.php';
         $this->assertSame(ROOT . $file, Plugin::path('MeTools', $file));
         $this->assertSame(ROOT . $file, Plugin::path('MeTools', $file, true));
 
