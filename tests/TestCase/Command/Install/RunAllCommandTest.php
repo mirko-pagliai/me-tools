@@ -15,43 +15,36 @@ declare(strict_types=1);
 namespace MeTools\Test\TestCase\Command\Install;
 
 use Cake\Console\ConsoleIo;
+use Cake\Console\TestSuite\StubConsoleOutput;
+use MeTools\Command\Command;
 use MeTools\Command\Install\RunAllCommand;
-use MeTools\Console\Command;
-use MeTools\TestSuite\ConsoleIntegrationTestTrait;
-use MeTools\TestSuite\TestCase;
+use MeTools\TestSuite\CommandTestCase;
 
 /**
  * RunAllCommandTest class
  */
-class RunAllCommandTest extends TestCase
+class RunAllCommandTest extends CommandTestCase
 {
-    use ConsoleIntegrationTestTrait;
-
     /**
-     * @var array
-     */
-    protected array $debug = [];
-
-    /**
-     * Tests for `execute()` method
-     * @uses \MeTools\Command\Install\RunAllCommand::execute()
      * @test
+     * @uses \MeTools\Command\Install\RunAllCommand::execute()
      */
     public function testExecute(): void
     {
+        $out = new StubConsoleOutput();
+        $io = $this->getMockBuilder(ConsoleIo::class)
+            ->setConstructorArgs([$out])
+            ->onlyMethods(['askChoice'])
+            ->getMock();
+        $io->method('askChoice')->willReturn('y');
+
         $Command = new RunAllCommand();
+        $Command->questions = array_map(function (array $question) use ($io): array {
+            /** @var \MeTools\Command\Command&\PHPUnit\Framework\MockObject\MockObject $SubCommand */
+            $SubCommand = $this->createPartialMock(Command::class, ['execute']);
+            $SubCommand->method('execute')->willReturnCallback(fn() => $io->out(get_class($question['command'])));
 
-        $io = $this->createConfiguredMock(ConsoleIo::class, ['askChoice' => 'y']);
-
-        $Command->questions = array_map(function (array $question): array {
-            $command = $this->getMockBuilder(Command::class)
-                ->onlyMethods(['execute'])
-                ->getMock();
-            $command->method('execute')->willReturnCallback(function () use ($question) {
-                $this->debug[] = $question['command'];
-            });
-
-            return array_merge($question, compact('command'));
+            return array_merge($question, ['command' => $SubCommand]);
         }, $Command->questions);
 
         $expected = [
@@ -63,6 +56,6 @@ class RunAllCommandTest extends TestCase
             'MeTools\Command\Install\CreateVendorsLinksCommand',
         ];
         $this->assertNull($Command->run([], $io));
-        $this->assertEquals($expected, $this->debug);
+        $this->assertEquals($expected, $out->messages());
     }
 }

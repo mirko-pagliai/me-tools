@@ -19,7 +19,7 @@ use Cake\Console\Arguments;
 use Cake\Console\ConsoleIo;
 use Cake\Console\ConsoleOptionParser;
 use Cake\Utility\Inflector;
-use MeTools\Console\Command;
+use MeTools\Command\Command;
 use MeTools\Core\Plugin;
 use Tools\Filesystem;
 

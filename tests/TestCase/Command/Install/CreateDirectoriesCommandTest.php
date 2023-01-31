@@ -15,21 +15,17 @@ declare(strict_types=1);
 namespace MeTools\Test\TestCase\Command\Install;
 
 use Cake\Core\Configure;
-use MeTools\TestSuite\ConsoleIntegrationTestTrait;
-use MeTools\TestSuite\TestCase;
+use MeTools\TestSuite\CommandTestCase;
 use Tools\Filesystem;
 
 /**
  * CreateDirectoriesCommandTest class
  */
-class CreateDirectoriesCommandTest extends TestCase
+class CreateDirectoriesCommandTest extends CommandTestCase
 {
-    use ConsoleIntegrationTestTrait;
-
     /**
-     * Tests for `execute()` method
-     * @uses \MeTools\Command\Install\CreateDirectoriesCommand::execute()
      * @test
+     * @uses \MeTools\Command\Install\CreateDirectoriesCommand::execute()
      */
     public function testExecute(): void
     {

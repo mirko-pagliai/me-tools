@@ -15,42 +15,36 @@ declare(strict_types=1);
  */
 namespace MeTools\TestSuite;
 
-use Cake\Controller\Component;
 use Cake\Controller\ComponentRegistry;
 use Cake\Controller\Controller;
 
 /**
  * Abstract class for test components
+ * @property \Cake\Controller\Component $Component The component instance for which a test is being performed
  */
 abstract class ComponentTestCase extends TestCase
 {
     /**
-     * @var \Cake\Controller\Component
+     * Get magic method.
+     *
+     * It provides access to the cached properties of the test.
+     * @param string $name Property name
+     * @return \Cake\Controller\Component|mixed
+     * @throws \ReflectionException
      */
-    protected Component $Component;
-
-    /**
-     * If `true`, a mock instance of the component will be created
-     * @var bool
-     */
-    protected bool $autoInitializeClass = true;
-
-    /**
-     * Called before every test method
-     * @return void
-     * @noinspection PhpRedundantVariableDocTypeInspection
-     */
-    protected function setUp(): void
+    public function __get(string $name)
     {
-        parent::setUp();
+        if ($name === 'Component') {
+            if (empty($this->_cache['Component'])) {
+                /** @var \Cake\Controller\Component $Component */
+                $Component = new $this->originClassName(new ComponentRegistry(new Controller()));
+                $Component->initialize([]);
+                $this->_cache['Component'] = $Component;
+            }
 
-        if (empty($this->Component) && $this->autoInitializeClass) {
-            /** @var class-string<\Cake\Controller\Component> $className */
-            $className = $this->getOriginClassNameOrFail($this);
-            $this->Component = new $className(new ComponentRegistry(new Controller()));
+            return $this->_cache['Component'];
         }
-        if (method_exists($this->Component, 'initialize')) {
-            $this->Component->initialize([]);
-        }
+
+        return parent::__get($name);
     }
 }

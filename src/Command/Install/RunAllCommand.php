@@ -19,7 +19,7 @@ use Cake\Console\Arguments;
 use Cake\Console\ConsoleIo;
 use Cake\Console\ConsoleOptionParser;
 use Cake\Utility\Hash;
-use MeTools\Console\Command;
+use MeTools\Command\Command;
 use Tools\Exceptionist;
 
 /**
@@ -29,7 +29,7 @@ class RunAllCommand extends Command
 {
     /**
      * Questions
-     * @var array<array<string, (\MeTools\Console\Command&\PHPUnit\Framework\MockObject\MockObject)|string>>
+     * @var array{question: string, default: bool, command: \MeTools\Command\Command}[]
      */
     public array $questions = [];
 
@@ -59,33 +59,33 @@ class RunAllCommand extends Command
         $this->questions = [
             [
                 'question' => __d('me_tools', 'Create default directories?'),
-                'default' => 'N',
-                'command' => CreateDirectoriesCommand::class,
+                'default' => false,
+                'command' => new CreateDirectoriesCommand(),
             ],
             [
                 'question' => __d('me_tools', 'Set directories permissions?'),
-                'default' => 'Y',
-                'command' => SetPermissionsCommand::class,
+                'default' => true,
+                'command' => new SetPermissionsCommand(),
             ],
             [
                 'question' => __d('me_tools', 'Create {0}?', 'robots.txt'),
-                'default' => 'Y',
-                'command' => CreateRobotsCommand::class,
+                'default' => true,
+                'command' => new CreateRobotsCommand(),
             ],
             [
                 'question' => __d('me_tools', 'Fix {0}?', 'composer.json'),
-                'default' => 'N',
-                'command' => FixComposerJsonCommand::class,
+                'default' => false,
+                'command' => new FixComposerJsonCommand(),
             ],
             [
                 'question' => __d('me_tools', 'Create symbolic links for plugins assets?'),
-                'default' => 'Y',
-                'command' => CreatePluginsLinksCommand::class,
+                'default' => true,
+                'command' => new CreatePluginsLinksCommand(),
             ],
             [
                 'question' => __d('me_tools', 'Create symbolic links for vendor assets?'),
-                'default' => 'Y',
-                'command' => CreateVendorsLinksCommand::class,
+                'default' => true,
+                'command' => new CreateVendorsLinksCommand(),
             ],
         ];
     }
@@ -103,19 +103,18 @@ class RunAllCommand extends Command
 
         foreach ((array)$questions as $question) {
             Exceptionist::isTrue(!array_diff(array_keys($question), ['question', 'default', 'command']), 'Invalid question keys');
-            [$question, $default, $command] = array_values($question);
+            /** @var \MeTools\Command\Command $Command */
+            [$question, $default, $Command] = array_values($question);
 
-            //The method must be executed if the `force` mode is set or if the
-            //  user answers yes to the question
+            //The method must be executed if the `force` mode is set or if the user answers yes to the question
             $toBeExecuted = true;
             if (!$args->getOption('force')) {
-                $ask = $io->askChoice($question, $default === 'Y' ? ['Y', 'n'] : ['y', 'N'], $default);
+                $ask = $io->askChoice($question, $default ? ['Y', 'n'] : ['y', 'N'], $default ? 'y' : 'n');
                 $toBeExecuted = in_array($ask, ['Y', 'y']);
             }
 
             if ($toBeExecuted) {
-                $command = is_string($command) ? new $command() : $command;
-                $command->run($args->getOption('verbose') ? ['--verbose'] : [], $io);
+                $Command->run($args->getOption('verbose') ? ['--verbose'] : [], $io);
             }
         }
     }

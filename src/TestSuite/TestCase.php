@@ -21,17 +21,52 @@ use Cake\TestSuite\TestCase as CakeTestCase;
 use Throwable;
 use Tools\Exceptionist;
 use Tools\Filesystem;
-use Tools\TestSuite\ReflectionTrait;
 use Tools\TestSuite\TestTrait;
 
 /**
  * TestCase class
+ * @property string $alias The alias name for which a test is being performed
+ * @property class-string $originClassName The class name for which a test is being performed
  */
 abstract class TestCase extends CakeTestCase
 {
     use MockTrait;
-    use ReflectionTrait;
     use TestTrait;
+
+    /**
+     * @var array
+     */
+    protected array $_cache = [];
+
+    /**
+     * Get magic method.
+     *
+     * It provides access to the cached properties of the test.
+     * @param string $name Property name
+     * @return mixed
+     * @since 2.23.0
+     * @throws \ReflectionException
+     * @throws \PHPUnit\Framework\AssertionFailedError
+     */
+    public function __get(string $name)
+    {
+        switch ($name) {
+            case 'alias':
+                if (empty($this->_cache['alias'])) {
+                    $this->_cache['alias'] = $this->getAlias($this);
+                }
+
+                return $this->_cache['alias'];
+            case 'originClassName':
+                if (empty($this->_cache['originClassName'])) {
+                    $this->_cache['originClassName'] = $this->getOriginClassName($this);
+                }
+
+                return $this->_cache['originClassName'];
+        }
+
+        $this->fail('Property `' . $name . '` does not exist');
+    }
 
     /**
      * Called before every test method
@@ -53,6 +88,7 @@ abstract class TestCase extends CakeTestCase
         parent::tearDownAfterClass();
 
         if (LOGS !== TMP) {
+            /** @noinspection PhpUnhandledExceptionInspection */
             Filesystem::instance()->unlinkRecursive(LOGS, ['.gitkeep', 'empty'], true);
         }
     }

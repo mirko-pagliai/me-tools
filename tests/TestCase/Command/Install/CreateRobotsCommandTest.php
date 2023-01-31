@@ -14,20 +14,16 @@ declare(strict_types=1);
  */
 namespace MeTools\Test\TestCase\Command\Install;
 
-use MeTools\TestSuite\ConsoleIntegrationTestTrait;
-use MeTools\TestSuite\TestCase;
+use MeTools\TestSuite\CommandTestCase;
 
 /**
  * CreateRobotsCommandTest class
  */
-class CreateRobotsCommandTest extends TestCase
+class CreateRobotsCommandTest extends CommandTestCase
 {
-    use ConsoleIntegrationTestTrait;
-
     /**
-     * Tests for `execute()` method
-     * @uses \MeTools\Command\Install\CreateRobotsCommand::execute()
      * @test
+     * @uses \MeTools\Command\Install\CreateRobotsCommand::execute()
      */
     public function testExecute(): void
     {

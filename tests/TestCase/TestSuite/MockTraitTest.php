@@ -16,16 +16,14 @@ declare(strict_types=1);
 namespace MeTools\Test\TestCase\TestSuite;
 
 use AnotherTestPlugin\Test\TestCase\Controller\MyExampleControllerTest;
-use App\Controller\PagesController;
-use App\Model\Table\PostsTable;
-use App\Model\Validation\PostValidator;
-use App\View\Cell\MyExampleCell;
-use Cake\Controller\Component;
-use Cake\Controller\Controller;
+use App\Test\TestCase\BadTestClass;
+use App\Test\TestCase\Controller\PagesControllerTest;
+use App\Test\TestCase\Model\Table\PostsTableTest;
+use App\Test\TestCase\Model\Validation\PostValidatorTest;
 use Cake\View\Helper;
+use MeTools\Test\TestCase\View\Helper\HtmlHelperTest;
 use MeTools\TestSuite\TestCase;
 use PHPUnit\Framework\AssertionFailedError;
-use stdClass;
 
 /**
  * MockTraitTest class
@@ -33,68 +31,20 @@ use stdClass;
 class MockTraitTest extends TestCase
 {
     /**
-     * Tests for `getAlias()` method
      * @test
+     * @uses \MeTools\TestSuite\MockTrait::getAlias()
      */
     public function testGetAlias(): void
     {
-        $this->assertSame('Pages', $this->getAlias(new PagesController()));
-        $this->assertSame('Posts', $this->getAlias(PostsTable::class));
-        $this->assertSame('Post', $this->getAlias(PostValidator::class));
-        $this->assertSame('MyExample', $this->getAlias(MyExampleCell::class));
-        $this->assertSame('MyExample', $this->getAlias(new MyExampleControllerTest()));
+        $this->assertSame('Pages', $this->getAlias(new PagesControllerTest()));
+        $this->assertSame('Html', $this->getAlias(new HtmlHelperTest()));
+        $this->assertSame('Posts', $this->getAlias(new PostsTableTest()));
+        $this->assertSame('Post', $this->getAlias(new PostValidatorTest()));
 
-        //Class with no alias or no existing class
-        foreach ([
-            stdClass::class => 'Unable to get the alias for the `stdClass` class',
-            'No\Existing\Class' => 'Class `No\Existing\Class` does not exist',
-        ] as $className => $expectedMessage) {
-            /** @phpstan-ignore-next-line */
-            $this->assertException(fn() => $this->getAlias($className), AssertionFailedError::class, $expectedMessage);
-        }
+        $this->assertException(fn() => $this->getAlias(new BadTestClass()), AssertionFailedError::class, 'Unable to get the alias for `App\Test\TestCase\BadTestClass`');
     }
 
     /**
-     * Tests for `getMockForComponent()` method
-     * @test
-     * @uses \MeTools\TestSuite\MockTrait::getMockForComponent()
-     */
-    public function testGetMockForComponent(): void
-    {
-        $current = error_reporting(E_ALL & ~E_USER_DEPRECATED);
-        $Component = $this->getMockForComponent('Cake\Controller\Component\FlashComponent');
-        $this->assertIsMock($Component);
-        $this->assertInstanceOf(Component::class, $Component);
-        error_reporting($current);
-    }
-
-    /**
-     * Tests for `getMockForComponent()` method
-     * @test
-     * @uses \MeTools\TestSuite\MockTrait::getMockForController()
-     */
-    public function testGetMockForController(): void
-    {
-        $current = error_reporting(E_ALL & ~E_USER_DEPRECATED);
-        $Controller = $this->getMockForController(PagesController::class);
-        $this->assertIsMock($Controller);
-        $this->assertInstanceOf(Controller::class, $Controller);
-        $this->assertEquals('Pages', $Controller->getName());
-
-        $Controller = $this->getMockForController(PagesController::class, [], 'MyController');
-        $this->assertIsMock($Controller);
-        $this->assertInstanceOf(Controller::class, $Controller);
-        $this->assertEquals('MyController', $Controller->getName());
-
-        //With a no existing class
-        $this->expectAssertionFailed('Class `App\Controller\NoExistingController` does not exist');
-        /** @phpstan-ignore-next-line */
-        $this->getMockForController('App\Controller\NoExistingController');
-        error_reporting($current);
-    }
-
-    /**
-     * Tests for `getMockForHelper()` method
      * @test
      * @uses \MeTools\TestSuite\MockTrait::getMockForHelper()
      */
@@ -106,29 +56,22 @@ class MockTraitTest extends TestCase
     }
 
     /**
-     * Tests for `getOriginClassName()` method
      * @test
+     * @uses \MeTools\TestSuite\MockTrait::getOriginClassName()
      */
     public function testGetOriginClassName(): void
     {
         $this->assertSame(TestCase::class, $this->getOriginClassName(new TestCaseTest()));
-    }
 
-    /**
-     * Tests for `getOriginClassNameOrFail()` method
-     * @test
-     */
-    public function testGetOriginClassNameOrFail(): void
-    {
-        $this->assertSame(TestCase::class, $this->getOriginClassNameOrFail(new TestCaseTest()));
+        $this->assertException(fn() => $this->getOriginClassName(new BadTestClass()), AssertionFailedError::class, 'Unable to determine the origin class for `App\Test\TestCase\BadTestClass`');
 
         $this->expectAssertionFailed('Class `AnotherTestPlugin\Controller\MyExampleController` does not exist');
-        $this->getOriginClassNameOrFail(new MyExampleControllerTest());
+        $this->getOriginClassName(new MyExampleControllerTest());
     }
 
     /**
-     * Tests for `getPluginName()` method
      * @test
+     * @uses \MeTools\TestSuite\MockTrait::getPluginName()
      */
     public function testGetPluginName(): void
     {
@@ -137,8 +80,8 @@ class MockTraitTest extends TestCase
     }
 
     /**
-     * Tests for `getTableClassNameFromAlias()` method
      * @test
+     * @uses \MeTools\TestSuite\MockTrait::getTableClassNameFromAlias()
      */
     public function testGetTableClassNameFromAlias(): void
     {
