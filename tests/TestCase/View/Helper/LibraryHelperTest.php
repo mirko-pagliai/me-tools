@@ -91,16 +91,15 @@ class LibraryHelperTest extends HelperTestCase
      */
     public function testAnalytics(): void
     {
+        $current = error_reporting(E_ALL & ~E_USER_DEPRECATED);
         $this->Helper->analytics('my-id');
         $this->assertStringStartsWith('<script>!function(', $this->Helper->getView()->fetch('script_bottom'));
-    }
+        error_reporting($current);
 
-    /**
-     * @test
-     * @uses \MeTools\View\Helper\LibraryHelper::analytics()
-     */
-    public function testAnalyticsOnLocalhost(): void
-    {
+        $this->expectDeprecation();
+        $this->Helper->analytics('my-id');
+
+        //On localhost
         $Request = $this->createMock(ServerRequest::class);
         $Request->expects($this->any())->method('is')->willReturn(true);
         $Helper = new LibraryHelper(new View($Request));
