@@ -124,6 +124,12 @@ class FormHelperTest extends HelperTestCase
         $result = $this->Helper->control('my-field', ['prepend-text' => $this->Helper->submit('My submit', ['icon' => 'home'])]);
         $this->assertSame($expected, $result);
 
+        //With input group as submit button (`prepend-text`) on inline form (it shouldn't contain `input-group-text`)
+        $this->Helper->createInline();
+        $result = $this->Helper->control('my-field', ['prepend-text' => $this->Helper->submit('My submit', ['icon' => 'home'])]);
+        $this->Helper->end();
+        $this->assertStringNotContainsString('input-group-text', $result);
+
         //With a custom label
         $expected = '<div class="input mb-3 text"><label class="form-label fw-bolder" for="my-field">A custom label</label><input type="text" name="my-field" class="form-control" id="my-field"/></div>';
         $result = $this->Helper->control('my-field', ['label' => 'A custom label']);

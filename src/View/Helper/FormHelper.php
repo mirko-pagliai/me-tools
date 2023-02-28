@@ -259,7 +259,7 @@ class FormHelper extends BaseFormHelper
 
             foreach (['append', 'prepend'] as $name) {
                 $value = $options->consume($name . '-text') ?: '';
-                if ($value && !str_starts_with($value, '<button') && !str_starts_with($value, '<div class="submit')) {
+                if ($value && !str_starts_with($value, '<button') && !str_starts_with($value, '<div class="submit') && !str_starts_with($value, '<div class="col-12 submit')) {
                     $value = $this->Html->span($value, ['class' => 'input-group-text']);
                 }
                 $templateVars[$name] = $value;
