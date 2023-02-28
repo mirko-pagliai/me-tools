@@ -2,7 +2,8 @@
 ## 2.23 branch
 ### 2.23.1
 * fixed a little bug for `FormHelper::control()` method with button on `append-text` and `prepend-text` options;
-* `LibraryHelper::analytics()` is deprecated and will be removed in a later release.
+* `LibraryHelper::analytics()` is deprecated and will be removed in a later release;
+* updated for php-tools 1.7.1.
 
 ### 2.23.0
 * the `TestCase` class provides `$alias` and `$originClassName` properties through the `__get()` magic method;
