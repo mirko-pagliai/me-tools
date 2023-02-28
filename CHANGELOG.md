@@ -1,6 +1,7 @@
 # 2.x branch
 ## 2.23 branch
 ### 2.23.1
+* fixed a little bug for `FormHelper::control()` method with button on `append-text` and `prepend-text` options;
 * `LibraryHelper::analytics()` is deprecated and will be removed in a later release.
 
 ### 2.23.0
