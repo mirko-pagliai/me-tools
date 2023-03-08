@@ -60,9 +60,8 @@ abstract class Command extends CakeCommand
         }
 
         $Filesystem = new Filesystem();
-
-        //Checks if the source is readable and the destination is writable
         try {
+            //Checks if the source is readable and the destination is writable
             Exceptionist::isReadable($source);
             Exceptionist::isWritable(dirname($dest));
             $Filesystem->copy($source, $dest);
@@ -93,18 +92,16 @@ abstract class Command extends CakeCommand
         }
 
         $Filesystem = new Filesystem();
-
         try {
             $Filesystem->mkdir($path);
+            $io->verbose(__d('me_tools', 'Created `{0}` directory', $Filesystem->rtr($path)));
+            $this->folderChmod($io, $path);
         } catch (IOException $e) {
             $mkdirError = lcfirst(array_value_last(explode('mkdir(): ', $e->getMessage())));
             $io->error(__d('me_tools', 'Failed to create file or directory `{0}` with message: {1}', $Filesystem->rtr($path), $mkdirError));
 
             return false;
         }
-
-        $io->verbose(__d('me_tools', 'Created `{0}` directory', $Filesystem->rtr($path)));
-        $this->folderChmod($io, $path);
 
         return true;
     }
@@ -137,9 +134,8 @@ abstract class Command extends CakeCommand
         }
 
         $Filesystem = new Filesystem();
-
-        //Checks if the source is readable and the destination directory is writable
         try {
+            //Checks if the source is readable and the destination directory is writable
             Exceptionist::isReadable($source);
             Exceptionist::isWritable(dirname($dest));
             $Filesystem->symlink($source, $dest, true);
@@ -167,7 +163,6 @@ abstract class Command extends CakeCommand
     public function folderChmod(ConsoleIo $io, string $path, int $chmod = 0777): bool
     {
         $Filesystem = new Filesystem();
-
         try {
             $Filesystem->chmod($path, $chmod, 0000, true);
         } catch (IOException $e) {
