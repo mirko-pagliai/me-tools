@@ -18,7 +18,6 @@ namespace MeTools\Command\Install;
 use Cake\Console\Arguments;
 use Cake\Console\ConsoleIo;
 use Cake\Console\ConsoleOptionParser;
-use Cake\Utility\Hash;
 use MeTools\Command\Command;
 use Tools\Exceptionist;
 
@@ -99,9 +98,12 @@ class RunAllCommand extends Command
      */
     public function execute(Arguments $args, ConsoleIo $io): void
     {
-        $questions = $args->getOption('force') ? Hash::extract($this->questions, '{n}[default=Y]') : $this->questions;
+        $questions = $this->questions;
+        if ($args->getOption('force')) {
+            $questions = array_filter($questions, fn(array $question): bool => $question['default']);
+        }
 
-        foreach ((array)$questions as $question) {
+        foreach ($questions as $question) {
             Exceptionist::isTrue(!array_diff(array_keys($question), ['question', 'default', 'command']), 'Invalid question keys');
             /** @var \MeTools\Command\Command $Command */
             [$question, $default, $Command] = array_values($question);
