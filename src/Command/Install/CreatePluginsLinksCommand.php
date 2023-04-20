@@ -24,7 +24,7 @@ use MeTools\Core\Plugin;
 use Tools\Filesystem;
 
 /**
- * 'Creates symbolic links for plugins assets'
+ * Creates symbolic links for plugins assets
  */
 class CreatePluginsLinksCommand extends Command
 {
