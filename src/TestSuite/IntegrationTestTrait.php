@@ -25,10 +25,6 @@ use MeTools\Controller\Component\UploaderComponent;
 
 /**
  * A trait intended to make integration tests of your controllers easier
- * @method string _getBodyAsString() Get the response body as string
- * @method void disableErrorHandlerMiddleware() Disable the error handler middleware
- * @property \Cake\Controller\Controller|null $_controller The controller used in the last request
- * @property \Cake\Http\Response|null $_response The response for the most recent request
  */
 trait IntegrationTestTrait
 {

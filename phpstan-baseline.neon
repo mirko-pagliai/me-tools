@@ -16,8 +16,18 @@ parameters:
 			path: tests/TestCase/TestSuite/IntegrationTestTraitTest.php
 
 		-
+			message: "#^Negated boolean expression is always false\\.$#"
+			count: 1
+			path: tests/TestCase/TestSuite/IntegrationTestTraitTest.php
+
+		-
 			message: "#^Property MeTools\\\\Test\\\\TestCase\\\\TestSuite\\\\IntegrationTestTraitTest\\:\\:\\$_response \\(Cake\\\\Http\\\\Response\\) does not accept null\\.$#"
 			count: 2
+			path: tests/TestCase/TestSuite/IntegrationTestTraitTest.php
+
+		-
+			message: "#^Ternary operator condition is always true\\.$#"
+			count: 1
 			path: tests/TestCase/TestSuite/IntegrationTestTraitTest.php
 
 		-
