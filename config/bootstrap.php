@@ -30,11 +30,11 @@ Configure::write('MeTools.WritableDirs', [
 ]);
 
 //Sets symbolic links for vendor assets to be created
-Configure::write('VENDOR_LINKS', [
-    'components' . DS . 'jquery' => 'jquery',
-    'fortawesome' . DS . 'font-awesome' => 'font-awesome',
-    'npm-asset' . DS . 'fancyapps-fancybox' . DS . 'dist' => 'fancyapps-fancybox',
-    'twbs' . DS . 'bootstrap' . DS . 'dist' => 'bootstrap',
-] + (array)(Configure::read('VENDOR_LINKS', [])));
+Configure::write('MeTools.VendorLinks', [
+    'components/jquery' => 'jquery',
+    'fortawesome/font-awesome' => 'font-awesome',
+    'npm-asset/fancyapps-fancybox/dist' => 'fancyapps-fancybox',
+    'twbs/bootstrap/dist' => 'bootstrap',
+]);
 
 require_once 'i18n_constants.php';

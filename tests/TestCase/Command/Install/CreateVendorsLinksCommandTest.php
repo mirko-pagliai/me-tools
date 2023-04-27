@@ -15,7 +15,7 @@ declare(strict_types=1);
  */
 namespace MeTools\Test\TestCase\Command\Install;
 
-use Cake\Core\Configure;
+use MeTools\Core\Configure;
 use MeTools\TestSuite\CommandTestCase;
 use Tools\Filesystem;
 
@@ -25,7 +25,6 @@ use Tools\Filesystem;
 class CreateVendorsLinksCommandTest extends CommandTestCase
 {
     /**
-     * @requires OS Linux
      * @test
      * @uses \MeTools\Command\Install\CreateVendorsLinksCommand::execute()
      */
@@ -33,12 +32,16 @@ class CreateVendorsLinksCommandTest extends CommandTestCase
     {
         $Filesystem = new Filesystem();
 
-        /** @var array<string, string> $expectedVendorLinks */
-        $expectedVendorLinks = Configure::readOrFail('VENDOR_LINKS');
+        $expectedLinks = array_merge(...array_values(Configure::readFromPlugins('VendorLinks')));
+        $originFiles = array_map(function (string $file) use ($Filesystem): string {
+            $file = $Filesystem->concatenate(ROOT, 'vendor', $Filesystem->normalizePath($file));
+            if (!file_exists($file)) {
+                $Filesystem->createFile($file);
+            }
 
-        $originFiles = array_map(fn(string $origin): string => ROOT . 'vendor' . DS . $origin, array_keys($expectedVendorLinks));
-        $targetFiles = array_map(fn(string $target): string => $Filesystem->rtr(WWW_ROOT . 'vendor' . DS . $target), $expectedVendorLinks);
-        array_map(fn(string $file) => file_exists($file) || $Filesystem->createFile($file), $originFiles);
+            return $file;
+        }, array_keys($expectedLinks));
+        $targetFiles = array_map(fn(string $target): string => $Filesystem->rtr($Filesystem->concatenate(WWW_ROOT, 'vendor', $target)), $expectedLinks);
 
         $this->exec('me_tools.create_vendors_links -v');
         $this->assertExitSuccess();
