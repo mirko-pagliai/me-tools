@@ -35,7 +35,7 @@ class Configure extends BaseConfigure
      */
     public static function readFromPlugins(string $var): array
     {
-        $plugins = array_filter(Plugin::loaded(), fn(string $plugin): bool => Configure::check($plugin . '.' . $var));
+        $plugins = array_filter(Plugin::all(), fn(string $plugin): bool => Configure::check($plugin . '.' . $var));
 
         return array_combine($plugins, array_map(fn(string $plugin) => Configure::read($plugin . '.' . $var), $plugins));
     }
