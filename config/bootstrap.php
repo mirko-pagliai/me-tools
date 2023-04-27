@@ -16,8 +16,7 @@ declare(strict_types=1);
 use Cake\Core\Configure;
 
 //Sets directories to be created and must be writable
-Configure::write('WRITABLE_DIRS', [
-    ...(array)Configure::read('WRITABLE_DIRS', []),
+Configure::write('MeTools.WritableDirs', [
     CACHE,
     CACHE . 'models',
     CACHE . 'persistent',

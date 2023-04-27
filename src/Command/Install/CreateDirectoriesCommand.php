@@ -18,8 +18,8 @@ namespace MeTools\Command\Install;
 use Cake\Console\Arguments;
 use Cake\Console\ConsoleIo;
 use Cake\Console\ConsoleOptionParser;
-use Cake\Core\Configure;
 use MeTools\Command\Command;
+use MeTools\Core\Configure;
 
 /**
  * Creates default directories
@@ -45,6 +45,8 @@ class CreateDirectoriesCommand extends Command
      */
     public function execute(Arguments $args, ConsoleIo $io): void
     {
-        array_map(fn(string $path): bool => $this->createDir($io, $path), array_unique(Configure::readOrFail('WRITABLE_DIRS')));
+        $dirs = array_merge(...array_values(Configure::readFromPlugins('WritableDirs')));
+
+        array_map(fn(string $path): bool => $this->createDir($io, $path), $dirs);
     }
 }

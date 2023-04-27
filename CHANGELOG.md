@@ -1,7 +1,8 @@
 # 2.x branch
 ## 2.23 branch
 ### 2.23.3
-* added `Configure` class, with `readFromPlugins()` method.
+* added `Configure` class, with `readFromPlugins()` method;
+* uses `Configure::readFromPlugins()` with `WritableDirs` key instead of the old `WRITABLE_DIRS` key.
 
 ### 2.23.2
 * fixed a little bug for `RunAllCommand` with the `--force` option.
