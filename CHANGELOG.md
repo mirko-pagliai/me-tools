@@ -1,9 +1,12 @@
 # 2.x branch
+## 2.24 branch
+### 2.24.0
+* uses `Configure::readFromPlugins()` with `WritableDirs` and `VendorLinks` keys instead of the old `WRITABLE_DIRS` and
+  `VENDOR_LINKS` keys.
+
 ## 2.23 branch
 ### 2.23.3
-* added `Configure` class, with `readFromPlugins()` method;
-* uses `Configure::readFromPlugins()` with `WritableDirs` and `VendorLinks` keys instead of the old `WRITABLE_DIRS` and 
-  `VENDOR_LINKS` keys.
+* added `Configure` class, with `readFromPlugins()` method.
 
 ### 2.23.2
 * fixed a little bug for `RunAllCommand` with the `--force` option.
