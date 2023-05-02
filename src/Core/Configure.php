@@ -28,15 +28,16 @@ class Configure extends BaseConfigure
      *
      * This method looks for the same configuration key in all loaded plugins.
      *
-     * For example, if the plugins are `PluginOne` and `PluginTwo` and `$var` is `myValue`, it will return the values
-     *  of `PluginOne.myValue` and `PluginTwo.myValue`, if they exist.
+     * For example, if the plugins are `PluginOne` and `PluginTwo` and `$var` is `myValue`, it will return an array with
+     *  the merged values of `PluginOne.myValue` and `PluginTwo.myValue`, if they exist.
      * @param string $var Variable name
      * @return array<string, mixed>
      */
     public static function readFromPlugins(string $var): array
     {
         $plugins = array_filter(Plugin::all(), fn(string $plugin): bool => Configure::check($plugin . '.' . $var));
+        $values = array_combine($plugins, array_map(fn(string $plugin): array => (array)Configure::read($plugin . '.' . $var), $plugins));
 
-        return array_combine($plugins, array_map(fn(string $plugin) => Configure::read($plugin . '.' . $var), $plugins));
+        return array_merge(...array_values($values));
     }
 }
