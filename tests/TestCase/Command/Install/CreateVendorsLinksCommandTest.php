@@ -33,18 +33,16 @@ class CreateVendorsLinksCommandTest extends CommandTestCase
     {
         $Filesystem = new Filesystem();
 
-        $expectedLinks = array_merge(...array_values(Configure::readFromPlugins('VendorLinks')));
-        $originFiles = array_map(function (string $file) use ($Filesystem): string {
-            $file = $Filesystem->concatenate(ROOT, 'vendor', $Filesystem->normalizePath($file));
+        $vendorLinks = array_merge(...array_values(Configure::readFromPlugins('VendorLinks')));
 
-            return file_exists($file) ? $file : $Filesystem->createFile($file);
-        }, array_keys($expectedLinks));
-        $targetFiles = array_map(fn(string $target): string => $Filesystem->rtr($Filesystem->concatenate(WWW_ROOT, 'vendor', $target)), $expectedLinks);
+        $expectedTargetFiles = array_map(fn(string $target): string => $Filesystem->rtr($Filesystem->concatenate(WWW_ROOT, 'vendor', $target)), $vendorLinks);
+        $originFiles = array_map(fn(string $file): string => $Filesystem->concatenate(ROOT, 'vendor', $Filesystem->normalizePath($file)), array_keys($vendorLinks));
+        $originFiles = array_map(fn(string $file): string => file_exists($file) ? $file : $Filesystem->createFile($file), $originFiles);
 
         $this->exec('me_tools.create_vendors_links -v');
         $this->assertExitSuccess();
-        foreach ($targetFiles as $targetFile) {
-            $this->assertOutputContains('Link `' . $targetFile . '` has been created');
+        foreach ($expectedTargetFiles as $expectedTargetFile) {
+            $this->assertOutputContains('Link `' . $expectedTargetFile . '` has been created');
         }
 
         array_map('unlink', $originFiles);
