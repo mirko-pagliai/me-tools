@@ -45,8 +45,6 @@ class CreateDirectoriesCommand extends Command
      */
     public function execute(Arguments $args, ConsoleIo $io): void
     {
-        $dirs = array_merge(...array_values(Configure::readFromPlugins('WritableDirs')));
-
-        array_map(fn(string $path): bool => $this->createDir($io, $path), $dirs);
+        array_map(fn(string $path): bool => $this->createDir($io, $path), Configure::readFromPlugins('WritableDirs'));
     }
 }

@@ -33,7 +33,7 @@ class CreateVendorsLinksCommandTest extends CommandTestCase
     {
         $Filesystem = new Filesystem();
 
-        $vendorLinks = array_merge(...array_values(Configure::readFromPlugins('VendorLinks')));
+        $vendorLinks = Configure::readFromPlugins('VendorLinks');
 
         $expectedTargetFiles = array_map(fn(string $target): string => $Filesystem->rtr($Filesystem->concatenate(WWW_ROOT, 'vendor', $target)), $vendorLinks);
         $originFiles = array_map(fn(string $file): string => $Filesystem->concatenate(ROOT, 'vendor', $Filesystem->normalizePath($file)), array_keys($vendorLinks));

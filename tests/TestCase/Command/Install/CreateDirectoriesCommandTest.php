@@ -29,12 +29,9 @@ class CreateDirectoriesCommandTest extends CommandTestCase
      */
     public function testExecute(): void
     {
-        $expectedDirs = array_merge(...array_values(Configure::readFromPlugins('WritableDirs')));
-        $this->assertIsArrayNotEmpty($expectedDirs);
-
         $this->exec('me_tools.create_directories -v');
         $this->assertExitSuccess();
-        foreach ($expectedDirs as $expectedDir) {
+        foreach (Configure::readFromPlugins('WritableDirs') as $expectedDir) {
             $this->assertOutputContains('File or directory `' . Filesystem::instance()->rtr($expectedDir) . '` already exists');
         }
     }

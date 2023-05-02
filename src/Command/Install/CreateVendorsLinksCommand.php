@@ -46,10 +46,8 @@ class CreateVendorsLinksCommand extends Command
      */
     public function execute(Arguments $args, ConsoleIo $io): void
     {
-        $links = array_merge(...array_values(Configure::readFromPlugins('VendorLinks')));
-
         $Filesystem = new Filesystem();
-        foreach ($links as $origin => $target) {
+        foreach (Configure::readFromPlugins('VendorLinks') as $origin => $target) {
             $this->createLink(
                 $io,
                 $Filesystem->concatenate(ROOT, 'vendor', $Filesystem->normalizePath($origin)),

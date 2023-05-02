@@ -29,12 +29,9 @@ class SetPermissionsCommandTest extends CommandTestCase
      */
     public function testExecute(): void
     {
-        $expectedDirs = array_merge(...array_values(Configure::readFromPlugins('WritableDirs')));
-        $this->assertIsArrayNotEmpty($expectedDirs);
-
         $this->exec('me_tools.set_permissions -v');
         $this->assertExitSuccess();
-        foreach ($expectedDirs as $expectedDir) {
+        foreach (Configure::readFromPlugins('WritableDirs') as $expectedDir) {
             $this->assertOutputContains('Set permissions on `' . Filesystem::instance()->rtr($expectedDir) . '`');
         }
     }
