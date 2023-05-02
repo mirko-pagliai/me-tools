@@ -14,7 +14,7 @@ declare(strict_types=1);
  */
 namespace MeTools\Test\TestCase\Command\Install;
 
-use Cake\Core\Configure;
+use MeTools\Core\Configure;
 use MeTools\TestSuite\CommandTestCase;
 use Tools\Filesystem;
 
@@ -31,8 +31,8 @@ class CreateDirectoriesCommandTest extends CommandTestCase
     {
         $this->exec('me_tools.create_directories -v');
         $this->assertExitSuccess();
-        foreach (array_map([Filesystem::instance(), 'rtr'], Configure::readOrFail('WRITABLE_DIRS')) as $expectedDir) {
-            $this->assertOutputContains('File or directory `' . $expectedDir . '` already exists');
+        foreach (Configure::readFromPlugins('WritableDirs') as $expectedDir) {
+            $this->assertOutputContains('File or directory `' . Filesystem::instance()->rtr($expectedDir) . '` already exists');
         }
     }
 }

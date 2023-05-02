@@ -29,12 +29,12 @@ class ConfigureTest extends TestCase
     public function testReadFromPlugins(): void
     {
         Configure::write('MeTools.myConfig', ['a', 'b', 'c']);
-        $expected = ['MeTools' => Configure::read('MeTools.myConfig')];
+        $expected = Configure::read('MeTools.myConfig');
         $this->assertSame($expected, Configure::readFromPlugins('myConfig'));
 
-        $expected += ['TestPlugin' => 'd'];
         $this->loadPlugins(['TestPlugin' => []]);
         Configure::write('TestPlugin.myConfig', 'd');
+        $expected[] = 'd';
         $this->assertSame($expected, Configure::readFromPlugins('myConfig'));
 
         $this->assertEmpty(Configure::readFromPlugins('noExistingConfig'));
