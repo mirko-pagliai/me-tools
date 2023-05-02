@@ -25,6 +25,7 @@ use Tools\Filesystem;
 class CreateVendorsLinksCommandTest extends CommandTestCase
 {
     /**
+     * @requires OS Linux
      * @test
      * @uses \MeTools\Command\Install\CreateVendorsLinksCommand::execute()
      */
@@ -35,11 +36,8 @@ class CreateVendorsLinksCommandTest extends CommandTestCase
         $expectedLinks = array_merge(...array_values(Configure::readFromPlugins('VendorLinks')));
         $originFiles = array_map(function (string $file) use ($Filesystem): string {
             $file = $Filesystem->concatenate(ROOT, 'vendor', $Filesystem->normalizePath($file));
-            if (!file_exists($file)) {
-                $Filesystem->createFile($file);
-            }
 
-            return $file;
+            return file_exists($file) ? $file : $Filesystem->createFile($file);
         }, array_keys($expectedLinks));
         $targetFiles = array_map(fn(string $target): string => $Filesystem->rtr($Filesystem->concatenate(WWW_ROOT, 'vendor', $target)), $expectedLinks);
 
