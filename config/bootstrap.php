@@ -15,6 +15,10 @@ declare(strict_types=1);
 
 use Cake\Core\Configure;
 
+if (!defined('WWW_VENDOR')) {
+    define('WWW_VENDOR', WWW_ROOT . 'vendor' . DS);
+}
+
 //Sets directories to be created and must be writable
 Configure::write('MeTools.WritableDirs', [
     CACHE,
@@ -26,7 +30,7 @@ Configure::write('MeTools.WritableDirs', [
     TMP . 'sessions',
     TMP . 'tests',
     WWW_ROOT . 'files',
-    WWW_ROOT . 'vendor',
+    WWW_VENDOR,
 ]);
 
 //Sets symbolic links for vendor assets to be created

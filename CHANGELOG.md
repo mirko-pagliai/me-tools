@@ -1,6 +1,7 @@
 # 2.x branch
 ## 2.24 branch
 ### 2.24.1
+* added `WWW_VENDOR` constant;
 * suggests `axllent/jquery` and no longer `components/jquery`;
 * `axllent/jquery` added to `MeTools.VendorLinks` configuration.
 
