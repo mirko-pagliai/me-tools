@@ -14,7 +14,8 @@
         "php": ">=7.4",
         "ext-json": "*",
         "cakephp/cakephp": "^4.4",
-        "mirko-pagliai/php-tools": "~1.7.1"
+        "mirko-pagliai/php-tools": "~1.7.1",
+        "axllent/jquery": "^3.7"
     },
     "require-dev": {
         "ext-fileinfo": "*",
@@ -28,7 +29,7 @@
         "newerton/fancy-box": "*"
     },
     "suggest": {
-        "components/jquery": "To use jQuery, the JavaScript library",
+        "axllent/jquery": "To use jQuery, the JavaScript library",
         "fortawesome/font-awesome": "To use Font Awesome's icons",
         "mirko-pagliai/cakephp-assets": "A CakePHP plugin to allows you to generate assets",
         "npm-asset/fancyapps-fancybox": "To show photos with fancybox",
