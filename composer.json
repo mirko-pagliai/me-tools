@@ -14,8 +14,7 @@
         "php": ">=7.4",
         "ext-json": "*",
         "cakephp/cakephp": "^4.4",
-        "mirko-pagliai/php-tools": "~1.7.1",
-        "axllent/jquery": "^3.7"
+        "mirko-pagliai/php-tools": "~1.7.1"
     },
     "require-dev": {
         "ext-fileinfo": "*",
