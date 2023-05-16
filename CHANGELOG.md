@@ -1,7 +1,8 @@
 # 2.x branch
 ## 2.24 branch
 ### 2.24.1
-* suggests `axllent/jquery` and no longer `components/jquery`.
+* suggests `axllent/jquery` and no longer `components/jquery`;
+* `axllent/jquery` added to `MeTools.VendorLinks` configuration.
 
 ### 2.24.0
 * uses `Configure::readFromPlugins()` with `WritableDirs` and `VendorLinks` keys instead of the old `WRITABLE_DIRS` and

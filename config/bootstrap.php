@@ -31,6 +31,7 @@ Configure::write('MeTools.WritableDirs', [
 
 //Sets symbolic links for vendor assets to be created
 Configure::write('MeTools.VendorLinks', [
+    'axllent/jquery' => 'jquery',
     'components/jquery' => 'jquery',
     'fortawesome/font-awesome' => 'font-awesome',
     'npm-asset/fancyapps-fancybox/dist' => 'fancyapps-fancybox',
