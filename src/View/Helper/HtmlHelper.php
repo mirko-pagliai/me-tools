@@ -20,6 +20,7 @@ use Tools\Exceptionist;
 /**
  * Provides functionalities for HTML
  *
+ * @method string code(?string $text = null, array $options = [])
  * @method string h1(?string $text = null, array $options = [])
  * @method string h2(?string $text = null, array $options = [])
  * @method string h3(?string $text = null, array $options = [])
