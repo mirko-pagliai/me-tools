@@ -16,7 +16,6 @@ namespace MeTools\Core;
 
 use Cake\Core\Plugin as CakePlugin;
 use Tools\Exceptionist;
-use Tools\Filesystem;
 
 /**
  * A utility to handle plugins
@@ -69,7 +68,7 @@ class Plugin extends CakePlugin
 
         $path = $plugin . $file;
         if ($check) {
-            Exceptionist::fileExists($path, __d('me_tools', 'File or directory `{0}.{1}` does not exist', $name, Filesystem::instance()->rtr($path)));
+            Exceptionist::fileExists($path, __d('me_tools', 'File or directory `{0}.{1}` does not exist', $name, rtr($path)));
         }
 
         return $path;

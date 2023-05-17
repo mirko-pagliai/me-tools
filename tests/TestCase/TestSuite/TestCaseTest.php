@@ -63,7 +63,7 @@ class TestCaseTest extends TestCase
     {
         $string = 'cat dog bird';
         $file = LOGS . 'debug.log';
-        Filesystem::instance()->createFile($file, $string);
+        Filesystem::createFile($file, $string);
 
         foreach (explode(' ', $string) as $word) {
             $this->TestCase->assertLogContains($word, $file);
@@ -113,7 +113,7 @@ class TestCaseTest extends TestCase
     public function testDeleteLog(): void
     {
         foreach ([LOGS . 'first.log', LOGS . 'second.log'] as $log) {
-            Filesystem::instance()->createFile($log);
+            Filesystem::createFile($log);
             $this->TestCase->deleteLog($log);
             $this->assertFileDoesNotExist($log);
         }

@@ -3,7 +3,8 @@
 ### 2.24.1
 * added `WWW_VENDOR` constant;
 * suggests `axllent/jquery` and no longer `components/jquery`;
-* `axllent/jquery` added to `MeTools.VendorLinks` configuration.
+* `axllent/jquery` added to `MeTools.VendorLinks` configuration;
+* updated for php-tools 1.7.4.
 
 ### 2.24.0
 * uses `Configure::readFromPlugins()` with `WritableDirs` and `VendorLinks` keys instead of the old `WRITABLE_DIRS` and

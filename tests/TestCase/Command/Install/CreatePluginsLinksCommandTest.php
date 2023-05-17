@@ -29,8 +29,7 @@ class CreatePluginsLinksCommandTest extends CommandTestCase
      */
     public function testExecute(): void
     {
-        $Filesystem = new Filesystem();
-        $clear = fn() => array_map(fn(string $path): bool => file_exists($path) && $Filesystem->rmdirRecursive($path), [WWW_ROOT . 'me_tools', WWW_ROOT . 'test_plugin']);
+        $clear = fn() => array_map(fn(string $path): bool => file_exists($path) && Filesystem::rmdirRecursive($path), [WWW_ROOT . 'me_tools', WWW_ROOT . 'test_plugin']);
 
         $this->loadPlugins(['TestPlugin' => []]);
 
@@ -39,9 +38,9 @@ class CreatePluginsLinksCommandTest extends CommandTestCase
         $this->assertExitSuccess();
         $this->assertOutputContains('Skipping plugin `Assets`. It does not have webroot folder');
         $this->assertOutputContains('For plugin: MeTools');
-        $this->assertOutputContains('Link `' . $Filesystem->rtr(WWW_ROOT . 'me_tools') . '` has been created');
+        $this->assertOutputContains('Link `' . rtr(WWW_ROOT . 'me_tools') . '` has been created');
         $this->assertOutputContains('For plugin: TestPlugin');
-        $this->assertOutputContains('Link `' . $Filesystem->rtr(WWW_ROOT . 'test_plugin') . '` has been created');
+        $this->assertOutputContains('Link `' . rtr(WWW_ROOT . 'test_plugin') . '` has been created');
         $this->assertErrorEmpty();
         $this->assertFileExists(WWW_ROOT . 'me_tools');
         $this->assertFileExists(WWW_ROOT . 'test_plugin');

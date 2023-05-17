@@ -57,7 +57,7 @@ class IntegrationTestTraitTest extends TestCase
         $this->controllerSpy(new Event('myEvent'), $this->_controller);
 
         $this->assertIsMock($this->_controller->Uploader);
-        $source = Filesystem::instance()->createTmpFile();
+        $source = Filesystem::createTmpFile();
         $destination = TMP . 'example2';
         $this->assertFileDoesNotExist($destination);
         $this->invokeMethod($this->_controller->Uploader, 'move_uploaded_file', [$source, $destination]);

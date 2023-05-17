@@ -51,8 +51,7 @@ class FixComposerJsonCommand extends Command
      */
     public function execute(Arguments $args, ConsoleIo $io): void
     {
-        $Filesystem = new Filesystem();
-        $path = (string)$args->getOption('path') ?: $Filesystem->concatenate(ROOT, 'composer.json');
+        $path = (string)$args->getOption('path') ?: Filesystem::concatenate(ROOT, 'composer.json');
 
         try {
             Exceptionist::isWritable($path);
@@ -65,16 +64,16 @@ class FixComposerJsonCommand extends Command
         $contents = json_decode(file_get_contents($path) ?: '', true);
 
         if (empty($contents)) {
-            $io->err(__d('me_tools', 'File `{0}` does not seem a valid {1} file', $Filesystem->rtr($path), 'composer.json'));
+            $io->err(__d('me_tools', 'File `{0}` does not seem a valid {1} file', rtr($path), 'composer.json'));
             $this->abort();
         }
 
         //Checks if the file has been fixed
-        $message = __d('me_tools', "File `{0}` doesn't need to be fixed", $Filesystem->rtr($path));
+        $message = __d('me_tools', "File `{0}` doesn't need to be fixed", rtr($path));
         if (empty($contents['config']['component-dir']) || $contents['config']['component-dir'] !== 'vendor/components') {
             $contents += ['config' => ['component-dir' => 'vendor/components']];
-            $Filesystem->createFile($path, json_encode($contents, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
-            $message = __d('me_tools', 'File `{0}` has been fixed', $Filesystem->rtr($path));
+            Filesystem::createFile($path, json_encode($contents, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
+            $message = __d('me_tools', 'File `{0}` has been fixed', rtr($path));
         }
         $io->verbose($message);
     }

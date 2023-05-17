@@ -21,7 +21,6 @@ use Cake\Console\ConsoleOptionParser;
 use Cake\Utility\Inflector;
 use MeTools\Command\Command;
 use MeTools\Core\Plugin;
-use Tools\Filesystem;
 
 /**
  * Creates symbolic links for plugins assets
@@ -55,7 +54,7 @@ class CreatePluginsLinksCommand extends Command
             }
 
             $io->verbose('For plugin: ' . $plugin);
-            $this->createLink($io, $webrootPath, Filesystem::instance()->concatenate(WWW_ROOT, Inflector::underscore($plugin)));
+            $this->createLink($io, $webrootPath, WWW_ROOT . Inflector::underscore($plugin));
         }
     }
 }

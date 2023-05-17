@@ -40,7 +40,7 @@ class UploaderComponentTest extends ComponentTestCase
      */
     protected function createFile(int $error = UPLOAD_ERR_OK): UploadedFileInterface
     {
-        $file = Filesystem::instance()->createTmpFile();
+        $file = Filesystem::createTmpFile();
 
         return new UploadedFile($file, filesize($file) ?: 0, $error, basename($file), 'text/plain');
     }
@@ -51,8 +51,8 @@ class UploaderComponentTest extends ComponentTestCase
      */
     protected function tearDown(): void
     {
-        Filesystem::instance()->unlinkRecursive(UPLOADS);
-        Filesystem::instance()->rmdirRecursive(TMP . 'upload_test');
+        Filesystem::unlinkRecursive(UPLOADS);
+        Filesystem::rmdirRecursive(TMP . 'upload_test');
 
         parent::tearDown();
     }
@@ -80,7 +80,6 @@ class UploaderComponentTest extends ComponentTestCase
      */
     public function testFindTargetFilename(): void
     {
-        $Filesystem = new Filesystem();
         $findTargetFilenameMethod = fn(string $filename): string => $this->invokeMethod($this->Component, 'findTargetFilename', [$filename]);
 
         $file1 = UPLOADS . 'target.txt';
@@ -90,11 +89,11 @@ class UploaderComponentTest extends ComponentTestCase
         $this->assertEquals($file1, $findTargetFilenameMethod($file1));
 
         //Creates the first file
-        $Filesystem->createFile($file1);
+        Filesystem::createFile($file1);
         $this->assertEquals($file2, $findTargetFilenameMethod($file1));
 
         //Creates the second file
-        $Filesystem->createFile($file2);
+        Filesystem::createFile($file2);
         $this->assertEquals($file3, $findTargetFilenameMethod($file1));
 
         //Files without extension
@@ -103,7 +102,7 @@ class UploaderComponentTest extends ComponentTestCase
         $this->assertEquals($file1, $findTargetFilenameMethod($file1));
 
         //Creates the first file
-        $Filesystem->createFile($file1);
+        Filesystem::createFile($file1);
         $this->assertEquals($file2, $findTargetFilenameMethod($file1));
     }
 
@@ -123,7 +122,7 @@ class UploaderComponentTest extends ComponentTestCase
         $this->assertNotEmpty($this->Component->getError());
 
         //`setFile()` with array
-        $file = Filesystem::instance()->createTmpFile();
+        $file = Filesystem::createTmpFile();
         $this->Component->setFile([
             'name' => basename($file),
             'type' => mime_content_type($file),
@@ -191,7 +190,7 @@ class UploaderComponentTest extends ComponentTestCase
         $this->assertSame('File or directory `' . DS . 'noExisting` is not writable', $this->Component->getError());
 
         //With file not successfully moved to the target directory
-        $file = Filesystem::instance()->createTmpFile();
+        $file = Filesystem::createTmpFile();
         $UploadedFile = $this->getMockBuilder(UploadedFile::class)
             ->setConstructorArgs([$file, filesize($file), UPLOAD_ERR_OK, basename($file), 'text/plain'])
             ->onlyMethods(['moveTo'])
