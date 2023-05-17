@@ -75,7 +75,7 @@ class DropdownHelperTest extends HelperTestCase
         $result = $this->Helper->end(['class' => 'my-div-class', 'style' => 'background:red']);
         $this->assertHtml($expected, $result);
 
-        $this->expectErrorMessage('The dropdown has no content. Perhaps the `link()` method was never called');
+        $this->expectExceptionMessage('The dropdown has no content. Perhaps the `link()` method was never called');
         $this->Helper->start('My title');
         $this->Helper->end();
     }
@@ -86,7 +86,7 @@ class DropdownHelperTest extends HelperTestCase
      */
     public function testEndWithNoStart(): void
     {
-        $this->expectErrorMessage('The `start()` method was not called before `end()`');
+        $this->expectExceptionMessage('The `start()` method was not called before `end()`');
         $this->Helper->end();
     }
 }
