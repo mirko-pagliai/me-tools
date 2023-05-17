@@ -28,7 +28,7 @@ use Tools\Filesystem;
 abstract class Command extends CakeCommand
 {
     /**
-     * Internal method to check if a file already exists and output a warning at the verbose level
+     * Internal method, checks if a file already exists and outputs a warning at the verbose level
      * @param \Cake\Console\ConsoleIo $io The console io
      * @param string $path Path
      * @return bool
@@ -81,10 +81,11 @@ abstract class Command extends CakeCommand
      * This method creates directories recursively.
      * @param \Cake\Console\ConsoleIo $io The console io
      * @param string $path Directory path
+     * @param int $chmod Chmod
      * @return bool
      * @throws \ErrorException
      */
-    public function createDir(ConsoleIo $io, string $path): bool
+    public function createDir(ConsoleIo $io, string $path, int $chmod = 0777): bool
     {
         if ($this->verboseIfFileExists($io, $path)) {
             return false;
@@ -93,7 +94,7 @@ abstract class Command extends CakeCommand
         try {
             Filesystem::instance()->mkdir($path);
             $io->verbose(__d('me_tools', 'Created `{0}` directory', rtr($path)));
-            $this->folderChmod($io, $path);
+            $this->folderChmod($io, $path, $chmod);
         } catch (IOException $e) {
             $mkdirError = lcfirst(array_value_last(explode('mkdir(): ', $e->getMessage())));
             $io->error(__d('me_tools', 'Failed to create file or directory `{0}` with message: {1}', rtr($path), $mkdirError));
