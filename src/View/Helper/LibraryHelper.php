@@ -28,20 +28,20 @@ class LibraryHelper extends Helper
     /**
      * Helpers.
      *
-     * The `Asset` helper will be loaded by the `initialize()` method. If the `Assets` plugin doesn't exist, it will be
-     *  a copy of the `Html` helper.
+     * The `Asset` helper will be loaded by the `initialize()` method.
+     * If the `Assets` plugin doesn't exist, it will be a copy of `HtmlHelper`.
      * @var array
      */
     public $helpers = ['MeTools.Html'];
 
     /**
-     * @var array
+     * @var string[]
      */
     protected array $output = [];
 
     /**
      * Gets the output
-     * @return array
+     * @return string[]
      * @since 2.22.4
      */
     public function getOutput(): array
@@ -63,7 +63,7 @@ class LibraryHelper extends Helper
 
         if (Plugin::getCollection()->has('Assets')) {
             /** @var \Assets\View\Helper\AssetHelper $asset */
-            $asset = $this->_View->loadHelper('Assets.Asset');
+            $asset = $this->getView()->loadHelper('Assets.Asset');
         }
         $this->Asset = $asset ?? clone $this->Html;
     }

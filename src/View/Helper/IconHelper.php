@@ -51,13 +51,14 @@ class IconHelper extends CakeHtmlHelper
 
     /**
      * Internal method to build icon classes
-     * @param string|array<string> $icon Icons
+     * @param string|string[] $icon Icons
      * @return string
      * @since 2.16.2-beta
      */
     protected function buildIconClasses($icon): string
     {
         //Prepends the string "fa-" to any other class
+        /** @var string|string[] $icon */
         $icon = preg_replace('/(?<![^ ])(?=[^ ])(?!fa)/', 'fa-', $icon);
         $icon = is_array($icon) ? $icon : (preg_split('/\s+/', $icon ?: '', -1, PREG_SPLIT_NO_EMPTY) ?: []);
 

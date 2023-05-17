@@ -67,10 +67,8 @@
         "coverage": "XDEBUG_MODE=coverage phpunit --coverage-html=coverage",
         "phpstan": "phpstan.phar analyse",
         "psalm": "psalm.phar --php-version=8.0",
-        "stan": [
-            "@phpstan",
-            "@psalm"
-        ],
+        "stan": ["@phpstan", "@psalm"],
+        "update-psalm": "psalm.phar --php-version=8.0 --set-baseline=psalm-baseline.xml",
         "update-lowest": "@composer update --prefer-lowest"
     },
     "config": {

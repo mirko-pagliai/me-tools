@@ -6,6 +6,7 @@
     xmlns="https://getpsalm.org/schema/config"
     xsi:schemaLocation="https://getpsalm.org/schema/config vendor/vimeo/psalm/config.xsd"
     autoloader="tests/bootstrap.php"
+    errorBaseline="psalm-baseline.xml"
 >
     <projectFiles>
         <directory name="src" />
@@ -13,51 +14,4 @@
             <directory name="vendor" />
         </ignoreFiles>
     </projectFiles>
-
-    <issueHandlers>
-        <DuplicateArrayKey>
-            <errorLevel type="suppress">
-                <file name="src/View/OptionsParser.php" />
-            </errorLevel>
-        </DuplicateArrayKey>
-
-        <InvalidArgument>
-            <errorLevel type="suppress">
-                <file name="src/View/OptionsParser.php" />
-            </errorLevel>
-        </InvalidArgument>
-
-        <LessSpecificImplementedReturnType>
-            <errorLevel type="suppress">
-                <file name="src/View/Helper/BreadcrumbsHelper.php" />
-            </errorLevel>
-        </LessSpecificImplementedReturnType>
-
-        <RedundantCondition>
-            <errorLevel type="suppress">
-                <file name="src/TestSuite/TestCase.php" />
-                <file name="src/View/Helper/IconHelper.php" />
-            </errorLevel>
-        </RedundantCondition>
-
-        <TypeDoesNotContainType>
-            <errorLevel type="suppress">
-                <file name="src/View/Helper/IconHelper.php" />
-                <file name="src/TestSuite/ComponentTestCase.php" />
-                <file name="src/TestSuite/HelperTestCase.php" />
-            </errorLevel>
-        </TypeDoesNotContainType>
-
-        <UndefinedInterfaceMethod>
-            <errorLevel type="suppress">
-                <file name="src/Plugin.php" />
-            </errorLevel>
-        </UndefinedInterfaceMethod>
-
-        <UndefinedThisPropertyAssignment>
-            <errorLevel type="suppress">
-                <file name="src/View/Helper/LibraryHelper.php" />
-            </errorLevel>
-        </UndefinedThisPropertyAssignment>
-    </issueHandlers>
 </psalm>
