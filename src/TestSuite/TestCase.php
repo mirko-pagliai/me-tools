@@ -82,13 +82,14 @@ abstract class TestCase extends CakeTestCase
     /**
      * This method is called after the last test of this test class is run
      * @return void
+     * @throws \Symfony\Component\Filesystem\Exception\IOException
+     * @throws \Symfony\Component\Finder\Exception\DirectoryNotFoundException
      */
     public static function tearDownAfterClass(): void
     {
         parent::tearDownAfterClass();
 
         if (LOGS !== TMP) {
-            /** @noinspection PhpUnhandledExceptionInspection */
             Filesystem::unlinkRecursive(LOGS, ['.gitkeep', 'empty'], true);
         }
     }
