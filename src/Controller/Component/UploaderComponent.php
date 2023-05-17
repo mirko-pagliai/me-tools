@@ -142,7 +142,7 @@ class UploaderComponent extends Component
         }
 
         if (!is_writable($directory)) {
-            $this->setError(__d('me_tools', 'File or directory `{0}` is not writable', Filesystem::instance()->rtr($directory)));
+            $this->setError(__d('me_tools', 'File or directory `{0}` is not writable', rtr($directory)));
 
             return false;
         }
@@ -150,7 +150,7 @@ class UploaderComponent extends Component
         /** @var \Psr\Http\Message\UploadedFileInterface $file */
         $file = $this->getFile();
         $filename = $filename ? basename($filename) : $this->findTargetFilename($file->getClientFilename() ?: '');
-        $target = Filesystem::instance()->concatenate($directory, $filename);
+        $target = Filesystem::concatenate($directory, $filename);
 
         try {
             $file->moveTo($target);

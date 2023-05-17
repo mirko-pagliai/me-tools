@@ -46,12 +46,11 @@ class CreateVendorsLinksCommand extends Command
      */
     public function execute(Arguments $args, ConsoleIo $io): void
     {
-        $Filesystem = new Filesystem();
         foreach (Configure::readFromPlugins('VendorLinks') as $origin => $target) {
             $this->createLink(
                 $io,
-                $Filesystem->concatenate(ROOT, 'vendor', $Filesystem->normalizePath($origin)),
-                $Filesystem->concatenate(WWW_ROOT, 'vendor', $target)
+                VENDOR . Filesystem::normalizePath($origin),
+                WWW_VENDOR . $target
             );
         }
     }

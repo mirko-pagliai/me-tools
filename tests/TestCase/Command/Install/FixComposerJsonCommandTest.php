@@ -32,7 +32,7 @@ class FixComposerJsonCommandTest extends CommandTestCase
         $command = 'me_tools.fix_composer_json -v';
 
         $file = APP . 'composer.json';
-        Filesystem::instance()->createFile($file, json_encode([
+        Filesystem::createFile($file, json_encode([
             'name' => 'example',
             'description' => 'example of composer.json',
             'type' => 'project',
@@ -41,19 +41,19 @@ class FixComposerJsonCommandTest extends CommandTestCase
         ], JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
         $this->exec($command . ' -p ' . $file);
         $this->assertExitSuccess();
-        $this->assertOutputContains('File `' . Filesystem::instance()->rtr($file) . '` has been fixed');
+        $this->assertOutputContains('File `' . rtr($file) . '` has been fixed');
         $this->assertErrorEmpty();
 
         //With an already fixed file
         $this->exec($command . ' -p ' . $file);
         $this->assertExitSuccess();
-        $this->assertOutputContains('File `' . Filesystem::instance()->rtr($file) . "` doesn't need to be fixed");
+        $this->assertOutputContains('File `' . rtr($file) . "` doesn't need to be fixed");
         $this->assertErrorEmpty();
         unlink($file);
 
         //With an invalid file
         $file = TMP . 'invalid.json';
-        Filesystem::instance()->createFile($file);
+        Filesystem::createFile($file);
         $this->exec($command . ' -p ' . $file);
         $this->assertExitError();
         $this->assertErrorContains('File `' . $file . '` does not seem a valid composer.json file');

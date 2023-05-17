@@ -31,13 +31,11 @@ class CreateVendorsLinksCommandTest extends CommandTestCase
      */
     public function testExecute(): void
     {
-        $Filesystem = new Filesystem();
-
         $vendorLinks = Configure::readFromPlugins('VendorLinks');
 
-        $expectedTargetFiles = array_map(fn(string $target): string => $Filesystem->rtr($Filesystem->concatenate(WWW_ROOT, 'vendor', $target)), $vendorLinks);
-        $originFiles = array_map(fn(string $file): string => $Filesystem->concatenate(ROOT, 'vendor', $Filesystem->normalizePath($file)), array_keys($vendorLinks));
-        $originFiles = array_map(fn(string $file): string => file_exists($file) ? $file : $Filesystem->createFile($file), $originFiles);
+        $expectedTargetFiles = array_map(fn(string $target): string => rtr(WWW_VENDOR . $target), $vendorLinks);
+        $originFiles = array_map(fn(string $file): string => VENDOR . Filesystem::normalizePath($file), array_keys($vendorLinks));
+        $originFiles = array_map(fn(string $file): string => file_exists($file) ? $file : Filesystem::createFile($file), $originFiles);
 
         $this->exec('me_tools.create_vendors_links -v');
         $this->assertExitSuccess();
@@ -46,6 +44,6 @@ class CreateVendorsLinksCommandTest extends CommandTestCase
         }
 
         array_map('unlink', $originFiles);
-        $Filesystem->unlinkRecursive(WWW_ROOT . 'vendor', '.gitkeep');
+        Filesystem::unlinkRecursive(WWW_VENDOR, '.gitkeep');
     }
 }

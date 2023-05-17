@@ -1,5 +1,13 @@
 # 2.x branch
 ## 2.24 branch
+### 2.24.1
+* `Command::createDir()` now has the `$chmod` argument;
+* added `WWW_VENDOR` constant;
+* suggests `axllent/jquery` and no longer `components/jquery`;
+* `axllent/jquery` added to `MeTools.VendorLinks` configuration;
+* `LibraryHelper::analytics()` method was deprecated and has now been removed;
+* updated for php-tools 1.7.4.
+
 ### 2.24.0
 * uses `Configure::readFromPlugins()` with `WritableDirs` and `VendorLinks` keys instead of the old `WRITABLE_DIRS` and
   `VENDOR_LINKS` keys.

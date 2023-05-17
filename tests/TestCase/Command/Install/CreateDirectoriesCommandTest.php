@@ -16,7 +16,6 @@ namespace MeTools\Test\TestCase\Command\Install;
 
 use MeTools\Core\Configure;
 use MeTools\TestSuite\CommandTestCase;
-use Tools\Filesystem;
 
 /**
  * CreateDirectoriesCommandTest class
@@ -32,7 +31,7 @@ class CreateDirectoriesCommandTest extends CommandTestCase
         $this->exec('me_tools.create_directories -v');
         $this->assertExitSuccess();
         foreach (Configure::readFromPlugins('WritableDirs') as $expectedDir) {
-            $this->assertOutputContains('File or directory `' . Filesystem::instance()->rtr($expectedDir) . '` already exists');
+            $this->assertOutputContains('File or directory `' . rtr($expectedDir) . '` already exists');
         }
     }
 }

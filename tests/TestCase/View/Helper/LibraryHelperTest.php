@@ -18,10 +18,7 @@ namespace MeTools\Test\TestCase\View\Helper;
 
 use Assets\View\Helper\AssetHelper;
 use Cake\Core\Plugin;
-use Cake\Http\ServerRequest;
-use Cake\View\View;
 use MeTools\TestSuite\HelperTestCase;
-use MeTools\View\Helper\LibraryHelper;
 use Tools\Filesystem;
 
 /**
@@ -38,7 +35,7 @@ class LibraryHelperTest extends HelperTestCase
     {
         parent::setUp();
 
-        Filesystem::instance()->createFile(WWW_ROOT . 'ckeditor' . DS . 'ckeditor.js');
+        Filesystem::createFile(WWW_ROOT . 'ckeditor' . DS . 'ckeditor.js');
     }
 
     /**
@@ -49,7 +46,7 @@ class LibraryHelperTest extends HelperTestCase
     {
         parent::tearDown();
 
-        array_map(fn($dir) => Filesystem::instance()->unlinkRecursive(WWW_ROOT . $dir, '.gitkeep'), ['ckeditor', 'js', 'vendor']);
+        array_map(fn($dir) => Filesystem::unlinkRecursive(WWW_ROOT . $dir, '.gitkeep'), ['ckeditor', 'js', 'vendor']);
     }
 
     /**
@@ -87,28 +84,6 @@ class LibraryHelperTest extends HelperTestCase
 
     /**
      * @test
-     * @uses \MeTools\View\Helper\LibraryHelper::analytics()
-     */
-    public function testAnalytics(): void
-    {
-        $current = error_reporting(E_ALL & ~E_USER_DEPRECATED);
-        $this->Helper->analytics('my-id');
-        $this->assertStringStartsWith('<script>!function(', $this->Helper->getView()->fetch('script_bottom'));
-        error_reporting($current);
-
-        $this->expectDeprecation();
-        $this->Helper->analytics('my-id');
-
-        //On localhost
-        $Request = $this->createMock(ServerRequest::class);
-        $Request->expects($this->any())->method('is')->willReturn(true);
-        $Helper = new LibraryHelper(new View($Request));
-        $Helper->analytics('my-id');
-        $this->assertEmpty($Helper->getView()->fetch('script_bottom'));
-    }
-
-    /**
-     * @test
      * @uses \MeTools\View\Helper\LibraryHelper::ckeditor()
      */
     public function testCkeditor(): void
@@ -123,7 +98,7 @@ class LibraryHelperTest extends HelperTestCase
         $this->assertHtml($expected, $this->Helper->getView()->fetch('script_bottom'));
 
         //With the jQuery adapter
-        Filesystem::instance()->createFile(WWW_ROOT . 'ckeditor' . DS . 'adapters' . DS . 'jquery.js');
+        Filesystem::createFile(WWW_ROOT . 'ckeditor' . DS . 'adapters' . DS . 'jquery.js');
         $expected = [...$expected, ['script' => ['src' => '/ckeditor/adapters/jquery.js']], '/script'];
         $this->Helper->ckeditor(true);
         $this->assertHtml($expected, $this->Helper->getView()->fetch('script_bottom'));
@@ -136,7 +111,7 @@ class LibraryHelperTest extends HelperTestCase
      */
     public function testCkeditorWithJsFromApp(): void
     {
-        Filesystem::instance()->createFile(WWW_ROOT . 'js' . DS . 'ckeditor_init.js');
+        Filesystem::createFile(WWW_ROOT . 'js' . DS . 'ckeditor_init.js');
 
         $expected = [
             ['script' => ['src' => '/ckeditor/ckeditor.js']],
@@ -155,7 +130,7 @@ class LibraryHelperTest extends HelperTestCase
      */
     public function testCkeditorWithPhpFromApp(): void
     {
-        Filesystem::instance()->createFile(WWW_ROOT . 'js' . DS . 'ckeditor_init.php');
+        Filesystem::createFile(WWW_ROOT . 'js' . DS . 'ckeditor_init.php');
 
         $expected = [
             ['script' => ['src' => '/ckeditor/ckeditor.js']],
@@ -180,7 +155,7 @@ class LibraryHelperTest extends HelperTestCase
         $this->assertSame($expectedJs, $this->Helper->getView()->fetch('script_bottom'));
 
         //With che init file
-        Filesystem::instance()->createFile(WWW_ROOT . 'js' . DS . 'fancybox_init.js');
+        Filesystem::createFile(WWW_ROOT . 'js' . DS . 'fancybox_init.js');
         $expectedJs .= '<script src="/js/fancybox_init.js"></script>';
         $this->Helper->fancybox();
         $this->assertSame($expectedJs, $this->Helper->getView()->fetch('script_bottom'));

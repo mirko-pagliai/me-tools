@@ -20,13 +20,12 @@ use Tools\Exceptionist;
 /**
  * Provides functionalities for creating dropdown menus, according to Bootstrap.
  *
- * Dropdowns are built on a third party library, Popper, which provides dynamic
- *  positioning and viewport detection. Be sure to include popper.min.js before
- *  Bootstrap’s JavaScript or use `bootstrap.bundle.min.js`/`bootstrap.bundle.js`
- *  which contains Popper.
+ * Dropdowns are built on a third party library, Popper, which provides dynamic positioning and viewport detection. Be
+ * sure to include `popper.min.js` before Bootstrap's JavaScript or use `bootstrap.bundle.min.js`/`bootstrap.bundle.js`
+ * which contains Popper.
  *
- * You need to call in order: the `start()` method; the `link()`method, for each
- *  link in the menu; the `end()` method, which also returns the HTML code.
+ * You need to call in order: the `start()` method; the `link()`method, for each link in the menu; the `end()` method,
+ * which also returns the HTML code.
  *
  * Example:
  * <code>
@@ -56,7 +55,7 @@ class DropdownHelper extends Helper
     protected string $_id;
 
     /**
-     * @var array
+     * @var string[]
      */
     protected array $_links = [];
 
@@ -64,11 +63,10 @@ class DropdownHelper extends Helper
      * Creates an HTML link for the dropdown.
      *
      * See the parent method for all available options.
-     * @param array|string $title The content to be wrapped by `<a>` tags
-     *   Can be an array if $url is null. If $url is null, $title will be used as both the URL and title.
-     * @param array|string|null $url Cake-relative URL or array of URL parameters, or
-     *   external URL (starts with http://)
-     * @param array<string, mixed> $options Array of options and HTML attributes
+     * @param array|string $title The content to be wrapped by `<a>` tags. Can be an array if `$url` is `null`. If
+     *  `$url` is `null`, `$title` will be used as both the URL and title
+     * @param array|string|null $url Cake-relative URL or array of URL parameters, or external URL (starts with http://)
+     * @param array $options Array of options and HTML attributes
      * @return void
      */
     public function link($title, $url = null, array $options = []): void
@@ -80,14 +78,11 @@ class DropdownHelper extends Helper
     /**
      * Starts a dropdown.
      *
-     * It will subsequently capture links created with the `link()` method until
-     *  the `end()` method is called.
+     * It will subsequently capture links created with the `link()` method until the `end()` method is called.
      *
-     * `$title` and `$titleOptions` arguments are about the link that allows the
-     *  opening of the dropdown menu.
+     * `$title` and `$titleOptions` arguments are about the link that allows the opening of the dropdown menu.
      * @param string $title Title for the opening link
-     * @param array $titleOptions HTML attributes and options for the opening
-     *  link
+     * @param array $titleOptions HTML attributes and options for the opening link
      * @return void
      */
     public function start(string $title, array $titleOptions = []): void
@@ -110,8 +105,7 @@ class DropdownHelper extends Helper
      * Closes the dropdown and returns its entire code.
      *
      * `$ulOptions` argument is about the list of the dropdown menu.
-     * @param array $ulOptions HTML attributes and options for the wrapper `<ul>`
-     *  element
+     * @param array $ulOptions HTML attributes and options for the wrapper `<ul>` element
      * @return string
      * @throws \ErrorException
      */

@@ -28,20 +28,20 @@ class LibraryHelper extends Helper
     /**
      * Helpers.
      *
-     * The `Asset` helper will be loaded by the `initialize()` method. If the `Assets` plugin doesn't exist, it will be
-     *  a copy of the `Html` helper.
+     * The `Asset` helper will be loaded by the `initialize()` method.
+     * If the `Assets` plugin doesn't exist, it will be a copy of `HtmlHelper`.
      * @var array
      */
     public $helpers = ['MeTools.Html'];
 
     /**
-     * @var array
+     * @var string[]
      */
     protected array $output = [];
 
     /**
      * Gets the output
-     * @return array
+     * @return string[]
      * @since 2.22.4
      */
     public function getOutput(): array
@@ -63,7 +63,7 @@ class LibraryHelper extends Helper
 
         if (Plugin::getCollection()->has('Assets')) {
             /** @var \Assets\View\Helper\AssetHelper $asset */
-            $asset = $this->_View->loadHelper('Assets.Asset');
+            $asset = $this->getView()->loadHelper('Assets.Asset');
         }
         $this->Asset = $asset ?? clone $this->Html;
     }
@@ -85,19 +85,6 @@ class LibraryHelper extends Helper
 
         //Resets the output
         $this->output = [];
-    }
-
-    /**
-     * Create a script block for Google Analytics
-     * @param string $id Analytics ID
-     * @return string|null A script tag or `null`
-     * @deprecated 2.23.1 It will be removed in a later release
-     */
-    public function analytics(string $id): ?string
-    {
-        deprecationWarning('Deprecated. It will be removed in a later release');
-
-        return $this->getView()->getRequest()->is('localhost') ? null : $this->Html->scriptBlock('!function(e,a,t,n,c,o,s){e.GoogleAnalyticsObject=c,e[c]=e[c]||function(){(e[c].q=e[c].q||[]).push(arguments)},e[c].l=1*new Date,o=a.createElement(t),s=a.getElementsByTagName(t)[0],o.async=1,o.src=n,s.parentNode.insertBefore(o,s)}(window,document,"script","//www.google-analytics.com/analytics.js","ga"),ga("create","' . $id . '","auto"),ga("send","pageview");', ['block' => 'script_bottom']);
     }
 
     /**
