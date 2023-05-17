@@ -18,10 +18,7 @@ namespace MeTools\Test\TestCase\View\Helper;
 
 use Assets\View\Helper\AssetHelper;
 use Cake\Core\Plugin;
-use Cake\Http\ServerRequest;
-use Cake\View\View;
 use MeTools\TestSuite\HelperTestCase;
-use MeTools\View\Helper\LibraryHelper;
 use Tools\Filesystem;
 
 /**
