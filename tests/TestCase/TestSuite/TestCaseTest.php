@@ -17,6 +17,7 @@ namespace MeTools\Test\TestCase\TestSuite;
 use App\Test\TestCase\View\AppViewTest;
 use MeTools\TestSuite\TestCase;
 use PHPUnit\Framework\AssertionFailedError;
+use PHPUnit\Framework\ExpectationFailedException;
 use Tools\Filesystem;
 
 /**
@@ -62,15 +63,19 @@ class TestCaseTest extends TestCase
     public function testAssertLogContains(): void
     {
         $string = 'cat dog bird';
-        $file = LOGS . 'debug.log';
-        Filesystem::createFile($file, $string);
-
+        Filesystem::createFile(LOGS . 'debug.log', $string);
         foreach (explode(' ', $string) as $word) {
-            $this->TestCase->assertLogContains($word, $file);
+            $this->TestCase->assertLogContains($word, LOGS . 'debug.log');
         }
 
+        $this->assertException(
+            fn() => $this->TestCase->assertLogContains('bad word', LOGS . 'debug.log'),
+            ExpectationFailedException::class,
+            'Failed asserting that \'cat dog bird\' contains "bad word".'
+        );
+
         //With a no existing log
-        $this->expectAssertionFailed('File or directory `' . $this->TestCase->getLogFullPath('noExisting') . '` is not readable');
+        $this->expectAssertionFailed('Failed asserting that file "' . LOGS . 'noExisting.log" exists');
         $this->assertLogContains('content', 'noExisting');
     }
 

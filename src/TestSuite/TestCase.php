@@ -102,14 +102,9 @@ abstract class TestCase extends CakeTestCase
      */
     public function assertLogContains(string $expectedContent, string $filename, string $message = ''): void
     {
-        try {
-            $filename = $this->getLogFullPath($filename);
-            $content = file_get_contents(Exceptionist::isReadable($filename)) ?: '';
-        } catch (Throwable $e) {
-            $this->fail($e->getMessage());
-        }
-
-        $this->assertStringContainsString($expectedContent, $content, $message);
+        $filename = $this->getLogFullPath($filename);
+        $this->assertFileIsReadable($filename);
+        $this->assertStringContainsString($expectedContent, file_get_contents($filename) ?: '', $message);
     }
 
     /**
