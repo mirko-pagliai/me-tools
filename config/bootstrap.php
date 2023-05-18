@@ -15,6 +15,9 @@ declare(strict_types=1);
 
 use Cake\Core\Configure;
 
+if (!defined('VENDOR')) {
+    define('VENDOR', rtrim(ROOT, DS) . DS . 'vendor' . DS);
+}
 if (!defined('WWW_VENDOR')) {
     define('WWW_VENDOR', WWW_ROOT . 'vendor' . DS);
 }
