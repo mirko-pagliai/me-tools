@@ -18,8 +18,6 @@ namespace MeTools\TestSuite;
 use Cake\Core\Configure;
 use Cake\ORM\Table;
 use Cake\TestSuite\TestCase as CakeTestCase;
-use Throwable;
-use Tools\Exceptionist;
 use Tools\Filesystem;
 use Tools\TestSuite\TestTrait;
 
