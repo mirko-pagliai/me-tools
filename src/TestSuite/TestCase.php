@@ -90,9 +90,7 @@ abstract class TestCase extends CakeTestCase
     {
         parent::tearDownAfterClass();
 
-        if (LOGS !== TMP) {
-            Filesystem::unlinkRecursive(LOGS, ['.gitkeep', 'empty'], true);
-        }
+        Filesystem::unlinkRecursive(LOGS, '.gitkeep', true);
     }
 
     /**
@@ -144,9 +142,13 @@ abstract class TestCase extends CakeTestCase
      * Deletes a log file
      * @param string $filename Log filename
      * @return void
+     * @deprecated 2.24.1
+     * @codeCoverageIgnore
      */
     public function deleteLog(string $filename): void
     {
+        deprecationWarning('`TestCase::deleteLog()` is deprecated and will be removed in a later release');
+
         unlink($this->getLogFullPath($filename));
     }
 

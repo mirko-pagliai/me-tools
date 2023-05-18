@@ -108,19 +108,6 @@ class TestCaseTest extends TestCase
 
     /**
      * @test
-     * @uses \MeTools\TestSuite\TestCase::deleteLog()
-     */
-    public function testDeleteLog(): void
-    {
-        foreach ([LOGS . 'first.log', LOGS . 'second.log'] as $log) {
-            Filesystem::createFile($log);
-            $this->TestCase->deleteLog($log);
-            $this->assertFileDoesNotExist($log);
-        }
-    }
-
-    /**
-     * @test
      * @uses \MeTools\TestSuite\TestCase::getTable()
      */
     public function testGetTable(): void
