@@ -3,9 +3,14 @@
 ### 2.24.1
 * `Command::createDir()` now has the `$chmod` argument;
 * added `WWW_VENDOR` constant;
+* improved `TestCase::assertLogContains()` method;
+* `deleteLog()` and `getLogFullPath()` methods provided by the `TestCase` class are now deprecated and will be removed
+  in a later release;
+* `assertSqlEndsWith()` and `assertSqlEndsNotWith()` methods provided by the `TestCase` class now deprecated and will be
+  removed in a later release. Use instead `assertStringEndsWith()` and `assertStringEndsNotWith()`;
+* `LibraryHelper::analytics()` method was deprecated and has now been removed;
 * suggests `axllent/jquery` and no longer `components/jquery`;
 * `axllent/jquery` added to `MeTools.VendorLinks` configuration;
-* `LibraryHelper::analytics()` method was deprecated and has now been removed;
 * updated for php-tools 1.7.4.
 
 ### 2.24.0

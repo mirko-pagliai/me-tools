@@ -17,6 +17,7 @@ namespace MeTools\Test\TestCase\TestSuite;
 use App\Test\TestCase\View\AppViewTest;
 use MeTools\TestSuite\TestCase;
 use PHPUnit\Framework\AssertionFailedError;
+use PHPUnit\Framework\ExpectationFailedException;
 use Tools\Filesystem;
 
 /**
@@ -62,61 +63,20 @@ class TestCaseTest extends TestCase
     public function testAssertLogContains(): void
     {
         $string = 'cat dog bird';
-        $file = LOGS . 'debug.log';
-        Filesystem::createFile($file, $string);
-
+        Filesystem::createFile(LOGS . 'debug.log', $string);
         foreach (explode(' ', $string) as $word) {
-            $this->TestCase->assertLogContains($word, $file);
+            $this->TestCase->assertLogContains($word, LOGS . 'debug.log');
         }
+
+        $this->assertException(
+            fn() => $this->TestCase->assertLogContains('bad word', LOGS . 'debug.log'),
+            ExpectationFailedException::class,
+            'Failed asserting that \'cat dog bird\' contains "bad word".'
+        );
 
         //With a no existing log
-        $this->expectAssertionFailed('File or directory `' . $this->TestCase->getLogFullPath('noExisting') . '` is not readable');
-        $this->assertLogContains('content', 'noExisting');
-    }
-
-    /**
-     * @test
-     * @uses \MeTools\TestSuite\TestCase::assertSqlEndsNotWith()
-     */
-    public function testAssertSqlEndsNotWith(): void
-    {
-        $sql = 'SELECT Posts.id AS Posts__id FROM posts Posts';
-        $this->TestCase->assertSqlEndsNotWith('FROM `posts` `Posts` ORDER BY rand() LIMIT 1', $sql);
-        $this->TestCase->assertSqlEndsNotWith('FROM posts Posts ORDER BY rand() LIMIT 1', $sql);
-
-        $this->expectAssertionFailed();
-        $this->TestCase->assertSqlEndsNotWith('FROM `posts` `Posts`', $sql);
-    }
-
-    /**
-     * @test
-     * @uses \MeTools\TestSuite\TestCase::assertSqlEndsWith()
-     */
-    public function testAssertSqlEndsWith(): void
-    {
-        $sql = 'SELECT Posts.id AS Posts__id FROM posts Posts ORDER BY rand() LIMIT 1';
-        $this->TestCase->assertSqlEndsWith('FROM `posts` `Posts` ORDER BY rand() LIMIT 1', $sql);
-        $this->TestCase->assertSqlEndsWith('FROM posts Posts ORDER BY rand() LIMIT 1', $sql);
-
-        $sql = 'SELECT `Posts`.`id` AS `Posts__id` FROM `posts` `Posts` ORDER BY rand() LIMIT 1';
-        $this->TestCase->assertSqlEndsWith('FROM `posts` `Posts` ORDER BY rand() LIMIT 1', $sql);
-        $this->TestCase->assertSqlEndsWith('FROM posts Posts ORDER BY rand() LIMIT 1', $sql);
-
-        $this->expectAssertionFailed();
-        $this->TestCase->assertSqlEndsWith('FROM `posts` `Posts`', $sql);
-    }
-
-    /**
-     * @test
-     * @uses \MeTools\TestSuite\TestCase::deleteLog()
-     */
-    public function testDeleteLog(): void
-    {
-        foreach ([LOGS . 'first.log', LOGS . 'second.log'] as $log) {
-            Filesystem::createFile($log);
-            $this->TestCase->deleteLog($log);
-            $this->assertFileDoesNotExist($log);
-        }
+        $this->expectAssertionFailed('Failed asserting that file "' . LOGS . 'noExisting.log" exists');
+        $this->assertLogContains('content', LOGS . 'noExisting.log');
     }
 
     /**
