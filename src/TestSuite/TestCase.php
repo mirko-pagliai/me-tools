@@ -102,7 +102,6 @@ abstract class TestCase extends CakeTestCase
      */
     public function assertLogContains(string $expectedContent, string $filename, string $message = ''): void
     {
-        $filename = $this->getLogFullPath($filename);
         $this->assertFileIsReadable($filename);
         $this->assertStringContainsString($expectedContent, file_get_contents($filename) ?: '', $message);
     }
@@ -152,12 +151,14 @@ abstract class TestCase extends CakeTestCase
      * @param string $filename Log filename
      * @return string
      * @since 2.16.10
+     * @deprecated 2.24.1
+     * @codeCoverageIgnore
      */
     protected function getLogFullPath(string $filename): string
     {
-        $filename .= Filesystem::getExtension($filename) ? '' : '.log';
+        deprecationWarning('`TestCase::getLogFullPath()` is deprecated and will be removed in a later release');
 
-        return Filesystem::makePathAbsolute($filename, LOGS);
+        return Filesystem::makePathAbsolute($filename . Filesystem::getExtension($filename) ? '' : '.log', LOGS);
     }
 
     /**

@@ -76,7 +76,7 @@ class TestCaseTest extends TestCase
 
         //With a no existing log
         $this->expectAssertionFailed('Failed asserting that file "' . LOGS . 'noExisting.log" exists');
-        $this->assertLogContains('content', 'noExisting');
+        $this->assertLogContains('content', LOGS . 'noExisting.log');
     }
 
     /**

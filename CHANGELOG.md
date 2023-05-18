@@ -6,7 +6,8 @@
 * suggests `axllent/jquery` and no longer `components/jquery`;
 * `axllent/jquery` added to `MeTools.VendorLinks` configuration;
 * improved `TestCase::assertLogContains()` method;
-* `TestCase::deleteLog()` is deprecated and will be removed in a later release;
+* `deleteLog()` and `getLogFullPath()` methods provided by the `TestCase` class are now deprecated and will be removed
+  in a later release;
 * `LibraryHelper::analytics()` method was deprecated and has now been removed;
 * updated for php-tools 1.7.4.
 
