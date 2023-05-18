@@ -91,69 +91,6 @@ abstract class TestCase extends CakeTestCase
     }
 
     /**
-     * Asserts a sql query string ends not with `$suffix`
-     * @param string $suffix Suffix
-     * @param string $sql Sql query string
-     * @param string $message The failure message that will be appended to the generated message
-     * @return void
-     * @since 2.20.7
-     * @deprecated 2.24.1 Use instead `assertStringEndsNotWith()`
-     * @codeCoverageIgnore
-     */
-    protected function assertSqlEndsNotWith(string $suffix, string $sql, string $message = ''): void
-    {
-        deprecationWarning('Deprecated. Use instead `assertStringEndsNotWith()`');
-
-        $this->assertStringEndsNotWith($suffix, $sql, $message);
-    }
-
-    /**
-     * Asserts a sql query string ends with `$suffix`
-     * @param string $suffix Suffix
-     * @param string $sql Sql query string
-     * @param string $message The failure message that will be appended to the generated message
-     * @return void
-     * @since 2.20.7
-     * @deprecated 2.24.1 Use instead `assertStringEndsWith()`
-     * @codeCoverageIgnore
-     */
-    protected function assertSqlEndsWith(string $suffix, string $sql, string $message = ''): void
-    {
-        deprecationWarning('Deprecated. Use instead `assertStringEndsWith()`');
-
-        $this->assertStringEndsWith($suffix, $sql, $message);
-    }
-
-    /**
-     * Deletes a log file
-     * @param string $filename Log filename
-     * @return void
-     * @deprecated 2.24.1
-     * @codeCoverageIgnore
-     */
-    public function deleteLog(string $filename): void
-    {
-        deprecationWarning('`TestCase::deleteLog()` is deprecated and will be removed in a later release');
-
-        unlink($this->getLogFullPath($filename));
-    }
-
-    /**
-     * Internal method to get a log full path
-     * @param string $filename Log filename
-     * @return string
-     * @since 2.16.10
-     * @deprecated 2.24.1
-     * @codeCoverageIgnore
-     */
-    protected function getLogFullPath(string $filename): string
-    {
-        deprecationWarning('`TestCase::getLogFullPath()` is deprecated and will be removed in a later release');
-
-        return Filesystem::makePathAbsolute($filename . Filesystem::getExtension($filename) ? '' : '.log', LOGS);
-    }
-
-    /**
      * Get a table instance from the registry
      * @param string $alias The alias name you want to get
      * @param array $options The options you want to build the table with

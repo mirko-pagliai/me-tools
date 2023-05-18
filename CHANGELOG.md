@@ -1,4 +1,9 @@
 # 2.x branch
+## 2.25 branch
+### 2.25.0
+* `assertSqlEndsWith()`, `assertSqlEndsNotWith()`, `deleteLog()` and `getLogFullPath()` methods provided by the
+  `TestCase` class was deprecated and has now been removed.
+
 ## 2.24 branch
 ### 2.24.1
 * `Command::createDir()` now has the `$chmod` argument;
