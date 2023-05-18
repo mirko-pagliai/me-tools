@@ -113,10 +113,14 @@ abstract class TestCase extends CakeTestCase
      * @param string $message The failure message that will be appended to the generated message
      * @return void
      * @since 2.20.7
+     * @deprecated 2.24.1 Use instead `assertStringEndsNotWith()`
+     * @codeCoverageIgnore
      */
     protected function assertSqlEndsNotWith(string $suffix, string $sql, string $message = ''): void
     {
-        $this->assertStringEndsNotWith(str_replace('`', '', $suffix), str_replace('`', '', $sql), $message);
+        deprecationWarning('Deprecated. Use instead `assertStringEndsNotWith()`');
+
+        $this->assertStringEndsNotWith($suffix, $sql, $message);
     }
 
     /**
@@ -126,10 +130,14 @@ abstract class TestCase extends CakeTestCase
      * @param string $message The failure message that will be appended to the generated message
      * @return void
      * @since 2.20.7
+     * @deprecated 2.24.1 Use instead `assertStringEndsWith()`
+     * @codeCoverageIgnore
      */
     protected function assertSqlEndsWith(string $suffix, string $sql, string $message = ''): void
     {
-        $this->assertStringEndsWith(str_replace('`', '', $suffix), str_replace('`', '', $sql), $message);
+        deprecationWarning('Deprecated. Use instead `assertStringEndsWith()`');
+
+        $this->assertStringEndsWith($suffix, $sql, $message);
     }
 
     /**

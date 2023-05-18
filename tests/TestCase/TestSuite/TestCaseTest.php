@@ -81,38 +81,6 @@ class TestCaseTest extends TestCase
 
     /**
      * @test
-     * @uses \MeTools\TestSuite\TestCase::assertSqlEndsNotWith()
-     */
-    public function testAssertSqlEndsNotWith(): void
-    {
-        $sql = 'SELECT Posts.id AS Posts__id FROM posts Posts';
-        $this->TestCase->assertSqlEndsNotWith('FROM `posts` `Posts` ORDER BY rand() LIMIT 1', $sql);
-        $this->TestCase->assertSqlEndsNotWith('FROM posts Posts ORDER BY rand() LIMIT 1', $sql);
-
-        $this->expectAssertionFailed();
-        $this->TestCase->assertSqlEndsNotWith('FROM `posts` `Posts`', $sql);
-    }
-
-    /**
-     * @test
-     * @uses \MeTools\TestSuite\TestCase::assertSqlEndsWith()
-     */
-    public function testAssertSqlEndsWith(): void
-    {
-        $sql = 'SELECT Posts.id AS Posts__id FROM posts Posts ORDER BY rand() LIMIT 1';
-        $this->TestCase->assertSqlEndsWith('FROM `posts` `Posts` ORDER BY rand() LIMIT 1', $sql);
-        $this->TestCase->assertSqlEndsWith('FROM posts Posts ORDER BY rand() LIMIT 1', $sql);
-
-        $sql = 'SELECT `Posts`.`id` AS `Posts__id` FROM `posts` `Posts` ORDER BY rand() LIMIT 1';
-        $this->TestCase->assertSqlEndsWith('FROM `posts` `Posts` ORDER BY rand() LIMIT 1', $sql);
-        $this->TestCase->assertSqlEndsWith('FROM posts Posts ORDER BY rand() LIMIT 1', $sql);
-
-        $this->expectAssertionFailed();
-        $this->TestCase->assertSqlEndsWith('FROM `posts` `Posts`', $sql);
-    }
-
-    /**
-     * @test
      * @uses \MeTools\TestSuite\TestCase::getTable()
      */
     public function testGetTable(): void
