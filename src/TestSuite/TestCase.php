@@ -78,20 +78,6 @@ abstract class TestCase extends CakeTestCase
     }
 
     /**
-     * This method is called after the last test of this test class is run
-     * @return void
-     * @codeCoverageIgnore
-     * @throws \Symfony\Component\Filesystem\Exception\IOException
-     * @throws \Symfony\Component\Finder\Exception\DirectoryNotFoundException
-     */
-    public static function tearDownAfterClass(): void
-    {
-        parent::tearDownAfterClass();
-
-        Filesystem::unlinkRecursive(LOGS, '.gitkeep', true);
-    }
-
-    /**
      * Asserts log file contents
      * @param string $expectedContent The expected contents
      * @param string $filename Log filename
