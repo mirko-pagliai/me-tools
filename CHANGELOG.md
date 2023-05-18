@@ -3,12 +3,12 @@
 ### 2.24.1
 * `Command::createDir()` now has the `$chmod` argument;
 * added `WWW_VENDOR` constant;
-* suggests `axllent/jquery` and no longer `components/jquery`;
-* `axllent/jquery` added to `MeTools.VendorLinks` configuration;
 * improved `TestCase::assertLogContains()` method;
 * `deleteLog()` and `getLogFullPath()` methods provided by the `TestCase` class are now deprecated and will be removed
   in a later release;
 * `LibraryHelper::analytics()` method was deprecated and has now been removed;
+* suggests `axllent/jquery` and no longer `components/jquery`;
+* `axllent/jquery` added to `MeTools.VendorLinks` configuration;
 * updated for php-tools 1.7.4.
 
 ### 2.24.0
