@@ -66,7 +66,6 @@ class RunAllCommandTest extends CommandTestCase
             'MeTools\Command\Install\CreateDirectoriesCommand',
             'MeTools\Command\Install\SetPermissionsCommand',
             'MeTools\Command\Install\CreateRobotsCommand',
-            'MeTools\Command\Install\FixComposerJsonCommand',
             'MeTools\Command\Install\CreatePluginsLinksCommand',
             'MeTools\Command\Install\CreateVendorsLinksCommand',
         ];

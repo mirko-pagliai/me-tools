@@ -2,6 +2,7 @@
 ## 2.25 branch
 ### 2.25.0
 * the `components/jquery` package was marked as a conflicting dependency and can no longer be installed;
+* the `FixComposerJsonCommand` no longer serves any purpose and has therefore been removed;
 * `assertSqlEndsWith()`, `assertSqlEndsNotWith()`, `deleteLog()` and `getLogFullPath()` methods provided by the
   `TestCase` class was deprecated and has now been removed.
 

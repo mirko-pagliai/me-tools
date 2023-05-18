@@ -72,11 +72,6 @@ class RunAllCommand extends Command
                 'command' => new CreateRobotsCommand(),
             ],
             [
-                'question' => __d('me_tools', 'Fix {0}?', 'composer.json'),
-                'default' => false,
-                'command' => new FixComposerJsonCommand(),
-            ],
-            [
                 'question' => __d('me_tools', 'Create symbolic links for plugins assets?'),
                 'default' => true,
                 'command' => new CreatePluginsLinksCommand(),

@@ -22,7 +22,6 @@ use MeTools\Command\Install\CreateDirectoriesCommand;
 use MeTools\Command\Install\CreatePluginsLinksCommand;
 use MeTools\Command\Install\CreateRobotsCommand;
 use MeTools\Command\Install\CreateVendorsLinksCommand;
-use MeTools\Command\Install\FixComposerJsonCommand;
 use MeTools\Command\Install\RunAllCommand;
 use MeTools\Command\Install\SetPermissionsCommand;
 
@@ -56,7 +55,6 @@ class Plugin extends BasePlugin
             ->add('me_tools.create_plugins_links', CreatePluginsLinksCommand::class)
             ->add('me_tools.create_robots', CreateRobotsCommand::class)
             ->add('me_tools.create_vendors_links', CreateVendorsLinksCommand::class)
-            ->add('me_tools.fix_composer_json', FixComposerJsonCommand::class)
             ->add('me_tools.install', RunAllCommand::class)
             ->add('me_tools.set_permissions', SetPermissionsCommand::class);
     }
