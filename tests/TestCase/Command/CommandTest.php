@@ -37,9 +37,7 @@ class CommandTest extends CommandTestCase
      */
     protected function setUp(): void
     {
-        if (!isset($this->Command)) {
-            $this->Command = $this->getMockForAbstractClass(Command::class);
-        }
+        $this->Command = $this->getMockForAbstractClass(Command::class);
 
         $this->_out = new StubConsoleOutput();
         $this->_err = new StubConsoleOutput();
@@ -130,9 +128,6 @@ class CommandTest extends CommandTestCase
     public function testCreateFile(): void
     {
         $source = TMP . 'exampleDir' . DS . 'example';
-        if (!file_exists(dirname($source))) {
-            mkdir(dirname($source), 0777, true);
-        }
 
         //Creates the file
         $this->assertTrue($this->Command->createFile($this->io, $source, 'test'));
@@ -147,7 +142,6 @@ class CommandTest extends CommandTestCase
     }
 
     /**
-     * Tests for `createLink()` method
      * @requires OS Linux
      * @test
      * @uses \MeTools\Command\Command::createLink()
@@ -179,9 +173,7 @@ class CommandTest extends CommandTestCase
     public function testFolderChmod(): void
     {
         $dir = TMP . 'exampleDir';
-        if (!file_exists($dir)) {
-            mkdir($dir, 0777, true);
-        }
+        Filesystem::instance()->mkdir($dir);
 
         //Set chmod
         $this->assertTrue($this->Command->folderChmod($this->io, $dir));
@@ -191,5 +183,17 @@ class CommandTest extends CommandTestCase
         //Tries to set chmod for a no existing directory
         $this->assertFalse($this->Command->folderChmod($this->io, DS . 'noExistingDir'));
         $this->assertErrorContains('Failed to set permissions on `' . DS . 'noExistingDir`');
+    }
+
+    /**
+     * @test
+     * @uses \MeTools\Command\Command::isVerbose()
+     */
+    public function testIsVerbose(): void
+    {
+        $this->assertTrue($this->Command->isVerbose($this->io));
+
+        $this->io->level(ConsoleIo::NORMAL);
+        $this->assertFalse($this->Command->isVerbose($this->io));
     }
 }

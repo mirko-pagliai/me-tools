@@ -2,6 +2,7 @@
 ## 2.24 branch
 ### 2.24.1
 * `Command::createDir()` now has the `$chmod` argument;
+* added `Command::isVerbose()` method;
 * added `VENDOR` and `WWW_VENDOR` constants;
 * improved `TestCase::assertLogContains()` method;
 * `deleteLog()` and `getLogFullPath()` methods provided by the `TestCase` class are now deprecated and will be removed
