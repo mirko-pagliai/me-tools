@@ -1,6 +1,7 @@
 # 2.x branch
 ## 2.24 branch
 ### 2.24.1
+* the `CreateVendorsLinksCommand` has been totally rewritten and perfected;
 * `Command::createDir()` now has the `$chmod` argument;
 * added `Command::isVerbose()` method;
 * added `VENDOR` and `WWW_VENDOR` constants;
