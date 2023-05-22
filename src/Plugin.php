@@ -19,7 +19,6 @@ use Cake\Console\CommandCollection;
 use Cake\Core\BasePlugin;
 use Cake\Core\PluginApplicationInterface;
 use MeTools\Command\Install\CreateDirectoriesCommand;
-use MeTools\Command\Install\CreatePluginsLinksCommand;
 use MeTools\Command\Install\CreateRobotsCommand;
 use MeTools\Command\Install\CreateVendorsLinksCommand;
 use MeTools\Command\Install\FixComposerJsonCommand;
@@ -53,7 +52,6 @@ class Plugin extends BasePlugin
     public function console(CommandCollection $commands): CommandCollection
     {
         return $commands->add('me_tools.create_directories', CreateDirectoriesCommand::class)
-            ->add('me_tools.create_plugins_links', CreatePluginsLinksCommand::class)
             ->add('me_tools.create_robots', CreateRobotsCommand::class)
             ->add('me_tools.create_vendors_links', CreateVendorsLinksCommand::class)
             ->add('me_tools.fix_composer_json', FixComposerJsonCommand::class)
