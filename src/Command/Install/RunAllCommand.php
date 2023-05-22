@@ -106,7 +106,7 @@ class RunAllCommand extends Command
 
         foreach ($questions as $question) {
             Exceptionist::isTrue(!array_diff(array_keys($question), ['question', 'default', 'command']), 'Invalid question keys');
-            /** @var \MeTools\Command\Command $Command */
+            /** @var \Cake\Command\Command $Command */
             [$question, $default, $Command] = array_values($question);
 
             //The method must be executed if the `force` mode is set or if the user answers yes to the question
