@@ -29,7 +29,7 @@ class RunAllCommand extends Command
 {
     /**
      * Questions
-     * @var array{question: string, default: bool, command: \MeTools\Command\Command}[]
+     * @var array{question: string, default: bool, command: \Cake\Command\Command}[]
      */
     public array $questions = [];
 
