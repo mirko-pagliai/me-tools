@@ -14,6 +14,7 @@ declare(strict_types=1);
  */
 namespace MeTools\Test\TestCase\Command\Install;
 
+use Cake\Command\PluginAssetsSymlinkCommand;
 use Cake\Console\ConsoleIo;
 use Cake\Console\TestSuite\StubConsoleOutput;
 use MeTools\Command\Command;
@@ -53,7 +54,7 @@ class RunAllCommandTest extends CommandTestCase
         $expected = [
             'MeTools\Command\Install\SetPermissionsCommand',
             'MeTools\Command\Install\CreateRobotsCommand',
-            'MeTools\Command\Install\CreatePluginsLinksCommand',
+            PluginAssetsSymlinkCommand::class,
             'MeTools\Command\Install\CreateVendorsLinksCommand',
         ];
         $out = new StubConsoleOutput();
@@ -66,7 +67,7 @@ class RunAllCommandTest extends CommandTestCase
             'MeTools\Command\Install\CreateDirectoriesCommand',
             'MeTools\Command\Install\SetPermissionsCommand',
             'MeTools\Command\Install\CreateRobotsCommand',
-            'MeTools\Command\Install\CreatePluginsLinksCommand',
+            PluginAssetsSymlinkCommand::class,
             'MeTools\Command\Install\CreateVendorsLinksCommand',
         ];
         $out = new StubConsoleOutput();

@@ -15,6 +15,7 @@ declare(strict_types=1);
  */
 namespace MeTools\Command\Install;
 
+use Cake\Command\PluginAssetsSymlinkCommand;
 use Cake\Console\Arguments;
 use Cake\Console\ConsoleIo;
 use Cake\Console\ConsoleOptionParser;
@@ -74,7 +75,7 @@ class RunAllCommand extends Command
             [
                 'question' => __d('me_tools', 'Create symbolic links for plugins assets?'),
                 'default' => true,
-                'command' => new CreatePluginsLinksCommand(),
+                'command' => new PluginAssetsSymlinkCommand(),
             ],
             [
                 'question' => __d('me_tools', 'Create symbolic links for vendor assets?'),

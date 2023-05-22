@@ -41,17 +41,42 @@ class CreateVendorsLinksCommand extends Command
      * Creates symbolic links for vendor assets
      * @param \Cake\Console\Arguments $args The command arguments
      * @param \Cake\Console\ConsoleIo $io The console io
-     * @return void
+     * @return int|null
      * @throws \ErrorException
      */
-    public function execute(Arguments $args, ConsoleIo $io): void
+    public function execute(Arguments $args, ConsoleIo $io): ?int
     {
-        foreach (Configure::readFromPlugins('VendorLinks') as $origin => $target) {
-            $this->createLink(
-                $io,
-                VENDOR . Filesystem::normalizePath($origin),
-                WWW_VENDOR . $target
-            );
+        if (!is_writable(WWW_VENDOR)) {
+            $io->error(__d('me_tools', 'File or directory `{0}` is not writable', rtr(WWW_VENDOR)));
+
+            return self::CODE_ERROR;
         }
+
+        foreach (Configure::readFromPlugins('VendorLinks') as $origin => $target) {
+            $origin = VENDOR . Filesystem::normalizePath($origin);
+            $target = WWW_VENDOR . $target;
+
+            if (!file_exists($origin)) {
+                if ($this->isVerbose($io)) {
+                    $io->warning(__d('me_tools', 'File or directory `{0}` does not exist', rtr($origin)) . '. ', 0);
+                    $io->warning(__d('me_tools', 'Skip'));
+                }
+
+                continue;
+            }
+
+            if (file_exists($target) && readlink($target) === $origin) {
+                $io->verbose(__d('me_tools', 'Link to `{0}` already exists', rtr($target)));
+
+                continue;
+            }
+
+            Filesystem::instance()->symlink($origin, $target);
+            if ($this->isVerbose($io)) {
+                $io->success(__d('me_tools', 'Link from `{0}` to `{1}` has been created', rtr($origin), rtr($target)));
+            }
+        }
+
+        return null;
     }
 }

@@ -15,6 +15,9 @@ declare(strict_types=1);
  */
 namespace MeTools\Test\TestCase\Command\Install;
 
+use Cake\Console\ConsoleIo;
+use Cake\Console\TestSuite\StubConsoleOutput;
+use MeTools\Command\Install\CreateVendorsLinksCommand;
 use MeTools\Core\Configure;
 use MeTools\TestSuite\CommandTestCase;
 use Tools\Filesystem;
@@ -31,19 +34,46 @@ class CreateVendorsLinksCommandTest extends CommandTestCase
      */
     public function testExecute(): void
     {
-        $vendorLinks = Configure::readFromPlugins('VendorLinks');
+        $Filesystem = new Filesystem();
+        /** @var array<string, string> $vendorLinks */
+        $vendorLinks = Configure::read('MeTools.VendorLinks');
 
-        $expectedTargetFiles = array_map(fn(string $target): string => rtr(WWW_VENDOR . $target), $vendorLinks);
-        $originFiles = array_map(fn(string $file): string => VENDOR . Filesystem::normalizePath($file), array_keys($vendorLinks));
-        $originFiles = array_map(fn(string $file): string => file_exists($file) ? $file : Filesystem::createFile($file), $originFiles);
-
+        //`WWW_VENDOR` directory does not exist
+        $Filesystem->rmdirRecursive(WWW_VENDOR);
         $this->exec('me_tools.create_vendors_links -v');
-        $this->assertExitSuccess();
-        foreach ($expectedTargetFiles as $expectedTargetFile) {
-            $this->assertOutputContains('Link `' . $expectedTargetFile . '` has been created');
+        $this->assertExitError();
+        $this->assertErrorContains('File or directory `' . rtr(WWW_VENDOR) . '` is not writable');
+        $Filesystem->mkdir(WWW_VENDOR);
+
+        //For now, origin files don't exist
+        $this->exec('me_tools.create_vendors_links -v');
+        foreach (array_keys($vendorLinks) as $expectedOrigin) {
+            $this->assertErrorContains('File or directory `' . rtr(VENDOR . $Filesystem->normalizePath($expectedOrigin)) . '` does not exist');
         }
 
-        array_map('unlink', $originFiles);
-        Filesystem::unlinkRecursive(WWW_VENDOR, '.gitkeep');
+        //Tries to create a link
+        $originTest = VENDOR . 'cakephp' . DS . 'cakephp';
+        $targetTest = WWW_VENDOR . 'cakephp';
+        $this->assertFileExists($originTest);
+        Configure::write('MeTools.VendorLinks', ['cakephp/cakephp' => 'cakephp']);
+        $Command = new CreateVendorsLinksCommand();
+        $this->_out = new StubConsoleOutput();
+        $Command->run(['-v'], new ConsoleIo($this->_out));
+        $this->assertOutputContains('Link from `' . rtr($originTest) . '` to `' . rtr($targetTest) . '` has been created');
+
+        //Runs again. The link already exists
+        $this->_out = new StubConsoleOutput();
+        $Command->run(['-v'], new ConsoleIo($this->_out));
+        $this->assertOutputContains('Link to `' . rtr($targetTest) . '` already exists');
+        $Filesystem->rmdirRecursive($targetTest);
+
+        //Links already exists, with a different (BAD) target. Then the link will be recreated
+        $Filesystem->symlink($Filesystem->createTmpFile(), $targetTest);
+        $this->assertNotSame($originTest, readlink($targetTest));
+        $this->_out = new StubConsoleOutput();
+        $Command->run(['-v'], new ConsoleIo($this->_out));
+        $this->assertOutputContains('Link from `' . rtr($originTest) . '` to `' . rtr($targetTest) . '` has been created');
+        $this->assertSame($originTest, readlink($targetTest));
+        $Filesystem->rmdirRecursive($targetTest);
     }
 }
