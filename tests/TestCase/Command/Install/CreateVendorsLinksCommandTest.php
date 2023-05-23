@@ -43,7 +43,7 @@ class CreateVendorsLinksCommandTest extends CommandTestCase
         $this->exec('me_tools.create_vendors_links -v');
         $this->assertExitError();
         $this->assertErrorContains('File or directory `' . rtr(WWW_VENDOR) . '` is not writable');
-        $Filesystem->mkdir(WWW_VENDOR);
+        $Filesystem->createFile(WWW_VENDOR . '.gitkeep');
 
         //For now, origin files don't exist
         $this->exec('me_tools.create_vendors_links -v');
