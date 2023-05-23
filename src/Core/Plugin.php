@@ -68,7 +68,7 @@ class Plugin extends CakePlugin
 
         $path = $plugin . $file;
         if ($check) {
-            Exceptionist::fileExists($path, __d('me_tools', 'File or directory `{0}.{1}` does not exist', $name, rtr($path)));
+            Exceptionist::fileExists($path, __d('me_tools', 'File or directory `{0}` does not exist', $name . '.' . rtr($path)));
         }
 
         return $path;

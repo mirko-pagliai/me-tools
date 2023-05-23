@@ -3,8 +3,8 @@
 #
 msgid ""
 msgstr ""
-"POT-Creation-Date: 2022-10-10 17:31+0000\n"
-"PO-Revision-Date: 2022-10-10 19:34+0200\n"
+"POT-Creation-Date: 2023-05-23 15:37+0000\n"
+"PO-Revision-Date: 2023-05-23 17:38+0200\n"
 "Last-Translator: Mirko Pagliai <mirko.pagliai@gmail.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -52,17 +52,41 @@ msgstr "Vedi"
 msgid "yes"
 msgstr "sì"
 
+#: .src/Command/Command.php:43
+msgid "File or directory `{0}` already exists"
+msgstr "Il file o la directory `{0}` già esiste"
+
+#: .src/Command/Command.php:73
+msgid "File `{0}` has been copied"
+msgstr "Il file `{0}` è stato copiato"
+
+#: .src/Command/Command.php:96
+msgid "Created `{0}` directory"
+msgstr "Creata la directory `{0}`"
+
+#: .src/Command/Command.php:100
+msgid "Failed to create file or directory `{0}` with message: {1}"
+msgstr "Fallimento nel create il file o la directory `{0}` con messaggio {1}"
+
+#: .src/Command/Command.php:146
+msgid "Link `{0}` has been created"
+msgstr "Il link `{0}` è stato creato"
+
+#: .src/Command/Command.php:166
+msgid "Failed to set permissions on `{0}`"
+msgstr "Impossibile impostare i permessi per `{0}`"
+
+#: .src/Command/Command.php:171
+msgid "Set permissions on `{0}`"
+msgstr "Impostati i permessi per `{0}`"
+
 #: .src/Command/Install/CreateDirectoriesCommand.php:36
 msgid "Creates default directories"
 msgstr "Crea le directory di default"
 
-#: .src/Command/Install/CreatePluginsLinksCommand.php:38
+#: .src/Command/Install/CreatePluginsLinksCommand.php:37
 msgid "Creates symbolic links for plugins assets"
 msgstr "Crea i link simbolici agli asset dei plugin"
-
-#: .src/Command/Install/CreatePluginsLinksCommand.php:53
-msgid "Skipping plugin `{0}`. It does not have webroot folder"
-msgstr "Saltato il plugin `{0}`. Non ha una webroot"
 
 #: .src/Command/Install/CreateRobotsCommand.php:36
 msgid "Creates the {0} file"
@@ -72,6 +96,28 @@ msgstr "Crea il file {0}"
 msgid "Creates symbolic links for vendor assets"
 msgstr "Crea i link simbolici agli asset dei vendor"
 
+#: .src/Command/Install/CreateVendorsLinksCommand.php:50
+#: .src/Controller/Component/UploaderComponent.php:145
+msgid "File or directory `{0}` is not writable"
+msgstr "File o directory `{0}` non scrivibile"
+
+#: .src/Command/Install/CreateVendorsLinksCommand.php:61
+#: .src/Core/Plugin.php:71
+msgid "File or directory `{0}` does not exist"
+msgstr "File o directory `{0}` non esistente"
+
+#: .src/Command/Install/CreateVendorsLinksCommand.php:62
+msgid "Skip"
+msgstr "Saltato"
+
+#: .src/Command/Install/CreateVendorsLinksCommand.php:69
+msgid "Link to `{0}` already exists"
+msgstr "Il link a `{0}` già esiste"
+
+#: .src/Command/Install/CreateVendorsLinksCommand.php:76
+msgid "Link from `{0}` to `{1}` has been created"
+msgstr "Il link da `{0}` a `{1}` è stato creato"
+
 #: .src/Command/Install/FixComposerJsonCommand.php:38
 msgid "Fixes {0}"
 msgstr "Sistema {0}"
@@ -80,15 +126,15 @@ msgstr "Sistema {0}"
 msgid "Path of the `{0}` file"
 msgstr "Path del file `{0}`"
 
-#: .src/Command/Install/FixComposerJsonCommand.php:68
+#: .src/Command/Install/FixComposerJsonCommand.php:67
 msgid "File `{0}` does not seem a valid {1} file"
 msgstr "Il file `{0}` non sembra un file {1} valido"
 
-#: .src/Command/Install/FixComposerJsonCommand.php:73
+#: .src/Command/Install/FixComposerJsonCommand.php:72
 msgid "File `{0}` doesn't need to be fixed"
 msgstr "Il file `{0}` non ha bisogno di essere sistemato"
 
-#: .src/Command/Install/FixComposerJsonCommand.php:77
+#: .src/Command/Install/FixComposerJsonCommand.php:76
 msgid "File `{0}` has been fixed"
 msgstr "Il file `{0}` è stato sistemato"
 
@@ -128,53 +174,17 @@ msgstr "Creare link simbolici agli asset dei vendor?"
 msgid "Sets directories permissions"
 msgstr "Imposta i permessi delle directory"
 
-#: .src/Console/Command.php:44
-msgid "File or directory `{0}` already exists"
-msgstr "Il file o la directory `{0}` già esiste"
-
-#: .src/Console/Command.php:74
-msgid "File `{0}` has been copied"
-msgstr "Il file `{0}` è stato copiato"
-
-#: .src/Console/Command.php:98
-msgid "Failed to create file or directory `{0}` with message: {1}"
-msgstr "Fallimento nel create il file o la directory `{0}` con messaggio {1}"
-
-#: .src/Console/Command.php:103
-msgid "Created `{0}` directory"
-msgstr "Creata la directory `{0}`"
-
-#: .src/Console/Command.php:147
-msgid "Link `{0}` has been created"
-msgstr "Il link `{0}` è stato creato"
-
-#: .src/Console/Command.php:167
-msgid "Failed to set permissions on `{0}`"
-msgstr "Impossibile impostare i permessi per `{0}`"
-
-#: .src/Console/Command.php:172
-msgid "Set permissions on `{0}`"
-msgstr "Impostati i permessi per `{0}`"
-
-#: .src/Controller/Component/UploaderComponent.php:91
+#: .src/Controller/Component/UploaderComponent.php:94
 msgid "There are no uploaded file information"
 msgstr "Non ci sono le informazioni sul file caricato"
 
-#: .src/Controller/Component/UploaderComponent.php:123
+#: .src/Controller/Component/UploaderComponent.php:121
 msgid "The mimetype {0} is not accepted"
 msgstr "Il mimetype {0} non è accettato"
 
-#: .src/Controller/Component/UploaderComponent.php:149
-msgid "File or directory `{0}` is not writable"
-msgstr "File o directory `{0}` non scrivibile"
-
-#: .src/Controller/Component/UploaderComponent.php:162
+#: .src/Controller/Component/UploaderComponent.php:158
 msgid "The file was not successfully moved to the target directory"
 msgstr "Il file non è stato correttamente spostato nella directory finale"
-
-#: .src/Core/Plugin.php:72
-msgid "File or directory `{0}` does not exist"
-msgstr "File o directory `{0}` non esistente"
 
 #: .templates/element/flash/flash.php:19
 msgid "Close"
