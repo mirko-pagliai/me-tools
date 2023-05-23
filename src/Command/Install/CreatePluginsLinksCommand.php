@@ -15,15 +15,15 @@ declare(strict_types=1);
  */
 namespace MeTools\Command\Install;
 
+use Cake\Command\PluginAssetsSymlinkCommand;
 use Cake\Console\Arguments;
 use Cake\Console\ConsoleIo;
 use Cake\Console\ConsoleOptionParser;
-use Cake\Utility\Inflector;
 use MeTools\Command\Command;
-use MeTools\Core\Plugin;
 
 /**
  * Creates symbolic links for plugins assets
+ * @codeCoverageIgnore
  */
 class CreatePluginsLinksCommand extends Command
 {
@@ -41,20 +41,15 @@ class CreatePluginsLinksCommand extends Command
      * Creates symbolic links for plugins assets
      * @param \Cake\Console\Arguments $args The command arguments
      * @param \Cake\Console\ConsoleIo $io The console io
-     * @return void
-     * @throws \ErrorException
+     * @return int|null The exit code or null for success of the command
+     * @deprecated 2.24.1 Use instead `PluginAssetsSymlinkCommand` (`bin/cake plugin assets symlink`)
      */
-    public function execute(Arguments $args, ConsoleIo $io): void
+    public function execute(Arguments $args, ConsoleIo $io): ?int
     {
-        foreach (Plugin::loaded() as $plugin) {
-            $webrootPath = Plugin::path($plugin, 'webroot');
-            if (!is_dir($webrootPath)) {
-                $io->verbose(__d('me_tools', 'Skipping plugin `{0}`. It does not have webroot folder', $plugin));
-                continue;
-            }
+        deprecationWarning('Deprecated. Use instead `PluginAssetsSymlinkCommand` (`bin/cake plugin assets symlink`)');
 
-            $io->verbose('For plugin: ' . $plugin);
-            $this->createLink($io, $webrootPath, WWW_ROOT . Inflector::underscore($plugin));
-        }
+        $argsAsArray = array_map(fn(string $argAsString): string => '--' . $argAsString, array_keys(array_filter($args->getOptions())));
+
+        return $this->executeCommand(PluginAssetsSymlinkCommand::class, $argsAsArray, $io);
     }
 }

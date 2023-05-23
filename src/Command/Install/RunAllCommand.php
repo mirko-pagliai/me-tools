@@ -15,6 +15,7 @@ declare(strict_types=1);
  */
 namespace MeTools\Command\Install;
 
+use Cake\Command\PluginAssetsSymlinkCommand;
 use Cake\Console\Arguments;
 use Cake\Console\ConsoleIo;
 use Cake\Console\ConsoleOptionParser;
@@ -28,7 +29,7 @@ class RunAllCommand extends Command
 {
     /**
      * Questions
-     * @var array{question: string, default: bool, command: \MeTools\Command\Command}[]
+     * @var array{question: string, default: bool, command: \Cake\Command\Command}[]
      */
     public array $questions = [];
 
@@ -79,7 +80,7 @@ class RunAllCommand extends Command
             [
                 'question' => __d('me_tools', 'Create symbolic links for plugins assets?'),
                 'default' => true,
-                'command' => new CreatePluginsLinksCommand(),
+                'command' => new PluginAssetsSymlinkCommand(),
             ],
             [
                 'question' => __d('me_tools', 'Create symbolic links for vendor assets?'),
@@ -105,7 +106,7 @@ class RunAllCommand extends Command
 
         foreach ($questions as $question) {
             Exceptionist::isTrue(!array_diff(array_keys($question), ['question', 'default', 'command']), 'Invalid question keys');
-            /** @var \MeTools\Command\Command $Command */
+            /** @var \Cake\Command\Command $Command */
             [$question, $default, $Command] = array_values($question);
 
             //The method must be executed if the `force` mode is set or if the user answers yes to the question

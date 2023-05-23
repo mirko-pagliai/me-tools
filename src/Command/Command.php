@@ -172,4 +172,15 @@ abstract class Command extends CakeCommand
 
         return true;
     }
+
+    /**
+     * Checks if the console is verbose
+     * @param \Cake\Console\ConsoleIo $io The console io
+     * @return bool
+     * @since 2.24.1
+     */
+    public function isVerbose(ConsoleIo $io): bool
+    {
+        return $io->level() === $io::VERBOSE;
+    }
 }
