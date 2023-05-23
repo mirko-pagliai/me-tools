@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <files psalm-version="4.x-dev@">
   <file src="src/Command/Install/CreateVendorsLinksCommand.php">
-    <UndefinedConstant occurrences="1">
+    <UndefinedConstant occurrences="3">
+      <code>WWW_VENDOR</code>
+      <code>WWW_VENDOR</code>
       <code>WWW_VENDOR</code>
     </UndefinedConstant>
-  </file>
-  <file src="src/TestSuite/TestCase.php">
-    <RedundantCondition occurrences="1">
-      <code>LOGS !== TMP</code>
-    </RedundantCondition>
   </file>
   <file src="src/View/Helper/BreadcrumbsHelper.php">
     <LessSpecificImplementedReturnType occurrences="2">
