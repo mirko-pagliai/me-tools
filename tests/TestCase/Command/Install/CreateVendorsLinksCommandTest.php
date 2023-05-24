@@ -84,7 +84,7 @@ class CreateVendorsLinksCommandTest extends CommandTestCase
         $this->assertExitSuccess();
         $this->assertOutputContains('Link to `' . rtr($expectedTarget) . '` already exists');
         $this->assertErrorEmpty();
-        unlink($expectedTarget);
+        $Filesystem->remove($expectedTarget);
 
         /**
          * Runs again.
@@ -99,7 +99,7 @@ class CreateVendorsLinksCommandTest extends CommandTestCase
         $this->assertErrorEmpty();
         $this->assertFileExists($expectedTarget);
         $this->assertSame($expectedOrigin, readlink($expectedTarget));
-        unlink($expectedTarget);
+        $Filesystem->remove($expectedTarget);
 
         /**
          * `WWW_VENDOR` directory does not exist
