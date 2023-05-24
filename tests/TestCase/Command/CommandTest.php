@@ -142,31 +142,6 @@ class CommandTest extends CommandTestCase
     }
 
     /**
-     * @requires OS Linux
-     * @test
-     * @uses \MeTools\Command\Command::createLink()
-     */
-    public function testCreateLink(): void
-    {
-        $source = TMP . 'exampleDir' . DS . 'source';
-        $dest = TMP . 'exampleDir' . DS . 'dest';
-        Filesystem::createFile($source);
-
-        //Creates the link
-        $this->assertTrue($this->Command->createLink($this->io, $source, $dest));
-        $this->assertFileExists($dest);
-        $this->assertOutputContains('Link `' . $dest . '` has been created');
-
-        //Tries to create. The link already exists, the source doesn't exist, then the destination is not writable
-        $this->assertFalse($this->Command->createLink($this->io, $source, $dest));
-        $this->assertFalse($this->Command->createLink($this->io, TMP . 'noExistingFile', TMP . 'target'));
-        $this->assertFalse($this->Command->createLink($this->io, $source, TMP . 'noExistingDir' . DS . 'example'));
-        $this->assertOutputContains('File or directory `' . $dest . '` already exists');
-        $this->assertErrorContains('File or directory `' . TMP . 'noExistingFile` is not readable');
-        $this->assertErrorContains('File or directory `' . TMP . 'noExistingDir` is not writable');
-    }
-
-    /**
      * @test
      * @uses \MeTools\Command\Command::folderChmod()
      */

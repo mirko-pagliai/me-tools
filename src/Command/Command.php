@@ -125,9 +125,13 @@ abstract class Command extends CakeCommand
      * @param string $dest Destination file or directory
      * @return bool
      * @throws \ErrorException
+     * @deprecated 2.24.1 Deprecated. Will be removed in a later release
+     * @codeCoverageIgnore
      */
     public function createLink(ConsoleIo $io, string $source, string $dest): bool
     {
+        deprecationWarning('Deprecated. Will be removed in a later release');
+
         if ($this->verboseIfFileExists($io, $dest)) {
             return false;
         }
