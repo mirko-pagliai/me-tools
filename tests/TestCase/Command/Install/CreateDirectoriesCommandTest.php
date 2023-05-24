@@ -33,5 +33,6 @@ class CreateDirectoriesCommandTest extends CommandTestCase
         foreach (Configure::readFromPlugins('WritableDirs') as $expectedDir) {
             $this->assertOutputContains('File or directory `' . rtr($expectedDir) . '` already exists');
         }
+        $this->assertErrorEmpty();
     }
 }
