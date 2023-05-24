@@ -116,9 +116,13 @@ abstract class Command extends CakeCommand
      * @param string $contents Content to put in the file
      * @return bool
      * @throws \ErrorException
+     * @deprecated 2.24.1 Deprecated. Will be removed in a later release
+     * @codeCoverageIgnore
      */
     public function createFile(ConsoleIo $io, string $path, string $contents): bool
     {
+        deprecationWarning('Deprecated. Will be removed in a later release');
+
         return !$this->verboseIfFileExists($io, $path) && $io->createFile($path, $contents);
     }
 
