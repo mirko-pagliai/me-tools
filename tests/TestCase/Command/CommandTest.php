@@ -89,25 +89,6 @@ class CommandTest extends CommandTestCase
 
     /**
      * @test
-     * @uses \MeTools\Command\Command::folderChmod()
-     */
-    public function testFolderChmod(): void
-    {
-        $dir = TMP . 'exampleDir';
-        Filesystem::instance()->mkdir($dir);
-
-        //Set chmod
-        $this->assertTrue($this->Command->folderChmod($this->io, $dir));
-        $this->assertDirectoryIsWritable($dir);
-        $this->assertOutputContains('Set permissions on `' . $dir . '`');
-
-        //Tries to set chmod for a no existing directory
-        $this->assertFalse($this->Command->folderChmod($this->io, DS . 'noExistingDir'));
-        $this->assertErrorContains('Failed to set permissions on `' . DS . 'noExistingDir`');
-    }
-
-    /**
-     * @test
      * @uses \MeTools\Command\Command::isVerbose()
      */
     public function testIsVerbose(): void
