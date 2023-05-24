@@ -73,7 +73,7 @@ class CreateVendorsLinksCommand extends Command
                 continue;
             }
 
-            if (is_link($target) && $this->getFilesystem()->readlink($target) === $origin) {
+            if ($this->getFilesystem()->readlink($target) === $origin) {
                 $io->verbose(__d('me_tools', 'Link to `{0}` already exists', rtr($target)));
 
                 continue;
