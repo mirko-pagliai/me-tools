@@ -20,6 +20,7 @@ use Cake\Console\TestSuite\StubConsoleOutput;
 use MeTools\Command\Install\CreateVendorsLinksCommand;
 use MeTools\Core\Configure;
 use MeTools\TestSuite\CommandTestCase;
+use Symfony\Component\Filesystem\Exception\IOException;
 use Tools\Filesystem;
 
 /**
@@ -31,13 +32,16 @@ class CreateVendorsLinksCommandTest extends CommandTestCase
      * Internal method to run the `CreateVendorsLinksCommand`.
      *
      * Resets the `ConsoleOutput` object for stdout and stderr and the exit code.
+     * @param Filesystem|null $Filesystem An optional `Filesystem` instance
      * @return void
      */
-    protected function runCommand(): void
+    protected function runCommand(?Filesystem $Filesystem = null): void
     {
         $this->_out = new StubConsoleOutput();
         $this->_err = new StubConsoleOutput();
-        $Command = new CreateVendorsLinksCommand();
+
+        $Command = $this->createPartialMock(CreateVendorsLinksCommand::class, ['getFilesystem']);
+        $Command->method('getFilesystem')->willReturn($Filesystem ?: new Filesystem());
         $this->_exitCode = $Command->run(['-v'], new ConsoleIo($this->_out, $this->_err));
     }
 
@@ -110,5 +114,14 @@ class CreateVendorsLinksCommandTest extends CommandTestCase
         $Filesystem->rename($wwwVendorBkp, WWW_VENDOR);
         $this->assertExitError();
         $this->assertErrorContains('File or directory `' . rtr(WWW_VENDOR) . '` is not writable');
+
+        /**
+         * `Filesystem::symlink()` will throw an exception
+         */
+        $Filesystem = $this->createPartialMock(Filesystem::class, ['symlink']);
+        $Filesystem->method('symlink')->willThrowException(new IOException('Message for exception'));
+        $this->runCommand($Filesystem);
+        $this->assertExitError();
+        $this->assertErrorContains('Message for exception');
     }
 }

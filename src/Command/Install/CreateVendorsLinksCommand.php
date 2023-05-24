@@ -20,6 +20,7 @@ use Cake\Console\ConsoleIo;
 use Cake\Console\ConsoleOptionParser;
 use MeTools\Command\Command;
 use MeTools\Core\Configure;
+use Symfony\Component\Filesystem\Exception\IOException;
 use Tools\Filesystem;
 
 /**
@@ -27,6 +28,15 @@ use Tools\Filesystem;
  */
 class CreateVendorsLinksCommand extends Command
 {
+    /**
+     * Internal method to get a `Filesystem()` instance
+     * @return \Tools\Filesystem
+     */
+    protected function getFilesystem(): Filesystem
+    {
+        return Filesystem::instance();
+    }
+
     /**
      * Hook method for defining this command's option parser
      * @param \Cake\Console\ConsoleOptionParser $parser The parser to be defined
@@ -53,7 +63,7 @@ class CreateVendorsLinksCommand extends Command
         }
 
         foreach (Configure::readFromPlugins('VendorLinks') as $origin => $target) {
-            $origin = VENDOR . Filesystem::normalizePath($origin);
+            $origin = VENDOR . $this->getFilesystem()->normalizePath($origin);
             $target = WWW_VENDOR . $target;
 
             if (!file_exists($origin)) {
@@ -63,13 +73,20 @@ class CreateVendorsLinksCommand extends Command
                 continue;
             }
 
-            if (is_link($target) && readlink($target) === $origin) {
+            if (is_link($target) && $this->getFilesystem()->readlink($target) === $origin) {
                 $io->verbose(__d('me_tools', 'Link to `{0}` already exists', rtr($target)));
 
                 continue;
             }
 
-            Filesystem::instance()->symlink($origin, $target);
+            try {
+                $this->getFilesystem()->symlink($origin, $target);
+            } catch (IOException $e) {
+                $io->error($e->getMessage());
+
+                return self::CODE_ERROR;
+            }
+
             if ($this->isVerbose($io)) {
                 $io->success(__d('me_tools', 'Link to `{0}` has been created', rtr($target)));
             }
