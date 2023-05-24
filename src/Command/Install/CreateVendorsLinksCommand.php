@@ -57,15 +57,13 @@ class CreateVendorsLinksCommand extends Command
             $target = WWW_VENDOR . $target;
 
             if (!file_exists($origin)) {
-                if ($this->isVerbose($io)) {
-                    $io->warning(__d('me_tools', 'File or directory `{0}` does not exist', rtr($origin)) . '. ', 0);
-                    $io->warning(__d('me_tools', 'Skip'));
-                }
+                $io->verbose(__d('me_tools', 'File or directory `{0}` does not exist', rtr($origin)) . '. ', 0);
+                $io->verbose(__d('me_tools', 'Skip'));
 
                 continue;
             }
 
-            if (file_exists($target) && readlink($target) === $origin) {
+            if (is_link($target) && readlink($target) === $origin) {
                 $io->verbose(__d('me_tools', 'Link to `{0}` already exists', rtr($target)));
 
                 continue;
@@ -73,10 +71,10 @@ class CreateVendorsLinksCommand extends Command
 
             Filesystem::instance()->symlink($origin, $target);
             if ($this->isVerbose($io)) {
-                $io->success(__d('me_tools', 'Link from `{0}` to `{1}` has been created', rtr($origin), rtr($target)));
+                $io->success(__d('me_tools', 'Link to `{0}` has been created', rtr($target)));
             }
         }
 
-        return null;
+        return self::CODE_SUCCESS;
     }
 }
