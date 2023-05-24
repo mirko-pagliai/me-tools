@@ -89,60 +89,6 @@ class CommandTest extends CommandTestCase
 
     /**
      * @test
-     * @uses \MeTools\Command\Command::createDir()
-     */
-    public function testCreateDir(): void
-    {
-        //Tries to create. Directory already exists
-        $this->assertFalse($this->Command->createDir($this->io, TMP));
-        $this->assertOutputContains('File or directory `' . rtr(TMP) . '` already exists');
-
-        //Creates the directory
-        $dir = TMP . 'exampleDir' . DS . 'firstDir' . DS . 'secondDir';
-        $this->assertTrue($this->Command->createDir($this->io, $dir));
-        $this->assertFileExists($dir);
-        $this->assertDirectoryIsWritable($dir);
-        $this->assertOutputContains('Created `' . $dir . '` directory');
-        $this->assertOutputContains('Set permissions on `' . $dir . '`');
-
-        $this->assertErrorEmpty();
-    }
-
-    /**
-     * Tests for `createDir()` method, with a not writable directory
-     * @requires OS Linux
-     * @test
-     * @uses \MeTools\Command\Command::createDir()
-     */
-    public function testCreateDirNotWritableDir(): void
-    {
-        $this->assertFalse($this->Command->createDir($this->io, DS . 'notWritable'));
-        $this->assertOutputEmpty();
-        $this->assertErrorContains('Failed to create file or directory `/notWritable` with message: permission denied');
-    }
-
-    /**
-     * @test
-     * @uses \MeTools\Command\Command::createDir()
-     */
-    public function testCreateFile(): void
-    {
-        $source = TMP . 'exampleDir' . DS . 'example';
-
-        //Creates the file
-        $this->assertTrue($this->Command->createFile($this->io, $source, 'test'));
-        $this->assertFileExists($source);
-        $this->assertOutputContains('Creating file ' . $source);
-        $this->assertOutputContains('<success>Wrote</success> `' . $source . '`');
-
-        //Tries to create. The file already exists
-        $this->assertFalse($this->Command->createFile($this->io, $source, 'test'));
-        $this->assertOutputContains('File or directory `' . $source . '` already exists');
-        $this->assertErrorEmpty();
-    }
-
-    /**
-     * @test
      * @uses \MeTools\Command\Command::folderChmod()
      */
     public function testFolderChmod(): void

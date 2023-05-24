@@ -8,8 +8,8 @@
 * added `VENDOR` and `WWW_VENDOR` constants;
 * `CreatePluginsLinksCommand` is now deprecated and will be removed in a later release. Use instead `PluginAssetsSymlinkCommand`;
 * improved `TestCase::assertLogContains()` method;
-* `Command::createLink()`, `TestCase::deleteLog()` and `TestCase::getLogFullPath()` methods are now deprecated and will
-  be removed in a later release;
+* `Command::createDir()`, `Command::createLink()`, `TestCase::deleteLog()` and `TestCase::getLogFullPath()` methods are
+  now deprecated and will be removed in a later release;
 * `assertSqlEndsWith()` and `assertSqlEndsNotWith()` methods provided by the `TestCase` class are now deprecated and
   will be removed in a later release. Use instead `assertStringEndsWith()` and `assertStringEndsNotWith()`;
 * `LibraryHelper::analytics()` method was deprecated and has now been removed;

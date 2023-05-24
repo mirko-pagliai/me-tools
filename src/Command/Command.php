@@ -84,9 +84,13 @@ abstract class Command extends CakeCommand
      * @param int $chmod Chmod
      * @return bool
      * @throws \ErrorException
+     * @deprecated 2.24.1 Deprecated. Will be removed in a later release
+     * @codeCoverageIgnore
      */
     public function createDir(ConsoleIo $io, string $path, int $chmod = 0777): bool
     {
+        deprecationWarning('Deprecated. Will be removed in a later release');
+
         if ($this->verboseIfFileExists($io, $path)) {
             return false;
         }
