@@ -20,6 +20,8 @@ use Cake\Console\ConsoleIo;
 use Cake\Console\ConsoleOptionParser;
 use MeTools\Command\Command;
 use MeTools\Core\Configure;
+use Symfony\Component\Filesystem\Exception\IOException;
+use Tools\Filesystem;
 
 /**
  * Sets directories permissions
@@ -40,11 +42,32 @@ class SetPermissionsCommand extends Command
      * Sets directories permissions
      * @param \Cake\Console\Arguments $args The command arguments
      * @param \Cake\Console\ConsoleIo $io The console io
-     * @return void
+     * @return int
      * @throws \ErrorException
      */
-    public function execute(Arguments $args, ConsoleIo $io): void
+    public function execute(Arguments $args, ConsoleIo $io): int
     {
-        array_map(fn(string $path): bool => $this->folderChmod($io, $path), Configure::readFromPlugins('WritableDirs'));
+        foreach (Configure::readFromPlugins('WritableDirs') as $dir) {
+            if (!file_exists($dir)) {
+                $io->verbose(__d('me_tools', 'File or directory `{0}` does not exist', rtr($dir)) . '. ', 0);
+                $io->verbose(__d('me_tools', 'Skip'));
+
+                continue;
+            }
+
+            try {
+                Filesystem::instance()->chmod($dir, 0777, 0000, true);
+            } catch (IOException $e) {
+                $io->error($e->getMessage());
+
+                return self::CODE_ERROR;
+            }
+
+            if ($this->isVerbose($io)) {
+                $io->success(__d('me_tools', 'Set permissions on `{0}`', rtr($dir)));
+            }
+        }
+
+        return self::CODE_SUCCESS;
     }
 }

@@ -3,6 +3,7 @@
 ### 2.24.1
 * the `CreateVendorsLinksCommand` has been totally rewritten and perfected and now can handle exceptions thrown by
     `Filesystem::symlink()`;
+* the `SetPermissionsCommand` has been totally rewritten and perfected;
 * `Command::createDir()` now has the `$chmod` argument;
 * added `Command::isVerbose()` method;
 * added `VENDOR` and `WWW_VENDOR` constants;

@@ -33,5 +33,6 @@ class SetPermissionsCommandTest extends CommandTestCase
         foreach (Configure::readFromPlugins('WritableDirs') as $expectedDir) {
             $this->assertOutputContains('Set permissions on `' . rtr($expectedDir) . '`');
         }
+        $this->assertErrorEmpty();
     }
 }
