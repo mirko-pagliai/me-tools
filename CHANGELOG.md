@@ -1,14 +1,12 @@
 # 2.x branch
 ## 2.24 branch
 ### 2.24.1
-* the `CreateVendorsLinksCommand` has been totally rewritten and perfected and now can handle exceptions thrown by
-    `Filesystem::symlink()`;
-* the `SetPermissionsCommand` has been totally rewritten and perfected;
+* `CreateVendorsLinksCommand` has been rewritten and perfected and now can catch exceptions thrown by `Filesystem::symlink()`;
+* `SetPermissionsCommand` has been totally rewritten and perfected;
 * `Command::createDir()` now has the `$chmod` argument;
 * added `Command::isVerbose()` method;
 * added `VENDOR` and `WWW_VENDOR` constants;
-* the `CreatePluginsLinksCommand` is now deprecated and will be removed in a later release. Use instead
-  `PluginAssetsSymlinkCommand` (`bin/cake plugin assets symlink`);
+* `CreatePluginsLinksCommand` is now deprecated and will be removed in a later release. Use instead `PluginAssetsSymlinkCommand`;
 * improved `TestCase::assertLogContains()` method;
 * `Command::createLink()`, `TestCase::deleteLog()` and `TestCase::getLogFullPath()` methods are now deprecated and will
   be removed in a later release;
