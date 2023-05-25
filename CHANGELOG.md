@@ -2,7 +2,6 @@
 ## 2.24 branch
 ### 2.24.1
 * fixed and perfected all command classes. Now they can catch any exceptions thrown by `Filesystem`;
-* `Command::createDir()` now has the `$chmod` argument;
 * added `Command::isVerbose()` method;
 * added `VENDOR` and `WWW_VENDOR` constants;
 * `CreatePluginsLinksCommand` is now deprecated and will be removed in a later release. Use instead `PluginAssetsSymlinkCommand`;

@@ -90,13 +90,12 @@ abstract class Command extends CakeCommand
      * This method creates directories recursively.
      * @param \Cake\Console\ConsoleIo $io The console io
      * @param string $path Directory path
-     * @param int $chmod Chmod
      * @return bool
      * @throws \ErrorException
      * @deprecated 2.24.1 Deprecated. Will be removed in a later release
      * @codeCoverageIgnore
      */
-    public function createDir(ConsoleIo $io, string $path, int $chmod = 0777): bool
+    public function createDir(ConsoleIo $io, string $path): bool
     {
         deprecationWarning('Deprecated. Will be removed in a later release');
 
@@ -107,7 +106,7 @@ abstract class Command extends CakeCommand
         try {
             Filesystem::instance()->mkdir($path);
             $io->verbose(__d('me_tools', 'Created `{0}` directory', rtr($path)));
-            $this->folderChmod($io, $path, $chmod);
+            $this->folderChmod($io, $path);
         } catch (IOException $e) {
             $mkdirError = lcfirst(array_value_last(explode('mkdir(): ', $e->getMessage())));
             $io->error(__d('me_tools', 'Failed to create file or directory `{0}` with message: {1}', rtr($path), $mkdirError));
