@@ -4,6 +4,8 @@
 * the `components/jquery` package was marked as a conflicting dependency and can no longer be installed;
 * the `FixComposerJsonCommand` no longer serves any purpose and has therefore been removed;
 * the `CreatePluginsLinksCommand`  was deprecated and has now been removed;
+* `createDir()`, `createFile()`, `createLink()` and `folderChmod()` methods provided by the `Command` class was 
+  deprecated and has now been removed;
 * `assertSqlEndsWith()`, `assertSqlEndsNotWith()`, `deleteLog()` and `getLogFullPath()` methods provided by the
   `TestCase` class was deprecated and has now been removed.
 
