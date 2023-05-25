@@ -28,6 +28,15 @@ use Tools\Filesystem;
 abstract class Command extends CakeCommand
 {
     /**
+     * Internal method to get a `Filesystem()` instance
+     * @return \Tools\Filesystem
+     */
+    protected function getFilesystem(): Filesystem
+    {
+        return Filesystem::instance();
+    }
+
+    /**
      * Internal method, checks if a file already exists and outputs a warning at the verbose level
      * @param \Cake\Console\ConsoleIo $io The console io
      * @param string $path Path
@@ -81,12 +90,15 @@ abstract class Command extends CakeCommand
      * This method creates directories recursively.
      * @param \Cake\Console\ConsoleIo $io The console io
      * @param string $path Directory path
-     * @param int $chmod Chmod
      * @return bool
      * @throws \ErrorException
+     * @deprecated 2.24.1 Deprecated. Will be removed in a later release
+     * @codeCoverageIgnore
      */
-    public function createDir(ConsoleIo $io, string $path, int $chmod = 0777): bool
+    public function createDir(ConsoleIo $io, string $path): bool
     {
+        deprecationWarning('Deprecated. Will be removed in a later release');
+
         if ($this->verboseIfFileExists($io, $path)) {
             return false;
         }
@@ -94,7 +106,8 @@ abstract class Command extends CakeCommand
         try {
             Filesystem::instance()->mkdir($path);
             $io->verbose(__d('me_tools', 'Created `{0}` directory', rtr($path)));
-            $this->folderChmod($io, $path, $chmod);
+            /** @noinspection PhpDeprecationInspection */
+            $this->folderChmod($io, $path);
         } catch (IOException $e) {
             $mkdirError = lcfirst(array_value_last(explode('mkdir(): ', $e->getMessage())));
             $io->error(__d('me_tools', 'Failed to create file or directory `{0}` with message: {1}', rtr($path), $mkdirError));
@@ -112,9 +125,13 @@ abstract class Command extends CakeCommand
      * @param string $contents Content to put in the file
      * @return bool
      * @throws \ErrorException
+     * @deprecated 2.24.1 Deprecated. Will be removed in a later release
+     * @codeCoverageIgnore
      */
     public function createFile(ConsoleIo $io, string $path, string $contents): bool
     {
+        deprecationWarning('Deprecated. Will be removed in a later release');
+
         return !$this->verboseIfFileExists($io, $path) && $io->createFile($path, $contents);
     }
 
@@ -125,9 +142,13 @@ abstract class Command extends CakeCommand
      * @param string $dest Destination file or directory
      * @return bool
      * @throws \ErrorException
+     * @deprecated 2.24.1 Deprecated. Will be removed in a later release
+     * @codeCoverageIgnore
      */
     public function createLink(ConsoleIo $io, string $source, string $dest): bool
     {
+        deprecationWarning('Deprecated. Will be removed in a later release');
+
         if ($this->verboseIfFileExists($io, $dest)) {
             return false;
         }
@@ -157,9 +178,13 @@ abstract class Command extends CakeCommand
      * @param int $chmod Chmod
      * @return bool
      * @throws \ErrorException
+     * @deprecated 2.24.1 Deprecated. Will be removed in a later release
+     * @codeCoverageIgnore
      */
     public function folderChmod(ConsoleIo $io, string $path, int $chmod = 0777): bool
     {
+        deprecationWarning('Deprecated. Will be removed in a later release');
+
         try {
             Filesystem::instance()->chmod($path, $chmod, 0000, true);
         } catch (IOException $e) {

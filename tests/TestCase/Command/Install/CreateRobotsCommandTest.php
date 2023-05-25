@@ -35,6 +35,15 @@ class CreateRobotsCommandTest extends CommandTestCase
         $this->assertStringEqualsFile(WWW_ROOT . 'robots.txt', 'User-agent: *' . PHP_EOL . 'Disallow: /admin/' . PHP_EOL .
             'Disallow: /ckeditor/' . PHP_EOL . 'Disallow: /css/' . PHP_EOL .
             'Disallow: /js/' . PHP_EOL . 'Disallow: /vendor/');
+
+        /**
+         * Runs again, the file already exists
+         */
+        $this->exec('me_tools.create_robots -v');
+        $this->assertExitSuccess();
+        $this->assertOutputContains('File or directory `' . rtr(WWW_ROOT . 'robots.txt') . '` already exists');
+        $this->assertErrorEmpty();
+
         unlink(WWW_ROOT . 'robots.txt');
     }
 }

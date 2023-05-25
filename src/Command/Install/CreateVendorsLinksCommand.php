@@ -20,7 +20,7 @@ use Cake\Console\ConsoleIo;
 use Cake\Console\ConsoleOptionParser;
 use MeTools\Command\Command;
 use MeTools\Core\Configure;
-use Tools\Filesystem;
+use Symfony\Component\Filesystem\Exception\IOException;
 
 /**
  * Creates symbolic links for vendor assets
@@ -53,30 +53,35 @@ class CreateVendorsLinksCommand extends Command
         }
 
         foreach (Configure::readFromPlugins('VendorLinks') as $origin => $target) {
-            $origin = VENDOR . Filesystem::normalizePath($origin);
+            $origin = VENDOR . $this->getFilesystem()->normalizePath($origin);
             $target = WWW_VENDOR . $target;
 
             if (!file_exists($origin)) {
-                if ($this->isVerbose($io)) {
-                    $io->warning(__d('me_tools', 'File or directory `{0}` does not exist', rtr($origin)) . '. ', 0);
-                    $io->warning(__d('me_tools', 'Skip'));
-                }
+                $io->verbose(__d('me_tools', 'File or directory `{0}` does not exist', rtr($origin)) . '. ', 0);
+                $io->verbose(__d('me_tools', 'Skip'));
 
                 continue;
             }
 
-            if (file_exists($target) && readlink($target) === $origin) {
+            if ($this->getFilesystem()->readlink($target) === $origin) {
                 $io->verbose(__d('me_tools', 'Link to `{0}` already exists', rtr($target)));
 
                 continue;
             }
 
-            Filesystem::instance()->symlink($origin, $target);
+            try {
+                $this->getFilesystem()->symlink($origin, $target);
+            } catch (IOException $e) {
+                $io->error($e->getMessage());
+
+                return self::CODE_ERROR;
+            }
+
             if ($this->isVerbose($io)) {
-                $io->success(__d('me_tools', 'Link from `{0}` to `{1}` has been created', rtr($origin), rtr($target)));
+                $io->success(__d('me_tools', 'Link to `{0}` has been created', rtr($target)));
             }
         }
 
-        return null;
+        return self::CODE_SUCCESS;
     }
 }

@@ -20,6 +20,7 @@ use Cake\Console\TestSuite\ConsoleIntegrationTestTrait;
 /**
  * Abstract class for test commands
  * @property \MeTools\Command\Command $Command The command instance for which a test is being performed
+ * @property class-string<\MeTools\Command\Command> $originClassName The class name for which a test is being performed
  */
 abstract class CommandTestCase extends TestCase
 {

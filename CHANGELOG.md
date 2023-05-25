@@ -9,15 +9,13 @@
 
 ## 2.24 branch
 ### 2.24.1
-* the `CreateVendorsLinksCommand` has been totally rewritten and perfected;
-* `Command::createDir()` now has the `$chmod` argument;
+* fixed and perfected all command classes. Now they can catch any exceptions thrown by `Filesystem`;
 * added `Command::isVerbose()` method;
 * added `VENDOR` and `WWW_VENDOR` constants;
+* `CreatePluginsLinksCommand` is now deprecated and will be removed in a later release. Use instead `PluginAssetsSymlinkCommand`;
 * improved `TestCase::assertLogContains()` method;
-* the `CreatePluginsLinksCommand` is now deprecated and will be removed in a later release. Use instead
-  `PluginAssetsSymlinkCommand` (`bin/cake plugin assets symlink`);
-* `deleteLog()` and `getLogFullPath()` methods provided by the `TestCase` class are now deprecated and will be removed
-  in a later release;
+* `Command::createDir()`, `Command::createFile()`, `Command::createLink()`, `Command::folderChmod()`, `TestCase::deleteLog()`
+  and `TestCase::getLogFullPath()` methods are now deprecated and will be removed in a later release;
 * `assertSqlEndsWith()` and `assertSqlEndsNotWith()` methods provided by the `TestCase` class are now deprecated and
   will be removed in a later release. Use instead `assertStringEndsWith()` and `assertStringEndsNotWith()`;
 * `LibraryHelper::analytics()` method was deprecated and has now been removed;
