@@ -15,12 +15,7 @@ declare(strict_types=1);
  */
 namespace MeTools\TestSuite;
 
-use Cake\Command\Command;
-use Cake\Console\ConsoleIo;
 use Cake\Console\TestSuite\ConsoleIntegrationTestTrait;
-use Cake\Console\TestSuite\StubConsoleOutput;
-use PHPUnit\Framework\MockObject\MockObject;
-use Tools\Filesystem;
 
 /**
  * Abstract class for test commands

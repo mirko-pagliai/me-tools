@@ -21,7 +21,6 @@ use Cake\Console\ConsoleOptionParser;
 use MeTools\Command\Command;
 use MeTools\Core\Configure;
 use Symfony\Component\Filesystem\Exception\IOException;
-use Tools\Filesystem;
 
 /**
  * Sets directories permissions

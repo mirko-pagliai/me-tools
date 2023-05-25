@@ -106,6 +106,7 @@ abstract class Command extends CakeCommand
         try {
             Filesystem::instance()->mkdir($path);
             $io->verbose(__d('me_tools', 'Created `{0}` directory', rtr($path)));
+            /** @noinspection PhpDeprecationInspection */
             $this->folderChmod($io, $path);
         } catch (IOException $e) {
             $mkdirError = lcfirst(array_value_last(explode('mkdir(): ', $e->getMessage())));
