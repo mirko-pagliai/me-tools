@@ -53,7 +53,7 @@ class CreateDirectoriesCommand extends Command
             }
 
             try {
-                Filesystem::instance()->mkdir($dir);
+                $this->getFilesystem()->mkdir($dir);
             } catch (IOException $e) {
                 $io->error($e->getMessage());
 

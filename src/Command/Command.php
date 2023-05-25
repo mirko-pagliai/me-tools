@@ -28,6 +28,15 @@ use Tools\Filesystem;
 abstract class Command extends CakeCommand
 {
     /**
+     * Internal method to get a `Filesystem()` instance
+     * @return \Tools\Filesystem
+     */
+    protected function getFilesystem(): Filesystem
+    {
+        return Filesystem::instance();
+    }
+
+    /**
      * Internal method, checks if a file already exists and outputs a warning at the verbose level
      * @param \Cake\Console\ConsoleIo $io The console io
      * @param string $path Path

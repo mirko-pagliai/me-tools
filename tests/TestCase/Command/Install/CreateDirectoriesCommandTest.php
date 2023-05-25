@@ -14,8 +14,13 @@ declare(strict_types=1);
  */
 namespace MeTools\Test\TestCase\Command\Install;
 
+use Cake\Console\ConsoleIo;
+use Cake\Console\TestSuite\StubConsoleOutput;
+use MeTools\Command\Install\CreateDirectoriesCommand;
 use MeTools\Core\Configure;
 use MeTools\TestSuite\CommandTestCase;
+use Symfony\Component\Filesystem\Exception\IOException;
+use Tools\Filesystem;
 
 /**
  * CreateDirectoriesCommandTest class
@@ -34,5 +39,26 @@ class CreateDirectoriesCommandTest extends CommandTestCase
             $this->assertOutputContains('File or directory `' . rtr($expectedDir) . '` already exists');
         }
         $this->assertErrorEmpty();
+
+        $this->_out = new StubConsoleOutput();
+        $this->_err = new StubConsoleOutput();
+        $Command = $this->createPartialMock(CreateDirectoriesCommand::class, ['verboseIfFileExists']);
+        $Command->method('verboseIfFileExists')->willReturn(false);
+        $this->_exitCode = $Command->run(['-v'], new ConsoleIo($this->_out, $this->_err));
+        $this->assertExitSuccess();
+        foreach (Configure::readFromPlugins('WritableDirs') as $expectedDir) {
+            $this->assertOutputContains('Created `' . rtr($expectedDir) . '` directory');
+        }
+        $this->assertErrorEmpty();
+
+        $this->_err = new StubConsoleOutput();
+        $Filesystem = $this->createPartialMock(Filesystem::class, ['mkdir']);
+        $Filesystem->method('mkdir')->willThrowException(new IOException('Message for exception'));
+        $Command = $this->createPartialMock(CreateDirectoriesCommand::class, ['getFilesystem', 'verboseIfFileExists']);
+        $Command->method('verboseIfFileExists')->willReturn(false);
+        $Command->method('getFilesystem')->willReturn($Filesystem);
+        $this->_exitCode = $Command->run(['-v'], new ConsoleIo(null, $this->_err));
+        $this->assertExitError();
+        $this->assertErrorContains('Message for exception');
     }
 }

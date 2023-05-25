@@ -15,11 +15,17 @@ declare(strict_types=1);
  */
 namespace MeTools\TestSuite;
 
+use Cake\Command\Command;
+use Cake\Console\ConsoleIo;
 use Cake\Console\TestSuite\ConsoleIntegrationTestTrait;
+use Cake\Console\TestSuite\StubConsoleOutput;
+use PHPUnit\Framework\MockObject\MockObject;
+use Tools\Filesystem;
 
 /**
  * Abstract class for test commands
  * @property \MeTools\Command\Command $Command The command instance for which a test is being performed
+ * @property class-string<\MeTools\Command\Command> $originClassName The class name for which a test is being performed
  */
 abstract class CommandTestCase extends TestCase
 {

@@ -34,6 +34,7 @@ class RunAllCommandTest extends CommandTestCase
     protected function getRunAllCommand(ConsoleIo $io): RunAllCommand
     {
         $RunAllCommand = new RunAllCommand();
+
         foreach ($RunAllCommand->questions as $k => $question) {
             /** @var \MeTools\Command\Command&\PHPUnit\Framework\MockObject\MockObject $SubCommand */
             $SubCommand = $this->createPartialMock(Command::class, ['execute']);

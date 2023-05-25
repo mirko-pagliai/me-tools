@@ -33,9 +33,9 @@ class CreateVendorsLinksCommandTest extends CommandTestCase
      *
      * Resets the `ConsoleOutput` object for stdout and stderr and the exit code.
      * @param Filesystem|null $Filesystem An optional `Filesystem` instance
-     * @return void
+     * @return int|null
      */
-    protected function runCommand(?Filesystem $Filesystem = null): void
+    protected function runCommand(?Filesystem $Filesystem = null): ?int
     {
         $this->_out = new StubConsoleOutput();
         $this->_err = new StubConsoleOutput();
@@ -43,6 +43,8 @@ class CreateVendorsLinksCommandTest extends CommandTestCase
         $Command = $this->createPartialMock(CreateVendorsLinksCommand::class, ['getFilesystem']);
         $Command->method('getFilesystem')->willReturn($Filesystem ?: new Filesystem());
         $this->_exitCode = $Command->run(['-v'], new ConsoleIo($this->_out, $this->_err));
+
+        return $this->_exitCode;
     }
 
     /**

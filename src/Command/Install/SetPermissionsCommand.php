@@ -56,7 +56,7 @@ class SetPermissionsCommand extends Command
             }
 
             try {
-                Filesystem::instance()->chmod($dir, 0777, 0000, true);
+                $this->getFilesystem()->chmod($dir, 0777, 0000, true);
             } catch (IOException $e) {
                 $io->error($e->getMessage());
 

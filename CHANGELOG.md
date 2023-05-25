@@ -1,8 +1,7 @@
 # 2.x branch
 ## 2.24 branch
 ### 2.24.1
-* `CreateVendorsLinksCommand` has been rewritten and perfected and now can catch exceptions thrown by `Filesystem::symlink()`;
-* `CreateDirectoriesCommand` and `SetPermissionsCommand` have been totally rewritten and perfected;
+* fixed and perfected all command classes. Now they can catch any exceptions thrown by `Filesystem`;
 * `Command::createDir()` now has the `$chmod` argument;
 * added `Command::isVerbose()` method;
 * added `VENDOR` and `WWW_VENDOR` constants;

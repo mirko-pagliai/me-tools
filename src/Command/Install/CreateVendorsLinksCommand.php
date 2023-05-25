@@ -29,15 +29,6 @@ use Tools\Filesystem;
 class CreateVendorsLinksCommand extends Command
 {
     /**
-     * Internal method to get a `Filesystem()` instance
-     * @return \Tools\Filesystem
-     */
-    protected function getFilesystem(): Filesystem
-    {
-        return Filesystem::instance();
-    }
-
-    /**
      * Hook method for defining this command's option parser
      * @param \Cake\Console\ConsoleOptionParser $parser The parser to be defined
      * @return \Cake\Console\ConsoleOptionParser
