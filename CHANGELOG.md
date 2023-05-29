@@ -11,6 +11,7 @@
 * `assertSqlEndsWith()` and `assertSqlEndsNotWith()` methods provided by the `TestCase` class are now deprecated and
   will be removed in a later release. Use instead `assertStringEndsWith()` and `assertStringEndsNotWith()`;
 * `LibraryHelper::analytics()` method was deprecated and has now been removed;
+* the `HiddenWidget` is useless and has now been removed;
 * suggests `axllent/jquery` and no longer `components/jquery`. `axllent/jquery` added to `MeTools.VendorLinks` configuration;
 * updated for php-tools 1.7.4.
 
