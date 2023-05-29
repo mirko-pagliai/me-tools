@@ -14,8 +14,13 @@ declare(strict_types=1);
  */
 namespace MeTools\Test\TestCase\Command\Install;
 
+use Cake\Console\ConsoleIo;
+use Cake\Console\TestSuite\StubConsoleOutput;
+use MeTools\Command\Install\SetPermissionsCommand;
 use MeTools\Core\Configure;
 use MeTools\TestSuite\CommandTestCase;
+use Symfony\Component\Filesystem\Exception\IOException;
+use Tools\Filesystem;
 
 /**
  * SetPermissionsCommandTest class
@@ -28,10 +33,41 @@ class SetPermissionsCommandTest extends CommandTestCase
      */
     public function testExecute(): void
     {
-        $this->exec('me_tools.set_permissions -v');
+        /**
+         * Runs with a dir that does not exist
+         */
+        Configure::write('MeTools.WritableDirs', [TMP . 'noExisting']);
+        $this->_out = new StubConsoleOutput();
+        $this->_err = new StubConsoleOutput();
+        $Command = new SetPermissionsCommand();
+        $this->_exitCode = $Command->run(['-v'], new ConsoleIo($this->_out, $this->_err));
         $this->assertExitSuccess();
-        foreach (Configure::readFromPlugins('WritableDirs') as $expectedDir) {
-            $this->assertOutputContains('Set permissions on `' . rtr($expectedDir) . '`');
-        }
+        $this->assertOutputContains('File or directory `' . TMP . 'noExisting` does not exist');
+        $this->assertErrorEmpty();
+
+        /**
+         * Runs again and sets the permissions
+         */
+        $tmpFile = Filesystem::createTmpFile();
+        Configure::write('MeTools.WritableDirs', [$tmpFile]);
+        $this->_out = new StubConsoleOutput();
+        $this->_err = new StubConsoleOutput();
+        $Command = new SetPermissionsCommand();
+        $this->_exitCode = $Command->run(['-v'], new ConsoleIo($this->_out, $this->_err));
+        $this->assertExitSuccess();
+        $this->assertOutputContains('Set permissions on `' . $tmpFile . '`');
+        $this->assertErrorEmpty();
+
+        /**
+         * `Filesystem::chmod()` will throw an exception
+         */
+        $this->_err = new StubConsoleOutput();
+        $Filesystem = $this->createPartialMock(Filesystem::class, ['chmod']);
+        $Filesystem->method('chmod')->willThrowException(new IOException('Message for exception'));
+        $Command = $this->createPartialMock(SetPermissionsCommand::class, ['getFilesystem']);
+        $Command->method('getFilesystem')->willReturn($Filesystem);
+        $this->_exitCode = $Command->run(['-v'], new ConsoleIo(null, $this->_err));
+        $this->assertExitError();
+        $this->assertErrorContains('Message for exception');
     }
 }

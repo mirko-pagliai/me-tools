@@ -19,7 +19,6 @@ use Cake\Console\Arguments;
 use Cake\Console\ConsoleIo;
 use Cake\Console\ConsoleOptionParser;
 use MeTools\Command\Command;
-use Tools\Filesystem;
 
 /**
  * Creates the `robots.txt` file
@@ -45,8 +44,11 @@ class CreateRobotsCommand extends Command
      */
     public function execute(Arguments $args, ConsoleIo $io): void
     {
-        $filename = Filesystem::concatenate(WWW_ROOT, 'robots.txt');
-        $this->createFile($io, $filename, 'User-agent: *' . PHP_EOL .
+        if ($this->verboseIfFileExists($io, WWW_ROOT . 'robots.txt')) {
+            return;
+        }
+
+        $io->createFile(WWW_ROOT . 'robots.txt', 'User-agent: *' . PHP_EOL .
             'Disallow: /admin/' . PHP_EOL . 'Disallow: /ckeditor/' . PHP_EOL .
             'Disallow: /css/' . PHP_EOL . 'Disallow: /js/' . PHP_EOL .
             'Disallow: /vendor/');

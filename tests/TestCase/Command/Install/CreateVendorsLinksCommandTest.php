@@ -20,6 +20,7 @@ use Cake\Console\TestSuite\StubConsoleOutput;
 use MeTools\Command\Install\CreateVendorsLinksCommand;
 use MeTools\Core\Configure;
 use MeTools\TestSuite\CommandTestCase;
+use Symfony\Component\Filesystem\Exception\IOException;
 use Tools\Filesystem;
 
 /**
@@ -28,52 +29,101 @@ use Tools\Filesystem;
 class CreateVendorsLinksCommandTest extends CommandTestCase
 {
     /**
-     * @requires OS Linux
+     * Internal method to run the `CreateVendorsLinksCommand`.
+     *
+     * Resets the `ConsoleOutput` object for stdout and stderr and the exit code.
+     * @param Filesystem|null $Filesystem An optional `Filesystem` instance
+     * @return int|null
+     */
+    protected function runCommand(?Filesystem $Filesystem = null): ?int
+    {
+        $this->_out = new StubConsoleOutput();
+        $this->_err = new StubConsoleOutput();
+
+        $Command = $this->createPartialMock(CreateVendorsLinksCommand::class, ['getFilesystem']);
+        $Command->method('getFilesystem')->willReturn($Filesystem ?: new Filesystem());
+        $this->_exitCode = $Command->run(['-v'], new ConsoleIo($this->_out, $this->_err));
+
+        return $this->_exitCode;
+    }
+
+    /**
      * @test
      * @uses \MeTools\Command\Install\CreateVendorsLinksCommand::execute()
      */
     public function testExecute(): void
     {
         $Filesystem = new Filesystem();
-        /** @var array<string, string> $vendorLinks */
-        $vendorLinks = Configure::read('MeTools.VendorLinks');
 
-        //`WWW_VENDOR` directory does not exist
-        $Filesystem->rmdirRecursive(WWW_VENDOR);
-        $this->exec('me_tools.create_vendors_links -v');
+        /**
+         * Runs with an origin file that doesn't exist
+         */
+        Configure::write('MeTools.VendorLinks', ['subDir/noExisting' => 'cakephp']);
+        $this->runCommand();
+        $this->assertExitSuccess();
+        $this->assertOutputContains('File or directory `' . rtr(VENDOR . 'subDir' . DS . 'noExisting') . '` does not exist');
+        $this->assertErrorEmpty();
+
+        /**
+         * Runs and creates a link.
+         *
+         * We cannot use the `exec()` method, but we have to create an instance of the command to set a different
+         * configuration value for `MeTools.VendorLinks`
+         */
+        $expectedOrigin = VENDOR . 'cakephp' . DS . 'cakephp';
+        $expectedTarget = WWW_VENDOR . 'cakephp';
+        $this->assertFileExists($expectedOrigin);
+        $this->assertFileDoesNotExist($expectedTarget);
+        Configure::write('MeTools.VendorLinks', ['cakephp/cakephp' => 'cakephp']);
+        $this->runCommand();
+        $this->assertExitSuccess();
+        $this->assertOutputContains('Link to `' . rtr($expectedTarget) . '` has been created');
+        $this->assertErrorEmpty();
+        $this->assertFileExists($expectedTarget);
+        $this->assertSame($expectedOrigin, readlink($expectedTarget));
+
+        /**
+         * Runs again.
+         * Link already exists.
+         */
+        $this->runCommand();
+        $this->assertExitSuccess();
+        $this->assertOutputContains('Link to `' . rtr($expectedTarget) . '` already exists');
+        $this->assertErrorEmpty();
+        $Filesystem->remove($expectedTarget);
+
+        /**
+         * Runs again.
+         * Link already exists, but with a different (BAD) target. Then the link will be recreated.
+         */
+        $Filesystem->symlink($Filesystem->createTmpFile(), $expectedTarget);
+        $this->assertFileExists($expectedTarget);
+        $this->assertNotSame($expectedOrigin, readlink($expectedTarget));
+        $this->runCommand();
+        $this->assertExitSuccess();
+        $this->assertOutputContains('Link to `' . rtr($expectedTarget) . '` has been created');
+        $this->assertErrorEmpty();
+        $this->assertFileExists($expectedTarget);
+        $this->assertSame($expectedOrigin, readlink($expectedTarget));
+        $Filesystem->remove($expectedTarget);
+
+        /**
+         * `WWW_VENDOR` directory does not exist
+         */
+        $wwwVendorBkp = dirname(WWW_VENDOR) . DS . 'vendor.bkp';
+        $Filesystem->rename(WWW_VENDOR, $wwwVendorBkp);
+        $this->runCommand();
+        $Filesystem->rename($wwwVendorBkp, WWW_VENDOR);
         $this->assertExitError();
         $this->assertErrorContains('File or directory `' . rtr(WWW_VENDOR) . '` is not writable');
-        $Filesystem->createFile(WWW_VENDOR . '.gitkeep');
 
-        //For now, origin files don't exist
-        $this->exec('me_tools.create_vendors_links -v');
-        foreach (array_keys($vendorLinks) as $expectedOrigin) {
-            $this->assertErrorContains('File or directory `' . rtr(VENDOR . $Filesystem->normalizePath($expectedOrigin)) . '` does not exist');
-        }
-
-        //Tries to create a link
-        $originTest = VENDOR . 'cakephp' . DS . 'cakephp';
-        $targetTest = WWW_VENDOR . 'cakephp';
-        $this->assertFileExists($originTest);
-        Configure::write('MeTools.VendorLinks', ['cakephp/cakephp' => 'cakephp']);
-        $Command = new CreateVendorsLinksCommand();
-        $this->_out = new StubConsoleOutput();
-        $Command->run(['-v'], new ConsoleIo($this->_out));
-        $this->assertOutputContains('Link from `' . rtr($originTest) . '` to `' . rtr($targetTest) . '` has been created');
-
-        //Runs again. The link already exists
-        $this->_out = new StubConsoleOutput();
-        $Command->run(['-v'], new ConsoleIo($this->_out));
-        $this->assertOutputContains('Link to `' . rtr($targetTest) . '` already exists');
-        $Filesystem->rmdirRecursive($targetTest);
-
-        //Links already exists, with a different (BAD) target. Then the link will be recreated
-        $Filesystem->symlink($Filesystem->createTmpFile(), $targetTest);
-        $this->assertNotSame($originTest, readlink($targetTest));
-        $this->_out = new StubConsoleOutput();
-        $Command->run(['-v'], new ConsoleIo($this->_out));
-        $this->assertOutputContains('Link from `' . rtr($originTest) . '` to `' . rtr($targetTest) . '` has been created');
-        $this->assertSame($originTest, readlink($targetTest));
-        $Filesystem->rmdirRecursive($targetTest);
+        /**
+         * `Filesystem::symlink()` will throw an exception
+         */
+        $Filesystem = $this->createPartialMock(Filesystem::class, ['symlink']);
+        $Filesystem->method('symlink')->willThrowException(new IOException('Message for exception'));
+        $this->runCommand($Filesystem);
+        $this->assertExitError();
+        $this->assertErrorContains('Message for exception');
     }
 }

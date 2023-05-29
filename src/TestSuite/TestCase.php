@@ -135,6 +135,7 @@ abstract class TestCase extends CakeTestCase
     {
         deprecationWarning('`TestCase::deleteLog()` is deprecated and will be removed in a later release');
 
+        /** @noinspection PhpDeprecationInspection */
         unlink($this->getLogFullPath($filename));
     }
 
