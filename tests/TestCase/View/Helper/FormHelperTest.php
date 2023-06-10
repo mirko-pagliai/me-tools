@@ -40,10 +40,6 @@ class FormHelperTest extends HelperTestCase
         $expected = '<button class="btn btn-primary" type="reset">My button</button>';
         $result = $this->Helper->button('My button', ['type' => 'reset']);
         $this->assertSame($expected, $result);
-
-        $expected = '<button class="btn btn-success" type="submit">My button</button>';
-        $result = $this->Helper->button('My button', ['type' => 'submit']);
-        $this->assertSame($expected, $result);
     }
 
     /**
@@ -65,33 +61,33 @@ class FormHelperTest extends HelperTestCase
      */
     public function testControl(): void
     {
-        $expected = '<div class="input mb-3 text"><label class="form-label fw-bolder" for="my-field">My Field</label><input type="text" name="my-field" class="form-control" id="my-field"/></div>';
+        $expected = '<div class="input mb-3 text"><label class="form-label" for="my-field">My Field</label><input type="text" name="my-field" class="form-control" id="my-field"/></div>';
         $result = $this->Helper->control('my-field');
         $this->assertSame($expected, $result);
 
         //With `required` option
-        $expected = '<div class="input mb-3 text required"><label class="form-label fw-bolder" for="my-field">My Field</label><input type="text" name="my-field" aria-required="true" class="form-control" id="my-field" required="required"/></div>';
+        $expected = '<div class="input mb-3 text required"><label class="form-label" for="my-field">My Field</label><input type="text" name="my-field" aria-required="true" class="form-control" id="my-field" required="required"/></div>';
         $result = $this->Helper->control('my-field', ['required' => true]);
         $this->assertSame($expected, $result);
 
         //Help text (form text)
-        $expected = '<div class="input mb-3 text"><label class="form-label fw-bolder" for="my-field">My Field</label><input type="text" name="my-field" class="form-control" id="my-field"/><div class="form-text text-muted">first text</div><div class="form-text text-muted">second text</div></div>';
+        $expected = '<div class="input mb-3 text"><label class="form-label" for="my-field">My Field</label><input type="text" name="my-field" class="form-control" id="my-field"/><div class="form-text text-muted">first text</div><div class="form-text text-muted">second text</div></div>';
         $result = $this->Helper->control('my-field', ['help' => ['first text', 'second text']]);
         $this->assertSame($expected, $result);
 
         //With input group (`prepend-text`)
-        $expected = '<div class="input mb-3 text"><label class="form-label fw-bolder" for="my-field">My Field</label><div class="input-group"><span class="input-group-text">first text</span><input type="text" name="my-field" class="form-control" id="my-field"/></div></div>';
+        $expected = '<div class="input mb-3 text"><label class="form-label" for="my-field">My Field</label><div class="input-group"><span class="input-group-text">first text</span><input type="text" name="my-field" class="form-control" id="my-field"/></div></div>';
         $result = $this->Helper->control('my-field', ['prepend-text' => 'first text']);
         $this->assertSame($expected, $result);
 
         //With input group (`append-text` and `prepend-text`)
-        $expected = '<div class="input mb-3 text"><label class="form-label fw-bolder" for="my-field">My Field</label><div class="input-group"><span class="input-group-text">first text</span><input type="text" name="my-field" class="form-control" id="my-field"/><span class="input-group-text">second text</span></div></div>';
+        $expected = '<div class="input mb-3 text"><label class="form-label" for="my-field">My Field</label><div class="input-group"><span class="input-group-text">first text</span><input type="text" name="my-field" class="form-control" id="my-field"/><span class="input-group-text">second text</span></div></div>';
         $result = $this->Helper->control('my-field', ['prepend-text' => 'first text', 'append-text' => 'second text']);
         $this->assertSame($expected, $result);
 
         //With input group as button (`append-text`)
         $expected = '<div class="input mb-3 text">' .
-            '<label class="form-label fw-bolder" for="my-field">My Field</label>' .
+            '<label class="form-label" for="my-field">My Field</label>' .
             '<div class="input-group">' .
             '<input type="text" name="my-field" class="form-control" id="my-field"/>' .
             '<button class="btn btn-primary" type="button"><i class="fas fa-home"> </i> My button</button>' .
@@ -102,7 +98,7 @@ class FormHelperTest extends HelperTestCase
 
         //With input group as button (`prepend-text`)
         $expected = '<div class="input mb-3 text">' .
-            '<label class="form-label fw-bolder" for="my-field">My Field</label>' .
+            '<label class="form-label" for="my-field">My Field</label>' .
             '<div class="input-group">' .
             '<button class="btn btn-primary" type="button"><i class="fas fa-home"> </i> My button</button>' .
             '<input type="text" name="my-field" class="form-control" id="my-field"/>' .
@@ -113,7 +109,7 @@ class FormHelperTest extends HelperTestCase
 
         //With input group as submit button (`prepend-text`)
         $expected = '<div class="input mb-3 text">' .
-            '<label class="form-label fw-bolder" for="my-field">My Field</label>' .
+            '<label class="form-label" for="my-field">My Field</label>' .
             '<div class="input-group">' .
             '<div class="submit">' .
             '<button class="btn btn-success" value="My submit"><i class="fas fa-home"> </i> My submit</button>' .
@@ -131,12 +127,12 @@ class FormHelperTest extends HelperTestCase
         $this->assertStringNotContainsString('input-group-text', $result);
 
         //With a custom label
-        $expected = '<div class="input mb-3 text"><label class="form-label fw-bolder" for="my-field">A custom label</label><input type="text" name="my-field" class="form-control" id="my-field"/></div>';
+        $expected = '<div class="input mb-3 text"><label class="form-label" for="my-field">A custom label</label><input type="text" name="my-field" class="form-control" id="my-field"/></div>';
         $result = $this->Helper->control('my-field', ['label' => 'A custom label']);
         $this->assertSame($expected, $result);
 
         //With a label with some options
-        $expected = '<div class="input mb-3 text"><label class="form-label fw-bolder my-label-class" for="my-field">A custom label</label><input type="text" name="my-field" class="form-control" id="my-field"/></div>';
+        $expected = '<div class="input mb-3 text"><label class="form-label my-label-class" for="my-field">A custom label</label><input type="text" name="my-field" class="form-control" id="my-field"/></div>';
         $result = $this->Helper->control('my-field', ['label' => ['text' => 'A custom label', 'class' => 'my-label-class']]);
         $this->assertSame($expected, $result);
 
@@ -204,12 +200,12 @@ class FormHelperTest extends HelperTestCase
      */
     public function testControlCheckboxType(): void
     {
-        $expected = '<div class="input mb-3 form-check"><input type="hidden" name="my-checkbox" value="0"/><label class="form-check-label fw-bolder" for="my-checkbox"><input type="checkbox" name="my-checkbox" value="1" class="form-check-input" id="my-checkbox">My Checkbox</label></div>';
+        $expected = '<div class="input mb-3 form-check"><input type="hidden" name="my-checkbox" value="0"/><label class="form-check-label" for="my-checkbox"><input type="checkbox" name="my-checkbox" value="1" class="form-check-input" id="my-checkbox">My Checkbox</label></div>';
         $result = $this->Helper->control('my-checkbox', ['type' => 'checkbox']);
         $this->assertSame($expected, $result);
 
         //With `required` option
-        $expectedStart = '<div class="input mb-3 form-check required"><input type="hidden" name="my-checkbox" value="0"/><label class="form-check-label fw-bolder" for="my-checkbox"><input type="checkbox" name="my-checkbox" value="1"';
+        $expectedStart = '<div class="input mb-3 form-check required"><input type="hidden" name="my-checkbox" value="0"/><label class="form-check-label" for="my-checkbox"><input type="checkbox" name="my-checkbox" value="1"';
         $expectedEnd = 'class="form-check-input" id="my-checkbox" required="required">My Checkbox</label></div>';
         $result = $this->Helper->control('my-checkbox', ['type' => 'checkbox', 'required' => true]);
         $this->assertStringStartsWith($expectedStart, $result);
@@ -250,7 +246,7 @@ class FormHelperTest extends HelperTestCase
      */
     public function testControlPasswordField(): void
     {
-        $expected = '<div class="input mb-3 password"><label class="form-label fw-bolder" for="my-password">My Password</label><input type="password" name="my-password" class="form-control" id="my-password"/></div>';
+        $expected = '<div class="input mb-3 password"><label class="form-label" for="my-password">My Password</label><input type="password" name="my-password" class="form-control" id="my-password"/></div>';
         $result = $this->Helper->control('my-password');
         $this->assertSame($expected, $result);
     }
@@ -287,12 +283,12 @@ class FormHelperTest extends HelperTestCase
 
         //Input is valid
         $Helper = new FormHelper($View);
-        $expected = '<div class="input mb-3 text"><label class="form-label fw-bolder" for="my-field">My Field</label><div class="input-group has-validation"><input type="text" name="my-field" class="form-control is-valid" id="my-field"/><span class="input-group-text">Append text</span></div><div class="form-text text-muted">My help text</div></div>';
+        $expected = '<div class="input mb-3 text"><label class="form-label" for="my-field">My Field</label><div class="input-group has-validation"><input type="text" name="my-field" class="form-control is-valid" id="my-field"/><span class="input-group-text">Append text</span></div><div class="form-text text-muted">My help text</div></div>';
         $result = $Helper->control('my-field', ['append-text' => 'Append text', 'help' => 'My help text']);
         $this->assertSame($expected, $result);
 
         //Input is invalid and has an error
-        $expected = '<div class="input mb-3 text error"><label class="form-label fw-bolder" for="my-field">My Field</label><div class="input-group has-validation"><input type="text" name="my-field" aria-invalid="true" class="form-control is-invalid" id="my-field"/><span class="input-group-text">Append text</span>My error</div><div class="form-text text-muted">My help text</div></div>';
+        $expected = '<div class="input mb-3 text error"><label class="form-label" for="my-field">My Field</label><div class="input-group has-validation"><input type="text" name="my-field" aria-invalid="true" class="form-control is-invalid" id="my-field"/><span class="input-group-text">Append text</span>My error</div><div class="form-text text-muted">My help text</div></div>';
         /** @var \MeTools\View\Helper\FormHelper&\PHPUnit\Framework\MockObject\MockObject $Helper */
         $Helper = $this->getMockForHelper(FormHelper::class, ['error', 'isFieldError'], $View);
         $Helper->method('error')->willReturn('My error');
@@ -335,7 +331,7 @@ class FormHelperTest extends HelperTestCase
      */
     public function testLabel(): void
     {
-        $expected = '<label class="fw-bolder my-class" for="my-fieldname"><i class="fas fa-home"> </i> My label</label>';
+        $expected = '<label class="my-class" for="my-fieldname"><i class="fas fa-home"> </i> My label</label>';
         $result = $this->Helper->label('my-fieldname', 'My label', ['class' => 'my-class', 'icon' => 'home']);
         $this->assertSame($expected, $result);
     }

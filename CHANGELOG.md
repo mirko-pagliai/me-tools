@@ -1,6 +1,8 @@
 # 2.x branch
 ## 2.25 branch
 ### 2.25.1
+* `FormHelper`: `button()` no longer automatically adds the `success` class to submit buttons; `label()` no longer
+  automatically adds the `fw-bolder` class;
 * added the `AbstractPerson` entity class;
 * added basic `AppController` and `View` classes.
 

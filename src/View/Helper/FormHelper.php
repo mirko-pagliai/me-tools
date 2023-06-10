@@ -154,7 +154,7 @@ class FormHelper extends BaseFormHelper
     public function button(string $title, array $options = []): string
     {
         $options = optionsParser($options, ['escapeTitle' => false, 'type' => 'button']);
-        $options->addButtonClasses($options->contains('type', 'submit') ? 'success' : 'primary');
+        $options->addButtonClasses('primary');
         [$title, $options] = $this->Icon->addIconToText($title, $options);
 
         return parent::button($title, $options->toArray());
@@ -352,7 +352,6 @@ class FormHelper extends BaseFormHelper
         $options = optionsParser($options, ['escape' => false]);
 
         if (!$this->isInline()) {
-            $options->append('class', 'fw-bolder');
             [$text, $options] = $this->Icon->addIconToText($text, $options);
         }
 
