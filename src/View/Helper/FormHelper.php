@@ -14,7 +14,6 @@ declare(strict_types=1);
  */
 namespace MeTools\View\Helper;
 
-use Cake\Utility\Hash;
 use Cake\View\Helper\FormHelper as BaseFormHelper;
 use Cake\View\View;
 
@@ -61,7 +60,7 @@ class FormHelper extends BaseFormHelper
     public function __construct(View $view, array $config = [])
     {
         //Rewrites default templates config
-        $this->_defaultConfig = Hash::merge($this->_defaultConfig, ['templates' => [
+        $this->_defaultConfig['templates'] = [
             //Container element user for checkboxes
             'checkboxContainer' => '<div class="input mb-3 form-check{{required}}">{{content}}{{help}}</div>',
             //Container element user for checkboxes when has an error
@@ -74,7 +73,7 @@ class FormHelper extends BaseFormHelper
             'inputContainerError' => '<div class="input mb-3 {{type}}{{required}} error">{{content}}{{error}}{{help}}</div>',
             // Submit/reset button
             'inputSubmit' => '<button{{attrs}}>{{text}}</button>',
-        ]]);
+        ] + $this->_defaultConfig['templates'];
 
         parent::__construct($view, $config);
 
