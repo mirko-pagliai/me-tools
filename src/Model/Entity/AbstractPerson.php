@@ -17,7 +17,6 @@ declare(strict_types=1);
 namespace MeTools\Model\Entity;
 
 use Cake\ORM\Entity;
-use Tools\Exceptionist;
 
 /**
  * Abstract `Person` entity.
@@ -54,20 +53,15 @@ abstract class AbstractPerson extends Entity
             'last_name' => true,
         ], $this->_accessible);
 
-        $this->_virtual = array_merge(['full_name'], $this->_virtual);
+        $this->_virtual = array_merge(['full_name'], $this->_virtual ?? []);
     }
 
     /**
      * `full_name` virtual field
      * @return string
-     * @throws \ErrorException
      */
     protected function _getFullName(): string
     {
-        foreach (['last_name', 'first_name'] as $field) {
-            Exceptionist::isTrue($this->hasValue($field), sprintf('Missing `%s` field value for `%s`', $field, get_class($this)));
-        }
-
-        return $this->get('first_name') . ' ' . $this->get('last_name');
+        return $this->hasValue('first_name') && $this->hasValue('last_name') ? $this->get('first_name') . ' ' . $this->get('last_name') : '';
     }
 }

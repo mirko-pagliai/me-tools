@@ -20,6 +20,7 @@ use MeTools\TestSuite\TestCase;
 
 /**
  * AbstractPersonTest class
+ * @covers \MeTools\Model\Entity\AbstractPerson
  */
 class AbstractPersonTest extends TestCase
 {
@@ -81,27 +82,11 @@ class AbstractPersonTest extends TestCase
     public function testGetFullName(): void
     {
         $this->assertSame('John Smith', $this->Person->full_name);
-    }
 
-    /**
-     * @uses \MeTools\Model\Entity\AbstractPerson::_getFullName()
-     * @test
-     */
-    public function testGetFullNameWithoutFirstName(): void
-    {
         $this->Person->unset('first_name');
-        $this->expectExceptionMessage('Missing `first_name` field value for `' . User::class . '`');
-        $this->Person->full_name;
-    }
+        $this->assertEmpty($this->Person->full_name);
 
-    /**
-     * @uses \MeTools\Model\Entity\AbstractPerson::_getFullName()
-     * @test
-     */
-    public function testGetFullNameWithoutLastName(): void
-    {
-        $this->Person->unset('last_name');
-        $this->expectExceptionMessage('Missing `last_name` field value for `' . User::class . '`');
-        $this->Person->full_name;
+        $this->Person->set('first_name', 'John')->unset('last_name');
+        $this->assertEmpty($this->Person->full_name);
     }
 }
