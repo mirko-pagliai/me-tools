@@ -1,8 +1,11 @@
 # 2.x branch
 ## 2.25 branch
 ### 2.25.1
-* `FormHelper`: `button()` no longer automatically adds the `success` class to submit buttons; `label()` no longer
-  automatically adds the `fw-bolder` class;
+* `FormHelper`: the default templates have been rearranged; the `setTemplates()` and `resetTemplates()` methods are no
+  longer used, because they then made it impossible to set templates at runtime, the `templates` option is used instead; 
+  the `button()` method no longer automatically adds the `success` class to submit buttons; the `label()` method no
+  longer automatically adds the `fw-bolder` class;
+* the checkbox template has been improved and made compatible with Bootstrap 
 * added the `AbstractPerson` entity class;
 * added basic `AppController` and `View` classes.
 

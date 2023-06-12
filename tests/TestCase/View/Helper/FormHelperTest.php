@@ -165,6 +165,7 @@ class FormHelperTest extends HelperTestCase
         $this->assertSame($expected, $result);
 
         $expected = '<div class="input mb-3 radio">' .
+            '<label class="form-label">My Field</label>' .
             '<input type="hidden" name="my-field" value=""/>' .
             '<div class="form-check">' .
             '<input type="radio" name="my-field" value="1" id="my-field-1" class="form-check-input">' .
@@ -200,25 +201,45 @@ class FormHelperTest extends HelperTestCase
      */
     public function testControlCheckboxType(): void
     {
-        $expected = '<div class="input mb-3 form-check"><input type="hidden" name="my-checkbox" value="0"/><label class="form-check-label" for="my-checkbox"><input type="checkbox" name="my-checkbox" value="1" class="form-check-input" id="my-checkbox">My Checkbox</label></div>';
+        $expected = '<div class="input mb-3 form-check">' .
+            '<input type="hidden" name="my-checkbox" value="0"/>' .
+            '<input type="checkbox" name="my-checkbox" value="1" class="form-check-input" id="my-checkbox">' .
+            '<label class="form-check-label" for="my-checkbox">' .
+            'My Checkbox' .
+            '</label>' .
+            '</div>';
         $result = $this->Helper->control('my-checkbox', ['type' => 'checkbox']);
         $this->assertSame($expected, $result);
 
         //With `required` option
-        $expectedStart = '<div class="input mb-3 form-check required"><input type="hidden" name="my-checkbox" value="0"/><label class="form-check-label" for="my-checkbox"><input type="checkbox" name="my-checkbox" value="1"';
-        $expectedEnd = 'class="form-check-input" id="my-checkbox" required="required">My Checkbox</label></div>';
+        $expectedStart = '<div class="input mb-3 form-check required">' .
+            '<input type="hidden" name="my-checkbox" value="0"/>' .
+            '<input type="checkbox" name="my-checkbox" value="1"';
+        $expectedEnd = 'class="form-check-input" id="my-checkbox" required="required">' .
+            '<label class="form-check-label" for="my-checkbox">' .
+            'My Checkbox' .
+            '</label>' .
+            '</div>';
         $result = $this->Helper->control('my-checkbox', ['type' => 'checkbox', 'required' => true]);
         $this->assertStringStartsWith($expectedStart, $result);
         $this->assertStringEndsWith($expectedEnd, $result);
 
         //On "inline" form
         $this->Helper->createInline();
-        $expected = '<div class="col-12"><div class="form-check"><input type="hidden" name="my-inline-field" value="0"/><label class="form-check-label" for="my-inline-field"><input type="checkbox" name="my-inline-field" value="1" class="form-check-input" id="my-inline-field">My Inline Field</label></div></div>';
+        $expected = '<div class="col-12">' .
+            '<div class="form-check">' .
+            '<input type="hidden" name="my-inline-field" value="0"/>' .
+            '<input type="checkbox" name="my-inline-field" value="1" class="form-check-input" id="my-inline-field">' .
+            '<label class="form-check-label" for="my-inline-field">' .
+            'My Inline Field' .
+            '</label>' .
+            '</div>' .
+            '</div>';
         $result = $this->Helper->control('my-inline-field', ['type' => 'checkbox']);
         $this->assertSame($expected, $result);
 
         //With error (same `$expectedStart` value)
-        $expectedEnd = 'class="form-check-input is-invalid" id="my-checkbox" required="required">My Checkbox</label>My error</div>';
+        $expectedEnd = 'class="form-check-input is-invalid" id="my-checkbox" required="required"><label class="form-check-label" for="my-checkbox">My Checkbox</label>My error</div>';
         /** @var \Cake\Http\ServerRequest&\PHPUnit\Framework\MockObject\MockObject $Request */
         $Request = $this->createConfiguredMock(ServerRequest::class, ['is' => true]);
         /** @var \MeTools\View\Helper\FormHelper&\PHPUnit\Framework\MockObject\MockObject $Helper */
@@ -231,8 +252,11 @@ class FormHelperTest extends HelperTestCase
 
         //With error on "inline" form
         $Helper->createInline();
-        $expectedStart = '<div class="col-12"><div class="form-check required error"><input type="hidden" name="my-checkbox" value="0"/><label class="form-check-label" for="my-checkbox"><input type="checkbox" name="my-checkbox" value="1"';
-        $expectedEnd = 'class="form-check-input is-invalid" id="my-checkbox" required="required">My Checkbox</label>My error</div></div>';
+        $expectedStart = '<div class="col-12">' .
+            '<div class="form-check required error">' .
+            '<input type="hidden" name="my-checkbox" value="0"/>'.
+            '<input type="checkbox" name="my-checkbox" value="1"';
+        $expectedEnd = 'class="form-check-input is-invalid" id="my-checkbox" required="required"><label class="form-check-label" for="my-checkbox">My Checkbox</label>My error</div></div>';
         $result = $Helper->control('my-checkbox', ['type' => 'checkbox', 'required' => true]);
         $this->assertStringStartsWith($expectedStart, $result);
         $this->assertStringEndsWith($expectedEnd, $result);

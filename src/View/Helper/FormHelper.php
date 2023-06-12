@@ -71,8 +71,10 @@ class FormHelper extends BaseFormHelper
             'inputContainer' => '<div class="input mb-3 {{type}}{{required}}">{{content}}{{help}}</div>',
             //Container element used by `control()` when a field has an error
             'inputContainerError' => '<div class="input mb-3 {{type}}{{required}} error">{{content}}{{error}}{{help}}</div>',
-            // Submit/reset button
+            //Submit/reset button
             'inputSubmit' => '<button{{attrs}}>{{text}}</button>',
+            //Label element used for radio and multi-checkbox inputs
+            'nestingLabel' => '{{hidden}}{{input}}<label{{attrs}}>{{text}}</label>',
         ] + $this->_defaultConfig['templates'];
 
         parent::__construct($view, $config);
@@ -188,13 +190,6 @@ class FormHelper extends BaseFormHelper
     {
         $options = optionsParser($options)->append('class', 'form-check-input');
 
-        if ($this->isInline()) {
-            $this->setTemplates([
-                'checkboxContainer' => '<div class="col-12"><div class="form-check{{required}}">{{content}}</div></div>',
-                'checkboxContainerError' => '<div class="col-12"><div class="form-check{{required}} error">{{content}}{{error}}</div></div>',
-            ]);
-        }
-
         return parent::checkbox($fieldName, $options->toArray());
     }
 
@@ -211,26 +206,17 @@ class FormHelper extends BaseFormHelper
      * @param string $fieldName This should be "modelname.fieldname"
      * @param array<string, mixed> $options Each type of input takes different options
      * @return string Completed form widget
+     * @see createInline() for containers templates on inline forms
      */
     public function control(string $fieldName, array $options = []): string
     {
-        $this->resetTemplates();
         $options = optionsParser($options);
 
-        /**
-         * Inline forms.
-         * By default, no help blocks.
-         * @see https://getbootstrap.com/docs/5.2/forms/layout/#inline-forms
-         */
-        if ($this->isInline()) {
-            $this->setTemplates([
-                'inputContainer' => '<div class="col-12 {{type}}{{required}}">{{content}}</div>',
-                'inputContainerError' => '<div class="col-12 {{type}}{{required}} error">{{content}{{error}}</div>',
-            ]);
-        }
-
         if ($options->get('type') === 'radio') {
-            $this->setTemplates(['nestingLabel' => '<div class="form-check">{{hidden}}{{input}}<label{{attrs}}>{{text}}</label></div>']);
+            $options->append('templates', [
+                'label' => '',
+                'nestingLabel' => '<div class="form-check">{{hidden}}{{input}}<label{{attrs}}>{{text}}</label></div>',
+            ]);
         }
 
         /**
@@ -250,7 +236,7 @@ class FormHelper extends BaseFormHelper
          */
         if ($options->exists('append-text') || $options->exists('prepend-text')) {
             $validationClass = $this->isPost && $this->validation ? ' has-validation' : '';
-            $this->setTemplates([
+            $options->append('templates', [
                 'formGroup' => '{{label}}<div class="input-group' . $validationClass . '">{{prepend}}{{input}}{{append}}{{error}}</div>',
                 'inputContainer' => '<div class="input mb-3 {{type}}{{required}}">{{content}}{{help}}</div>',
                 'inputContainerError' => '<div class="input mb-3 {{type}}{{required}} error">{{content}}{{help}}</div>',
@@ -305,7 +291,19 @@ class FormHelper extends BaseFormHelper
     public function createInline($context = null, array $options = []): string
     {
         $this->isInline = true;
-        $options = optionsParser($options)->append('class', 'row row-cols-lg-auto g-1 align-items-center');
+
+        $options = optionsParser($options)->append('class', 'row row-cols-lg-auto g-1 align-items-center')
+            /**
+             * Containers templates. By default, no help blocks.
+             * @see https://getbootstrap.com/docs/5.3/forms/layout/#inline-forms
+             */
+            ->add('templates', [
+                'checkboxContainer' => '<div class="col-12"><div class="form-check{{required}}">{{content}}</div></div>',
+                'checkboxContainerError' => '<div class="col-12"><div class="form-check{{required}} error">{{content}}{{error}}</div></div>',
+                'inputContainer' => '<div class="col-12 {{type}}{{required}}">{{content}}</div>',
+                'inputContainerError' => '<div class="col-12 {{type}}{{required}} error">{{content}{{error}}</div>',
+                'submitContainer' => '<div class="col-12 submit">{{content}}</div>'
+            ]);
 
         return parent::create($context, $options->toArray());
     }
@@ -386,13 +384,6 @@ class FormHelper extends BaseFormHelper
             ->append('class', 'form-check-input')
             ->add('label', ['class' => 'form-check-label']);
 
-        //Sets the `nestingLabel` templates only if it is still the default one, therefore not already modified by other methods
-        if ($this->getTemplates('nestingLabel') == $this->_defaultConfig['templates']['nestingLabel']) {
-            $this->setTemplates(['nestingLabel' => '{{hidden}}{{input}}<label{{attrs}}>{{text}}</label>']);
-        }
-
-        $this->setTemplates(['label' => '']);
-
         return parent::radio($fieldName, $options, $attributes->toArray());
     }
 
@@ -434,10 +425,6 @@ class FormHelper extends BaseFormHelper
         $options->addButtonClasses($options->contains('type', 'submit') ? 'success' : 'primary');
         [$text, $options] = $this->Icon->addIconToText($caption, $options);
         $options->append('templateVars', ['text' => $text ?? __d('cake', 'Submit')]);
-
-        if ($this->isInline()) {
-            $this->setTemplates(['submitContainer' => '<div class="col-12 submit">{{content}}</div>']);
-        }
 
         return parent::submit($caption, $options->toArray());
     }
