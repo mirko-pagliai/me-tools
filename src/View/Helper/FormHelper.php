@@ -12,6 +12,7 @@ declare(strict_types=1);
  * @link        https://github.com/mirko-pagliai/me-tools
  * @license     https://opensource.org/licenses/mit-license.php MIT License
  */
+
 namespace MeTools\View\Helper;
 
 use Cake\View\Helper\FormHelper as BaseFormHelper;
@@ -29,11 +30,7 @@ class FormHelper extends BaseFormHelper
      * Helpers
      * @var array
      */
-    public $helpers = [
-        'MeTools.Html',
-        'MeTools.Icon',
-        'Url',
-    ];
+    public $helpers = ['MeTools.Html', 'MeTools.Icon', 'Url'];
 
     /**
      * @var bool
@@ -43,70 +40,60 @@ class FormHelper extends BaseFormHelper
     /**
      * @var bool
      */
-    protected bool $isPost;
-
-    /**
-     * @var bool
-     */
     protected bool $validation = true;
 
     /**
      * Construct the widgets and binds the default context providers.
      *
-     * This method only rewrites the default templates config.
+     * This method only rewrites the default config.
      * @param \Cake\View\View $view The View this helper is being attached to
-     * @param array $config Configuration settings for the helper
+     * @param array<string, mixed> $config Configuration settings for the helper
      */
     public function __construct(View $view, array $config = [])
     {
-        //Rewrites default templates config
+        /**
+         * Rewrites default templates config.
+         * Some of these templates can be modified by the `createInline()` method.
+         */
         $this->_defaultConfig['templates'] = [
-            //Container element user for checkboxes
-            'checkboxContainer' => '<div class="input mb-3 form-check{{required}}">{{content}}{{help}}</div>',
-            //Container element user for checkboxes when has an error
-            'checkboxContainerError' => '<div class="input mb-3 form-check{{required}}">{{content}}{{error}}{{help}}</div>',
+            //Used for button elements in button()
+            'button' => '<button{{attrs}}>{{icon}}{{text}}</button>',
             //Error message wrapper elements
             'error' => '<div class="invalid-feedback" id="{{id}}">{{content}}</div>',
-            //Container element used by `control()`
-            'inputContainer' => '<div class="input mb-3 {{type}}{{required}}">{{content}}{{help}}</div>',
-            //Container element used by `control()` when a field has an error
-            'inputContainerError' => '<div class="input mb-3 {{type}}{{required}} error">{{content}}{{error}}{{help}}</div>',
-            //Submit/reset button
-            'inputSubmit' => '<button{{attrs}}>{{text}}</button>',
+            //Container for error items
+            'errorList' => '<ul class="ps-3">{{content}}</ul>',
+            //Label element when inputs are not nested inside the label
+            'label' => '<label{{attrs}}>{{icon}}{{text}}</label>',
+            //Container element used by control()
+            'inputContainer' => '<div class="mb-3 {{divClass}}{{type}}{{required}}">{{content}}{{help}}</div>',
+            //Container element used by control() when a field has an error
+            'inputContainerError' => '<div class="mb-3 {{divClass}}{{type}}{{required}} error">{{content}}{{error}}{{help}}</div>',
             //Label element used for radio and multi-checkbox inputs
             'nestingLabel' => '{{hidden}}{{input}}<label{{attrs}}>{{text}}</label>',
         ] + $this->_defaultConfig['templates'];
 
-        parent::__construct($view, $config);
+        /**
+         * This value can be changed (via the `$_config` property) by the `create()`/`end()` methods
+         * @see https://getbootstrap.com/docs/5.3/forms/validation/#server-side
+         */
+        $this->_defaultConfig['errorClass'] = 'is-invalid';
 
-        $this->isPost = $this->getView()->getRequest()->is('post');
+        parent::__construct($view, $config);
     }
 
     /**
-     * Generates an input element
-     * @param string $fieldName the field name
-     * @param array<string, mixed> $options The options for the input element
-     * @return array|string The generated input element string or array if checkbox() is called with option 'hiddenField'
-     *  set to '_split'
+     * Returns the input type that was guessed for the provided fieldName, based on the internal type it is associated
+     *  too, its name and the variables that can be found in the view template
+     * @param string $fieldName the name of the field to guess a type for
+     * @param array<string, mixed> $options the options passed to the input method
+     * @return string
      */
-    protected function _getInput(string $fieldName, array $options)
+    protected function _inputType(string $fieldName, array $options): string
     {
-        $options = optionsParser($options);
+        $type = $options['type'] ?? parent::_inputType($fieldName, $options);
 
-        //Class (checkboxes and radios have their own class)
-        if (!in_array($options->get('type'), ['checkbox', 'radio'])) {
-            $options->append('class', 'form-control');
-        }
-
-        /**
-         * Add class on `post` request and if validation is on (the form has been filled out)
-         * @see https://getbootstrap.com/docs/5.2/forms/validation/#server-side
-         */
-        if ($this->isPost && $this->validation) {
-            $options->append('class', $this->isFieldError($fieldName) ? 'is-invalid' : 'is-valid');
-        }
-
-        return parent::_getInput($fieldName, $options->toArray());
+        //Forces the `password` type if the current type is `text` and `$fieldName` contains "password" or "pwd" words
+        return $type == 'text' && (str_contains($fieldName, 'password') || str_contains($fieldName, 'pwd')) ? 'password' : $type;
     }
 
     /**
@@ -122,205 +109,27 @@ class FormHelper extends BaseFormHelper
         }
 
         $label = optionsParser(is_string($options['label']) ? ['text' => $options['label']] : ($options['label'] ?? []));
-        $label->append('class', $options['type'] === 'checkbox' ? 'form-check-label' : ($this->isInline() ? 'visually-hidden' : 'form-label'));
+
+        /**
+         * Sets the label class.
+         * Checkboxes and radios always have their own `form-check-label` class, even in inline forms. Other input types,
+         *  on inline forms, have the `visually-hidden` class. In all other cases, the default class is `form-label`.
+         * @todo what about `floatingInput` forms?
+         * @todo what about horizontal forms?
+         */
+        $type = $this->_inputType($fieldName, $options);
+        if (in_array($type, ['checkbox', 'radio'])) {
+            $class = 'form-check-label';
+        } elseif ((!$label->get('text') && $type == 'ckeditor') || $this->isInline()) {
+            $class = 'visually-hidden';
+        }
+        $label->append('class', $class ?? 'form-label');
+
+        if ($label->exists('icon')) {
+            $options['templateVars']['icon'] = $this->Icon->icon($label->consume('icon') . ' ');
+        }
 
         return parent::_getLabel($fieldName, ['label' => $label->toArray()] + $options);
-    }
-
-    /**
-     * Returns the input type that was guessed for the provided fieldName, based on the internal type it is associated
-     *  too, its name and the variables that can be found in the view template
-     * @param string $fieldName the name of the field to guess a type for
-     * @param array<string, mixed> $options the options passed to the input method
-     * @return string
-     */
-    protected function _inputType(string $fieldName, array $options): string
-    {
-        //Forces the `password` type if `$fieldName` contains "password" or "pwd" words
-        if (str_contains($fieldName, 'password') || str_contains($fieldName, 'pwd')) {
-            return 'password';
-        }
-
-        return parent::_inputType($fieldName, $options);
-    }
-
-    /**
-     * Creates a `<button>` tag.
-     *
-     * See the parent method for all available options.
-     * @param string $title The button's caption. Not automatically HTML encoded
-     * @param array<string, mixed> $options Array of options and HTML attributes
-     * @return string A HTML button tag
-     */
-    public function button(string $title, array $options = []): string
-    {
-        $options = optionsParser($options, ['escapeTitle' => false, 'type' => 'button']);
-        $options->addButtonClasses('primary');
-        [$title, $options] = $this->Icon->addIconToText($title, $options);
-
-        return parent::button($title, $options->toArray());
-    }
-
-    /**
-     * Creates a CKEditor textarea.
-     *
-     * To add the scripts for CKEditor, you should use the `LibraryHelper`.
-     * @param string $fieldName This should be "modelname.fieldname"
-     * @param array<string, mixed> $options Each type of input takes different options
-     * @return string
-     * @see \MeTools\View\Helper\LibraryHelper::ckeditor()
-     */
-    public function ckeditor(string $fieldName, array $options = []): string
-    {
-        $options = optionsParser($options, ['label' => false, 'type' => 'textarea']);
-        $options->append('class', 'wysiwyg editor');
-
-        return $this->control($fieldName, $options->toArray());
-    }
-
-    /**
-     * Creates a checkbox input widget.
-     *
-     * See the parent method for all available options.
-     * @param string $fieldName Name of a field, like this "modelname.fieldname"
-     * @param array<string, mixed> $options Array of HTML attributes
-     * @return array<string>|string An HTML text input element
-     */
-    public function checkbox(string $fieldName, array $options = [])
-    {
-        $options = optionsParser($options)->append('class', 'form-check-input');
-
-        return parent::checkbox($fieldName, $options->toArray());
-    }
-
-    /**
-     * Generates a form control element complete with label and wrapper div.
-     *
-     * ### Options:
-     *
-     *  - `append-text` to append a text
-     *  - `help` to add a help text
-     *  - `prepend-text` to prepend a text
-     *
-     * See the parent method for all available options.
-     * @param string $fieldName This should be "modelname.fieldname"
-     * @param array<string, mixed> $options Each type of input takes different options
-     * @return string Completed form widget
-     * @see createInline() for containers templates on inline forms
-     */
-    public function control(string $fieldName, array $options = []): string
-    {
-        $options = optionsParser($options);
-
-        if ($options->get('type') === 'radio') {
-            $options->append('templates', [
-                'label' => '',
-                'nestingLabel' => '<div class="form-check">{{hidden}}{{input}}<label{{attrs}}>{{text}}</label></div>',
-            ]);
-        }
-
-        /**
-         * Help text (form text).
-         * These are ignored in inline forms.
-         * @see https://getbootstrap.com/docs/5.2/forms/overview/#form-text
-         */
-        if ($options->exists('help') && !$this->isInline()) {
-            $help = implode('', array_map(fn(string $help): string => $this->Html->div('form-text text-muted', trim($help)), (array)$options->consume('help')));
-            $options->append('templateVars', compact('help'));
-        }
-
-        /**
-         * Input group (`append-text` and `prepend-text` options).
-         * It can also handle buttons.
-         * @see https://getbootstrap.com/docs/5.2/forms/input-group
-         */
-        if ($options->exists('append-text') || $options->exists('prepend-text')) {
-            $validationClass = $this->isPost && $this->validation ? ' has-validation' : '';
-            $options->append('templates', [
-                'formGroup' => '{{label}}<div class="input-group' . $validationClass . '">{{prepend}}{{input}}{{append}}{{error}}</div>',
-                'inputContainer' => '<div class="input mb-3 {{type}}{{required}}">{{content}}{{help}}</div>',
-                'inputContainerError' => '<div class="input mb-3 {{type}}{{required}} error">{{content}}{{help}}</div>',
-            ]);
-
-            foreach (['append', 'prepend'] as $name) {
-                $value = $options->consume($name . '-text') ?: '';
-                if ($value && !str_starts_with($value, '<button') && !str_starts_with($value, '<div class="submit') && !str_starts_with($value, '<div class="col-12 submit')) {
-                    $value = $this->Html->span($value, ['class' => 'input-group-text']);
-                }
-                $templateVars[$name] = $value;
-            }
-            $options->append('templateVars', $templateVars);
-        }
-
-        return parent::control($fieldName, $options->toArray());
-    }
-
-    /**
-     * Returns an HTML form element.
-     *
-     * ### Options:
-     *
-     *  - `validation`, if `false` it disables field validation
-     *
-     * See the parent method for all available options.
-     * @param mixed $context The context for which the form is being defined. Can be a ContextInterface instance, ORM
-     *  entity, ORM resultset, or an array of meta data. You can use `null` to make a context-less form
-     * @param array<string, mixed> $options An array of html attributes and options
-     * @return string A formatted opening FORM tag
-     */
-    public function create($context = null, array $options = []): string
-    {
-        if (isset($options['validation'])) {
-            $this->validation = $options['validation'];
-            unset($options['validation']);
-        }
-
-        return parent::create($context, $options);
-    }
-
-    /**
-     * Returns an inline HTML form element.
-     *
-     * See the parent method for all available options.
-     * @param mixed $context The context for which the form is being defined. Can be a ContextInterface instance, ORM
-     *  entity, ORM resultset, or an array of metadata. You can use `null` to make a context-less form.
-     * @param array<string, mixed> $options An array of html attributes and options
-     * @return string A formatted opening FORM tag
-     * @see https://getbootstrap.com/docs/5.2/forms/layout/#inline-forms
-     */
-    public function createInline($context = null, array $options = []): string
-    {
-        $this->isInline = true;
-
-        $options = optionsParser($options)->append('class', 'row row-cols-lg-auto g-1 align-items-center')
-            /**
-             * Containers templates. By default, no help blocks.
-             * @see https://getbootstrap.com/docs/5.3/forms/layout/#inline-forms
-             */
-            ->add('templates', [
-                'checkboxContainer' => '<div class="col-12"><div class="form-check{{required}}">{{content}}</div></div>',
-                'checkboxContainerError' => '<div class="col-12"><div class="form-check{{required}} error">{{content}}{{error}}</div></div>',
-                'inputContainer' => '<div class="col-12 {{type}}{{required}}">{{content}}</div>',
-                'inputContainerError' => '<div class="col-12 {{type}}{{required}} error">{{content}{{error}}</div>',
-                'submitContainer' => '<div class="col-12 submit">{{content}}</div>',
-            ]);
-
-        return parent::create($context, $options->toArray());
-    }
-
-    /**
-     * Closes an HTML form.
-     *
-     * See the parent method for all available options.
-     * @param array<string, mixed> $secureAttributes Secure attributes
-     * @return string A closing FORM tag
-     */
-    public function end(array $secureAttributes = []): string
-    {
-        $this->isInline = false;
-        $this->validation = true;
-
-        return parent::end($secureAttributes);
     }
 
     /**
@@ -333,98 +142,235 @@ class FormHelper extends BaseFormHelper
     }
 
     /**
-     * Returns a formatted LABEL element for HTML forms.
-     *
-     * Will automatically generate a `for` attribute if one is not provided.
-     *
-     * See the parent method for all available options.
-     * @param string $fieldName This should be "modelname.fieldname"
-     * @param string|null $text Text that will appear in the label field. If $text is left undefined the text will be
-     *  inflected from the fieldName
-     * @param array<string, mixed> $options An array of HTML attributes
-     * @return string The formatted LABEL element
+     * Creates a `<button>` tag
+     * @param string $title The button's caption. Not automatically HTML encoded
+     * @param array<string, mixed> $options Array of options and HTML attributes
+     * @return string A HTML button tag
+     * @link https://book.cakephp.org/4/en/views/helpers/form.html#creating-button-elements
+     * @see \Cake\View\Helper\FormHelper::button() for all available options
      */
-    public function label(string $fieldName, ?string $text = null, array $options = []): string
+    public function button(string $title, array $options = []): string
     {
-        $options = optionsParser($options, ['escape' => false]);
+        $options = optionsParser($options, ['escapeTitle' => false, 'type' => 'button']);
+        $options->addButtonClasses('primary');
 
-        if (!$this->isInline()) {
-            [$text, $options] = $this->Icon->addIconToText($text, $options);
+        if ($options->exists('icon')) {
+            $options->append('templateVars', ['icon' => $this->Icon->icon($options->consume('icon')) . ' ']);
         }
 
-        return parent::label($fieldName, $text, $options->toArray());
+        return parent::button($title, $options->toArray());
     }
 
     /**
-     * Creates a "POST button", which is a "POST link" with all the appearance of a button
-     * @param string $title The content to be wrapped by <a> tags
-     * @param array|string|null $url Cake-relative URL or array of URL parameters, or external URL (starts with http://)
-     * @param array<string, mixed> $options Array of HTML attributes
-     * @return string An `<a />` element
+     * Creates a CKEditor textarea
+     * @param string $fieldName This should be "modelname.fieldname"
+     * @param array<string, mixed> $options Each type of input takes different options
+     * @return string
+     * @see \MeTools\View\Helper\LibraryHelper::ckeditor() to add the scripts for CKEditor
      */
-    public function postButton(string $title = '', $url = null, array $options = []): string
+    public function ckeditor(string $fieldName, array $options = []): string
     {
-        $options = optionsParser($options)->add('role', 'button')->addButtonClasses();
+        $options = optionsParser($options, ['type' => 'textarea']);
+        $options->append('class', 'wysiwyg editor');
 
-        return $this->postLink($title, $url, $options->toArray());
+        return parent::textarea($fieldName, $options->toArray());
     }
 
     /**
-     * Creates a set of radio widgets.
+     * Generates a form control element complete with label and wrapper div.
      *
-     * See the parent method for all available options and attributes.
-     * @param string $fieldName Name of a field, like this "modelname.fieldname"
-     * @param iterable $options Radio button options array
-     * @param array<string, mixed> $attributes Array of attributes
-     * @return string Completed radio widget set
+     * ### Options:
+     *
+     *  - `append-text` to append a text
+     *  - `help` to add a help text
+     *  - `prepend-text` to prepend a text
+     * @param string $fieldName This should be "modelname.fieldname"
+     * @param array<string, mixed> $options Each type of input takes different options
+     * @return string Completed form widget
+     * @link https://book.cakephp.org/4/en/views/helpers/form.html#creating-form-controls
+     * @see \Cake\View\Helper\FormHelper::control() for all available options
      */
-    public function radio(string $fieldName, iterable $options = [], array $attributes = []): string
+    public function control(string $fieldName, array $options = []): string
     {
-        $attributes = optionsParser($attributes)
-            ->append('class', 'form-check-input')
-            ->add('label', ['class' => 'form-check-label']);
+        switch ($this->_inputType($fieldName, $options)) {
+            case 'checkbox':
+            case 'radio':
+                $templateVars['divClass'] = 'form-check ';
+                $class = 'form-check-input';
+                break;
+            case 'select':
+                $class = 'form-select';
+                break;
+            case 'ckeditor':
+                $class = 'form-control wysiwyg editor';
+                break;
+        }
 
-        return parent::radio($fieldName, $options, $attributes->toArray());
+        $options = optionsParser($options);
+        $options->append('class', $class ?? 'form-control');
+
+        /**
+         * Help text (form text).
+         * These are ignored in inline forms.
+         * @see https://getbootstrap.com/docs/5.3/forms/form-control/#form-text
+         * @todo Form text should be explicitly associated with the form control it relates to using the aria-labelledby
+         *  (for mandatory information such as data format) or aria-describedby (for complementary information) attribute
+         */
+        if ($options->exists('help') && !$this->isInline()) {
+            $help = array_map(fn(string $help): string => $this->Html->div('form-text', trim($help)), (array)$options->consume('help'));
+            $templateVars['help'] = implode('', $help);
+        }
+
+        /**
+         * Input group (`append-text` and `prepend-text` options).
+         * It can also handle buttons.
+         * @see https://getbootstrap.com/docs/5.3/forms/input-group
+         */
+        if ($options->exists('append-text') || $options->exists('prepend-text')) {
+            foreach (['append', 'prepend'] as $name) {
+                $value = $options->consume($name . '-text');
+                //Buttons and submits are not wrapped in a `span` element
+                if ($value && !str_starts_with($value, '<button') && !str_starts_with($value, '<div class="submit') &&
+                    !str_starts_with($value, '<div class="col-12 submit')) {
+                    $value = $this->Html->span($value, ['class' => 'input-group-text']);
+                }
+
+                $templateVars[$name] = $value;
+            }
+            $options->append('templates', ['formGroup' => '{{label}}<div class="input-group">{{prepend}}{{input}}{{append}}{{error}}</div>']);
+        }
+
+        if (!empty($templateVars)) {
+            $options->append('templateVars', $templateVars);
+        }
+
+        return parent::control($fieldName, $options->toArray());
     }
 
     /**
-     * Returns a formatted SELECT element.
+     * Returns an HTML form element.
      *
-     * See the parent method for all available options and attributes.
+     * ### Options:
+     *
+     *  - `validation`, if `false` it disables field validation
+     * @param mixed $context The context for which the form is being defined. Can be a ContextInterface instance, ORM
+     *  entity, ORM resultset, or an array of meta data. You can use `null` to make a context-less form
+     * @param array<string, mixed> $options An array of html attributes and options
+     * @return string A formatted opening FORM tag
+     * @see \Cake\View\Helper\FormHelper::create() for all available options
+     */
+    public function create($context = null, array $options = []): string
+    {
+        if (isset($options['validation'])) {
+            $this->validation = $options['validation'];
+            unset($options['validation']);
+        }
+        if (!$this->validation) {
+            $this->_config['errorClass'] = '';
+        }
+
+        return parent::create($context, $options);
+    }
+
+    /**
+     * Returns an inline HTML form element
+     * @param mixed $context The context for which the form is being defined. Can be a ContextInterface instance, ORM
+     *  entity, ORM resultset, or an array of meta data. You can use `null` to make a context-less form
+     * @param array<string, mixed> $options An array of html attributes and options
+     * @return string A formatted opening FORM tag
+     * @see \MeTools\View\Helper\FormHelper::create()
+     * @see \Cake\View\Helper\FormHelper::create()  for all available options
+     */
+    public function createInline($context = null, array $options = []): string
+    {
+        $this->isInline = true;
+
+        $options = optionsParser($options);
+        $options->append('class', 'row row-cols-lg-auto g-1 align-items-center');
+        $options->append('templates', [
+            //Container element used by control()
+            'inputContainer' => '<div class="col-12 {{divClass}}{{type}}{{required}}">{{content}}{{help}}</div>',
+            //Container element used by control() when a field has an error
+            'inputContainerError' => '<div class="col-12 {{divClass}}{{type}}{{required}} error">{{content}}{{error}}{{help}}</div>',
+            //Container for submit buttons
+            'submitContainer' => '<div class="col-12 submit">{{content}}</div>',
+        ]);
+
+        return $this->create($context, $options->toArray());
+    }
+
+    /**
+     * Closes an HTML form, cleans up values set by FormHelper::create(), and writes hidden input fields where appropriate
+     * @param array<string, mixed> $secureAttributes Secure attributes which will be passed as HTML attributes into the
+     *  hidden input elements generated for the Security Component
+     * @return string A closing FORM tag
+     */
+    public function end(array $secureAttributes = []): string
+    {
+        $this->_config['errorClass'] = $this->_defaultConfig['errorClass'];
+        $this->isInline = false;
+        $this->validation = true;
+
+        return parent::end($secureAttributes);
+    }
+
+    /**
+     * Create a `<button>` tag with a surrounding `<form>` that submits via POST as default
+     * @param string $title The button's caption. Not automatically HTML encoded
+     * @param array|string $url URL as string or array
+     * @param array<string, mixed> $options Array of options and HTML attributes
+     * @return string A HTML button tag
+     * @link https://book.cakephp.org/4/en/views/helpers/form.html#creating-standalone-buttons-and-post-links
+     * @see \Cake\View\Helper\FormHelper::postButton() for all available options
+     */
+    public function postButton(string $title, $url, array $options = []): string
+    {
+        return parent::postButton($title, $url, ['type' => 'submit'] + $options);
+    }
+
+    /**
+     * Returns a formatted SELECT element
      * @param string $fieldName Name attribute of the SELECT
      * @param iterable $options Array of the OPTION elements (as 'value'=>'Text' pairs) to be used in the SELECT element
-     * @param array<string, mixed> $attributes The HTML attributes of the select element.
+     * @param array<string, mixed> $attributes The HTML attributes of the select element
      * @return string Formatted SELECT element
+     * @link https://book.cakephp.org/4/en/views/helpers/form.html#creating-select-pickers
+     * @see \Cake\View\Helper\FormHelper::select() for all available options
      */
     public function select(string $fieldName, iterable $options = [], array $attributes = []): string
     {
         $attributes = optionsParser($attributes);
-        if (!$attributes->exists('default') && !$attributes->exists('value')) {
-            $attributes->addDefault('empty', true);
+
+        /**
+         * The `empty` attribute is added only if:
+         *  - the `empty` and `default` attributes are empty;
+         *  - it is not a multiple checkbox.
+         * @todo what about `value` option?
+         */
+        if (!$attributes->get('empty') && !$attributes->get('default') && $attributes->get('multiple') !== 'checkbox') {
+            //If the field is marked as `required`, an `empty` text will be added
+            if ($this->_getContext()->isRequired($fieldName) || $attributes->get('required')) {
+                $empty = '-- ' . __d('me-tools', 'select a value') . ' --';
+            }
+            $attributes->add('empty', $empty ?? true);
         }
-        $attributes->append('class', 'form-select');
 
         return parent::select($fieldName, $options, $attributes->toArray());
     }
 
     /**
-     * Creates a submit button element. This method will generate `<input />` elements that can be used to submit, and
-     *  reset forms by using $options. Image submits can be created by supplying an image path for $caption.
-     *
-     * See the parent method for all available options.
+     * Creates a submit button element
      * @param string|null $caption The label appearing on the button OR if string contains :// or the extension .jpg,
      *  .jpe, .jpeg, .gif, .png use an image if the extension exists, AND the first character is /, image is relative to
      *  webroot, OR if the first character is not /, image is relative to webroot/img
-     * @param array<string, mixed> $options Array of options
-     * @return string An HTML submit button
+     * @param array<string, mixed> $options Array of option
+     * @return string A HTML submit button
+     * @link https://book.cakephp.org/4/en/views/helpers/form.html#creating-buttons-and-submit-elements
+     * @see \Cake\View\Helper\FormHelper::submit() for all available options
      */
     public function submit(?string $caption = null, array $options = []): string
     {
-        $options = optionsParser($options, ['escape' => false, 'type' => 'submit']);
-
-        $options->addButtonClasses($options->contains('type', 'submit') ? 'success' : 'primary');
-        [$text, $options] = $this->Icon->addIconToText($caption, $options);
-        $options->append('templateVars', ['text' => $text ?? __d('cake', 'Submit')]);
+        $options = optionsParser($options)->addButtonClasses('btn-primary');
 
         return parent::submit($caption, $options->toArray());
     }
