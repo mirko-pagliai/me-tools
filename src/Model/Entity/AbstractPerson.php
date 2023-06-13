@@ -43,6 +43,12 @@ abstract class AbstractPerson extends Entity
      */
     protected $_virtual;
 
+    /**
+     * Initializes the internal properties of this entity out of the keys in an array
+     * @param array<string, mixed> $properties hash of properties to set in this entity
+     * @param array<string, mixed> $options list of options to use when creating this entity
+     * @see \Cake\ORM\Entity::__construct() for all options
+     */
     public function __construct(array $properties = [], array $options = [])
     {
         parent::__construct($properties, $options);

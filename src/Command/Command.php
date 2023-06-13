@@ -18,7 +18,6 @@ namespace MeTools\Command;
 use Cake\Command\Command as CakeCommand;
 use Cake\Console\ConsoleIo;
 use Exception;
-use Symfony\Component\Filesystem\Exception\IOException;
 use Tools\Exceptionist;
 use Tools\Filesystem;
 

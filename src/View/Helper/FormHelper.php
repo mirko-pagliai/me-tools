@@ -302,7 +302,7 @@ class FormHelper extends BaseFormHelper
                 'checkboxContainerError' => '<div class="col-12"><div class="form-check{{required}} error">{{content}}{{error}}</div></div>',
                 'inputContainer' => '<div class="col-12 {{type}}{{required}}">{{content}}</div>',
                 'inputContainerError' => '<div class="col-12 {{type}}{{required}} error">{{content}{{error}}</div>',
-                'submitContainer' => '<div class="col-12 submit">{{content}}</div>'
+                'submitContainer' => '<div class="col-12 submit">{{content}}</div>',
             ]);
 
         return parent::create($context, $options->toArray());

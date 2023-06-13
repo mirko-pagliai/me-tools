@@ -50,7 +50,7 @@ class FormHelperTest extends HelperTestCase
      */
     public function testCheckbox(): void
     {
-        $expected ='<input type="hidden" name="my-checkbox" value="0"/>' .
+        $expected = '<input type="hidden" name="my-checkbox" value="0"/>' .
             '<input type="checkbox" name="my-checkbox" value="1" class="form-check-input">';
         $result = $this->Helper->checkbox('my-checkbox');
         $this->assertSame($expected, $result);
@@ -108,7 +108,7 @@ class FormHelperTest extends HelperTestCase
         $Helper->createInline();
         $expectedStart = '<div class="col-12">' .
             '<div class="form-check required error">' .
-            '<input type="hidden" name="my-checkbox" value="0"/>'.
+            '<input type="hidden" name="my-checkbox" value="0"/>' .
             '<input type="checkbox" name="my-checkbox" value="1"';
         $expectedEnd = 'class="form-check-input is-invalid" id="my-checkbox" required="required"><label class="form-check-label" for="my-checkbox">My Checkbox</label>My error</div></div>';
         $result = $Helper->control('my-checkbox', ['type' => 'checkbox', 'required' => true]);
