@@ -1,21 +1,35 @@
 # 2.x branch
 ## 2.25 branch
-### 2.25.1
-* `FormHelper`: the default templates have been rearranged; the `setTemplates()` and `resetTemplates()` methods are no
-  longer used, because they then made it impossible to set templates at runtime, the `templates` option is used instead; 
-  the `button()` method no longer automatically adds the `success` class to submit buttons; the `label()` method no
-  longer automatically adds the `fw-bolder` class;
-* the checkbox template has been improved and made compatible with Bootstrap 
+### 2.25.0
+#### Specific changes to `FormHelper`
+`FormHelper` has been rewritten from scratch.
+Generally the use of templates has been improved and simplified and the `setTemplates()` and `resetTemplates()` methods,
+    which prevented template changes at runtime, are no longer used.
+All the code has been optimized overall and has been concentrated in fewer methods (especially `_getLabel()` and
+    `control()`), avoiding affecting methods involving single inputs without container).
+
+* the `button()` method no longer automatically adds the `success` class to submit buttons; the `label()` method no 
+  longer automatically adds the `fw-bolder` class (`bold` can be set via css);
+* the checkboxes template has been improved and made fully compatible with Bootstrap;
+* icon generation (for buttons, labels) has been simplified and improved (the `{{icon}}` template variable is used);
+* the `ckeditor()` method now returns only the input element and no longer the form control element complete with label
+  and wrapper div. To do this, you should use the `control()` method with the `type` option as `ckeditor`;
+* fixed the class for selects inputs and a small bug for the `empty` option when set automatically;
+* for validated forms, the `is-invalid` class is now managed via the `$_defaultConfig` property (`errorClass` key) and
+  no longer by methods. But now nothing happens for fields that are correct (the `is-valid` class is no longer used).
+  For the same reason, the `$isPost` property no longer exists;
+* fixed a little bug for `_inputType()` method in self-determining whether a text input is a password input;
+* `div` wrappers no longer have the `input` class (useless now).
+* 
+#### Other changes
 * added the `AbstractPerson` entity class;
 * added basic `AppController` and `View` classes.
-
-### 2.25.0
 * the `components/jquery` package was marked as a conflicting dependency and can no longer be installed;
 * the `FixComposerJsonCommand` no longer serves any purpose and has therefore been removed;
-* the `CreatePluginsLinksCommand`  was deprecated and has now been removed;
-* `createDir()`, `createFile()`, `createLink()` and `folderChmod()` methods provided by the `Command` class was 
+* the `CreatePluginsLinksCommand` was deprecated and has now been removed;
+* `createDir()`, `createFile()`, `createLink()` and `folderChmod()` methods provided by the `Command` class was  
   deprecated and has now been removed;
-* `assertSqlEndsWith()`, `assertSqlEndsNotWith()`, `deleteLog()` and `getLogFullPath()` methods provided by the
+* `assertSqlEndsWith()`, `assertSqlEndsNotWith()`, `deleteLog()` and `getLogFullPath()` methods provided by the  
   `TestCase` class was deprecated and has now been removed.
 
 ## 2.24 branch
@@ -25,9 +39,9 @@
 * added `VENDOR` and `WWW_VENDOR` constants;
 * `CreatePluginsLinksCommand` is now deprecated and will be removed in a later release. Use instead `PluginAssetsSymlinkCommand`;
 * improved `TestCase::assertLogContains()` method;
-* `Command::createDir()`, `Command::createFile()`, `Command::createLink()`, `Command::folderChmod()`, `TestCase::deleteLog()`
+* `Command::createDir()`, `Command::createFile()`, `Command::createLink()`, `Command::folderChmod()`, `TestCase::deleteLog()`  
   and `TestCase::getLogFullPath()` methods are now deprecated and will be removed in a later release;
-* `assertSqlEndsWith()` and `assertSqlEndsNotWith()` methods provided by the `TestCase` class are now deprecated and
+* `assertSqlEndsWith()` and `assertSqlEndsNotWith()` methods provided by the `TestCase` class are now deprecated and  
   will be removed in a later release. Use instead `assertStringEndsWith()` and `assertStringEndsNotWith()`;
 * `LibraryHelper::analytics()` method was deprecated and has now been removed;
 * the `HiddenWidget` is useless and has now been removed;
@@ -35,7 +49,7 @@
 * updated for php-tools 1.7.4.
 
 ### 2.24.0
-* uses `Configure::readFromPlugins()` with `WritableDirs` and `VendorLinks` keys instead of the old `WRITABLE_DIRS` and
+* uses `Configure::readFromPlugins()` with `WritableDirs` and `VendorLinks` keys instead of the old `WRITABLE_DIRS` and  
   `VENDOR_LINKS` keys.
 
 ## 2.23 branch
@@ -52,16 +66,16 @@
 
 ### 2.23.0
 * the `TestCase` class provides `$alias` and `$originClassName` properties through the `__get()` magic method;
-* `ConsoleIntegrationTestTrait`, `ComponentTestCase` and `HelperTestCase` provide `$Command`, `$Component` and `$Helper` 
+* `ConsoleIntegrationTestTrait`, `ComponentTestCase` and `HelperTestCase` provide `$Command`, `$Component` and `$Helper`  
   properties through the `__get()` magic method, and no longer through the `setUp()` method;
-* `RunAllCommand::$questions` requires a boolean for the `default` value (and no longer `Y` or `N` strings), while the
+* `RunAllCommand::$questions` requires a boolean for the `default` value (and no longer `Y` or `N` strings), while the  
   `command` value requires an instantiated command (and no longer a class-string). This simplifies coding and testing;
 * `Command` class has been moved from `MeTools\Console` to `MeTools\Command`;
 * `MockTrait::getOriginClassNameOrFail()` become `getOriginClassName()`, replacing the latter;
 * `MockTrait::getAlias()` now only takes instances of `TestCase` as argument;
 * added `CommandTestCase` to test commands. It provides `$Command` property through the `__get()` magic method;
 * `TestCase` no longer always uses the `ReflectionTrait`;
-* `getMockForComponent()` and `getMockForController()` methods provided by `MockTrait` and `assertExitWithError()` and
+* `getMockForComponent()` and `getMockForController()` methods provided by `MockTrait` and `assertExitWithError()` and  
   `assertExitWithSuccess()` methods provided by `ConsoleIntegrationTestTrait` had been deprecated and have been removed;
 * `ConsoleIntegrationTestTrait` (and its `assertOutputNotEmpty()` method) no longer exists.
 
@@ -76,7 +90,7 @@
 * fixed the class of submit buttons in inline forms.
 
 ### 2.22.2
-* `assertExitWithError()` and `assertExitWithSuccess()` methods provided by `ConsoleIntegrationTestTrait` are now
+* `assertExitWithError()` and `assertExitWithSuccess()` methods provided by `ConsoleIntegrationTestTrait` are now  
   deprecated. Use instead `assertExitError()` and `assertExitSuccess()`;
 * `MockTrait::getMockForComponent()` is deprecated. Use instead `createPartialMock()`;
 * `MockTrait::getMockForController()` is deprecated. Create instead a new instance of `Controller`;
@@ -90,10 +104,10 @@
 * fixed code for `FormHelper::createInline()` method.
 
 ### 2.22.0
-* `BootstrapDropdownHelper`, `BootstrapFormHelper` and `BootstraptHtmlHelper` become the new `DropdownHelper`,
+* `BootstrapDropdownHelper`, `BootstrapFormHelper` and `BootstraptHtmlHelper` become the new `DropdownHelper`,  
   `FormHelper` and `HtmlHelper`. The old helpers had been deprecated and completely replaced by the new ones;
 * fixed `OptionsParser::tooltip()` for the new bootstrap;
-* `datepicker()`, `datetimepicker()` and `timepicker()` methods provided by `LibraryHelper` were deprecated and have
+* `datepicker()`, `datetimepicker()` and `timepicker()` methods provided by `LibraryHelper` were deprecated and have  
   now been removed.
 
 ## 2.21 branch
@@ -103,22 +117,22 @@
 
 ### 2.21.5
 * added `iframe()` and `youtube()` methods to the `BootstrapHtmlHelper`;
-* the `HtmlHelper` is now totally deprecated, use `BootstrapHtmlHelper` instead. In a later version, the latter
+* the `HtmlHelper` is now totally deprecated, use `BootstrapHtmlHelper` instead. In a later version, the latter  
   will take the place of the former, assuming its name;
-* the `DropdownHelper` is now totally deprecated, use `BootstrapDropdownHelper` instead. In a later version, the latter
+* the `DropdownHelper` is now totally deprecated, use `BootstrapDropdownHelper` instead. In a later version, the latter  
   will take the place of the former, assuming its name;
-* the `FormHelper` is now totally deprecated, use `BootstrapFormHelper` instead. In a later version, the latter will
+* the `FormHelper` is now totally deprecated, use `BootstrapFormHelper` instead. In a later version, the latter will  
   take the place of the former, assuming its name;
 * improved \MeTools\Core\Plugin::path()` method;
 * updated for php-tools 1.6.5 and 1.7.0.
 
 ### 2.21.4
-* `append-text` and `prepend-text` options for `BootstrapFormHelper::control()`
-    method can handle buttons;
+* `append-text` and `prepend-text` options for `BootstrapFormHelper::control()`  
+  method can handle buttons;
 * added `li()` and `meta()` methods for `BootstrapHtmlHelper`;
 * improved `Command::createDir()` method and message in case of `mkdir` error;
-* small and numerous improvements of descriptions, tags and code suggested by
-    PhpStorm.
+* small and numerous improvements of descriptions, tags and code suggested by  
+  PhpStorm.
 
 ### 2.21.3
 * added `checkbox()`, `radio()` and `select()` methods for `BootstrapFormHelper`;
@@ -126,47 +140,47 @@
 * fixed little bug for `BootstrapFormHelper::submit()` method.
 
 ### 2.21.2
-* added `BootstrapHtmlHelper`. For now this class is temporary, but in the future
-    it will replace `HtmlHelper`, assuming the same name. Some methods of the
-    `HtmlHelperTest` test class have been marked as deprecated, to indicate that
-    code is already covered by the new code;
-* added `BootstrapDropdownHelper`. For now this class is temporary, but in the future
-    it will replace `DropdownHelper`, assuming the same name;
-* `cssBlock()`, `cssStart()`, `cssEnd()`, `heading()` and `hr()` methods provided
-    by the `HtmlHelper` are now deprecated and will be removed in a later
-    version. No replacement will be provided;
-* `scriptBlock()` and `scriptStart()` provided by the `HtmlHelper` are now deprecated
-    and will be removed in a later version. Use instead the parent method, with
-    the `block` option. These methods do not generate a deprecation message for now;
+* added `BootstrapHtmlHelper`. For now this class is temporary, but in the future  
+  it will replace `HtmlHelper`, assuming the same name. Some methods of the  
+  `HtmlHelperTest` test class have been marked as deprecated, to indicate that  
+  code is already covered by the new code;
+* added `BootstrapDropdownHelper`. For now this class is temporary, but in the future  
+  it will replace `DropdownHelper`, assuming the same name;
+* `cssBlock()`, `cssStart()`, `cssEnd()`, `heading()` and `hr()` methods provided  
+  by the `HtmlHelper` are now deprecated and will be removed in a later  
+  version. No replacement will be provided;
+* `scriptBlock()` and `scriptStart()` provided by the `HtmlHelper` are now deprecated  
+  and will be removed in a later version. Use instead the parent method, with  
+  the `block` option. These methods do not generate a deprecation message for now;
 * small improvements for some `MockTrait` methods.
 
 ### 2.21.1
 * added a theme for Bake. See the `README` file;
 * added `IntegrationTestTrait::getStatusCode()` method;
 * fixed a little bug for `HtmlHelper::link()`;
-* added `BootstrapFormHelper`. For now this class is temporary, but in the future
-    it will replace `FormHelper`, assuming the same name. Some methods of the
-    `FormHelperTest` test class have been marked as deprecated, to indicate that
-    code is already covered by the new code;
-* `datepicker()`, `datetimepicker()` and `timepicker()` methods provided by
-    `FormHelper` are now deprecated and will be removed in a later version.
-    Use instead the normal `control()` method, which will generate
-    `date`/`datetime-local`/`time` inputs, recognized by the browser;
-* `datepicker()`, `datetimepicker()` and `timepicker()` methods provided by
-    LibraryHelper` are now deprecated and will be removed in a later version;
-* little fixes for `FormHelper`, to make the output more consistent with what
-    Bootstrap requires;
+* added `BootstrapFormHelper`. For now this class is temporary, but in the future  
+  it will replace `FormHelper`, assuming the same name. Some methods of the  
+  `FormHelperTest` test class have been marked as deprecated, to indicate that  
+  code is already covered by the new code;
+* `datepicker()`, `datetimepicker()` and `timepicker()` methods provided by  
+  `FormHelper` are now deprecated and will be removed in a later version.  
+  Use instead the normal `control()` method, which will generate  
+  `date`/`datetime-local`/`time` inputs, recognized by the browser;
+* `datepicker()`, `datetimepicker()` and `timepicker()` methods provided by  
+  LibraryHelper` are now deprecated and will be removed in a later version;
+* little fixes for `FormHelper`, to make the output more consistent with what  
+  Bootstrap requires;
 * `MockTrait::getMockForHelper()` method has `$view` argument;
-* updated some css file, to make the output more consistent with what Bootstrap
-    requires;
+* updated some css file, to make the output more consistent with what Bootstrap  
+  requires;
 * added some i18n constants (`config/i18n_constants.php`), in order to be used universally;
 * fixed the `flash` template element;
 * requires at least CakePHP 4.2.
 
 ### 2.21.0
 * numerous code adjustments for improvement and adaptation to PHP 7.4 new features;
-* `OptionsParser` now uses the `$defaults` array property to store default values.
-    Added `addDefault()` method;
+* `OptionsParser` now uses the `$defaults` array property to store default values.  
+  Added `addDefault()` method;
 * fixed a wrong reference to the `ReflectionTrait`;
 * `UploaderComponent::set()` method was deprecated and has now been removed;
 * requires at least PHP 7.4 and CakePHP 4.1.
@@ -186,31 +200,31 @@
 * ready for `cakephp` 4.3.
 
 ### 2.20.5
-* `CreateDirectoriesCommand`, `CreateVendorsLinksCommand` and `SetPermissionsCommand`
-    now ignore duplicate values.
+* `CreateDirectoriesCommand`, `CreateVendorsLinksCommand` and `SetPermissionsCommand`  
+  now ignore duplicate values.
 
 ### 2.20.4
 * fixed for `phpunit` 9.5.10;
 * migration to github actions.
 
 ### 2.20.3
-* fixed a serious bug in URL generation for `HtmlHelper::iframe()`,
-    `HtmlHelper::image()` and `HtmlHelper::link()` methods, introduced since
-    2.19.11 version.
+* fixed a serious bug in URL generation for `HtmlHelper::iframe()`,  
+  `HtmlHelper::image()` and `HtmlHelper::link()` methods, introduced since  
+  2.19.11 version.
 
 ### 2.20.2
-* `ComponentTestCase`, `ConsoleIntegrationTestTrait` and `HelperTestCase` create
-    real instances of the objects to be tested, and no more mock objects;
+* `ComponentTestCase`, `ConsoleIntegrationTestTrait` and `HelperTestCase` create  
+  real instances of the objects to be tested, and no more mock objects;
 * `CreatePluginsLinksCommand` has been simplified;
 * updated for php-tools 1.5.2;
 * further improvement of function descriptions and tags.
 
 ### 2.20.1
-* added `UploaderComponent::getFile()` and `UploaderComponent::setFile()` methods.
-    `UploaderComponent::set()` method is deprecated, use instead `setFile()`;
+* added `UploaderComponent::getFile()` and `UploaderComponent::setFile()` methods.  
+  `UploaderComponent::set()` method is deprecated, use instead `setFile()`;
 * fixed little bug for the `ConsoleIntegrationTestTrait`;
-* extensive improvement of function descriptions and tags. The level of `phpstan`
-    has been raised.
+* extensive improvement of function descriptions and tags. The level of `phpstan`  
+  has been raised.
 
 ### 2.20.0
 * `MockTrait::getControllerAlias()` was deprecated and has been removed;
@@ -223,24 +237,24 @@
 * fixed little bug for `HtmlHelper::image()` method with `$path` as array;
 * fixed little bug for `HtmlHelper::link()` method with `$title` as array;
 * updated for `php-tools` 1.4.7;
-* extensive improvement of function descriptions and tags. The level of `phpstan`
-    has been raised.
+* extensive improvement of function descriptions and tags. The level of `phpstan`  
+  has been raised.
 
 ### 2.19.10
-* `UploaderComponent::save()` method no longer throws an exception if the
-    destination directory is not writable, but sets an error;
-* fixed bug for `WRITABLE_DIRS` and `VENDOR_LINKS` configuration values. They no
-    longer override the values set by other plugins.
+* `UploaderComponent::save()` method no longer throws an exception if the  
+  destination directory is not writable, but sets an error;
+* fixed bug for `WRITABLE_DIRS` and `VENDOR_LINKS` configuration values. They no  
+  longer override the values set by other plugins.
 
 ### 2.19.9
-* added `getAlias()`, `getPluginName()` and `getTableClassNameFromAlias()`
-    methods for the `MockTrait`. Fixed `getOriginClassName()` and
-    `getOriginClassNameOrFail()` methods;
+* added `getAlias()`, `getPluginName()` and `getTableClassNameFromAlias()`  
+  methods for the `MockTrait`. Fixed `getOriginClassName()` and  
+  `getOriginClassNameOrFail()` methods;
 * `MockTrait::getControllerAlias()` method is now deprecated. Use instead `getAlias()`.
 
 ### 2.19.8
-* `addButtonClasses()` and `delete()` methods provided by `OptionsParser` take
-    now a variable-length argument lists;
+* `addButtonClasses()` and `delete()` methods provided by `OptionsParser` take  
+  now a variable-length argument lists;
 * updated for `php-tools` 1.4.6;
 * ready for `phpunit` 10;
 * added `phpstan`, so fixed some code.
@@ -256,22 +270,22 @@
 * fixed little bug for `TestCase` class.
 
 ### 2.19.4
-* uses and suggests `npm-asset/fancyapps-fancybox` [GitHub](https://github.com/fancyapps/fancybox)
-    instead of `newerton/fancy-box`.
+* uses and suggests `npm-asset/fancyapps-fancybox` [GitHub](https://github.com/fancyapps/fancybox)  
+  instead of `newerton/fancy-box`.
 
 ### 2.19.3
-* the `UploaderComponent` can now handle files as `Laminas\Diactoros\UploadedFile`
-    instance. This allowed to simplify the component;
+* the `UploaderComponent` can now handle files as `Laminas\Diactoros\UploadedFile`  
+  instance. This allowed to simplify the component;
 * prevents the plugins bootstrap from loading multiple times;
-* the `ckeditor` init file automatically integrates `elfinder` as long as
-    [the `elfinder-cke.html` file exists](httè://github.com/Studio-42/elFinder/wiki/Integration-with-CKEditor-4);
+* the `ckeditor` init file automatically integrates `elfinder` as long as  
+  [the `elfinder-cke.html` file exists](httè://github.com/Studio-42/elFinder/wiki/Integration-with-CKEditor-4);
 * updated `Command` tests for `cakephp` 4.0.5.
 
 ### 2.19.2
 * added `MockTrait::getOriginClassNameOrFail()` method;
 * fixed little bug for `MockTrait::getOriginClassName()` method;
-* changed `npm-asset/fortawesome--fontawesome-free` package with
-    `fortawesome/font-awesome`.
+* changed `npm-asset/fortawesome--fontawesome-free` package with  
+  `fortawesome/font-awesome`.
 
 ### 2.19.1
 * fixed I18n translations.
@@ -290,17 +304,17 @@
 * fixed little bug for `MockTrait::getOriginClassName()` method.
 
 ### 2.18.14
-* added `\MeTools\Utility\BBCode` utility. This utility allows you to parse
-    BBCode also outside the view. The `BBCodeHelper` is now deprecated and will
-    be removed in a future release.
+* added `\MeTools\Utility\BBCode` utility. This utility allows you to parse  
+  BBCode also outside the view. The `BBCodeHelper` is now deprecated and will  
+  be removed in a future release.
 
 ### 2.18.13
-* for classes automatically created during tests, the `initialize()` method for
-    components, consoles and helpers is automatically called.
+* for classes automatically created during tests, the `initialize()` method for  
+  components, consoles and helpers is automatically called.
 
 ### 2.18.12
-* added the `IconHelper`. `addIconToText()` and `icon()` methods have been moved
-    from the `HtmlHelper`;
+* added the `IconHelper`. `addIconToText()` and `icon()` methods have been moved  
+  from the `HtmlHelper`;
 * `HtmlHelper::js()` alias method has been removed;
 * javascript `send_form()` function becomes `sendForm()`.
 
@@ -318,21 +332,21 @@
 * updated for `php-tools` 1.2.8.
 
 ### 2.18.8
-* `button()`, `postButton()` and `postLink()` methods provided by `FormHelper`
-    can be called with the first argument as `null`;
-* `button()` and `link()` methods provided by `HtmlHelper` can be called with
-    the first argument as `null`;
+* `button()`, `postButton()` and `postLink()` methods provided by `FormHelper`  
+  can be called with the first argument as `null`;
+* `button()` and `link()` methods provided by `HtmlHelper` can be called with  
+  the first argument as `null`;
 * fixed `CreatePluginsLinksCommand`, now it works without the `AssetsTask`;
 * updated for `php-tools` `1.2.6`.
 
 ### 2.18.7
-* `TestCase::tearDown()` method no longer empties temporary files. This should
-    be done as appropriate;
+* `TestCase::tearDown()` method no longer empties temporary files. This should  
+  be done as appropriate;
 * `UploaderComponent::getError()` method returns `null` with no errors;
 * `Youtube::getId()` method returns `null` on failure;
-* `Plugin::path()` takes only a string or `null` as first argument, and no more
-    arrays. It always returns a string and if you ask for the path of a file
-    that does not exist, it throws an exception;
+* `Plugin::path()` takes only a string or `null` as first argument, and no more  
+  arrays. It always returns a string and if you ask for the path of a file  
+  that does not exist, it throws an exception;
 * removed useless `HtmlHelper::div()` method.
 
 ### 2.18.6
@@ -361,22 +375,22 @@
 * updated for `php-tools` 1.1.9.
 
 ### 2.18.0
-* `InstallShell` has been replaced with console commands. Every method of the
-    previous class is now a `MeTools\Command\Install` class;
+* `InstallShell` has been replaced with console commands. Every method of the  
+  previous class is now a `MeTools\Command\Install` class;
 * `Shell` class has been removed, use instead the `Command` class;
-* `MockTrait` moved from `MeTools\TestSuite\Traits` to `MeTools\TestSuite`.
-    `assertIsMock()` and `getMockForShell()` methods no longer exist; added
-    `getOriginClassName()`. `getMockForTable()` has been removed, use instead
-    `getMockForModel()` provided by CakePHP;
-* `ConsoleIntegrationTestCase` and `IntegrationTestCase` classes have been
-    replaced with `ConsoleIntegrationTestTrait` and `IntegrationTestTrait, as
-    for CakePHP 3.7;
+* `MockTrait` moved from `MeTools\TestSuite\Traits` to `MeTools\TestSuite`.  
+  `assertIsMock()` and `getMockForShell()` methods no longer exist; added  
+  `getOriginClassName()`. `getMockForTable()` has been removed, use instead  
+  `getMockForModel()` provided by CakePHP;
+* `ConsoleIntegrationTestCase` and `IntegrationTestCase` classes have been  
+  replaced with `ConsoleIntegrationTestTrait` and `IntegrationTestTrait, as  
+  for CakePHP 3.7;
 * removed `TestCaseTrait`, methods have been moved to the `TestCase` class;
-* `cakephp-assets`, `jquery`, `bootstrap`, `bootstrap-datetimepicker`, `fancy-box`
-    and `fortawesome--fontawesome-free` are no longer required packages
-    (`cakephp-assets` is required for developing), but only suggested packages;
-* removed `clearDir()` global function. Use instead `safe_unlink_recursive()`
-    provided by `php-tools`;
+* `cakephp-assets`, `jquery`, `bootstrap`, `bootstrap-datetimepicker`, `fancy-box`  
+  and `fortawesome--fontawesome-free` are no longer required packages  
+  (`cakephp-assets` is required for developing), but only suggested packages;
+* removed `clearDir()` global function. Use instead `safe_unlink_recursive()`  
+  provided by `php-tools`;
 * removed `ME_TOOLS` constants. It no longer uses also the `ASSETS` constant;
 * updated for CakePHP 3.7.
 
@@ -386,15 +400,15 @@
 * added `ConsoleIntegrationTestCase::assertOutputNotEmpty()` method.
 
 ### 2.17.5
-* added `MockTrait`, `ComponentTestCase` and `HelperTestCase` classes for test
-    suite;
-* the `ConsoleIntegrationTestCase` class automatically creates an instance of
-    the shell class. Added `getShellMethods()` method;
+* added `MockTrait`, `ComponentTestCase` and `HelperTestCase` classes for test  
+  suite;
+* the `ConsoleIntegrationTestCase` class automatically creates an instance of  
+  the shell class. Added `getShellMethods()` method;
 * added `TestCaseTrait::assertIsMock()` assert method.
 
 ### 2.17.4
-* fixed bug in the integration with CKEditor when uploading images (see
-    [this issue](https://github.com/sunhater/kcfinder/issues/171)).
+* fixed bug in the integration with CKEditor when uploading images (see  
+  [this issue](https://github.com/sunhater/kcfinder/issues/171)).
 
 ### 2.17.3
 * updated for CakePHP 3.6.
@@ -407,8 +421,8 @@
 * some fixes for Font Awesome icons.
 
 ### 2.17.0
-* updated Font Awesome to 5.1. So the `InstallShell::copyFonts()` method has
-    been removed and the `webroot/fonts` directory no longer exists;
+* updated Font Awesome to 5.1. So the `InstallShell::copyFonts()` method has  
+  been removed and the `webroot/fonts` directory no longer exists;
 * by default, buttons generated by helpers will have the `btn-light` class.
 
 ## 2.16 branch
@@ -416,31 +430,31 @@
 * `UploaderComponent::error()` renamed as `getError()`;
 * `Shell::folderChmod()` has a default value for the `$chmod` argument;
 * added `OptionsParser::consume()` method;
-* added `TestCaseTrait::getLogFullPath()` method. So now `assertLogContains()`
-    and `deleteLog()` methods can take absolute paths and filenames with or
-    without extension;
+* added `TestCaseTrait::getLogFullPath()` method. So now `assertLogContains()`  
+  and `deleteLog()` methods can take absolute paths and filenames with or  
+  without extension;
 * fixed code and output for the `Shell` class;
 * removed `TestCaseTrait::deleteAllLogs()` method;
-* removed `folderIsWriteable()` global function. Use instead
-    `is_writable_resursive()` provided by `php-tools`.
+* removed `folderIsWriteable()` global function. Use instead  
+  `is_writable_resursive()` provided by `php-tools`.
 
 ### 2.16.9
 * updated for CakePHP 3.6 and cakephp-assets 1.2.
 
 ### 2.16.8
-* removed `assertArrayKeysEqual()`, `assertFileExists()`, `assertFileNotExists()`,
-    `assertInstanceOf()`, `assertIsArray()`, `assertIsObject()`,
-    `assertIsString()`, `assertObjectPropertiesEqual()` methods from
-    `\MeTools\TestSuite\Traits\TestCaseTrait` and the `Apache` utility.
-    Now they are provided by the `mirko-pagliai/php-tools` package.
+* removed `assertArrayKeysEqual()`, `assertFileExists()`, `assertFileNotExists()`,  
+  `assertInstanceOf()`, `assertIsArray()`, `assertIsObject()`,  
+  `assertIsString()`, `assertObjectPropertiesEqual()` methods from  
+  `\MeTools\TestSuite\Traits\TestCaseTrait` and the `Apache` utility.  
+  Now they are provided by the `mirko-pagliai/php-tools` package.
 
 ### 2.16.7
 * full compatibility with Windows;
-* now the `UploaderComponent::save()` method takes the `$filename` parameter
-    instead of the `$basename` parameter;
+* now the `UploaderComponent::save()` method takes the `$filename` parameter  
+  instead of the `$basename` parameter;
 * updated for jQuery 3.3;
-* now it uses the `mirko-pagliai/php-tools` package. This also replaces
-    `mirko-pagliai/reflection`.
+* now it uses the `mirko-pagliai/php-tools` package. This also replaces  
+  `mirko-pagliai/reflection`.
 
 ### 2.16.6
 * updated for Bootstrap 4.0.0.
@@ -451,23 +465,23 @@
 
 ### 2.16.4-RC2
 * improved the `InstallShell` class;
-* `InstallShell::all()`, if called with the `force` parameter, executes only
-    the default methods;
-* Css files and KCFinder files to be loaded into the CKEditor editor are
-    automatically set;
+* `InstallShell::all()`, if called with the `force` parameter, executes only  
+  the default methods;
+* Css files and KCFinder files to be loaded into the CKEditor editor are  
+  automatically set;
 * added some plugins for CKEditor and set some default values for the tables and iframes.
 
 ### 2.16.3-RC1
-* added `optionsParser()` global function, that returns an instance of
-    `OptionsParser`;
+* added `optionsParser()` global function, that returns an instance of  
+  `OptionsParser`;
 * the CKEditor can now show a style similar to that of the article preview.
 
 ### 2.16.2-beta
-* `OptionsParserTrait` has been replaced with the `OptionsParser` class. The
-    `HtmlHelper` class now provides `buildIconClasses()` and `addIconToText()`
-    methods, while the `iconClass()` method has been deleted;
-* `toAttribute()` global function has been removed. Use instead
-    `OptionsParser::toString()` method;
+* `OptionsParserTrait` has been replaced with the `OptionsParser` class. The  
+  `HtmlHelper` class now provides `buildIconClasses()` and `addIconToText()`  
+  methods, while the `iconClass()` method has been deleted;
+* `toAttribute()` global function has been removed. Use instead  
+  `OptionsParser::toString()` method;
 * updated for Bootstrap 4 beta 2.
 
 ### 2.16.1-beta
@@ -478,28 +492,28 @@
 * added the `HiddenWidget`, to properly render a hidden field;
 * improved forms templates generated by the `FormHelper`;
 * added a custom `bootstrap-datetimepicker` js file for Bootstrap 4;
-* moved `MeTools\Utility\OptionsParserTrait` to namespace
-    `MeTools\View\OptionsParserTrait`;
+* moved `MeTools\Utility\OptionsParserTrait` to namespace  
+  `MeTools\View\OptionsParserTrait`;
 * the `METOOLS` constant has become `ME_TOOLS`.
 
 ## 2.15 branch
 ### 2.15.1
-* the fancybox no longer uses the "thumb" plugin to ensure greater compatibility
-    with jQuery 3.x;
+* the fancybox no longer uses the "thumb" plugin to ensure greater compatibility  
+  with jQuery 3.x;
 * added `toAttributes()` global function.
 
 ### 2.15.0
 * `InstallShell::fixComposerJson()` now has the `path` option;
 * added `ConsoleIntegrationTestCase` class. Console tests have been simplified;
 * updated for CakePHP 3.5;
-* removed `IntegrationTestCase::loadAllFixtures()` method. Use `loadFixtures()`
-    with no arguments;
+* removed `IntegrationTestCase::loadAllFixtures()` method. Use `loadFixtures()`  
+  with no arguments;
 * removed `am()` global function.
 
 ## 2.14 branch
 ### 2.14.0
-* added `IntegrationTestCase`, `TestCase` and `TestCaseTrait` classes. Removed
-    `LoadAllFixturesTrait` and `LogsMethodsTrait` classes;
+* added `IntegrationTestCase`, `TestCase` and `TestCaseTrait` classes. Removed  
+  `LoadAllFixturesTrait` and `LogsMethodsTrait` classes;
 * significantly improved all tests.
 
 ## 2.13 branch
@@ -510,9 +524,9 @@
 
 ### 2.13.0
 * fixed bug for `isUrl()` detector;
-* removed all reCAPTCHA classes and libraries. Use instead
-    `crabstudio/Recaptcha` and `mirko-pagliai/cakephp-recaptcha-mailhide`
-    plugins;
+* removed all reCAPTCHA classes and libraries. Use instead  
+  `crabstudio/Recaptcha` and `mirko-pagliai/cakephp-recaptcha-mailhide`  
+  plugins;
 * removed `af()` global function.
 
 ## 2.12 branch
@@ -523,19 +537,19 @@
 ### 2.12.4
 * fixed little bug on `UploaderComponent::set()` method;
 * fixed bug on `UploaderComponent::mimetype()` method. A wrong error was set;
-* removed `firstKey()` global function. Use instead
-    `\Cake\Collection\CollectionInterface::first()` with `array_keys()`.
+* removed `firstKey()` global function. Use instead  
+  `\Cake\Collection\CollectionInterface::first()` with `array_keys()`.
 
 ### 2.12.3
-* by default, the `is('url')` detector removes the query string from the current
-    url. You can pass `false` as second parameter to keep the query string.
+* by default, the `is('url')` detector removes the query string from the current  
+  url. You can pass `false` as second parameter to keep the query string.
 
 ### 2.12.2
 * added `HtmlHelper::iconClass()` method;
-* `Youtube::getId()` method takes short url with the duration (eg.
-    `http://youtu.be/bL_CJKq9rIw?t=5s`);
-* tests that require a network connection have been marked with the
-    `requireNetwork` group.
+* `Youtube::getId()` method takes short url with the duration (eg.  
+  `http://youtu.be/bL_CJKq9rIw?t=5s`);
+* tests that require a network connection have been marked with the  
+  `requireNetwork` group.
 
 ### 2.12.1
 * methods that have been deprecated with CakePHP 3.4 have been replaced.
@@ -559,23 +573,23 @@
 ### 2.11.1
 * `UploaderComponent` has been rewritten and improved;
 * fixed `composer.json` with suggested packages;
-* subcommand `installPackages` provided by `InstallShell` is no longer
-    available. Instead, use suggested packages by Composer;
+* subcommand `installPackages` provided by `InstallShell` is no longer  
+  available. Instead, use suggested packages by Composer;
 * some improvements for `Shell` and `InstallShell` classes;
 * fixed little bugs for `InstallShell`;
 * added tests for `UploaderComponent` and `RecaptchaComponent` classes.
 
 ### 2.11.0
-* removed the `BreadcrumbHelper`. Instead, use the `BreadcrumbsHelper` that
-    extends the new helper provided by CakePHP;
-* html global functions are now `OptionsParserTrait`. This class also provides
-    `addIconToText()` and `addTooltip()` methods;
+* removed the `BreadcrumbHelper`. Instead, use the `BreadcrumbsHelper` that  
+  extends the new helper provided by CakePHP;
+* html global functions are now `OptionsParserTrait`. This class also provides  
+  `addIconToText()` and `addTooltip()` methods;
 * removed tokens (component, entity and table). Instead, use `cakephp-tokens`.
 
 ## 2.10 branch
 ### 2.10.5
-* fixed bug for `FormHelper`. Templates are correctly reset when you call the
-    `input()` method;
+* fixed bug for `FormHelper`. Templates are correctly reset when you call the  
+  `input()` method;
 * updated configuration file for CKEditor 4.6.
 
 ### 2.10.4
@@ -599,18 +613,18 @@
 * added tests for `FlashComponent` class.
 
 ### 2.10.1
-* fixed serious bug for `BBCodeHelper::remove()` method: now it doesn't remove
-    all the HTML code, but only the BBCode code;
+* fixed serious bug for `BBCodeHelper::remove()` method: now it doesn't remove  
+  all the HTML code, but only the BBCode code;
 * added `getChildMethods()` global function;
 * added support for tooltips alignment;
 * fixed bug for tooltips with quotes or code;
 * removed "bold" style for shells.
 
 ### 2.10.0
-* `HtmlHelper` class has been improved. The `tip` option has been replaced
-    with `help`. Checkboxes are displayed according to the browser;
-* `DropdownHelper` class has been completely rewritten and now provides
-    `menu()`, `start()` and `end()` methods;
+* `HtmlHelper` class has been improved. The `tip` option has been replaced  
+  with `help`. Checkboxes are displayed according to the browser;
+* `DropdownHelper` class has been completely rewritten and now provides  
+  `menu()`, `start()` and `end()` methods;
 * added tests for `DropdownHelper` class;
 * added tests for `HtmlHelper` class.
 
@@ -621,13 +635,13 @@
 
 ### 2.9.0
 * added `HtmlHelper::cssBlock()` method;
-* `HtmlHelper::cssStart()` and `HtmlHelper::cssEnd()` methods have been
-    completely rewritten and they no longer need you add the `<style>` tag;
+* `HtmlHelper::cssStart()` and `HtmlHelper::cssEnd()` methods have been  
+  completely rewritten and they no longer need you add the `<style>` tag;
 * added `implodeRecursive()` global function;
-* `FlashComponent` renders all `alert()`, `error()`, `notice()` and `success()`
-    class using the `src/Template/Element/Flash/flash.ctp` template;
-* global functions have been divided into `config/functions/global.php` and
-    `config/functions/html.php`;
+* `FlashComponent` renders all `alert()`, `error()`, `notice()` and `success()`  
+  class using the `src/Template/Element/Flash/flash.ctp` template;
+* global functions have been divided into `config/functions/global.php` and  
+  `config/functions/html.php`;
 * added `HtmlHelper::addTooltip()` method;
 * added support for tooltips for some methods;
 * added `BreadcrumbHelper::reset()` method;
@@ -648,10 +662,10 @@
 
 ## 2.8 branch
 ### 2.8.0
-* `MeTools\Network\Request` has been removed. All old methods are now
-	request detectors (see `config/detectors.php`);
-* method `MeTools\View\Helper::_addButtonClass()` is now global function
-    `buttonClass()`;
+* `MeTools\Network\Request` has been removed. All old methods are now  
+  request detectors (see `config/detectors.php`);
+* method `MeTools\View\Helper::_addButtonClass()` is now global function  
+  `buttonClass()`;
 * `fv()` is now `firstValue()` and `fk()` is now `firstKey()`;
 * fixed code for CakePHP Code Sniffer;
 * updated for CakePHP 3.3.
@@ -664,8 +678,8 @@
 * updated jQuery to 3.1 branch.
 
 ### 2.7.0
-* `addDefault()` renamed as `optionDefaults()` and `addOptionValue()` renamed
-	as `optionValues()`. These functions now accept values as array.
+* `addDefault()` renamed as `optionDefaults()` and `addOptionValue()` renamed  
+  as `optionValues()`. These functions now accept values as array.
 
 ## 2.6 branch
 ### 2.6.7
@@ -709,8 +723,8 @@
 * fixed little bugs.
 
 ### 2.5.0
-* log reports request URL, referer URL and client ip, both for exceptions and
-	errors;
+* log reports request URL, referer URL and client ip, both for exceptions and  
+  errors;
 * removed useless classes.
 
 ## 2.4 branch
@@ -733,8 +747,8 @@
 
 ### 2.2.7
 * rewritten the FileLog class. Added a log parser;
-* `iframe()` and `youtube` methods from `HtmlHelper` now support `$ratio` to
-	create responsive embed.
+* `iframe()` and `youtube` methods from `HtmlHelper` now support `$ratio` to  
+  create responsive embed.
 
 ### 2.2.6
 * fixed serious bug for CKEditor.
@@ -745,8 +759,8 @@
 * fixed bug for Shareaholic.
 
 ### 2.2.4
-* added the ErrorHandler class. This allows to track the "request URL" also
-	for errors and not only for exceptions;
+* added the ErrorHandler class. This allows to track the "request URL" also  
+  for errors and not only for exceptions;
 * fixed bug with thumbs on remote files.
 
 ### 2.2.3
@@ -760,8 +774,8 @@
 * fixed a serious bug.
 
 ### 2.2.0
-* added the Asset helper. Removed the Layout helper and the Compress shell.
-	Now assets are automatically generated when required;
+* added the Asset helper. Removed the Layout helper and the Compress shell.  
+  Now assets are automatically generated when required;
 * fixed little bugs.
 
 ## 2.1 branch
@@ -773,8 +787,8 @@
 
 ### 2.1.0-RC2
 * added support for Shareaholic;
-* jQuery, Bootstrap, Bootstrap Date/Time Picker, Moment.js and Font Awesome
-	are installed via Composer;
+* jQuery, Bootstrap, Bootstrap Date/Time Picker, Moment.js and Font Awesome  
+  are installed via Composer;
 * improved the log management;
 * fixed little bugs.
 
@@ -784,16 +798,16 @@
 * updated Bootstrap 3 Date/Time Picker to 4.17.37.
 
 ### 2.0.0-beta
-* all the code has been completely rewritten for CakePHP 3.x. Several
-	optimizations have been applied;
-* for the actions of loading/adding files, error messages are more
-	intelligible;
+* all the code has been completely rewritten for CakePHP 3.x. Several  
+  optimizations have been applied;
+* for the actions of loading/adding files, error messages are more  
+  intelligible;
 * added the `MeEmail` class to simplify sending emails;
 * added the `MeRequest` class to handle HTTP requests;
 * added the `ThumbHelper` to generate thumbnails;
-* updated Moment.js to 2.10.6, Bootstrap 3 Date/Time Picker to 4.15.35, Font
-	Awesome to 4.4.0, jQuery to 2.1.4, Bootstrap to 3.3.5 and Moment.js to
-	2.10.3.
+* updated Moment.js to 2.10.6, Bootstrap 3 Date/Time Picker to 4.15.35, Font  
+  Awesome to 4.4.0, jQuery to 2.1.4, Bootstrap to 3.3.5 and Moment.js to  
+  2.10.3.
 
 # 1.x branch
 ## 1.2 branch
@@ -813,6 +827,6 @@
 * updated Font Awesome to 4.3.0 version;
 * support for FancyBox;
 * fixed a bug in errors views;
-* added some methods to `Plugin` utility. The `System` utility has been
-	divided into several utilities;
+* added some methods to `Plugin` utility. The `System` utility has been  
+  divided into several utilities;
 * added the changelog file.
