@@ -12,20 +12,16 @@
 /* -------------------------------- */
 /*            Labels                */
 /* -------------------------------- */
+/* Labels (except checkboxes and radios labels) */
+form label:not(.form-check-label) {
+    font-weight: bold;
+}
+
 /* Labels for required inputs */
 form label.required:after,
 form div.required > label:after {
     color: #e32;
     content: ' *';
-}
-
-/* -------------------------------- */
-/*           Button addons          */
-/* -------------------------------- */
-/* Button addons, buttons */
-form input + .input-group-append .btn,
-form input + .input-group-prepend .btn {
-    border: 1px solid #ced4da;
 }
 
 /* -------------------------------- */
