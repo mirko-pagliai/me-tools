@@ -156,7 +156,7 @@ class FormHelperTest extends HelperTestCase
 
         //With `class` option
         $result = $this->Helper->button('My button', ['class' => 'btn-success my-custom-class']);
-        $this->assertStringContainsString('class="btn-success my-custom-class btn"', $result);
+        $this->assertStringContainsString('class="btn btn-success my-custom-class"', $result);
 
         //With `icon` option
         $result = $this->Helper->button('My button', ['icon' => 'check']);
@@ -284,27 +284,76 @@ class FormHelperTest extends HelperTestCase
         $this->assertSame($expected, $result);
     }
 
+    /**
+     * A complete test for an inline form.
+     * Tries to completely follow the example proposed by the Bootstrap documentation.
+     * @see https://getbootstrap.com/docs/5.3/forms/layout/#inline-forms
+     * @test
+     * @uses \MeTools\View\Helper\FormHelper::createInline()
+     * @uses \MeTools\View\Helper\FormHelper::control()
+     * @uses \MeTools\View\Helper\FormHelper::end()
+     */
     public function testInlineForm(): void
     {
-        /**
-         * @see https://getbootstrap.com/docs/5.3/forms/layout/#inline-forms
-         */
-        $this->markTestIncomplete();
+        $expected = <<<'HTML'
+<form method="post" accept-charset="utf-8" class="row row-cols-lg-auto g-1 align-items-center" action="/">
+<div class="col-12 text"><label class="visually-hidden" for="username">Username</label><input type="text" name="username" class="form-control" id="username"/></div>
+<div class="col-12 text"><label class="visually-hidden" for="preference">Preference</label><input type="text" name="preference" class="form-control" id="preference"/></div>
+<div class="col-12 form-check checkbox"><input type="hidden" name="remember-me" value="0"/><input type="checkbox" name="remember-me" value="1" class="form-check-input" id="remember-me"><label class="form-check-label" for="remember-me">Remember Me</label></div>
+<div class="col-12 submit"><input type="submit" class="btn btn-primary" value="Submit"/></div>
+</form>
+HTML;
+
+        $result = $this->Helper->createInline();
+        $this->assertSame('<form method="post" accept-charset="utf-8" class="row row-cols-lg-auto g-1 align-items-center" action="/">', $result);
+
+        $expected = '<div class="col-12 text">' .
+            '<label class="visually-hidden" for="username">Username</label>' .
+            '<div class="input-group">' .
+            '<span class="input-group-text">@</span>' .
+            '<input type="text" name="username" class="form-control" id="username"/>' .
+            '</div>' .
+            '</div>';
+        $result = $this->Helper->control('username', ['prepend-text' => '@']);
+        $this->assertSame($expected, $result);
+
+        $expected = '<div class="col-12 select">' .
+            '<label class="visually-hidden" for="preference">Preference</label>' .
+            '<select name="preference" class="form-select" id="preference">' .
+            '<option value="">Choose</option>' .
+            '<option value="1">One</option>' .
+            '<option value="2">Two</option>' .
+            '<option value="3">Three</option>' .
+            '</select>' .
+            '</div>';
+        $result = $this->Helper->control('preference', ['empty' => 'Choose', 'options' => [1 => 'One', 2 => 'Two', 3 => 'Three'], 'type' => 'select']);
+        $this->assertSame($expected, $result);
+
+        $expected = '<div class="col-12 form-check checkbox">' .
+            '<input type="hidden" name="remember-me" value="0"/>' .
+            '<input type="checkbox" name="remember-me" value="1" class="form-check-input" id="remember-me">' .
+            '<label class="form-check-label" for="remember-me">Remember Me</label>' .
+            '</div>';
+        $result = $this->Helper->control('remember-me', ['type' => 'checkbox']);
+        $this->assertSame($expected, $result);
+
+        $expected = '<div class="col-12 submit"><input type="submit" class="btn btn-primary" value="Submit"/></div>';
+        $result = $this->Helper->submit();
+        $this->assertSame($expected, $result);
+
+        $result = $this->Helper->end();
+        $this->assertSame('</form>', $result);
     }
 
     /**
      * @test
-     * @uses \MeTools\View\Helper\FormHelper::createInline()
      * @uses \MeTools\View\Helper\FormHelper::isInline()
      */
-    public function testCreateInlineAndIsInline(): void
+    public function testIsInline(): void
     {
         $this->assertFalse($this->Helper->isInline());
-
-        $result = $this->Helper->createInline();
-        $this->assertStringContainsString('class="row row-cols-lg-auto g-1 align-items-center"', $result);
+        $this->Helper->createInline();
         $this->assertTrue($this->Helper->isInline());
-
         $this->Helper->end();
         $this->assertFalse($this->Helper->isInline());
     }
@@ -386,7 +435,7 @@ class FormHelperTest extends HelperTestCase
         $this->assertSame($expected, $result);
 
         //With custom classes
-        $expected = '<div class="submit"><input type="submit" class="my-custom-class btn-success btn" value="My submit"/></div>';
+        $expected = '<div class="submit"><input type="submit" class="my-custom-class btn btn-success" value="My submit"/></div>';
         $result = $this->Helper->submit('My submit', ['class' => 'my-custom-class btn-success']);
         $this->assertSame($expected, $result);
     }
