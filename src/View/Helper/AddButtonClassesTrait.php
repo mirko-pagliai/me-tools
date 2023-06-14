@@ -28,16 +28,17 @@ trait AddButtonClassesTrait
      * @param array<string, mixed> $options Array options/attributes to add a class to
      * @param string $class The class name being added
      * @return array<string, mixed> Array of options
+     * @see https://getbootstrap.com/docs/5.3/components/buttons/#variants
      * @throws \Tools\Exception\NotInArrayException
      */
-    protected function addButtonClasses(array $options, string $class): array
+    protected function addButtonClasses(array $options, string $class = 'btn-light'): array
     {
         //Adds the `btn-` suffix to the class
         $btnClass = $class && !str_starts_with($class, 'btn-') ? 'btn-' . $class : $class;
 
         //Checks `$btnClass` is a valid and supported class
         $baseClasses = ['btn-primary', 'btn-secondary', 'btn-success', 'btn-danger', 'btn-warning', 'btn-info', 'btn-light', 'btn-dark', 'btn-link'];
-        Exceptionist::inArray($btnClass, $baseClasses, 'Invalid `' . $class . '` class');
+        Exceptionist::inArray($btnClass, $baseClasses, $class ? 'Invalid `' . $class . '` class' : 'Invalid class');
 
         $options += ['class' => ''];
 

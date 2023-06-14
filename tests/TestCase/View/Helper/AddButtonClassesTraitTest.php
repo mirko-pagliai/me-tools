@@ -51,6 +51,10 @@ class AddButtonClassesTraitTest extends TestCase
      */
     public function testAddButtonClasses(): void
     {
+        $expected = ['class' => 'btn btn-light'];
+        $this->assertEquals($expected, $this->Helper->addButtonClasses([]));
+        $this->assertEquals($expected, $this->Helper->addButtonClasses(['class' => 'btn']));
+
         $expected = ['class' => 'btn btn-primary'];
         $this->assertEquals($expected, $this->Helper->addButtonClasses([], 'primary'));
         $this->assertEquals($expected, $this->Helper->addButtonClasses([], 'btn-primary'));
@@ -65,7 +69,18 @@ class AddButtonClassesTraitTest extends TestCase
     }
 
     /**
-     * With an invalid button class
+     * With an empty class
+     * @test
+     * @uses \MeTools\View\Helper\AddButtonClassesTrait::addButtonClasses()
+     */
+    public function testAddButtonClassesWithEmptyClass(): void
+    {
+        $this->expectExceptionMessage('Invalid class');
+        $this->Helper->addButtonClasses([], '');
+    }
+
+    /**
+     * With an invalid class
      * @test
      * @uses \MeTools\View\Helper\AddButtonClassesTrait::addButtonClasses()
      */
