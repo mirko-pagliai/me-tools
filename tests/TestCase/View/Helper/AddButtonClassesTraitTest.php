@@ -26,7 +26,7 @@ use MeTools\View\View;
 class AddButtonClassesTraitTest extends TestCase
 {
     /**
-     * @var Helper
+     * @var \Cake\View\Helper
      */
     protected Helper $Helper;
 
@@ -38,8 +38,10 @@ class AddButtonClassesTraitTest extends TestCase
     {
         parent::setUp();
 
-        $this->Helper = new class(new View()) extends Helper {
-            use AddButtonClassesTrait { addButtonClasses as public; }
+        $this->Helper = new class (new View()) extends Helper {
+            use AddButtonClassesTrait {
+                addButtonClasses as public;
+            }
         };
     }
 
@@ -60,7 +62,6 @@ class AddButtonClassesTraitTest extends TestCase
         $this->assertEquals($expected, $this->Helper->addButtonClasses(['class' => 'btn btn-primary'], 'btn-primary'));
         $this->assertEquals($expected, $this->Helper->addButtonClasses(['class' => 'btn btn-primary'], 'success'));
         $this->assertEquals($expected, $this->Helper->addButtonClasses(['class' => 'btn btn-primary'], 'success'));
-
     }
 
     /**

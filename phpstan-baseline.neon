@@ -36,6 +36,11 @@ parameters:
 			path: tests/TestCase/TestSuite/TestCaseTest.php
 
 		-
+			message: "#^Call to an undefined method Cake\\\\View\\\\Helper\\:\\:addButtonClasses\\(\\)\\.$#"
+			count: 11
+			path: tests/TestCase/View/Helper/AddButtonClassesTraitTest.php
+
+		-
 			message: "#^Call to an undefined method MeTools\\\\View\\\\Helper\\\\HtmlHelper\\:\\:noExistingMethod\\(\\)\\.$#"
 			count: 1
 			path: tests/TestCase/View/Helper/HtmlHelperTest.php
