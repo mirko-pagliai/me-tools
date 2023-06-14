@@ -144,7 +144,7 @@ class HtmlHelperTest extends HelperTestCase
      */
     public function testImage(): void
     {
-        $expected = '<img src="/img/image.gif" alt="image.gif" class="img-fluid my-class"/>';
+        $expected = '<img src="/img/image.gif" class="my-class img-fluid" alt="image.gif"/>';
         $result = $this->Helper->image('image.gif', ['class' => 'my-class']);
         $this->assertSame($expected, $result);
 
@@ -239,7 +239,7 @@ class HtmlHelperTest extends HelperTestCase
      */
     public function testOlAndUl(): void
     {
-        $expected = '<ul class="fa-ul parent-class"><li class="li-class"><i class="fas fa-home fa-li"> </i> First</li><li class="li-class"><i class="fas fa-home fa-li"> </i> Second</li></ul>';
+        $expected = '<ul class="parent-class fa-ul"><li class="li-class"><i class="fas fa-home fa-li"> </i> First</li><li class="li-class"><i class="fas fa-home fa-li"> </i> Second</li></ul>';
         $result = $this->Helper->ul(['First', 'Second'], ['class' => 'parent-class'], ['class' => 'li-class', 'icon' => 'home']);
         $this->assertSame($expected, $result);
 

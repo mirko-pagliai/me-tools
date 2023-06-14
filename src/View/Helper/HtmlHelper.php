@@ -72,9 +72,9 @@ class HtmlHelper extends BaseHtmlHelper
      */
     public function badge(string $text, array $options = []): string
     {
-        $options = optionsParser($options)->append('class', 'badge');
+        $options = $this->addClass($options, 'badge');
 
-        return $this->tag('span', $text, $options->toArray());
+        return $this->tag('span', $text, $options);
     }
 
     /**
@@ -108,15 +108,14 @@ class HtmlHelper extends BaseHtmlHelper
      */
     public function iframe($url, array $options = []): string
     {
-        $options = optionsParser($options)->add('src', is_array($url) ? $this->Url->build($url, $options) : $url);
-        $ratio = $options->consume('ratio');
-        $iframe = $this->tag('iframe', '', $options->toArray());
+        $options['src'] = is_array($url) ? $this->Url->build($url, $options) : $url;
 
-        if (in_array($ratio, ['1x1', '4x3', '16x9', '21x9'])) {
-            return $this->div('ratio ratio-' . $ratio, $iframe);
-        }
+        $ratio = $options['ratio'] ?? null;
+        unset($options['ratio']);
 
-        return $iframe;
+        $iframe = $this->tag('iframe', '', $options);
+
+        return in_array($ratio, ['1x1', '4x3', '16x9', '21x9']) ? $this->div('ratio ratio-' . $ratio, $iframe) : $iframe;
     }
 
     /**
@@ -129,10 +128,10 @@ class HtmlHelper extends BaseHtmlHelper
      */
     public function image($path, array $options = []): string
     {
-        $alt = pathinfo(is_array($path) ? $this->Url->build($path, $options) : $path, PATHINFO_BASENAME);
-        $options = optionsParser($options, compact('alt'))->append('class', 'img-fluid');
+        $options += ['alt' => pathinfo(is_array($path) ? $this->Url->build($path, $options) : $path, PATHINFO_BASENAME)];
+        $options = $this->addClass($options, 'img-fluid');
 
-        return parent::image($path, $options->toArray());
+        return parent::image($path, $options);
     }
 
     /**
@@ -218,23 +217,19 @@ class HtmlHelper extends BaseHtmlHelper
      */
     public function nestedList(array $list, array $options = [], array $itemOptions = []): string
     {
-        $options = optionsParser($options);
-        $itemOptions = optionsParser($itemOptions);
+        $options += ['icon' => null];
+        $itemOptions += ['icon' => $options['icon'] ?? null];
 
-        if ($options->exists('icon')) {
-            $itemOptions->add('icon', $options->get('icon'));
+
+        if ($itemOptions['icon']) {
+            $options = $this->addClass($options, 'fa-ul');
+            $itemOptions = $this->addClass($itemOptions, 'li', 'icon');
+            $list = array_map(fn(string $element): string => array_value_first($this->Icon->addIconToText($element, optionsParser($itemOptions))), $list);
         }
 
-        if ($itemOptions->exists('icon')) {
-            $options->append('class', 'fa-ul');
-            $itemOptions->append('icon', 'li');
-            $list = array_map(fn(string $element): string => array_value_first($this->Icon->addIconToText($element, clone $itemOptions)), $list);
-        }
+        unset($options['icon'], $options['icon-align'], $itemOptions['icon'], $itemOptions['icon-align']);
 
-        $options->delete('icon', 'icon-align');
-        $itemOptions->delete('icon', 'icon-align');
-
-        return parent::nestedList($list, $options->toArray(), $itemOptions->toArray());
+        return parent::nestedList($list, $options, $itemOptions);
     }
 
     /**
@@ -326,14 +321,9 @@ class HtmlHelper extends BaseHtmlHelper
      */
     public function youtube(string $id, array $options = []): string
     {
-        $id = str_replace('?t=', '?start=', $id);
-        $options = optionsParser($options, [
-            'allowfullscreen' => 'allowfullscreen',
-            'height' => 480,
-            'ratio' => '16x9',
-            'width' => 640,
-        ]);
+        $url = 'https://www.youtube.com/embed/' . str_replace('?t=', '?start=', $id);
+        $options += ['allowfullscreen' => 'allowfullscreen', 'height' => 480, 'ratio' => '16x9', 'width' => 640];
 
-        return $this->iframe('https://www.youtube.com/embed/' . $id, $options->toArray());
+        return $this->iframe($url, $options);
     }
 }

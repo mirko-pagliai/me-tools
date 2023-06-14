@@ -26,7 +26,7 @@ class IconHelper extends CakeHtmlHelper
     /**
      * Adds icons to text
      * @param string|null $text Text
-     * @param \MeTools\View\OptionsParser $options Instance of `OptionsParser`
+     * @param array|\MeTools\View\OptionsParser $options Instance of `OptionsParser`
      * @return array Text with icons and instance of `OptionsParser`
      * @since 2.16.2-beta
      */
