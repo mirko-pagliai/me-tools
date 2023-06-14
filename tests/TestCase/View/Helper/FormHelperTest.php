@@ -62,7 +62,7 @@ class FormHelperTest extends HelperTestCase
         $this->assertStringContainsString($expected, $result);
 
         //With an array as label
-        $expected = '<label class="form-label my-custom-label" for="my-control">My Control</label>';
+        $expected = '<label class="my-custom-label form-label" for="my-control">My Control</label>';
         $result = $this->Helper->control('my-control', ['label' => ['class' => 'my-custom-label']]);
         $this->assertStringContainsString($expected, $result);
 
@@ -146,7 +146,7 @@ class FormHelperTest extends HelperTestCase
      */
     public function testButton(): void
     {
-        $expected = '<button class="btn btn-primary" type="button">My button</button>';
+        $expected = '<button type="button" class="btn btn-primary">My button</button>';
         $result = $this->Helper->button('My button');
         $this->assertSame($expected, $result);
 
@@ -156,7 +156,7 @@ class FormHelperTest extends HelperTestCase
 
         //With `class` option
         $result = $this->Helper->button('My button', ['class' => 'btn-success my-custom-class']);
-        $this->assertStringContainsString('class="btn btn-success my-custom-class"', $result);
+        $this->assertStringContainsString('class="btn-success my-custom-class btn"', $result);
 
         //With `icon` option
         $result = $this->Helper->button('My button', ['icon' => 'check']);
@@ -211,7 +211,7 @@ class FormHelperTest extends HelperTestCase
         $expected = '<div class="mb-3 text">' .
             '<label class="form-label" for="my-field">My Field</label>' .
             '<div class="input-group">' .
-            '<button class="btn btn-primary" type="button"><i class="fas fa-home"> </i> Prepend button</button>' .
+            '<button type="button" class="btn btn-primary"><i class="fas fa-home"> </i> Prepend button</button>' .
             '<input type="text" name="My field" class="form-control" id="my-field"/>' .
             '<div class="submit"><input type="submit" class="btn btn-primary" value="Append submit"/></div>' .
             '</div>' .
@@ -256,7 +256,7 @@ class FormHelperTest extends HelperTestCase
     {
         $expected = '<div class="mb-3 ckeditor">' .
             '<label class="visually-hidden" for="text">Text</label>' .
-            '<textarea name="Text" class="editor form-control wysiwyg" id="text" rows="5"></textarea>' .
+            '<textarea name="Text" class="form-control editor wysiwyg" id="text" rows="5"></textarea>' .
             '</div>';
         $result = $this->Helper->control('Text', ['type' => 'ckeditor']);
         $this->assertSame($expected, $result);
@@ -302,7 +302,7 @@ class FormHelperTest extends HelperTestCase
         $this->assertFalse($this->Helper->isInline());
 
         $result = $this->Helper->createInline();
-        $this->assertStringContainsString('class="align-items-center g-1 row row-cols-lg-auto"', $result);
+        $this->assertStringContainsString('class="row row-cols-lg-auto g-1 align-items-center"', $result);
         $this->assertTrue($this->Helper->isInline());
 
         $this->Helper->end();
@@ -317,7 +317,7 @@ class FormHelperTest extends HelperTestCase
     public function testPostButton(): void
     {
         $expected = '<form method="post" accept-charset="utf-8" action="#">' .
-            '<button class="btn btn-primary" type="submit">' .
+            '<button type="submit" class="btn btn-primary">' .
             '<i class="fas fa-home"> </i> Title' .
             '</button>' .
             '</form>';
@@ -386,7 +386,7 @@ class FormHelperTest extends HelperTestCase
         $this->assertSame($expected, $result);
 
         //With custom classes
-        $expected = '<div class="submit"><input type="submit" class="btn btn-success my-custom-class" value="My submit"/></div>';
+        $expected = '<div class="submit"><input type="submit" class="my-custom-class btn-success btn" value="My submit"/></div>';
         $result = $this->Helper->submit('My submit', ['class' => 'my-custom-class btn-success']);
         $this->assertSame($expected, $result);
     }

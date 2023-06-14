@@ -26,6 +26,8 @@ use Cake\View\View;
  */
 class FormHelper extends BaseFormHelper
 {
+    use AddButtonClassesTrait;
+
     /**
      * Helpers
      * @var array
@@ -108,7 +110,7 @@ class FormHelper extends BaseFormHelper
             return false;
         }
 
-        $label = optionsParser(is_string($options['label']) ? ['text' => $options['label']] : ($options['label'] ?? []));
+        $label = is_string($options['label']) ? ['text' => $options['label']] : ($options['label'] ?? []);
 
         /**
          * Sets the label class.
@@ -120,16 +122,17 @@ class FormHelper extends BaseFormHelper
         $type = $this->_inputType($fieldName, $options);
         if (in_array($type, ['checkbox', 'radio'])) {
             $class = 'form-check-label';
-        } elseif ((!$label->get('text') && $type == 'ckeditor') || $this->isInline()) {
+        } elseif ((empty($label['text']) && $type == 'ckeditor') || $this->isInline()) {
             $class = 'visually-hidden';
         }
-        $label->append('class', $class ?? 'form-label');
+        $label = $this->addClass($label, $class ?? 'form-label');
 
-        if ($label->exists('icon')) {
-            $options['templateVars']['icon'] = $this->Icon->icon($label->consume('icon') . ' ');
+        if ($label['icon'] ?? false) {
+            $options['templateVars']['icon'] = $this->Icon->icon($label['icon'] . ' ');
+            unset($label['icon']);
         }
 
-        return parent::_getLabel($fieldName, ['label' => $label->toArray()] + $options);
+        return parent::_getLabel($fieldName, compact('label') + $options);
     }
 
     /**
@@ -151,14 +154,14 @@ class FormHelper extends BaseFormHelper
      */
     public function button(string $title, array $options = []): string
     {
-        $options = optionsParser($options, ['escapeTitle' => false, 'type' => 'button']);
-        $options->addButtonClasses('primary');
-
-        if ($options->exists('icon')) {
-            $options->append('templateVars', ['icon' => $this->Icon->icon($options->consume('icon')) . ' ']);
+        $options += ['escapeTitle' => false, 'icon' => null, 'templateVars' => [], 'type' => 'button'];
+        $options = $this->addButtonClasses($options, 'btn-primary');
+        if ($options['icon']) {
+            $options['templateVars'] += ['icon' => $this->Icon->icon($options['icon']) . ' '];
+            unset($options['icon']);
         }
 
-        return parent::button($title, $options->toArray());
+        return parent::button($title, $options);
     }
 
     /**
@@ -170,10 +173,10 @@ class FormHelper extends BaseFormHelper
      */
     public function ckeditor(string $fieldName, array $options = []): string
     {
-        $options = optionsParser($options, ['type' => 'textarea']);
-        $options->append('class', 'wysiwyg editor');
+        $options += ['type' => 'textarea'];
+        $options = $this->addClass($options, 'editor wysiwyg');
 
-        return parent::textarea($fieldName, $options->toArray());
+        return parent::textarea($fieldName, $options);
     }
 
     /**
@@ -192,6 +195,8 @@ class FormHelper extends BaseFormHelper
      */
     public function control(string $fieldName, array $options = []): string
     {
+        $options += ['help' => null, 'append-text' => null, 'prepend-text' => null, 'templateVars' => []];
+
         switch ($this->_inputType($fieldName, $options)) {
             case 'checkbox':
             case 'radio':
@@ -201,13 +206,8 @@ class FormHelper extends BaseFormHelper
             case 'select':
                 $class = 'form-select';
                 break;
-            case 'ckeditor':
-                $class = 'form-control wysiwyg editor';
-                break;
         }
-
-        $options = optionsParser($options);
-        $options->append('class', $class ?? 'form-control');
+        $options = $this->addClass($options, $class ?? 'form-control');
 
         /**
          * Help text (form text).
@@ -216,8 +216,8 @@ class FormHelper extends BaseFormHelper
          * @todo Form text should be explicitly associated with the form control it relates to using the aria-labelledby
          *  (for mandatory information such as data format) or aria-describedby (for complementary information) attribute
          */
-        if ($options->exists('help') && !$this->isInline()) {
-            $help = array_map(fn(string $help): string => $this->Html->div('form-text', trim($help)), (array)$options->consume('help'));
+        if ($options['help'] && !$this->isInline()) {
+            $help = array_map(fn(string $help): string => $this->Html->div('form-text', trim($help)), (array)$options['help']);
             $templateVars['help'] = implode('', $help);
         }
 
@@ -226,9 +226,9 @@ class FormHelper extends BaseFormHelper
          * It can also handle buttons.
          * @see https://getbootstrap.com/docs/5.3/forms/input-group
          */
-        if ($options->exists('append-text') || $options->exists('prepend-text')) {
+        if ($options['append-text'] || $options['prepend-text']) {
             foreach (['append', 'prepend'] as $name) {
-                $value = $options->consume($name . '-text');
+                $value = $options[$name . '-text'];
                 //Buttons and submits are not wrapped in a `span` element
                 if ($value && !str_starts_with($value, '<button') && !str_starts_with($value, '<div class="submit') &&
                     !str_starts_with($value, '<div class="col-12 submit')) {
@@ -237,14 +237,16 @@ class FormHelper extends BaseFormHelper
 
                 $templateVars[$name] = $value;
             }
-            $options->append('templates', ['formGroup' => '{{label}}<div class="input-group">{{prepend}}{{input}}{{append}}{{error}}</div>']);
+            $options['templates']['formGroup'] = '{{label}}<div class="input-group">{{prepend}}{{input}}{{append}}{{error}}</div>';
         }
 
         if (!empty($templateVars)) {
-            $options->append('templateVars', $templateVars);
+            $options['templateVars'] += $templateVars;
         }
 
-        return parent::control($fieldName, $options->toArray());
+        unset($options['help'], $options['append-text'], $options['prepend-text']);
+
+        return parent::control($fieldName, $options);
     }
 
     /**
@@ -285,18 +287,19 @@ class FormHelper extends BaseFormHelper
     {
         $this->isInline = true;
 
-        $options = optionsParser($options);
-        $options->append('class', 'row row-cols-lg-auto g-1 align-items-center');
-        $options->append('templates', [
+        $options += ['templates' => []];
+        $options = $this->addClass($options, 'row row-cols-lg-auto g-1 align-items-center');
+
+        $options['templates'] += [
             //Container element used by control()
             'inputContainer' => '<div class="col-12 {{divClass}}{{type}}{{required}}">{{content}}{{help}}</div>',
             //Container element used by control() when a field has an error
             'inputContainerError' => '<div class="col-12 {{divClass}}{{type}}{{required}} error">{{content}}{{error}}{{help}}</div>',
             //Container for submit buttons
             'submitContainer' => '<div class="col-12 submit">{{content}}</div>',
-        ]);
+        ];
 
-        return $this->create($context, $options->toArray());
+        return $this->create($context, $options);
     }
 
     /**
@@ -339,7 +342,7 @@ class FormHelper extends BaseFormHelper
      */
     public function select(string $fieldName, iterable $options = [], array $attributes = []): string
     {
-        $attributes = optionsParser($attributes);
+        $attributes += ['multiple' => null, 'required' => null, 'empty' => null, 'default' => null];
 
         /**
          * The `empty` attribute is added only if:
@@ -347,15 +350,15 @@ class FormHelper extends BaseFormHelper
          *  - it is not a multiple checkbox.
          * @todo what about `value` option?
          */
-        if (!$attributes->get('empty') && !$attributes->get('default') && $attributes->get('multiple') !== 'checkbox') {
+        if (!$attributes['empty'] && !$attributes['default'] && $attributes['multiple'] !== 'checkbox') {
             //If the field is marked as `required`, an `empty` text will be added
-            if ($this->_getContext()->isRequired($fieldName) || $attributes->get('required')) {
+            if ($this->_getContext()->isRequired($fieldName) || $attributes['required']) {
                 $empty = '-- ' . __d('me-tools', 'select a value') . ' --';
             }
-            $attributes->add('empty', $empty ?? true);
+            $attributes['empty'] = $empty ?? true;
         }
 
-        return parent::select($fieldName, $options, $attributes->toArray());
+        return parent::select($fieldName, $options, $attributes);
     }
 
     /**
@@ -370,8 +373,8 @@ class FormHelper extends BaseFormHelper
      */
     public function submit(?string $caption = null, array $options = []): string
     {
-        $options = optionsParser($options)->addButtonClasses('btn-primary');
+        $options = $this->addButtonClasses($options, 'btn-primary');
 
-        return parent::submit($caption, $options->toArray());
+        return parent::submit($caption, $options);
     }
 }
