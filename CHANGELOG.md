@@ -25,8 +25,8 @@ All the code has been optimized overall and has been concentrated in fewer metho
 #### Other changes
 * added the `AbstractPerson` entity class;
 * added basic `AppController` and `View` classes;
-* added the `AddButtonClassesTrait` with the `addButtonClasses()` method. This method is designed to gradually replace
-  `OptionsParser::addButtonClasses()`;
+* added the `AddButtonClassesTrait` with the `addButtonClasses()` method;
+* `OptionsParser::addButtonClasses()` is now deprecated and will be removed in a later release;
 * the `components/jquery` package was marked as a conflicting dependency and can no longer be installed;
 * the `FixComposerJsonCommand` no longer serves any purpose and has therefore been removed;
 * the `CreatePluginsLinksCommand` was deprecated and has now been removed;

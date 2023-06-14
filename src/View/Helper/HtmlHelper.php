@@ -15,6 +15,7 @@ declare(strict_types=1);
 namespace MeTools\View\Helper;
 
 use Cake\View\Helper\HtmlHelper as BaseHtmlHelper;
+use Tools\Exception\NotInArrayException;
 use Tools\Exceptionist;
 
 /**
@@ -37,6 +38,8 @@ use Tools\Exceptionist;
  */
 class HtmlHelper extends BaseHtmlHelper
 {
+    use AddButtonClassesTrait;
+
     /**
      * Helpers
      * @var array
@@ -84,12 +87,14 @@ class HtmlHelper extends BaseHtmlHelper
      *   external URL (starts with http://)
      * @param array<string, mixed> $options Array of options and HTML attributes
      * @return string An `<a />` element
+     * @throws NotInArrayException
      */
     public function button($title, $url = null, array $options = []): string
     {
-        $options = optionsParser($options, ['role' => 'button'])->addButtonClasses();
+        $options += ['role' => 'button'];
+        $options = $this->addButtonClasses($options);
 
-        return $this->link($title, $url, $options->toArray());
+        return $this->link($title, $url, $options);
     }
 
     /**

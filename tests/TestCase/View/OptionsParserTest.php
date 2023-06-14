@@ -62,7 +62,6 @@ class OptionsParserTest extends TestCase
     }
 
     /**
-     * Tests for `buildValue()` method
      * @uses \MeTools\View\OptionsParser::buildValue()
      * @test
      */
@@ -93,7 +92,6 @@ class OptionsParserTest extends TestCase
     }
 
     /**
-     * Tests for `add()` method
      * @uses \MeTools\View\OptionsParser::add()
      * @test
      */
@@ -124,12 +122,13 @@ class OptionsParserTest extends TestCase
     }
 
     /**
-     * Tests for `addButtonClasses()` method
      * @uses \MeTools\View\OptionsParser::addButtonClasses()
      * @test
      */
     public function testAddButtonClasses(): void
     {
+        $current = error_reporting(E_ALL & ~E_USER_DEPRECATED);
+
         $OptionsParser = new OptionsParser();
         $result = $OptionsParser->addButtonClasses();
         $this->assertInstanceOf(OptionsParser::class, $result);
@@ -194,10 +193,11 @@ class OptionsParserTest extends TestCase
         $OptionsParser = new OptionsParser(['class' => 'btn-lg']);
         $OptionsParser->addButtonClasses('btn lg');
         $this->assertEquals('btn btn-lg', $OptionsParser->get('class'));
+
+        error_reporting($current);
     }
 
     /**
-     * Tests for `append()` method
      * @uses \MeTools\View\OptionsParser::append()
      * @test
      */
@@ -234,7 +234,6 @@ class OptionsParserTest extends TestCase
     }
 
     /**
-     * Tests for `consume()` method
      * @uses \MeTools\View\OptionsParser::consume()
      * @test
      */
@@ -254,7 +253,6 @@ class OptionsParserTest extends TestCase
     }
 
     /**
-     * Tests for `contains()` method
      * @uses \MeTools\View\OptionsParser::contains()
      * @test
      */
@@ -277,7 +275,6 @@ class OptionsParserTest extends TestCase
     }
 
     /**
-     * Tests for `delete()` method
      * @uses \MeTools\View\OptionsParser::delete()
      * @test
      */
@@ -299,7 +296,6 @@ class OptionsParserTest extends TestCase
     }
 
     /**
-     * Tests for `exists()` method
      * @uses \MeTools\View\OptionsParser::exists()
      * @test
      */
@@ -317,7 +313,6 @@ class OptionsParserTest extends TestCase
     }
 
     /**
-     * Tests for `get()` method
      * @uses \MeTools\View\OptionsParser::get()
      * @test
      */
@@ -333,7 +328,6 @@ class OptionsParserTest extends TestCase
     }
 
     /**
-     * Tests for `toArray()` method
      * @uses \MeTools\View\OptionsParser::toArray()
      * @test
      */
@@ -355,7 +349,6 @@ class OptionsParserTest extends TestCase
     }
 
     /**
-     * Tests for `toString()` method
      * @uses \MeTools\View\OptionsParser::toString()
      * @test
      */
@@ -371,7 +364,6 @@ class OptionsParserTest extends TestCase
     }
 
     /**
-     * Tests for `tooltip()` method
      * @uses \MeTools\View\OptionsParser::tooltip()
      * @test
      */
