@@ -34,8 +34,8 @@ class DropdownHelperTest extends HelperTestCase
         $expected = [
             'a' => [
                 'href' => '#',
+                'class' => 'my-start-class dropdown-toggle',
                 'aria-expanded' => 'false',
-                'class' => 'dropdown-toggle my-start-class',
                 'data-bs-toggle' => 'dropdown',
                 'id' => 'preg:/dropdown_[a-z0-9]+/',
                 'title' => 'My title',
@@ -45,14 +45,14 @@ class DropdownHelperTest extends HelperTestCase
             'My title',
             '/a',
             'ul' => [
-                'aria-labelledby' => 'preg:/dropdown_[a-z0-9]+/',
-                'class' => 'dropdown-menu my-div-class',
+                'class' => 'my-div-class dropdown-menu',
                 'style' => 'background:red',
+                'aria-labelledby' => 'preg:/dropdown_[a-z0-9]+/',
             ],
             ['li' => []],
             ['a' => [
                 'href' => '/first',
-                'class' => 'dropdown-item my-first-link-class',
+                'class' => 'my-first-link-class dropdown-item',
                 'title' => 'First link',
             ]],
             'First link',
@@ -61,7 +61,7 @@ class DropdownHelperTest extends HelperTestCase
             ['li' => []],
             ['a' => [
                 'href' => '/second',
-                'class' => 'dropdown-item my-second-link-class',
+                'class' => 'my-second-link-class dropdown-item',
                 'title' => 'Second link',
             ]],
             'Second link',
