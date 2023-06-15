@@ -26,7 +26,7 @@ class IconHelper extends CakeHtmlHelper
      * Adds icons to text
      * @param string|null $text Text
      * @param array<string, mixed> $options Array options/attributes to add a class to
-     * @return array<string, mixed> Array of options
+     * @return array Array with text with icons and the array of options
      * @since 2.16.2-beta
      */
     public function addIconToText(?string $text, array $options): array

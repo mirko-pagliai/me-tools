@@ -20,6 +20,7 @@ use Cake\Utility\Hash;
 
 /**
  * An options parser
+ * @deprecated 2.25.0 It will be removed in a later release
  */
 class OptionsParser
 {
@@ -47,6 +48,8 @@ class OptionsParser
      */
     public function __construct(array $options = [], array $defaults = [])
     {
+        deprecationWarning('Deprecated. It will be removed in a later release');
+
         $this->addDefault($defaults);
         $this->add($options);
     }
@@ -102,12 +105,9 @@ class OptionsParser
      * </code>
      * @param string ...$classes Classes as string, or multiple arguments
      * @return $this
-     * @deprecated 2.25.0 Use instead `AddButtonClassesTrait::addButtonClasses()`
      */
     public function addButtonClasses(string ...$classes)
     {
-        deprecationWarning('Deprecated. Use instead `AddButtonClassesTrait::addButtonClasses()`');
-
         $baseClasses = ['primary', 'secondary', 'success', 'danger', 'warning', 'info', 'light', 'dark', 'link'];
         $allClasses = [...$baseClasses, 'outline-primary', 'outline-secondary', 'outline-success', 'outline-danger', 'outline-warning', 'outline-info', 'outline-light', 'outline-dark', 'lg', 'sm', 'block'];
 

@@ -15,7 +15,6 @@ declare(strict_types=1);
 namespace MeTools\Test\TestCase\View\Helper;
 
 use MeTools\TestSuite\HelperTestCase;
-use MeTools\View\OptionsParser;
 
 /**
  * IconHelperTest class

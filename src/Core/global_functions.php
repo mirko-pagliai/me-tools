@@ -21,9 +21,13 @@ if (!function_exists('optionsParser')) {
      * @param array $options Existing options
      * @param array $defaults Default values
      * @return \MeTools\View\OptionsParser
+     * @deprecated 2.25.0 It will be removed in a later release
+     * @codeCoverageIgnore
      */
     function optionsParser(array $options = [], array $defaults = []): OptionsParser
     {
+        deprecationWarning('Deprecated. It will be removed in a later release');
+
         return new OptionsParser($options, $defaults);
     }
 }

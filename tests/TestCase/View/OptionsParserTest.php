@@ -29,7 +29,28 @@ class OptionsParserTest extends TestCase
     /**
      * @var \MeTools\View\OptionsParser
      */
-    public OptionsParser $OptionsParser;
+    protected OptionsParser $OptionsParser;
+
+    /**
+     * @var int
+     */
+    protected static int $currentErrorLevel;
+
+    /**
+     * This method is called before the first test of this test class is run.
+     */
+    public static function setUpBeforeClass(): void
+    {
+        self::$currentErrorLevel = error_reporting(E_ALL & ~E_USER_DEPRECATED);
+    }
+
+    /**
+     * This method is called after the last test of this test class is run.
+     */
+    public static function tearDownAfterClass(): void
+    {
+        error_reporting(self::$currentErrorLevel);
+    }
 
     /**
      * Called before every test method
@@ -127,8 +148,6 @@ class OptionsParserTest extends TestCase
      */
     public function testAddButtonClasses(): void
     {
-        $current = error_reporting(E_ALL & ~E_USER_DEPRECATED);
-
         $OptionsParser = new OptionsParser();
         $result = $OptionsParser->addButtonClasses();
         $this->assertInstanceOf(OptionsParser::class, $result);
@@ -193,8 +212,6 @@ class OptionsParserTest extends TestCase
         $OptionsParser = new OptionsParser(['class' => 'btn-lg']);
         $OptionsParser->addButtonClasses('btn lg');
         $this->assertEquals('btn btn-lg', $OptionsParser->get('class'));
-
-        error_reporting($current);
     }
 
     /**

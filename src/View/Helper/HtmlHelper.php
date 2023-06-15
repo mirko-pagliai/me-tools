@@ -15,7 +15,6 @@ declare(strict_types=1);
 namespace MeTools\View\Helper;
 
 use Cake\View\Helper\HtmlHelper as BaseHtmlHelper;
-use Tools\Exception\NotInArrayException;
 use Tools\Exceptionist;
 
 /**
@@ -87,7 +86,7 @@ class HtmlHelper extends BaseHtmlHelper
      *   external URL (starts with http://)
      * @param array<string, mixed> $options Array of options and HTML attributes
      * @return string An `<a />` element
-     * @throws NotInArrayException
+     * @throws \Tools\Exception\NotInArrayException
      */
     public function button($title, $url = null, array $options = []): string
     {
@@ -218,8 +217,7 @@ class HtmlHelper extends BaseHtmlHelper
     public function nestedList(array $list, array $options = [], array $itemOptions = []): string
     {
         $options += ['icon' => null];
-        $itemOptions += ['icon' => $options['icon'] ?? null];
-
+        $itemOptions += ['icon' => $options['icon']];
 
         if ($itemOptions['icon']) {
             $options = $this->addClass($options, 'fa-ul');
