@@ -154,18 +154,17 @@ class FormHelper extends BaseFormHelper
      * @return string A HTML button tag
      * @link https://book.cakephp.org/4/en/views/helpers/form.html#creating-button-elements
      * @see \Cake\View\Helper\FormHelper::button() for all available options
-     * @throws \Tools\Exception\NotInArrayException
+     * @throws \ErrorException
      */
     public function button(string $title, array $options = []): string
     {
         $options += ['escapeTitle' => false, 'icon' => null, 'templateVars' => [], 'type' => 'button'];
-        $options = $this->addButtonClasses($options, 'btn-primary');
         if ($options['icon']) {
             $options['templateVars'] += ['icon' => $this->Icon->icon($options['icon']) . ' '];
             unset($options['icon']);
         }
 
-        return parent::button($title, $options);
+        return parent::button($title, $this->addButtonClasses($options));
     }
 
     /**
@@ -322,10 +321,11 @@ class FormHelper extends BaseFormHelper
      * @return string A HTML button tag
      * @link https://book.cakephp.org/4/en/views/helpers/form.html#creating-standalone-buttons-and-post-links
      * @see \Cake\View\Helper\FormHelper::postButton() for all available options
+     * @throws \ErrorException
      */
     public function postButton(string $title, $url, array $options = []): string
     {
-        return parent::postButton($title, $url, ['type' => 'submit'] + $options);
+        return parent::postButton($title, $url, ['type' => 'submit'] + $this->addButtonClasses($options));
     }
 
     /**
@@ -384,8 +384,6 @@ class FormHelper extends BaseFormHelper
             $options['templateVars'] += ['divClass' => 'col-12 '];
         }
 
-        $options = $this->addButtonClasses($options, 'btn-primary');
-
-        return parent::submit($caption, $options);
+        return parent::submit($caption, $this->addButtonClasses($options));
     }
 }

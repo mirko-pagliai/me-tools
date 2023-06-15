@@ -86,14 +86,13 @@ class HtmlHelper extends BaseHtmlHelper
      *   external URL (starts with http://)
      * @param array<string, mixed> $options Array of options and HTML attributes
      * @return string An `<a />` element
-     * @throws \Tools\Exception\NotInArrayException
+     * @throws \ErrorException
      */
     public function button($title, $url = null, array $options = []): string
     {
         $options += ['role' => 'button'];
-        $options = $this->addButtonClasses($options);
 
-        return $this->link($title, $url, $options);
+        return $this->link($title, $url, $this->addButtonClasses($options));
     }
 
     /**

@@ -57,35 +57,35 @@ class HtmlHelperTest extends HelperTestCase
      */
     public function testButton(): void
     {
-        $expected = '<a href="https://link" title="my-title" role="button" class="btn btn-light">My title</a>';
+        $expected = '<a href="https://link" title="my-title" role="button" class="btn btn-primary">My title</a>';
         $result = $this->Helper->button('My title', 'https://link', ['title' => 'my-title']);
         $this->assertSame($expected, $result);
 
-        $expected = '<a href="#" role="button" class="btn btn-light" title="My title">My title <i class="fas fa-home"> </i></a>';
+        $expected = '<a href="#" role="button" class="btn btn-primary" title="My title">My title <i class="fas fa-home"> </i></a>';
         $result = $this->Helper->button('My title', '#', ['icon' => 'home', 'icon-align' => 'right']);
         $this->assertSame($expected, $result);
 
         //Code on text
-        $expected = '<a href="#" role="button" class="btn btn-light" title="Code"><u>Code</u> </a>';
+        $expected = '<a href="#" role="button" class="btn btn-primary" title="Code"><u>Code</u> </a>';
         $result = $this->Helper->button('<u>Code</u> ', '#');
         $this->assertSame($expected, $result);
 
         //Code on custom title
-        $expected = '<a href="#" title="Code" role="button" class="btn btn-light">My title</a>';
+        $expected = '<a href="#" title="Code" role="button" class="btn btn-primary">My title</a>';
         $result = $this->Helper->button('My title', '#', ['title' => '<u>Code</u>']);
         $this->assertSame($expected, $result);
 
-        $expected = '<a href="/" role="button" class="btn btn-light" title="/">/</a>';
+        $expected = '<a href="/" role="button" class="btn btn-primary" title="/">/</a>';
         $result = $this->Helper->button('/');
         $this->assertSame($expected, $result);
 
         //With a button class
-        $expected = '<a href="https://link" class="btn btn-success" title="my-title" role="button">My title</a>';
-        $result = $this->Helper->button('My title', 'https://link', ['class' => 'btn-success', 'title' => 'my-title']);
+        $expected = '<a href="https://link" class="btn btn-danger" title="my-title" role="button">My title</a>';
+        $result = $this->Helper->button('My title', 'https://link', ['class' => 'btn-danger', 'title' => 'my-title']);
         $this->assertSame($expected, $result);
 
         $this->loadPlugins(['TestPlugin' => []]);
-        $expected = '<a href="/pages" role="button" class="btn btn-light"></a>';
+        $expected = '<a href="/pages" role="button" class="btn btn-primary"></a>';
         $result = $this->Helper->button(['controller' => 'Pages', 'plugin' => 'TestPlugin']);
         $this->assertSame($expected, $result);
     }

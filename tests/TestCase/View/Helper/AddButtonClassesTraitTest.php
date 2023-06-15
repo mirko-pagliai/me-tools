@@ -26,67 +26,24 @@ use MeTools\View\View;
 class AddButtonClassesTraitTest extends TestCase
 {
     /**
-     * @var \Cake\View\Helper
-     */
-    protected Helper $Helper;
-
-    /**
-     * Called before every test method
-     * @return void
-     */
-    public function setUp(): void
-    {
-        parent::setUp();
-
-        $this->Helper = new class (new View()) extends Helper {
-            use AddButtonClassesTrait {
-                addButtonClasses as public;
-            }
-        };
-    }
-
-    /**
      * @test
      * @uses \MeTools\View\Helper\AddButtonClassesTrait::addButtonClasses()
      */
     public function testAddButtonClasses(): void
     {
-        $expected = ['class' => 'btn btn-light'];
-        $this->assertEquals($expected, $this->Helper->addButtonClasses([]));
-        $this->assertEquals($expected, $this->Helper->addButtonClasses(['class' => 'btn']));
+        $Helper = new class (new View()) extends Helper {
+            use AddButtonClassesTrait {
+                addButtonClasses as public;
+            }
+        };
 
         $expected = ['class' => 'btn btn-primary'];
-        $this->assertEquals($expected, $this->Helper->addButtonClasses([], 'primary'));
-        $this->assertEquals($expected, $this->Helper->addButtonClasses([], 'btn-primary'));
-        $this->assertEquals($expected, $this->Helper->addButtonClasses(['class' => 'btn'], 'primary'));
-        $this->assertEquals($expected, $this->Helper->addButtonClasses(['class' => 'btn'], 'btn-primary'));
-        $this->assertEquals($expected, $this->Helper->addButtonClasses(['class' => 'btn-primary'], 'primary'));
-        $this->assertEquals($expected, $this->Helper->addButtonClasses(['class' => 'btn-primary'], 'btn-primary'));
-        $this->assertEquals($expected, $this->Helper->addButtonClasses(['class' => 'btn btn-primary'], 'primary'));
-        $this->assertEquals($expected, $this->Helper->addButtonClasses(['class' => 'btn btn-primary'], 'btn-primary'));
-        $this->assertEquals($expected, $this->Helper->addButtonClasses(['class' => 'btn btn-primary'], 'success'));
-        $this->assertEquals($expected, $this->Helper->addButtonClasses(['class' => 'btn btn-primary'], 'success'));
-    }
+        $this->assertSame($expected, $Helper->addButtonClasses([], 'btn-primary'));
+        $this->assertSame($expected, $Helper->addButtonClasses(['class' => 'btn-primary'], 'btn-primary'));
+        $this->assertSame($expected, $Helper->addButtonClasses(['class' => 'btn-primary'], 'btn-danger'));
+        $this->assertSame($expected, $Helper->addButtonClasses(['class' => 'btn btn-primary'], 'btn-danger'));
 
-    /**
-     * With an empty class
-     * @test
-     * @uses \MeTools\View\Helper\AddButtonClassesTrait::addButtonClasses()
-     */
-    public function testAddButtonClassesWithEmptyClass(): void
-    {
-        $this->expectExceptionMessage('Invalid class');
-        $this->Helper->addButtonClasses([], '');
-    }
-
-    /**
-     * With an invalid class
-     * @test
-     * @uses \MeTools\View\Helper\AddButtonClassesTrait::addButtonClasses()
-     */
-    public function testAddButtonClassesWithInvalidClass(): void
-    {
-        $this->expectExceptionMessage('Invalid `invalidClass` class');
-        $this->Helper->addButtonClasses([], 'invalidClass');
+        $this->expectExceptionMessage('Invalid `invalidClass` button class');
+        $Helper->addButtonClasses([], 'invalidClass');
     }
 }

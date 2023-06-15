@@ -26,31 +26,35 @@ trait AddButtonClassesTrait
     /**
      * Adds the given button class to the element options
      * @param array<string, mixed> $options Array options/attributes to add a class to
-     * @param string $class The class name being added
+     * @param string ...$class The button class name being added.
      * @return array<string, mixed> Array of options
-     * @see https://getbootstrap.com/docs/5.3/components/buttons/#variants
-     * @throws \Tools\Exception\NotInArrayException
+     * @throws \ErrorException
+     * @see https://getbootstrap.com/docs/5.3/components/buttons/#variants for valid classes
      */
-    protected function addButtonClasses(array $options, string $class = 'btn-light'): array
+    protected function addButtonClasses(array $options, string ...$class)
     {
-        //Adds the `btn-` suffix to the class
-        $btnClass = $class && !str_starts_with($class, 'btn-') ? 'btn-' . $class : $class;
-
-        //Checks `$btnClass` is a valid and supported class
-        $baseClasses = ['btn-primary', 'btn-secondary', 'btn-success', 'btn-danger', 'btn-warning', 'btn-info', 'btn-light', 'btn-dark', 'btn-link'];
-        Exceptionist::inArray($btnClass, $baseClasses, $class ? 'Invalid `' . $class . '` class' : 'Invalid class');
+        $class = $class ?: ['btn-primary'];
 
         $options += ['class' => ''];
+        $validClasses = ['btn-primary', 'btn-secondary', 'btn-success', 'btn-danger', 'btn-warning', 'btn-info', 'btn-light',
+            'btn-dark', 'btn-link', 'btn-outline-primary', 'btn-outline-secondary', 'btn-outline-success', 'btn-outline-danger',
+            'btn-outline-warning', 'btn-outline-info', 'btn-outline-light', 'btn-outline-dark', 'btn-lg', 'btn-sm', 'btn-block'];
+        $btnAlreadyExists = preg_match('/btn(?!-)/', $options['class']);
 
-        //Adds the `$btnClass` only if a valid and supported class doesn't already exist
-        if (!preg_match('/(' . implode('|', $baseClasses) . ')/', $options['class'])) {
-            $options = $this->addClass($options, $btnClass);
+        //If a valid class already exists, just checks that the base class `btn` exists and returns
+        if (preg_match('/(' . implode('|', $validClasses) . ')/', $options['class'])) {
+            if (!$btnAlreadyExists) {
+                $options['class'] = preg_replace('/btn-/', 'btn btn-', $options['class'], 1);
+            }
+
+            return $options;
         }
 
-        //Prepend the basic `btn` class
-        if (!in_array('btn', explode(' ', $options['class']))) {
-            $options['class'] = preg_replace('/(' . implode('|', $baseClasses) . ')/', 'btn \1', $options['class']);
-        }
+        //Checks you are not trying to add an invalid class
+        $wrongClass = array_value_first(array_diff($class, $validClasses));
+        Exceptionist::isFalse($wrongClass, 'Invalid `'. $wrongClass . '` button class');
+
+        $options['class'] = ltrim($options['class'] . ' ') . implode(' ', $btnAlreadyExists ? $class : ['btn', ...$class]);
 
         return $options;
     }

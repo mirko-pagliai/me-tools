@@ -421,6 +421,14 @@ HTML;
             '</form>';
         $result = $this->Helper->postButton('Title', '#', ['icon' => 'home']);
         $this->assertSame($expected, $result);
+
+        $expected = '<form method="post" accept-charset="utf-8" action="#">' .
+            '<button type="submit" class="btn btn-danger">' .
+            '<i class="fas fa-home"> </i> Title' .
+            '</button>' .
+            '</form>';
+        $result = $this->Helper->postButton('Title', '#', ['class' => 'btn-danger', 'icon' => 'home']);
+        $this->assertSame($expected, $result);
     }
 
     /**
