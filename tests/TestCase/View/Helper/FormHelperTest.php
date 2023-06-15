@@ -175,6 +175,17 @@ class FormHelperTest extends HelperTestCase
     }
 
     /**
+     * There is no `checkbox()` method, so this test checks that the parent method is not affected by other code
+     * @test
+     */
+    public function testCheckbox(): void
+    {
+        $expected = '<input type="hidden" name="My checkbox" value="0"/><input type="checkbox" name="My checkbox" value="1" yes="yes" no="no">';
+        $result = $this->Helper->checkbox('My checkbox', ['1' => 'yes', '2' => 'no']);
+        $this->assertSame($expected, $result);
+    }
+
+    /**
      * @test
      * @uses \MeTools\View\Helper\FormHelper::control()
      */
@@ -281,6 +292,44 @@ class FormHelperTest extends HelperTestCase
             '</select>' .
             '</div>';
         $result = $this->Helper->control('My select', ['options' => [1 => 'First', 2 => 'Second'], 'type' => 'select']);
+        $this->assertSame($expected, $result);
+    }
+
+    /**
+     * @test
+     * @uses \MeTools\View\Helper\FormHelper::control()
+     * @uses \MeTools\View\Helper\FormHelper::select()
+     */
+    public function testControlWithSelectMultiple(): void
+    {
+        $expected = '<div class="mb-3 select">' .
+            '<label class="form-label" for="my-select">My Select</label>' .
+            '<select name="my-select" multiple="multiple" class="form-select" id="my-select">' .
+            '<option value="1">First</option>' .
+            '<option value="2">Second</option>' .
+            '<option value="3">Third</option>' .
+            '</select>' .
+            '</div>';
+        $result = $this->Helper->control('my-select', ['options' => [1 => 'First', 2 => 'Second', 3 => 'Third'], 'multiple', 'type' => 'select']);
+        $this->assertSame($expected, $result);
+
+        $expected = '<div class="mb-3 select">' .
+            '<label class="form-label" for="my-select">My Select</label>' .
+            '<input type="hidden" name="my-select" id="my-select" value=""/>' .
+            '<div class="form-check">' .
+            '<input type="checkbox" name="my-select[]" value="1" id="my-select-1" class="form-check-input">' .
+            '<label class="form-check-label" for="my-select-1">First</label>' .
+            '</div>' .
+            '<div class="form-check">' .
+            '<input type="checkbox" name="my-select[]" value="2" id="my-select-2" class="form-check-input">' .
+            '<label class="form-check-label" for="my-select-2">Second</label>' .
+            '</div>' .
+            '<div class="form-check">' .
+            '<input type="checkbox" name="my-select[]" value="3" id="my-select-3" class="form-check-input">' .
+            '<label class="form-check-label" for="my-select-3">Third</label>' .
+            '</div>' .
+            '</div>';
+        $result = $this->Helper->control('my-select', ['options' => [1 => 'First', 2 => 'Second', 3 => 'Third'], 'multiple' => 'checkbox', 'type' => 'select']);
         $this->assertSame($expected, $result);
     }
 
@@ -421,6 +470,32 @@ HTML;
             '<option value="2" selected="selected">Second</option>' .
             '</select>';
         $result = $this->Helper->select('My select', [1 => 'First', 2 => 'Second'], ['default' => 2, 'empty' => 'Choose a value!']);
+        $this->assertSame($expected, $result);
+
+        //With `multiple`
+        $expected = '<select name="my-select" multiple="multiple">' .
+            '<option value="1">First</option>' .
+            '<option value="2">Second</option>' .
+            '<option value="3">Third</option>' .
+            '</select>';
+        $result = $this->Helper->select('my-select', [1 => 'First', 2 => 'Second', 3 => 'Third'], ['multiple']);
+        $this->assertSame($expected, $result);
+
+        //With `multiple` as checkboxes
+        $expected = '<input type="hidden" name="my-select" id="my-select" value=""/>' .
+            '<div class="form-check">' .
+            '<input type="checkbox" name="my-select[]" value="1" id="my-select-1" class="form-check-input">' .
+            '<label for="my-select-1">First</label>' .
+            '</div>' .
+            '<div class="form-check">' .
+            '<input type="checkbox" name="my-select[]" value="2" id="my-select-2" class="form-check-input">' .
+            '<label for="my-select-2">Second</label>' .
+            '</div>' .
+            '<div class="form-check">' .
+            '<input type="checkbox" name="my-select[]" value="3" id="my-select-3" class="form-check-input">' .
+            '<label for="my-select-3">Third</label>' .
+            '</div>';
+        $result = $this->Helper->select('my-select', [1 => 'First', 2 => 'Second', 3 => 'Third'], ['multiple' => 'checkbox']);
         $this->assertSame($expected, $result);
     }
 

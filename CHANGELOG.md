@@ -8,6 +8,7 @@ Generally the use of templates has been improved and simplified and the `setTemp
 All the code has been optimized overall and has been concentrated in fewer methods (especially `_getLabel()` and
     `control()`), avoiding affecting methods involving single inputs without container).
 
+* introduced support for `multiple` selects (with or without checkboxes), fully compatible with Bootstrap;
 * the `button()` method no longer automatically adds the `success` class to submit buttons; the `label()` method no 
   longer automatically adds the `fw-bolder` class (`bold` can be set via css);
 * the checkboxes template has been improved and made fully compatible with Bootstrap;

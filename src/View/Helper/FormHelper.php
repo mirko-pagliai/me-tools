@@ -59,6 +59,8 @@ class FormHelper extends BaseFormHelper
         $this->_defaultConfig['templates'] = [
             //Used for button elements in button()
             'button' => '<button{{attrs}}>{{icon}}{{text}}</button>',
+            //Wrapper container for checkboxes
+            'checkboxWrapper' => '<div class="form-check">{{label}}</div>',
             //Error message wrapper elements
             'error' => '<div class="invalid-feedback" id="{{id}}">{{content}}</div>',
             //Container for error items
@@ -337,20 +339,27 @@ class FormHelper extends BaseFormHelper
      */
     public function select(string $fieldName, iterable $options = [], array $attributes = []): string
     {
-        $attributes += ['multiple' => null, 'required' => null, 'empty' => null, 'default' => null];
+        $attributes += ['multiple' => null, 'required' => null, 'empty' => null, 'default' => null, 'label' => null];
 
         /**
          * The `empty` attribute is added only if:
-         *  - the `empty` and `default` attributes are empty;
+         *  - the `empty` attribute is empty;
+         *  - the `default` attributes is empty;
          *  - it is not a multiple.
          * @todo what about `value` option?
          */
-        if ($attributes['empty'] == null && !$attributes['default'] && !$attributes['multiple']) {
+        if ($attributes['empty'] == null && !$attributes['default'] && !($attributes['multiple'] || in_array('multiple', $attributes, true))) {
             //If the field is marked as `required`, an `empty` text will be added
             if ($this->_getContext()->isRequired($fieldName) || $attributes['required']) {
                 $empty = '-- ' . __d('me-tools', 'select a value') . ' --';
             }
             $attributes['empty'] = $empty ?? true;
+        }
+
+        //Sets input class and label class for multiple checkboxes
+        if ($attributes['multiple'] == 'checkbox') {
+            $attributes['class'] = 'form-check-input';
+            $attributes['label'] = $attributes['label'] === true ? ['class' => 'form-check-label'] : $attributes['label'];
         }
 
         return parent::select($fieldName, $options, $attributes);
