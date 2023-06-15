@@ -19,7 +19,8 @@ All the code has been optimized overall and has been concentrated in fewer metho
   no longer by methods. But now nothing happens for fields that are correct (the `is-valid` class is no longer used).
   For the same reason, the `$isPost` property no longer exists;
 * fixed a little bug for `_inputType()` method in self-determining whether a text input is a password input;
-* `div` wrappers no longer have the `input` class (useless now).
+* `div` wrapper class is now set via template (for example, for inline forms) and no longer have the `input` class by
+  default (useless now).
 
 #### Other changes
 * added the `AbstractPerson` entity class;

@@ -54,8 +54,7 @@ class FormHelper extends BaseFormHelper
     public function __construct(View $view, array $config = [])
     {
         /**
-         * Rewrites default templates config.
-         * Some of these templates can be modified by the `createInline()` method.
+         * Rewrites default templates config
          */
         $this->_defaultConfig['templates'] = [
             //Used for button elements in button()
@@ -67,11 +66,13 @@ class FormHelper extends BaseFormHelper
             //Label element when inputs are not nested inside the label
             'label' => '<label{{attrs}}>{{icon}}{{text}}</label>',
             //Container element used by control()
-            'inputContainer' => '<div class="mb-3 {{divClass}}{{type}}{{required}}">{{content}}{{help}}</div>',
+            'inputContainer' => '<div class="{{divClass}}{{type}}{{required}}">{{content}}{{help}}</div>',
             //Container element used by control() when a field has an error
-            'inputContainerError' => '<div class="mb-3 {{divClass}}{{type}}{{required}} error">{{content}}{{error}}{{help}}</div>',
+            'inputContainerError' => '<div class="{{divClass}}{{type}}{{required}} error">{{content}}{{error}}{{help}}</div>',
             //Label element used for radio and multi-checkbox inputs
             'nestingLabel' => '{{hidden}}{{input}}<label{{attrs}}>{{text}}</label>',
+            //Container for submit buttons
+            'submitContainer' => '<div class="{{divClass}}submit">{{content}}</div>',
         ] + $this->_defaultConfig['templates'];
 
         /**
@@ -151,6 +152,7 @@ class FormHelper extends BaseFormHelper
      * @return string A HTML button tag
      * @link https://book.cakephp.org/4/en/views/helpers/form.html#creating-button-elements
      * @see \Cake\View\Helper\FormHelper::button() for all available options
+     * @throws \Tools\Exception\NotInArrayException
      */
     public function button(string $title, array $options = []): string
     {
@@ -197,10 +199,15 @@ class FormHelper extends BaseFormHelper
     {
         $options += ['help' => null, 'append-text' => null, 'prepend-text' => null, 'templateVars' => []];
 
+        $templateVars['divClass'] = 'mb-3 ';
+        if ($this->isInline()) {
+            $templateVars['divClass'] = 'col-12 ';
+        }
+
         switch ($this->_inputType($fieldName, $options)) {
             case 'checkbox':
             case 'radio':
-                $templateVars['divClass'] = 'form-check ';
+                $templateVars['divClass'] .= 'form-check ';
                 $class = 'form-check-input';
                 break;
             case 'select':
@@ -240,9 +247,7 @@ class FormHelper extends BaseFormHelper
             $options['templates']['formGroup'] = '{{label}}<div class="input-group">{{prepend}}{{input}}{{append}}{{error}}</div>';
         }
 
-        if (!empty($templateVars)) {
-            $options['templateVars'] += $templateVars;
-        }
+        $options['templateVars'] += $templateVars;
 
         unset($options['help'], $options['append-text'], $options['prepend-text']);
 
@@ -287,17 +292,7 @@ class FormHelper extends BaseFormHelper
     {
         $this->isInline = true;
 
-        $options += ['templates' => []];
         $options = $this->addClass($options, 'row row-cols-lg-auto g-1 align-items-center');
-
-        $options['templates'] += [
-            //Container element used by control()
-            'inputContainer' => '<div class="col-12 {{divClass}}{{type}}{{required}}">{{content}}{{help}}</div>',
-            //Container element used by control() when a field has an error
-            'inputContainerError' => '<div class="col-12 {{divClass}}{{type}}{{required}} error">{{content}}{{error}}{{help}}</div>',
-            //Container for submit buttons
-            'submitContainer' => '<div class="col-12 submit">{{content}}</div>',
-        ];
 
         return $this->create($context, $options);
     }
@@ -347,10 +342,10 @@ class FormHelper extends BaseFormHelper
         /**
          * The `empty` attribute is added only if:
          *  - the `empty` and `default` attributes are empty;
-         *  - it is not a multiple checkbox.
+         *  - it is not a multiple.
          * @todo what about `value` option?
          */
-        if (!$attributes['empty'] && !$attributes['default'] && $attributes['multiple'] !== 'checkbox') {
+        if ($attributes['empty'] == null && !$attributes['default'] && !$attributes['multiple']) {
             //If the field is marked as `required`, an `empty` text will be added
             if ($this->_getContext()->isRequired($fieldName) || $attributes['required']) {
                 $empty = '-- ' . __d('me-tools', 'select a value') . ' --';
@@ -370,9 +365,16 @@ class FormHelper extends BaseFormHelper
      * @return string A HTML submit button
      * @link https://book.cakephp.org/4/en/views/helpers/form.html#creating-buttons-and-submit-elements
      * @see \Cake\View\Helper\FormHelper::submit() for all available options
+     * @throws \Tools\Exception\NotInArrayException
      */
     public function submit(?string $caption = null, array $options = []): string
     {
+        $options += ['templateVars' => []];
+
+        if ($this->isInline()) {
+            $options['templateVars'] += ['divClass' => 'col-12 '];
+        }
+
         $options = $this->addButtonClasses($options, 'btn-primary');
 
         return parent::submit($caption, $options);
