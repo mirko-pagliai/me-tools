@@ -357,7 +357,7 @@ class FormHelper extends BaseFormHelper
         }
 
         //Sets input class and label class for multiple checkboxes
-        if ($attributes['multiple'] == 'checkbox') {
+        if ($attributes['multiple'] === 'checkbox') {
             $attributes['class'] = 'form-check-input';
             $attributes['label'] = $attributes['label'] === true ? ['class' => 'form-check-label'] : $attributes['label'];
         }
