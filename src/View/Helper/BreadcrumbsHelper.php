@@ -40,9 +40,9 @@ class BreadcrumbsHelper extends CakeBreadcrumbsHelper
      */
     public function add($title, $url = null, array $options = []): CakeBreadcrumbsHelper
     {
-        $options = optionsParser($options)->append('class', 'breadcrumb-item');
+        $options = $this->addClass($options, 'breadcrumb-item');
 
-        return parent::add($title, $url, $options->toArray());
+        return parent::add($title, $url, $options);
     }
 
     /**
@@ -62,9 +62,9 @@ class BreadcrumbsHelper extends CakeBreadcrumbsHelper
      */
     public function prepend($title, $url = null, array $options = []): CakeBreadcrumbsHelper
     {
-        $options = optionsParser($options)->append('class', 'breadcrumb-item');
+        $options = $this->addClass($options, 'breadcrumb-item');
 
-        return parent::prepend($title, $url, $options->toArray());
+        return parent::prepend($title, $url, $options);
     }
 
     /**
@@ -84,8 +84,8 @@ class BreadcrumbsHelper extends CakeBreadcrumbsHelper
         $last = key($this->crumbs);
         $this->crumbs[$last]['url'] = null;
 
-        $attributes = optionsParser($attributes)->append('class', 'breadcrumb');
+        $attributes = $this->addClass($attributes, 'breadcrumb');
 
-        return parent::render($attributes->toArray(), $separator);
+        return parent::render($attributes, $separator);
     }
 }

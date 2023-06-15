@@ -178,16 +178,16 @@ class HtmlHelper extends BaseHtmlHelper
             $title = '';
         }
 
-        $options = optionsParser($options, ['escape' => false]);
+        $options += ['escape' => false];
 
-        $titleAsOption = $options->get('title') ?? $title;
+        $titleAsOption = $options['title'] ?? $title;
         if ($titleAsOption) {
-            $options->add('title', trim(strip_tags($titleAsOption)));
+            $options['title'] = trim(strip_tags($titleAsOption));
         }
 
         [$title, $options] = $this->Icon->addIconToText($title, $options);
 
-        return parent::link($title, $url, $options->toArray());
+        return parent::link($title, $url, $options);
     }
 
     /**
@@ -224,7 +224,7 @@ class HtmlHelper extends BaseHtmlHelper
         if ($itemOptions['icon']) {
             $options = $this->addClass($options, 'fa-ul');
             $itemOptions = $this->addClass($itemOptions, 'li', 'icon');
-            $list = array_map(fn(string $element): string => array_value_first($this->Icon->addIconToText($element, optionsParser($itemOptions))), $list);
+            $list = array_map(fn(string $element): string => array_value_first($this->Icon->addIconToText($element, $itemOptions)), $list);
         }
 
         unset($options['icon'], $options['icon-align'], $itemOptions['icon'], $itemOptions['icon-align']);
@@ -273,10 +273,9 @@ class HtmlHelper extends BaseHtmlHelper
      */
     public function tag(string $name, ?string $text = null, array $options = []): string
     {
-        $options = optionsParser($options);
         [$text, $options] = $this->Icon->addIconToText($text, $options);
 
-        return parent::tag($name, $text, $options->toArray());
+        return parent::tag($name, $text, $options);
     }
 
     /**

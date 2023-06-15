@@ -23,8 +23,8 @@ use MeTools\TestSuite\HelperTestCase;
 class BreadcrumbsHelperTest extends HelperTestCase
 {
     /**
-     * Tests for `add()` method
      * @test
+     * @uses \MeTools\View\Helper\BreadcrumbsHelper::add()
      */
     public function testAdd(): void
     {
@@ -35,7 +35,7 @@ class BreadcrumbsHelperTest extends HelperTestCase
             'First',
             '/a',
             '/li',
-            ['li' => ['class' => 'breadcrumb-item custom-class']],
+            ['li' => ['class' => 'custom-class breadcrumb-item']],
             'span' => [],
             'Second',
             '/span',

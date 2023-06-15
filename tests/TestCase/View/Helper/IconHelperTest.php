@@ -31,45 +31,40 @@ class IconHelperTest extends HelperTestCase
     {
         $text = 'My text';
 
-        $options = optionsParser(['icon' => 'home']);
+        $options = ['icon' => 'home'];
         [$result, $options] = $this->Helper->addIconToText($text, $options);
         $this->assertEquals('<i class="fas fa-home"> </i> ' . $text, $result);
-        $this->assertInstanceOf(OptionsParser::class, $options);
-        $this->assertFalse($options->exists('icon'));
-        $this->assertFalse($options->exists('icon-align'));
+        $this->assertArrayNotHasKey('icon', $options);
+        $this->assertArrayNotHasKey('icon-align', $options);
 
         //Missing `icon` option
-        $options = optionsParser(['class' => 'my-class', 'icon-align' => 'right']);
+        $options = ['class' => 'my-class', 'icon-align' => 'right'];
         [$result, $options] = $this->Helper->addIconToText($text, $options);
         $this->assertEquals($text, $result);
-        $this->assertInstanceOf(OptionsParser::class, $options);
-        $this->assertFalse($options->exists('icon'));
-        $this->assertFalse($options->exists('icon-align'));
-        $this->assertEquals('my-class', $options->get('class'));
+        $this->assertArrayNotHasKey('icon', $options);
+        $this->assertArrayNotHasKey('icon-align', $options);
+        $this->assertEquals('my-class', $options['class']);
 
         //Empty text
-        $options = optionsParser(['icon' => 'home']);
+        $options = ['icon' => 'home'];
         [$result, $options] = $this->Helper->addIconToText(null, $options);
         $this->assertEquals('<i class="fas fa-home"> </i>', $result);
-        $this->assertInstanceOf(OptionsParser::class, $options);
-        $this->assertFalse($options->exists('icon'));
-        $this->assertFalse($options->exists('icon-align'));
+        $this->assertArrayNotHasKey('icon', $options);
+        $this->assertArrayNotHasKey('icon-align', $options);
 
         //Using `icon-align` option
-        $options = optionsParser(['icon' => 'home', 'icon-align' => 'right']);
+        $options = ['icon' => 'home', 'icon-align' => 'right'];
         [$result, $options] = $this->Helper->addIconToText($text, $options);
         $this->assertEquals($text . ' <i class="fas fa-home"> </i>', $result);
-        $this->assertInstanceOf(OptionsParser::class, $options);
-        $this->assertFalse($options->exists('icon'));
-        $this->assertFalse($options->exists('icon-align'));
+        $this->assertArrayNotHasKey('icon', $options);
+        $this->assertArrayNotHasKey('icon-align', $options);
 
         //Invalid `icon-align` option
-        $options = optionsParser(['icon' => 'home', 'icon-align' => 'left']);
+        $options = ['icon' => 'home', 'icon-align' => 'left'];
         [$result, $options] = $this->Helper->addIconToText($text, $options);
         $this->assertEquals('<i class="fas fa-home"> </i> ' . $text, $result);
-        $this->assertInstanceOf(OptionsParser::class, $options);
-        $this->assertFalse($options->exists('icon'));
-        $this->assertFalse($options->exists('icon-align'));
+        $this->assertArrayNotHasKey('icon', $options);
+        $this->assertArrayNotHasKey('icon-align', $options);
     }
 
     /**

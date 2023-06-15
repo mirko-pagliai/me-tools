@@ -57,35 +57,35 @@ class HtmlHelperTest extends HelperTestCase
      */
     public function testButton(): void
     {
-        $expected = '<a href="https://link" class="btn btn-light" role="button" title="my-title">My title</a>';
+        $expected = '<a href="https://link" title="my-title" role="button" class="btn btn-light">My title</a>';
         $result = $this->Helper->button('My title', 'https://link', ['title' => 'my-title']);
         $this->assertSame($expected, $result);
 
-        $expected = '<a href="#" class="btn btn-light" role="button" title="My title">My title <i class="fas fa-home"> </i></a>';
+        $expected = '<a href="#" role="button" class="btn btn-light" title="My title">My title <i class="fas fa-home"> </i></a>';
         $result = $this->Helper->button('My title', '#', ['icon' => 'home', 'icon-align' => 'right']);
         $this->assertSame($expected, $result);
 
         //Code on text
-        $expected = '<a href="#" class="btn btn-light" role="button" title="Code"><u>Code</u> </a>';
+        $expected = '<a href="#" role="button" class="btn btn-light" title="Code"><u>Code</u> </a>';
         $result = $this->Helper->button('<u>Code</u> ', '#');
         $this->assertSame($expected, $result);
 
         //Code on custom title
-        $expected = '<a href="#" class="btn btn-light" role="button" title="Code">My title</a>';
+        $expected = '<a href="#" title="Code" role="button" class="btn btn-light">My title</a>';
         $result = $this->Helper->button('My title', '#', ['title' => '<u>Code</u>']);
         $this->assertSame($expected, $result);
 
-        $expected = '<a href="/" class="btn btn-light" role="button" title="/">/</a>';
+        $expected = '<a href="/" role="button" class="btn btn-light" title="/">/</a>';
         $result = $this->Helper->button('/');
         $this->assertSame($expected, $result);
 
         //With a button class
-        $expected = '<a href="https://link" class="btn btn-success" role="button" title="my-title">My title</a>';
+        $expected = '<a href="https://link" class="btn btn-success" title="my-title" role="button">My title</a>';
         $result = $this->Helper->button('My title', 'https://link', ['class' => 'btn-success', 'title' => 'my-title']);
         $this->assertSame($expected, $result);
 
         $this->loadPlugins(['TestPlugin' => []]);
-        $expected = '<a href="/pages" class="btn btn-light" role="button"></a>';
+        $expected = '<a href="/pages" role="button" class="btn btn-light"></a>';
         $result = $this->Helper->button(['controller' => 'Pages', 'plugin' => 'TestPlugin']);
         $this->assertSame($expected, $result);
     }
@@ -96,7 +96,7 @@ class HtmlHelperTest extends HelperTestCase
      */
     public function testBadge(): void
     {
-        $expected = '<span class="badge my-class"><i class="fas fa-home"> </i> 1</span>';
+        $expected = '<span class="my-class badge"><i class="fas fa-home"> </i> 1</span>';
         $result = $this->Helper->badge('1', ['class' => 'my-class', 'icon' => 'home']);
         $this->assertSame($expected, $result);
     }
@@ -258,7 +258,7 @@ class HtmlHelperTest extends HelperTestCase
      */
     public function testShareaholic(): void
     {
-        $expected = '<div class="shareaholic-canvas" data-app="share_buttons" data-app-id="myAppId"></div>';
+        $expected = '<div data-app="share_buttons" data-app-id="myAppId" class="shareaholic-canvas"></div>';
         $this->assertSame($expected, $this->Helper->shareaholic('myAppId'));
     }
 
@@ -300,23 +300,23 @@ class HtmlHelperTest extends HelperTestCase
      */
     public function testYoutube(): void
     {
-        $expected = '<div class="ratio ratio-16x9"><iframe allowfullscreen="allowfullscreen" height="480" src="https://www.youtube.com/embed/-YcwR89cfao" width="640"></iframe></div>';
+        $expected = '<div class="ratio ratio-16x9"><iframe allowfullscreen="allowfullscreen" height="480" width="640" src="https://www.youtube.com/embed/-YcwR89cfao"></iframe></div>';
         $result = $this->Helper->youtube('-YcwR89cfao');
         $this->assertSame($expected, $result);
 
-        $expected = '<div class="ratio ratio-4x3"><iframe allowfullscreen="allowfullscreen" height="480" src="https://www.youtube.com/embed/-YcwR89cfao" width="640"></iframe></div>';
+        $expected = '<div class="ratio ratio-4x3"><iframe allowfullscreen="allowfullscreen" height="480" width="640" src="https://www.youtube.com/embed/-YcwR89cfao"></iframe></div>';
         $result = $this->Helper->youtube('-YcwR89cfao', ['ratio' => '4x3']);
         $this->assertSame($expected, $result);
 
-        $expected = '<iframe allowfullscreen="allowfullscreen" height="480" src="https://www.youtube.com/embed/-YcwR89cfao" width="640"></iframe>';
+        $expected = '<iframe allowfullscreen="allowfullscreen" height="480" width="640" src="https://www.youtube.com/embed/-YcwR89cfao"></iframe>';
         $result = $this->Helper->youtube('-YcwR89cfao', ['ratio' => false]);
         $this->assertSame($expected, $result);
 
-        $expected = '<div class="ratio ratio-16x9"><iframe allowfullscreen="allowfullscreen" class="my-class" height="100" src="https://www.youtube.com/embed/-YcwR89cfao" width="200"></iframe></div>';
+        $expected = '<div class="ratio ratio-16x9"><iframe class="my-class" height="100" width="200" allowfullscreen="allowfullscreen" src="https://www.youtube.com/embed/-YcwR89cfao"></iframe></div>';
         $result = $this->Helper->youtube('-YcwR89cfao', ['class' => 'my-class', 'height' => 100, 'width' => 200]);
         $this->assertSame($expected, $result);
 
-        $expected = '<div class="ratio ratio-16x9"><iframe allowfullscreen="allowfullscreen" height="480" src="https://www.youtube.com/embed/-YcwR89cfao?start=80" width="640"></iframe></div>';
+        $expected = '<div class="ratio ratio-16x9"><iframe allowfullscreen="allowfullscreen" height="480" width="640" src="https://www.youtube.com/embed/-YcwR89cfao?start=80"></iframe></div>';
         $result = $this->Helper->youtube('-YcwR89cfao?t=80');
         $this->assertSame($expected, $result);
     }
