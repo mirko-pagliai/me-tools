@@ -52,7 +52,7 @@ trait AddButtonClassesTrait
 
         //Checks you are not trying to add an invalid class
         $wrongClass = array_value_first(array_diff($class, $validClasses));
-        Exceptionist::isFalse($wrongClass, 'Invalid `'. $wrongClass . '` button class');
+        Exceptionist::isFalse($wrongClass, 'Invalid `' . $wrongClass . '` button class');
 
         $options['class'] = ltrim($options['class'] . ' ') . implode(' ', $btnAlreadyExists ? $class : ['btn', ...$class]);
 
