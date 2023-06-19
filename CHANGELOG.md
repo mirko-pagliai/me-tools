@@ -28,6 +28,7 @@ All the code has been optimized overall and has been concentrated in fewer metho
 * `HtmlHelper::link()` will automatically apply the `text-decoration-none` class when an icon is present, unless a
   `text-decoration-` class is already present;
 * added the `AbstractPerson` entity class;
+* added basic abstract `AppValidator` class with some general rules;
 * added basic abstract `AppController` class and `View` classe;
 * added the `AddButtonClassesTrait` with the `addButtonClasses()` method;
 * the `OptionsParser` is now deprecated and will be removed in a later release. The same goes for the global
