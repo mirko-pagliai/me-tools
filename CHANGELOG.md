@@ -25,6 +25,8 @@ All the code has been optimized overall and has been concentrated in fewer metho
 
 #### Other changes
 * added `flush()` and `hr()` method for `HtmlHelper`;
+* `HtmlHelper::link()` will automatically apply the `text-decoration-none` class when an icon is present, unless a
+  `text-decoration-` class is already present;
 * added the `AbstractPerson` entity class;
 * added basic abstract `AppController` class and `View` classe;
 * added the `AddButtonClassesTrait` with the `addButtonClasses()` method;

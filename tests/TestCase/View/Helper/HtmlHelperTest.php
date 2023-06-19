@@ -225,7 +225,7 @@ class HtmlHelperTest extends HelperTestCase
         $result = $this->Helper->link('My title', 'https://link', ['title' => 'my-title']);
         $this->assertSame($expected, $result);
 
-        $expected = '<a href="#" title="My title">My title <i class="fas fa-home"> </i></a>';
+        $expected = '<a href="#" class="text-decoration-none" title="My title">My title <i class="fas fa-home"> </i></a>';
         $result = $this->Helper->link('My title', '#', ['icon' => 'home', 'icon-align' => 'right']);
         $this->assertSame($expected, $result);
 
@@ -237,6 +237,11 @@ class HtmlHelperTest extends HelperTestCase
         //Code on custom title
         $expected = '<a href="#" title="Code">My title</a>';
         $result = $this->Helper->link('My title', '#', ['title' => '<u>Code</u>']);
+        $this->assertSame($expected, $result);
+
+        //Icon and `text-decoration-underline` (so class `text-decoration-none` will not be applied)
+        $expected = '<a href="#" class="text-decoration-underline" title="My title"><i class="fas fa-home"> </i> My title</a>';
+        $result = $this->Helper->link('My title', '#', ['class' => 'text-decoration-underline', 'icon' => 'home']);
         $this->assertSame($expected, $result);
 
         $this->assertSame('<a href="/" title="/">/</a>', $this->Helper->link('/'));

@@ -196,14 +196,20 @@ class HtmlHelper extends BaseHtmlHelper
             $title = '';
         }
 
-        $options += ['escape' => false];
+        $options += ['class' => null, 'escape' => false, 'icon' => null, 'role' => null];
 
         $titleAsOption = $options['title'] ?? $title;
         if ($titleAsOption) {
             $options['title'] = trim(strip_tags($titleAsOption));
         }
 
-        [$title, $options] = $this->Icon->addIconToText($title, $options);
+        if ($options['icon']) {
+            if (!$options['role'] && !str_contains($options['class'] ?? '', 'text-decoration-')) {
+                $options = $this->addClass($options, 'text-decoration-none');
+            }
+
+            [$title, $options] = $this->Icon->addIconToText($title, $options);
+        }
 
         return parent::link($title, $url, $options);
     }
