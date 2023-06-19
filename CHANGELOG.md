@@ -24,6 +24,7 @@ All the code has been optimized overall and has been concentrated in fewer metho
   default (useless now).
 
 #### Other changes
+* added `flush()` and `hr()` method for `HtmlHelper`;
 * added the `AbstractPerson` entity class;
 * added basic abstract `AppController` class and `View` classe;
 * added the `AddButtonClassesTrait` with the `addButtonClasses()` method;

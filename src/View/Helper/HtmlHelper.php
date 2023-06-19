@@ -96,6 +96,35 @@ class HtmlHelper extends BaseHtmlHelper
     }
 
     /**
+     * Create a "flush" list group
+     * @param array $list Set of elements to list
+     * @param array<string, mixed> $options Options and additional HTML attributes of the list (ol/ul) tag.
+     * @param array<string, mixed> $itemOptions Options and additional HTML attributes of the list item (LI) tag.
+     * @return string The "flush" list
+     * @since 2.25.0
+     * @see https://getbootstrap.com/docs/5.3/components/list-group/#flush
+     * @see \Cake\View\Helper\HtmlHelper::nestedList() for all available options
+     */
+    public function flush(array $list, array $options = [], array $itemOptions = []): string
+    {
+        $options = $this->addClass($options, 'list-group list-group-flush');
+        $itemOptions = $this->addClass($itemOptions, 'list-group-item');
+
+        return $this->ul($list, $options, $itemOptions);
+    }
+
+    /**
+     * Create a `<hr>` element
+     * @param array $options Array of options and HTML attributes
+     * @return string
+     * @since 2.25.0
+     */
+    public function hr(array $options = []): string
+    {
+        return $this->tag('hr', '', $options);
+    }
+
+    /**
      * Create an `<iframe>` element.
      *
      * You can use the `$ratio` option (valid values: '1x1', '4x3', '16x9', '21x9') to create a responsive embed.

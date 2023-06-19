@@ -102,6 +102,35 @@ class HtmlHelperTest extends HelperTestCase
     }
 
     /**
+     * @test
+     * @uses \MeTools\View\Helper\HtmlHelper::flush()
+     */
+    public function testFlush(): void
+    {
+        $expected = '<ul class="list-group list-group-flush">' .
+            '<li class="list-group-item">First</li>' .
+            '<li class="list-group-item">Second</li>' .
+            '</ul>';
+        $this->assertSame($expected, $this->Helper->flush(['First', 'Second']));
+
+        $expected = '<ul class="my-ul-class list-group list-group-flush">' .
+            '<li class="my-li-class list-group-item">First</li>' .
+            '<li class="my-li-class list-group-item">Second</li>' .
+            '</ul>';
+        $this->assertSame($expected, $this->Helper->flush(['First', 'Second'], ['class' => 'my-ul-class'], ['class' => 'my-li-class']));
+    }
+
+    /**
+     * @test
+     * @uses \MeTools\View\Helper\HtmlHelper::hr()
+     */
+    public function testHr(): void
+    {
+        $this->assertSame('<hr></hr>', $this->Helper->hr());
+        $this->assertSame('<hr class="my-class"></hr>', $this->Helper->hr(['class' => 'my-class']));
+    }
+
+    /**
      * @uses \MeTools\View\Helper\HtmlHelper::iframe()
      * @test
      */
