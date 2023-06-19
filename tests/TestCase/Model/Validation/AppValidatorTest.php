@@ -36,7 +36,7 @@ class AppValidatorTest extends TestCase
     {
         parent::setUp();
 
-        $this->Validator = new AppValidator();
+        $this->Validator = $this->createPartialMockForAbstractClass(AppValidator::class);
     }
 
     /**
