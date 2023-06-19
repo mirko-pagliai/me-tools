@@ -48,8 +48,7 @@ class HtmlHelper extends BaseHtmlHelper
     /**
      * Missing method handler.
      *
-     * If you pass no more than two parameters, it tries to generate a html
-     *  tag with the name of the method and works as alias of `tag()`.
+     * If you pass no more than two parameters, create a html tag with the name of the method and works as alias of `tag()`.
      * @param string $method Name of the tag
      * @param array $params Params for the method
      * @return string
@@ -67,7 +66,7 @@ class HtmlHelper extends BaseHtmlHelper
      * @param string $text Badge text
      * @param array<string, mixed> $options Array of options and HTML attributes
      * @return string
-     * @see https://getbootstrap.com/docs/5.2/components/badge/
+     * @see https://getbootstrap.com/docs/5.3/components/badge/
      */
     public function badge(string $text, array $options = []): string
     {
@@ -77,16 +76,14 @@ class HtmlHelper extends BaseHtmlHelper
     }
 
     /**
-     * Creates a link with the appearance of a button.
-     *
-     * See the parent method for all available options.
-     * @param array|string $title The content to be wrapped by `<a>` tags
+     * Creates a link with the appearance of a button
+     * @param array|string $title The content to be wrapped by `<a>` tags.
      *   Can be an array if $url is null. If $url is null, $title will be used as both the URL and title.
-     * @param array|string|null $url Cake-relative URL or array of URL parameters, or
-     *   external URL (starts with http://)
+     * @param array|string|null $url Cake-relative URL or array of URL parameters, orxternal URL (starts with http://)
      * @param array<string, mixed> $options Array of options and HTML attributes
      * @return string An `<a />` element
      * @throws \ErrorException
+     * @see link() for all available options
      */
     public function button($title, $url = null, array $options = []): string
     {
@@ -98,8 +95,8 @@ class HtmlHelper extends BaseHtmlHelper
     /**
      * Create a "flush" list group
      * @param array $list Set of elements to list
-     * @param array<string, mixed> $options Options and additional HTML attributes of the list (ol/ul) tag.
-     * @param array<string, mixed> $itemOptions Options and additional HTML attributes of the list item (LI) tag.
+     * @param array<string, mixed> $options Options and additional HTML attributes of the list (ol/ul) tag
+     * @param array<string, mixed> $itemOptions Options and additional HTML attributes of the list item (LI) tag
      * @return string The "flush" list
      * @since 2.25.0
      * @see https://getbootstrap.com/docs/5.3/components/list-group/#flush
@@ -131,7 +128,7 @@ class HtmlHelper extends BaseHtmlHelper
      * @param string|array $url Url for the iframe
      * @param array $options Array of options and HTML attributes
      * @return string
-     * @see https://getbootstrap.com/docs/5.2/helpers/ratio/#aspect-ratios
+     * @see https://getbootstrap.com/docs/5.3/helpers/ratio/#aspect-ratios
      */
     public function iframe($url, array $options = []): string
     {
@@ -146,12 +143,11 @@ class HtmlHelper extends BaseHtmlHelper
     }
 
     /**
-     * Creates a formatted IMG element.
-     *
-     * See the parent method for all available options.
+     * Creates a formatted IMG element
      * @param array|string $path Path to the image file, relative to the webroot/img/ directory
      * @param array<string, mixed> $options Array of HTML attributes. See above for special options
      * @return string completed img tag
+     * @see \Cake\View\Helper\HtmlHelper::image() for all available options
      */
     public function image($path, array $options = []): string
     {
@@ -174,8 +170,7 @@ class HtmlHelper extends BaseHtmlHelper
     /**
      * Returns an element list (`<li>`).
      *
-     * If `$element` is an array, the same `$options` will be applied to all
-     *  elements.
+     * If `$element` is an array, the same `$options` will be applied to all elements.
      * @param string|array<string> $element Element or elements
      * @param array $options HTML attributes of the list tag
      * @return string
@@ -186,22 +181,18 @@ class HtmlHelper extends BaseHtmlHelper
     }
 
     /**
-     * Creates an HTML link.
-     *
-     * See the parent method for all available options.
-     * @param array|string $title The content to be wrapped by `<a>` tags
-     *   Can be an array if $url is null. If $url is null, $title will be used as both the URL and title.
-     * @param array|string|null $url Cake-relative URL or array of URL parameters, or
-     *   external URL (starts with http://)
+     * Creates an HTML link
+     * @param array|string $title The content to be wrapped by `<a>` tags.
+     *   Can be an array if $url is null. If $url is null, $title will be used as both the URL and title
+     * @param array|string|null $url Cake-relative URL or array of URL parameters, or external URL (starts with http://)
      * @param array<string, mixed> $options Array of options and HTML attributes
      * @return string An `<a />` element
+     * @see \Cake\View\Helper\HtmlHelper::link() for all available options
      */
     public function link($title, $url = null, array $options = []): string
     {
         if (is_array($title)) {
-            if (!$url) {
-                $url = $title;
-            }
+            $url = $url ?: $title;
             $title = '';
         }
 
@@ -227,6 +218,7 @@ class HtmlHelper extends BaseHtmlHelper
      *  the type attribute is html, rss, atom, or icon, the mime-type is returned
      * @return string|null A completed `<link />` element, or null if the element was
      *  sent to a block
+     * @see \Cake\View\Helper\HtmlHelper::meta() for all available options
      */
     public function meta($type, $content = null, array $options = []): ?string
     {
@@ -241,6 +233,7 @@ class HtmlHelper extends BaseHtmlHelper
      * @param array<string, mixed> $options Options and additional HTML attributes of the list (ol/ul) tag.
      * @param array<string, mixed> $itemOptions Options and additional HTML attributes of the list item (LI) tag.
      * @return string The nested list
+     * @see \Cake\View\Helper\HtmlHelper::nestedList() for all available options
      */
     public function nestedList(array $list, array $options = [], array $itemOptions = []): string
     {
@@ -259,13 +252,12 @@ class HtmlHelper extends BaseHtmlHelper
     }
 
     /**
-     * Build an `<ol>` nested list out of an associative array.
-     *
-     * See the parent method for all available options.
+     * Build an `<ol>` nested list out of an associative array
      * @param array $list Set of elements to list
      * @param array<string, mixed> $options Options and additional HTML attributes of the list (ol/ul) tag.
      * @param array<string, mixed> $itemOptions Options and additional HTML attributes of the list item (LI) tag.
      * @return string The nested list
+     * @see \Cake\View\Helper\HtmlHelper::nestedList() for all available options
      */
     public function ol(array $list, array $options = [], array $itemOptions = []): string
     {
@@ -281,21 +273,17 @@ class HtmlHelper extends BaseHtmlHelper
      */
     public function shareaholic(string $appId): string
     {
-        return $this->div('shareaholic-canvas', '', [
-            'data-app' => 'share_buttons',
-            'data-app-id' => $appId,
-        ]);
+        return $this->div('shareaholic-canvas', '', ['data-app' => 'share_buttons', 'data-app-id' => $appId]);
     }
 
     /**
-     * Returns a formatted block tag, i.e DIV, SPAN, P.
-     *
-     * See the parent method for all available options.
+     * Returns a formatted block tag, i.e DIV, SPAN, P
      * @param string $name Tag name
-     * @param string|null $text String content that will appear inside the div element.
+     * @param string|null $text String content that will appear inside the HTML element.
      *   If null, only a start tag will be printed
-     * @param array<string, mixed> $options Additional HTML attributes of the DIV tag, see above
+     * @param array<string, mixed> $options Additional HTML attributes of the HTML tag
      * @return string The formatted tag element
+     * @see \Cake\View\Helper\HtmlHelper::tag() for all available options
      */
     public function tag(string $name, ?string $text = null, array $options = []): string
     {
@@ -305,13 +293,12 @@ class HtmlHelper extends BaseHtmlHelper
     }
 
     /**
-     * Build an `<ul>` nested list out of an associative array.
-     *
-     * See the parent method for all available options.
+     * Build an `<ul>` nested list out of an associative array
      * @param array $list Set of elements to list
      * @param array<string, mixed> $options Options and additional HTML attributes of the list (ol/ul) tag.
      * @param array<string, mixed> $itemOptions Options and additional HTML attributes of the list item (LI) tag.
      * @return string The nested list
+     * @see \Cake\View\Helper\HtmlHelper::nestedList() for all available options
      */
     public function ul(array $list, array $options = [], array $itemOptions = []): string
     {
@@ -324,6 +311,7 @@ class HtmlHelper extends BaseHtmlHelper
      * @param array<string, mixed> $options Other attributes for the generated tag. If the type attribute is html,
      *    rss, atom, or icon, the mime-type is returned.
      * @return string|null
+     * @see https://getbootstrap.com/docs/5.3/getting-started/introduction/#viewport-meta
      * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Viewport_meta_tag
      */
     public function viewport(array $content = [], array $options = []): ?string
@@ -343,6 +331,7 @@ class HtmlHelper extends BaseHtmlHelper
      * @param string $id YouTube video ID
      * @param array $options Array of options and HTML attributes
      * @return string
+     * @see iframe() for all available options
      */
     public function youtube(string $id, array $options = []): string
     {
