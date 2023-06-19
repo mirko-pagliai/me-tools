@@ -27,7 +27,7 @@ use Cake\Validation\Validator;
  * @see https://book.cakephp.org/4/en/orm/validation.html#default-validator-class
  * @see \MeTools\Test\TestCase\Model\Table\AppTable
  */
-abstract class AppValidator extends Validator
+class AppValidator extends Validator
 {
     /**
      * Add a rule that ensure a string does not contain a reserved word
