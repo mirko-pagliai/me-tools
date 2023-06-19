@@ -21,9 +21,10 @@ use Cake\Controller\Controller;
 /**
  * Application Controller
  * @property \MeTools\Controller\Component\FlashComponent $Flash
+ * @property \Cake\Controller\Component\RequestHandlerComponent $RequestHandler
  * @codeCoverageIgnore
  **/
-class AppController extends Controller
+abstract class AppController extends Controller
 {
     /**
      * Initialization hook method
@@ -34,6 +35,7 @@ class AppController extends Controller
     {
         parent::initialize();
 
+        $this->loadComponent('RequestHandler');
         $this->loadComponent('MeTools.Flash');
     }
 }
