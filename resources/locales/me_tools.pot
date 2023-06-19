@@ -4,7 +4,7 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"POT-Creation-Date: 2023-05-23 15:37+0000\n"
+"POT-Creation-Date: 2023-06-19 15:19+0000\n"
 "PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
 "Last-Translator: NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
@@ -18,78 +18,146 @@ msgid "Actions"
 msgstr ""
 
 #: .config/i18n_constants.php:17
-msgid "Delete"
+msgid "Active"
 msgstr ""
 
 #: .config/i18n_constants.php:18
-msgid "Edit"
+msgid "Add"
 msgstr ""
 
 #: .config/i18n_constants.php:19
-msgid "no"
+msgid "Allowed chars"
 msgstr ""
 
 #: .config/i18n_constants.php:20
-msgid "The operation has been performed correctly"
+msgid "Categories"
 msgstr ""
 
 #: .config/i18n_constants.php:21
-msgid "The operation has not been performed correctly"
+msgid "Category"
 msgstr ""
 
 #: .config/i18n_constants.php:22
-msgid "Submit"
+msgid "Created"
 msgstr ""
 
 #: .config/i18n_constants.php:23
-msgid "Are you sure you want to delete this?"
+msgid "Date"
 msgstr ""
 
 #: .config/i18n_constants.php:24
-msgid "View"
+msgid "Delete"
 msgstr ""
 
 #: .config/i18n_constants.php:25
+msgid "Description"
+msgstr ""
+
+#: .config/i18n_constants.php:26
+msgid "Edit"
+msgstr ""
+
+#: .config/i18n_constants.php:27
+msgid "Email"
+msgstr ""
+
+#: .config/i18n_constants.php:28
+msgid "Expiration"
+msgstr ""
+
+#: .config/i18n_constants.php:29
+msgid "First name"
+msgstr ""
+
+#: .config/i18n_constants.php:30
+msgid "Group"
+msgstr ""
+
+#: .config/i18n_constants.php:31
+msgid "Last name"
+msgstr ""
+
+#: .config/i18n_constants.php:32
+msgid "List"
+msgstr ""
+
+#: .config/i18n_constants.php:33
+msgid "Logout"
+msgstr ""
+
+#: .config/i18n_constants.php:34
+msgid "Modified"
+msgstr ""
+
+#: .config/i18n_constants.php:35
+msgid "Name"
+msgstr ""
+
+#: .config/i18n_constants.php:36
+msgid "no"
+msgstr ""
+
+#: .config/i18n_constants.php:37
+msgid "The operation has been performed correctly"
+msgstr ""
+
+#: .config/i18n_constants.php:38
+msgid "The operation has not been performed correctly"
+msgstr ""
+
+#: .config/i18n_constants.php:39
+msgid "Submit"
+msgstr ""
+
+#: .config/i18n_constants.php:40
+msgid "Are you sure you want to delete this?"
+msgstr ""
+
+#: .config/i18n_constants.php:41
+msgid "Title"
+msgstr ""
+
+#: .config/i18n_constants.php:42
+msgid "Type"
+msgstr ""
+
+#: .config/i18n_constants.php:43
+msgid "User"
+msgstr ""
+
+#: .config/i18n_constants.php:44
+msgid "Users"
+msgstr ""
+
+#: .config/i18n_constants.php:45
+msgid "Username"
+msgstr ""
+
+#: .config/i18n_constants.php:46
+msgid "View"
+msgstr ""
+
+#: .config/i18n_constants.php:47
 msgid "yes"
 msgstr ""
 
-#: .src/Command/Command.php:43
+#: .src/Command/Command.php:51
 msgid "File or directory `{0}` already exists"
 msgstr ""
 
-#: .src/Command/Command.php:73
+#: .src/Command/Command.php:81
 msgid "File `{0}` has been copied"
 msgstr ""
 
-#: .src/Command/Command.php:96
-msgid "Created `{0}` directory"
-msgstr ""
-
-#: .src/Command/Command.php:100
-msgid "Failed to create file or directory `{0}` with message: {1}"
-msgstr ""
-
-#: .src/Command/Command.php:146
-msgid "Link `{0}` has been created"
-msgstr ""
-
-#: .src/Command/Command.php:166
-msgid "Failed to set permissions on `{0}`"
-msgstr ""
-
-#: .src/Command/Command.php:171
-msgid "Set permissions on `{0}`"
-msgstr ""
-
-#: .src/Command/Install/CreateDirectoriesCommand.php:36
+#: .src/Command/Install/CreateDirectoriesCommand.php:37
 msgid "Creates default directories"
 msgstr ""
 
-#: .src/Command/Install/CreatePluginsLinksCommand.php:37
-msgid "Creates symbolic links for plugins assets"
+#: .src/Command/Install/CreateDirectoriesCommand.php:63
+msgid "Created `{0}` directory"
 msgstr ""
 
-#: .src/Command/Install/CreateRobotsCommand.php:36
+#: .src/Command/Install/CreateRobotsCommand.php:35
 msgid "Creates the {0} file"
 msgstr ""
 
@@ -102,41 +170,23 @@ msgstr ""
 msgid "File or directory `{0}` is not writable"
 msgstr ""
 
-#: .src/Command/Install/CreateVendorsLinksCommand.php:61
+#: .src/Command/Install/CreateVendorsLinksCommand.php:60
+#: .src/Command/Install/SetPermissionsCommand.php:51
 #: .src/Core/Plugin.php:71
 msgid "File or directory `{0}` does not exist"
 msgstr ""
 
-#: .src/Command/Install/CreateVendorsLinksCommand.php:62
+#: .src/Command/Install/CreateVendorsLinksCommand.php:61
+#: .src/Command/Install/SetPermissionsCommand.php:52
 msgid "Skip"
 msgstr ""
 
-#: .src/Command/Install/CreateVendorsLinksCommand.php:69
+#: .src/Command/Install/CreateVendorsLinksCommand.php:67
 msgid "Link to `{0}` already exists"
 msgstr ""
 
-#: .src/Command/Install/CreateVendorsLinksCommand.php:76
-msgid "Link from `{0}` to `{1}` has been created"
-msgstr ""
-
-#: .src/Command/Install/FixComposerJsonCommand.php:38
-msgid "Fixes {0}"
-msgstr ""
-
-#: .src/Command/Install/FixComposerJsonCommand.php:40
-msgid "Path of the `{0}` file"
-msgstr ""
-
-#: .src/Command/Install/FixComposerJsonCommand.php:67
-msgid "File `{0}` does not seem a valid {1} file"
-msgstr ""
-
-#: .src/Command/Install/FixComposerJsonCommand.php:72
-msgid "File `{0}` doesn't need to be fixed"
-msgstr ""
-
-#: .src/Command/Install/FixComposerJsonCommand.php:76
-msgid "File `{0}` has been fixed"
+#: .src/Command/Install/CreateVendorsLinksCommand.php:81
+msgid "Link to `{0}` has been created"
 msgstr ""
 
 #: .src/Command/Install/RunAllCommand.php:43
@@ -160,19 +210,19 @@ msgid "Create {0}?"
 msgstr ""
 
 #: .src/Command/Install/RunAllCommand.php:76
-msgid "Fix {0}?"
-msgstr ""
-
-#: .src/Command/Install/RunAllCommand.php:81
 msgid "Create symbolic links for plugins assets?"
 msgstr ""
 
-#: .src/Command/Install/RunAllCommand.php:86
+#: .src/Command/Install/RunAllCommand.php:81
 msgid "Create symbolic links for vendor assets?"
 msgstr ""
 
-#: .src/Command/Install/SetPermissionsCommand.php:36
+#: .src/Command/Install/SetPermissionsCommand.php:37
 msgid "Sets directories permissions"
+msgstr ""
+
+#: .src/Command/Install/SetPermissionsCommand.php:66
+msgid "Set permissions on `{0}`"
 msgstr ""
 
 #: .src/Controller/Component/UploaderComponent.php:94
@@ -185,6 +235,46 @@ msgstr ""
 
 #: .src/Controller/Component/UploaderComponent.php:158
 msgid "The file was not successfully moved to the target directory"
+msgstr ""
+
+#: .src/Model/Validation/AppValidator.php:45
+msgid "This value contains a reserved word"
+msgstr ""
+
+#: .src/Model/Validation/AppValidator.php:63
+msgid "Must be between {0} and {1} chars"
+msgstr ""
+
+#: .src/Model/Validation/AppValidator.php:82
+msgid "letters, apostrophe, space"
+msgstr ""
+
+#: .src/Model/Validation/AppValidator.php:82
+msgid "Has to begin with a capital letter"
+msgstr ""
+
+#: .src/Model/Validation/AppValidator.php:102
+msgid "Must be at least {0} chars"
+msgstr ""
+
+#: .src/Model/Validation/AppValidator.php:107
+msgid "Should contain at least one digit"
+msgstr ""
+
+#: .src/Model/Validation/AppValidator.php:112
+msgid "Should contain at least one lowercase letter"
+msgstr ""
+
+#: .src/Model/Validation/AppValidator.php:117
+msgid "Should contain at least one capital letter"
+msgstr ""
+
+#: .src/Model/Validation/AppValidator.php:122
+msgid "Should contain at least one symbol"
+msgstr ""
+
+#: .src/View/Helper/FormHelper.php:369
+msgid "select a value"
 msgstr ""
 
 #: .templates/element/flash/flash.php:19

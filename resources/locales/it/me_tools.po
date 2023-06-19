@@ -1,94 +1,166 @@
 # LANGUAGE translation of me-tools
 # Copyright Mirko Pagliai <mirko.pagliai@gmail.com>
 #
+# Mirko Pagliai <mirko.pagliai@gmail.com>, 2023.
 msgid ""
 msgstr ""
-"POT-Creation-Date: 2023-05-23 15:37+0000\n"
-"PO-Revision-Date: 2023-05-23 17:38+0200\n"
+"POT-Creation-Date: 2023-06-19 15:19+0000\n"
+"PO-Revision-Date: 2023-06-19 17:20+0200\n"
 "Last-Translator: Mirko Pagliai <mirko.pagliai@gmail.com>\n"
+"Language-Team: Italian <>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"Language: it_IT\n"
+"Project-Id-Version: \n"
+"Language: it\n"
+"X-Generator: Lokalize 20.12.0\n"
 
 #: .config/i18n_constants.php:16
 msgid "Actions"
 msgstr "Azioni"
 
 #: .config/i18n_constants.php:17
+msgid "Active"
+msgstr "Attivo"
+
+#: .config/i18n_constants.php:18
+msgid "Add"
+msgstr "Aggiungi"
+
+#: .config/i18n_constants.php:19
+msgid "Allowed chars"
+msgstr "Caratteri ammessi"
+
+#: .config/i18n_constants.php:20
+msgid "Categories"
+msgstr "Categorie"
+
+#: .config/i18n_constants.php:21
+msgid "Category"
+msgstr "Categoria"
+
+#: .config/i18n_constants.php:22
+msgid "Created"
+msgstr "Creato"
+
+#: .config/i18n_constants.php:23
+msgid "Date"
+msgstr "Data"
+
+#: .config/i18n_constants.php:24
 msgid "Delete"
 msgstr "Cancella"
 
-#: .config/i18n_constants.php:18
+#: .config/i18n_constants.php:25
+msgid "Description"
+msgstr "Descrizione"
+
+#: .config/i18n_constants.php:26
 msgid "Edit"
 msgstr "Modifica"
 
-#: .config/i18n_constants.php:19
+#: .config/i18n_constants.php:27
+msgid "Email"
+msgstr "Email"
+
+#: .config/i18n_constants.php:28
+msgid "Expiration"
+msgstr "Scadenza"
+
+#: .config/i18n_constants.php:29
+msgid "First name"
+msgstr "Nome"
+
+#: .config/i18n_constants.php:30
+msgid "Group"
+msgstr "Gruppo"
+
+#: .config/i18n_constants.php:31
+msgid "Last name"
+msgstr "Cognome"
+
+#: .config/i18n_constants.php:32
+msgid "List"
+msgstr "Elenca"
+
+#: .config/i18n_constants.php:33
+msgid "Logout"
+msgstr "Logout"
+
+#: .config/i18n_constants.php:34
+msgid "Modified"
+msgstr "Modificato"
+
+#: .config/i18n_constants.php:35
+msgid "Name"
+msgstr "Nome"
+
+#: .config/i18n_constants.php:36
 msgid "no"
 msgstr "no"
 
-#: .config/i18n_constants.php:20
+#: .config/i18n_constants.php:37
 msgid "The operation has been performed correctly"
 msgstr "L'operazione è stata eseguita correttamente"
 
-#: .config/i18n_constants.php:21
+#: .config/i18n_constants.php:38
 msgid "The operation has not been performed correctly"
 msgstr "L'operazione non è stata eseguita correttamente"
 
-#: .config/i18n_constants.php:22
+#: .config/i18n_constants.php:39
 msgid "Submit"
 msgstr "Invia"
 
-#: .config/i18n_constants.php:23
+#: .config/i18n_constants.php:40
 msgid "Are you sure you want to delete this?"
 msgstr "Sei sicuro di volerlo cancellare?"
 
-#: .config/i18n_constants.php:24
+#: .config/i18n_constants.php:41
+msgid "Title"
+msgstr "Titolo"
+
+#: .config/i18n_constants.php:42
+msgid "Type"
+msgstr "Tipo"
+
+#: .config/i18n_constants.php:43
+msgid "User"
+msgstr "Utente"
+
+#: .config/i18n_constants.php:44
+msgid "Users"
+msgstr "Utenti"
+
+#: .config/i18n_constants.php:45
+msgid "Username"
+msgstr "Nome utente"
+
+#: .config/i18n_constants.php:46
 msgid "View"
 msgstr "Vedi"
 
-#: .config/i18n_constants.php:25
+#: .config/i18n_constants.php:47
 msgid "yes"
 msgstr "sì"
 
-#: .src/Command/Command.php:43
+#: .src/Command/Command.php:51
 msgid "File or directory `{0}` already exists"
 msgstr "Il file o la directory `{0}` già esiste"
 
-#: .src/Command/Command.php:73
+#: .src/Command/Command.php:81
 msgid "File `{0}` has been copied"
 msgstr "Il file `{0}` è stato copiato"
 
-#: .src/Command/Command.php:96
-msgid "Created `{0}` directory"
-msgstr "Creata la directory `{0}`"
-
-#: .src/Command/Command.php:100
-msgid "Failed to create file or directory `{0}` with message: {1}"
-msgstr "Fallimento nel create il file o la directory `{0}` con messaggio {1}"
-
-#: .src/Command/Command.php:146
-msgid "Link `{0}` has been created"
-msgstr "Il link `{0}` è stato creato"
-
-#: .src/Command/Command.php:166
-msgid "Failed to set permissions on `{0}`"
-msgstr "Impossibile impostare i permessi per `{0}`"
-
-#: .src/Command/Command.php:171
-msgid "Set permissions on `{0}`"
-msgstr "Impostati i permessi per `{0}`"
-
-#: .src/Command/Install/CreateDirectoriesCommand.php:36
+#: .src/Command/Install/CreateDirectoriesCommand.php:37
 msgid "Creates default directories"
 msgstr "Crea le directory di default"
 
-#: .src/Command/Install/CreatePluginsLinksCommand.php:37
-msgid "Creates symbolic links for plugins assets"
-msgstr "Crea i link simbolici agli asset dei plugin"
+#: .src/Command/Install/CreateDirectoriesCommand.php:63
+msgid "Created `{0}` directory"
+msgstr "Creata la directory `{0}`"
 
-#: .src/Command/Install/CreateRobotsCommand.php:36
+#: .src/Command/Install/CreateRobotsCommand.php:35
 msgid "Creates the {0} file"
 msgstr "Crea il file {0}"
 
@@ -101,42 +173,24 @@ msgstr "Crea i link simbolici agli asset dei vendor"
 msgid "File or directory `{0}` is not writable"
 msgstr "File o directory `{0}` non scrivibile"
 
-#: .src/Command/Install/CreateVendorsLinksCommand.php:61
+#: .src/Command/Install/CreateVendorsLinksCommand.php:60
+#: .src/Command/Install/SetPermissionsCommand.php:51
 #: .src/Core/Plugin.php:71
 msgid "File or directory `{0}` does not exist"
 msgstr "File o directory `{0}` non esistente"
 
-#: .src/Command/Install/CreateVendorsLinksCommand.php:62
+#: .src/Command/Install/CreateVendorsLinksCommand.php:61
+#: .src/Command/Install/SetPermissionsCommand.php:52
 msgid "Skip"
 msgstr "Saltato"
 
-#: .src/Command/Install/CreateVendorsLinksCommand.php:69
+#: .src/Command/Install/CreateVendorsLinksCommand.php:67
 msgid "Link to `{0}` already exists"
 msgstr "Il link a `{0}` già esiste"
 
-#: .src/Command/Install/CreateVendorsLinksCommand.php:76
-msgid "Link from `{0}` to `{1}` has been created"
-msgstr "Il link da `{0}` a `{1}` è stato creato"
-
-#: .src/Command/Install/FixComposerJsonCommand.php:38
-msgid "Fixes {0}"
-msgstr "Sistema {0}"
-
-#: .src/Command/Install/FixComposerJsonCommand.php:40
-msgid "Path of the `{0}` file"
-msgstr "Path del file `{0}`"
-
-#: .src/Command/Install/FixComposerJsonCommand.php:67
-msgid "File `{0}` does not seem a valid {1} file"
-msgstr "Il file `{0}` non sembra un file {1} valido"
-
-#: .src/Command/Install/FixComposerJsonCommand.php:72
-msgid "File `{0}` doesn't need to be fixed"
-msgstr "Il file `{0}` non ha bisogno di essere sistemato"
-
-#: .src/Command/Install/FixComposerJsonCommand.php:76
-msgid "File `{0}` has been fixed"
-msgstr "Il file `{0}` è stato sistemato"
+#: .src/Command/Install/CreateVendorsLinksCommand.php:81
+msgid "Link to `{0}` has been created"
+msgstr "Il link a `{0}` è stato creato"
 
 #: .src/Command/Install/RunAllCommand.php:43
 msgid "Executes all available commands"
@@ -159,20 +213,20 @@ msgid "Create {0}?"
 msgstr "Creare {0}?"
 
 #: .src/Command/Install/RunAllCommand.php:76
-msgid "Fix {0}?"
-msgstr "Sistemare {0}?"
-
-#: .src/Command/Install/RunAllCommand.php:81
 msgid "Create symbolic links for plugins assets?"
 msgstr "Creare link simbolici agli asset dei plugin?"
 
-#: .src/Command/Install/RunAllCommand.php:86
+#: .src/Command/Install/RunAllCommand.php:81
 msgid "Create symbolic links for vendor assets?"
 msgstr "Creare link simbolici agli asset dei vendor?"
 
-#: .src/Command/Install/SetPermissionsCommand.php:36
+#: .src/Command/Install/SetPermissionsCommand.php:37
 msgid "Sets directories permissions"
 msgstr "Imposta i permessi delle directory"
+
+#: .src/Command/Install/SetPermissionsCommand.php:66
+msgid "Set permissions on `{0}`"
+msgstr "Impostati i permessi per `{0}`"
 
 #: .src/Controller/Component/UploaderComponent.php:94
 msgid "There are no uploaded file information"
@@ -185,6 +239,46 @@ msgstr "Il mimetype {0} non è accettato"
 #: .src/Controller/Component/UploaderComponent.php:158
 msgid "The file was not successfully moved to the target directory"
 msgstr "Il file non è stato correttamente spostato nella directory finale"
+
+#: .src/Model/Validation/AppValidator.php:45
+msgid "This value contains a reserved word"
+msgstr "Questo valore contiene una parola riservata"
+
+#: .src/Model/Validation/AppValidator.php:63
+msgid "Must be between {0} and {1} chars"
+msgstr "Deve essere compreso tra {0} e {1} caratteri"
+
+#: .src/Model/Validation/AppValidator.php:82
+msgid "letters, apostrophe, space"
+msgstr "lettere, apostrofo, spazio"
+
+#: .src/Model/Validation/AppValidator.php:82
+msgid "Has to begin with a capital letter"
+msgstr "Deve cominciare con una lettera maiuscola"
+
+#: .src/Model/Validation/AppValidator.php:102
+msgid "Must be at least {0} chars"
+msgstr "Deve contenere almeno {0} caratteri"
+
+#: .src/Model/Validation/AppValidator.php:107
+msgid "Should contain at least one digit"
+msgstr "Dovrebbe contenere almeno un numero"
+
+#: .src/Model/Validation/AppValidator.php:112
+msgid "Should contain at least one lowercase letter"
+msgstr "Dovrebbe contenere almeno una lettera minuscola"
+
+#: .src/Model/Validation/AppValidator.php:117
+msgid "Should contain at least one capital letter"
+msgstr "Dovrebbe contenere almeno una lettera maiuscola"
+
+#: .src/Model/Validation/AppValidator.php:122
+msgid "Should contain at least one symbol"
+msgstr "Dovrebbe contenere almeno un simbolo"
+
+#: .src/View/Helper/FormHelper.php:369
+msgid "select a value"
+msgstr "seleziona un'opzione"
 
 #: .templates/element/flash/flash.php:19
 msgid "Close"
