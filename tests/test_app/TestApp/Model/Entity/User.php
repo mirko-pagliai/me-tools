@@ -6,9 +6,13 @@ namespace App\Model\Entity;
 use MeTools\Model\Entity\AbstractPerson;
 
 /**
- * User entity.
- *
- * Useful for testing `AbstractPerson`
+ * User entity
+ * @property string $username
+ * @property string $email
+ * @property string $password
+ * @property bool $active
+ * @property \Cake\I18n\FrozenTime $created
+ * @property \Cake\I18n\FrozenTime $modified
  */
 class User extends AbstractPerson
 {
