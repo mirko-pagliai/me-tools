@@ -34,7 +34,7 @@ class DropdownHelperTest extends HelperTestCase
         $expected = [
             'a' => [
                 'href' => '#',
-                'class' => 'my-start-class dropdown-toggle',
+                'class' => 'my-start-class dropdown-toggle text-decoration-none',
                 'aria-expanded' => 'false',
                 'data-bs-toggle' => 'dropdown',
                 'id' => 'preg:/dropdown_[a-z0-9]+/',
