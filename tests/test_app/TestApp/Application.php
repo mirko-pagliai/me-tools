@@ -18,6 +18,8 @@ class Application extends BaseApplication
      */
     public function bootstrap(): void
     {
+        parent::bootstrap();
+
         $this->addPlugin(MeTools::class);
     }
 

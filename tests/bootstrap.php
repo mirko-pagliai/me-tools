@@ -82,6 +82,7 @@ Configure::write('App', [
 
 Configure::write('Session', ['defaults' => 'php']);
 Configure::write('Assets.target', TMP . 'assets');
+Configure::write('pluginsToLoad', ['MeTools' => []]);
 
 Cache::setConfig([
     '_cake_core_' => [

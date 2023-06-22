@@ -36,7 +36,6 @@ class AppValidatorTest extends TestCase
     {
         parent::setUp();
 
-        $this->loadPlugins(['MeTools' => []]);
         $this->Validator = new AppValidator();
     }
 

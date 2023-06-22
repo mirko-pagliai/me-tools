@@ -73,7 +73,14 @@ abstract class TestCase extends CakeTestCase
     {
         parent::setUp();
 
-        $this->loadPlugins(Configure::read('pluginsToLoad', ['MeTools' => []]));
+        if (method_exists($this, 'enableCsrfToken')) {
+            $this->enableCsrfToken();
+        }
+        if (method_exists($this, 'enableRetainFlashMessages')) {
+            $this->enableRetainFlashMessages();
+        }
+
+        $this->loadPlugins(Configure::read('pluginsToLoad', []));
     }
 
     /**
@@ -82,6 +89,7 @@ abstract class TestCase extends CakeTestCase
      * @param string $filename Log filename
      * @param string $message The failure message that will be appended to the generated message
      * @return void
+     * @todo Can be deprecated?
      */
     public function assertLogContains(string $expectedContent, string $filename, string $message = ''): void
     {
@@ -95,6 +103,7 @@ abstract class TestCase extends CakeTestCase
      * @param array $options The options you want to build the table with
      * @return \Cake\ORM\Table
      * @since 2.18.11
+     * @todo Can be deprecated?
      */
     protected function getTable(string $alias, array $options = []): Table
     {

@@ -33,6 +33,9 @@ All the code has been optimized overall and has been concentrated in fewer metho
 * added basic abstract `AppTable` class, with a default validator and a `findActive()` method;
 * added basic `AppController` abstract class and `View` classe;
 * added the `AddButtonClassesTrait` with the `addButtonClasses()` method;
+* the `TestCase` class will no longer load the `MeTools` plugin automatically. It must instead be set in the
+  `pluginsToLoad` configuration. Instead, it automatically invokes `enableCsrfToken()` and `enableRetainFlashMessages()`
+  methods, if they exist (i.e. if the `IntegrationTestTrait` is being used);
 * the `OptionsParser` is now deprecated and will be removed in a later release. The same goes for the global
   `optionsParser()` function;
 * the `components/jquery` package was marked as a conflicting dependency and can no longer be installed;
