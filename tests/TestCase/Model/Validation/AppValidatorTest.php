@@ -36,7 +36,28 @@ class AppValidatorTest extends TestCase
     {
         parent::setUp();
 
+        $this->loadPlugins(['MeTools' => []]);
         $this->Validator = new AppValidator();
+    }
+
+    /**
+     * @test
+     * @uses \MeTools\Model\Validation\AppValidator::lengthBetween()
+     */
+    public function testLengthBetween(): void
+    {
+        $this->Validator->lengthBetween('username', [3, 20]);
+
+        $expected = ['username' => ['lengthBetween' => 'Must be between 3 and 20 chars']];
+        foreach (['', 'aa', str_repeat('a', 21)] as $username) {
+            $this->assertSame($expected, $this->Validator->validate(compact('username')));
+        }
+
+        $this->assertEmpty($this->Validator->validate(['username' => 'validUsername']));
+
+        //With wrong numbers
+        $this->expectExceptionMessage('The $range argument requires 2 numbers');
+        $this->Validator->lengthBetween('username', [1]);
     }
 
     /**
@@ -48,7 +69,7 @@ class AppValidatorTest extends TestCase
         $this->Validator->notReservedWords('username');
 
         $expected = ['username' => ['notReservedWords' => 'This value contains a reserved word']];
-        foreach (['admin' , 'manager', 'root', 'supervisor', 'moderator'] as $username) {
+        foreach (['adMin' , '1manager2', 'root', 'supervisor', 'moderator', '!pwd!', 'password'] as $username) {
             $this->assertSame($expected, $this->Validator->validate(compact('username')));
             $this->assertSame($expected, $this->Validator->validate(['username' => 'a' . $username . 'a']));
         }
@@ -58,18 +79,38 @@ class AppValidatorTest extends TestCase
 
     /**
      * @test
-     * @uses \MeTools\Model\Validation\AppValidator::lengthBetween()
+     * @uses \MeTools\Model\Validation\AppValidator::personName()
      */
-    public function testLengthBetween(): void
+    public function testPersonName(): void
     {
-        $this->Validator->lengthBetween('username', [3, 20]);
+        $this->Validator->personName('name');
 
-        $expected = ['username' => ['lengthBetween' => 'Must be between 3 and 40 chars']];
-        foreach (['', 'aa', str_repeat('a', 21)] as $username) {
-            $this->assertSame($expected, $this->Validator->validate(compact('username')));
+        $expected = ['name' => ['personName' => 'Allowed chars: letters, apostrophe, space. Has to begin with a capital letter']];
+        foreach (['mirko', 'Mirk-o', 'Mirko_0', ' Mirko', '\'Mirko', 'mirkO', 'Mirko1'] as $name) {
+            $this->assertSame($expected, $this->Validator->validate(compact('name')));
         }
 
-        $this->assertEmpty($this->Validator->validate(['username' => 'validUsername']));
+        foreach (['Mirko', 'Di Alessandro', 'D\'Alessandro'] as $name) {
+            $this->assertEmpty($this->Validator->validate(compact('name')));
+        }
+    }
+
+    /**
+     * @test
+     * @uses \MeTools\Model\Validation\AppValidator::slug()
+     */
+    public function testSlug(): void
+    {
+        $this->Validator->slug('slug');
+
+        $expected = ['slug' => ['slug' => 'Allowed chars: lowercase letters, numbers, dash. Has to begin with a lowercase letter']];
+        foreach (['Mirko', 'mirko pagliai', 'mirko_pagliai', '-mirko', '3mirko'] as $slug) {
+            $this->assertSame($expected, $this->Validator->validate(compact('slug')));
+        }
+
+        foreach (['mirko', 'mirko-pagliai', 'mirko3', 'mirko-3', 'mirko-pagliai-3'] as $slug) {
+            $this->assertEmpty($this->Validator->validate(compact('slug')));
+        }
     }
 
     /**
@@ -84,14 +125,14 @@ class AppValidatorTest extends TestCase
         $this->assertSame($expected, $this->Validator->validate(['password' => 'aa']));
 
         $expected = ['password' => [
-            'hasDigit' => 'Should contain at least one digit',
-            'hasCapitalLetter' => 'Should contain at least one capital letter',
-            'hasSymbol' => 'Should contain at least one symbol',
+            'hasDigit' => 'Must contain at least one digit',
+            'hasCapitalLetter' => 'Must contain at least one capital letter',
+            'hasSymbol' => 'Must contain at least one symbol',
         ]];
         $this->assertSame($expected, $this->Validator->validate(['password' => str_repeat('a', 8)]));
 
         unset($expected['password']['hasCapitalLetter']);
-        $expected['password'] += ['hasLowercaseLetter' => 'Should contain at least one lowercase letter'];
+        $expected['password'] += ['hasLowercaseLetter' => 'Must contain at least one lowercase letter'];
         $this->assertEquals($expected, $this->Validator->validate(['password' => str_repeat('A', 8)]));
 
         $this->assertEmpty($this->Validator->validate(['password' => 'aaaAAA1$']));

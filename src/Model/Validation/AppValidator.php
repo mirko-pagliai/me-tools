@@ -43,7 +43,7 @@ class AppValidator extends Validator
 
         return $this->add($field, 'notReservedWords', $extra + [
             'message' => __d('me_tools', 'This value contains a reserved word'),
-            'rule' => ['custom', '/^((?!admin|manager|root|supervisor|moderator).)+$/i'],
+            'rule' => ['custom', '/^((?!admin|manager|root|supervisor|moderator|pwd|password).)+$/i'],
         ]);
     }
 
@@ -60,7 +60,7 @@ class AppValidator extends Validator
      */
     public function lengthBetween(string $field, array $range, ?string $message = null, $when = null)
     {
-        $message = $message ?: __d('me_tools', 'Must be between {0} and {1} chars', 3, 40);
+        $message = $message ?: __d('me_tools', 'Must be between {0} and {1} chars', array_value_first($range), array_value_last($range));
 
         return parent::lengthBetween($field, $range, $message, $when);
     }
@@ -78,10 +78,34 @@ class AppValidator extends Validator
         $extra = array_filter(['on' => $when, 'message' => $message]);
 
         return $this->add($field, 'personName', $extra + [
-            'message' => sprintf('%s: %s. %s', I18N_ALLOWED_CHARS,
-                __d('me_tools', 'letters, apostrophe, space'), __d('me_tools', 'Has to begin with a capital letter')
+            'message' => sprintf('%s: %s. %s',
+                I18N_ALLOWED_CHARS,
+                __d('me_tools', 'letters, apostrophe, space'),
+                __d('me_tools', 'Has to begin with a capital letter')
             ),
             'rule' => ['custom', '/^[A-Z][A-z\'\ ]+$/'],
+        ]);
+    }
+
+    /**
+     * Adds a rule that ensure is valid "slug" (lowercase letters, numbers, dash .Has to begin with a lowercase letter)
+     * @param string $field The field you want to apply the rule to.
+     * @param string|null $message The error message when the rule fails.
+     * @param callable|string|null $when Either 'create' or 'update' or a callable that returns
+     *   true when the validation rule should be applied.
+     * @return $this
+     */
+    public function slug(string $field, ?string $message = null, $when = null)
+    {
+        $extra = array_filter(['on' => $when, 'message' => $message]);
+
+        return $this->add($field, 'slug', $extra + [
+            'message' => sprintf('%s: %s. %s',
+                I18N_ALLOWED_CHARS,
+                __d('me_tools', 'lowercase letters, numbers, dash'),
+                __d('me_tools', 'Has to begin with a lowercase letter')
+            ),
+            'rule' => ['custom', '/^[a-z][a-z\d\-]+$/'],
         ]);
     }
 
@@ -104,23 +128,23 @@ class AppValidator extends Validator
         ]);
 
         $this->add($field, 'hasDigit', $extra + [
-            'message' => __d('me_tools', 'Should contain at least one digit'),
-            'rule' => fn(string $password): bool => preg_match('/\d/', $password) === 1,
+            'message' => __d('me_tools', 'Must contain at least one digit'),
+            'rule' => ['custom', '/\d/'],
         ]);
 
         $this->add($field, 'hasLowercaseLetter', $extra + [
-            'message' => __d('me_tools', 'Should contain at least one lowercase letter'),
-            'rule' => fn(string $password): bool => preg_match('/[a-z]/', $password) === 1,
+            'message' => __d('me_tools', 'Must contain at least one lowercase letter'),
+            'rule' => ['custom', '/[a-z]/'],
         ]);
 
         $this->add($field, 'hasCapitalLetter', $extra + [
-            'message' => __d('me_tools', 'Should contain at least one capital letter'),
-            'rule' => fn(string $password): bool => preg_match('/[A-Z]/', $password) === 1,
+            'message' => __d('me_tools', 'Must contain at least one capital letter'),
+            'rule' => ['custom', '/[A-Z]/'],
         ]);
 
         $this->add($field, 'hasSymbol', $extra + [
-            'message' => __d('me_tools', 'Should contain at least one symbol'),
-            'rule' => fn(string $value): bool => preg_match('/[^A-z\d]/', $value) === 1,
+            'message' => __d('me_tools', 'Must contain at least one symbol'),
+            'rule' => ['custom', '/[^A-z\d]/'],
         ]);
 
         return $this;
