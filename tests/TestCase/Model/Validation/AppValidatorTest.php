@@ -126,7 +126,7 @@ class AppValidatorTest extends TestCase
         $expected = ['password' => [
             'hasDigit' => 'Must contain at least one digit',
             'hasCapitalLetter' => 'Must contain at least one capital letter',
-            'hasSymbol' => 'Must contain at least one symbol',
+            'notAlphaNumeric' => 'Must contain at least one symbol',
         ]];
         $this->assertSame($expected, $this->Validator->validate(['password' => str_repeat('a', 8)]));
 
@@ -135,5 +135,10 @@ class AppValidatorTest extends TestCase
         $this->assertEquals($expected, $this->Validator->validate(['password' => str_repeat('A', 8)]));
 
         $this->assertEmpty($this->Validator->validate(['password' => 'aaaAAA1$']));
+
+        //With a custom message
+        $this->Validator->validPassword('password', 'Your password is wrong!');
+        $expected = ['password' => ['minLength' => 'Your password is wrong!']];
+        $this->assertSame($expected, $this->Validator->validate(['password' => 'aa']));
     }
 }

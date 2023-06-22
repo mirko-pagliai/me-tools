@@ -144,10 +144,7 @@ class AppValidator extends Validator
             'rule' => ['custom', '/[A-Z]/'],
         ]);
 
-        $this->add($field, 'hasSymbol', $extra + [
-            'message' => __d('me_tools', 'Must contain at least one symbol'),
-            'rule' => ['custom', '/[^A-z\d]/'],
-        ]);
+        $this->add($field, 'notAlphaNumeric', $extra + ['message' => __d('me_tools', 'Must contain at least one symbol')]);
 
         return $this;
     }
