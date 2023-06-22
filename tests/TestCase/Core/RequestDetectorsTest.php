@@ -78,7 +78,6 @@ class RequestDetectorsTest extends TestCase
     {
         $actions = ['add', 'edit', 'view', 'index', 'delete'];
         foreach ($actions as $currentAction) {
-
             $this->Request = $this->Request->withParam('action', $currentAction);
             $this->Request->clearDetectorCache();
             $this->assertTrue($this->Request->is($currentAction));
@@ -145,7 +144,6 @@ class RequestDetectorsTest extends TestCase
      */
     public function testIsUrl(): void
     {
-
         $router = Router::createRouteBuilder('/');
         $router->scope('/', function (RouteBuilder $routes): void {
             $routes->connect('/', ['controller' => 'pages', 'action' => 'display', 'home']);

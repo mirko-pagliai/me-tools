@@ -78,7 +78,8 @@ class AppValidator extends Validator
         $extra = array_filter(['on' => $when, 'message' => $message]);
 
         return $this->add($field, 'personName', $extra + [
-            'message' => sprintf('%s: %s. %s',
+            'message' => sprintf(
+                '%s: %s. %s',
                 I18N_ALLOWED_CHARS,
                 __d('me_tools', 'letters, apostrophe, space'),
                 __d('me_tools', 'Has to begin with a capital letter')
@@ -100,7 +101,8 @@ class AppValidator extends Validator
         $extra = array_filter(['on' => $when, 'message' => $message]);
 
         return $this->add($field, 'slug', $extra + [
-            'message' => sprintf('%s: %s. %s',
+            'message' => sprintf(
+                '%s: %s. %s',
                 I18N_ALLOWED_CHARS,
                 __d('me_tools', 'lowercase letters, numbers, dash'),
                 __d('me_tools', 'Has to begin with a lowercase letter')

@@ -106,6 +106,6 @@ ConnectionManager::setConfig('test', ['url' => 'sqlite:///' . TMP . 'test.sq3'])
 
 //Create test database schema
 $loader = new SchemaLoader();
-$loader->loadInternalFile(TESTS. DS . 'schema.php');
+$loader->loadInternalFile(TESTS . DS . 'schema.php');
 
 $_SERVER['PHP_SELF'] = '/';
