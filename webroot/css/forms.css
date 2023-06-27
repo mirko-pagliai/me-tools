@@ -12,7 +12,7 @@
 /* -------------------------------- */
 /*            Labels                */
 /* -------------------------------- */
-/* Labels (except checkboxes and radios labels) */
+/* Labels (excluding the labels inside checkboxes and radios) */
 form label:not(.form-check-label) {
     font-weight: bold;
 }
@@ -22,6 +22,17 @@ form label.required:after,
 form div.required > label:after {
     color: #e32;
     content: ' *';
+}
+
+/* -------------------------------- */
+/*            Inputs                */
+/* -------------------------------- */
+/* `date`, `datetime-local` and `time` input, width as `auto` */
+form input[type="date"].form-control,
+form input[type="datetime-local"].form-control,
+form input[type="time"].form-control
+{
+    width: auto !important;
 }
 
 /* -------------------------------- */
