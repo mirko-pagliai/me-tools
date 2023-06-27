@@ -22,6 +22,8 @@ use MeTools\Model\Validation\AppValidator;
 
 /**
  * Represents a single database table
+ *
+ * @method \Cake\ORM\Query findById($id)
  */
 abstract class AppTable extends Table
 {
