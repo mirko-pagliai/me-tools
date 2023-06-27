@@ -4,7 +4,8 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"POT-Creation-Date: 2023-06-19 15:19+0000\n"
+"Project-Id-Version: PROJECT VERSION\n"
+"POT-Creation-Date: 2023-06-27 12:52+0000\n"
 "PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
 "Last-Translator: NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
@@ -245,35 +246,43 @@ msgstr ""
 msgid "Must be between {0} and {1} chars"
 msgstr ""
 
-#: .src/Model/Validation/AppValidator.php:82
+#: .src/Model/Validation/AppValidator.php:84
 msgid "letters, apostrophe, space"
 msgstr ""
 
-#: .src/Model/Validation/AppValidator.php:82
+#: .src/Model/Validation/AppValidator.php:85
 msgid "Has to begin with a capital letter"
 msgstr ""
 
-#: .src/Model/Validation/AppValidator.php:102
+#: .src/Model/Validation/AppValidator.php:107
+msgid "lowercase letters, numbers, dash"
+msgstr ""
+
+#: .src/Model/Validation/AppValidator.php:108
+msgid "Has to begin with a lowercase letter"
+msgstr ""
+
+#: .src/Model/Validation/AppValidator.php:128
 msgid "Must be at least {0} chars"
 msgstr ""
 
-#: .src/Model/Validation/AppValidator.php:107
-msgid "Should contain at least one digit"
+#: .src/Model/Validation/AppValidator.php:133
+msgid "Must contain at least one digit"
 msgstr ""
 
-#: .src/Model/Validation/AppValidator.php:112
-msgid "Should contain at least one lowercase letter"
+#: .src/Model/Validation/AppValidator.php:138
+msgid "Must contain at least one lowercase letter"
 msgstr ""
 
-#: .src/Model/Validation/AppValidator.php:117
-msgid "Should contain at least one capital letter"
+#: .src/Model/Validation/AppValidator.php:143
+msgid "Must contain at least one capital letter"
 msgstr ""
 
-#: .src/Model/Validation/AppValidator.php:122
-msgid "Should contain at least one symbol"
+#: .src/Model/Validation/AppValidator.php:147
+msgid "Must contain at least one symbol"
 msgstr ""
 
-#: .src/View/Helper/FormHelper.php:369
+#: .src/View/Helper/FormHelper.php:360
 msgid "select a value"
 msgstr ""
 
