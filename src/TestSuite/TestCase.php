@@ -15,7 +15,6 @@ declare(strict_types=1);
  */
 namespace MeTools\TestSuite;
 
-use Cake\Core\Configure;
 use Cake\ORM\Table;
 use Cake\TestSuite\TestCase as CakeTestCase;
 use Tools\TestSuite\TestTrait;
@@ -79,8 +78,6 @@ abstract class TestCase extends CakeTestCase
         if (method_exists($this, 'enableRetainFlashMessages')) {
             $this->enableRetainFlashMessages();
         }
-
-        $this->loadPlugins(Configure::read('pluginsToLoad', []));
     }
 
     /**
