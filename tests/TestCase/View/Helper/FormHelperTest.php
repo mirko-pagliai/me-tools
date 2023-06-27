@@ -198,6 +198,10 @@ class FormHelperTest extends HelperTestCase
         $result = $this->Helper->control('my-input');
         $this->assertSame($expected, $result);
 
+        //With html (`escape` option)
+        $result = $this->Helper->control('my-input', ['label' => 'My <em>input</em> label']);
+        $this->assertStringContainsString('<label class="form-label" for="my-input">My <em>input</em> label</label>', $result);
+
         //With form text (`help` option)
         $result = $this->Helper->control('my-input', ['help' => 'this is an help text']);
         $this->assertStringEndsWith('<div class="form-text">this is an help text</div></div>', $result);
@@ -281,6 +285,28 @@ class FormHelperTest extends HelperTestCase
      * @test
      * @uses \MeTools\View\Helper\FormHelper::control()
      */
+    public function testControlWithRadio(): void
+    {
+        $expected = '<div class="mb-3 radio">' .
+            '<label class="form-check-label">My Radio</label>' .
+            '<input type="hidden" name="My radio" id="my-radio" value=""/>' .
+            '<div class="form-check">' .
+            '<input type="radio" name="My radio" value="yes" id="my-radio-yes" class="form-check-input">' .
+            '<label for="my-radio-yes">Yes</label>' .
+            '</div>' .
+            '<div class="form-check">' .
+            '<input type="radio" name="My radio" value="no" id="my-radio-no" class="form-check-input">' .
+            '<label for="my-radio-no">No</label>' .
+            '</div>' .
+            '</div>';
+        $result = $this->Helper->control('My radio', ['options' => ['yes' => 'Yes', 'no' => 'No'], 'type' => 'radio']);
+        $this->assertSame($expected, $result);
+    }
+
+    /**
+     * @test
+     * @uses \MeTools\View\Helper\FormHelper::control()
+     */
     public function testControlWithSelect(): void
     {
         $expected = '<div class="mb-3 select">' .
@@ -330,6 +356,20 @@ class FormHelperTest extends HelperTestCase
             '</div>' .
             '</div>';
         $result = $this->Helper->control('my-select', ['options' => [1 => 'First', 2 => 'Second', 3 => 'Third'], 'multiple' => 'checkbox', 'type' => 'select']);
+        $this->assertSame($expected, $result);
+    }
+
+    /**
+     * @test
+     * @uses \MeTools\View\Helper\FormHelper::control()
+     */
+    public function testControlWithTime(): void
+    {
+        $expected = '<div class="mb-3 time">' .
+            '<label class="form-label" for="my-time">My Time</label>' .
+            '<input type="time" name="My time" step="60" class="form-control" id="my-time" value=""/>' .
+            '</div>';
+        $result = $this->Helper->control('My time', ['type' => 'time']);
         $this->assertSame($expected, $result);
     }
 

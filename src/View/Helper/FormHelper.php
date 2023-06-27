@@ -198,7 +198,7 @@ class FormHelper extends BaseFormHelper
      */
     public function control(string $fieldName, array $options = []): string
     {
-        $options += ['help' => null, 'append-text' => null, 'prepend-text' => null, 'templateVars' => []];
+        $options += ['escape' => false, 'help' => null, 'append-text' => null, 'prepend-text' => null, 'templateVars' => []];
 
         $templateVars['divClass'] = 'mb-3 ';
         if ($this->isInline()) {
@@ -207,12 +207,18 @@ class FormHelper extends BaseFormHelper
 
         switch ($this->_inputType($fieldName, $options)) {
             case 'checkbox':
-            case 'radio':
                 $templateVars['divClass'] .= 'form-check ';
+                $class = 'form-check-input';
+                break;
+            case 'radio':
+                $options['templates']['radioWrapper'] = '<div class="form-check">{{label}}</div>';
                 $class = 'form-check-input';
                 break;
             case 'select':
                 $class = 'form-select';
+                break;
+            case 'time':
+                $options += ['step' => 60];
                 break;
         }
         $options = $this->addClass($options, $class ?? 'form-control');
@@ -351,7 +357,7 @@ class FormHelper extends BaseFormHelper
         if ($attributes['empty'] == null && !$attributes['default'] && !($attributes['multiple'] || in_array('multiple', $attributes, true))) {
             //If the field is marked as `required`, an `empty` text will be added
             if ($this->_getContext()->isRequired($fieldName) || $attributes['required']) {
-                $empty = '-- ' . __d('me-tools', 'select a value') . ' --';
+                $empty = '-- ' . __d('me_tools', 'select a value') . ' --';
             }
             $attributes['empty'] = $empty ?? true;
         }
@@ -374,7 +380,7 @@ class FormHelper extends BaseFormHelper
      * @return string A HTML submit button
      * @link https://book.cakephp.org/4/en/views/helpers/form.html#creating-buttons-and-submit-elements
      * @see \Cake\View\Helper\FormHelper::submit() for all available options
-     * @throws \Tools\Exception\NotInArrayException
+     * @throws \ErrorException
      */
     public function submit(?string $caption = null, array $options = []): string
     {
