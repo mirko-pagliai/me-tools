@@ -31,7 +31,7 @@ class BBCode
 
     /**
      * Patterns
-     * @var array<string, string>
+     * @var string[]
      */
     protected array $pattern = [
         'hr' => '/\[hr\s*\/?]/',

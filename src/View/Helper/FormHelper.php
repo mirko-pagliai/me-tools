@@ -377,7 +377,7 @@ class FormHelper extends BaseFormHelper
      *  .jpe, .jpeg, .gif, .png use an image if the extension exists, AND the first character is /, image is relative to
      *  webroot, OR if the first character is not /, image is relative to webroot/img
      * @param array<string, mixed> $options Array of option
-     * @return string A HTML submit button
+     * @return string An HTML submit button
      * @link https://book.cakephp.org/4/en/views/helpers/form.html#creating-buttons-and-submit-elements
      * @see \Cake\View\Helper\FormHelper::submit() for all available options
      * @throws \ErrorException
