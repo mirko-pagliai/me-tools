@@ -100,10 +100,13 @@ abstract class TestCase extends CakeTestCase
      * @param array $options The options you want to build the table with
      * @return \Cake\ORM\Table
      * @since 2.18.11
-     * @todo Can be deprecated?
+     * @deprecated 2.25.0 will be removed in a later release
+     * @codeCoverageIgnore
      */
     protected function getTable(string $alias, array $options = []): Table
     {
+        deprecationWarning();
+
         $this->getTableLocator()->clear();
 
         return $this->getTableLocator()->get($alias, $options);

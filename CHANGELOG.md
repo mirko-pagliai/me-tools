@@ -45,6 +45,7 @@ All the code has been optimized overall and has been concentrated in fewer metho
 * the `CreatePluginsLinksCommand` was deprecated and has now been removed;
 * `createDir()`, `createFile()`, `createLink()` and `folderChmod()` methods provided by the `Command` class was  
   deprecated and has now been removed;
+* `TestCase::getTable()` is now deprecated and will be removed in a later release;
 * `assertSqlEndsWith()`, `assertSqlEndsNotWith()`, `deleteLog()` and `getLogFullPath()` methods provided by the  
   `TestCase` class was deprecated and has now been removed.
 
