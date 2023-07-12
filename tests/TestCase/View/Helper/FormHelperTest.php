@@ -180,8 +180,8 @@ class FormHelperTest extends HelperTestCase
      */
     public function testCheckbox(): void
     {
-        $expected = '<input type="hidden" name="My checkbox" value="0"/><input type="checkbox" name="My checkbox" value="1" yes="yes" no="no">';
-        $result = $this->Helper->checkbox('My checkbox', ['1' => 'yes', '2' => 'no']);
+        $expected = '<input type="hidden" name="My checkbox" value="0"/><input type="checkbox" name="My checkbox" value="yes">';
+        $result = $this->Helper->checkbox('My checkbox', ['value' => 'yes']);
         $this->assertSame($expected, $result);
     }
 
@@ -330,13 +330,14 @@ class FormHelperTest extends HelperTestCase
     {
         $expected = '<div class="mb-3 select">' .
             '<label class="form-label" for="my-select">My Select</label>' .
-            '<select name="my-select" multiple="multiple" class="form-select" id="my-select">' .
+            '<input type="hidden" name="my-select" value=""/>' .
+            '<select name="my-select[]" multiple="multiple" class="form-select" id="my-select">' .
             '<option value="1">First</option>' .
             '<option value="2">Second</option>' .
             '<option value="3">Third</option>' .
             '</select>' .
             '</div>';
-        $result = $this->Helper->control('my-select', ['options' => [1 => 'First', 2 => 'Second', 3 => 'Third'], 'multiple', 'type' => 'select']);
+        $result = $this->Helper->control('my-select', ['options' => ['1' => 'First', '2' => 'Second', '3' => 'Third'], 'multiple' => 'multiple', 'type' => 'select']);
         $this->assertSame($expected, $result);
 
         $expected = '<div class="mb-3 select">' .
@@ -482,7 +483,7 @@ HTML;
             '<option value="1">First</option>' .
             '<option value="2">Second</option>' .
             '</select>';
-        $result = $this->Helper->select('My select', [1 => 'First', 2 => 'Second']);
+        $result = $this->Helper->select('My select', ['1' => 'First', '2' => 'Second']);
         $this->assertSame($expected, $result);
 
         //With a custom `empty` option
@@ -491,7 +492,7 @@ HTML;
             '<option value="1">First</option>' .
             '<option value="2">Second</option>' .
             '</select>';
-        $result = $this->Helper->select('My select', [1 => 'First', 2 => 'Second'], ['empty' => 'Choose a value!']);
+        $result = $this->Helper->select('My select', ['1' => 'First', '2' => 'Second'], ['empty' => 'Choose a value!']);
         $this->assertSame($expected, $result);
 
         //With `required` option
@@ -500,7 +501,7 @@ HTML;
             '<option value="1">First</option>' .
             '<option value="2">Second</option>' .
             '</select>';
-        $result = $this->Helper->select('My select', [1 => 'First', 2 => 'Second'], ['required' => true]);
+        $result = $this->Helper->select('My select', ['1' => 'First', '2' => 'Second'], ['required' => true]);
         $this->assertSame($expected, $result);
 
         //With `default` option
@@ -508,7 +509,7 @@ HTML;
             '<option value="1">First</option>' .
             '<option value="2" selected="selected">Second</option>' .
             '</select>';
-        $result = $this->Helper->select('My select', [1 => 'First', 2 => 'Second'], ['default' => 2]);
+        $result = $this->Helper->select('My select', ['1' => 'First', '2' => 'Second'], ['default' => 2]);
         $this->assertSame($expected, $result);
 
         //With a `default` and a custom `empty` options
@@ -517,16 +518,17 @@ HTML;
             '<option value="1">First</option>' .
             '<option value="2" selected="selected">Second</option>' .
             '</select>';
-        $result = $this->Helper->select('My select', [1 => 'First', 2 => 'Second'], ['default' => 2, 'empty' => 'Choose a value!']);
+        $result = $this->Helper->select('My select', ['1' => 'First', '2' => 'Second'], ['default' => '2', 'empty' => 'Choose a value!']);
         $this->assertSame($expected, $result);
 
         //With `multiple`
-        $expected = '<select name="my-select" multiple="multiple">' .
+        $expected = '<input type="hidden" name="my-select" value=""/>' .
+            '<select name="my-select[]" multiple="multiple">' .
             '<option value="1">First</option>' .
             '<option value="2">Second</option>' .
             '<option value="3">Third</option>' .
             '</select>';
-        $result = $this->Helper->select('my-select', [1 => 'First', 2 => 'Second', 3 => 'Third'], ['multiple']);
+        $result = $this->Helper->select('my-select', ['1' => 'First', '2' => 'Second', '3' => 'Third'], ['multiple' => 'multiple']);
         $this->assertSame($expected, $result);
 
         //With `multiple` as checkboxes

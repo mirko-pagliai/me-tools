@@ -30,7 +30,7 @@ class AppTableTest extends TestCase
     protected $fixtures = ['app.Users'];
 
     /**
-     * @var \MeTools\Model\Table\AppTable|\PHPUnit\Framework\MockObject\MockObject
+     * @var \MeTools\Model\Table\AppTable
      */
     protected AppTable $AppTable;
 
@@ -42,7 +42,9 @@ class AppTableTest extends TestCase
     {
         parent::setUp();
 
-        $this->AppTable = $this->createPartialMockForAbstractClass(AppTable::class);
+        /** @var \MeTools\Model\Table\AppTable&\PHPUnit\Framework\MockObject\MockObject $AppTable */
+        $AppTable = $this->createPartialMockForAbstractClass(AppTable::class);
+        $this->AppTable = $AppTable;
     }
 
     /**
