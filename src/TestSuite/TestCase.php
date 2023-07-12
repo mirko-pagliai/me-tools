@@ -105,7 +105,7 @@ abstract class TestCase extends CakeTestCase
      */
     protected function getTable(string $alias, array $options = []): Table
     {
-        deprecationWarning();
+        deprecationWarning('Deprecated, will be removed in a later release');
 
         $this->getTableLocator()->clear();
 
