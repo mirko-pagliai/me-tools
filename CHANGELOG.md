@@ -24,7 +24,6 @@ All the code has been optimized overall and has been concentrated in fewer metho
   default (useless now).
 
 #### Other changes
-* added `flush()` and `hr()` method for `HtmlHelper`;
 * `HtmlHelper::link()` will automatically apply the `text-decoration-none` class when an icon is present, unless a
   `text-decoration-` class is already present;
 * the `IconHelper` now uses the `fa` class by default;
