@@ -28,7 +28,6 @@ use MeTools\View\Helper\HtmlHelper;
  * @property \MeTools\View\Helper\IconHelper $Icon
  * @property \MeTools\View\Helper\PaginatorHelper $Paginator
  * @link https://book.cakephp.org/4/en/views.html#the-app-view
- * @codeCoverageIgnore
  */
 class View extends CakeView
 {
@@ -38,10 +37,23 @@ class View extends CakeView
      */
     public function initialize(): void
     {
-        $this->loadHelper('MeTools.Icon');
-        $this->loadHelper('Html', ['className' => HtmlHelper::class]);
-        $this->loadHelper('Form', ['className' => FormHelper::class]);
-        $this->loadHelper('MeTools.Paginator');
-        $this->loadHelper('MeTools.Dropdown');
+        parent::initialize();
+
+        //Loads the most common helpers, only if they haven't already been loaded
+        $helpers = [
+            'MeTools.Icon' => [],
+            'Html' => ['className' => HtmlHelper::class],
+            'Form' => ['className' => FormHelper::class],
+            'MeTools.Paginator' => [],
+            'MeTools.Dropdown' => [],
+        ];
+        $helpers = array_filter($helpers, function (string $name): bool {
+            $name = array_value_last(pluginSplit($name));
+
+            return !$this->helpers()->has($name) && !in_array($name, $this->helpers) && !array_key_exists($name, $this->helpers);
+        }, ARRAY_FILTER_USE_KEY);
+        foreach ($helpers as $name => $config) {
+            $this->loadHelper($name, $config);
+        }
     }
 }

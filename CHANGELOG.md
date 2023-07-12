@@ -4,9 +4,9 @@
 #### Specific changes to `FormHelper`
 `FormHelper` has been rewritten from scratch.
 Generally the use of templates has been improved and simplified and the `setTemplates()` and `resetTemplates()` methods,
-    which prevented template changes at runtime, are no longer used.
+which prevented template changes at runtime, are no longer used.
 All the code has been optimized overall and has been concentrated in fewer methods (especially `_getLabel()` and
-    `control()`), avoiding affecting methods involving single inputs without container).
+`control()`), avoiding affecting methods involving single inputs without container).
 
 * introduced support for `multiple` selects (with or without checkboxes), fully compatible with Bootstrap;
 * the `button()` method no longer automatically adds the `success` class to submit buttons; the `label()` method no 
@@ -31,7 +31,8 @@ All the code has been optimized overall and has been concentrated in fewer metho
 * added the `AbstractPerson` entity class;
 * added basic abstract `AppValidator` class with some general rules;
 * added basic abstract `AppTable` class, with a default validator and a `findActive()` method;
-* added basic `AppController` abstract class and `View` classe;
+* added basic `AppController` abstract class;
+* added basic `View` class. This class loads the most common helpers, only if they haven't already been loaded;
 * added the `AddButtonClassesTrait` with the `addButtonClasses()` method;
 * the `TestCase` class no longer loads any plugins automatically (not even `MeTools`), but you have to do it manually.
   Instead, it automatically invokes `enableCsrfToken()` and `enableRetainFlashMessages()` methods, if they exist (i.e.
