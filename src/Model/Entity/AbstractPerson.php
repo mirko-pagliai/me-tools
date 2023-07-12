@@ -11,7 +11,7 @@ declare(strict_types=1);
  * @copyright   Copyright (c) Mirko Pagliai
  * @link        https://github.com/mirko-pagliai/me-tools
  * @license     https://opensource.org/licenses/mit-license.php MIT License
- * @since       2.25.1
+ * @since       2.25.0
  */
 
 namespace MeTools\Model\Entity;
