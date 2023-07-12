@@ -1,11 +1,12 @@
 # LANGUAGE translation of me-tools
-# Copyright Mirko Pagliai <mirko.pagliai@gmail.com>
+# Copyright 2023 Mirko Pagliai <mirko.pagliai@gmail.com>
 #
+# Mirko Pagliai <mirko.pagliai@gmail.com>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2023-06-27 12:52+0000\n"
-"PO-Revision-Date: 2023-06-27 14:53+0200\n"
+"POT-Creation-Date: 2023-07-12 08:04+0000\n"
+"PO-Revision-Date: 2023-07-12 10:05+0200\n"
 "Last-Translator: Mirko Pagliai <mirko.pagliai@gmail.com>\n"
 "Language-Team: Italian <>\n"
 "MIME-Version: 1.0\n"
@@ -13,7 +14,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "Language: it\n"
-"X-Generator: Lokalize 20.12.0\n"
+"X-Generator: Lokalize 22.12.3\n"
 
 #: .config/i18n_constants.php:16
 msgid "Actions"
