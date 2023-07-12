@@ -11,8 +11,7 @@ declare(strict_types=1);
  * @copyright   Copyright (c) Mirko Pagliai
  * @link        https://github.com/mirko-pagliai/me-tools
  * @license     https://opensource.org/licenses/mit-license.php MIT License
- * @see         http://getbootstrap.com/components/#breadcrumbs Bootstrap documentation
- * @todo        Fix the @see tag
+ * @see         https://getbootstrap.com/docs/5.3/components/breadcrumb
  */
 namespace MeTools\View\Helper;
 

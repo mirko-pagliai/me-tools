@@ -86,7 +86,6 @@ abstract class TestCase extends CakeTestCase
      * @param string $filename Log filename
      * @param string $message The failure message that will be appended to the generated message
      * @return void
-     * @todo Can be deprecated?
      */
     public function assertLogContains(string $expectedContent, string $filename, string $message = ''): void
     {
