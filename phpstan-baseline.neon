@@ -1,11 +1,6 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Property MeTools\\\\Model\\\\Entity\\\\AbstractPerson\\:\\:\\$_virtual \\(array\\<string\\>\\) on left side of \\?\\? is not nullable\\.$#"
-			count: 1
-			path: src/Model/Entity/AbstractPerson.php
-
-		-
 			message: "#^Call to an undefined method MeTools\\\\Controller\\\\Component\\\\FlashComponent\\:\\:otherName\\(\\)\\.$#"
 			count: 1
 			path: tests/TestCase/Controller/Component/FlashComponentTest.php

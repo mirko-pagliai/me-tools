@@ -7,12 +7,6 @@
       <code>WWW_VENDOR</code>
     </UndefinedConstant>
   </file>
-  <file src="src/Model/Entity/AbstractPerson.php">
-    <RedundantPropertyInitializationCheck occurrences="2">
-      <code>$this-&gt;_virtual</code>
-      <code>[]</code>
-    </RedundantPropertyInitializationCheck>
-  </file>
   <file src="src/View/Helper/BreadcrumbsHelper.php">
     <LessSpecificImplementedReturnType occurrences="2">
       <code>\Cake\View\Helper\BreadcrumbsHelper</code>
