@@ -135,7 +135,7 @@ class HtmlHelper extends BaseHtmlHelper
      */
     public function img(): string
     {
-        return call_user_func_array([get_class(), 'image'], func_get_args());
+        return call_user_func_array([self::class, 'image'], func_get_args());
     }
 
     /**
