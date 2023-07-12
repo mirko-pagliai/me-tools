@@ -32,7 +32,7 @@ class IconHelperTest extends HelperTestCase
 
         $options = ['icon' => 'home'];
         [$result, $options] = $this->Helper->addIconToText($text, $options);
-        $this->assertEquals('<i class="fas fa-home"> </i> ' . $text, $result);
+        $this->assertEquals('<i class="fa fa-home"> </i> ' . $text, $result);
         $this->assertArrayNotHasKey('icon', $options);
         $this->assertArrayNotHasKey('icon-align', $options);
 
@@ -47,21 +47,21 @@ class IconHelperTest extends HelperTestCase
         //Empty text
         $options = ['icon' => 'home'];
         [$result, $options] = $this->Helper->addIconToText(null, $options);
-        $this->assertEquals('<i class="fas fa-home"> </i>', $result);
+        $this->assertEquals('<i class="fa fa-home"> </i>', $result);
         $this->assertArrayNotHasKey('icon', $options);
         $this->assertArrayNotHasKey('icon-align', $options);
 
         //Using `icon-align` option
         $options = ['icon' => 'home', 'icon-align' => 'right'];
         [$result, $options] = $this->Helper->addIconToText($text, $options);
-        $this->assertEquals($text . ' <i class="fas fa-home"> </i>', $result);
+        $this->assertEquals($text . ' <i class="fa fa-home"> </i>', $result);
         $this->assertArrayNotHasKey('icon', $options);
         $this->assertArrayNotHasKey('icon-align', $options);
 
         //Invalid `icon-align` option
         $options = ['icon' => 'home', 'icon-align' => 'left'];
         [$result, $options] = $this->Helper->addIconToText($text, $options);
-        $this->assertEquals('<i class="fas fa-home"> </i> ' . $text, $result);
+        $this->assertEquals('<i class="fa fa-home"> </i> ' . $text, $result);
         $this->assertArrayNotHasKey('icon', $options);
         $this->assertArrayNotHasKey('icon-align', $options);
     }
@@ -91,10 +91,10 @@ class IconHelperTest extends HelperTestCase
         }
         $this->assertHtml($expected, $this->Helper->icon('fa', 'fa-home'));
 
-        $expected = ['i' => ['class' => 'fas fa-hand-o-right fa-2x'], ' ', '/i'];
+        $expected = '<i class="fa fa-hand-o-right fa-2x"> </i>';
         foreach (['hand-o-right 2x', ['hand-o-right', '2x']] as $icons) {
-            $this->assertHtml($expected, $this->Helper->icon($icons));
+            $this->assertSame($expected, $this->Helper->icon($icons));
         }
-        $this->assertHtml($expected, $this->Helper->icon('hand-o-right', '2x'));
+        $this->assertSame($expected, $this->Helper->icon('hand-o-right', '2x'));
     }
 }

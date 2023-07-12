@@ -27,6 +27,7 @@ All the code has been optimized overall and has been concentrated in fewer metho
 * added `flush()` and `hr()` method for `HtmlHelper`;
 * `HtmlHelper::link()` will automatically apply the `text-decoration-none` class when an icon is present, unless a
   `text-decoration-` class is already present;
+* the `IconHelper` now uses the `fa` class by default;
 * added other "action detectors": `is('add')`, `is('edit')`, `is('view')`, `is('index')`, `is('delete')`;
 * added the `AbstractPerson` entity class;
 * added basic abstract `AppValidator` class with some general rules;

@@ -36,11 +36,11 @@ class HtmlHelperTest extends HelperTestCase
         $result = $this->Helper->h3('my h3 text', ['class' => 'my-class']);
         $this->assertSame($expected, $result);
 
-        $expected = '<h3 class="my-class"><i class="fas fa-home"> </i> my h3 text</h3>';
+        $expected = '<h3 class="my-class"><i class="fa fa-home"> </i> my h3 text</h3>';
         $result = $this->Helper->h3('my h3 text', ['class' => 'my-class', 'icon' => 'home']);
         $this->assertSame($expected, $result);
 
-        $expected = '<h3 class="my-class">my h3 text <i class="fas fa-home"> </i></h3>';
+        $expected = '<h3 class="my-class">my h3 text <i class="fa fa-home"> </i></h3>';
         $result = $this->Helper->h3('my h3 text', ['class' => 'my-class', 'icon' => 'home', 'icon-align' => 'right']);
         $this->assertSame($expected, $result);
 
@@ -61,7 +61,7 @@ class HtmlHelperTest extends HelperTestCase
         $result = $this->Helper->button('My title', 'https://link', ['title' => 'my-title']);
         $this->assertSame($expected, $result);
 
-        $expected = '<a href="#" role="button" class="btn btn-primary" title="My title">My title <i class="fas fa-home"> </i></a>';
+        $expected = '<a href="#" role="button" class="btn btn-primary" title="My title">My title <i class="fa fa-home"> </i></a>';
         $result = $this->Helper->button('My title', '#', ['icon' => 'home', 'icon-align' => 'right']);
         $this->assertSame($expected, $result);
 
@@ -96,7 +96,7 @@ class HtmlHelperTest extends HelperTestCase
      */
     public function testBadge(): void
     {
-        $expected = '<span class="my-class badge"><i class="fas fa-home"> </i> 1</span>';
+        $expected = '<span class="my-class badge"><i class="fa fa-home"> </i> 1</span>';
         $result = $this->Helper->badge('1', ['class' => 'my-class', 'icon' => 'home']);
         $this->assertSame($expected, $result);
     }
@@ -205,12 +205,12 @@ class HtmlHelperTest extends HelperTestCase
      */
     public function testLi(): void
     {
-        $expected = '<li><i class="fas fa-home"> </i> My li</li>';
+        $expected = '<li><i class="fa fa-home"> </i> My li</li>';
         $result = $this->Helper->li('My li', ['icon' => 'home']);
         $this->assertSame($expected, $result);
 
-        $expected = '<li class="my-class"><i class="fas fa-home"> </i> first-value</li>' . PHP_EOL .
-            '<li class="my-class"><i class="fas fa-home"> </i> second-value</li>';
+        $expected = '<li class="my-class"><i class="fa fa-home"> </i> first-value</li>' . PHP_EOL .
+            '<li class="my-class"><i class="fa fa-home"> </i> second-value</li>';
         $result = $this->Helper->li(['first-value', 'second-value'], ['class' => 'my-class', 'icon' => 'home']);
         $this->assertSame($expected, $result);
     }
@@ -225,7 +225,7 @@ class HtmlHelperTest extends HelperTestCase
         $result = $this->Helper->link('My title', 'https://link', ['title' => 'my-title']);
         $this->assertSame($expected, $result);
 
-        $expected = '<a href="#" class="text-decoration-none" title="My title">My title <i class="fas fa-home"> </i></a>';
+        $expected = '<a href="#" class="text-decoration-none" title="My title">My title <i class="fa fa-home"> </i></a>';
         $result = $this->Helper->link('My title', '#', ['icon' => 'home', 'icon-align' => 'right']);
         $this->assertSame($expected, $result);
 
@@ -240,7 +240,7 @@ class HtmlHelperTest extends HelperTestCase
         $this->assertSame($expected, $result);
 
         //Icon and `text-decoration-underline` (so class `text-decoration-none` will not be applied)
-        $expected = '<a href="#" class="text-decoration-underline" title="My title"><i class="fas fa-home"> </i> My title</a>';
+        $expected = '<a href="#" class="text-decoration-underline" title="My title"><i class="fa fa-home"> </i> My title</a>';
         $result = $this->Helper->link('My title', '#', ['class' => 'text-decoration-underline', 'icon' => 'home']);
         $this->assertSame($expected, $result);
 
@@ -273,7 +273,10 @@ class HtmlHelperTest extends HelperTestCase
      */
     public function testOlAndUl(): void
     {
-        $expected = '<ul class="parent-class fa-ul"><li class="li-class"><i class="fas fa-home fa-li"> </i> First</li><li class="li-class"><i class="fas fa-home fa-li"> </i> Second</li></ul>';
+        $expected = '<ul class="parent-class fa-ul">' .
+            '<li class="li-class"><i class="fa fa-home fa-li"> </i> First</li>' .
+            '<li class="li-class"><i class="fa fa-home fa-li"> </i> Second</li>' .
+            '</ul>';
         $result = $this->Helper->ul(['First', 'Second'], ['class' => 'parent-class'], ['class' => 'li-class', 'icon' => 'home']);
         $this->assertSame($expected, $result);
 
@@ -281,7 +284,10 @@ class HtmlHelperTest extends HelperTestCase
         $result = $this->Helper->ol(['First', 'Second'], ['class' => 'parent-class'], ['class' => 'li-class', 'icon' => 'home']);
         $this->assertSame($expected, $result);
 
-        $expected = '<ul class="fa-ul"><li><i class="fas fa-home fa-li"> </i> First</li><li><i class="fas fa-home fa-li"> </i> Second</li></ul>';
+        $expected = '<ul class="fa-ul">' .
+            '<li><i class="fa fa-home fa-li"> </i> First</li>' .
+            '<li><i class="fa fa-home fa-li"> </i> Second</li>' .
+            '</ul>';
         $result = $this->Helper->ul(['First', 'Second'], ['icon' => 'home']);
         $this->assertSame($expected, $result);
     }
@@ -304,11 +310,11 @@ class HtmlHelperTest extends HelperTestCase
     {
         $this->assertSame('<h3>My header</h3>', $this->Helper->tag('h3', 'My header'));
 
-        $expected = '<h3 class="my-class"><i class="fas fa-home"> </i> My text</h3>';
+        $expected = '<h3 class="my-class"><i class="fa fa-home"> </i> My text</h3>';
         $result = $this->Helper->tag('h3', 'My text', ['class' => 'my-class', 'icon' => 'home']);
         $this->assertSame($expected, $result);
 
-        $expected = '<h3 class="my-class">My text <i class="fas fa-home"> </i></h3>';
+        $expected = '<h3 class="my-class">My text <i class="fa fa-home"> </i></h3>';
         $result = $this->Helper->tag('h3', 'My text', ['class' => 'my-class', 'icon' => 'home', 'icon-align' => 'right']);
         $this->assertSame($expected, $result);
     }

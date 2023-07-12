@@ -72,7 +72,7 @@ class FormHelperTest extends HelperTestCase
         $this->assertStringContainsString($expected, $result);
 
         //With an icon
-        $expected = '<label class="form-label" for="my-control"><i class="fas fa-home"> </i>My Control</label>';
+        $expected = '<label class="form-label" for="my-control"><i class="fa fa-home"> </i>My Control</label>';
         $result = $this->Helper->control('my-control', ['label' => ['icon' => 'home']]);
         $this->assertStringContainsString($expected, $result);
     }
@@ -160,7 +160,7 @@ class FormHelperTest extends HelperTestCase
 
         //With `icon` option
         $result = $this->Helper->button('My button', ['icon' => 'check']);
-        $this->assertStringContainsString('<i class="fas fa-check"> </i> My button</button>', $result);
+        $this->assertStringContainsString('<i class="fa fa-check"> </i> My button</button>', $result);
     }
 
     /**
@@ -226,7 +226,7 @@ class FormHelperTest extends HelperTestCase
         $expected = '<div class="mb-3 text">' .
             '<label class="form-label" for="my-field">My Field</label>' .
             '<div class="input-group">' .
-            '<button type="button" class="btn btn-primary"><i class="fas fa-home"> </i> Prepend button</button>' .
+            '<button type="button" class="btn btn-primary"><i class="fa fa-home"> </i> Prepend button</button>' .
             '<input type="text" name="My field" class="form-control" id="my-field"/>' .
             '<div class="submit"><input type="submit" class="btn btn-primary" value="Append submit"/></div>' .
             '</div>' .
@@ -456,7 +456,7 @@ HTML;
     {
         $expected = '<form method="post" accept-charset="utf-8" action="#">' .
             '<button type="submit" class="btn btn-primary">' .
-            '<i class="fas fa-home"> </i> Title' .
+            '<i class="fa fa-home"> </i> Title' .
             '</button>' .
             '</form>';
         $result = $this->Helper->postButton('Title', '#', ['icon' => 'home']);
@@ -464,7 +464,7 @@ HTML;
 
         $expected = '<form method="post" accept-charset="utf-8" action="#">' .
             '<button type="submit" class="btn btn-danger">' .
-            '<i class="fas fa-home"> </i> Title' .
+            '<i class="fa fa-home"> </i> Title' .
             '</button>' .
             '</form>';
         $result = $this->Helper->postButton('Title', '#', ['class' => 'btn-danger', 'icon' => 'home']);

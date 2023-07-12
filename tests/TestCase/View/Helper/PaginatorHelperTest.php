@@ -28,28 +28,12 @@ class PaginatorHelperTest extends HelperTestCase
      */
     public function testNext(): void
     {
-        $expected = [
-            'li' => ['class' => 'next page-item disabled'],
-            'a' => ['class' => 'page-link', 'href' => '', 'onclick' => 'return false;'],
-            'Next',
-            '/a',
-            '/li',
-        ];
-        $this->assertHtml($expected, $this->Helper->next('Next'));
+        $expected = '<li class="next page-item disabled"><a class="page-link" href="" onclick="return false;">Next</a></li>';
+        $this->assertSame($expected, $this->Helper->next('Next'));
 
         //Using `icon` option
-        $expected = [
-            'li' => ['class' => 'next page-item disabled'],
-            'a' => ['class' => 'page-link', 'href' => '', 'onclick' => 'return false;'],
-            'Next',
-            ' ',
-            'i' => ['class' => 'fas fa-chevron-right'],
-            ' ',
-            '/i',
-            '/a',
-            '/li',
-        ];
-        $this->assertHtml($expected, $this->Helper->next('Next', ['icon' => 'chevron-right']));
+        $expected = '<li class="next page-item disabled"><a class="page-link" href="" onclick="return false;">Next <i class="fa fa-chevron-right"> </i></a></li>';
+        $this->assertSame($expected, $this->Helper->next('Next', ['icon' => 'chevron-right']));
     }
 
     /**
@@ -58,27 +42,11 @@ class PaginatorHelperTest extends HelperTestCase
      */
     public function testPrev(): void
     {
-        $expected = [
-            'li' => ['class' => 'prev page-item disabled'],
-            'a' => ['class' => 'page-link', 'href' => '', 'onclick' => 'return false;'],
-            'Previous',
-            '/a',
-            '/li',
-        ];
-        $this->assertHtml($expected, $this->Helper->prev('Previous'));
+        $expected = '<li class="prev page-item disabled"><a class="page-link" href="" onclick="return false;">Previous</a></li>';
+        $this->assertSame($expected, $this->Helper->prev('Previous'));
 
         //Using `icon` option
-        $expected = [
-            'li' => ['class' => 'prev page-item disabled'],
-            'a' => ['class' => 'page-link', 'href' => '', 'onclick' => 'return false;'],
-            'i' => ['class' => 'fas fa-chevron-left'],
-            ' ',
-            '/i',
-            ' ',
-            'Previous',
-            '/a',
-            '/li',
-        ];
-        $this->assertHtml($expected, $this->Helper->prev('Previous', ['icon' => 'chevron-left']));
+        $expected = '<li class="prev page-item disabled"><a class="page-link" href="" onclick="return false;"><i class="fa fa-chevron-left"> </i> Previous</a></li>';
+        $this->assertSame($expected, $this->Helper->prev('Previous', ['icon' => 'chevron-left']));
     }
 }

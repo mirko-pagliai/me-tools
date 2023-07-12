@@ -65,7 +65,7 @@ class IconHelper extends CakeHtmlHelper
 
         //Adds the "fa" class, if no other "basic" class is present
         if (!count(array_intersect(['fa', 'fab', 'fal', 'far', 'fas'], $icon))) {
-            array_unshift($icon, 'fas');
+            array_unshift($icon, 'fa');
         }
 
         return implode(' ', array_unique($icon));

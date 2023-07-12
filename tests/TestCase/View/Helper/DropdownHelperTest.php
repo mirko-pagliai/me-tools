@@ -40,7 +40,7 @@ class DropdownHelperTest extends HelperTestCase
                 'id' => 'preg:/dropdown_[a-z0-9]+/',
                 'title' => 'My title',
             ],
-            'i' => ['class' => 'fas fa-home'],
+            'i' => ['class' => 'fa fa-home'],
             '/i',
             'My title',
             '/a',
