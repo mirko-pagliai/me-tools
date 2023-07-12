@@ -16,7 +16,6 @@ declare(strict_types=1);
 namespace MeTools\View\Helper;
 
 use Cake\View\Helper\HtmlHelper as CakeHtmlHelper;
-use MeTools\View\OptionsParser;
 
 /**
  * Provides functionalities for creating HTML icons
@@ -26,14 +25,16 @@ class IconHelper extends CakeHtmlHelper
     /**
      * Adds icons to text
      * @param string|null $text Text
-     * @param \MeTools\View\OptionsParser $options Instance of `OptionsParser`
-     * @return array Text with icons and instance of `OptionsParser`
+     * @param array<string, mixed> $options Array options/attributes to add a class to
+     * @return array Array with text with icons and the array of options
      * @since 2.16.2-beta
      */
-    public function addIconToText(?string $text, OptionsParser $options): array
+    public function addIconToText(?string $text, array $options): array
     {
-        $icon = $options->consume('icon');
-        $align = $options->consume('icon-align');
+        $icon = $options['icon'] ?? null;
+        $align = $options['icon-align'] ?? null;
+        unset($options['icon'], $options['icon-align']);
+
         if (!$icon) {
             return [$text, $options];
         }
@@ -64,7 +65,7 @@ class IconHelper extends CakeHtmlHelper
 
         //Adds the "fa" class, if no other "basic" class is present
         if (!count(array_intersect(['fa', 'fab', 'fal', 'far', 'fas'], $icon))) {
-            array_unshift($icon, 'fas');
+            array_unshift($icon, 'fa');
         }
 
         return implode(' ', array_unique($icon));

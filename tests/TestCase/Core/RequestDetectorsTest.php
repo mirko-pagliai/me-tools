@@ -37,16 +37,12 @@ class RequestDetectorsTest extends TestCase
     {
         parent::setUp();
 
-        $router = Router::createRouteBuilder('/');
-        $router->scope('/', function (RouteBuilder $routes): void {
-            $routes->connect('/', ['controller' => 'pages', 'action' => 'display', 'home']);
-            $routes->connect('/some_alias', ['controller' => 'tests_apps', 'action' => 'some_method']);
-            $routes->fallbacks();
-        });
-
-        $this->Request = (new ServerRequest())->withParam('action', 'myAction')
-            ->withParam('controller', 'myController')
-            ->withParam('prefix', 'myPrefix');
+        $this->Request ??= new ServerRequest(['params' => [
+            'controller' => 'myController',
+            'action' => 'myAction',
+            'prefix' => 'myPrefix',
+        ]]);
+        $this->Request->clearDetectorCache();
     }
 
     /**
@@ -72,6 +68,35 @@ class RequestDetectorsTest extends TestCase
         $this->assertFalse($this->Request->is('action', ['notMyAction', 'againNotMyAction'], 'myController'));
         $this->assertFalse($this->Request->is('action', ['myAction', 'notMyAction'], 'notMyController'));
         $this->assertFalse($this->Request->is('action', ['notMyAction', 'againNotMyAction'], 'notMyController'));
+    }
+
+    /**
+     * Tests for other "action detectors": `is('add')`, `is('edit')`, `is('view')`, `is('index')`, `is('delete')`
+     * @test
+     */
+    public function testOtherActionDetectors(): void
+    {
+        $actions = ['add', 'edit', 'view', 'index', 'delete'];
+        foreach ($actions as $currentAction) {
+            $this->Request = $this->Request->withParam('action', $currentAction);
+            $this->Request->clearDetectorCache();
+            $this->assertTrue($this->Request->is($currentAction));
+
+            //With right controller
+            $this->Request->clearDetectorCache();
+            $this->assertTrue($this->Request->is($currentAction, 'myController'));
+
+            //With bad controller
+            $this->Request->clearDetectorCache();
+            $this->assertFalse($this->Request->is($currentAction, 'notMyController'));
+
+            $otherActions = array_diff($actions, [$currentAction]);
+            foreach ($otherActions as $otherAction) {
+                $this->Request->clearDetectorCache();
+                $this->Request = $this->Request->withParam('action', $otherAction);
+                $this->assertFalse($this->Request->is($currentAction));
+            }
+        }
     }
 
     /**
@@ -119,6 +144,13 @@ class RequestDetectorsTest extends TestCase
      */
     public function testIsUrl(): void
     {
+        $router = Router::createRouteBuilder('/');
+        $router->scope('/', function (RouteBuilder $routes): void {
+            $routes->connect('/', ['controller' => 'pages', 'action' => 'display', 'home']);
+            $routes->connect('/some_alias', ['controller' => 'tests_apps', 'action' => 'some_method']);
+            $routes->fallbacks();
+        });
+
         $this->Request = $this->Request->withEnv('REQUEST_URI', '/some_alias');
 
         //Url as array of params

@@ -36,11 +36,11 @@ class HtmlHelperTest extends HelperTestCase
         $result = $this->Helper->h3('my h3 text', ['class' => 'my-class']);
         $this->assertSame($expected, $result);
 
-        $expected = '<h3 class="my-class"><i class="fas fa-home"> </i> my h3 text</h3>';
+        $expected = '<h3 class="my-class"><i class="fa fa-home"> </i> my h3 text</h3>';
         $result = $this->Helper->h3('my h3 text', ['class' => 'my-class', 'icon' => 'home']);
         $this->assertSame($expected, $result);
 
-        $expected = '<h3 class="my-class">my h3 text <i class="fas fa-home"> </i></h3>';
+        $expected = '<h3 class="my-class">my h3 text <i class="fa fa-home"> </i></h3>';
         $result = $this->Helper->h3('my h3 text', ['class' => 'my-class', 'icon' => 'home', 'icon-align' => 'right']);
         $this->assertSame($expected, $result);
 
@@ -57,35 +57,35 @@ class HtmlHelperTest extends HelperTestCase
      */
     public function testButton(): void
     {
-        $expected = '<a href="https://link" class="btn btn-light" role="button" title="my-title">My title</a>';
+        $expected = '<a href="https://link" title="my-title" role="button" class="btn btn-primary">My title</a>';
         $result = $this->Helper->button('My title', 'https://link', ['title' => 'my-title']);
         $this->assertSame($expected, $result);
 
-        $expected = '<a href="#" class="btn btn-light" role="button" title="My title">My title <i class="fas fa-home"> </i></a>';
+        $expected = '<a href="#" role="button" class="btn btn-primary" title="My title">My title <i class="fa fa-home"> </i></a>';
         $result = $this->Helper->button('My title', '#', ['icon' => 'home', 'icon-align' => 'right']);
         $this->assertSame($expected, $result);
 
         //Code on text
-        $expected = '<a href="#" class="btn btn-light" role="button" title="Code"><u>Code</u> </a>';
+        $expected = '<a href="#" role="button" class="btn btn-primary" title="Code"><u>Code</u> </a>';
         $result = $this->Helper->button('<u>Code</u> ', '#');
         $this->assertSame($expected, $result);
 
         //Code on custom title
-        $expected = '<a href="#" class="btn btn-light" role="button" title="Code">My title</a>';
+        $expected = '<a href="#" title="Code" role="button" class="btn btn-primary">My title</a>';
         $result = $this->Helper->button('My title', '#', ['title' => '<u>Code</u>']);
         $this->assertSame($expected, $result);
 
-        $expected = '<a href="/" class="btn btn-light" role="button" title="/">/</a>';
+        $expected = '<a href="/" role="button" class="btn btn-primary" title="/">/</a>';
         $result = $this->Helper->button('/');
         $this->assertSame($expected, $result);
 
         //With a button class
-        $expected = '<a href="https://link" class="btn btn-success" role="button" title="my-title">My title</a>';
-        $result = $this->Helper->button('My title', 'https://link', ['class' => 'btn-success', 'title' => 'my-title']);
+        $expected = '<a href="https://link" class="btn btn-danger" title="my-title" role="button">My title</a>';
+        $result = $this->Helper->button('My title', 'https://link', ['class' => 'btn-danger', 'title' => 'my-title']);
         $this->assertSame($expected, $result);
 
         $this->loadPlugins(['TestPlugin' => []]);
-        $expected = '<a href="/pages" class="btn btn-light" role="button"></a>';
+        $expected = '<a href="/pages" role="button" class="btn btn-primary"></a>';
         $result = $this->Helper->button(['controller' => 'Pages', 'plugin' => 'TestPlugin']);
         $this->assertSame($expected, $result);
     }
@@ -96,7 +96,7 @@ class HtmlHelperTest extends HelperTestCase
      */
     public function testBadge(): void
     {
-        $expected = '<span class="badge my-class"><i class="fas fa-home"> </i> 1</span>';
+        $expected = '<span class="my-class badge"><i class="fa fa-home"> </i> 1</span>';
         $result = $this->Helper->badge('1', ['class' => 'my-class', 'icon' => 'home']);
         $this->assertSame($expected, $result);
     }
@@ -144,7 +144,7 @@ class HtmlHelperTest extends HelperTestCase
      */
     public function testImage(): void
     {
-        $expected = '<img src="/img/image.gif" alt="image.gif" class="img-fluid my-class"/>';
+        $expected = '<img src="/img/image.gif" class="my-class img-fluid" alt="image.gif"/>';
         $result = $this->Helper->image('image.gif', ['class' => 'my-class']);
         $this->assertSame($expected, $result);
 
@@ -176,12 +176,12 @@ class HtmlHelperTest extends HelperTestCase
      */
     public function testLi(): void
     {
-        $expected = '<li><i class="fas fa-home"> </i> My li</li>';
+        $expected = '<li><i class="fa fa-home"> </i> My li</li>';
         $result = $this->Helper->li('My li', ['icon' => 'home']);
         $this->assertSame($expected, $result);
 
-        $expected = '<li class="my-class"><i class="fas fa-home"> </i> first-value</li>' . PHP_EOL .
-            '<li class="my-class"><i class="fas fa-home"> </i> second-value</li>';
+        $expected = '<li class="my-class"><i class="fa fa-home"> </i> first-value</li>' . PHP_EOL .
+            '<li class="my-class"><i class="fa fa-home"> </i> second-value</li>';
         $result = $this->Helper->li(['first-value', 'second-value'], ['class' => 'my-class', 'icon' => 'home']);
         $this->assertSame($expected, $result);
     }
@@ -196,7 +196,7 @@ class HtmlHelperTest extends HelperTestCase
         $result = $this->Helper->link('My title', 'https://link', ['title' => 'my-title']);
         $this->assertSame($expected, $result);
 
-        $expected = '<a href="#" title="My title">My title <i class="fas fa-home"> </i></a>';
+        $expected = '<a href="#" class="text-decoration-none" title="My title">My title <i class="fa fa-home"> </i></a>';
         $result = $this->Helper->link('My title', '#', ['icon' => 'home', 'icon-align' => 'right']);
         $this->assertSame($expected, $result);
 
@@ -208,6 +208,11 @@ class HtmlHelperTest extends HelperTestCase
         //Code on custom title
         $expected = '<a href="#" title="Code">My title</a>';
         $result = $this->Helper->link('My title', '#', ['title' => '<u>Code</u>']);
+        $this->assertSame($expected, $result);
+
+        //Icon and `text-decoration-underline` (so class `text-decoration-none` will not be applied)
+        $expected = '<a href="#" class="text-decoration-underline" title="My title"><i class="fa fa-home"> </i> My title</a>';
+        $result = $this->Helper->link('My title', '#', ['class' => 'text-decoration-underline', 'icon' => 'home']);
         $this->assertSame($expected, $result);
 
         $this->assertSame('<a href="/" title="/">/</a>', $this->Helper->link('/'));
@@ -239,7 +244,10 @@ class HtmlHelperTest extends HelperTestCase
      */
     public function testOlAndUl(): void
     {
-        $expected = '<ul class="fa-ul parent-class"><li class="li-class"><i class="fas fa-home fa-li"> </i> First</li><li class="li-class"><i class="fas fa-home fa-li"> </i> Second</li></ul>';
+        $expected = '<ul class="parent-class fa-ul">' .
+            '<li class="li-class"><i class="fa fa-home fa-li"> </i> First</li>' .
+            '<li class="li-class"><i class="fa fa-home fa-li"> </i> Second</li>' .
+            '</ul>';
         $result = $this->Helper->ul(['First', 'Second'], ['class' => 'parent-class'], ['class' => 'li-class', 'icon' => 'home']);
         $this->assertSame($expected, $result);
 
@@ -247,7 +255,10 @@ class HtmlHelperTest extends HelperTestCase
         $result = $this->Helper->ol(['First', 'Second'], ['class' => 'parent-class'], ['class' => 'li-class', 'icon' => 'home']);
         $this->assertSame($expected, $result);
 
-        $expected = '<ul class="fa-ul"><li><i class="fas fa-home fa-li"> </i> First</li><li><i class="fas fa-home fa-li"> </i> Second</li></ul>';
+        $expected = '<ul class="fa-ul">' .
+            '<li><i class="fa fa-home fa-li"> </i> First</li>' .
+            '<li><i class="fa fa-home fa-li"> </i> Second</li>' .
+            '</ul>';
         $result = $this->Helper->ul(['First', 'Second'], ['icon' => 'home']);
         $this->assertSame($expected, $result);
     }
@@ -258,7 +269,7 @@ class HtmlHelperTest extends HelperTestCase
      */
     public function testShareaholic(): void
     {
-        $expected = '<div class="shareaholic-canvas" data-app="share_buttons" data-app-id="myAppId"></div>';
+        $expected = '<div data-app="share_buttons" data-app-id="myAppId" class="shareaholic-canvas"></div>';
         $this->assertSame($expected, $this->Helper->shareaholic('myAppId'));
     }
 
@@ -270,11 +281,11 @@ class HtmlHelperTest extends HelperTestCase
     {
         $this->assertSame('<h3>My header</h3>', $this->Helper->tag('h3', 'My header'));
 
-        $expected = '<h3 class="my-class"><i class="fas fa-home"> </i> My text</h3>';
+        $expected = '<h3 class="my-class"><i class="fa fa-home"> </i> My text</h3>';
         $result = $this->Helper->tag('h3', 'My text', ['class' => 'my-class', 'icon' => 'home']);
         $this->assertSame($expected, $result);
 
-        $expected = '<h3 class="my-class">My text <i class="fas fa-home"> </i></h3>';
+        $expected = '<h3 class="my-class">My text <i class="fa fa-home"> </i></h3>';
         $result = $this->Helper->tag('h3', 'My text', ['class' => 'my-class', 'icon' => 'home', 'icon-align' => 'right']);
         $this->assertSame($expected, $result);
     }
@@ -300,23 +311,23 @@ class HtmlHelperTest extends HelperTestCase
      */
     public function testYoutube(): void
     {
-        $expected = '<div class="ratio ratio-16x9"><iframe allowfullscreen="allowfullscreen" height="480" src="https://www.youtube.com/embed/-YcwR89cfao" width="640"></iframe></div>';
+        $expected = '<div class="ratio ratio-16x9"><iframe allowfullscreen="allowfullscreen" height="480" width="640" src="https://www.youtube.com/embed/-YcwR89cfao"></iframe></div>';
         $result = $this->Helper->youtube('-YcwR89cfao');
         $this->assertSame($expected, $result);
 
-        $expected = '<div class="ratio ratio-4x3"><iframe allowfullscreen="allowfullscreen" height="480" src="https://www.youtube.com/embed/-YcwR89cfao" width="640"></iframe></div>';
+        $expected = '<div class="ratio ratio-4x3"><iframe allowfullscreen="allowfullscreen" height="480" width="640" src="https://www.youtube.com/embed/-YcwR89cfao"></iframe></div>';
         $result = $this->Helper->youtube('-YcwR89cfao', ['ratio' => '4x3']);
         $this->assertSame($expected, $result);
 
-        $expected = '<iframe allowfullscreen="allowfullscreen" height="480" src="https://www.youtube.com/embed/-YcwR89cfao" width="640"></iframe>';
+        $expected = '<iframe allowfullscreen="allowfullscreen" height="480" width="640" src="https://www.youtube.com/embed/-YcwR89cfao"></iframe>';
         $result = $this->Helper->youtube('-YcwR89cfao', ['ratio' => false]);
         $this->assertSame($expected, $result);
 
-        $expected = '<div class="ratio ratio-16x9"><iframe allowfullscreen="allowfullscreen" class="my-class" height="100" src="https://www.youtube.com/embed/-YcwR89cfao" width="200"></iframe></div>';
+        $expected = '<div class="ratio ratio-16x9"><iframe class="my-class" height="100" width="200" allowfullscreen="allowfullscreen" src="https://www.youtube.com/embed/-YcwR89cfao"></iframe></div>';
         $result = $this->Helper->youtube('-YcwR89cfao', ['class' => 'my-class', 'height' => 100, 'width' => 200]);
         $this->assertSame($expected, $result);
 
-        $expected = '<div class="ratio ratio-16x9"><iframe allowfullscreen="allowfullscreen" height="480" src="https://www.youtube.com/embed/-YcwR89cfao?start=80" width="640"></iframe></div>';
+        $expected = '<div class="ratio ratio-16x9"><iframe allowfullscreen="allowfullscreen" height="480" width="640" src="https://www.youtube.com/embed/-YcwR89cfao?start=80"></iframe></div>';
         $result = $this->Helper->youtube('-YcwR89cfao?t=80');
         $this->assertSame($expected, $result);
     }

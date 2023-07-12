@@ -19,12 +19,14 @@
     "require-dev": {
         "ext-fileinfo": "*",
         "cakephp/cakephp-codesniffer": "^4.5",
+        "cakephp/migrations": "@stable",
         "mirko-pagliai/cakephp-assets": "^1.5.7",
         "phpunit/phpunit": "^9.1|^9.5",
         "phpstan/phpstan": "^1.7",
         "psalm/phar": "^4.24"
     },
     "conflict": {
+        "components/jquery": "*",
         "newerton/fancy-box": "*"
     },
     "suggest": {
@@ -65,6 +67,7 @@
         "cs-check": "phpcs --standard=phpcs.xml.dist",
         "cs-fix": "phpcbf --standard=phpcs.xml.dist",
         "coverage": "XDEBUG_MODE=coverage phpunit --coverage-html=coverage",
+        "i18n-extract": "bin/cake i18n extract --paths config,src,templates --overwrite",
         "phpstan": "phpstan.phar analyse",
         "psalm": "psalm.phar --php-version=8.0",
         "stan": ["@phpstan", "@psalm"],

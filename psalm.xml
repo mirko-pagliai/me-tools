@@ -9,6 +9,7 @@
     errorBaseline="psalm-baseline.xml"
 >
     <projectFiles>
+        <directory name="config" />
         <directory name="src" />
         <ignoreFiles>
             <directory name="vendor" />

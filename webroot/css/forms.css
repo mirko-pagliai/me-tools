@@ -12,6 +12,16 @@
 /* -------------------------------- */
 /*            Labels                */
 /* -------------------------------- */
+/* Labels */
+form label {
+    font-weight: bold;
+}
+
+/* Labels after input */
+form input + label {
+    font-weight: normal !important;
+}
+
 /* Labels for required inputs */
 form label.required:after,
 form div.required > label:after {
@@ -20,12 +30,14 @@ form div.required > label:after {
 }
 
 /* -------------------------------- */
-/*           Button addons          */
+/*            Inputs                */
 /* -------------------------------- */
-/* Button addons, buttons */
-form input + .input-group-append .btn,
-form input + .input-group-prepend .btn {
-    border: 1px solid #ced4da;
+/* `date`, `datetime-local` and `time` input, width as `auto` */
+form input[type="date"].form-control,
+form input[type="datetime-local"].form-control,
+form input[type="time"].form-control
+{
+    width: auto !important;
 }
 
 /* -------------------------------- */

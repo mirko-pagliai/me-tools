@@ -18,6 +18,11 @@ pre {
     overflow-y: scroll;
 }
 
+/* Width zero class */
+.w-0 {
+    width: 0;
+}
+
 /* -------------------------------- */
 /* Contextual backgrounds and text  */
 /* -------------------------------- */
