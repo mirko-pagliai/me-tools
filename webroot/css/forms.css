@@ -12,9 +12,14 @@
 /* -------------------------------- */
 /*            Labels                */
 /* -------------------------------- */
-/* Labels (excluding the labels inside checkboxes and radios) */
-form label:not(.form-check-label) {
+/* Labels */
+form label {
     font-weight: bold;
+}
+
+/* Labels after input */
+form input + label {
+    font-weight: normal !important;
 }
 
 /* Labels for required inputs */
