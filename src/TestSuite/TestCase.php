@@ -15,10 +15,8 @@ declare(strict_types=1);
  */
 namespace MeTools\TestSuite;
 
-use Cake\Core\Configure;
 use Cake\ORM\Table;
 use Cake\TestSuite\TestCase as CakeTestCase;
-use Tools\Filesystem;
 use Tools\TestSuite\TestTrait;
 
 /**
@@ -74,7 +72,12 @@ abstract class TestCase extends CakeTestCase
     {
         parent::setUp();
 
-        $this->loadPlugins(Configure::read('pluginsToLoad', ['MeTools' => []]));
+        if (method_exists($this, 'enableCsrfToken')) {
+            $this->enableCsrfToken();
+        }
+        if (method_exists($this, 'enableRetainFlashMessages')) {
+            $this->enableRetainFlashMessages();
+        }
     }
 
     /**
@@ -91,78 +94,18 @@ abstract class TestCase extends CakeTestCase
     }
 
     /**
-     * Asserts a sql query string ends not with `$suffix`
-     * @param string $suffix Suffix
-     * @param string $sql Sql query string
-     * @param string $message The failure message that will be appended to the generated message
-     * @return void
-     * @since 2.20.7
-     * @deprecated 2.24.1 Use instead `assertStringEndsNotWith()`
-     * @codeCoverageIgnore
-     */
-    protected function assertSqlEndsNotWith(string $suffix, string $sql, string $message = ''): void
-    {
-        deprecationWarning('Deprecated. Use instead `assertStringEndsNotWith()`');
-
-        $this->assertStringEndsNotWith($suffix, $sql, $message);
-    }
-
-    /**
-     * Asserts a sql query string ends with `$suffix`
-     * @param string $suffix Suffix
-     * @param string $sql Sql query string
-     * @param string $message The failure message that will be appended to the generated message
-     * @return void
-     * @since 2.20.7
-     * @deprecated 2.24.1 Use instead `assertStringEndsWith()`
-     * @codeCoverageIgnore
-     */
-    protected function assertSqlEndsWith(string $suffix, string $sql, string $message = ''): void
-    {
-        deprecationWarning('Deprecated. Use instead `assertStringEndsWith()`');
-
-        $this->assertStringEndsWith($suffix, $sql, $message);
-    }
-
-    /**
-     * Deletes a log file
-     * @param string $filename Log filename
-     * @return void
-     * @deprecated 2.24.1
-     * @codeCoverageIgnore
-     */
-    public function deleteLog(string $filename): void
-    {
-        deprecationWarning('`TestCase::deleteLog()` is deprecated and will be removed in a later release');
-
-        /** @noinspection PhpDeprecationInspection */
-        unlink($this->getLogFullPath($filename));
-    }
-
-    /**
-     * Internal method to get a log full path
-     * @param string $filename Log filename
-     * @return string
-     * @since 2.16.10
-     * @deprecated 2.24.1
-     * @codeCoverageIgnore
-     */
-    protected function getLogFullPath(string $filename): string
-    {
-        deprecationWarning('`TestCase::getLogFullPath()` is deprecated and will be removed in a later release');
-
-        return Filesystem::makePathAbsolute($filename . Filesystem::getExtension($filename) ? '' : '.log', LOGS);
-    }
-
-    /**
      * Get a table instance from the registry
      * @param string $alias The alias name you want to get
      * @param array $options The options you want to build the table with
      * @return \Cake\ORM\Table
      * @since 2.18.11
+     * @deprecated 2.25.0 will be removed in a later release
+     * @codeCoverageIgnore
      */
     protected function getTable(string $alias, array $options = []): Table
     {
+        deprecationWarning('Deprecated, will be removed in a later release');
+
         $this->getTableLocator()->clear();
 
         return $this->getTableLocator()->get($alias, $options);

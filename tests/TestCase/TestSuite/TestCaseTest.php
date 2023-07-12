@@ -78,14 +78,4 @@ class TestCaseTest extends TestCase
         $this->expectAssertionFailed('Failed asserting that file "' . LOGS . 'noExisting.log" exists');
         $this->assertLogContains('content', LOGS . 'noExisting.log');
     }
-
-    /**
-     * @test
-     * @uses \MeTools\TestSuite\TestCase::getTable()
-     */
-    public function testGetTable(): void
-    {
-        $Table = $this->TestCase->getTable('Articles');
-        $this->assertSame('Articles', $Table->getAlias());
-    }
 }

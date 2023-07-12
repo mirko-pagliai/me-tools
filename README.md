@@ -72,7 +72,7 @@ exit($runner->run($argv));
 
 Then run the extract command in the console:
 ```bash
-$ bin/cake i18n extract --paths config,src,templates
+$ bin/cake i18n extract --paths config,src,templates --overwrite
 ```
 
 ## Versioning

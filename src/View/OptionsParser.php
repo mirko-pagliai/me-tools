@@ -20,6 +20,7 @@ use Cake\Utility\Hash;
 
 /**
  * An options parser
+ * @deprecated 2.25.0 It will be removed in a later release
  */
 class OptionsParser
 {
@@ -47,6 +48,8 @@ class OptionsParser
      */
     public function __construct(array $options = [], array $defaults = [])
     {
+        deprecationWarning('Deprecated. It will be removed in a later release');
+
         $this->addDefault($defaults);
         $this->add($options);
     }

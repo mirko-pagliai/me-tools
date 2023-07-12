@@ -71,8 +71,8 @@ class DropdownHelper extends Helper
      */
     public function link($title, $url = null, array $options = []): void
     {
-        $options = optionsParser($options)->append('class', 'dropdown-item');
-        $this->_links[] = $this->Html->link($title, $url, $options->toArray());
+        $options = $this->addClass($options, 'dropdown-item');
+        $this->_links[] = $this->Html->link($title, $url, $options);
     }
 
     /**
@@ -87,18 +87,16 @@ class DropdownHelper extends Helper
      */
     public function start(string $title, array $titleOptions = []): void
     {
-        $titleOptions = optionsParser($titleOptions)->append([
-            'class' => 'dropdown-toggle',
-            'data-bs-toggle' => 'dropdown',
+        $this->_id = uniqid('dropdown_');
+        $titleOptions += [
             'aria-expanded' => 'false',
-        ]);
+            'data-bs-toggle' => 'dropdown',
+            'id' => $this->_id,
+        ];
 
-        if (!$titleOptions->get('id')) {
-            $titleOptions->add('id', uniqid('dropdown_'));
-        }
-        $this->_id = $titleOptions->get('id');
+        $titleOptions = $this->addClass($titleOptions, 'dropdown-toggle');
 
-        $this->_start = $this->Html->link($title, '#', $titleOptions->toArray());
+        $this->_start = $this->Html->link($title, '#', $titleOptions);
     }
 
     /**
@@ -114,9 +112,10 @@ class DropdownHelper extends Helper
         Exceptionist::isTrue(isset($this->_start), 'The `start()` method was not called before `end()`');
         Exceptionist::isTrue($this->_links, 'The dropdown has no content. Perhaps the `link()` method was never called');
 
-        $ulOptions = optionsParser($ulOptions, ['aria-labelledby' => $this->_id])->append('class', 'dropdown-menu');
+        $ulOptions += ['aria-labelledby' => $this->_id];
+        $ulOptions = $this->addClass($ulOptions, 'dropdown-menu');
 
-        $list = $this->Html->ul($this->_links, $ulOptions->toArray());
+        $list = $this->Html->ul($this->_links, $ulOptions);
         $this->_id = '';
         $this->_links = [];
 
