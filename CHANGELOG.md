@@ -2,7 +2,8 @@
 ## 2.25 branch
 ### 2.25.1
 * fixed little bug for `AppValidator::personName()` method, with accented chars;
-* the `IconHelper` recognizes the `fa-brands` class as the base class for icons.
+* the `IconHelper` recognizes the `fa-brands` class as the base class for icons;
+* the `paginator.php` template element has the `d-print-none` class.
 
 ### 2.25.0
 #### Specific changes to `FormHelper`
