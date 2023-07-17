@@ -64,7 +64,7 @@ class IconHelper extends CakeHtmlHelper
         $icon = is_array($icon) ? $icon : (preg_split('/\s+/', $icon ?: '', -1, PREG_SPLIT_NO_EMPTY) ?: []);
 
         //Adds the "fa" class, if no other "basic" class is present
-        if (!count(array_intersect(['fa', 'fab', 'fal', 'far', 'fas'], $icon))) {
+        if (!count(array_intersect(['fa', 'fab', 'fal', 'far', 'fas', 'fa-brands'], $icon))) {
             array_unshift($icon, 'fa');
         }
 

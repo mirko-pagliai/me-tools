@@ -23,8 +23,8 @@ use MeTools\TestSuite\HelperTestCase;
 class IconHelperTest extends HelperTestCase
 {
     /**
-     * Tests for `addIconToText()` method
      * @test
+     * @uses \MeTools\View\Helper\IconHelper::addIconToText()
      */
     public function testAddIconToText(): void
     {
@@ -67,8 +67,8 @@ class IconHelperTest extends HelperTestCase
     }
 
     /**
-     * Test for `icon()` method
      * @test
+     * @uses \MeTools\View\Helper\IconHelper::icon()
      */
     public function testIcons(): void
     {
@@ -90,6 +90,9 @@ class IconHelperTest extends HelperTestCase
             $this->assertHtml($expected, $this->Helper->icon($icons));
         }
         $this->assertHtml($expected, $this->Helper->icon('fa', 'fa-home'));
+
+        $expected = '<i class="fa-brands fa-linux"> </i>';
+        $this->assertSame($expected, $this->Helper->icon('brands', 'linux'));
 
         $expected = '<i class="fa fa-hand-o-right fa-2x"> </i>';
         foreach (['hand-o-right 2x', ['hand-o-right', '2x']] as $icons) {
