@@ -15,7 +15,7 @@ declare(strict_types=1);
  */
 ?>
 
-<div class="alert alert-dismissible <?= $params['class'] ?? null ?> p-3 fade show" role="alert">
+<div class="alert alert-dismissible border-0 <?= $params['class'] ?? null ?> p-3 fade show" role="alert">
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="<?= __d('me_tools', 'Close') ?>"></button>
 
     <?= $message ?>
