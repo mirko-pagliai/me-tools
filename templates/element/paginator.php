@@ -19,7 +19,7 @@ if (!$this->Paginator->hasPage(2, null)) {
 }
 ?>
 
-<nav>
+<nav class="d-print-none">
     <ul class="pagination d-none d-lg-flex justify-content-center">
         <?= $this->Paginator->prev('', ['icon' => 'caret-left']) ?>
         <?= $this->Paginator->numbers() ?>

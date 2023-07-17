@@ -89,7 +89,7 @@ class AppValidatorTest extends TestCase
             $this->assertSame($expected, $this->Validator->validate(compact('name')));
         }
 
-        foreach (['Mirko', 'Di Alessandro', 'D\'Alessandro'] as $name) {
+        foreach (['Mirko', 'Di Alessandro', 'D\'Alessandro', 'Casinò'] as $name) {
             $this->assertEmpty($this->Validator->validate(compact('name')));
         }
     }
