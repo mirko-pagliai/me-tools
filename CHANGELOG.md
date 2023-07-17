@@ -1,5 +1,8 @@
 # 2.x branch
 ## 2.25 branch
+### 2.25.1
+* fixed little bug for `AppValidator::personName()` method, with accented chars.
+
 ### 2.25.0
 #### Specific changes to `FormHelper`
 `FormHelper` has been rewritten from scratch.

@@ -84,7 +84,7 @@ class AppValidator extends Validator
                 __d('me_tools', 'letters, apostrophe, space'),
                 __d('me_tools', 'Has to begin with a capital letter')
             ),
-            'rule' => ['custom', '/^[A-Z][A-z\'\ ]+$/'],
+            'rule' => ['custom', '/^[A-Z][A-zàèéìòù\'\ ]+$/'],
         ]);
     }
 
