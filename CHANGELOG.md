@@ -1,5 +1,8 @@
 # 2.x branch
 ## 2.25 branch
+### 2.25.2
+* added `AppValidator::title()` rule method.
+
 ### 2.25.1
 * fixed little bug for `AppValidator::personName()` method, with accented chars;
 * the `IconHelper` recognizes the `fa-brands` class as the base class for icons;

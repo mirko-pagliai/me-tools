@@ -114,6 +114,24 @@ class AppValidatorTest extends TestCase
 
     /**
      * @test
+     * @uses \MeTools\Model\Validation\AppValidator::title()
+     */
+    public function testTitle(): void
+    {
+        $this->Validator->title('title');
+
+        $expected = ['title' => ['title' => 'Allowed chars: letters, numbers, apostrophe, space, slash, dash. Has to begin with a capital letter']];
+        foreach (['my title', 'my_title', 'Ten $ dollar'] as $title) {
+            $this->assertSame($expected, $this->Validator->validate(compact('title')), 'No error for `' . $title .'`');
+        }
+
+        foreach (['My title', 'My 4th title', 'Alfa/Beta', 'Alfa-Beta', 'Di Alessandro', 'D\'Alessandro', 'Casinò'] as $title) {
+            $this->assertEmpty($this->Validator->validate(compact('title')));
+        }
+    }
+
+    /**
+     * @test
      * @uses \MeTools\Model\Validation\AppValidator::validPassword()
      */
     public function testValidPassword(): void

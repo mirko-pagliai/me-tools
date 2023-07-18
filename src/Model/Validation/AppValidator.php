@@ -112,6 +112,29 @@ class AppValidator extends Validator
     }
 
     /**
+     * Adds a rule that ensures a string is a valid "title"
+     * @param string $field The field you want to apply the rule to.
+     * @param string|null $message The error message when the rule fails.
+     * @param callable|string|null $when Either 'create' or 'update' or a callable that returns
+     *   true when the validation rule should be applied.
+     * @return $this
+     */
+    public function title(string $field, ?string $message = null, $when = null)
+    {
+        $extra = array_filter(['on' => $when, 'message' => $message]);
+
+        return $this->add($field, 'title', $extra + [
+                'message' => sprintf(
+                    '%s: %s. %s',
+                    I18N_ALLOWED_CHARS,
+                    __d('me_tools', 'letters, numbers, apostrophe, space, slash, dash'),
+                    __d('me_tools', 'Has to begin with a capital letter')
+                ),
+                'rule' => ['custom', '/^[A-Z][A-zàèéìòù\d\'\ \/\-]+$/'],
+            ]);
+    }
+
+    /**
      * Adds a rule that ensure a password is a valid password
      * @param string $field The field you want to apply the rule to.
      * @param string|null $message The error message when the rule fails.
