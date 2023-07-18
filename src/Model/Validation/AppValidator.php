@@ -66,7 +66,10 @@ class AppValidator extends Validator
     }
 
     /**
-     * Adds a rule that ensures a string is a valid "person name"
+     * Adds a rule that ensures a string is a valid "person name" (letters, apostrophe, space. Has to begin with a
+     *  capital letter).
+     *
+     * This rule can be applied, for example, to the first or last name of a `User` or `Customer`.
      * @param string $field The field you want to apply the rule to.
      * @param string|null $message The error message when the rule fails.
      * @param callable|string|null $when Either 'create' or 'update' or a callable that returns
@@ -89,7 +92,7 @@ class AppValidator extends Validator
     }
 
     /**
-     * Adds a rule that ensure is valid "slug" (lowercase letters, numbers, dash .Has to begin with a lowercase letter)
+     * Adds a rule that ensure is valid "slug" (lowercase letters, numbers, dash. Has to begin with a lowercase letter)
      * @param string $field The field you want to apply the rule to.
      * @param string|null $message The error message when the rule fails.
      * @param callable|string|null $when Either 'create' or 'update' or a callable that returns
@@ -109,6 +112,32 @@ class AppValidator extends Validator
             ),
             'rule' => ['custom', '/^[a-z][a-z\d\-]+$/'],
         ]);
+    }
+
+    /**
+     * Adds a rule that ensures a string is a valid "title" (letters, numbers, apostrophe, space, slash, dash. Has to
+     *  begin with a capital letter).
+     *
+     * This rule can be applied, for example, to the `title` of a `Post` or a `Category`.
+     * @param string $field The field you want to apply the rule to.
+     * @param string|null $message The error message when the rule fails.
+     * @param callable|string|null $when Either 'create' or 'update' or a callable that returns
+     *   true when the validation rule should be applied.
+     * @return $this
+     */
+    public function title(string $field, ?string $message = null, $when = null)
+    {
+        $extra = array_filter(['on' => $when, 'message' => $message]);
+
+        return $this->add($field, 'title', $extra + [
+                'message' => sprintf(
+                    '%s: %s. %s',
+                    I18N_ALLOWED_CHARS,
+                    __d('me_tools', 'letters, numbers, apostrophe, space, slash, dash'),
+                    __d('me_tools', 'Has to begin with a capital letter')
+                ),
+                'rule' => ['custom', '/^[A-Z][A-zàèéìòù\d\'\ \/\-]+$/'],
+            ]);
     }
 
     /**

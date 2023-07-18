@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2023-07-12 08:04+0000\n"
-"PO-Revision-Date: 2023-07-12 10:05+0200\n"
+"POT-Creation-Date: 2023-07-18 16:00+0000\n"
+"PO-Revision-Date: 2023-07-18 18:03+0200\n"
 "Last-Translator: Mirko Pagliai <mirko.pagliai@gmail.com>\n"
 "Language-Team: Italian <>\n"
 "MIME-Version: 1.0\n"
@@ -248,39 +248,44 @@ msgstr "Questo valore contiene una parola riservata"
 msgid "Must be between {0} and {1} chars"
 msgstr "Deve essere compreso tra {0} e {1} caratteri"
 
-#: .src/Model/Validation/AppValidator.php:84
+#: .src/Model/Validation/AppValidator.php:87
 msgid "letters, apostrophe, space"
 msgstr "lettere, apostrofo, spazio"
 
-#: .src/Model/Validation/AppValidator.php:85
+#: .src/Model/Validation/AppValidator.php:88
+#: .src/Model/Validation/AppValidator.php:137
 msgid "Has to begin with a capital letter"
 msgstr "Deve cominciare con una lettera maiuscola"
 
-#: .src/Model/Validation/AppValidator.php:107
+#: .src/Model/Validation/AppValidator.php:110
 msgid "lowercase letters, numbers, dash"
 msgstr "lettere minuscole, numeri, trattino"
 
-#: .src/Model/Validation/AppValidator.php:108
+#: .src/Model/Validation/AppValidator.php:111
 msgid "Has to begin with a lowercase letter"
 msgstr "Deve cominciare con una lettera minuscola"
 
-#: .src/Model/Validation/AppValidator.php:128
+#: .src/Model/Validation/AppValidator.php:136
+msgid "letters, numbers, apostrophe, space, slash, dash"
+msgstr "lettere, numeri, apostrofo, spazio, barra, trattino"
+
+#: .src/Model/Validation/AppValidator.php:157
 msgid "Must be at least {0} chars"
 msgstr "Deve contenere almeno {0} caratteri"
 
-#: .src/Model/Validation/AppValidator.php:133
+#: .src/Model/Validation/AppValidator.php:162
 msgid "Must contain at least one digit"
 msgstr "Deve contenere almeno un numero"
 
-#: .src/Model/Validation/AppValidator.php:138
+#: .src/Model/Validation/AppValidator.php:167
 msgid "Must contain at least one lowercase letter"
 msgstr "Deve contenere almeno una lettera minuscola"
 
-#: .src/Model/Validation/AppValidator.php:143
+#: .src/Model/Validation/AppValidator.php:172
 msgid "Must contain at least one capital letter"
 msgstr "Deve contenere almeno una lettera maiuscola"
 
-#: .src/Model/Validation/AppValidator.php:147
+#: .src/Model/Validation/AppValidator.php:176
 msgid "Must contain at least one symbol"
 msgstr "Deve contenere almeno un simbolo"
 
