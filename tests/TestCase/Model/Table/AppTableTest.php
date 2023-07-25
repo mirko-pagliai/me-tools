@@ -67,7 +67,7 @@ class AppTableTest extends TestCase
         $Query = $this->getTableLocator()->get('Users')->find('active');
 
         $this->assertGreaterThan(0, $Query->count());
-        $this->assertStringEndsWith('FROM users Users WHERE active = :c0', $Query->sql());
+        $this->assertStringEndsWith('FROM users Users WHERE Users.active = :c0', $Query->sql());
         $this->assertTrue($Query->getValueBinder()->bindings()[':c0']['value']);
     }
 }
