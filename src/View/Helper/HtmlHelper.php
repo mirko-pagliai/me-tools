@@ -151,13 +151,7 @@ class HtmlHelper extends BaseHtmlHelper
     }
 
     /**
-     * Creates an HTML link
-     * @param array|string $title The content to be wrapped by `<a>` tags.
-     *   Can be an array if $url is null. If $url is null, $title will be used as both the URL and title
-     * @param array|string|null $url Cake-relative URL or array of URL parameters, or external URL (starts with http://)
-     * @param array<string, mixed> $options Array of options and HTML attributes
-     * @return string An `<a />` element
-     * @see \Cake\View\Helper\HtmlHelper::link() for all available options
+     * @inheritDoc
      */
     public function link($title, $url = null, array $options = []): string
     {
@@ -185,16 +179,7 @@ class HtmlHelper extends BaseHtmlHelper
     }
 
     /**
-     * Creates a link to an external resource and handles basic meta tags
-     * @param array<string, mixed>|string $type The title of the external resource,
-     *  or an array of attributes for a custom meta tag
-     * @param array|string|null $content The address of the external resource or string
-     *  for content attribute
-     * @param array<string, mixed> $options Other attributes for the generated tag. If
-     *  the type attribute is html, rss, atom, or icon, the mime-type is returned
-     * @return string|null A completed `<link />` element, or null if the element was
-     *  sent to a block
-     * @see \Cake\View\Helper\HtmlHelper::meta() for all available options
+     * @inheritDoc
      */
     public function meta($type, $content = null, array $options = []): ?string
     {
@@ -202,14 +187,7 @@ class HtmlHelper extends BaseHtmlHelper
     }
 
     /**
-     * Build a nested list (UL/OL) out of an associative array.
-     *
-     * See the parent method for all available options.
-     * @param array $list Set of elements to list
-     * @param array<string, mixed> $options Options and additional HTML attributes of the list (ol/ul) tag.
-     * @param array<string, mixed> $itemOptions Options and additional HTML attributes of the list item (LI) tag.
-     * @return string The nested list
-     * @see \Cake\View\Helper\HtmlHelper::nestedList() for all available options
+     * @inheritDoc
      */
     public function nestedList(array $list, array $options = [], array $itemOptions = []): string
     {
@@ -263,13 +241,7 @@ class HtmlHelper extends BaseHtmlHelper
     }
 
     /**
-     * Returns a formatted block tag, i.e. DIV, SPAN, P
-     * @param string $name Tag name
-     * @param string|null $text String content that will appear inside the HTML element.
-     *   If null, only a start tag will be printed
-     * @param array<string, mixed> $options Additional HTML attributes of the HTML tag
-     * @return string The formatted tag element
-     * @see \Cake\View\Helper\HtmlHelper::tag() for all available options
+     * @inheritDoc
      */
     public function tag(string $name, ?string $text = null, array $options = []): string
     {
