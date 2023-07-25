@@ -2,6 +2,7 @@
 ## 2.25 branch
 ### 2.25.3
 * added `HtmlHelper::para()` method, so it can have icons;
+* fixed `AppTable::findActive()` method, now  it always uses the table alias so as not to generate conflicts;
 * `HtmlHelper::img()` is now deprecated and will be removed in a later release. Use instead `image()` method.
 
 ### 2.25.2

@@ -28,9 +28,7 @@ use MeTools\Model\Validation\AppValidator;
 abstract class AppTable extends Table
 {
     /**
-     * Initialize method
-     * @param array $config The configuration for the Table
-     * @return void
+     * @inheritDoc
      */
     public function initialize(array $config): void
     {
@@ -47,6 +45,6 @@ abstract class AppTable extends Table
      */
     public function findActive(Query $Query): Query
     {
-        return $Query->where(['active' => true]);
+        return $Query->where([$this->getAlias() . '.active' => true]);
     }
 }
