@@ -1,7 +1,8 @@
 # 2.x branch
 ## 2.25 branch
 ### 2.25.3
-* added `Html::para()` method, so it can have icons.
+* added `HtmlHelper::para()` method, so it can have icons;
+* `HtmlHelper::img()` is now deprecated and will be removed in a later release. Use instead `image()` method.
 
 ### 2.25.2
 * added `AppValidator::title()` rule method.

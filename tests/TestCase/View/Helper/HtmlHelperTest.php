@@ -148,10 +148,6 @@ class HtmlHelperTest extends HelperTestCase
         $result = $this->Helper->image('image.gif', ['class' => 'my-class']);
         $this->assertSame($expected, $result);
 
-        //With `img()` method
-        $result = $this->Helper->img('image.gif', ['class' => 'my-class']);
-        $this->assertSame($expected, $result);
-
         $expected = '<img src="/img/image.gif" alt="my-alt" class="img-fluid"/>';
         $result = $this->Helper->image('image.gif', ['alt' => 'my-alt']);
         $this->assertSame($expected, $result);

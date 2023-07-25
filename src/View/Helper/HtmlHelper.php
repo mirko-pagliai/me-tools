@@ -40,8 +40,7 @@ class HtmlHelper extends BaseHtmlHelper
     use AddButtonClassesTrait;
 
     /**
-     * Helpers
-     * @var array
+     * @var string[]
      */
     public $helpers = ['MeTools.Icon', 'Url'];
 
@@ -114,11 +113,7 @@ class HtmlHelper extends BaseHtmlHelper
     }
 
     /**
-     * Creates a formatted IMG element
-     * @param array|string $path Path to the image file, relative to the webroot/img/ directory
-     * @param array<string, mixed> $options Array of HTML attributes. See above for special options
-     * @return string completed img tag
-     * @see \Cake\View\Helper\HtmlHelper::image() for all available options
+     * @inheritDoc
      */
     public function image($path, array $options = []): string
     {
@@ -132,9 +127,13 @@ class HtmlHelper extends BaseHtmlHelper
      * Alias for `image()` method
      * @return string
      * @see image()
+     * @deprecated 2.25.3 Deprecated. Use instead `image()`
+     * @codeCoverageIgnore
      */
     public function img(): string
     {
+        deprecationWarning('Deprecated. Use instead `image()`');
+
         return call_user_func_array([self::class, 'image'], func_get_args());
     }
 
