@@ -242,6 +242,16 @@ class HtmlHelper extends BaseHtmlHelper
     }
 
     /**
+     * @inheritDoc
+     */
+    public function para(?string $class, ?string $text, array $options = []): string
+    {
+        [$text, $options] = $this->Icon->addIconToText($text, $options);
+
+        return parent::para($class, $text, $options);
+    }
+
+    /**
      * Returns the Shareaholic "share buttons".
      *
      * Note that this code only renders the Shareaholic "share button".

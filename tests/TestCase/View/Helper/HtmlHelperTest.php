@@ -265,6 +265,16 @@ class HtmlHelperTest extends HelperTestCase
 
     /**
      * @test
+     * @uses \MeTools\View\Helper\HtmlHelper::para()
+     */
+    public function testPara(): void
+    {
+        $expected = '<p><i class="fa fa-home"> </i> Test</p>';
+        $this->assertSame($expected, $this->Helper->para('', 'Test', ['icon' => 'home']));
+    }
+
+    /**
+     * @test
      * @uses \MeTools\View\Helper\HtmlHelper::shareaholic()
      */
     public function testShareaholic(): void
