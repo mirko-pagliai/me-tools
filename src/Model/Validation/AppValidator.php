@@ -57,7 +57,7 @@ class AppValidator extends Validator
 
         return $this->add($field, 'firstLetterCapitalized', $extra + [
             'message' => __d('me_tools', 'Has to begin with a capital letter'),
-            'rule' => fn(mixed $value): bool => is_string($value) && ctype_upper($value[0] ?? ''),
+            'rule' => fn($value): bool => is_string($value) && ctype_upper($value[0] ?? ''),
         ]);
     }
 
