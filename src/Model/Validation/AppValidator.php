@@ -169,13 +169,9 @@ class AppValidator extends Validator
      */
     public function validPassword(string $field, ?string $message = null, $when = null)
     {
-        $extra = array_filter(['on' => $when, 'message' => $message]);
+        $this->minLength($field, 8, $message ?: __d('me_tools', 'Must be at least {0} chars', 8), $when);
 
-        $this->add($field, 'minLength', $extra + [
-            'last' => true,
-            'message' => __d('me_tools', 'Must be at least {0} chars', 8),
-            'rule' => ['minLength', 8],
-        ]);
+        $extra = array_filter(['on' => $when, 'message' => $message]);
 
         $this->add($field, 'hasDigit', $extra + [
             'message' => __d('me_tools', 'Must contain at least one digit'),
@@ -192,7 +188,7 @@ class AppValidator extends Validator
             'rule' => ['custom', '/[A-Z]/'],
         ]);
 
-        $this->add($field, 'notAlphaNumeric', $extra + ['message' => __d('me_tools', 'Must contain at least one symbol')]);
+        $this->notAlphaNumeric($field, __d('me_tools', $message ?: 'Must contain at least one symbol'), $when);
 
         return $this;
     }

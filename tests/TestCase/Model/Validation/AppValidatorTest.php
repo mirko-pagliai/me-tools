@@ -156,25 +156,28 @@ class AppValidatorTest extends TestCase
     {
         $this->Validator->validPassword('password');
 
-        $expected = ['password' => ['minLength' => 'Must be at least 8 chars']];
-        $this->assertSame($expected, $this->Validator->validate(['password' => 'aa']));
-
         $expected = ['password' => [
+            'minLength' => 'Must be at least 8 chars',
             'hasDigit' => 'Must contain at least one digit',
             'hasCapitalLetter' => 'Must contain at least one capital letter',
             'notAlphaNumeric' => 'Must contain at least one symbol',
         ]];
-        $this->assertSame($expected, $this->Validator->validate(['password' => str_repeat('a', 8)]));
+        $this->assertSame($expected, $this->Validator->validate(['password' => str_repeat('a', 7)]));
 
-        unset($expected['password']['hasCapitalLetter']);
+        unset($expected['password']['minLength'], $expected['password']['hasCapitalLetter']);
         $expected['password'] += ['hasLowercaseLetter' => 'Must contain at least one lowercase letter'];
         $this->assertEquals($expected, $this->Validator->validate(['password' => str_repeat('A', 8)]));
 
         $this->assertEmpty($this->Validator->validate(['password' => 'aaaAAA1$']));
 
         //With a custom message
+        $expected = ['password' => [
+            'minLength' => 'Your password is wrong!',
+            'hasDigit' => 'Your password is wrong!',
+            'hasCapitalLetter' => 'Your password is wrong!',
+            'notAlphaNumeric' => 'Your password is wrong!',
+        ]];
         $this->Validator->validPassword('password', 'Your password is wrong!');
-        $expected = ['password' => ['minLength' => 'Your password is wrong!']];
         $this->assertSame($expected, $this->Validator->validate(['password' => 'aa']));
     }
 }
