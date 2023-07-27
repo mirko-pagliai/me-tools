@@ -130,14 +130,14 @@ class AppValidator extends Validator
         $extra = array_filter(['on' => $when, 'message' => $message]);
 
         return $this->add($field, 'title', $extra + [
-                'message' => sprintf(
-                    '%s: %s. %s',
-                    I18N_ALLOWED_CHARS,
-                    __d('me_tools', 'letters, numbers, apostrophe, space, slash, dash'),
-                    __d('me_tools', 'Has to begin with a capital letter')
-                ),
-                'rule' => ['custom', '/^[A-Z][A-zàèéìòù\d\'\ \/\-]+$/'],
-            ]);
+            'message' => sprintf(
+                '%s: %s. %s',
+                I18N_ALLOWED_CHARS,
+                __d('me_tools', 'letters, numbers, apostrophe, space, slash, dash'),
+                __d('me_tools', 'Has to begin with a capital letter')
+            ),
+            'rule' => ['custom', '/^[A-Z][A-zàèéìòù\d\'\ \/\-]+$/'],
+        ]);
     }
 
     /**
