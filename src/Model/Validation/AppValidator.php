@@ -30,6 +30,38 @@ use Cake\Validation\Validator;
 class AppValidator extends Validator
 {
     /**
+     * Allow empty string for `$field` when `$secondField` is empty (or is not set)
+     * @param string $field The field you want to apply the rule to.
+     * @param string $secondField Another field to check $field against
+     * @param string|null $message The error message when the rule fails.
+     * @return \MeTools\Model\Validation\AppValidator
+     * @since 2.25.4
+     */
+    public function allowEmptyStringOnEmptyField(string $field, string $secondField, ?string $message = null)
+    {
+        return $this->allowEmptyString($field, $message, fn(array $context) => empty($context['data'][$secondField]));
+    }
+
+    /**
+     * Add a rule that ensure a string begins with a capitalized letter.
+     * @param string $field The field you want to apply the rule to.
+     * @param string|null $message The error message when the rule fails.
+     * @param callable|string|null $when Either 'create' or 'update' or a callable that returns
+     *   true when the validation rule should be applied.
+     * @return $this
+     * @since 2.25.4
+     */
+    public function firstLetterCapitalized(string $field, ?string $message = null, $when = null)
+    {
+        $extra = array_filter(['on' => $when, 'message' => $message]);
+
+        return $this->add($field, 'firstLetterCapitalized', $extra + [
+            'message' => __d('me_tools', 'Has to begin with a capital letter'),
+            'rule' => fn($value): bool => is_string($value) && ctype_upper($value[0] ?? ''),
+        ]);
+    }
+
+    /**
      * Add a rule that ensure a string does not contain a reserved word
      * @param string $field The field you want to apply the rule to.
      * @param string|null $message The error message when the rule fails.
@@ -130,14 +162,14 @@ class AppValidator extends Validator
         $extra = array_filter(['on' => $when, 'message' => $message]);
 
         return $this->add($field, 'title', $extra + [
-                'message' => sprintf(
-                    '%s: %s. %s',
-                    I18N_ALLOWED_CHARS,
-                    __d('me_tools', 'letters, numbers, apostrophe, space, slash, dash'),
-                    __d('me_tools', 'Has to begin with a capital letter')
-                ),
-                'rule' => ['custom', '/^[A-Z][A-zàèéìòù\d\'\ \/\-]+$/'],
-            ]);
+            'message' => sprintf(
+                '%s: %s. %s',
+                I18N_ALLOWED_CHARS,
+                __d('me_tools', 'letters, numbers, apostrophe, space, slash, dash'),
+                __d('me_tools', 'Has to begin with a capital letter')
+            ),
+            'rule' => ['custom', '/^[A-Z][A-zàèéìòù\d\'\ \/\-]+$/'],
+        ]);
     }
 
     /**
@@ -150,13 +182,9 @@ class AppValidator extends Validator
      */
     public function validPassword(string $field, ?string $message = null, $when = null)
     {
-        $extra = array_filter(['on' => $when, 'message' => $message]);
+        $this->minLength($field, 8, $message ?: __d('me_tools', 'Must be at least {0} chars', 8), $when);
 
-        $this->add($field, 'minLength', $extra + [
-            'last' => true,
-            'message' => __d('me_tools', 'Must be at least {0} chars', 8),
-            'rule' => ['minLength', 8],
-        ]);
+        $extra = array_filter(['on' => $when, 'message' => $message]);
 
         $this->add($field, 'hasDigit', $extra + [
             'message' => __d('me_tools', 'Must contain at least one digit'),
@@ -173,7 +201,7 @@ class AppValidator extends Validator
             'rule' => ['custom', '/[A-Z]/'],
         ]);
 
-        $this->add($field, 'notAlphaNumeric', $extra + ['message' => __d('me_tools', 'Must contain at least one symbol')]);
+        $this->notAlphaNumeric($field, __d('me_tools', $message ?: 'Must contain at least one symbol'), $when);
 
         return $this;
     }

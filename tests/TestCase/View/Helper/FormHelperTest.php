@@ -222,6 +222,13 @@ class FormHelperTest extends HelperTestCase
         $result = $this->Helper->control('My field', ['prepend-text' => 'first text', 'append-text' => 'second text']);
         $this->assertSame($expected, $result);
 
+        //With input group (`append-text` options) and a custom `formGroup` template value (the default one set by me-tools will not be used)
+        $result = $this->Helper->control('My field', [
+            'append-text' => 'second text',
+            'templates' => ['formGroup' => '{{label}}<div>{{prepend}}{{input}}{{append}}{{error}}</div>'],
+        ]);
+        $this->assertStringNotContainsString('<div class="input-group">', $result);
+
         //With input group (`append-text` and `prepend-text` options) as button and submit
         $expected = '<div class="mb-3 text">' .
             '<label class="form-label" for="my-field">My Field</label>' .
@@ -287,6 +294,8 @@ class FormHelperTest extends HelperTestCase
      */
     public function testControlWithRadio(): void
     {
+        $options = ['options' => ['yes' => 'Yes', 'no' => 'No'], 'type' => 'radio'];
+
         $expected = '<div class="mb-3 radio">' .
             '<label class="form-check-label">My Radio</label>' .
             '<input type="hidden" name="My radio" id="my-radio" value=""/>' .
@@ -299,8 +308,12 @@ class FormHelperTest extends HelperTestCase
             '<label for="my-radio-no">No</label>' .
             '</div>' .
             '</div>';
-        $result = $this->Helper->control('My radio', ['options' => ['yes' => 'Yes', 'no' => 'No'], 'type' => 'radio']);
+        $result = $this->Helper->control('My radio', $options);
         $this->assertSame($expected, $result);
+
+        //With a custom `radioWrapper` template value (the default one set by me-tools will not be used)
+        $result = $this->Helper->control('My radio', $options + ['templates' => ['radioWrapper' => '<div>{{label}}</div>']]);
+        $this->assertStringNotContainsString('<div class="form-check">', $result);
     }
 
     /**

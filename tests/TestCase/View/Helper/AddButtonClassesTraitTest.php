@@ -16,9 +16,9 @@ declare(strict_types=1);
 namespace MeTools\Test\TestCase\View\Helper;
 
 use Cake\View\Helper;
+use Cake\View\View;
 use MeTools\TestSuite\TestCase;
 use MeTools\View\Helper\AddButtonClassesTrait;
-use MeTools\View\View;
 
 /**
  * AddButtonClassesTraitTest class

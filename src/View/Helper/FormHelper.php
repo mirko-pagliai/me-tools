@@ -45,11 +45,7 @@ class FormHelper extends BaseFormHelper
     protected bool $validation = true;
 
     /**
-     * Construct the widgets and binds the default context providers.
-     *
-     * This method only rewrites the default config.
-     * @param \Cake\View\View $view The View this helper is being attached to
-     * @param array<string, mixed> $config Configuration settings for the helper
+     * @inheritDoc
      */
     public function __construct(View $view, array $config = [])
     {
@@ -87,11 +83,7 @@ class FormHelper extends BaseFormHelper
     }
 
     /**
-     * Returns the input type that was guessed for the provided fieldName, based on the internal type it is associated
-     *  too, its name and the variables that can be found in the view template
-     * @param string $fieldName the name of the field to guess a type for
-     * @param array<string, mixed> $options the options passed to the input method
-     * @return string
+     * @inheritDoc
      */
     protected function _inputType(string $fieldName, array $options): string
     {
@@ -102,10 +94,7 @@ class FormHelper extends BaseFormHelper
     }
 
     /**
-     * Generate label for input
-     * @param string $fieldName The name of the field to generate label for
-     * @param array<string, mixed> $options Options list
-     * @return string|false Generated label element or false
+     * @inheritDoc
      */
     protected function _getLabel(string $fieldName, array $options)
     {
@@ -148,13 +137,7 @@ class FormHelper extends BaseFormHelper
     }
 
     /**
-     * Creates a `<button>` tag
-     * @param string $title The button's caption. Not automatically HTML encoded
-     * @param array<string, mixed> $options Array of options and HTML attributes
-     * @return string A HTML button tag
-     * @link https://book.cakephp.org/4/en/views/helpers/form.html#creating-button-elements
-     * @see \Cake\View\Helper\FormHelper::button() for all available options
-     * @throws \ErrorException
+     * @inheritDoc
      */
     public function button(string $title, array $options = []): string
     {
@@ -198,7 +181,7 @@ class FormHelper extends BaseFormHelper
      */
     public function control(string $fieldName, array $options = []): string
     {
-        $options += ['escape' => false, 'help' => null, 'append-text' => null, 'prepend-text' => null, 'templateVars' => []];
+        $options += ['escape' => false, 'help' => null, 'append-text' => null, 'prepend-text' => null, 'templates' => [], 'templateVars' => []];
 
         $templateVars['divClass'] = 'mb-3 ';
         if ($this->isInline()) {
@@ -211,7 +194,7 @@ class FormHelper extends BaseFormHelper
                 $class = 'form-check-input';
                 break;
             case 'radio':
-                $options['templates']['radioWrapper'] = '<div class="form-check">{{label}}</div>';
+                $options['templates'] += ['radioWrapper' => '<div class="form-check">{{label}}</div>'];
                 $class = 'form-check-input';
                 break;
             case 'select':
@@ -251,7 +234,7 @@ class FormHelper extends BaseFormHelper
 
                 $templateVars[$name] = $value;
             }
-            $options['templates']['formGroup'] = '{{label}}<div class="input-group">{{prepend}}{{input}}{{append}}{{error}}</div>';
+            $options['templates'] += ['formGroup' => '{{label}}<div class="input-group">{{prepend}}{{input}}{{append}}{{error}}</div>'];
         }
 
         $options['templateVars'] += $templateVars;
@@ -305,10 +288,7 @@ class FormHelper extends BaseFormHelper
     }
 
     /**
-     * Closes an HTML form, cleans up values set by FormHelper::create(), and writes hidden input fields where appropriate
-     * @param array<string, mixed> $secureAttributes Secure attributes which will be passed as HTML attributes into the
-     *  hidden input elements generated for the Security Component
-     * @return string A closing FORM tag
+     * @inheritDoc
      */
     public function end(array $secureAttributes = []): string
     {
@@ -320,14 +300,7 @@ class FormHelper extends BaseFormHelper
     }
 
     /**
-     * Create a `<button>` tag with a surrounding `<form>` that submits via POST as default
-     * @param string $title The button's caption. Not automatically HTML encoded
-     * @param array|string $url URL as string or array
-     * @param array<string, mixed> $options Array of options and HTML attributes
-     * @return string A HTML button tag
-     * @link https://book.cakephp.org/4/en/views/helpers/form.html#creating-standalone-buttons-and-post-links
-     * @see \Cake\View\Helper\FormHelper::postButton() for all available options
-     * @throws \ErrorException
+     * @inheritDoc
      */
     public function postButton(string $title, $url, array $options = []): string
     {
@@ -335,13 +308,7 @@ class FormHelper extends BaseFormHelper
     }
 
     /**
-     * Returns a formatted SELECT element
-     * @param string $fieldName Name attribute of the SELECT
-     * @param iterable $options Array of the OPTION elements (as 'value'=>'Text' pairs) to be used in the SELECT element
-     * @param array<string, mixed> $attributes The HTML attributes of the select element
-     * @return string Formatted SELECT element
-     * @link https://book.cakephp.org/4/en/views/helpers/form.html#creating-select-pickers
-     * @see \Cake\View\Helper\FormHelper::select() for all available options
+     * @inheritDoc
      */
     public function select(string $fieldName, iterable $options = [], array $attributes = []): string
     {
@@ -372,15 +339,7 @@ class FormHelper extends BaseFormHelper
     }
 
     /**
-     * Creates a submit button element
-     * @param string|null $caption The label appearing on the button OR if string contains :// or the extension .jpg,
-     *  .jpe, .jpeg, .gif, .png use an image if the extension exists, AND the first character is /, image is relative to
-     *  webroot, OR if the first character is not /, image is relative to webroot/img
-     * @param array<string, mixed> $options Array of option
-     * @return string An HTML submit button
-     * @link https://book.cakephp.org/4/en/views/helpers/form.html#creating-buttons-and-submit-elements
-     * @see \Cake\View\Helper\FormHelper::submit() for all available options
-     * @throws \ErrorException
+     * @inheritDoc
      */
     public function submit(?string $caption = null, array $options = []): string
     {

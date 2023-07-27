@@ -41,6 +41,40 @@ class AppValidatorTest extends TestCase
 
     /**
      * @test
+     * @uses \MeTools\Model\Validation\AppValidator::allowEmptyStringOnEmptyField()
+     */
+    public function testAllowEmptyStringOnEmptyField(): void
+    {
+        $this->Validator->allowEmptyStringOnEmptyField('tested_field', 'check_field');
+
+        $this->assertEmpty($this->Validator->validate(['tested_field' => 'My field']));
+        $this->assertEmpty($this->Validator->validate(['tested_field' => 'My field', 'check_field' => 'My check field']));
+        $this->assertEmpty($this->Validator->validate(['tested_field' => '', 'check_field' => '']));
+
+        $expected = ['tested_field' => ['_empty' => 'This field cannot be left empty']];
+        $this->assertSame($expected, $this->Validator->validate(['tested_field' => '', 'check_field' => 'My check field']));
+    }
+
+    /**
+     * @test
+     * @uses \MeTools\Model\Validation\AppValidator::firstLetterCapitalized()
+     */
+    public function testFirstLetterCapitalized(): void
+    {
+        $this->Validator->firstLetterCapitalized('name');
+
+        $expected = ['name' => ['firstLetterCapitalized' => 'Has to begin with a capital letter']];
+        foreach (['', 'aa', 'aA', '1A', '?a', '?A', 123, ['A'], false, true] as $name) {
+            $this->assertSame($expected, $this->Validator->validate(compact('name')));
+        }
+
+        foreach (['A', 'AA', 'Aa', 'A1', 'A?'] as $name) {
+            $this->assertEmpty($this->Validator->validate(compact('name')));
+        }
+    }
+
+    /**
+     * @test
      * @uses \MeTools\Model\Validation\AppValidator::lengthBetween()
      */
     public function testLengthBetween(): void
@@ -138,25 +172,28 @@ class AppValidatorTest extends TestCase
     {
         $this->Validator->validPassword('password');
 
-        $expected = ['password' => ['minLength' => 'Must be at least 8 chars']];
-        $this->assertSame($expected, $this->Validator->validate(['password' => 'aa']));
-
         $expected = ['password' => [
+            'minLength' => 'Must be at least 8 chars',
             'hasDigit' => 'Must contain at least one digit',
             'hasCapitalLetter' => 'Must contain at least one capital letter',
             'notAlphaNumeric' => 'Must contain at least one symbol',
         ]];
-        $this->assertSame($expected, $this->Validator->validate(['password' => str_repeat('a', 8)]));
+        $this->assertSame($expected, $this->Validator->validate(['password' => str_repeat('a', 7)]));
 
-        unset($expected['password']['hasCapitalLetter']);
+        unset($expected['password']['minLength'], $expected['password']['hasCapitalLetter']);
         $expected['password'] += ['hasLowercaseLetter' => 'Must contain at least one lowercase letter'];
         $this->assertEquals($expected, $this->Validator->validate(['password' => str_repeat('A', 8)]));
 
         $this->assertEmpty($this->Validator->validate(['password' => 'aaaAAA1$']));
 
         //With a custom message
+        $expected = ['password' => [
+            'minLength' => 'Your password is wrong!',
+            'hasDigit' => 'Your password is wrong!',
+            'hasCapitalLetter' => 'Your password is wrong!',
+            'notAlphaNumeric' => 'Your password is wrong!',
+        ]];
         $this->Validator->validPassword('password', 'Your password is wrong!');
-        $expected = ['password' => ['minLength' => 'Your password is wrong!']];
         $this->assertSame($expected, $this->Validator->validate(['password' => 'aa']));
     }
 }
