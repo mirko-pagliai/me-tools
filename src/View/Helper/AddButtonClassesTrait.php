@@ -16,7 +16,7 @@ declare(strict_types=1);
 
 namespace MeTools\View\Helper;
 
-use Tools\Exceptionist;
+use LogicException;
 
 /**
  * AddButtonClassesTrait
@@ -28,7 +28,7 @@ trait AddButtonClassesTrait
      * @param array<string, mixed> $options Array options/attributes to add a class to
      * @param string ...$class The button class name being added.
      * @return array<string, mixed> Array of options
-     * @throws \ErrorException
+     * @throws \LogicException
      * @see https://getbootstrap.com/docs/5.3/components/buttons/#variants for valid classes
      */
     protected function addButtonClasses(array $options, string ...$class)
@@ -52,7 +52,9 @@ trait AddButtonClassesTrait
 
         //Checks you are not trying to add an invalid class
         $wrongClass = array_value_first(array_diff($class, $validClasses));
-        Exceptionist::isFalse($wrongClass, 'Invalid `' . $wrongClass . '` button class');
+        if ($wrongClass) {
+            throw new LogicException('Invalid `' . $wrongClass . '` button class');
+        }
 
         $options['class'] = ltrim($options['class'] . ' ') . implode(' ', $btnAlreadyExists ? $class : array_merge(['btn'], $class));
 

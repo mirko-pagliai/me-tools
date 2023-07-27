@@ -137,13 +137,7 @@ class FormHelper extends BaseFormHelper
     }
 
     /**
-     * Creates a `<button>` tag
-     * @param string $title The button's caption. Not automatically HTML encoded
-     * @param array<string, mixed> $options Array of options and HTML attributes
-     * @return string A HTML button tag
-     * @link https://book.cakephp.org/4/en/views/helpers/form.html#creating-button-elements
-     * @see \Cake\View\Helper\FormHelper::button() for all available options
-     * @throws \ErrorException
+     * @inheritDoc
      */
     public function button(string $title, array $options = []): string
     {
@@ -306,14 +300,7 @@ class FormHelper extends BaseFormHelper
     }
 
     /**
-     * Create a `<button>` tag with a surrounding `<form>` that submits via POST as default
-     * @param string $title The button's caption. Not automatically HTML encoded
-     * @param array|string $url URL as string or array
-     * @param array<string, mixed> $options Array of options and HTML attributes
-     * @return string A HTML button tag
-     * @link https://book.cakephp.org/4/en/views/helpers/form.html#creating-standalone-buttons-and-post-links
-     * @see \Cake\View\Helper\FormHelper::postButton() for all available options
-     * @throws \ErrorException
+     * @inheritDoc
      */
     public function postButton(string $title, $url, array $options = []): string
     {
@@ -352,15 +339,7 @@ class FormHelper extends BaseFormHelper
     }
 
     /**
-     * Creates a submit button element
-     * @param string|null $caption The label appearing on the button OR if string contains :// or the extension .jpg,
-     *  .jpe, .jpeg, .gif, .png use an image if the extension exists, AND the first character is /, image is relative to
-     *  webroot, OR if the first character is not /, image is relative to webroot/img
-     * @param array<string, mixed> $options Array of option
-     * @return string An HTML submit button
-     * @link https://book.cakephp.org/4/en/views/helpers/form.html#creating-buttons-and-submit-elements
-     * @see \Cake\View\Helper\FormHelper::submit() for all available options
-     * @throws \ErrorException
+     * @inheritDoc
      */
     public function submit(?string $caption = null, array $options = []): string
     {
