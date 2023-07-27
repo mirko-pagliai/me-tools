@@ -4,6 +4,7 @@
 * fixed a serious bug with `FormHelper` which prevented the `radio` and "input group" (`append-text` and `prepend-text`
   options)template from being customized at run-time;
 * removed the base `View` class (which was introduced with version 2.25.0. Backtracking, sorry);
+* the `FormHelper` now makes extensive use of the `@inheritDoc` tag;
 * removed old (ancient) bake templates.
 
 ### 2.25.3
