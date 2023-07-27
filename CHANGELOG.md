@@ -2,7 +2,8 @@
 ## 2.25 branch
 ### 2.25.4
 * fixed a serious bug with `FormHelper` which prevented the `radio` and "input group" (`append-text` and `prepend-text`
-  options)template from being customized at run-time.
+  options)template from being customized at run-time;
+* removed the base `View` class (which was introduced with version 2.25.0. Backtracking, sorry).
 
 ### 2.25.3
 * added `HtmlHelper::para()` method, so it can have icons;
