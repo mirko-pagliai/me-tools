@@ -1,6 +1,7 @@
 # 2.x branch
 ## 2.25 branch
 ### 2.25.4
+* added `AppValidator::allowEmptyStringOnEmptyField()` rule method;
 * added `AppValidator::firstLetterCapitalized()` rule method;
 * fixed a serious bug with `FormHelper` which prevented the `radio` and "input group" (`append-text` and `prepend-text`
   options)template from being customized at run-time;

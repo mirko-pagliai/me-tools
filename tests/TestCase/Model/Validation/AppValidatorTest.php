@@ -41,6 +41,22 @@ class AppValidatorTest extends TestCase
 
     /**
      * @test
+     * @uses \MeTools\Model\Validation\AppValidator::allowEmptyStringOnEmptyField()
+     */
+    public function testAllowEmptyStringOnEmptyField(): void
+    {
+        $this->Validator->allowEmptyStringOnEmptyField('tested_field', 'check_field');
+
+        $this->assertEmpty($this->Validator->validate(['tested_field' => 'My field']));
+        $this->assertEmpty($this->Validator->validate(['tested_field' => 'My field', 'check_field' => 'My check field']));
+        $this->assertEmpty($this->Validator->validate(['tested_field' => '', 'check_field' => '']));
+
+        $expected = ['tested_field' => ['_empty' => 'This field cannot be left empty']];
+        $this->assertSame($expected, $this->Validator->validate(['tested_field' => '', 'check_field' => 'My check field']));
+    }
+
+    /**
+     * @test
      * @uses \MeTools\Model\Validation\AppValidator::firstLetterCapitalized()
      */
     public function testFirstLetterCapitalized(): void

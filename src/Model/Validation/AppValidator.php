@@ -30,6 +30,19 @@ use Cake\Validation\Validator;
 class AppValidator extends Validator
 {
     /**
+     * Allow empty string for `$field` when `$secondField` is empty (or is not set)
+     * @param string $field The field you want to apply the rule to.
+     * @param string $secondField Another field to check $field against
+     * @param string|null $message The error message when the rule fails.
+     * @return \MeTools\Model\Validation\AppValidator
+     * @since 2.25.4
+     */
+    public function allowEmptyStringOnEmptyField(string $field, string $secondField, ?string $message = null)
+    {
+        return $this->allowEmptyString($field, $message, fn(array $context) => empty($context['data'][$secondField]));
+    }
+
+    /**
      * Add a rule that ensure a string begins with a capitalized letter.
      * @param string $field The field you want to apply the rule to.
      * @param string|null $message The error message when the rule fails.
