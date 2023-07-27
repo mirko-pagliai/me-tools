@@ -30,6 +30,25 @@ use Cake\Validation\Validator;
 class AppValidator extends Validator
 {
     /**
+     * Add a rule that ensure a string begins with a capitalized letter.
+     * @param string $field The field you want to apply the rule to.
+     * @param string|null $message The error message when the rule fails.
+     * @param callable|string|null $when Either 'create' or 'update' or a callable that returns
+     *   true when the validation rule should be applied.
+     * @return $this
+     * @since 2.25.4
+     */
+    public function firstLetterCapitalized(string $field, ?string $message = null, $when = null)
+    {
+        $extra = array_filter(['on' => $when, 'message' => $message]);
+
+        return $this->add($field, 'firstLetterCapitalized', $extra + [
+            'message' => __d('me_tools', 'Has to begin with a capital letter'),
+            'rule' => fn(mixed $value): bool => is_string($value) && ctype_upper($value[0] ?? ''),
+        ]);
+    }
+
+    /**
      * Add a rule that ensure a string does not contain a reserved word
      * @param string $field The field you want to apply the rule to.
      * @param string|null $message The error message when the rule fails.

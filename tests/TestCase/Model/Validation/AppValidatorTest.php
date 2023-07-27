@@ -41,6 +41,24 @@ class AppValidatorTest extends TestCase
 
     /**
      * @test
+     * @uses \MeTools\Model\Validation\AppValidator::firstLetterCapitalized()
+     */
+    public function testFirstLetterCapitalized(): void
+    {
+        $this->Validator->firstLetterCapitalized('name');
+
+        $expected = ['name' => ['firstLetterCapitalized' => 'Has to begin with a capital letter']];
+        foreach (['', 'aa', 'aA', '1A', '?a', '?A', 123, ['A'], false, true] as $name) {
+            $this->assertSame($expected, $this->Validator->validate(compact('name')));
+        }
+
+        foreach (['A', 'AA', 'Aa', 'A1', 'A?'] as $name) {
+            $this->assertEmpty($this->Validator->validate(compact('name')));
+        }
+    }
+
+    /**
+     * @test
      * @uses \MeTools\Model\Validation\AppValidator::lengthBetween()
      */
     public function testLengthBetween(): void
