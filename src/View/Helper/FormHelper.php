@@ -198,7 +198,7 @@ class FormHelper extends BaseFormHelper
      */
     public function control(string $fieldName, array $options = []): string
     {
-        $options += ['escape' => false, 'help' => null, 'append-text' => null, 'prepend-text' => null, 'templateVars' => []];
+        $options += ['escape' => false, 'help' => null, 'append-text' => null, 'prepend-text' => null, 'templates' => [], 'templateVars' => []];
 
         $templateVars['divClass'] = 'mb-3 ';
         if ($this->isInline()) {
@@ -211,7 +211,7 @@ class FormHelper extends BaseFormHelper
                 $class = 'form-check-input';
                 break;
             case 'radio':
-                $options['templates']['radioWrapper'] = '<div class="form-check">{{label}}</div>';
+                $options['templates'] += ['radioWrapper' => '<div class="form-check">{{label}}</div>'];
                 $class = 'form-check-input';
                 break;
             case 'select':
@@ -251,7 +251,7 @@ class FormHelper extends BaseFormHelper
 
                 $templateVars[$name] = $value;
             }
-            $options['templates']['formGroup'] = '{{label}}<div class="input-group">{{prepend}}{{input}}{{append}}{{error}}</div>';
+            $options['templates'] += ['formGroup' => '{{label}}<div class="input-group">{{prepend}}{{input}}{{append}}{{error}}</div>'];
         }
 
         $options['templateVars'] += $templateVars;
