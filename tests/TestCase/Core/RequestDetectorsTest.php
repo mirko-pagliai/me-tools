@@ -114,6 +114,41 @@ class RequestDetectorsTest extends TestCase
     }
 
     /**
+     * Tests for `is('ip')` detector
+     * @test
+     */
+    public function testIsIp(): void
+    {
+        $this->Request = $this->Request->withEnv('REMOTE_ADDR', '192.168.0.100');
+
+        $this->assertTrue($this->Request->is('ip', '192.168.0.100'));
+        $this->assertTrue($this->Request->is('ip', ['127.0.0.1', '192.168.0.100']));
+
+        $this->assertFalse($this->Request->is('ip', '127.0.0.1'));
+        $this->assertFalse($this->Request->is('ip', '192.168.0.99'));
+        $this->assertFalse($this->Request->is('ip', '192.168.1.100'));
+    }
+
+    /**
+     * Tests for `is('matchingIp')` detector
+     * @test
+     */
+    public function testIsMatchingIp(): void
+    {
+        $this->Request = $this->Request->withEnv('REMOTE_ADDR', '192.168.0.100');
+
+        $this->assertTrue($this->Request->is('matchingIp', '192.168.0.100'));
+        $this->assertTrue($this->Request->is('matchingIp', '192.168.0.*'));
+        $this->assertTrue($this->Request->is('matchingIp', '192.168.*.100'));
+        $this->assertTrue($this->Request->is('matchingIp', ['10.0.*.*', '192.168.0.*']));
+        $this->assertTrue($this->Request->is('matchingIp', ['10.0.*.*', '192.168.0.100', '192.168.1.*']));
+
+        $this->assertFalse($this->Request->is('matchingIp', '192.168.1.100'));
+        $this->assertFalse($this->Request->is('matchingIp', '192.168.1.*'));
+        $this->assertFalse($this->Request->is('matchingIp', ['10.0.*.*', '192.168.1.100', '192.168.2.*']));
+    }
+
+    /**
      * Tests for `is('localhost')` detector
      * @test
      */
