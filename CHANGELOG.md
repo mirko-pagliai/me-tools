@@ -1,6 +1,7 @@
 # 2.x branch
 ## 2.25 branch
 ### 2.25.5
+* `AppController` no longer automatically loads any component (previously they were `RequestHandler` and `MeTools.Flash`); 
 * removed the auto width css rules for `date`, `datetime-local` and `time` input, use the `w-auto` class instead.
 
 ### 2.25.4
