@@ -81,11 +81,51 @@ ServerRequest::addDetector('view', fn(ServerRequest $request, $controller = null
 ServerRequest::addDetector('controller', fn(ServerRequest $request, $controller): bool => in_array($request->getParam('controller'), (array)$controller));
 
 /**
+ * `isIp()` detector.
+ *
+ * Checks if the specified client IP is the current client IP.
+ * The client IP can be passed as string or array.
+ *
+ * Examples:
+ * <code>
+ * $this->getRequest()->is('ip', '192.168.0.100');
+ * $this->getRequest()->is('ip', ['192.168.0.100', '192.168.1.100']);
+ * </code>
+ */
+ServerRequest::addDetector('ip', fn(ServerRequest $request, $ip): bool => in_array($request->clientIp(), (array)$ip));
+
+/**
+ * `isMatchingIp()` detector.
+ *
+ * This works like the `isIp()` detector, but can take the use of the `*` asterisk and check the IP address with a regex.
+ * For each asterisk `*` it will expect a sequence between 1 and 3 digits (`\d{1,3}`).
+ * The client IP can be passed as string or array.
+ *
+ * Examples:
+ * <code>
+ * $this->getRequest()->is('matchingIp', ['10.0.*.*', '192.168.0.*']);
+ * </code>
+ *
+ * In this case the checked regex will be:
+ * <code>
+ * /^(10\.0\.\d{1,3}\.\d{1,3}|192\.168\.0\.\d{1,3})$/
+ * </code>
+ * and will return `true` for all IP addresses starting with `10.0` or `192.168.0`.
+ *
+ * Pay particular attention not to overuse the `*` asterisks to avoid unexpected results.
+ */
+ServerRequest::addDetector('matchingIp', function (ServerRequest $request, $wildCardIp): bool {
+    $wildCardIp = array_map(fn(string $value): string => str_replace(['.', '*'], ['\.', '\d{1,3}'], $value), (array)$wildCardIp);
+
+    return preg_match(sprintf('/^(%s)$/', implode('|', $wildCardIp)), $request->clientIp()) === 1;
+});
+
+/**
  * `isLocalhost()` detector.
  *
- * Checks if the host is the localhost.
+ * Checks if the client IP is the localhost.
  */
-ServerRequest::addDetector('localhost', fn(ServerRequest $request): bool => in_array($request->clientIp(), ['127.0.0.1', '::1']));
+ServerRequest::addDetector('localhost', fn(ServerRequest $request): bool => $request->is('ip', ['127.0.0.1', '::1']));
 
 /**
  * `isPrefix()` detector.

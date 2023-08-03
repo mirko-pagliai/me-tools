@@ -1,5 +1,12 @@
 # 2.x branch
 ## 2.25 branch
+### 2.25.5
+* added `is('ip')` and `is('matchingIp')` request detectors;
+* the abstract `AppController` provided by me-tools has been deprecated and will be removed in a later release. Your
+  `AppController` should directly extend `Cake\Controller\Controller`;
+* `AppController` no longer automatically loads any component (previously they were `RequestHandler` and `MeTools.Flash`); 
+* removed the auto width css rules for `date`, `datetime-local` and `time` input, use the `w-auto` class instead.
+
 ### 2.25.4
 * added `AppValidator::allowEmptyStringOnEmptyField()` rule method;
 * added `AppValidator::firstLetterCapitalized()` rule method;

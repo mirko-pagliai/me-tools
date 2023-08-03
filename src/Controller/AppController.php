@@ -16,26 +16,26 @@ declare(strict_types=1);
 
 namespace MeTools\Controller;
 
+use Cake\Controller\ComponentRegistry;
 use Cake\Controller\Controller;
+use Cake\Event\EventManagerInterface;
+use Cake\Http\Response;
+use Cake\Http\ServerRequest;
 
 /**
  * Application Controller
- * @property \MeTools\Controller\Component\FlashComponent $Flash
- * @property \Cake\Controller\Component\RequestHandlerComponent $RequestHandler
+ * @deprecated 2.25.5 Deprecated. Your `AppController` should directly extend `Cake\Controller\Controller`
  * @codeCoverageIgnore
  **/
 abstract class AppController extends Controller
 {
     /**
-     * Initialization hook method
-     * @return void
-     * @throws \Exception
+     * @inheritDoc
      */
-    public function initialize(): void
+    public function __construct(?ServerRequest $request = null, ?Response $response = null, ?string $name = null, ?EventManagerInterface $eventManager = null, ?ComponentRegistry $components = null)
     {
-        parent::initialize();
+        deprecationWarning('Deprecated. Your `AppController` should directly extend `Cake\Controller\Controller`');
 
-        $this->loadComponent('RequestHandler');
-        $this->loadComponent('MeTools.Flash');
+        parent::__construct($request, $response, $name, $eventManager, $components);
     }
 }
