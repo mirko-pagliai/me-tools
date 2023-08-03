@@ -1,5 +1,8 @@
 # 2.x branch
 ## 2.25 branch
+### 2.25.5
+* removed the auto width css rules for `date`, `datetime-local` and `time` input, use the `w-auto` class instead.
+
 ### 2.25.4
 * added `AppValidator::allowEmptyStringOnEmptyField()` rule method;
 * added `AppValidator::firstLetterCapitalized()` rule method;

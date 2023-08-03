@@ -30,17 +30,6 @@ form div.required > label:after {
 }
 
 /* -------------------------------- */
-/*            Inputs                */
-/* -------------------------------- */
-/* `date`, `datetime-local` and `time` input, width as `auto` */
-form input[type="date"].form-control,
-form input[type="datetime-local"].form-control,
-form input[type="time"].form-control
-{
-    width: auto !important;
-}
-
-/* -------------------------------- */
 /*          Float forms             */
 /* -------------------------------- */
 /* Float form */
