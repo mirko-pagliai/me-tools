@@ -81,7 +81,6 @@ class HtmlHelper extends BaseHtmlHelper
      * @param array|string|null $url Cake-relative URL or array of URL parameters, or external URL (starts with http://)
      * @param array<string, mixed> $options Array of options and HTML attributes
      * @return string An `<a />` element
-     * @throws \ErrorException
      * @see link() for all available options
      */
     public function button($title, $url = null, array $options = []): string
