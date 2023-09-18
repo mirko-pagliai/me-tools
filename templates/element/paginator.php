@@ -19,13 +19,13 @@ if (!$this->Paginator->hasPage(2, null)) {
 }
 ?>
 
-<nav class="d-print-none">
-    <ul class="pagination d-none d-lg-flex justify-content-center">
+<nav class="d-print-none mt-4">
+    <ul class="pagination d-none d-lg-flex justify-content-center m-0">
         <?= $this->Paginator->prev('', ['icon' => 'caret-left']) ?>
         <?= $this->Paginator->numbers() ?>
         <?= $this->Paginator->next('', ['icon' => 'caret-right']) ?>
     </ul>
-    <ul class="pagination d-lg-none justify-content-center">
+    <ul class="pagination d-lg-none justify-content-center m-0">
         <?php
         if ($this->Paginator->hasPrev() && $this->Paginator->hasNext()) {
             echo $this->Paginator->prev('', ['icon' => 'caret-left']);

@@ -1,5 +1,10 @@
 # 2.x branch
 ## 2.25 branch
+### 2.25.6
+* css rules for ascending/descending sort links no longer depend on tables;
+* fixed margins for `paginator.php` element;
+* little fixes.
+
 ### 2.25.5
 * added `is('ip')` and `is('matchingIp')` request detectors;
 * the abstract `AppController` provided by me-tools has been deprecated and will be removed in a later release. Your

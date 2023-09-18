@@ -234,7 +234,10 @@ class FormHelper extends BaseFormHelper
 
                 $templateVars[$name] = $value;
             }
-            $options['templates'] += ['formGroup' => '{{label}}<div class="input-group">{{prepend}}{{input}}{{append}}{{error}}</div>'];
+            $options['templates'] += [
+                'formGroup' => '{{label}}<div class="input-group">{{prepend}}{{input}}{{append}}{{error}}</div>',
+                'inputContainerError' => '<div class="{{divClass}}{{type}}{{required}} error">{{content}}{{help}}</div>',
+            ];
         }
 
         $options['templateVars'] += $templateVars;
@@ -282,7 +285,7 @@ class FormHelper extends BaseFormHelper
     {
         $this->isInline = true;
 
-        $options = $this->addClass($options, 'row row-cols-lg-auto g-1 align-items-center');
+        $options = $this->addClass($options, 'row row-cols-lg-auto g-2 align-items-center');
 
         return $this->create($context, $options);
     }
