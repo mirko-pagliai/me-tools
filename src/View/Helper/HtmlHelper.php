@@ -20,6 +20,7 @@ use Tools\Exceptionist;
 /**
  * Provides functionalities for HTML
  *
+ * @method string abbr(?string $text = null, array $options = [])
  * @method string code(?string $text = null, array $options = [])
  * @method string h1(?string $text = null, array $options = [])
  * @method string h2(?string $text = null, array $options = [])
@@ -28,6 +29,7 @@ use Tools\Exceptionist;
  * @method string h5(?string $text = null, array $options = [])
  * @method string h6(?string $text = null, array $options = [])
  * @method string legend(?string $text = null, array $options = [])
+ * @method string small(?string $text = null, array $options = [])
  * @method string span(?string $text = null, array $options = [])
  * @method string strong(?string $text = null, array $options = [])
  * @method string time(?string $text = null, array $options = [])
