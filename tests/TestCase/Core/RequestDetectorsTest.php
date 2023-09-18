@@ -30,8 +30,7 @@ class RequestDetectorsTest extends TestCase
     public ServerRequest $Request;
 
     /**
-     * Called before every test method
-     * @return void
+     * @inheritDoc
      */
     protected function setUp(): void
     {
