@@ -62,11 +62,11 @@ pre {
 }
 
 /* -------------------------------- */
-/*      Ascending/descending sort   */
+/*          Links for sorting       */
 /* -------------------------------- */
-/* Ascending and descending sort */
-th a.asc:after,
-th a.desc:after {
+/* Links for sorting */
+a.asc:after,
+a.desc:after {
     --spacing-inline: var(--spacing-6xs);
     font-family: "Font Awesome 6 Free";
     font-weight: 900;
@@ -78,12 +78,12 @@ th a.desc:after {
     text-rendering: auto;
 }
 
-/* Ascending sort */
-th a.asc:after {
+/* Links for ascending sorting */
+a.asc:after {
     content: "\f160";
 }
 
-/* Descending sort */
-th a.desc:after {
+/* Links for descending sorting */
+a.desc:after {
     content: "\f161";
 }

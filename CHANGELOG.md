@@ -1,6 +1,7 @@
 # 2.x branch
 ## 2.25 branch
 ### 2.25.6
+* css rules for ascending/descending sort links no longer depend on tables;
 * fixed margins for `paginator.php` element.
 
 ### 2.25.5
