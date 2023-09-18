@@ -398,15 +398,6 @@ class FormHelperTest extends HelperTestCase
      */
     public function testInlineForm(): void
     {
-        $expected = <<<'HTML'
-<form method="post" accept-charset="utf-8" class="row row-cols-lg-auto g-1 align-items-center" action="/">
-<div class="col-12 text"><label class="visually-hidden" for="username">Username</label><input type="text" name="username" class="form-control" id="username"/></div>
-<div class="col-12 text"><label class="visually-hidden" for="preference">Preference</label><input type="text" name="preference" class="form-control" id="preference"/></div>
-<div class="col-12 form-check checkbox"><input type="hidden" name="remember-me" value="0"/><input type="checkbox" name="remember-me" value="1" class="form-check-input" id="remember-me"><label class="form-check-label" for="remember-me">Remember Me</label></div>
-<div class="col-12 submit"><input type="submit" class="btn btn-primary" value="Submit"/></div>
-</form>
-HTML;
-
         $result = $this->Helper->createInline();
         $this->assertSame('<form method="post" accept-charset="utf-8" class="row row-cols-lg-auto g-2 align-items-center" action="/">', $result);
 
