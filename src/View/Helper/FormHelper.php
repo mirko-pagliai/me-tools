@@ -51,6 +51,7 @@ class FormHelper extends BaseFormHelper
     {
         /**
          * Rewrites default templates config
+         * @see \Cake\View\Helper\FormHelper::$_defaultConfig
          */
         $this->_defaultConfig['templates'] = [
             //Used for button elements in button()
@@ -285,7 +286,7 @@ class FormHelper extends BaseFormHelper
     {
         $this->isInline = true;
 
-        $options = $this->addClass($options, 'row row-cols-lg-auto g-2 align-items-center');
+        $options = $this->addClass($options, 'row row-cols-lg-auto g-3 align-items-center');
 
         return $this->create($context, $options);
     }
