@@ -28,12 +28,8 @@ class PaginatorHelperTest extends HelperTestCase
      */
     public function testNext(): void
     {
-        $expected = '<li class="page-item disabled"><a class="page-link" href="#">Next</a></li>';
+        $expected = '<li class="page-item disabled"><a class="page-link" href="#">Next <i class="fa-solid fa-caret-right"></i></a></li>';
         $this->assertSame($expected, $this->Helper->next('Next'));
-
-        //Using `icon` option
-        $expected = '<li class="page-item disabled"><a class="page-link" href="#">Next <i class="fa fa-chevron-right"> </i></a></li>';
-        $this->assertSame($expected, $this->Helper->next('Next', ['icon' => 'chevron-right']));
     }
 
     /**
@@ -42,11 +38,7 @@ class PaginatorHelperTest extends HelperTestCase
      */
     public function testPrev(): void
     {
-        $expected = '<li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>';
+        $expected = '<li class="page-item disabled"><a class="page-link" href="#"><i class="fa-solid fa-caret-left"></i> Previous</a></li>';
         $this->assertSame($expected, $this->Helper->prev('Previous'));
-
-        //Using `icon` option
-        $expected = '<li class="page-item disabled"><a class="page-link" href="#"><i class="fa fa-chevron-left"> </i> Previous</a></li>';
-        $this->assertSame($expected, $this->Helper->prev('Previous', ['icon' => 'chevron-left']));
     }
 }
