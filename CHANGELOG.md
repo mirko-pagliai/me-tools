@@ -1,6 +1,7 @@
 # 2.x branch
 ## 2.25 branch
 ### 2.25.7
+* some little updates for `PaginatorHelper`;
 * fixed `FormHelper::createInline()`.
 
 ### 2.25.6
