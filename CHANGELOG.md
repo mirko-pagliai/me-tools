@@ -1,6 +1,8 @@
 # 2.x branch
 ## 2.25 branch
 ### 2.25.7
+* sorting links (and their icons) are now fully managed by `PaginatorHelper` using the `$_defaultConfig` property.
+  Removed css rules;
 * some little updates for `PaginatorHelper`;
 * fixed `FormHelper::createInline()`.
 

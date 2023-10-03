@@ -22,6 +22,8 @@ use Cake\View\View;
  * Provides functionalities to the generation of pagers
  * @property \MeTools\View\Helper\HtmlHelper $Html
  * @property \MeTools\View\Helper\IconHelper $Icon
+ * @property \Cake\View\Helper\NumberHelper $Number
+ * @property \Cake\View\Helper\UrlHelper $Url
  */
 class PaginatorHelper extends CakePaginatorHelper
 {
@@ -31,6 +33,8 @@ class PaginatorHelper extends CakePaginatorHelper
     public $helpers = [
         'MeTools.Html',
         'MeTools.Icon',
+        'Number',
+        'Url',
     ];
 
     /**
@@ -46,6 +50,9 @@ class PaginatorHelper extends CakePaginatorHelper
             'prevDisabled' => '<li class="page-item disabled"><a class="page-link" href="#">{{text}}</a></li>',
             'number' => '<li class="page-item"><a class="page-link" href="{{url}}">{{text}}</a></li>',
             'current' => '<li class="page-item active" aria-current="page"><a class="page-link" href="#">{{text}}</a></li>',
+            'sort' => '<a href="{{url}}" class="text-decoration-none">{{text}}</a>',
+            'sortAsc' => '<a class="asc text-decoration-none" href="{{url}}">{{text}} <i class="fa-solid fa-arrow-down-short-wide"></i></a>',
+            'sortDesc' => '<a class="desc text-decoration-none" href="{{url}}">{{text}} <i class="fa-solid fa-arrow-down-wide-short"></i></a>',
         ]]);
 
         parent::__construct($View, $config);

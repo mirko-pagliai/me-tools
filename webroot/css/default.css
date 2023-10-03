@@ -60,30 +60,3 @@ pre {
 .table p:last-child {
     margin-bottom: 0;
 }
-
-/* -------------------------------- */
-/*          Links for sorting       */
-/* -------------------------------- */
-/* Links for sorting */
-a.asc:after,
-a.desc:after {
-    --spacing-inline: var(--spacing-6xs);
-    font-family: "Font Awesome 6 Free";
-    font-weight: 900;
-    -webkit-font-smoothing: antialiased;
-    display: var(--fa-display,inline-block);
-    font-style: normal;
-    font-variant: normal;
-    line-height: 1;
-    text-rendering: auto;
-}
-
-/* Links for ascending sorting */
-a.asc:after {
-    content: "\f160";
-}
-
-/* Links for descending sorting */
-a.desc:after {
-    content: "\f161";
-}
