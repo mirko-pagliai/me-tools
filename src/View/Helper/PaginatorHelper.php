@@ -20,18 +20,17 @@ use Cake\View\View;
 
 /**
  * Provides functionalities to the generation of pagers
- * @property \MeTools\View\Helper\FormHelper $Form
  * @property \MeTools\View\Helper\HtmlHelper $Html
  * @property \MeTools\View\Helper\IconHelper $Icon
+ * @property \Cake\View\Helper\NumberHelper $Number
+ * @property \Cake\View\Helper\UrlHelper $Url
  */
 class PaginatorHelper extends CakePaginatorHelper
 {
     /**
-     * Helpers
-     * @var array
+     * @array
      */
     public $helpers = [
-        'MeTools.Form',
         'MeTools.Html',
         'MeTools.Icon',
         'Number',
@@ -39,55 +38,39 @@ class PaginatorHelper extends CakePaginatorHelper
     ];
 
     /**
-     * Construct the widgets and binds the default context providers.
-     *
-     * This method only rewrites the default templates config.
-     * @param \Cake\View\View $View The View this helper is being attached to
-     * @param array $config Configuration settings for the helper
-     * @return void
+     * @inheritDoc
      */
     public function __construct(View $View, array $config = [])
     {
+        /** @see \Cake\View\Helper\PaginatorHelper::$_defaultConfig */
         $this->_defaultConfig = Hash::merge($this->_defaultConfig, ['templates' => [
-            'nextActive' => '<li class="next page-item"><a class="page-link" rel="next" href="{{url}}">{{text}}</a></li>',
-            'nextDisabled' => '<li class="next page-item disabled"><a class="page-link" href="" onclick="return false;">{{text}}</a></li>',
-            'prevActive' => '<li class="prev page-item"><a class="page-link" rel="prev" href="{{url}}">{{text}}</a></li>',
-            'prevDisabled' => '<li class="prev page-item disabled"><a class="page-link" href="" onclick="return false;">{{text}}</a></li>',
-            'first' => '<li class="first page-item"><a class="page-link" href="{{url}}">{{text}}</a></li>',
-            'last' => '<li class="last page-item"><a class="page-link" href="{{url}}">{{text}}</a></li>',
+            'nextActive' => '<li class="page-item"><a class="page-link" rel="next" href="{{url}}">{{text}} <i class="fa-solid fa-caret-right"></i></a></li>',
+            'nextDisabled' => '<li class="page-item disabled"><a class="page-link" href="#">{{text}} <i class="fa-solid fa-caret-right"></i></a></li>',
+            'prevActive' => '<li class="page-item"><a class="page-link" rel="prev" href="{{url}}"><i class="fa-solid fa-caret-left"></i> {{text}}</a></li>',
+            'prevDisabled' => '<li class="page-item disabled"><a class="page-link" href="#"><i class="fa-solid fa-caret-left"></i> {{text}}</a></li>',
             'number' => '<li class="page-item"><a class="page-link" href="{{url}}">{{text}}</a></li>',
-            'current' => '<li class="active page-item"><a class="page-link" href="">{{text}}</a></li>',
-            'ellipsis' => '<li class="ellipsis page-item">&hellip;</li>',
+            'current' => '<li class="page-item active" aria-current="page"><a class="page-link" href="#">{{text}}</a></li>',
+            'sort' => '<a href="{{url}}" class="text-decoration-none">{{text}}</a>',
+            'sortAsc' => '<a class="asc text-decoration-none" href="{{url}}">{{text}} <i class="fa-solid fa-arrow-down-short-wide"></i></a>',
+            'sortDesc' => '<a class="desc text-decoration-none" href="{{url}}">{{text}} <i class="fa-solid fa-arrow-down-wide-short"></i></a>',
         ]]);
 
         parent::__construct($View, $config);
     }
 
     /**
-     * Generates a "next" link for a set of paged records
-     * @param string $title Title for the link
-     * @param array $options Options for pagination link
-     * @return string A "next" link or a disabled link
+     * @inheritDoc
      */
-    public function next(string $title = 'Next >>', array $options = []): string
+    public function next(string $title = '', array $options = []): string
     {
-        $options += ['escape' => false, 'icon-align' => 'right'];
-        [$title, $options] = $this->Icon->addIconToText($title, $options);
-
         return parent::next($title, $options);
     }
 
     /**
-     * Generates a "previous" link for a set of paged records
-     * @param string $title Title for the link
-     * @param array $options Options for pagination link
-     * @return string A "previous" link or a disabled link
+     * @inheritDoc
      */
-    public function prev(string $title = '<< Previous', array $options = []): string
+    public function prev(string $title = '', array $options = []): string
     {
-        $options += ['escape' => false];
-        [$title, $options] = $this->Icon->addIconToText($title, $options);
-
         return parent::prev($title, $options);
     }
 }

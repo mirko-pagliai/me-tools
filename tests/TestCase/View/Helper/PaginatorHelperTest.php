@@ -23,30 +23,22 @@ use MeTools\TestSuite\HelperTestCase;
 class PaginatorHelperTest extends HelperTestCase
 {
     /**
-     * Tests for `next()` method
      * @test
+     * @uses \MeTools\View\Helper\PaginatorHelper::next()
      */
     public function testNext(): void
     {
-        $expected = '<li class="next page-item disabled"><a class="page-link" href="" onclick="return false;">Next</a></li>';
+        $expected = '<li class="page-item disabled"><a class="page-link" href="#">Next <i class="fa-solid fa-caret-right"></i></a></li>';
         $this->assertSame($expected, $this->Helper->next('Next'));
-
-        //Using `icon` option
-        $expected = '<li class="next page-item disabled"><a class="page-link" href="" onclick="return false;">Next <i class="fa fa-chevron-right"> </i></a></li>';
-        $this->assertSame($expected, $this->Helper->next('Next', ['icon' => 'chevron-right']));
     }
 
     /**
-     * Tests for `prev()` method
      * @test
+     * @uses \MeTools\View\Helper\PaginatorHelper::prev()
      */
     public function testPrev(): void
     {
-        $expected = '<li class="prev page-item disabled"><a class="page-link" href="" onclick="return false;">Previous</a></li>';
+        $expected = '<li class="page-item disabled"><a class="page-link" href="#"><i class="fa-solid fa-caret-left"></i> Previous</a></li>';
         $this->assertSame($expected, $this->Helper->prev('Previous'));
-
-        //Using `icon` option
-        $expected = '<li class="prev page-item disabled"><a class="page-link" href="" onclick="return false;"><i class="fa fa-chevron-left"> </i> Previous</a></li>';
-        $this->assertSame($expected, $this->Helper->prev('Previous', ['icon' => 'chevron-left']));
     }
 }
