@@ -44,10 +44,10 @@ class PaginatorHelper extends CakePaginatorHelper
     {
         /** @see \Cake\View\Helper\PaginatorHelper::$_defaultConfig */
         $this->_defaultConfig = Hash::merge($this->_defaultConfig, ['templates' => [
-            'nextActive' => '<li class="page-item"><a class="page-link" rel="next" href="{{url}}">{{text}}</a></li>',
-            'nextDisabled' => '<li class="page-item disabled"><a class="page-link" href="#">{{text}}</a></li>',
-            'prevActive' => '<li class="page-item"><a class="page-link" rel="prev" href="{{url}}">{{text}}</a></li>',
-            'prevDisabled' => '<li class="page-item disabled"><a class="page-link" href="#">{{text}}</a></li>',
+            'nextActive' => '<li class="page-item"><a class="page-link" rel="next" href="{{url}}">{{text}} <i class="fa-solid fa-caret-right"></i></a></li>',
+            'nextDisabled' => '<li class="page-item disabled"><a class="page-link" href="#">{{text}} <i class="fa-solid fa-caret-right"></i></a></li>',
+            'prevActive' => '<li class="page-item"><a class="page-link" rel="prev" href="{{url}}"><i class="fa-solid fa-caret-left"></i> {{text}}</a></li>',
+            'prevDisabled' => '<li class="page-item disabled"><a  class="page-link" href="#"><i class="fa-solid fa-caret-left"></i> {{text}}</a></li>',
             'number' => '<li class="page-item"><a class="page-link" href="{{url}}">{{text}}</a></li>',
             'current' => '<li class="page-item active" aria-current="page"><a class="page-link" href="#">{{text}}</a></li>',
             'sort' => '<a href="{{url}}" class="text-decoration-none">{{text}}</a>',
@@ -61,22 +61,16 @@ class PaginatorHelper extends CakePaginatorHelper
     /**
      * @inheritDoc
      */
-    public function next(string $title = 'Next >>', array $options = []): string
+    public function next(string $title = '', array $options = []): string
     {
-        $options += ['escape' => false, 'icon-align' => 'right'];
-        [$title, $options] = $this->Icon->addIconToText($title, $options);
-
         return parent::next($title, $options);
     }
 
     /**
      * @inheritDoc
      */
-    public function prev(string $title = '<< Previous', array $options = []): string
+    public function prev(string $title = '', array $options = []): string
     {
-        $options += ['escape' => false];
-        [$title, $options] = $this->Icon->addIconToText($title, $options);
-
         return parent::prev($title, $options);
     }
 }

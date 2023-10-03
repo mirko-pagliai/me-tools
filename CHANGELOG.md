@@ -3,7 +3,7 @@
 ### 2.25.7
 * sorting links (and their icons) are now fully managed by `PaginatorHelper` using the `$_defaultConfig` property.
   Removed css rules;
-* some little updates for `PaginatorHelper`;
+* "next" and "prev" links (and their icons) are now fully managed by `PaginatorHelper` using the `$_defaultConfig` property;
 * fixed `FormHelper::createInline()`.
 
 ### 2.25.6
