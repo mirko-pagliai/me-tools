@@ -1,7 +1,8 @@
 # 2.x branch
 ## 2.25 branch
 ### 2.25.8
-* fixed `AppTable::findActive()` method, added `$options` parameter.
+* fixed `AppTable::findActive()` method, added `$options` parameter;
+* fixed little bug for `PaginatorHelper` and icon on `asc` sorting.
 
 ### 2.25.7
 * sorting links (and their icons) are now fully managed by `PaginatorHelper` using the `$_defaultConfig` property.
