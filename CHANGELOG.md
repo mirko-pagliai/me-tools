@@ -1,6 +1,7 @@
 # 2.x branch
 ## 2.25 branch
 ### 2.25.8
+* added `\MeTools\Model\Rule\NoAssociatedElements` rule class;
 * fixed `AppTable::findActive()` method, added `$options` parameter;
 * fixed little bug for `PaginatorHelper` and icon on `asc` sorting.
 
