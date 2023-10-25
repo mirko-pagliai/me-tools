@@ -3,7 +3,8 @@
 ### 2.25.8
 * added `\MeTools\Model\Rule\NoAssociatedElements` rule class;
 * fixed `AppTable::findActive()` method, added `$options` parameter;
-* fixed little bug for `PaginatorHelper` and icon on `asc` sorting.
+* fixed little bug for `PaginatorHelper` and icon on `asc` sorting;
+* updated `phpstan` and `psalm` packages.
 
 ### 2.25.7
 * sorting links (and their icons) are now fully managed by `PaginatorHelper` using the `$_defaultConfig` property.
