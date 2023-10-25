@@ -35,6 +35,8 @@ class LibraryHelperTest extends HelperTestCase
     {
         parent::setUp();
 
+        $this->loadPlugins(['MeTools' => []]);
+
         Filesystem::createFile(WWW_ROOT . 'ckeditor' . DS . 'ckeditor.js');
     }
 
