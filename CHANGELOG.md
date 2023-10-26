@@ -1,7 +1,6 @@
 # 2.x branch
 ## 2.25 branch
 ### 2.25.8
-* added `\MeTools\Model\Rule\NoAssociatedElements` rule class;
 * updated `AppValidator::title()` rule, a title can now contain parenthesis;
 * updated for CakePHP 4.5;
 * fixed `AppTable::findActive()` method, added `$options` parameter;
