@@ -1,7 +1,7 @@
 # 2.x branch
 ## 2.25 branch
 ### 2.25.8
-* updated `AppValidator::title()` rule, a title can now contain parenthesis;
+* updated `AppValidator::title()` rule, a title can now contain parenthesis and commas;
 * updated for CakePHP 4.5;
 * fixed `AppTable::findActive()` method, added `$options` parameter;
 * fixed little bug for `PaginatorHelper` and icon on `asc` sorting;

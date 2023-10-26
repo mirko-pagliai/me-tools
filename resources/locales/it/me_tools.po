@@ -267,8 +267,8 @@ msgid "Has to begin with a lowercase letter"
 msgstr "Deve cominciare con una lettera minuscola"
 
 #: .src/Model/Validation/AppValidator.php:168
-msgid "letters, numbers, apostrophe, space, slash, dash, parentheses"
-msgstr "lettere, numeri, apostrofo, spazio, barra, trattino, parentesi tonde"
+msgid "letters, numbers, apostrophe, space, slash, dash, parentheses, comma"
+msgstr "lettere, numeri, apostrofo, spazio, barra, trattino, parentesi tonde, virgola"
 
 #: .src/Model/Validation/AppValidator.php:185
 msgid "Must be at least {0} chars"

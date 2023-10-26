@@ -165,10 +165,10 @@ class AppValidator extends Validator
             'message' => sprintf(
                 '%s: %s. %s',
                 I18N_ALLOWED_CHARS,
-                __d('me_tools', 'letters, numbers, apostrophe, space, slash, dash, parentheses'),
+                __d('me_tools', 'letters, numbers, apostrophe, space, slash, dash, parentheses, comma'),
                 __d('me_tools', 'Has to begin with a capital letter')
             ),
-            'rule' => ['custom', '/^[A-Z][A-zàèéìòù\d\'\ \/\-\(\)]+$/'],
+            'rule' => ['custom', '/^[A-Z][A-zàèéìòù\d\'\ \/\-\(\),]+$/'],
         ]);
     }
 
