@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2023-07-18 16:00+0000\n"
-"PO-Revision-Date: 2023-07-18 18:03+0200\n"
+"POT-Creation-Date: 2023-10-26 16:30+0000\n"
+"PO-Revision-Date: 2023-10-26 18:31+0200\n"
 "Last-Translator: Mirko Pagliai <mirko.pagliai@gmail.com>\n"
 "Language-Team: Italian <>\n"
 "MIME-Version: 1.0\n"
@@ -240,56 +240,57 @@ msgstr "Il mimetype {0} non è accettato"
 msgid "The file was not successfully moved to the target directory"
 msgstr "Il file non è stato correttamente spostato nella directory finale"
 
-#: .src/Model/Validation/AppValidator.php:45
-msgid "This value contains a reserved word"
-msgstr "Questo valore contiene una parola riservata"
-
-#: .src/Model/Validation/AppValidator.php:63
-msgid "Must be between {0} and {1} chars"
-msgstr "Deve essere compreso tra {0} e {1} caratteri"
-
-#: .src/Model/Validation/AppValidator.php:87
-msgid "letters, apostrophe, space"
-msgstr "lettere, apostrofo, spazio"
-
-#: .src/Model/Validation/AppValidator.php:88
-#: .src/Model/Validation/AppValidator.php:137
+#: .src/Model/Validation/AppValidator.php:59
+#: .src/Model/Validation/AppValidator.php:120
+#: .src/Model/Validation/AppValidator.php:169
 msgid "Has to begin with a capital letter"
 msgstr "Deve cominciare con una lettera maiuscola"
 
-#: .src/Model/Validation/AppValidator.php:110
+#: .src/Model/Validation/AppValidator.php:77
+msgid "This value contains a reserved word"
+msgstr "Questo valore contiene una parola riservata"
+
+#: .src/Model/Validation/AppValidator.php:95
+msgid "Must be between {0} and {1} chars"
+msgstr "Deve essere compreso tra {0} e {1} caratteri"
+
+#: .src/Model/Validation/AppValidator.php:119
+msgid "letters, apostrophe, space"
+msgstr "lettere, apostrofo, spazio"
+
+#: .src/Model/Validation/AppValidator.php:142
 msgid "lowercase letters, numbers, dash"
 msgstr "lettere minuscole, numeri, trattino"
 
-#: .src/Model/Validation/AppValidator.php:111
+#: .src/Model/Validation/AppValidator.php:143
 msgid "Has to begin with a lowercase letter"
 msgstr "Deve cominciare con una lettera minuscola"
 
-#: .src/Model/Validation/AppValidator.php:136
-msgid "letters, numbers, apostrophe, space, slash, dash"
-msgstr "lettere, numeri, apostrofo, spazio, barra, trattino"
+#: .src/Model/Validation/AppValidator.php:168
+msgid "letters, numbers, apostrophe, space, slash, dash, parentheses"
+msgstr "lettere, numeri, apostrofo, spazio, barra, trattino, parentesi tonde"
 
-#: .src/Model/Validation/AppValidator.php:157
+#: .src/Model/Validation/AppValidator.php:185
 msgid "Must be at least {0} chars"
 msgstr "Deve contenere almeno {0} caratteri"
 
-#: .src/Model/Validation/AppValidator.php:162
+#: .src/Model/Validation/AppValidator.php:190
 msgid "Must contain at least one digit"
 msgstr "Deve contenere almeno un numero"
 
-#: .src/Model/Validation/AppValidator.php:167
+#: .src/Model/Validation/AppValidator.php:195
 msgid "Must contain at least one lowercase letter"
 msgstr "Deve contenere almeno una lettera minuscola"
 
-#: .src/Model/Validation/AppValidator.php:172
+#: .src/Model/Validation/AppValidator.php:200
 msgid "Must contain at least one capital letter"
 msgstr "Deve contenere almeno una lettera maiuscola"
 
-#: .src/Model/Validation/AppValidator.php:176
+#: .src/Model/Validation/AppValidator.php:204
 msgid "Must contain at least one symbol"
 msgstr "Deve contenere almeno un simbolo"
 
-#: .src/View/Helper/FormHelper.php:360
+#: .src/View/Helper/FormHelper.php:339
 msgid "select a value"
 msgstr "seleziona un'opzione"
 
