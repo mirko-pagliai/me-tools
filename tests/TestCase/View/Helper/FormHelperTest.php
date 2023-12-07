@@ -34,7 +34,7 @@ class FormHelperTest extends HelperTestCase
     public function testGetLabel(): void
     {
         //Checkboxes and radios
-        $expected = '<label class="form-check-label"';
+        $expected = '<label class="form-label form-check-label"';
         foreach (['checkbox', 'radio'] as $type) {
             $result = $this->Helper->control('my-checkbox', compact('type'));
             $this->assertStringContainsString($expected, $result);
@@ -50,7 +50,7 @@ class FormHelperTest extends HelperTestCase
         //With inline form
         $this->Helper->createInline();
         $this->assertStringContainsString('<label class="visually-hidden" for="my-control">', $this->Helper->control('my-control'));
-        $this->assertStringContainsString('<label class="form-check-label" for="my-checkbox">', $this->Helper->control('my-checkbox', ['type' => 'checkbox']));
+        $this->assertStringContainsString('<label class="form-label form-check-label" for="my-checkbox">', $this->Helper->control('my-checkbox', ['type' => 'checkbox']));
         $this->Helper->end();
 
         //With `false` label or empty array
@@ -254,7 +254,7 @@ class FormHelperTest extends HelperTestCase
         $expected = '<div class="mb-3 form-check checkbox">' .
             '<input type="hidden" name="my-checkbox" value="0"/>' .
             '<input type="checkbox" name="my-checkbox" value="1" class="form-check-input" id="my-checkbox">' .
-            '<label class="form-check-label" for="my-checkbox">' .
+            '<label class="form-label form-check-label" for="my-checkbox">' .
             'My Checkbox' .
             '</label>' .
             '</div>';
@@ -297,7 +297,7 @@ class FormHelperTest extends HelperTestCase
         $options = ['options' => ['yes' => 'Yes', 'no' => 'No'], 'type' => 'radio'];
 
         $expected = '<div class="mb-3 radio">' .
-            '<label class="form-check-label">My Radio</label>' .
+            '<label class="form-label form-check-label">My Radio</label>' .
             '<input type="hidden" name="My radio" id="my-radio" value=""/>' .
             '<div class="form-check">' .
             '<input type="radio" name="My radio" value="yes" id="my-radio-yes" class="form-check-input">' .
@@ -426,7 +426,7 @@ class FormHelperTest extends HelperTestCase
         $expected = '<div class="col-12 form-check checkbox">' .
             '<input type="hidden" name="remember-me" value="0"/>' .
             '<input type="checkbox" name="remember-me" value="1" class="form-check-input" id="remember-me">' .
-            '<label class="form-check-label" for="remember-me">Remember Me</label>' .
+            '<label class="form-label form-check-label" for="remember-me">Remember Me</label>' .
             '</div>';
         $result = $this->Helper->control('remember-me', ['type' => 'checkbox']);
         $this->assertSame($expected, $result);

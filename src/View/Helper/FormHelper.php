@@ -122,7 +122,7 @@ class FormHelper extends BaseFormHelper
          */
         $type = $this->_inputType($fieldName, $options);
         if (in_array($type, ['checkbox', 'radio'])) {
-            $class = 'form-check-label';
+            $class = 'form-label form-check-label';
         } elseif ((empty($label['text']) && $type == 'ckeditor') || $this->isInline()) {
             $class = 'visually-hidden';
         }
