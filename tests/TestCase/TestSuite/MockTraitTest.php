@@ -63,9 +63,19 @@ class MockTraitTest extends TestCase
     {
         $this->assertSame(TestCase::class, $this->getOriginClassName(new TestCaseTest()));
 
-        $this->assertException(fn() => $this->getOriginClassName(new BadTestClass()), AssertionFailedError::class, 'Unable to determine the origin class for `App\Test\TestCase\BadTestClass`');
+        $this->expectException(AssertionFailedError::class);
+        $this->expectExceptionMessage('Unable to determine the origin class for `App\Test\TestCase\BadTestClass`');
+        $this->getOriginClassName(new BadTestClass());
+    }
 
-        $this->expectAssertionFailed('Class `AnotherTestPlugin\Controller\MyExampleController` does not exist');
+    /**
+     * @test
+     * @uses \MeTools\TestSuite\MockTrait::getOriginClassName()
+     */
+    public function testGetOriginClassNameWithNoExistingClass(): void
+    {
+        $this->expectException(AssertionFailedError::class);
+        $this->expectExceptionMessage('Class `AnotherTestPlugin\Controller\MyExampleController` does not exist');
         $this->getOriginClassName(new MyExampleControllerTest());
     }
 

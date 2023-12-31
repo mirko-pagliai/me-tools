@@ -3,6 +3,7 @@
 ### 2.25.8
 * updated `AppValidator::title()` rule, a title can now contain parenthesis and commas;
 * updated for CakePHP 4.5;
+* no longer uses `Tools\TestSuite\TestTrait::expectAssertionFailed()`;
 * fixed `AppTable::findActive()` method, added `$options` parameter;
 * fixed little bug for `PaginatorHelper` and icon on `asc` sorting;
 * updated `phpstan` and `psalm` packages.
