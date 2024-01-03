@@ -8,6 +8,7 @@
 * fixed `AppTable::findActive()` method, added `$options` parameter;
 * fixed little bug for `PaginatorHelper` and icon on `asc` sorting;
 * updated `phpstan` and `psalm` packages;
+* updated for `php-tools` 1.8;
 * added tests for PHP 8.2.
 
 ### 2.25.7
