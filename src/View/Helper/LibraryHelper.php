@@ -16,7 +16,7 @@ namespace MeTools\View\Helper;
 
 use Cake\Core\Plugin;
 use Cake\View\Helper;
-use Tools\Exceptionist;
+use LogicException;
 
 /**
  * Library helper
@@ -97,13 +97,16 @@ class LibraryHelper extends Helper
      * To create an input field for CKEditor, you should use the `ckeditor()` method provided by the `FormHelper`.
      * @param bool $jquery `true` if you want to use the jQuery adapter
      * @return void
-     * @throws \Tools\Exception\NotReadableException
+     * @throws \LogicException
      * @see http://docs.cksource.com CKEditor documentation
      * @see \MeTools\View\Helper\FormHelper::ckeditor()
      */
     public function ckeditor(bool $jquery = false): void
     {
-        Exceptionist::isReadable(WWW_ROOT . 'ckeditor' . DS . 'ckeditor.js');
+        $filename = WWW_ROOT . 'ckeditor' . DS . 'ckeditor.js';
+        if (!is_readable($filename)) {
+            throw new LogicException('File or directory `' . $filename . '` is not readable');
+        }
 
         $scripts = ['/ckeditor/ckeditor'];
 

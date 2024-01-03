@@ -15,7 +15,7 @@ declare(strict_types=1);
 namespace MeTools\Core;
 
 use Cake\Core\Plugin as CakePlugin;
-use Tools\Exceptionist;
+use LogicException;
 
 /**
  * A utility to handle plugins
@@ -29,7 +29,7 @@ class Plugin extends CakePlugin
      *  - `core`, if `false` exclude the core plugins;
      *  - `exclude`, a plugin as string or an array of plugins to be excluded;
      *  - `order`, if `true` the plugins will be sorted.
-     * @param array<string, mixed> $options Options
+     * @param array $options Options
      * @return array<string> Plugins
      * @uses \Cake\Core\Plugin::loaded()
      */
@@ -57,7 +57,7 @@ class Plugin extends CakePlugin
      * @param string|null $file File
      * @param bool $check Checks if the file exists
      * @return string Path of the plugin or path of the path of a plugin file
-     * @throws \Tools\Exception\FileNotExistsException|\ErrorException
+     * @throws \ErrorException
      */
     public static function path(string $name, ?string $file = null, bool $check = false): string
     {
@@ -67,8 +67,8 @@ class Plugin extends CakePlugin
         }
 
         $path = $plugin . $file;
-        if ($check) {
-            Exceptionist::fileExists($path, __d('me_tools', 'File or directory `{0}` does not exist', $name . '.' . rtr($path)));
+        if ($check && !file_exists($path)) {
+            throw new LogicException(__d('me_tools', 'File or directory `{0}` does not exist', $name . '.' . rtr($path)));
         }
 
         return $path;

@@ -18,7 +18,7 @@ namespace MeTools\Command;
 use Cake\Command\Command as CakeCommand;
 use Cake\Console\ConsoleIo;
 use Exception;
-use Tools\Exceptionist;
+use LogicException;
 use Tools\Filesystem;
 
 /**
@@ -69,8 +69,12 @@ abstract class Command extends CakeCommand
 
         try {
             //Checks if the source is readable and the destination is writable
-            Exceptionist::isReadable($source);
-            Exceptionist::isWritable(dirname($dest));
+            if (!is_readable($source)) {
+                throw new LogicException('File or directory `' . $source . '` is not readable');
+            }
+            if (!is_writable(dirname($dest))) {
+                throw new LogicException('File or directory `' . dirname($dest) . '` is not writable');
+            }
             Filesystem::instance()->copy($source, $dest);
         } catch (Exception $e) {
             $io->error($e->getMessage());

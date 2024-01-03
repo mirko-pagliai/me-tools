@@ -1,21 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="4.x-dev@">
+<files psalm-version="5.18.0@b113f3ed0259fd6e212d87c3df80eec95a6abf19">
   <file src="src/Command/Install/CreateVendorsLinksCommand.php">
-    <UndefinedConstant occurrences="3">
+    <UndefinedConstant>
       <code>WWW_VENDOR</code>
       <code>WWW_VENDOR</code>
       <code>WWW_VENDOR</code>
     </UndefinedConstant>
   </file>
+  <file src="src/TestSuite/CommandTestCase.php">
+    <ImplementedReturnTypeMismatch>
+      <code>\MeTools\Command\Command|string</code>
+    </ImplementedReturnTypeMismatch>
+  </file>
+  <file src="src/TestSuite/ComponentTestCase.php">
+    <ImplementedReturnTypeMismatch>
+      <code>\Cake\Controller\Component|string</code>
+    </ImplementedReturnTypeMismatch>
+  </file>
+  <file src="src/TestSuite/HelperTestCase.php">
+    <ImplementedReturnTypeMismatch>
+      <code>\Cake\View\Helper|string</code>
+    </ImplementedReturnTypeMismatch>
+  </file>
   <file src="src/View/Helper/BreadcrumbsHelper.php">
-    <LessSpecificImplementedReturnType occurrences="2">
+    <LessSpecificImplementedReturnType>
       <code>\Cake\View\Helper\BreadcrumbsHelper</code>
       <code>\Cake\View\Helper\BreadcrumbsHelper</code>
     </LessSpecificImplementedReturnType>
   </file>
   <file src="src/View/Helper/LibraryHelper.php">
-    <UndefinedThisPropertyAssignment occurrences="1">
-      <code>$this-&gt;Asset</code>
+    <UndefinedThisPropertyAssignment>
+      <code><![CDATA[$this->Asset]]></code>
     </UndefinedThisPropertyAssignment>
   </file>
 </files>

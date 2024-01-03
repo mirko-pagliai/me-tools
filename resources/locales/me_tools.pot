@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2023-07-18 16:00+0000\n"
+"POT-Creation-Date: 2023-10-26 16:30+0000\n"
 "PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
 "Last-Translator: NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
@@ -238,56 +238,57 @@ msgstr ""
 msgid "The file was not successfully moved to the target directory"
 msgstr ""
 
-#: .src/Model/Validation/AppValidator.php:45
-msgid "This value contains a reserved word"
-msgstr ""
-
-#: .src/Model/Validation/AppValidator.php:63
-msgid "Must be between {0} and {1} chars"
-msgstr ""
-
-#: .src/Model/Validation/AppValidator.php:87
-msgid "letters, apostrophe, space"
-msgstr ""
-
-#: .src/Model/Validation/AppValidator.php:88
-#: .src/Model/Validation/AppValidator.php:137
+#: .src/Model/Validation/AppValidator.php:59
+#: .src/Model/Validation/AppValidator.php:120
+#: .src/Model/Validation/AppValidator.php:169
 msgid "Has to begin with a capital letter"
 msgstr ""
 
-#: .src/Model/Validation/AppValidator.php:110
+#: .src/Model/Validation/AppValidator.php:77
+msgid "This value contains a reserved word"
+msgstr ""
+
+#: .src/Model/Validation/AppValidator.php:95
+msgid "Must be between {0} and {1} chars"
+msgstr ""
+
+#: .src/Model/Validation/AppValidator.php:119
+msgid "letters, apostrophe, space"
+msgstr ""
+
+#: .src/Model/Validation/AppValidator.php:142
 msgid "lowercase letters, numbers, dash"
 msgstr ""
 
-#: .src/Model/Validation/AppValidator.php:111
+#: .src/Model/Validation/AppValidator.php:143
 msgid "Has to begin with a lowercase letter"
 msgstr ""
 
-#: .src/Model/Validation/AppValidator.php:136
-msgid "letters, numbers, apostrophe, space, slash, dash"
+#: .src/Model/Validation/AppValidator.php:168
+msgid "letters, numbers, apostrophe, space, slash, dash, parentheses"
 msgstr ""
 
-#: .src/Model/Validation/AppValidator.php:157
+#: .src/Model/Validation/AppValidator.php:185
 msgid "Must be at least {0} chars"
 msgstr ""
 
-#: .src/Model/Validation/AppValidator.php:162
+#: .src/Model/Validation/AppValidator.php:190
 msgid "Must contain at least one digit"
 msgstr ""
 
-#: .src/Model/Validation/AppValidator.php:167
+#: .src/Model/Validation/AppValidator.php:195
 msgid "Must contain at least one lowercase letter"
 msgstr ""
 
-#: .src/Model/Validation/AppValidator.php:172
+#: .src/Model/Validation/AppValidator.php:200
 msgid "Must contain at least one capital letter"
 msgstr ""
 
-#: .src/Model/Validation/AppValidator.php:176
+#: .src/Model/Validation/AppValidator.php:204
 msgid "Must contain at least one symbol"
 msgstr ""
 
-#: .src/View/Helper/FormHelper.php:360
+#: .src/View/Helper/FormHelper.php:339
 msgid "select a value"
 msgstr ""
 

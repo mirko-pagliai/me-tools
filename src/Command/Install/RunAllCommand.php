@@ -19,8 +19,8 @@ use Cake\Command\PluginAssetsSymlinkCommand;
 use Cake\Console\Arguments;
 use Cake\Console\ConsoleIo;
 use Cake\Console\ConsoleOptionParser;
+use LogicException;
 use MeTools\Command\Command;
-use Tools\Exceptionist;
 
 /**
  * Executes all available commands
@@ -90,7 +90,7 @@ class RunAllCommand extends Command
      * @param \Cake\Console\Arguments $args The command arguments
      * @param \Cake\Console\ConsoleIo $io The console io
      * @return void
-     * @throws \ErrorException
+     * @throws \LogicException
      */
     public function execute(Arguments $args, ConsoleIo $io): void
     {
@@ -100,7 +100,9 @@ class RunAllCommand extends Command
         }
 
         foreach ($questions as $question) {
-            Exceptionist::isTrue(!array_diff(array_keys($question), ['question', 'default', 'command']), 'Invalid question keys');
+            if (array_diff(array_keys($question), ['question', 'default', 'command'])) {
+                throw new LogicException('Invalid question keys');
+            }
             /** @var \Cake\Command\Command $Command */
             [$question, $default, $Command] = array_values($question);
 

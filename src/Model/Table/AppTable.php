@@ -40,11 +40,16 @@ abstract class AppTable extends Table
     /**
      * `active` find method
      * @param \Cake\ORM\Query $Query The query builder
+     * @param array $options Options
      * @return \Cake\ORM\Query The query builder
      * @see \Cake\ORM\Table::find() for options to use for the find
      */
-    public function findActive(Query $Query): Query
+    public function findActive(Query $Query, array $options): Query
     {
-        return $Query->where([$this->getAlias() . '.active' => true]);
+        if ($this->getSchema()->hasColumn('active')) {
+            $Query->where([$this->getAlias() . '.active' => true]);
+        }
+
+        return $Query;
     }
 }

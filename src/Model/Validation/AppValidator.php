@@ -147,8 +147,8 @@ class AppValidator extends Validator
     }
 
     /**
-     * Adds a rule that ensures a string is a valid "title" (letters, numbers, apostrophe, space, slash, dash. Has to
-     *  begin with a capital letter).
+     * Adds a rule that ensures a string is a valid "title" (letters, numbers, apostrophe, space, slash, dash,
+     *  parentheses. Has to begin with a capital letter).
      *
      * This rule can be applied, for example, to the `title` of a `Post` or a `Category`.
      * @param string $field The field you want to apply the rule to.
@@ -165,10 +165,10 @@ class AppValidator extends Validator
             'message' => sprintf(
                 '%s: %s. %s',
                 I18N_ALLOWED_CHARS,
-                __d('me_tools', 'letters, numbers, apostrophe, space, slash, dash'),
+                __d('me_tools', 'letters, numbers, apostrophe, space, slash, dash, parentheses, comma'),
                 __d('me_tools', 'Has to begin with a capital letter')
             ),
-            'rule' => ['custom', '/^[A-Z][A-zàèéìòù\d\'\ \/\-]+$/'],
+            'rule' => ['custom', '/^[A-Z][A-zàèéìòù\d\'\ \/\-\(\),]+$/'],
         ]);
     }
 
@@ -201,7 +201,7 @@ class AppValidator extends Validator
             'rule' => ['custom', '/[A-Z]/'],
         ]);
 
-        $this->notAlphaNumeric($field, __d('me_tools', $message ?: 'Must contain at least one symbol'), $when);
+        $this->notAlphaNumeric($field, $message ?: __d('me_tools', 'Must contain at least one symbol'), $when);
 
         return $this;
     }

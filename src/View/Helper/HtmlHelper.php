@@ -15,7 +15,8 @@ declare(strict_types=1);
 namespace MeTools\View\Helper;
 
 use Cake\View\Helper\HtmlHelper as BaseHtmlHelper;
-use Tools\Exceptionist;
+use Cake\View\View;
+use LogicException;
 
 /**
  * Provides functionalities for HTML
@@ -47,17 +48,38 @@ class HtmlHelper extends BaseHtmlHelper
     public $helpers = ['MeTools.Icon', 'Url'];
 
     /**
+     * @inheritDoc
+     */
+    public function __construct(View $view, array $config = [])
+    {
+        /**
+         * Rewrites default templates config
+         * @see \Cake\View\Helper\HtmlHelper::$_defaultConfig
+         * @todo these should be deleted with CakePHP 4.5
+         */
+        $this->_defaultConfig['templates'] = [
+            'css' => '<link rel="{{rel}}" href="{{url}}"{{attrs}}/>',
+            'image' => '<img src="{{url}}"{{attrs}}/>',
+            'meta' => '<meta{{attrs}}/>',
+        ] + $this->_defaultConfig['templates'];
+
+        parent::__construct($view, $config);
+    }
+
+    /**
      * Missing method handler.
      *
      * If you pass no more than two parameters, create a html tag with the name of the method and works as alias of `tag()`.
      * @param string $method Name of the tag
      * @param array $params Params for the method
      * @return string
-     * @throws \ErrorException
+     * @throws \LogicException
      */
     public function __call(string $method, array $params = []): string
     {
-        Exceptionist::isTrue(count($params) < 3, sprintf('Method `%s::%s()` does not exist', __CLASS__, $method));
+        if (count($params) > 2) {
+            throw new LogicException(sprintf('Method `%s::%s()` does not exist', __CLASS__, $method));
+        }
 
         return $this->tag($method, $params[0], $params[1] ?? []);
     }

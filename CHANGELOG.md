@@ -1,5 +1,16 @@
 # 2.x branch
 ## 2.25 branch
+### 2.25.8
+* updated `AppValidator::title()` rule, a title can now contain parenthesis and commas;
+* updated for CakePHP 4.5;
+* no longer uses the `Exceptionist` class (or exceptions provided by `php-tools` and deprecated);
+* no longer uses `Tools\TestSuite\TestTrait::expectAssertionFailed()`;
+* fixed `AppTable::findActive()` method, added `$options` parameter;
+* fixed little bug for `PaginatorHelper` and icon on `asc` sorting;
+* updated `phpstan` and `psalm` packages;
+* updated for `php-tools` 1.8;
+* added tests for PHP 8.2.
+
 ### 2.25.7
 * sorting links (and their icons) are now fully managed by `PaginatorHelper` using the `$_defaultConfig` property.
   Removed css rules;

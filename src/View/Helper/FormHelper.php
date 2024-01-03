@@ -72,6 +72,14 @@ class FormHelper extends BaseFormHelper
             'nestingLabel' => '{{hidden}}{{input}}<label{{attrs}}>{{text}}</label>',
             //Container for submit buttons
             'submitContainer' => '<div class="{{divClass}}submit">{{content}}</div>',
+        ] + [
+            /**
+             * @todo these should be deleted with CakePHP 4.5
+             */
+            //Generic input element
+            'input' => '<input type="{{type}}" name="{{name}}"{{attrs}}/>',
+            //Submit input element
+            'inputSubmit' => '<input type="{{type}}"{{attrs}}/>',
         ] + $this->_defaultConfig['templates'];
 
         /**
@@ -114,7 +122,7 @@ class FormHelper extends BaseFormHelper
          */
         $type = $this->_inputType($fieldName, $options);
         if (in_array($type, ['checkbox', 'radio'])) {
-            $class = 'form-check-label';
+            $class = 'form-label form-check-label';
         } elseif ((empty($label['text']) && $type == 'ckeditor') || $this->isInline()) {
             $class = 'visually-hidden';
         }

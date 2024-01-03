@@ -31,7 +31,7 @@ abstract class CommandTestCase extends TestCase
      *
      * It provides access to the cached properties of the test.
      * @param string $name Property name
-     * @return \MeTools\Command\Command|void
+     * @return \MeTools\Command\Command|string
      * @throws \ReflectionException
      */
     public function __get(string $name)

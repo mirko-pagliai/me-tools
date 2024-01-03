@@ -12,7 +12,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        php-version: ['7.4', '8.0', '8.1']
+        php-version: ['7.4', '8.0', '8.1', '8.2']
         prefer-lowest: ['']
         include:
           - php-version: '7.4'
@@ -20,6 +20,8 @@ jobs:
           - php-version: '8.0'
             prefer-lowest: 'prefer-lowest'
           - php-version: '8.1'
+            prefer-lowest: 'prefer-lowest'
+          - php-version: '8.2'
             prefer-lowest: 'prefer-lowest'
 
     steps:
@@ -89,11 +91,11 @@ jobs:
 
         - name: Run psalm
           if: success() || failure()
-          run: vendor/bin/psalm.phar --output-format=github --php-version=8.0
+          run: vendor/bin/psalm --output-format=github --php-version=8.0
 
         - name: Run phpstan
           if: success() || failure()
-          run: vendor/bin/phpstan.phar analyse --error-format=github
+          run: vendor/bin/phpstan analyse --error-format=github
 
 
   testsuite-windows:

@@ -51,7 +51,7 @@ class PaginatorHelper extends CakePaginatorHelper
             'number' => '<li class="page-item"><a class="page-link" href="{{url}}">{{text}}</a></li>',
             'current' => '<li class="page-item active" aria-current="page"><a class="page-link" href="#">{{text}}</a></li>',
             'sort' => '<a href="{{url}}" class="text-decoration-none">{{text}}</a>',
-            'sortAsc' => '<a class="asc text-decoration-none" href="{{url}}">{{text}} <i class="fa-solid fa-arrow-down-short-wide"></i></a>',
+            'sortAsc' => '<a class="asc text-decoration-none" href="{{url}}">{{text}} <i class="fa-solid fa-arrow-up-short-wide"></i></a>',
             'sortDesc' => '<a class="desc text-decoration-none" href="{{url}}">{{text}} <i class="fa-solid fa-arrow-down-wide-short"></i></a>',
         ]]);
 

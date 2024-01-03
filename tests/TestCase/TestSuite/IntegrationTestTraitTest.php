@@ -22,6 +22,7 @@ use Cake\Http\Response;
 use Cake\Http\Session;
 use MeTools\TestSuite\IntegrationTestTrait;
 use MeTools\TestSuite\TestCase;
+use PHPUnit\Framework\AssertionFailedError;
 use Tools\Filesystem;
 use Tools\TestSuite\ReflectionTrait;
 
@@ -78,7 +79,8 @@ class IntegrationTestTraitTest extends TestCase
         $this->assertCookieIsEmpty('test-cookie');
 
         //With no response
-        $this->expectAssertionFailed('Not response set, cannot assert cookies');
+        $this->expectException(AssertionFailedError::class);
+        $this->expectExceptionMessage('Not response set, cannot assert cookies');
         $this->_response = null;
         $this->assertCookieIsEmpty('test-cookie');
     }
@@ -107,7 +109,8 @@ class IntegrationTestTraitTest extends TestCase
         $this->_requestSession->delete('first.third');
         $this->assertSessionEmpty('first.third');
 
-        $this->expectAssertionFailed();
+        $this->expectException(AssertionFailedError::class);
+        $this->expectExceptionMessage('Failed asserting that null is in session path \'first.second\'');
         $this->assertSessionEmpty('first.second');
     }
 
@@ -120,7 +123,8 @@ class IntegrationTestTraitTest extends TestCase
         $this->_response = new Response(['status' => 302]);
         $this->assertSame(302, $this->getStatusCode());
 
-        $this->expectAssertionFailed();
+        $this->expectException(AssertionFailedError::class);
+        $this->expectExceptionMessage('No response set, cannot get status code');
         $this->_response = null;
         $this->getStatusCode();
     }

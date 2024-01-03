@@ -31,8 +31,7 @@ class TestCaseTest extends TestCase
     protected TestCase $TestCase;
 
     /**
-     * Called before every test method
-     * @return void
+     * @inheritDoc
      */
     public function setUp(): void
     {
@@ -68,14 +67,19 @@ class TestCaseTest extends TestCase
             $this->TestCase->assertLogContains($word, LOGS . 'debug.log');
         }
 
-        $this->assertException(
-            fn() => $this->TestCase->assertLogContains('bad word', LOGS . 'debug.log'),
-            ExpectationFailedException::class,
-            'Failed asserting that \'cat dog bird\' contains "bad word".'
-        );
+        $this->expectException(ExpectationFailedException::class);
+        $this->expectExceptionMessage('Failed asserting that \'' . $string . '\' contains "bad word".');
+        $this->TestCase->assertLogContains('bad word', LOGS . 'debug.log');
+    }
 
-        //With a no existing log
-        $this->expectAssertionFailed('Failed asserting that file "' . LOGS . 'noExisting.log" exists');
+    /**
+     * @test
+     * @uses \MeTools\TestSuite\TestCase::assertLogContains()
+     */
+    public function testAssertLogContainsWithNoExistingLog(): void
+    {
+        $this->expectException(AssertionFailedError::class);
+        $this->expectExceptionMessage('Failed asserting that file "' . LOGS . 'noExisting.log" exists');
         $this->assertLogContains('content', LOGS . 'noExisting.log');
     }
 }
