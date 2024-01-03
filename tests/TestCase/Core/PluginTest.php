@@ -17,7 +17,6 @@ namespace MeTools\Test\TestCase\Core;
 
 use MeTools\Core\Plugin;
 use MeTools\TestSuite\TestCase;
-use Tools\Exception\FileNotExistsException;
 
 /**
  * PluginTest class.
