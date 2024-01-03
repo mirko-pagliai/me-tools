@@ -16,7 +16,7 @@ namespace MeTools\View\Helper;
 
 use Cake\View\Helper\HtmlHelper as BaseHtmlHelper;
 use Cake\View\View;
-use Tools\Exceptionist;
+use LogicException;
 
 /**
  * Provides functionalities for HTML
@@ -73,11 +73,13 @@ class HtmlHelper extends BaseHtmlHelper
      * @param string $method Name of the tag
      * @param array $params Params for the method
      * @return string
-     * @throws \ErrorException
+     * @throws \LogicException
      */
     public function __call(string $method, array $params = []): string
     {
-        Exceptionist::isTrue(count($params) < 3, sprintf('Method `%s::%s()` does not exist', __CLASS__, $method));
+        if (count($params) > 2) {
+            throw new LogicException(sprintf('Method `%s::%s()` does not exist', __CLASS__, $method));
+        }
 
         return $this->tag($method, $params[0], $params[1] ?? []);
     }

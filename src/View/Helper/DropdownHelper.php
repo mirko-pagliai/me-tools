@@ -15,7 +15,7 @@ declare(strict_types=1);
 namespace MeTools\View\Helper;
 
 use Cake\View\Helper;
-use Tools\Exceptionist;
+use LogicException;
 
 /**
  * Provides functionalities for creating dropdown menus, according to Bootstrap.
@@ -105,12 +105,16 @@ class DropdownHelper extends Helper
      * `$ulOptions` argument is about the list of the dropdown menu.
      * @param array $ulOptions HTML attributes and options for the wrapper `<ul>` element
      * @return string
-     * @throws \ErrorException
+     * @throws \LogicException
      */
     public function end(array $ulOptions = []): string
     {
-        Exceptionist::isTrue(isset($this->_start), 'The `start()` method was not called before `end()`');
-        Exceptionist::isTrue($this->_links, 'The dropdown has no content. Perhaps the `link()` method was never called');
+        if (!isset($this->_start)) {
+            throw new LogicException('The `start()` method was not called before `end()`');
+        }
+        if (!$this->_links) {
+            throw new LogicException('The dropdown has no content. Perhaps the `link()` method was never called');
+        }
 
         $ulOptions += ['aria-labelledby' => $this->_id];
         $ulOptions = $this->addClass($ulOptions, 'dropdown-menu');

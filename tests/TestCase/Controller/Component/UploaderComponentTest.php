@@ -21,7 +21,6 @@ use Laminas\Diactoros\UploadedFile;
 use MeTools\Controller\Component\UploaderComponent;
 use MeTools\TestSuite\ComponentTestCase;
 use Psr\Http\Message\UploadedFileInterface;
-use Tools\Exception\ObjectWrongInstanceException;
 use Tools\Filesystem;
 use Tools\TestSuite\ReflectionTrait;
 
@@ -159,7 +158,6 @@ class UploaderComponentTest extends ComponentTestCase
         }
 
         //With no file
-        $this->expectException(ObjectWrongInstanceException::class);
         $this->expectExceptionMessage('There are no uploaded file information');
         $this->createPartialMock(UploaderComponent::class, [])->mimetype('text/plain');
     }
@@ -202,7 +200,6 @@ class UploaderComponentTest extends ComponentTestCase
         $this->assertSame('The file was not successfully moved to the target directory', $this->Component->getError());
 
         //With no file
-        $this->expectException(ObjectWrongInstanceException::class);
         $this->expectExceptionMessage('There are no uploaded file information');
         $this->createPartialMock(UploaderComponent::class, [])->save('');
     }

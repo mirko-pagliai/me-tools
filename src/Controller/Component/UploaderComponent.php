@@ -18,8 +18,8 @@ namespace MeTools\Controller\Component;
 use Cake\Controller\Component;
 use Laminas\Diactoros\Exception\UploadedFileErrorException;
 use Laminas\Diactoros\UploadedFile;
+use LogicException;
 use Psr\Http\Message\UploadedFileInterface;
-use Tools\Exception\ObjectWrongInstanceException;
 use Tools\Filesystem;
 
 /**
@@ -86,12 +86,12 @@ class UploaderComponent extends Component
     /**
      * Internal method to check for uploaded file information (`$file` property)
      * @return void
-     * @throws \Tools\Exception\ObjectWrongInstanceException
+     * @throws \LogicException
      */
     protected function _checkUploadedFileInformation(): void
     {
         if (!$this->getFile() instanceof UploadedFileInterface) {
-            throw new ObjectWrongInstanceException(__d('me_tools', 'There are no uploaded file information'));
+            throw new LogicException(__d('me_tools', 'There are no uploaded file information'));
         }
     }
 

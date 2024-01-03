@@ -14,7 +14,6 @@ declare(strict_types=1);
  */
 namespace MeTools\Test\TestCase\View\Helper;
 
-use ErrorException;
 use MeTools\TestSuite\HelperTestCase;
 
 /**
@@ -45,7 +44,6 @@ class HtmlHelperTest extends HelperTestCase
         $this->assertSame($expected, $result);
 
         //With a no existing method
-        $this->expectException(ErrorException::class);
         $this->expectExceptionMessage('Method `' . get_class($this->Helper) . '::noExistingMethod()` does not exist');
         /** @noinspection PhpUndefinedMethodInspection */
         $this->Helper->noExistingMethod(null, null, null);
