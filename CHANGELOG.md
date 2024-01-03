@@ -1,7 +1,8 @@
 # 2.x branch
 ## 2.26 branch
 ### 2.26.0-RC1
-* requires at least PHP 8.1.
+* requires at least PHP 8.1;
+* added tests for PHP 8.3.
 
 ## 2.25 branch
 ### 2.25.8
