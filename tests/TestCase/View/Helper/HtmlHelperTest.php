@@ -138,7 +138,6 @@ class HtmlHelperTest extends HelperTestCase
     /**
      * @test
      * @uses \MeTools\View\Helper\HtmlHelper::image()
-     * @uses \MeTools\View\Helper\HtmlHelper::img()
      */
     public function testImage(): void
     {

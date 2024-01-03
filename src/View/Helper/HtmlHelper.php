@@ -147,20 +147,6 @@ class HtmlHelper extends BaseHtmlHelper
     }
 
     /**
-     * Alias for `image()` method
-     * @return string
-     * @see image()
-     * @deprecated 2.25.3 Deprecated. Use instead `image()`
-     * @codeCoverageIgnore
-     */
-    public function img(): string
-    {
-        deprecationWarning('Deprecated. Use instead `image()`');
-
-        return call_user_func_array([self::class, 'image'], func_get_args());
-    }
-
-    /**
      * Returns an element list (`<li>`).
      *
      * If `$element` is an array, the same `$options` will be applied to all elements.
