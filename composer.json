@@ -18,7 +18,7 @@
     },
     "require-dev": {
         "ext-fileinfo": "*",
-        "cakephp/cakephp-codesniffer": "^4.5",
+        "cakephp/cakephp-codesniffer": "^5.0",
         "mirko-pagliai/cakephp-assets": "^1.5.7",
         "phpunit/phpunit": "^9.3|^9.5",
         "phpstan/phpstan": "^1.10.38",
