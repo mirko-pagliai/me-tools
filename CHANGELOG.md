@@ -2,6 +2,7 @@
 ## 2.26 branch
 ### 2.26.0-RC1
 * requires at least PHP 8.1;
+* the `OptionsParser` had been deprecated and was removed (the same goes for the global `optionsParser()` function);
 * added tests for PHP 8.3.
 
 ## 2.25 branch
