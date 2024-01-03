@@ -15,7 +15,6 @@ declare(strict_types=1);
 namespace MeTools\View\Helper;
 
 use Cake\View\Helper\HtmlHelper as BaseHtmlHelper;
-use Cake\View\View;
 use LogicException;
 
 /**
@@ -46,25 +45,6 @@ class HtmlHelper extends BaseHtmlHelper
      * @var string[]
      */
     public $helpers = ['MeTools.Icon', 'Url'];
-
-    /**
-     * @inheritDoc
-     */
-    public function __construct(View $view, array $config = [])
-    {
-        /**
-         * Rewrites default templates config
-         * @see \Cake\View\Helper\HtmlHelper::$_defaultConfig
-         * @todo these should be deleted with CakePHP 4.5
-         */
-        $this->_defaultConfig['templates'] = [
-            'css' => '<link rel="{{rel}}" href="{{url}}"{{attrs}}/>',
-            'image' => '<img src="{{url}}"{{attrs}}/>',
-            'meta' => '<meta{{attrs}}/>',
-        ] + $this->_defaultConfig['templates'];
-
-        parent::__construct($view, $config);
-    }
 
     /**
      * Missing method handler.

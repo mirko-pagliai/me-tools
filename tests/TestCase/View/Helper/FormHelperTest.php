@@ -105,7 +105,7 @@ class FormHelperTest extends HelperTestCase
         //Input is valid (nothing different should happen)
         $expected = '<div class="mb-3 text">' .
             '<label class="form-label" for="my-field">My Field</label>' .
-            '<input type="text" name="My field" class="form-control" id="my-field"/>' .
+            '<input type="text" name="My field" class="form-control" id="my-field">' .
             '</div>';
         $Context = $this->createConfiguredMock(NullContext::class, ['hasError' => false]);
         $Form->context($Context);
@@ -122,7 +122,7 @@ class FormHelperTest extends HelperTestCase
         //Input is invalid and has an error message
         $expected = '<div class="mb-3 text error">' .
             '<label class="form-label" for="my-field">My Field</label>' .
-            '<input type="text" name="My field" class="form-control is-invalid" id="my-field" aria-invalid="true" aria-describedby="my-field-error"/>' .
+            '<input type="text" name="My field" class="form-control is-invalid" id="my-field" aria-invalid="true" aria-describedby="my-field-error">' .
             '<div class="invalid-feedback" id="my-field-error">Error message!</div>' .
             '</div>';
         $Form->create($Context);
@@ -180,7 +180,8 @@ class FormHelperTest extends HelperTestCase
      */
     public function testCheckbox(): void
     {
-        $expected = '<input type="hidden" name="My checkbox" value="0"/><input type="checkbox" name="My checkbox" value="yes">';
+        $expected = '<input type="hidden" name="My checkbox" value="0">' .
+            '<input type="checkbox" name="My checkbox" value="yes">';
         $result = $this->Helper->checkbox('My checkbox', ['value' => 'yes']);
         $this->assertSame($expected, $result);
     }
@@ -193,7 +194,7 @@ class FormHelperTest extends HelperTestCase
     {
         $expected = '<div class="mb-3 text">' .
             '<label class="form-label" for="my-input">My Input</label>' .
-            '<input type="text" name="my-input" class="form-control" id="my-input"/>' .
+            '<input type="text" name="my-input" class="form-control" id="my-input">' .
             '</div>';
         $result = $this->Helper->control('my-input');
         $this->assertSame($expected, $result);
@@ -215,7 +216,7 @@ class FormHelperTest extends HelperTestCase
             '<label class="form-label" for="my-field">My Field</label>' .
             '<div class="input-group">' .
             '<span class="input-group-text">first text</span>' .
-            '<input type="text" name="My field" class="form-control" id="my-field"/>' .
+            '<input type="text" name="My field" class="form-control" id="my-field">' .
             '<span class="input-group-text">second text</span>' .
             '</div>' .
             '</div>';
@@ -234,8 +235,8 @@ class FormHelperTest extends HelperTestCase
             '<label class="form-label" for="my-field">My Field</label>' .
             '<div class="input-group">' .
             '<button type="button" class="btn btn-primary"><i class="fa fa-home"> </i> Prepend button</button>' .
-            '<input type="text" name="My field" class="form-control" id="my-field"/>' .
-            '<div class="submit"><input type="submit" class="btn btn-primary" value="Append submit"/></div>' .
+            '<input type="text" name="My field" class="form-control" id="my-field">' .
+            '<div class="submit"><input type="submit" class="btn btn-primary" value="Append submit"></div>' .
             '</div>' .
             '</div>';
         $result = $this->Helper->control('My field', [
@@ -252,7 +253,7 @@ class FormHelperTest extends HelperTestCase
     public function testControlWithCheckbox(): void
     {
         $expected = '<div class="mb-3 form-check checkbox">' .
-            '<input type="hidden" name="my-checkbox" value="0"/>' .
+            '<input type="hidden" name="my-checkbox" value="0">' .
             '<input type="checkbox" name="my-checkbox" value="1" class="form-check-input" id="my-checkbox">' .
             '<label class="form-label form-check-label" for="my-checkbox">' .
             'My Checkbox' .
@@ -298,7 +299,7 @@ class FormHelperTest extends HelperTestCase
 
         $expected = '<div class="mb-3 radio">' .
             '<label class="form-label form-check-label">My Radio</label>' .
-            '<input type="hidden" name="My radio" id="my-radio" value=""/>' .
+            '<input type="hidden" name="My radio" id="my-radio" value="">' .
             '<div class="form-check">' .
             '<input type="radio" name="My radio" value="yes" id="my-radio-yes" class="form-check-input">' .
             '<label for="my-radio-yes">Yes</label>' .
@@ -343,7 +344,7 @@ class FormHelperTest extends HelperTestCase
     {
         $expected = '<div class="mb-3 select">' .
             '<label class="form-label" for="my-select">My Select</label>' .
-            '<input type="hidden" name="my-select" value=""/>' .
+            '<input type="hidden" name="my-select" value="">' .
             '<select name="my-select[]" multiple="multiple" class="form-select" id="my-select">' .
             '<option value="1">First</option>' .
             '<option value="2">Second</option>' .
@@ -355,7 +356,7 @@ class FormHelperTest extends HelperTestCase
 
         $expected = '<div class="mb-3 select">' .
             '<label class="form-label" for="my-select">My Select</label>' .
-            '<input type="hidden" name="my-select" id="my-select" value=""/>' .
+            '<input type="hidden" name="my-select" id="my-select" value="">' .
             '<div class="form-check">' .
             '<input type="checkbox" name="my-select[]" value="1" id="my-select-1" class="form-check-input">' .
             '<label class="form-check-label" for="my-select-1">First</label>' .
@@ -381,7 +382,7 @@ class FormHelperTest extends HelperTestCase
     {
         $expected = '<div class="mb-3 time">' .
             '<label class="form-label" for="my-time">My Time</label>' .
-            '<input type="time" name="My time" step="60" class="form-control" id="my-time" value=""/>' .
+            '<input type="time" name="My time" step="60" class="form-control" id="my-time" value="">' .
             '</div>';
         $result = $this->Helper->control('My time', ['type' => 'time']);
         $this->assertSame($expected, $result);
@@ -405,7 +406,7 @@ class FormHelperTest extends HelperTestCase
             '<label class="visually-hidden" for="username">Username</label>' .
             '<div class="input-group">' .
             '<span class="input-group-text">@</span>' .
-            '<input type="text" name="username" class="form-control" id="username"/>' .
+            '<input type="text" name="username" class="form-control" id="username">' .
             '</div>' .
             '</div>';
         $result = $this->Helper->control('username', ['prepend-text' => '@']);
@@ -424,14 +425,14 @@ class FormHelperTest extends HelperTestCase
         $this->assertSame($expected, $result);
 
         $expected = '<div class="col-12 form-check checkbox">' .
-            '<input type="hidden" name="remember-me" value="0"/>' .
+            '<input type="hidden" name="remember-me" value="0">' .
             '<input type="checkbox" name="remember-me" value="1" class="form-check-input" id="remember-me">' .
             '<label class="form-label form-check-label" for="remember-me">Remember Me</label>' .
             '</div>';
         $result = $this->Helper->control('remember-me', ['type' => 'checkbox']);
         $this->assertSame($expected, $result);
 
-        $expected = '<div class="col-12 submit"><input type="submit" class="btn btn-primary" value="Submit"/></div>';
+        $expected = '<div class="col-12 submit"><input type="submit" class="btn btn-primary" value="Submit"></div>';
         $result = $this->Helper->submit();
         $this->assertSame($expected, $result);
 
@@ -526,7 +527,7 @@ class FormHelperTest extends HelperTestCase
         $this->assertSame($expected, $result);
 
         //With `multiple`
-        $expected = '<input type="hidden" name="my-select" value=""/>' .
+        $expected = '<input type="hidden" name="my-select" value="">' .
             '<select name="my-select[]" multiple="multiple">' .
             '<option value="1">First</option>' .
             '<option value="2">Second</option>' .
@@ -536,7 +537,7 @@ class FormHelperTest extends HelperTestCase
         $this->assertSame($expected, $result);
 
         //With `multiple` as checkboxes
-        $expected = '<input type="hidden" name="my-select" id="my-select" value=""/>' .
+        $expected = '<input type="hidden" name="my-select" id="my-select" value="">' .
             '<div class="form-check">' .
             '<input type="checkbox" name="my-select[]" value="1" id="my-select-1" class="form-check-input">' .
             '<label for="my-select-1">First</label>' .
@@ -559,12 +560,12 @@ class FormHelperTest extends HelperTestCase
      */
     public function testSubmit(): void
     {
-        $expected = '<div class="submit"><input type="submit" class="btn btn-primary" value="My submit"/></div>';
+        $expected = '<div class="submit"><input type="submit" class="btn btn-primary" value="My submit"></div>';
         $result = $this->Helper->submit('My submit');
         $this->assertSame($expected, $result);
 
         //With custom classes
-        $expected = '<div class="submit"><input type="submit" class="my-custom-class btn btn-success" value="My submit"/></div>';
+        $expected = '<div class="submit"><input type="submit" class="my-custom-class btn btn-success" value="My submit"></div>';
         $result = $this->Helper->submit('My submit', ['class' => 'my-custom-class btn-success']);
         $this->assertSame($expected, $result);
     }
