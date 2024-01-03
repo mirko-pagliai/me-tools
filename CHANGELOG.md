@@ -6,7 +6,8 @@
 * no longer uses `Tools\TestSuite\TestTrait::expectAssertionFailed()`;
 * fixed `AppTable::findActive()` method, added `$options` parameter;
 * fixed little bug for `PaginatorHelper` and icon on `asc` sorting;
-* updated `phpstan` and `psalm` packages.
+* updated `phpstan` and `psalm` packages;
+* added tests for PHP 8.2.
 
 ### 2.25.7
 * sorting links (and their icons) are now fully managed by `PaginatorHelper` using the `$_defaultConfig` property.
