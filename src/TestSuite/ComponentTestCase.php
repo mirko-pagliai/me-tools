@@ -29,7 +29,7 @@ abstract class ComponentTestCase extends TestCase
      *
      * It provides access to the cached properties of the test.
      * @param string $name Property name
-     * @return \Cake\Controller\Component|mixed
+     * @return \Cake\Controller\Component|string
      * @throws \ReflectionException
      */
     public function __get(string $name)

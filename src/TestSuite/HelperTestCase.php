@@ -28,7 +28,7 @@ abstract class HelperTestCase extends TestCase
      *
      * It provides access to the cached properties of the test.
      * @param string $name Property name
-     * @return \Cake\View\Helper|mixed
+     * @return \Cake\View\Helper|string
      * @throws \ReflectionException
      */
     public function __get(string $name)

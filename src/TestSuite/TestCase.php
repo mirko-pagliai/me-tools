@@ -39,7 +39,7 @@ abstract class TestCase extends CakeTestCase
      *
      * It provides access to the cached properties of the test.
      * @param string $name Property name
-     * @return mixed
+     * @return string
      * @since 2.23.0
      * @throws \ReflectionException
      * @throws \PHPUnit\Framework\AssertionFailedError
