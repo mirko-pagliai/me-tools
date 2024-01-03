@@ -15,7 +15,6 @@ declare(strict_types=1);
  */
 namespace MeTools\TestSuite;
 
-use Cake\ORM\Table;
 use Cake\TestSuite\TestCase as CakeTestCase;
 use Tools\TestSuite\TestTrait;
 
@@ -65,8 +64,7 @@ abstract class TestCase extends CakeTestCase
     }
 
     /**
-     * Called before every test method
-     * @return void
+     * @inheritDoc
      */
     protected function setUp(): void
     {
