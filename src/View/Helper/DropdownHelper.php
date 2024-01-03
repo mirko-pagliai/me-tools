@@ -109,7 +109,7 @@ class DropdownHelper extends Helper
      */
     public function end(array $ulOptions = []): string
     {
-        if (!isset($this->_start)) {
+        if (empty($this->_start)) {
             throw new LogicException('The `start()` method was not called before `end()`');
         }
         if (!$this->_links) {
