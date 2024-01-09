@@ -25,7 +25,7 @@
         "vimeo/psalm": "^5.15.0"
     },
     "conflict": {
-        "components/jquery": "*",
+        "components/jquery": "*"
     },
     "suggest": {
         "axllent/jquery": "To use jQuery, the JavaScript library",
