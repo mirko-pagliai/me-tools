@@ -1,5 +1,9 @@
 # 2.x branch
 ## 2.25 branch
+### 2.25.9
+* `config/i18n_constants.php` file is deprecated and will be removed in a future release. Also, as of now it is no longer
+  included automatically (by bootstrap). So, if still necessary, you will have to include it manually from your project.
+
 ### 2.25.8
 * updated `AppValidator::title()` rule, a title can now contain parenthesis and commas;
 * updated for CakePHP 4.5;

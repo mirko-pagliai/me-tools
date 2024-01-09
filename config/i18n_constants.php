@@ -13,6 +13,8 @@ declare(strict_types=1);
  * @license     https://opensource.org/licenses/mit-license.php MIT License
  */
 
+deprecationWarning('Use of the `config/i18n_constants.php` file is deprecated and will be removed in a future release');
+
 define('I18N_ACTIONS', __d('me_tools', 'Actions'));
 define('I18N_ACTIVE', __d('me_tools', 'Active'));
 define('I18N_ADD', __d('me_tools', 'Add'));
