@@ -26,13 +26,11 @@
     },
     "conflict": {
         "components/jquery": "*",
-        "newerton/fancy-box": "*"
     },
     "suggest": {
         "axllent/jquery": "To use jQuery, the JavaScript library",
         "fortawesome/font-awesome": "To use Font Awesome's icons",
         "mirko-pagliai/cakephp-assets": "A CakePHP plugin to allows you to generate assets",
-        "npm-asset/fancyapps-fancybox": "To show photos with fancybox",
         "twbs/bootstrap": "To use Bootstrap, the world's most popular framework for building responsive, mobile-first sites"
     },
     "autoload": {
