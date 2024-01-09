@@ -62,14 +62,13 @@
             "phpunit",
             "@stan"
         ],
-        "cs-check": "phpcs --standard=phpcs.xml.dist",
-        "cs-fix": "phpcbf --standard=phpcs.xml.dist",
+        "cs-check": "phpcs --standard=phpcs.xml",
+        "cs-fix": "phpcbf --standard=phpcs.xml",
         "coverage": "XDEBUG_MODE=coverage phpunit --coverage-html=coverage",
         "i18n-extract": "bin/cake i18n extract --paths config,src,templates --overwrite",
-        "phpstan": "phpstan.phar analyse",
-        "psalm": "psalm.phar --php-version=8.0",
+        "phpstan": "phpstan analyse",
+        "psalm": "psalm --php-version=8.2",
         "stan": ["@phpstan", "@psalm"],
-        "update-psalm": "psalm.phar --php-version=8.0 --set-baseline=psalm-baseline.xml",
         "update-lowest": "@composer update --prefer-lowest"
     },
     "config": {
