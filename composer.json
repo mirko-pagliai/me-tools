@@ -46,7 +46,6 @@
             "App\\": "tests/test_app/TestApp/",
             "Cake\\Test\\": "vendor/cakephp/cakephp/tests",
             "MeTools\\Test\\": "tests",
-            "TestPlugin\\": "tests/test_app/Plugin/TestPlugin/src",
             "AnotherTestPlugin\\": "tests/test_app/Plugin/AnotherTestPlugin/src",
             "AnotherTestPlugin\\Test\\": "tests/test_app/Plugin/AnotherTestPlugin/tests"
         }

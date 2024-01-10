@@ -82,9 +82,9 @@ class HtmlHelperTest extends HelperTestCase
         $result = $this->Helper->button('My title', 'https://link', ['class' => 'btn-danger', 'title' => 'my-title']);
         $this->assertSame($expected, $result);
 
-        $this->loadPlugins(['TestPlugin' => []]);
+        $this->loadPlugins(['AnotherTestPlugin' => []]);
         $expected = '<a href="/pages" role="button" class="btn btn-primary"></a>';
-        $result = $this->Helper->button(['controller' => 'Pages', 'plugin' => 'TestPlugin']);
+        $result = $this->Helper->button(['controller' => 'Pages', 'plugin' => 'AnotherTestPlugin']);
         $this->assertSame($expected, $result);
     }
 
@@ -129,9 +129,9 @@ class HtmlHelperTest extends HelperTestCase
             $this->assertSame($expected, $result);
         }
 
-        $this->loadPlugins(['TestPlugin' => []]);
+        $this->loadPlugins(['AnotherTestPlugin' => []]);
         $expected = '<iframe src="/pages"></iframe>';
-        $result = $this->Helper->iframe(['controller' => 'Pages', 'plugin' => 'TestPlugin']);
+        $result = $this->Helper->iframe(['controller' => 'Pages', 'plugin' => 'AnotherTestPlugin']);
         $this->assertSame($expected, $result);
     }
 
@@ -153,13 +153,13 @@ class HtmlHelperTest extends HelperTestCase
         $result = $this->Helper->image('http://url/image.gif');
         $this->assertSame($expected, $result);
 
-        $this->loadPlugins(['TestPlugin' => []]);
+        $this->loadPlugins(['AnotherTestPlugin' => []]);
         $expected = '<img src="/pages" alt="pages" class="img-fluid">';
-        $result = $this->Helper->image(['controller' => 'Pages', 'plugin' => 'TestPlugin']);
+        $result = $this->Helper->image(['controller' => 'Pages', 'plugin' => 'AnotherTestPlugin']);
         $this->assertSame($expected, $result);
 
         $expected = '<a href="/pages"><img src="/img/image.gif" alt="image.gif" class="img-fluid"></a>';
-        $result = $this->Helper->image('image.gif', ['url' => ['controller' => 'Pages', 'plugin' => 'TestPlugin']]);
+        $result = $this->Helper->image('image.gif', ['url' => ['controller' => 'Pages', 'plugin' => 'AnotherTestPlugin']]);
         $this->assertSame($expected, $result);
     }
 
@@ -210,9 +210,9 @@ class HtmlHelperTest extends HelperTestCase
 
         $this->assertSame('<a href="/" title="/">/</a>', $this->Helper->link('/'));
 
-        $this->loadPlugins(['TestPlugin' => []]);
+        $this->loadPlugins(['AnotherTestPlugin' => []]);
         $expected = '<a href="/pages"></a>';
-        $result = $this->Helper->link(['controller' => 'Pages', 'plugin' => 'TestPlugin']);
+        $result = $this->Helper->link(['controller' => 'Pages', 'plugin' => 'AnotherTestPlugin']);
         $this->assertSame($expected, $result);
     }
 
