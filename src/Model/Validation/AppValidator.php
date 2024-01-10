@@ -115,7 +115,7 @@ class AppValidator extends Validator
         return $this->add($field, 'personName', $extra + [
             'message' => sprintf(
                 '%s: %s. %s',
-                I18N_ALLOWED_CHARS,
+                __d('me_tools', 'Allowed chars'),
                 __d('me_tools', 'letters, apostrophe, space'),
                 __d('me_tools', 'Has to begin with a capital letter')
             ),
@@ -138,7 +138,7 @@ class AppValidator extends Validator
         return $this->add($field, 'slug', $extra + [
             'message' => sprintf(
                 '%s: %s. %s',
-                I18N_ALLOWED_CHARS,
+                __d('me_tools', 'Allowed chars'),
                 __d('me_tools', 'lowercase letters, numbers, dash'),
                 __d('me_tools', 'Has to begin with a lowercase letter')
             ),
@@ -164,7 +164,7 @@ class AppValidator extends Validator
         return $this->add($field, 'title', $extra + [
             'message' => sprintf(
                 '%s: %s. %s',
-                I18N_ALLOWED_CHARS,
+                __d('me_tools', 'Allowed chars'),
                 __d('me_tools', 'letters, numbers, apostrophe, space, slash, dash, parentheses, comma'),
                 __d('me_tools', 'Has to begin with a capital letter')
             ),
