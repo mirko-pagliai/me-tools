@@ -1,6 +1,6 @@
 # 2.x branch
 ## 2.26 branch
-### 2.26.0-RC1
+### 2.26.0
 * requires at least CakePHP 4.5 and PHP 8.1;
 * the abstract `AppController` had been deprecated and was removed;
 * `HtmlHelper::img()` had been deprecated and was removed;
