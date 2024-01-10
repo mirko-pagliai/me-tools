@@ -8,6 +8,4 @@
     <rule ref="CakePHP.Functions.ClosureDeclaration.SpaceAfterFunction">
         <severity>0</severity>
     </rule>
-
-    <exclude-pattern>/webroot/js/ckeditor_init.php</exclude-pattern>
 </ruleset>
