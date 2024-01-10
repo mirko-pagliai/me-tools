@@ -10,9 +10,8 @@
 * deleted the `Youtube` class;
 * `MeTools.WritableDirs` and `MeTools.VendorLinks` configuration keys and `VENDOR` and `WWW_VENDOR` constants are no
   longer defined by me-tools;
-* deleted `bootstrap-datetimepicker.min.js`, `ckeditor_init.php` and `slugify.js` files from `webroot/js`;
-* deleted the `config/ckeditor/build-config.js` file;
-* deleted the `config/i18n_constants.php` file.
+* deleted `bootstrap-datetimepicker.min.js`, `ckeditor_init.php` and `slugify.js` files from `webroot/js/`;
+* deleted `ckeditor/build-config.js` and `i18n_constants.php` files from `config/`.
 
 # 2.x branch
 ## 2.26 branch
