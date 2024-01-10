@@ -15,7 +15,6 @@ declare(strict_types=1);
  */
 namespace MeTools\TestSuite;
 
-use Cake\ORM\Table;
 use Cake\TestSuite\TestCase as CakeTestCase;
 use Tools\TestSuite\TestTrait;
 
@@ -65,8 +64,7 @@ abstract class TestCase extends CakeTestCase
     }
 
     /**
-     * Called before every test method
-     * @return void
+     * @inheritDoc
      */
     protected function setUp(): void
     {
@@ -91,23 +89,5 @@ abstract class TestCase extends CakeTestCase
     {
         $this->assertFileIsReadable($filename);
         $this->assertStringContainsString($expectedContent, file_get_contents($filename) ?: '', $message);
-    }
-
-    /**
-     * Get a table instance from the registry
-     * @param string $alias The alias name you want to get
-     * @param array $options The options you want to build the table with
-     * @return \Cake\ORM\Table
-     * @since 2.18.11
-     * @deprecated 2.25.0 will be removed in a later release
-     * @codeCoverageIgnore
-     */
-    protected function getTable(string $alias, array $options = []): Table
-    {
-        deprecationWarning('`TestCase::getTable()` is deprecated and will be removed in a later release');
-
-        $this->getTableLocator()->clear();
-
-        return $this->getTableLocator()->get($alias, $options);
     }
 }

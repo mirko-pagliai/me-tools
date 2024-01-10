@@ -101,7 +101,7 @@ class UploaderComponent extends Component
      * @return $this
      * @throws \Tools\Exception\ObjectWrongInstanceException
      */
-    public function mimetype($acceptedMimetype)
+    public function mimetype(string|array $acceptedMimetype)
     {
         $this->_checkUploadedFileInformation();
 
@@ -132,7 +132,7 @@ class UploaderComponent extends Component
      * @throws \Tools\Exception\ObjectWrongInstanceException
      * @throws \ErrorException
      */
-    public function save(string $directory, ?string $filename = null)
+    public function save(string $directory, ?string $filename = null): string|false
     {
         $this->_checkUploadedFileInformation();
 
@@ -179,7 +179,7 @@ class UploaderComponent extends Component
      * @return $this
      * @since 2.20.1
      */
-    public function setFile($file)
+    public function setFile(UploadedFileInterface|array $file)
     {
         //Resets `$error`
         unset($this->error);

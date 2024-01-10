@@ -43,5 +43,3 @@ Configure::write('MeTools.VendorLinks', [
     'npm-asset/fancyapps-fancybox/dist' => 'fancyapps-fancybox',
     'twbs/bootstrap/dist' => 'bootstrap',
 ]);
-
-require_once 'i18n_constants.php';

@@ -11,28 +11,26 @@
         }
     ],
     "require": {
-        "php": ">=7.4.0",
+        "php": ">=8.1",
         "ext-json": "*",
-        "cakephp/cakephp": "^4.4",
+        "cakephp/cakephp": "^4.5",
         "mirko-pagliai/php-tools": "~1.7.4|~1.8.1"
     },
     "require-dev": {
         "ext-fileinfo": "*",
-        "cakephp/cakephp-codesniffer": "^4.5",
+        "cakephp/cakephp-codesniffer": "^4.0",
         "mirko-pagliai/cakephp-assets": "^1.5.7",
         "phpunit/phpunit": "^9.3|^9.5",
         "phpstan/phpstan": "^1.10.38",
         "vimeo/psalm": "^5.15.0"
     },
     "conflict": {
-        "components/jquery": "*",
-        "newerton/fancy-box": "*"
+        "components/jquery": "*"
     },
     "suggest": {
         "axllent/jquery": "To use jQuery, the JavaScript library",
         "fortawesome/font-awesome": "To use Font Awesome's icons",
         "mirko-pagliai/cakephp-assets": "A CakePHP plugin to allows you to generate assets",
-        "npm-asset/fancyapps-fancybox": "To show photos with fancybox",
         "twbs/bootstrap": "To use Bootstrap, the world's most popular framework for building responsive, mobile-first sites"
     },
     "autoload": {
@@ -40,7 +38,6 @@
             "MeTools\\": "src"
         },
         "files": [
-            "src/Core/global_functions.php",
             "src/Core/request_detectors.php"
         ]
     },
@@ -63,14 +60,13 @@
             "phpunit",
             "@stan"
         ],
-        "cs-check": "phpcs --standard=phpcs.xml.dist",
-        "cs-fix": "phpcbf --standard=phpcs.xml.dist",
+        "cs-check": "phpcs --standard=phpcs.xml",
+        "cs-fix": "phpcbf --standard=phpcs.xml",
         "coverage": "XDEBUG_MODE=coverage phpunit --coverage-html=coverage",
         "i18n-extract": "bin/cake i18n extract --paths config,src,templates --overwrite",
-        "phpstan": "phpstan.phar analyse",
-        "psalm": "psalm.phar --php-version=8.0",
+        "phpstan": "phpstan analyse",
+        "psalm": "psalm --php-version=8.2",
         "stan": ["@phpstan", "@psalm"],
-        "update-psalm": "psalm.phar --php-version=8.0 --set-baseline=psalm-baseline.xml",
         "update-lowest": "@composer update --prefer-lowest"
     },
     "config": {

@@ -29,7 +29,7 @@ class I18nTest extends TestCase
     public function testI18nConstant(): void
     {
         $translator = I18n::getTranslator('me_tools', 'it');
-        $this->assertSame('Modifica', $translator->translate(I18N_EDIT));
+        $this->assertSame('Modifica', $translator->translate(__d('me_tools', 'Edit')));
         $this->assertSame('Crea le directory di default', $translator->translate('Creates default directories'));
     }
 }
