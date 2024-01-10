@@ -17,8 +17,8 @@ namespace MeTools\Test\TestCase\Command\Install;
 
 use Cake\Console\ConsoleIo;
 use Cake\Console\TestSuite\StubConsoleOutput;
+use Cake\Core\Configure;
 use MeTools\Command\Install\CreateVendorsLinksCommand;
-use MeTools\Core\Configure;
 use MeTools\TestSuite\CommandTestCase;
 use Symfony\Component\Filesystem\Exception\IOException;
 use Tools\Filesystem;

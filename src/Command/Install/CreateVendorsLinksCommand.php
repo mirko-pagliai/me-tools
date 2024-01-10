@@ -17,9 +17,9 @@ namespace MeTools\Command\Install;
 
 use Cake\Console\Arguments;
 use Cake\Console\ConsoleIo;
+use Cake\Core\Configure;
 use Cake\Console\ConsoleOptionParser;
 use MeTools\Command\Command;
-use MeTools\Core\Configure;
 use Symfony\Component\Filesystem\Exception\IOException;
 
 /**
@@ -52,7 +52,7 @@ class CreateVendorsLinksCommand extends Command
             return self::CODE_ERROR;
         }
 
-        foreach (Configure::readFromPlugins('VendorLinks') as $origin => $target) {
+        foreach (Configure::read('MeTools.VendorLinks') as $origin => $target) {
             $origin = VENDOR . $this->getFilesystem()->normalizePath($origin);
             $target = WWW_VENDOR . $target;
 

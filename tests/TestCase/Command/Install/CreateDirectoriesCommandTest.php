@@ -16,8 +16,8 @@ namespace MeTools\Test\TestCase\Command\Install;
 
 use Cake\Console\ConsoleIo;
 use Cake\Console\TestSuite\StubConsoleOutput;
+use Cake\Core\Configure;
 use MeTools\Command\Install\CreateDirectoriesCommand;
-use MeTools\Core\Configure;
 use MeTools\TestSuite\CommandTestCase;
 use Symfony\Component\Filesystem\Exception\IOException;
 use Tools\Filesystem;
@@ -35,7 +35,7 @@ class CreateDirectoriesCommandTest extends CommandTestCase
     {
         $this->exec('me_tools.create_directories -v');
         $this->assertExitSuccess();
-        foreach (Configure::readFromPlugins('WritableDirs') as $expectedDir) {
+        foreach (Configure::read('MeTools.WritableDirs') as $expectedDir) {
             $this->assertOutputContains('File or directory `' . rtr($expectedDir) . '` already exists');
         }
         $this->assertErrorEmpty();
@@ -46,7 +46,7 @@ class CreateDirectoriesCommandTest extends CommandTestCase
         $Command->method('verboseIfFileExists')->willReturn(false);
         $this->_exitCode = $Command->run(['-v'], new ConsoleIo($this->_out, $this->_err));
         $this->assertExitSuccess();
-        foreach (Configure::readFromPlugins('WritableDirs') as $expectedDir) {
+        foreach (Configure::read('MeTools.WritableDirs') as $expectedDir) {
             $this->assertOutputContains('Created `' . rtr($expectedDir) . '` directory');
         }
         $this->assertErrorEmpty();

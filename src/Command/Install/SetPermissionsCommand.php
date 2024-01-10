@@ -18,8 +18,8 @@ namespace MeTools\Command\Install;
 use Cake\Console\Arguments;
 use Cake\Console\ConsoleIo;
 use Cake\Console\ConsoleOptionParser;
+use Cake\Core\Configure;
 use MeTools\Command\Command;
-use MeTools\Core\Configure;
 use Symfony\Component\Filesystem\Exception\IOException;
 
 /**
@@ -46,7 +46,7 @@ class SetPermissionsCommand extends Command
      */
     public function execute(Arguments $args, ConsoleIo $io): int
     {
-        foreach (Configure::readFromPlugins('WritableDirs') as $dir) {
+        foreach (Configure::read('MeTools.WritableDirs') as $dir) {
             if (!file_exists($dir)) {
                 $io->verbose(__d('me_tools', 'File or directory `{0}` does not exist', rtr($dir)) . '. ', 0);
                 $io->verbose(__d('me_tools', 'Skip'));

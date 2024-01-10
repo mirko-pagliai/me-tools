@@ -1,3 +1,13 @@
+# 3.x branch
+## 3.0 branch
+### 3.0.0
+* deleted `BBCode` class;
+* deleted the `Configure` and `Plugin` classes (simply use the ones provided by CakePHP);
+* deleted the `LibraryHelper`;
+* deleted the `Youtube` class;
+* deleted the `config/ckeditor/build-config.js` file;
+* deleted the `config/i18n_constants.php` file.
+
 # 2.x branch
 ## 2.26 branch
 ### 2.26.0
