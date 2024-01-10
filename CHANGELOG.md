@@ -1,4 +1,15 @@
 # 2.x branch
+## 2.26 branch
+### 2.26.0-RC1
+* requires at least CakePHP 4.5 and PHP 8.1;
+* the abstract `AppController` had been deprecated and was removed;
+* `HtmlHelper::img()` had been deprecated and was removed;
+* the `OptionsParser` had been deprecated and was removed (the same goes for the global `optionsParser()` function);
+* `TestCase::getTable()` had been deprecated and was removed;
+* `config/i18n_constants.php` file is deprecated and will be removed in a future release. Also, as of now it is no longer
+  included automatically (by bootstrap). So, if still necessary, you will have to include it manually from your project;
+* added tests for PHP 8.3.
+
 ## 2.25 branch
 ### 2.25.8
 * updated `AppValidator::title()` rule, a title can now contain parenthesis and commas;

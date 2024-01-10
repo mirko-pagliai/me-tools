@@ -138,28 +138,27 @@ class HtmlHelperTest extends HelperTestCase
     /**
      * @test
      * @uses \MeTools\View\Helper\HtmlHelper::image()
-     * @uses \MeTools\View\Helper\HtmlHelper::img()
      */
     public function testImage(): void
     {
-        $expected = '<img src="/img/image.gif" class="my-class img-fluid" alt="image.gif"/>';
+        $expected = '<img src="/img/image.gif" class="my-class img-fluid" alt="image.gif">';
         $result = $this->Helper->image('image.gif', ['class' => 'my-class']);
         $this->assertSame($expected, $result);
 
-        $expected = '<img src="/img/image.gif" alt="my-alt" class="img-fluid"/>';
+        $expected = '<img src="/img/image.gif" alt="my-alt" class="img-fluid">';
         $result = $this->Helper->image('image.gif', ['alt' => 'my-alt']);
         $this->assertSame($expected, $result);
 
-        $expected = '<img src="http://url/image.gif" alt="image.gif" class="img-fluid"/>';
+        $expected = '<img src="http://url/image.gif" alt="image.gif" class="img-fluid">';
         $result = $this->Helper->image('http://url/image.gif');
         $this->assertSame($expected, $result);
 
         $this->loadPlugins(['TestPlugin' => []]);
-        $expected = '<img src="/pages" alt="pages" class="img-fluid"/>';
+        $expected = '<img src="/pages" alt="pages" class="img-fluid">';
         $result = $this->Helper->image(['controller' => 'Pages', 'plugin' => 'TestPlugin']);
         $this->assertSame($expected, $result);
 
-        $expected = '<a href="/pages"><img src="/img/image.gif" alt="image.gif" class="img-fluid"/></a>';
+        $expected = '<a href="/pages"><img src="/img/image.gif" alt="image.gif" class="img-fluid"></a>';
         $result = $this->Helper->image('image.gif', ['url' => ['controller' => 'Pages', 'plugin' => 'TestPlugin']]);
         $this->assertSame($expected, $result);
     }
@@ -225,7 +224,7 @@ class HtmlHelperTest extends HelperTestCase
     {
         $this->assertNull($this->Helper->meta('viewport', 'width=device-width'));
 
-        $expected = '<meta name="viewport" content="width=device-width"/>';
+        $expected = '<meta name="viewport" content="width=device-width">';
         $result = $this->Helper->meta('viewport', 'width=device-width', ['block' => false]);
         $this->assertSame($expected, $result);
     }
@@ -300,11 +299,11 @@ class HtmlHelperTest extends HelperTestCase
      */
     public function testViewport(): void
     {
-        $expected = '<meta name="viewport" content="initial-scale=1, width=device-width"/>';
+        $expected = '<meta name="viewport" content="initial-scale=1, width=device-width">';
         $result = $this->Helper->viewport([], ['block' => false]);
         $this->assertSame($expected, $result);
 
-        $expected = '<meta title="my title" name="viewport" content="width=500, initial-scale=1"/>';
+        $expected = '<meta title="my title" name="viewport" content="width=500, initial-scale=1">';
         $result = $this->Helper->viewport(['width' => 500], ['block' => false, 'title' => 'my title']);
         $this->assertSame($expected, $result);
     }

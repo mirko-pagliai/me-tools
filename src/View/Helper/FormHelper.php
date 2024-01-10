@@ -72,14 +72,6 @@ class FormHelper extends BaseFormHelper
             'nestingLabel' => '{{hidden}}{{input}}<label{{attrs}}>{{text}}</label>',
             //Container for submit buttons
             'submitContainer' => '<div class="{{divClass}}submit">{{content}}</div>',
-        ] + [
-            /**
-             * @todo these should be deleted with CakePHP 4.5
-             */
-            //Generic input element
-            'input' => '<input type="{{type}}" name="{{name}}"{{attrs}}/>',
-            //Submit input element
-            'inputSubmit' => '<input type="{{type}}"{{attrs}}/>',
         ] + $this->_defaultConfig['templates'];
 
         /**

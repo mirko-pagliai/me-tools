@@ -150,7 +150,7 @@ class LibraryHelperTest extends HelperTestCase
      */
     public function testFancybox(): void
     {
-        $expectedCss = '<link rel="stylesheet" href="/vendor/fancyapps-fancybox/jquery.fancybox.min.css"/>';
+        $expectedCss = '<link rel="stylesheet" href="/vendor/fancyapps-fancybox/jquery.fancybox.min.css">';
         $expectedJs = '<script src="/vendor/fancyapps-fancybox/jquery.fancybox.min.js"></script>';
         $this->Helper->fancybox();
         $this->assertSame($expectedCss, $this->Helper->getView()->fetch('css_bottom'));

@@ -107,6 +107,4 @@ ConnectionManager::setConfig('test', ['url' => 'sqlite:///' . TMP . 'test.sq3'])
 $loader = new SchemaLoader();
 $loader->loadInternalFile(TESTS . DS . 'schema.php');
 
-require_once ROOT . 'config' . DS . 'i18n_constants.php';
-
 $_SERVER['PHP_SELF'] = '/';
