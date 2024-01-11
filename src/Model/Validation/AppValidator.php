@@ -26,7 +26,7 @@ use function Cake\I18n\__d;
  * This class provides additional methods compared to the base one.
  *
  * Remember to set this validator as the default validator in the table class or make your table extend `AppTable`.
- * @see https://book.cakephp.org/4/en/orm/validation.html#default-validator-class
+ * @see https://book.cakephp.org/5/en/orm/validation.html#default-validator-class
  * @see \MeTools\Test\TestCase\Model\Table\AppTable
  */
 class AppValidator extends Validator

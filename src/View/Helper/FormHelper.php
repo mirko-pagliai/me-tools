@@ -177,7 +177,7 @@ class FormHelper extends BaseFormHelper
      * @param string $fieldName This should be "modelname.fieldname"
      * @param array $options Each type of input takes different options
      * @return string Completed form widget
-     * @link https://book.cakephp.org/4/en/views/helpers/form.html#creating-form-controls
+     * @link https://book.cakephp.org/5/en/views/helpers/form.html#creating-form-controls
      * @see \Cake\View\Helper\FormHelper::control() for all available options
      */
     public function control(string $fieldName, array $options = []): string
