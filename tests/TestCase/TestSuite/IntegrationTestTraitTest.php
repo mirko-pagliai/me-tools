@@ -29,6 +29,7 @@ use Tools\TestSuite\ReflectionTrait;
 
 /**
  * IntegrationTestTraitTest class
+ * @property \Cake\Http\Session $_requestSession
  * @property \Cake\Http\Response $_response
  */
 class IntegrationTestTraitTest extends TestCase

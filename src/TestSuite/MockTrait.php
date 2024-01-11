@@ -46,7 +46,7 @@ trait MockTrait
     /**
      * Mocks an helper
      * @param class-string<\Cake\View\Helper> $className Helper class name
-     * @param array<string> $methods The list of methods to mock
+     * @param array<int, non-empty-string> $methods The list of methods to mock
      * @param \Cake\View\View|null $View A `View` instance
      * @return \Cake\View\Helper&\PHPUnit\Framework\MockObject\MockObject
      * @noinspection PhpIncompatibleReturnTypeInspection
