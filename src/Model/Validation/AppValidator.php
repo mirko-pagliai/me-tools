@@ -88,11 +88,11 @@ class AppValidator extends Validator
      * @param string|null $message The error message when the rule fails.
      * @param \Closure|string|null $when Either 'create' or 'update' or a callable that returns
      *    true when the validation rule should be applied.
-     * @return self
+     * @return static
      * @throws \InvalidArgumentException
      * @see Validator::lengthBetween()
      */
-    public function lengthBetween(string $field, array $range, ?string $message = null, Closure|string|null $when = null): AppValidator
+    public function lengthBetween(string $field, array $range, ?string $message = null, Closure|string|null $when = null): Validator
     {
         $message = $message ?: __d('me_tools', 'Must be between {0} and {1} chars', array_value_first($range), array_value_last($range));
 

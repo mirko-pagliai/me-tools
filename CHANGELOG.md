@@ -6,6 +6,7 @@
 * deleted `BBCode` class;
 * deleted `CreateDirectoriesCommand`, `CreateRobotsCommand`, `CreateVendorsLinksCommand`, `RunAllCommand` and
   `SetPermissionsCommand` classes. So me-tools no longer provides any command classes;
+* deleted `Command` class;
 * deleted `CommandTestCase` class;
 * deleted the `Configure` and `Plugin` classes (simply use the ones provided by CakePHP);
 * deleted the `LibraryHelper`;
