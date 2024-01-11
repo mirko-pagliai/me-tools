@@ -43,7 +43,7 @@ abstract class TestCase extends CakeTestCase
      * @throws \ReflectionException
      * @throws \PHPUnit\Framework\AssertionFailedError
      */
-    public function __get(string $name)
+    public function __get(string $name): mixed
     {
         switch ($name) {
             case 'alias':

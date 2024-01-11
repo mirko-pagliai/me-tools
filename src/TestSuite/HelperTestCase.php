@@ -15,6 +15,7 @@ declare(strict_types=1);
  */
 namespace MeTools\TestSuite;
 
+use Cake\View\Helper;
 use Cake\View\View;
 
 /**
@@ -31,7 +32,7 @@ abstract class HelperTestCase extends TestCase
      * @return \Cake\View\Helper|string
      * @throws \ReflectionException
      */
-    public function __get(string $name)
+    public function __get(string $name): Helper|string
     {
         if ($name === 'Helper') {
             if (empty($this->_cache['Helper'])) {

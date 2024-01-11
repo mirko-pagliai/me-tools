@@ -37,7 +37,7 @@ class BreadcrumbsHelper extends CakeBreadcrumbsHelper
      * @return \Cake\View\Helper\BreadcrumbsHelper
      * @since 2.16.0
      */
-    public function add($title, $url = null, array $options = []): CakeBreadcrumbsHelper
+    public function add(string|array $title, string|array|null $url = null, array $options = []): CakeBreadcrumbsHelper
     {
         $options = $this->addClass($options, 'breadcrumb-item');
 
@@ -59,7 +59,7 @@ class BreadcrumbsHelper extends CakeBreadcrumbsHelper
      * @return \Cake\View\Helper\BreadcrumbsHelper
      * @since 2.16.0
      */
-    public function prepend($title, $url = null, array $options = []): CakeBreadcrumbsHelper
+    public function prepend(string|array $title, string|array|null $url = null, array $options = []): CakeBreadcrumbsHelper
     {
         $options = $this->addClass($options, 'breadcrumb-item');
 

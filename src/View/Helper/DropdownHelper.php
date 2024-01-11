@@ -62,13 +62,13 @@ class DropdownHelper extends Helper
      * Creates an HTML link for the dropdown.
      *
      * See the parent method for all available options.
-     * @param array|string $title The content to be wrapped by `<a>` tags. Can be an array if `$url` is `null`. If
+     * @param string|array $title The content to be wrapped by `<a>` tags. Can be an array if `$url` is `null`. If
      *  `$url` is `null`, `$title` will be used as both the URL and title
-     * @param array|string|null $url Cake-relative URL or array of URL parameters, or external URL (starts with http://)
+     * @param string|array|null $url Cake-relative URL or array of URL parameters, or external URL (starts with http://)
      * @param array $options Array of options and HTML attributes
      * @return void
      */
-    public function link($title, $url = null, array $options = []): void
+    public function link(string|array $title, string|array|null $url = null, array $options = []): void
     {
         $options = $this->addClass($options, 'dropdown-item');
         $this->_links[] = $this->Html->link($title, $url, $options);

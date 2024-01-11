@@ -15,6 +15,7 @@ declare(strict_types=1);
  */
 namespace MeTools\TestSuite;
 
+use Cake\Controller\Component;
 use Cake\Controller\ComponentRegistry;
 use Cake\Controller\Controller;
 use Cake\Http\ServerRequest;
@@ -33,7 +34,7 @@ abstract class ComponentTestCase extends TestCase
      * @return \Cake\Controller\Component|string
      * @throws \ReflectionException
      */
-    public function __get(string $name)
+    public function __get(string $name): Component|string
     {
         if ($name === 'Component') {
             if (empty($this->_cache['Component'])) {

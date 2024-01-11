@@ -154,7 +154,7 @@ class FormHelper extends BaseFormHelper
     /**
      * Creates a CKEditor textarea
      * @param string $fieldName This should be "modelname.fieldname"
-     * @param array<string, mixed> $options Each type of input takes different options
+     * @param array $options Each type of input takes different options
      * @return string
      * @see \MeTools\View\Helper\LibraryHelper::ckeditor() to add the scripts for CKEditor
      */
@@ -175,7 +175,7 @@ class FormHelper extends BaseFormHelper
      *  - `help` to add a help text
      *  - `prepend-text` to prepend a text
      * @param string $fieldName This should be "modelname.fieldname"
-     * @param array<string, mixed> $options Each type of input takes different options
+     * @param array $options Each type of input takes different options
      * @return string Completed form widget
      * @link https://book.cakephp.org/4/en/views/helpers/form.html#creating-form-controls
      * @see \Cake\View\Helper\FormHelper::control() for all available options
@@ -256,11 +256,11 @@ class FormHelper extends BaseFormHelper
      *  - `validation`, if `false` it disables field validation
      * @param mixed $context The context for which the form is being defined. Can be a ContextInterface instance, ORM
      *  entity, ORM resultset, or an array of meta data. You can use `null` to make a context-less form
-     * @param array<string, mixed> $options An array of html attributes and options
+     * @param array $options An array of html attributes and options
      * @return string A formatted opening FORM tag
      * @see \Cake\View\Helper\FormHelper::create() for all available options
      */
-    public function create($context = null, array $options = []): string
+    public function create(mixed $context = null, array $options = []): string
     {
         if (isset($options['validation'])) {
             $this->validation = $options['validation'];
@@ -277,12 +277,12 @@ class FormHelper extends BaseFormHelper
      * Returns an inline HTML form element
      * @param mixed $context The context for which the form is being defined. Can be a ContextInterface instance, ORM
      *  entity, ORM resultset, or an array of meta data. You can use `null` to make a context-less form
-     * @param array<string, mixed> $options An array of html attributes and options
+     * @param array $options An array of html attributes and options
      * @return string A formatted opening FORM tag
      * @see \MeTools\View\Helper\FormHelper::create()
      * @see \Cake\View\Helper\FormHelper::create()  for all available options
      */
-    public function createInline($context = null, array $options = []): string
+    public function createInline(mixed $context = null, array $options = []): string
     {
         $this->isInline = true;
 
@@ -306,7 +306,7 @@ class FormHelper extends BaseFormHelper
     /**
      * @inheritDoc
      */
-    public function postButton(string $title, $url, array $options = []): string
+    public function postButton(string $title, string|array $url, array $options = []): string
     {
         return parent::postButton($title, $url, ['type' => 'submit'] + $this->addButtonClasses($options));
     }
