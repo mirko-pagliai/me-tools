@@ -5,22 +5,20 @@
   processIsolation="false"
   stopOnFailure="false"
   bootstrap="./tests/bootstrap.php"
-  convertDeprecationsToExceptions="true"
-  xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd"
+  xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.5/phpunit.xsd"
+  cacheDirectory=".phpunit.cache"
 >
-  <coverage>
+  <coverage/>
+
+  <source>
     <include>
       <directory suffix=".php">./src/</directory>
     </include>
-  </coverage>
+  </source>
 
   <testsuites>
     <testsuite name="MeTools Test Cases">
       <directory>./tests/TestCase</directory>
     </testsuite>
   </testsuites>
-
-  <extensions>
-    <extension class="\Cake\TestSuite\Fixture\PHPUnitExtension"/>
-  </extensions>
 </phpunit>
