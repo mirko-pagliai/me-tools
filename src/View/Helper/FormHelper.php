@@ -32,7 +32,7 @@ class FormHelper extends BaseFormHelper
     /**
      * @inheritDoc
      */
-    public array $helpers = ['MeTools.Html', 'MeTools.Icon', 'Url'];
+    protected array $helpers = ['MeTools.Html', 'MeTools.Icon', 'Url'];
 
     /**
      * @var bool

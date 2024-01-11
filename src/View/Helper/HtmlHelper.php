@@ -44,7 +44,7 @@ class HtmlHelper extends BaseHtmlHelper
     /**
      * @inheritDoc
      */
-    public array $helpers = ['MeTools.Icon', 'Url'];
+    protected array $helpers = ['MeTools.Icon', 'Url'];
 
     /**
      * Missing method handler.

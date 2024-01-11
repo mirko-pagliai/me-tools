@@ -30,7 +30,7 @@ class PaginatorHelper extends CakePaginatorHelper
     /**
      * @inheritDoc
      */
-    public array $helpers = [
+    protected array $helpers = [
         'MeTools.Html',
         'MeTools.Icon',
         'Number',

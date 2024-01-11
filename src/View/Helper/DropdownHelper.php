@@ -41,7 +41,7 @@ class DropdownHelper extends Helper
     /**
      * @inheritDoc
      */
-    public array $helpers = ['MeTools.Html'];
+    protected array $helpers = ['MeTools.Html'];
 
     /**
      * @var string
