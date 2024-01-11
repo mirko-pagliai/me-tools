@@ -15,7 +15,6 @@ declare(strict_types=1);
  */
 namespace MeTools;
 
-use Cake\Console\CommandCollection;
 use Cake\Core\BasePlugin;
 use Cake\Core\PluginApplicationInterface;
 
