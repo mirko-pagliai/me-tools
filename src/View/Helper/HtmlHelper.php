@@ -218,18 +218,6 @@ class HtmlHelper extends BaseHtmlHelper
     }
 
     /**
-     * Returns the Shareaholic "share buttons".
-     *
-     * Note that this code only renders the Shareaholic "share button".
-     * @param string $appId Shareaholic app ID
-     * @return string
-     */
-    public function shareaholic(string $appId): string
-    {
-        return $this->div('shareaholic-canvas', '', ['data-app' => 'share_buttons', 'data-app-id' => $appId]);
-    }
-
-    /**
      * @inheritDoc
      */
     public function tag(string $name, ?string $text = null, array $options = []): string

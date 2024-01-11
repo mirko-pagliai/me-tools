@@ -268,16 +268,6 @@ class HtmlHelperTest extends HelperTestCase
 
     /**
      * @test
-     * @uses \MeTools\View\Helper\HtmlHelper::shareaholic()
-     */
-    public function testShareaholic(): void
-    {
-        $expected = '<div data-app="share_buttons" data-app-id="myAppId" class="shareaholic-canvas"></div>';
-        $this->assertSame($expected, $this->Helper->shareaholic('myAppId'));
-    }
-
-    /**
-     * @test
      * @uses \MeTools\View\Helper\HtmlHelper::tag()
      */
     public function testTag(): void

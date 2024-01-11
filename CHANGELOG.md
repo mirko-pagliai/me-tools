@@ -9,6 +9,7 @@
 * deleted the `Configure` and `Plugin` classes (simply use the ones provided by CakePHP);
 * deleted the `LibraryHelper`;
 * deleted the `Youtube` class;
+* method `HtmlHelper::shareaholic()` no longer exist;
 * `MeTools.WritableDirs` and `MeTools.VendorLinks` configuration keys and `VENDOR` and `WWW_VENDOR` constants are no
   longer defined by me-tools;
 * deleted `bootstrap-datetimepicker.min.js`, `ckeditor_init.php` and `slugify.js` files from `webroot/js/`;
