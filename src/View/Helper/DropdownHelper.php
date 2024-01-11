@@ -39,10 +39,9 @@ use LogicException;
 class DropdownHelper extends Helper
 {
     /**
-     * Helpers
-     * @var array
+     * @inheritDoc
      */
-    public $helpers = ['MeTools.Html'];
+    public array $helpers = ['MeTools.Html'];
 
     /**
      * @var string

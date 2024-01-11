@@ -14,6 +14,10 @@ declare(strict_types=1);
  */
 namespace MeTools\Test\TestCase\View\Helper;
 
+use Cake\Datasource\Paging\PaginatedResultSet;
+use Cake\Http\ServerRequest;
+use Cake\ORM\ResultSet;
+use Cake\Routing\Router;
 use MeTools\TestSuite\HelperTestCase;
 
 /**
@@ -23,12 +27,47 @@ use MeTools\TestSuite\HelperTestCase;
 class PaginatorHelperTest extends HelperTestCase
 {
     /**
+     * @inheritDoc
+     */
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        $Request = new ServerRequest([
+            'url' => '/',
+            'params' => [
+                'plugin' => null,
+                'controller' => 'Articles',
+                'action' => 'index',
+            ],
+        ]);
+
+        Router::reload();
+        $builder = Router::createRouteBuilder('/');
+        $builder->connect('/', ['controller' => 'Articles', 'action' => 'index']);
+        $builder->connect('/{controller}/{action}/*');
+        $builder->connect('/{plugin}/{controller}/{action}/*');
+        Router::setRequest($Request);
+
+        $PaginatedResult = new PaginatedResultSet(new ResultSet([]), [
+            'alias' => 'Articles',
+            'currentPage' => 1,
+            'count' => 9,
+            'totalCount' => 62,
+            'hasPrevPage' => false,
+            'hasNextPage' => true,
+            'pageCount' => 7,
+        ]);
+        $this->Helper->setPaginated($PaginatedResult);
+    }
+
+    /**
      * @test
      * @uses \MeTools\View\Helper\PaginatorHelper::next()
      */
     public function testNext(): void
     {
-        $expected = '<li class="page-item disabled"><a class="page-link" href="#">Next <i class="fa-solid fa-caret-right"></i></a></li>';
+        $expected = '<li class="page-item"><a class="page-link" rel="next" href="/?page=2">Next <i class="fa-solid fa-caret-right"></i></a></li>';
         $this->assertSame($expected, $this->Helper->next('Next'));
     }
 

@@ -29,7 +29,7 @@ class HelperTestCaseTest extends TestCase
      */
     public function testGetMagicMethod(): void
     {
-        $HelperTestCase = $this->getMockForAbstractClass(HelperTestCase::class, [], '', true, true, true, ['getOriginClassName']);
+        $HelperTestCase = $this->getMockForAbstractClass(HelperTestCase::class, ['MyTest'], '', true, true, true, ['getOriginClassName']);
         $HelperTestCase->method('getOriginClassName')->willReturn(HtmlHelper::class);
         $this->assertInstanceOf(HtmlHelper::class, $HelperTestCase->Helper);
     }

@@ -19,6 +19,7 @@ use Cake\Controller\Controller;
 use Cake\Event\Event;
 use Cake\Http\Cookie\Cookie;
 use Cake\Http\Response;
+use Cake\Http\ServerRequest;
 use Cake\Http\Session;
 use MeTools\TestSuite\IntegrationTestTrait;
 use MeTools\TestSuite\TestCase;
@@ -53,7 +54,7 @@ class IntegrationTestTraitTest extends TestCase
      */
     public function testControllerSpy(): void
     {
-        $this->_controller = new Controller();
+        $this->_controller = new Controller(new ServerRequest());
         $this->_controller->loadComponent('MeTools.Uploader');
         $this->controllerSpy(new Event('myEvent'), $this->_controller);
 

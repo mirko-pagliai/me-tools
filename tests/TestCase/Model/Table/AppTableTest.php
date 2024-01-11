@@ -15,7 +15,8 @@ declare(strict_types=1);
 
 namespace MeTools\Test\TestCase\Model\Table;
 
-use MeTools\Model\Table\AppTable;
+use App\Model\Table\UsersTable;
+use Cake\ORM\Table;
 use MeTools\Model\Validation\AppValidator;
 use MeTools\TestSuite\TestCase;
 
@@ -25,26 +26,23 @@ use MeTools\TestSuite\TestCase;
 class AppTableTest extends TestCase
 {
     /**
-     * @var array<string>
+     * @var string[]
      */
-    protected $fixtures = ['app.Users'];
+    protected array $fixtures = ['app.Users'];
 
     /**
-     * @var \MeTools\Model\Table\AppTable
+     * @var \App\Model\Table\UsersTable|\Cake\ORM\Table
      */
-    protected AppTable $AppTable;
+    protected UsersTable|Table $Table;
 
     /**
-     * Called before every test method
-     * @return void
+     * @inheritDoc
      */
     public function setUp(): void
     {
         parent::setUp();
 
-        /** @var \MeTools\Model\Table\AppTable&\PHPUnit\Framework\MockObject\MockObject $AppTable */
-        $AppTable = $this->createPartialMockForAbstractClass(AppTable::class);
-        $this->AppTable = $AppTable;
+        $this->Table ??= $this->getTableLocator()->get('Users');
     }
 
     /**
@@ -53,8 +51,8 @@ class AppTableTest extends TestCase
      */
     public function testInitialize(): void
     {
-        $this->AppTable->initialize([]);
-        $this->assertInstanceOf(AppValidator::class, $this->AppTable->getValidator());
+        $this->Table->initialize([]);
+        $this->assertInstanceOf(AppValidator::class, $this->Table->getValidator());
     }
 
     /**
@@ -63,8 +61,7 @@ class AppTableTest extends TestCase
      */
     public function testFindActive(): void
     {
-        //Uses a table that extends `AppTable` and has the `active` field
-        $Query = $this->getTableLocator()->get('Users')->find('active');
+        $Query = $this->Table->find('active');
 
         $this->assertGreaterThan(0, $Query->all()->count());
         $this->assertStringEndsWith('FROM users Users WHERE Users.active = :c0', $Query->sql());

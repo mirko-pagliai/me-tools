@@ -36,14 +36,14 @@ class MockTraitTest extends TestCase
      */
     public function testGetAlias(): void
     {
-        $this->assertSame('Pages', $this->getAlias(new PagesControllerTest()));
-        $this->assertSame('Html', $this->getAlias(new HtmlHelperTest()));
-        $this->assertSame('Posts', $this->getAlias(new PostsTableTest()));
-        $this->assertSame('Post', $this->getAlias(new PostValidatorTest()));
+        $this->assertSame('Pages', $this->getAlias(new PagesControllerTest('PagesControllerTest')));
+        $this->assertSame('Html', $this->getAlias(new HtmlHelperTest('HtmlHelperTest')));
+        $this->assertSame('Posts', $this->getAlias(new PostsTableTest('PostsTableTest')));
+        $this->assertSame('Post', $this->getAlias(new PostValidatorTest('PostValidatorTest')));
 
         $this->expectException(AssertionFailedError::class);
         $this->expectExceptionMessage('Unable to get the alias for `App\Test\TestCase\BadTestClass`');
-        $this->getAlias(new BadTestClass());
+        $this->getAlias(new BadTestClass('BadTest'));
     }
 
     /**
@@ -63,11 +63,11 @@ class MockTraitTest extends TestCase
      */
     public function testGetOriginClassName(): void
     {
-        $this->assertSame(TestCase::class, $this->getOriginClassName(new TestCaseTest()));
+        $this->assertSame(TestCase::class, $this->getOriginClassName(new TestCaseTest('MyTest')));
 
         $this->expectException(AssertionFailedError::class);
         $this->expectExceptionMessage('Unable to determine the origin class for `App\Test\TestCase\BadTestClass`');
-        $this->getOriginClassName(new BadTestClass());
+        $this->getOriginClassName(new BadTestClass('BadTest'));
     }
 
     /**
@@ -78,7 +78,7 @@ class MockTraitTest extends TestCase
     {
         $this->expectException(AssertionFailedError::class);
         $this->expectExceptionMessage('Class `AnotherTestPlugin\Controller\MyExampleController` does not exist');
-        $this->getOriginClassName(new MyExampleControllerTest());
+        $this->getOriginClassName(new MyExampleControllerTest('MyExampleControllerTest'));
     }
 
     /**
@@ -87,8 +87,8 @@ class MockTraitTest extends TestCase
      */
     public function testGetPluginName(): void
     {
-        $this->assertSame('MeTools', $this->getPluginName(new TestCaseTest()));
-        $this->assertSame('AnotherTestPlugin', $this->getPluginName(new MyExampleControllerTest()));
+        $this->assertSame('MeTools', $this->getPluginName(new TestCaseTest('MyTest')));
+        $this->assertSame('AnotherTestPlugin', $this->getPluginName(new MyExampleControllerTest('MyExampleControllerTest')));
     }
 
     /**

@@ -17,6 +17,7 @@ namespace MeTools\TestSuite;
 
 use Cake\Controller\ComponentRegistry;
 use Cake\Controller\Controller;
+use Cake\Http\ServerRequest;
 
 /**
  * Abstract class for test components
@@ -37,7 +38,7 @@ abstract class ComponentTestCase extends TestCase
         if ($name === 'Component') {
             if (empty($this->_cache['Component'])) {
                 /** @var \Cake\Controller\Component $Component */
-                $Component = new $this->originClassName(new ComponentRegistry(new Controller()));
+                $Component = new $this->originClassName(new ComponentRegistry(new Controller(new ServerRequest())));
                 $Component->initialize([]);
                 $this->_cache['Component'] = $Component;
             }

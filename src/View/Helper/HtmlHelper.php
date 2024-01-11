@@ -42,9 +42,9 @@ class HtmlHelper extends BaseHtmlHelper
     use AddButtonClassesTrait;
 
     /**
-     * @var string[]
+     * @inheritDoc
      */
-    public $helpers = ['MeTools.Icon', 'Url'];
+    public array $helpers = ['MeTools.Icon', 'Url'];
 
     /**
      * Missing method handler.

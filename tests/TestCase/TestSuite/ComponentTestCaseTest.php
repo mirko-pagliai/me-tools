@@ -29,7 +29,7 @@ class ComponentTestCaseTest extends TestCase
      */
     public function testGetMagicMethod(): void
     {
-        $ComponentTestCase = $this->getMockForAbstractClass(ComponentTestCase::class, [], '', true, true, true, ['getOriginClassName']);
+        $ComponentTestCase = $this->getMockForAbstractClass(ComponentTestCase::class, ['MyTest'], '', true, true, true, ['getOriginClassName']);
         $ComponentTestCase->method('getOriginClassName')->willReturn(FlashComponent::class);
         $this->assertInstanceOf(FlashComponent::class, $ComponentTestCase->Component);
     }

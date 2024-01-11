@@ -35,7 +35,7 @@ class TestCaseTest extends TestCase
      */
     public function setUp(): void
     {
-        $this->TestCase ??= $this->getMockForAbstractClass(TestCase::class);
+        $this->TestCase ??= $this->getMockForAbstractClass(TestCase::class, ['MyTest']);
     }
 
     /**
@@ -44,7 +44,7 @@ class TestCaseTest extends TestCase
      */
     public function testGetMagicMethod(): void
     {
-        $AppViewTest = new AppViewTest();
+        $AppViewTest = new AppViewTest('AppViewTest');
         $this->assertSame('App\View\AppView', $AppViewTest->originClassName);
         $this->assertSame('App', $AppViewTest->alias);
 
@@ -68,7 +68,7 @@ class TestCaseTest extends TestCase
         }
 
         $this->expectException(ExpectationFailedException::class);
-        $this->expectExceptionMessage('Failed asserting that \'' . $string . '\' contains "bad word".');
+        $this->expectExceptionMessage('Failed asserting that \'cat dog bird\' [ASCII](length: 12) contains "bad word" [ASCII](length: 8).');
         $this->TestCase->assertLogContains('bad word', LOGS . 'debug.log');
     }
 

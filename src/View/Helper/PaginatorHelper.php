@@ -28,9 +28,9 @@ use Cake\View\View;
 class PaginatorHelper extends CakePaginatorHelper
 {
     /**
-     * @array
+     * @inheritDoc
      */
-    public $helpers = [
+    public array $helpers = [
         'MeTools.Html',
         'MeTools.Icon',
         'Number',

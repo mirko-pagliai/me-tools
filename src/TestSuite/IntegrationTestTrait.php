@@ -19,6 +19,7 @@ namespace MeTools\TestSuite;
 use Cake\Controller\ComponentRegistry;
 use Cake\Controller\Controller;
 use Cake\Event\EventInterface;
+use Cake\Http\ServerRequest;
 use Cake\TestSuite\Constraint\Session\SessionEquals;
 use Cake\TestSuite\IntegrationTestTrait as CakeIntegrationTestTrait;
 use MeTools\Controller\Component\UploaderComponent;
@@ -46,7 +47,7 @@ trait IntegrationTestTrait
         if ($this->_controller->components()->has('Uploader')) {
             /** @var \MeTools\Controller\Component\UploaderComponent&\PHPUnit\Framework\MockObject\MockObject $Uploader */
             $Uploader = $this->getMockBuilder(UploaderComponent::class)
-                ->setConstructorArgs([new ComponentRegistry(new Controller())])
+                ->setConstructorArgs([new ComponentRegistry(new Controller(new ServerRequest()))])
                 ->addMethods(['move_uploaded_file'])
                 ->getMock();
 

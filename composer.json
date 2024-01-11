@@ -13,14 +13,14 @@
     "require": {
         "php": ">=8.1",
         "ext-json": "*",
-        "cakephp/cakephp": "^4.5",
-        "mirko-pagliai/php-tools": "~1.7.4|~1.8.1"
+        "cakephp/cakephp": "^5.0",
+        "mirko-pagliai/php-tools": "~1.9.3"
     },
     "require-dev": {
         "ext-fileinfo": "*",
         "cakephp/cakephp-codesniffer": "^4.0",
         "mirko-pagliai/cakephp-assets": "^1.5.7",
-        "phpunit/phpunit": "^9.3|^9.5",
+        "phpunit/phpunit": "^10.1.0 <=10.5.3",
         "phpstan/phpstan": "^1.10.38",
         "vimeo/psalm": "^5.15.0"
     },

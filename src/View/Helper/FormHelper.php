@@ -17,6 +17,7 @@ namespace MeTools\View\Helper;
 
 use Cake\View\Helper\FormHelper as BaseFormHelper;
 use Cake\View\View;
+use function Cake\I18n\__d;
 
 /**
  * Provides functionalities for forms
@@ -29,10 +30,9 @@ class FormHelper extends BaseFormHelper
     use AddButtonClassesTrait;
 
     /**
-     * Helpers
-     * @var array
+     * @inheritDoc
      */
-    public $helpers = ['MeTools.Html', 'MeTools.Icon', 'Url'];
+    public array $helpers = ['MeTools.Html', 'MeTools.Icon', 'Url'];
 
     /**
      * @var bool
@@ -97,7 +97,7 @@ class FormHelper extends BaseFormHelper
     /**
      * @inheritDoc
      */
-    protected function _getLabel(string $fieldName, array $options)
+    protected function _getLabel(string $fieldName, array $options): string|false
     {
         if ($options['label'] === false) {
             return false;

@@ -1,6 +1,7 @@
 # 3.x branch
 ## 3.0 branch
 ### 3.0.0
+* requires at least CakePHP 5.0 and PHPUnit 10;
 * deleted `BBCode` class;
 * deleted `CreateDirectoriesCommand`, `CreateRobotsCommand`, `CreateVendorsLinksCommand`, `RunAllCommand` and
   `SetPermissionsCommand` classes. So me-tools no longer provides any command classes;

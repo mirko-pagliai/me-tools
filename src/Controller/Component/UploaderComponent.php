@@ -21,6 +21,7 @@ use Laminas\Diactoros\UploadedFile;
 use LogicException;
 use Psr\Http\Message\UploadedFileInterface;
 use Tools\Filesystem;
+use function Cake\I18n\__d;
 
 /**
  * A component to upload files
