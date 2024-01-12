@@ -36,19 +36,4 @@ abstract class AppTable extends Table
 
         $this->_validatorClass = AppValidator::class;
     }
-
-    /**
-     * `active` find method
-     * @param \Cake\ORM\Query\SelectQuery $Query Query
-     * @return \Cake\ORM\Query\SelectQuery
-     * @see \Cake\ORM\Table::find() for options to use for the find
-     */
-    public function findActive(SelectQuery $Query): SelectQuery
-    {
-        if ($this->getSchema()->hasColumn('active')) {
-            $Query->where([$this->getAlias() . '.active' => true]);
-        }
-
-        return $Query;
-    }
 }
