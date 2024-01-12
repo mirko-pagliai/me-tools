@@ -16,7 +16,6 @@ declare(strict_types=1);
 
 use Cake\Cache\Cache;
 use Cake\Core\Configure;
-use Cake\Datasource\ConnectionManager;
 
 ini_set('intl.default_locale', 'en_US');
 
@@ -99,7 +98,5 @@ Cache::setConfig([
         'serialize' => true,
     ],
 ]);
-
-ConnectionManager::setConfig('test', ['url' => 'sqlite:///' . TMP . 'test.sq3']);
 
 $_SERVER['PHP_SELF'] = '/';
