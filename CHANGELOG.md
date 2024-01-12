@@ -2,6 +2,7 @@
 ## 3.0 branch
 ### 3.0.0-RC1
 * requires at least CakePHP 5.0 and PHPUnit 10;
+* added the `PaginatorHelper::hasPaginated()` method and fixed the `paginator.php` element;
 * added all possible typehints;
 * deleted `AppTable`class (so the `AppTable::findActive()` method no longer exist);
 * deleted `BBCode` class;

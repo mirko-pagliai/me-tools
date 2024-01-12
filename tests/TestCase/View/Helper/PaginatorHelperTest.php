@@ -18,7 +18,9 @@ use Cake\Datasource\Paging\PaginatedResultSet;
 use Cake\Http\ServerRequest;
 use Cake\ORM\ResultSet;
 use Cake\Routing\Router;
+use Cake\View\View;
 use MeTools\TestSuite\HelperTestCase;
+use MeTools\View\Helper\PaginatorHelper;
 
 /**
  * PaginatorHelperTest class
@@ -59,6 +61,18 @@ class PaginatorHelperTest extends HelperTestCase
             'pageCount' => 7,
         ]);
         $this->Helper->setPaginated($PaginatedResult);
+    }
+
+    /**
+     * @test
+     * @uses \MeTools\View\Helper\PaginatorHelper::hasPaginated()
+     */
+    public function testHasPaginated(): void
+    {
+        $this->assertTrue($this->Helper->hasPaginated());
+
+        $this->Helper = new PaginatorHelper(new View());
+        $this->assertFalse($this->Helper->hasPaginated());
     }
 
     /**

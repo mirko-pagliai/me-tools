@@ -13,8 +13,14 @@ declare(strict_types=1);
  * @license     https://opensource.org/licenses/mit-license.php MIT License
  */
 
+/**
+ * @var \App\View\AppView $this
+ */
+
+use function Cake\I18n\__d;
+
 //Returns, if there's only one page
-if (!$this->Paginator->hasPage(2, null)) {
+if (!$this->Paginator->hasPaginated() || !$this->Paginator->hasPage(2)) {
     return;
 }
 ?>
