@@ -16,14 +16,14 @@ declare(strict_types=1);
 
 namespace MeTools\Model\Table;
 
-use Cake\ORM\Query;
+use Cake\ORM\Query\SelectQuery;
 use Cake\ORM\Table;
 use MeTools\Model\Validation\AppValidator;
 
 /**
  * Represents a single database table
  *
- * @method \Cake\ORM\Query findById($id)
+ * @method \Cake\ORM\Query\SelectQuery findById($id)
  */
 abstract class AppTable extends Table
 {
@@ -39,12 +39,11 @@ abstract class AppTable extends Table
 
     /**
      * `active` find method
-     * @param \Cake\ORM\Query $Query The query builder
-     * @param array $options Options
-     * @return \Cake\ORM\Query The query builder
+     * @param \Cake\ORM\Query\SelectQuery $Query Query
+     * @return \Cake\ORM\Query\SelectQuery
      * @see \Cake\ORM\Table::find() for options to use for the find
      */
-    public function findActive(Query $Query, array $options): Query
+    public function findActive(SelectQuery $Query): SelectQuery
     {
         if ($this->getSchema()->hasColumn('active')) {
             $Query->where([$this->getAlias() . '.active' => true]);
