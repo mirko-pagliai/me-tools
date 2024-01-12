@@ -26,11 +26,6 @@ use MeTools\TestSuite\TestCase;
 class AppTableTest extends TestCase
 {
     /**
-     * @var string[]
-     */
-    protected array $fixtures = ['app.Users'];
-
-    /**
      * @var \App\Model\Table\UsersTable|\Cake\ORM\Table
      */
     protected UsersTable|Table $Table;
@@ -53,18 +48,5 @@ class AppTableTest extends TestCase
     {
         $this->Table->initialize([]);
         $this->assertInstanceOf(AppValidator::class, $this->Table->getValidator());
-    }
-
-    /**
-     * @test
-     * @uses \MeTools\Model\Table\AppTable::findActive()
-     */
-    public function testFindActive(): void
-    {
-        $Query = $this->Table->find('active');
-
-        $this->assertGreaterThan(0, $Query->all()->count());
-        $this->assertStringEndsWith('FROM users Users WHERE Users.active = :c0', $Query->sql());
-        $this->assertTrue($Query->getValueBinder()->bindings()[':c0']['value']);
     }
 }

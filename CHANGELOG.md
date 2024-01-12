@@ -2,7 +2,6 @@
 ## 3.0 branch
 ### 3.0.0-RC1
 * requires at least CakePHP 5.0 and PHPUnit 10;
-* fixed `AppTable::findActive()` method, so that it uses the named arguments;
 * added all possible typehints;
 * deleted `BBCode` class;
 * deleted `CreateDirectoriesCommand`, `CreateRobotsCommand`, `CreateVendorsLinksCommand`, `RunAllCommand` and
@@ -12,6 +11,7 @@
 * deleted the `Configure` and `Plugin` classes (simply use the ones provided by CakePHP);
 * deleted the `LibraryHelper`;
 * deleted the `Youtube` class;
+* method `AppTable::findActive()` no longer exist;
 * method `HtmlHelper::shareaholic()` no longer exist;
 * `MeTools.WritableDirs` and `MeTools.VendorLinks` configuration keys and `VENDOR` and `WWW_VENDOR` constants are no
   longer defined by me-tools;

@@ -17,7 +17,6 @@ declare(strict_types=1);
 use Cake\Cache\Cache;
 use Cake\Core\Configure;
 use Cake\Datasource\ConnectionManager;
-use Cake\TestSuite\Fixture\SchemaLoader;
 
 ini_set('intl.default_locale', 'en_US');
 
@@ -102,9 +101,5 @@ Cache::setConfig([
 ]);
 
 ConnectionManager::setConfig('test', ['url' => 'sqlite:///' . TMP . 'test.sq3']);
-
-//Create test database schema
-$loader = new SchemaLoader();
-$loader->loadInternalFile(TESTS . DS . 'schema.php');
 
 $_SERVER['PHP_SELF'] = '/';
