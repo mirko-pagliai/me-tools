@@ -8,8 +8,6 @@
   xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.5/phpunit.xsd"
   cacheDirectory=".phpunit.cache"
 >
-  <coverage/>
-
   <source>
     <include>
       <directory suffix=".php">./src/</directory>
