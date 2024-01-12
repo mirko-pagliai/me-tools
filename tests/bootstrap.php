@@ -1,5 +1,4 @@
 <?php
-/** @noinspection ALL */
 declare(strict_types=1);
 
 /**
@@ -23,32 +22,16 @@ if (!defined('DS')) {
     define('DS', DIRECTORY_SEPARATOR);
 }
 
-// Path constants to a few helpful things.
 define('ROOT', dirname(__DIR__) . DS);
-define('VENDOR', ROOT . 'vendor' . DS);
-define('CORE_PATH', ROOT . 'vendor' . DS . 'cakephp' . DS . 'cakephp' . DS);
-define('CAKE', CORE_PATH . 'src' . DS);
-define('TESTS', ROOT . 'tests');
-define('APP', ROOT . 'tests' . DS . 'test_app' . DS);
-define('APP_DIR', 'test_app');
-define('WEBROOT_DIR', 'webroot');
-define('WWW_ROOT', APP . 'webroot' . DS);
+const CORE_PATH = ROOT . 'vendor' . DS . 'cakephp' . DS . 'cakephp' . DS;
+const APP = ROOT . 'tests' . DS . 'test_app' . DS;
+const APP_DIR = 'test_app';
+const WWW_ROOT = APP . 'webroot' . DS;
 define('TMP', sys_get_temp_dir() . DS . 'me_tools' . DS);
-define('CONFIG', APP . 'config' . DS);
-define('CACHE', TMP . 'cache' . DS);
-define('LOGS', TMP . 'cakephp_log' . DS);
-define('SESSIONS', TMP . 'sessions' . DS);
-define('UPLOADS', TMP . 'uploads' . DS);
+const LOGS = TMP . 'cakephp_log' . DS;
+const UPLOADS = TMP . 'uploads' . DS;
 
-foreach ([
-    TMP . 'tests',
-    LOGS,
-    SESSIONS,
-    CACHE . 'models',
-    CACHE . 'persistent',
-    CACHE . 'views',
-    UPLOADS,
-] as $dir) {
+foreach ([TMP, LOGS, UPLOADS] as $dir) {
     if (!file_exists($dir)) {
         mkdir($dir, 0777, true);
     }
@@ -85,16 +68,6 @@ Cache::setConfig([
     '_cake_core_' => [
         'engine' => 'File',
         'prefix' => 'cake_core_',
-        'serialize' => true,
-    ],
-    '_cake_model_' => [
-        'engine' => 'File',
-        'prefix' => 'cake_model_',
-        'serialize' => true,
-    ],
-    'default' => [
-        'engine' => 'File',
-        'prefix' => 'default_',
         'serialize' => true,
     ],
 ]);
