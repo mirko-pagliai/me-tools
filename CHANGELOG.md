@@ -4,6 +4,7 @@
 * deleted `ComponentTestCase` and `HelperTestCase` classes;
 * deleted `BreadcrumbsHelper` class;
 * deleted `getMockForHelper()`, `getTableClassNameFromAlias()` and `getPluginName()` methods provided by the `MockTrait`;
+* `getAlias()` and `getOriginClassName()` method have moved from `MockTrait` to the `TestCase` class. Deleted the `MockTrait`;
 * deleted `is('ip')`, `is('matchingIp')`, `is('localhost')`, `is('prefix')` and `is('url')` request detector methods.
 
 ### 3.0.0-RC1
