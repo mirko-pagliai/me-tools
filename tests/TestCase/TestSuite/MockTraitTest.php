@@ -48,17 +48,6 @@ class MockTraitTest extends TestCase
 
     /**
      * @test
-     * @uses \MeTools\TestSuite\MockTrait::getMockForHelper()
-     */
-    public function testGetMockForHelper(): void
-    {
-        $result = $this->getMockForHelper('Cake\View\Helper\HtmlHelper');
-        $this->assertIsMock($result);
-        $this->assertInstanceOf(Helper::class, $result);
-    }
-
-    /**
-     * @test
      * @uses \MeTools\TestSuite\MockTrait::getOriginClassName()
      */
     public function testGetOriginClassName(): void
@@ -79,25 +68,5 @@ class MockTraitTest extends TestCase
         $this->expectException(AssertionFailedError::class);
         $this->expectExceptionMessage('Class `AnotherTestPlugin\Controller\MyExampleController` does not exist');
         $this->getOriginClassName(new MyExampleControllerTest('MyExampleControllerTest'));
-    }
-
-    /**
-     * @test
-     * @uses \MeTools\TestSuite\MockTrait::getPluginName()
-     */
-    public function testGetPluginName(): void
-    {
-        $this->assertSame('MeTools', $this->getPluginName(new TestCaseTest('MyTest')));
-        $this->assertSame('AnotherTestPlugin', $this->getPluginName(new MyExampleControllerTest('MyExampleControllerTest')));
-    }
-
-    /**
-     * @test
-     * @uses \MeTools\TestSuite\MockTrait::getTableClassNameFromAlias()
-     */
-    public function testGetTableClassNameFromAlias(): void
-    {
-        $this->assertSame('MeTools\Model\Table\PostsTable', $this->getTableClassNameFromAlias('Posts'));
-        $this->assertSame('MyPlugin\SubNamespace\Model\Table\PostsTable', $this->getTableClassNameFromAlias('Posts', 'MyPlugin/SubNamespace'));
     }
 }

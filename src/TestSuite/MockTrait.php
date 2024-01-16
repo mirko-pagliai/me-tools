@@ -44,22 +44,6 @@ trait MockTrait
     }
 
     /**
-     * Mocks an helper
-     * @param class-string<\Cake\View\Helper> $className Helper class name
-     * @param array<int, non-empty-string> $methods The list of methods to mock
-     * @param \Cake\View\View|null $View A `View` instance
-     * @return \Cake\View\Helper&\PHPUnit\Framework\MockObject\MockObject
-     * @noinspection PhpIncompatibleReturnTypeInspection
-     */
-    protected function getMockForHelper(string $className, array $methods = [], ?View $View = null): Helper
-    {
-        return $this->getMockBuilder($className)
-            ->onlyMethods($methods)
-            ->setConstructorArgs([$View ?: new View()])
-            ->getMock();
-    }
-
-    /**
      * Gets the class name for which a test is being performed, starting from a `TestCase` class.
      *
      * Example: class `MyPlugin\Test\TestCase\Controller\PagesControllerTest` will return `MyPlugin\Controller\PagesController`.
@@ -79,34 +63,5 @@ trait MockTrait
         }
 
         return $originClassName;
-    }
-
-    /**
-     * Gets the table class name from an alias
-     * @param string $alias Alias name
-     * @param string $plugin Plugin name. If left blank, it will be self-determined
-     * @return string
-     * @since 2.19.9
-     */
-    protected function getTableClassNameFromAlias(string $alias, string $plugin = ''): string
-    {
-        $plugin = str_replace('/', '\\', $plugin ?: $this->getPluginName($this));
-
-        return $plugin . '\\Model\\Table\\' . $alias . 'Table';
-    }
-
-    /**
-     * Gets the plugin name for which a test is being performed, starting from a `TestCase` class.
-     *
-     * Example: class `MyPlugin\MySubNamespace\Test\TestCase\MyExampleTest` will return `MyPlugin/MySubNamespace`.
-     * @param \MeTools\TestSuite\TestCase $testClass A `TestCase` instance
-     * @return string The plugin name for which a test is being performed
-     * @since 2.19.9
-     */
-    protected function getPluginName(TestCase $testClass): string
-    {
-        $className = get_class($testClass);
-
-        return str_replace('\\', '/', substr($className, 0, strpos($className, '\\Test\\TestCase') ?: 0));
     }
 }
