@@ -1,5 +1,8 @@
 # 3.x branch
 ## 3.0 branch
+### 3.0.1-RC2
+* deleted `is('ip')`, `is('matchingIp')`, `is('localhost')`, `is('prefix')` and `is('url')` request detector methods.
+
 ### 3.0.0-RC1
 * requires at least CakePHP 5.0 and PHPUnit 10;
 * added the `PaginatorHelper::hasPaginated()` method and fixed the `paginator.php` element;
