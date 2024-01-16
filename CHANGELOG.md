@@ -1,6 +1,7 @@
 # 3.x branch
 ## 3.0 branch
 ### 3.0.1-RC2
+* deleted `ComponentTestCase` and `HelperTestCase` classes;
 * deleted `is('ip')`, `is('matchingIp')`, `is('localhost')`, `is('prefix')` and `is('url')` request detector methods.
 
 ### 3.0.0-RC1
