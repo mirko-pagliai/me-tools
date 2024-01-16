@@ -16,45 +16,15 @@ declare(strict_types=1);
  */
 namespace MeTools\TestSuite;
 
-use Cake\Controller\ComponentRegistry;
-use Cake\Controller\Controller;
-use Cake\Event\EventInterface;
-use Cake\Http\ServerRequest;
 use Cake\TestSuite\Constraint\Session\SessionEquals;
 use Cake\TestSuite\IntegrationTestTrait as CakeIntegrationTestTrait;
-use MeTools\Controller\Component\UploaderComponent;
 
 /**
  * A trait intended to make integration tests of your controllers easier
  */
 trait IntegrationTestTrait
 {
-    use CakeIntegrationTestTrait {
-        CakeIntegrationTestTrait::controllerSpy as cakeControllerSpy;
-    }
-
-    /**
-     * Adds additional event spies to the controller/view event manager
-     * @param \Cake\Event\EventInterface $event A dispatcher event
-     * @param \Cake\Controller\Controller|null $controller Controller instance
-     * @return void
-     * @noinspection PhpUndefinedFieldInspection
-     */
-    public function controllerSpy(EventInterface $event, ?Controller $controller = null): void
-    {
-        $this->cakeControllerSpy($event, $controller);
-
-        if ($this->_controller->components()->has('Uploader')) {
-            /** @var \MeTools\Controller\Component\UploaderComponent&\PHPUnit\Framework\MockObject\MockObject $Uploader */
-            $Uploader = $this->getMockBuilder(UploaderComponent::class)
-                ->setConstructorArgs([new ComponentRegistry(new Controller(new ServerRequest()))])
-                ->addMethods(['move_uploaded_file'])
-                ->getMock();
-
-            $Uploader->method('move_uploaded_file')->willReturnCallback(fn(string $filename, string $destination): bool => rename($filename, $destination));
-            $this->_controller->Uploader = $Uploader;
-        }
-    }
+    use CakeIntegrationTestTrait;
 
     /**
      * Asserts that a cookie is empty
