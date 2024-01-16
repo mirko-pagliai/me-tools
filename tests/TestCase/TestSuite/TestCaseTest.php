@@ -68,7 +68,7 @@ class TestCaseTest extends TestCase
         }
 
         $this->expectException(ExpectationFailedException::class);
-        $this->expectExceptionMessage('Failed asserting that \'cat dog bird\' [ASCII](length: 12) contains "bad word" [ASCII](length: 8).');
+        $this->expectExceptionMessageMatches('/^Failed asserting that \'cat dog bird\'( \[ASCII\]\(length: 12\))? contains "bad word"( \[ASCII\]\(length: 8\))?\.$/');
         $this->TestCase->assertLogContains('bad word', LOGS . 'debug.log');
     }
 
