@@ -41,7 +41,9 @@ class TestCaseTest extends TestCase
      */
     public function setUp(): void
     {
-        $this->TestCase ??= $this->getMockForAbstractClass(TestCase::class, ['MyTest']);
+        $this->TestCase ??= new class ('MyTest') extends TestCase
+        {
+        };
     }
 
     /**
