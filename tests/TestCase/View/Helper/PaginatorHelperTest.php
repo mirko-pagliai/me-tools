@@ -19,15 +19,19 @@ use Cake\Http\ServerRequest;
 use Cake\ORM\ResultSet;
 use Cake\Routing\Router;
 use Cake\View\View;
-use MeTools\TestSuite\HelperTestCase;
+use MeTools\TestSuite\TestCase;
 use MeTools\View\Helper\PaginatorHelper;
 
 /**
  * PaginatorHelperTest class
- * @property \MeTools\View\Helper\PaginatorHelper $Helper
  */
-class PaginatorHelperTest extends HelperTestCase
+class PaginatorHelperTest extends TestCase
 {
+    /**
+     * @var \MeTools\View\Helper\PaginatorHelper
+     */
+    protected PaginatorHelper $Helper;
+
     /**
      * @inheritDoc
      */
@@ -60,6 +64,8 @@ class PaginatorHelperTest extends HelperTestCase
             'hasNextPage' => true,
             'pageCount' => 7,
         ]);
+
+        $this->Helper ??= new PaginatorHelper(new View());
         $this->Helper->setPaginated($PaginatedResult);
     }
 

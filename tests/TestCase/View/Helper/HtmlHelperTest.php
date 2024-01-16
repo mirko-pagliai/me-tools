@@ -14,14 +14,30 @@ declare(strict_types=1);
  */
 namespace MeTools\Test\TestCase\View\Helper;
 
-use MeTools\TestSuite\HelperTestCase;
+use Cake\View\View;
+use MeTools\TestSuite\TestCase;
+use MeTools\View\Helper\HtmlHelper;
 
 /**
  * HtmlHelperTest class
- * @property \MeTools\View\Helper\HtmlHelper $Helper
  */
-class HtmlHelperTest extends HelperTestCase
+class HtmlHelperTest extends TestCase
 {
+    /**
+     * @var \MeTools\View\Helper\HtmlHelper
+     */
+    protected HtmlHelper $Helper;
+
+    /**
+     * @inheritDoc
+     */
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        $this->Helper ??= new HtmlHelper(new View());
+    }
+
     /**
      * @test
      * @uses \MeTools\View\Helper\HtmlHelper::__call()
