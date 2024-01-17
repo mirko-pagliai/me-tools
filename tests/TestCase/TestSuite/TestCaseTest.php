@@ -19,7 +19,6 @@ use App\Test\TestCase\BadTestClass;
 use App\Test\TestCase\Controller\PagesControllerTest;
 use App\Test\TestCase\Model\Table\PostsTableTest;
 use App\Test\TestCase\Model\Validation\PostValidatorTest;
-use App\Test\TestCase\View\AppViewTest;
 use MeTools\Test\TestCase\View\Helper\HtmlHelperTest;
 use MeTools\TestSuite\TestCase;
 use PHPUnit\Framework\AssertionFailedError;
@@ -44,23 +43,6 @@ class TestCaseTest extends TestCase
         $this->TestCase ??= new class ('MyTest') extends TestCase
         {
         };
-    }
-
-    /**
-     * @test
-     * @uses \MeTools\TestSuite\TestCase::__get()
-     */
-    public function testGetMagicMethod(): void
-    {
-        $AppViewTest = new AppViewTest('AppViewTest');
-        $this->assertSame('App\View\AppView', $AppViewTest->originClassName);
-        $this->assertSame('App', $AppViewTest->alias);
-
-        //With a no existing property
-        $this->expectException(AssertionFailedError::class);
-        $this->expectExceptionMessage('Property `noExistingProperty` does not exist');
-        /** @noinspection PhpUndefinedFieldInspection */
-        $AppViewTest->noExistingProperty;
     }
 
     /**

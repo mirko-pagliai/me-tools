@@ -3,6 +3,8 @@
 ### 3.0.1-RC2
 * `getAlias()` and `getOriginClassName()` method have moved from `MockTrait` to the `TestCase` class. These methods no
   longer take a parameter, but return a valid result for the test class that is executing them;
+* deleted `TestCase::__get()` magic method (and, consequently, also access to the `$alias` and `$originClassName`
+  properties provided by this method). Use instead `getAlias()` and `getOriginClassName()` methods;
 * deleted `ComponentTestCase` and `HelperTestCase` classes;
 * deleted `BreadcrumbsHelper` class;
 * deleted `getMockForHelper()`, `getTableClassNameFromAlias()` and `getPluginName()` methods provided by the `MockTrait`;

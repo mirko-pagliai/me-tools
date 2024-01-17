@@ -20,47 +20,22 @@ use Tools\TestSuite\TestTrait;
 
 /**
  * TestCase class
- * @property string $alias The alias name for which a test is being performed
- * @property class-string $originClassName The class name for which a test is being performed
  */
 abstract class TestCase extends CakeTestCase
 {
     use TestTrait;
 
     /**
-     * @var array
+     * The alias name for which a test is being performed
+     * @var string
      */
-    protected array $_cache = [];
+    protected string $alias;
 
     /**
-     * Get magic method.
-     *
-     * It provides access to the cached properties of the test.
-     * @param string $name Property name
-     * @return string
-     * @since 2.23.0
-     * @throws \ReflectionException
-     * @throws \PHPUnit\Framework\AssertionFailedError
+     * The class name for which a test is being performed
+     * @var class-string<\MeTools\TestSuite\TestCase>
      */
-    public function __get(string $name): mixed
-    {
-        switch ($name) {
-            case 'alias':
-                if (empty($this->_cache['alias'])) {
-                    $this->_cache['alias'] = $this->getAlias();
-                }
-
-                return $this->_cache['alias'];
-            case 'originClassName':
-                if (empty($this->_cache['originClassName'])) {
-                    $this->_cache['originClassName'] = $this->getOriginClassName();
-                }
-
-                return $this->_cache['originClassName'];
-        }
-
-        $this->fail('Property `' . $name . '` does not exist');
-    }
+    protected string $originClassName;
 
     /**
      * @inheritDoc
@@ -101,12 +76,14 @@ abstract class TestCase extends CakeTestCase
      */
     protected function getAlias(): string
     {
-        $alias = preg_replace('/^(\w+)(Cell|Controller|Helper|Table|Validator|View)Test$/', '$1', get_class_short_name($this), -1, $count);
-        if (!$alias || !$count) {
-            $this->fail('Unable to get the alias for `' . get_class($this) . '`');
+        if (empty($this->alias)) {
+            $this->alias = preg_replace('/^(\w+)(Cell|Controller|Helper|Table|Validator|View)Test$/', '$1', get_class_short_name($this), -1, $count) ?: '';
+            if (!$this->alias || !$count) {
+                $this->fail('Unable to get the alias for `' . get_class($this) . '`');
+            }
         }
 
-        return $alias;
+        return $this->alias;
     }
 
     /**
@@ -119,14 +96,19 @@ abstract class TestCase extends CakeTestCase
      */
     protected function getOriginClassName(): string
     {
-        $originClassName = preg_replace('/^([\w\\\\]+)Test\\\\TestCase\\\\([\w\\\\]+)Test$/', '$1$2', get_class($this), -1, $count);
+        if (empty($this->originClassName)) {
+            /** @var class-string<\MeTools\TestSuite\TestCase> $originClassName */
+            $originClassName = preg_replace('/^([\w\\\\]+)Test\\\\TestCase\\\\([\w\\\\]+)Test$/', '$1$2', get_class($this), -1, $count) ?: '';
 
-        if (!$originClassName || !$count) {
-            $this->fail('Unable to determine the origin class for `' . get_class($this) . '`');
-        } elseif (!class_exists($originClassName)) {
-            $this->fail('Class `' . $originClassName . '` does not exist');
+            if (!$originClassName || !$count) {
+                $this->fail('Unable to determine the origin class for `' . get_class($this) . '`');
+            } elseif (!class_exists($originClassName)) {
+                $this->fail('Class `' . $originClassName . '` does not exist');
+            }
+
+            $this->originClassName = $originClassName;
         }
 
-        return $originClassName;
+        return $this->originClassName;
     }
 }
