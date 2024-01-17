@@ -32,7 +32,7 @@ use Tools\Filesystem;
 class TestCaseTest extends TestCase
 {
     /**
-     * @var \MeTools\TestSuite\TestCase&\PHPUnit\Framework\MockObject\MockObject
+     * @var \MeTools\TestSuite\TestCase
      */
     protected TestCase $TestCase;
 
@@ -97,14 +97,21 @@ class TestCaseTest extends TestCase
      */
     public function testGetAlias(): void
     {
-        $this->assertSame('Pages', $this->TestCase->getAlias(new PagesControllerTest('PagesControllerTest')));
-        $this->assertSame('Html', $this->TestCase->getAlias(new HtmlHelperTest('HtmlHelperTest')));
-        $this->assertSame('Posts', $this->TestCase->getAlias(new PostsTableTest('PostsTableTest')));
-        $this->assertSame('Post', $this->TestCase->getAlias(new PostValidatorTest('PostValidatorTest')));
+        foreach ([
+            'Pages' => PagesControllerTest::class,
+            'Html' => HtmlHelperTest::class,
+            'Posts' => PostsTableTest::class,
+            'Post' => PostValidatorTest::class,
+         ] as $expectedAlias => $testClassName) {
+            /** @var \MeTools\TestSuite\TestCase $TestClass */
+            $TestClass = new $testClassName($expectedAlias . 'Test');
+            $this->assertSame($expectedAlias, $TestClass->getAlias());
+        }
 
         $this->expectException(AssertionFailedError::class);
         $this->expectExceptionMessage('Unable to get the alias for `App\Test\TestCase\BadTestClass`');
-        $this->TestCase->getAlias(new BadTestClass('BadTest'));
+        $TestClass = new BadTestClass('BadTest');
+        $TestClass->getAlias();
     }
 
     /**
@@ -113,11 +120,13 @@ class TestCaseTest extends TestCase
      */
     public function testGetOriginClassName(): void
     {
-        $this->assertSame(TestCase::class, $this->TestCase->getOriginClassName(new TestCaseTest('MyTest')));
+        $TestClass = new TestCaseTest('MyTest');
+        $this->assertSame(TestCase::class, $TestClass->getOriginClassName());
 
         $this->expectException(AssertionFailedError::class);
         $this->expectExceptionMessage('Unable to determine the origin class for `App\Test\TestCase\BadTestClass`');
-        $this->TestCase->getOriginClassName(new BadTestClass('BadTest'));
+        $TestClass = new BadTestClass('BadTest');
+        $TestClass->getOriginClassName();
     }
 
     /**
@@ -128,6 +137,7 @@ class TestCaseTest extends TestCase
     {
         $this->expectException(AssertionFailedError::class);
         $this->expectExceptionMessage('Class `AnotherTestPlugin\Controller\MyExampleController` does not exist');
-        $this->TestCase->getOriginClassName(new MyExampleControllerTest('MyExampleControllerTest'));
+        $TestClass = new MyExampleControllerTest('MyExampleControllerTest');
+        $TestClass->getOriginClassName();
     }
 }

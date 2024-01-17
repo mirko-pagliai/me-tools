@@ -1,10 +1,12 @@
 # 3.x branch
 ## 3.0 branch
 ### 3.0.1-RC2
+* `getAlias()` and `getOriginClassName()` method have moved from `MockTrait` to the `TestCase` class. These methods no
+  longer take a parameter, but return a valid result for the test class that is executing them;
 * deleted `ComponentTestCase` and `HelperTestCase` classes;
 * deleted `BreadcrumbsHelper` class;
 * deleted `getMockForHelper()`, `getTableClassNameFromAlias()` and `getPluginName()` methods provided by the `MockTrait`;
-* `getAlias()` and `getOriginClassName()` method have moved from `MockTrait` to the `TestCase` class. Deleted the `MockTrait`;
+* deleted the `MockTrait` (because methods have been moved or deleted);
 * deleted `is('ip')`, `is('matchingIp')`, `is('localhost')`, `is('prefix')` and `is('url')` request detector methods.
 
 ### 3.0.0-RC1

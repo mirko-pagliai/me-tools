@@ -8,4 +8,7 @@
     <rule ref="CakePHP.Functions.ClosureDeclaration.SpaceAfterFunction">
         <severity>0</severity>
     </rule>
+    <rule ref="SlevomatCodingStandard.Classes.ModernClassNameReference.ClassNameReferencedViaFunctionCall">
+        <exclude-pattern>/src/TestSuite/TestCase.php</exclude-pattern>
+    </rule>
 </ruleset>
