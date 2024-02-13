@@ -14,18 +14,35 @@ declare(strict_types=1);
  */
 namespace MeTools\Test\TestCase\Controller\Component;
 
-use MeTools\TestSuite\ComponentTestCase;
+use Cake\Controller\ComponentRegistry;
+use Cake\Controller\Controller;
+use Cake\Http\ServerRequest;
+use MeTools\Controller\Component\FlashComponent;
+use MeTools\TestSuite\TestCase;
 
 /**
  * FlashComponentTest class
- * @property \MeTools\Controller\Component\FlashComponent $Component
  */
-class FlashComponentTest extends ComponentTestCase
+class FlashComponentTest extends TestCase
 {
     /**
-     * Tests for `__call()` method
-     * @uses \MeTools\Controller\Component\FlashComponent::__call()
+     * @var \MeTools\Controller\Component\FlashComponent
+     */
+    protected FlashComponent $Component;
+
+    /**
+     * @inheritDoc
+     */
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        $this->Component ??= new FlashComponent(new ComponentRegistry(new Controller(new ServerRequest())));
+    }
+
+    /**
      * @test
+     * @uses \MeTools\Controller\Component\FlashComponent::__call()
      */
     public function testMagicCall(): void
     {

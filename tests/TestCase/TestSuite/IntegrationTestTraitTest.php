@@ -15,19 +15,17 @@ declare(strict_types=1);
  */
 namespace MeTools\Test\TestCase\TestSuite;
 
-use Cake\Controller\Controller;
-use Cake\Event\Event;
 use Cake\Http\Cookie\Cookie;
 use Cake\Http\Response;
 use Cake\Http\Session;
 use MeTools\TestSuite\IntegrationTestTrait;
 use MeTools\TestSuite\TestCase;
 use PHPUnit\Framework\AssertionFailedError;
-use Tools\Filesystem;
 use Tools\TestSuite\ReflectionTrait;
 
 /**
  * IntegrationTestTraitTest class
+ * @property \Cake\Http\Session $_requestSession
  * @property \Cake\Http\Response $_response
  */
 class IntegrationTestTraitTest extends TestCase
@@ -36,35 +34,13 @@ class IntegrationTestTraitTest extends TestCase
     use ReflectionTrait;
 
     /**
-     * Called before every test method
-     * @return void
+     * @inheritDoc
      */
     protected function setUp(): void
     {
         parent::setUp();
 
-        $this->_response = new Response();
-    }
-
-    /**
-     * @test
-     * @uses \MeTools\TestSuite\IntegrationTestTrait::controllerSpy()
-     * @noinspection PhpUndefinedFieldInspection
-     */
-    public function testControllerSpy(): void
-    {
-        $this->_controller = new Controller();
-        $this->_controller->loadComponent('MeTools.Uploader');
-        $this->controllerSpy(new Event('myEvent'), $this->_controller);
-
-        $this->assertIsMock($this->_controller->Uploader);
-        $source = Filesystem::createTmpFile();
-        $destination = TMP . 'example2';
-        $this->assertFileDoesNotExist($destination);
-        $this->invokeMethod($this->_controller->Uploader, 'move_uploaded_file', [$source, $destination]);
-        $this->assertFileDoesNotExist($source);
-        $this->assertFileExists($destination);
-        unlink($destination);
+        $this->_response ??= new Response();
     }
 
     /**
@@ -74,7 +50,6 @@ class IntegrationTestTraitTest extends TestCase
     public function testAssertCookieIsEmpty(): void
     {
         $this->assertCookieIsEmpty('test-cookie');
-
         $this->_response = $this->_response->withCookie(new Cookie('test-cookie', ''));
         $this->assertCookieIsEmpty('test-cookie');
 

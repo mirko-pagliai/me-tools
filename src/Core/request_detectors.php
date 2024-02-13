@@ -14,7 +14,6 @@ declare(strict_types=1);
  */
 
 use Cake\Http\ServerRequest;
-use Cake\Routing\Router;
 
 /**
  * `isAction()` detector.
@@ -37,10 +36,10 @@ use Cake\Routing\Router;
  * </code>
  * returns `true` if the current action is `edit` or `delete` and if the current controller is `Pages`, otherwise `false`.
  */
-ServerRequest::addDetector('action', function (ServerRequest $request, $action, $controller = null): bool {
-    $action = in_array($request->getParam('action'), (array)$action);
+ServerRequest::addDetector('action', function (ServerRequest $Request, string|array $action, string|array|null $controller = null): bool {
+    $isAction = in_array($Request->getParam('action'), (array)$action);
 
-    return $controller ? $action && $request->is('controller', $controller) : $action;
+    return $controller ? $isAction && $Request->is('controller', $controller) : $isAction;
 });
 
 /**
@@ -60,11 +59,11 @@ ServerRequest::addDetector('action', function (ServerRequest $request, $action, 
  * </code>
  * returns `true` if the current action is `delete` and if the current controller is `Pages`, otherwise `false`.
  */
-ServerRequest::addDetector('index', fn(ServerRequest $request, $controller = null): bool => $request->is('action', 'index', $controller));
-ServerRequest::addDetector('add', fn(ServerRequest $request, $controller = null): bool => $request->is('action', 'add', $controller));
-ServerRequest::addDetector('edit', fn(ServerRequest $request, $controller = null): bool => $request->is('action', 'edit', $controller));
-ServerRequest::addDetector('delete', fn(ServerRequest $request, $controller = null): bool => $request->is('action', 'delete', $controller));
-ServerRequest::addDetector('view', fn(ServerRequest $request, $controller = null): bool => $request->is('action', 'view', $controller));
+ServerRequest::addDetector('index', fn(ServerRequest $Request, string|array|null $controller = null): bool => $Request->is('action', 'index', $controller));
+ServerRequest::addDetector('add', fn(ServerRequest $Request, string|array|null $controller = null): bool => $Request->is('action', 'add', $controller));
+ServerRequest::addDetector('edit', fn(ServerRequest $Request, string|array|null $controller = null): bool => $Request->is('action', 'edit', $controller));
+ServerRequest::addDetector('delete', fn(ServerRequest $Request, string|array|null $controller = null): bool => $Request->is('action', 'delete', $controller));
+ServerRequest::addDetector('view', fn(ServerRequest $Request, string|array|null $controller = null): bool => $Request->is('action', 'view', $controller));
 
 /**
  * Adds `isController()` detector.
@@ -78,85 +77,4 @@ ServerRequest::addDetector('view', fn(ServerRequest $request, $controller = null
  * </code>
  * returns `true` if the current controller is `Pages`, otherwise `false`.
  */
-ServerRequest::addDetector('controller', fn(ServerRequest $request, $controller): bool => in_array($request->getParam('controller'), (array)$controller));
-
-/**
- * `isIp()` detector.
- *
- * Checks if the specified client IP is the current client IP.
- * The client IP can be passed as string or array.
- *
- * Examples:
- * <code>
- * $this->getRequest()->is('ip', '192.168.0.100');
- * $this->getRequest()->is('ip', ['192.168.0.100', '192.168.1.100']);
- * </code>
- */
-ServerRequest::addDetector('ip', fn(ServerRequest $request, $ip): bool => in_array($request->clientIp(), (array)$ip));
-
-/**
- * `isMatchingIp()` detector.
- *
- * This works like the `isIp()` detector, but can take the use of the `*` asterisk and check the IP address with a regex.
- * For each asterisk `*` it will expect a sequence between 1 and 3 digits (`\d{1,3}`).
- * The client IP can be passed as string or array.
- *
- * Examples:
- * <code>
- * $this->getRequest()->is('matchingIp', ['10.0.*.*', '192.168.0.*']);
- * </code>
- *
- * In this case the checked regex will be:
- * <code>
- * /^(10\.0\.\d{1,3}\.\d{1,3}|192\.168\.0\.\d{1,3})$/
- * </code>
- * and will return `true` for all IP addresses starting with `10.0` or `192.168.0`.
- *
- * Pay particular attention not to overuse the `*` asterisks to avoid unexpected results.
- */
-ServerRequest::addDetector('matchingIp', function (ServerRequest $request, $wildCardIp): bool {
-    $wildCardIp = array_map(fn(string $value): string => str_replace(['.', '*'], ['\.', '\d{1,3}'], $value), (array)$wildCardIp);
-
-    return preg_match(sprintf('/^(%s)$/', implode('|', $wildCardIp)), $request->clientIp()) === 1;
-});
-
-/**
- * `isLocalhost()` detector.
- *
- * Checks if the client IP is the localhost.
- */
-ServerRequest::addDetector('localhost', fn(ServerRequest $request): bool => $request->is('ip', ['127.0.0.1', '::1']));
-
-/**
- * `isPrefix()` detector.
- *
- * Checks if the specified prefix is the current prefix.
- * The prefix name can be passed as string or array.
- *
- * Example:
- * <code>
- * $this->getRequest()->isPrefix(['admin', 'manager']);
- * </code>
- */
-ServerRequest::addDetector('prefix', fn(ServerRequest $request, $prefix): bool => in_array($request->getParam('prefix'), (array)$prefix));
-
-/**
- * `isUrl()` detector.
- *
- * Checks if the specified url is the current url.
- *
- * The first argument is the url to be verified as an array of parameters or a
- *  string. The second argument allows you to not remove the query string from
- *  the current url.
- *
- * Example:
- * <code>
- * $this->getRequest()->isUrl(['_name' => 'posts']);
- * </code>
- */
-ServerRequest::addDetector('url', function (ServerRequest $request, $url, bool $removeQueryString = true): bool {
-    $current = rtrim($request->getEnv('REQUEST_URI') ?: '', '/');
-    $current = $removeQueryString ? explode('?', $current, 2)[0] : $current;
-
-    return rtrim(Router::url($url), '/') === $current;
-});
+ServerRequest::addDetector('controller', fn(ServerRequest $Request, string|array $controller): bool => in_array($Request->getParam('controller'), (array)$controller));

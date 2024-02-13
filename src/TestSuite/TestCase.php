@@ -20,48 +20,22 @@ use Tools\TestSuite\TestTrait;
 
 /**
  * TestCase class
- * @property string $alias The alias name for which a test is being performed
- * @property class-string $originClassName The class name for which a test is being performed
  */
 abstract class TestCase extends CakeTestCase
 {
-    use MockTrait;
     use TestTrait;
 
     /**
-     * @var array
+     * The alias name for which a test is being performed
+     * @var string
      */
-    protected array $_cache = [];
+    protected string $alias;
 
     /**
-     * Get magic method.
-     *
-     * It provides access to the cached properties of the test.
-     * @param string $name Property name
-     * @return string
-     * @since 2.23.0
-     * @throws \ReflectionException
-     * @throws \PHPUnit\Framework\AssertionFailedError
+     * The class name for which a test is being performed
+     * @var class-string<\MeTools\TestSuite\TestCase>
      */
-    public function __get(string $name)
-    {
-        switch ($name) {
-            case 'alias':
-                if (empty($this->_cache['alias'])) {
-                    $this->_cache['alias'] = $this->getAlias($this);
-                }
-
-                return $this->_cache['alias'];
-            case 'originClassName':
-                if (empty($this->_cache['originClassName'])) {
-                    $this->_cache['originClassName'] = $this->getOriginClassName($this);
-                }
-
-                return $this->_cache['originClassName'];
-        }
-
-        $this->fail('Property `' . $name . '` does not exist');
-    }
+    protected string $originClassName;
 
     /**
      * @inheritDoc
@@ -89,5 +63,52 @@ abstract class TestCase extends CakeTestCase
     {
         $this->assertFileIsReadable($filename);
         $this->assertStringContainsString($expectedContent, file_get_contents($filename) ?: '', $message);
+    }
+
+    /**
+     * Gets the alias name for which a test is being performed, starting from a `TestCase` instance.
+     *
+     * Example: class `MyPlugin\Test\TestCase\Controller\PagesControllerTest`  will return `Pages`.
+     * @return string The alias name for which a test is being performed
+     * @throws \PHPUnit\Framework\AssertionFailedError
+     * @throws \ReflectionException
+     * @since 2.19.9
+     */
+    protected function getAlias(): string
+    {
+        if (empty($this->alias)) {
+            $this->alias = preg_replace('/^(\w+)(Cell|Controller|Helper|Table|Validator|View)Test$/', '$1', get_class_short_name($this), -1, $count) ?: '';
+            if (!$this->alias || !$count) {
+                $this->fail('Unable to get the alias for `' . get_class($this) . '`');
+            }
+        }
+
+        return $this->alias;
+    }
+
+    /**
+     * Gets the class name for which a test is being performed, starting from a `TestCase` class.
+     *
+     * Example: class `MyPlugin\Test\TestCase\Controller\PagesControllerTest` will return `MyPlugin\Controller\PagesController`.
+     * @return class-string The class name for which a test is being performed
+     * @since 2.19.2
+     * @throw \PHPUnit\Framework\AssertionFailedError
+     */
+    protected function getOriginClassName(): string
+    {
+        if (empty($this->originClassName)) {
+            /** @var class-string<\MeTools\TestSuite\TestCase> $originClassName */
+            $originClassName = preg_replace('/^([\w\\\\]+)Test\\\\TestCase\\\\([\w\\\\]+)Test$/', '$1$2', get_class($this), -1, $count) ?: '';
+
+            if (!$originClassName || !$count) {
+                $this->fail('Unable to determine the origin class for `' . get_class($this) . '`');
+            } elseif (!class_exists($originClassName)) {
+                $this->fail('Class `' . $originClassName . '` does not exist');
+            }
+
+            $this->originClassName = $originClassName;
+        }
+
+        return $this->originClassName;
     }
 }

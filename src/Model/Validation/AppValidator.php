@@ -17,6 +17,8 @@ declare(strict_types=1);
 namespace MeTools\Model\Validation;
 
 use Cake\Validation\Validator;
+use Closure;
+use function Cake\I18n\__d;
 
 /**
  * Validator object encapsulates all methods related to data validations for a model.
@@ -24,7 +26,7 @@ use Cake\Validation\Validator;
  * This class provides additional methods compared to the base one.
  *
  * Remember to set this validator as the default validator in the table class or make your table extend `AppTable`.
- * @see https://book.cakephp.org/4/en/orm/validation.html#default-validator-class
+ * @see https://book.cakephp.org/5/en/orm/validation.html#default-validator-class
  * @see \MeTools\Test\TestCase\Model\Table\AppTable
  */
 class AppValidator extends Validator
@@ -34,10 +36,10 @@ class AppValidator extends Validator
      * @param string $field The field you want to apply the rule to.
      * @param string $secondField Another field to check $field against
      * @param string|null $message The error message when the rule fails.
-     * @return \MeTools\Model\Validation\AppValidator
+     * @return self
      * @since 2.25.4
      */
-    public function allowEmptyStringOnEmptyField(string $field, string $secondField, ?string $message = null)
+    public function allowEmptyStringOnEmptyField(string $field, string $secondField, ?string $message = null): AppValidator
     {
         return $this->allowEmptyString($field, $message, fn(array $context) => empty($context['data'][$secondField]));
     }
@@ -46,12 +48,12 @@ class AppValidator extends Validator
      * Add a rule that ensure a string begins with a capitalized letter.
      * @param string $field The field you want to apply the rule to.
      * @param string|null $message The error message when the rule fails.
-     * @param callable|string|null $when Either 'create' or 'update' or a callable that returns
+     * @param \Closure|string|null $when Either 'create' or 'update' or a callable that returns
      *   true when the validation rule should be applied.
-     * @return $this
+     * @return self
      * @since 2.25.4
      */
-    public function firstLetterCapitalized(string $field, ?string $message = null, $when = null)
+    public function firstLetterCapitalized(string $field, ?string $message = null, Closure|string|null $when = null): AppValidator
     {
         $extra = array_filter(['on' => $when, 'message' => $message]);
 
@@ -65,11 +67,11 @@ class AppValidator extends Validator
      * Add a rule that ensure a string does not contain a reserved word
      * @param string $field The field you want to apply the rule to.
      * @param string|null $message The error message when the rule fails.
-     * @param callable|string|null $when Either 'create' or 'update' or a callable that returns
-     *   true when the validation rule should be applied.
-     * @return $this
+     * @param \Closure|string|null $when Either 'create' or 'update' or a callable that returns
+     *    true when the validation rule should be applied.
+     * @return self
      */
-    public function notReservedWords(string $field, ?string $message = null, $when = null)
+    public function notReservedWords(string $field, ?string $message = null, Closure|string|null $when = null): AppValidator
     {
         $extra = array_filter(['on' => $when, 'message' => $message]);
 
@@ -84,13 +86,13 @@ class AppValidator extends Validator
      * @param string $field The field you want to apply the rule to.
      * @param array $range The inclusive minimum and maximum length you want permitted.
      * @param string|null $message The error message when the rule fails.
-     * @param callable|string|null $when Either 'create' or 'update' or a callable that returns
-     *   true when the validation rule should be applied.
-     * @return $this
-     * @see Validator::lengthBetween()
+     * @param \Closure|string|null $when Either 'create' or 'update' or a callable that returns
+     *    true when the validation rule should be applied.
+     * @return static
      * @throws \InvalidArgumentException
+     * @see Validator::lengthBetween()
      */
-    public function lengthBetween(string $field, array $range, ?string $message = null, $when = null)
+    public function lengthBetween(string $field, array $range, ?string $message = null, Closure|string|null $when = null): Validator
     {
         $message = $message ?: __d('me_tools', 'Must be between {0} and {1} chars', array_value_first($range), array_value_last($range));
 
@@ -104,11 +106,11 @@ class AppValidator extends Validator
      * This rule can be applied, for example, to the first or last name of a `User` or `Customer`.
      * @param string $field The field you want to apply the rule to.
      * @param string|null $message The error message when the rule fails.
-     * @param callable|string|null $when Either 'create' or 'update' or a callable that returns
-     *   true when the validation rule should be applied.
-     * @return $this
+     * @param \Closure|string|null $when Either 'create' or 'update' or a callable that returns
+     *    true when the validation rule should be applied.
+     * @return self
      */
-    public function personName(string $field, ?string $message = null, $when = null)
+    public function personName(string $field, ?string $message = null, Closure|string|null $when = null): AppValidator
     {
         $extra = array_filter(['on' => $when, 'message' => $message]);
 
@@ -127,11 +129,11 @@ class AppValidator extends Validator
      * Adds a rule that ensure is valid "slug" (lowercase letters, numbers, dash. Has to begin with a lowercase letter)
      * @param string $field The field you want to apply the rule to.
      * @param string|null $message The error message when the rule fails.
-     * @param callable|string|null $when Either 'create' or 'update' or a callable that returns
-     *   true when the validation rule should be applied.
-     * @return $this
+     * @param \Closure|string|null $when Either 'create' or 'update' or a callable that returns
+     *    true when the validation rule should be applied.
+     * @return self
      */
-    public function slug(string $field, ?string $message = null, $when = null)
+    public function slug(string $field, ?string $message = null, Closure|string|null $when = null): AppValidator
     {
         $extra = array_filter(['on' => $when, 'message' => $message]);
 
@@ -153,11 +155,11 @@ class AppValidator extends Validator
      * This rule can be applied, for example, to the `title` of a `Post` or a `Category`.
      * @param string $field The field you want to apply the rule to.
      * @param string|null $message The error message when the rule fails.
-     * @param callable|string|null $when Either 'create' or 'update' or a callable that returns
-     *   true when the validation rule should be applied.
-     * @return $this
+     * @param \Closure|string|null $when Either 'create' or 'update' or a callable that returns
+     *    true when the validation rule should be applied.
+     * @return self
      */
-    public function title(string $field, ?string $message = null, $when = null)
+    public function title(string $field, ?string $message = null, Closure|string|null $when = null): AppValidator
     {
         $extra = array_filter(['on' => $when, 'message' => $message]);
 
@@ -176,11 +178,11 @@ class AppValidator extends Validator
      * Adds a rule that ensure a password is a valid password
      * @param string $field The field you want to apply the rule to.
      * @param string|null $message The error message when the rule fails.
-     * @param callable|string|null $when Either 'create' or 'update' or a callable that returns
-     *   true when the validation rule should be applied.
-     * @return $this
+     * @param \Closure|string|null $when Either 'create' or 'update' or a callable that returns
+     *    true when the validation rule should be applied.
+     * @return self
      */
-    public function validPassword(string $field, ?string $message = null, $when = null)
+    public function validPassword(string $field, ?string $message = null, Closure|string|null $when = null): AppValidator
     {
         $this->minLength($field, 8, $message ?: __d('me_tools', 'Must be at least {0} chars', 8), $when);
 

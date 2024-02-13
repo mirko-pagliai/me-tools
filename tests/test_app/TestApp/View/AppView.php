@@ -5,6 +5,10 @@ namespace App\View;
 
 use Cake\View\View;
 
+/**
+ * @property \MeTools\View\Helper\HtmlHelper $Html
+ * @property \MeTools\View\Helper\PaginatorHelper $Paginator
+ */
 class AppView extends View
 {
 }

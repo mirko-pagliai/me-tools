@@ -1,3 +1,38 @@
+# 3.x branch
+## 3.0 branch
+### 3.0.2
+* fixed a bug for `FormHelper::createInline()` method.
+
+### 3.0.1-RC2
+* `getAlias()` and `getOriginClassName()` method have moved from `MockTrait` to the `TestCase` class. These methods no
+  longer take a parameter, but return a valid result for the test class that is executing them;
+* deleted `TestCase::__get()` magic method (and, consequently, also access to the `$alias` and `$originClassName`
+  properties provided by this method). Use instead `getAlias()` and `getOriginClassName()` methods;
+* deleted `ComponentTestCase` and `HelperTestCase` classes;
+* deleted `BreadcrumbsHelper` class;
+* deleted `getMockForHelper()`, `getTableClassNameFromAlias()` and `getPluginName()` methods provided by the `MockTrait`;
+* deleted the `MockTrait` (because methods have been moved or deleted);
+* deleted `is('ip')`, `is('matchingIp')`, `is('localhost')`, `is('prefix')` and `is('url')` request detector methods.
+
+### 3.0.0-RC1
+* requires at least CakePHP 5.0 and PHPUnit 10;
+* added the `PaginatorHelper::hasPaginated()` method and fixed the `paginator.php` element;
+* added all possible typehints;
+* deleted `AppTable`class (so the `AppTable::findActive()` method no longer exist);
+* deleted `BBCode` class;
+* deleted `CreateDirectoriesCommand`, `CreateRobotsCommand`, `CreateVendorsLinksCommand`, `RunAllCommand` and
+  `SetPermissionsCommand` classes. So me-tools no longer provides any command classes;
+* deleted `Command` class;
+* deleted `CommandTestCase` class;
+* deleted the `Configure` and `Plugin` classes (simply use the ones provided by CakePHP);
+* deleted the `LibraryHelper`;
+* deleted the `Youtube` class;
+* method `HtmlHelper::shareaholic()` no longer exist;
+* `MeTools.WritableDirs` and `MeTools.VendorLinks` configuration keys and `VENDOR` and `WWW_VENDOR` constants are no
+  longer defined by me-tools;
+* deleted `bootstrap-datetimepicker.min.js`, `ckeditor_init.php` and `slugify.js` files from `webroot/js/`;
+* deleted `ckeditor/build-config.js` and `i18n_constants.php` files from `config/`.
+
 # 2.x branch
 ## 2.26 branch
 ### 2.26.0

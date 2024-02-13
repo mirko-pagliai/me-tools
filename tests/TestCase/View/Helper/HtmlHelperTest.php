@@ -14,14 +14,30 @@ declare(strict_types=1);
  */
 namespace MeTools\Test\TestCase\View\Helper;
 
-use MeTools\TestSuite\HelperTestCase;
+use Cake\View\View;
+use MeTools\TestSuite\TestCase;
+use MeTools\View\Helper\HtmlHelper;
 
 /**
  * HtmlHelperTest class
- * @property \MeTools\View\Helper\HtmlHelper $Helper
  */
-class HtmlHelperTest extends HelperTestCase
+class HtmlHelperTest extends TestCase
 {
+    /**
+     * @var \MeTools\View\Helper\HtmlHelper
+     */
+    protected HtmlHelper $Helper;
+
+    /**
+     * @inheritDoc
+     */
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        $this->Helper ??= new HtmlHelper(new View());
+    }
+
     /**
      * @test
      * @uses \MeTools\View\Helper\HtmlHelper::__call()
@@ -82,9 +98,9 @@ class HtmlHelperTest extends HelperTestCase
         $result = $this->Helper->button('My title', 'https://link', ['class' => 'btn-danger', 'title' => 'my-title']);
         $this->assertSame($expected, $result);
 
-        $this->loadPlugins(['TestPlugin' => []]);
+        $this->loadPlugins(['AnotherTestPlugin' => []]);
         $expected = '<a href="/pages" role="button" class="btn btn-primary"></a>';
-        $result = $this->Helper->button(['controller' => 'Pages', 'plugin' => 'TestPlugin']);
+        $result = $this->Helper->button(['controller' => 'Pages', 'plugin' => 'AnotherTestPlugin']);
         $this->assertSame($expected, $result);
     }
 
@@ -129,9 +145,9 @@ class HtmlHelperTest extends HelperTestCase
             $this->assertSame($expected, $result);
         }
 
-        $this->loadPlugins(['TestPlugin' => []]);
+        $this->loadPlugins(['AnotherTestPlugin' => []]);
         $expected = '<iframe src="/pages"></iframe>';
-        $result = $this->Helper->iframe(['controller' => 'Pages', 'plugin' => 'TestPlugin']);
+        $result = $this->Helper->iframe(['controller' => 'Pages', 'plugin' => 'AnotherTestPlugin']);
         $this->assertSame($expected, $result);
     }
 
@@ -153,13 +169,13 @@ class HtmlHelperTest extends HelperTestCase
         $result = $this->Helper->image('http://url/image.gif');
         $this->assertSame($expected, $result);
 
-        $this->loadPlugins(['TestPlugin' => []]);
+        $this->loadPlugins(['AnotherTestPlugin' => []]);
         $expected = '<img src="/pages" alt="pages" class="img-fluid">';
-        $result = $this->Helper->image(['controller' => 'Pages', 'plugin' => 'TestPlugin']);
+        $result = $this->Helper->image(['controller' => 'Pages', 'plugin' => 'AnotherTestPlugin']);
         $this->assertSame($expected, $result);
 
         $expected = '<a href="/pages"><img src="/img/image.gif" alt="image.gif" class="img-fluid"></a>';
-        $result = $this->Helper->image('image.gif', ['url' => ['controller' => 'Pages', 'plugin' => 'TestPlugin']]);
+        $result = $this->Helper->image('image.gif', ['url' => ['controller' => 'Pages', 'plugin' => 'AnotherTestPlugin']]);
         $this->assertSame($expected, $result);
     }
 
@@ -210,9 +226,9 @@ class HtmlHelperTest extends HelperTestCase
 
         $this->assertSame('<a href="/" title="/">/</a>', $this->Helper->link('/'));
 
-        $this->loadPlugins(['TestPlugin' => []]);
+        $this->loadPlugins(['AnotherTestPlugin' => []]);
         $expected = '<a href="/pages"></a>';
-        $result = $this->Helper->link(['controller' => 'Pages', 'plugin' => 'TestPlugin']);
+        $result = $this->Helper->link(['controller' => 'Pages', 'plugin' => 'AnotherTestPlugin']);
         $this->assertSame($expected, $result);
     }
 
@@ -264,16 +280,6 @@ class HtmlHelperTest extends HelperTestCase
     {
         $expected = '<p><i class="fa fa-home"> </i> Test</p>';
         $this->assertSame($expected, $this->Helper->para('', 'Test', ['icon' => 'home']));
-    }
-
-    /**
-     * @test
-     * @uses \MeTools\View\Helper\HtmlHelper::shareaholic()
-     */
-    public function testShareaholic(): void
-    {
-        $expected = '<div data-app="share_buttons" data-app-id="myAppId" class="shareaholic-canvas"></div>';
-        $this->assertSame($expected, $this->Helper->shareaholic('myAppId'));
     }
 
     /**

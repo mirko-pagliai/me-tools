@@ -21,6 +21,7 @@ use Laminas\Diactoros\UploadedFile;
 use LogicException;
 use Psr\Http\Message\UploadedFileInterface;
 use Tools\Filesystem;
+use function Cake\I18n\__d;
 
 /**
  * A component to upload files
@@ -72,7 +73,7 @@ class UploaderComponent extends Component
             $tmp = dirname($target) . DS . pathinfo($target, PATHINFO_FILENAME);
             $extension = pathinfo($target, PATHINFO_EXTENSION);
             $extension = $extension ? '.' . $extension : '';
-            for ($i = 1; ; $i++) {
+            for ($i = 1;; $i++) {
                 $target = $tmp . '_' . $i . $extension;
                 if (!file_exists($target)) {
                     break;
@@ -98,10 +99,9 @@ class UploaderComponent extends Component
     /**
      * Checks if the mimetype is correct
      * @param string|array $acceptedMimetype Accepted mimetypes as string or array or a magic word (`images` or `text`)
-     * @return $this
-     * @throws \Tools\Exception\ObjectWrongInstanceException
+     * @return self
      */
-    public function mimetype(string|array $acceptedMimetype)
+    public function mimetype(string|array $acceptedMimetype): UploaderComponent
     {
         $this->_checkUploadedFileInformation();
 
@@ -129,8 +129,6 @@ class UploaderComponent extends Component
      * @param string $directory Directory where you want to save the uploaded file
      * @param string|null $filename Optional filename. Otherwise, it will be generated automatically
      * @return string|false Final full path of the uploaded file or `false` on failure
-     * @throws \Tools\Exception\ObjectWrongInstanceException
-     * @throws \ErrorException
      */
     public function save(string $directory, ?string $filename = null): string|false
     {
@@ -154,7 +152,7 @@ class UploaderComponent extends Component
 
         try {
             $file->moveTo($target);
-        } catch (UploadedFileErrorException $e) {
+        } catch (UploadedFileErrorException) {
             $this->setError(__d('me_tools', 'The file was not successfully moved to the target directory'));
 
             return false;

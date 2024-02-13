@@ -6,29 +6,9 @@ parameters:
 			path: tests/TestCase/Controller/Component/FlashComponentTest.php
 
 		-
-			message: "#^Cannot access property \\$Uploader on Cake\\\\Controller\\\\Controller\\|null\\.$#"
-			count: 3
-			path: tests/TestCase/TestSuite/IntegrationTestTraitTest.php
-
-		-
-			message: "#^Cannot call method components\\(\\) on Cake\\\\Controller\\\\Controller\\|null\\.$#"
-			count: 1
-			path: tests/TestCase/TestSuite/IntegrationTestTraitTest.php
-
-		-
 			message: "#^Property MeTools\\\\Test\\\\TestCase\\\\TestSuite\\\\IntegrationTestTraitTest\\:\\:\\$_response \\(Cake\\\\Http\\\\Response\\) does not accept null\\.$#"
 			count: 2
 			path: tests/TestCase/TestSuite/IntegrationTestTraitTest.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Test\\\\TestCase\\\\View\\\\AppViewTest\\:\\:\\$noExistingProperty\\.$#"
-			count: 1
-			path: tests/TestCase/TestSuite/TestCaseTest.php
-
-		-
-			message: "#^Expression \"\\$AppViewTest\\-\\>noExistingProperty\" on a separate line does not do anything\\.$#"
-			count: 1
-			path: tests/TestCase/TestSuite/TestCaseTest.php
 
 		-
 			message: "#^Call to an undefined method MeTools\\\\View\\\\Helper\\\\HtmlHelper\\:\\:noExistingMethod\\(\\)\\.$#"

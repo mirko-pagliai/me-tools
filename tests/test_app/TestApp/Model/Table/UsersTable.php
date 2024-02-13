@@ -10,6 +10,10 @@ use MeTools\Model\Table\AppTable;
  */
 class UsersTable extends AppTable
 {
+    public static function defaultConnectionName(): string {
+        return 'test';
+    }
+
     /**
      * Initialize method
      * @param array $config The configuration for the Table
