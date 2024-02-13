@@ -414,7 +414,7 @@ class FormHelperTest extends TestCase
     public function testInlineForm(): void
     {
         $result = $this->Helper->createInline();
-        $this->assertSame('<form method="post" accept-charset="utf-8" class="row row-cols-lg-auto g-3 align-items-center" action="/">', $result);
+        $this->assertSame('<form method="post" accept-charset="utf-8" class="row row-cols-lg-auto gx-2 align-items-center" action="/">', $result);
 
         $expected = '<div class="col-12 text">' .
             '<label class="visually-hidden" for="username">Username</label>' .
