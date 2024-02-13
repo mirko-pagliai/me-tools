@@ -1,5 +1,8 @@
 # 3.x branch
 ## 3.0 branch
+### 3.0.2
+* fixed a bug for `FormHelper::createInline()` method.
+
 ### 3.0.1-RC2
 * `getAlias()` and `getOriginClassName()` method have moved from `MockTrait` to the `TestCase` class. These methods no
   longer take a parameter, but return a valid result for the test class that is executing them;
