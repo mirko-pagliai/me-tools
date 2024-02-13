@@ -16,6 +16,7 @@ namespace MeTools\Test\TestCase;
 
 use Cake\I18n\I18n;
 use MeTools\TestSuite\TestCase;
+use function Cake\I18n\__d;
 
 /**
  * I18nTest class

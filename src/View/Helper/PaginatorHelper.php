@@ -14,6 +14,7 @@ declare(strict_types=1);
  */
 namespace MeTools\View\Helper;
 
+use Cake\Core\Exception\CakeException;
 use Cake\Utility\Hash;
 use Cake\View\Helper\PaginatorHelper as CakePaginatorHelper;
 use Cake\View\View;
@@ -28,9 +29,9 @@ use Cake\View\View;
 class PaginatorHelper extends CakePaginatorHelper
 {
     /**
-     * @array
+     * @inheritDoc
      */
-    public $helpers = [
+    protected array $helpers = [
         'MeTools.Html',
         'MeTools.Icon',
         'Number',
@@ -56,6 +57,22 @@ class PaginatorHelper extends CakePaginatorHelper
         ]]);
 
         parent::__construct($View, $config);
+    }
+
+    /**
+     * Returns `true` if the pagination instance is not empty.
+     *
+     * This prevents that a call to `paginated()` throws an exception, returning `false` instead
+     * @return bool
+     * @since 3.0.0
+     */
+    public function hasPaginated(): bool
+    {
+        try {
+            return (bool)$this->paginated();
+        } catch (CakeException) {
+            return false;
+        }
     }
 
     /**

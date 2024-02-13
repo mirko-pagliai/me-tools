@@ -42,9 +42,9 @@ class HtmlHelper extends BaseHtmlHelper
     use AddButtonClassesTrait;
 
     /**
-     * @var string[]
+     * @inheritDoc
      */
-    public $helpers = ['MeTools.Icon', 'Url'];
+    protected array $helpers = ['MeTools.Icon', 'Url'];
 
     /**
      * Missing method handler.
@@ -67,7 +67,7 @@ class HtmlHelper extends BaseHtmlHelper
     /**
      * Creates a "badge"
      * @param string $text Badge text
-     * @param array<string, mixed> $options Array of options and HTML attributes
+     * @param array $options Array of options and HTML attributes
      * @return string
      * @see https://getbootstrap.com/docs/5.3/components/badge/
      */
@@ -80,14 +80,14 @@ class HtmlHelper extends BaseHtmlHelper
 
     /**
      * Creates a link with the appearance of a button
-     * @param array|string $title The content to be wrapped by `<a>` tags.
+     * @param string|array $title The content to be wrapped by `<a>` tags.
      *   Can be an array if $url is null. If $url is null, $title will be used as both the URL and title.
-     * @param array|string|null $url Cake-relative URL or array of URL parameters, or external URL (starts with http://)
-     * @param array<string, mixed> $options Array of options and HTML attributes
+     * @param string|array|null $url Cake-relative URL or array of URL parameters, or external URL (starts with http://)
+     * @param array $options Array of options and HTML attributes
      * @return string An `<a />` element
      * @see link() for all available options
      */
-    public function button($title, $url = null, array $options = []): string
+    public function button(string|array $title, string|array|null $url = null, array $options = []): string
     {
         $options += ['role' => 'button'];
 
@@ -103,7 +103,7 @@ class HtmlHelper extends BaseHtmlHelper
      * @return string
      * @see https://getbootstrap.com/docs/5.3/helpers/ratio/#aspect-ratios
      */
-    public function iframe($url, array $options = []): string
+    public function iframe(string|array $url, array $options = []): string
     {
         $options['src'] = is_array($url) ? $this->Url->build($url, $options) : $url;
 
@@ -118,7 +118,7 @@ class HtmlHelper extends BaseHtmlHelper
     /**
      * @inheritDoc
      */
-    public function image($path, array $options = []): string
+    public function image(string|array $path, array $options = []): string
     {
         $options += ['alt' => pathinfo(is_array($path) ? $this->Url->build($path, $options) : $path, PATHINFO_BASENAME)];
         $options = $this->addClass($options, 'img-fluid');
@@ -130,11 +130,11 @@ class HtmlHelper extends BaseHtmlHelper
      * Returns an element list (`<li>`).
      *
      * If `$element` is an array, the same `$options` will be applied to all elements.
-     * @param string|array<string> $element Element or elements
+     * @param string|string[] $element Element or elements
      * @param array $options HTML attributes of the list tag
      * @return string
      */
-    public function li($element, array $options = []): string
+    public function li(string|array $element, array $options = []): string
     {
         return implode(PHP_EOL, array_map(fn(string $element): string => $this->tag('li', $element, $options), (array)$element));
     }
@@ -142,7 +142,7 @@ class HtmlHelper extends BaseHtmlHelper
     /**
      * @inheritDoc
      */
-    public function link($title, $url = null, array $options = []): string
+    public function link(string|array $title, string|array|null $url = null, array $options = []): string
     {
         if (is_array($title)) {
             $url = $url ?: $title;
@@ -170,7 +170,7 @@ class HtmlHelper extends BaseHtmlHelper
     /**
      * @inheritDoc
      */
-    public function meta($type, $content = null, array $options = []): ?string
+    public function meta(string|array $type, string|array|null $content = null, array $options = []): ?string
     {
         return parent::meta($type, $content, $options + ['block' => true]);
     }
@@ -197,8 +197,8 @@ class HtmlHelper extends BaseHtmlHelper
     /**
      * Build an `<ol>` nested list out of an associative array
      * @param array $list Set of elements to list
-     * @param array<string, mixed> $options Options and additional HTML attributes of the list (ol/ul) tag.
-     * @param array<string, mixed> $itemOptions Options and additional HTML attributes of the list item (LI) tag.
+     * @param array $options Options and additional HTML attributes of the list (ol/ul) tag.
+     * @param array $itemOptions Options and additional HTML attributes of the list item (LI) tag.
      * @return string The nested list
      * @see \Cake\View\Helper\HtmlHelper::nestedList() for all available options
      */
@@ -218,18 +218,6 @@ class HtmlHelper extends BaseHtmlHelper
     }
 
     /**
-     * Returns the Shareaholic "share buttons".
-     *
-     * Note that this code only renders the Shareaholic "share button".
-     * @param string $appId Shareaholic app ID
-     * @return string
-     */
-    public function shareaholic(string $appId): string
-    {
-        return $this->div('shareaholic-canvas', '', ['data-app' => 'share_buttons', 'data-app-id' => $appId]);
-    }
-
-    /**
      * @inheritDoc
      */
     public function tag(string $name, ?string $text = null, array $options = []): string
@@ -242,8 +230,8 @@ class HtmlHelper extends BaseHtmlHelper
     /**
      * Build an `<ul>` nested list out of an associative array
      * @param array $list Set of elements to list
-     * @param array<string, mixed> $options Options and additional HTML attributes of the list (ol/ul) tag.
-     * @param array<string, mixed> $itemOptions Options and additional HTML attributes of the list item (LI) tag.
+     * @param array $options Options and additional HTML attributes of the list (ol/ul) tag.
+     * @param array $itemOptions Options and additional HTML attributes of the list item (LI) tag.
      * @return string The nested list
      * @see \Cake\View\Helper\HtmlHelper::nestedList() for all available options
      */
@@ -255,8 +243,8 @@ class HtmlHelper extends BaseHtmlHelper
     /**
      * Adds the `viewport` meta tag. By default, it uses options as required by Bootstrap
      * @param array $content Additional content values
-     * @param array<string, mixed> $options Other attributes for the generated tag. If the type attribute is html,
-     *    rss, atom, or icon, the mime-type is returned.
+     * @param array $options Other attributes for the generated tag. If the type attribute is html, rss, atom, or icon,
+     *  the mime-type is returned.
      * @return string|null
      * @see https://getbootstrap.com/docs/5.3/getting-started/introduction/#viewport-meta
      * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Viewport_meta_tag

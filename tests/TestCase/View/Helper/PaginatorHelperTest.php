@@ -14,21 +14,80 @@ declare(strict_types=1);
  */
 namespace MeTools\Test\TestCase\View\Helper;
 
-use MeTools\TestSuite\HelperTestCase;
+use Cake\Datasource\Paging\PaginatedResultSet;
+use Cake\Http\ServerRequest;
+use Cake\ORM\ResultSet;
+use Cake\Routing\Router;
+use Cake\View\View;
+use MeTools\TestSuite\TestCase;
+use MeTools\View\Helper\PaginatorHelper;
 
 /**
  * PaginatorHelperTest class
- * @property \MeTools\View\Helper\PaginatorHelper $Helper
  */
-class PaginatorHelperTest extends HelperTestCase
+class PaginatorHelperTest extends TestCase
 {
+    /**
+     * @var \MeTools\View\Helper\PaginatorHelper
+     */
+    protected PaginatorHelper $Helper;
+
+    /**
+     * @inheritDoc
+     */
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        $Request = new ServerRequest([
+            'url' => '/',
+            'params' => [
+                'plugin' => null,
+                'controller' => 'Articles',
+                'action' => 'index',
+            ],
+        ]);
+
+        Router::reload();
+        $builder = Router::createRouteBuilder('/');
+        $builder->connect('/', ['controller' => 'Articles', 'action' => 'index']);
+        $builder->connect('/{controller}/{action}/*');
+        $builder->connect('/{plugin}/{controller}/{action}/*');
+        Router::setRequest($Request);
+
+        $PaginatedResult = new PaginatedResultSet(new ResultSet([]), [
+            'alias' => 'Articles',
+            'currentPage' => 1,
+            'count' => 9,
+            'totalCount' => 62,
+            'hasPrevPage' => false,
+            'hasNextPage' => true,
+            'pageCount' => 7,
+        ]);
+
+        $this->Helper ??= new PaginatorHelper(new View());
+        $this->Helper->setPaginated($PaginatedResult);
+    }
+
+    /**
+     * @test
+     * @uses \MeTools\View\Helper\PaginatorHelper::hasPaginated()
+     */
+    public function testHasPaginated(): void
+    {
+        $this->assertTrue($this->Helper->hasPaginated());
+
+        $this->Helper = new PaginatorHelper(new View());
+        $this->assertFalse($this->Helper->hasPaginated());
+    }
+
     /**
      * @test
      * @uses \MeTools\View\Helper\PaginatorHelper::next()
      */
     public function testNext(): void
     {
-        $expected = '<li class="page-item disabled"><a class="page-link" href="#">Next <i class="fa-solid fa-caret-right"></i></a></li>';
+        $expected = '<li class="page-item"><a class="page-link" rel="next" href="/?page=2">Next <i class="fa-solid fa-caret-right"></i></a></li>';
         $this->assertSame($expected, $this->Helper->next('Next'));
     }
 

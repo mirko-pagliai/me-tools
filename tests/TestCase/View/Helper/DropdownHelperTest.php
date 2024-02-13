@@ -15,14 +15,30 @@ declare(strict_types=1);
  */
 namespace MeTools\Test\TestCase\View\Helper;
 
-use MeTools\TestSuite\HelperTestCase;
+use Cake\View\View;
+use MeTools\TestSuite\TestCase;
+use MeTools\View\Helper\DropdownHelper;
 
 /**
  * DropdownHelperTest class
- * @property \MeTools\View\Helper\DropdownHelper $Helper
  */
-class DropdownHelperTest extends HelperTestCase
+class DropdownHelperTest extends TestCase
 {
+    /**
+     * @var \MeTools\View\Helper\DropdownHelper
+     */
+    protected DropdownHelper $Helper;
+
+    /**
+     * @inheritDoc
+     */
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        $this->Helper ??= new DropdownHelper(new View());
+    }
+
     /**
      * @test
      * @uses \MeTools\View\Helper\DropdownHelper::end()

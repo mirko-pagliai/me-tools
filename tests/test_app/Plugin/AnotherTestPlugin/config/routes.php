@@ -7,6 +7,6 @@ use Cake\Routing\RouteBuilder;
 /** @var \Cake\Routing\RouteBuilder $routes */
 $routes->setRouteClass(DashedRoute::class);
 
-$routes->scope('/', ['plugin' => 'TestPlugin'], function (RouteBuilder $routes): void {
+$routes->scope('/', ['plugin' => 'AnotherTestPlugin'], function (RouteBuilder $routes): void {
     $routes->fallbacks();
 });

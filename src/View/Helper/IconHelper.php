@@ -95,7 +95,7 @@ class IconHelper extends CakeHtmlHelper
      * @return string
      * @see http://fontawesome.com Font Awesome icons
      */
-    public function icon(...$icons): string
+    public function icon(string|array ...$icons): string
     {
         $toString = fn($value): string => implode(' ', (array)$value);
 

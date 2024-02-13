@@ -8,7 +8,10 @@
     <rule ref="CakePHP.Functions.ClosureDeclaration.SpaceAfterFunction">
         <severity>0</severity>
     </rule>
+    <rule ref="SlevomatCodingStandard.Classes.ModernClassNameReference.ClassNameReferencedViaFunctionCall">
+        <exclude-pattern>/src/TestSuite/TestCase.php</exclude-pattern>
+    </rule>
 
-    <exclude-pattern>/config/ckeditor/build-config.js</exclude-pattern>
-    <exclude-pattern>/webroot/js/ckeditor_init.php</exclude-pattern>
+    <exclude-pattern>/bin</exclude-pattern>
+    <exclude-pattern>/coverage</exclude-pattern>
 </ruleset>

@@ -16,21 +16,28 @@ declare(strict_types=1);
  */
 namespace MeTools\Test\TestCase\Controller\Component;
 
+use Cake\Controller\ComponentRegistry;
+use Cake\Controller\Controller;
+use Cake\Http\ServerRequest;
 use Laminas\Diactoros\Exception\UploadedFileErrorException;
 use Laminas\Diactoros\UploadedFile;
 use MeTools\Controller\Component\UploaderComponent;
-use MeTools\TestSuite\ComponentTestCase;
+use MeTools\TestSuite\TestCase;
 use Psr\Http\Message\UploadedFileInterface;
 use Tools\Filesystem;
 use Tools\TestSuite\ReflectionTrait;
 
 /**
  * UploaderComponentTest class
- * @property \MeTools\Controller\Component\UploaderComponent $Component
  */
-class UploaderComponentTest extends ComponentTestCase
+class UploaderComponentTest extends TestCase
 {
     use ReflectionTrait;
+
+    /**
+     * @var \MeTools\Controller\Component\UploaderComponent
+     */
+    protected UploaderComponent $Component;
 
     /**
      * Internal method to create a file and get a `UploadedFile` instance
@@ -45,8 +52,17 @@ class UploaderComponentTest extends ComponentTestCase
     }
 
     /**
-     * Called after every test method
-     * @return void
+     * @inheritDoc
+     */
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        $this->Component ??= new UploaderComponent(new ComponentRegistry(new Controller(new ServerRequest())));
+    }
+
+    /**
+     * @inheritDoc
      */
     protected function tearDown(): void
     {

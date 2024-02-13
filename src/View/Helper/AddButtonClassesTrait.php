@@ -25,13 +25,13 @@ trait AddButtonClassesTrait
 {
     /**
      * Adds the given button class to the element options
-     * @param array<string, mixed> $options Array options/attributes to add a class to
+     * @param array $options Array options/attributes to add a class to
      * @param string ...$class The button class name being added.
-     * @return array<string, mixed> Array of options
+     * @return array Array of options
      * @throws \LogicException
      * @see https://getbootstrap.com/docs/5.3/components/buttons/#variants for valid classes
      */
-    protected function addButtonClasses(array $options, string ...$class)
+    protected function addButtonClasses(array $options, string ...$class): array
     {
         $class = $class ?: ['btn-primary'];
 

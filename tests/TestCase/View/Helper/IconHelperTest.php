@@ -14,14 +14,30 @@ declare(strict_types=1);
  */
 namespace MeTools\Test\TestCase\View\Helper;
 
-use MeTools\TestSuite\HelperTestCase;
+use Cake\View\View;
+use MeTools\TestSuite\TestCase;
+use MeTools\View\Helper\IconHelper;
 
 /**
  * IconHelperTest class
- * @property \MeTools\View\Helper\IconHelper $Helper
  */
-class IconHelperTest extends HelperTestCase
+class IconHelperTest extends TestCase
 {
+    /**
+     * @var \MeTools\View\Helper\IconHelper
+     */
+    protected IconHelper $Helper;
+
+    /**
+     * @inheritDoc
+     */
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        $this->Helper ??= new IconHelper(new View());
+    }
+
     /**
      * @test
      * @uses \MeTools\View\Helper\IconHelper::addIconToText()
