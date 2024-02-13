@@ -11,4 +11,7 @@
     <rule ref="SlevomatCodingStandard.Classes.ModernClassNameReference.ClassNameReferencedViaFunctionCall">
         <exclude-pattern>/src/TestSuite/TestCase.php</exclude-pattern>
     </rule>
+
+    <exclude-pattern>/bin</exclude-pattern>
+    <exclude-pattern>/coverage</exclude-pattern>
 </ruleset>
