@@ -38,21 +38,6 @@ abstract class TestCase extends CakeTestCase
     protected string $originClassName;
 
     /**
-     * @inheritDoc
-     */
-    protected function setUp(): void
-    {
-        parent::setUp();
-
-        if (method_exists($this, 'enableCsrfToken')) {
-            $this->enableCsrfToken();
-        }
-        if (method_exists($this, 'enableRetainFlashMessages')) {
-            $this->enableRetainFlashMessages();
-        }
-    }
-
-    /**
      * Asserts log file contents
      * @param string $expectedContent The expected contents
      * @param string $filename Log filename
