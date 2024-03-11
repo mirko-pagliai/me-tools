@@ -85,7 +85,7 @@ class DropdownHelperTest extends TestCase
             '/li',
             '/ul',
         ];
-        $this->Helper->start('My title', ['class' => 'my-start-class', 'icon' => 'home']);
+        $this->Helper->start('My title', ['class' => 'my-start-class', 'icon' => 'fa fa-home']);
         $this->Helper->link('First link', '/first', ['class' => 'my-first-link-class']);
         $this->Helper->link('Second link', '/second', ['class' => 'my-second-link-class']);
         $result = $this->Helper->end(['class' => 'my-div-class', 'style' => 'background:red']);

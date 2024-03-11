@@ -185,7 +185,7 @@ class HtmlHelper extends BaseHtmlHelper
 
         if ($itemOptions['icon']) {
             $options = $this->addClass($options, 'fa-ul');
-            $itemOptions = $this->addClass($itemOptions, 'li', 'icon');
+            $itemOptions = $this->addClass($itemOptions, 'fa-li', 'icon');
             $list = array_map(fn(string $element): string => array_value_first($this->Icon->addIconToText($element, $itemOptions)), $list);
         }
 

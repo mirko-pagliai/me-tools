@@ -87,7 +87,7 @@ class FormHelperTest extends TestCase
 
         //With an icon
         $expected = '<label class="form-label" for="my-control"><i class="fa fa-home"> </i>My Control</label>';
-        $result = $this->Helper->control('my-control', ['label' => ['icon' => 'home']]);
+        $result = $this->Helper->control('my-control', ['label' => ['icon' => 'fa fa-home']]);
         $this->assertStringContainsString($expected, $result);
     }
 
@@ -173,7 +173,7 @@ class FormHelperTest extends TestCase
         $this->assertStringContainsString('class="btn btn-success my-custom-class"', $result);
 
         //With `icon` option
-        $result = $this->Helper->button('My button', ['icon' => 'check']);
+        $result = $this->Helper->button('My button', ['icon' => 'fa fa-check']);
         $this->assertStringContainsString('<i class="fa fa-check"> </i> My button</button>', $result);
     }
 
@@ -254,7 +254,7 @@ class FormHelperTest extends TestCase
             '</div>' .
             '</div>';
         $result = $this->Helper->control('My field', [
-            'prepend-text' => $this->Helper->button('Prepend button', ['icon' => 'home']),
+            'prepend-text' => $this->Helper->button('Prepend button', ['icon' => 'fa fa-home']),
             'append-text' => $this->Helper->submit('Append submit'),
         ]);
         $this->assertSame($expected, $result);
@@ -479,7 +479,7 @@ class FormHelperTest extends TestCase
             '<i class="fa fa-home"> </i> Title' .
             '</button>' .
             '</form>';
-        $result = $this->Helper->postButton('Title', '#', ['icon' => 'home']);
+        $result = $this->Helper->postButton('Title', '#', ['icon' => 'fa fa-home']);
         $this->assertSame($expected, $result);
 
         $expected = '<form method="post" accept-charset="utf-8" action="#">' .
@@ -487,7 +487,7 @@ class FormHelperTest extends TestCase
             '<i class="fa fa-home"> </i> Title' .
             '</button>' .
             '</form>';
-        $result = $this->Helper->postButton('Title', '#', ['class' => 'btn-danger', 'icon' => 'home']);
+        $result = $this->Helper->postButton('Title', '#', ['class' => 'btn-danger', 'icon' => 'fa fa-home']);
         $this->assertSame($expected, $result);
     }
 

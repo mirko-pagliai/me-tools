@@ -121,7 +121,7 @@ class FormHelper extends BaseFormHelper
         $label = $this->addClass($label, $class ?? 'form-label');
 
         if ($label['icon'] ?? false) {
-            $options['templateVars']['icon'] = $this->Icon->icon($label['icon'] . ' ');
+            $options['templateVars']['icon'] = $this->Icon->icon($label['icon']);
             unset($label['icon']);
         }
 

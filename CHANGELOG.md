@@ -1,5 +1,8 @@
 # 3.x branch
 ## 3.0 branch
+### 3.0.3
+* the `IconHelper::buildIconClasses()` no longer exists. We expect you to correctly specify all classes that make an icon.
+
 ### 3.0.2
 * fixed a bug for `FormHelper::createInline()` method.
 
