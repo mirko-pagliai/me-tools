@@ -51,32 +51,11 @@ class IconHelper extends CakeHtmlHelper
     }
 
     /**
-     * Internal method to build icon classes
-     * @param string|string[] $icon Icons
-     * @return string
-     * @since 2.16.2-beta
-     */
-    protected function buildIconClasses(string|array $icon): string
-    {
-        //Prepends the string "fa-" to any other class
-        /** @var string|string[] $icon */
-        $icon = preg_replace('/(?<![^ ])(?=[^ ])(?!fa)/', 'fa-', $icon);
-        $icon = is_array($icon) ? $icon : (preg_split('/\s+/', $icon ?: '', -1, PREG_SPLIT_NO_EMPTY) ?: []);
-
-        //Adds the "fa" class, if no other "basic" class is present
-        if (!count(array_intersect(['fa', 'fab', 'fal', 'far', 'fas', 'fa-brands'], $icon))) {
-            array_unshift($icon, 'fa');
-        }
-
-        return implode(' ', array_unique($icon));
-    }
-
-    /**
      * Returns icons tag.
      *
      * Example:
      * <code>
-     * echo $this->Icon->icon('home');
+     * echo $this->Icon->icon('fas fa-home');
      * </code>
      * Returns:
      * <code>
@@ -85,21 +64,23 @@ class IconHelper extends CakeHtmlHelper
      *
      * Example:
      * <code>
-     * echo $this->Icon->icon(['hand-o-right', '2x']);
+     * echo $this->Icon->icon(['fas', 'fa-hand-o-right', 'fa-2x']);
      * </code>
      * Returns:
      * <code>
      * <i class="fas fa-hand-o-right fa-2x"> </i>
      * </code>
-     * @param string|string[] $icons Icons. You can also pass multiple arguments
+     * @param string|array ...$icons Icons. You can also pass multiple arguments
      * @return string
      * @see http://fontawesome.com Font Awesome icons
      */
     public function icon(string|array ...$icons): string
     {
-        $toString = fn($value): string => implode(' ', (array)$value);
-
-        $class = $this->buildIconClasses($toString(array_map($toString, $icons)));
+        if (count($icons) === 1 && is_array($icons[0])) {
+            $icons = $icons[0];
+        }
+        /** @var string[] $icons */
+        $class = implode(' ', $icons);
 
         return $this->formatTemplate('tag', [
             'attrs' => $this->templater()->formatAttributes(compact('class')),

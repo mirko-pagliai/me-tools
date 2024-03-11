@@ -16,7 +16,7 @@ declare(strict_types=1);
 
 namespace MeTools\View\Helper;
 
-use LogicException;
+use InvalidArgumentException;
 
 /**
  * AddButtonClassesTrait
@@ -28,7 +28,7 @@ trait AddButtonClassesTrait
      * @param array $options Array options/attributes to add a class to
      * @param string ...$class The button class name being added.
      * @return array Array of options
-     * @throws \LogicException
+     * @throws \InvalidArgumentException
      * @see https://getbootstrap.com/docs/5.3/components/buttons/#variants for valid classes
      */
     protected function addButtonClasses(array $options, string ...$class): array
@@ -53,7 +53,7 @@ trait AddButtonClassesTrait
         //Checks you are not trying to add an invalid class
         $wrongClass = array_value_first(array_diff($class, $validClasses));
         if ($wrongClass) {
-            throw new LogicException('Invalid `' . $wrongClass . '` button class');
+            throw new InvalidArgumentException('Invalid `' . $wrongClass . '` button class');
         }
 
         $options['class'] = ltrim($options['class'] . ' ') . implode(' ', $btnAlreadyExists ? $class : array_merge(['btn'], $class));

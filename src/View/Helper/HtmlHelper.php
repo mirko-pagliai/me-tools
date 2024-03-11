@@ -61,7 +61,7 @@ class HtmlHelper extends BaseHtmlHelper
             throw new LogicException(sprintf('Method `%s::%s()` does not exist', __CLASS__, $method));
         }
 
-        return $this->tag($method, $params[0], $params[1] ?? []);
+        return call_user_func_array([$this, 'tag'], [$method, ...$params]);
     }
 
     /**
@@ -185,7 +185,7 @@ class HtmlHelper extends BaseHtmlHelper
 
         if ($itemOptions['icon']) {
             $options = $this->addClass($options, 'fa-ul');
-            $itemOptions = $this->addClass($itemOptions, 'li', 'icon');
+            $itemOptions = $this->addClass($itemOptions, 'fa-li', 'icon');
             $list = array_map(fn(string $element): string => array_value_first($this->Icon->addIconToText($element, $itemOptions)), $list);
         }
 
