@@ -286,7 +286,7 @@ class FormHelper extends BaseFormHelper
     {
         $this->isInline = true;
 
-        $options = $this->addClass($options, 'row row-cols-lg-auto gx-2 align-items-center');
+        $options = $this->addClass($options, 'row row-cols-lg-auto g-2 align-items-center');
 
         return $this->create($context, $options);
     }

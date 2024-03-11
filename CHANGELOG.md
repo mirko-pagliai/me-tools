@@ -3,9 +3,12 @@
 ### 3.0.3-RC4
 * `Html::__call()` methods (missing method handler) now supports named arguments;
 * the `IconHelper::buildIconClasses()` no longer exists. We expect you to correctly specify all classes that make an icon.
-
-### 3.0.2
 * fixed a bug for `FormHelper::createInline()` method.
+
+### 3.0.2-RC3
+* deleted the `FlashComponent`;
+* `TestCase::setUp()` method no longer exists. You have to call `enableCsrfToken()/enableRetainFlashMessages()` manually
+  for controller tests.
 
 ### 3.0.1-RC2
 * `getAlias()` and `getOriginClassName()` method have moved from `MockTrait` to the `TestCase` class. These methods no
