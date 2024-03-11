@@ -61,7 +61,7 @@ class HtmlHelper extends BaseHtmlHelper
             throw new LogicException(sprintf('Method `%s::%s()` does not exist', __CLASS__, $method));
         }
 
-        return $this->tag($method, $params[0], $params[1] ?? []);
+        return call_user_func_array([$this, 'tag'], [$method, ...$params]);
     }
 
     /**

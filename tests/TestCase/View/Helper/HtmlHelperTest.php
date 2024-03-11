@@ -51,6 +51,10 @@ class HtmlHelperTest extends TestCase
         $result = $this->Helper->h3('my h3 text', ['class' => 'my-class']);
         $this->assertSame($expected, $result);
 
+        //With named params
+        $result = $this->Helper->h3(text: 'my h3 text', options: ['class' => 'my-class']);
+        $this->assertSame($expected, $result);
+
         $expected = '<h3 class="my-class"><i class="fa fa-home"> </i> my h3 text</h3>';
         $result = $this->Helper->h3('my h3 text', ['class' => 'my-class', 'icon' => 'fa fa-home']);
         $this->assertSame($expected, $result);
