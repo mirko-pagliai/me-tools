@@ -113,19 +113,6 @@ class HtmlHelper extends BaseHtmlHelper
     }
 
     /**
-     * Returns an element list (`<li>`).
-     *
-     * If `$element` is an array, the same `$options` will be applied to all elements.
-     * @param string|string[] $element Element or elements
-     * @param array $options HTML attributes of the list tag
-     * @return string
-     */
-    public function li(string|array $element, array $options = []): string
-    {
-        return implode(PHP_EOL, array_map(fn(string $element): string => $this->tag('li', $element, $options), (array)$element));
-    }
-
-    /**
      * @inheritDoc
      */
     public function link(string|array $title, string|array|null $url = null, array $options = []): string

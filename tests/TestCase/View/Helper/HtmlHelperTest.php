@@ -174,22 +174,6 @@ class HtmlHelperTest extends TestCase
 
     /**
      * @test
-     * @uses \MeTools\View\Helper\HtmlHelper::li()
-     */
-    public function testLi(): void
-    {
-        $expected = '<li><i class="fa fa-home"> </i> My li</li>';
-        $result = $this->Helper->li('My li', ['icon' => 'fa fa-home']);
-        $this->assertSame($expected, $result);
-
-        $expected = '<li class="my-class"><i class="fa fa-home"> </i> first-value</li>' . PHP_EOL .
-            '<li class="my-class"><i class="fa fa-home"> </i> second-value</li>';
-        $result = $this->Helper->li(['first-value', 'second-value'], ['class' => 'my-class', 'icon' => 'fa fa-home']);
-        $this->assertSame($expected, $result);
-    }
-
-    /**
-     * @test
      * @uses \MeTools\View\Helper\HtmlHelper::link()
      */
     public function testLink(): void
