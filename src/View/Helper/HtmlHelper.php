@@ -156,14 +156,6 @@ class HtmlHelper extends BaseHtmlHelper
     /**
      * @inheritDoc
      */
-    public function meta(string|array $type, string|array|null $content = null, array $options = []): ?string
-    {
-        return parent::meta($type, $content, $options + ['block' => true]);
-    }
-
-    /**
-     * @inheritDoc
-     */
     public function nestedList(array $list, array $options = [], array $itemOptions = []): string
     {
         $options += ['icon' => null];

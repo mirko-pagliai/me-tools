@@ -227,19 +227,6 @@ class HtmlHelperTest extends TestCase
 
     /**
      * @test
-     * @uses \MeTools\View\Helper\HtmlHelper::meta()
-     */
-    public function testMeta(): void
-    {
-        $this->assertNull($this->Helper->meta('viewport', 'width=device-width'));
-
-        $expected = '<meta name="viewport" content="width=device-width">';
-        $result = $this->Helper->meta('viewport', 'width=device-width', ['block' => false]);
-        $this->assertSame($expected, $result);
-    }
-
-    /**
-     * @test
      * @uses \MeTools\View\Helper\HtmlHelper::para()
      */
     public function testPara(): void
