@@ -104,17 +104,6 @@ class HtmlHelper extends BaseHtmlHelper
     /**
      * @inheritDoc
      */
-    public function image(string|array $path, array $options = []): string
-    {
-        $options += ['alt' => pathinfo(is_array($path) ? $this->Url->build($path, $options) : $path, PATHINFO_BASENAME)];
-        $options = $this->addClass($options, 'img-fluid');
-
-        return parent::image($path, $options);
-    }
-
-    /**
-     * @inheritDoc
-     */
     public function link(string|array $title, string|array|null $url = null, array $options = []): string
     {
         if (is_array($title)) {

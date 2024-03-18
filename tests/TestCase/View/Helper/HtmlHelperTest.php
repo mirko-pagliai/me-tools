@@ -146,34 +146,6 @@ class HtmlHelperTest extends TestCase
 
     /**
      * @test
-     * @uses \MeTools\View\Helper\HtmlHelper::image()
-     */
-    public function testImage(): void
-    {
-        $expected = '<img src="/img/image.gif" class="my-class img-fluid" alt="image.gif">';
-        $result = $this->Helper->image('image.gif', ['class' => 'my-class']);
-        $this->assertSame($expected, $result);
-
-        $expected = '<img src="/img/image.gif" alt="my-alt" class="img-fluid">';
-        $result = $this->Helper->image('image.gif', ['alt' => 'my-alt']);
-        $this->assertSame($expected, $result);
-
-        $expected = '<img src="http://url/image.gif" alt="image.gif" class="img-fluid">';
-        $result = $this->Helper->image('http://url/image.gif');
-        $this->assertSame($expected, $result);
-
-        $this->loadPlugins(['AnotherTestPlugin' => []]);
-        $expected = '<img src="/pages" alt="pages" class="img-fluid">';
-        $result = $this->Helper->image(['controller' => 'Pages', 'plugin' => 'AnotherTestPlugin']);
-        $this->assertSame($expected, $result);
-
-        $expected = '<a href="/pages"><img src="/img/image.gif" alt="image.gif" class="img-fluid"></a>';
-        $result = $this->Helper->image('image.gif', ['url' => ['controller' => 'Pages', 'plugin' => 'AnotherTestPlugin']]);
-        $this->assertSame($expected, $result);
-    }
-
-    /**
-     * @test
      * @uses \MeTools\View\Helper\HtmlHelper::link()
      */
     public function testLink(): void

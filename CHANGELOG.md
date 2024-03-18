@@ -1,7 +1,7 @@
 # 3.x branch
 ## 3.0 branch
 ### 3.0.4-RC5
-* `HtmlHelper`: removed `badge()`, `li()`, `meta()`, `ol()`, `ul()` and `viewport()` methods.
+* `HtmlHelper`: removed `badge()`, `image()`, `li()`, `meta()`, `ol()`, `ul()` and `viewport()` methods.
 
 ### 3.0.3-RC4
 * `Html::__call()` methods (missing method handler) now supports named arguments;
