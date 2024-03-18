@@ -65,20 +65,6 @@ class HtmlHelper extends BaseHtmlHelper
     }
 
     /**
-     * Creates a "badge"
-     * @param string $text Badge text
-     * @param array $options Array of options and HTML attributes
-     * @return string
-     * @see https://getbootstrap.com/docs/5.3/components/badge/
-     */
-    public function badge(string $text, array $options = []): string
-    {
-        $options = $this->addClass($options, 'badge');
-
-        return $this->tag('span', $text, $options);
-    }
-
-    /**
      * Creates a link with the appearance of a button
      * @param string|array $title The content to be wrapped by `<a>` tags.
      *   Can be an array if $url is null. If $url is null, $title will be used as both the URL and title.

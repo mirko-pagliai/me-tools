@@ -109,17 +109,6 @@ class HtmlHelperTest extends TestCase
     }
 
     /**
-     * @test
-     * @uses \MeTools\View\Helper\HtmlHelper::badge()
-     */
-    public function testBadge(): void
-    {
-        $expected = '<span class="my-class badge"><i class="fa fa-home"> </i> 1</span>';
-        $result = $this->Helper->badge('1', ['class' => 'my-class', 'icon' => 'fa fa-home']);
-        $this->assertSame($expected, $result);
-    }
-
-    /**
      * @uses \MeTools\View\Helper\HtmlHelper::iframe()
      * @test
      */
