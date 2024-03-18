@@ -81,27 +81,6 @@ class HtmlHelper extends BaseHtmlHelper
     }
 
     /**
-     * Create an `<iframe>` element.
-     *
-     * You can use the `$ratio` option (valid values: '1x1', '4x3', '16x9', '21x9') to create a responsive embed.
-     * @param string|array $url Url for the iframe
-     * @param array $options Array of options and HTML attributes
-     * @return string
-     * @see https://getbootstrap.com/docs/5.3/helpers/ratio/#aspect-ratios
-     */
-    public function iframe(string|array $url, array $options = []): string
-    {
-        $options['src'] = is_array($url) ? $this->Url->build($url, $options) : $url;
-
-        $ratio = $options['ratio'] ?? null;
-        unset($options['ratio']);
-
-        $iframe = $this->tag('iframe', '', $options);
-
-        return in_array($ratio, ['1x1', '4x3', '16x9', '21x9']) ? $this->div('ratio ratio-' . $ratio, $iframe) : $iframe;
-    }
-
-    /**
      * @inheritDoc
      */
     public function link(string|array $title, string|array|null $url = null, array $options = []): string
