@@ -201,25 +201,6 @@ class HtmlHelper extends BaseHtmlHelper
     }
 
     /**
-     * Adds the `viewport` meta tag. By default, it uses options as required by Bootstrap
-     * @param array $content Additional content values
-     * @param array $options Other attributes for the generated tag. If the type attribute is html, rss, atom, or icon,
-     *  the mime-type is returned.
-     * @return string|null
-     * @see https://getbootstrap.com/docs/5.3/getting-started/introduction/#viewport-meta
-     * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Viewport_meta_tag
-     */
-    public function viewport(array $content = [], array $options = []): ?string
-    {
-        $content = http_build_query($content + [
-            'initial-scale' => '1',
-            'width' => 'device-width',
-        ], '', ', ');
-
-        return $this->meta('viewport', $content, $options);
-    }
-
-    /**
      * Returns a YouTube video code.
      *
      * You can use the `$ratio` option (valid values: '1x1', '4x3', '16x9', '21x9') to create a responsive embed.

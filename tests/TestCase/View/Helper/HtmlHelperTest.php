@@ -267,21 +267,6 @@ class HtmlHelperTest extends TestCase
 
     /**
      * @test
-     * @uses \MeTools\View\Helper\HtmlHelper::viewport()
-     */
-    public function testViewport(): void
-    {
-        $expected = '<meta name="viewport" content="initial-scale=1, width=device-width">';
-        $result = $this->Helper->viewport([], ['block' => false]);
-        $this->assertSame($expected, $result);
-
-        $expected = '<meta title="my title" name="viewport" content="width=500, initial-scale=1">';
-        $result = $this->Helper->viewport(['width' => 500], ['block' => false, 'title' => 'my title']);
-        $this->assertSame($expected, $result);
-    }
-
-    /**
-     * @test
      * @uses \MeTools\View\Helper\HtmlHelper::youtube()
      */
     public function testYoutube(): void
