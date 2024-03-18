@@ -109,42 +109,6 @@ class HtmlHelperTest extends TestCase
     }
 
     /**
-     * @uses \MeTools\View\Helper\HtmlHelper::iframe()
-     * @test
-     */
-    public function testIframe(): void
-    {
-        $url = 'https://frame';
-
-        $expected = '<iframe src="https://frame"></iframe>';
-        $result = $this->Helper->iframe($url);
-        $this->assertSame($expected, $result);
-
-        //No existing ratio
-        $result = $this->Helper->iframe($url, ['ratio' => 'noExisting']);
-        $this->assertSame($expected, $result);
-
-        //The `src` option doesn't overwrite
-        $result = $this->Helper->iframe($url, ['src' => 'https://anotherframe']);
-        $this->assertSame($expected, $result);
-
-        $expected = '<iframe class="my-class" src="https://frame"></iframe>';
-        $result = $this->Helper->iframe($url, ['class' => 'my-class']);
-        $this->assertSame($expected, $result);
-
-        foreach (['1x1', '4x3', '16x9', '21x9'] as $ratio) {
-            $expected = '<div class="ratio ratio-' . $ratio . '"><iframe src="https://frame"></iframe></div>';
-            $result = $this->Helper->iframe($url, compact('ratio'));
-            $this->assertSame($expected, $result);
-        }
-
-        $this->loadPlugins(['AnotherTestPlugin' => []]);
-        $expected = '<iframe src="/pages"></iframe>';
-        $result = $this->Helper->iframe(['controller' => 'Pages', 'plugin' => 'AnotherTestPlugin']);
-        $this->assertSame($expected, $result);
-    }
-
-    /**
      * @test
      * @uses \MeTools\View\Helper\HtmlHelper::link()
      */
@@ -205,33 +169,6 @@ class HtmlHelperTest extends TestCase
 
         $expected = '<h3 class="my-class">My text <i class="fa fa-home"> </i></h3>';
         $result = $this->Helper->tag('h3', 'My text', ['class' => 'my-class', 'icon' => 'fa fa-home', 'icon-align' => 'right']);
-        $this->assertSame($expected, $result);
-    }
-
-    /**
-     * @test
-     * @uses \MeTools\View\Helper\HtmlHelper::youtube()
-     */
-    public function testYoutube(): void
-    {
-        $expected = '<div class="ratio ratio-16x9"><iframe allowfullscreen="allowfullscreen" height="480" width="640" src="https://www.youtube.com/embed/-YcwR89cfao"></iframe></div>';
-        $result = $this->Helper->youtube('-YcwR89cfao');
-        $this->assertSame($expected, $result);
-
-        $expected = '<div class="ratio ratio-4x3"><iframe allowfullscreen="allowfullscreen" height="480" width="640" src="https://www.youtube.com/embed/-YcwR89cfao"></iframe></div>';
-        $result = $this->Helper->youtube('-YcwR89cfao', ['ratio' => '4x3']);
-        $this->assertSame($expected, $result);
-
-        $expected = '<iframe allowfullscreen="allowfullscreen" height="480" width="640" src="https://www.youtube.com/embed/-YcwR89cfao"></iframe>';
-        $result = $this->Helper->youtube('-YcwR89cfao', ['ratio' => false]);
-        $this->assertSame($expected, $result);
-
-        $expected = '<div class="ratio ratio-16x9"><iframe class="my-class" height="100" width="200" allowfullscreen="allowfullscreen" src="https://www.youtube.com/embed/-YcwR89cfao"></iframe></div>';
-        $result = $this->Helper->youtube('-YcwR89cfao', ['class' => 'my-class', 'height' => 100, 'width' => 200]);
-        $this->assertSame($expected, $result);
-
-        $expected = '<div class="ratio ratio-16x9"><iframe allowfullscreen="allowfullscreen" height="480" width="640" src="https://www.youtube.com/embed/-YcwR89cfao?start=80"></iframe></div>';
-        $result = $this->Helper->youtube('-YcwR89cfao?t=80');
         $this->assertSame($expected, $result);
     }
 }

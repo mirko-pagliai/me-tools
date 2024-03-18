@@ -167,21 +167,4 @@ class HtmlHelper extends BaseHtmlHelper
 
         return parent::tag($name, $text, $options);
     }
-
-    /**
-     * Returns a YouTube video code.
-     *
-     * You can use the `$ratio` option (valid values: '1x1', '4x3', '16x9', '21x9') to create a responsive embed.
-     * @param string $id YouTube video ID
-     * @param array $options Array of options and HTML attributes
-     * @return string
-     * @see iframe() for all available options
-     */
-    public function youtube(string $id, array $options = []): string
-    {
-        $url = 'https://www.youtube.com/embed/' . str_replace('?t=', '?start=', $id);
-        $options += ['allowfullscreen' => 'allowfullscreen', 'height' => 480, 'ratio' => '16x9', 'width' => 640];
-
-        return $this->iframe($url, $options);
-    }
 }
