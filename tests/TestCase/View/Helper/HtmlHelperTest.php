@@ -240,33 +240,6 @@ class HtmlHelperTest extends TestCase
 
     /**
      * @test
-     * @uses \MeTools\View\Helper\HtmlHelper::nestedList()
-     * @uses \MeTools\View\Helper\HtmlHelper::ol()
-     * @uses \MeTools\View\Helper\HtmlHelper::ul()
-     */
-    public function testOlAndUl(): void
-    {
-        $expected = '<ul class="parent-class fa-ul">' .
-            '<li class="li-class"><i class="fa fa-home fa-li"> </i> First</li>' .
-            '<li class="li-class"><i class="fa fa-home fa-li"> </i> Second</li>' .
-            '</ul>';
-        $result = $this->Helper->ul(['First', 'Second'], ['class' => 'parent-class'], ['class' => 'li-class', 'icon' => 'fa fa-home']);
-        $this->assertSame($expected, $result);
-
-        $expected = str_replace(['<ul', '</ul'], ['<ol', '</ol'], $expected);
-        $result = $this->Helper->ol(['First', 'Second'], ['class' => 'parent-class'], ['class' => 'li-class', 'icon' => 'fa fa-home']);
-        $this->assertSame($expected, $result);
-
-        $expected = '<ul class="fa-ul">' .
-            '<li><i class="fa fa-home fa-li"> </i> First</li>' .
-            '<li><i class="fa fa-home fa-li"> </i> Second</li>' .
-            '</ul>';
-        $result = $this->Helper->ul(['First', 'Second'], ['icon' => 'fa fa-home']);
-        $this->assertSame($expected, $result);
-    }
-
-    /**
-     * @test
      * @uses \MeTools\View\Helper\HtmlHelper::para()
      */
     public function testPara(): void

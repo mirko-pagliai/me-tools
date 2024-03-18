@@ -181,19 +181,6 @@ class HtmlHelper extends BaseHtmlHelper
     }
 
     /**
-     * Build an `<ol>` nested list out of an associative array
-     * @param array $list Set of elements to list
-     * @param array $options Options and additional HTML attributes of the list (ol/ul) tag.
-     * @param array $itemOptions Options and additional HTML attributes of the list item (LI) tag.
-     * @return string The nested list
-     * @see \Cake\View\Helper\HtmlHelper::nestedList() for all available options
-     */
-    public function ol(array $list, array $options = [], array $itemOptions = []): string
-    {
-        return $this->nestedList($list, ['tag' => 'ol'] + $options, $itemOptions);
-    }
-
-    /**
      * @inheritDoc
      */
     public function para(?string $class, ?string $text, array $options = []): string
@@ -211,19 +198,6 @@ class HtmlHelper extends BaseHtmlHelper
         [$text, $options] = $this->Icon->addIconToText($text, $options);
 
         return parent::tag($name, $text, $options);
-    }
-
-    /**
-     * Build an `<ul>` nested list out of an associative array
-     * @param array $list Set of elements to list
-     * @param array $options Options and additional HTML attributes of the list (ol/ul) tag.
-     * @param array $itemOptions Options and additional HTML attributes of the list item (LI) tag.
-     * @return string The nested list
-     * @see \Cake\View\Helper\HtmlHelper::nestedList() for all available options
-     */
-    public function ul(array $list, array $options = [], array $itemOptions = []): string
-    {
-        return $this->nestedList($list, ['tag' => 'ul'] + $options, $itemOptions);
     }
 
     /**
