@@ -118,7 +118,7 @@ class DropdownHelper extends Helper
         $ulOptions += ['aria-labelledby' => $this->_id];
         $ulOptions = $this->addClass($ulOptions, 'dropdown-menu');
 
-        $list = $this->Html->ul($this->_links, $ulOptions);
+        $list = $this->Html->nestedList($this->_links, $ulOptions);
         $this->_id = '';
         $this->_links = [];
 
